@@ -1,0 +1,52 @@
+{% import "helpers.html.twig" as helpers %}
+
+{% extends '@Admin/base.html.twig' %}
+
+{% block title %}
+    {{ '_MANAGERS_TITLE_LIST_'|trans({},'admin') }}
+    <a href="{{ url('admin') }}/managers/new" class="btn btn-primary btn-sm">{{ '_CREATE_MANAGER_'|trans({},'admin') }}</a>
+{% endblock %}
+
+{% block body %}
+    <div class="panel">
+    <!-- Default panel contents -->
+    <div class="panel-heading header-form">
+        <h3>Managers</h3>
+        <a style="float:right" href="{{ url('admin') }}/managers/new" class="btn btn-primary btn-sm btn">Add manager</a>
+    </div>
+    <table id="mytable"  class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Access level</th>
+            <th class="align-center">Status</th>
+            <th>Email</th>
+            <th>Creator</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for manager in managers %}
+        <tr>
+            <td>{{ manager.id }}</td>
+            <td>{{ manager.name }}</td>
+            <td>{{ manager.user }}</td>
+            <td>{{ manager.displayRole() }}</td>
+            <td class="align-center">
+                <span class="flag flag-{{ manager.displayStatus() }}" title="{{ manager.displayStatus() }}"></span>
+            </td>
+            <td>{{ manager.email }}</td>
+            <td>{{ manager.creatorData.name }}</td>
+            <td>
+                <a href="{{ url('admin') }}/managers/edit/{{ manager.id }}" class="btn btn-xs btn-primary">Edit</a>
+            </td>
+            {% endfor %}
+        </tbody>
+    </table>
+        <nav aria-label="Page navigation" class="text-center">
+            {{ knp_pagination_render(managers) }}
+        </nav>
+    </div>
+{% endblock %}

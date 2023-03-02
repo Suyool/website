@@ -1,0 +1,101 @@
+<div class="mainmenu right">
+    {if:user.isAdmin()}
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="packages">Packages</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="addpackage">Add Package</a></li>
+        </ul>
+    </div>
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="users">Users</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="adduser">Add User</a></li>
+            <li><a href="thresholds">Users Threshold</a></li>
+        </ul>
+    </div>
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="senderIds">Sender IDs</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="addsenderid">Add Sender ID</a></li>
+        </ul>
+    </div>
+    <!--	<div class="mainmenuitem left">
+            <a href="reports?credits=consumed">Credits Consumed</a>
+        </div>
+        <div class="mainmenuitem left">
+            <a href="reports?credits=added">Credits Added</a>
+        </div>-->
+    <div class="mainmenuitem left">
+        <a href="transactions">Transactions</a>
+    </div>
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="smscounter">Report</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="smscounter">SMS Counters</a></li>
+            <li><a href="daytransactions">SMS Day Transactions</a></li>
+            <li><a href="messages">Messages</a></li>
+            <li><a href="campaigns">Campaigns</a></li>
+            <li><a href="numbersstats">Numbers</a></li>
+        </ul>
+    </div>
+    <!--	<div class="mainmenuitem left">
+            <a href="rules">Number Rules</a>
+        </div>-->
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="systemmonitor">System Monitor</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="configuration">System Controls</a></li>
+        </ul>
+    </div>
+    <div class="mainmenuitem left">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="/messages">Application Dashboard</a>
+        </div>
+        <ul class="subusermenu">
+            <li><a href="/messages">My SMS message</a></li>
+            <li><a href="/mysites">My Campaigns</a></li>
+        </ul>
+    </div>
+    <div class="mainmenuitem left">
+        <a href="logout">Logout</a>
+    </div>
+    <div class="mainmenuitem left notifications" data-currentTimestamp="{nowTimestamp}">
+        <div class="dropdown lastmenuitemwrapper">
+            <a href="javascript:void(0)">
+                {if:thresholdReachedUsers}
+                <span class="notifcount">{GLOBALS.count(thresholdReachedUsers)}</span>
+                {end:}
+                <span title="Your profile is missing verifications" class="glyphicon glyphicon-bell"></span>
+            </a>
+        </div>
+        <ul class="subusermenu">
+            {if:thresholdReachedUsers}
+            {foreach:thresholdReachedUsers,thresholdReachedUser}
+            <li data-userId="{thresholdReachedUser.user_id}">
+                <span data-userId="{thresholdReachedUser.user_id}" data-timestamp="{nowTimestamp}" class="closeNotification">x</span>
+                <a href="managecredits.php?userId={thresholdReachedUser.user_id}">
+                    The user <strong>{thresholdReachedUser.username}</strong> reached his threshold.<br>Remaing units: <strong>{thresholdReachedUser.units:n}</strong>
+                </a>
+            </li>
+            {end:}
+            {else:}
+            <li>
+                <a>
+                    There are no notifications to show
+                </a>
+            </li>
+            {end:}
+        </ul>
+    </div>
+    {end:}
+</div>

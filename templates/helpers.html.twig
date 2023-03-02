@@ -1,0 +1,23 @@
+{% macro metaDescription(text) %}
+    {{ text ? text|striptags|spaceless : '_ELNASHRA_DESCRIPTION_'|trans }}
+{% endmacro %}
+
+{% macro metaImage(picture) %}
+    {{ picture ? picture|files('fb_pictures')|spaceless : app.request.getSchemeAndHttpHost() ~ base_url ~ asset('build/images/elnashra600.png') }}
+{% endmacro %}
+
+{% macro input(id, class, name, type, value, placeholder, attributes) %}
+    <input type="{{ type|default('text') }}" id="{{ id }}" class="{{ class }}" name="{{ name }}" value="{{ value|e }}" placeholder="{{ placeholder|e }}" {{ attributes }}>
+{% endmacro %}
+
+{% macro icon(name) %}
+    <i class="material-icons">{{ name }}</i>
+{% endmacro %}
+
+{% macro select(options, attributes, selected) %}
+    <select class="{{ attributes.class }}" name="{{ attributes.name }}">
+        {% for k,option in options %}
+            <option value="{{ k }}"{% if k == selected %} selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}

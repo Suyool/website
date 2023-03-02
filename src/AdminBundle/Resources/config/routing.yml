@@ -1,0 +1,11 @@
+admin:
+    controller: App\AdminBundle\Controller\HomeController::indexAction
+    path: /admin
+
+admin_app:
+    resource: '@AdminBundle/Controller/'
+    type: annotation
+    prefix: /admin
+
+logout:
+    path: /admin/logout

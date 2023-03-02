@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+        - '@Admin/form/fields.html.twig'
+    globals:
+        production_url: '%production_url%'
+        app_name: '%app.name%'
+        base_url: '%router.request_context.base_url%'

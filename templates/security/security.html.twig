@@ -1,0 +1,74 @@
+{% extends '@Admin/base.html.twig' %}
+
+{% block title %}
+    {{ '_LOGIN_AUTHENTICATION_SENT_EMAIL_'|trans({},'admin')|raw }}
+{% endblock %}
+
+{% block currentPage %}login{% endblock %}
+{% block body %}
+    <div class="loginwrapper">
+        <div class="row">
+            <div class="col-xs-6">
+
+                <div class="panel">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <h3>Control Panel Access</h3>
+                    </div>
+                    <div>
+                        <img src="{{ asset('build/images/login.png') }}">
+                        {# Let the user select the authentication method #}
+                        <p>{{ "choose_provider"|trans({}, 'SchebTwoFactorBundle') }}:
+                            {% for provider in availableTwoFactorProviders %}
+                                <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
+                            {% endfor %}
+                        </p>
+
+                        {# Display current two-factor provider #}
+                        <p class="label"><label for="_auth_code">{{ "auth_code"|trans({}, 'SchebTwoFactorBundle') }} {{ twoFactorProvider }}:</label></p>
+
+                        <form class="form" action="{{ checkPathUrl ? checkPathUrl: path(checkPathRoute) }}" method="post">
+                            <div class="form-group">
+                                <label for="_auth_code">Code</label>
+                                <input id="_auth_code" type="text" name="{{ authCodeParameterName }}" autocomplete="one-time-code" autofocus class="form-control" utocomplete="off" />
+                            </div>
+
+                            {% if displayTrustedOption %}
+                                <p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox" name="{{ trustedParameterName }}" /> {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}</label></p>
+                            {% endif %}
+                            {% if isCsrfProtectionEnabled %}
+                                <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+                            {% endif %}
+                            <button type="submit" class="btn btn-info">Submit</button>
+                            <button class="btn btn-primary send-code-sms">Send sms <span class="resend-counter hidden">20</span></button>
+                        </form>
+
+                        {# The logout link gives the user a way out if they can't complete two-factor authentication #}
+                        <p class="cancel"><a href="{{ logoutPath }}">{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a></p>
+                    </div>
+                </div>
+            </div>
+            {% if currentRate is defined %}
+            <div class="col-xs-6">
+                <div class="panel">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <h3>Current USD Rate</h3>
+                    </div>
+                    <div class="availablePackags">
+                        <img style="margin: 32px auto;" src="{{ asset('build/images/usd.png') }}">
+                        <div class="rateDisplay">
+                            <div class="currentRate">{% if currentRate %}{{ currentRate.buyRate }}{% else %}0{% endif %}</div>
+                            <div class="currentRate">{% if currentRate %}{{ currentRate.sellRate }}{% else %}0{% endif %}</div>
+                        </div>
+                        {#<p>
+                            If you don't have an account, you can request to open a new account by clicking on the button below and filling the neccessary data, you can then login using your username and password.
+                            <a href="requestAccount" style="margin-top: 50px;" class="button red">New account</a>
+                        </p>#}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbarGroups:
+                - { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] }
+                - { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] }
+                - { name: 'links' }
+                - { name: 'insert' }
+                - { name: 'forms' }
+                - { name: 'tools' }
+                - { name: 'document',       groups: [ 'mode', 'document', 'doctools' ] }
+                - { name: 'others' }
+                - '/'
+                - { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] }
+                - { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] }
+                - { name: 'plugins',   groups: ['facebook-embed', 'instagram-embed', 'twitter-embed', 'VideoDetector' ] }
+                - { name: 'pictures',   groups: [ 'image-picker','add-new-image' ] }
+                - { name: 'styles' }
+                - { name: 'about' }
+            removeButtons: "Underline,Subscript,Superscript,Font,FontSize,JustifyBlock"
+            format_tags: "p;h1;h2;h3"
+            removeDialogTabs: "image:advanced;link:advanced"
+            language: "ar"
+            height: "400px"
+            allowedContent: true
+            colorButton_colors: "000000,249635,ae0004,01249f,582885,ffca0a,ffffff"
+            fontSize_sizes: "8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px"
+            extraPlugins:
+                - "socialembed"
+                - "image-picker"
+                - "blockimagepaste"
+                - "videodetector"
+                - "wordcountpl"
+    plugins:
+        blockimagepaste:
+            path: "/js/ckeditorplugins/blockimagepaste/blockimagepaste.js"
+            filename: ""
+        image-picker:
+            path: "/js/ckeditorplugins/image-picker/imagepicker.js"
+            filename: ""
+        socialembed:
+            path: "/js/ckeditorplugins/socialembed/socialembed.js"
+            filename: ""
+        videodetector:
+            path: "/js/ckeditorplugins/videodetector/plugin.js"
+            filename: ""
+        wordcountpl:
+            path: "/js/ckeditorplugins/wordcountpl/plugin.js?v=1"
+            filename: ""

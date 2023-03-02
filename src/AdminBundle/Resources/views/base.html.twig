@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <li><a href="{{ url('admin') }}">Managers</a></li>
+        <li><a href="{{ url('admin') }}/thresholds">Thresholds</a></li>
+        <li><a href="{{ url('admin') }}/logout">Logout</a></li>
+    {% endif %}
+{% endblock %}

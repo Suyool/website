@@ -1,0 +1,53 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" sizes="128x128">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    {% block stylesheets %}
+        {% for file in encore_entry_css_files('styles') %}
+            <link rel="stylesheet" href="{{ asset(file|substr(1)) }}">
+        {% endfor %}
+    {% endblock %}
+</head>
+<body class="{% block currentPage %}{% endblock %}">
+<header>
+    <div id="header">
+        <div class="headercontentwrapper">
+            <a class="logo" href="/">
+                <img src="{{ base_url }}{{ asset('build/images/logo.svg') }}">
+            </a>
+            <nav class="navbar">
+                <ul class="nav navbar-nav">
+                    {% block navbar %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li><a href="{{ url('homepage') }}">Rates</a></li>
+                            <li><a href="{{ url('homepage') }}logout">Logout</a></li>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div id="maincontainer">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% if not block('errorMessage')|trim is empty %}
+        <div class="alert alert-danger">
+            {% block errorMessage %}{% endblock %}
+        </div>
+    {% endif %}
+
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}
+    {% for file in encore_entry_js_files('admin') %}
+        <script src="{{ asset(file|substr(1)) }}"></script>
+    {% endfor %}
+{% endblock %}
+</body>

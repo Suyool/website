@@ -1,0 +1,21 @@
+liip_imagine:
+    driver: "imagick"
+    resolvers:
+        default:
+            web_path:
+                web_root: '%kernel.project_dir%/public'
+                cache_prefix: 'cache/images'
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.project_dir%/public"
+    filter_sets:
+        my_watermark_filter:
+            filters:
+                watermark_image:
+                    image: 'public/build/images/watermark.png'
+                    size: 0.2
+                    position: center
+        resize_filter:
+            filters:
+                relative_resize: { widen: 1600 }

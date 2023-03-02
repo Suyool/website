@@ -1,0 +1,38 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+admin:
+  controller: App\AdminBundle\Controller\HomeController::indexAction
+  path: /admin
+
+admin_app:
+  resource: '@AdminBundle/Controller/'
+  type: annotation
+  prefix: /admin
+
+2fa_login:
+  path: /2fa
+  defaults:
+    # "scheb_two_factor.form_controller" references the controller service provided by the bundle.
+    # You don't HAVE to use it, but - except you have very special requirements - it is recommended.
+    _controller: "scheb_two_factor.form_controller:form"
+
+2fa_login_check:
+  path: /2fa_check
+
+2fa_login_admin:
+  path: /admin/2fa
+  defaults:
+    # "scheb_two_factor.form_controller" references the controller service provided by the bundle.
+    # You don't HAVE to use it, but - except you have very special requirements - it is recommended.
+    _controller: "scheb_two_factor.form_controller:form"
+
+2fa_login_check_admin:
+  path: /admin/2fa_check
+
+logout:
+  path: /admin/logout
+
+logout_user:
+  path: /logout

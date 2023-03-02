@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block currentPage %}login{% endblock %}
+{% block body %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+    <div class="loginwrapper">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="panel">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <h3>Control Panel Access</h3>
+                    </div>
+                    <div>
+                        <img src="{{ base_url }}{{ asset('build/images/login.png') }}">
+                        <form method="post" style="margin-bottom: 0;" class="form-inline">
+                            <div class="inputandlabelwrapper">
+                                <div class="form-group" style="width: 49%;">
+                                    <!--<label for="username">Username</label>-->
+                                    <input type="text" id="username" style="width: 100%;" name="_username" class="form-control medium" value="{{ last_username }}" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group" style="width: 50%;">
+                                    <!--<label for="password">Password</label>-->
+                                    <input type="password" id="password" style="width:100%;" name="_password" class="form-control medium" placeholder="Enter Password">
+                                </div>
+                                <div>
+                                    <input type="submit" value="LOG IN" class="btn btn-primary btn-large medium" style="width: 100%">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% if currentRate is defined %}
+                <div class="col-xs-6">
+                    <div class="panel">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <h3>Current USD Rate</h3>
+                        </div>
+                        <div class="availablePackags">
+                            <img style="margin: 39px auto;" src="{{ base_url }}{{ asset('build/images/usd.png') }}">
+                            <div class="rateDisplay">
+                                <div class="currentRate">{% if currentRate %}{{ currentRate.buyRate }}{% else %}0{% endif %}</div>
+                                <div class="currentRate">{% if currentRate %}{{ currentRate.sellRate }}{% else %}0{% endif %}</div>
+                            </div>
+                            {#<p>
+                            If you don't have an account, you can request to open a new account by clicking on the button below and filling the neccessary data, you can then login using your username and password.
+                            <a href="requestAccount" style="margin-top: 50px;" class="button red">New account</a>
+                        </p>#}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

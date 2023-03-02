@@ -1,0 +1,15 @@
+{% import "helpers.html.twig" as helpers %}
+
+{% extends '@Admin/base.html.twig' %}
+
+{% block title %}
+    {% if form.vars.data.id %}
+        {{ '_EDIT_'|trans({},'admin') }}
+    {% else %}
+        {{ '_ADD_MOBILE_USER_'|trans({},'admin') }}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {{ include("@Admin/base/form.html.twig") }}
+{% endblock %}
