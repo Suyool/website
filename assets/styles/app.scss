@@ -1,10 +1,6 @@
-// @import '~jquery-ui/themes/base/theme.css';
-// @import '~jquery-ui/themes/base/menu.css';
-// @import '~jquery-ui/themes/base/autocomplete.css';
-// @import '~bootstrap/dist/css/bootstrap.css';
-// @import '/src/AdminBundle/Resources/public/css/admin-styles.scss';
-// @import '~jquery-tags-input/src/jquery.tagsinput.css';
-// @import '/public/bundles/prestaimage/css/cropper.css';
-// @import '~@fortawesome/fontawesome-free/css/all.css';
+@charset "utf-8";
 
-@import 'styles.scss';
+@import 'src/basic/common';
+@import 'src/basic/fonts';
+
+@import 'src/elements/header';
