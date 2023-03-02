@@ -12,42 +12,17 @@
     {% endblock %}
 </head>
 <body class="{% block currentPage %}{% endblock %}">
-<header>
-    <div id="header">
-        <div class="headercontentwrapper">
-            <a class="logo" href="/">
-                <img src="{{ base_url }}{{ asset('build/images/logo.svg') }}">
-            </a>
-            <nav class="navbar">
-                <ul class="nav navbar-nav">
-                    {% block navbar %}
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li><a href="{{ url('homepage') }}">Rates</a></li>
-                            <li><a href="{{ url('homepage') }}logout">Logout</a></li>
-                        {% endif %}
-                    {% endblock %}
-                </ul>
-            </nav>
-        </div>
+<header>   
+     <div class="right_header">
+    <img src="{{ base_url }}{{ asset('build/images/Suyool-S-White-Logo.png') }}">
+        <a class="suyool_header_link" href="/" title="suyool">Suyool</a>
+        <a class="suyool_header_link" href="/" title="suyooli">Suyooli</a>
     </div>
+    <img src="{{ base_url }}{{ asset('build/images/Suyool-S-White-Logo.png') }}">
+    
 </header>
-<div id="maincontainer">
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% if not block('errorMessage')|trim is empty %}
-        <div class="alert alert-danger">
-            {% block errorMessage %}{% endblock %}
-        </div>
-    {% endif %}
-
     {% block body %}{% endblock %}
 </div>
 {% block javascripts %}
-    {% for file in encore_entry_js_files('admin') %}
-        <script src="{{ asset(file|substr(1)) }}"></script>
-    {% endfor %}
 {% endblock %}
 </body>

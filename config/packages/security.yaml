@@ -27,25 +27,25 @@ security:
         #    guard:
         #        authenticators:
         #            - App\Security\LoginFormAuthenticator
-        admin_secured_area:
-            pattern:   ^/admin
-            anonymous: ~
-            guard:
-                authenticators:
-                    - App\Security\AdminLoginFormAuthenticator
-            form_login:
-                login_path: login_admin
-                check_path: login_admin
-                failure_path: login_admin
-                default_target_path: admin_homepage
-            logout:
-                path: /admin/logout
-                target: /admin/login
-            two_factor:
-                auth_form_path: 2fa_login_admin    # The route name you have used in the routes.yaml
-                check_path: 2fa_login_check_admin  # The route name you have used in the routes.yaml
-                default_target_path: admin_homepage                # Where to redirect by default after successful authentication
-                always_use_default_target_path: true # If it should always redirect to default_target_path
+        # admin_secured_area:
+        #     pattern:   ^/admin
+        #     anonymous: ~
+        #     guard:
+        #         authenticators:
+        #             - App\Security\AdminLoginFormAuthenticator
+        #     form_login:
+        #         login_path: login_admin
+        #         check_path: login_admin
+        #         failure_path: login_admin
+        #         default_target_path: admin_homepage
+        #     logout:
+        #         path: /admin/logout
+        #         target: /admin/login
+        #     two_factor:
+        #         auth_form_path: 2fa_login_admin    # The route name you have used in the routes.yaml
+        #         check_path: 2fa_login_check_admin  # The route name you have used in the routes.yaml
+        #         default_target_path: admin_homepage                # Where to redirect by default after successful authentication
+        #         always_use_default_target_path: true # If it should always redirect to default_target_path
 
         user_secured_area:
             pattern:   ^/(?!/admin)
@@ -68,15 +68,4 @@ security:
                 always_use_default_target_path: true # If it should always redirect to default_target_path
 
     access_control:
-        - { path: '^/admin/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/admin/sendAuthCode', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/admin/2fa', role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
-        - { path: '^/admin', roles: ROLE_ADMIN }
-        - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/sendAuthCode', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/2fa', role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
-        - { path: '^/', roles: IS_AUTHENTICATED_FULLY }
-
-    role_hierarchy:
-        ROLE_ADMIN: [ ROLE_ADMIN,ROLE_EXCHANGER ]
-        ROLE_EXCHANGER: [ ROLE_EXCHANGER ]
+        # - { path: '^/admin/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }

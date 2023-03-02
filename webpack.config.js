@@ -41,9 +41,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('styles', './assets/styles/app.scss')
-    .addStyleEntry('adminStyles', './assets/styles/admin.scss')
+    // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
     .addEntry('app', './assets/app.js')
-    .addEntry('admin', './assets/admin.js')
+    // .addEntry('admin', './assets/admin.js')
 //    .addEntry('app', ['./assets/js/common.js','./assets/js/breakingNews.js','./assets/js/adCounter.js'])
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')

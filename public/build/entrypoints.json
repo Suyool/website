@@ -6,26 +6,12 @@
         "/build/app.b673f636.js"
       ]
     },
-    "admin": {
-      "js": [
-        "/build/runtime.7394a4c4.js",
-        "/build/admin.cc16e9c2.js"
-      ]
-    },
     "styles": {
       "js": [
         "/build/runtime.7394a4c4.js"
       ],
       "css": [
-        "/build/styles.b2fa83c6.css"
-      ]
-    },
-    "adminStyles": {
-      "js": [
-        "/build/runtime.7394a4c4.js"
-      ],
-      "css": [
-        "/build/adminStyles.07943e42.css"
+        "/build/styles.6d78e2e3.css"
       ]
     }
   }

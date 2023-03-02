@@ -1,6 +1,6 @@
 {
   "build/app.js": "/build/app.b673f636.js",
-  "build/admin.js": "/build/admin.1aaca66f.js",
+  "build/styles.css": "/build/styles.6d78e2e3.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/images/login.png": "/build/images/login.png",
   "build/images/auth.png": "/build/images/auth.png",
@@ -10,5 +10,6 @@
   "build/images/login2.png": "/build/images/login2.png",
   "build/images/usd.png": "/build/images/usd.png",
   "build/images/logo.svg": "/build/images/logo.svg",
-  "build/images/usd.svg": "/build/images/usd.svg"
+  "build/images/usd.svg": "/build/images/usd.svg",
+  "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png"
 }
