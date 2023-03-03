@@ -6,13 +6,13 @@
     <div class="container how_to_send_money">
         <img class="user_img" src="{{ asset('build/images/payment/person.png') }}">
         <div class="user_name">{{ 'FNAME_LNAME'|trans }}</div>
-        <div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>
+        <div class="methode">{{ 'SENT_YOU'|trans  }}</div>
         <div class="amount">{{'PRICE'|trans}}</div>
         <div class="desc">{{'DESCRIPTION'|trans}}</div>
     </div>
 
     <div class="container how_to_pay">
-        <div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
+        <div class="title">{{'CHOOSE_HOW_TO_GET_YOUR_MONEY'|trans}}</div>
 
         <a class="container-fluid choose_way" href="/payment/visaCard" title="generate code">
             <div class="row">
@@ -20,25 +20,11 @@
                     <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
                 </div>
                 <div class="col-10 text_container">
-                    <div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
+                    <div class="sub_title">{{'OPEN_SYYOOL_ACCOUNT'|trans}}</div>
                     <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
         </a>
-
-        {% if currency == "dolar" %}
-            <div class="container-fluid choose_way">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}" >
-                    </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'PAY_WITH_CARD'|trans}}</div>
-                        <div class="desc">{{'PAT_WITH_CARD_DESC'|trans}}</div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
        
         <a class="container-fluid choose_way" href="/payment/generateCode" title="generate code">
             <div class="row">
@@ -46,41 +32,13 @@
                     <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
                 </div>
                 <div class="col-10 text_container">
-                    <div class="sub_title">{{'CASH_INPUT'|trans}}</div>
-                    <div class="desc">{{'VISIT_THE_NEAREST_ADD_MONEY'|trans}}</div>
+                    <div class="sub_title">{{'WITHDRAW_CASH_FROM_ANY_CASHPOINT'|trans}}</div>
+                    <div class="desc">{{'GENERATE_CODE_TO_WITHDRAW_CASH'|trans}}</div>
                 </div>
             </div>
         </a>
-       
-        {% if currency == "dolar" %}
-            <a  type="button" class="container-fluid choose_way" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
-                    </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
-                        <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
-                    </div>
-                </div>
-            </a>
-        {% endif %}
 
         <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}} Suyool</a>
 
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body modal-container">
-                <img class="logo" src="{{ asset('build/images/payment/doneImage.svg') }}" >
-                <div class="title">{{'IBAN_COPIED_TO_CLIPBOARD'|trans}}</div>
-                <div class="desc">{{'IBAN_HAD_BEEN_COPIED'|trans}}</div>
-                <button type="button" class="btn" data-bs-dismiss="modal">{{'EXIT'|trans}}</button>
-        </div>
-        </div>
-    </div>
     </div>
 {% endblock %}

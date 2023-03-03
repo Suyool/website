@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Translation\translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,9 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PaymentController extends AbstractController
-{
-
+class RequestController extends AbstractController
+{ 
     private $trans;
 
     public function __construct(translation $trans)
@@ -20,7 +18,7 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/payment", name="app_payment")
+     * @Route("/request", name="app_request")
      */
     public function index(Request $request,TranslatorInterface $translator): Response
     {
@@ -29,11 +27,11 @@ class PaymentController extends AbstractController
         $parameters['currency'] = "dolar";
         $parameters['currentPage'] = "payment_landingPage";
 
-        return $this->render('payment/index.html.twig',$parameters);
+        return $this->render('request/index.html.twig',$parameters);
     }
 
      /**
-     * @Route("/payment/generateCode", name="payment_generateCode")
+     * @Route("/request/generateCode", name="generateCode")
      */
     public function generateCode(Request $request,TranslatorInterface $translator): Response
     {
@@ -42,11 +40,11 @@ class PaymentController extends AbstractController
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "generate_Code";
 
-        return $this->render('payment/generateCode.html.twig',$parameters);
+        return $this->render('request/generateCode.html.twig',$parameters);
     }
 
     /**
-     * @Route("/payment/codeGenerated", name="payment_codeGenerated")
+     * @Route("/request/codeGenerated", name="codeGenerated")
      */
     public function codeGenerated(Request $request,TranslatorInterface $translator): Response
     {
@@ -56,11 +54,11 @@ class PaymentController extends AbstractController
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
 
-        return $this->render('payment/codeGenerated.html.twig',$parameters);
+        return $this->render('request/codeGenerated.html.twig',$parameters);
     }
 
       /**
-     * @Route("/payment/visaCard", name="payment_visaCard")
+     * @Route("/request/visaCard", name="visaCard")
      */
     public function visaCard(Request $request,TranslatorInterface $translator): Response
     {
@@ -70,6 +68,6 @@ class PaymentController extends AbstractController
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 
-        return $this->render('payment/visaCard.html.twig',$parameters);
+        return $this->render('request/visaCard.html.twig',$parameters);
     }
 }

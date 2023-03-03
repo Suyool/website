@@ -5,11 +5,11 @@
 {% block body %}
 {# <div class="generate_Code"> #}
     <div class="GenerateCode container ">
-        <div class="title">{{'WITHDRAW_CASH_FROM_ANY_CASHPOINT'|trans}}</div>
+        <div class="title">{{'CASH_WALLET'|trans|raw}}</div>
         <div class="desc">
-           {{'NEAREST_MONEY_WITHDRAW'|trans|raw}}
+           {{'NEAREST_MONEY'|trans|raw}}
         </div>
-        <a class="btn" href="/payment/codeGenerated">{{ 'GENERATE_CODE'|trans|raw }}</a>
+        <a class="btn" href="/request/codeGenerated">{{ 'GENERATE_CODE'|trans|raw }}</a>
     </div>
 {# </div> #}
 {% endblock %}

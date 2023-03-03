@@ -1,7 +1,7 @@
 <?php
 
 return [
-    //payment
+    //Request
     "FNAME_LNAME"=>"الإسم الكامل",
     "IS_REQUESTING"=>"يطلب",
     "PRICE"=>"٣٠٠ د.أ",
@@ -32,5 +32,15 @@ return [
     //
     //visaCard
     'OPEN_ACCOUNT'=>'إنشاء حساب',
+
+     //Payment
+     'SENT_YOU'=>'ارسل لك',
+     'CHOOSE_HOW_TO_GET_YOUR_MONEY'=>'اختر طريقة الحصول على أموالك',
+     'OPEN_SYYOOL_ACCOUNT'=>' Suyool افتح حساب',
+     'WITHDRAW_CASH_FROM_ANY_CASHPOINT'=>'إسحب أموالك من المراكز التالية',
+     'GENERATE_CODE_TO_WITHDRAW_CASH'=>'إنشاء رمز لسحب أموالك من أقرب',
+    //
+    'NEAREST_MONEY_WITHDRAW'=>'إذهب إلى أقرب موقع وأظهر لهم الرمز لاستلام أموالك <br><br>يرجى ملاحظة أن الرمز متاح فقط لمدة 24 ساعة',
+    'VALID_24HRS_IF_YOU_DONT'=>'يرجى الإنتباه أن الرمز متاح فقط لمدة 24 ساعة إذا لم تقم بسحب الأموال ، فسيعود المبلغ للمرسل'
 
 ];
