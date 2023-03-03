@@ -22,7 +22,9 @@
     <img src="{{ asset('build/images/Suyool-S-White-Logo.png') }}">
     
 </header>
-    {% block body %}{% endblock %}
+    {% block body %}
+    {{ 'souyoul'|trans }}
+    {% endblock %}
 </div>
 {% block javascripts %}
 {% endblock %}
