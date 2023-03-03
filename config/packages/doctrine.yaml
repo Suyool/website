@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        wrapper_class: App\Doctrine\DynamicConnection
+        # wrapper_class: App\Doctrine\DynamicConnection
         url: '%env(resolve:DATABASE_URL)%'
         charset: UTF8
         logging: true

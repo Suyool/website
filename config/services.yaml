@@ -10,8 +10,8 @@ parameters:
     router.request_context.base_url: '%env(SITE_BASE_URL)%'
     asset.request_context.base_path: '%router.request_context.base_url%'
     asset.request_context.secure: '%env(SITE_SECURE)%'
-    production_url: 'https://www.elnashra.com/'
-    app.name: 'Exchanger'
+    # production_url: 'https://www.elnashra.com/'
+    app.name: 'Suyool'
 
     base_url: '%router.request_context.base_url%'
 

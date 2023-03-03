@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="managers")
  * @ORM\Entity(repositoryClass="App\Repository\ManagersRepository")
  */
-class Managers extends Entity implements UserInterface, TwoFactorInterface
+class Managers implements UserInterface, TwoFactorInterface
 {
     use StatusTrait;
     use EditorTrait;
@@ -308,12 +308,12 @@ class Managers extends Entity implements UserInterface, TwoFactorInterface
 
 
 
-    public function __construct()
-    {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid('', true));
-    }
+    // public function __construct()
+    // {
+    //     $this->isActive = true;
+    //     // may not be needed, see section on salt below
+    //     // $this->salt = md5(uniqid('', true));
+    // }
 
 
     public function getUsername()
