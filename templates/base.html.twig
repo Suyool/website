@@ -12,7 +12,7 @@
         {% endfor %}
     {% endblock %}
 </head>
-<body class="{% block currentPage %}{% endblock %}">
+<body class="{% if currentPage is defined %}{{ currentPage }}{% endif %}">
 <header>   
      <div class="right_header">
     <img src="{{ asset('build/images/Suyool-S-White-Logo.png') }}">

@@ -72,3 +72,31 @@
         }
     }
 }
+
+.generate_Code{
+    background-color: #F1F3F5 ;
+    .generatecode    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title{
+            font-family: PoppinsBold;
+            font-size: 16px;
+            margin: 30px 0 20px 0;
+        }
+        .desc{
+            font-family: PoppinsRegular;
+            font-size: 16px;
+        }
+        .btn{
+            padding: 15px 80px;
+            background-color: #226D96 ;
+            color: white;
+            font-family: PoppinsBold;
+            font-size: 16px;
+            border-radius: 10px;
+            margin: 65px 0 200px 0;
+        }
+    }
+    
+}

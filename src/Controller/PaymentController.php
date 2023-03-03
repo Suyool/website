@@ -13,8 +13,20 @@ class PaymentController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('payment/index.html.twig', [
-            'controller_name' => 'PaymentController',
-        ]);
+        $parameters['currency'] = "dollar";
+        $parameters['currentPage'] = "payment_landingPage";
+
+        return $this->render('payment/index.html.twig',$parameters);
+    }
+
+     /**
+     * @Route("/payment/generateCode", name="generateCode")
+     */
+    public function generateCode(): Response
+    {
+        $parameters['currency'] = "dollar";
+        $parameters['currentPage'] = "generate_Code";
+
+        return $this->render('payment/generateCode.html.twig',$parameters);
     }
 }
