@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Utils\Helper;
 
 class EmailVerificationController extends AbstractController
 {
@@ -19,7 +20,7 @@ class EmailVerificationController extends AbstractController
             $params['type'] = 'get';
 
             // Call the API
-            $result = $this->send_curl($params);
+            $result = Helper::send_curl($params);
             // Get the response
             $response = json_decode($result, true);
             // Default value of the notification
@@ -45,34 +46,5 @@ class EmailVerificationController extends AbstractController
             'image' => $image,
             'class' => $class,
         ]);
-    }
-    function send_curl($params) {
-        $host = 'https://hey-pay.mobi/';
-        if (isset($params['url']) || isset($params['data'])) {
-            $ch = curl_init();
-            //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host. $params['url']);
-
-            //Set the data
-            (isset($params['data'])) ? $data = $params['data'] : $data = "";
-            //If the request type is not get, add the CURL postfield data
-            (!isset($params['type']) || $params['type'] != 'get') ? curl_setopt($ch, CURLOPT_POSTFIELDS, $data) : '';
-            //If type of the request is post add it
-            (isset($params['type']) && $params['type'] == 'post') ? curl_setopt($ch, CURLOPT_POST, true) : '';
-            //
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Content-Type: application/json',
-                    'Connection: Keep-Alive',
-                ]
-            );
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_VERBOSE, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $ret = curl_exec($ch);
-            curl_close($ch);
-            return $ret;
-
-        }
     }
 }
