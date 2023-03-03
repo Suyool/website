@@ -35,8 +35,10 @@ class PaymentController extends AbstractController
      /**
      * @Route("/payment/generateCode", name="generateCode")
      */
-    public function generateCode(): Response
+    public function generateCode(Request $request,TranslatorInterface $translator): Response
     {
+        $trans=$this->trans->translation($request,$translator);
+
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "generate_Code";
 
@@ -46,8 +48,11 @@ class PaymentController extends AbstractController
     /**
      * @Route("/payment/codeGenerated", name="codeGenerated")
      */
-    public function codeGenerated(): Response
+    public function codeGenerated(Request $request,TranslatorInterface $translator): Response
     {
+        $trans=$this->trans->translation($request,$translator);
+
+
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
 
