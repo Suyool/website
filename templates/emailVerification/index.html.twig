@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmailsVerificationController!{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+<div align="center" class="emailVerificationCont">
+    <img class="logoImg" src="{{ asset('build/images/' ~ suyoolLogo) }}" alt="Suyool logo">
+    <div class="message-logo">
+        <img src="{{ asset('build/images/' ~ image) }}" alt="Email verification image" >
+    </div>
+    <h1 class="{{ class }}">{{ title }}</h1>
+    <p>{{ description|raw }}</p>
+</div>
+{% endblock %}
