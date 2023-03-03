@@ -29,4 +29,15 @@ class PaymentController extends AbstractController
 
         return $this->render('payment/generateCode.html.twig',$parameters);
     }
+
+    /**
+     * @Route("/payment/codeGenerated", name="codeGenerated")
+     */
+    public function codeGenerated(): Response
+    {
+        $parameters['currency'] = "dollar";
+        $parameters['currentPage'] = "GenerateCode2";
+
+        return $this->render('payment/codeGenerated.html.twig',$parameters);
+    }
 }
