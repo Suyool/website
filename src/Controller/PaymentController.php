@@ -62,8 +62,11 @@ class PaymentController extends AbstractController
       /**
      * @Route("/payment/visaCard", name="visaCard")
      */
-    public function visaCard(): Response
+    public function visaCard(Request $request,TranslatorInterface $translator): Response
     {
+        $trans=$this->trans->translation($request,$translator);
+
+        
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 

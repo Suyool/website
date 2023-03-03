@@ -1,4 +1,5 @@
 <?php
+
 return [
     //payment
     "FNAME_LNAME"=>"{Fname Lname}",
@@ -15,6 +16,8 @@ return [
     "PAT_WITH_CARD_DESC"=>"Top up their wallet with any debit or credit card",
     "COPY_IBAN"=>"Copy IBAN",
     "COPY_IBAN_DESC"=>"Copy the IBAN to be able to send them money.",
+    "IBAN_COPIED_TO_CLIPBOARD"=>"IBAN Copied to Clipboard",
+    "IBAN_HAD_BEEN_COPIED"=>"IBAN had been copied, you can now paste it somewhere secure for future reference.",
     //
     //generate code
     'CASH_WALLET'=>'Add cash to their wallet at any cashpoint',
@@ -24,6 +27,10 @@ return [
     'COPY_CODE'=>'Copy Code',
     'VALID_24HRS'=>'Kindly note the code is only available for 24h.',
     'COPIED'=>'Cade Copied to Clipboard',
-    'SAVE_IT'=>'The code has been copied to clipboard, you can nowpaste it somewhere secure for future reference.',
-    'EXIT'=>'Done'
+    'SAVE_IT'=>'The code has been copied to clipboard, you can now paste it somewhere secure for future reference.',
+    'EXIT'=>'Done',
+    //
+    //visaCard
+    'OPEN_ACCOUNT'=>'Open Account',
+
 ];
