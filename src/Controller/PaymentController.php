@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
     {
         $trans=$this->trans->translation($request,$translator);
 
-        $parameters['currency'] = "dollar";
+        $parameters['currency'] = "dolar";
         $parameters['currentPage'] = "payment_landingPage";
 
         return $this->render('payment/index.html.twig',$parameters);
@@ -52,5 +52,16 @@ class PaymentController extends AbstractController
         $parameters['currentPage'] = "GenerateCode2";
 
         return $this->render('payment/codeGenerated.html.twig',$parameters);
+    }
+
+      /**
+     * @Route("/payment/visaCard", name="visaCard")
+     */
+    public function visaCard(): Response
+    {
+        $parameters['currency'] = "dollar";
+        $parameters['currentPage'] = "visaCard";
+
+        return $this->render('payment/visaCard.html.twig',$parameters);
     }
 }
