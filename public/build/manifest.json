@@ -1,6 +1,6 @@
 {
-  "build/app.js": "/build/app.b673f636.js",
-  "build/styles.css": "/build/styles.44ce7f05.css",
+  "build/app.js": "/build/app.29e4cba6.js",
+  "build/styles.css": "/build/styles.292040ac.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/fonts/Poppins-Medium.ttf": "/build/fonts/Poppins-Medium.673ed423.ttf",
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
@@ -16,6 +16,7 @@
   "build/images/email-verified.png": "/build/images/email-verified.png",
   "build/images/pay_with_suyool.jpg": "/build/images/pay_with_suyool.jpg",
   "build/images/payment/pay_with_suyool.jpg": "/build/images/payment/pay_with_suyool.jpg",
+  "build/images/s-logo-blue.png": "/build/images/s-logo-blue.png",
   "build/images/usd.svg": "/build/images/usd.svg",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",

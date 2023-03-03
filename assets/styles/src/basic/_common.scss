@@ -12,3 +12,9 @@ a{
 .red {
     color: #dc2129;
 }
+$pr-color: #226D96;
+
+.button-primary {
+    background-color: $pr-color;
+    padding: 8px 80px;
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Unsubscribe{% endblock %}
+
+{% block body %}
+    <div align="center" class="container-fluid emailVerificationCont">
+        <img class="logoImg" src="{{ asset('build/images/' ~ suyoolLogo) }}" alt="Suyool logo">
+        <div class="message-logo">
+            <img src="{{ asset('build/images/' ~ image) }}" alt="Email verification image" >
+        </div>
+        <h1 class="{{ class }}">{{ title }}</h1>
+        <p>{{ description|raw }}</p>
+
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <img src="{{ asset('build/images/s-logo-blue.png')}}"/>
+                        <h1 class="green">Congrats!</h1>
+                        <p>You have been successfully subscribed<br> to our newsletter.</p>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-primary" id="closeModelResubscribe" data-bs-dismiss="modal">OK</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- The Modal -->
+
+{% endblock %}
