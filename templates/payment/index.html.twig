@@ -3,63 +3,42 @@
 {% block title %}Payment{% endblock %}
 
 {% block body %}
-<div class="payment_landingPage">
     <div class="container how_to_send_money">
         <img class="user_img" src="{{ asset('build/images/payment/person.png') }}">
-        <div class="user_name">{Fname Lname}</div>
-        <div class="methode">is requesting</div>
-        <div class="amount">$200</div>
-        <div class="desc">Coffee :)</div>
+        <div class="user_name">{{ 'FNAME_LNAME'|trans }}</div>
+        <div class="methode">{{ 'SENT_YOU'|trans  }}</div>
+        <div class="amount">{{'PRICE'|trans}}</div>
+        <div class="desc">{{'DESCRIPTION'|trans}}</div>
     </div>
 
     <div class="container how_to_pay">
-        <div class="title">Choose how to pay them:</div>
-        <div class="container-fluid choose_way">
+        <div class="title">{{'CHOOSE_HOW_TO_GET_YOUR_MONEY'|trans}}</div>
+
+        <a class="container-fluid choose_way" href="/payment/visaCard" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
                 </div>
                 <div class="col-10 text_container">
-                    <div class="sub_title">Pay with Suyool</div>
-                    <div class="desc">Enroll to Suyool in 3 minutes & easily pay with your phone</div>
+                    <div class="sub_title">{{'OPEN_SYYOOL_ACCOUNT'|trans}}</div>
+                    <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid choose_way">
-            <div class="row">
-                <div class="col-2 logo_container">
-                    <img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}" >
-                </div>
-                <div class="col-10 text_container">
-                    <div class="sub_title">Pay with any card</div>
-                    <div class="desc">Top up their wallet with any debit or credit card</div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid choose_way">
+        </a>
+       
+        <a class="container-fluid choose_way" href="/payment/generateCode" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
                 </div>
                 <div class="col-10 text_container">
-                    <div class="sub_title">Cash input</div>
-                    <div class="desc">Visit the nearest ….. & add money to their Suyool wallet</div>
+                    <div class="sub_title">{{'WITHDRAW_CASH_FROM_ANY_CASHPOINT'|trans}}</div>
+                    <div class="desc">{{'GENERATE_CODE_TO_WITHDRAW_CASH'|trans}}</div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid choose_way">
-            <div class="row">
-                <div class="col-2 logo_container">
-                    <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
-                </div>
-                <div class="col-10 text_container">
-                    <div class="sub_title">Copy IBAN</div>
-                    <div class="desc">Copy the IBAN to be able to send them money.</div>
-                </div>
-            </div>
-        </div>
-        <a class="lear_abou_suyool" href="/" title="sKash">Learn more about Suyool</a>
+        </a>
+
+        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}} Suyool</a>
 
     </div>
-</div>
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Rates;
+use App\Translation\translation;
 use App\Utils\Helper;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends AbstractController
 {
+
+    private $trans;
+
+    public function __construct(translation $trans)
+    {
+        $this->trans=$trans;
+    }
+
     /**
      * @Route("/", name="homepage")
      *
@@ -25,19 +34,7 @@ class DefaultController extends AbstractController
 
     public function indexAction(Request $request, TranslatorInterface $translator)
     {
-        // Get the locale from the URL parameter
-    $locale = $request->query->get('lang');
-    // dd($locale);
-
-    // Set the locale for the translator
-    if(isset($locale)){
-        unset($_COOKIE['lang']);
-    $translator->setLocale($locale);
-    setcookie('lang', $locale, time() + (86400 * 30), "/");
-    }
-    if(isset($_COOKIE['lang'])){
-        $translator->setLocale($_COOKIE['lang']);
-    }
+        $trans=$this->trans->translation($request,$translator);
         return $this->render('base.html.twig');
     }
 }

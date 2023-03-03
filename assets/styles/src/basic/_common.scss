@@ -1,20 +1,24 @@
 *{
     margin: 0;
 }
+
+.ar{
+    text-align: right;
+    direction: rtl;
+}
+
 a{
     text-decoration: none;
+    color: unset;
 }
-
-.green {
-    color: #008000;
+a:hover{
+    text-decoration: none;
+    color: unset;
 }
-
-.red {
-    color: #dc2129;
-}
-$pr-color: #226D96;
 
 .button-primary {
-    background-color: $pr-color;
+    background-color: #226D96;
     padding: 8px 80px;
+    color: unset;
 }
+

@@ -1,10 +1,12 @@
 {
   "build/app.js": "/build/app.29e4cba6.js",
-  "build/styles.css": "/build/styles.292040ac.css",
+  "build/styles.css": "/build/styles.4ffa089b.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
+  "build/fonts/Poppins-Regular.ttf": "/build/fonts/Poppins-Regular.35d26b78.ttf",
   "build/fonts/Poppins-Medium.ttf": "/build/fonts/Poppins-Medium.673ed423.ttf",
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/login.png": "/build/images/login.png",
+  "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
   "build/images/auth.png": "/build/images/auth.png",
   "build/images/5150931.png": "/build/images/5150931.png",
   "build/images/u2sd.png": "/build/images/u2sd.png",
@@ -22,6 +24,7 @@
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
+  "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
   "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png",
   "build/images/payment/person.png": "/build/images/payment/person.png"
 }
