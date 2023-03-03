@@ -31,6 +31,7 @@ class DefaultController extends AbstractController
 
     // Set the locale for the translator
     if(isset($locale)){
+        unset($_COOKIE['lang']);
     $translator->setLocale($locale);
     setcookie('lang', $locale, time() + (86400 * 30), "/");
     }
