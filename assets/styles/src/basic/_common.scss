@@ -20,5 +20,10 @@ a:hover{
     background-color: #226D96;
     padding: 8px 80px;
     color: unset;
+    color: white;
+
+    &:hover {
+        background-color: #226D96;
+    }
 }
 
