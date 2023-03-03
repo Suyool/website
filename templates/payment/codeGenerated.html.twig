@@ -3,24 +3,22 @@
 {% block title %}Generated Code{% endblock %}
 
 {% block body %}
-<div class="{% if app.request.cookies.has('lang') %}{% set myCurrentLang = app.request.cookies.get('lang') %}{{ myCurrentLang }}{% endif %}">
-  <div class="generatecode2 container">
-      <div class="title">{{'CODE'|trans}}</div>
-      <div class="code">3dF5DF</div>
-      <button  type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
-      <div class="note">{{ 'VALID_24HRS'|trans }}</div>
-  </div>
+<div class="generatecode2 container">
+    <div class="title">{{'CODE'|trans}}</div>
+    <div class="code">3dF5DF</div>
+    <button  type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
+    <div class="note">{{ 'VALID_24HRS'|trans }}</div>
+</div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body modal-container">
-              <img class="logo" src="{{ asset('build/images/payment/doneImage.svg') }}" >
-              <div class="title">{{'COPIED'|trans}}</div>
-              <div class="desc">{{'SAVE_IT'|trans}}</div>
-              <button type="button" class="btn" data-bs-dismiss="modal">{{'EXIT'|trans}}</button>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modal-container">
+            <img class="logo" src="{{ asset('build/images/payment/doneImage.svg') }}" >
+            <div class="title">{{'COPIED'|trans}}</div>
+            <div class="desc">{{'SAVE_IT'|trans}}</div>
+            <button type="button" class="btn" data-bs-dismiss="modal">{{'EXIT'|trans}}</button>
       </div>
     </div>
   </div>

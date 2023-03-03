@@ -4,7 +4,7 @@
 
 {% block body %}
 {# <div class="generate_Code"> #}
-    <div class="GenerateCode container {% if app.request.cookies.has('lang') %}{% set myCurrentLang = app.request.cookies.get('lang') %}{{ myCurrentLang }}{% endif %}">
+    <div class="GenerateCode container ">
         <div class="title">{{'CASH_WALLET'|trans|raw}}</div>
         <div class="desc">
            {{'NEAREST_MONEY'|trans|raw}}

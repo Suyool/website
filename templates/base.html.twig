@@ -12,7 +12,7 @@
         {% endfor %}
     {% endblock %}
 </head>
-<body class="{% if currentPage is defined %}{{ currentPage }}{% endif %}">
+<body class="{% if currentPage is defined %}{{ currentPage }}{% endif %} {% if app.request.cookies.has('lang') %}{% set myCurrentLang = app.request.cookies.get('lang') %}{{ myCurrentLang }}{% endif %}">
 <header>   
      <div class="right_header">
     <img src="{{ asset('build/images/Suyool-S-White-Logo.png') }}">
