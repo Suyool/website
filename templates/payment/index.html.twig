@@ -3,6 +3,7 @@
 {% block title %}Payment{% endblock %}
 
 {% block body %}
+<div class="{% if app.request.cookies.has('lang') %}{% set myCurrentLang = app.request.cookies.get('lang') %}{{ myCurrentLang }}{% endif %}">
     <div class="container how_to_send_money">
         <img class="user_img" src="{{ asset('build/images/payment/person.png') }}">
         <div class="user_name">{{ 'FNAME_LNAME'|trans }}</div>
@@ -13,19 +14,19 @@
 
     <div class="container how_to_pay">
         <div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
-        <a class="container_link" href="/payment/visaCard" title="generate code">
-            <div class="container-fluid choose_way">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
-                    </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
-                        <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
-                    </div>
+
+        <a class="container-fluid choose_way" href="/payment/visaCard" title="generate code">
+            <div class="row">
+                <div class="col-2 logo_container">
+                    <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
+                </div>
+                <div class="col-10 text_container">
+                    <div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
+                    <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
         </a>
+
         {% if currency == "dolar" %}
             <div class="container-fluid choose_way">
                 <div class="row">
@@ -40,37 +41,33 @@
             </div>
         {% endif %}
        
-        <a class="container_link" href="/payment/generateCode" title="generate code">
-            <div class="container-fluid choose_way">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
-                    </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'CASH_INPUT'|trans}}</div>
-                        <div class="desc">{{'VISIT_THE_NEAREST_ADD_MONEY'|trans}}</div>
-                    </div>
+        <a class="container-fluid choose_way" href="/payment/generateCode" title="generate code">
+            <div class="row">
+                <div class="col-2 logo_container">
+                    <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
+                </div>
+                <div class="col-10 text_container">
+                    <div class="sub_title">{{'CASH_INPUT'|trans}}</div>
+                    <div class="desc">{{'VISIT_THE_NEAREST_ADD_MONEY'|trans}}</div>
                 </div>
             </div>
         </a>
        
         {% if currency == "dolar" %}
-            <a  type="button" class="container_link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <div class="container-fluid choose_way">
-                    <div class="row">
-                        <div class="col-2 logo_container">
-                            <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
-                        </div>
-                        <div class="col-10 text_container">
-                            <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
-                            <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
-                        </div>
+            <a  type="button" class="container-fluid choose_way" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <div class="row">
+                    <div class="col-2 logo_container">
+                        <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
+                    </div>
+                    <div class="col-10 text_container">
+                        <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
+                        <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
                     </div>
                 </div>
             </a>
         {% endif %}
 
-        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
+        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}} Suyool</a>
 
     </div>
 
@@ -87,4 +84,5 @@
         </div>
     </div>
     </div>
+</div>
 {% endblock %}

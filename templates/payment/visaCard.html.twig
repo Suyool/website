@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="landingpage container">
+<div class="landingpage container {% if app.request.cookies.has('lang') %}{% set myCurrentLang = app.request.cookies.get('lang') %}{{ myCurrentLang }}{% endif %}">
     <div class="title">SUYOOL LANDING PAGE!!!</div>
     {# <img src="<?php echo $GLOBALS['MAIN_IMG'] ?>Capture.png"/> #}
     <img class="visaCard" src="{{ asset('build/images/payment/Capture.png') }}" >
