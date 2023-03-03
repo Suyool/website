@@ -2,17 +2,30 @@
 
 namespace App\Controller;
 
+use App\Translation\translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PaymentController extends AbstractController
 {
+
+    private $trans;
+
+    public function __construct(translation $trans)
+    {
+        $this->trans=$trans;
+    }
+
     /**
      * @Route("/payment", name="app_payment")
      */
-    public function index(): Response
+    public function index(Request $request,TranslatorInterface $translator): Response
     {
+        $trans=$this->trans->translation($request,$translator);
+
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "payment_landingPage";
 

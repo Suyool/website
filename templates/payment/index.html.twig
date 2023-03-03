@@ -5,22 +5,22 @@
 {% block body %}
     <div class="container how_to_send_money">
         <img class="user_img" src="{{ asset('build/images/payment/person.png') }}">
-        <div class="user_name">{Fname Lname}</div>
-        <div class="methode">is requesting</div>
-        <div class="amount">$200</div>
-        <div class="desc">Coffee :)</div>
+        <div class="user_name">{{ 'FNAME_LNAME'|trans }}</div>
+        <div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>
+        <div class="amount">{{'PRICE'|trans}}</div>
+        <div class="desc">{{'DESCRIPTION'|trans}}</div>
     </div>
 
     <div class="container how_to_pay">
-        <div class="title">Choose how to pay them:</div>
+        <div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
         <div class="container-fluid choose_way">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
                 </div>
                 <div class="col-10 text_container">
-                    <div class="sub_title">Pay with Suyool</div>
-                    <div class="desc">Enroll to Suyool in 3 minutes & easily pay with your phone</div>
+                    <div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
+                    <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
                         <img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}" >
                     </div>
                     <div class="col-10 text_container">
-                        <div class="sub_title">Pay with any card</div>
-                        <div class="desc">Top up their wallet with any debit or credit card</div>
+                        <div class="sub_title">{{'PAY_WITH_CARD'|trans}}</div>
+                        <div class="desc">{{'PAT_WITH_CARD_DESC'|trans}}</div>
                     </div>
                 </div>
             </div>
@@ -45,8 +45,8 @@
                         <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
                     </div>
                     <div class="col-10 text_container">
-                        <div class="sub_title">Cash input</div>
-                        <div class="desc">Visit the nearest ….. & add money to their Suyool wallet</div>
+                        <div class="sub_title">{{'CASH_INPUT'|trans}}</div>
+                        <div class="desc">{{'VISIT_THE_NEAREST_ADD_MONEY'|trans}}</div>
                     </div>
                 </div>
             </div>
@@ -59,14 +59,14 @@
                         <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
                     </div>
                     <div class="col-10 text_container">
-                        <div class="sub_title">Copy IBAN</div>
-                        <div class="desc">Copy the IBAN to be able to send them money.</div>
+                        <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
+                        <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
                     </div>
                 </div>
             </div>
         {% endif %}
 
-        <a class="lear_abou_suyool" href="/" title="sKash">Learn more about Suyool</a>
+        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
     </div>
 {% endblock %}
