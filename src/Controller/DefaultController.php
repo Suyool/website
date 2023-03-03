@@ -25,6 +25,19 @@ class DefaultController extends AbstractController
 
     public function indexAction(Request $request, TranslatorInterface $translator)
     {
+        // Get the locale from the URL parameter
+    $locale = $request->query->get('lang');
+    // dd($locale);
+
+    // Set the locale for the translator
+    if(isset($locale)){
+        unset($_COOKIE['lang']);
+    $translator->setLocale($locale);
+    setcookie('lang', $locale, time() + (86400 * 30), "/");
+    }
+    if(isset($_COOKIE['lang'])){
+        $translator->setLocale($_COOKIE['lang']);
+    }
         return $this->render('base.html.twig');
     }
 }
