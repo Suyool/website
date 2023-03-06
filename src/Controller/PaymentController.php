@@ -24,11 +24,10 @@ class PaymentController extends AbstractController
      */
     public function index(Request $request,TranslatorInterface $translator): Response
     {
-        $trans=$this->trans->translation($request,$translator);
-
+        $parameters=$this->trans->translation($request,$translator);
+        
         $parameters['currency'] = "dolar";
         $parameters['currentPage'] = "payment_landingPage";
-
         return $this->render('payment/index.html.twig',$parameters);
     }
 

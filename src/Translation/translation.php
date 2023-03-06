@@ -8,19 +8,25 @@ use Symfony\Component\HttpFoundation\Request;
 class translation{
 
     public function translation($request,$translator){
+        $parameters['lang']='en';
         // Get the locale from the URL parameter
     $locale = $request->query->get('lang');
     // dd($locale);
 
     // Set the locale for the translator
-    if(isset($locale)){
-        unset($_COOKIE['lang']);
-    $translator->setLocale($locale);
-    setcookie('lang', $locale, time() + (86400 * 30), "/");
+    if($locale){
+        $translator->setLocale($locale);
+        setcookie('lang', $locale, time() + (86400 * 30), "/");
+        $parameters['lang']=$locale;
+
+    }else{
+        if($request->cookies->get('lang')){
+            $parameters['lang']=$request->cookies->get('lang');
+            $translator->setLocale($request->cookies->get('lang'));
+        }
     }
-    if(isset($_COOKIE['lang'])){
-        $translator->setLocale($_COOKIE['lang']);
-    }
-    }
+    return $parameters;    
+
+}
 
 }
