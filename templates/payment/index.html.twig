@@ -4,11 +4,19 @@
 
 {% block body %}
     <div class="container how_to_send_money">
-        <img class="user_img" src="{{ asset('build/images/payment/person.png') }}">
-        <div class="user_name">{{ 'FNAME_LNAME'|trans }}</div>
+    {% if payment_details_response.image is defined and payment_details_response.image is not null %}
+        <img class="user_img" src="{{ payment_details_response.image  }}">
+    {% endif %}
+    {% if payment_details_response.SenderName is defined and payment_details_response.SenderName is not null %}
+<div class="user_name">{{ payment_details_response.SenderName }}</div>
+    {% endif %}
         <div class="methode">{{ 'SENT_YOU'|trans  }}</div>
-        <div class="amount">{{'PRICE'|trans}}</div>
-        <div class="desc">{{'DESCRIPTION'|trans}}</div>
+        {% if payment_details_response.Amount is defined and payment_details_response.Amount is not null %}
+        <div class="amount">{{payment_details_response.Amount}}</div>
+    {% endif %}
+    {% if payment_details_response.TransferReason is defined and payment_details_response.TransferReason is not null %}
+        <div class="desc">{{payment_details_response.TransferReason}}</div>
+    {% endif %}
     </div>
 
     <div class="container how_to_pay">
@@ -38,7 +46,7 @@
             </div>
         </a>
 
-        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}} Suyool</a>
+        <a class="lear_abou_suyool" href="/" title="suyool">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
     </div>
 {% endblock %}
