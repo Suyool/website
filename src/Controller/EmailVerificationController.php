@@ -31,12 +31,12 @@ class EmailVerificationController extends AbstractController
                 $title = 'You have verified your email';
                 $description = "You have successfully verified your email.<br> You will start receiving communication emails from Suyool.";
                 $image = "email-verified.png";
-                $class = "green";
+                $class = "verified";
             } else if ($response['RespCode'] == -1) {
                 $title = 'Email verification failed';
                 $description = "Your email address couldn’t be verified.<br> Kindly request a new verification link from your Suyool app.";
                 $image = "unverified-msg.png";
-                $class = "red";
+                $class = "unverified";
             }
         }
         return $this->render('emailVerification/index.html.twig', [
