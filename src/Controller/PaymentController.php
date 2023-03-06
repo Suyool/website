@@ -36,7 +36,7 @@ class PaymentController extends AbstractController
      */
     public function generateCode(Request $request,TranslatorInterface $translator): Response
     {
-        $trans=$this->trans->translation($request,$translator);
+        $parameters=$this->trans->translation($request,$translator);
 
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "generate_Code";
@@ -49,7 +49,7 @@ class PaymentController extends AbstractController
      */
     public function codeGenerated(Request $request,TranslatorInterface $translator): Response
     {
-        $trans=$this->trans->translation($request,$translator);
+        $parameters=$this->trans->translation($request,$translator);
 
 
         $parameters['currency'] = "dollar";
@@ -63,7 +63,7 @@ class PaymentController extends AbstractController
      */
     public function visaCard(Request $request,TranslatorInterface $translator): Response
     {
-        $trans=$this->trans->translation($request,$translator);
+        $parameters=$this->trans->translation($request,$translator);
 
         
         $parameters['currency'] = "dollar";
