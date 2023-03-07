@@ -1,45 +1,36 @@
-// function copyToClipboard(text) {
-//         // create a temporary input element to hold the IBAN text
-//         var tempInput = document.createElement("input");
-//         tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-//         tempInput.value = text;
-//         document.body.appendChild(tempInput);
+if(document.querySelector('.copy-to-clipboard')){
+  // Get the element with the 'copy-to-clipboard' class
+  const copyBtn = document.querySelector('.copy-to-clipboard');
 
-//         // select the text inside the temporary input element
-//         tempInput.select();
-//         tempInput.setSelectionRange(0, 99999); /*For mobile devices*/
+  // Get the value of the 'data-to-copy' attribute
+  const copyText = copyBtn.getAttribute('data-to-copy');
 
-//         // copy the selected text to the clipboard
-//         document.execCommand("copy");
+  // Add a click event listener to the button
+  copyBtn.addEventListener('click', function() {
+    // Create a new textarea element to hold the copied text
+    const textarea = document.createElement('textarea');
+    textarea.value = copyText;
+    document.body.appendChild(textarea);
 
-//         // remove the temporary input element
-//         document.body.removeChild(tempInput);
+    // Select the text in the textarea and copy it to the clipboard
+    textarea.select();
+    document.execCommand('copy');
 
-//         // show the modal window
-//         var modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-//         modal.show();
-//     }
+    // Remove the textarea element from the DOM
+    document.body.removeChild(textarea);
 
-// Get the element with the 'copy-to-clipboard' class
-const copyBtn = document.querySelector('.copy-to-clipboard');
+    // Show a success message to the user
+  //   alert('Copied to clipboard: ' + copyText);
+  });
+}
 
-// Get the value of the 'data-to-copy' attribute
-const copyText = copyBtn.getAttribute('data-to-copy');
+const open_suyool_account = document.querySelector('.open-suyool-account');
 
-// Add a click event listener to the button
-copyBtn.addEventListener('click', function() {
-  // Create a new textarea element to hold the copied text
-  const textarea = document.createElement('textarea');
-  textarea.value = copyText;
-  document.body.appendChild(textarea);
-
-  // Select the text in the textarea and copy it to the clipboard
-  textarea.select();
-  document.execCommand('copy');
-
-  // Remove the textarea element from the DOM
-  document.body.removeChild(textarea);
-
-  // Show a success message to the user
-//   alert('Copied to clipboard: ' + copyText);
-});
+open_suyool_account.addEventListener('click',function(){
+  if (navigator.userAgent.match(/Android/i)) {
+    window.location.href = "https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME";
+} else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+    window.location.href = "https://apps.apple.com/us/app/app-name/idYOUR_APP_ID";
+} else{
+}
+})

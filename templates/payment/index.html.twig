@@ -22,7 +22,7 @@
     <div class="container how_to_pay">
         <div class="title">{{'CHOOSE_HOW_TO_GET_YOUR_MONEY'|trans}}</div>
 
-        <a class="container-fluid choose_way" href="/payment/visaCard" title="generate code">
+        <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
@@ -32,9 +32,9 @@
                     <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
-        </a>
-       
-        <a class="container-fluid choose_way" href="/payment/generateCode" title="generate code">
+        </div>
+       {% if payment_details_response.AllowExternal is defined and payment_details_response.AllowExternal != "False" %}
+        <a class="container-fluid choose_way" href="/payment/generateCode?code={{  app.session.get('code') }}&type=external" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
@@ -45,6 +45,7 @@
                 </div>
             </div>
         </a>
+       {% endif %}
 
         <a class="lear_abou_suyool" href="/" title="suyool">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 

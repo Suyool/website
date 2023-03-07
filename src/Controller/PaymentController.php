@@ -55,8 +55,9 @@ class PaymentController extends AbstractController
         $response = Helper::send_curl($params);
         $parameters['payment_details_response'] = json_decode($response, true);
             // dd($parameters);
+            $parameters['payment_details_response']['AllowExternal']="True";
         $this->session->set("request_details_response", $parameters['payment_details_response']);
-        $this->session->set("Code", $code);
+        $this->session->set("code", $code);
         $this->session->set( "image",
             isset($parameters['payment_details_response']['image'])
                 ? $parameters['payment_details_response']['image']
