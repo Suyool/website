@@ -54,17 +54,19 @@
         </a>
        
         {% if currency == "dolar" %}
-            <a  type="button" class="container-fluid choose_way" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
+            {% if request_details_response.IBAN is defined %}
+                <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.IBAN }}">
+                    <div class="row">
+                        <div class="col-2 logo_container">
+                            <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
+                        </div>
+                        <div class="col-10 text_container">
+                            <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
+                            <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
+                        </div>
                     </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
-                        <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            {% endif %}
         {% endif %}
 
         <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}} Suyool</a>
@@ -84,4 +86,28 @@
         </div>
     </div>
     </div>
+{# 
+    <script>
+        function copyToClipboard(text) {
+            // create a temporary input element to hold the IBAN text
+            var tempInput = document.createElement("input");
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+
+            // select the text inside the temporary input element
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            // copy the selected text to the clipboard
+            document.execCommand("copy");
+
+            // remove the temporary input element
+            document.body.removeChild(tempInput);
+
+            // show the modal window
+            var modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+            modal.show();
+        }
+    </script>    #}
 {% endblock %}

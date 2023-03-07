@@ -79,6 +79,7 @@ class RequestController extends AbstractController
 
         // $session = $request->getSession();
         // dd($session);
+        // dd($parameters);
 
         return $this->render('request/index.html.twig',$parameters);
     }
