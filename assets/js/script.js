@@ -80,18 +80,31 @@ if(document.querySelector('.copy-to-clipboard')){
   //   alert('Copied to clipboard: ' + copyText);
   });
 }
-
+if(document.querySelector('.open-suyool-account')){
 const open_suyool_account = document.querySelector('.open-suyool-account');
 
 open_suyool_account.addEventListener('click',function(){
   if (navigator.userAgent.match(/Android/i)) {
-    window.location.href = "https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME";
+    window.location.href = "https://skashapp.page.link/app_install";
 } else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-    window.location.href = "https://apps.apple.com/us/app/app-name/idYOUR_APP_ID";
+    window.location.href = "https://skashapp.page.link/app_install";
 } else{
 }
 })
+}
 
+if(document.querySelector('.generate-code')){
+  document.querySelector('.generate-code').addEventListener('click',function(){
+    const tag=document.querySelector('.generate-code');
+    if(tag.hasAttribute('data-code')){
+      window.location.href="/codeGenerated?codeATM="+tag.getAttribute('data-code')
+    }else{
+      if(document.querySelector('.error')){
+    document.querySelector('.error').style.display='block';
+      }
+    }
+  })
+}
 function resubscribe(uniqueCode, flag) {
     jQuery.ajax({
         type: "GET",

@@ -5,11 +5,14 @@
 {% block body %}
 {# <div class="generate_Code"> #}
     <div class="GenerateCode container ">
+        {% if simulate_payment_response.RespDesc is defined and simulate_payment_response.RespDesc is not null %}
+            <div class="error">{{ simulate_payment_response.RespDesc }}</div>
+        {% endif %}
         <div class="title">{{'WITHDRAW_CASH_FROM_ANY_CASHPOINT'|trans}}</div>
         <div class="desc">
            {{'NEAREST_MONEY_WITHDRAW'|trans|raw}}
         </div>
-        <a class="btn" href="/payment/codeGenerated">{{ 'GENERATE_CODE'|trans|raw }}</a>
+    <button type="submit" {% if simulate_payment_response.ATMCode is defined and simulate_payment_response.ATMCode != null %}data-code="{{ simulate_payment_response.ATMCode }}"{% endif %} class="generate-code btn" >{{ 'GENERATE_CODE'|trans|raw }}</button>
     </div>
 {# </div> #}
 {% endblock %}

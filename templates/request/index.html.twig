@@ -15,7 +15,7 @@
     <div class="container how_to_pay">
         <div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
 
-        <a class="container-fluid choose_way" href="/request/visaCard" title="generate code">
+        <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
@@ -25,10 +25,10 @@
                     <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
                 </div>
             </div>
-        </a>
+        </div>
 
-        {% if currency == "dolar" %}
-            <div class="container-fluid choose_way">
+        {% if currency == "$" %}
+            <a class="container-fluid choose_way" href="/request/visaCard">
                 <div class="row">
                     <div class="col-2 logo_container">
                         <img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}" >
@@ -38,10 +38,10 @@
                         <div class="desc">{{'PAT_WITH_CARD_DESC'|trans}}</div>
                     </div>
                 </div>
-            </div>
+            </a>
         {% endif %}
        
-        <a class="container-fluid choose_way" href="/request/generateCode" title="generate code">
+        <a class="container-fluid choose_way" href="/request/generateCode?code={{ app.session.get('Code') }}" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
@@ -53,7 +53,7 @@
             </div>
         </a>
        
-        {% if currency == "dolar" %}
+        {% if currency == "$" %}
             {% if request_details_response.IBAN is defined %}
                 <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.IBAN }}">
                     <div class="row">

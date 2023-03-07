@@ -37,8 +37,20 @@ logout:
 logout_user:
   path: /logout
 
+app_payment:
+  path: /{code}
+  controller: App\Controller\PaymentController::index
+  requirements:
+    code: '^P[A-Za-z0-9]+$' 
+
 invitation_card:
   path: '/{code}'
   controller: 'App\Controller\InvitationCardController::index'
   requirements:
     code: '^I[A-Za-z0-9]+$'
+
+app_request:
+  path: /{code}
+  controller: App\Controller\RequestController::index
+  requirements:
+    code: '^R[A-Za-z0-9]+$' 

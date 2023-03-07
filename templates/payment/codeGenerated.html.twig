@@ -3,10 +3,10 @@
 {% block title %}Generated Code{% endblock %}
 
 {% block body %}
-<div class="generatecode2 container">
+<div class="generatecode2 container ">
     <div class="title">{{'CODE'|trans}}</div>
-    <div class="code">3dF5DF</div>
-    <button  type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
+    <div class="code">{{code}}</div>
+    <button  type="button" class="btn copy-to-clipboard" data-to-copy={{app.request.get('codeATM')}} data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
     <div class="note">{{ 'VALID_24HRS_IF_YOU_DONT'|trans }}</div>
 </div>
 

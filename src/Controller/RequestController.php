@@ -15,11 +15,15 @@ class RequestController extends AbstractController
 { 
     private $trans;
     private $session;
+    private $hash_algo;
+    private $certificate;
 
-    public function __construct(translation $trans ,SessionInterface $session)
+    public function __construct(translation $trans ,SessionInterface $session,$hash_algo,$certificate)
     {
         $this->trans=$trans;
         $this->session = $session;
+        $this->hash_algo=$hash_algo;
+        $this->certificate=$certificate;
     }
 
     function GetInitials($name) {
@@ -34,20 +38,20 @@ class RequestController extends AbstractController
     }
     
     /**
-     * @Route("/request", name="app_request")
+     * @Route("/request/{code}", name="app_request")
      */
-    public function index(Request $request,TranslatorInterface $translator): Response
+    public function index(Request $request,TranslatorInterface $translator,$code): Response
     {
         $parameters=$this->trans->translation($request,$translator);
-        $parameters['currency'] = "dolar";
+        $parameters['currency'] = "$";
         $parameters['currentPage'] = "payment_landingPage";
 
 
-        $code = $request->query->get('code');
+        // $code = $request->query->get('code');
         // $code = "Rgnd3";
         $dateSent = date("ymdHis"); 
         // $Hash = base64_encode(hash('sha512', 'Rgnd3'. date("ymdHis") . 'en'. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
-        $Hash = base64_encode(hash('sha512', $code. date("ymdHis") . $parameters['lang']. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
+        $Hash = base64_encode(hash($this->hash_algo, $code. date("ymdHis") . $parameters['lang']. $this->certificate, true));
 
         $form_data = [
             'Code' => $code,

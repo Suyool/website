@@ -52,7 +52,7 @@
             background-color: white;
             .logo_container{
                 .logo{
-                    width: auto;
+                    width: 46px;
                     display: block;
                     margin-left: auto;
                     margin-right: auto;
@@ -122,6 +122,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        .error{
+            display: none;
+        }
         .title{
             font-family: PoppinsBold;
             font-weight: bold;
