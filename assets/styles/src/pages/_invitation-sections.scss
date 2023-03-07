@@ -37,17 +37,19 @@
 
       .country-code {
         padding-left: 10px;
-        color:$black;
+        color: $black;
         font-family: 'LibreFranklinMedium';
       }
 
       .input-cont {
         display: flex;
         align-items: flex-end;
+
         ::-webkit-input-placeholder {
-          color:$black;
+          color: $black;
           font-family: 'LibreFranklinMedium';
         }
+
         input {
           border: 0 !important;
           background-color: transparent;
@@ -96,8 +98,6 @@
 
 
 .download-app {
-  background-color: $black;
-  //padding: 70px 16.9% 70px 16.9%;
   border-radius: 10px;
 
   .title {
@@ -157,6 +157,7 @@
     }
   }
 }
+
 .invitation-download-btm-section {
   &:before {
     background-image: linear-gradient(to left bottom, red 0, red 49.9%, transparent 50.1%);
@@ -166,6 +167,7 @@
     z-index: 1;
   }
 }
+
 .small-note {
   color: $black;
   font-family: 'LibreFranklinMedium';
@@ -173,16 +175,19 @@
   padding-top: 20px;
   padding-bottom: 40px;
 }
+
 .bottom-container {
   position: relative;
   margin-top: 50px;
+
   #triangle {
     background-image: linear-gradient(to right top, #f1f3f5 0, #f1f3f5 49.9%, transparent 50.1%);
-    height: 98px!important;
+    height: 98px !important;
     top: -98px;
   }
 }
-.get-the-app{
+
+.get-the-app {
   button {
     background-color: $pr-color !important;
     color: $white !important;
@@ -191,21 +196,38 @@
     font-family: 'libreFranklinBold' !important;
   }
 }
-.small-note-invitation-mobile{
+
+.small-note-invitation-mobile {
   padding-top: 30px;
   margin-right: 45px;
 }
+
 .invitation-card-main-cont-bottom {
   padding-bottom: 100px;
+
+  //.send-link-form-cont {
+  //  .send-link-form {
+  //    .input-sub-cont {
+  //      .input-cont {
+  //        input {
+  //          border: 1px solid black!important;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 }
+
 .invitation-card-section-bottom {
   width: 300px !important;
 }
-.animated-banner{
+
+.animated-banner {
   display: none;
 }
+
 @media all and (max-width: 768px) {
-  .small-note-invitation-mobile{
+  .small-note-invitation-mobile {
     font-size: 13px;
     text-align: left;
   }
@@ -216,6 +238,12 @@
           padding: 16px 40px;
         }
       }
+    }
+  }
+  .invitation-top-section {
+    .send-link-form-cont {
+      float: unset;
+      text-align: center;
     }
   }
 }
@@ -231,14 +259,15 @@
   }
 
   .get-the-app {
-    button{
+    button {
       padding: 16px 10px;
     }
+
     border-radius: 10px;
     max-width: 80%;
   }
 
-  .animated-banner{
+  .animated-banner {
     display: block;
   }
 }

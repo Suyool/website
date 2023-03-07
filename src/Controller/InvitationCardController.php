@@ -59,8 +59,48 @@ class InvitationCardController extends AbstractController
         // Render the template with the response data
         return $this->render('invitationCard/index.html.twig', [
             'inviterDetails' => $invitation_card_details_response,
+            'code' => $code,
         ]);
 
+    }
+
+    /**
+     * @Route("/invitationCard/submitInvitationCard", name="submit_mobile", methods={"POST"})
+     */
+    public function submitMobile(Request $request)
+    {   //dd($request);
+        // Get the mobile number from the form submission
+        $mobile = Helper::clean($request->get('mobileNumber'));
+        $code = Helper::clean($request->get('code'));
+        $lang = 'en';
+
+            $dateSent = date("ymdHis");
+
+            $Hash = base64_encode(hash($this->hash_algo, $code . $mobile . $lang . $dateSent . $this->certificate, true));
+            $form_data = [
+                'Code' => $code,
+                "MobileNo" => $mobile,
+                "lang" => $lang,
+                "DateSent" => $dateSent,
+                'Hash' => $Hash,
+            ];
+            $params['data'] = json_encode($form_data);
+            $params['url'] = 'Incentive/CardContact';
+            /*** Call the api ***/
+            $response = Helper::send_curl($params);
+
+            /*** Decode the result ***/
+            $result = json_decode($response, true);
+            //Success is false by default
+            $result['success'] = false;
+
+            if($result['RespCode'] == 0){
+                //Set Flag to know that we are in the success mode
+                $result['success'] = true;
+            }
+
+        // Return a response to the user
+        return $this->json($result);
     }
 }
 
