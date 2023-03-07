@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmailsVerificationController!{% endblock %}
+
+{% block body %}
+    <div class="top-section invitation-top-section">
+        <div class="row">
+            <div class="col-12 col-lg-6 image-back-1">
+                <div class="mobile-invite-img 	d-lg-none ">
+                    <img src="{{ asset('build/images/invitation/mobile-invite-image.png') }}" alt="mobile-invite-image" title="mobile-invite-image">
+                </div>
+                <h1 class="description col-md-9 title">
+                    {{ inviterDetails }}
+                </h1>
+                <div class="sub-description">€10 Welcome Gift upon enrollment</div>
+                <div class="phone-submit">
+                    <div class="send-link-form-cont">
+                        <div class="send-link-form invitation-card-section-top">
+                            <div class="input-main-cont">
+                                    <div class="noticeMessage displayNone">
+                                        You already submitted a mobile number on this device
+                                    </div>
+                                    <div class="row input-sub-cont invitation-top-button">
+                                        <div class="col-lg-2 col-3 cyprus-flag">
+                                            <span class="country-code">+961</span>
+                                        </div>
+                                        <div class="col-lg-6 col-9 input-cont ">
+                                            <input  class="phoneNumberGetApp mobileTextDownloadApp" name="mobile" type="number"/>
+                                        </div>
+                                        <div class="get-the-app get-the-app-invitation btn-float col-4 d-none d-lg-block">
+                                            <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn submitTextDownloadAppBtn" disabled="disabled" code={{ code }}>GET THE APP</button>
+                                        </div>
+                                    </div>
+                                <div class="get-the-app get-the-app-invitation btn-float d-lg-none">
+                                    <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn submitTextDownloadAppBtn" disabled="disabled" code={{ code }}>GET THE APP</button>
+                                </div>
+                                    <div class="small-note-invitation-mobile conclusion">
+                                        You have to be 18 and above to be eligible
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 image-back"></div>
+        </div>
+        <div class="modal fade" id="invitationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"
+                            id="myModal">
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div align='center'><img src="{{ asset('build/images/s-logo-blue.png')}}"/></div>
+                        <h6 id="modal_body"></h6>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary button-primary" id="closeModelResubscribe" code={{ code }} data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="bottom-container">
+        <div class="invitation-download-btm-section">
+            <div class="gray-section download-app-main-cont invitation-card-main-cont-bottom">
+                <div class="download-app">
+                    <div class="send-link-form-cont">
+                        <div class="send-link-form invitation-card-section-bottom">
+                            <div class="input-main-cont">
+                                <div class="noticeMessage displayNone">
+                                    You already submitted a mobile number on this device
+                                </div>
+                                <div class="row input-sub-cont">
+                                    <div class="col-3 cyprus-flag">
+                                        <span class="country-code">+961</span>
+                                    </div>
+                                    <div class="col-9 input-cont">
+                                        <input  class="phoneNumberGetApp mobileTextDownloadApp" type="number" />
+                                    </div>
+                                    <div class="small-note">
+                                        You have to be 18 and above to be eligible
+                                    </div>
+                                    <div class="get-the-app">
+                                        <button id="submit-btn" type="button" class="btn btn-outline-secondary default-btn getAppBtn submitTextDownloadAppBtn" disabled="disabled" code={{ code }}>GET THE APP</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

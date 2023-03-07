@@ -10,6 +10,8 @@ parameters:
     router.request_context.base_url: '%env(SITE_BASE_URL)%'
     asset.request_context.base_path: '%router.request_context.base_url%'
     asset.request_context.secure: '%env(SITE_SECURE)%'
+    hash_algo: 'sha512'
+    certificate: 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO'
     # production_url: 'https://www.elnashra.com/'
     app.name: 'Suyool'
 
@@ -20,6 +22,9 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $hash_algo: '%hash_algo%'
+            $certificate: '%certificate%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

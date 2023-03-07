@@ -36,3 +36,9 @@ logout:
 
 logout_user:
   path: /logout
+
+invitation_card:
+  path: '/{code}'
+  controller: 'App\Controller\InvitationCardController::index'
+  requirements:
+    code: '^I[A-Za-z0-9]+$'

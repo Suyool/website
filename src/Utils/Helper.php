@@ -541,4 +541,10 @@ class Helper
 
         }
     }
+    public function clean($string)
+    {
+        $string = preg_replace('/[^.A-Za-z0-9\-]/', ' ', $string); // Removes special chars.
+        $string = preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+        return trim($string, '-'); // Removes leading/trailing hyphens.
+    }
 }
