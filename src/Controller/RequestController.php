@@ -43,10 +43,12 @@ class RequestController extends AbstractController
         $parameters['currentPage'] = "payment_landingPage";
 
 
-        // $code = $request->query->get('code');
-        $code = "Rgnd3";
+        $code = $request->query->get('code');
+        // $code = "Rgnd3";
         $dateSent = date("ymdHis"); 
-        $Hash = base64_encode(hash('sha512', 'Rgnd3'. date("ymdHis") . 'en'. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
+        // $Hash = base64_encode(hash('sha512', 'Rgnd3'. date("ymdHis") . 'en'. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
+        $Hash = base64_encode(hash('sha512', $code. date("ymdHis") . $parameters['lang']. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
+
         $form_data = [
             'Code' => $code,
             "DateSent" => $dateSent,
