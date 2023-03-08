@@ -44,7 +44,7 @@ class RequestController extends AbstractController
     public function index(Request $request,TranslatorInterface $translator,$code): Response
     {
         $parameters=$this->trans->translation($request,$translator);
-        $parameters['currency'] = "LL";
+        $parameters['currency'] = "$";
         $parameters['currentPage'] = "payment_landingPage";
 
         // $code = $request->query->get('code');
