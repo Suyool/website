@@ -23,18 +23,6 @@ if(document.querySelector('.copy-to-clipboard')){
   //   alert('Copied to clipboard: ' + copyText);
   });
 }
-if(document.querySelector('.open-suyool-account')){
-const open_suyool_account = document.querySelector('.open-suyool-account');
-
-open_suyool_account.addEventListener('click',function(){
-  if (navigator.userAgent.match(/Android/i)) {
-    window.location.href = "https://skashapp.page.link/app_install";
-} else if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-    window.location.href = "https://skashapp.page.link/app_install";
-} else{
-}
-})
-}
 
 if(document.querySelector('.generate-code')){
   document.querySelector('.generate-code').addEventListener('click',function(){
