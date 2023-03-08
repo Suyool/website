@@ -17,6 +17,7 @@ class RequestController extends AbstractController
     private $session;
     private $hash_algo;
     private $certificate;
+    private $cashinput=false;
 
     public function __construct(translation $trans ,SessionInterface $session,$hash_algo,$certificate)
     {
@@ -43,9 +44,8 @@ class RequestController extends AbstractController
     public function index(Request $request,TranslatorInterface $translator,$code): Response
     {
         $parameters=$this->trans->translation($request,$translator);
-        $parameters['currency'] = "$";
+        $parameters['currency'] = "LL";
         $parameters['currentPage'] = "payment_landingPage";
-
 
         // $code = $request->query->get('code');
         // $code = "Rgnd3";
@@ -64,6 +64,7 @@ class RequestController extends AbstractController
         $response = Helper::send_curl($params);
 
         $parameters['request_details_response'] = json_decode($response, true);
+        // dd($parameters);
 
         $parameters['request_details_response']['RespTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['SenderName'],$parameters['request_details_response']['Amount']), $parameters['request_details_response']['RespTitle']);
         $parameters['request_details_response']['SenderProfilePic']='';
@@ -97,9 +98,55 @@ class RequestController extends AbstractController
     {
         $parameters=$this->trans->translation($request,$translator);
 
-        $parameters['currency'] = "dollar";
+        $parameters['currency'] = "$";
         $parameters['currentPage'] = "generate_Code";
+        $code=$request->query->get('code');
+        $type=$request->query->get('type');
+        if($request->query->get('code')&&$request->query->get('type')){
+            
+            if($code == $this->session->get('Code')){
+                // dd("ok");
+                /*** Check the payment type if is equal to ATM_KEY or EXTERNAL_KEY ***/
+                ($type == 'cash') ? $this->cashinput = true : '';
+                /*** Return result ***/
+                
+            }else{
+                return $this->redirectToRoute('homepage');
+            }
+            }
+            $parameters['cash'] = $this->cashinput;
+            $params_valid = true;
 
+        if($this->cashinput === true){
+            // dd($this->session->get('TranSimID'));
+            $timetolive =24;
+            if($timetolive == ''){
+                $params_valid = false;
+                $result['error_message'] = "Please select a time to live";
+            }else{
+                $payment_type = '1'; //1 for Cashout, 2 for External Transfer
+                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
+                $form_data = [
+                    "TranSimID" => $this->session->get('TranSimID'),
+                    "PaymentType" => $payment_type,  //1 for Cashout
+                    "TimeToLive" => $timetolive,  // 1 for 1 Hour, 2 for 2 Hours.... till 24 Hours
+                    'Hash' => $Hash,
+                    "lang" => $parameters['lang'],
+                ];
+                // dd($form_data);
+            }
+            $parameters['timetolive'] = $timetolive;
+
+            if($params_valid){
+
+                $params['data'] = json_encode($form_data);
+                $params['url'] = 'Incentive/SimulatePayment';
+                $response = Helper::send_curl($params);
+                $parameters['simulate_payment_response'] = json_decode($response, true);
+                // $parameters['simulate_payment_response']['ATMCode']="okokokok";
+                // $parameters['simulate_payment_response']['RespDesc']=null;
+            }
+        }
         return $this->render('request/generateCode.html.twig',$parameters);
     }
 

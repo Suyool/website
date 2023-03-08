@@ -9,6 +9,7 @@
             padding: 20px;
             width: 175px;
             border-radius: 50%;
+            height: 175px;
         }
         .user_name{
             font-size: 21px;
@@ -38,6 +39,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        max-width: 500px;
         .title{
             font-size: 12px;
             font-family: PoppinsBold;

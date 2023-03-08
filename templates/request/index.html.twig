@@ -41,7 +41,7 @@
             </a>
         {% endif %}
        
-        <a class="container-fluid choose_way" href="/request/generateCode?code={{ app.session.get('Code') }}" title="generate code">
+        <a class="container-fluid choose_way" href="/request/generateCode?code={{ app.session.get('Code') }}&type=cash" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
                     <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >

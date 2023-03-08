@@ -513,7 +513,11 @@ class Helper
         return str_replace($western_arabic, $eastern_arabic, $number);
     }
     public static function send_curl($params) {
-        $host = 'https://hey-pay.mobi/';
+        if($_ENV['APP_ENV']=='prod'){
+            $host = 'https://hey-pay.mobi/';
+        }else{
+            $host = 'https://stage.elbarid.com/' ;
+        }
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
