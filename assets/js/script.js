@@ -1,4 +1,5 @@
 $('.submitTextDownloadAppBtn').on('click', function(e) {
+    // console.log( $(this).attr('code'));
     e.preventDefault();
 
     // Get the mobile number from the input field

@@ -1,54 +1,57 @@
 <?php
 namespace App\Controller;
 
+use App\Translation\translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\Helper;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InvitationCardController extends AbstractController
 {
 
     private $hash_algo;
     private $certificate;
+    private $trans;
 
-    public function __construct(string $hash_algo, string $certificate)
+    public function __construct(string $hash_algo, string $certificate,translation $trans)
     {
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
+        $this->trans=$trans;
     }
 
     /**
      * @Route("/{code}", name="invitation_card")
      */
-    public function index(string $code, Request $request): Response
+    public function index($code, Request $request,TranslatorInterface $translator): Response
     {
         // Clean the code parameter
         $code = Helper::clean($code);
 
         // Get the language from the cookie or the session
-        if ($request->cookies->has('language')) {
-            $lang = $request->cookies->get('language');
-        } else {
-            $lang = $request->getSession()->get('LANG');
-        }
-        $lang = 'en';
+        $parameters=$this->trans->translation($request,$translator);
         // Calculate the hash
-        $hash = base64_encode(hash($this->hash_algo, $code . $lang . $this->certificate, true));
+        $hash = base64_encode(hash($this->hash_algo, $code . $parameters['lang'] . $this->certificate, true));
 
         // Prepare the form data
         $form_data = [
             'Code' => $code,
-            'lang' => $lang,
+            'lang' => $parameters['lang'],
             'Hash' => $hash,
         ];
         $params['data'] = json_encode($form_data);
         $params['url'] = 'Incentive/CardInvitationDetails';
         // Send the first curl request
-        //$response = Helper::send_curl($params);
-        $arr = array('RespCode' => 0, 'RespDesc' => 'Successful', 'RespTitle' => '{Name} invited you to start paying less with sKash for your daily transactions just like he is.', 'InviterName' => 'Gregorios Georgiou');
-        $response = json_encode($arr);
+        $response = Helper::send_curl($params);
+        // $arr = array('RespCode' => 0, 'RespDesc' => 'Successful', 'RespTitle' => '{Name} invited you to start paying less with sKash for your daily transactions just like he is.', 'InviterName' => 'Gregorios Georgiou');
+        // dd($arr);
+        // $parameters['Invitation'] = json_decode($response, true);
+        // dd($parameters);
+        // $response = json_encode($arr);
         // Decode the response
         $invitation_card_details_response = json_decode($response, true);
         // Replace the inviter name in the response title

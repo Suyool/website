@@ -41,6 +41,9 @@ return [
     'GENERATE_CODE_TO_WITHDRAW_CASH'=>'Generate code to withdraw cash from the nearest ……',
     //
     'NEAREST_MONEY_WITHDRAW'=>'Go to the nearest & show them the code to receive your money.<br/><br/> Kindly note the code is only available for 24h.',
-    'VALID_24HRS_IF_YOU_DONT'=>'Kindly note the code is only available for 24h.If you don t withdraw the money, the amount will go back to the sender.'
-
+    'VALID_24HRS_IF_YOU_DONT'=>'Kindly note the code is only available for 24h.If you don t withdraw the money, the amount will go back to the sender.',
+    //Invitation
+    "18_AND_ABOVE"=>"You have to be 18 and above to be eligible",
+    "ALREADY_SUBMITTED"=>"You already submitted a mobile number on this device"
+    
 ];

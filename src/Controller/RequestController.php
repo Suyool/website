@@ -75,10 +75,26 @@ class RequestController extends AbstractController
             isset($parameters['request_details_response']['image']) 
                 ? $parameters['request_details_response']['image']
                 : '');
-        $this->session->set("SenderInitials",
-            isset($parameters['request_details_response']['SenderName'])
-                ? $this->GetInitials($parameters['request_details_response']['SenderName'])
-                : '');
+                $this->session->set("SenderInitials",
+                isset($parameters['request_details_response']['SenderName'])
+                    ? $parameters['request_details_response']['SenderName']
+                    : '');
+            $this->session->set("TranSimID",
+                isset($parameters['request_details_response']['TranSimID'])
+                    ? $parameters['request_details_response']['TranSimID']
+                    : '');
+                    $this->session->set("AllowATM",
+                isset($parameters['request_details_response']['AllowATM'])
+                    ? $parameters['request_details_response']['AllowATM']
+                    : '');
+                    $this->session->set("AllowExternal",
+                isset($parameters['request_details_response']['AllowExternal'])
+                    ? $parameters['request_details_response']['AllowExternal']
+                    : '');
+                    $this->session->set("AllowBenName",
+                isset($parameters['request_details_response']['AllowBenName'])
+                    ? $parameters['request_details_response']['AllowBenName']
+                    : '');
         $this->session->set("IBAN",
             isset($parameters['request_details_response']['IBAN'])
                 ? $parameters['request_details_response']['IBAN']
@@ -147,6 +163,7 @@ class RequestController extends AbstractController
                 // $parameters['simulate_payment_response']['RespDesc']=null;
             }
         }
+        // dd($parameters);
         return $this->render('request/generateCode.html.twig',$parameters);
     }
 

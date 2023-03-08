@@ -148,10 +148,10 @@ class Helper
      * @param \DateTime|false $date
      * @return string|false
      */
-    function getRssDate($date = false)
-    {
-        return (!$date) ? gmdate("D, d M Y H:i:s T", time()) : gmdate("D, d M Y H:i:s T", strtotime($date));
-    }
+    // function getRssDate($date = false)
+    // {
+    //     return (!$date) ? gmdate("D, d M Y H:i:s T", time()) : gmdate("D, d M Y H:i:s T", strtotime($date));
+    // }
 
     /**
      * @param string $url
@@ -516,7 +516,7 @@ class Helper
         if($_ENV['APP_ENV']=='prod'){
             $host = 'https://hey-pay.mobi/';
         }else{
-            $host = 'https://stage.elbarid.com/' ;
+            $host = 'https://yohpay.com/' ;
         }
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
