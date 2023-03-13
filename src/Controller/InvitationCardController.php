@@ -30,7 +30,7 @@ class InvitationCardController extends AbstractController
     public function index($code, Request $request,TranslatorInterface $translator): Response
     {
         // Clean the code parameter
-        $code = Helper::clean($code);
+        // $code = Helper::clean($code);
 
         // Get the language from the cookie or the session
         $parameters=$this->trans->translation($request,$translator);
