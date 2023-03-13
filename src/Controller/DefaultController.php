@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Managers;
 use App\Entity\Rates;
 use App\Translation\translation;
 use App\Utils\Helper;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,8 +34,9 @@ class DefaultController extends AbstractController
      * @throws \Psr\Cache\InvalidArgumentException
      */
 
-    public function indexAction(Request $request, TranslatorInterface $translator)
+    public function indexAction(Request $request, TranslatorInterface $translator,EntityManagerInterface $em)
     {
+        // dd($em->getRepository(Managers::class)->findAll());
         $trans=$this->trans->translation($request,$translator);
         return $this->render('base.html.twig');
     }
