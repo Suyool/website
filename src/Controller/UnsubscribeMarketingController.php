@@ -39,8 +39,8 @@ class UnsubscribeMarketingController extends AbstractController
             if ($response['RespCode'] == 1) {
                 $title = 'You have been unsubscribed';
                 $url = "/UnsubscribeMarketing?uniqueCode=" . $code . "&Flag=1";
-                $description = 'You have been successfully removed from this list. <span class="error-check">If you did this in error, click</span> <br>
-                                <button type="button" class="btn btn-primary button-primary openModel" data-bs-toggle="modal" data-bs-target="#myModal" id="resubscribe" onclick="resubscribe('.$code.', '.$flag.')">
+                $description = 'You have been successfully removed from this list. <span class="error-check">If you did this in error</span> <br>
+                                <button type="button" class="openModel" data-bs-toggle="modal" data-bs-target="#myModal" id="resubscribe" onclick="resubscribe('.$code.', '.$flag.')">
                                 Re-Subscribe
                                 </button>';
                 $image = "unverified-msg.png";
