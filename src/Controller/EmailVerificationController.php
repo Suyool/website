@@ -25,7 +25,7 @@ class EmailVerificationController extends AbstractController
             $response = json_decode($result, true);
             // Default value of the notification
 
-            // $response['RespCode'] = 1;
+            $response['RespCode'] = 1;
             // If the Email is Verified and the user is not registered
             if ($response['RespCode'] == 1 || $response['RespCode'] == 0) {
                 $title = 'You have verified your email';
