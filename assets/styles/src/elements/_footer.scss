@@ -1,10 +1,10 @@
 footer{
-    padding-top: 30px;
+    padding-top: 55px;
     .container-fluid{
         padding-right: 5%;
         padding-left: 5%;
     }
-min-height: 450px;
+min-height: 505px;
   background-color: #373464; /* For browsers that do not support gradients */
   background-image: linear-gradient(to left, #373464 , #226D96);
   position: relative;
@@ -14,11 +14,12 @@ min-height: 450px;
     width: 100%;
     position: absolute;
     background-color:#373464 ;
-    height: 60px;
+    height: 72px;
     text-align:  center;
     color: #fff;
     bottom: 0;
-    padding: 16px;
+    font-size: 14px;
+    padding: 25px;
   }
   .content{
     img{
