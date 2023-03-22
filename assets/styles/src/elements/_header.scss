@@ -1,12 +1,13 @@
 nav {
   background: linear-gradient(31deg, #cccccc94 6%, #fff 26%);
+  font-family: PoppinsRegular;
 
   .navbar-nav {
     li {
       margin-right: 50px;
 
-      a {
-        color: #000000;
+      .nav-link {
+        color: #000000!important;
       }
 
       .button-primary {
