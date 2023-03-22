@@ -13,12 +13,22 @@
         padding-bottom: 56px;
     }
     img{
-        width: 200px;
+        width: 170px;
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     }
     .merchant1{
         text-align: right;
     }
     .merchant5{
         text-align: left;
+    }
+    @media screen and (max-width:991px) {
+        .merchant1{
+            text-align: center;
+        }
+        .merchant5{
+            text-align: center;
+        }
     }
 }
