@@ -1,6 +1,6 @@
 {
   "build/app.js": "/build/app.6eab7d22.js",
-  "build/styles.css": "/build/styles.e4b14d23.css",
+  "build/styles.css": "/build/styles.f18f42c8.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
@@ -35,7 +35,11 @@
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
+  "build/images/Transfer.png": "/build/images/Transfer.png",
+  "build/images/Shopping.png": "/build/images/Shopping.png",
+  "build/images/Payment.png": "/build/images/Payment.png",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
+  "build/images/OnlinePayment.png": "/build/images/OnlinePayment.png",
   "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png",
   "build/images/payment/person.png": "/build/images/payment/person.png"
 }

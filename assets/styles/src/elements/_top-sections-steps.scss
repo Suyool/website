@@ -1,0 +1,18 @@
+.top-section-step-container {
+  font-family: PoppinsRegular;
+  background-color: #f5f6f7;
+  margin-bottom: 70px;
+  .top-section-step-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    span {
+      color: #373464;
+      font-size: 18px;
+    }
+    p {
+      color: #949494;
+      font-size: 14px;
+    }
+  }
+}
