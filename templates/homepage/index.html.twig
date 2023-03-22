@@ -2,23 +2,7 @@
 {% block body %}
     <div class="homepage">
         <div class="container-fluid top-section">
-            <div class="row">
-                <div class="col-6 top-info">
-                    <h1>Everyday payments<br> made easy</h1>
-                    <p>A 100% digital account to pay as you like. Send &<br> receive money with 0% fees, pay on the go at the<br> current market rate.</p>
-                    <div class="buttons-cont">
-                        <button class="btn button-primary mr-5">Get Started -></button>
-                        <button class="btn btn-outline-secondary">Learn more</button>
-                    </div>
-
-                </div>
-                <div class="col-6 right-section">
-                    <div class="img-cont">
-                        <img src="{{ asset('build/images/rectangle-topsection.png') }}" alt="Suyool">
-                        <div class="img-desc"><span><i class="fa-solid fa-circle-check"></i>Easiest & safest <br> payment tool</span></div>
-                    </div>
-                </div>
-            </div>
+            {% include 'homepage/topSection.html.twig' %}
         </div>
     </div>
 {% endblock %}
