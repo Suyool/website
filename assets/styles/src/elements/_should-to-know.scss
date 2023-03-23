@@ -1,0 +1,51 @@
+.should-to-know {
+  margin-bottom: 100px;
+
+  .info {
+    padding: 80px 70px;
+
+    h6 {
+      color: #373464;
+      font-family: PoppinsBold;
+    }
+
+    h2 {
+      margin: 30px 0;
+      font-family: PoppinsRegular;
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: 14px;
+      color: #6B6B6B;
+      font-family: PoppinsRegular;
+    }
+
+    .button-primary {
+      padding: 10px 30px;
+      font-family: PoppinsSemiBold;
+    }
+  }
+  .box {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    span {
+      font-family: PoppinsSemiBold;
+      font-size: 20px;
+    }
+    p {
+      color: #6B6B6B;
+      font-size: 14px;
+      font-family: PoppinsRegular;
+      margin-top: 10px;
+    }
+  }
+
+  @media all and (max-width: 768px) {
+    .info {
+      padding: 40px 0;
+    }
+  }
+}

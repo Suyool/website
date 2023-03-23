@@ -1,6 +1,6 @@
 {
   "build/app.js": "/build/app.6eab7d22.js",
-  "build/styles.css": "/build/styles.c0de7ead.css",
+  "build/styles.css": "/build/styles.609d06f8.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
@@ -32,6 +32,8 @@
   "build/images/suyool-Logo.png": "/build/images/suyool-Logo.png",
   "build/images/s-logo-blue.png": "/build/images/s-logo-blue.png",
   "build/images/usd.svg": "/build/images/usd.svg",
+  "build/images/pay-at-real.png": "/build/images/pay-at-real.png",
+  "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
