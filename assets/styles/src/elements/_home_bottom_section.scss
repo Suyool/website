@@ -9,21 +9,20 @@
     }
     .adopters{
         color: #374A5A;
-        font-family: PoppinsBold;
-        font-size: 30px;
+        font-family: 'PoppinsSemiBold';
+        font-size: 35px;
         padding-bottom: 56px;
     }
     form{
         label{
             img{
-                width: 30px;
-                margin-right: 17px;
+                width: 50px;
             }
 
         }
         margin: auto;
         background-color:#EFEEF6 ;
-        max-width: 500px;
+        max-width: 570px;
         padding: 20px;
         border-radius: 10px;
         input[type=email]{

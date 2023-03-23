@@ -1,6 +1,6 @@
 {
   "build/app.js": "/build/app.5d6a5740.js",
-  "build/styles.css": "/build/styles.2d3419be.css",
+  "build/styles.css": "/build/styles.9a59467c.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
@@ -51,6 +51,7 @@
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
   "build/images/Transfer.png": "/build/images/Transfer.png",
   "build/images/check.png": "/build/images/check.png",
+  "build/images/check2.png": "/build/images/check2.png",
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/Payment.png": "/build/images/Payment.png",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",

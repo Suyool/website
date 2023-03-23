@@ -1,12 +1,9 @@
 .notification-section{
     .image{
-        max-width:463px ;
+        max-width:500px ;
         img{
             width: 100%;
         }
-    }
-    img{
-        max-width: 445px;
     }
     .center{
         text-align: center;
@@ -14,19 +11,19 @@
     .updated{
         color: #373464;
         font-family: 'PoppinsMedium';
-        font-size: 24px;
+        font-size: 20px;
         /* line-height: 100px; */
-        padding-bottom: 30px;
+        padding-bottom: 15px;
     }
     .receive{
         color: #374A5A;
-        font-size: 40px;
+        font-size: 38px;
         font-family: 'PoppinsRegular';
     }
     .title{
         color: #00000080;
         padding-top: 15px;
-        font-size: 22px;
+        font-size: 20px;
         font-family: 'PoppinsRegular';
     }
     .checked{
@@ -65,9 +62,9 @@
     .updated{
         color: #373464;
         font-family: 'PoppinsMedium';
-        font-size: 24px;
+        font-size: 20px;
         /* line-height: 100px; */
-        padding-bottom: 30px;
+        padding-bottom: 15px;
     }
     .receive{
         color: #374A5A;
@@ -124,7 +121,7 @@
     }
     .receive{
         color: #374A5A;
-        font-size: 30px;
+        font-size: 38px;
         font-family: 'PoppinsRegular';
     }
     .title{
