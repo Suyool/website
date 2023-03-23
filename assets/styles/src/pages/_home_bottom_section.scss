@@ -1,0 +1,47 @@
+.register-section{
+    text-align: center;
+    padding: 60px;
+    .register{
+        color: #226D96;
+        font-family: PoppinsMedium;
+        font-size: 20px;
+        line-height: 50px;
+    }
+    .adopters{
+        color: #374A5A;
+        font-family: PoppinsBold;
+        font-size: 30px;
+        padding-bottom: 56px;
+    }
+    form{
+        label{
+            img{
+                width: 30px;
+                margin-right: 17px;
+            }
+
+        }
+        margin: auto;
+        background-color:#EFEEF6 ;
+        max-width: 500px;
+        padding: 20px;
+        border-radius: 10px;
+        input[type=email]{
+            border: none;
+            background: no-repeat;
+        }
+        input[type=submit]{
+            color: #FFFFFF;
+            border: none;
+            background: #226D96;
+            padding: 14px 25px;
+            font-family: PoppinsMedium;
+            border-radius: 10px;
+            margin-left: 94px;
+            @media screen and (max-width: 768px) {
+                margin-left: 0px;
+                
+            }
+        }
+    }
+}

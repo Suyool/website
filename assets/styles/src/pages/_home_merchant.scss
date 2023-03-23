@@ -1,0 +1,35 @@
+.merchants{
+    text-align: center;
+    padding-top: 100px;
+    .network{
+        color: #226D96;
+        font-family: PoppinsMedium;
+        font-size: 20px;
+        line-height: 50px;
+    }
+    .partner{
+        color: #374A5A;
+        font-family: PoppinsBold;
+        font-size: 30px;
+        padding-bottom: 56px;
+    }
+    img{
+        width: 170px;
+        filter: grayscale(100%);
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    }
+    .merchant1{
+        text-align: right;
+    }
+    .merchant5{
+        text-align: left;
+    }
+    @media screen and (max-width:991px) {
+        .merchant1{
+            text-align: center;
+        }
+        .merchant5{
+            text-align: center;
+        }
+    }
+}
