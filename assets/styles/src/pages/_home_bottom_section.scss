@@ -23,7 +23,7 @@
         }
         margin: auto;
         background-color:#EFEEF6 ;
-        max-width: 100vh;
+        max-width: 500px;
         padding: 20px;
         border-radius: 10px;
         input[type=email]{
@@ -38,6 +38,10 @@
             font-family: PoppinsMedium;
             border-radius: 10px;
             margin-left: 94px;
+            @media screen and (max-width: 768px) {
+                margin-left: 0px;
+                
+            }
         }
     }
 }
