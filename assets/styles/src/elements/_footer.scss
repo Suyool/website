@@ -3,20 +3,9 @@ footer{
 min-height: 505px;
   background-color: #373464; /* For browsers that do not support gradients */
   background-image: linear-gradient(to left, #373464 , #226D96);
-  position: relative;
+  // position: relative;
 
-  .subfooter{
-    font-family: OpenSansRegular;
-    width: 100%;
-    position: absolute;
-    background-color:#373464 ;
-    height: 72px;
-    text-align:  center;
-    color: #fff;
-    bottom: 0;
-    font-size: 14px;
-    padding: 25px;
-  }
+  
   .content{
     img{
         max-width: 120px;
@@ -42,4 +31,16 @@ min-height: 505px;
             display: block;
     }
   }
+}
+.subfooter{
+  font-family: OpenSansRegular;
+  width: 100%;
+  // position: absolute;
+  background-color:#373464 ;
+  height: 72px;
+  text-align:  center;
+  color: #fff;
+  // bottom: 0;
+  font-size: 14px;
+  padding: 25px;
 }
