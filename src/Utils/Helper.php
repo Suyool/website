@@ -516,8 +516,9 @@ class Helper
         if($_ENV['APP_ENV']=='prod'){
             $host = 'https://hey-pay.mobi/';
         }else{
-            $host = 'https://yohpay.com/' ;
+            $host = 'http://10.20.80.57/' ;
         }
+        // dd($host.$params['url']);
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options

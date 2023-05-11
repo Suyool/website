@@ -7,15 +7,15 @@
     {% if payment_details_response.image is defined and payment_details_response.image is not null %}
         <img class="user_img" src="{{ payment_details_response.image  }}">
     {% endif %}
-    {% if payment_details_response.SenderName is defined and payment_details_response.SenderName is not null %}
-<div class="user_name">{{ payment_details_response.SenderName }}</div>
+    {% if payment_details_response.senderName is defined and payment_details_response.senderName is not null %}
+<div class="user_name">{{ payment_details_response.senderName }}</div>
     {% endif %}
         <div class="methode">{{ 'SENT_YOU'|trans  }}</div>
-        {% if payment_details_response.Amount is defined and payment_details_response.Amount is not null %}
-        <div class="amount">{{payment_details_response.Amount}}</div>
+        {% if payment_details_response.amount is defined and payment_details_response.amount is not null %}
+        <div class="amount">{{payment_details_response.amount}}</div>
     {% endif %}
-    {% if payment_details_response.TransferReason is defined and payment_details_response.TransferReason is not null %}
-        <div class="desc">{{payment_details_response.TransferReason}}</div>
+    {% if payment_details_response.transferReason is defined and payment_details_response.transferReason is not null %}
+        <div class="desc">{{payment_details_response.transferReason}}</div>
     {% endif %}
     </div>
 
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-       {% if payment_details_response.AllowExternal is defined and payment_details_response.AllowExternal != "False" %}
+       {% if payment_details_response.allowExternal is defined and payment_details_response.allowExternal != "False" %}
         <a class="container-fluid choose_way" href="/payment/generateCode?code={{  app.session.get('code') }}&type=atm" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">

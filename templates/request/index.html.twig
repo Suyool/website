@@ -4,14 +4,14 @@
 
 {% block body %}
     <div class="container how_to_send_money">
-        {% if request_details_response.image is defined and request_details_response.image is not null %}
+        {% if request_details_response.image is defined and request_details_response.image is not null and request_details_response.image != "" %}
         <img class="user_img" src="{{request_details_response.image}}">
         {% endif %}
-        <div class="user_name">{% if request_details_response.SenderName is defined %}{{request_details_response.SenderName}}{% else %}{{ 'FNAME_LNAME'|trans }}{% endif %}</div>
+        <div class="user_name">{% if request_details_response.senderName is defined %}{{request_details_response.senderName}}{% else %}{{ 'FNAME_LNAME'|trans }}{% endif %}</div>
         <div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>
         {# <div class="methode">{% if request_details_response.RespTitle is defined %}{{request_details_response.RespTitle}}{% else %}{{ 'IS_REQUESTING'|trans  }}{% endif %}</div> #}
-        <div class="amount">{% if request_details_response.Amount is defined %}{{request_details_response.Amount}}{% else %}{{'PRICE'|trans}}{% endif %}</div>
-        <div class="desc">{% if request_details_response.TransferReason is defined %}{{request_details_response.TransferReason}}{% else %}{{'DESCRIPTION'|trans}}{% endif %}</div>
+        <div class="amount">{% if request_details_response.amount is defined %}{{request_details_response.amount}}{% else %}{{'PRICE'|trans}}{% endif %}</div>
+        <div class="desc">{% if request_details_response.transferReason is defined %}{{request_details_response.transferReason}}{% else %}{{'DESCRIPTION'|trans}}{% endif %}</div>
     </div>
 
     <div class="container how_to_pay">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        {% if currency == "$" %}
+        {% if currency == "USD" %}
             <a class="container-fluid choose_way" href="/request/visaCard">
                 <div class="row">
                     <div class="col-2 logo_container">
@@ -55,9 +55,9 @@
             </div>
         </a> #}
        
-        {% if currency == "$" %}
-            {% if request_details_response.IBAN is defined %}
-                <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.IBAN }}">
+        {% if currency == "USD" %}
+            {% if request_details_response.iban is defined %}
+                <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.iban }}">
                     <div class="row">
                         <div class="col-2 logo_container">
                             <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >

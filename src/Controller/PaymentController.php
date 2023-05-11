@@ -37,7 +37,6 @@ class PaymentController extends AbstractController
         $parameters=$this->trans->translation($request,$translator);
 
         
-        $parameters['currency'] = "dolar";
         $parameters['currentPage'] = "payment_landingPage";
 // dd(date("ymdHis"));
         // $code=$request->query->get('code');
@@ -49,18 +48,21 @@ class PaymentController extends AbstractController
         $Hash = base64_encode(hash($this->hash_algo, $code. date("ymdHis") . $parameters['lang']. $this->certificate, true));
         // dd($Hash);
         $form_data = [
-            'Code' => $code,
-            "DateSent" => date("ymdHis"),
-            'Hash' =>  $Hash,
+            'code' => $code,
+            "dateSent" => date("ymdHis"),
+            'hash' =>  $Hash,
             "lang" => $parameters['lang'],
         ];
+
         $params['data']= json_encode($form_data);
-        $params['url'] = 'Incentive/PaymentDetails';
+        // dd($params['data']);
+        $params['url'] = 'SuyoolGlobalApi/api/Payment/PaymentDetails';
         /*** Call the api ***/
         $response = Helper::send_curl($params);
         $parameters['payment_details_response'] = json_decode($response, true);
-            // dd($parameters);
-            $parameters['payment_details_response']['AllowExternal']="True";
+        $parameters['currency'] = $parameters['payment_details_response']['currency'];
+            // dd($parameters['payment_details_response']);
+            // $parameters['payment_details_response']['allowExternal']="True";
         $this->session->set("request_details_response", $parameters['payment_details_response']);
         $this->session->set("code", $code);
         $this->session->set( "image",
@@ -68,25 +70,26 @@ class PaymentController extends AbstractController
                 ? $parameters['payment_details_response']['image']
                 : '');
         $this->session->set("SenderInitials",
-            isset($parameters['payment_details_response']['SenderName'])
-                ? $parameters['payment_details_response']['SenderName']
+            isset($parameters['payment_details_response']['senderName'])
+                ? $parameters['payment_details_response']['senderName']
                 : '');
         $this->session->set("TranSimID",
-            isset($parameters['payment_details_response']['TranSimID'])
-                ? $parameters['payment_details_response']['TranSimID']
+            isset($parameters['payment_details_response']['transactionID'])
+                ? $parameters['payment_details_response']['transactionID']
                 : '');
                 $this->session->set("AllowATM",
-            isset($parameters['payment_details_response']['AllowATM'])
-                ? $parameters['payment_details_response']['AllowATM']
+            isset($parameters['payment_details_response']['allowATM'])
+                ? $parameters['payment_details_response']['allowATM']
                 : '');
                 $this->session->set("AllowExternal",
-            isset($parameters['payment_details_response']['AllowExternal'])
-                ? $parameters['payment_details_response']['AllowExternal']
+            isset($parameters['payment_details_response']['allowExternal'])
+                ? $parameters['payment_details_response']['allowExternal']
                 : '');
                 $this->session->set("AllowBenName",
-            isset($parameters['payment_details_response']['AllowBenName'])
-                ? $parameters['payment_details_response']['AllowBenName']
+            isset($parameters['payment_details_response']['allowBenName'])
+                ? $parameters['payment_details_response']['allowBenName']
                 : '');
+
 
         return $this->render('payment/index.html.twig',$parameters);
     }
