@@ -1,0 +1,47 @@
+.three-easy-steps {
+  margin-bottom: 70px;
+  .info {
+    text-align: center;
+    span {
+      color: #373464;
+      font-family: PoppinsBold;
+    }
+    h2 {
+      font-size: 40px;
+      margin: 20px 0;
+      font-family: PoppinsRegular;
+    }
+    p {
+      font-size: 12px;
+      color: #373464;
+      font-family: PoppinsRegular;
+    }
+  }
+  .steps {
+    margin-top: 30px;
+    .box {
+      border: none;
+      border-radius: 2px;
+      box-shadow: 1px 1px 10px 1px hsl(0deg 0% 99.57%);
+      height: 300px;
+      padding: 25px 30px;
+      background-color: white;
+
+      .number {
+        font-size: 40px;
+        margin-bottom: 50px;
+        font-family: PoppinsBold;
+      }
+      .title {
+        font-family: PoppinsSemiBold;
+        margin-bottom: 30px;
+      }
+      p {
+        font-family: PoppinsRegular;
+        color: #6B6B6B;
+        font-size: 12px;
+        max-width: 365px;
+      }
+    }
+  }
+}

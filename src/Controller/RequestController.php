@@ -45,7 +45,6 @@ class RequestController extends AbstractController
     {
         $parameters=$this->trans->translation($request,$translator);
         // $parameters['currency'] = "LL";
-        $parameters['currency']=$request->query->get('currency');
         $parameters['currentPage'] = "payment_landingPage";
 
         // $code = $request->query->get('code');
@@ -55,21 +54,25 @@ class RequestController extends AbstractController
         $Hash = base64_encode(hash($this->hash_algo, $code. date("ymdHis") . $parameters['lang']. $this->certificate, true));
 
         $form_data = [
-            'Code' => $code,
-            "DateSent" => $dateSent,
-            'Hash' =>  $Hash,
+            'code' => $code,
+            "dateSent" => $dateSent,
+            'hash' =>  $Hash,
             "lang" => $parameters['lang'],
         ];
+        // dd($form_data);
         $params['data']= json_encode($form_data);
-        $params['url'] = 'Incentive/RequestDetails';
+        $params['url'] = 'SuyoolGlobalApi/api/Payment/RequestDetails';
         $response = Helper::send_curl($params);
-
+// dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
+        // dd($parameters['request_details_response']);
+        $parameters['currency']=$parameters['request_details_response']['currency'];
+
         // dd($parameters);
 
-        $parameters['request_details_response']['RespTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['SenderName'],$parameters['request_details_response']['Amount']), $parameters['request_details_response']['RespTitle']);
-        $parameters['request_details_response']['SenderProfilePic']='';
-
+        $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
+        // $parameters['request_details_response']['SenderProfilePic']='';
+// dd($parameters['request_details_response']['image']);
         $this->session->set("request_details_response", $parameters['request_details_response']);
         $this->session->set("Code", $code);
         $this->session->set( "image",
@@ -77,28 +80,28 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['image']
                 : '');
                 $this->session->set("SenderInitials",
-                isset($parameters['request_details_response']['SenderName'])
-                    ? $parameters['request_details_response']['SenderName']
+                isset($parameters['request_details_response']['senderName'])
+                    ? $parameters['request_details_response']['senderName']
                     : '');
             $this->session->set("TranSimID",
-                isset($parameters['request_details_response']['TranSimID'])
-                    ? $parameters['request_details_response']['TranSimID']
+                isset($parameters['request_details_response']['transactionID'])
+                    ? $parameters['request_details_response']['transactionID']
                     : '');
-                    $this->session->set("AllowATM",
-                isset($parameters['request_details_response']['AllowATM'])
-                    ? $parameters['request_details_response']['AllowATM']
-                    : '');
-                    $this->session->set("AllowExternal",
-                isset($parameters['request_details_response']['AllowExternal'])
-                    ? $parameters['request_details_response']['AllowExternal']
-                    : '');
-                    $this->session->set("AllowBenName",
-                isset($parameters['request_details_response']['AllowBenName'])
-                    ? $parameters['request_details_response']['AllowBenName']
-                    : '');
+                //     $this->session->set("AllowATM",
+                // isset($parameters['request_details_response']['AllowATM'])
+                //     ? $parameters['request_details_response']['AllowATM']
+                //     : '');
+                //     $this->session->set("AllowExternal",
+                // isset($parameters['request_details_response']['AllowExternal'])
+                //     ? $parameters['request_details_response']['AllowExternal']
+                //     : '');
+                //     $this->session->set("AllowBenName",
+                // isset($parameters['request_details_response']['AllowBenName'])
+                //     ? $parameters['request_details_response']['AllowBenName']
+                //     : '');
         $this->session->set("IBAN",
-            isset($parameters['request_details_response']['IBAN'])
-                ? $parameters['request_details_response']['IBAN']
+            isset($parameters['request_details_response']['iban'])
+                ? $parameters['request_details_response']['iban'] 
                 : '');
 
         // $session = $request->getSession();

@@ -6,7 +6,9 @@
     text-align: right;
     direction: rtl;
 }
-
+body {
+    background-color: hsl(0deg 5.57% 71.65% / 9%);
+}
 a{
     text-decoration: none;
     color: unset;
@@ -29,4 +31,26 @@ a:hover{
 
 .displayNone {
     display: none;
+}
+
+.container-fluid {
+    padding-right: 5%;
+    padding-left: 5%;
+}
+.learnmore{
+    background: #226d96;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    display: inline-flex;
+    font-family: PoppinsMedium;
+    margin-top: 50px;
+    padding: 15px 30px;
+    &:hover{
+        color: #fff;
+    }
+}
+
+.right{
+    text-align: right;
 }

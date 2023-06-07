@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="areeba">
+<img {% if success is defined and success == 'true' %}src="{{asset('build/images/approved.png')}}"{% else %}src="{{asset('build/images/decline.png')}}"{% endif %}>
+{% if success is defined and success == 'true' %}<h3>Top Up Successful</h3>{% else %} <h3>Top Up Failed</h3> {% endif %}
+<div class="desc">{% if success is defined and success == 'true' %}Your wallet has been topped up with <br> {{Currency}} {{Amount}}. Check your new balance{% else %}An error has occurred with your top up. Please try again later. Or use another top up method.{% endif %}</div>
+    {% if success is defined and success == 'true' %}    
+    <button type="button" class="btn button-primary mt-4">Continue</button>
+    {% else %}
+        <button type="button" class="btn button-primary mt-4">Try Again</button>
+    {% endif %}
+
+    </div>
+    {% endblock %}

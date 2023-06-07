@@ -1,0 +1,49 @@
+.transaction-anywhere {
+  margin-bottom: 100px;
+
+  .info {
+    padding: 80px 90px;
+
+    h6 {
+      color: #373464;
+      font-family: PoppinsBold;
+    }
+
+    h2 {
+      margin: 30px 0;
+      font-family: PoppinsRegular;
+      font-size: 38px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #6B6B6B;
+      font-family: PoppinsRegular;
+
+      span {
+        margin-top: 15px;
+        margin-bottom: 40px;
+        display: block;
+      }
+    }
+
+    .button-primary {
+      padding: 10px 30px;
+      font-family: PoppinsSemiBold;
+    }
+  }
+
+  .img-cont {
+    max-width: 500px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @media all and (max-width: 768px) {
+    .info {
+      padding: 40px 0;
+    }
+  }
+}

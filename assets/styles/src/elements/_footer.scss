@@ -1,0 +1,46 @@
+footer{
+    padding-top: 55px;
+min-height: 505px;
+  background-color: #373464; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to left, #373464 , #226D96);
+  // position: relative;
+
+  
+  .content{
+    img{
+        max-width: 120px;
+    }
+    .SmartTrans{
+        display: block;
+        padding-top: 23px;
+        color: #ffffff;
+        opacity: 0.5;
+        font-family: PoppinsRegular;
+    }
+    .title_A{
+        color:#D7D7E2 ;
+        font-family:PoppinsMedium ;
+        font-size: 25px!important;
+        line-height: 47px;
+    }
+    .desc_A{
+            color:#D7D7E2 ;
+            font-family:PoppinsMedium ;
+            font-size: 20px;
+            line-height: 60px;
+            display: block;
+    }
+  }
+}
+.subfooter{
+  font-family: OpenSansRegular;
+  width: 100%;
+  // position: absolute;
+  background-color:#373464 ;
+  height: 72px;
+  text-align:  center;
+  color: #fff;
+  // bottom: 0;
+  font-size: 14px;
+  padding: 25px;
+}

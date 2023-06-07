@@ -3,13 +3,25 @@
 @import 'src/basic/common';
 @import 'src/basic/fonts';
 @import 'src/basic/variables';
-
-// @import 'src/basic/bootstrap-modal';
 // @import 'src/basic/bootstarp-grid';
+// @import 'src/basic/bootstrap-carousel';
+// @import 'src/basic/bootstrap-modal';
 
 @import 'src/elements/header';
+@import 'src/elements/footer';
+@import 'src/elements/top-sections-steps';
+@import 'src/elements/3easy-steps';
+@import 'src/elements/transaction-anywhere';
+@import 'src/elements/should-to-know';
+@import 'src/elements/home_bottom_section';
+@import 'src/elements/home_merchant';
+@import 'src/elements/info_sections.scss';
 
 @import 'src/pages/payment';
 @import 'src/pages/emailVerification';
 @import 'src/pages/invitation';
 @import 'src/pages/invitation-sections';
+@import 'src/pages/homepage';
+@import 'src/pages/areebapayment.scss';
+
+
