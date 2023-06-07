@@ -101,7 +101,7 @@ class RequestController extends AbstractController
                 //     : '');
         $this->session->set("IBAN",
             isset($parameters['request_details_response']['iban'])
-                ? $parameters['request_details_response']['iban']
+                ? $parameters['request_details_response']['iban'] 
                 : '');
 
         // $session = $request->getSession();

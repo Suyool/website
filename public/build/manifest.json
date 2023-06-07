@@ -1,6 +1,6 @@
 {
   "build/app.js": "/build/app.5d6a5740.js",
-  "build/styles.css": "/build/styles.f8fe9a30.css",
+  "build/styles.css": "/build/styles.80bd6bd2.css",
   "build/runtime.js": "/build/runtime.7394a4c4.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
@@ -47,6 +47,8 @@
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/bank.png": "/build/images/bank.png",
+  "build/images/decline.png": "/build/images/decline.png",
+  "build/images/approved.png": "/build/images/approved.png",
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
