@@ -23,9 +23,7 @@ class Helper
         curl_close($ch);
         return $ret;
     }
-
-
-    public static function send_curl($params,$app=null,$accessToken=null) {
+       public static function send_curl($params,$app=null,$accessToken=null) {
         // dd($params);
         if($accessToken != null){
             $host = $params['url'];

@@ -2,12 +2,18 @@
   "entrypoints": {
     "app1": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/app1.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.b2442cfa.js"
+>>>>>>> 3312c27 (call api handle)
       ]
     },
     "app2": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/app2.js"
       ]
@@ -15,16 +21,31 @@
     "LegalEnrollement": {
       "js": [
         "/build/runtime.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app2.6eb7c76f.js"
+>>>>>>> 3312c27 (call api handle)
       ]
     },
     "styles": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js"
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/styles.80bd6bd2.css"
+>>>>>>> 3312c27 (call api handle)
       ]
     },
     "react_styles": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js"
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 3312c27 (call api handle)
       ],
       "css": [
         "/build/react_styles.css"

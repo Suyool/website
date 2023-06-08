@@ -11,6 +11,7 @@ use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,6 +87,7 @@ class LotoController extends AbstractController
             '50' => $parameters['unit_price'] * 50,
             '100' => $parameters['unit_price'] * 100,
             '500' => $parameters['unit_price'] * 500
+
         ];
         // $parameters['B8gridprice'] = $parameters['B1gridprice'] * 8;
 
@@ -93,6 +95,7 @@ class LotoController extends AbstractController
 
         $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
         $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams,'loto');
+
 
         $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
         $numbers = 6;
