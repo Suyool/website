@@ -37,10 +37,11 @@ class Helper
     }
 
     public static function send_curl($params) {
+        // dd($params);
         if($_ENV['APP_ENV']=='prod'){
             $host = 'https://globalapi.suyool.money/api/';
         }else{
-            $host = 'http://10.20.80.57/' ;
+            $host = 'https://backbone.lebaneseloto.com' ;
         }
         // dd($host.$params['url']);
         if (isset($params['url']) || isset($params['data'])) {
@@ -50,6 +51,7 @@ class Helper
 
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
+            // dd($data);
             //If the request type is not get, add the CURL postfield data
             (!isset($params['type']) || $params['type'] != 'get') ? curl_setopt($ch, CURLOPT_POSTFIELDS, $data) : '';
             //If type of the request is post add it
@@ -66,6 +68,7 @@ class Helper
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $ret = curl_exec($ch);
             curl_close($ch);
+
             return $ret;
 
         }
