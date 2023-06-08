@@ -1,9 +1,15 @@
 {
   "entrypoints": {
-    "app": {
+    "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app.51ddc876.js"
+        "/build/app1.b2442cfa.js"
+      ]
+    },
+    "app2": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/app2.488d782c.js"
       ]
     },
     "styles": {
