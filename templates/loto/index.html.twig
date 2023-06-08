@@ -13,7 +13,7 @@
 		<title>Loto</title>
 	</head>
 	<body class="loto">
-		<div id="loto" data-data="{{ v|json_encode }}"></div>
+		<div id="loto" data-data="{{ parameters|json_encode }}"></div>
 	</body>
 	{% block javascripts %}
 		{% for file in encore_entry_js_files('app2') %}

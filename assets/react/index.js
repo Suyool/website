@@ -9,6 +9,6 @@ const data = JSON.parse(container.dataset.data);
 
 root.render(
     <React.StrictMode>
-        <App v={data} />
+        <App parameters={data} />
     </React.StrictMode>
 );

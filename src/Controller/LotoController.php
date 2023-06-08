@@ -112,6 +112,8 @@ class LotoController extends AbstractController
         $parameters['gridpricebynum']=$gridpricebynumData['d'];
 
         // dd($parameters);
-        return $this->render('loto/index.html.twig', $parameters);
+        return $this->render('loto/index.html.twig',[
+            'parameters'=>$parameters
+        ]);
     }
 }

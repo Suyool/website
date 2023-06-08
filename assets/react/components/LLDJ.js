@@ -1,24 +1,25 @@
 import React from "react";
 
-const LLDJ = () => {
+const LLDJ = ({parameters}) => {
 
+    console.log(parameters);
     return (
         <div className="LLDJ">
 
             <div className="estimatedPriceSection mt-3">
                 <div className="title">Next Loto Estimated Jackpot</div>
-                <div className="priceLoto">LBP 12,000,000,000</div>
+                <div className="priceLoto">LBP {parameters.next_loto_win}</div>
                 <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
             </div>
 
             <div className="estimatedPriceSection mt-3">
                 <div className="title">Next Zeed Estimated Jackpot</div>
-                <div className="priceZeed">LBP 400,000,000</div>
+                <div className="priceZeed">LBP {parameters.next_zeed_win}</div>
                 <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />
             </div>
 
             <div className="nextDraw m-4">
-                <div className="title">Next Draw #2114</div>
+                <div className="title">Next Draw #{parameters.next_draw_number}</div>
                 <div className="desc">Thursday Jun, 01, 2023</div>
                 <div className="timeSection">
                     <div className="items">
