@@ -4,12 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0;
-
 
     .scrolableView {
         width: 100%;
-        height: 82vh;
+        height: 90vh;
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
@@ -40,7 +38,7 @@
                 padding: 10px 0 10px 40px;
                 margin-left: 20px;
                 background-color: #bc2724;
-                width: 320px;
+                width: 300px;
                 background-image: linear-gradient(to bottom, #c65635, #bc2724);
             }
 
@@ -51,7 +49,7 @@
                 padding: 10px 0 10px 40px;
                 margin-left: 20px;
                 background-color: #ca9636;
-                width: 320px;
+                width: 300px;
                 background-image: linear-gradient(to bottom, #ca9636, #f2b341);
             }
 

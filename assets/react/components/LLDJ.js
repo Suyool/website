@@ -1,6 +1,7 @@
 import React from "react";
+import Countdown from "./Countdown";
 
-const LLDJ = ({parameters}) => {
+const LLDJ = ({ parameters }) => {
 
     console.log(parameters);
     return (
@@ -20,8 +21,8 @@ const LLDJ = ({parameters}) => {
 
             <div className="nextDraw m-4">
                 <div className="title">Next Draw #{parameters.next_draw_number}</div>
-                <div className="desc">Thursday Jun, 01, 2023</div>
-                <div className="timeSection">
+                <div className="desc">{new Date(parameters.next_date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                {/* <div className="timeSection">
                     <div className="items">
                         <div className="number">02</div>
                         <div className="date">DAYS</div>
@@ -38,7 +39,8 @@ const LLDJ = ({parameters}) => {
                         <div className="number">03</div>
                         <div className="date">SEC</div>
                     </div>
-                </div>
+                </div> */}
+                <Countdown nextDrawNumber={parameters.next_date} />
             </div>
 
             <div className="questionsSection mt-3">
@@ -47,40 +49,17 @@ const LLDJ = ({parameters}) => {
             </div>
 
             <div className="directlyPlaySection">
-                <div className="items">
-                    <div className="nb">6</div>
-                    <div className="title">NUMBERS</div>
-                    <div className="price">20,000LBP</div>
-                    <button className="letsPlayBtn">PLAY</button>
-                </div>
 
-                <div className="items">
-                    <div className="nb">7</div>
-                    <div className="title">NUMBERS</div>
-                    <div className="price">140,000LBP</div>
-                    <button className="letsPlayBtn">PLAY</button>
-                </div>
+                {parameters.gridpricematrix && parameters.gridpricematrix.map((item, index) =>
+                    <div className="items" key={index}>
+                        <div className="nb">{item.numbers}</div>
+                        <div className="title">NUMBERS</div>
+                        <div className="price">{item.price}LBP</div>
+                        <button className="letsPlayBtn">PLAY</button>
+                    </div>
+                )}
 
-                <div className="items">
-                    <div className="nb">8</div>
-                    <div className="title">NUMBERS</div>
-                    <div className="price">560,000LBP</div>
-                    <button className="letsPlayBtn">PLAY</button>
-                </div>
 
-                <div className="items">
-                    <div className="nb">9</div>
-                    <div className="title">NUMBERS</div>
-                    <div className="price">1,680,000LBP</div>
-                    <button className="letsPlayBtn">PLAY</button>
-                </div>
-
-                <div className="items">
-                    <div className="nb">6</div>
-                    <div className="title">NUMBERS</div>
-                    <div className="price">4,200,000LBP</div>
-                    <button className="letsPlayBtn">PLAY</button>
-                </div>
             </div>
         </div>
     );
