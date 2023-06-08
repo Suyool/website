@@ -13,6 +13,8 @@
 		<title>Loto</title>
 	</head>
 	<body class="loto">
+		<div id="loto" data-data="{{ v|json_encode }}"></div>
+
 
 		<div class="footer">
 			<nav class="nav">
@@ -29,7 +31,7 @@
 		</div>
 	</body>
 	{% block javascripts %}
-		{% for file in encore_entry_js_files('app') %}
+		{% for file in encore_entry_js_files('app2') %}
 			<script src="{{ asset(file|substr(1)) }}"></script>
 		{% endfor %}
 	{% endblock %}
