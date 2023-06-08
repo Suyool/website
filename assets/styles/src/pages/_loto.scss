@@ -1,10 +1,206 @@
 #LotoBody {
     height: 100vh;
     position: relative;
-    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
 
 
-    
+    .scrolableView {
+        width: 100%;
+        height: 82vh;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .LLDJ {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .estimatedPriceSection {
+            position: relative;
+
+            .title {
+                padding-left: 60px;
+                font-size: 14px;
+                font-family: PoppinsBold;
+                color: #1C2676;
+            }
+
+            .priceLoto {
+                font-size: 25px;
+                color: white;
+                font-family: PoppinsBold;
+                padding: 10px 0 10px 40px;
+                margin-left: 20px;
+                background-color: #bc2724;
+                width: 320px;
+                background-image: linear-gradient(to bottom, #c65635, #bc2724);
+            }
+
+            .priceZeed {
+                font-size: 25px;
+                color: white;
+                font-family: PoppinsBold;
+                padding: 10px 0 10px 40px;
+                margin-left: 20px;
+                background-color: #ca9636;
+                width: 320px;
+                background-image: linear-gradient(to bottom, #ca9636, #f2b341);
+            }
+
+            img {
+                position: absolute;
+                top: 0;
+            }
+        }
+
+        .nextDraw {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 0 40px 0;
+            background-color: #E9E9E9;
+            width: 100%;
+
+            .title {
+                font-family: PoppinsMedium;
+                font-size: 14px;
+                color: #1C2676;
+                padding: 10px 0;
+                background-color: #E9E9E9;
+            }
+
+            .desc {
+                color: #1C2676;
+                font-family: PoppinsBold;
+                font-size: 14px;
+                padding: 5px 0;
+            }
+
+            .timeSection {
+                position: absolute;
+                display: flex;
+                bottom: -30px;
+                width: 100%;
+                justify-content: space-around;
+                z-index: 10;
+
+                .items {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px 6px;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 10px;
+                    width: 60px;
+                    align-items: center;
+                    background-color: white;
+
+                    .number {
+                        color: #1C2676;
+                        font-size: 15px;
+                        font-family: PoppinsBold;
+                    }
+
+                    .date {
+                        color: #1C2676;
+                        font-size: 13px;
+                        font-family: PoppinsRegular;
+                    }
+                }
+            }
+        }
+
+        .questionsSection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .title {
+                font-family: PoppinsMedium;
+                font-size: 14px;
+                color: #1C2676;
+                padding: 13px;
+            }
+
+            .PlayBtn {
+                background-color: #C82F2A;
+                padding: 12px 0;
+                border: none;
+                border-radius: 20px;
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: white;
+                width: 300px;
+            }
+        }
+
+        .directlyPlaySection {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex-wrap: wrap;
+
+            .items {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                // width: 30%;
+                width: 33.33%;
+                /* Set width to 33.33% for three items per row */
+                box-sizing: border-box;
+
+                .nb {
+                    font-family: PoppinsSemiBold;
+                    font-size: 35px;
+                    width: 50px;
+                    height: 50px;
+                    text-align: center;
+                    border-radius: 50%;
+                    box-shadow: 2px 3px 10px #00000029;
+                }
+
+                .title {
+                    font-family: PoppinsSemiBold;
+                    font-size: 13px;
+                    color: #C73633;
+                }
+
+                .price {
+                    font-family: PoppinsSemiBold;
+                    font-size: 11px;
+                    color: #1C2676;
+                    padding: 8px 0;
+                }
+
+                .letsPlayBtn {
+                    width: 90%;
+                    text-align: center;
+                    background-color: #C73633;
+                    color: white;
+                    font-family: PoppinsMedium;
+                    padding: 5px 0;
+                    border-radius: 5px;
+                    box-shadow: 2px 3px 10px #0000000F;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
     .navigation {
         position: absolute;
         display: flex;
