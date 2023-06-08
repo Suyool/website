@@ -4,9 +4,8 @@ import LLDJ from "./components/LLDJ";
 import Play from "./components/Play";
 import Result from "./components/Result.js";
 
-const App = ({ v }) => {
+const App = ({ parameters }) => {
     const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
-
 
     return (
         <div id="LotoBody">
@@ -14,7 +13,7 @@ const App = ({ v }) => {
             <div className="scrolableView">
                 <img src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
-                {activeButton.name === "LLDJ" && <LLDJ />}
+                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} />}
                 {activeButton.name === "Play" && <Play />}
                 {activeButton.name === "Result" && <Result />}
             </div>
