@@ -67,10 +67,12 @@ class LotoController extends AbstractController
         $numbers = 6;
         $pricematrixarray = [];
         foreach ($GetFullGridPriceMatrix['d']['pricematrix'] as $pricematrix) {
+            if($numbers<11){
             $pricematrixarray[] = [
                 'numbers' => $numbers,
                 'price' => $pricematrix['price0J'],
             ];
+        }
             $numbers++;
         }
 
