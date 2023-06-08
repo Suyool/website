@@ -2,19 +2,19 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.7394a4c4.js",
-        "/build/app1.92738b29.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.b2442cfa.js"
       ]
     },
     "app2": {
       "js": [
-        "/build/runtime.7394a4c4.js",
-        "/build/app2.c7646582.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/app2.6eb7c76f.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.7394a4c4.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
         "/build/styles.80bd6bd2.css"
@@ -22,7 +22,7 @@
     },
     "react_styles": {
       "js": [
-        "/build/runtime.7394a4c4.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
         "/build/react_styles.a351b04f.css"
