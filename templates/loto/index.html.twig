@@ -14,21 +14,6 @@
 	</head>
 	<body class="loto">
 		<div id="loto" data-data="{{ v|json_encode }}"></div>
-
-
-		<div class="footer">
-			<nav class="nav">
-				<a href="#" class="nav__link active">
-					<span class="nav__text">LLDJ</span>
-				</a>
-				<a href="#" class="nav__link radius">
-					<span class="nav__text">PLAY</span>
-				</a>
-				<a href="#" class="nav__link">
-					<span class="nav__text">RESULTS</span>
-				</a>
-			</nav>
-		</div>
 	</body>
 	{% block javascripts %}
 		{% for file in encore_entry_js_files('app2') %}
