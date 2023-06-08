@@ -1,50 +1,117 @@
-.loto{
-        .footer{
-            position: absolute;
-            bottom: 0;
-            nav{
-                background: none;
-            }
-            .nav {
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                height: 55px;
-                background-color: #ffffff;
-                display: flex;
-            }
-            
-            .nav__link {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                flex-grow: 1;
-                min-width: 50px;
-                overflow: hidden;
-                white-space: nowrap;
-                font-family: sans-serif;
-                font-size: 13px;
-                color: #BC2D29;
-                text-decoration: none;
-                -webkit-tap-highlight-color: transparent;
-                transition: background-color 0.1s ease-in-out;
-                &.radius{
-                    background: #1c2676;
-                    max-width: 80px;
-                    margin-top: -20px;
-                    border-radius: 50%;
-                    color: #ffffff;
+#LotoBody {
+    height: 100vh;
+    position: relative;
+    background-color: antiquewhite;
 
-                }
+    .navigation {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        background-color: white;
+        bottom: 0;
+        justify-content: space-around;
+
+
+        .NavBtn {
+            background-color: unset;
+            border: none;
+
+            .title {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #C82F2A;
+                padding-top: 6px;
             }
-            
-            // .nav__link:hover {
-            //     background-color: #1c2676;
-            // }
-            
-            .active {
-                color: #1c2676;
+
+            .activeTitle {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #1C2676;
+                padding-top: 6px;
             }
         }
+
+        .PlayActive {
+            background-color: #1C2676;
+            border-radius: 50%;
+            padding: 15px 25px;
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .loto{
+//         .footer{
+//             position: absolute;
+//             bottom: 0;
+//             nav{
+//                 background: none;
+//             }
+//             .nav {
+//                 position: fixed;
+//                 bottom: 0;
+//                 width: 100%;
+//                 height: 55px;
+//                 background-color: #ffffff;
+//                 display: flex;
+//             }
+
+//             .nav__link {
+//                 display: flex;
+//                 flex-direction: column;
+//                 align-items: center;
+//                 justify-content: center;
+//                 flex-grow: 1;
+//                 min-width: 50px;
+//                 overflow: hidden;
+//                 white-space: nowrap;
+//                 font-family: sans-serif;
+//                 font-size: 13px;
+//                 color: #BC2D29;
+//                 text-decoration: none;
+//                 -webkit-tap-highlight-color: transparent;
+//                 transition: background-color 0.1s ease-in-out;
+//                 &.radius{
+//                     background: #1c2676;
+//                     max-width: 80px;
+//                     margin-top: -20px;
+//                     border-radius: 50%;
+//                     color: #ffffff;
+
+//                 }
+//             }
+
+//             // .nav__link:hover {
+//             //     background-color: #1c2676;
+//             // }
+
+//             .active {
+//                 color: #1c2676;
+//             }
+//         }
+// }
