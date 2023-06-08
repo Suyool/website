@@ -110,6 +110,8 @@ class LotoController extends AbstractController
         
         $gridpricebynumData=json_decode($gridpricebynumResponse,true);
         $parameters['gridpricebynum']=$gridpricebynumData['d'];
+        $parameters['gridpricematrix']=$pricematrixarray;
+
 
         // dd($parameters);
         return $this->render('loto/index.html.twig',[
