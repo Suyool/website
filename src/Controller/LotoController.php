@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Utils\Helper;
+use DateInterval;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +38,8 @@ class LotoController extends AbstractController
         $parameters['next_date'] = $NextDraw['d']['draws'][0]['drawdate'];
 
         $next_date = new DateTime($parameters['next_date']);
+        $interval=new DateInterval('PT3H');
+        $next_date->add($interval);
         $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
 
         // $get_price_grid_form_data=["Token"=>"","Grid"=>"B1"];
@@ -49,12 +52,12 @@ class LotoController extends AbstractController
         $onegridprice = (int)$gridprice['d']['stringvalue1'];
         $parameters['Zeedgridprice'] = $gridprice['d']['stringvalue2'];
         $parameters['gridprice'] = [
-            '1grid' => $onegridprice,
-            '8grid' => $onegridprice * 8,
-            '25grid' => $onegridprice * 25,
-            '50grid' => $onegridprice * 50,
-            '100grid' => $onegridprice * 100,
-            '500grid' => $onegridprice * 500
+            'grid1' => $onegridprice,
+            'grid8' => $onegridprice * 8,
+            'grid25' => $onegridprice * 25,
+            'grid50' => $onegridprice * 50,
+            'grid100' => $onegridprice * 100,
+            'grid500' => $onegridprice * 500
         ];
         // $parameters['B8gridprice'] = $parameters['B1gridprice'] * 8;
 

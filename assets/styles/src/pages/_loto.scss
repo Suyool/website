@@ -296,6 +296,14 @@
 
         }
     }
+    .Play{
+        .gridplays{
+            padding-top: 30px;
+            color: #1C2676;
+            font-family:PoppinsMedium ;
+            font-size: 16px;
+        }
+    }
 
 
 
@@ -341,7 +349,7 @@
             .PlayActive {
                 position: absolute;
                 left: 50%;
-                bottom: 13%;
+                bottom: -13%;
                 transform: translateX(-50%);
                 background-color: #1C2676;
                 box-shadow: 2px 3px 10px #F4F4F4;
