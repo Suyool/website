@@ -38,7 +38,7 @@ const Play = () => {
                 <div className="listSection">
 
                     <div className="listItem">
-                        <div className="checkbox">true</div>
+                        <div className="checkbox"><input type="checkbox" /></div>
                         <div className="playNB">
                             <div className="titleNb">Play Once</div>
                             <div className="desc">Thursday X at 9:00PM</div>
@@ -47,7 +47,7 @@ const Play = () => {
                     </div>
 
                     <div className="listItem">
-                        <div className="checkbox">true</div>
+                        <div className="checkbox"><input type="checkbox" /></div>
                         <div className="playNB">
                             <div className="titleNb">Play Once</div>
                             <div className="desc">Thursday X at 9:00PM</div>
@@ -56,7 +56,7 @@ const Play = () => {
                     </div>
 
                     <div className="listItem">
-                        <div className="checkbox">true</div>
+                        <div className="checkbox"><input type="checkbox" /></div>
                         <div className="playNB">
                             <div className="titleNb">Play Once</div>
                             <div className="desc">Thursday X at 9:00PM</div>
@@ -65,7 +65,7 @@ const Play = () => {
                     </div>
 
                     <div className="listItem">
-                        <div className="checkbox">true</div>
+                        <div className="checkbox"><input type="checkbox" /></div>
                         <div className="playNB">
                             <div className="titleNb">Play Once</div>
                             <div className="desc">Thursday X at 9:00PM</div>
