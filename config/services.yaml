@@ -11,7 +11,7 @@ parameters:
     asset.request_context.base_path: '%router.request_context.base_url%'
     asset.request_context.secure: '%env(SITE_SECURE)%'
     hash_algo: 'sha512'
-    certificate: 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO'
+    certificate: '%env(CERTIFICATE)%'
     # production_url: 'https://www.elnashra.com/'
     app.name: 'Suyool'
 

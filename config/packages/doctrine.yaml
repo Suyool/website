@@ -1,31 +1,49 @@
 doctrine:
     dbal:
         # wrapper_class: App\Doctrine\DynamicConnection
-        url: '%env(resolve:DATABASE_URL)%'
-        charset: UTF8
-        logging: true
-        profiling: false
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+            loto:
+                url: '%env(resolve:LOTO_DATABASE_URL)%'
+        default_connection: default        
+        # charset: UTF8
+        # logging: true
+        # profiling: false
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '13'
     orm:
+        default_entity_manager: default
         auto_generate_proxy_classes: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
-        mappings:
-            App:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-        dql:
-            datetime_functions:
-                UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
-                NOW: DoctrineExtensions\Query\Mysql\Now
-                DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
-                FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
-            string_functions:
-                MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
-                GREATEST: DoctrineExtensions\Query\Mysql\Greatest
-                COLLATE: DoctrineExtensions\Query\Mysql\Collate
+        # naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        # auto_mapping: true
+        entity_managers: 
+            default:
+                connection: default
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+            loto:
+                connection: loto
+                mappings:
+                    Loto:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Loto'
+                        prefix: 'App\Entity\Loto'
+                        alias: Loto
+        # dql:
+        #     datetime_functions:
+        #         UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+        #         NOW: DoctrineExtensions\Query\Mysql\Now
+        #         DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+        #         FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+        #     string_functions:
+        #         MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+        #         GREATEST: DoctrineExtensions\Query\Mysql\Greatest
+        #         COLLATE: DoctrineExtensions\Query\Mysql\Collate
