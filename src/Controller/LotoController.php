@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Loto\LOTO_draw;
+use App\Entity\Loto\LOTO_numbers;
+use App\Entity\Loto\LOTO_tickets;
+use App\Entity\Loto\Table1;
 use App\Utils\Helper;
 use DateInterval;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,32 +18,49 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LotoController extends AbstractController
 {
+    private $mr;
+    public function __construct(ManagerRegistry $mr)
+    {
+        $this->mr=$mr->getManager('loto');
+    }
     /**
      * @Route("/loto", name="app_loto")
      */
-    public function index(Request $request)
+    public function index(Request $request,ManagerRegistry $em)
     {
-        $next_draw_form_data = ["Token" => ""];
-        $NextDrawparams['data'] = json_encode($next_draw_form_data);
-        // $params['type']='post';
-        // $params['url'] = 'https://backbone.lebaneseloto.com/Servicev2.asmx/GetAllDraws';
-        /*** Call the api ***/
-        // $response = Helper::sendCurl($params['url'],$form_data);
-        $NextDrawparams['url'] = "/Servicev2.asmx/GetInPlayAndNextDrawInformation";
+        $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'DESC']);
+        $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
+        $loto_numbers=$this->mr->getRepository(LOTO_numbers::class)->findAll();
 
-        $NextDrawresponse = Helper::send_curl($NextDrawparams);
-        // dd($response);
+        // dd($loto_draw);
 
-        $NextDraw = json_decode($NextDrawresponse, true);
+        // foreach($loto_draw as $loto_draw){
+            if($loto_draw){
+                $parameters['next_draw_number'] = $loto_draw->getdrawid();
+                $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
+                $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
+                $parameters['next_date'] = $loto_draw->getdrawdate();
+                $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+            }
+            if($loto_tikctes){
+                $parameters['unit_price']=$loto_tikctes->getloto_ticket();
+                $parameters['zeed_price']=$loto_tikctes->getzeed_ticket();
+            }
+            // $parameters['gridpricematrix']=[];
+            if($loto_numbers){
+                foreach($loto_numbers as $loto_numbers){
+                    $gridpricematrix[]=[
+                        'numbers'=>$loto_numbers->getnumbers(),
+                        'price'=>$loto_numbers->getprice()
+                    ];
+                }
+                $parameters['gridpricematrix']=$gridpricematrix;
+            }
+            
 
-        // dd($NextDraw);
-        if ($NextDraw) {
-            $parameters['next_draw_number'] = $NextDraw['d']['draws'][0]['drawnumber'];
-            $parameters['next_loto_win'] = $NextDraw['d']['draws'][1]['lotojackpotLBP'];
-            $parameters['next_zeed_win'] = $NextDraw['d']['draws'][1]['zeedjackpotLBP'];
-            $parameters['next_date'] = $NextDraw['d']['draws'][0]['drawdate'];
-        }
-
+        // }
+        
+    //    dd($parameters);
 
         $next_date = new DateTime($parameters['next_date']);
         $interval = new DateInterval('PT3H');
