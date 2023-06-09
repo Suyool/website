@@ -4,9 +4,10 @@ import LLDJ from "./components/LLDJ";
 import Play from "./components/Play";
 import Result from "./components/Result.js";
 import PickYourGrid from "./components/PickYourGrid";
+import Buy from "./components/Buy";
 
 const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
+    const [activeButton, setActiveButton] = useState({ name: "Buy" });
     const [getPickYourGrid, setPickYourGrid] = useState(false);
     const [getBallNumbers, setBallNumbers] = useState(0);
     const [getTotalAmount, setTotalAmount] = useState(0);
@@ -20,6 +21,8 @@ const App = ({ parameters }) => {
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
                 {activeButton.name === "Play" && <Play />}
                 {activeButton.name === "Result" && <Result />}
+
+                {activeButton.name === "Buy" && <Buy />}
             </div>
 
             {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} />}
