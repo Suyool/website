@@ -34,20 +34,20 @@ const LLDJ = ({ parameters }) => {
                 <div className="itemsSection">
                     <div className="items">
                         <div className="title">1 GRID</div>
-                        <div className="price">20,000LBP</div>
+                        <div className="price">{parameters.gridprice.grid1}LBP</div>
                         <button className="letsPlayBtn">PLAY NOW</button>
                     </div>
 
                     <div className="items redone">
                         <div className="image"><img src="/build/images/Loto/popular.png" alt="popular" /></div>
                         <div className="title">8 GRIDS</div>
-                        <div className="price">150,000LBP</div>
+                        <div className="price">{parameters.gridprice.grid8}LBP</div>
                         <button className="letsPlayBtn">PLAY NOW</button>
                     </div>
 
                     <div className="items">
                         <div className="title">BOUQUET</div>
-                        <div className="price">20,000LBP</div>
+                        <div className="price"></div>
                         <button className="letsPlayBtn">PLAY NOW</button>
                     </div>
                 </div>
