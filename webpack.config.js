@@ -41,6 +41,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('styles', './assets/styles/app.scss')
+    .addStyleEntry('react_styles', './assets/styles/react.scss')
     // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
     // .addEntry('app', './assets/app.js')
     // .addEntry('app', './assets/react/index.js')

@@ -5,7 +5,7 @@ const LLDJ = ({ parameters }) => {
 
     console.log(parameters);
     return (
-        <div className="LLDJ">
+        <div id="LLDJ">
 
             <div className="estimatedPriceSection mt-3">
                 <div className="title">Next Loto Estimated Jackpot</div>

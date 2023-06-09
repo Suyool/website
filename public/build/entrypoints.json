@@ -20,14 +20,14 @@
     "styles": {
       "js": [
         "/build/runtime.js"
-      ],
-      "css": [
-        "/build/styles.css"
       ]
     },
     "react_styles": {
       "js": [
         "/build/runtime.js"
+      ],
+      "css": [
+        "/build/react_styles.css"
       ]
     },
     "LegalEnrollementStyle": {
