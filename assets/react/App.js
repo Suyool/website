@@ -15,12 +15,12 @@ const App = ({ parameters }) => {
             <div className="scrolableView">
                 <img src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
-                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} />}
+                {activeButton.name === "LLDJ" && <LLDJ setPickYourGrid={setPickYourGrid} parameters={parameters} />}
                 {activeButton.name === "Play" && <Play />}
                 {activeButton.name === "Result" && <Result />}
             </div>
 
-            {getPickYourGrid && <PickYourGrid />}
+            {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} />}
             <BottomNav activeButton={activeButton} setActiveButton={setActiveButton} />
         </div>
     );

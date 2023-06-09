@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PickYourGrid = () => {
+const PickYourGrid = ({ setPickYourGrid }) => {
     const [selectedBalls, setSelectedBalls] = useState(Array(6).fill(null));
 
     const handleBallClick = (number) => {
@@ -29,8 +29,13 @@ const PickYourGrid = () => {
         });
     };
 
+    const handleDone = () => {
+        setPickYourGrid(false)
+    };
 
-
+    const handleCancel = () => {
+        setPickYourGrid(false)
+    };
 
     const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
 
@@ -39,7 +44,7 @@ const PickYourGrid = () => {
             <div className="topSectionPick">
                 <div className="titles">
                     <div className="titleGrid">Pick Your Grid</div>
-                    <button>Cancel</button>
+                    <button onClick={handleCancel}>Cancel</button>
                 </div>
 
                 <div className="selectedBalls">
@@ -70,7 +75,7 @@ const PickYourGrid = () => {
                     <button className="aboutGrid" onClick={handleQuickPick}>
                         Quick pick
                     </button>
-                    <button className="done">Done</button>
+                    <button className="done" onClick={handleDone}>Done</button>
                 </div>
             </div>
         </div>
