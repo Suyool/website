@@ -56,7 +56,7 @@ class Helper
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host. $params['url']);
+            curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
 
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
@@ -66,7 +66,10 @@ class Helper
             //If type of the request is post add it
             (isset($params['type']) && $params['type'] == 'post') ? curl_setopt($ch, CURLOPT_POST, true) : '';
             //
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                     'Content-Type: application/json',
                     'Connection: Keep-Alive',
                 ]

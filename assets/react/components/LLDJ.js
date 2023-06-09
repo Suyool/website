@@ -1,9 +1,9 @@
 import React from "react";
 import Countdown from "./Countdown";
 
-const LLDJ = ({ parameters ,setPickYourGrid}) => {
+const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) => {
 
-    console.log(parameters);
+    // console.log(parameters);
     return (
         <div id="LLDJ">
 
@@ -61,7 +61,11 @@ const LLDJ = ({ parameters ,setPickYourGrid}) => {
                             <div className="nb">{item.numbers}</div>
                             <div className="title">NUMBERS</div>
                             <div className="price">{item.price}LBP</div>
-                            <button className="letsPlayBtn">PLAY</button>
+                            <button className="letsPlayBtn" onClick={() => {
+                                setBallNumbers(item.numbers);
+                                setTotalAmount(item.price);
+                                setPickYourGrid(true);
+                            }}>PLAY</button>
                         </div>
                     )}
                 </div>
