@@ -25,7 +25,7 @@ class UnsubscribeMarketingController extends AbstractController
 
             if ($flag == 1) {
                 //Set the API URL
-                $params['url'] = 'Incentive/UnsubscribeMarketing?UniqueCode=' . $code . '&Flag=' . $flag;
+                $params['url'] = 'MarketingException/UnsubscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
                 $params['type'] = 'post';
 
                 //Call the API
@@ -70,7 +70,7 @@ class UnsubscribeMarketingController extends AbstractController
         $code = $request->query->get('uniqueCode');
         $flag = $request->query->get('Flag');
 
-        $params['url'] = 'Incentive/subscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
+        $params['url'] = 'MarketingException/subscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
         $params['type'] = 'post';
 
         $result = Helper::send_curl($params);

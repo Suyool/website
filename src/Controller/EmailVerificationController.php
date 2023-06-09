@@ -16,7 +16,7 @@ class EmailVerificationController extends AbstractController
         $parameters['currentPage'] = "generate_Code";
         if ($code != '') {
             // Set the API URL
-            $params['url'] = 'Incentive/ValidateEmail?Data=' . $code;
+            $params['url'] = 'User/ValidateEmail?Data=' . $code;
             $params['type'] = 'get';
 
             // Call the API

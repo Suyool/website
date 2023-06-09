@@ -514,7 +514,7 @@ class Helper
     }
     public static function send_curl($params) {
         if($_ENV['APP_ENV']=='prod'){
-            $host = 'https://hey-pay.mobi/';
+            $host = 'https://globalapi.suyool.money/api/';
         }else{
             $host = 'http://10.20.80.57/' ;
         }
