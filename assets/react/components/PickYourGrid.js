@@ -1,6 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 
 const PickYourGrid = () => {
+    const [selectedBalls, setSelectedBalls] = useState(Array(6).fill(null));
+
+    const handleBallClick = (number) => {
+        const index = selectedBalls.findIndex((ball) => ball === null);
+        if (index !== -1 && !selectedBalls.includes(number)) {
+            const updatedBalls = [...selectedBalls];
+            updatedBalls[index] = number;
+            setSelectedBalls(updatedBalls);
+        }
+    };
+
+    const handleClearPick = () => {
+        setSelectedBalls(Array(6).fill(null));
+    };
+
+    const handleQuickPick = () => {
+        setSelectedBalls((prevSelectedBalls) => {
+            const availableBalls = ballNumbers.filter((ball) => !prevSelectedBalls.includes(ball));
+            const randomBalls = [];
+            while (randomBalls.length < 6) {
+                const randomIndex = Math.floor(Math.random() * availableBalls.length);
+                randomBalls.push(availableBalls[randomIndex]);
+                availableBalls.splice(randomIndex, 1);
+            }
+            return randomBalls;
+        });
+    };
+
+
+
+
+    const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
 
     return (
         <div className="PickYourGrid">
@@ -11,58 +43,19 @@ const PickYourGrid = () => {
                 </div>
 
                 <div className="selectedBalls">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    {selectedBalls.map((number, index) => (
+                        <span key={index}>{number}</span>
+                    ))}
                 </div>
-
             </div>
             <div className="bodySectionPick">
-                <div className="ballCont"><span>1</span></div>
-                <div className="ballCont"><span>2</span></div>
-                <div className="ballCont"><span>3</span></div>
-                <div className="ballCont"><span>4</span></div>
-                <div className="ballCont"><span>5</span></div>
-                <div className="ballCont"><span>6</span></div>
-                <div className="ballCont"><span>7</span></div>
-                <div className="ballCont"><span>8</span></div>
-                <div className="ballCont"><span>9</span></div>
-                <div className="ballCont"><span>10</span></div>
-                <div className="ballCont"><span>11</span></div>
-                <div className="ballCont"><span>12</span></div>
-                <div className="ballCont"><span>13</span></div>
-                <div className="ballCont"><span>14</span></div>
-                <div className="ballCont"><span>15</span></div>
-                <div className="ballCont"><span>16</span></div>
-                <div className="ballCont"><span>17</span></div>
-                <div className="ballCont"><span>18</span></div>
-                <div className="ballCont"><span>19</span></div>
-                <div className="ballCont"><span>20</span></div>
-                <div className="ballCont"><span>21</span></div>
-                <div className="ballCont"><span>22</span></div>
-                <div className="ballCont"><span>23</span></div>
-                <div className="ballCont"><span>24</span></div>
-                <div className="ballCont"><span>25</span></div>
-                <div className="ballCont"><span>26</span></div>
-                <div className="ballCont"><span>27</span></div>
-                <div className="ballCont"><span>28</span></div>
-                <div className="ballCont"><span>29</span></div>
-                <div className="ballCont"><span>30</span></div>
-                <div className="ballCont"><span>31</span></div>
-                <div className="ballCont"><span>32</span></div>
-                <div className="ballCont"><span>33</span></div>
-                <div className="ballCont"><span>34</span></div>
-                <div className="ballCont"><span>35</span></div>
-                <div className="ballCont"><span>36</span></div>
-                <div className="ballCont"><span>37</span></div>
-                <div className="ballCont"><span>38</span></div>
-                <div className="ballCont"><span>39</span></div>
-                <div className="ballCont"><span>40</span></div>
-                <div className="ballCont"><span>41</span></div>
-                <div className="ballCont"><span>42</span></div>
+                {ballNumbers.map((number) => (
+                    <div className="ballCont" key={number}>
+                        <button onClick={() => handleBallClick(number)}>
+                            <span>{number}</span>
+                        </button>
+                    </div>
+                ))}
             </div>
             <div className="footSectionPick">
                 <div className="Total">
@@ -71,8 +64,12 @@ const PickYourGrid = () => {
                 </div>
 
                 <div className="options">
-                    <button className="aboutGrid">Clear grid</button>
-                    <button className="aboutGrid">Quick pick</button>
+                    <button className="aboutGrid" onClick={handleClearPick}>
+                        Clear pick
+                    </button>
+                    <button className="aboutGrid" onClick={handleQuickPick}>
+                        Quick pick
+                    </button>
                     <button className="done">Done</button>
                 </div>
             </div>
@@ -81,3 +78,4 @@ const PickYourGrid = () => {
 };
 
 export default PickYourGrid;
+
