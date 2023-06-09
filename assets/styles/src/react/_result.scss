@@ -91,4 +91,92 @@
             }
         }
     }
+
+    .winnweSection {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid #373464;
+        box-shadow: 2px 3px 10px #00000029;
+        width: 90%;
+        margin-top: 20px;
+        overflow: hidden;
+
+        .winnweHeader {
+            display: flex;
+            flex-direction: row;
+            padding: 5px 25px;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+                width: 35px;
+                height: 35px;
+            }
+
+            span {
+                font-family: PoppinsBold;
+                font-size: 11px;
+                padding-left: 15px;
+            }
+        }
+
+        .winnweBody {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px 30px 25px;
+            justify-content: space-between;
+
+            .ballSection {
+                display: flex;
+                flex-direction: row;
+                width: 75%;
+                justify-content: space-evenly;
+
+                span {
+                    font-family: PoppinsSemiBold;
+                    font-size: 15px;
+                    color: white;
+                    background-color: #C82F2A;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                }
+            }
+        }
+
+        .winnweFooter {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px ;
+            justify-content: space-between;
+            background-color: #BC2D29;
+
+            .price {
+                font-size: PoppinsSemiBold;
+                font-size: 20px;
+                color: white;
+            }
+        }
+
+        .NoWinnweFooter {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px;
+            justify-content: space-between;
+            background-color: #F7F7F7;
+            border-top: 1px solid #373464;
+
+            .price {
+                font-size: PoppinsSemiBold;
+                font-size: 20px;
+                color: #000000;
+            }
+        }
+    }
 }
