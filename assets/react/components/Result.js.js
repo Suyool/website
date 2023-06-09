@@ -18,7 +18,7 @@ const Result = () => {
 
             <div className="nextDrawSection mt-4">
                 <div className="selectTime">May 2023</div>
-                
+
                 <div className="dayDrow">
                     <div className="goNext"><img src="/build/images/Loto/goNext.png" alt="goNext" /></div>
                     <div className="items">
@@ -44,6 +44,55 @@ const Result = () => {
                         </div>
                     </div>
                     <div className="goNext"><img src="/build/images/Loto/goNext.png" alt="goNext" /></div>
+                </div>
+
+                <div className="winnweSection">
+                    <div className="winnweHeader">
+                        <div>
+                            <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
+                            <span>BASIC</span>
+                        </div>
+                    </div>
+                    <div className="winnweBody">
+                        <div className="ballSection mt-2">
+                            <span>11</span>
+                            <span>16</span>
+                            <span>18</span>
+                            <span>27</span>
+                            <span>29</span>
+                            <span>42</span>
+                        </div>
+                    </div>
+
+                    <div className="winnweFooter">
+                        <div className="price">L.L 2,000,000 won</div>
+                        <div className="img">
+                            <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="winnweSection">
+                    <div className="winnweHeader">
+                        <div>
+                            <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
+                            <span>BASIC</span>
+                        </div>
+                    </div>
+                    <div className="winnweBody">
+                        <div className="ballSection mt-2">
+                            <span>11</span>
+                            <span>16</span>
+                            <span>18</span>
+                            <span>27</span>
+                            <span>29</span>
+                            <span>42</span>
+                        </div>
+                    </div>
+
+                    <div className="NoWinnweFooter">
+                        <div className="price">L.L 2,000,000 won</div>
+                    </div>
                 </div>
 
             </div>
