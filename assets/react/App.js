@@ -5,7 +5,7 @@ import Play from "./components/Play";
 import Result from "./components/Result.js";
 
 const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "Play" });
+    const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
 
     return (
         <div id="LotoBody">

@@ -3,7 +3,7 @@ import React from "react";
 const Play = () => {
 
     return (
-        <div className="Play">
+        <div id="Play">
             <h3 className="gridplays">How many lottery grids do you want to play?</h3>
             <div className="gridborder">
                 <div className="header">

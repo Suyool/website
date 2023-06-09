@@ -23,6 +23,9 @@
     "react_styles": {
       "js": [
         "/build/runtime.js"
+      ],
+      "css": [
+        "/build/react_styles.css"
       ]
     }
   }
