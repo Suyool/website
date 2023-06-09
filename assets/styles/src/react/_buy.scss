@@ -1,0 +1,154 @@
+#Buy {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .gridborder {
+        border: 1px solid #cfcfcf;
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        width: 90%;
+        box-shadow: 2px 3px 10px #00000029;
+        margin-top: 20px;
+
+        .header {
+            padding: 9px 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            img {
+                padding-right: 10px;
+                padding-left: 2px;
+            }
+
+            span {
+                font-family: PoppinsSemiBold;
+                font-size: 11px;
+            }
+        }
+
+        .body {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+
+
+            .ballSection {
+                display: flex;
+                flex-direction: row;
+                width: 65%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: PoppinsSemiBold;
+                    font-size: 20px;
+                }
+            }
+
+        }
+
+        .footer {
+            display: flex;
+            padding: 10px 22px;
+            justify-content: space-between;
+            background-color: #F7F7F7;
+            border-top: 1px solid #cfcfcf;
+            margin-top: 20px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+
+            .price {
+                font-family: PoppinsSemiBold;
+            }
+        }
+    }
+
+    .zeedSection {
+        position: relative;
+        background-color: #F2B341;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 70px;
+
+        .title {
+            font-size: 12px;
+            font-family: PoppinsBold;
+            padding-top: 28px;
+            width: 80%;
+            text-align: start;
+        }
+
+        .price {
+            font-size: 26px;
+            text-align: start;
+            font-family: PoppinsBold;
+            color: white;
+            padding-top: 10px;
+            width: 80%;
+        }
+
+        .desc {
+            font-size: 11px;
+            font-family: PoppinsMedium;
+            color: black;
+            padding-top: 20px;
+            max-width: 80%;
+        }
+
+        .playZeed {
+            width: 80%;
+            text-align: right;
+            padding-bottom: 10px;
+
+            span {
+                font-size: 11px;
+                font-family: PoppinsBold;
+            }
+        }
+
+        .zeedImage {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #F2B341;
+            position: absolute;
+            top: -50px;
+            right: 5%;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+
+            img {
+                width: 97px;
+                height: 97px;
+            }
+        }
+    }
+
+    .Total {
+        display: flex;
+        flex-direction: row;
+        background-color: #1C2676;
+        border-radius: 10px;
+        padding: 10px 0;
+        margin-top: 25px;
+        width: 90%;
+        justify-content: space-around;
+
+        span {
+            color: white;
+            font-size: 15px;
+            font-family: PoppinsSemiBold;
+        }
+    }
+}
