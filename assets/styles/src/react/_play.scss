@@ -1,8 +1,89 @@
-#Play{
-    .gridplays{
+#Play {
+    .gridplays {
         padding-top: 30px;
         color: #1C2676;
-        font-family:PoppinsMedium ;
+        font-family: PoppinsMedium;
         font-size: 16px;
+    }
+
+    .gridborder {
+        border: 1px solid #cfcfcf;
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+
+        .header {
+            padding: 9px 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+
+            img {
+                padding-right: 10px;
+                padding-left: 2px;
+            }
+
+            span {
+                font-family: PoppinsSemiBold;
+                font-size: 11px;
+
+                &.right {
+                    float: right;
+                    padding-top: 7px;
+                    font-family: PoppinsSemiBold;
+                }
+            }
+        }
+
+        .body {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            padding: 0 20px;
+
+            .ballSection {
+                display: flex;
+                flex-direction: row;
+                width: 65%;
+                justify-content: space-around;
+
+                span {
+                    font-family: PoppinsSemiBold;
+                    font-size: 15px;
+                    color: white;
+                    background-color: #C82F2A;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px;
+                    box-shadow: 0px 5px #e9e6e6;
+                }
+            }
+
+            .edit {
+                position: relative;
+                top: 50%;
+                transform: translateY(14%);
+            }
+        }
+
+        .footer {
+            display: flex;
+            padding: 10px 22px;
+            justify-content: space-between;
+            background-color: #F7F7F7;
+            border-top: 1px solid #cfcfcf;
+            margin-top: 20px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+
+            .price {
+                font-family: PoppinsSemiBold;
+            }
+        }
     }
 }
