@@ -106,7 +106,7 @@
         .winnweHeader {
             display: flex;
             flex-direction: row;
-            padding: 5px 25px;
+            padding: 8px 25px;
             justify-content: space-between;
             align-items: center;
 
@@ -125,14 +125,14 @@
         .winnweBody {
             display: flex;
             flex-direction: row;
-            padding: 10px 25px 30px 25px;
+            padding: 0px 25px 20px 25px;
             justify-content: space-between;
 
             .ballSection {
                 display: flex;
                 flex-direction: row;
                 width: 75%;
-                justify-content: space-evenly;
+                justify-content: flex-start;
 
                 span {
                     font-family: PoppinsSemiBold;
@@ -145,6 +145,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    margin-right: 5px;
 
                 }
             }
