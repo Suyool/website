@@ -41,6 +41,7 @@ class Helper
         if($_ENV['APP_ENV']=='prod'){
             $host = 'https://globalapi.suyool.money/api/';
         }else{
+     // $host = 'https://hey-pay.mobi/';
             $host = 'https://backbone.lebaneseloto.com' ;
         }
         // dd($host.$params['url']);
