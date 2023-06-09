@@ -1,7 +1,7 @@
 import React from "react";
 import Countdown from "./Countdown";
 
-const LLDJ = ({ parameters }) => {
+const LLDJ = ({ parameters ,setPickYourGrid}) => {
 
     console.log(parameters);
     return (
