@@ -49,7 +49,7 @@ class Helper
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host);
+            curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
 
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";

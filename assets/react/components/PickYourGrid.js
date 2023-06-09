@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const PickYourGrid = ({ setPickYourGrid }) => {
-    const [selectedBalls, setSelectedBalls] = useState(Array(6).fill(null));
+const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount }) => {
+    const [selectedBalls, setSelectedBalls] = useState(Array(getBallNumbers).fill(null));
 
     const handleBallClick = (number) => {
         const index = selectedBalls.findIndex((ball) => ball === null);
@@ -13,14 +13,14 @@ const PickYourGrid = ({ setPickYourGrid }) => {
     };
 
     const handleClearPick = () => {
-        setSelectedBalls(Array(6).fill(null));
+        setSelectedBalls(Array(getBallNumbers).fill(null));
     };
 
     const handleQuickPick = () => {
         setSelectedBalls((prevSelectedBalls) => {
             const availableBalls = ballNumbers.filter((ball) => !prevSelectedBalls.includes(ball));
             const randomBalls = [];
-            while (randomBalls.length < 6) {
+            while (randomBalls.length < getBallNumbers) {
                 const randomIndex = Math.floor(Math.random() * availableBalls.length);
                 randomBalls.push(availableBalls[randomIndex]);
                 availableBalls.splice(randomIndex, 1);
@@ -65,7 +65,7 @@ const PickYourGrid = ({ setPickYourGrid }) => {
             <div className="footSectionPick">
                 <div className="Total">
                     <span>TOTAL</span>
-                    <span>L.L 200,000</span>
+                    <span>L.L {getTotalAmount}</span>
                 </div>
 
                 <div className="options">

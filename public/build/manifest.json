@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "build/app1.js": "/build/app1.js",
   "build/app2.js": "/build/app2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
@@ -7,13 +6,6 @@
   "build/react_styles.css": "/build/react_styles.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
   "build/runtime.js": "/build/runtime.js",
-=======
-  "build/app1.js": "/build/app1.b2442cfa.js",
-  "build/app2.js": "/build/app2.6eb7c76f.js",
-  "build/styles.css": "/build/styles.80bd6bd2.css",
-  "build/react_styles.css": "/build/react_styles.a351b04f.css",
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> 3312c27 (call api handle)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
@@ -94,7 +86,6 @@
   "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/Loto/edit.png": "/build/images/Loto/edit.png",
   "build/images/Loto/goNext.png": "/build/images/Loto/goNext.png",
-<<<<<<< HEAD
   "build/images/Loto/trash.png": "/build/images/Loto/trash.png",
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
   "build/images/warning.png": "/build/images/warning.png",
@@ -114,7 +105,4 @@
   "build/images/commingSoon/facebook.png": "/build/images/commingSoon/facebook.png",
   "build/images/favicon/suyool-FAVICON.jpg": "/build/images/favicon/suyool-FAVICON.jpg",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png"
-=======
-  "build/images/Loto/trash.png": "/build/images/Loto/trash.png"
->>>>>>> 3312c27 (call api handle)
 }
