@@ -52,7 +52,7 @@
             span {
                 font-family: PoppinsSemiBold;
                 font-size: 15px;
-                color: white;
+                color: #C82F2A;
                 background-color: white;
                 border-radius: 50%;
                 border: 1px solid #e1e1e1da;
@@ -83,6 +83,10 @@
             justify-content: center;
             align-items: center;
             padding-top: 25px;
+            button{
+                background-color: white;
+                border: none;
+            }
 
             span {
                 font-family: PoppinsSemiBold;
