@@ -29,7 +29,7 @@ class LotoController extends AbstractController
     public function index(Request $request,ManagerRegistry $em)
     {
         $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'DESC']);
-        $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
+        // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers=$this->mr->getRepository(LOTO_numbers::class)->findAll();
 
         // dd($loto_draw);
@@ -42,16 +42,18 @@ class LotoController extends AbstractController
                 $parameters['next_date'] = $loto_draw->getdrawdate();
                 $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
             }
-            if($loto_tikctes){
-                $parameters['unit_price']=$loto_tikctes->getloto_ticket();
-                $parameters['zeed_price']=$loto_tikctes->getzeed_ticket();
-            }
+            // if($loto_tikctes){
+            //     $parameters['unit_price']=$loto_tikctes->getloto_ticket();
+            //     $parameters['zeed_price']=$loto_tikctes->getzeed_ticket();
+            // }
             // $parameters['gridpricematrix']=[];
+            // dd($loto_numbers);
             if($loto_numbers){
                 foreach($loto_numbers as $loto_numbers){
                     $gridpricematrix[]=[
                         'numbers'=>$loto_numbers->getnumbers(),
-                        'price'=>$loto_numbers->getprice()
+                        'price'=>$loto_numbers->getprice(),
+                        'zeed'=>$loto_numbers->getzeed(),
                     ];
                 }
                 $parameters['gridpricematrix']=$gridpricematrix;
@@ -59,37 +61,38 @@ class LotoController extends AbstractController
             
 
         // }
+        $parameters['unit_price']=$gridpricematrix[0]['price'];
         
     //    dd($parameters);
 
         $next_date = new DateTime($parameters['next_date']);
-        $interval = new DateInterval('PT3H');
-        $next_date->add($interval);
+        // $interval = new DateInterval('PT3H');
+        // $next_date->add($interval);
         $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
 
         // $get_price_grid_form_data=["Token"=>"","Grid"=>"B1"];
         // $gridpriceparams['data']=json_encode($get_price_grid_form_data);
         $gridpriceparams['url'] = "/Servicev2.asmx/GetGridandZeedPrice";
-        $gridpriceresponse = Helper::send_curl($gridpriceparams);
+        $gridpriceresponse = Helper::send_curl($gridpriceparams,'loto');
 
         $gridprice = json_decode($gridpriceresponse, true);
         // dd($gridprice);
         $onegridprice = (int) $gridprice['d']['stringvalue1'];
         $parameters['Zeedgridprice'] = $gridprice['d']['stringvalue2'];
         $parameters['gridprice'] = [
-            'grid1' => $onegridprice,
-            'grid8' => $onegridprice * 8,
-            'grid25' => $onegridprice * 25,
-            'grid50' => $onegridprice * 50,
-            'grid100' => $onegridprice * 100,
-            'grid500' => $onegridprice * 500
+            '1' => $parameters['unit_price'],
+            '8' => $parameters['unit_price'] * 8,
+            '25' => $parameters['unit_price'] * 25,
+            '50' => $parameters['unit_price'] * 50,
+            '100' => $parameters['unit_price'] * 100,
+            '500' => $parameters['unit_price'] * 500
         ];
         // $parameters['B8gridprice'] = $parameters['B1gridprice'] * 8;
 
         // dd($gridprice);
 
         $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams);
+        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams,'loto');
 
         $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
         $numbers = 6;
@@ -118,7 +121,7 @@ class LotoController extends AbstractController
 
         $submitloto['data'] = json_encode($submit_loto_play);
         $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($submitloto);
+        $ResponseGetFullGridPriceMatrix = Helper::send_curl($submitloto,'loto');
 
         $submit_loto = json_decode($ResponseGetFullGridPriceMatrix, true);
         if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
@@ -136,14 +139,14 @@ class LotoController extends AbstractController
 
         $gridpricebynum['data'] = json_encode($grid_price_by_number);
         $gridpricebynum['url'] = "/Servicev2.asmx/GetGridPrice";
-        $gridpricebynumResponse = Helper::send_curl($gridpricebynum);
+        $gridpricebynumResponse = Helper::send_curl($gridpricebynum,'loto');
 
         $gridpricebynumData = json_decode($gridpricebynumResponse, true);
         $parameters['gridpricebynum'] = $gridpricebynumData['d'];
         $parameters['gridpricematrix'] = $pricematrixarray;
 
 
-        // dd($parameters);
+        dd($parameters);
         return $this->render('loto/index.html.twig', [
             'parameters' => $parameters
         ]);

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="loto_numbers")
+ * @ORM\Table(name="prices")
  */
 class LOTO_numbers
 {
@@ -32,7 +32,13 @@ class LOTO_numbers
 
     /**
      * 
-     * @ORM\Column(name="create_date",type="datetime")
+     * @ORM\Column(name="zeed",type="integer")
+     */
+    private $zeed;
+
+    /**
+     * 
+     * @ORM\Column(name="created",type="datetime")
      */
     private $create_date;
 
@@ -55,6 +61,17 @@ class LOTO_numbers
     public function getprice()
     {
         return $this->price;
+    }
+
+    public function setzeed($zeed)
+    {
+        $this->zeed=$zeed;
+        return $this;
+    }
+
+    public function getzeed()
+    {
+        return $this->zeed;
     }
 
     public function setprice($price)

@@ -85,9 +85,29 @@ class RequestController extends AbstractController
                 isset($parameters['request_details_response']['senderName'])
                     ? $parameters['request_details_response']['senderName']
                     : '');
-            $this->session->set("TranSimID",
-                isset($parameters['request_details_response']['transactionID'])
-                    ? $parameters['request_details_response']['transactionID']
+                    $this->session->set("SenderInitials",
+                    isset($parameters['request_details_response']['senderName'])
+                        ? $parameters['request_details_response']['senderName']
+                        : '');
+                $this->session->set("TranSimID",
+                    isset($parameters['request_details_response']['transactionID'])
+                        ? $parameters['request_details_response']['transactionID']
+                        : '');
+                    //     $this->session->set("AllowATM",
+                    // isset($parameters['request_details_response']['AllowATM'])
+                    //     ? $parameters['request_details_response']['AllowATM']
+                    //     : '');
+                    //     $this->session->set("AllowExternal",
+                    // isset($parameters['request_details_response']['AllowExternal'])
+                    //     ? $parameters['request_details_response']['AllowExternal']
+                    //     : '');
+                    //     $this->session->set("AllowBenName",
+                    // isset($parameters['request_details_response']['AllowBenName'])
+                    //     ? $parameters['request_details_response']['AllowBenName']
+                    //     : '');
+            $this->session->set("IBAN",
+                isset($parameters['request_details_response']['iban'])
+                    ? $parameters['request_details_response']['iban'] 
                     : '');
                     $this->session->set("allowCashin",
                 isset($parameters['request_details_response']['allowCashin'])
