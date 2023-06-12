@@ -31,7 +31,9 @@ const Result = () => {
             <img src="/build/images/Loto/goNext.png" alt="goNext" />
           </div>
           <div className="items">
-            <div className="item">
+            <div className="item" onClick={()=>{
+                 setWinBallInitial(Array.from({ length: 6 }, () => Math.floor(Math.random() * 42)));
+            }}>
               <div className="time">14</div>
               <div className="day">Mon</div>
             </div>
