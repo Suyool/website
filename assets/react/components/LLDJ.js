@@ -49,6 +49,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                         </div>
 
                         <div className="items">
+                            <img src="/build/images/Loto/bouquet.png" alt="bouquet" />
                             <div className="title">BOUQUET</div>
                             <div className="price"></div>
                             <button className="letsPlayBtn" onClick={() => { setShowBouquet(true) }}>PLAY NOW</button>
@@ -71,6 +72,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                                 }}>PLAY</button>
                             </div>
                         )}
+                        <div className="emptyDiv"></div>
                     </div>
                 </div>
 
