@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Result = () => {
-  const [getWinBall, setWinBall] = useState(true);
-  const [getWinBallInitial, setWinBallInitial] = useState([
-    11, 16, 17, 42, 25, 18,
-  ]);
+  const [getWinBallInitial, setWinBallInitial] = useState([]);
   const [getMyGrids, setMyGrids] = useState([
-    [11, 16, 17, 42, 31, 18],
+    [11, 16, 17, 42, 31, 18, 19, 14],
     [11, 12, 15, 22, 35, 15],
-    [11, 12, 9, 2, 6, 14],
+    [1, 12, 9, 2, 6, 14],
+    [11, 16, 17, 1, 2, 3],
   ]);
+  useEffect(() => {
+    setWinBallInitial([11, 16, 17, 42, 25, 18]);
+  }, []);
 
   return (
     <div id="Result">
@@ -56,8 +57,12 @@ const Result = () => {
           </div>
         </div>
 
-        {getMyGrids.map((grid, index) => (
-          <div className="winnweSection">
+        {getMyGrids.sort((a, b) => {
+    const aHasWin = getWinBallInitial.filter((winBall) => a.includes(winBall)).length > 2;
+    const bHasWin = getWinBallInitial.filter((winBall) => b.includes(winBall)).length > 2;
+    return bHasWin - aHasWin;
+  }).map((grid, index) => (
+          <div className="winnweSection" key={index}>
             <div className="winnweHeader">
               <div>
                 <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
@@ -65,7 +70,7 @@ const Result = () => {
               </div>
             </div>
             <div className="winnweBody">
-              <div key={index} className="ballSection mt-2">
+              <div  className="ballSection mt-2">
                 {grid.map((ball, ballIndex) => (
                   <span
                     key={ballIndex}
@@ -78,38 +83,21 @@ const Result = () => {
                 ))}
               </div>
             </div>
-
-            <div className="winnweFooter">
-              <div className="price">L.L 2,000,000 won</div>
-              <div className="img">
-                <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+            {getWinBallInitial.filter((winBall) => grid.includes(winBall))
+              .length > 2 ? (
+              <div className="winnweFooter">
+                <div className="price">L.L 2,000,000 won</div>
+                <div className="img">
+                  <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="NoWinnweFooter">
+                <div>No Wins </div>
+              </div>
+            )}
           </div>
         ))}
-
-        <div className="winnweSection">
-          <div className="winnweHeader">
-            <div>
-              <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
-              <span>BASIC</span>
-            </div>
-          </div>
-          <div className="winnweBody">
-            <div className="ballSection mt-2">
-              <span>11</span>
-              <span>16</span>
-              <span>18</span>
-              <span>27</span>
-              <span>29</span>
-              <span>42</span>
-            </div>
-          </div>
-
-          <div className="NoWinnweFooter">
-            <div className="price">L.L 2,000,000 won</div>
-          </div>
-        </div>
       </div>
     </div>
   );
