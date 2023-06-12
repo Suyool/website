@@ -18,7 +18,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
 
                 <div className="estimatedPriceSection mt-5">
                     <div className="title">Next Zeed Estimated Jackpot</div>
-                    <div className="priceZeed">LBP {parameters.next_zeed_win}</div>
+                    <div className="priceZeed">LBP {parameters.next_zeed_prize}</div>
                     <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />
                 </div>
 
@@ -37,14 +37,14 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                     <div className="itemsSection">
                         <div className="items">
                             <div className="title">1 GRID</div>
-                            <div className="price">{parameters.gridprice.grid1}LBP</div>
+                            <div className="price">{parameters.gridprice[1]}LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
                         <div className="items redone">
                             <div className="image"><img src="/build/images/Loto/popular.png" alt="popular" /></div>
                             <div className="title">8 GRIDS</div>
-                            <div className="price">{parameters.gridprice.grid8}LBP</div>
+                            <div className="price">{parameters.gridprice[8]}LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
