@@ -146,7 +146,7 @@ class LotoController extends AbstractController
         $parameters['gridpricematrix'] = $pricematrixarray;
 
 
-        dd($parameters);
+        // dd($parameters);
         return $this->render('loto/index.html.twig', [
             'parameters' => $parameters
         ]);
