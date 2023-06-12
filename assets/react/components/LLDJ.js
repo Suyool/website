@@ -12,7 +12,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
 
                 <div className="estimatedPriceSection mt-3">
                     <div className="title">Next Loto Estimated Jackpot</div>
-                    <div className="priceLoto">LBP {parameters.next_loto_win}</div>
+                    <div className="priceLoto">LBP {parameters.next_loto_prize}</div>
                     <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
                 </div>
 
