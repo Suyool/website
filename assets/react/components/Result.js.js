@@ -1,103 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Result = () => {
+  const [getWinBall, setWinBall] = useState(true);
+  const [getWinBallInitial, setWinBallInitial] = useState([
+    11, 16, 17, 42, 25, 18,
+  ]);
+  const [getMyGrids, setMyGrids] = useState([
+    [11, 16, 17, 42, 31, 18],
+    [11, 12, 15, 22, 35, 15],
+    [11, 12, 9, 2, 6, 14],
+  ]);
 
-    return (
-        <div id="Result">
-            <div className="resultTopSection mt-4">
-                <div className="title">Draw Numbers</div>
-                <div className="ballSection mt-2">
-                    <span>11</span>
-                    <span>16</span>
-                    <span>18</span>
-                    <span>27</span>
-                    <span>29</span>
-                    <span>42</span>
-                </div>
-            </div>
-
-            <div className="nextDrawSection mt-4">
-                <div className="selectTime">May 2023</div>
-
-                <div className="dayDrow">
-                    <div className="goNext"><img src="/build/images/Loto/goNext.png" alt="goNext" /></div>
-                    <div className="items">
-                        <div className="item">
-                            <div className="time">14</div>
-                            <div className="day">Mon</div>
-                        </div>
-                        <div className="item">
-                            <div className="time">14</div>
-                            <div className="day">Mon</div>
-                        </div>
-                        <div className="item">
-                            <div className="time">14</div>
-                            <div className="day">Mon</div>
-                        </div>
-                        <div className="item">
-                            <div className="time">14</div>
-                            <div className="day">Mon</div>
-                        </div>
-                        <div className="item">
-                            <div className="time">14</div>
-                            <div className="day">Mon</div>
-                        </div>
-                    </div>
-                    <div className="goNext"><img src="/build/images/Loto/goNext.png" alt="goNext" /></div>
-                </div>
-
-                <div className="winnweSection">
-                    <div className="winnweHeader">
-                        <div>
-                            <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
-                            <span>BASIC</span>
-                        </div>
-                    </div>
-                    <div className="winnweBody">
-                        <div className="ballSection mt-2">
-                            <span>11</span>
-                            <span>16</span>
-                            <span>18</span>
-                            <span>27</span>
-                            <span>29</span>
-                            <span>42</span>
-                        </div>
-                    </div>
-
-                    <div className="winnweFooter">
-                        <div className="price">L.L 2,000,000 won</div>
-                        <div className="img">
-                            <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="winnweSection">
-                    <div className="winnweHeader">
-                        <div>
-                            <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
-                            <span>BASIC</span>
-                        </div>
-                    </div>
-                    <div className="winnweBody">
-                        <div className="ballSection mt-2">
-                            <span>11</span>
-                            <span>16</span>
-                            <span>18</span>
-                            <span>27</span>
-                            <span>29</span>
-                            <span>42</span>
-                        </div>
-                    </div>
-
-                    <div className="NoWinnweFooter">
-                        <div className="price">L.L 2,000,000 won</div>
-                    </div>
-                </div>
-
-            </div>
+  return (
+    <div id="Result">
+      <div className="resultTopSection mt-4">
+        <div className="title">Draw Numbers</div>
+        <div className="ballSection mt-2">
+          {getWinBallInitial.map((item, index) => (
+            <span key={index}>{item}</span>
+          ))}
         </div>
-    );
+      </div>
+
+      <div className="nextDrawSection mt-4">
+        <div className="selectTime">May 2023</div>
+
+        <div className="dayDrow">
+          <div className="goNext">
+            <img src="/build/images/Loto/goNext.png" alt="goNext" />
+          </div>
+          <div className="items">
+            <div className="item">
+              <div className="time">14</div>
+              <div className="day">Mon</div>
+            </div>
+            <div className="item">
+              <div className="time">14</div>
+              <div className="day">Mon</div>
+            </div>
+            <div className="item">
+              <div className="time">14</div>
+              <div className="day">Mon</div>
+            </div>
+            <div className="item">
+              <div className="time">14</div>
+              <div className="day">Mon</div>
+            </div>
+            <div className="item">
+              <div className="time">14</div>
+              <div className="day">Mon</div>
+            </div>
+          </div>
+          <div className="goNext">
+            <img src="/build/images/Loto/goNext.png" alt="goNext" />
+          </div>
+        </div>
+
+        {getMyGrids.map((grid, index) => (
+          <div className="winnweSection">
+            <div className="winnweHeader">
+              <div>
+                <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
+                <span>BASIC</span>
+              </div>
+            </div>
+            <div className="winnweBody">
+              <div key={index} className="ballSection mt-2">
+                {grid.map((ball, ballIndex) => (
+                  <span
+                    key={ballIndex}
+                    className={`${
+                      getWinBallInitial.includes(ball) ? "win" : ""
+                    }`}
+                  >
+                    {ball}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="winnweFooter">
+              <div className="price">L.L 2,000,000 won</div>
+              <div className="img">
+                <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="winnweSection">
+          <div className="winnweHeader">
+            <div>
+              <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
+              <span>BASIC</span>
+            </div>
+          </div>
+          <div className="winnweBody">
+            <div className="ballSection mt-2">
+              <span>11</span>
+              <span>16</span>
+              <span>18</span>
+              <span>27</span>
+              <span>29</span>
+              <span>42</span>
+            </div>
+          </div>
+
+          <div className="NoWinnweFooter">
+            <div className="price">L.L 2,000,000 won</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Result;
