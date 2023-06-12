@@ -8,8 +8,13 @@
     },
     "app2": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/app2.js"
+=======
+        "/build/runtime.7394a4c4.js",
+        "/build/app2.156d112e.js"
+>>>>>>> cc5ccba (drop stash)
       ]
     },
     "LegalEnrollement": {
