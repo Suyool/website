@@ -44,17 +44,17 @@ class LotoDrawData extends Command
         // $response = Helper::sendCurl($params['url'],$form_data);
         $NextDrawparams['url'] = "/Servicev2.asmx/GetInPlayAndNextDrawInformation";
 
-        $NextDrawresponse = Helper::send_curl($NextDrawparams);
+        $NextDrawresponse = Helper::send_curl($NextDrawparams,'loto');
         $NextDraw = json_decode($NextDrawresponse, true);
 
         // dd($response);
         $LOTO_draw=new LOTO_draw;
-        $LOTO_tickets=new LOTO_tickets;
+        // $LOTO_tickets=new LOTO_tickets;
         $next_date = new DateTime($NextDraw['d']['draws'][0]['drawdate']);
         $interval=new DateInterval('PT3H');
         $next_date->add($interval);
 
-        $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy(['draw_id'=>$NextDraw['d']['draws'][1]['drawnumber']]);
+        $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId'=>$NextDraw['d']['draws'][1]['drawnumber']]);
 
 
         $date=new DateTime();
@@ -69,19 +69,19 @@ class LotoDrawData extends Command
             $this->mr->flush();
         }
         $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams);
+        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams,'loto');
 
         $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
-        $loto_ticket=$this->mr->getRepository(LOTO_tickets::class)->findOneBy(['loto_ticket'=>$GetFullGridPriceMatrix['d']['unitprice'],'zeed_ticket'=>$GetFullGridPriceMatrix['d']['zeedprice']]);
+        // $loto_ticket=$this->mr->getRepository(LOTO_tickets::class)->findOneBy(['loto_ticket'=>$GetFullGridPriceMatrix['d']['unitprice'],'zeed_ticket'=>$GetFullGridPriceMatrix['d']['zeedprice']]);
 
-        // dd($GetFullGridPriceMatrix);
-        if($GetFullGridPriceMatrix && !$loto_ticket){
-            $LOTO_tickets->setloto_ticket($GetFullGridPriceMatrix['d']['unitprice']);
-            $LOTO_tickets->setzeed_ticket($GetFullGridPriceMatrix['d']['zeedprice']);
-            $LOTO_tickets->setcreatedate($date);
-            $this->mr->persist($LOTO_tickets);
-            $this->mr->flush();
-        }
+        // // dd($GetFullGridPriceMatrix);
+        // if($GetFullGridPriceMatrix && !$loto_ticket){
+        //     $LOTO_tickets->setloto_ticket($GetFullGridPriceMatrix['d']['unitprice']);
+        //     $LOTO_tickets->setzeed_ticket($GetFullGridPriceMatrix['d']['zeedprice']);
+        //     $LOTO_tickets->setcreatedate($date);
+        //     $this->mr->persist($LOTO_tickets);
+        //     $this->mr->flush();
+        // }
 
         $loto_numbers=$GetFullGridPriceMatrix['d']['pricematrix'];
             $numbers=6;
@@ -94,6 +94,7 @@ class LotoDrawData extends Command
 
                 $LOTO_numbers->setnumbers($numbers);
                 $LOTO_numbers->setprice($number_price['price0J']);
+                $LOTO_numbers->setzeed($GetFullGridPriceMatrix['d']['zeedprice']);
                 $LOTO_numbers->setcreatedate($date);
                 $this->mr->persist($LOTO_numbers);
                 $this->mr->flush();

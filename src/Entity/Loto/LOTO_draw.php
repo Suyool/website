@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="loto_draw")
+ * @ORM\Table(name="draws")
  */
 class LOTO_draw
 {
@@ -22,7 +22,7 @@ class LOTO_draw
      * 
      * @ORM\Column(type="integer")
      */
-    private $draw_id;
+    private $drawId;
 
     /**
      * 
@@ -34,19 +34,19 @@ class LOTO_draw
      * 
      * @ORM\Column(type="string")
      */
-    private $winprizeloto;
+    private $prize;
 
     /**
      * 
      * @ORM\Column(type="string")
      */
-    private $winprizezeed;
+    private $zeedprize;
 
     /**
      * 
-     * @ORM\Column(name="create_date",type="datetime")
+     * @ORM\Column(name="created",type="datetime")
      */
-    private $create_date;
+    private $created;
 
     public function getId()
     {
@@ -55,12 +55,12 @@ class LOTO_draw
 
     public function getdrawid()
     {
-        return $this->draw_id;
+        return $this->drawId;
     }
 
-    public function setdrawid($draw_id)
+    public function setdrawid($drawId)
     {
-        $this->draw_id=$draw_id;
+        $this->drawId=$drawId;
         return $this;
     }
 
@@ -77,34 +77,34 @@ class LOTO_draw
 
     public function getlotoprize()
     {
-        return $this->winprizeloto;
+        return $this->prize;
     }
 
-    public function setlotoprize($winprizeloto)
+    public function setlotoprize($prize)
     {
-        $this->winprizeloto=$winprizeloto;
+        $this->prize=$prize;
         return $this;
     }
 
     public function getzeedprize()
     {
-        return $this->winprizezeed;
+        return $this->zeedprize;
     }
 
-    public function setzeedprize($winprizezeed)
+    public function setzeedprize($zeedprize)
     {
-        $this->winprizezeed=$winprizezeed;
+        $this->zeedprize=$zeedprize;
         return $this;
     }
 
     public function getcreatedate()
     {
-        return $this->create_date;
+        return $this->created;
     }
 
-    public function setcreatedate($create_date)
+    public function setcreatedate($created)
     {
-        $this->create_date=$create_date;
+        $this->created=$created;
         return $this;
     }
 

@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        {% if currency == "USD" %}
+        {% if currency is defined and currency == "USD" %}
             <a class="container-fluid choose_way" href="/request/visaCard">
                 <div class="row">
                     <div class="col-2 logo_container">
@@ -55,7 +55,7 @@
             </div>
         </a> #}
        
-        {% if currency == "USD" %}
+        {% if currency is defined and  currency == "USD" %}
             {% if request_details_response.iban is defined %}
                 <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.iban }}">
                     <div class="row">

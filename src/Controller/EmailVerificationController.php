@@ -17,7 +17,7 @@ class EmailVerificationController extends AbstractController
         if ($code != '') {
             // Set the API URL
             $params['url'] = 'User/ValidateEmail?Data=' . $code;
-            $params['type'] = 'get';
+            $params['type'] = 'post';
 
             // Call the API
             $result = Helper::send_curl($params);

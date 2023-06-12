@@ -60,6 +60,8 @@ class PaymentController extends AbstractController
         /*** Call the api ***/
         $response = Helper::send_curl($params);
         $parameters['payment_details_response'] = json_decode($response, true);
+        // dd($parameters['payment_details_response']);
+        if($parameters['payment_details_response'] != null){
         $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
@@ -90,7 +92,7 @@ class PaymentController extends AbstractController
                 ? $parameters['payment_details_response']['allowBenName']
                 : '');
 
-
+        }
         return $this->render('payment/index.html.twig',$parameters);
     }
 
