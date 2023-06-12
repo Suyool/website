@@ -149,7 +149,7 @@
 
                 }
 
-                .win{
+                .win {
                     background-color: #373464;
                 }
             }
@@ -158,7 +158,7 @@
         .winnweFooter {
             display: flex;
             flex-direction: row;
-            padding: 10px 25px ;
+            padding: 10px 25px;
             justify-content: space-between;
             background-color: #BC2D29;
 
@@ -167,6 +167,8 @@
                 font-size: 20px;
                 color: white;
             }
+
+        
         }
 
         .NoWinnweFooter {
@@ -176,12 +178,9 @@
             justify-content: space-between;
             background-color: #F7F7F7;
             border-top: 1px solid #373464;
+            justify-content: center;
+            font-family: PoppinsSemiBold;
 
-            .price {
-                font-size: PoppinsSemiBold;
-                font-size: 20px;
-                color: #000000;
-            }
         }
     }
 }

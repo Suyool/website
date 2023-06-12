@@ -7,7 +7,7 @@ import PickYourGrid from "./components/PickYourGrid";
 import Buy from "./components/Buy";
 
 const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "Buy" });
+    const [activeButton, setActiveButton] = useState({ name: "Result" });
     const [getPickYourGrid, setPickYourGrid] = useState(false);
     const [getBallNumbers, setBallNumbers] = useState(0);
     const [getTotalAmount, setTotalAmount] = useState(0);
