@@ -2,7 +2,7 @@
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: false
-    trusted_proxies: '%env(TRUSTED_PROXIES)%'
+    # trusted_proxies: '%env(TRUSTED_PROXIES)%'
     trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
     #http_method_override: true
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
