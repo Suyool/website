@@ -12,13 +12,13 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
 
                 <div className="estimatedPriceSection mt-3">
                     <div className="title">Next Loto Estimated Jackpot</div>
-                    <div className="priceLoto">LBP {parameters.next_loto_prize}</div>
+                    <div className="priceLoto">LBP {parseInt(parameters.next_loto_prize).toLocaleString()}</div>
                     <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
                 </div>
 
                 <div className="estimatedPriceSection mt-5">
                     <div className="title">Next Zeed Estimated Jackpot</div>
-                    <div className="priceZeed">LBP {parameters.next_zeed_prize}</div>
+                    <div className="priceZeed">LBP {parseInt(parameters.next_zeed_prize).toLocaleString()}</div>
                     <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />
                 </div>
 

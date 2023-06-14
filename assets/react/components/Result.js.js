@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-const Result = ({parameters}) => {
+const Result = ({ parameters }) => {
   const [getWinBallInitial, setWinBallInitial] = useState([]);
+  const prize1 = parameters.prize_loto_win.prize1;
+  const prize2 = parameters.prize_loto_win.prize2;
+  const prize3 = parameters.prize_loto_win.prize3;
+  const prize4 = parameters.prize_loto_win.prize4;
+  const prize5 = parameters.prize_loto_win.prize5;
+
   const [getMyGrids, setMyGrids] = useState([
     [11, 16, 17, 42, 31, 18, 19, 14],
     [11, 12, 16, 22, 35, 15],
     [1, 12, 9, 2, 6, 14],
     [11, 16, 17, 1, 2, 3],
   ]);
+
   useEffect(() => {
     setWinBallInitial([11, 16, 17, 42, 25, 18]);
   }, []);
@@ -31,16 +38,19 @@ const Result = ({parameters}) => {
             <img src="/build/images/Loto/goNext.png" alt="goNext" />
           </div>
           <div className="items">
-            <div className="item" onClick={()=>{
-                 let winBallInitial = [];
-                 while (winBallInitial.length < 6) {
-                   const randomNumber = Math.floor(Math.random() * 42) + 1;
-                   if (!winBallInitial.includes(randomNumber)) {
+            <div
+              className="item"
+              onClick={() => {
+                let winBallInitial = [];
+                while (winBallInitial.length < 6) {
+                  const randomNumber = Math.floor(Math.random() * 42) + 1;
+                  if (!winBallInitial.includes(randomNumber)) {
                     winBallInitial.push(randomNumber);
-                   }
-                 }
-                 setWinBallInitial(winBallInitial);
-            }}>
+                  }
+                }
+                setWinBallInitial(winBallInitial);
+              }}
+            >
               <div className="time">14</div>
               <div className="day">Mon</div>
             </div>
@@ -66,47 +76,69 @@ const Result = ({parameters}) => {
           </div>
         </div>
 
-        {getMyGrids.sort((a, b) => {
-    const aHasWin = getWinBallInitial.filter((winBall) => a.includes(winBall)).length >= 3;
-    const bHasWin = getWinBallInitial.filter((winBall) => b.includes(winBall)).length >= 3;
-    return bHasWin - aHasWin;
-  }).map((grid, index) => (
-          <div className="winnweSection" key={index}>
-            <div className="winnweHeader">
-              <div>
-                <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
-                <span>BASIC</span>
-              </div>
-            </div>
-            <div className="winnweBody">
-              <div  className="ballSection mt-2">
-                {grid.map((ball, ballIndex) => (
-                  <span
-                    key={ballIndex}
-                    className={`${
-                      getWinBallInitial.includes(ball) ? "win" : ""
-                    }`}
-                  >
-                    {ball}
-                  </span>
-                ))}
-              </div>
-            </div>
-            {getWinBallInitial.filter((winBall) => grid.includes(winBall))
-              .length >= 3 ? (
-              <div className="winnweFooter">
-                <div className="price">L.L 2,000,000 won</div>
-                <div className="img">
-                  <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+        {getMyGrids
+          .sort((a, b) => {
+            const aHasWin =
+              getWinBallInitial.filter((winBall) => a.includes(winBall))
+                .length >= 3;
+            const bHasWin =
+              getWinBallInitial.filter((winBall) => b.includes(winBall))
+                .length >= 3;
+            return bHasWin - aHasWin;
+          })
+          .map((grid, index) => (
+            <div className="winnweSection" key={index}>
+              <div className="winnweHeader">
+                <div>
+                  <img src="/build/images/Loto/LotoLogo.png" alt="SmileLOGO" />
+                  <span>BASIC</span>
                 </div>
               </div>
-            ) : (
-              <div className="NoWinnweFooter">
-                <div>No Wins </div>
+              <div className="winnweBody">
+                <div className="ballSection mt-2">
+                  {grid.map((ball, ballIndex) => (
+                    <span
+                      key={ballIndex}
+                      className={`${
+                        getWinBallInitial.includes(ball) ? "win" : ""
+                      }`}
+                    >
+                      {ball}
+                    </span>
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
-        ))}
+              {getWinBallInitial.filter((winBall) => grid.includes(winBall))
+                .length >= 3 ? (
+                <div className="winnweFooter">
+                  <div className="price">
+                    {getWinBallInitial.filter((winBall) =>
+                      grid.includes(winBall)
+                    ).length == 7 && parseInt(prize1).toLocaleString()}
+                    {getWinBallInitial.filter((winBall) =>
+                      grid.includes(winBall)
+                    ).length == 6 && parseInt(prize2).toLocaleString()}
+                    {getWinBallInitial.filter((winBall) =>
+                      grid.includes(winBall)
+                    ).length == 5 && parseInt(prize3).toLocaleString()}
+                    {getWinBallInitial.filter((winBall) =>
+                      grid.includes(winBall)
+                    ).length == 4 && parseInt(prize4).toLocaleString()}
+                    {getWinBallInitial.filter((winBall) =>
+                      grid.includes(winBall)
+                    ).length == 3 && parseInt(prize5).toLocaleString()}
+                  </div>
+                  <div className="img">
+                    <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />
+                  </div>
+                </div>
+              ) : (
+                <div className="NoWinnweFooter">
+                  <div>No Wins </div>
+                </div>
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ class LotoController extends AbstractController
         $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers=$this->mr->getRepository(LOTO_numbers::class)->findAll();
-        $drawdate='2023-06-07 23:00:00';
+        $drawdate='2023-06-08 00:00:00';
         $loto_prize=$this->mr->getRepository(LOTO_results::class)->findOneBy(['drawdate'=>$drawdate]);
 
         // dd($loto_draw);
