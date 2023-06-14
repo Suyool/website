@@ -1,7 +1,7 @@
 <div class="shopify">
     <div class="output"></div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src="" scrolling="auto" height="600px"width="900px" style="border: 1px solid #ccc; margin: 10px 0"></iframe>
+    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src="" scrolling="auto" height="600px" width="900px" style="border: 1px solid #ccc; margin: 10px 0"></iframe>
     <script type="text/javascript">
         (function($){
             $(document).ready(function(){
@@ -24,29 +24,27 @@
                     $("#skash-iframe-QR").attr("SandBox","allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation allow-modals");
                     $.ajax({
                         type: "post",
-                        url: "<?php echo $home_url; ?>/inc/function.php",
+                        url: "/payMobile",
                         data: {
-                            action: "spfw_mobile_payment_url",
-                            order_id:{{ order_id }},
-                            metadata: {{ meta_data }}
+                            order_id: {{ order_id }},
+                            metadata: {{ meta_data|json_encode|raw }}
                         },
                         success: function(data){
                             data = JSON.parse(data);
-                            $("iframe").attr("src",data.url);
+                            $("iframe").attr("src", data.url);
                         }
                     });
                 }else{
                     $.ajax({
                         type: "post",
-                        url: "<?php echo $home_url; ?>/inc/function.php",
+                        url: "/payQr",
                         data: {
-                            action: "spfw_window_payment_url",
-                            order_id:{{ order_id }},
-                            metadata: {{ meta_data }}
+                            order_id: {{ order_id }},
+                            metadata: {{ meta_data|json_encode|raw }}
                         },
                         success: function(data){
                             data = JSON.parse(data);
-                            $("iframe").attr("src",data.url);
+                            $("iframe").attr("src", data.url);
                         }
                     });
                 }

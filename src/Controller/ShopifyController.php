@@ -48,7 +48,13 @@ class ShopifyController extends AbstractController
         $credentials = $credentialsRepository->findAll();
         foreach($credentials as $credential){
             if($credential->getShop() == $hostname){
-                $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env));
+                if ($credential->getLiveChecked())
+                    $merchantId = $credential->getLiveMerchantId();
+                else
+                    $merchantId = $credential->getTestMerchantId();
+
+
+                $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
 
                 $order = new ShopifyOrders();
                 $order->setOrderId($orderID);
