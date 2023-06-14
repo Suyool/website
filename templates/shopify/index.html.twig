@@ -1,0 +1,56 @@
+<div class="shopify">
+    <div class="output"></div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src="" scrolling="auto" height="600px"width="900px" style="border: 1px solid #ccc; margin: 10px 0"></iframe>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                var iframe_id = $("#skash-iframe-QR");
+                if(window.outerWidth < 768){
+                    window.addEventListener ("message", function (event) {
+                        if (event.data.url) {
+                            setTimeout(function(){
+                                console.log(event);
+                                if(event.origin.indexOf("skash.com") > -1){
+                                    location = event.data.url;
+                                }
+                            }, 2000);
+                        }
+                    }, false);
+                    $("#skash-iframe-QR").attr("height",250);
+                    $("#skash-iframe-QR").attr("width",320);
+                    $("#skash-iframe-QR").attr("name","skash-iframe-DL");
+                    $("#skash-iframe-QR").attr("id","skash-iframe-DL");
+                    $("#skash-iframe-QR").attr("SandBox","allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation allow-modals");
+                    $.ajax({
+                        type: "post",
+                        url: "<?php echo $home_url; ?>/inc/function.php",
+                        data: {
+                            action: "spfw_mobile_payment_url",
+                            order_id:{{ order_id }},
+                            metadata: {{ meta_data }}
+                        },
+                        success: function(data){
+                            data = JSON.parse(data);
+                            $("iframe").attr("src",data.url);
+                        }
+                    });
+                }else{
+                    $.ajax({
+                        type: "post",
+                        url: "<?php echo $home_url; ?>/inc/function.php",
+                        data: {
+                            action: "spfw_window_payment_url",
+                            order_id:{{ order_id }},
+                            metadata: {{ meta_data }}
+                        },
+                        success: function(data){
+                            data = JSON.parse(data);
+                            $("iframe").attr("src",data.url);
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+</div>
