@@ -14,14 +14,15 @@ class ShopifyApiController extends AbstractController
      */
     public function paySkashQR(Request $request): Response
     {
-        $order_id = $request->query->get('TranID', '');
-        $amount = $request->query->get('Amount', '');
-        $currency = $request->query->get('Currency', '');
+        $order_id = $request->request->get('order_id');
+        $metadata = json_decode($request->request->get('metadata'), true);
 
-        $timestamp = $request->query->get('TS', '');
-        $TranTS = $request->query->get('TranTS', '');
-        $merchant_id = $request->query->get('MerchantID', '');
-        $AdditionalInfo = $request->query->get('AdditionalInfo', '');
+        $amount = $metadata['total_price']/100;
+        $currency = $metadata['currency'];
+        $timestamp =  strtotime($created_at)*1000;
+        $TranTS =  strtotime($created_at)*1000;
+        $merchant_id = $metadata['merchant_id'];
+        $AdditionalInfo = "";
 
         $mobile_secure = $order_id . $merchant_id . $amount . $currency . $timestamp . CERTIFICATE_PAYMENT_SUYOOL;
         $SecureHash = base64_encode(hash('sha512', $mobile_secure, true));
@@ -52,6 +53,8 @@ class ShopifyApiController extends AbstractController
             }
 
         }
+        return $this->json(['flag' => $response['Flag']]);
+
     }
     /**
      * @Route("/payMobile/", name="app_pay_mobile")
@@ -84,69 +87,7 @@ class ShopifyApiController extends AbstractController
                 "AdditionalInfo" => $AdditionalInfo
             ];
         }
-    }
+        return $this->json(['url' => 'your_mobile_payment_url']);
 
-    /**
-     * @Route("/update_status/", name="app_update_status")
-     */
-    public function updateStatus($order_id)
-    {
-        $data = $this->request->request->all();
-        $flag = isset($data['Flag']) ? $data['Flag'] : null;
-
-        if (isset($flag)) {
-            if ($flag == '1') {
-                $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . CERTIFICATE_PAYMENT_SUYOOL;
-                $SecureHash = urldecode(base64_encode(hash('sha512', $match_secure, true)));
-                $entityManager = $this->getDoctrine()->getManager();
-                $payment = $entityManager->getRepository(Payment::class)->find($order_id);
-
-                if ($SecureHash == $data['SecureHash']) {
-                    $url = $domain . 'admin/api/2020-04/orders/' . $data['TranID'] .'transactions.json';
-                    $json = array(
-                        'transaction' => array(
-                            'currency' => $currency,
-                            'amount' => $total_price,
-                            "source"=> "external",
-                            'kind' => 'sale',
-                            "status" =>  "success"
-                        )
-                    );
-                    $params['data'] = json_encode($json);
-                    $params['url'] = $url;
-                    $result = $this->send_curl($params);
-                    $response = json_decode($result, true);
-                } else {
-                    if ($payment) {
-                        $payment->setStatus(2);
-                        $entityManager->flush();
-                    }
-                }
-            }
-
-            $response = array(
-                'success' => true,
-            );
-            return new JsonResponse($response);
-        }
-    }
-
-    function spfw_get_browser_type()
-    {
-        $browser = "";
-        if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {
-            $browser = "IE";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Presto"))) {
-            $browser = "opera";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("CHROME"))) {
-            $browser = "chrome";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("SAFARI"))) {
-            $browser = "safari";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("FIREFOX"))) {
-            $browser = "firefox";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Netscape"))) {
-            $browser = "netscape";
-        }
-        return $browser;
     }
 }

@@ -24,7 +24,7 @@
                     $("#skash-iframe-QR").attr("SandBox","allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation allow-modals");
                     $.ajax({
                         type: "post",
-                        url: "/payMobile",
+                        url: {{ path('app_pay_mobile') }},
                         data: {
                             order_id: {{ order_id }},
                             metadata: {{ meta_data|json_encode|raw }}
@@ -37,7 +37,7 @@
                 }else{
                     $.ajax({
                         type: "post",
-                        url: "/payQr",
+                        url: {{ path('app_pay_qr') }},
                         data: {
                             order_id: {{ order_id }},
                             metadata: {{ meta_data|json_encode|raw }}
