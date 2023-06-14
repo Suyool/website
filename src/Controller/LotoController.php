@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
+use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\LOTO_tickets;
 use App\Entity\Loto\Table1;
 use App\Utils\Helper;
@@ -32,6 +33,8 @@ class LotoController extends AbstractController
         $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers=$this->mr->getRepository(LOTO_numbers::class)->findAll();
+        $drawdate='2023-06-07 23:00:00';
+        $loto_prize=$this->mr->getRepository(LOTO_results::class)->findOneBy(['drawdate'=>$drawdate]);
 
         // dd($loto_draw);
 
@@ -147,6 +150,19 @@ class LotoController extends AbstractController
         $gridpricebynumData = json_decode($gridpricebynumResponse, true);
         $parameters['gridpricebynum'] = $gridpricebynumData['d'];
         $parameters['gridpricematrix'] = $pricematrixarray;
+// $loto_prize_array=[];
+// dd($loto_prize);
+            $loto_prize_array=[
+               'prize1'=> $loto_prize->getwinner1(),
+               'prize2'=>$loto_prize->getwinner2(),
+               'prize3'=>$loto_prize->getwinner3(),
+               'prize4'=>$loto_prize->getwinner4(),
+               'prize5'=>$loto_prize->getwinner5()
+            ];
+
+        $parameters['prize_loto_win']=$loto_prize_array;
+
+
 
 
         // dd($parameters);

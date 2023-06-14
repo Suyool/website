@@ -20,7 +20,7 @@ const App = ({ parameters }) => {
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
                 {activeButton.name === "Play" && <Play />}
-                {activeButton.name === "Result" && <Result />}
+                {activeButton.name === "Result" && <Result parameters={parameters}/>}
 
                 {activeButton.name === "Buy" && <Buy />}
             </div>

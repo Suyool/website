@@ -10,7 +10,7 @@ const Play = () => {
                 <div className="header">
                     <span><img src="/build/images/Loto/LotoGrid.png" alt="loto" />GRID 1</span>
                     <span className="right">PLAY ZEED (+ L.L 5,000 )
-                        <input class="switch" type="checkbox" />
+                        <input className="switch" type="checkbox" />
                     </span>
                 </div>
                 <div className="body">
