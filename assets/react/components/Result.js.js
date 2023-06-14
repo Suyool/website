@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Result = () => {
+const Result = ({parameters}) => {
   const [getWinBallInitial, setWinBallInitial] = useState([]);
   const [getMyGrids, setMyGrids] = useState([
     [11, 16, 17, 42, 31, 18, 19, 14],
