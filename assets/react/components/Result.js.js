@@ -4,7 +4,7 @@ const Result = ({parameters}) => {
   const [getWinBallInitial, setWinBallInitial] = useState([]);
   const [getMyGrids, setMyGrids] = useState([
     [11, 16, 17, 42, 31, 18, 19, 14],
-    [11, 12, 15, 22, 35, 15],
+    [11, 12, 16, 22, 35, 15],
     [1, 12, 9, 2, 6, 14],
     [11, 16, 17, 1, 2, 3],
   ]);
@@ -32,7 +32,14 @@ const Result = ({parameters}) => {
           </div>
           <div className="items">
             <div className="item" onClick={()=>{
-                 setWinBallInitial(Array.from({ length: 6 }, () => Math.floor(Math.random() * 42)));
+                 let winBallInitial = [];
+                 while (winBallInitial.length < 6) {
+                   const randomNumber = Math.floor(Math.random() * 42) + 1;
+                   if (!winBallInitial.includes(randomNumber)) {
+                    winBallInitial.push(randomNumber);
+                   }
+                 }
+                 setWinBallInitial(winBallInitial);
             }}>
               <div className="time">14</div>
               <div className="day">Mon</div>
@@ -60,8 +67,8 @@ const Result = ({parameters}) => {
         </div>
 
         {getMyGrids.sort((a, b) => {
-    const aHasWin = getWinBallInitial.filter((winBall) => a.includes(winBall)).length > 2;
-    const bHasWin = getWinBallInitial.filter((winBall) => b.includes(winBall)).length > 2;
+    const aHasWin = getWinBallInitial.filter((winBall) => a.includes(winBall)).length >= 3;
+    const bHasWin = getWinBallInitial.filter((winBall) => b.includes(winBall)).length >= 3;
     return bHasWin - aHasWin;
   }).map((grid, index) => (
           <div className="winnweSection" key={index}>
@@ -86,7 +93,7 @@ const Result = ({parameters}) => {
               </div>
             </div>
             {getWinBallInitial.filter((winBall) => grid.includes(winBall))
-              .length > 2 ? (
+              .length >= 3 ? (
               <div className="winnweFooter">
                 <div className="price">L.L 2,000,000 won</div>
                 <div className="img">

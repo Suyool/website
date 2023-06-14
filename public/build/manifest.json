@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.js",
   "build/app2.js": "/build/app2.js",
   "build/styles.css": "/build/styles.css",
   "build/react_styles.css": "/build/react_styles.css",
   "build/runtime.js": "/build/runtime.js",
+=======
+  "build/app1.js": "/build/app1.92738b29.js",
+  "build/app2.js": "/build/app2.edea8447.js",
+  "build/styles.css": "/build/styles.80bd6bd2.css",
+  "build/react_styles.css": "/build/react_styles.160febf3.css",
+  "build/runtime.js": "/build/runtime.7394a4c4.js",
+>>>>>>> 4c0e170 (result.js modifying)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
