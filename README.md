@@ -1,8 +1,8 @@
-# elnashra.com
+# suyool.com
 
 ## Setup
 ```
-$ cd elnashra.com
+$ cd suyool.com
 #create .env.local file
 $ chmod 777 -R var/
 $ chmod 777 public/bash/cron*

@@ -4,7 +4,7 @@ scheb_two_factor:
   email:
     enabled: true                  # If email authentication should be enabled, default false
     mailer: scheb_two_factor.security.email.symfony_auth_code_mailer      # Use alternative service to send the authentication code
-    sender_email: donotreply@elnashra.com   # Sender email address
+    sender_email: donotreply@suyool.com   # Sender email address
     sender_name: '%app.name%.com'          # Sender name
     digits: 6                      # Number of digits in authentication code
     template: "security/authentication.html.twig"   # Template used to render the authentication form
