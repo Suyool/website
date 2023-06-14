@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +13,13 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/payQR/", name="app_pay_qr")
      */
-    public function paySkashQR(Request $request): Response
+    public function paySkashQR(Request $request, OrdersRepository $ordersRepository): Response
     {
         $order_id = $request->request->get('order_id');
+        $res = $ordersRepository->findBy(['orderId' => $order_id]);
+        print_r($res[0]->getCreateDate());die;
+        $created_at = $res->getCreatedAt();
+
         $metadata = json_decode($request->request->get('metadata'), true);
 
         $amount = $metadata['total_price']/100;
@@ -88,6 +93,69 @@ class ShopifyApiController extends AbstractController
             ];
         }
         return $this->json(['url' => 'your_mobile_payment_url']);
+    }
 
+    /**
+     * @Route("/update_status/", name="app_update_status")
+     */
+    public function updateStatus($order_id)
+    {
+        $data = $this->request->request->all();
+        $flag = isset($data['Flag']) ? $data['Flag'] : null;
+
+        if (isset($flag)) {
+            if ($flag == '1') {
+                $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . CERTIFICATE_PAYMENT_SUYOOL;
+                $SecureHash = urldecode(base64_encode(hash('sha512', $match_secure, true)));
+                $entityManager = $this->getDoctrine()->getManager();
+                $payment = $entityManager->getRepository(Payment::class)->find($order_id);
+
+                if ($SecureHash == $data['SecureHash']) {
+                    $url = $domain . 'admin/api/2020-04/orders/' . $data['TranID'] .'transactions.json';
+                    $json = array(
+                        'transaction' => array(
+                            'currency' => $currency,
+                            'amount' => $total_price,
+                            "source"=> "external",
+                            'kind' => 'sale',
+                            "status" =>  "success"
+                        )
+                    );
+                    $params['data'] = json_encode($json);
+                    $params['url'] = $url;
+                    $result = $this->send_curl($params);
+                    $response = json_decode($result, true);
+                } else {
+                    if ($payment) {
+                        $payment->setStatus(2);
+                        $entityManager->flush();
+                    }
+                }
+            }
+
+            $response = array(
+                'success' => true,
+            );
+            return new JsonResponse($response);
+        }
+    }
+
+    function spfw_get_browser_type()
+    {
+        $browser = "";
+        if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {
+            $browser = "IE";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Presto"))) {
+            $browser = "opera";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("CHROME"))) {
+            $browser = "chrome";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("SAFARI"))) {
+            $browser = "safari";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("FIREFOX"))) {
+            $browser = "firefox";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Netscape"))) {
+            $browser = "netscape";
+        }
+        return $browser;
     }
 }

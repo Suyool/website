@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\DateTrait;
 
 /**
  * @ORM\Table(name="shopify_orders")
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShopifyOrders
 {
+    use DateTrait;
+
     /**
      * @var int
      *
@@ -32,6 +35,7 @@ class ShopifyOrders
      * @ORM\Column(name="metainfo", type="string", nullable=false)
      */
     private $metaInfo;
+
 
     public function getId(): ?int
     {
