@@ -33,7 +33,6 @@ class DefaultController extends AbstractController
      * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
      */
-
     public function indexAction(Request $request, TranslatorInterface $translator,EntityManagerInterface $em)
     {
         // dd($em->getRepository(Managers::class)->findAll());

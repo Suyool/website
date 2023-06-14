@@ -48,3 +48,8 @@ phpunit.xml.dist
 public/elections/var/cache/
 !public/elections/var/cache/.gitkeep
 /.history
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

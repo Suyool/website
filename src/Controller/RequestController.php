@@ -19,10 +19,10 @@ class RequestController extends AbstractController
     private $certificate;
     private $cashinput=false;
 
-    public function __construct(translation $trans ,SessionInterface $session,$hash_algo,$certificate)
+    public function __construct(translation $trans ,$hash_algo,$certificate)
     {
         $this->trans=$trans;
-        $this->session = $session;
+        // $session = $session;
         $this->hash_algo=$hash_algo;
         $this->certificate=$certificate;
     }
@@ -43,6 +43,7 @@ class RequestController extends AbstractController
      */
     public function index(Request $request,TranslatorInterface $translator,$code): Response
     {
+        $session=$request->getSession();
         $parameters=$this->trans->translation($request,$translator);
         // $parameters['currency'] = "LL";
         $parameters['currentPage'] = "payment_landingPage";
@@ -74,33 +75,33 @@ class RequestController extends AbstractController
             $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
             // $parameters['request_details_response']['SenderProfilePic']='';
     // dd($parameters['request_details_response']['image']);
-            $this->session->set("request_details_response", $parameters['request_details_response']);
-            $this->session->set("Code", $code);
-            $this->session->set( "image",
+            $session->set("request_details_response", $parameters['request_details_response']);
+            $session->set("Code", $code);
+            $session->set( "image",
                 isset($parameters['request_details_response']['image']) 
                     ? $parameters['request_details_response']['image']
                     : '');
-                    $this->session->set("SenderInitials",
+                    $session->set("SenderInitials",
                     isset($parameters['request_details_response']['senderName'])
                         ? $parameters['request_details_response']['senderName']
                         : '');
-                $this->session->set("TranSimID",
+                $session->set("TranSimID",
                     isset($parameters['request_details_response']['transactionID'])
                         ? $parameters['request_details_response']['transactionID']
                         : '');
-                    //     $this->session->set("AllowATM",
+                    //     $session->set("AllowATM",
                     // isset($parameters['request_details_response']['AllowATM'])
                     //     ? $parameters['request_details_response']['AllowATM']
                     //     : '');
-                    //     $this->session->set("AllowExternal",
+                    //     $session->set("AllowExternal",
                     // isset($parameters['request_details_response']['AllowExternal'])
                     //     ? $parameters['request_details_response']['AllowExternal']
                     //     : '');
-                    //     $this->session->set("AllowBenName",
+                    //     $session->set("AllowBenName",
                     // isset($parameters['request_details_response']['AllowBenName'])
                     //     ? $parameters['request_details_response']['AllowBenName']
                     //     : '');
-            $this->session->set("IBAN",
+            $session->set("IBAN",
                 isset($parameters['request_details_response']['iban'])
                     ? $parameters['request_details_response']['iban'] 
                     : '');
@@ -119,6 +120,7 @@ class RequestController extends AbstractController
      */
     public function generateCode(Request $request,TranslatorInterface $translator): Response
     {
+        $session=$request->getSession();
         $parameters=$this->trans->translation($request,$translator);
 
         $parameters['currency'] = "$";
@@ -127,7 +129,7 @@ class RequestController extends AbstractController
         $type=$request->query->get('type');
         if($request->query->get('code')&&$request->query->get('type')){
             
-            if($code == $this->session->get('Code')){
+            if($code == $session->get('Code')){
                 // dd("ok");
                 /*** Check the payment type if is equal to ATM_KEY or EXTERNAL_KEY ***/
                 ($type == 'cash') ? $this->cashinput = true : '';
@@ -141,16 +143,16 @@ class RequestController extends AbstractController
             $params_valid = true;
 
         if($this->cashinput === true){
-            // dd($this->session->get('TranSimID'));
+            // dd($session->get('TranSimID'));
             $timetolive =24;
             if($timetolive == ''){
                 $params_valid = false;
                 $result['error_message'] = "Please select a time to live";
             }else{
                 $payment_type = '1'; //1 for Cashout, 2 for External Transfer
-                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
+                $Hash = base64_encode(hash($this->hash_algo, $session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
                 $form_data = [
-                    "TranSimID" => $this->session->get('TranSimID'),
+                    "TranSimID" => $session->get('TranSimID'),
                     "PaymentType" => $payment_type,  //1 for Cashout
                     "TimeToLive" => $timetolive,  // 1 for 1 Hour, 2 for 2 Hours.... till 24 Hours
                     'Hash' => $Hash,

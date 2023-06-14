@@ -21,10 +21,10 @@ class PaymentController extends AbstractController
     private $certificate;
     private $atm=false;
 
-    public function __construct(translation $trans,SessionInterface $session,$hash_algo,$certificate)
+    public function __construct(translation $trans,$hash_algo,$certificate)
     {
         $this->trans=$trans;
-        $this->session=$session;
+        // $request=$session;
         $this->hash_algo=$hash_algo;
         $this->certificate=$certificate;
     }
@@ -35,7 +35,7 @@ class PaymentController extends AbstractController
     public function index(Request $request,TranslatorInterface $translator,$code): Response
     {
         $parameters=$this->trans->translation($request,$translator);
-
+        $session=$request->getSession();
         
         $parameters['currentPage'] = "payment_landingPage";
 // dd(date("ymdHis"));
@@ -65,29 +65,29 @@ class PaymentController extends AbstractController
         $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
-        $this->session->set("request_details_response", $parameters['payment_details_response']);
-        $this->session->set("code", $code);
-        $this->session->set( "image",
+        $session->set("request_details_response", $parameters['payment_details_response']);
+        $session->set("code", $code);
+        $session->set( "image",
             isset($parameters['payment_details_response']['image'])
                 ? $parameters['payment_details_response']['image']
                 : '');
-        $this->session->set("SenderInitials",
+        $session->set("SenderInitials",
             isset($parameters['payment_details_response']['senderName'])
                 ? $parameters['payment_details_response']['senderName']
                 : '');
-        $this->session->set("TranSimID",
+        $session->set("TranSimID",
             isset($parameters['payment_details_response']['transactionID'])
                 ? $parameters['payment_details_response']['transactionID']
                 : '');
-                $this->session->set("AllowATM",
+                $session->set("AllowATM",
             isset($parameters['payment_details_response']['allowATM'])
                 ? $parameters['payment_details_response']['allowATM']
                 : '');
-                $this->session->set("AllowExternal",
+                $session->set("AllowExternal",
             isset($parameters['payment_details_response']['allowExternal'])
                 ? $parameters['payment_details_response']['allowExternal']
                 : '');
-                $this->session->set("AllowBenName",
+                $session->set("AllowBenName",
             isset($parameters['payment_details_response']['allowBenName'])
                 ? $parameters['payment_details_response']['allowBenName']
                 : '');
@@ -108,7 +108,7 @@ class PaymentController extends AbstractController
         $type=$request->query->get('type');
         if($request->query->get('code')&&$request->query->get('type')){
             
-            if($code == $this->session->get('code')){
+            if($code == $request->get('code')){
                 // dd("ok");
                 /*** Check the payment type if is equal to ATM_KEY or EXTERNAL_KEY ***/
                 ($type == 'atm') ? $this->atm = true : '';
@@ -122,16 +122,16 @@ class PaymentController extends AbstractController
             $params_valid = true;
 
         if($this->atm === true){
-            // dd($this->session->get('TranSimID'));
+            // dd($request->get('TranSimID'));
             $timetolive =24;
             if($timetolive == ''){
                 $params_valid = false;
                 $result['error_message'] = "Please select a time to live";
             }else{
                 $payment_type = '1'; //1 for Cashout, 2 for External Transfer
-                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
+                $Hash = base64_encode(hash($this->hash_algo, $request->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
                 $form_data = [
-                    "TranSimID" => $this->session->get('TranSimID'),
+                    "TranSimID" => $request->get('TranSimID'),
                     "PaymentType" => $payment_type,  //1 for Cashout
                     "TimeToLive" => $timetolive,  // 1 for 1 Hour, 2 for 2 Hours.... till 24 Hours
                     'Hash' => $Hash,
