@@ -1,7 +1,9 @@
 <div class="shopify">
-    <div class="output"></div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src="" scrolling="auto" height="600px" width="900px" style="border: 1px solid #ccc; margin: 10px 0"></iframe>
+    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src=""  height="600px" width="900px" style="border: 1px solid #ccc; margin: 10px 0">
+        <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/>
+        <img src="http://dev.suyool.com/build/images/suyool-Logo.png">
+    </iframe>
     <script type="text/javascript">
         (function($){
             $(document).ready(function(){
@@ -30,8 +32,11 @@
                             metadata: {{ meta_data|json_encode|raw }}
                         },
                         success: function(data){
-                            data = JSON.parse(data);
-                            $("iframe").attr("src", data.url);
+                            //window.location.href = data.url;
+                            var buttonHtml = '<button onclick="window.top.location.href=\'' + data.url + '\'">Redirect to URL</button>';
+                            // Inject button HTML into iframe document
+                            var iframeDoc = iframe_id[0].contentDocument || iframe_id[0].contentWindow.document;
+                            iframeDoc.body.innerHTML = buttonHtml;
                         }
                     });
                 }else{
@@ -43,8 +48,14 @@
                             metadata: {{ meta_data|json_encode|raw }}
                         },
                         success: function(data){
-                            data = JSON.parse(data);
-                            $("iframe").attr("src", data.url);
+                            var iframe = $("#skash-iframe-QR");
+                            var iframeContents = iframe.contents();
+
+                            // Create a div element to hold the HTML content
+                            var contentDiv = $("<div>").html(data);
+
+                            // Append the div to the iframe contents
+                            iframeContents.find("body").html(contentDiv);
                         }
                     });
                 }

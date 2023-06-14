@@ -36,18 +36,20 @@ class Helper
         return $ret;
     }
 
-    public static function send_curl($params) {
-        if($_ENV['APP_ENV']=='prod'){
+    public static function send_curl($params)
+    {
+        if ($_ENV['APP_ENV'] == 'prod') {
             // $host = 'https://globalapi.suyool.money/api/';
-            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/' ;
-        }else{
-            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/' ;
+            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+        } else {
+            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+            $host = 'https://suyool.net/';
         }
-        // dd($host.$params['url']);
+
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host. $params['url']);
+            curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
 
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";

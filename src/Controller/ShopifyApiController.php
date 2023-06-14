@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Repository\OrdersRepository;
+use App\Utils\Helper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+const CERTIFICATE_PAYMENT_SUYOOL = "FuawNgIwDKYkPZhuIScrcwMXlmnAlS95bjITnyJufWSyKLL3EokqlBqGaBsMqRBoH8vVEbeNmRe0mpoSpRedbEDE8wMIsQgFxcLq";
+
 
 class ShopifyApiController extends AbstractController
 {
@@ -17,15 +20,15 @@ class ShopifyApiController extends AbstractController
     {
         $order_id = $request->request->get('order_id');
         $res = $ordersRepository->findBy(['orderId' => $order_id]);
-        print_r($res[0]->getCreateDate());die;
-        $created_at = $res->getCreatedAt();
+
+        $created_at =  $res[0]->getCreateDate()->getTimestamp();
 
         $metadata = json_decode($request->request->get('metadata'), true);
 
         $amount = $metadata['total_price']/100;
         $currency = $metadata['currency'];
-        $timestamp =  strtotime($created_at)*1000;
-        $TranTS =  strtotime($created_at)*1000;
+        $timestamp =  $created_at*1000;
+        $TranTS =  $created_at*1000;
         $merchant_id = $metadata['merchant_id'];
         $AdditionalInfo = "";
 
@@ -33,32 +36,38 @@ class ShopifyApiController extends AbstractController
         $SecureHash = base64_encode(hash('sha512', $mobile_secure, true));
 
         if ($order_id !== '' && $amount !== '' && $currency !== ''  && $SecureHash !== '' && $timestamp !== '' && $TranTS !== '' && $merchant_id !== '') {
+            $amount = number_format((float)$amount, 2, '.', '');
 
             $json = [
-                "TransactionID" => $order_id,
-                "Amount" => $amount/ 100,
-                "Currency" => $currency,
-                "SecureHash" => $SecureHash,
-                "TS" => (string)$timestamp,
-                "TranTS" => (string)$TranTS,
-                "MerchantAccountID" => $merchant_id,
-                "AdditionalInfo" => $AdditionalInfo
+                "TransactionID" => 144,
+                "Amount" => "1.00",
+                "Currency" => "USD",
+                "SecureHash" => "gfq4Tvig01ol4vpl1AV9yanD9inWGgMCLjEXjMu8N1YPMeqEFckgljSjIiNdiNkqBKeKnsspfzNv5QNU9\/KKxg==",
+                "TS" => 1686741548000,
+                "TranTS" => 1686741548000,
+                "MerchantAccountID" => 51,
+                "AdditionalInfo" => ""
             ];
-
+//            print_r(json_encode($json));
             $params['data'] = json_encode($json);
             $params['url'] = 'SuyoolOnlinePayment/PayQR';
 
-            $result = $this->send_curl($params);
-            $response = json_decode($result, true);
+//            $result = Helper::send_curl($params);
+//            $response = json_decode($result, true);
+//            print_r($response);die;
+//            if ($response['Flag'] == 2) {
+//                return $this->json(['pictureURL' => $response['pictureURL']]);
+//
+//                $displayQRCont = '';
+//            } else {
+//                $displayQRCont = 'displayNone';
+//            }
 
-            if ($response['Flag'] == 2) {
-                $displayQRCont = '';
-            } else {
-                $displayQRCont = 'displayNone';
-            }
+            return $this->render('shopify/pay-qr.html.twig', [
+                'pictureURL' => 'https://suyool.net/SuyoolOnlinePayment/Pictures/1686741548000.png',
+            ]);
 
         }
-        return $this->json(['flag' => $response['Flag']]);
 
     }
     /**
@@ -78,21 +87,26 @@ class ShopifyApiController extends AbstractController
         $mobile_secure = $order_id . $merchant_id . $amount . $currency . $timestamp . CERTIFICATE_PAYMENT_SUYOOL;
         $SecureHash = base64_encode(hash('sha512', $mobile_secure, true));
 
-        if ($order_id !== '' && $amount !== '' && $currency !== ''  && $SecureHash !== '' && $timestamp !== '' && $TranTS !== '' && $merchant_id !== '') {
             $json = [
-                "strTranID" => $order_id,
-                "MerchantID" => $merchant_id,
-                "Amount" => $amount/ 100,
+                "TransactionID" => 144,
+                "Amount" => "1.00",
                 "Currency" => "USD",
+                "SecureHash" => "gfq4Tvig01ol4vpl1AV9yanD9inWGgMCLjEXjMu8N1YPMeqEFckgljSjIiNdiNkqBKeKnsspfzNv5QNU9\/KKxg==",
+                "TS" => 1686741548000,
+                "TranTS" => 1686741548000,
+                "MerchantAccountID" => 51,
                 "CallBackURL" => "",
-                "TS" => (string)$timestamp,
-                "secureHash" => $SecureHash,
                 "currentUrl" =>"asdads",
                 "browsertype" => $this->spfw_get_browser_type(),
                 "AdditionalInfo" => $AdditionalInfo
             ];
-        }
-        return $this->json(['url' => 'your_mobile_payment_url']);
+            $json_encoded = json_encode($json);
+            $APP_URL = "skashpay://skash.com/skash=?";
+            $appUrl = $APP_URL.$json_encoded;
+
+            return $this->json(['url' => $appUrl]);
+
+
     }
 
     /**
