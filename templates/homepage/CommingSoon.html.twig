@@ -7,17 +7,26 @@
         <img src="{{asset('build/images/suyoolLogoComming.jpg')}}" alt="">
     </div>
 
-    <div class="body">
-        <div class="title">Your Cashless Solution</div>
-        <div class="desc">Be the first to know when we launch</div>
-        <div class="inputSection">
-            <div class="thisInput"><span><i class="fa-solid fa-envelope"></i></span><input type="tel" id="phone" name="phone" placeholder="Enter your email address"></div>
-            <button class="NotifyMe">Notify Me</button>
+    <div class="container-fluid body">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="title">Your Cashless Solution</div>
+                <div class="desc">Be the first to know when we launch</div>
+                <div class="inputSection">
+                    <div class="thisInput">
+                        <span><i class="fa-solid fa-envelope"></i></span>
+                        <input placeholder="Enter your email address">
+                    </div>
+                    <button class="NotifyMe">Notify Me</button>
+                </div>
+                <div class="downloadImageSection">
+                    <img src="{{asset('build/images/commingSoon/appstore.png')}}" alt="appstore">
+                    <img src="{{asset('build/images/commingSoon/playstore.png')}}" alt="playstore">
+                </div>
+            </div>
+            <div class="col-6"></div>
         </div>
-        <div class="downloadImageSection">
-            <img src="{{asset('build/images/commingSoon/appstore.png')}}" alt="appstore">
-            <img src="{{asset('build/images/commingSoon/playstore.png')}}" alt="playstore">
-        </div>
+
     </div>
 
 

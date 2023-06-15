@@ -19,7 +19,7 @@
 
     .body {
         padding-top: 60px;
-        padding-left: 12%;
+        padding-left: 150px;
         z-index: 100;
 
         .title {
@@ -141,5 +141,269 @@
         position: absolute;
         bottom: 50px;
         right: -40px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .commingSoon {
+        height: 100vh;
+
+        .header {
+            img {
+                width: 180px;
+            }
+        }
+
+        .body {
+            padding-top: 50px;
+            padding-left: 120px;
+
+            .title {
+                font-size: 42px;
+                padding-left: 15px;
+                max-width: 350px;
+            }
+
+            .desc {
+                font-size: 18px;
+                padding-left: 15px;
+                padding-top: 8px;
+            }
+
+            .inputSection {
+                margin-top: 15px;
+                width: 600px;
+                padding: 8px;
+                border-radius: 45px;
+
+                .thisInput {
+                    span {
+                        font-size: 28px;
+                        padding-left: 15px;
+                    }
+
+                    input {
+                        padding-left: 15px;
+                        font-size: 16px;
+                        width: 300px;
+                    }
+                }
+
+                .NotifyMe {
+                    font-size: 16px;
+                    padding: 12px 20px;
+                    border-radius: 38px;
+                }
+            }
+
+            .downloadImageSection {
+                padding-top: 20px;
+
+                img {
+                    padding-left: 15px;
+                }
+            }
+        }
+
+
+        .footer {
+            bottom: 0;
+            height: 233px;
+            position: absolute;
+            padding-bottom: 30px;
+
+            .socialMedia {
+                a {
+                    padding-left: 30px;
+                }
+            }
+
+            .copyRightSection {
+                text-align: center;
+
+                .Copyright {
+                    font-size: 15px;
+                }
+            }
+
+            .emptySpace {
+                display: none;
+            }
+        }
+
+        .base {
+            bottom: -50px;
+            right: -200px;
+        }
+
+        .mobile {
+            bottom: 70px;
+            right: -70px;
+
+            img {
+                width: 510px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .commingSoon {
+        height: 100vh;
+
+        .header {
+            img {
+                width: 160px;
+            }
+        }
+
+        .body {
+            padding-top: 40px;
+            padding-left: 60px;
+
+            .title {
+                font-size: 38px;
+                padding-left: 15px;
+                max-width: 350px;
+            }
+
+            .desc {
+                font-size: 16px;
+                padding-left: 15px;
+                padding-top: 8px;
+            }
+
+            .inputSection {
+                margin-top: 15px;
+                width: 500px;
+                padding: 8px;
+                border-radius: 40px;
+
+                .thisInput {
+                    span {
+                        font-size: 24px;
+                        padding-left: 15px;
+                    }
+
+                    input {
+                        padding-left: 15px;
+                        font-size: 14px;
+                        width: 200px;
+                    }
+                }
+
+                .NotifyMe {
+                    font-size: 16px;
+                    padding: 12px 20px;
+                    border-radius: 38px;
+                }
+            }
+        }
+
+
+        .footer {
+            padding-bottom: 30px;
+
+            .socialMedia {
+                a {
+                    padding-left: 20px;
+                }
+            }
+
+            .copyRightSection {
+                text-align: center;
+
+                .Copyright {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .base {
+            display: none;
+        }
+
+        .mobile {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .commingSoon {
+        height: 100vh;
+
+        .header {
+            img {
+                width: 160px;
+            }
+        }
+
+        .body {
+            padding-top: 40px;
+            padding-left: 30px;
+
+            .title {
+                font-size: 32px;
+                padding-left: 10px;
+            }
+
+            .desc {
+                font-size: 16px;
+                padding-left: 14px;
+                padding-top: 8px;
+            }
+
+            .inputSection {
+                margin-top: 12px;
+                width: auto;
+                padding: 8px;
+                border-radius: 38px;
+                flex-direction: column;
+
+                .thisInput {
+                    span {
+                        padding-left: 10px;
+                    }
+
+                    input {
+                        padding-left: 10px;
+                        font-size: 15px;
+                        width: 250px;
+                    }
+                }
+
+                .NotifyMe {
+                    font-size: 15px;
+                    margin-top: 20px;
+                    padding: 10px 18px;
+                    border-radius: 35px;
+                }
+            }
+
+            .downloadImageSection {
+                padding-top: 27px;
+
+                img {
+                    padding-left: 10px;
+                }
+            }
+        }
+
+
+        .footer {
+            position: absolute;
+            padding-bottom: 15px;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+
+            .copyRightSection {
+                padding-top: 10px;
+                .Copyright {
+                    font-size: 13px;
+                }
+            }
+        }
     }
 }
