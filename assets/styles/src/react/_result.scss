@@ -137,9 +137,10 @@
                 span {
                     font-family: PoppinsSemiBold;
                     font-size: 15px;
-                    color: white;
-                    background-color: #C82F2A;
+                    color: #676767;
+                    background-color: white;
                     border-radius: 50%;
+                    border: 1px solid #676767;
                     width: 30px;
                     height: 30px;
                     display: flex;
@@ -150,7 +151,9 @@
                 }
 
                 .win {
-                    background-color: #373464;
+                    background-color: #C82F2A;
+                    border: 1px solid #C82F2A;
+                    color: white;
                 }
             }
         }
