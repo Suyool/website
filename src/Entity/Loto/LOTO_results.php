@@ -62,6 +62,12 @@ class LOTO_results
 
     /**
      * 
+     * @ORM\Column(type="string")
+     */
+    private $drawId;
+
+    /**
+     * 
      * @ORM\Column(name="created",type="datetime")
      */
     private $created;
@@ -75,6 +81,17 @@ class LOTO_results
     public function getdrawdate()
     {
         return $this->drawdate;
+    }
+
+    public function getdrawid()
+    {
+        return $this->drawId;
+    }
+
+    public function setdrawid($drawId)
+    {
+        $this->drawId=$drawId;
+        return $this;
     }
 
     public function setdrawdate(string $drawdate)

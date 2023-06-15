@@ -112,17 +112,19 @@ class LotoDrawData extends Command
 
         $reponseprize = Helper::send_curl($prize, 'loto');
         $prize_loto = json_decode($reponseprize, true);
-        
-        
+        $drawdate=strtotime($prize_loto['d']['draws'][0]['drawdate']);
+        // dd($drawdate);
+        // dd($prize_loto);
             foreach ($prize_loto['d']['draws'] as $prize_loto) {
                 $results = new LOTO_results;
                 $drawdate=strtotime($prize_loto['drawdate']);
-                if(!$this->mr->getRepository(LOTO_results::class)->findBy(['drawdate'=>date('Y-m-d H:i:s',$drawdate)])){
+                if(!$this->mr->getRepository(LOTO_results::class)->findBy(['drawId'=>$prize_loto['drawnumber']])){
                 $numbers = [$prize_loto['B1'], $prize_loto['B2'], $prize_loto['B3'], $prize_loto['B4'], $prize_loto['B5'], $prize_loto['B6'], $prize_loto['B7']];
                 $numbers = implode(",", $numbers);
                 // dd($prize_loto['drawdate']->forma);
                $drawdate=strtotime($prize_loto['drawdate']);
             //    dd(date('Y-m-d H:i:s',$drawdate));
+                $results->setdrawid($prize_loto['drawnumber']);
                 $results->setnumbers($numbers);
                 $results->setdrawdate(date('Y-m-d H:i:s',$drawdate));
                 $results->setwinner1($prize_loto['prize1']);
