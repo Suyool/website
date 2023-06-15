@@ -1,0 +1,145 @@
+.commingSoon {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+
+    .header {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+
+        img {
+            width: 200px;
+        }
+    }
+
+    .body {
+        padding-top: 60px;
+        padding-left: 12%;
+        z-index: 100;
+
+        .title {
+            font-family: PoppinsRegular;
+            font-size: 56px;
+            color: #4B2C84;
+            padding-left: 20px;
+            max-width: 450px;
+        }
+
+        .desc {
+            font-family: PoppinsRegular;
+            font-size: 22px;
+            color: #949494;
+            padding-left: 20px;
+            padding-top: 10px;
+        }
+
+        .inputSection {
+            margin-top: 20px;
+            width: 700px;
+            background-color: #EFEEF6;
+            padding: 10px;
+            border-radius: 55px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .thisInput {
+                span {
+                    color: #b3b2b8;
+                    font-size: 30px;
+                    padding-left: 20px;
+                }
+
+                input {
+                    background-color: #EFEEF6;
+                    padding-left: 20px;
+                    border: none;
+                    color: #00000080;
+                    font-family: PoppinsRegular;
+                    font-size: 18px;
+                    width: 300px;
+                }
+
+                input:hover,
+                input:focus {
+                    outline: none;
+                }
+            }
+
+            .NotifyMe {
+                font-size: 18px;
+                font-family: PoppinsRegular;
+                padding: 15px 25px;
+                border-radius: 44px;
+                color: white;
+                background-color: #2167B3;
+                border: none;
+            }
+        }
+
+        .downloadImageSection {
+            padding-top: 30px;
+
+            img {
+                padding-left: 20px;
+            }
+        }
+    }
+
+
+    .footer {
+        z-index: 10;
+        background-repeat: no-repeat;
+        bottom: 0;
+        height: 233px;
+        position: absolute;
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-end;
+        background-image: url('../../../images/Wave.png');
+        padding-bottom: 30px;
+
+        .socialMedia {
+            a {
+                padding-left: 30px;
+            }
+        }
+
+        .copyRightSection {
+            text-align: center;
+
+            .Copyright {
+                color: white;
+                font-family: PoppinsRegular;
+                font-size: 16px;
+            }
+        }
+
+        .emptySpace {
+            width: 330px;
+        }
+    }
+
+    .base {
+        // height: 70vh;
+        // width: 40%;
+        position: absolute;
+        bottom: -20px;
+        right: -140px;
+    }
+
+    .mobile {
+        z-index: 15;
+        position: absolute;
+        bottom: 50px;
+        right: -40px;
+    }
+}

@@ -38,6 +38,7 @@ class DefaultController extends AbstractController
     {
         // dd($em->getRepository(Managers::class)->findAll());
         $trans=$this->trans->translation($request,$translator);
-        return $this->render('homepage/index.html.twig');
+        return $this->render('homepage/commingSoon.html.twig');
+        // return $this->render('homepage/index.html.twig');
     }
 }
