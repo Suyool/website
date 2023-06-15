@@ -30,9 +30,24 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount }) => {
     };
 
     const handleDone = () => {
-        setPickYourGrid(false)
-    };
-
+        console.log(selectedBalls);
+      
+        // Retrieve existing data from localStorage
+        const existingData = localStorage.getItem('selectedBalls');
+      
+        // Parse the retrieved data to an array or initialize an empty array
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+      
+        // Append selectedBalls to the existing array as a new inner array
+        const updatedBalls = [...existingBalls, selectedBalls];
+      
+        // Store the updated array in localStorage
+        localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
+      
+        setPickYourGrid(false);
+      };
+      
+      
     const handleCancel = () => {
         setPickYourGrid(false)
     };
