@@ -1,4 +1,7 @@
 .commingSoon {
+    .message{
+        
+    }
     height: 100vh;
     width: 100%;
     display: flex;
@@ -80,6 +83,7 @@
                 color: white;
                 background-color: #2167B3;
                 border: none;
+                z-index: 9999;
             }
         }
 

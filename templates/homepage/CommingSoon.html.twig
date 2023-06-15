@@ -6,13 +6,18 @@
     <div class="header">
         <img src="{{asset('build/images/suyoolLogoComming.jpg')}}" alt="">
     </div>
+    
 
     <div class="container-fluid body">
         <div class="row">
+            {% if message is defined %}
+                <div class="message">{{message}}</div>
+            {% endif %}
             <div class="col-lg-6 col-md-8 col-sm-12">
                 <div class="title">Your Cashless Solution</div>
                 <div class="desc">Be the first to know when we launch</div>
                 <form action="" method="post">
+                    <input type="hidden" name="token" value="{{ csrf_token('email') }}"/>
                     <div class="inputSection">
                         <div class="thisInput">
                             <span>

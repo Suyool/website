@@ -31,18 +31,24 @@ class DefaultController extends AbstractController
      */
     public function indexAction(Request $request, TranslatorInterface $translator,EntityManagerInterface $em)
     {
+        $submittedToken = $request->request->get('token');
+
         // dd($em->getRepository(Managers::class)->findAll());
         $trans=$this->trans->translation($request,$translator);
         $message='';
-        if($_SERVER['REQUEST_METHOD']=="POST" && $_POST['email']!=null &&!$em->getRepository(emailsubscriber::class)->findOneBy(['email'=>$_POST['email']])){
-            $emailSubcriber=new emailsubscriber;
-            $emailSubcriber->setEmail($_POST['email']);
-            $emailSubcriber->setCreated(new DateTime());
-            $em->persist($emailSubcriber);
-            $em->flush();
-            $message="Email Added";
-            header("Refresh:0");
-        }
+        if($this->isCsrfTokenValid('email', $submittedToken)){
+            if($_SERVER['REQUEST_METHOD']=="POST" && $_POST['email']!=null &&!$em->getRepository(emailsubscriber::class)->findOneBy(['email'=>$_POST['email']])){
+                $emailSubcriber=new emailsubscriber;
+                $emailSubcriber->setEmail($_POST['email']);
+                $emailSubcriber->setCreated(new DateTime());
+                $em->persist($emailSubcriber);
+                $em->flush();
+                $message="Email Added";
+                header("Refresh:0");
+            }else{
+                $message="Email already exist";
+            }
+        }     
         return $this->render('homepage/CommingSoon.html.twig',['message'=>$message]);
         // return $this->render('homepage/index.html.twig');
     }
