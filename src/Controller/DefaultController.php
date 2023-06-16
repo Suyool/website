@@ -40,22 +40,26 @@ class DefaultController extends AbstractController
         $trans = $this->trans->translation($request, $translator);
         $message = '';
         if ($this->isCsrfTokenValid('email', $submittedToken)) {
-            // if($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] == null){
-            //     $message='Field Null';
-            // }
-            if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
-                $emailSubcriber = new emailsubscriber;
-                $emailSubcriber->setEmail($_POST['email']);
-                $emailSubcriber->setCreated(new DateTime());
-                $em->persist($emailSubcriber);
-                $em->flush();
-                $message = "Email Added";
-                return new JsonResponse(['success' => true, 'message' => $message]);
-                // header("Refresh:0");
-            } else {
-                $message = "Email already exist";
-                return new JsonResponse(['success' => false, 'message' => $message]);
+
+            if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                $message="email invalid";
+                return new JsonResponse(['success' => "Invalid Email", 'message' => $message]);
+            }else{
+                if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
+                    $emailSubcriber = new emailsubscriber;
+                    $emailSubcriber->setEmail($_POST['email']);
+                    $emailSubcriber->setCreated(new DateTime());
+                    $em->persist($emailSubcriber);
+                    $em->flush();
+                    $message = "Email Added";
+                    return new JsonResponse(['success' => true, 'message' => $message]);
+                    // header("Refresh:0");
+                } else {
+                    $message = "Email already exist";
+                    return new JsonResponse(['success' => false, 'message' => $message]);
+                }
             }
+            
         }
         return $this->render('homepage/CommingSoon.html.twig', [
             'message'=>$message
