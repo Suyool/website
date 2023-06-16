@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ShopifyOrders;
 use App\Repository\CredentialsRepository;
 use App\Repository\OrdersRepository;
+use App\Utils\Helper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,17 +33,7 @@ class ShopifyController extends AbstractController
             return new Response("Your order cannot be proccessed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
         }
 
-        $parsedUrl = parse_url($domain);
-
-        // Get the hostname from the parsed URL
-        $hostname = $parsedUrl['host'];
-
-        // Remove the "www" and any subdomains
-        $parts = explode('.', $hostname);
-        $partsCount = count($parts);
-        if ($partsCount >= 3 && $parts[0] === 'www') {
-            $hostname = implode('.', array_slice($parts, 1));
-        }
+        $hostname = Helper::getHost($domain);
 
 
         $credentials = $credentialsRepository->findAll();

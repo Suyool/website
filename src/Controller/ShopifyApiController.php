@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\MerchantCredentials;
+use App\Entity\ShopifyOrders;
+use App\Repository\CredentialsRepository;
 use App\Repository\OrdersRepository;
 use App\Utils\Helper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-const CERTIFICATE_PAYMENT_SUYOOL = "GVkCbD9ghQIPzfNrI5HX3GpkAI60HjUaqV2FIPpXN6IB6ZioUbcAeKJVATY6X74s2DNAE5N3T70nCPszxF8gpfUGSU2ity69c2fA";
+//const CERTIFICATE_PAYMENT_SUYOOL = "GVkCbD9ghQIPzfNrI5HX3GpkAI60HjUaqV2FIPpXN6IB6ZioUbcAeKJVATY6X74s2DNAE5N3T70nCPszxF8gpfUGSU2ity69c2fA";
 
 
 class ShopifyApiController extends AbstractController
@@ -19,7 +23,7 @@ class ShopifyApiController extends AbstractController
     public function paySkashQR(Request $request, OrdersRepository $ordersRepository): Response
     {
         $order_id = $request->request->get('order_id');
-        $res = $ordersRepository->findBy(['orderId' => 1]);
+        $res = $ordersRepository->findBy(['orderId' => $order_id]);
 
         $created_at =  $res[0]->getCreateDate()->getTimestamp();
 
@@ -33,10 +37,12 @@ class ShopifyApiController extends AbstractController
         $merchant_id = 23;
         $AdditionalInfo = "";
 
+
         $created_at = date('Y-m-d H:i:s');
         $timestamp = strtotime($created_at) * 1000;
+        $domain = $metadata['domain'];
 
-        $secure = $order_id . $timestamp . $amount . $currency . $timestamp . CERTIFICATE_PAYMENT_SUYOOL;
+        $secure = $order_id . $timestamp . $amount . $currency . $timestamp . $this->getCertificate(Helper::getHost($domain));
 
         $SecureHash = base64_encode(hash('sha512', $secure, true));
 
@@ -87,8 +93,9 @@ class ShopifyApiController extends AbstractController
 
         $merchant_id = $request->query->get('MerchantID', '');
         $AdditionalInfo = "";
+        $domain = $metadata['domain'];
 
-        $mobile_secure = $order_id . $merchant_id . $amount . $currency . $timestamp . CERTIFICATE_PAYMENT_SUYOOL;
+        $mobile_secure = $order_id . $merchant_id . $amount . $currency . $timestamp . $this->getCertificate(Helper::getHost($domain));
         $SecureHash = base64_encode(hash('sha512', $mobile_secure, true));
 
             $json = [
@@ -116,50 +123,80 @@ class ShopifyApiController extends AbstractController
     }
 
     /**
-     * @Route("/update_status/", name="app_update_status")
+     * @Route("/update_status/{order_id}", name="app_update_status")
      */
-    public function updateStatus($order_id)
+    public function updateStatus(Request $request,$order_id, OrdersRepository $ordersRepository, CredentialsRepository $credentialsRepository)
     {
-        $data = $this->request->request->all();
+
+        $data = $request->request->all();
+
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if (isset($flag)) {
             $entityManager = $this->getDoctrine()->getManager();
-            $order = $entityManager->getRepository(ShopifyOrders::class)->find($order_id);
+            $orders = $ordersRepository->findBy(['orderId' => $order_id]);
+            $order = $orders[0];
+
+
 
             if ($flag == '1') {
-                if ($order) {
-                    $order->setStatus(1);
-                }
-                $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . CERTIFICATE_PAYMENT_SUYOOL;
+
+
+
+                $metaInfo = json_decode($order->getMetaInfo(),true);
+                $currency = $metaInfo['currency'];
+                $domain = Helper::getHost($metaInfo['domain']);
+                $totalPrice = $metaInfo['total_price'];
+                $url = $domain . '/admin/api/2020-04/orders/' . $data['TranID'] .'/transactions.json';
+
+                $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . $this->getCertificate(Helper::getHost($domain));
                 $SecureHash = urldecode(base64_encode(hash('sha512', $match_secure, true)));
-                $entityManager = $this->getDoctrine()->getManager();
-                $payment = $entityManager->getRepository(Payment::class)->find($order_id);
+
+                $credential = $credentialsRepository->findBy(['shop'=>$domain]);
+
+                $accessToken = $credential[0]->getAccessToken();
+
 
                 if ($SecureHash == $data['SecureHash']) {
-                    $url = $domain . 'admin/api/2020-04/orders/' . $data['TranID'] .'transactions.json';
+                    if ($order) {
+                        $order->setStatus(1);
+                    }
                     $json = array(
                         'transaction' => array(
                             'currency' => $currency,
-                            'amount' => $total_price,
+                            'amount' => $totalPrice,
                             "source"=> "external",
                             'kind' => 'sale',
                             "status" =>  "success"
                         )
                     );
-                    $params['data'] = json_encode($json);
-                    $params['url'] = $url;
-                    $result = $this->send_curl($params);
-                    $response = json_decode($result, true);
+
                 } else {
                     if ($order) {
                         $order->setStatus(2);
                     }
+                    $json = array(
+                        'transaction' => array(
+                            'currency' => $currency,
+                            'amount' => $totalPrice,
+                            "source"=> "external",
+                            'kind' => 'sale',
+                            "status" =>  "failed"
+                        )
+                    );
                 }
+                $params['data'] = json_encode($json);
+                $params['url'] = $url;
+                $result = Helper::send_curl($params,$accessToken);
+                $response = json_decode($result, true);
+                return new JsonResponse($response);
+
             }
 
+            $entityManager->persist($order);
+            $entityManager->flush();
             $response = array(
-                'success' => true,
+                'status'=>'failed',
             );
             return new JsonResponse($response);
         }
@@ -221,5 +258,17 @@ class ShopifyApiController extends AbstractController
             'url' => ''
         ];
         return $this->json($response);
+    }
+
+    private function getCertificate($domain){
+        $entityManager = $this->getDoctrine()->getManager();
+        $credentials = $entityManager->getRepository(MerchantCredentials::class)->findBy(['shop'=>$domain]);
+        $credential = $credentials[0];
+
+        if($credential->getTestChecked()){
+            return $credential->getTestCertificateKey();
+        }else{
+            return $credential->getLiveCertificateKey();
+        }
     }
 }

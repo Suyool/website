@@ -23,9 +23,9 @@ class ShopifyOrders
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="order_id", type="integer", nullable=false)
+     * @ORM\Column(name="order_id", type="string", nullable=false)
      */
     private $orderId;
 
@@ -39,7 +39,7 @@ class ShopifyOrders
     /**
      * @var int
      *
-     * @ORM\Column(name="order_id", type="integer", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
     private $status;
 
@@ -53,12 +53,12 @@ class ShopifyOrders
         $this->id = $id;
     }
 
-    public function getOrderId(): ?int
+    public function getOrderId(): ?string
     {
         return $this->orderId;
     }
 
-    public function setOrderId(int $orderId): void
+    public function setOrderId(string $orderId): void
     {
         $this->orderId = $orderId;
     }
