@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\emailsubscriber;
 use App\Entity\Managers;
 use App\Entity\Rates;
@@ -14,12 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 class DefaultController extends AbstractController
 {
     private $trans;
     public function __construct(translation $trans)
     {
-        $this->trans=$trans;
+        $this->trans = $trans;
     }
     /**
      * @Route("/", name="homepage")
@@ -29,27 +32,34 @@ class DefaultController extends AbstractController
      * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function indexAction(Request $request, TranslatorInterface $translator,EntityManagerInterface $em)
+    public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em)
     {
         $submittedToken = $request->request->get('token');
 
         // dd($em->getRepository(Managers::class)->findAll());
-        $trans=$this->trans->translation($request,$translator);
-        $message='';
-        if($this->isCsrfTokenValid('email', $submittedToken)){
-            if($_SERVER['REQUEST_METHOD']=="POST" && $_POST['email']!=null &&!$em->getRepository(emailsubscriber::class)->findOneBy(['email'=>$_POST['email']])){
-                $emailSubcriber=new emailsubscriber;
+        $trans = $this->trans->translation($request, $translator);
+        $message = '';
+        if ($this->isCsrfTokenValid('email', $submittedToken)) {
+            // if($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] == null){
+            //     $message='Field Null';
+            // }
+            if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
+                $emailSubcriber = new emailsubscriber;
                 $emailSubcriber->setEmail($_POST['email']);
                 $emailSubcriber->setCreated(new DateTime());
                 $em->persist($emailSubcriber);
                 $em->flush();
-                $message="Email Added";
-                header("Refresh:0");
-            }else{
-                $message="Email already exist";
+                $message = "Email Added";
+                return new JsonResponse(['success' => true, 'message' => $message]);
+                // header("Refresh:0");
+            } else {
+                $message = "Email already exist";
+                return new JsonResponse(['success' => false, 'message' => $message]);
             }
-        }     
-        return $this->render('homepage/CommingSoon.html.twig',['message'=>$message]);
+        }
+        return $this->render('homepage/CommingSoon.html.twig', [
+            'message'=>$message
+        ]);
         // return $this->render('homepage/index.html.twig');
     }
 }

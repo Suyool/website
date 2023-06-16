@@ -10,13 +10,11 @@
 
 		<div class="container-fluid body">
 			<div class="row">
-				{% if message is defined %}
-					<div class="message">{{message}}</div>
-				{% endif %}
+
 				<div class="col-lg-6 col-md-8 col-sm-12">
 					<div class="title">Your Cashless Solution</div>
 					<div class="desc">Be the first to know when we launch</div>
-					<form action="" method="post">
+					<form method="post" id="emailForm">
 						<input type="hidden" name="token" value="{{ csrf_token('email') }}"/>
 						<div class="inputSection">
 							<div class="thisInput">
@@ -57,6 +55,22 @@
 
 
 	</div>
-
-
+		<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailaddedLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="emailTitle"></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p id="emailStatus"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="location.reload()" id="emailBtn"></button>
+					</div>
+				</div>
+			</div>
+		</div>
 {% endblock %}
