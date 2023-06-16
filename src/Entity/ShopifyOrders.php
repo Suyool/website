@@ -36,6 +36,12 @@ class ShopifyOrders
      */
     private $metaInfo;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="order_id", type="integer", nullable=false)
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -65,5 +71,14 @@ class ShopifyOrders
     public function setMetaInfo(string $metaInfo): void
     {
         $this->metaInfo = $metaInfo;
+    }
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
     }
 }
