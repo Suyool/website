@@ -114,6 +114,7 @@
 
         .socialMedia {
             z-index: 9999;
+
             a {
                 padding-left: 30px;
             }
@@ -148,6 +149,12 @@
         bottom: 50px;
         right: -40px;
     }
+
+
+}
+
+.myModaldesign {
+    z-index: 99999;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -220,6 +227,7 @@
 
             .socialMedia {
                 z-index: 100;
+
                 a {
                     padding-left: 30px;
                 }
