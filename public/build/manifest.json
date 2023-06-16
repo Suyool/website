@@ -1,16 +1,17 @@
 {
-  "build/app.js": "/build/app.js",
-  "build/styles.css": "/build/styles.css",
-  "build/runtime.js": "/build/runtime.js",
+  "build/app.js": "/build/app.066b1f68.js",
+  "build/styles.css": "/build/styles.e35d0cf6.css",
+  "build/runtime.js": "/build/runtime.e40c1cca.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
-  "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
+  "build/images/commingSoon/mobile1.png": "/build/images/commingSoon/mobile1.png",
   "build/fonts/Poppins-Regular.ttf": "/build/fonts/Poppins-Regular.35d26b78.ttf",
   "build/fonts/Poppins-Medium.ttf": "/build/fonts/Poppins-Medium.673ed423.ttf",
   "build/fonts/Poppins-SemiBold.ttf": "/build/fonts/Poppins-SemiBold.ac8d04b6.ttf",
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/commingSoon/Base.png": "/build/images/commingSoon/Base.png",
+  "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
   "build/images/visacard.png": "/build/images/visacard.png",
   "build/images/invitation/top-section-invitation-image-1.png": "/build/images/invitation/top-section-invitation-image-1.png",
   "build/images/top-section-invitation-image-1.png": "/build/images/top-section-invitation-image-1.bd08a654.png",
@@ -30,6 +31,7 @@
   "build/images/u2sd.png": "/build/images/u2sd.png",
   "build/images/login2.jpg": "/build/images/login2.jpg",
   "build/images/zwz.png": "/build/images/zwz.png",
+  "build/images/commingSoon/suyoolLogo.png": "/build/images/commingSoon/suyoolLogo.png",
   "build/images/safe&secure.png": "/build/images/safe&secure.png",
   "build/images/transaction-anywhere.png": "/build/images/transaction-anywhere.png",
   "build/images/abc.png": "/build/images/abc.png",
@@ -72,7 +74,5 @@
   "build/images/commingSoon/facebook.png": "/build/images/commingSoon/facebook.png",
   "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png",
   "build/images/payment/person.png": "/build/images/payment/person.png",
-  "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",
-  "build/images/commingSoon/Group 5998.png": "/build/images/commingSoon/Group 5998.png",
-  "build/images/commingSoon/suyoolLogo.png": "/build/images/commingSoon/suyoolLogo.png"
+  "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png"
 }
