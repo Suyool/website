@@ -9,14 +9,6 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class Helper
 {
-    /**
-     * @param \DateTime|false $date
-     * @return string|false
-     */
-    // function getRssDate($date = false)
-    // {
-    //     return (!$date) ? gmdate("D, d M Y H:i:s T", time()) : gmdate("D, d M Y H:i:s T", strtotime($date));
-    // }
 
     /**
      * @param string $url
@@ -43,14 +35,11 @@ class Helper
             $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
         } else {
             $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-            $host = 'https://suyool.net/';
         }
-
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
             curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
-
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
             //If the request type is not get, add the CURL postfield data
@@ -63,14 +52,12 @@ class Helper
                     'Connection: Keep-Alive',
                 ]
             );
-
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_VERBOSE, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $ret = curl_exec($ch);
             curl_close($ch);
             return $ret;
-
         }
     }
 

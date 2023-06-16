@@ -1,11 +1,50 @@
+<style>
+    .logo{
+        margin:20px auto 20px auto;
+    }
+
+    .subtitle{
+        font-size: 18px;
+    }
+    #qr-code{
+        margin: 20px 0;
+    }
+    #qr-code img{
+        max-width: 100%;
+    }
+    .IframeCont h5 {
+        margin: 0;
+        margin-bottom: 9px;
+        color: #465567;
+        font-family: 'Helvetica Neue, Bold';
+        font-size: 20px;
+    }
+    .stepsImageCont img {
+        max-width: 45%;
+    }
+    .message{
+        color: green;
+    }
+</style>
 <div class="pay">
     <div class="pay-qr" style="text-align: center">
-        <div>
+        <div class="logo">
             <img src="http://dev.suyool.com/build/images/suyool-Logo.png">
         </div>
-        <div id="qr-code"><img src={{ pictureURL }} alt=""></div>
-
-        <div> <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/></div>
-
+        <div class="QR-cont">
+            <div class="subtitle">
+                Scan this QR to complete the tranasction
+            </div>
+            <div id="qr-code">
+                <p class="message">{{ message }}</p>
+                <img src={{ pictureURL }}>
+            </div>
+        </div>
+        <div class="IframeCont" align="center">
+            <h5>HOW TO PAY?</h5>
+            <div class="stepsImageCont">
+                <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/>
+            </div>
+        </div>
     </div>
 </div>

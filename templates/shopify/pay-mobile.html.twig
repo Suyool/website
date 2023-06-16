@@ -1,27 +1,29 @@
-<div class="pay">
+<style>
+    .buttonCont {
+        margin-bottom: 30px;
+    }
+    .open-app {
+        background-color: #387ea5;
+        color: #fff;
+        border-radius: 7px;
+        padding: 7px 46px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+</style>
+</head>
+<div class="pay" style="text-align: center">
     <div class="pay-mobile">
-        <div><img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/></div>
-
-        <div><button onclick="window.top.location.href=\'' + {{ deepLink }} + '\'">Redirect to URL</button></div>
-
         <div><img src="http://dev.suyool.com/build/images/suyool-Logo.png"></div>
+
+        <div class="buttonCont">
+            <a href='{{ deepLink }}' id="open_app" class="open-app">Open App</a>
+        </div>
     </div>
 </div>
 
 <script>
-    //Get the deeplink URL
-    var deepLinkURL = document.querySelector('#deeplink-url').getAttribute('href');
-
-    if(deepLinkURL != ''){
-        setTimeout(function(){
-            //Post the Deeplink URL to the parent page to trigger their location=url in order to open the sKash app
-            //Because location=url doesn't work only on Safari from an iframe
-            window.location.href = deepLinkURL;
-
-        }, 1000);
-    }
-    document.getElementById('open_app').addEventListener('click', function(event) {
-        event.preventDefault();
-        window.location.href = deepLinkURL;
-    });
+    setTimeout(function(){
+        window.location.href = '{{ deepLink }}';
+    }, 1000);
 </script>
