@@ -1,7 +1,7 @@
 {
-  "build/app.js": "/build/app.51ddc876.js",
-  "build/styles.css": "/build/styles.c4d45f52.css",
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
+  "build/app.js": "/build/app.js",
+  "build/styles.css": "/build/styles.css",
+  "build/runtime.js": "/build/runtime.js",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",

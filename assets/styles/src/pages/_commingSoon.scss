@@ -1,8 +1,7 @@
 .commingSoon {
-    .message{
-        
-    }
-    height: 100vh;
+    .message {}
+
+    // height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -100,9 +99,9 @@
     .footer {
         z-index: 10;
         background-repeat: no-repeat;
-        bottom: 0;
+        // bottom: 0;
         height: 233px;
-        position: absolute;
+        position: relative;
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -110,6 +109,8 @@
         align-items: flex-end;
         background-image: url('../../../images/Wave.png');
         padding-bottom: 30px;
+        padding-top: 120px;
+        margin-top: 180px;
 
         .socialMedia {
             a {
@@ -150,7 +151,7 @@
 
 @media only screen and (max-width: 1400px) {
     .commingSoon {
-        height: 100vh;
+        // height: 100vh;
 
         .header {
             img {
@@ -213,10 +214,11 @@
         .footer {
             bottom: 0;
             height: 233px;
-            position: absolute;
+            position: relative;
             padding-bottom: 30px;
 
             .socialMedia {
+                z-index: 100;
                 a {
                     padding-left: 30px;
                 }
@@ -224,6 +226,7 @@
 
             .copyRightSection {
                 text-align: center;
+                z-index: 100;
 
                 .Copyright {
                     font-size: 15px;
@@ -233,27 +236,29 @@
             .emptySpace {
                 display: none;
             }
-        }
 
-        .base {
-            bottom: -50px;
-            right: -200px;
-        }
+            .base {
+                bottom: -50px;
+                right: -200px;
+            }
 
-        .mobile {
-            bottom: 70px;
-            right: -70px;
+            .mobile {
+                bottom: 70px;
+                right: -70px;
 
-            img {
-                width: 510px;
+                img {
+                    width: 510px;
+                }
             }
         }
+
+
     }
 }
 
 @media only screen and (max-width: 991px) {
     .commingSoon {
-        height: 100vh;
+        // height: 100vh;
 
         .header {
             img {
@@ -307,6 +312,7 @@
 
         .footer {
             padding-bottom: 30px;
+            position: relative;
 
             .socialMedia {
                 a {
@@ -321,21 +327,23 @@
                     font-size: 14px;
                 }
             }
+
+            .base {
+                display: none;
+            }
+
+            .mobile {
+                display: none;
+            }
         }
 
-        .base {
-            display: none;
-        }
 
-        .mobile {
-            display: none;
-        }
     }
 }
 
 @media only screen and (max-width: 576px) {
     .commingSoon {
-        height: 100vh;
+        // height: 100vh;
 
         .header {
             img {
@@ -396,7 +404,8 @@
 
 
         .footer {
-            position: absolute;
+            // position: absolute;
+            position: relative;
             padding-bottom: 15px;
             flex-direction: column;
             justify-content: flex-end;
@@ -404,6 +413,7 @@
 
             .copyRightSection {
                 padding-top: 10px;
+
                 .Copyright {
                     font-size: 13px;
                 }
