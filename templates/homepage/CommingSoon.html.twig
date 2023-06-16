@@ -2,64 +2,61 @@
 
 {% block body %}
 
-<div class="commingSoon">
-    <div class="header">
-        <img src="{{asset('build/images/suyoolLogoComming.jpg')}}" alt="">
-    </div>
-    
-
-    <div class="container-fluid body">
-        <div class="row">
-            {% if message is defined %}
-                <div class="message">{{message}}</div>
-            {% endif %}
-            <div class="col-lg-6 col-md-8 col-sm-12">
-                <div class="title">Your Cashless Solution</div>
-                <div class="desc">Be the first to know when we launch</div>
-                <form action="" method="post">
-                    <input type="hidden" name="token" value="{{ csrf_token('email') }}"/>
-                    <div class="inputSection">
-                        <div class="thisInput">
-                            <span>
-                                <i class="fa-solid fa-envelope"></i>
-                            </span><input type="email" id="email" name="email" placeholder="Enter your email address"
-                                required>
-                        </div>
-                        <input type="submit" class="NotifyMe" value="Notify Me">
-                    </div>
-                </form>
-                <div class="downloadImageSection">
-                    <img src="{{asset('build/images/commingSoon/appstore.png')}}" alt="appstore">
-                    <img src="{{asset('build/images/commingSoon/playstore.png')}}" alt="playstore">
-                </div>
-            </div>
-            <div class="col-6"></div>
-        </div>
-
-    </div>
+	<div class="commingSoon">
+		<div class="header">
+			<img src="{{asset('build/images/suyoolLogoComming.jpg')}}" alt="">
+		</div>
 
 
-    <div class="footer">
-        <div class="socialMedia">
-            <a href="#" class="aLink"><img src="{{asset('build/images/commingSoon/twitter.png')}}" alt="twitter"></a>
-            <a href="#" class="aLink"><img src="{{asset('build/images/commingSoon/youtube.png')}}" alt="youtube"></a>
-            <a href="#" class="aLink"><img src="{{asset('build/images/commingSoon/instagram.png')}}"
-                    alt="instagram"></a>
-            <a href="#" class="aLink"><img src="{{asset('build/images/commingSoon/linkedin.png')}}" alt="linkedin"></a>
-            <a href="#" class="aLink"><img src="{{asset('build/images/commingSoon/facebook.png')}}" alt="facebook"></a>
-        </div>
-        <div class="copyRightSection">
-            <img src="{{asset('build/images/commingSoon/love.png')}}" alt="love">
-            <div class="Copyright">Copyright c 2023.Built with love.</div>
-        </div>
-        <div class="emptySpace"></div>
+		<div class="container-fluid body">
+			<div class="row">
+				{% if message is defined %}
+					<div class="message">{{message}}</div>
+				{% endif %}
+				<div class="col-lg-6 col-md-8 col-sm-12">
+					<div class="title">Your Cashless Solution</div>
+					<div class="desc">Be the first to know when we launch</div>
+					<form action="" method="post">
+						<input type="hidden" name="token" value="{{ csrf_token('email') }}"/>
+						<div class="inputSection">
+							<div class="thisInput">
+								<span>
+									<i class="fa-solid fa-envelope"></i>
+								</span><input type="email" id="email" name="email" placeholder="Enter your email address" required>
+							</div>
+							<input type="submit" class="NotifyMe" value="Notify Me">
+						</div>
+					</form>
+					<div class="downloadImageSection">
+						<img src="{{asset('build/images/commingSoon/appstore.png')}}" alt="appstore">
+						<img src="{{asset('build/images/commingSoon/playstore.png')}}" alt="playstore">
+					</div>
+				</div>
+				<div class="col-6"></div>
+			</div>
 
-        <div class="base"><img src="{{asset('build/images/commingSoon/Base.png')}}" alt=""></div>
-        <div class="mobile"><img src="{{asset('build/images/commingSoon/mobile.png')}}" alt=""></div>
-    </div>
+		</div>
 
 
-</div>
+		<div class="footer">
+			<div class="socialMedia">
+				<a href="https://twitter.com/SuyoolApp" class="aLink" target="_blank"><img src="{{asset('build/images/commingSoon/twitter.png')}}" alt="twitter"></a>
+				<a href="https://www.youtube.com/channel/UCklNtt3g1Kv6Gknc6dxjuLQ/" class="aLink" target="_blank"><img src="{{asset('build/images/commingSoon/youtube.png')}}" alt="youtube"></a>
+				<a href="https://www.instagram.com/suyoolapp/" class="aLink" target="_blank"><img src="{{asset('build/images/commingSoon/instagram.png')}}" alt="instagram"></a>
+				<a href="https://www.linkedin.com/company/suyool/" class="aLink" target="_blank"><img src="{{asset('build/images/commingSoon/linkedin.png')}}" alt="linkedin"></a>
+				<a href="https://www.facebook.com/profile.php?id=100090131421284" class="aLink" target="_blank"><img src="{{asset('build/images/commingSoon/facebook.png')}}" alt="facebook"></a>
+			</div>
+			<div class="copyRightSection">
+				<img src="{{asset('build/images/commingSoon/love.png')}}" alt="love">
+				<div class="Copyright">Copyright c 2023.Built with love.</div>
+			</div>
+			<div class="emptySpace"></div>
+			<div class="base"><img src="{{asset('build/images/commingSoon/Base.png')}}" alt=""></div>
+			<div class="mobile"><img src="{{asset('build/images/commingSoon/mobile.png')}}" alt=""></div>
+		</div>
+
+
+	</div>
 
 
 {% endblock %}
