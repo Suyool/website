@@ -1,7 +1,5 @@
 .commingSoon {
-    .message {}
-
-    // height: 100vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -16,6 +14,7 @@
 
         img {
             width: 200px;
+            z-index: 9999;
         }
     }
 
@@ -90,6 +89,7 @@
             padding-top: 30px;
 
             img {
+                padding-top: 10px;
                 padding-left: 20px;
             }
         }
@@ -99,9 +99,9 @@
     .footer {
         z-index: 10;
         background-repeat: no-repeat;
-        // bottom: 0;
+        bottom: 0;
         height: 233px;
-        position: relative;
+        position: absolute;
         display: flex;
         width: 100%;
         flex-direction: row;
@@ -109,8 +109,8 @@
         align-items: flex-end;
         background-image: url('../../../images/Wave.png');
         padding-bottom: 30px;
-        padding-top: 120px;
-        margin-top: 180px;
+        // padding-top: 120px;
+        // margin-top: 180px;
 
         .socialMedia {
             z-index: 9999;
@@ -259,7 +259,7 @@
 
 @media only screen and (max-width: 991px) {
     .commingSoon {
-        // height: 100vh;
+        height: unset;
 
         .header {
             img {
@@ -314,6 +314,7 @@
         .footer {
             padding-bottom: 30px;
             position: relative;
+            margin-top: 200px;
 
             .socialMedia {
                 a {
