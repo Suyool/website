@@ -61,6 +61,7 @@ class ShopifyApiController extends AbstractController
             return $this->render('shopify/pay-qr.html.twig', [
                 'pictureURL' => $response['PictureURL'],
                 'message' => $response['ReturnText'],
+                'order_id'=> $order_id,
             ]);
 
         }
@@ -109,6 +110,7 @@ class ShopifyApiController extends AbstractController
 
         return $this->render('shopify/pay-mobile.html.twig', [
             'deepLink' => $appUrl,
+            'order_id'=> $order_id,
         ]);
 
     }
@@ -122,7 +124,13 @@ class ShopifyApiController extends AbstractController
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if (isset($flag)) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $order = $entityManager->getRepository(ShopifyOrders::class)->find($order_id);
+
             if ($flag == '1') {
+                if ($order) {
+                    $order->setStatus(1);
+                }
                 $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . CERTIFICATE_PAYMENT_SUYOOL;
                 $SecureHash = urldecode(base64_encode(hash('sha512', $match_secure, true)));
                 $entityManager = $this->getDoctrine()->getManager();
@@ -144,9 +152,8 @@ class ShopifyApiController extends AbstractController
                     $result = $this->send_curl($params);
                     $response = json_decode($result, true);
                 } else {
-                    if ($payment) {
-                        $payment->setStatus(2);
-                        $entityManager->flush();
+                    if ($order) {
+                        $order->setStatus(2);
                     }
                 }
             }
@@ -175,5 +182,44 @@ class ShopifyApiController extends AbstractController
             $browser = "netscape";
         }
         return $browser;
+    }
+
+    /**
+     * @Route("/check_status/{orderId}", name="app_check_status")
+     */
+    public function checkOrderStatus($orderId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $order = $entityManager->getRepository(ShopifyOrders::class)->find($orderId);
+
+        if ($order) {
+            $status = $order->getStatus();
+            $metaInfo = json_decode($order->getMetaInfo(), true);
+
+            if ($status == 1) {
+                // The order status is 1
+                // Return the status and URL as JSON response
+                $response = [
+                    'status' => 1,
+                    'url' => $metaInfo['url']
+                ];
+                return $this->json($response);
+            } elseif ($status == 2) {
+                // The order status is 2
+                // Return the status and error URL as JSON response
+                $response = [
+                    'status' => 2,
+                    'url' => $metaInfo['error_url']
+                ];
+                return $this->json($response);
+            }
+        }
+
+        // Return a default response if the order is not found or the status is not handled
+        $response = [
+            'status' => 0,
+            'url' => ''
+        ];
+        return $this->json($response);
     }
 }
