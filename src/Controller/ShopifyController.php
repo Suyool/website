@@ -22,7 +22,8 @@ class ShopifyController extends AbstractController
     {
         // Extract the parameters from the request
         $orderID = $request->query->get('order_id');
-        $totalPrice = $request->query->get('total_price');
+        $totalPrice = $request->query->get('Merc_id');
+        $totalPrice = base64_decode($totalPrice);
         $url = $request->query->get('url');
         $domain = $request->query->get('domain');
         $errorUrl = $request->query->get('error_url');

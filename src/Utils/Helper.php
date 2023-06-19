@@ -62,7 +62,7 @@ class Helper
     }
 
 
-    public function getHost($domain){
+    public static function getHost($domain){
         $parsedUrl = parse_url($domain);
 
         // Get the hostname from the parsed URL
