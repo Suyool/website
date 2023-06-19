@@ -30,7 +30,7 @@
       if (data.success) {
         emailStatus.textContent = 'You will be the first one to know once the Suyool app is launched.';
         emailTitle.textContent = 'You Are On The Waiting List';
-        emailBtn.textContent="Refresh";
+        emailBtn.textContent="Youpi!";
       } else {
         emailStatus.textContent = 'Email exist';
         emailTitle.textContent = 'Rejected';
