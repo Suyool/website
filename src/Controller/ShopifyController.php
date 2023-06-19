@@ -34,11 +34,7 @@ class ShopifyController extends AbstractController
         }
 
         $hostname = Helper::getHost($domain);
-
-        $orderDb = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderID]);
-        if (!empty($order)){
-            return new Response("Order already exists");
-        }
+        
         $credentials = $credentialsRepository->findAll();
         foreach($credentials as $credential){
             if($credential->getShop() == $hostname){
