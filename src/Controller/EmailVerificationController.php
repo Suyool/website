@@ -27,12 +27,12 @@ class EmailVerificationController extends AbstractController
 // dd($result);
             // $response['RespCode'] = 1;
             // If the Email is Verified and the user is not registered
-            if ($response['globalCode'] == 1 || $response['globalCode'] == 0) {
+            if ($response['flagCode'] == 1) {
                 $title = 'You have verified your email';
                 $description = "You have successfully verified your email.<br> You will start receiving communication emails from Suyool.";
                 $image = "email-verified.png";
                 $class = "verified";
-            } else if ($response['globalCode'] == -1) {
+            } else if ($response['flagCode'] == -1) {
                 $title = 'Email verification failed';
                 $description = "Your email address couldn’t be verified.<br> Kindly request a new verification link from your Suyool app.";
                 $image = "unverified-msg.png";
