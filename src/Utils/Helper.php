@@ -61,4 +61,39 @@ class Helper
         }
     }
 
+
+    public function getHost($domain){
+        $parsedUrl = parse_url($domain);
+
+        // Get the hostname from the parsed URL
+        $hostname = $parsedUrl['host'];
+
+        // Remove the "www" and any subdomains
+        $parts = explode('.', $hostname);
+        $partsCount = count($parts);
+        if ($partsCount >= 3 && $parts[0] === 'www') {
+            $hostname = implode('.', array_slice($parts, 1));
+        }
+        return $hostname;
+    }
+
+    function spfw_get_browser_type()
+    {
+        $browser = "";
+        if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {
+            $browser = "IE";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Presto"))) {
+            $browser = "opera";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("CHROME"))) {
+            $browser = "chrome";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("SAFARI"))) {
+            $browser = "safari";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("FIREFOX"))) {
+            $browser = "firefox";
+        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Netscape"))) {
+            $browser = "netscape";
+        }
+        return $browser;
+    }
+
 }
