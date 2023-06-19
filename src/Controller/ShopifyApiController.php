@@ -66,10 +66,10 @@ class ShopifyApiController extends AbstractController
                 'pictureURL' => $response['PictureURL'],
                 'message' => $response['ReturnText'],
                 'order_id' => $order_id,
+                'ReturnText' => $response['ReturnText'],
             ]);
 
         }
-
     }
 
     /**
@@ -203,11 +203,11 @@ class ShopifyApiController extends AbstractController
     public function checkOrderStatus($orderId)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $order = $entityManager->getRepository(ShopifyOrders::class)->find($orderId);
-
+        $order = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderId]);
+//        dd($order);
         if ($order) {
-            $status = $order->getStatus();
-            $metaInfo = json_decode($order->getMetaInfo(), true);
+            $status = $order[0]->getStatus();
+            $metaInfo = json_decode($order[0]->getMetaInfo(), true);
 
             if ($status == 1) {
                 // The order status is 1

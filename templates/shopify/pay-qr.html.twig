@@ -36,7 +36,7 @@
                 Scan this QR to complete the tranasction
             </div>
             <div id="qr-code">
-                <p class="message">{{ message }}</p>
+                <p class="message">{{ ReturnText }}</p>
                 <img src={{ pictureURL }}>
             </div>
         </div>
@@ -50,12 +50,11 @@
 </div>
 
 <script>
-    function checkOrderStatus({{ order_id }}) {
+    function checkOrderStatus(order_id) {
         $.ajax({
             type: "post",
-            url: "{{ path('app_check_status', { orderId: orderId }) }}",
+            url: "{{ path('app_check_status', { orderId: order_id }) }}",
             success: function(data) {
-                console.log(data);
                 if (data.status === 1) {
                     // Order status is 1
                     window.location.href = data.url;
@@ -70,6 +69,7 @@
 
     $(document).ready(function() {
         setInterval(function() {
+            console.log("!23");
             // Call the checkOrderStatus function
             checkOrderStatus({{ order_id }});
         }, 3000); // Check order status every 3 seconds

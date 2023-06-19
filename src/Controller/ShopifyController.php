@@ -35,7 +35,10 @@ class ShopifyController extends AbstractController
 
         $hostname = Helper::getHost($domain);
 
-
+        $orderDb = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderID]);
+        if (!empty($order)){
+            return new Response("Order already exists");
+        }
         $credentials = $credentialsRepository->findAll();
         foreach($credentials as $credential){
             if($credential->getShop() == $hostname){
@@ -44,14 +47,21 @@ class ShopifyController extends AbstractController
                 else
                     $merchantId = $credential->getTestMerchantId();
 
-
                 $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
-
                 $order = new ShopifyOrders();
                 $order->setOrderId($orderID);
                 $order->setMetaInfo($metadata);
+                $order->setStatus(0);
 
-                $entityManager->persist($order);
+                $orderDb = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderID]);
+                if (empty($orderDb)){
+                    $entityManager->persist($order);
+                }else{
+                    $orderDb[0]->setOrderId($orderID);
+                    $orderDb[0]->setMetaInfo($metadata);
+                    $orderDb[0]->setStatus(0);
+                }
+
                 $entityManager->flush();
 
                 return $this->render('shopify/index.html.twig', [
@@ -61,8 +71,6 @@ class ShopifyController extends AbstractController
             }
         }
 
-
-
-        return new Response("hi");
+        return new Response("false");
     }
 }
