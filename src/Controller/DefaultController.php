@@ -51,7 +51,7 @@ class DefaultController extends AbstractController
                 if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
                     $emailSubcriber = new emailsubscriber;
                     $emailSubcriber->setEmail($_POST['email']);
-                    $emailSubcriber->setCreated(new DateTime());
+//                    $emailSubcriber->setCreated(new DateTime());
                     $em->persist($emailSubcriber);
                     $em->flush();
                     $message = "Email Added";
