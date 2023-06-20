@@ -38,9 +38,10 @@ class Helper
 
     public static function send_curl($params) {
         if($_ENV['APP_ENV']=='prod'){
-            $host = 'https://globalapi.suyool.money/api/';
+            // $host = 'https://globalapi.suyool.money/api/';
+            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/' ;
         }else{
-            $host = 'http://10.20.80.57/' ;
+            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/' ;
         }
         // dd($host.$params['url']);
         if (isset($params['url']) || isset($params['data'])) {
