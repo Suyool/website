@@ -1,13 +1,17 @@
 <?php
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\DateTrait;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="emailsubscriber")
  */
 class emailsubscriber
 {
-      /**
+    use DateTrait;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -41,11 +45,11 @@ class emailsubscriber
         $this->email=$email;
         return $this;
     }
-    public function getCreated(){
-        return $this->created;
-    }
-    public function setCreated($created){
-        $this->created=$created;
-        return $this;
-    }
+//    public function getCreated(){
+//        return $this->created;
+//    }
+//    public function setCreated($created){
+//        $this->created=$created;
+//        return $this;
+//    }
 }
