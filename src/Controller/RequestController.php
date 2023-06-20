@@ -66,47 +66,29 @@ class RequestController extends AbstractController
 // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
         // dd($parameters['request_details_response']);
-        $parameters['currency']=$parameters['request_details_response']['currency'];
-
-        // dd($parameters);
-
-        $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
-        // $parameters['request_details_response']['SenderProfilePic']='';
-// dd($parameters['request_details_response']['image']);
-        $this->session->set("request_details_response", $parameters['request_details_response']);
-        $this->session->set("Code", $code);
-        $this->session->set( "image",
-            isset($parameters['request_details_response']['image']) 
-                ? $parameters['request_details_response']['image']
-                : '');
-                $this->session->set("SenderInitials",
-                isset($parameters['request_details_response']['senderName'])
-                    ? $parameters['request_details_response']['senderName']
+        if($parameters['request_details_response'] != null){
+            $parameters['currency']=$parameters['request_details_response']['currency'];
+            $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
+            $this->session->set("request_details_response", $parameters['request_details_response']);
+            $this->session->set("Code", $code);
+            $this->session->set( "image",
+                isset($parameters['request_details_response']['image']) 
+                    ? $parameters['request_details_response']['image']
                     : '');
-            $this->session->set("TranSimID",
-                isset($parameters['request_details_response']['transactionID'])
-                    ? $parameters['request_details_response']['transactionID']
+                    $this->session->set("SenderInitials",
+                    isset($parameters['request_details_response']['senderName'])
+                        ? $parameters['request_details_response']['senderName']
+                        : '');
+                $this->session->set("TranSimID",
+                    isset($parameters['request_details_response']['transactionID'])
+                        ? $parameters['request_details_response']['transactionID']
+                        : '');
+            $this->session->set("IBAN",
+                isset($parameters['request_details_response']['iban'])
+                    ? $parameters['request_details_response']['iban'] 
                     : '');
-                //     $this->session->set("AllowATM",
-                // isset($parameters['request_details_response']['AllowATM'])
-                //     ? $parameters['request_details_response']['AllowATM']
-                //     : '');
-                //     $this->session->set("AllowExternal",
-                // isset($parameters['request_details_response']['AllowExternal'])
-                //     ? $parameters['request_details_response']['AllowExternal']
-                //     : '');
-                //     $this->session->set("AllowBenName",
-                // isset($parameters['request_details_response']['AllowBenName'])
-                //     ? $parameters['request_details_response']['AllowBenName']
-                //     : '');
-        $this->session->set("IBAN",
-            isset($parameters['request_details_response']['iban'])
-                ? $parameters['request_details_response']['iban'] 
-                : '');
-
-        // $session = $request->getSession();
-        // dd($session);
-        // dd($parameters);
+        }
+        
 
         return $this->render('request/index.html.twig',$parameters);
     }
