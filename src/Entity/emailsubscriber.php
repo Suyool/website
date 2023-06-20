@@ -25,12 +25,7 @@ class emailsubscriber
      * @ORM\Column(name="email", type="string", length=60, nullable=false)
      */
     private $email;
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime", nullable=false)
-     */
-    private $created;
+
     public function getId(){
         return $this->id;
     }
