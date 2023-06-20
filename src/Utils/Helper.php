@@ -77,7 +77,7 @@ class Helper
         return $hostname;
     }
 
-    function spfw_get_browser_type()
+    public static function  getBrowserType()
     {
         $browser = "";
         if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {

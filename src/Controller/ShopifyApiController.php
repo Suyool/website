@@ -23,52 +23,54 @@ class ShopifyApiController extends AbstractController
      */
     public function paySkashQR(Request $request, OrdersRepository $ordersRepository): Response
     {
-        $order_id = $request->request->get('order_id');
-        $res = $ordersRepository->findBy(['orderId' => $order_id]);
+        $orderId = $request->request->get('order_id');
+        $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
-        $created_at = $res[0]->getCreateDate()->getTimestamp();
+        if (!$order) {
+            throw $this->createNotFoundException('Order not found');
+        }
+
+        $createdAt = $order->getCreateDate()->getTimestamp();
 
         $metadata = json_decode($request->request->get('metadata'), true);
-
-        $amount = $metadata['total_price'] / 100;
-        $amount = number_format((float)$amount, 2, '.', '');
-
+        $totalPrice = $metadata['total_price'] / 100;
+        $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
-        $timestamp = $created_at * 1000;
-        $merchant_id = 23;
-        $AdditionalInfo = "";
-//        $created_at = date('Y-m-d H:i:s');
-//        $timestamp = strtotime($created_at) * 1000;
+        $timestamp = $createdAt * 1000;
+        $additionalInfo = '';
         $domain = $metadata['domain'];
+        $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+        $merchantId = $merchantCredentials['merchantId'];
+        $certificate = $merchantCredentials['certificate'];
 
-        $secure = $order_id . $timestamp . $amount . $currency . $timestamp . $this->getCertificate(Helper::getHost($domain));
+        $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
+        $secureHash = base64_encode(hash('sha512', $secure, true));
 
-        $SecureHash = base64_encode(hash('sha512', $secure, true));
-
-        if ($order_id !== '' && $amount !== '' && $currency !== '' && $SecureHash !== '' && $timestamp !== '' && $merchant_id !== '') {
-
-            $json = [
-                "TransactionID" => $order_id,
-                "Amount" => $amount,
-                "Currency" => $currency,
-                "SecureHash" => $SecureHash,
-                "TS" => $timestamp,
-                "TranTS" => $timestamp,
-                "MerchantAccountID" => $merchant_id,
-                "AdditionalInfo" => $AdditionalInfo,
+        if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
+            $transactionData = [
+                'TransactionID' => $orderId,
+                'Amount' => $amount,
+                'Currency' => $currency,
+                'SecureHash' => $secureHash,
+                'TS' => $timestamp,
+                'TranTS' => $timestamp,
+                'MerchantAccountID' => $merchantId,
+                'AdditionalInfo' => $additionalInfo,
             ];
-            $params['data'] = json_encode($json);
-            $params['url'] = 'SuyoolOnlinePayment/PayQR';
+            $params = [
+                'data' => json_encode($transactionData),
+                'url' => 'SuyoolOnlinePayment/PayQR',
+            ];
 
             $result = Helper::send_curl($params);
             $response = json_decode($result, true);
+
             return $this->render('shopify/pay-qr.html.twig', [
                 'pictureURL' => $response['PictureURL'],
                 'message' => $response['ReturnText'],
-                'order_id' => $order_id,
+                'order_id' => $orderId,
                 'ReturnText' => $response['ReturnText'],
             ]);
-
         }
     }
 
@@ -77,125 +79,132 @@ class ShopifyApiController extends AbstractController
      */
     public function payMobile(Request $request, OrdersRepository $ordersRepository): Response
     {
-        $order_id = $request->query->get('TranID', '');
-
+        $orderId = $request->request->get('order_id');
         $metadata = json_decode($request->request->get('metadata'), true);
-
-        $amount = $metadata['total_price'] / 100;
-        $amount = number_format((float)$amount, 2, '.', '');
-
+        $totalPrice = $metadata['total_price'] / 100;
+        $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
-        $res = $ordersRepository->findBy(['orderId' => 1]);
 
-        $created_at = $res[0]->getCreateDate()->getTimestamp();
-        $timestamp = $created_at * 1000;
+        $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
-        $merchant_id = $request->query->get('MerchantID', '');
-        $AdditionalInfo = "";
+        if (!$order) {
+            throw $this->createNotFoundException('Order not found');
+        }
+
+        $createdAt = $order->getCreateDate()->getTimestamp();
+        $timestamp = $createdAt * 1000;
         $domain = $metadata['domain'];
+        $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+        $merchantId = $merchantCredentials['merchantId'];
+        $certificate = $merchantCredentials['certificate'];
+        $additionalInfo = '';
 
-        $mobile_secure = $order_id . $merchant_id . $amount . $currency . $timestamp . $this->getCertificate(Helper::getHost($domain));
-        $SecureHash = base64_encode(hash('sha512', $mobile_secure, true));
+        $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
+        $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
+        $current_page = $_SERVER['REQUEST_URI'];
 
         $json = [
-            "TransactionID" => $order_id,
-            "Amount" => $amount,
-            "Currency" => $currency,
-            "SecureHash" => $SecureHash,
-            "TS" => $timestamp,
-            "TranTS" => $timestamp,
-            "MerchantAccountID" => $merchant_id,
-            "CallBackURL" => "",
-            "currentUrl" => "asdads",
-            "browsertype" => Helper::getHost(),
-            "AdditionalInfo" => $AdditionalInfo
+            'TransactionID' => $orderId,
+            'Amount' => $amount,
+            'Currency' => $currency,
+            'SecureHash' => $secureHash,
+            'TS' => $timestamp,
+            'TranTS' => $timestamp,
+            'MerchantAccountID' => $merchantId,
+            'CallBackURL' => '',
+            'currentUrl' => $current_page,
+            'browsertype' => Helper::getBrowserType(),
+            'AdditionalInfo' => $additionalInfo
         ];
-        $json_encoded = json_encode($json);
-        $APP_URL = "skashpay://skash.com/skash=?";
-        $appUrl = $APP_URL . $json_encoded;
+
+        $jsonEncoded = json_encode($json);
+        $appUrl = "skashpay://skash.com/skash=?" . $jsonEncoded;
 
         return $this->render('shopify/pay-mobile.html.twig', [
             'deepLink' => $appUrl,
-            'order_id' => $order_id,
+            'order_id' => $orderId,
         ]);
-
     }
+
 
     /**
      * @Route("/update_status/{order_id}", name="app_update_status")
      */
     public function updateStatus(Request $request, $order_id, OrdersRepository $ordersRepository, CredentialsRepository $credentialsRepository)
     {
-
         $data = $request->request->all();
-
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
-        if (isset($flag)) {
+        if ($flag !== null) {
             $entityManager = $this->getDoctrine()->getManager();
             $orders = $ordersRepository->findBy(['orderId' => $order_id]);
             $order = $orders[0];
 
             if ($flag == '1') {
-
                 $metaInfo = json_decode($order->getMetaInfo(), true);
                 $currency = $metaInfo['currency'];
                 $domain = Helper::getHost($metaInfo['domain']);
+
+                $merchantCredentials = $this->getCredentials($domain);
+                $merchantId = $merchantCredentials['merchantId'];
+                $certificate = $merchantCredentials['certificate'];
+
                 $totalPrice = $metaInfo['total_price'];
                 $url = $domain . '/admin/api/2020-04/orders/' . $data['TranID'] . '/transactions.json';
 
-                $match_secure = $data['Flag'] . $data['ReferenceNo'] . $data['TranID'] . $data['ReturnText'] . $this->getCertificate(Helper::getHost($domain));
-                $SecureHash = urldecode(base64_encode(hash('sha512', $match_secure, true)));
+                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
+                $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
 
-                $credential = $credentialsRepository->findBy(['shop' => $domain]);
+                $credential = $credentialsRepository->findOneBy(['shop' => $domain]);
+                $accessToken = $credential->getAccessToken();
 
-                $accessToken = $credential[0]->getAccessToken();
-
-
-                if ($SecureHash == $data['SecureHash']) {
+                if ($secureHash == $data['SecureHash']) {
                     if ($order) {
                         $order->setStatus(1);
                     }
-                    $json = array(
-                        'transaction' => array(
+                    $json = [
+                        'transaction' => [
                             'currency' => $currency,
                             'amount' => $totalPrice,
-                            "source" => "external",
+                            'source' => 'external',
                             'kind' => 'sale',
-                            "status" => "success"
-                        )
-                    );
-
+                            'status' => 'success'
+                        ]
+                    ];
                 } else {
                     if ($order) {
                         $order->setStatus(2);
                     }
-                    $json = array(
-                        'transaction' => array(
+                    $json = [
+                        'transaction' => [
                             'currency' => $currency,
                             'amount' => $totalPrice,
-                            "source" => "external",
+                            'source' => 'external',
                             'kind' => 'sale',
-                            "status" => "failed"
-                        )
-                    );
+                            'status' => 'failed'
+                        ]
+                    ];
                 }
-                $params['data'] = json_encode($json);
-                $params['url'] = $url;
+
+                $params = [
+                    'data' => json_encode($json),
+                    'url' => $url
+                ];
+
                 $result = Helper::send_curl($params, $accessToken);
                 $response = json_decode($result, true);
                 return new JsonResponse($response);
-
             }
 
             $entityManager->persist($order);
             $entityManager->flush();
-            $response = array(
-                'status' => 'failed',
-            );
+            $response = [
+                'status' => 'failed'
+            ];
             return new JsonResponse($response);
         }
     }
+
 
     /**
      * @Route("/check_status/{orderId}", name="app_check_status")
@@ -236,16 +245,23 @@ class ShopifyApiController extends AbstractController
         return $this->json($response);
     }
 
-    private function getCertificate($domain)
+    private function getCredentials($domain)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $credentials = $entityManager->getRepository(MerchantCredentials::class)->findBy(['shop' => $domain]);
         $credential = $credentials[0];
 
+        $response = [];
         if ($credential->getTestChecked()) {
-            return $credential->getTestCertificateKey();
+            $certificate = $credential->getTestCertificateKey();
+            $merchantId = $credential->getTestMerchantId();
         } else {
-            return $credential->getLiveCertificateKey();
+            $certificate = $credential->getLiveCertificateKey();
+            $merchantId = $credential->getLiveMerchantId();
         }
+        $response['certificate'] = $certificate;
+        $response['merchantId'] = $merchantId;
+
+        return $response;
     }
 }

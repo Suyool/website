@@ -11,6 +11,7 @@
     }
     #qr-code img{
         max-width: 100%;
+        width: 235px;
     }
     .IframeCont h5 {
         margin: 0;
@@ -69,7 +70,6 @@
 
     $(document).ready(function() {
         setInterval(function() {
-            console.log("!23");
             // Call the checkOrderStatus function
             checkOrderStatus({{ order_id }});
         }, 3000); // Check order status every 3 seconds
