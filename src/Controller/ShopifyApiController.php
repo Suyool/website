@@ -64,12 +64,18 @@ class ShopifyApiController extends AbstractController
 
             $result = Helper::send_curl($params);
             $response = json_decode($result, true);
+            
+            if($response['PictureURL'] != null)
+                $showQR = 'displayBlock';
+            else
+                $showQR = '';
 
             return $this->render('shopify/pay-qr.html.twig', [
                 'pictureURL' => $response['PictureURL'],
                 'message' => $response['ReturnText'],
                 'order_id' => $orderId,
                 'ReturnText' => $response['ReturnText'],
+                'displayBlock' =>$showQR,
             ]);
         }
     }

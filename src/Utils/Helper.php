@@ -2,10 +2,6 @@
 
 namespace App\Utils;
 
-use Symfony\Component\Asset\Package;
-use Symfony\Component\Asset\UrlPackage;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class Helper
 {
@@ -28,18 +24,23 @@ class Helper
         return $ret;
     }
 
-    public static function send_curl($params)
-    {
-        if ($_ENV['APP_ENV'] == 'prod') {
-            // $host = 'https://globalapi.suyool.money/api/';
-            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-        } else {
-            $host = 'https://suyoolglobalapi.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+    public static function send_curl($params, $accessToken = null) {
+        if($accessToken != null){
+            $host = $params['url'];
+        }else{
+            if($_ENV['APP_ENV']=='prod'){
+                $host = 'http://10.20.80.58/'.$params['url'];
+            }else{
+                $host = 'http://10.20.80.58/'.$params['url'];
+            }
         }
+
+        // dd($host.$params['url']);
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
+            curl_setopt($ch, CURLOPT_URL, $host);
+
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
             //If the request type is not get, add the CURL postfield data
@@ -48,19 +49,27 @@ class Helper
             (isset($params['type']) && $params['type'] == 'post') ? curl_setopt($ch, CURLOPT_POST, true) : '';
             //
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Content-Type: application/json',
-                    'Connection: Keep-Alive',
-                ]
-            );
+                'Content-Type: application/json',
+                'Connection: Keep-Alive',
+                'X-Shopify-Access-Token: ' . $accessToken,
+            ]);
+
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_VERBOSE, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $ret = curl_exec($ch);
             curl_close($ch);
+
             return $ret;
         }
     }
 
+    public function clean($string)
+    {
+        $string = preg_replace('/[^.A-Za-z0-9\-]/', ' ', $string); // Removes special chars.
+        $string = preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+        return trim($string, '-'); // Removes leading/trailing hyphens.
+    }
 
     public static function getHost($domain){
         $parsedUrl = parse_url($domain);
@@ -77,7 +86,7 @@ class Helper
         return $hostname;
     }
 
-    public static function  getBrowserType()
+    public static function getBrowserType()
     {
         $browser = "";
         if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {
