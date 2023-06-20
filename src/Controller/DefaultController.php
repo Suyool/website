@@ -56,7 +56,7 @@ class DefaultController extends AbstractController
                     $em->flush();
                     $message = "Email Added";
                     $email = (new TemplatedEmail())
-                        ->from('no-reply@suyool.com')
+                        ->from('contact@suyool.com')
                         ->to($_POST['email'])
                         //->cc('cc@example.com')
                         //->bcc('bcc@example.com')
