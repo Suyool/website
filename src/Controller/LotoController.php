@@ -114,73 +114,102 @@ class LotoController extends AbstractController
             $numbers++;
         }
 
-        $plays = new LOTO_plays;
 
-        $gridselected = ["1,2,3,4,5,6", "11,7,8,9,10,12"];
+        // $gridselected = ["1,2,3,4,5,6", "11,7,8,9,10,12"];
         // foreach($gridselected as $grid){
         //     dd(explode(',',$grid));
         // }
-        $numDraws = 1;
 
-        $drawnumber = $parameters['next_draw_number'];
-        $withZeed = 1;
 
         // $selected=implode("|",$gridselected);
         //     if(isset($_POST['submit'])){
         //         dd($_POST['getPlayedBalls']);
         //     }
 
-        $selected = implode("|", $gridselected);
         if (isset($_POST['submit'])) {
+
+            $numDraws = 1;
+
+            $drawnumber = $parameters['next_draw_number'];
+            $withZeed = 1;
+
             $getPlayedBalls = json_decode($_POST['getPlayedBalls'], true);
             $ballsArray = [];
 
+            // dd($getPlayedBalls);
+
             foreach ($getPlayedBalls as $item) {
+                $plays = new LOTO_plays;
+
                 $balls = implode(" ", $item['balls']);
-                $ballsArray[] = $balls;
+                $ballsArray = $balls;
+                // dd($ballsArray);
+                $withZeed=$item['withZeed'];
+                if($withZeed==false){
+                    $withZeed=0;
+                }else{
+                    $withZeed=1;
+                }
+                // dd($withZeed);
+            //     $submit_loto_play = [
+            //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
+            //         'drawNumber' => $drawnumber,
+            //         'numDraws' => $numDraws,
+            //         'withZeed' => $withZeed, //1 if with zeed
+            //         'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
+            //         'GridsSelected' => $ballsArray, // separated with |
+            //     ];
+            //     $submitloto['data'] = json_encode($submit_loto_play);
+            // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
+            // $SubmitPlays = Helper::send_curl($submitloto, 'loto');
+
+            // $submit_loto = json_decode($SubmitPlays, true);
+
+            // dd($submit_loto);
+
+            // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
+            //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
+            // } else {
+            //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
+            //     $plays->setgridSelected($ballsArray)
+            //         ->setWithZeed($withZeed)
+            //         ->setdrawnumber($drawnumber)
+            //         ->setnumdraws(1)
+            //         ->setcreatedate(new DateTime());
+
+            //     $this->mr->persist($plays);
+            //     $this->mr->flush();
+            // }
+            $plays->setgridSelected($ballsArray)
+                    ->setWithZeed($withZeed)
+                    ->setdrawnumber($drawnumber)
+                    ->setnumdraws(1)
+                    ->setcreatedate(new DateTime());
+
+                $this->mr->persist($plays);
+                $this->mr->flush();
             }
 
-            $ballsString = json_encode($ballsArray);
+            $gridselected = $ballsArray;
 
-            dd($ballsString);
+            // dd($gridselected);
+            // $selected = implode('|', $gridselected);
+            // dd($selected);
+
+
+            
         }
 
 
-        // dd("ok");
-        // $plays->setgridSelected($selected)
-        // ->setWithZeed($withZeed)
-        // ->setdrawnumber($drawnumber)
-        // ->setnumdraws(1)
-        // ->setcreatedate(new DateTime());
 
-        // $this->mr->persist($plays);
-        // $this->mr->flush();
+
+        // dd("ok");
+
 
         // dd($selected);
 
 
-        // $submit_loto_play = [
-        //     'Token' => 'b768cc2d-4e7c-4af4-a692-961797dcb80b',
-        //     'drawNumber' => $drawnumber,
-        //     'numDraws' => $numDraws,
-        //     'withZeed' => $withZeed, //1 if with zeed
-        //     'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
-        //     'GridsSelected' => $selected, // separated with |
-        // ];
 
-        // $submitloto['data'] = json_encode($submit_loto_play);
-        // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
-        // $ResponseGetFullGridPriceMatrix = Helper::send_curl($submitloto,'loto');
-
-        // $submit_loto = json_decode($ResponseGetFullGridPriceMatrix, true);
-
-        // dd($submit_loto);
-
-        // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
-        //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
-        // } else {
-        //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
-        // }
 
 
         $parameters['gridpricematrix'] = $pricematrixarray;

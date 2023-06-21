@@ -34,7 +34,7 @@ const Play = ({
     const handleCheckbox = (index) => {
         setPlayedBalls((prevState) => {
             const updatedBalls = [...prevState];
-            updatedBalls[index].isZeed = !updatedBalls[index].isZeed; // Toggle the value of isZeed
+            updatedBalls[index].withZeed = !updatedBalls[index].withZeed; // Toggle the value of isZeed
             localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls)); // Update the value in localStorage
             return updatedBalls;
         });
@@ -58,7 +58,7 @@ const Play = ({
                                 <input
                                     className="switch"
                                     type="checkbox"
-                                    checked={ballsSet.isZeed} // Set the checkbox based on isZeed value
+                                    checked={ballsSet.withZeed} // Set the checkbox based on isZeed value
                                     onChange={() => handleCheckbox(index)}
                                 />
                             </span>

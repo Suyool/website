@@ -45,7 +45,7 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
         const ballSet = {
           balls: selectedBalls,
           price: getTotalAmount,
-          isZeed: false
+          withZeed: false
         };
       
         // Retrieve existing data from localStorage
