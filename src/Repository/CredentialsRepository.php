@@ -2,14 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\MerchantCredentials;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityRepository;
 
-class CredentialsRepository extends ServiceEntityRepository
+class CredentialsRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, MerchantCredentials::class);
-    }
+
 }

@@ -2,14 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\ShopifyOrders;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityRepository;
 
-class OrdersRepository extends ServiceEntityRepository
+class OrdersRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, ShopifyOrders::class);
-    }
+
 }

@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\DateTrait;
 
 /**
+ * @ORM\Entity
  * @ORM\Table(name="shopify_orders")
- * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  */
 class ShopifyOrders
 {

@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\MerchantCredentials;
-use App\Entity\ShopifyOrders;
-use App\Repository\CredentialsRepository;
-use App\Repository\OrdersRepository;
+use App\Entity\Shopify\ShopifyOrders;
+use App\Entity\Shopify\MerchantCredentials;
 use App\Utils\Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ShopifyApiController extends AbstractController
 {
+
+    private $mr;
+    public function __construct(ManagerRegistry $mr)
+    {
+        $this->mr=$mr->getManager('Shopify');
+    }
+
     /**
      * @Route("/payQR/", name="app_pay_qr")
      */
-    public function paySkashQR(Request $request, OrdersRepository $ordersRepository): Response
+    public function paySkashQR(Request $request): Response
     {
+        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
@@ -136,13 +144,13 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/update_status/{order_id}", name="app_update_status")
      */
-    public function updateStatus(Request $request, $order_id, OrdersRepository $ordersRepository, CredentialsRepository $credentialsRepository)
+    public function updateStatus(Request $request, $order_id)
     {
         $data = $request->request->all();
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if ($flag !== null) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
             $orders = $ordersRepository->findBy(['orderId' => $order_id]);
             $order = $orders[0];
 
@@ -161,6 +169,7 @@ class ShopifyApiController extends AbstractController
                 $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
 
+                $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
                 $credential = $credentialsRepository->findOneBy(['shop' => $domain]);
                 $accessToken = $credential->getAccessToken();
 
@@ -202,8 +211,8 @@ class ShopifyApiController extends AbstractController
                 return new JsonResponse($response);
             }
 
-            $entityManager->persist($order);
-            $entityManager->flush();
+            $this->mr->persist($order);
+            $this->mr->flush();
             $response = [
                 'status' => 'failed'
             ];
@@ -217,8 +226,8 @@ class ShopifyApiController extends AbstractController
      */
     public function checkOrderStatus($orderId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $order = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderId]);
+        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+        $order = $ordersRepository->findBy(["orderId"=> $orderId]);
 //        dd($order);
         if ($order) {
             $status = $order[0]->getStatus();
@@ -253,8 +262,8 @@ class ShopifyApiController extends AbstractController
 
     private function getCredentials($domain)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $credentials = $entityManager->getRepository(MerchantCredentials::class)->findBy(['shop' => $domain]);
+        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
+        $credentials = $credentialsRepository->findBy(['shop' => $domain]);
         $credential = $credentials[0];
 
         $response = [];

@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Shopify\ShopifyOrders;
-use App\Repository\CredentialsRepository;
-use App\Repository\Shopify\OrdersRepository;
+use App\Entity\Shopify\MerchantCredentials;
 use App\Utils\Helper;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\shopify\MerchantCredentials;
 
 class ShopifyController extends AbstractController
 {
@@ -24,10 +21,10 @@ class ShopifyController extends AbstractController
     /**
      * @Route("/shopify/", name="app_shopify_handle_request")
      */
-    public function handleRequest(Request $request, CredentialsRepository $credentialsRepository): Response
+    public function handleRequest(Request $request): Response
     {
         // Extract the parameters from the request
-        dd($this->mr->getRepository(ShopifyOrders::class)->findAll());
+        //dd($this->mr->getRepository(ShopifyOrders::class)->findAll());
         $orderID = $request->query->get('order_id');
         $totalPrice = $request->query->get('Merc_id');
         $totalPrice = base64_decode($totalPrice);
@@ -42,8 +39,9 @@ class ShopifyController extends AbstractController
         }
 
         $hostname = Helper::getHost($domain);
-
+        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
         $credentials = $credentialsRepository->findAll();
+
         foreach($credentials as $credential){
             if($credential->getShop() == $hostname){
                 if ($credential->getLiveChecked())
