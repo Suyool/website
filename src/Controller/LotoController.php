@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
+use App\Entity\Loto\LOTO_plays;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\LOTO_tickets;
 use App\Entity\Loto\Table1;
@@ -113,42 +114,55 @@ class LotoController extends AbstractController
             $numbers++;
         }
 
-        $drawnumber = $parameters['next_draw_number'];
-        $gridselected = "2 3 4 5 6 7 1 | 10 22 39 44 33 11 23";
+        $plays=new LOTO_plays;
 
-        $submit_loto_play = [
-            'Token' => '30b7ea61-5319-4dc3-81a2-bf339e625a1e',
-            'drawNumber' => $drawnumber,
-            'numDraws' => $drawnumber,
-            'withZeed' => 0, //1 if with zeed
-            'saveToFavorite' => 0, //1 TO ADD TO FAVORITE,
-            'GridsSelected' => $gridselected, // separated with |
-        ];
+        $gridselected = ["1,2,3,4,5,6","11,7,8,9,10,12"];
+        // foreach($gridselected as $grid){
+        //     dd(explode(',',$grid));
+        // }
+        $numDraws=1;
 
-        $submitloto['data'] = json_encode($submit_loto_play);
-        $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($submitloto,'loto');
+        $drawnumber=$parameters['next_draw_number'];
+        $withZeed=1;
 
-        $submit_loto = json_decode($ResponseGetFullGridPriceMatrix, true);
-        if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
-            $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
-        } else {
-            $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
-        }
+        $selected=implode("|",$gridselected);
+
+        // $plays->setgridSelected($selected)
+        // ->setWithZeed($withZeed)
+        // ->setdrawnumber($drawnumber)
+        // ->setnumdraws(1)
+        // ->setcreatedate(new DateTime());
+
+        // $this->mr->persist($plays);
+        // $this->mr->flush();
+
+        // dd($selected);
+
+
+        // $submit_loto_play = [
+        //     'Token' => 'b768cc2d-4e7c-4af4-a692-961797dcb80b',
+        //     'drawNumber' => $drawnumber,
+        //     'numDraws' => $numDraws,
+        //     'withZeed' => $withZeed, //1 if with zeed
+        //     'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
+        //     'GridsSelected' => $selected, // separated with |
+        // ];
+
+        // $submitloto['data'] = json_encode($submit_loto_play);
+        // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
+        // $ResponseGetFullGridPriceMatrix = Helper::send_curl($submitloto,'loto');
+
+        // $submit_loto = json_decode($ResponseGetFullGridPriceMatrix, true);
+
         // dd($submit_loto);
-        // $parameters['matrix'] = $pricematrixarray;
-        $gridnumber = "2 3 4 5 6 7 1";
-        $grid_price_by_number = [
-            'Token' => '30b7ea61-5319-4dc3-81a2-bf339e625a1e',
-            'Grid' => $gridnumber
-        ];
 
-        $gridpricebynum['data'] = json_encode($grid_price_by_number);
-        $gridpricebynum['url'] = "/Servicev2.asmx/GetGridPrice";
-        $gridpricebynumResponse = Helper::send_curl($gridpricebynum,'loto');
+        // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
+        //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
+        // } else {
+        //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
+        // }
 
-        $gridpricebynumData = json_decode($gridpricebynumResponse, true);
-        $parameters['gridpricebynum'] = $gridpricebynumData['d'];
+
         $parameters['gridpricematrix'] = $pricematrixarray;
 // $loto_prize_array=[];
 // dd($loto_prize);
