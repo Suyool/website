@@ -164,7 +164,7 @@ class ShopifyApiController extends AbstractController
                 $certificate = $merchantCredentials['certificate'];
 
                 $totalPrice = $metaInfo['total_price'];
-                $url = $domain . '/admin/api/2020-04/orders/' . $data['TranID'] . '/transactions.json';
+                $url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $data['TranID'] . '/transactions.json';
 
                 $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
