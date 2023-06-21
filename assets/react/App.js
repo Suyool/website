@@ -7,10 +7,13 @@ import PickYourGrid from "./components/PickYourGrid";
 import Buy from "./components/Buy";
 
 const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "Result" });
+    const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
     const [getPickYourGrid, setPickYourGrid] = useState(false);
     const [getBallNumbers, setBallNumbers] = useState(0);
     const [getTotalAmount, setTotalAmount] = useState(0);
+
+    // const [getBallPlayed,setBallPlayed] = useState([11, 16, 17, 42, 25, 18]);
+    const [getBallPlayed,setBallPlayed] = useState([]);
 
     return (
         <div id="LotoBody">
@@ -19,13 +22,13 @@ const App = ({ parameters }) => {
                 <img src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
-                {activeButton.name === "Play" && <Play />}
+                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setBallNumbers={setBallNumbers}/>}
                 {activeButton.name === "Result" && <Result parameters={parameters}/>}
 
                 {activeButton.name === "Buy" && <Buy />}
             </div>
 
-            {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} />}
+            {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed}/>}
             <BottomNav activeButton={activeButton} setActiveButton={setActiveButton} />
         </div>
     );
