@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Play = ({setBallPlayed , setPickYourGrid , setBallNumbers }) => {
+const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers , setTotalAmount }) => {
     const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(localStorage.getItem("selectedBalls")) || []);
 
     const handleDelete = (index) => {
@@ -13,17 +13,19 @@ const Play = ({setBallPlayed , setPickYourGrid , setBallNumbers }) => {
         localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
     };
     const handleEdit = (index) => {
-        setBallPlayed(getPlayedBalls[index])
-        setBallNumbers(getPlayedBalls[index].length)
+        console.log(getPlayedBalls[index].balls)
+
+        setBallPlayed(getPlayedBalls[index].balls)
+        setBallNumbers(getPlayedBalls[index].balls.length)
+        setTotalAmount(getPlayedBalls[index].price)
         setPickYourGrid(true)
-        // console.log(getPlayedBalls[index].length)
     }
 
     return (
         <div id="Play">
             <h3 className="gridplays">How many lottery grids do you want to play?</h3>
 
-            {getPlayedBalls && getPlayedBalls.map((balls, index) => (
+            {getPlayedBalls && getPlayedBalls.map((ballsSet, index) => (
                 <div className="gridborder mt-4" key={index}>
                     <div className="header">
                         <span>
@@ -36,16 +38,16 @@ const Play = ({setBallPlayed , setPickYourGrid , setBallNumbers }) => {
                     </div>
                     <div className="body">
                         <div className="ballSection mt-2">
-                            {balls.map((ball, index) => (
-                                <span key={index}>{ball}</span>
+                            {ballsSet.balls.map((ball, ballIndex) => (
+                                <span key={ballIndex}>{ball}</span>
                             ))}
                         </div>
-                        <div className="edit"  onClick={() => handleEdit(index)}>
+                        <div className="edit" onClick={() => handleEdit(index)}>
                             <img src="/build/images/Loto/edit.png" alt="edit" />
                         </div>
                     </div>
                     <div className="footer">
-                        <span className="price">L.L 200,000</span>
+                        <span className="price">L.L {ballsSet.price}</span>
                         <span className="delete" onClick={() => handleDelete(index)}>
                             <img src="/build/images/Loto/trash.png" alt="delete" />
                         </span>
