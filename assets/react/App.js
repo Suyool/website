@@ -22,7 +22,7 @@ const App = ({ parameters }) => {
                 <img src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
-                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers}/>}
+                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton}/>}
                 {activeButton.name === "Result" && <Result parameters={parameters}/>}
 
                 {activeButton.name === "Buy" && <Buy />}
