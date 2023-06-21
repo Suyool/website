@@ -24,51 +24,51 @@ class LotoController extends AbstractController
     private $mr;
     public function __construct(ManagerRegistry $mr)
     {
-        $this->mr=$mr->getManager('loto');
+        $this->mr = $mr->getManager('loto');
     }
     /**
      * @Route("/loto", name="app_loto")
      */
-    public function index(Request $request,ManagerRegistry $em)
+    public function index(Request $request, ManagerRegistry $em)
     {
-        $loto_draw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'DESC']);
+        $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
-        $loto_numbers=$this->mr->getRepository(LOTO_numbers::class)->findAll();
-        $drawId='2117';
-        $loto_prize=$this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId'=>$drawId]);
+        $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
+        $drawId = '2117';
+        $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
 
         // dd($loto_draw);
 
         // foreach($loto_draw as $loto_draw){
-            if($loto_draw){
-                $parameters['next_draw_number'] = $loto_draw->getdrawid();
-                $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
-                $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
-                $parameters['next_date'] = $loto_draw->getdrawdate();
-                $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+        if ($loto_draw) {
+            $parameters['next_draw_number'] = $loto_draw->getdrawid();
+            $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
+            $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
+            $parameters['next_date'] = $loto_draw->getdrawdate();
+            $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+        }
+        // if($loto_tikctes){
+        //     $parameters['unit_price']=$loto_tikctes->getloto_ticket();
+        //     $parameters['zeed_price']=$loto_tikctes->getzeed_ticket();
+        // }
+        // $parameters['gridpricematrix']=[];
+        // dd($loto_numbers);
+        if ($loto_numbers) {
+            foreach ($loto_numbers as $loto_numbers) {
+                $gridpricematrix[] = [
+                    'numbers' => $loto_numbers->getnumbers(),
+                    'price' => $loto_numbers->getprice(),
+                    'zeed' => $loto_numbers->getzeed(),
+                ];
             }
-            // if($loto_tikctes){
-            //     $parameters['unit_price']=$loto_tikctes->getloto_ticket();
-            //     $parameters['zeed_price']=$loto_tikctes->getzeed_ticket();
-            // }
-            // $parameters['gridpricematrix']=[];
-            // dd($loto_numbers);
-            if($loto_numbers){
-                foreach($loto_numbers as $loto_numbers){
-                    $gridpricematrix[]=[
-                        'numbers'=>$loto_numbers->getnumbers(),
-                        'price'=>$loto_numbers->getprice(),
-                        'zeed'=>$loto_numbers->getzeed(),
-                    ];
-                }
-                $parameters['gridpricematrix']=$gridpricematrix;
-            }
-            
+            $parameters['gridpricematrix'] = $gridpricematrix;
+        }
+
 
         // }
-        $parameters['unit_price']=$gridpricematrix[0]['price'];
-        
-    //    dd($parameters);
+        $parameters['unit_price'] = $gridpricematrix[0]['price'];
+
+        //    dd($parameters);
 
         $next_date = new DateTime($parameters['next_date']);
         // $interval = new DateInterval('PT3H');
@@ -78,7 +78,7 @@ class LotoController extends AbstractController
         // $get_price_grid_form_data=["Token"=>"","Grid"=>"B1"];
         // $gridpriceparams['data']=json_encode($get_price_grid_form_data);
         $gridpriceparams['url'] = "/Servicev2.asmx/GetGridandZeedPrice";
-        $gridpriceresponse = Helper::send_curl($gridpriceparams,'loto');
+        $gridpriceresponse = Helper::send_curl($gridpriceparams, 'loto');
 
         $gridprice = json_decode($gridpriceresponse, true);
         // dd($gridprice);
@@ -98,7 +98,7 @@ class LotoController extends AbstractController
         // dd($gridprice);
 
         $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams,'loto');
+        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams, 'loto');
 
 
         $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
@@ -114,19 +114,39 @@ class LotoController extends AbstractController
             $numbers++;
         }
 
-        $plays=new LOTO_plays;
+        $plays = new LOTO_plays;
 
-        $gridselected = ["1,2,3,4,5,6","11,7,8,9,10,12"];
+        $gridselected = ["1,2,3,4,5,6", "11,7,8,9,10,12"];
         // foreach($gridselected as $grid){
         //     dd(explode(',',$grid));
         // }
-        $numDraws=1;
+        $numDraws = 1;
 
-        $drawnumber=$parameters['next_draw_number'];
-        $withZeed=1;
+        $drawnumber = $parameters['next_draw_number'];
+        $withZeed = 1;
 
-        $selected=implode("|",$gridselected);
+        // $selected=implode("|",$gridselected);
+        //     if(isset($_POST['submit'])){
+        //         dd($_POST['getPlayedBalls']);
+        //     }
 
+        $selected = implode("|", $gridselected);
+        if (isset($_POST['submit'])) {
+            $getPlayedBalls = json_decode($_POST['getPlayedBalls'], true);
+            $ballsArray = [];
+
+            foreach ($getPlayedBalls as $item) {
+                $balls = implode(" ", $item['balls']);
+                $ballsArray[] = $balls;
+            }
+
+            $ballsString = json_encode($ballsArray);
+
+            dd($ballsString);
+        }
+
+
+        // dd("ok");
         // $plays->setgridSelected($selected)
         // ->setWithZeed($withZeed)
         // ->setdrawnumber($drawnumber)
@@ -164,17 +184,17 @@ class LotoController extends AbstractController
 
 
         $parameters['gridpricematrix'] = $pricematrixarray;
-// $loto_prize_array=[];
-// dd($loto_prize);
-            $loto_prize_array=[
-               'prize1'=> $loto_prize->getwinner1(),
-               'prize2'=>$loto_prize->getwinner2(),
-               'prize3'=>$loto_prize->getwinner3(),
-               'prize4'=>$loto_prize->getwinner4(),
-               'prize5'=>$loto_prize->getwinner5()
-            ];
+        // $loto_prize_array=[];
+        // dd($loto_prize);
+        $loto_prize_array = [
+            'prize1' => $loto_prize->getwinner1(),
+            'prize2' => $loto_prize->getwinner2(),
+            'prize3' => $loto_prize->getwinner3(),
+            'prize4' => $loto_prize->getwinner4(),
+            'prize5' => $loto_prize->getwinner5()
+        ];
 
-        $parameters['prize_loto_win']=$loto_prize_array;
+        $parameters['prize_loto_win'] = $loto_prize_array;
 
 
 
