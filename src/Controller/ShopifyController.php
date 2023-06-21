@@ -2,25 +2,32 @@
 
 namespace App\Controller;
 
-use App\Entity\ShopifyOrders;
+use App\Entity\Shopify\ShopifyOrders;
 use App\Repository\CredentialsRepository;
-use App\Repository\OrdersRepository;
+use App\Repository\Shopify\OrdersRepository;
 use App\Utils\Helper;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\MerchantCredentials;
+use App\Entity\shopify\MerchantCredentials;
 
 class ShopifyController extends AbstractController
 {
+    private $mr;
+    public function __construct(ManagerRegistry $mr)
+    {
+        $this->mr=$mr->getManager('Shopify');
+    }
     /**
      * @Route("/shopify/", name="app_shopify_handle_request")
      */
-    public function handleRequest(Request $request, EntityManagerInterface $entityManager, CredentialsRepository $credentialsRepository): Response
+    public function handleRequest(Request $request, CredentialsRepository $credentialsRepository): Response
     {
         // Extract the parameters from the request
+        dd($this->mr->getRepository(ShopifyOrders::class)->findAll());
         $orderID = $request->query->get('order_id');
         $totalPrice = $request->query->get('Merc_id');
         $totalPrice = base64_decode($totalPrice);
@@ -35,7 +42,7 @@ class ShopifyController extends AbstractController
         }
 
         $hostname = Helper::getHost($domain);
-        
+
         $credentials = $credentialsRepository->findAll();
         foreach($credentials as $credential){
             if($credential->getShop() == $hostname){
@@ -50,16 +57,16 @@ class ShopifyController extends AbstractController
                 $order->setMetaInfo($metadata);
                 $order->setStatus(0);
 
-                $orderDb = $entityManager->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderID]);
+                $orderDb = $this->mr->getRepository(ShopifyOrders::class)->findBy(["orderId"=> $orderID]);
                 if (empty($orderDb)){
-                    $entityManager->persist($order);
+                    $this->mr->persist($order);
                 }else{
                     $orderDb[0]->setOrderId($orderID);
                     $orderDb[0]->setMetaInfo($metadata);
                     $orderDb[0]->setStatus(0);
                 }
 
-                $entityManager->flush();
+                $this->mr->flush();
 
                 return $this->render('shopify/index.html.twig', [
                     'order_id' => $orderID,
