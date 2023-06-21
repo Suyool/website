@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers , setTotalAmount }) => {
+const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers , setTotalAmount , setActiveButton }) => {
     const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(localStorage.getItem("selectedBalls")) || []);
 
     const handleDelete = (index) => {
@@ -55,7 +55,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers , setTotalAmount 
                 </div>
             ))}
 
-            <div className="addGrid">
+            <div className="addGrid" onClick={()=>{setActiveButton({name: "LLDJ"})}}>
                 <span>+</span>
             </div>
 
