@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Play = () => {
+const Play = ({setBallPlayed , setPickYourGrid , setBallNumbers }) => {
     const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(localStorage.getItem("selectedBalls")) || []);
 
     const handleDelete = (index) => {
@@ -12,6 +12,12 @@ const Play = () => {
         // Update the localStorage
         localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
     };
+    const handleEdit = (index) => {
+        setBallPlayed(getPlayedBalls[index])
+        setBallNumbers(getPlayedBalls[index].length)
+        setPickYourGrid(true)
+        // console.log(getPlayedBalls[index].length)
+    }
 
     return (
         <div id="Play">
@@ -34,7 +40,7 @@ const Play = () => {
                                 <span key={index}>{ball}</span>
                             ))}
                         </div>
-                        <div className="edit">
+                        <div className="edit"  onClick={() => handleEdit(index)}>
                             <img src="/build/images/Loto/edit.png" alt="edit" />
                         </div>
                     </div>
