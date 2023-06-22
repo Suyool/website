@@ -16,6 +16,7 @@
     "@fancyapps/fancybox": "3.0.48",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@symfony/webpack-encore": "^1.5.0",
+    "axios": "^1.4.0",
     "bootstrap": "^3.3.6",
     "file-loader": "6.0.0",
     "gulp": "^4.0.2",
