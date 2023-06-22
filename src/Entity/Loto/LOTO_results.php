@@ -20,7 +20,7 @@ class LOTO_results
 
     /**
      * 
-     * @ORM\Column(name="drawdate",type="string")
+     * @ORM\Column(name="drawdate",type="datetime")
      */
     private $drawdate;
 
