@@ -16,15 +16,19 @@ use Doctrine\Persistence\ManagerRegistry;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 class LotoController extends AbstractController
 {
     private $mr;
-    public function __construct(ManagerRegistry $mr)
+    private $session; 
+
+    public function __construct(ManagerRegistry $mr,SessionInterface $session)
     {
         $this->mr = $mr->getManager('loto');
+        $this->session=$session;
     }
     /**
      * @Route("/loto", name="app_loto")
@@ -36,6 +40,9 @@ class LotoController extends AbstractController
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
         $drawId = '2117';
         $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
+
+        $this->session->set('userId',rand());
+        // dd($this->session->get('userId'));
 
         // dd($loto_draw);
 
@@ -136,51 +143,74 @@ class LotoController extends AbstractController
             $getPlayedBalls = json_decode($_POST['getPlayedBalls'], true);
             $ballsArray = [];
 
+            $ballsArrayNoZeed = [];
+
+            $selected = [];
+            // $nozeed=0;
+
             // dd($getPlayedBalls);
 
             foreach ($getPlayedBalls as $item) {
                 $plays = new LOTO_plays;
 
-                $balls = implode(" ", $item['balls']);
-                $ballsArray = $balls;
+
                 // dd($ballsArray);
-                $withZeed=$item['withZeed'];
-                if($withZeed==false){
-                    $withZeed=0;
-                }else{
-                    $withZeed=1;
+                $withZeed = $item['withZeed'];
+                if ($withZeed == false) {
+                    $balls = implode(" ", $item['balls']);
+                    $ballsArrayNoZeed[] = $balls;
+                    $withZeed = 0;
+                    // $nozeed=1;
+                } else {
+                    $withZeed = 1;
+                    $balls = implode(" ", $item['balls']);
+                    $ballsArray = $balls;
+                    //     $submit_loto_play = [
+                    //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
+                    //         'drawNumber' => $drawnumber,
+                    //         'numDraws' => $numDraws,
+                    //         'withZeed' => $withZeed, //1 if with zeed
+                    //         'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
+                    //         'GridsSelected' => $ballsArray, // separated with |
+                    //     ];
+                    //     $submitloto['data'] = json_encode($submit_loto_play);
+                    // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
+                    // $SubmitPlays = Helper::send_curl($submitloto, 'loto');
+
+                    // $submit_loto = json_decode($SubmitPlays, true);
+
+                    // dd($submit_loto);
+
+                    // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
+                    //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
+                    // } else {
+                    //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
+                    //     $plays->setgridSelected($ballsArray)
+                    //         ->setWithZeed($withZeed)
+                    //         ->setdrawnumber($drawnumber)
+                    //         ->setnumdraws(1)
+                    //         ->setcreatedate(new DateTime());
+
+                    //     $this->mr->persist($plays);
+                    //     $this->mr->flush();
+                    // }
+                    $plays->setgridSelected($ballsArray)
+                        ->setWithZeed($withZeed)
+                        ->setdrawnumber($drawnumber)
+                        ->setnumdraws(1)
+                        ->setcreatedate(new DateTime());
+
+                    $this->mr->persist($plays);
+                    $this->mr->flush();
                 }
                 // dd($withZeed);
-            //     $submit_loto_play = [
-            //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
-            //         'drawNumber' => $drawnumber,
-            //         'numDraws' => $numDraws,
-            //         'withZeed' => $withZeed, //1 if with zeed
-            //         'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
-            //         'GridsSelected' => $ballsArray, // separated with |
-            //     ];
-            //     $submitloto['data'] = json_encode($submit_loto_play);
-            // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
-            // $SubmitPlays = Helper::send_curl($submitloto, 'loto');
 
-            // $submit_loto = json_decode($SubmitPlays, true);
+            }
 
-            // dd($submit_loto);
-
-            // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
-            //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
-            // } else {
-            //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
-            //     $plays->setgridSelected($ballsArray)
-            //         ->setWithZeed($withZeed)
-            //         ->setdrawnumber($drawnumber)
-            //         ->setnumdraws(1)
-            //         ->setcreatedate(new DateTime());
-
-            //     $this->mr->persist($plays);
-            //     $this->mr->flush();
-            // }
-            $plays->setgridSelected($ballsArray)
+            // $gridselected = $ballsArray;
+            if ($ballsArrayNoZeed != null) {
+                $selected = implode('|', $ballsArrayNoZeed);
+                $plays->setgridSelected($selected)
                     ->setWithZeed($withZeed)
                     ->setdrawnumber($drawnumber)
                     ->setnumdraws(1)
@@ -189,15 +219,12 @@ class LotoController extends AbstractController
                 $this->mr->persist($plays);
                 $this->mr->flush();
             }
-
-            $gridselected = $ballsArray;
-
             // dd($gridselected);
             // $selected = implode('|', $gridselected);
             // dd($selected);
 
 
-            
+
         }
 
 
