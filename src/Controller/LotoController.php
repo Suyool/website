@@ -35,13 +35,18 @@ class LotoController extends AbstractController
      */
     public function index(Request $request, ManagerRegistry $em)
     {
+        $printsession=$request->query->get('printsession');
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
         $drawId = '2117';
         $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
-
-        $this->session->set('userId',rand());
+        // echo "<pre>";print_r($_SESSION);die("--");
+            
+        if(isset($printsession)){
+            dd($this->session->get('userId'));
+        }
+        // $this->session->set('userId',rand());
         // dd($this->session->get('userId'));
 
         // dd($loto_draw);

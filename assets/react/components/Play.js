@@ -1,17 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const Play = ({
-    setBallPlayed,
-    setPickYourGrid,
-    setBallNumbers,
-    setTotalAmount,
-    setActiveButton,
-}) => {
+const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, setActiveButton, }) => {
     const [getPlayedBalls, setPlayedBalls] = useState(
         JSON.parse(localStorage.getItem("selectedBalls")) || []
     );
-
-    console.log(getPlayedBalls)
 
     const handleDelete = (index) => {
         const updatedBalls = [...getPlayedBalls];
@@ -40,6 +33,13 @@ const Play = ({
         });
     };
 
+    const handleCheckout = () => {
+        axios.post('/loto/play',{
+            "selectedBalls":localStorage.getItem("selectedBalls")
+        })
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
+    }
 
     return (
         <div id="Play">
@@ -141,15 +141,15 @@ const Play = ({
                 </div>
             </div>
 
-            {/* <div className="btnSection">
+            <div className="btnSection">
                 <div className="Total">
                     <span>TOTAL</span>
                     <span>L.L 200,000</span>
                 </div>
-                <button>Checkout</button>
-            </div> */}
+                <button onClick={() => handleCheckout()}>Checkout</button>
+            </div>
 
-            <form method="post">
+            {/* <form method="post">
                 <div className="btnSection">
                     <div className="Total">
                         <span>TOTAL</span>
@@ -158,7 +158,7 @@ const Play = ({
                     <input type="hidden" name="getPlayedBalls" value={JSON.stringify(getPlayedBalls)} />
                     <input type="submit" name="submit" value="Checkout" />
                 </div>
-            </form>
+            </form> */}
         </div>
     );
 };
