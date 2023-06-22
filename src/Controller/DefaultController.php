@@ -56,13 +56,14 @@ class DefaultController extends AbstractController
                     $em->flush();
                     $message = "Email Added";
                     $email = (new TemplatedEmail())
-                        ->from('no-reply@suyool.com')
+                        ->from('contact@suyool.com')
                         ->to($_POST['email'])
                         //->cc('cc@example.com')
                         //->bcc('bcc@example.com')
                         //->replyTo('fabien@example.com')
                         //->priority(Email::PRIORITY_HIGH)
-                        ->subject('Suyool')
+
+                        ->subject('You are on the list and we\'re so excited! ' . "\u{1F60D}")
                         ->htmlTemplate('email/email.html.twig');
                     $mailer->send($email);
                     return new JsonResponse(['success' => true, 'message' => $message]);
