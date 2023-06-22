@@ -54,7 +54,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
                                 {index + 1}
                             </span>
                             <span className="right">
-                                PLAY ZEED (+ L.L 5,000)
+                                <div className="playZeed">PLAY ZEED (+ L.L 5,000)</div>
                                 <input
                                     className="switch"
                                     type="checkbox"
@@ -148,17 +148,6 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
                 </div>
                 <button onClick={() => handleCheckout()}>Checkout</button>
             </div>
-
-            {/* <form method="post">
-                <div className="btnSection">
-                    <div className="Total">
-                        <span>TOTAL</span>
-                        <span>L.L 200,000</span>
-                    </div>
-                    <input type="hidden" name="getPlayedBalls" value={JSON.stringify(getPlayedBalls)} />
-                    <input type="submit" name="submit" value="Checkout" />
-                </div>
-            </form> */}
         </div>
     );
 };

@@ -5,10 +5,11 @@
     align-items: center;
 
     .gridplays {
-        padding-top: 30px 10px 0 10px;
         color: #1C2676;
         font-family: PoppinsMedium;
-        font-size: 16px;
+        font-size: 14px;
+        max-width: 90%;
+        padding-top: 20px;
     }
 
     .gridborder {
@@ -38,10 +39,11 @@
                     float: right;
                     padding-top: 7px;
                     font-family: PoppinsSemiBold;
+                    display: flex;
 
                     .switch {
                         --inactive-bg: #cfd8dc;
-                        --active-bg: #00e676;
+                        --active-bg: #e39794;
                         --size: 16px;
                         appearance: none;
                         width: calc(var(--size) * 2.2);
@@ -50,10 +52,7 @@
                         border-radius: calc(var(--size) / 2);
                         cursor: pointer;
                         background-color: var(--inactive-bg);
-                        background-image: radial-gradient(circle calc(var(--size) / 2.1),
-                                #fff 100%,
-                                #0000 0),
-                            radial-gradient(circle calc(var(--size) / 1.5), #0003 0%, #0000 100%);
+                        background-image: radial-gradient(circle calc(var(--size) / 2.1),#fff 100%,#0000 0),radial-gradient(circle calc(var(--size) / 1.5), #0003 0%, #0000 100%);
                         background-repeat: no-repeat;
                         background-position: calc(var(--size) / -1.75) 0;
                         transition: background 0.2s ease-out;
