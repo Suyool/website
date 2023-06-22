@@ -11,7 +11,7 @@ use App\Utils\Helper;
 class DeepLinksController extends AbstractController
 {
     /**
-     * @Route("/suyoolapp", name="suyoolapp")
+     * @Route("/app", name="suyoolapp")
      */
     public function deepLinks(): Response
     {
