@@ -20,6 +20,12 @@ class LOTO_plays
 
     /**
      * 
+     * @ORM\Column(name="suyoolUserId")
+     */
+    private $suyoolUserId;
+
+    /**
+     * 
      * @ORM\Column(name="drawNumber",type="string")
      */
     private $drawNumber;
@@ -42,6 +48,12 @@ class LOTO_plays
      */
     private $gridSelected;
 
+     /**
+     * 
+     * @ORM\Column(name="price")
+     */
+    private $price;
+
     /**
      * 
      * @ORM\Column(name="create_date",type="datetime")
@@ -51,6 +63,17 @@ class LOTO_plays
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getsuyoolUserId()
+    {
+        return $this->suyoolUserId;
+    }
+
+    public function setsuyoolUserId($suyoolUserId)
+    {
+        $this->suyoolUserId=$suyoolUserId;
+        return $this;
     }
 
     public function getdrawnumber()
@@ -94,6 +117,18 @@ class LOTO_plays
     public function setgridSelected($gridSelected)
     {
         $this->gridSelected=$gridSelected;
+        return $this;
+    }
+
+
+    public function getprice()
+    {
+        return $this->price;
+    }
+
+    public function setprice($price)
+    {
+        $this->price=$price;
         return $this;
     }
 

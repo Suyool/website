@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const Result = ({ parameters }) => {
+  console.log(parameters.prize_loto_win.numbers);
   const [getWinBallInitial, setWinBallInitial] = useState([]);
   const prize1 = parameters.prize_loto_win.prize1;
   const prize2 = parameters.prize_loto_win.prize2;
@@ -16,7 +17,7 @@ const Result = ({ parameters }) => {
   ]);
 
   useEffect(() => {
-    setWinBallInitial([11, 16, 17, 42, 25, 18]);
+    setWinBallInitial(parameters.prize_loto_win.numbers.split(',').map(Number));
   }, []);
 
   return (
