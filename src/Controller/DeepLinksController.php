@@ -23,13 +23,13 @@ class DeepLinksController extends AbstractController
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-            header('Location: skashpay://skash.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}');
+            header('Location: suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}');
 
-        } elseif ($flag === '73') {
-            // Redirect desktop devices landed on flag 73 to Merchant page
-            return $this->redirectToRoute('merchant');
-
-        } elseif ($flag === '17') {
+//        } elseif ($flag === '73') {
+//            // Redirect desktop devices landed on flag 73 to Merchant page
+//            return $this->redirectToRoute('merchant');
+//
+//        } elseif ($flag === '17') {
             return $this->redirectToRoute('homepage');
         }
 
