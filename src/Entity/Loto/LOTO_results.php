@@ -20,7 +20,7 @@ class LOTO_results
 
     /**
      * 
-     * @ORM\Column(name="drawdate")
+     * @ORM\Column(name="drawdate",type="datetime")
      */
     private $drawdate;
 
@@ -94,7 +94,7 @@ class LOTO_results
         return $this;
     }
 
-    public function setdrawdate(string $drawdate)
+    public function setdrawdate(\DateTimeInterface $drawdate)
     {
         $this->drawdate=$drawdate;
         return $this;

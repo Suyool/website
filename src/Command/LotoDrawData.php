@@ -116,19 +116,20 @@ class LotoDrawData extends Command
         // $drawdate=strtotime($prize_loto['d']['draws'][0]['drawdate']);
         // dd($drawdate);
         // dd($prize_loto);
-            foreach ($prize_loto['d']['draws'] as $prize_loto) {
-                $results = new LOTO_results;
-                $drawdate=strtotime($prize_loto['drawdate']);
-                if(!$this->mr->getRepository(LOTO_results::class)->findBy(['drawId'=>$prize_loto['drawnumber']])){
+        foreach ($prize_loto['d']['draws'] as $prize_loto) {
+            $results = new LOTO_results;
+            $drawdate = strtotime($prize_loto['drawdate']);
+            if (!$this->mr->getRepository(LOTO_results::class)->findBy(['drawId' => $prize_loto['drawnumber']])) {
                 $numbers = [$prize_loto['B1'], $prize_loto['B2'], $prize_loto['B3'], $prize_loto['B4'], $prize_loto['B5'], $prize_loto['B6'], $prize_loto['B7']];
                 $numbers = implode(",", $numbers);
                 // dd($prize_loto['drawdate']->forma);
-               $drawdate=strtotime($prize_loto['drawdate'].'+1 hour');
-            //    dd($drawdate);
-            //    dd(date('Y-m-d H:i:s',$drawdate));
+                $drawdate = strtotime($prize_loto['drawdate'] . '+1 hour');
+                $time = new DateTime();
+                $time->setTimestamp($drawdate);
+                //    dd(date('Y-m-d H:i:s',$drawdate));
                 $results->setdrawid($prize_loto['drawnumber']);
                 $results->setnumbers($numbers);
-                $results->setdrawdate(date('Y-m-d H:i:s',$drawdate));
+                $results->setdrawdate($time);
                 $results->setwinner1($prize_loto['prize1']);
                 $results->setwinner2($prize_loto['prize2']);
                 $results->setwinner3($prize_loto['prize3']);
@@ -137,10 +138,9 @@ class LotoDrawData extends Command
                 $results->setcreatedate($date);
                 $this->mr->persist($results);
                 $this->mr->flush();
-    
             }
         }
-   
+
         // dd(implode(",",$numbers));
         // var_dump($numbers);
         // dd($prize_loto);
