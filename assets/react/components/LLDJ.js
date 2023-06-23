@@ -28,7 +28,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                     <Countdown nextDrawNumber={parameters.next_date} />
                 </div>
 
-                <div className="questionsSection mt-5">
+                <div className="questionsSection mt-3">
                     <div className="title">What are you waiting for?</div>
                     <button className="PlayBtn">Play Now</button>
                 </div>
@@ -37,14 +37,14 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                     <div className="itemsSection">
                         <div className="items">
                             <div className="title">1 GRID</div>
-                            <div className="price">{parameters.gridprice[1]}LBP</div>
+                            <div className="price">{parseInt(parameters.gridprice[1]).toLocaleString()} LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
                         <div className="items redone">
                             <div className="image"><img src="/build/images/Loto/popular.png" alt="popular" /></div>
                             <div className="title">8 GRIDS</div>
-                            <div className="price">{parameters.gridprice[8]}LBP</div>
+                            <div className="price">{parseInt(parameters.gridprice[8]).toLocaleString()} LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
@@ -64,7 +64,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                             <div className="items" key={index}>
                                 <div className="nb">{item.numbers}</div>
                                 <div className="title">NUMBERS</div>
-                                <div className="price">{item.price}LBP</div>
+                                <div className="price">{parseInt(item.price).toLocaleString()}LBP</div>
                                 <button className="letsPlayBtn" onClick={() => {
                                     setBallNumbers(item.numbers);
                                     setTotalAmount(item.price);

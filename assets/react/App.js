@@ -7,7 +7,7 @@ import PickYourGrid from "./components/PickYourGrid";
 import Buy from "./components/Buy";
 
 const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
+    const [activeButton, setActiveButton] = useState({ name: "Play" });
     const [getPickYourGrid, setPickYourGrid] = useState(false);
     const [getBallNumbers, setBallNumbers] = useState(0);
     const [getTotalAmount, setTotalAmount] = useState(0);
@@ -19,7 +19,7 @@ const App = ({ parameters }) => {
         <div id="LotoBody">
 
             <div className="scrolableView">
-                <img src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
+                <img className="mt-3" src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
                 {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton}/>}

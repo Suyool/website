@@ -82,18 +82,18 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
 
   return (
     <div id="Play">
-      <h3 className="gridplays">How many lottery grids do you want to play?</h3>
+      <div className="gridplays">How many lottery grids do you want to play?</div>
 
       {getPlayedBalls &&
         getPlayedBalls.map((ballsSet, index) => (
-          <div className="gridborder mt-4" key={index}>
+          <div className="gridborder mt-2" key={index}>
             <div className="header">
               <span>
                 <img src="/build/images/Loto/LotoGrid.png" alt="loto" /> GRID{" "}
                 {index + 1}
               </span>
               <span className="right">
-                PLAY ZEED (+ L.L 5,000)
+                <span>PLAY ZEED (+ L.L 5,000)</span>
                 <input
                   className="switch"
                   type="checkbox"
@@ -113,7 +113,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
               </div>
             </div>
             <div className="footer">
-              <span className="price">L.L {ballsSet.price}</span>
+              <span className="price"><span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}</span>
               <span className="delete" onClick={() => handleDelete(index)}>
                 <img src="/build/images/Loto/trash.png" alt="delete" />
               </span>
@@ -130,6 +130,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
         <span>+</span>
       </div>
 
+      <div className="br"></div>
       <div className="wantToPlay">
         <div className="title">How often do you want to play?</div>
 
@@ -206,7 +207,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
       <div className="btnSection">
         <div className="Total">
           <span>TOTAL</span>
-          <span>L.L 200,000</span>
+          <div className="thePrice">L.L <div className="big">200,000</div></div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>
           Checkout

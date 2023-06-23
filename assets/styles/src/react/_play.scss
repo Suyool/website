@@ -41,6 +41,12 @@
                     font-family: PoppinsSemiBold;
                     display: flex;
 
+                    span {
+                        color: black;
+                        font-size: 11px;
+                        font-family: PoppinsBold;
+                    }
+
                     .switch {
                         --inactive-bg: #cfd8dc;
                         --active-bg: #e39794;
@@ -52,7 +58,7 @@
                         border-radius: calc(var(--size) / 2);
                         cursor: pointer;
                         background-color: var(--inactive-bg);
-                        background-image: radial-gradient(circle calc(var(--size) / 2.1),#fff 100%,#0000 0),radial-gradient(circle calc(var(--size) / 1.5), #0003 0%, #0000 100%);
+                        background-image: radial-gradient(circle calc(var(--size) / 2.1), #fff 100%, #0000 0), radial-gradient(circle calc(var(--size) / 1.5), #0003 0%, #0000 100%);
                         background-repeat: no-repeat;
                         background-position: calc(var(--size) / -1.75) 0;
                         transition: background 0.2s ease-out;
@@ -115,6 +121,11 @@
 
             .price {
                 font-family: PoppinsSemiBold;
+                font-size: 20px;
+
+                span {
+                    font-size: 15px;
+                }
             }
         }
     }
@@ -137,9 +148,16 @@
         }
     }
 
+    .br {
+        margin: 0 5%;
+        height: 0.5px;
+        background-color: #EBEBEB;
+        width: -webkit-fill-available;
+    }
+
     .wantToPlay {
         margin-top: 10px;
-        border-top: 1px solid #00000029;
+        // border-top: 1px solid #00000029;
         padding: 23px 0;
         width: 100%;
         display: flex;
@@ -165,12 +183,13 @@
             .listItem {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                align-items: flex-start;
                 padding: 10px 0;
                 border-bottom: 1px solid #00000029;
 
                 .checkbox {
                     width: 15%;
+                    padding-top: 10px;
                     text-align: center;
                 }
 
@@ -216,11 +235,29 @@
             margin-top: 30px;
             width: 90%;
             justify-content: space-around;
+            letter-spacing: 0.9pt;
 
             span {
                 color: white;
                 font-size: 15px;
                 font-family: PoppinsSemiBold;
+                padding-left: 20px;
+                margin: auto;
+                width: 30%;
+            }
+
+            .thePrice {
+                display: flex;
+                color: white;
+                align-items: flex-end;
+                font-size: 15px;
+                font-family: PoppinsSemiBold;
+                width: 70%;
+
+                .big {
+                    font-size: 20px;
+                    padding-left: 10px;
+                }
             }
         }
 
