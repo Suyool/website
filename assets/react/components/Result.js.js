@@ -72,7 +72,7 @@ const Result = ({ parameters }) => {
 
       <div className="nextDrawSection mt-4">
          <div className="filter-section">
-          <select value={selectedMonthYear} onChange={handleMonthYearChange}>
+          <select className="selectDesign" value={selectedMonthYear} onChange={handleMonthYearChange}>
             {uniqueFilters.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -88,8 +88,8 @@ const Result = ({ parameters }) => {
           <div className="items">
             {filteredData.slice(startIndex, startIndex + 4).map((item, index) => (
               <div className="item" key={index}>
-                <div className="time">{item.date}</div>
-                <div className="day">{item.day}</div>
+                <div className="time">{item.day}</div>
+                <div className="day">{item.date.substring(0, 3)}</div>
               </div>
             ))}
           </div>

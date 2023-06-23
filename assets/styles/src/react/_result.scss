@@ -43,10 +43,14 @@
         align-items: center;
         width: 100%;
 
-        .selectTime {
-            font-family: PoppinsRegular;
-            font-size: 16px;
-            color: #C82F2A;
+        .filter-section {
+            .selectDesign {
+                background-color: unset;
+                border: none;
+                color: #C82F2A;
+                font-size: 16px;
+                font-family: 'PoppinsRegular';
+            }
         }
 
         .dayDrow {
@@ -171,7 +175,7 @@
                 color: white;
             }
 
-        
+
         }
 
         .NoWinnweFooter {
