@@ -1,6 +1,6 @@
 {
   "build/app1.js": "/build/app1.b2442cfa.js",
-  "build/app2.js": "/build/app2.b823ee29.js",
+  "build/app2.js": "/build/app2.fbe11efa.js",
   "build/styles.css": "/build/styles.80bd6bd2.css",
   "build/react_styles.css": "/build/react_styles.84eee29e.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
@@ -76,6 +76,7 @@
   "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png",
   "build/images/Loto/trofie.png": "/build/images/Loto/trofie.png",
   "build/images/payment/person.png": "/build/images/payment/person.png",
+  "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/Loto/edit.png": "/build/images/Loto/edit.png",
   "build/images/Loto/goNext.png": "/build/images/Loto/goNext.png",
   "build/images/Loto/trash.png": "/build/images/Loto/trash.png"
