@@ -9,7 +9,7 @@
     "app2": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app2.fbe11efa.js"
+        "/build/app2.0a9e7a4b.js"
       ]
     },
     "styles": {
@@ -25,7 +25,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/react_styles.84eee29e.css"
+        "/build/react_styles.105c3080.css"
       ]
     }
   }

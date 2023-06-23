@@ -13,8 +13,8 @@ const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setAc
     JSON.parse(selectedBallsToShow) || []
   );
 
-  console.log(getDisabledBtn);
-  console.log(getPlayedBalls);
+  // console.log(getDisabledBtn);
+  // console.log(getPlayedBalls);
 
 
   const handleDelete = (index) => {
