@@ -124,6 +124,7 @@ class LotoDrawData extends Command
                 $numbers = implode(",", $numbers);
                 // dd($prize_loto['drawdate']->forma);
                $drawdate=strtotime($prize_loto['drawdate'].'+1 hour');
+            //    dd($drawdate);
             //    dd(date('Y-m-d H:i:s',$drawdate));
                 $results->setdrawid($prize_loto['drawnumber']);
                 $results->setnumbers($numbers);
