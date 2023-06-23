@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBallPlayed }) => {
+const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBallPlayed, setIsHide }) => {
     const [selectedBalls, setSelectedBalls] = useState([]);
     useEffect(() => {
         if (getBallPlayed.length == 0) {
@@ -38,35 +38,37 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
     };
 
     const handleDone = () => {
-        console.log(selectedBalls);
-        console.log(getTotalAmount);
-      
+        // console.log(selectedBalls);
+        // console.log(getTotalAmount);
+        setIsHide(false);
         // Create an object to store the selected balls and their price
         const ballSet = {
-          balls: selectedBalls,
-          price: getTotalAmount,
-          withZeed: false
+            balls: selectedBalls,
+            price: getTotalAmount,
+            withZeed: false
         };
-      
+
         // Retrieve existing data from localStorage
         const existingData = localStorage.getItem('selectedBalls');
-      
+
         // Parse the retrieved data to an array or initialize an empty array
         const existingBalls = existingData ? JSON.parse(existingData) : [];
-      
+
         // Append the ballSet object to the existing array
         const updatedBalls = [...existingBalls, ballSet];
-      
+
         // Store the updated array in localStorage
         localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
-      
+
         setPickYourGrid(false);
-      };
-      
+    };
+
 
 
     const handleCancel = () => {
-        setPickYourGrid(false)
+        setPickYourGrid(false);
+        setIsHide(false);
+
     };
 
     const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);

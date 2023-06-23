@@ -12,8 +12,8 @@ const App = ({ parameters }) => {
     const [getBallNumbers, setBallNumbers] = useState(0);
     const [getTotalAmount, setTotalAmount] = useState(0);
 
-    // const [getBallPlayed,setBallPlayed] = useState([11, 16, 17, 42, 25, 18]);
-    const [getBallPlayed,setBallPlayed] = useState([]);
+    const [getBallPlayed, setBallPlayed] = useState([]);
+    const [isHideBack, setIsHide] = useState(false);
 
     return (
         <div id="LotoBody">
@@ -21,14 +21,14 @@ const App = ({ parameters }) => {
             <div className="scrolableView">
                 <img className="mt-3" src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
 
-                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} />}
-                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton}/>}
-                {activeButton.name === "Result" && <Result parameters={parameters}/>}
+                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} setIsHide={setIsHide} isHideBack={isHideBack} />}
+                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} />}
+                {activeButton.name === "Result" && <Result parameters={parameters} />}
 
                 {activeButton.name === "Buy" && <Buy />}
             </div>
 
-            {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed}/>}
+            {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed} setIsHide={setIsHide} />}
             <BottomNav activeButton={activeButton} setActiveButton={setActiveButton} />
         </div>
     );

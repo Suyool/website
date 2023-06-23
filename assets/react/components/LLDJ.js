@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Countdown from "./Countdown";
 import BouquetOptions from "./BouquetOptions";
 
-const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) => {
+const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, setIsHide, isHideBack }) => {
 
     // console.log(parameters);
     const [getShowBouquet, setShowBouquet] = useState(false);
     return (
         <>
-            <div id="LLDJ">
+            <div id="LLDJ" className={`${isHideBack ? "isHideBack" : ""}`} >
 
                 <div className="estimatedPriceSection mt-3">
                     <div className="title">Next Loto Estimated Jackpot</div>
@@ -52,7 +52,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                             <img src="/build/images/Loto/bouquet.png" alt="bouquet" />
                             <div className="title">BOUQUET</div>
                             <div className="price"></div>
-                            <button className="letsPlayBtn" onClick={() => { setShowBouquet(true) }}>PLAY NOW</button>
+                            <button className="letsPlayBtn" onClick={() => { setShowBouquet(true); setIsHide(true) }}>PLAY NOW</button>
                         </div>
                     </div>
                 </div>
@@ -69,6 +69,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                                     setBallNumbers(item.numbers);
                                     setTotalAmount(item.price);
                                     setPickYourGrid(true);
+                                    setIsHide(true);
                                 }}>PLAY</button>
                             </div>
                         )}
@@ -77,7 +78,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers }) =
                 </div>
 
             </div>
-            {getShowBouquet && <BouquetOptions setShowBouquet={setShowBouquet} />}
+            {getShowBouquet && <BouquetOptions setShowBouquet={setShowBouquet} setIsHide={setIsHide} />}
         </>
 
     );
