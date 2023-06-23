@@ -63,6 +63,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                         {parameters.gridpricematrix && parameters.gridpricematrix.map((item, index) =>
                             <div className="items" key={index}>
                                 <div className="nb">{item.numbers}</div>
+                                <div className="blurSection"></div>
                                 <div className="title">NUMBERS</div>
                                 <div className="price">{parseInt(item.price).toLocaleString()}LBP</div>
                                 <button className="letsPlayBtn" onClick={() => {
