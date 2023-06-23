@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import data from "./result.json";
 
 const Result = ({ parameters }) => {
   console.log(parameters.prize_loto_win.numbers);
@@ -20,6 +21,44 @@ const Result = ({ parameters }) => {
     setWinBallInitial(parameters.prize_loto_win.numbers.split(',').map(Number));
   }, []);
 
+  
+  const [selectedMonthYear, setSelectedMonthYear] = useState("");
+  const [startIndex, setStartIndex] = useState(0);
+
+  const uniqueFilters = [];
+
+  data.forEach((item) => {
+    const filter = item.month + " " + item.year;
+    if (!uniqueFilters.includes(filter)) {
+      uniqueFilters.push(filter);
+    }
+  });
+
+  const filteredData = data.filter(
+    (item) =>
+      item.month + " " + item.year === selectedMonthYear
+  );
+
+  const handleMonthYearChange = (event) => {
+    setSelectedMonthYear(event.target.value);
+    setStartIndex(0); // Reset the startIndex when month or year changes
+  };
+
+  const handlePrevious = () => {
+    setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
+  const handleNext = () => {
+    setStartIndex((prevIndex) =>
+      Math.min(prevIndex + 1, filteredData.length - 4)
+    );
+  };
+
+  useEffect(()=>{
+    setSelectedMonthYear(uniqueFilters[0])
+  },[])
+
+
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -32,47 +71,29 @@ const Result = ({ parameters }) => {
       </div>
 
       <div className="nextDrawSection mt-4">
-        <div className="selectTime">May 2023</div>
+         <div className="filter-section">
+          <select value={selectedMonthYear} onChange={handleMonthYearChange}>
+            {uniqueFilters.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="dayDrow">
-          <div className="goNext">
-            <img src="/build/images/Loto/goNext.png" alt="goNext" />
+          <div className="goNext" onClick={handlePrevious}>
+            <img src="/build/images/Loto/goPrevious.png" alt="GoPrevious" />
           </div>
           <div className="items">
-            <div
-              className="item"
-              onClick={() => {
-                let winBallInitial = [];
-                while (winBallInitial.length < 6) {
-                  const randomNumber = Math.floor(Math.random() * 42) + 1;
-                  if (!winBallInitial.includes(randomNumber)) {
-                    winBallInitial.push(randomNumber);
-                  }
-                }
-                setWinBallInitial(winBallInitial);
-              }}
-            >
-              <div className="time">14</div>
-              <div className="day">Mon</div>
-            </div>
-            <div className="item">
-              <div className="time">14</div>
-              <div className="day">Mon</div>
-            </div>
-            <div className="item">
-              <div className="time">14</div>
-              <div className="day">Mon</div>
-            </div>
-            <div className="item">
-              <div className="time">14</div>
-              <div className="day">Mon</div>
-            </div>
-            <div className="item">
-              <div className="time">14</div>
-              <div className="day">Mon</div>
-            </div>
+            {filteredData.slice(startIndex, startIndex + 4).map((item, index) => (
+              <div className="item" key={index}>
+                <div className="time">{item.date}</div>
+                <div className="day">{item.day}</div>
+              </div>
+            ))}
           </div>
-          <div className="goNext">
+          <div className="goNext" onClick={handleNext}>
             <img src="/build/images/Loto/goNext.png" alt="goNext" />
           </div>
         </div>

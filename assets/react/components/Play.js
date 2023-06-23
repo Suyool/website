@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Play = ({
-  setBallPlayed,
-  setPickYourGrid,
-  setBallNumbers,
-  setTotalAmount,
-  setActiveButton,
-}) => {
+const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setActiveButton}) => {
     const selectedBallsToShow = localStorage.getItem("selectedBalls");
-
-
     
   const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null ||
@@ -62,27 +54,29 @@ const Play = ({
       !selectedBallsToShow ||
       JSON.parse(selectedBallsToShow).length === 0
     ) {
+        setActiveButton({ name: "Buy" })
     } else {
-      axios
-        .post("/loto/play", {
-          selectedBalls: selectedBallsToShow,
-        })
-        .then((response) => {
-          console.log(response);
-          localStorage.removeItem("selectedBalls")
-          setPlayedBalls([]);
-          setDisabledBtn(
-            selectedBallsToShow == null ||
-            JSON.parse(selectedBallsToShow).length === 0
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-          setDisabledBtn(
-            selectedBallsToShow == null ||
-            JSON.parse(selectedBallsToShow).length === 0
-          );
-        });
+        setActiveButton({ name: "Buy" })
+    //   axios
+    //     .post("/loto/play", {
+    //       selectedBalls: selectedBallsToShow,
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //       localStorage.removeItem("selectedBalls")
+    //       setPlayedBalls([]);
+    //       setDisabledBtn(
+    //         selectedBallsToShow == null ||
+    //         JSON.parse(selectedBallsToShow).length === 0
+    //       );
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       setDisabledBtn(
+    //         selectedBallsToShow == null ||
+    //         JSON.parse(selectedBallsToShow).length === 0
+    //       );
+    //     });
     }
   };
 
