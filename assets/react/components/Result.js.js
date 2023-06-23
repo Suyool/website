@@ -82,7 +82,7 @@ const Result = ({ parameters }) => {
     <div id="Result">
       <div className="resultTopSection mt-4">
         <div className="title">Draw Numbers</div>
-        <div className="ballSection mt-2">
+        <div className="ballSection mt-3">
           {getWinBallInitial.map((item, index) => (
             <span key={index}>{item}</span>
           ))}
@@ -153,6 +153,7 @@ const Result = ({ parameters }) => {
                 .length >= 3 ? (
                 <div className="winnweFooter">
                   <div className="price">
+                    <span>L.L </span>
                     {getWinBallInitial.filter((winBall) =>
                       grid.includes(winBall)
                     ).length == 7 && parseInt(prize1).toLocaleString()}
@@ -168,6 +169,7 @@ const Result = ({ parameters }) => {
                     {getWinBallInitial.filter((winBall) =>
                       grid.includes(winBall)
                     ).length == 3 && parseInt(prize5).toLocaleString()}
+                     {" "} Won
                   </div>
                   <div className="img">
                     <img src="/build/images/Loto/trofie.png" alt="SmileLOGO" />

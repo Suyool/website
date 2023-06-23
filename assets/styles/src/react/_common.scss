@@ -18,6 +18,41 @@
     }
 }
 
-.isHideBack{
+.isHideBack {
     opacity: 0.4;
+}
+
+#Total {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C2676;
+    border-radius: 25px;
+    padding: 10px 0;
+    margin-top: 30px;
+    width: 90%;
+    justify-content: space-around;
+    letter-spacing: 0.9pt;
+
+    span {
+        color: white;
+        font-size: 15px;
+        font-family: PoppinsSemiBold;
+        padding-left: 20px;
+        margin: auto;
+        width: 30%;
+    }
+
+    .thePrice {
+        display: flex;
+        color: white;
+        align-items: flex-end;
+        font-size: 15px;
+        font-family: PoppinsSemiBold;
+        width: 70%;
+
+        .big {
+            font-size: 20px;
+            padding-left: 10px;
+        }
+    }
 }

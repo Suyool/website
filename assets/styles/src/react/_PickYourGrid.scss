@@ -62,6 +62,12 @@
                 align-items: center;
                 justify-content: center;
             }
+
+            .active {
+                color: white;
+                background-color: #C82F2A;
+
+            }
         }
     }
 
@@ -75,14 +81,14 @@
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-bottom: 140px;
+        padding-bottom: 160px;
 
         .ballCont {
             width: 14.2%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 25px;
+            padding-top: 20px;
 
             button {
                 background-color: white;
@@ -101,6 +107,12 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+
+            .active {
+                color: white;
+                background-color: #C82F2A;
+
             }
         }
 
@@ -145,6 +157,10 @@
 
     }
 
+    .bodySectionPick::-webkit-scrollbar {
+        display: none;
+    }
+
     .footSectionPick {
         width: 100%;
         display: flex;
@@ -154,23 +170,6 @@
         position: absolute;
         bottom: 0;
         background-color: white;
-
-        .Total {
-            display: flex;
-            flex-direction: row;
-            background-color: #1C2676;
-            border-radius: 10px;
-            padding: 10px 0;
-            margin-top: 15px;
-            width: 95%;
-            justify-content: space-around;
-
-            span {
-                color: white;
-                font-size: 15px;
-                font-family: PoppinsSemiBold;
-            }
-        }
 
         .options {
             display: flex;

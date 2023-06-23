@@ -50,27 +50,6 @@
                 font-family: PoppinsMedium;
             }
         }
-
-        .selectedBalls {
-            display: flex;
-            flex-direction: row;
-            width: 85%;
-            justify-content: space-evenly;
-
-            span {
-                font-family: PoppinsSemiBold;
-                font-size: 15px;
-                color: #C82F2A;
-                background-color: white;
-                border-radius: 50%;
-                border: 1px solid #e1e1e1da;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
     }
 
     .bodySectionPick {
@@ -162,23 +141,6 @@
         position: absolute;
         bottom: 0;
         background-color: white;
-
-        .Total {
-            display: flex;
-            flex-direction: row;
-            background-color: #1C2676;
-            border-radius: 10px;
-            padding: 10px 0;
-            margin-top: 15px;
-            width: 95%;
-            justify-content: space-around;
-
-            span {
-                color: white;
-                font-size: 15px;
-                font-family: PoppinsSemiBold;
-            }
-        }
 
         .options {
             display: flex;

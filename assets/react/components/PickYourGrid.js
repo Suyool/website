@@ -10,7 +10,6 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
         }
     }, [])
 
-
     const handleBallClick = (number) => {
         const index = selectedBalls.findIndex((ball) => ball === null);
         if (index !== -1 && !selectedBalls.includes(number)) {
@@ -63,8 +62,6 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
         setPickYourGrid(false);
     };
 
-
-
     const handleCancel = () => {
         setPickYourGrid(false);
         setIsHide(false);
@@ -83,28 +80,37 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
 
                 <div className="selectedBalls">
                     {selectedBalls.map((number, index) => (
-                        <span key={index}>{number}</span>
+                        <span className={`${number !== null ? "active" : ""}`} key={index}>{number}</span>
                     ))}
                 </div>
             </div>
+
             <div className="bodySectionPick">
-                {ballNumbers.map((number) => (
-                    <div className="ballCont" key={number}>
-                        <button onClick={() => handleBallClick(number)}>
-                            <span>{number}</span>
-                        </button>
-                    </div>
-                ))}
+                {ballNumbers.map((number) => {
+                    const isSelected = selectedBalls.includes(number);
+                    const ballClass = isSelected ? "active" : "";
+
+                    return (
+                        <div className="ballCont" key={number}>
+                            <button onClick={() => handleBallClick(number)}>
+                                <span className={`${ballClass}`}>{number}</span>
+                            </button>
+                        </div>
+                    );
+                })}
             </div>
+
+
             <div className="footSectionPick">
-                <div className="Total">
+
+                <div id="Total">
                     <span>TOTAL</span>
-                    <span>L.L {getTotalAmount}</span>
+                    <div className="thePrice">L.L <div className="big">{getTotalAmount}</div></div>
                 </div>
 
                 <div className="options">
                     <button className="aboutGrid" onClick={handleClearPick}>
-                        Clear pick
+                        Clear grid
                     </button>
                     <button className="aboutGrid" onClick={handleQuickPick}>
                         Quick pick
