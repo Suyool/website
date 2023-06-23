@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setActiveButton}) => {
-    const selectedBallsToShow = localStorage.getItem("selectedBalls");
-    
+const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, setActiveButton }) => {
+  const selectedBallsToShow = localStorage.getItem("selectedBalls");
+
   const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null ||
     JSON.parse(selectedBallsToShow).length === 0
@@ -54,29 +54,29 @@ const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setAc
       !selectedBallsToShow ||
       JSON.parse(selectedBallsToShow).length === 0
     ) {
-        setActiveButton({ name: "Buy" })
+      setActiveButton({ name: "Buy" })
     } else {
-        setActiveButton({ name: "Buy" })
-    //   axios
-    //     .post("/loto/play", {
-    //       selectedBalls: selectedBallsToShow,
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       localStorage.removeItem("selectedBalls")
-    //       setPlayedBalls([]);
-    //       setDisabledBtn(
-    //         selectedBallsToShow == null ||
-    //         JSON.parse(selectedBallsToShow).length === 0
-    //       );
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       setDisabledBtn(
-    //         selectedBallsToShow == null ||
-    //         JSON.parse(selectedBallsToShow).length === 0
-    //       );
-    //     });
+      setActiveButton({ name: "Buy" })
+      //   axios
+      //     .post("/loto/play", {
+      //       selectedBalls: selectedBallsToShow,
+      //     })
+      //     .then((response) => {
+      //       console.log(response);
+      //       localStorage.removeItem("selectedBalls")
+      //       setPlayedBalls([]);
+      //       setDisabledBtn(
+      //         selectedBallsToShow == null ||
+      //         JSON.parse(selectedBallsToShow).length === 0
+      //       );
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //       setDisabledBtn(
+      //         selectedBallsToShow == null ||
+      //         JSON.parse(selectedBallsToShow).length === 0
+      //       );
+      //     });
     }
   };
 
@@ -136,7 +136,8 @@ const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setAc
         <div className="listSection">
           <div className="listItem">
             <div className="checkbox">
-              <input type="checkbox" />
+              <input type="radio" name="radio" />
+              {/* <input type="radio" name="radio" checked="checked"/> */}
             </div>
             <div className="playNB">
               <div className="titleNb">Play Once</div>
@@ -147,7 +148,7 @@ const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setAc
 
           <div className="listItem">
             <div className="checkbox">
-              <input type="checkbox" />
+              <input type="radio" name="radio" />
             </div>
             <div className="playNB">
               <div className="titleNb">Play Once</div>
@@ -158,24 +159,46 @@ const Play = ({setBallPlayed,setPickYourGrid,setBallNumbers,setTotalAmount,setAc
 
           <div className="listItem">
             <div className="checkbox">
-              <input type="checkbox" />
+              <input type="radio" name="radio" />
             </div>
             <div className="playNB">
-              <div className="titleNb">Play Once</div>
-              <div className="desc">Thursday X at 9:00PM</div>
+              <div className="titleNb">1 Month</div>
+              <div className="desc">4 Draws - until xxx</div>
             </div>
-            <div className="price">200,000 LBP</div>
+            <div className="price">800,000 LBP</div>
           </div>
 
           <div className="listItem">
             <div className="checkbox">
-              <input type="checkbox" />
+              <input type="radio" name="radio" />
             </div>
             <div className="playNB">
-              <div className="titleNb">Play Once</div>
-              <div className="desc">Thursday X at 9:00PM</div>
+              <div className="titleNb">6 Months x Draws</div>
+              <div className="desc">until xxx</div>
             </div>
-            <div className="price">200,000 LBP</div>
+            <div className="price">1,200,000 LBP</div>
+          </div>
+
+          <div className="listItem">
+            <div className="checkbox">
+              <input type="radio" name="radio" />
+            </div>
+            <div className="playNB">
+              <div className="titleNb">1 Year x Draws</div>
+              <div className="desc">until xxx</div>
+            </div>
+            <div className="price">1,200,000 LBP</div>
+          </div>
+
+          <div className="listItem">
+            <div className="checkbox">
+              <input type="radio" name="radio" />
+            </div>
+            <div className="playNB">
+              <div className="titleNb">Autoplay</div>
+              <div className="desc">Can be canceled at any time</div>
+            </div>
+            <div className="price">200,000 LBP/ Draw</div>
           </div>
         </div>
       </div>
