@@ -64,9 +64,8 @@ const Result = ({ parameters }) => {
           drawNumber: item,
         })
         .then((response) => {
-          setWinBallInitial(parameters.prize_loto_win.numbers.split(',').map(Number));
-
-          console.log(response);
+          // console.log(response.data);
+          setWinBallInitial(response.data.parameters.prize_loto_win.numbers.split(',').map(Number));
         })
         .catch((error) => {
           console.log(error);
