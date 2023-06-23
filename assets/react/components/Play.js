@@ -205,7 +205,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
       </div>
 
       <div className="btnSection">
-        <div className="Total">
+        <div id="Total">
           <span>TOTAL</span>
           <div className="thePrice">L.L <div className="big">200,000</div></div>
         </div>

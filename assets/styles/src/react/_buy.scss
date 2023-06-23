@@ -135,23 +135,6 @@
         }
     }
 
-    .Total {
-        display: flex;
-        flex-direction: row;
-        background-color: #1C2676;
-        border-radius: 10px;
-        padding: 10px 0;
-        margin-top: 25px;
-        width: 90%;
-        justify-content: space-around;
-
-        span {
-            color: white;
-            font-size: 15px;
-            font-family: PoppinsSemiBold;
-        }
-    }
-
     .BuyBtn {
         border: none;
         padding: 13px 0;

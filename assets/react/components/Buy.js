@@ -47,9 +47,9 @@ const Buy = () => {
                 <div className="zeedImage"><img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" /></div>
             </div>
 
-            <div className="Total">
+            <div id="Total">
                 <span>TOTAL</span>
-                <span>L.L 5,005,000</span>
+                <div className="thePrice">L.L <div className="big">200,000</div></div>
             </div>
 
             <button className="BuyBtn" onClick={() => { console.log("Buy") }}>
