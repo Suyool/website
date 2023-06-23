@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import data from "./result.json";
+// import data from "./result.json";
+import axios from "axios";
+
 
 const Result = ({ parameters }) => {
+  const data = parameters.prize_loto_perdays;
   console.log(parameters.prize_loto_win.numbers);
+  
   const [getWinBallInitial, setWinBallInitial] = useState([]);
   const prize1 = parameters.prize_loto_win.prize1;
   const prize2 = parameters.prize_loto_win.prize2;
@@ -54,6 +58,21 @@ const Result = ({ parameters }) => {
     );
   };
 
+  const handleChangeDate = (item) => {
+      axios
+        .post("/loto", {
+          drawNumber: item,
+        })
+        .then((response) => {
+          setWinBallInitial(parameters.prize_loto_win.numbers.split(',').map(Number));
+
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
+
   useEffect(()=>{
     setSelectedMonthYear(uniqueFilters[0])
   },[])
@@ -87,7 +106,7 @@ const Result = ({ parameters }) => {
           </div>
           <div className="items">
             {filteredData.slice(startIndex, startIndex + 4).map((item, index) => (
-              <div className="item" key={index}>
+              <div className="item" key={index} onClick={()=>{handleChangeDate(item.drawNumber)}}>
                 <div className="time">{item.day}</div>
                 <div className="day">{item.date.substring(0, 3)}</div>
               </div>
