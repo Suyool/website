@@ -40,16 +40,18 @@ class LotoController extends AbstractController
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
+        
+        $loto_prize_per_days = $this->mr->getRepository(LOTO_results::class)->findBy([],['drawdate'=>'desc']);
+
         $data = json_decode($request->getContent(), true);
         if(isset($data)){
             $drawId = $data['drawNumber'];
+            $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
 
         }else{
-            $drawId='2120';
-        }
-        $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
-        $loto_prize_per_days = $this->mr->getRepository(LOTO_results::class)->findAll();
+            $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([],['drawdate'=>'desc']);
 
+        }
 
         // dd($loto_prize);
         // echo "<pre>";print_r($_SESSION);die("--");
@@ -283,12 +285,22 @@ class LotoController extends AbstractController
 
         $parameters['prize_loto_perdays']=$prize_loto_perdays;
 
+           if(isset($data)){
+            return new JsonResponse([
+                'parameters'=>$parameters
+            ]);
+           }else{
+            return $this->render('loto/index.html.twig', [
+                'parameters' => $parameters
+            ]);
+           }
+
+
+           
 
         // print_r($parameters);
         // dd($parameters);
-        return $this->render('loto/index.html.twig', [
-            'parameters' => $parameters
-        ]);
+       
     }
 
     /**
@@ -419,6 +431,9 @@ class LotoController extends AbstractController
         ],200);
 
     }
+
+
+    
 
     
 }
