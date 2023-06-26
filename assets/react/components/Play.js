@@ -49,42 +49,36 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
     });
   };
 
-  // const handleCheckout = () => {
-  //   if (
-  //     !selectedBallsToShow ||
-  //     JSON.parse(selectedBallsToShow).length === 0
-  //   ) {
-  //     setActiveButton({ name: "Buy" })
-  //   } else {
-  //     setActiveButton({ name: "Buy" })
-  //     //   axios
-  //     //     .post("/loto/play", {
-  //     //       selectedBalls: selectedBallsToShow,
-  //     //     })
-  //     //     .then((response) => {
-  //     //       console.log(response);
-  //     //       localStorage.removeItem("selectedBalls")
-  //     //       setPlayedBalls([]);
-  //     //       setDisabledBtn(
-  //     //         selectedBallsToShow == null ||
-  //     //         JSON.parse(selectedBallsToShow).length === 0
-  //     //       );
-  //     //     })
-  //     //     .catch((error) => {
-  //     //       console.log(error);
-  //     //       setDisabledBtn(
-  //     //         selectedBallsToShow == null ||
-  //     //         JSON.parse(selectedBallsToShow).length === 0
-  //     //       );
-  //     //     });
-  //   }
-  // };
-
-  const [getDataGetting, setDataGetting] = useState(null);
-  const handleCheckout = (message) => {
-    setDataGetting(message)
+  const handleCheckout = () => {
+    if (
+      !selectedBallsToShow ||
+      JSON.parse(selectedBallsToShow).length === 0
+    ) {
+      setActiveButton({ name: "Buy" })
+    } else {
+      setActiveButton({ name: "Buy" })
+      //   axios
+      //     .post("/loto/play", {
+      //       selectedBalls: selectedBallsToShow,
+      //     })
+      //     .then((response) => {
+      //       console.log(response);
+      //       localStorage.removeItem("selectedBalls")
+      //       setPlayedBalls([]);
+      //       setDisabledBtn(
+      //         selectedBallsToShow == null ||
+      //         JSON.parse(selectedBallsToShow).length === 0
+      //       );
+      //     })
+      //     .catch((error) => {
+      //       console.log(error);
+      //       setDisabledBtn(
+      //         selectedBallsToShow == null ||
+      //         JSON.parse(selectedBallsToShow).length === 0
+      //       );
+      //     });
+    }
   };
-
 
   return (
     <div id="Play">
@@ -216,7 +210,7 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
           <span>TOTAL</span>
           <div className="thePrice">L.L <div className="big">200,000</div></div>
         </div>
-        <button disabled={getDisabledBtn} onClick={() => handleCheckout("tst")}>
+        <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>
           Checkout
         </button>
       </div>
