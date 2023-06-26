@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, setActiveButton ,getDisabledBtn,setDisabledBtn}) => {
+const Play = ({
+  setBallPlayed,
+  setPickYourGrid,
+  setBallNumbers,
+  setTotalAmount,
+  setActiveButton,
+  getDisabledBtn,
+  setDisabledBtn,
+}) => {
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
 
+  useEffect(() => {
+    setDisabledBtn(
+      selectedBallsToShow == null ||
+        JSON.parse(selectedBallsToShow).length === 0
+    );
+  }, []);
   // const [getDisabledBtn, setDisabledBtn] = useState(
   //   selectedBallsToShow == null ||
   //   JSON.parse(selectedBallsToShow).length === 0
@@ -15,7 +29,6 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
 
   // console.log(getDisabledBtn);
   // console.log(getPlayedBalls);
-
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
@@ -50,13 +63,18 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
   };
 
   const handleCheckout = () => {
-    if (
-      !selectedBallsToShow ||
-      JSON.parse(selectedBallsToShow).length === 0
-    ) {
-      setActiveButton({ name: "Buy" })
+    if (!selectedBallsToShow || JSON.parse(selectedBallsToShow).length === 0) {
+      setDisabledBtn(
+        selectedBallsToShow == null ||
+          JSON.parse(selectedBallsToShow).length === 0
+      );
+      setActiveButton({ name: "Buy" });
     } else {
-      setActiveButton({ name: "Buy" })
+      setDisabledBtn(
+        selectedBallsToShow == null ||
+          JSON.parse(selectedBallsToShow).length === 0
+      );
+      setActiveButton({ name: "Buy" });
       //   axios
       //     .post("/loto/play", {
       //       selectedBalls: selectedBallsToShow,
@@ -82,7 +100,9 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
 
   return (
     <div id="Play">
-      <div className="gridplays">How many lottery grids do you want to play?</div>
+      <div className="gridplays">
+        How many lottery grids do you want to play?
+      </div>
 
       {getPlayedBalls &&
         getPlayedBalls.map((ballsSet, index) => (
@@ -113,7 +133,9 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
               </div>
             </div>
             <div className="footer">
-              <span className="price"><span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}</span>
+              <span className="price">
+                <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
+              </span>
               <span className="delete" onClick={() => handleDelete(index)}>
                 <img src="/build/images/Loto/trash.png" alt="delete" />
               </span>
@@ -204,11 +226,12 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
         </div>
       </div>
 
-   
       <div className="btnSection">
         <div id="Total">
           <span>TOTAL</span>
-          <div className="thePrice">L.L <div className="big">200,000</div></div>
+          <div className="thePrice">
+            L.L <div className="big">200,000</div>
+          </div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>
           Checkout

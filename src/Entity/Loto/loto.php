@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="plays")
+ * @ORM\Table(name="loto")
  */
-class LOTO_plays
+class loto
 {
     /**
      * @ORM\Id
@@ -19,10 +19,15 @@ class LOTO_plays
     private $id;
 
     /**
-     * 
-     * @ORM\Column(name="suyoolUserId")
+     * @ORM\ManyToOne(targetEntity=order::class, inversedBy="id")
      */
-    private $suyoolUserId;
+    private $order;
+
+    /**
+     * 
+     * @ORM\Column(name="ticketId")
+     */
+    private $ticketId;
 
     /**
      * 
@@ -54,6 +59,12 @@ class LOTO_plays
      */
     private $price;
 
+     /**
+     * 
+     * @ORM\Column(name="currency")
+     */
+    private $currency;
+
     /**
      * 
      * @ORM\Column(name="create_date",type="datetime")
@@ -65,14 +76,26 @@ class LOTO_plays
         return $this->id;
     }
 
-    public function getsuyoolUserId()
+    public function getOrderId(): ?order
     {
-        return $this->suyoolUserId;
+        return $this->order;
     }
 
-    public function setsuyoolUserId($suyoolUserId)
+    public function setOrderId(?order $order_id): self
     {
-        $this->suyoolUserId=$suyoolUserId;
+        $this->order = $order_id;
+
+        return $this;
+    }
+
+    public function getticketId()
+    {
+        return $this->ticketId;
+    }
+
+    public function setticketId($ticketId)
+    {
+        $this->ticketId=$ticketId;
         return $this;
     }
 
@@ -129,6 +152,17 @@ class LOTO_plays
     public function setprice($price)
     {
         $this->price=$price;
+        return $this;
+    }
+
+    public function getcurrency()
+    {
+        return $this->currency;
+    }
+
+    public function setcurrency($currency)
+    {
+        $this->currency=$currency;
         return $this;
     }
 

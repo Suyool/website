@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
 use App\Entity\Loto\LOTO_plays;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\LOTO_tickets;
+use App\Entity\Loto\order;
 use App\Entity\Loto\Table1;
 use App\Utils\Helper;
 use DateInterval;
@@ -24,42 +26,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class LotoController extends AbstractController
 {
     private $mr;
-    private $session; 
+    private $session;
 
-    public function __construct(ManagerRegistry $mr,SessionInterface $session)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session)
     {
         $this->mr = $mr->getManager('loto');
-        $this->session=$session;
+        $this->session = $session;
     }
     /**
      * @Route("/loto", name="app_loto")
      */
     public function index(Request $request, ManagerRegistry $em)
     {
-        $printsession=$request->query->get('printsession');
+        $printsession = $request->query->get('printsession');
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
-        
-        $loto_prize_per_days = $this->mr->getRepository(LOTO_results::class)->findBy([],['drawdate'=>'desc']);
+
+        $loto_prize_per_days = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
 
         $data = json_decode($request->getContent(), true);
-        if(isset($data)){
+        if (isset($data)) {
             $drawId = $data['drawNumber'];
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
-
-        }else{
-            $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([],['drawdate'=>'desc']);
-
+        } else {
+            $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
         }
 
         // dd($loto_prize);
         // echo "<pre>";print_r($_SESSION);die("--");
-            
+
         // if(isset($printsession)){
         //     dd($this->session->get('userId'));
         // }
-        $this->session->set('userId',rand());
+        $this->session->set('userId', rand());
         // dd($this->session->get('userId'));
 
         // dd($loto_draw);
@@ -262,45 +262,45 @@ class LotoController extends AbstractController
         // dd($loto_prize);
         // $numbers=explode(",",$loto_prize->getnumbers());
         $loto_prize_array = [
-            'numbers'=>$loto_prize->getnumbers(),
+            'numbers' => $loto_prize->getnumbers(),
             'prize1' => $loto_prize->getwinner1(),
             'prize2' => $loto_prize->getwinner2(),
             'prize3' => $loto_prize->getwinner3(),
             'prize4' => $loto_prize->getwinner4(),
             'prize5' => $loto_prize->getwinner5(),
-            'date'=>$loto_prize->getdrawdate()
+            'date' => $loto_prize->getdrawdate()
         ];
 
         $parameters['prize_loto_win'] = $loto_prize_array;
-        $prize_loto_perdays=[];
-        foreach($loto_prize_per_days as $days){
-            $prize_loto_perdays[]=[
-                'month'=>$days->getdrawdate()->format('M'),
-                'day'=>$days->getdrawdate()->format('d'),
-                'date'=>$days->getdrawdate()->format('l'),
-                'year'=>$days->getdrawdate()->format('Y'),
-                'drawNumber'=>$days->getdrawid()
+        $prize_loto_perdays = [];
+        foreach ($loto_prize_per_days as $days) {
+            $prize_loto_perdays[] = [
+                'month' => $days->getdrawdate()->format('M'),
+                'day' => $days->getdrawdate()->format('d'),
+                'date' => $days->getdrawdate()->format('l'),
+                'year' => $days->getdrawdate()->format('Y'),
+                'drawNumber' => $days->getdrawid()
             ];
         }
 
-        $parameters['prize_loto_perdays']=$prize_loto_perdays;
+        $parameters['prize_loto_perdays'] = $prize_loto_perdays;
 
-           if(isset($data)){
+        if (isset($data)) {
             return new JsonResponse([
-                'parameters'=>$parameters
+                'parameters' => $parameters
             ]);
-           }else{
+        } else {
             return $this->render('loto/index.html.twig', [
                 'parameters' => $parameters
             ]);
-           }
+        }
 
 
-           
+
 
         // print_r($parameters);
         // dd($parameters);
-       
+
     }
 
     /**
@@ -308,60 +308,87 @@ class LotoController extends AbstractController
      */
     public function play(Request $request)
     {
-        $session=$this->session->get('userId');
+        $session = $this->session->get('userId');
+        // dd($session);
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
-        if(isset($session)){
+        if (isset($session)) {
             $data = json_decode($request->getContent(), true);
-        
-        $getPlayedBalls = $data['selectedBalls'];
-            $getPlayedBalls=json_decode($getPlayedBalls,true);
-            $numDraws = 1;
 
-            $drawnumber = $loto_draw->getdrawId();
-            // $withZeed = 1;
+            $getPlayedBalls = $data['selectedBalls'];
+            if ($getPlayedBalls != null) {
+                $getPlayedBalls = json_decode($getPlayedBalls, true);
+                // dd($getPlayedBalls);
+                $numDraws = 1;
 
-            $ballsArray = [];
+                $drawnumber = $loto_draw->getdrawId();
+                // $withZeed = 1;
 
-            $ballsArrayNoZeed = [];
+                $ballsArray = [];
 
-            $selected = [];
-            // $nozeed=0;
+                $ballsArrayNoZeed = [];
 
-            // dd($getPlayedBalls);
+                $selected = [];
+                // $nozeed=0;
 
-            foreach ($getPlayedBalls as $item) {
-                $plays = new LOTO_plays;
+                // dd($getPlayedBalls);
+                $order = new order;
+                $order->setsuyoolUserId($session)
+                    ->setstatus('pending');
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+                foreach ($getPlayedBalls as $item) {
 
 
-                // dd($ballsArray);
-                $withZeed = $item['withZeed'];
-                if($withZeed==false){
-                    $withZeed=0;
-                }
-                else{
-                    $withZeed=1;
-                }
-                // if ($withZeed == false) {
-                //     $balls = implode(" ", $item['balls']);
-                //     $ballsArrayNoZeed[] = $balls;
-                //     $withZeed = 0;
-                //     // $nozeed=1;
-                // } else {
+                   
+
+
+                    // dd($ballsArray);
+                    $withZeed = $item['withZeed'];
+                    if ($withZeed == false) {
+                        $withZeed = 0;
+                    } else {
+                        $withZeed = 1;
+                    }
+                    // if ($withZeed == false) {
+                    //     $balls = implode(" ", $item['balls']);
+                    //     $ballsArrayNoZeed[] = $balls;
+                    //     $withZeed = 0;
+                    //     // $nozeed=1;
+                    // } else {
                     // $withZeed = 1;
                     $balls = implode(" ", $item['balls']);
                     $ballsArray = $balls;
-                    echo $ballsArray;
+                    // echo $ballsArray;
 
-                    $plays->setsuyoolUserId($this->session->get('userId'))
-                    ->setdrawnumber($drawnumber)
-                    ->setnumdraws($numDraws)
-                    ->setWithZeed($withZeed)
-                    ->setgridSelected($ballsArray)
-                    ->setprice($item['price'])
-                    ->setcreatedate(new DateTime());
+                    // $plays->setsuyoolUserId($this->session->get('userId'))
+                    // ->setdrawnumber($drawnumber)
+                    // ->setnumdraws($numDraws)
+                    // ->setWithZeed($withZeed)
+                    // ->setgridSelected($ballsArray)
+                    // ->setprice($item['price'])
+                    // ->setcreatedate(new DateTime());
+                    $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
 
-                    $this->mr->persist($plays);
-                    $this->mr->flush();
+                    foreach ($orderid as $orderid) {
+                        $loto = new loto;
+                        $loto->setOrderId($orderid)
+                            ->setdrawnumber($drawnumber)
+                            ->setnumdraws($numDraws)
+                            ->setWithZeed($withZeed)
+                            ->setgridSelected($ballsArray)
+                            ->setprice($item['price'])
+                            ->setcurrency("LL")
+                            ->setcreatedate(new DateTime());
+
+                        $this->mr->persist($loto);
+                        $this->mr->flush();
+                    }
+
+
+
+                    
+
 
                     //     $submit_loto_play = [
                     //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
@@ -400,40 +427,93 @@ class LotoController extends AbstractController
 
                     // $this->mr->persist($plays);
                     // $this->mr->flush();
+                    // }
+                    // dd($withZeed);
+
+                }
+                $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
+                    // dd($lotoid);
+
+                    // dd($orderid
+                    // ->addLotoId($lotoid));
+                    $sum = 0;
+                    foreach ($lotoid as $lotoid) {
+                        $sum += $lotoid->getprice();
+                       
+                    }
+                    $orderid->setamount($sum)
+                    ->setcurrency($lotoid->getcurrency())
+                    ->setstatus("completed");
+
+                $this->mr->persist($orderid);
+                $this->mr->flush();
+
+                // $gridselected = $ballsArray;
+                // if ($ballsArrayNoZeed != null) {
+                //     // $selected = implode('|', $ballsArrayNoZeed);
+                //     // $plays->setgridSelected($selected)
+                //     //     ->setWithZeed($withZeed)
+                //     //     ->setdrawnumber($drawnumber)
+                //     //     ->setnumdraws(1)
+                //     //     ->setcreatedate(new DateTime());
+
+                //     // $this->mr->persist($plays);
+                //     // $this->mr->flush();
                 // }
-                // dd($withZeed);
-
+                // dd($gridselected);
+                // $selected = implode('|', $gridselected);
+                // dd($selected);
+                $message = "You have played your grid , Best of luck :)";
+            } else {
+                $message = "You dont have grid available";
             }
-
-            // $gridselected = $ballsArray;
-            // if ($ballsArrayNoZeed != null) {
-            //     // $selected = implode('|', $ballsArrayNoZeed);
-            //     // $plays->setgridSelected($selected)
-            //     //     ->setWithZeed($withZeed)
-            //     //     ->setdrawnumber($drawnumber)
-            //     //     ->setnumdraws(1)
-            //     //     ->setcreatedate(new DateTime());
-
-            //     // $this->mr->persist($plays);
-            //     // $this->mr->flush();
-            // }
-            // dd($gridselected);
-            // $selected = implode('|', $gridselected);
-            // dd($selected);
-                $message="You have played your grid , Best of luck :)";
-
-        }else{
-            $message="Don't have userId in session please contact the administrator or login";
+        } else {
+            $message = "Don't have userId in session please contact the administrator or login";
         }
         return new JsonResponse([
-            'status'=>true,
-            'message'=>$message
-        ],200);
-
+            'status' => true,
+            'message' => $message
+        ], 200);
     }
 
+    /**
+     * @Route("/test", name="app_test")
+     */
+    public function test(Request $request)
+    {
+        $order = new order;
+        $order->setsuyoolUserId(123)
+            ->setstatus('pending');
 
-    
+        $this->mr->persist($order);
+        $this->mr->flush();
 
-    
+        $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => 123, 'status' => 'pending']);
+
+        $play = new loto;
+        $play->setOrderId($orderid)
+            ->setdrawnumber(21)
+            ->setnumdraws(1)
+            ->setWithZeed(1)
+            ->setgridSelected(1)
+            ->setprice(1)
+            ->setcurrency("LL")
+            ->setcreatedate(new DateTime());
+
+        $this->mr->persist($play);
+        $this->mr->flush();
+
+        $lotoid = $this->mr->getRepository(loto::class)->findOneBy(['order' => $orderid]);
+        // dd($orderid
+        // ->addLotoId($lotoid));
+
+        $orderid->setamount($lotoid->getprice())
+            ->setcurrency($lotoid->getcurrency());
+        $this->mr->persist($orderid);
+        $this->mr->flush();
+
+
+
+        dd("ok");
+    }
 }
