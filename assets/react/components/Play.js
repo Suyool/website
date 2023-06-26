@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, setActiveButton }) => {
+const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, setActiveButton ,getDisabledBtn,setDisabledBtn}) => {
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
 
-  const [getDisabledBtn, setDisabledBtn] = useState(
-    selectedBallsToShow == null ||
-    JSON.parse(selectedBallsToShow).length === 0
-  );
+  // const [getDisabledBtn, setDisabledBtn] = useState(
+  //   selectedBallsToShow == null ||
+  //   JSON.parse(selectedBallsToShow).length === 0
+  // );
 
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
