@@ -67,22 +67,21 @@ class ShopifyApiController extends AbstractController
             ];
             $params = [
                 'data' => json_encode($transactionData),
-                'url' => 'SuyoolOnlinePayment/PayQR',
+                'url' => 'api/OnlinePayment/PayQR',
             ];
 
             $result = Helper::send_curl($params);
             $response = json_decode($result, true);
             
-            if($response['PictureURL'] != null)
+            if($response['pictureURL'] != null)
                 $showQR = 'displayBlock';
             else
                 $showQR = '';
 
             return $this->render('shopify/pay-qr.html.twig', [
-                'pictureURL' => $response['PictureURL'],
-                'message' => $response['ReturnText'],
+                'pictureURL' => $response['pictureURL'],
                 'order_id' => $orderId,
-                'ReturnText' => $response['ReturnText'],
+                'ReturnText' => $response['returnText'],
                 'displayBlock' =>$showQR,
             ]);
         }
