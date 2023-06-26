@@ -80,7 +80,10 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
 
                 <div className="selectedBalls">
                     {selectedBalls.map((number, index) => (
-                        <span className={`${number !== null ? "active" : ""}`} key={index}>{number}</span>
+                        <div>
+                            <span className={`${number !== null ? "active" : ""}`} key={index}>{number}</span>
+                            <div className="shadow"></div>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -105,7 +108,7 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
 
                 <div id="Total">
                     <span>TOTAL</span>
-                    <div className="thePrice">L.L <div className="big">{getTotalAmount}</div></div>
+                    <div className="thePrice">L.L <div className="big">{parseInt(getTotalAmount).toLocaleString()}</div></div>
                 </div>
 
                 <div className="options">
