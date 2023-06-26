@@ -16,6 +16,12 @@ const App = ({ parameters }) => {
     const [isHideBack, setIsHide] = useState(false);
 
     const [getDataGetting, setDataGetting] = useState("");
+    const selectedBallsToShow = localStorage.getItem("selectedBalls");
+
+    const [getDisabledBtn, setDisabledBtn] = useState(
+        selectedBallsToShow == null ||
+        JSON.parse(selectedBallsToShow).length === 0
+    );
 
     useEffect(() => {
         window.handleCheckout = (message) => {
@@ -30,10 +36,10 @@ const App = ({ parameters }) => {
                 {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} setIsHide={setIsHide} isHideBack={isHideBack} />}
-                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} />}
+                {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} setDisabledBtn={setDisabledBtn} getDisabledBtn={getDisabledBtn} />}
                 {activeButton.name === "Result" && <Result parameters={parameters} />}
 
-                {activeButton.name === "Buy" && <Buy />}
+                {activeButton.name === "Buy" && <Buy setDisabledBtn={setDisabledBtn} />}
             </div>
 
             {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed} setIsHide={setIsHide} />}

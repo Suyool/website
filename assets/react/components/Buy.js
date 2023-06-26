@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-const Buy = () => {
+const Buy = ({setDisabledBtn}) => {
     const selectedBallsToShow = localStorage.getItem("selectedBalls");
     const [getPlayedBalls, setPlayedBalls] = useState(
         JSON.parse(selectedBallsToShow) || []
@@ -15,6 +16,29 @@ const Buy = () => {
         // Update the localStorage
         localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
     };
+
+    const handleBuy = () => {
+        axios
+            .post("/loto/play", {
+                selectedBalls: selectedBallsToShow,
+            })
+            .then((response) => {
+                console.log(response);
+                localStorage.removeItem("selectedBalls")
+                setPlayedBalls([]);
+                setDisabledBtn(
+                    selectedBallsToShow == null ||
+                    JSON.parse(selectedBallsToShow).length === 0
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+                setDisabledBtn(
+                    selectedBallsToShow == null ||
+                    JSON.parse(selectedBallsToShow).length === 0
+                );
+            });
+    }
 
     return (
         <div id="Buy">
@@ -52,7 +76,7 @@ const Buy = () => {
                 <div className="thePrice">L.L <div className="big">200,000</div></div>
             </div>
 
-            <button className="BuyBtn" onClick={() => { console.log("Buy") }}>
+            <button className="BuyBtn" onClick={() => { handleBuy() }}>
                 Buy
             </button>
         </div>
