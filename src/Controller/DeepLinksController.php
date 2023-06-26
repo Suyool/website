@@ -23,15 +23,18 @@ class DeepLinksController extends AbstractController
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-            header('Location: suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}');
-
-//        } elseif ($flag === '73') {
+            // JavaScript redirect
+            $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
+            echo "<script>window.location.href = '{$redirectUrl}';</script>";
+            exit();
+        }
+//        elseif ($flag === '73') {
 //            // Redirect desktop devices landed on flag 73 to Merchant page
 //            return $this->redirectToRoute('merchant');
 //
 //        } elseif ($flag === '17') {
-            return $this->redirectToRoute('homepage');
-        }
+//            return $this->redirectToRoute('homepage');
+//        }
 
         // Redirect desktop devices to homepage by default
         return $this->redirectToRoute('homepage');
