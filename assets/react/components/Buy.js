@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Buy = ({setDisabledBtn}) => {
+const Buy = ({ setDisabledBtn }) => {
     const selectedBallsToShow = localStorage.getItem("selectedBalls");
     const [getPlayedBalls, setPlayedBalls] = useState(
         JSON.parse(selectedBallsToShow) || []
@@ -39,6 +39,18 @@ const Buy = ({setDisabledBtn}) => {
                 );
             });
     }
+
+    const handletst = () => {
+        console.log("tst");
+        // const message = "data"; 
+
+        setTimeout(() => {
+            // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+            window.webkit.messageHandlers.postMessage(function(){alert("oki");}+"");
+        }, 8000);
+    };
+
+
 
     return (
         <div id="Buy">
@@ -78,6 +90,9 @@ const Buy = ({setDisabledBtn}) => {
 
             <button className="BuyBtn" onClick={() => { handleBuy() }}>
                 Buy
+            </button>
+            <button className="BuyBtn" onClick={() => { handletst() }}>
+                tst
             </button>
         </div>
     );
