@@ -31,7 +31,7 @@ class Helper
             if($_ENV['APP_ENV']=='prod'){
                 $host = 'http://10.20.80.58/'.$params['url'];
             }else{
-                $host = 'http://10.20.80.58/'.$params['url'];
+                $host = 'http://10.20.80.57/'.$params['url'];
             }
         }
 

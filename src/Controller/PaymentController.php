@@ -60,6 +60,7 @@ class PaymentController extends AbstractController
         /*** Call the api ***/
         $response = Helper::send_curl($params);
         $parameters['payment_details_response'] = json_decode($response, true);
+        // dd($parameters['payment_details_response']);
         $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
@@ -77,18 +78,27 @@ class PaymentController extends AbstractController
             isset($parameters['payment_details_response']['transactionID'])
                 ? $parameters['payment_details_response']['transactionID']
                 : '');
-                $this->session->set("AllowATM",
-            isset($parameters['payment_details_response']['allowATM'])
-                ? $parameters['payment_details_response']['allowATM']
+                $this->session->set("allowCashOut",
+            isset($parameters['payment_details_response']['allowCashOut'])
+                ? $parameters['payment_details_response']['allowCashOut']
                 : '');
-                $this->session->set("AllowExternal",
+                $this->session->set("allowExternal",
             isset($parameters['payment_details_response']['allowExternal'])
                 ? $parameters['payment_details_response']['allowExternal']
                 : '');
-                $this->session->set("AllowBenName",
-            isset($parameters['payment_details_response']['allowBenName'])
-                ? $parameters['payment_details_response']['allowBenName']
+
+            $additionalData=$parameters['payment_details_response']['additionalData'];
+            $additionalData=json_decode($additionalData,true);
+            $this->session->set("receiverFname",
+            isset($additionalData['receiverFname'])
+                ? $additionalData['receiverFname']
                 : '');
+                $this->session->set("receiverLname",
+            isset($additionalData['receiverLname'])
+                ? $additionalData['receiverLname']
+                : '');
+            // $parameters['']
+            // dd(json_decode($additionalData,true));
 
 
         return $this->render('payment/index.html.twig',$parameters);
@@ -153,6 +163,36 @@ class PaymentController extends AbstractController
         $parameters['atm'] = $this->atm;
         // dd($parameters);
         return $this->render('payment/generateCode.html.twig',$parameters);
+    }
+
+    /**
+     * @Route("/payment/cashout", name="payment_cashout")
+     */
+    public function cashout(Request $request,TranslatorInterface $translator)
+    {
+        $parameters=$this->trans->translation($request,$translator);
+        $code = $this->session->get('code');
+        $Hash = base64_encode(hash($this->hash_algo, $this->session->get('code'). date("ymdHis") . $parameters['lang']. $this->certificate, true));
+        // dd($Hash);
+        $form_data = [
+            'transactionId' => $this->session->get('TranSimID'),
+            "isChanged" => date("ymdHis"),
+            'receiverFname'=>$this->session->get('receiverFname'),
+            'receiverLname'=>$this->session->get('receiverLname'),
+            'hash' =>  $Hash
+        ];
+
+        $params['data']= json_encode($form_data);
+        // dd($params['data']);
+        $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashOut';
+
+        $response = Helper::send_curl($params);
+        $parameters['cashout'] = json_decode($response, true);
+
+        dd($parameters['cashout']);
+        // dd(
+        //     $this->session->get('TranSimID'),            $this->session->get('receiverFname'),            $this->session->get('receiverLname'),
+        // );
     }
 
     /**

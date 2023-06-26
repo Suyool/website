@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-       {% if payment_details_response.allowExternal is defined and payment_details_response.allowExternal != "False" %}
+       {% if payment_details_response.allowCashOut is defined and payment_details_response.allowCashOut != "False" %}
         <a class="container-fluid choose_way" href="/payment/generateCode?code={{  app.session.get('code') }}&type=atm" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
@@ -44,6 +44,12 @@
                     <div class="desc">{{'GENERATE_CODE_TO_WITHDRAW_CASH'|trans}}</div>
                 </div>
             </div>
+        </a>
+       {% endif %}
+
+       {% if payment_details_response.allowCashOut is defined and payment_details_response.allowCashOut != "False" %}
+        <a class="container-fluid choose_way" href="/payment/cashout" title="generate code">
+            Cashout
         </a>
        {% endif %}
 
