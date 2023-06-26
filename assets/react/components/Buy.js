@@ -46,7 +46,8 @@ const Buy = ({ setDisabledBtn }) => {
 
         setTimeout(() => {
             // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-            window.webkit.messageHandlers.postMessage(function(){alert("oki");}+"");
+            //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+            window.webkit.messageHandlers.callbackHandler.postMessage('Hello Native mark!');
         }, 8000);
     };
 
