@@ -49,36 +49,42 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
     });
   };
 
-  const handleCheckout = () => {
-    if (
-      !selectedBallsToShow ||
-      JSON.parse(selectedBallsToShow).length === 0
-    ) {
-      setActiveButton({ name: "Buy" })
-    } else {
-      setActiveButton({ name: "Buy" })
-      //   axios
-      //     .post("/loto/play", {
-      //       selectedBalls: selectedBallsToShow,
-      //     })
-      //     .then((response) => {
-      //       console.log(response);
-      //       localStorage.removeItem("selectedBalls")
-      //       setPlayedBalls([]);
-      //       setDisabledBtn(
-      //         selectedBallsToShow == null ||
-      //         JSON.parse(selectedBallsToShow).length === 0
-      //       );
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //       setDisabledBtn(
-      //         selectedBallsToShow == null ||
-      //         JSON.parse(selectedBallsToShow).length === 0
-      //       );
-      //     });
-    }
+  // const handleCheckout = () => {
+  //   if (
+  //     !selectedBallsToShow ||
+  //     JSON.parse(selectedBallsToShow).length === 0
+  //   ) {
+  //     setActiveButton({ name: "Buy" })
+  //   } else {
+  //     setActiveButton({ name: "Buy" })
+  //     //   axios
+  //     //     .post("/loto/play", {
+  //     //       selectedBalls: selectedBallsToShow,
+  //     //     })
+  //     //     .then((response) => {
+  //     //       console.log(response);
+  //     //       localStorage.removeItem("selectedBalls")
+  //     //       setPlayedBalls([]);
+  //     //       setDisabledBtn(
+  //     //         selectedBallsToShow == null ||
+  //     //         JSON.parse(selectedBallsToShow).length === 0
+  //     //       );
+  //     //     })
+  //     //     .catch((error) => {
+  //     //       console.log(error);
+  //     //       setDisabledBtn(
+  //     //         selectedBallsToShow == null ||
+  //     //         JSON.parse(selectedBallsToShow).length === 0
+  //     //       );
+  //     //     });
+  //   }
+  // };
+
+  const [getDataGetting, setDataGetting] = useState(null);
+  const handleCheckout = (message) => {
+    setDataGetting(message)
   };
+
 
   return (
     <div id="Play">
@@ -204,12 +210,13 @@ const Play = ({ setBallPlayed, setPickYourGrid, setBallNumbers, setTotalAmount, 
         </div>
       </div>
 
+   
       <div className="btnSection">
         <div id="Total">
           <span>TOTAL</span>
           <div className="thePrice">L.L <div className="big">200,000</div></div>
         </div>
-        <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>
+        <button disabled={getDisabledBtn} onClick={() => handleCheckout("tst")}>
           Checkout
         </button>
       </div>

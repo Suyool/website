@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BottomNav from "./components/BottomNav";
 import LLDJ from "./components/LLDJ";
 import Play from "./components/Play";
@@ -15,11 +15,19 @@ const App = ({ parameters }) => {
     const [getBallPlayed, setBallPlayed] = useState([]);
     const [isHideBack, setIsHide] = useState(false);
 
+    const [getDataGetting, setDataGetting] = useState("");
+
+    useEffect(() => {
+        window.handleCheckout = (message) => {
+            setDataGetting(message);
+        };
+    }, []);
     return (
         <div id="LotoBody">
 
             <div className="scrolableView">
                 <img className="mt-3" src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
+                {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
 
                 {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} setIsHide={setIsHide} isHideBack={isHideBack} />}
                 {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} />}
