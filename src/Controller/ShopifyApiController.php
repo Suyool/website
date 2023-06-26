@@ -56,7 +56,7 @@ class ShopifyApiController extends AbstractController
 
         if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
             $transactionData = [
-                'TransactionID' => $orderId,
+                'TransactionID' => "$orderId",
                 'Amount' => $amount,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
