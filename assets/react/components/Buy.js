@@ -86,7 +86,7 @@ const Buy = ({ setDisabledBtn }) => {
 
             <div id="Total">
                 <span>TOTAL</span>
-                <div className="thePrice">L.L <div className="big">200,000</div></div>
+                <div className="thePrice"><div>L.L </div><div className="big">200,000</div></div>
             </div>
 
             <button className="BuyBtn" onClick={() => { handleBuy() }}>

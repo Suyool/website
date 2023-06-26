@@ -179,14 +179,14 @@
             .redone {
                 background-color: #C82F2A;
                 position: relative;
-
+                box-shadow: 7px 7px 0px #9b2825;
                 .title {
                     color: white;
                 }
 
                 .image {
                     position: absolute;
-                    top: -12px;
+                    top: -6px;
                     z-index: 20;
                     width: 100%;
                     left: 0px;

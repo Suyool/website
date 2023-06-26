@@ -31,7 +31,7 @@ const App = ({ parameters }) => {
     return (
         <div id="LotoBody">
 
-            <div className="scrolableView">
+            <div className={`scrolableView ${activeButton.name === "Result" && "resultScroll"}`}>
                 <img className="mt-3" src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
                 {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
 
