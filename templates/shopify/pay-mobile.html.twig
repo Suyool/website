@@ -1,0 +1,54 @@
+<style>
+    .buttonCont {
+        margin-bottom: 30px;
+    }
+    .open-app {
+        background-color: #387ea5;
+        color: #fff;
+        border-radius: 7px;
+        padding: 7px 46px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+</style>
+</head>
+<div class="pay" style="text-align: center">
+    <div class="pay-mobile">
+        <div><img src="https://suyool.com/build/images/suyool-Logo.png"></div>
+
+        <div class="buttonCont">
+            <a href='{{ deepLink }}' id="open_app" class="open-app">Open App</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(function(){
+        window.location.href = '{{ deepLink }}';
+    }, 1000);
+
+    function checkOrderStatus(order_id) {
+        $.ajax({
+            type: "post",
+            url: "{{ path('app_check_status', { orderId: order_id }) }}",
+            success: function(data) {
+                if (data.status === 1) {
+                    // Order status is 1
+                    window.location.href = data.url;
+                }
+                if (data.status === 2) {
+                    // Order status is 2
+                    window.location.href = data.url;
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        setInterval(function() {
+            // Call the checkOrderStatus function
+            checkOrderStatus({{ order_id }});
+        }, 3000); // Check order status every 3 seconds
+    });
+
+</script>

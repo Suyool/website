@@ -1,0 +1,81 @@
+<style>
+    .logo{
+        margin:20px auto 20px auto;
+    }
+
+    .subtitle{
+        font-size: 18px;
+    }
+    #qr-code{
+        margin: 20px 0;
+    }
+    #qr-code img{
+        max-width: 100%;
+        width: 235px;
+        display: none;
+    }
+    .IframeCont h5 {
+        margin: 0;
+        margin-bottom: 9px;
+        color: #465567;
+        font-family: 'Helvetica Neue, Bold';
+        font-size: 20px;
+    }
+    .stepsImageCont img {
+        max-width: 45%;
+    }
+    .message{
+        color: green;
+    }
+    .displayBlock {
+        display: inline-block!important;
+    }
+</style>
+<div class="pay">
+    <div class="pay-qr" style="text-align: center">
+        <div class="logo">
+            <img src="https://suyool.com/build/images/suyool-Logo.png">
+        </div>
+        <div class="QR-cont">
+            <div class="subtitle">
+                Scan this QR to complete the tranasction
+            </div>
+            <div id="qr-code">
+                <p class="message">{{ ReturnText }}</p>
+                <img class={{ displayBlock }} src={{ pictureURL }}>
+            </div>
+        </div>
+        <div class="IframeCont" align="center">
+            <h5>HOW TO PAY?</h5>
+            <div class="stepsImageCont">
+                <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkOrderStatus(order_id) {
+        $.ajax({
+            type: "post",
+            url: "{{ path('app_check_status', { orderId: order_id }) }}",
+            success: function(data) {
+                if (data.status === 1) {
+                    // Order status is 1
+                    window.location.href = data.url;
+                }
+                if (data.status === 2) {
+                    // Order status is 2
+                    window.location.href = data.url;
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        setInterval(function() {
+            // Call the checkOrderStatus function
+            checkOrderStatus({{ order_id }});
+        }, 3000); // Check order status every 3 seconds
+    });
+</script>
