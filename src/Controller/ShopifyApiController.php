@@ -51,13 +51,13 @@ class ShopifyApiController extends AbstractController
         $merchantId = $merchantCredentials['merchantId'];
         $certificate = $merchantCredentials['certificate'];
 
-        $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
+        $secure = $orderId . $timestamp . $totalPrice . $currency . $timestamp . $certificate;
         $secureHash = base64_encode(hash('sha512', $secure, true));
 
         if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
             $transactionData = [
                 'TransactionID' => "$orderId",
-                'Amount' => $amount,
+                'Amount' => $totalPrice,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
                 'TS' => "$timestamp",
