@@ -111,7 +111,7 @@ class LotoController extends AbstractController
         $parameters['Zeedgridprice'] = $gridprice['d']['stringvalue2'];
         $parameters['gridprice'] = [
             $parameters['unit_price']
-            
+
 
         ];
         // $parameters['B8gridprice'] = $parameters['B1gridprice'] * 8;
@@ -322,7 +322,7 @@ class LotoController extends AbstractController
                 $ballsArray = [];
 
                 $ballsArrayNoZeed = [];
-
+                $amounttotal=0;
                 $selected = [];
                 // $nozeed=0;
 
@@ -336,7 +336,7 @@ class LotoController extends AbstractController
                 foreach ($getPlayedBalls as $item) {
 
 
-                   
+
 
 
                     // dd($ballsArray);
@@ -349,96 +349,122 @@ class LotoController extends AbstractController
                     if ($withZeed == false) {
                         $balls = implode(" ", $item['balls']);
                         $ballsArrayNoZeed[] = $balls;
+                        // dd($ballsArrayNoZeed);
                         $withZeed = 0;
-                        // $nozeed=1;
+                        // $gridselected = $ballsArrayNoZeed;
+                        
+                        // print_r ($ballsArrayNoZeed);
+                        $amounttotal += $item['price'];
+
                     } else {
-                    // $withZeed = 1;
-                    $balls = implode(" ", $item['balls']);
-                    $ballsArray = $balls;
-                    // echo $ballsArray;
+                        // $withZeed = 1;
+                        $balls = implode(" ", $item['balls']);
+                        $ballsArray = $balls;
+                        // echo $ballsArray;
 
-                    // $plays->setsuyoolUserId($this->session->get('userId'))
-                    // ->setdrawnumber($drawnumber)
-                    // ->setnumdraws($numDraws)
-                    // ->setWithZeed($withZeed)
-                    // ->setgridSelected($ballsArray)
-                    // ->setprice($item['price'])
-                    // ->setcreatedate(new DateTime());
-                    $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
+                        // $plays->setsuyoolUserId($this->session->get('userId'))
+                        // ->setdrawnumber($drawnumber)
+                        // ->setnumdraws($numDraws)
+                        // ->setWithZeed($withZeed)
+                        // ->setgridSelected($ballsArray)
+                        // ->setprice($item['price'])
+                        // ->setcreatedate(new DateTime());
+                        $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
 
-                    foreach ($orderid as $orderid) {
-                        $loto = new loto;
-                        $loto->setOrderId($orderid)
-                            ->setdrawnumber($drawnumber)
-                            ->setnumdraws($numDraws)
-                            ->setWithZeed($withZeed)
-                            ->setgridSelected($ballsArray)
-                            ->setprice($item['price'])
-                            ->setcurrency("LL")
-                            ->setcreatedate(new DateTime());
+                        foreach ($orderid as $orderid) {
+                            $loto = new loto;
+                            $loto->setOrderId($orderid)
+                                ->setdrawnumber($drawnumber)
+                                ->setnumdraws($numDraws)
+                                ->setWithZeed($withZeed)
+                                ->setgridSelected($ballsArray)
+                                ->setprice($item['price'])
+                                ->setcurrency("LL")
+                                ->setbouquet(false)
+                                ->setcreatedate(new DateTime());
 
-                        $this->mr->persist($loto);
-                        $this->mr->flush();
+                            $this->mr->persist($loto);
+                            $this->mr->flush();
+                        }
+
+
+
+
+
+
+                        //     $submit_loto_play = [
+                        //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
+                        //         'drawNumber' => $drawnumber,
+                        //         'numDraws' => $numDraws,
+                        //         'withZeed' => $withZeed, //1 if with zeed
+                        //         'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
+                        //         'GridsSelected' => $ballsArray, // separated with |
+                        //     ];
+                        //     $submitloto['data'] = json_encode($submit_loto_play);
+                        // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
+                        // $SubmitPlays = Helper::send_curl($submitloto, 'loto');
+
+                        // $submit_loto = json_decode($SubmitPlays, true);
+
+                        // dd($submit_loto);
+
+                        // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
+                        //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
+                        // } else {
+                        //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
+                        //     $plays->setgridSelected($ballsArray)
+                        //         ->setWithZeed($withZeed)
+                        //         ->setdrawnumber($drawnumber)
+                        //         ->setnumdraws(1)
+                        //         ->setcreatedate(new DateTime());
+
+                        //     $this->mr->persist($plays);
+                        //     $this->mr->flush();
+                        // }
+                        // $plays->setgridSelected($ballsArray)
+                        //     ->setWithZeed($withZeed)
+                        //     ->setdrawnumber($drawnumber)
+                        //     ->setnumdraws(1)
+                        //     ->setcreatedate(new DateTime());
+
+                        // $this->mr->persist($plays);
+                        // $this->mr->flush();
+                        // }
+                        // dd($withZeed);
+
                     }
-
-
-
-                    
-
-
-                    //     $submit_loto_play = [
-                    //         'Token' => '49414be0-d9c2-47e4-82f9-276fdc74157f',
-                    //         'drawNumber' => $drawnumber,
-                    //         'numDraws' => $numDraws,
-                    //         'withZeed' => $withZeed, //1 if with zeed
-                    //         'saveToFavorite' => 1, //1 TO ADD TO FAVORITE,
-                    //         'GridsSelected' => $ballsArray, // separated with |
-                    //     ];
-                    //     $submitloto['data'] = json_encode($submit_loto_play);
-                    // $submitloto['url'] = "/Servicev2.asmx/SubmitLotoPlayOrder";
-                    // $SubmitPlays = Helper::send_curl($submitloto, 'loto');
-
-                    // $submit_loto = json_decode($SubmitPlays, true);
-
-                    // dd($submit_loto);
-
-                    // if ($submit_loto['d']['errorinfo']['errorcode'] > 0) {
-                    //     $parameters['submit_loto'] = $submit_loto['d']['errorinfo'];
-                    // } else {
-                    //     $parameters['submit_loto'] = ['insertId' => $submit_loto['d']['insertId'], 'balance' => $submit_loto['d']['balance'], 'token' => $submit_loto['d']['token']];
-                    //     $plays->setgridSelected($ballsArray)
-                    //         ->setWithZeed($withZeed)
-                    //         ->setdrawnumber($drawnumber)
-                    //         ->setnumdraws(1)
-                    //         ->setcreatedate(new DateTime());
-
-                    //     $this->mr->persist($plays);
-                    //     $this->mr->flush();
-                    // }
-                    // $plays->setgridSelected($ballsArray)
-                    //     ->setWithZeed($withZeed)
-                    //     ->setdrawnumber($drawnumber)
-                    //     ->setnumdraws(1)
-                    //     ->setcreatedate(new DateTime());
-
-                    // $this->mr->persist($plays);
-                    // $this->mr->flush();
-                    // }
-                    // dd($withZeed);
-
                 }
-            }
-                $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
-                    // dd($lotoid);
+                if ($ballsArrayNoZeed != null) {
+                    $selected = implode('|', $ballsArrayNoZeed);
 
-                    // dd($orderid
-                    // ->addLotoId($lotoid));
-                    $sum = 0;
-                    foreach ($lotoid as $lotoid) {
-                        $sum += $lotoid->getprice();
-                       
-                    }
-                    $orderid->setamount($sum)
+                    // $selected = implode('|', $ballsArrayNoZeed);
+                    // echo ($selected);
+                    $nozeed = 1;
+                    $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'pending']);
+                    $loto = new loto;
+                    $loto->setOrderId($orderid)
+                        ->setdrawnumber($drawnumber)
+                        ->setnumdraws($numDraws)
+                        ->setWithZeed($withZeed)
+                        ->setgridSelected($selected)
+                        ->setprice($amounttotal)
+                        ->setcurrency("LL")
+                        ->setbouquet(true)
+                        ->setcreatedate(new DateTime());
+
+                    $this->mr->persist($loto);
+                    $this->mr->flush();
+                }
+                $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
+                // dd($lotoid);
+
+                // dd($orderid
+                // ->addLotoId($lotoid));
+                $sum = 0;
+                foreach ($lotoid as $lotoid) {
+                    $sum += $lotoid->getprice();
+                }
+                $orderid->setamount($sum)
                     ->setcurrency($lotoid->getcurrency())
                     ->setstatus("completed");
 
