@@ -94,7 +94,7 @@ class ShopifyApiController extends AbstractController
     {
         $orderId = $request->request->get('order_id');
         $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = $metadata['total_price'] / 100;
+        $totalPrice = trim($metadata['total_price']) / 100;
         $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
 
