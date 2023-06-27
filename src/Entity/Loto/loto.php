@@ -65,6 +65,12 @@ class loto
      */
     private $currency;
 
+     /**
+     * 
+     * @ORM\Column(name="bouquet")
+     */
+    private $bouquet;
+
     /**
      * 
      * @ORM\Column(name="create_date",type="datetime")
@@ -163,6 +169,17 @@ class loto
     public function setcurrency($currency)
     {
         $this->currency=$currency;
+        return $this;
+    }
+
+    public function getbouquet()
+    {
+        return $this->currency;
+    }
+
+    public function setbouquet($bouquet)
+    {
+        $this->bouquet=$bouquet;
         return $this;
     }
 

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Countdown from "./Countdown";
 import BouquetOptions from "./BouquetOptions";
 
 const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, setIsHide, isHideBack }) => {
-
+    const [getBouquetgridprice,setBouquetgridprice] = useState(0)
+    useEffect(()=>{
+        // console.log(parameters)
+        setBouquetgridprice(parameters.gridprice)
+    })
     // console.log(parameters);
     const [getShowBouquet, setShowBouquet] = useState(false);
     return (
@@ -37,14 +41,14 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                     <div className="itemsSection">
                         <div className="items">
                             <div className="title">1 GRID</div>
-                            <div className="price">{parseInt(parameters.gridprice[1]).toLocaleString()} LBP</div>
+                            <div className="price">{parseInt(parameters.gridprice).toLocaleString()} LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
                         <div className="items redone">
                             <div className="image"><img src="/build/images/Loto/popular.png" alt="popular" /></div>
                             <div className="title">8 GRIDS</div>
-                            <div className="price">{parseInt(parameters.gridprice[8]).toLocaleString()} LBP</div>
+                            <div className="price">{parseInt(parameters.gridprice*8).toLocaleString()} LBP</div>
                             <button className="letsPlayBtn">PLAY NOW</button>
                         </div>
 
@@ -79,7 +83,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                 </div>
 
             </div>
-            {getShowBouquet && <BouquetOptions setShowBouquet={setShowBouquet} setIsHide={setIsHide} />}
+            {getShowBouquet && <BouquetOptions getBouquetgridprice={getBouquetgridprice} setShowBouquet={setShowBouquet} setIsHide={setIsHide} />}
         </>
 
     );

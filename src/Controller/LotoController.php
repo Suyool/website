@@ -110,34 +110,30 @@ class LotoController extends AbstractController
         $onegridprice = (int) $gridprice['d']['stringvalue1'];
         $parameters['Zeedgridprice'] = $gridprice['d']['stringvalue2'];
         $parameters['gridprice'] = [
-            '1' => $parameters['unit_price'],
-            '8' => $parameters['unit_price'] * 8,
-            '25' => $parameters['unit_price'] * 25,
-            '50' => $parameters['unit_price'] * 50,
-            '100' => $parameters['unit_price'] * 100,
-            '500' => $parameters['unit_price'] * 500
+            $parameters['unit_price']
+            
 
         ];
         // $parameters['B8gridprice'] = $parameters['B1gridprice'] * 8;
 
         // dd($gridprice);
 
-        $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
-        $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams, 'loto');
+        // $GetFullGridPriceMatrixparams['url'] = "/Servicev2.asmx/GetFullGridPriceMatrix";
+        // $ResponseGetFullGridPriceMatrix = Helper::send_curl($GetFullGridPriceMatrixparams, 'loto');
 
 
-        $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
-        $numbers = 6;
-        $pricematrixarray = [];
-        foreach ($GetFullGridPriceMatrix['d']['pricematrix'] as $pricematrix) {
-            if ($numbers < 11) {
-                $pricematrixarray[] = [
-                    'numbers' => $numbers,
-                    'price' => $pricematrix['price0J'],
-                ];
-            }
-            $numbers++;
-        }
+        // $GetFullGridPriceMatrix = json_decode($ResponseGetFullGridPriceMatrix, true);
+        // $numbers = 6;
+        // $pricematrixarray = [];
+        // foreach ($GetFullGridPriceMatrix['d']['pricematrix'] as $pricematrix) {
+        //     if ($numbers < 11) {
+        //         $pricematrixarray[] = [
+        //             'numbers' => $numbers,
+        //             'price' => $pricematrix['price0J'],
+        //         ];
+        //     }
+        //     $numbers++;
+        // }
 
 
         // $gridselected = ["1,2,3,4,5,6", "11,7,8,9,10,12"];
@@ -257,7 +253,7 @@ class LotoController extends AbstractController
 
 
 
-        $parameters['gridpricematrix'] = $pricematrixarray;
+        // $parameters['gridpricematrix'] = $pricematrixarray;
         // $loto_prize_array=[];
         // dd($loto_prize);
         // $numbers=explode(",",$loto_prize->getnumbers());
@@ -350,12 +346,12 @@ class LotoController extends AbstractController
                     } else {
                         $withZeed = 1;
                     }
-                    // if ($withZeed == false) {
-                    //     $balls = implode(" ", $item['balls']);
-                    //     $ballsArrayNoZeed[] = $balls;
-                    //     $withZeed = 0;
-                    //     // $nozeed=1;
-                    // } else {
+                    if ($withZeed == false) {
+                        $balls = implode(" ", $item['balls']);
+                        $ballsArrayNoZeed[] = $balls;
+                        $withZeed = 0;
+                        // $nozeed=1;
+                    } else {
                     // $withZeed = 1;
                     $balls = implode(" ", $item['balls']);
                     $ballsArray = $balls;
@@ -431,6 +427,7 @@ class LotoController extends AbstractController
                     // dd($withZeed);
 
                 }
+            }
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                     // dd($lotoid);
 
