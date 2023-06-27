@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 
 const BouquetOptions = ({ setShowBouquet, setIsHide, getBouquetgridprice }) => {
+  const [selectedOption, setSelectedOption] = useState(""); // Track the selected bouquet option
+
+  // Enable/disable the Continue button based on the selected option
+  const isContinueDisabled = !selectedOption;
+
+  // Function to handle selecting a bouquet option
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  // Function to handle continuing
+  const handleContinue = () => {
+    // Add the selected bouquet option to the local storage
+    const bouquetData = {
+      gridNb: "B"+selectedOption.gridNb, // Use the gridNb property instead of balls
+      price: selectedOption.price,
+    };
+
+    // Get the existing data from local storage
+    const existingData = localStorage.getItem("bouquetData");
+
+    if (existingData) {
+      // Parse the existing data and add the new bouquet data
+      const newData = [...JSON.parse(existingData), bouquetData];
+      localStorage.setItem("bouquetData", JSON.stringify(newData));
+    } else {
+      // Create a new array with the bouquet data and store it in local storage
+      localStorage.setItem("bouquetData", JSON.stringify([bouquetData]));
+    }
+
+    // Continue with the desired actions
+    setShowBouquet(false);
+    setIsHide(false);
+  };
   return (
     <div className="PickYourBoucket">
       <div className="topSectionPick">
@@ -21,39 +55,39 @@ const BouquetOptions = ({ setShowBouquet, setIsHide, getBouquetgridprice }) => {
         <div className="bouquetList">
           <div className="bouquetItem">
             <div className="checkbox">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" onChange={() => handleOptionSelect({ gridNb: 25, price: 25 * getBouquetgridprice, })} />
             </div>
             <div className="data">
               <div className="basic">25 basic grids</div>
-              <div className="price">{parseInt(25*getBouquetgridprice).toLocaleString()} LBP</div>
+              <div className="price">{parseInt(25 * getBouquetgridprice).toLocaleString()} LBP</div>
             </div>
           </div>
 
           <div className="bouquetItem">
             <div className="checkbox">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" onChange={() => handleOptionSelect({ gridNb: 50, price: 50 * getBouquetgridprice, })} />
             </div>
             <div className="data">
               <div className="basic">50 basic grids</div>
-              <div className="price">{parseInt(50*getBouquetgridprice).toLocaleString()} LBP</div>
+              <div className="price">{parseInt(50 * getBouquetgridprice).toLocaleString()} LBP</div>
             </div>
           </div>
           <div className="bouquetItem">
             <div className="checkbox">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" onChange={() => handleOptionSelect({ gridNb: 100, price: 100 * getBouquetgridprice, })} />
             </div>
             <div className="data">
               <div className="basic">100 basics grids</div>
-              <div className="price">{parseInt(100*getBouquetgridprice).toLocaleString()} LBP</div>
+              <div className="price">{parseInt(100 * getBouquetgridprice).toLocaleString()} LBP</div>
             </div>
           </div>
           <div className="bouquetItem">
             <div className="checkbox">
-              <input type="radio" name="radio" />
+              <input type="radio" name="radio" onChange={() => handleOptionSelect({ gridNb: 500, price: 500 * getBouquetgridprice, })} />
             </div>
             <div className="data">
               <div className="basic">500 basics grids</div>
-              <div className="price">{parseInt(500*getBouquetgridprice).toLocaleString()} LBP</div>
+              <div className="price">{parseInt(500 * getBouquetgridprice).toLocaleString()} LBP</div>
             </div>
           </div>
 
@@ -72,10 +106,8 @@ const BouquetOptions = ({ setShowBouquet, setIsHide, getBouquetgridprice }) => {
       <div className="footSectionPick">
         <button
           className="ContinueBtn"
-          onClick={() => {
-            setShowBouquet(false);
-            setIsHide(false);
-          }}
+          disabled={isContinueDisabled}
+          onClick={handleContinue}
         >
           Continue
         </button>

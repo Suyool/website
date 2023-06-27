@@ -14,7 +14,7 @@ const BottomNav = ({ activeButton, setActiveButton }) => {
                 </button>
                 <button className={` ${activeButton.name === "Play" ? "PlayActive" : "NavBtnPlay"}`} onClick={() => { handleButtonClick("Play") }}>
                     <img src={activeButton.name === "Play" ? "/build/images/Loto/playSelected.png" : "/build/images/Loto/play.png"} alt="Play" />
-                    <div className={`title ${activeButton.name === "Play" ? "activeTitle" : ""}`}>{activeButton.name === "Play" ? "" : "PLAY"}</div>
+                    <div className={`title ${activeButton.name === "Play" ? "activeTitle" : ""}`}>PLAY</div>
                 </button>
                 <button className={`NavBtn ${activeButton.name === "Result" ? "active" : ""}`} onClick={() => { handleButtonClick("Result") }}>
                     <img src={activeButton.name === "Result" ? "/build/images/Loto/resultSelected.png" : "/build/images/Loto/result.png"} alt="Result" />
