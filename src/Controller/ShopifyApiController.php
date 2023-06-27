@@ -60,8 +60,8 @@ class ShopifyApiController extends AbstractController
                 'Amount' => $amount,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
-                'TS' => $timestamp,
-                'TranTS' => $timestamp,
+                'TS' => "$timestamp",
+                'TranTS' => "$timestamp",
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
@@ -131,7 +131,7 @@ class ShopifyApiController extends AbstractController
         ];
 
         $jsonEncoded = json_encode($json);
-        $appUrl = "skashpay://skash.com/skash=?" . $jsonEncoded;
+        $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
 
         return $this->render('shopify/pay-mobile.html.twig', [
             'deepLink' => $appUrl,
