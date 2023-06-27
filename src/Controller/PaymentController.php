@@ -176,13 +176,15 @@ class PaymentController extends AbstractController
         // dd($Hash);
         $form_data = [
             'transactionId' => $this->session->get('TranSimID'),
-            "isChanged" => date("ymdHis"),
             'receiverFname'=>$this->session->get('receiverFname'),
             'receiverLname'=>$this->session->get('receiverLname'),
             'hash' =>  $Hash
         ];
 
+        
+
         $params['data']= json_encode($form_data);
+        // dd($params['data']);
         // dd($params['data']);
         $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashOut';
 
