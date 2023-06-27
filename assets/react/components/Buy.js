@@ -48,6 +48,16 @@ const Buy = ({ setDisabledBtn }) => {
             // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
             //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
             window.webkit.messageHandlers.callbackHandler.postMessage('Hello Native mark!');
+
+        }, 8000);
+    };
+
+    const handletstAndroid = () => {
+        console.log("tstandroid");
+
+        setTimeout(() => {
+            window.AndroidInterface.callbackHandler('message');
+
         }, 8000);
     };
 
@@ -94,6 +104,10 @@ const Buy = ({ setDisabledBtn }) => {
             </button>
             <button className="BuyBtn" onClick={() => { handletst() }}>
                 tst
+            </button>
+
+            <button className="BuyBtn" onClick={() => { handletstAndroid() }}>
+                tst Android
             </button>
         </div>
     );
