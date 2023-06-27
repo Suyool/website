@@ -90,14 +90,15 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/payMobile/", name="app_pay_mobile")
      */
-    public function payMobile(Request $request, OrdersRepository $ordersRepository): Response
+    public function payMobile(Request $request): Response
     {
         $orderId = $request->request->get('order_id');
         $metadata = json_decode($request->request->get('metadata'), true);
         $totalPrice = trim($metadata['total_price']) / 100;
         $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
-
+        
+        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
         if (!$order) {
