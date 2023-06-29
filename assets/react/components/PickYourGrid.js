@@ -37,29 +37,23 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
     };
 
     const handleDone = () => {
-        // console.log(selectedBalls);
-        // console.log(getTotalAmount);
-        setIsHide(false);
-        // Create an object to store the selected balls and their price
-        const ballSet = {
-            balls: selectedBalls,
-            price: getTotalAmount,
-            withZeed: false
-        };
+        const lastBall = selectedBalls[selectedBalls.length - 1];
+        if (lastBall !== null) {
+            setIsHide(false);
+            const ballSet = {
+                balls: selectedBalls,
+                price: getTotalAmount,
+                withZeed: false
+            };
+            const existingData = localStorage.getItem('selectedBalls');
+            const existingBalls = existingData ? JSON.parse(existingData) : [];
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
+            setPickYourGrid(false);
+        } else {
+            console.log("The last ball is null");
+        }
 
-        // Retrieve existing data from localStorage
-        const existingData = localStorage.getItem('selectedBalls');
-
-        // Parse the retrieved data to an array or initialize an empty array
-        const existingBalls = existingData ? JSON.parse(existingData) : [];
-
-        // Append the ballSet object to the existing array
-        const updatedBalls = [...existingBalls, ballSet];
-
-        // Store the updated array in localStorage
-        localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
-
-        setPickYourGrid(false);
     };
 
     const handleCancel = () => {
@@ -80,8 +74,8 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
 
                 <div className="selectedBalls">
                     {selectedBalls.map((number, index) => (
-                        <div>
-                            <span className={`${number !== null ? "active" : ""}`} key={index}>{number}</span>
+                        <div key={index}>
+                            <span className={`${number !== null ? "active" : ""}`}>{number}</span>
                             <div className="shadow"></div>
                         </div>
                     ))}
