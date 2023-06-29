@@ -1,3 +1,18 @@
-#LegalEnrollementBody{
-    background-color: aqua;
+#LegalEnrollementBody {
+    background-color: #F7F9FB;
+
+}
+
+.Header {
+    background-color: #373464;
+    display: flex;
+    align-items: center;
+    padding: 15px 40px;
+
+    .headerTitle {
+        font:var(--unnamed-font-style-normal) normal medium 23px/61px Libre Franklin;
+        // font-size: 23px;
+        color: white;
+        padding-left: 4%;
+    }
 }

@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
+import Header from "./Component/Header";
+import ApplyForCorporate from "./Component/ApplyForCorporate";
 
 const App = ({ parameters }) => {
     console.log(parameters);
 
     return (
-        <div id="LegalEnrollementBody">
-            Legal Enrollement Body
-        </div>
+        <>
+            <Header />
+
+            <div id="LegalEnrollementBody">
+                <ApplyForCorporate />
+
+            </div>
+
+        </>
     );
 };
 

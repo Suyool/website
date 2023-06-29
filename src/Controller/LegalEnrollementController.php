@@ -8,7 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LegalEnrollementController extends AbstractController
 {
-    #[Route('/legal_enrollement', name: 'app_legal_enrollement')]
+    /**
+     * @Route("/legal_enrollement", name="app_legal_enrollement")
+     */
     public function index(): Response
     {
         $parameters['Test'] = "tst";
