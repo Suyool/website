@@ -15,7 +15,7 @@ const Play = ({
   useEffect(() => {
     setDisabledBtn(
       selectedBallsToShow == null ||
-        JSON.parse(selectedBallsToShow).length === 0
+      JSON.parse(selectedBallsToShow).length === 0
     );
   }, []);
   // const [getDisabledBtn, setDisabledBtn] = useState(
@@ -66,13 +66,13 @@ const Play = ({
     if (!selectedBallsToShow || JSON.parse(selectedBallsToShow).length === 0) {
       setDisabledBtn(
         selectedBallsToShow == null ||
-          JSON.parse(selectedBallsToShow).length === 0
+        JSON.parse(selectedBallsToShow).length === 0
       );
       setActiveButton({ name: "Buy" });
     } else {
       setDisabledBtn(
         selectedBallsToShow == null ||
-          JSON.parse(selectedBallsToShow).length === 0
+        JSON.parse(selectedBallsToShow).length === 0
       );
       setActiveButton({ name: "Buy" });
       //   axios
@@ -97,6 +97,40 @@ const Play = ({
       //     });
     }
   };
+
+  const howOftenYouWantToPlay = [
+    {
+      titleNb: "Play Once",
+      desc: "Thursday X at 9:00PM",
+      price: "200,000 LBP",
+    },
+    {
+      titleNb: "Play Once",
+      desc: "Thursday X at 9:00PM",
+      price: "200,000 LBP",
+    },
+    {
+      titleNb: "1 Month",
+      desc: "4 Draws - until xxx",
+      price: "800,000 LBP",
+    },
+    {
+      titleNb: "6 Months x Draws",
+      desc: "until xxx",
+      price: "1,200,000 LBP",
+    },
+    {
+      titleNb: "1 Year x Draws",
+      desc: "until xxx",
+      price: "1,200,000 LBP",
+    },
+    {
+      titleNb: "Autoplay",
+      desc: "Can be canceled at any time",
+      price: "200,000 LBP/ Draw",
+    },
+  ];
+
 
   return (
     <div id="Play">
@@ -155,74 +189,20 @@ const Play = ({
       <div className="br"></div>
       <div className="wantToPlay">
         <div className="title">How often do you want to play?</div>
-
         <div className="listSection">
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-              {/* <input type="radio" name="radio" checked="checked"/> */}
-            </div>
-            <div className="playNB">
-              <div className="titleNb">Play Once</div>
-              <div className="desc">Thursday X at 9:00PM</div>
-            </div>
-            <div className="price">200,000 LBP</div>
-          </div>
 
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
+          {howOftenYouWantToPlay.map((item, index) => (
+            <div className="listItem" key={index}>
+              <div className="checkbox">
+                <input type="radio" name="radio" />
+              </div>
+              <div className="playNB">
+                <div className="titleNb">{item.titleNb}</div>
+                <div className="desc">{item.desc}</div>
+              </div>
+              <div className="price">{item.price}</div>
             </div>
-            <div className="playNB">
-              <div className="titleNb">Play Once</div>
-              <div className="desc">Thursday X at 9:00PM</div>
-            </div>
-            <div className="price">200,000 LBP</div>
-          </div>
-
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-            </div>
-            <div className="playNB">
-              <div className="titleNb">1 Month</div>
-              <div className="desc">4 Draws - until xxx</div>
-            </div>
-            <div className="price">800,000 LBP</div>
-          </div>
-
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-            </div>
-            <div className="playNB">
-              <div className="titleNb">6 Months x Draws</div>
-              <div className="desc">until xxx</div>
-            </div>
-            <div className="price">1,200,000 LBP</div>
-          </div>
-
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-            </div>
-            <div className="playNB">
-              <div className="titleNb">1 Year x Draws</div>
-              <div className="desc">until xxx</div>
-            </div>
-            <div className="price">1,200,000 LBP</div>
-          </div>
-
-          <div className="listItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-            </div>
-            <div className="playNB">
-              <div className="titleNb">Autoplay</div>
-              <div className="desc">Can be canceled at any time</div>
-            </div>
-            <div className="price">200,000 LBP/ Draw</div>
-          </div>
+          ))}
         </div>
       </div>
 
