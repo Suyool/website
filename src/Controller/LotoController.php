@@ -41,7 +41,7 @@ class LotoController extends AbstractController
         $printsession = $request->query->get('printsession');
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         // $loto_tikctes=$this->mr->getRepository(LOTO_tickets::class)->findOneBy([],['create_date'=>'DESC']);
-        $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findAll();
+        $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
 
         $loto_prize_per_days = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
 
