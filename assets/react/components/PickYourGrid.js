@@ -43,7 +43,8 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
             const ballSet = {
                 balls: selectedBalls,
                 price: getTotalAmount,
-                withZeed: false
+                withZeed: false,
+                currency: "LBP"
             };
             const existingData = localStorage.getItem('selectedBalls');
             const existingBalls = existingData ? JSON.parse(existingData) : [];

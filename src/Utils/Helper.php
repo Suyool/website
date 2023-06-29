@@ -48,7 +48,7 @@ class Helper
      if($app=='loto'){
         $host = 'https://backbone.lebaneseloto.com';
      }else{
-        $host = 'https://backbone.lebaneseloto.com' ;
+        $host = 'http://10.20.80.62/' ;
         //  $host = 'https://globalapi.suyool.money/api/';
      }
             }
