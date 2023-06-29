@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Result = ({ parameters }) => {
   const data = parameters.prize_loto_perdays;
-  console.log(parameters.prize_loto_win.numbers);
+  // console.log(parameters.prize_loto_win.numbers);
   
   const [getWinBallInitial, setWinBallInitial] = useState([]);
   const prize1 = parameters.prize_loto_win.prize1;
