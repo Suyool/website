@@ -10,6 +10,7 @@ const Play = ({
   getDisabledBtn,
   setDisabledBtn,
 }) => {
+  const [selectedOption, setSelectedOption] = useState(null);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
 
   useEffect(() => {
@@ -132,6 +133,10 @@ const Play = ({
   ];
 
 
+  const handleOptionSelect = (index) => {
+    setSelectedOption(index);
+  };
+
   return (
     <div id="Play">
       <div className="gridplays">
@@ -194,7 +199,11 @@ const Play = ({
           {howOftenYouWantToPlay.map((item, index) => (
             <div className="listItem" key={index}>
               <div className="checkbox">
-                <input type="radio" name="radio" />
+                <img
+                  src={selectedOption === index ? "/build/images/Loto/radioTrue.svg" : "/build/images/Loto/radioFalse.svg"}
+                  alt="loto"
+                  onClick={() => handleOptionSelect(index)}
+                />
               </div>
               <div className="playNB">
                 <div className="titleNb">{item.titleNb}</div>

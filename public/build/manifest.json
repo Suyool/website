@@ -80,5 +80,7 @@
   "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/Loto/edit.png": "/build/images/Loto/edit.png",
   "build/images/Loto/goNext.png": "/build/images/Loto/goNext.png",
-  "build/images/Loto/trash.png": "/build/images/Loto/trash.png"
+  "build/images/Loto/trash.png": "/build/images/Loto/trash.png",
+  "build/images/Loto/radioTrue.svg": "/build/images/Loto/radioTrue.svg",
+  "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg"
 }
