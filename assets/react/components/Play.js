@@ -11,6 +11,8 @@ const Play = ({
   setDisabledBtn,
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [checked, setChecked] = useState(false);
+
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
 
   useEffect(() => {
@@ -19,30 +21,17 @@ const Play = ({
       JSON.parse(selectedBallsToShow).length === 0
     );
   }, []);
-  // const [getDisabledBtn, setDisabledBtn] = useState(
-  //   selectedBallsToShow == null ||
-  //   JSON.parse(selectedBallsToShow).length === 0
-  // );
 
-  const [getPlayedBalls, setPlayedBalls] = useState(
-    JSON.parse(selectedBallsToShow) || []
-  );
-
-  // console.log(getDisabledBtn);
-  // console.log(getPlayedBalls);
+  const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(selectedBallsToShow) || []);
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
-    updatedBalls.splice(index, 1); // Remove the selected balls from the array
-
-    setPlayedBalls(updatedBalls); // Update the state
-
-    // Update the localStorage
+    updatedBalls.splice(index, 1);
+    setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
   };
   const handleEdit = (index) => {
-    console.log(getPlayedBalls[index].balls);
-
+    // console.log(getPlayedBalls[index].balls);
     setBallPlayed(getPlayedBalls[index].balls);
     setBallNumbers(getPlayedBalls[index].balls.length);
     setTotalAmount(getPlayedBalls[index].price);
@@ -50,15 +39,18 @@ const Play = ({
   };
 
   const handleCheckbox = (index) => {
+    setChecked(!checked)
     setPlayedBalls((prevState) => {
       const updatedBalls = [...prevState];
-      updatedBalls[index].withZeed = !updatedBalls[index].withZeed; // Toggle the value of isZeed
+      console.log(index)
+
+      updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
         updatedBalls[index].price = updatedBalls[index].price + 5000;
       } else {
         updatedBalls[index].price = updatedBalls[index].price - 5000;
       }
-      localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls)); // Update the value in localStorage
+      localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
       return updatedBalls;
     });
   };
@@ -132,7 +124,6 @@ const Play = ({
     },
   ];
 
-
   const handleOptionSelect = (index) => {
     setSelectedOption(index);
   };
@@ -153,12 +144,18 @@ const Play = ({
               </span>
               <span className="right">
                 <span>PLAY ZEED (+ L.L 5,000)</span>
-                <input
-                  className="switch"
-                  type="checkbox"
-                  checked={ballsSet.withZeed} // Set the checkbox based on isZeed value
-                  onChange={() => handleCheckbox(index)}
-                />
+
+                <div className="toggle">
+                  <div className="toggle-switch">
+                    <div
+                      id="toggle"
+                      className={ballsSet.withZeed ? "toggle-input checked-toggle" : "toggle-input"}
+                      onClick={() => { handleCheckbox(index) }}
+                    />
+                    <label htmlFor="toggle" className="toggle-label" />
+                  </div>
+                </div>
+
               </span>
             </div>
             <div className="body">
