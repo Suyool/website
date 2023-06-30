@@ -20,7 +20,6 @@
         }
 
         .formCompany {
-
             padding-left: 50px;
 
             .title {
@@ -32,14 +31,14 @@
             }
 
             .label {
-                font-family: LiberFranckly;
+                font-family: PoppinsMedium;
                 font-size: 15px;
                 color: black;
-                padding: 12px 10px 8px 10px;
+                padding: 17px 10px 5px 13px;
             }
 
             .input {
-                font-family: LiberFranckly;
+                font-family: PoppinsRegular;
                 color: #495666;
                 border: 1px solid #95989A;
                 border-radius: 6px;
@@ -52,6 +51,9 @@
                 position: relative;
                 width: 720px;
                 margin-left: 15px;
+                .label{
+                    padding-left: 0px;
+                }
 
                 .addImg {
                     position: absolute;
@@ -60,7 +62,7 @@
                 }
 
                 .addressinput {
-                    font-family: LiberFranckly;
+                    font-family: PoppinsRegular;
                     color: #495666;
                     border: 1px solid #95989A;
                     border-radius: 6px;
@@ -69,12 +71,32 @@
                 }
             }
 
+            .infoCont{
+                padding: 15px 10px;
+                background-color: #F7F9FB;
+                border-radius: 6px;
+                box-shadow: 0px 3px 6px #00000029;
+                .titleInf{
+                    font-family: PoppinsBold;
+                    color: #707070;
+                    font-size: 13px;
+                }
+                .desc{
+                    font-family: PoppinsRegular;
+                    color: #707070;
+                    font-size: 11px;
+                }
+            }
 
             .btnSection {
                 text-align: center;
                 margin: 20px auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
                 .ApplyBtn {
+                    margin-top: 30px;
                     background-color: #226D96;
                     width: 366px;
                     padding: 10px;

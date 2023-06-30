@@ -14,7 +14,8 @@
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "styles": {
@@ -33,6 +34,9 @@
     "LegalEnrollementStyle": {
       "js": [
         "/build/runtime.js"
+      ],
+      "css": [
+        "/build/LegalEnrollementStyle.css"
       ]
     }
   }
