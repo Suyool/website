@@ -5,12 +5,12 @@
 {% block body %}
 <div class="generatecode2 container ">
     <div class="title">{{'CODE'|trans}}</div>
-    <div class="code">{{code}}</div>
-    <button  type="button" class="btn copy-to-clipboard" data-to-copy={{app.request.get('codeATM')}} data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
-    <div class="note">{{ 'VALID_24HRS_IF_YOU_DONT'|trans }}</div>
-</div>
+    <div class="code">{{cashout.data}}</div>
+    {# <div></div> #}
+    <button  type="button" class="btn copy-to-clipboard" data-to-copy={{cashout.data}} data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
+    {# <div class="note">{{ 'VALID_24HRS_IF_YOU_DONT'|trans }}</div> #}
 
-<!-- Modal -->
+    <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -23,4 +23,7 @@
     </div>
   </div>
 </div>
+</div>
+
+
 {% endblock %}
