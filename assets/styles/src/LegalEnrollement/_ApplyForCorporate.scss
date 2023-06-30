@@ -47,18 +47,29 @@
                 width: 360px;
             }
 
+            .error {
+                font-family: PoppinsSemiBold;
+                font-size: 10px;
+                color: red;
+                padding-left: 20px;
+            }
+
             .address {
                 position: relative;
                 width: 720px;
                 margin-left: 15px;
-                .label{
+
+                .label {
                     padding-left: 0px;
                 }
 
                 .addImg {
                     position: absolute;
                     right: 20px;
-                    bottom: 10px;
+                    top: 50px;
+                }
+                .error{
+                    padding-left: 5px;
                 }
 
                 .addressinput {
@@ -71,17 +82,19 @@
                 }
             }
 
-            .infoCont{
+            .infoCont {
                 padding: 15px 10px;
                 background-color: #F7F9FB;
                 border-radius: 6px;
                 box-shadow: 0px 3px 6px #00000029;
-                .titleInf{
+
+                .titleInf {
                     font-family: PoppinsBold;
                     color: #707070;
                     font-size: 13px;
                 }
-                .desc{
+
+                .desc {
                     font-family: PoppinsRegular;
                     color: #707070;
                     font-size: 11px;

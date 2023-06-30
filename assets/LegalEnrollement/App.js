@@ -3,7 +3,7 @@ import Header from "./Component/Header";
 import ApplyForCorporate from "./Component/ApplyForCorporate";
 
 const App = ({ parameters }) => {
-    console.log(parameters);
+    // console.log(parameters);
 
     return (
         <>
