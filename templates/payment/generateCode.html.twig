@@ -6,16 +6,17 @@
 <div class="generate_Code">
     <div class="generatecode container ">
          {% if cashout.globalCode is defined and cashout.globalCode == 0 %}
-            <div class="error">{{ cashout.message }}</div>
+            <div class="error">{{ message }}</div>
         {% endif %} 
         <div class="title">Withdraw cash BOB Finance cashpoint:</div>
         <form method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('payment') }}"/>
             <label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>
             <input type="text" name="receiverfname" id="receiverfname" required><br>
             <label for='receiverlname' class='required innerLabel'>Receiver Family Name</label><br>
             <input type="text" name="receiverlname" id="" required><br>
             <label for='mobile' class='required innerLabel'>Mobile Numer<span>+961</span></label><br>
-            <input type="tel" name="mobile" id="" required><br>
+            <input type="tel" name="mobile" id="" pattern="[0-9]{8}" required><br>
         
         <div class="desc">
             Go to the nearest & show them the code to receive your money.<span> This code is valid for 7 days.</span>

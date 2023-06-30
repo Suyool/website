@@ -3,16 +3,28 @@
 {% block title %}Generate Code{% endblock %}
 
 {% block body %}
-{# <div class="generate_Code"> #}
-    <div class="GenerateCode container ">
-        {% if simulate_payment_response.RespDesc is defined and simulate_payment_response.RespDesc is not null %}
-            <div class="error">{{ simulate_payment_response.RespDesc }}</div>
-        {% endif %}
-        <div class="title">{{'CASH_WALLET'|trans|raw}}</div>
+<div class="generate_Code">
+    <div class="generatecode container ">
+         {% if cashin.globalCode is defined and cashin.globalCode == 0 %}
+            <div class="error">{{ message }}</div>
+        {% endif %} 
+        <div class="title">Withdraw cash BOB Finance cashpoint:</div>
+        <form method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('request') }}"/>
+            <label for='fname' class='required innerLabel'>Your First Name</label><br>
+            <input type="text" name="fname" id="" required><br>
+            <label for='lname' class='required innerLabel'>Your Family Name</label><br>
+            <input type="text" name="lname" id="" required><br>
+            <label for='mobile' class='required innerLabel'>Mobile Number<span>+961</span></label><br>
+            <input type="tel" name="mobile" id="" pattern="[0-9]{8}"  required><br>
+        
         <div class="desc">
-           {{'NEAREST_MONEY'|trans|raw}}
+            Go to the nearest & show them the code to add money to their Suyool wallet.<br><span> This code is valid for 7 days.</span>
         </div>
-    <button type="submit" {% if simulate_payment_response.ATMCode is defined and simulate_payment_response.ATMCode != null %}data-code="{{ simulate_payment_response.ATMCode }}"{% endif %} class="generate-code btn" >{{ 'GENERATE_CODE'|trans|raw }}</button>
+        <div class="center">
+            <input type="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashin.data is defined and cashin.data != null %}data-code="{{ cashin.data }}"{% endif %} class="generate-code btn" ></input>
         </div>
+        </form>
+    </div>
 {# </div> #}
 {% endblock %}

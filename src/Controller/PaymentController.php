@@ -109,87 +109,43 @@ class PaymentController extends AbstractController
      */
     public function generateCode(Request $request,TranslatorInterface $translator)
     {
+        $submittedToken=$request->request->get('token');
         $parameters=$this->trans->translation($request,$translator);
-        // $parameters['currency'] = "dollar";
-        // $parameters['currentPage'] = "generate_Code";
-        // $code=$request->query->get('code');
-        // $type=$request->query->get('type');
-        // if($request->query->get('code')&&$request->query->get('type')){
-            
-        //     if($code == $this->session->get('code')){
-        //         // dd("ok");
-        //         /*** Check the payment type if is equal to ATM_KEY or EXTERNAL_KEY ***/
-        //         ($type == 'atm') ? $this->atm = true : '';
-        //         /*** Return result ***/
-                
-        //     }else{
-        //         return $this->redirectToRoute('homepage');
-        //     }
-        //     }
-        //     $parameters['atm'] = $this->atm;
-        //     $params_valid = true;
-
-        // if($this->atm === true){
-        //     // dd($this->session->get('TranSimID'));
-        //     $timetolive =24;
-        //     if($timetolive == ''){
-        //         $params_valid = false;
-        //         $result['error_message'] = "Please select a time to live";
-        //     }else{
-        //         $payment_type = '1'; //1 for Cashout, 2 for External Transfer
-        //         $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
-        //         $form_data = [
-        //             "TranSimID" => $this->session->get('TranSimID'),
-        //             "PaymentType" => $payment_type,  //1 for Cashout
-        //             "TimeToLive" => $timetolive,  // 1 for 1 Hour, 2 for 2 Hours.... till 24 Hours
-        //             'Hash' => $Hash,
-        //             "lang" => $parameters['lang'],
-        //         ];
-        //         // dd($form_data);
-        //     }
-        //     $parameters['timetolive'] = $timetolive;
-
-        //     if($params_valid){
-
-        //         $params['data'] = json_encode($form_data);
-        //         $params['url'] = 'Incentive/SimulatePayment';
-        //         $response = Helper::send_curl($params);
-        //         $parameters['simulate_payment_response'] = json_decode($response, true);
-        //         // $parameters['simulate_payment_response']['ATMCode']="5d3efr";
-        //         // $parameters['simulate_payment_response']['RespDesc']=null;
-        //     }
-        // }
-        
-        // $parameters['atm'] = $this->atm;
-        // dd($parameters);
         $parameters=$this->trans->translation($request,$translator);
         $code = $this->session->get('code');
         if(isset($_POST['submit'])){
-            $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID'). $_POST['receiverfname'] . $_POST['receiverlname'] . $this->certificate, true));
-            // dd($Hash);
-            $form_data = [
-                'transactionId' => $this->session->get('TranSimID'),
-                'receiverFname'=>$_POST['receiverfname'],
-                'receiverLname'=>$_POST['receiverlname'],
-                'hash' =>  $Hash
-            ];
-    
-            
-    
-            $params['data']= json_encode($form_data);
-           
-            // dd($params['data']);
-            $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashOut';
-    
-            $response = Helper::send_curl($params);
-            $parameters['cashout'] = json_decode($response, true);
-            if($parameters['cashout']['globalCode'] == 0){
+            if($this->isCsrfTokenValid('payment', $submittedToken) && !empty($_POST['receiverfname']) && !empty($_POST['receiverlname']) && !empty($_POST['mobile'])){
+                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID'). $_POST['receiverfname'] . $_POST['receiverlname'] . $this->certificate, true));
+                // dd($Hash);
+                $form_data = [
+                    'transactionId' => $this->session->get('TranSimID'),
+                    'receiverFname'=>$_POST['receiverfname'],
+                    'receiverLname'=>$_POST['receiverlname'],
+                    'hash' =>  $Hash
+                ];
+        
+                
+        
+                $params['data']= json_encode($form_data);
+               
                 // dd($params['data']);
-                return $this->render('payment/generateCode.html.twig',$parameters);
+                $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashOut';
+        
+                $response = Helper::send_curl($params);
+                $parameters['cashout'] = json_decode($response, true);
+                if($parameters['cashout']['globalCode'] == 0){
+                    // dd($params['data']);
+                    $parameters['message']=$parameters['cashout']['message'];
+                    return $this->render('payment/generateCode.html.twig',$parameters);
+                }else{
+                    return $this->render('payment/codeGenerated.html.twig',$parameters);
+                }
+                // dd($parameters['cashout']);
             }else{
-                return $this->render('payment/codeGenerated.html.twig',$parameters);
+                $parameters['cashout']['globalCode']=0;
+                $parameters['message']='All input are required';
             }
-            // dd($parameters['cashout']);
+            
             
         }
         

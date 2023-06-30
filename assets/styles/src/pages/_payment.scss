@@ -252,6 +252,8 @@
                         font-size: 15px;
                         font-family: PoppinsBold;
                         font-weight: bold;
+                        width: unset;
+                        margin: unset;
                     }
                     .desc{
                         font-size: 12px;
@@ -262,6 +264,7 @@
                     .btn{
                         padding: 15px 120px;
                         background-color: #F4F4F4 ;
+                        border: none;
                         color: black;
                         font-family: PoppinsBold;
                         font-weight: bold;
