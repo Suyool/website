@@ -8,7 +8,7 @@
          {% if cashin.globalCode is defined and cashin.globalCode == 0 %}
             <div class="error">{{ message }}</div>
         {% endif %} 
-        <div class="title">Withdraw cash BOB Finance cashpoint:</div>
+        <div class="title">Add cash to their wallet at BOB Finance</div>
         <form method="post">
             <input type="hidden" name="token" value="{{ csrf_token('request') }}"/>
             <label for='fname' class='required innerLabel'>Your First Name</label><br>

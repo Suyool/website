@@ -65,7 +65,9 @@ class RequestController extends AbstractController
         $response = Helper::send_curl($params);
 // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
-        // dd($parameters['request_details_response']);
+        // $parameters['request_details_response']['allowExternal']="false";
+                // dd($parameters['request_details_response']);
+
         // $parameters['currency']=$parameters['request_details_response']['currency'];
 
         // dd($parameters);
@@ -137,13 +139,15 @@ class RequestController extends AbstractController
     
             $response = Helper::send_curl($params);
             $parameters['cashin'] = json_decode($response, true);
-            $parameters['cashin']['globalCode']=1;
-            $parameters['cashin']['data' ]= "099-112-999";
+            // dd($parameters);
+            // $parameters['cashin']['globalCode']=1;
+            // $parameters['cashin']['data' ]= "099-112-999";
             if($parameters['cashin']['globalCode'] == 0){
                 // dd($params['data']);
                 $parameters['message']=$parameters['cashin']['message'];
                 return $this->render('request/generateCode.html.twig',$parameters);
             }else{
+                // dd($parameters);
                 return $this->render('request/codeGenerated.html.twig',$parameters);
             }
             // dd($parameters['cashout']);
