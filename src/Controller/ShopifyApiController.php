@@ -92,7 +92,8 @@ class ShopifyApiController extends AbstractController
      */
     public function payMobile(Request $request): Response
     {
-        if(!empty($request->request)) {
+        if($request->request->get('order_id') !=null) {
+
             $orderId = $request->request->get('order_id');
             $metadata = json_decode($request->request->get('metadata'), true);
             $totalPrice = trim($metadata['total_price']) / 100;
