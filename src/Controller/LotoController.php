@@ -138,8 +138,8 @@ class LotoController extends AbstractController
      */
     public function play(Request $request)
     {
-        $session = $this->session->get('userId');
-        // $session=20;
+        // $session = $this->session->get('userId');
+        $session=20;
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         if (isset($session)) {
             $data = json_decode($request->getContent(), true);
@@ -288,5 +288,50 @@ class LotoController extends AbstractController
             'message' => $message
         ], 200);
     }
+
+    /**
+     * @Route("/loto/getData", name="app_loto_play",methods="GET")
+     * 
+     */
+    public function getData(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        if($data!=null){
+            $transId=$data['transId'];
+            $order=$data['orderId'];
+            $lotodata=$this->mr->getRepository(loto::class)->getData($transId,$order);
+            if($lotodata!=null){
+                $response=[];
+                foreach($lotodata as $lotodata)
+                {
+                    $response [] = [
+                        'ticketId'=>$lotodata->getticketId(),
+                        'gridSelected'=>$lotodata->getgridSelected(),
+                        'price'=>$lotodata->getprice(),
+                        'currency'=>$lotodata->getcurrency(),
+                        'bouquet'=>$lotodata->getbouquet(),
+                        'zeed'=>$lotodata->getwithZeed()
+    
+                    ];
+                }
+                return new JsonResponse([
+                    'status'=>true,
+                    'data'=>$response
+                ]);
+            }else{
+                return new JsonResponse([
+                    'status'=>true,
+                    'data'=>'No data for the user Found'
+                ]);
+            }
+        }else{
+            return new JsonResponse([
+                'message'=>'No data Founds'
+            ]);
+        }
+        
+
+    }
+
 
 }
