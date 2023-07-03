@@ -125,7 +125,7 @@ const ApplyForCorporate = () => {
                     </div>
 
                     <div className={`row ${getInfoShowing && "mt-2"}`}>
-                        <div className="col-4">
+                        <div className="col-lg-4 col-md-6 col-sm-12">
                             <div className="label">Person In charge (Authorized Signatory) <img className="addImg" src="/build/images/info.png" onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo" /></div>
                             <input
                                 className="input"
@@ -137,7 +137,7 @@ const ApplyForCorporate = () => {
                             {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
                         </div>
                         {getInfoShowing && (
-                            <div className="col-4 infoCont mt-2">
+                            <div className="col-lg-4 col-md-6 col-sm-12 infoCont mt-2">
                                 <div className="titleInf">Authorized Signatory: </div>
                                 <div className="desc">
                                     The person who is allowed to act on behalf of the company. Their name should be mentioned in the official

@@ -56,7 +56,7 @@
 
             .address {
                 position: relative;
-                width: 720px;
+                width: 50%;
                 margin-left: 15px;
 
                 .label {
@@ -68,7 +68,8 @@
                     right: 20px;
                     top: 50px;
                 }
-                .error{
+
+                .error {
                     padding-left: 5px;
                 }
 
@@ -120,6 +121,89 @@
                     border: none;
                     border-radius: 6px;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:991px) {
+    .ApplyForCorporate {
+        padding: 30px;
+
+        .CorporateCont {
+            padding-bottom: 20px;
+
+            .TopSection {
+                font-size: 24px;
+                padding: 23px 0;
+            }
+
+            .formCompany {
+                .title {
+                    font-size: 18px;
+                    padding-top: 18px;
+                    padding-bottom: 4px;
+                }
+
+                .label {
+                    font-size: 14px;
+                    padding: 15px 8px 4px 11px;
+                }
+
+                .input {
+                    padding: 8px 10px;
+                    margin-left: 13px;
+                    // width: 360px;
+                    width: 90%;
+                }
+
+                .address {
+                    position: relative;
+                    width: 90%;
+                    margin-left: 13px;
+                }
+
+                .infoCont {
+                    padding: 13px 8px;
+
+                    .titleInf {
+                        font-size: 12px;
+                    }
+
+                    .desc {
+                        font-size: 10px;
+                    }
+                }
+
+                .btnSection {
+                    margin: 18px auto;
+
+                    .ApplyBtn {
+                        margin-top: 30px;
+                        // width: 366px;
+                        width: 90%;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .ApplyForCorporate {
+        padding: 20px;
+
+        .CorporateCont {
+            padding-bottom: 15px;
+
+            .TopSection {
+                font-size: 20px;
+                padding: 5px 0;
+            }
+
+            .formCompany {
+                padding-left: 10px;
             }
         }
     }
