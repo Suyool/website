@@ -24,7 +24,7 @@
 
 <script>
     setTimeout(function(){
-        window.location.href = '{{ deepLink }}';
+        window.location.href = '{{ deepLink | raw }}';
     }, 1000);
 
     function checkOrderStatus(order_id) {
