@@ -115,8 +115,7 @@ class ShopifyApiController extends AbstractController
 
         $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
         $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
-        $current_page = $_SERVER['REQUEST_URI'];
-
+        $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $json = [
             'TransactionID' => $orderId,
             'Amount' => $amount,
