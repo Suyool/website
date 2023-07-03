@@ -23,11 +23,13 @@
 </div>
 
 <script>
-    if (typeof deeplink !== 'undefined' && deeplink !== null) {
+    var deepLink = "{{ deepLink }}";
+
+    if (deepLink !== null) {
         setTimeout(function(){
             window.location.href = '{{ deepLink | raw }}';
         }, 1000);
-        $('#open_app').attr('href', deepLink).show();
+        //$('#open_app').attr('href', deepLink).show();
     }else {
         $('#open_app').hide();
     }
@@ -50,7 +52,7 @@
     }
 
     $(document).ready(function() {
-        if (typeof order_id !== 'undefined' && order_id !== null) {
+        if (deepLink !== null) {
 
             setInterval(function () {
                 // Call the checkOrderStatus function
