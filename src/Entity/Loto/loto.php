@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PlaysRepository")
  * @ORM\Table(name="loto")
  */
 class loto
@@ -174,7 +174,12 @@ class loto
 
     public function getbouquet()
     {
-        return $this->currency;
+        if($this->bouquet){
+            return true;
+        }else{
+            return false;
+        }
+        // return $this->bouquet;
     }
 
     public function setbouquet($bouquet)
