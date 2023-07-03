@@ -92,51 +92,56 @@ class ShopifyApiController extends AbstractController
      */
     public function payMobile(Request $request): Response
     {
-        $orderId = $request->request->get('order_id');
-        $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = trim($metadata['total_price']) / 100;
-        $amount = number_format($totalPrice, 2, '.', '');
-        $currency = $metadata['currency'];
-        
-        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
-        $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
+        if(!empty($request->request)) {
+            $orderId = $request->request->get('order_id');
+            $metadata = json_decode($request->request->get('metadata'), true);
+            $totalPrice = trim($metadata['total_price']) / 100;
+            $amount = number_format($totalPrice, 2, '.', '');
+            $currency = $metadata['currency'];
 
-        if (!$order) {
-            throw $this->createNotFoundException('Order not found');
+            $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+            $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
+
+            if (!$order) {
+                throw $this->createNotFoundException('Order not found');
+            }
+
+            $createdAt = $order->getCreateDate()->getTimestamp();
+            $timestamp = $createdAt * 1000;
+            $domain = $metadata['domain'];
+            $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+            $merchantId = $merchantCredentials['merchantId'];
+            $certificate = $merchantCredentials['certificate'];
+            $additionalInfo = '';
+
+            $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
+            $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
+            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $json = [
+                'TransactionID' => $orderId,
+                'Amount' => $amount,
+                'Currency' => $currency,
+                'SecureHash' => $secureHash,
+                'TS' => $timestamp,
+                'TranTS' => $timestamp,
+                'MerchantAccountID' => $merchantId,
+                'CallBackURL' => '',
+                'currentUrl' => $current_page,
+                'browsertype' => Helper::getBrowserType(),
+                'AdditionalInfo' => $additionalInfo
+            ];
+
+            $jsonEncoded = json_encode($json);
+            $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
+
+            return $this->render('shopify/pay-mobile.html.twig', [
+                'deepLink' => $appUrl,
+                'order_id' => $orderId,
+            ]);
+        }else {
+            return $this->render('shopify/pay-mobile.html.twig');
         }
 
-        $createdAt = $order->getCreateDate()->getTimestamp();
-        $timestamp = $createdAt * 1000;
-        $domain = $metadata['domain'];
-        $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
-        $merchantId = $merchantCredentials['merchantId'];
-        $certificate = $merchantCredentials['certificate'];
-        $additionalInfo = '';
-
-        $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
-        $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
-        $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $json = [
-            'TransactionID' => $orderId,
-            'Amount' => $amount,
-            'Currency' => $currency,
-            'SecureHash' => $secureHash,
-            'TS' => $timestamp,
-            'TranTS' => $timestamp,
-            'MerchantAccountID' => $merchantId,
-            'CallBackURL' => '',
-            'currentUrl' => $current_page,
-            'browsertype' => Helper::getBrowserType(),
-            'AdditionalInfo' => $additionalInfo
-        ];
-
-        $jsonEncoded = json_encode($json);
-        $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
-
-        return $this->render('shopify/pay-mobile.html.twig', [
-            'deepLink' => $appUrl,
-            'order_id' => $orderId,
-        ]);
     }
 
 
