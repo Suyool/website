@@ -17,15 +17,20 @@
         <div><img src="https://suyool.com/build/images/suyool-Logo.png"></div>
 
         <div class="buttonCont">
-            <a href='{{ deepLink }}' id="open_app" class="open-app">Open App</a>
+            <a href='' id="open_app" class="open-app">Open App</a>
         </div>
     </div>
 </div>
 
 <script>
-    setTimeout(function(){
-        window.location.href = '{{ deepLink | raw }}';
-    }, 1000);
+    if (typeof deeplink !== 'undefined' && deeplink !== null) {
+        setTimeout(function(){
+            window.location.href = '{{ deepLink | raw }}';
+        }, 1000);
+        $('#open_app').attr('href', deepLink).show();
+    }else {
+        $('#open_app').hide();
+    }
 
     function checkOrderStatus(order_id) {
         $.ajax({
@@ -45,10 +50,13 @@
     }
 
     $(document).ready(function() {
-        setInterval(function() {
-            // Call the checkOrderStatus function
-            checkOrderStatus({{ order_id }});
-        }, 3000); // Check order status every 3 seconds
+        if (typeof order_id !== 'undefined' && order_id !== null) {
+
+            setInterval(function () {
+                // Call the checkOrderStatus function
+                checkOrderStatus({{ order_id }});
+            }, 3000); // Check order status every 3 seconds
+        }
     });
 
 </script>
