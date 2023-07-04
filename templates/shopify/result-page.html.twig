@@ -1,14 +1,11 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <div>
     Processing...
 </div>
 
 <script>
-    $(document).ready(function() {
-        setInterval(function() {
-            // Call the checkOrderStatus function
-            checkOrderStatus({{ order_id }});
-        }, 3000); // Check order status every 3 seconds
-    });
+
     function checkOrderStatus(order_id) {
         $.ajax({
             type: "post",
@@ -25,5 +22,12 @@
             }
         });
     }
-    
+
+    $(document).ready(function() {
+        setInterval(function() {
+            // Call the checkOrderStatus function
+            checkOrderStatus({{ order_id }});
+        }, 3000); // Check order status every 3 seconds
+    });
+
 </script>
