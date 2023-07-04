@@ -117,7 +117,8 @@ class ShopifyApiController extends AbstractController
 
             $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
             $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
-            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . "/result-page/".$orderId;
+
             $json = [
                 'TransactionID' => $orderId,
                 'Amount' => $amount,
@@ -283,5 +284,15 @@ class ShopifyApiController extends AbstractController
         $response['merchantId'] = $merchantId;
 
         return $response;
+    }
+    /**
+     * @Route("/result-page/{orderId}", name="app_result_page")
+     */
+    public function resultPage($orderId): Response
+    {
+        return $this->render('shopify/result-page.html.twig', [
+            'order_id' => $orderId,
+        ]);
+
     }
 }
