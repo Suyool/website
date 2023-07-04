@@ -23,14 +23,14 @@
 </div>
 
 <script>
-    var deepLink = "{{ deepLink }}";
+    var deepLink = '{{ deepLink is defined ? deepLink : null }}';
 
     if (deepLink !== null) {
         setTimeout(function(){
             window.location.href = '{{ deepLink | raw }}';
         }, 1000);
-        //$('#open_app').attr('href', deepLink).show();
-    }else {
+        $('#open_app').attr('href', deepLink).show();
+    } else {
         $('#open_app').hide();
     }
 
@@ -53,12 +53,11 @@
 
     $(document).ready(function() {
         if (deepLink !== null) {
-
-            setInterval(function () {
+            setInterval(function() {
                 // Call the checkOrderStatus function
                 checkOrderStatus({{ order_id }});
             }, 3000); // Check order status every 3 seconds
         }
     });
-
 </script>
+
