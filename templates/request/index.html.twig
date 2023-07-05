@@ -53,14 +53,8 @@
             </div>
         </a> #}
        
-<<<<<<< HEAD
             {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin is not null %}
                 <a  type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
-=======
-        {% if currency is defined and  currency == "USD" %}
-            {% if request_details_response.iban is defined %}
-                <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.iban }}">
->>>>>>> e76b037 (loto database handle)
                     <div class="row">
                         <div class="col-2 logo_container">
                             <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
