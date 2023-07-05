@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
@@ -23,11 +23,23 @@ function MyVerticallyCenteredModal(props) {
     );
 }
 
-const ApplyForCorporate = () => {
+const ApplyForCorporate = ({ steSent }) => {
     const [getInfoShowing, setInfoShowing] = useState(false);
-    const [modalShow, setModalShow] = React.useState(false);
-    const [getModalTitle, setModalTitle] = React.useState("");
-    const [getModalDes, setModalDes] = React.useState("");
+    const [modalShow, setModalShow] = useState(false);
+    const [getModalTitle, setModalTitle] = useState("");
+    const [getModalDes, setModalDes] = useState("");
+    const [getDropDown, setDropDown] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://10.20.80.62/CorporateAPI/api/v1/MerchantEnrollment/GetCorporateBusinessType")
+            .then((response) => {
+                setDropDown(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
 
     const [formData, setFormData] = useState({
         registeredName: "",
@@ -127,6 +139,9 @@ const ApplyForCorporate = () => {
                         setModalDes(response.data.Payload.Message);
                         setModalShow(true);
                     }
+                    if (response.data.Payload.GlobalCode == 0 && response.data.Payload.FlagCode == 0) {
+                        steSent(true)
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
@@ -150,6 +165,14 @@ const ApplyForCorporate = () => {
         );
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
+
     return (
         <>
             <div className="ApplyForCorporate">
@@ -158,7 +181,25 @@ const ApplyForCorporate = () => {
 
                     <div className="formCompany">
                         {renderLabelAndInput("Registered Name", "Registered Name", "registeredName")}
-                        {renderLabelAndInput("Type of Business", "Drop down + Others", "businessType")}
+                        {/* {renderLabelAndInput("Type of Business", "Drop down + Others", "businessType")} */}
+
+                        <div className="label">Type of Business</div>
+                        <select
+                            className="input"
+                            name="businessType"
+                            value={formData["businessType"]}
+                            onChange={handleChange}
+                        >
+                            <option value="0">Select value</option>
+                            {getDropDown.map((item, index) => (
+                                <option key={index} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </select>
+
+                        {errors["businessType"] && <div className="error">{errors["businessType"]}</div>}
+
                         {renderLabelAndInput("Phone Number", "+961", "phoneNumber")}
                         {renderLabelAndInput("Email", "name@name.com", "email")}
 
