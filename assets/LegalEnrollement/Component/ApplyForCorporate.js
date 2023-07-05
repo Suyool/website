@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useRef, useState } from 'react'
+
+const apiKey = "AIzaSyCUAevtgJasc6M2mStQScTfvBgfDfvC2go&libraries=places";
+const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
+
+function loadAsyncScript(src) { return new Promise(resolve => { const script = document.createElement("script"); Object.assign(script, { type: "text/javascript", async: true, src }); script.addEventListener("load", () => resolve(script)); document.head.appendChild(script) }) }
+
 
 function MyVerticallyCenteredModal(props) {
     return (
@@ -173,6 +180,15 @@ const ApplyForCorporate = ({ steSent }) => {
         }));
     };
 
+    const searchInput = useRef(null);
+    const [getaddress, setAddress] = useState({});
+
+    const initMapScript = () => { if (window.google) return Promise.resolve(); const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`; return loadAsyncScript(src); }
+    const onChangeAddress = (autocomplete) => { const place = autocomplete.getPlace(); setAddress(extractAddress(place)); }
+    const initAutocomplete = () => { if (!searchInput.current) return; const autocomplete = new window.google.maps.places.Autocomplete(searchInput.current); autocomplete.setFields(["address_component", "geometry"]); autocomplete.addListener("place_changed", () => onChangeAddress(autocomplete)); }
+
+    useEffect(() => { initMapScript().then(() => initAutocomplete()) }, []);
+
     return (
         <>
             <div className="ApplyForCorporate">
@@ -207,6 +223,7 @@ const ApplyForCorporate = ({ steSent }) => {
                             <div className="label">Address</div>
                             <img className="addImg" src="/build/images/pin.png" alt="Logo" />
                             <input
+                                ref={searchInput}
                                 className="addressinput"
                                 placeholder="Street, building, city, country"
                                 name="address"

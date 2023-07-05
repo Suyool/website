@@ -6,7 +6,7 @@ import SuccessfullySent from "./Component/SuccessfullySent";
 const App = ({ parameters }) => {
     // console.log(parameters);
 
-    const [getSent, steSent] = useState(true)
+    const [getSent, steSent] = useState(false)
     return (
         <>
             <Header />
