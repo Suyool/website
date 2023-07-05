@@ -2,6 +2,7 @@
 
 namespace App\Entity\Loto;
 
+use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LOTO_draw
 {
+    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -42,11 +44,6 @@ class LOTO_draw
      */
     private $zeedprize;
 
-    /**
-     * 
-     * @ORM\Column(name="created",type="datetime")
-     */
-    private $created;
 
     public function getId()
     {
@@ -94,17 +91,6 @@ class LOTO_draw
     public function setzeedprize($zeedprize)
     {
         $this->zeedprize=$zeedprize;
-        return $this;
-    }
-
-    public function getcreatedate()
-    {
-        return $this->created;
-    }
-
-    public function setcreatedate($created)
-    {
-        $this->created=$created;
         return $this;
     }
 

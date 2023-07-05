@@ -2,6 +2,7 @@
 
 namespace App\Entity\Loto;
 
+use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class loto
 {
+
+    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -77,11 +80,6 @@ class loto
      */
     private $iscompleted;
 
-    /**
-     * 
-     * @ORM\Column(name="create_date",type="datetime")
-     */
-    private $create_date;
 
     public function getId()
     {
@@ -210,17 +208,6 @@ class loto
         return $this;
     }
 
-
-    public function getcreatedate()
-    {
-        return $this->create_date;
-    }
-
-    public function setcreatedate($create_date)
-    {
-        $this->create_date=$create_date;
-        return $this;
-    }
 
 
 }

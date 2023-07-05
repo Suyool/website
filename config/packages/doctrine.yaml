@@ -6,7 +6,6 @@ doctrine:
                 url: '%env(resolve:DATABASE_URL)%'
             Shopify:
                 url: '%env(resolve:SHOPIFY_DATABASE_URL)%'
-        default_connection: default
             loto:
                 url: '%env(resolve:LOTO_DATABASE_URL)%'
         default_connection: default        

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Loto;
 
+use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LOTO_numbers
 {
+    use DateTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -36,11 +39,6 @@ class LOTO_numbers
      */
     private $zeed;
 
-    /**
-     * 
-     * @ORM\Column(name="created",type="datetime")
-     */
-    private $create_date;
 
     public function getId()
     {
@@ -77,17 +75,6 @@ class LOTO_numbers
     public function setprice($price)
     {
         $this->price=$price;
-        return $this;
-    }
-
-    public function getcreatedate()
-    {
-        return $this->create_date;
-    }
-
-    public function setcreatedate($create_date)
-    {
-        $this->create_date=$create_date;
         return $this;
     }
 

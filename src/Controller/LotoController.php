@@ -191,8 +191,7 @@ class LotoController extends AbstractController
                                 ->setgridSelected($ballsArray)
                                 ->setprice($item['price'])
                                 ->setcurrency($currency)
-                                ->setbouquet(false)
-                                ->setcreatedate(new DateTime());
+                                ->setbouquet(false);
 
                             $this->mr->persist($loto);
                             $this->mr->flush();
@@ -213,8 +212,7 @@ class LotoController extends AbstractController
                         ->setgridSelected($selected)
                         ->setprice($amounttotal)
                         ->setcurrency($currency)
-                        ->setbouquet(false)
-                        ->setcreatedate(new DateTime());
+                        ->setbouquet(false);
 
                     $this->mr->persist($loto);
                     $this->mr->flush();

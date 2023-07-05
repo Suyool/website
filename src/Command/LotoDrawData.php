@@ -64,7 +64,6 @@ class LotoDrawData extends Command
             $LOTO_draw->setdrawdate($next_date);
             $LOTO_draw->setlotoprize($NextDraw['d']['draws'][1]['lotojackpotLBP']);
             $LOTO_draw->setzeedprize($NextDraw['d']['draws'][1]['zeedjackpotLBP']);
-            $LOTO_draw->setcreatedate($date);
 
             $this->mr->persist($LOTO_draw);
             $this->mr->flush();
@@ -95,7 +94,6 @@ class LotoDrawData extends Command
                 $LOTO_numbers->setnumbers($numbers);
                 $LOTO_numbers->setprice($number_price['price0J']);
                 $LOTO_numbers->setzeed($GetFullGridPriceMatrix['d']['zeedprice']);
-                $LOTO_numbers->setcreatedate($date);
                 $this->mr->persist($LOTO_numbers);
                 $this->mr->flush();
                 $numbers++;
@@ -135,7 +133,6 @@ class LotoDrawData extends Command
                 $results->setwinner3($prize_loto['prize3']);
                 $results->setwinner4($prize_loto['prize4']);
                 $results->setwinner5($prize_loto['prize5']);
-                $results->setcreatedate($date);
                 $this->mr->persist($results);
                 $this->mr->flush();
             }
