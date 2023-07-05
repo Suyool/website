@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal';
 import React, { useEffect, useRef, useState } from 'react'
+import TypeOfBusiness from "./TypeOfBusiness";
 
 const apiKey = "AIzaSyCUAevtgJasc6M2mStQScTfvBgfDfvC2go&libraries=places";
 const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
@@ -172,13 +173,7 @@ const ApplyForCorporate = ({ steSent }) => {
         );
     };
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-    };
+ 
 
     const searchInput = useRef(null);
     const [getaddress, setAddress] = useState({});
@@ -200,20 +195,7 @@ const ApplyForCorporate = ({ steSent }) => {
                         {/* {renderLabelAndInput("Type of Business", "Drop down + Others", "businessType")} */}
 
                         <div className="label">Type of Business</div>
-                        <select
-                            className="input"
-                            name="businessType"
-                            value={formData["businessType"]}
-                            onChange={handleChange}
-                        >
-                            <option value="0">Select value</option>
-                            {getDropDown.map((item, index) => (
-                                <option key={index} value={item}>
-                                    {item}
-                                </option>
-                            ))}
-                        </select>
-
+                        <TypeOfBusiness getDropDown={getDropDown} setFormData={setFormData} formData={formData} handleInputChange={handleInputChange} />
                         {errors["businessType"] && <div className="error">{errors["businessType"]}</div>}
 
                         {renderLabelAndInput("Phone Number", "+961", "phoneNumber")}
@@ -234,7 +216,7 @@ const ApplyForCorporate = ({ steSent }) => {
                         </div>
 
                         <div className={`row ${getInfoShowing && "mt-2"}`}>
-                            <div className="col-lg-4 col-md-6 col-sm-12">
+                            <div className="col-lg-5 col-md-6 col-sm-12">
                                 <div className="label">Person In charge (Authorized Signatory) <img className="addImg" src="/build/images/info.png" onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo" /></div>
                                 <input
                                     className="input"
@@ -246,7 +228,7 @@ const ApplyForCorporate = ({ steSent }) => {
                                 {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
                             </div>
                             {getInfoShowing && (
-                                <div className="col-lg-4 col-md-6 col-sm-12 infoCont mt-2">
+                                <div className="col-lg-4 col-md-6 col-sm-11 infoCont mt-2">
                                     <div className="titleInf">Authorized Signatory: </div>
                                     <div className="desc">
                                         The person who is allowed to act on behalf of the company. Their name should be mentioned in the official
