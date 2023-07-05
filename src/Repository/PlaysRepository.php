@@ -25,7 +25,7 @@ class PlaysRepository extends EntityRepository
         return $this->createQueryBuilder('l')
             ->select('l')
             ->innerJoin(order::class,'o')
-            ->where('o.transId = :transId and o.id=l.order and o.id = :order')
+            ->where('o.transId = :transId and o.id=l.order and o.id = :order and l.iscompleted = true')
             ->setParameter('transId',$transId)
             ->setParameter('order',$order)
             ->getQuery()

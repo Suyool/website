@@ -134,12 +134,12 @@ class LotoController extends AbstractController
     }
 
     /**
-     * @Route("/loto/play", name="app_loto_play")
+     * @Route("/loto/play", name="app_loto_play",methods="POST")
      */
     public function play(Request $request)
     {
-        // $session = $this->session->get('userId');
-        $session=20;
+        $session = $this->session->get('userId');
+        // $session=20;
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         if (isset($session)) {
             $data = json_decode($request->getContent(), true);
@@ -223,7 +223,7 @@ class LotoController extends AbstractController
 
                 $sum = 0;
                 foreach ($lotoid as $lotoid) {
-                    $sum += $lotoid->getprice();
+                    // $sum += $lotoid->getprice();
                 }
                 $id = $orderid->getId();
 
@@ -271,11 +271,43 @@ class LotoController extends AbstractController
                     print_r($parameters['update_utility_response']);
                     $message = "You have played your grid , Best of luck :)";
                 } else {
-                    $message = $parameters['push_utility_response']['message'];
-                    $orderid
-                        ->setstatus("canceled");
+                    $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);                    
+                    foreach ($lotoid as $index => $lotoid) {
+                        if ($index === 0 || $index === 1) {
+                            $arr = 1;
+                        } else {
+                            $arr = 0;
+                        }
+                    
+                        if ($arr == 1) {
+                            $lotoid->setcompleted(true);
+                        } else {
+                            $lotoid->setcompleted(false);
+                        }
+                    
+                        $this->mr->persist($lotoid);
+                        $this->mr->flush();
+                    }
+                    $lotoidcompleted = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid,'iscompleted'=>true]);
+                    foreach ($lotoidcompleted as $lotoidcompleted) {
+                        $sum += $lotoidcompleted->getprice();
+                    }
+                    $orderid->setamount($sum)
+                        ->setcurrency($lotoidcompleted->getcurrency())
+                        // ->set
+                        ->setstatus("completed");
+
                         $this->mr->persist($orderid);
                         $this->mr->flush();
+
+                        $message = "You have played your grid , Best of luck :)";
+                        // ->settransId($parameters['push_utility_response']['data']);
+
+                    // $message = $parameters['push_utility_response']['message'];
+                    // $orderid
+                    //     ->setstatus("canceled");
+                    //     $this->mr->persist($orderid);
+                    //     $this->mr->flush();
                 }
             } else {
                 $message = "You dont have grid available";
@@ -290,7 +322,7 @@ class LotoController extends AbstractController
     }
 
     /**
-     * @Route("/loto/getData", name="app_loto_play",methods="GET")
+     * @Route("/loto/getData", name="app_getData",methods="GET")
      * 
      */
     public function getData(Request $request)
@@ -305,6 +337,8 @@ class LotoController extends AbstractController
                 foreach($lotodata as $lotodata)
                 {
                     $response [] = [
+                        'orderId'=>$lotodata->getOrderId()->getId(),
+                        'transId'=>$transId,
                         'ticketId'=>$lotodata->getticketId(),
                         'gridSelected'=>$lotodata->getgridSelected(),
                         'price'=>$lotodata->getprice(),
