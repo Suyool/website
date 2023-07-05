@@ -25,7 +25,7 @@ return [
     'GENERATE_CODE'=>'Generate Code',
     'CODE'=>'Please use the code below:',
     'COPY_CODE'=>'Copy Code',
-    'VALID_24HRS'=>'Kindly note the code is only available for 24h.',
+    'VALID_24HRS'=>'Valid ID is required at cashier.',
     'COPIED'=>'Cade Copied to Clipboard',
     'SAVE_IT'=>'The code has been copied to clipboard, you can now paste it somewhere secure for future reference.',
     'EXIT'=>'Done',
@@ -37,11 +37,11 @@ return [
     'SENT_YOU'=>'sent you',
     'CHOOSE_HOW_TO_GET_YOUR_MONEY'=>'Choose how to get your money:',
     'OPEN_SYYOOL_ACCOUNT'=>'Open Suyool account',
-    'WITHDRAW_CASH_FROM_ANY_CASHPOINT'=>'Withdraw cash from any cashpoint',
-    'GENERATE_CODE_TO_WITHDRAW_CASH'=>'Generate code to withdraw cash from the nearest ……',
+    'WITHDRAW_CASH_FROM_ANY_CASHPOINT'=>'Withdraw cash from BOB Finance',
+    'GENERATE_CODE_TO_WITHDRAW_CASH'=>'Generate code to withdraw cash from the nearest BOB Finance',
     //
     'NEAREST_MONEY_WITHDRAW'=>'Go to the nearest & show them the code to receive your money.<br/><br/> Kindly note the code is only available for 24h.',
-    'VALID_24HRS_IF_YOU_DONT'=>'Kindly note the code is only available for 24h.If you don t withdraw the money, the amount will go back to the sender.',
+    'VALID_24HRS_IF_YOU_DONT'=>'Valid ID is required at cashier.',
     //Invitation
     "18_AND_ABOVE"=>"You have to be 18 and above to be eligible",
     "ALREADY_SUBMITTED"=>"You already submitted a mobile number on this device"

@@ -60,7 +60,8 @@ class PaymentController extends AbstractController
         /*** Call the api ***/
         $response = Helper::send_curl($params);
         $parameters['payment_details_response'] = json_decode($response, true);
-        $parameters['currency'] = $parameters['payment_details_response']['currency'];
+        // dd($parameters['payment_details_response']);
+        // $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
         $this->session->set("request_details_response", $parameters['payment_details_response']);
@@ -77,18 +78,27 @@ class PaymentController extends AbstractController
             isset($parameters['payment_details_response']['transactionID'])
                 ? $parameters['payment_details_response']['transactionID']
                 : '');
-                $this->session->set("AllowATM",
-            isset($parameters['payment_details_response']['allowATM'])
-                ? $parameters['payment_details_response']['allowATM']
+                $this->session->set("allowCashOut",
+            isset($parameters['payment_details_response']['allowCashOut'])
+                ? $parameters['payment_details_response']['allowCashOut']
                 : '');
-                $this->session->set("AllowExternal",
+                $this->session->set("allowExternal",
             isset($parameters['payment_details_response']['allowExternal'])
                 ? $parameters['payment_details_response']['allowExternal']
                 : '');
-                $this->session->set("AllowBenName",
-            isset($parameters['payment_details_response']['allowBenName'])
-                ? $parameters['payment_details_response']['allowBenName']
+
+            $additionalData=$parameters['payment_details_response']['additionalData'];
+            $additionalData=json_decode($additionalData,true);
+            $this->session->set("receiverFname",
+            isset($additionalData['receiverFname'])
+                ? $additionalData['receiverFname']
                 : '');
+                $this->session->set("receiverLname",
+            isset($additionalData['receiverLname'])
+                ? $additionalData['receiverLname']
+                : '');
+            // $parameters['']
+            // dd(json_decode($additionalData,true));
 
 
         return $this->render('payment/index.html.twig',$parameters);
@@ -99,61 +109,49 @@ class PaymentController extends AbstractController
      */
     public function generateCode(Request $request,TranslatorInterface $translator)
     {
+        $submittedToken=$request->request->get('token');
         $parameters=$this->trans->translation($request,$translator);
-        $parameters['currency'] = "dollar";
-        $parameters['currentPage'] = "generate_Code";
-        $code=$request->query->get('code');
-        $type=$request->query->get('type');
-        if($request->query->get('code')&&$request->query->get('type')){
-            
-            if($code == $this->session->get('code')){
-                // dd("ok");
-                /*** Check the payment type if is equal to ATM_KEY or EXTERNAL_KEY ***/
-                ($type == 'atm') ? $this->atm = true : '';
-                /*** Return result ***/
-                
-            }else{
-                return $this->redirectToRoute('homepage');
-            }
-            }
-            $parameters['atm'] = $this->atm;
-            $params_valid = true;
-
-        if($this->atm === true){
-            // dd($this->session->get('TranSimID'));
-            $timetolive =24;
-            if($timetolive == ''){
-                $params_valid = false;
-                $result['error_message'] = "Please select a time to live";
-            }else{
-                $payment_type = '1'; //1 for Cashout, 2 for External Transfer
-                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $payment_type . $timetolive .$parameters['lang']. $this->certificate, true));
+        $parameters=$this->trans->translation($request,$translator);
+        $code = $this->session->get('code');
+        if(isset($_POST['submit'])){
+            if($this->isCsrfTokenValid('payment', $submittedToken) && !empty($_POST['receiverfname']) && !empty($_POST['receiverlname']) && !empty($_POST['mobile'])){
+                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID'). $_POST['receiverfname'] . $_POST['receiverlname'] . $this->certificate, true));
+                // dd($Hash);
                 $form_data = [
-                    "TranSimID" => $this->session->get('TranSimID'),
-                    "PaymentType" => $payment_type,  //1 for Cashout
-                    "TimeToLive" => $timetolive,  // 1 for 1 Hour, 2 for 2 Hours.... till 24 Hours
-                    'Hash' => $Hash,
-                    "lang" => $parameters['lang'],
+                    'transactionId' => $this->session->get('TranSimID'),
+                    'receiverFname'=>$_POST['receiverfname'],
+                    'receiverLname'=>$_POST['receiverlname'],
+                    'hash' =>  $Hash
                 ];
-                // dd($form_data);
-            }
-            $parameters['timetolive'] = $timetolive;
-
-            if($params_valid){
-
-                $params['data'] = json_encode($form_data);
-                $params['url'] = 'Incentive/SimulatePayment';
+        
+                
+        
+                $params['data']= json_encode($form_data);
+               
+                // dd($params['data']);
+                $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashOut';
+        
                 $response = Helper::send_curl($params);
-                $parameters['simulate_payment_response'] = json_decode($response, true);
-                // $parameters['simulate_payment_response']['ATMCode']="5d3efr";
-                // $parameters['simulate_payment_response']['RespDesc']=null;
+                $parameters['cashout'] = json_decode($response, true);
+                if($parameters['cashout']['globalCode'] == 0){
+                    // dd($params['data']);
+                    $parameters['message']=$parameters['cashout']['message'];
+                    return $this->render('payment/generateCode.html.twig',$parameters);
+                }else{
+                    return $this->render('payment/codeGenerated.html.twig',$parameters);
+                }
+                // dd($parameters['cashout']);
+            }else{
+                $parameters['cashout']['globalCode']=0;
+                $parameters['message']='All input are required';
             }
+            
+            
         }
         
-        $parameters['atm'] = $this->atm;
-        // dd($parameters);
         return $this->render('payment/generateCode.html.twig',$parameters);
     }
+
 
     /**
      * @Route("/codeGenerated", name="payment_codeGenerated")

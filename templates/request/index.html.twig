@@ -28,8 +28,7 @@
                 </div>
             </div>
         </div>
-
-        {% if currency == "USD" %}
+        {% if request_details_response.allowExternal is defined  and request_details_response.allowExternal != "false" and request_details_response.allowExternal is not null %}
             <a class="container-fluid choose_way" href="/request/visaCard">
                 <div class="row">
                     <div class="col-2 logo_container">
@@ -42,7 +41,6 @@
                 </div>
             </a>
         {% endif %}
-       
         {# <a class="container-fluid choose_way" href="/request/generateCode?code={{ app.session.get('Code') }}&type=cash" title="generate code">
             <div class="row">
                 <div class="col-2 logo_container">
@@ -55,37 +53,21 @@
             </div>
         </a> #}
        
-        {% if currency == "USD" %}
-            {% if request_details_response.iban is defined %}
-                <a  type="button" class="container-fluid choose_way copy-to-clipboard" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-to-copy="{{ request_details_response.iban }}">
+            {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin is not null %}
+                <a  type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
                     <div class="row">
                         <div class="col-2 logo_container">
-                            <img class="logo" src="{{ asset('build/images/payment/IBAN.jpg') }}" >
+                            <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}" >
                         </div>
                         <div class="col-10 text_container">
-                            <div class="sub_title">{{'COPY_IBAN'|trans}}</div>
-                            <div class="desc">{{'COPY_IBAN_DESC'|trans}}</div>
+                            <div class="sub_title">Cash input</div>
+                            <div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
                         </div>
                     </div>
                 </a>
-            {% endif %}
         {% endif %}
 
         <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-body modal-container">
-                <img class="logo" src="{{ asset('build/images/payment/doneImage.svg') }}" >
-                <div class="title">{{'IBAN_COPIED_TO_CLIPBOARD'|trans}}</div>
-                <div class="desc">{{'IBAN_HAD_BEEN_COPIED'|trans}}</div>
-                <button type="button" class="btnDone" data-bs-dismiss="modal">{{'EXIT'|trans}}</button>
-        </div>
-        </div>
-    </div>
     </div>
 {% endblock %}

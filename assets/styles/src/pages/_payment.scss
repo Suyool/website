@@ -127,9 +127,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        .error{
-            display: none;
-        }
+        // .error{
+        //     display: none;
+        // }
         .title{
             font-family: PoppinsBold;
             font-weight: bold;
@@ -139,6 +139,10 @@
         .desc{
             font-family: PoppinsRegular;
             font-size: 16px;
+            span{
+                display: block;
+                padding-top: 60px;
+            }
         }
         .btn{
             padding: 15px 80px;
@@ -150,12 +154,58 @@
             margin: 65px 0 200px 0;
         }
     }
+    form{
+        .innerLabel {
+            margin-top: 37px;
+            position: absolute;
+            margin-left: 21px;
+            font-size: 10px;
+            color: #7588A0;
+            font-family:PoppinsRegular ;
+            span{
+                display: block;
+                font-size: 14px;
+                color: #000000;
+            }
+          }
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            // padding: 11px 2px 0px 4px;
+            line-height: 31px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+          }
+          input[type=tel], select {
+            width: 100%;
+            padding: 12px 60px;
+            line-height: 31px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+          }
+          .center{
+            text-align: center;
+          }
+          input[type=submit], select {
+            background-color: #226D96;
+            color: #FFFFFF;
+            font-family:PoppinsSemiBold ;
+            padding: 18px;
+            width: 100%;
+            text-align: center;
+          }
+    }
     
 }
 
-.GenerateCode2{
+.generatecode2{
     background-color: #F1F3F5 ;
-    .generatecode2    {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -169,7 +219,7 @@
         .code{
             font-family: PoppinsBold;
             font-weight: bold;
-            font-size: 60px;
+            font-size: 35px;
         }
         .btn{
             padding: 15px 80px;
@@ -187,7 +237,7 @@
             font-size: 12px;
             margin: 0 0 280px 0;
         }
-    }
+        
     .modal{
         .modal-dialog{
             .modal-content{
@@ -202,6 +252,8 @@
                         font-size: 15px;
                         font-family: PoppinsBold;
                         font-weight: bold;
+                        width: unset;
+                        margin: unset;
                     }
                     .desc{
                         font-size: 12px;
@@ -212,6 +264,7 @@
                     .btn{
                         padding: 15px 120px;
                         background-color: #F4F4F4 ;
+                        border: none;
                         color: black;
                         font-family: PoppinsBold;
                         font-weight: bold;
