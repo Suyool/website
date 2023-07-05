@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 import Footer from "./Footer";
+import axios from "axios";
+import Modal from 'react-bootstrap/Modal';
+
+function MyVerticallyCenteredModal(props) {
+    return (
+        <Modal
+            {...props}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Body>
+                <div id="legalModle">
+                    <img src="/build/images/warning.png" alt="warrning" />
+                    <div className="title">{props.title}</div>
+                    <div className="description">{props.description}</div>
+                    <button className="okiBtnModal" onClick={props.onHide}>ok</button>
+                </div>
+            </Modal.Body>
+        </Modal>
+    );
+}
 
 const ApplyForCorporate = () => {
     const [getInfoShowing, setInfoShowing] = useState(false);
+    const [modalShow, setModalShow] = React.useState(false);
+    const [getModalTitle, setModalTitle] = React.useState("");
+    const [getModalDes, setModalDes] = React.useState("");
+
     const [formData, setFormData] = useState({
         registeredName: "",
         businessType: "",
@@ -81,6 +107,30 @@ const ApplyForCorporate = () => {
         } else {
             setErrors({});
             console.log("Form data:", formData);
+            axios
+                .post("http://10.20.80.62/CorporateAPI/api/v1/MerchantEnrollment/SaveCorporateOnboardData", {
+                    registeredName: formData.registeredName,
+                    businessType: formData.businessType,
+                    phoneNumber: formData.phoneNumber,
+                    email: formData.email,
+                    address: formData.address,
+                    authorizedPerson: formData.authorizedPerson,
+                    authorizedPhoneNumber: formData.authorizedPhoneNumber,
+                    contactEmail: formData.contactEmail,
+                    contactFullName: formData.contactFullName,
+                    contactPhoneNumber: formData.contactPhoneNumber
+                })
+                .then((response) => {
+                    console.log(response);
+                    if (response.data.Payload.GlobalCode = 1 && response.data.Payload.FlagCode > 1) {
+                        setModalTitle(response.data.Payload.Title);
+                        setModalDes(response.data.Payload.Message);
+                        setModalShow(true);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 
@@ -101,65 +151,75 @@ const ApplyForCorporate = () => {
     };
 
     return (
-        <div className="ApplyForCorporate">
-            <div className="CorporateCont">
-                <div className="TopSection">Apply for Corporate Account</div>
+        <>
+            <div className="ApplyForCorporate">
+                <div className="CorporateCont">
+                    <div className="TopSection">Apply for Corporate Account</div>
 
-                <div className="formCompany">
-                    {renderLabelAndInput("Registered Name", "Registered Name", "registeredName")}
-                    {renderLabelAndInput("Type of Business", "Drop down + Others", "businessType")}
-                    {renderLabelAndInput("Phone Number", "+961", "phoneNumber")}
-                    {renderLabelAndInput("Email", "name@name.com", "email")}
+                    <div className="formCompany">
+                        {renderLabelAndInput("Registered Name", "Registered Name", "registeredName")}
+                        {renderLabelAndInput("Type of Business", "Drop down + Others", "businessType")}
+                        {renderLabelAndInput("Phone Number", "+961", "phoneNumber")}
+                        {renderLabelAndInput("Email", "name@name.com", "email")}
 
-                    <div className="address">
-                        <div className="label">Address</div>
-                        <img className="addImg" src="/build/images/pin.png" alt="Logo" />
-                        <input
-                            className="addressinput"
-                            placeholder="Street, building, city, country"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleInputChange}
-                        />
-                        {errors.address && <div className="error">{errors.address}</div>}
-                    </div>
-
-                    <div className={`row ${getInfoShowing && "mt-2"}`}>
-                        <div className="col-lg-4 col-md-6 col-sm-12">
-                            <div className="label">Person In charge (Authorized Signatory) <img className="addImg" src="/build/images/info.png" onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo" /></div>
+                        <div className="address">
+                            <div className="label">Address</div>
+                            <img className="addImg" src="/build/images/pin.png" alt="Logo" />
                             <input
-                                className="input"
-                                placeholder="Full Name"
-                                name="authorizedPerson"
-                                value={formData.authorizedPerson}
+                                className="addressinput"
+                                placeholder="Street, building, city, country"
+                                name="address"
+                                value={formData.address}
                                 onChange={handleInputChange}
                             />
-                            {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
+                            {errors.address && <div className="error">{errors.address}</div>}
                         </div>
-                        {getInfoShowing && (
-                            <div className="col-lg-4 col-md-6 col-sm-12 infoCont mt-2">
-                                <div className="titleInf">Authorized Signatory: </div>
-                                <div className="desc">
-                                    The person who is allowed to act on behalf of the company. Their name should be mentioned in the official
-                                    records.
-                                </div>
+
+                        <div className={`row ${getInfoShowing && "mt-2"}`}>
+                            <div className="col-lg-4 col-md-6 col-sm-12">
+                                <div className="label">Person In charge (Authorized Signatory) <img className="addImg" src="/build/images/info.png" onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo" /></div>
+                                <input
+                                    className="input"
+                                    placeholder="Full Name"
+                                    name="authorizedPerson"
+                                    value={formData.authorizedPerson}
+                                    onChange={handleInputChange}
+                                />
+                                {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
                             </div>
-                        )}
+                            {getInfoShowing && (
+                                <div className="col-lg-4 col-md-6 col-sm-12 infoCont mt-2">
+                                    <div className="titleInf">Authorized Signatory: </div>
+                                    <div className="desc">
+                                        The person who is allowed to act on behalf of the company. Their name should be mentioned in the official
+                                        records.
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {renderLabelAndInput("Phone Number", "+961", "authorizedPhoneNumber")}
+
+                        <div className="title">CONTACT PERSON</div>
+
+                        {renderLabelAndInput("Full Name", "First & last name", "contactFullName")}
+                        {renderLabelAndInput("Phone Number", "+961", "contactPhoneNumber")}
+                        {renderLabelAndInput("Email", "name@name.com", "contactEmail")}
+
+
+                        <Footer handleFormSubmit={handleFormSubmit} />
                     </div>
-
-                    {renderLabelAndInput("Phone Number", "+961", "authorizedPhoneNumber")}
-
-                    <div className="title">CONTACT PERSON</div>
-
-                    {renderLabelAndInput("Full Name", "First & last name", "contactFullName")}
-                    {renderLabelAndInput("Phone Number", "+961", "contactPhoneNumber")}
-                    {renderLabelAndInput("Email", "name@name.com", "contactEmail")}
-
-
-                    <Footer handleFormSubmit={handleFormSubmit} />
                 </div>
             </div>
-        </div>
+
+            <MyVerticallyCenteredModal
+                show={modalShow}
+                title={getModalTitle}
+                description={getModalDes}
+                onHide={() => setModalShow(false)}
+            />
+
+        </>
     );
 };
 
