@@ -38,7 +38,7 @@ class UnsubscribeMarketingController extends AbstractController
             //If the Email is unsubscriped and the user is not registered
             if ($response['RespCode'] == 1) {
                 $title = 'You have been unsubscribed';
-                $url = "/UnsubscribeMarketing?uniqueCode=" . $code . "&Flag=1";
+                // $url = "/UnsubscribeMarketing?uniqueCode=" . $code . "&Flag=1";
                 $description = 'You have been successfully removed from this list. <span class="error-check">If you did this in error</span> <br>
                                 <button type="button" class="openModel" data-bs-toggle="modal" data-bs-target="#myModal" id="resubscribe" onclick="resubscribe('.$code.', '.$flag.')">
                                 Re-Subscribe

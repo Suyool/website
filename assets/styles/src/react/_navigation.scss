@@ -1,0 +1,95 @@
+.navigation {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    justify-content: space-around;
+    z-index: 1000;
+    box-shadow: 0px -1px 11px #F4F4F4;
+
+    .subCont {
+        position: relative;
+        display: flex;
+        width: 100%;
+        background-color: white;
+        justify-content: space-around;
+
+        .NavBtn {
+            background-color: unset;
+            border: none;
+            padding: 10px 0;
+
+            .title {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #C82F2A;
+                padding-top: 6px;
+            }
+
+            .activeTitle {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #1C2676;
+                padding-top: 6px;
+            }
+        }
+
+        .PlayActive {
+            position: absolute;
+            left: 50%;
+            bottom: -13%;
+            transform: translateX(-50%);
+            background-color: #1C2676;
+            box-shadow: 2px 3px 10px #F4F4F4;
+            border-radius: 50%;
+            padding: 15px 25px;
+            border: none;
+            z-index: 1000;
+
+            .title {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #C82F2A;
+                padding-top: 6px;
+            }
+
+            .activeTitle {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                // color: #1C2676;
+                color: white;
+                padding-top: 6px;
+            }
+        }
+
+        .NavBtnPlay {
+            position: absolute;
+            left: 50%;
+            bottom: -13%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 2px 3px 10px #F4F4F4;
+            border-radius: 50%;
+            padding: 15px 25px;
+            border: none;
+            z-index: 1000;
+
+            .title {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #C82F2A;
+                padding-top: 6px;
+            }
+
+            .activeTitle {
+                font-size: 11px;
+                font-family: PoppinsSemiBold;
+                color: #1C2676;
+                padding-top: 6px;
+            }
+        }
+    }
+
+
+}

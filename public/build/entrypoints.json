@@ -1,9 +1,21 @@
 {
   "entrypoints": {
-    "app": {
+    "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app.6d801fa0.js"
+        "/build/app1.b8115c60.js"
+      ]
+    },
+    "app2": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/app2.bd1c9359.js"
+      ]
+    },
+    "LegalEnrollement": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.dc451e9f.js"
       ]
     },
     "styles": {
@@ -12,6 +24,22 @@
       ],
       "css": [
         "/build/styles.adb49e82.css"
+      ]
+    },
+    "react_styles": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/react_styles.2a4800b6.css"
+      ]
+    },
+    "LegalEnrollementStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/LegalEnrollementStyle.5fad0f46.css"
       ]
     }
   }

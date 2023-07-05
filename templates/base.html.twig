@@ -45,7 +45,7 @@
     fbq('track', 'PageView');
 
 </script>
-    {% for file in encore_entry_js_files('app') %}
+    {% for file in encore_entry_js_files('app1') %}
         <script src="{{ asset(file|substr(1)) }}"></script>
     {% endfor %}
 {% endblock %}

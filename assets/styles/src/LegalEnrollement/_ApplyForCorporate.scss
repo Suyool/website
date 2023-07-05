@@ -1,0 +1,227 @@
+.ApplyForCorporate {
+    background-color: #F7F9FB;
+    padding-top: 30px;
+    padding-right: calc(72px + 4%);
+    padding-left: calc(72px + 4%);
+    padding-bottom: 30px;
+
+    .CorporateCont {
+        background-color: white;
+        box-shadow: 0px 3px 6px #D1D0D0;
+        padding-bottom: 30px;
+
+        .TopSection {
+            font-family: PoppinsRegular;
+            font-size: 26px;
+            color: #576271;
+            border-bottom: 1px solid #f3f8ff;
+            padding: 26px 0;
+            text-align: center;
+        }
+
+        .formCompany {
+            padding-left: 50px;
+
+            .title {
+                font-family: PoppinsSemiBold;
+                font-size: 20px;
+                color: black;
+                padding-top: 20px;
+                padding-bottom: 5px;
+            }
+
+            .label {
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: black;
+                padding: 17px 10px 5px 13px;
+            }
+
+            .others {
+                display: flex;
+
+                .remove {
+                    height: 45px;
+                    width: 45px;
+                    margin-left: 20px;
+                    padding-top: 7px;
+                    // border-radius: 3px;
+                    // border: 2px solid #226D96;
+                    // font-size: 20px;
+                    // font-weight: bold;
+                    // color: #226D96;
+                    // text-align: center;
+                }
+            }
+
+            .input {
+                font-family: PoppinsRegular;
+                color: #495666;
+                border: 1px solid #95989A;
+                border-radius: 6px;
+                padding: 10px 12px;
+                margin-left: 15px;
+                width: 360px;
+            }
+
+            .error {
+                font-family: PoppinsSemiBold;
+                font-size: 10px;
+                color: red;
+                padding-left: 20px;
+            }
+
+            .address {
+                position: relative;
+                width: 50%;
+                margin-left: 15px;
+
+                .label {
+                    padding-left: 0px;
+                }
+
+                .addImg {
+                    position: absolute;
+                    right: 20px;
+                    top: 50px;
+                }
+
+                .error {
+                    padding-left: 5px;
+                }
+
+                .addressinput {
+                    font-family: PoppinsRegular;
+                    color: #495666;
+                    border: 1px solid #95989A;
+                    border-radius: 6px;
+                    padding: 10px 12px;
+                    width: 100%;
+                }
+            }
+
+            .infoCont {
+                padding: 15px 10px;
+                background-color: #F7F9FB;
+                border-radius: 6px;
+                box-shadow: 0px 3px 6px #00000029;
+
+                .titleInf {
+                    font-family: PoppinsBold;
+                    color: #707070;
+                    font-size: 13px;
+                }
+
+                .desc {
+                    font-family: PoppinsRegular;
+                    color: #707070;
+                    font-size: 11px;
+                }
+            }
+
+            .btnSection {
+                text-align: center;
+                margin: 20px auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .ApplyBtn {
+                    margin-top: 30px;
+                    background-color: #226D96;
+                    width: 366px;
+                    padding: 10px;
+                    font-family: PoppinsBold;
+                    text-align: center;
+                    font-size: 20px;
+                    color: white;
+                    border: none;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:991px) {
+    .ApplyForCorporate {
+        padding: 30px;
+
+        .CorporateCont {
+            padding-bottom: 20px;
+
+            .TopSection {
+                font-size: 24px;
+                padding: 23px 0;
+            }
+
+            .formCompany {
+                .title {
+                    font-size: 18px;
+                    padding-top: 18px;
+                    padding-bottom: 4px;
+                }
+
+                .label {
+                    font-size: 14px;
+                    padding: 15px 8px 4px 11px;
+                }
+
+                .input {
+                    padding: 8px 10px;
+                    margin-left: 13px;
+                    // width: 360px;
+                    width: 90%;
+                }
+
+                .address {
+                    position: relative;
+                    width: 90%;
+                    margin-left: 13px;
+                }
+
+                .infoCont {
+                    padding: 13px 8px;
+
+                    .titleInf {
+                        font-size: 12px;
+                    }
+
+                    .desc {
+                        font-size: 10px;
+                    }
+                }
+
+                .btnSection {
+                    margin: 18px auto;
+
+                    .ApplyBtn {
+                        margin-top: 30px;
+                        // width: 366px;
+                        width: 90%;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:425px) {
+    .ApplyForCorporate {
+        padding: 20px;
+
+        .CorporateCont {
+            padding-bottom: 15px;
+
+            .TopSection {
+                font-size: 20px;
+                padding: 5px 0;
+            }
+
+            .formCompany {
+                padding-left: 10px;
+            }
+        }
+    }
+}

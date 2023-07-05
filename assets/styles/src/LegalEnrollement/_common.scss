@@ -1,0 +1,53 @@
+#LegalEnrollementBody {
+    background-color: #F7F9FB;
+
+}
+
+.Header {
+    background-color: #373464;
+    display: flex;
+    align-items: center;
+    padding: 15px 40px;
+
+    .headerTitle {
+        font-family: PoppinsMedium;
+        font-size: 23px;
+        color: white;
+        padding-left: 4%;
+    }
+}
+
+#legalModle {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        padding-top: 20px;
+        font-family: PoppinsBold;
+        color: #495666;
+        font-size: 16px;
+    }
+
+    .description {
+        font-family: PoppinsRegular;
+        color: #7588A0;
+        font-size: 16px;
+        max-width: 95%;
+        text-align: center;
+        padding-top: 7px;
+    }
+
+    .okiBtnModal {
+        background-color: #226D96;
+        border-radius: 6px;
+        color: white;
+        font-family: PoppinsBold;
+        font-size: 16px;
+        padding: 20px 100px;
+        margin-top: 40px;
+        border: none;
+    }
+
+}

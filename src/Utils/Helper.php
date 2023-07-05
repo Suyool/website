@@ -23,23 +23,33 @@ class Helper
         curl_close($ch);
         return $ret;
     }
-
-    public static function send_curl($params, $accessToken = null) {
+       public static function send_curl($params,$app=null,$accessToken=null) {
+        // dd($params);
         if($accessToken != null){
             $host = $params['url'];
         }else{
-            if($_ENV['APP_ENV']=='prod'){
-                $host = 'http://10.20.80.58/'.$params['url'];
+
+        if($_ENV['APP_ENV']=='prod'){
+            if($app=='loto'){
+                $host = 'https://backbone.lebaneseloto.com';
             }else{
-                $host = 'http://10.20.80.57/'.$params['url'];
+                $host = 'https://globalapi.suyool.money/api/';
+            }
+        }else{
+     
+     if($app=='loto'){
+        $host = 'https://backbone.lebaneseloto.com';
+     }else{
+        $host = 'http://10.20.80.62/' ;
+        //  $host = 'https://globalapi.suyool.money/api/';
+     }
             }
         }
-
         // dd($host.$params['url']);
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
-            curl_setopt($ch, CURLOPT_URL, $host);
+            curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
 
             //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
@@ -62,47 +72,6 @@ class Helper
 
             return $ret;
         }
-    }
-
-    public function clean($string)
-    {
-        $string = preg_replace('/[^.A-Za-z0-9\-]/', ' ', $string); // Removes special chars.
-        $string = preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
-        return trim($string, '-'); // Removes leading/trailing hyphens.
-    }
-
-    public static function getHost($domain){
-        $parsedUrl = parse_url($domain);
-
-        // Get the hostname from the parsed URL
-        $hostname = $parsedUrl['host'];
-
-        // Remove the "www" and any subdomains
-        $parts = explode('.', $hostname);
-        $partsCount = count($parts);
-        if ($partsCount >= 3 && $parts[0] === 'www') {
-            $hostname = implode('.', array_slice($parts, 1));
-        }
-        return $hostname;
-    }
-
-    public static function getBrowserType()
-    {
-        $browser = "";
-        if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("MSIE"))) {
-            $browser = "IE";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Presto"))) {
-            $browser = "opera";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("CHROME"))) {
-            $browser = "chrome";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("SAFARI"))) {
-            $browser = "safari";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("FIREFOX"))) {
-            $browser = "firefox";
-        } else if (strrpos(strtolower($_SERVER["HTTP_USER_AGENT"]), strtolower("Netscape"))) {
-            $browser = "netscape";
-        }
-        return $browser;
     }
 
 }
