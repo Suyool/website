@@ -71,6 +71,12 @@ class loto
      */
     private $bouquet;
 
+     /**
+     * 
+     * @ORM\Column(name="iscompleted")
+     */
+    private $iscompleted;
+
     /**
      * 
      * @ORM\Column(name="create_date",type="datetime")
@@ -185,6 +191,22 @@ class loto
     public function setbouquet($bouquet)
     {
         $this->bouquet=$bouquet;
+        return $this;
+    }
+
+    public function getcompleted()
+    {
+        if($this->iscompleted){
+            return true;
+        }else{
+            return false;
+        }
+        // return $this->bouquet;
+    }
+
+    public function setcompleted($iscompleted)
+    {
+        $this->iscompleted=$iscompleted;
         return $this;
     }
 
