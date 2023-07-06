@@ -18,6 +18,12 @@
         "/build/LegalEnrollement.1e0a3f89.js"
       ]
     },
+    "Alfa": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.2a96ee4a.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
@@ -40,6 +46,14 @@
       ],
       "css": [
         "/build/LegalEnrollementStyle.5fad0f46.css"
+      ]
+    },
+    "AlfaStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/AlfaStyle.e9efc489.css"
       ]
     }
   }
