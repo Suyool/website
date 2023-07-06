@@ -21,7 +21,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.2a96ee4a.js"
+        "/build/Alfa.c9005a6e.js"
       ]
     },
     "styles": {
@@ -53,7 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.e9efc489.css"
+        "/build/AlfaStyle.c09f97dd.css"
       ]
     }
   }

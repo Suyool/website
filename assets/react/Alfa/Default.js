@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from "react";
+
+const Default = ({ activeButton, setActiveButton }) => {
+
+  const handleButtonClick = (name) => {
+    setActiveButton({ name: name });
+  };
+
+  return (
+    <>
+      <div className="MainTitle">What do you want to do?</div>
+
+      <div className="Cards" onClick={() => { handleButtonClick("PayBill") }}>
+        <img src="/build/images/Alfa/alfaLogo.png" alt="alfaLogo" />
+        <div className="Text">
+          <div className="SubTitle">Pay Mobile Bills</div>
+          <div className="description">Settle alfa bills for postpaid cards</div>
+        </div>
+      </div>
+
+      <div className="Cards" onClick={() => { handleButtonClick("ReCharge") }}>
+        <img src="/build/images/Alfa/alfaLogo.png" alt="alfaLogo" />
+        <div className="Text">
+          <div className="SubTitle">Re-charge Alfa</div>
+          <div className="description">Recharge prepaid mobile lines</div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Default;

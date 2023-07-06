@@ -6,7 +6,6 @@
     align-items: center;
     overflow-y: hidden;
 
-    background-color: aqua;
     .scrolableView {
         width: 100%;
         height: 100vh;
@@ -17,47 +16,44 @@
         flex-direction: column;
         align-items: center;
         padding-bottom: 120px;
-    }
-    .resultScroll{
-        padding-bottom: 80px;
-    }
-}
 
-.isHideBack {
-    opacity: 0.4;
-}
+        .MainTitle {
+            font-family: PoppinsMedium;
+            font-size: 16px;
+            color: black;
+            width: 90%;
+            padding-left: 20px;
+            margin-top: 20px;
+        }
 
-#Total {
-    display: flex;
-    flex-direction: row;
-    background-color: #1C2676;
-    border-radius: 25px;
-    padding: 10px 0;
-    margin-top: 30px;
-    width: 90%;
-    justify-content: space-around;
-    letter-spacing: 0.9pt;
+        .Cards {
+            display: flex;
+            flex-direction: row;
+            width: 90%;
+            padding: 20px 10px;
+            border-radius: 6px;
+            border: 1px solid #D8DEE6;
+            box-shadow: 0px 3px 10px #E7EAF0;
+            margin-top: 15px;
 
-    span {
-        color: white;
-        font-size: 15px;
-        font-family: PoppinsSemiBold;
-        padding-left: 20px;
-        margin: auto;
-        width: 30%;
-    }
+            .Text {
+                display: flex;
+                flex-direction: column;
+                padding-left: 10px;
 
-    .thePrice {
-        display: flex;
-        color: white;
-        align-items: center;
-        font-size: 15px;
-        font-family: PoppinsSemiBold;
-        width: 70%;
+                .SubTitle {
+                    font-family: PoppinsSemiBold;
+                    font-size: 16px;
+                    color: black;
+                }
 
-        .big {
-            font-size: 20px;
-            padding-left: 10px;
+                .description {
+                    font-family: PoppinsRegular;
+                    font-size: 14px;
+                    color: #767676;
+                }
+            }
         }
     }
+
 }
