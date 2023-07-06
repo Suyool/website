@@ -48,5 +48,3 @@ phpunit.xml.dist
 public/elections/var/cache/
 !public/elections/var/cache/.gitkeep
 /.history
-
-public/build
