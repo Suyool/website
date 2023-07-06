@@ -6,16 +6,16 @@
         "/build/app1.b8115c60.js"
       ]
     },
-    "app2": {
+    "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app2.bd1c9359.js"
+        "/build/Loto.ffe283ef.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.dc451e9f.js"
+        "/build/LegalEnrollement.1e0a3f89.js"
       ]
     },
     "styles": {
@@ -26,12 +26,12 @@
         "/build/styles.adb49e82.css"
       ]
     },
-    "react_styles": {
+    "Lotostyles": {
       "js": [
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/react_styles.2a4800b6.css"
+        "/build/Lotostyles.2a4800b6.css"
       ]
     },
     "LegalEnrollementStyle": {

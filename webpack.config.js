@@ -41,14 +41,14 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('styles', './assets/styles/app.scss')
-    .addStyleEntry('react_styles', './assets/styles/react.scss')
-    .addStyleEntry('LegalEnrollementStyle', './assets/styles/LegalEnrollement.scss')
+    .addStyleEntry('Lotostyles', './assets/styles/src/react/Loto.scss')
+    .addStyleEntry('LegalEnrollementStyle', './assets/styles/src/react/LegalEnrollement.scss')
     // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
     // .addEntry('app', './assets/app.js')
     // .addEntry('app', './assets/react/index.js')
     .addEntry('app1', './assets/app.js')
-    .addEntry('app2', './assets/react/index.js')
-    .addEntry('LegalEnrollement', './assets/LegalEnrollement/index.js')
+    .addEntry('Loto', './assets/react/Loto/index.js')
+    .addEntry('LegalEnrollement', './assets/react/LegalEnrollement/index.js')
     // .addEntry('admin', './assets/admin.js')
 //    .addEntry('app', ['./assets/js/common.js','./assets/js/breakingNews.js','./assets/js/adCounter.js'])
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
