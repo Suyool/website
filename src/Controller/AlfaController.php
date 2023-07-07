@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +34,8 @@ class AlfaController extends AbstractController
     {
 
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
-        dd($postpaid);
+        $orders = $this->mr->getRepository(Order::class)->findAll();
+        dd($orders);
         $parameters['Test'] = "tst";
 
         return $this->render('alfa/index.html.twig', [
