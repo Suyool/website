@@ -8,6 +8,8 @@ doctrine:
                 url: '%env(resolve:SHOPIFY_DATABASE_URL)%'
             loto:
                 url: '%env(resolve:LOTO_DATABASE_URL)%'
+            alfa:
+                url: '%env(resolve:ALFA_DATABASE_URL)%'
         default_connection: default        
         # charset: UTF8
         # logging: true
@@ -48,6 +50,16 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Loto'
                         prefix: 'App\Entity\Loto'
                         alias: Loto
+            alfa:
+                connection: alfa
+                mappings:
+                    Alfa:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Alfa'
+                        prefix: 'App\Entity\Alfa'
+                        alias: Alfa
+                        
         # dql:
         #     datetime_functions:
         #         UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
