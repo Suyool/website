@@ -4,7 +4,7 @@ import ReCharge from "./ReCharge";
 import Default from "./Default";
 
 const App = ({ parameters }) => {
-    console.log(parameters)
+    // console.log(parameters)
     const [activeButton, setActiveButton] = useState({ name: "" });
 
     return (
