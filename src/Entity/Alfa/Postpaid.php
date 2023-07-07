@@ -22,87 +22,94 @@ class Postpaid
 
     /**
      * 
-     * @ORM\Column(name="transactionId",type="integer")
-     */
-    private $transactionId;
-
-    /**
-     * 
-     * @ORM\Column(name="Fees",type="integer")
-     */
-    private $Fees;
-
-    /**
-     * 
-     * @ORM\Column(name="Fees1",type="integer")
-     */
-    private $Fees1;
-
-    /**
-     * 
-     * @ORM\Column(name="Amount")
-     */
-    private $Amount;
-
-    /**
-     * 
-     * @ORM\Column(name="Amount1")
-     */
-    private $Amount1;
-
-    /**
-     * 
-     * @ORM\Column(name="Amount2")
-     */
-    private $Amount2;
-
-    /**
-     * 
-     * @ORM\Column(name="ReferenceNumber",type="integer")
-     */
-    private $ReferenceNumber;
-
-    /**
-     * 
-     * @ORM\Column(name="InformativeOriginalWSAmount")
-     */
-    private $InformativeOriginalWSAmount;
-
-    /**
-     * 
-     * @ORM\Column(name="TotalAmount")
-     */
-    private $TotalAmount;
-
-    /**
-     * 
-     * @ORM\Column(name="Currency",type="string")
-     */
-    private $Currency;
-
-    /**
-     * 
-     * @ORM\Column(name="Rounding",type="integer")
-     */
-    private $Rounding;
-
-    /**
-     * 
-     * @ORM\Column(name="AdditionalFees",type="integer")
-     */
-    private $AdditionalFees;
-
-    /**
-     * 
      * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
     /**
      * 
+     * @ORM\Column(name="gsmNumber")
+     */
+    private $gsmNumber;
+
+    /**
+     * 
+     * @ORM\Column(name="currency",type="string")
+     */
+    private $currency;
+    
+    /**
+     * 
      * @ORM\Column(name="pin",type="integer")
      */
     private $pin;
+
+    /**
+     * 
+     * @ORM\Column(name="transactionId")
+     */
+    private $transactionId;
+
+    /**
+     * 
+     * @ORM\Column(name="fees",type="integer")
+     */
+    private $fees;
+
+    /**
+     * 
+     * @ORM\Column(name="fees1",type="integer")
+     */
+    private $fees1;
+
+    /**
+     * 
+     * @ORM\Column(name="amount")
+     */
+    private $amount;
+
+    /**
+     * 
+     * @ORM\Column(name="amount1")
+     */
+    private $amount1;
+
+    /**
+     * 
+     * @ORM\Column(name="amount2")
+     */
+    private $amount2;
+
+    /**
+     * 
+     * @ORM\Column(name="referenceNumber",type="integer")
+     */
+    private $referenceNumber;
+
+    /**
+     * 
+     * @ORM\Column(name="informativeOriginalWSamount")
+     */
+    private $informativeOriginalWSamount;
+
+    /**
+     * 
+     * @ORM\Column(name="totalamount")
+     */
+    private $totalamount;
+
+    /**
+     * 
+     * @ORM\Column(name="rounding",type="integer")
+     */
+    private $rounding;
+
+    /**
+     * 
+     * @ORM\Column(name="additionalfees",type="integer")
+     */
+    private $additionalfees;
+
 
 
 
@@ -112,125 +119,115 @@ class Postpaid
     }
 
 
-    public function getTransactionId()
+    public function getfees()
     {
-        return $this->transactionId;
+        return $this->fees;
     }
 
-    public function setTransactionId($transactionId)
+    public function setfees($fees)
     {
-        $this->transactionId = $transactionId;
+        $this->fees = $fees;
     }
 
-    public function getFees()
+    public function getfees1()
     {
-        return $this->Fees;
+        return $this->fees1;
     }
 
-    public function setFees($Fees)
+    public function setfees1($fees1)
     {
-        $this->Fees = $Fees;
+        $this->fees1 = $fees1;
     }
 
-    public function getFees1()
+    public function getamount()
     {
-        return $this->Fees1;
+        return $this->amount;
     }
 
-    public function setFees1($Fees1)
+    public function setamount($amount)
     {
-        $this->Fees1 = $Fees1;
-    }
-
-    public function getAmount()
-    {
-        return $this->Amount;
-    }
-
-    public function setAmount($Amount)
-    {
-        $this->Amount = $Amount;
+        $this->amount = $amount;
     }
 
 
-    public function getAmount1()
+    public function getamount1()
     {
-        return $this->Amount1;
+        return $this->amount1;
     }
 
-    public function setAmount1($Amount1)
+    public function setamount1($amount1)
     {
-        $this->Amount1 = $Amount1;
+        $this->amount1 = $amount1;
     }
 
-    public function getAmount2()
+    public function getamount2()
     {
-        return $this->Amount2;
+        return $this->amount2;
     }
 
-    public function setAmount2($Amount2)
+    public function setamount2($amount2)
     {
-        $this->Amount2 = $Amount2;
+        $this->amount2 = $amount2;
     }
 
-    public function getReferenceNumber()
+    public function getreferenceNumber()
     {
-        return $this->ReferenceNumber;
+        return $this->referenceNumber;
     }
 
-    public function setReferenceNumber($ReferenceNumber)
+    public function setreferenceNumber($referenceNumber)
     {
-        $this->ReferenceNumber = $ReferenceNumber;
+        $this->referenceNumber = $referenceNumber;
     }
 
-    public function getInformativeOriginalWSAmount()
+    public function getinformativeOriginalWSamount()
     {
-        return $this->InformativeOriginalWSAmount;
+        return $this->informativeOriginalWSamount;
     }
 
-    public function setInformativeOriginalWSAmount($InformativeOriginalWSAmount)
+    public function setinformativeOriginalWSamount($informativeOriginalWSamount)
     {
-        $this->InformativeOriginalWSAmount = $InformativeOriginalWSAmount;
+        $this->informativeOriginalWSamount = $informativeOriginalWSamount;
     }
 
-    public function getTotalAmount()
+    public function gettotalamount()
     {
-        return $this->TotalAmount;
+        return $this->totalamount;
     }
 
-    public function setTotalAmount($TotalAmount)
+    public function settotalamount($totalamount)
     {
-        $this->TotalAmount = $TotalAmount;
+        $this->totalamount = $totalamount;
     }
 
-    public function getCurrency()
+    public function getcurrency()
     {
-        return $this->Currency;
+        return $this->currency;
     }
 
-    public function setCurrency($Currency)
+    public function setcurrency($currency)
     {
-        $this->Currency = $Currency;
+        $this->currency = $currency;
     }
 
-    public function getRounding()
+    public function getrounding()
     {
-        return $this->Rounding;
+        return $this->rounding;
     }
 
-    public function setRounding($Rounding)
+    public function setrounding($rounding)
     {
-        $this->Rounding = $Rounding;
+        $this->rounding = $rounding;
     }
 
-    public function getAdditionalFees()
+    public function getadditionalfees()
     {
-        return $this->AdditionalFees;
+        return $this->additionalfees;
     }
 
-    public function setAdditionalFees($AdditionalFees)
+    public function setadditionalfees($additionalfees)
     {
-        $this->AdditionalFees = $AdditionalFees;
+        $this->additionalfees = $additionalfees;
     }
 
     public function getSuyoolUserId()
@@ -251,5 +248,25 @@ class Postpaid
     public function setPin($pin)
     {
         $this->pin = $pin;
+    }
+
+    function getGsmNumber()
+    {
+        return $this->gsmNumber;
+    }
+
+    function setGsmNumber($gsmNumber)
+    {
+        $this->gsmNumber = $gsmNumber;
+    }
+
+    function getTransactionId()
+    {
+        return $this->transactionId;
+    }
+
+    function setTransactionId($transactionId)
+    {
+        $this->transactionId = $transactionId;
     }
 }

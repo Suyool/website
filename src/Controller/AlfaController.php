@@ -27,6 +27,7 @@ class AlfaController extends AbstractController
     {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
+        dd($postpaid);
         $parameters['Test'] = "tst";
 
         return $this->render('alfa/index.html.twig', [
