@@ -10,7 +10,7 @@ const PayBill = ({ activeButton, setActiveButton }) => {
     console.log("Currency:", currency);
 
     axios
-      .post("/alfa/play",
+      .post("/alfa/bill",
         {
           mobileNumber: mobileNumber
         }
@@ -22,7 +22,7 @@ const PayBill = ({ activeButton, setActiveButton }) => {
         console.log(error);
       });
 
-    setActiveButton("MyBill")
+    // setActiveButton("MyBill")
 
   };
 

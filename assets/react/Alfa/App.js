@@ -6,7 +6,7 @@ import Default from "./Default";
 
 const App = ({ parameters }) => {
     // console.log(parameters)
-    const [activeButton, setActiveButton] = useState({ name: "MyBill" });
+    const [activeButton, setActiveButton] = useState({ name: "" });
 
     return (
         <div id="AlfaBody">

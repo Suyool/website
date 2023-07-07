@@ -5,6 +5,20 @@ const MyBill = () => {
 
   const handlePayNow = () => {
     console.log("handlePayNow");
+
+    axios
+      .post("/alfa/bill/pay",
+        {
+          mobileNumber: mobileNumber
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   };
   return (
     <div id="MyBill">
