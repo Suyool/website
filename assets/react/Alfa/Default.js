@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-const Default = ({ activeButton, setActiveButton }) => {
+const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+
+  useEffect(() => {
+    setHeaderTitle("Alfa")
+    setBackLink("default")
+  }, [])
 
   const handleButtonClick = (name) => {
     setActiveButton({ name: name });

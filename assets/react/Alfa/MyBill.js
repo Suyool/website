@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = () => {
+const MyBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+  useEffect(() => {
+    setHeaderTitle("Pay Mobile Bill")
+    setBackLink("PayBill")
+  }, [])
 
   const handlePayNow = () => {
     console.log("handlePayNow");

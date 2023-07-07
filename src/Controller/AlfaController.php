@@ -105,63 +105,63 @@ class AlfaController extends AbstractController
     }
 
 
-    /**
-     * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
-     */
-    public function billPay(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
+    // /**
+    //  * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
+    //  */
+    // public function billPay(Request $request)
+    // {
+    //     $data = json_decode($request->getContent(), true);
 
-        if ($data != null) {
-            $params['mobileNumber'] = json_encode($data['mobileNumber'], true);
+    //     if ($data != null) {
+    //         $params['mobileNumber'] = json_encode($data['mobileNumber'], true);
 
-            $form_data = [
-                "ChannelType" => "API",
-                "ItemId" => "1",
-                "VenId" => "1",
-                "ProductId" => "4",
-                "TransactionId" => $tst,
+    //         $form_data = [
+    //             "ChannelType" => "API",
+    //             "ItemId" => "1",
+    //             "VenId" => "1",
+    //             "ProductId" => "4",
+    //             "TransactionId" => $tst,
 
-                "AlfaBillResult" => [
-                    "Fees" => $tst,
-                    "TransactionId" => $tst,
-                    "Amount" => $tst,
-                    "Amount1" => $tst,
-                    "ReferenceNumber" => $tst,
-                    "Fees1" => $tst,
-                    "Amount2" => $tst,
-                    "InformativeOriginalWSAmount" => $tst,
-                    "TotalAmount" => $tst,
-                    "Currency" => $tst,
-                    "Rounding" => $tst,
-                    "AdditionalFees" => $tst,
-                ],
-                "Credentials" => [
-                    "User" => "suyool1",
-                    "Password" => "SUYOOL1"
-                ]
-            ];
+    //             "AlfaBillResult" => [
+    //                 "Fees" => $tst,
+    //                 "TransactionId" => $tst,
+    //                 "Amount" => $tst,
+    //                 "Amount1" => $tst,
+    //                 "ReferenceNumber" => $tst,
+    //                 "Fees1" => $tst,
+    //                 "Amount2" => $tst,
+    //                 "InformativeOriginalWSAmount" => $tst,
+    //                 "TotalAmount" => $tst,
+    //                 "Currency" => $tst,
+    //                 "Rounding" => $tst,
+    //                 "AdditionalFees" => $tst,
+    //             ],
+    //             "Credentials" => [
+    //                 "User" => "suyool1",
+    //                 "Password" => "SUYOOL1"
+    //             ]
+    //         ];
 
-            $params['data'] = json_encode($form_data);
-            $params['url'] = '/BoBFinanceAPI/WS/RetrieveChannelResults';
-            // dd($params['data']);
+    //         $params['data'] = json_encode($form_data);
+    //         $params['url'] = '/BoBFinanceAPI/WS/RetrieveChannelResults';
+    //         // dd($params['data']);
 
-            /*** Call the api ***/
-            $response = Helper::send_curl($params, 'alfa');
+    //         /*** Call the api ***/
+    //         $response = Helper::send_curl($params, 'alfa');
 
-            $parameters['update_utility_response'] = json_decode($response, true);
-            $message = "connected";
+    //         $parameters['update_utility_response'] = json_decode($response, true);
+    //         $message = "connected";
 
-            dd($parameters['update_utility_response']);
-        } else {
-            $message = "not connected";
-        }
+    //         dd($parameters['update_utility_response']);
+    //     } else {
+    //         $message = "not connected";
+    //     }
 
-        dd($data);
+    //     dd($data);
 
-        return new JsonResponse([
-            'status' => true,
-            'message' => $message
-        ], 200);
-    }
+    //     return new JsonResponse([
+    //         'status' => true,
+    //         'message' => $message
+    //     ], 200);
+    // }
 }

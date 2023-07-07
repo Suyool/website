@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ activeButton, setActiveButton }) => {
+const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [currency, setCurrency] = useState("USD");
+
+  useEffect(() => {
+    setHeaderTitle("Pay Mobile Bill")
+    setBackLink("")
+  }, [])
 
   const handleContinue = () => {
     console.log("Mobile Number:", mobileNumber);
@@ -22,7 +27,7 @@ const PayBill = ({ activeButton, setActiveButton }) => {
         console.log(error);
       });
 
-    // setActiveButton("MyBill")
+    setActiveButton({ name: "MyBill" });
 
   };
 

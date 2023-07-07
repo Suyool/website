@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -19,6 +20,17 @@
   "build/AlfaStyle.css": "/build/AlfaStyle.23c9eacf.css",
 >>>>>>> f94fa5e (add mybill page)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
+=======
+  "build/app1.js": "/build/app1.js",
+  "build/Loto.js": "/build/Loto.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
+  "build/Alfa.js": "/build/Alfa.js",
+  "build/styles.css": "/build/styles.css",
+  "build/Lotostyles.css": "/build/Lotostyles.css",
+  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
+  "build/AlfaStyle.css": "/build/AlfaStyle.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> 044b2e9 (handle header navigation)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
@@ -119,5 +131,6 @@
   "build/images/Loto/trash.png": "/build/images/Loto/trash.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/remove-till.png": "/build/images/remove-till.png",
-  "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg"
+  "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
+  "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
 }

@@ -2,28 +2,34 @@
   "entrypoints": {
     "app1": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
 =======
         "/build/app1.b8115c60.js"
 >>>>>>> f94fa5e (add mybill page)
+=======
+        "/build/runtime.js",
+        "/build/app1.js"
+>>>>>>> 044b2e9 (handle header navigation)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.ffe283ef.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.1e0a3f89.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -34,42 +40,50 @@
 =======
         "/build/Alfa.5e533887.js"
 >>>>>>> c3d6ade (reconect to utc)
+=======
+        "/build/runtime.js",
+        "/build/Alfa.js"
+>>>>>>> 044b2e9 (handle header navigation)
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.adb49e82.css"
+        "/build/styles.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.2a4800b6.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.5fad0f46.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/AlfaStyle.c09f97dd.css"
 =======
         "/build/AlfaStyle.23c9eacf.css"
 >>>>>>> f94fa5e (add mybill page)
+=======
+        "/build/AlfaStyle.css"
+>>>>>>> 044b2e9 (handle header navigation)
       ]
     }
   }
