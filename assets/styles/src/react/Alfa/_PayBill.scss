@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     overflow-y: hidden;
-    padding: 20px 10px;
+    padding: 20px 15px;
 
     .mainTitle {
         font-family: PoppinsMedium;
@@ -67,32 +67,38 @@
             color: black;
         }
 
-        .currencies {
-            display: flex;
-            flex-direction: row;
 
-            .Currency {
-                font-family: PoppinsSemiBold;
-                font-size: 12px;
-                color: black;
-                border: 1px solid #D8DEE6;
-                box-shadow: 0px 3px 6px #00000029;
-                border-radius: 5px;
-                padding: 6px 22px;
-                margin-left: 20px;
-            }
+    }
 
-            .activeCurrency {
-                font-family: PoppinsSemiBold;
-                font-size: 12px;
-                color: #9C9DA2;
-                padding: 6px 22px;
-                margin-left: 20px;  
-            }
+    .currencies {
+        display: flex;
+        flex-direction: row;
+        padding-top: 20px;
+        width: 100%;
+
+        .activeCurrency {
+            font-family: PoppinsSemiBold;
+            font-size: 12px;
+            color: #7AA7C0;
+            border: 1px solid #7AA7C0;
+            box-shadow: 0px 3px 6px #00000029;
+            border-radius: 10px;
+            padding: 9px 30px;
+            margin-right: 20px;
+        }
+
+        .Currency {
+            font-family: PoppinsSemiBold;
+            font-size: 12px;
+            background-color: #7AA7C0;
+            color: white;
+            border-radius: 10px;
+            padding: 9px 30px;
+            margin-right: 20px;
         }
     }
 
-    .btnCont{
+    .btnCont {
         position: absolute;
         bottom: 20px;
         width: 90%;

@@ -45,14 +45,16 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
 
       <div className="pCurrency">
         <div className="subTitle">My Payment Currency</div>
-        <div className="currencies">
-          <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
-          <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-        </div>
+
       </div>
 
-      {currency == "USD" && <p>USD</p>}
-      {currency == "LBP" && <p>LBP</p>}
+      <div className="currencies">
+        <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
+        <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
+      </div>
+      
+      {/* {currency == "USD" && <p>USD</p>}
+      {currency == "LBP" && <p>LBP</p>} */}
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
     </div>

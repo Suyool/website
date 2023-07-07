@@ -12,7 +12,7 @@ const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
   };
 
   return (
-    <>
+    <div id="Default">
       <div className="MainTitle">What do you want to do?</div>
 
       <div className="Cards" onClick={() => { handleButtonClick("PayBill") }}>
@@ -30,7 +30,7 @@ const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
           <div className="description">Recharge prepaid mobile lines</div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
