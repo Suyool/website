@@ -8,6 +8,7 @@ use App\Entity\Loto\LOTO_numbers;
 use App\Entity\Loto\LOTO_plays;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\LOTO_tickets;
+use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
 use App\Entity\Loto\Table1;
 use App\Utils\Helper;
@@ -138,7 +139,6 @@ class LotoController extends AbstractController
             }
             
         }
-
     }
 
     /**
@@ -172,7 +172,7 @@ class LotoController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
                 foreach ($getPlayedBalls as $item) {
-                    $currency=$item['currency'];
+                    $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
                     if ($withZeed == false) {
                         $withZeed = 0;
@@ -195,7 +195,7 @@ class LotoController extends AbstractController
                             $loto->setOrderId($orderid)
                                 ->setdrawnumber($drawnumber)
                                 ->setnumdraws($numDraws)
-                                ->setWithZeed($withZeed)
+                                ->setWithZeed(true)
                                 ->setgridSelected($ballsArray)
                                 ->setprice($item['price'])
                                 ->setcurrency($currency)
@@ -204,7 +204,6 @@ class LotoController extends AbstractController
                             $this->mr->persist($loto);
                             $this->mr->flush();
                         }
-
                     }
                 }
                 if ($ballsArrayNoZeed != null) {
@@ -216,7 +215,7 @@ class LotoController extends AbstractController
                     $loto->setOrderId($orderid)
                         ->setdrawnumber($drawnumber)
                         ->setnumdraws($numDraws)
-                        ->setWithZeed($withZeed)
+                        ->setWithZeed(false)
                         ->setgridSelected($selected)
                         ->setprice($amounttotal)
                         ->setcurrency($currency)
@@ -259,7 +258,7 @@ class LotoController extends AbstractController
 
                     $this->mr->persist($orderid);
                     $this->mr->flush();
-                    
+
 
                     $Hash = base64_encode(hash($this->hash_algo, $parameters['push_utility_response']['data'] . "testing" . $this->certificate, true));
 
@@ -277,43 +276,66 @@ class LotoController extends AbstractController
                     print_r($parameters['update_utility_response']);
                     $message = "You have played your grid , Best of luck :)";
                 } else {
-                    $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);                    
+                    $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
+                    // dd($lotoid);               
                     foreach ($lotoid as $index => $lotoid) {
                         if ($index === 0 || $index === 1) {
                             $arr = 1;
                         } else {
                             $arr = 0;
                         }
-                    
+
                         if ($arr == 1) {
                             $lotoid->setcompleted(true);
                         } else {
                             $lotoid->setcompleted(false);
                         }
-                    
+
                         $this->mr->persist($lotoid);
                         $this->mr->flush();
                     }
-                    $lotoidcompleted = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid,'iscompleted'=>true]);
-                    foreach ($lotoidcompleted as $lotoidcompleted) {
-                        $sum += $lotoidcompleted->getprice();
+                    $lotoidcompleted = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid, 'iscompleted' => true]);
+                    foreach ($lotoidcompleted as $lotoidcompletedsum) {
+                        $sum += $lotoidcompletedsum->getprice();
                     }
+                    $transId = rand();
                     $orderid->setamount($sum)
-                        ->setcurrency($lotoidcompleted->getcurrency())
-                        // ->set
+                        ->setcurrency($lotoidcompletedsum->getcurrency())
+                        ->settransId($transId)
                         ->setstatus("completed");
 
-                        $this->mr->persist($orderid);
-                        $this->mr->flush();
+                    $this->mr->persist($orderid);
+                    $this->mr->flush();
 
-                        $message = "You have played your grid , Best of luck :)";
-                        // ->settransId($parameters['push_utility_response']['data']);
+
+                    // $orderCompleted = $this->mr->getRepository(loto::class)->getlotonotify($transId,$orderid);
+
+                    $orderCompleted = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'completed', 'transId' => $transId]);
+                    // dd($orderCompleted);
+                    foreach ($lotoidcompleted as $lotoidcompletedtonot) {
+                        // dd($lotoidcompletedtonot);
+                        $notification = new notification;
+                        $notification->setOrderId($orderCompleted);
+                        $notification->settransId($orderCompleted->gettransId());
+                        $notification->setText("Hello {fname}, thanks for playing loto using suyool");
+                        $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                        $notification->setamount($lotoidcompletedtonot->getprice());
+                        $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                        $notification->setdraw($lotoidcompletedtonot->getdrawnumber());
+                        $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                        $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+
+                        $this->mr->persist($notification);
+                        $this->mr->flush();
+                    }
+                    // ->settransId($parameters['push_utility_response']['data']);
 
                     // $message = $parameters['push_utility_response']['message'];
                     // $orderid
                     //     ->setstatus("canceled");
                     //     $this->mr->persist($orderid);
                     //     $this->mr->flush();
+                    $message = "You have played your grid , Best of luck :)";
                 }
             } else {
                 $message = "You dont have grid available";
@@ -334,44 +356,72 @@ class LotoController extends AbstractController
     public function getData(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        if($data!=null){
-            $transId=$data['transId'];
-            $order=$data['orderId'];
-            $lotodata=$this->mr->getRepository(loto::class)->getData($transId,$order);
-            if($lotodata!=null){
-                $response=[];
-                foreach($lotodata as $lotodata)
-                {
-                    $response [] = [
-                        'orderId'=>$lotodata->getOrderId()->getId(),
-                        'transId'=>$transId,
-                        'ticketId'=>$lotodata->getticketId(),
-                        'gridSelected'=>$lotodata->getgridSelected(),
-                        'price'=>$lotodata->getprice(),
-                        'currency'=>$lotodata->getcurrency(),
-                        'bouquet'=>$lotodata->getbouquet(),
-                        'zeed'=>$lotodata->getwithZeed()
-    
+        if ($data != null) {
+            $transId = $data['transId'];
+            $order = $data['orderId'];
+            $lotodata = $this->mr->getRepository(loto::class)->getData($transId, $order);
+            if ($lotodata != null) {
+                $response = [];
+                foreach ($lotodata as $lotodata) {
+                    $response[] = [
+                        'orderId' => $lotodata->getOrderId()->getId(),
+                        'transId' => $transId,
+                        'ticketId' => $lotodata->getticketId(),
+                        'gridSelected' => $lotodata->getgridSelected(),
+                        'price' => $lotodata->getprice(),
+                        'currency' => $lotodata->getcurrency(),
+                        'bouquet' => $lotodata->getbouquet(),
+                        'zeed' => $lotodata->getwithZeed()
+
                     ];
                 }
                 return new JsonResponse([
-                    'status'=>true,
-                    'data'=>$response
+                    'status' => true,
+                    'data' => $response
                 ]);
-            }else{
+            } else {
                 return new JsonResponse([
-                    'status'=>true,
-                    'data'=>'No data for the user Found'
+                    'status' => true,
+                    'data' => 'No data for the user Found'
                 ]);
             }
-        }else{
+        } else {
             return new JsonResponse([
-                'message'=>'No data Founds'
+                'message' => 'No data Founds'
             ]);
         }
-        
-
     }
 
+    /**
+     * @Route("/loto/notification", name="app_notification",methods="GET")
+     * 
+     */
+    public function notification(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        $withZeed = $data['withZeed'];
 
+        if ($withZeed) {
+            $notification = $this->mr->getRepository(notification::class)->findBy(['withZeed' => $withZeed]);
+            foreach ($notification as $withZEED) {
+                $response[] = [
+                    'id'=>$withZEED->getId(),
+                    'order_id'=>$withZEED->getOrderId()->getId()
+                ];
+            }
+        } else {
+            $notification = $this->mr->getRepository(notification::class)->findBy(['withZeed' => $withZeed]);
+            foreach ($notification as $notZEED) {
+                $response[] = [
+                    'id'=>$notZEED->getId(),
+                    'order_id'=>$notZEED->getorderId()
+                ];
+            }
+        }
+
+        return new JsonResponse([
+            'status' => true,
+            'data' => $response
+        ], 200);
+    }
 }
