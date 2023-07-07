@@ -15,7 +15,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 120px;
+        // padding-bottom: 120px;
 
         .MainTitle {
             font-family: PoppinsMedium;
@@ -56,4 +56,15 @@
         }
     }
 
+}
+
+#ContinueBtn {
+    width: 100%;
+    padding: 13px;
+    text-align: center;
+    background-color: #226D96;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-family: PoppinsMedium;
 }
