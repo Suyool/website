@@ -37,9 +37,8 @@ class notification
      */
     private $transId;
 
-     /**
-     * 
-     * @ORM\Column(name="draw")
+    /**
+     * @ORM\ManyToOne(targetEntity=LOTO_draw::class, inversedBy="id")
      */
     private $draw;
 
@@ -103,6 +102,12 @@ class notification
      */
     private $currency;
 
+    /**
+     * 
+     * @ORM\Column(name="resultDate")
+     */
+    private $resultDate;
+
     public function getId()
     {
         return $this->id;
@@ -165,14 +170,14 @@ class notification
         return $this;
     }
 
-    public function getdraw()
+    public function getDrawId(): ?LOTO_draw
     {
-        return $this->draw;
+        return $this->order;
     }
 
-    public function setdraw($draw)
+    public function setDrawId(?LOTO_draw $draw_id): self
     {
-        $this->draw = $draw;
+        $this->draw = $draw_id;
 
         return $this;
     }
@@ -196,6 +201,17 @@ class notification
     public function setText($text)
     {
         $this->text = $text;
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
         return $this;
     }
 
@@ -229,6 +245,66 @@ class notification
     public function setGrids($grids)
     {
         $this->grids = $grids;
+        return $this;
+    }
+
+    /**
+     * Get the value of notify
+     */ 
+    public function getNotify()
+    {
+        return $this->notify;
+    }
+
+    /**
+     * Set the value of notify
+     *
+     * @return  self
+     */ 
+    public function setNotify($notify)
+    {
+        $this->notify = $notify;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of subject
+     */ 
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set the value of subject
+     *
+     * @return  self
+     */ 
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of resultDate
+     */ 
+    public function getResultDate()
+    {
+        return $this->resultDate;
+    }
+
+    /**
+     * Set the value of resultDate
+     *
+     * @return  self
+     */ 
+    public function setResultDate($resultDate)
+    {
+        $this->resultDate = $resultDate;
+
         return $this;
     }
 }

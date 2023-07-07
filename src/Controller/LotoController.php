@@ -313,19 +313,48 @@ class LotoController extends AbstractController
                     $orderCompleted = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'completed', 'transId' => $transId]);
                     // dd($orderCompleted);
                     foreach ($lotoidcompleted as $lotoidcompletedtonot) {
-                        // dd($lotoidcompletedtonot);
-                        $notification = new notification;
-                        $notification->setOrderId($orderCompleted);
-                        $notification->settransId($orderCompleted->gettransId());
-                        $notification->setText("Hello {fname}, thanks for playing loto using suyool");
-                        $notification->setGrids($lotoidcompletedtonot->getgridSelected());
-                        $notification->setamount($lotoidcompletedtonot->getprice());
-                        $notification->setcurrency($lotoidcompletedtonot->getcurrency());
-                        $notification->setdraw($lotoidcompletedtonot->getdrawnumber());
-                        $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                        $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                        $drawId=$this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoidcompletedtonot->getdrawnumber()]);
+                        if($lotoidcompletedtonot->getwithZeed()){
+                            $notification = new notification;
+                            $notification->setIdentifier('Play With Zeed');
+                            $notification->setTitle("LOTO Ticket Confirmed");
+                            $notification->setNotify("You have successfully purchased a LOTO ticket with Zeed");
+                            $notification->setSubject("LOTO Ticket Confirmed");
+                            $notification->setOrderId($orderCompleted);
+                            $notification->settransId($orderCompleted->gettransId());
+                            $notification->setText("Draw ".$lotoidcompletedtonot->getdrawnumber()."<br>".$lotoidcompletedtonot->getgridSelected()."");
+                            $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                            $notification->setamount($lotoidcompletedtonot->getprice());
+                            $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                            $notification->setDrawId($drawId);
+                            $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                            $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                            $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
-                        $this->mr->persist($notification);
+    
+                            $this->mr->persist($notification);
+                        }else{
+                            // dd($drawId->getdrawdate());
+                            $notification = new notification;
+                            $notification->setIdentifier('Play Without Zeed');
+                            $notification->setTitle("LOTO Ticket Confirmed");
+                            $notification->setNotify("You have successfully purchased a LOTO ticket with Zeed");
+                            $notification->setSubject("LOTO Ticket Confirmed");
+                            $notification->setOrderId($orderCompleted);
+                            $notification->settransId($orderCompleted->gettransId());
+                            $notification->setText("Draw ".$lotoidcompletedtonot->getdrawnumber()."<br>".$lotoidcompletedtonot->getgridSelected()."");
+                            $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                            $notification->setamount($lotoidcompletedtonot->getprice());
+                            $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                            $notification->setDrawId($drawId);
+                            $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                            $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                            $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+    
+                            $this->mr->persist($notification);
+                        }
+                        // dd($lotoidcompletedtonot);
+                        
                         $this->mr->flush();
                     }
                     // ->settransId($parameters['push_utility_response']['data']);
