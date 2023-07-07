@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PayBill from "./PayBill";
 import ReCharge from "./ReCharge";
+import MyBill from "./MyBill";
 import Default from "./Default";
 
 const App = ({ parameters }) => {
     // console.log(parameters)
-    const [activeButton, setActiveButton] = useState({ name: "" });
+    const [activeButton, setActiveButton] = useState({ name: "MyBill" });
 
     return (
         <div id="AlfaBody">
@@ -13,9 +14,10 @@ const App = ({ parameters }) => {
 
                 {activeButton.name === "" && <Default activeButton={activeButton} setActiveButton={setActiveButton} />}
 
-                {activeButton.name === "PayBill" && <PayBill />}
-                {activeButton.name === "ReCharge" && <ReCharge />}
+                {activeButton.name === "PayBill" && <PayBill activeButton={activeButton} setActiveButton={setActiveButton} />}
+                {activeButton.name === "ReCharge" && <ReCharge activeButton={activeButton} setActiveButton={setActiveButton} />}
 
+                {activeButton.name === "MyBill" && <MyBill activeButton={activeButton} setActiveButton={setActiveButton}/>}
 
             </div>
 

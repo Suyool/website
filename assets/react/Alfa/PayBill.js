@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = () => {
+const PayBill = ({ activeButton, setActiveButton }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [currency, setCurrency] = useState("USD");
 
@@ -21,6 +21,9 @@ const PayBill = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    setActiveButton("MyBill")
+
   };
 
   return (

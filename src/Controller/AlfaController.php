@@ -27,7 +27,7 @@ class AlfaController extends AbstractController
     {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
-        dd($postpaid);
+        // dd($postpaid);
         $parameters['Test'] = "tst";
 
         return $this->render('alfa/index.html.twig', [
@@ -57,15 +57,16 @@ class AlfaController extends AbstractController
             ];
 
             $params['data'] = json_encode($form_data);
-            // dd($params['data']);
             $params['url'] = '/BoBFinanceAPI/WS/RetrieveChannelResults';
+            // dd($params['data']);
 
-            $response = Helper::send_curl($params,'alfa');
+            /*** Call the api ***/
+            $response = Helper::send_curl($params, 'alfa');
 
             $parameters['update_utility_response'] = json_decode($response, true);
             $message = "connected";
 
-            dd( $parameters['update_utility_response'] );
+            dd($parameters['update_utility_response']);
         } else {
             $message = "not connected";
         }
