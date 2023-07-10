@@ -7,7 +7,7 @@ import Header from "./Header";
 
 const App = ({ parameters }) => {
     // console.log(parameters)
-    const [activeButton, setActiveButton] = useState({ name: "" });
+    const [activeButton, setActiveButton] = useState({ name: "MyBill" });
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
 

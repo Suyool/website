@@ -52,8 +52,12 @@
 >>>>>>> 044b2e9 (handle header navigation)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.7198f810.js"
 >>>>>>> 1e22ae9 (add pin section)
+=======
+        "/build/Alfa.d4951764.js"
+>>>>>>> 99c5574 (add payment confirmation)
       ]
     },
     "styles": {
@@ -88,6 +92,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.c09f97dd.css"
 =======
         "/build/AlfaStyle.23c9eacf.css"
@@ -98,6 +103,9 @@
 =======
         "/build/AlfaStyle.1a3ea042.css"
 >>>>>>> 1e22ae9 (add pin section)
+=======
+        "/build/AlfaStyle.1706801a.css"
+>>>>>>> 99c5574 (add payment confirmation)
       ]
     }
   }

@@ -14,18 +14,18 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
     // console.log("Mobile Number:", mobileNumber);
     // console.log("Currency:", currency);
 
-    // axios
-    //   .post("/alfa/bill",
-    //     {
-    //       mobileNumber: mobileNumber
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .post("/alfa/bill",
+        {
+          mobileNumber: mobileNumber
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     setActiveButton({ name: "MyBill" });
 
