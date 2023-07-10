@@ -29,7 +29,7 @@
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.1e0a3f89.js"
+        "/build/LegalEnrollement.2a0493dc.js"
       ]
     },
     "Alfa": {
@@ -37,6 +37,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/Alfa.c9005a6e.js"
@@ -58,6 +59,9 @@
 =======
         "/build/Alfa.d4951764.js"
 >>>>>>> 99c5574 (add payment confirmation)
+=======
+        "/build/Alfa.f46eb24e.js"
+>>>>>>> f91ea19 (working on modal)
       ]
     },
     "styles": {
@@ -93,6 +97,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.c09f97dd.css"
 =======
         "/build/AlfaStyle.23c9eacf.css"
@@ -106,6 +111,9 @@
 =======
         "/build/AlfaStyle.1706801a.css"
 >>>>>>> 99c5574 (add payment confirmation)
+=======
+        "/build/AlfaStyle.96641374.css"
+>>>>>>> f91ea19 (working on modal)
       ]
     }
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -44,6 +44,15 @@ const MyBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) 
     }
   };
 
+  const handleConfirmPay = () => {
+    setModalName("SuccessModal");
+    setSuccessModal({
+      imgPath: "/build/images/Alfa/SuccessImg.png",
+      title: "Alfa Bill Paid Successfully",
+      desc: "You have successfully paid your Alfa bill of {currency}{amount}."
+    })
+  };
+
   return (
     <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
 
@@ -68,7 +77,7 @@ const MyBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) 
             </div>
 
             <div className="footSectionPick">
-              <button>Confirm & Pay</button>
+              <button onClick={handleConfirmPay} >Confirm & Pay</button>
             </div>
           </div>
         </>
