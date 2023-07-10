@@ -3,6 +3,7 @@
     "app1": {
       "js": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -13,22 +14,27 @@
         "/build/runtime.js",
         "/build/app1.js"
 >>>>>>> 044b2e9 (handle header navigation)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.b8115c60.js"
+>>>>>>> 1e22ae9 (add pin section)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.ffe283ef.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.1e0a3f89.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
@@ -44,37 +50,42 @@
         "/build/runtime.js",
         "/build/Alfa.js"
 >>>>>>> 044b2e9 (handle header navigation)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.7198f810.js"
+>>>>>>> 1e22ae9 (add pin section)
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.adb49e82.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.2a4800b6.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.5fad0f46.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/AlfaStyle.c09f97dd.css"
@@ -84,6 +95,9 @@
 =======
         "/build/AlfaStyle.css"
 >>>>>>> 044b2e9 (handle header navigation)
+=======
+        "/build/AlfaStyle.1a3ea042.css"
+>>>>>>> 1e22ae9 (add pin section)
       ]
     }
   }

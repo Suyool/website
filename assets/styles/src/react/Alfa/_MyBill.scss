@@ -16,10 +16,65 @@
     }
 
 
+    .PinSection {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        padding: 30px 0;
 
-    .btnCont{
+        .Pintitle {
+            font-family: PoppinsMedium;
+            font-size: 16px;
+            color: black;
+        }
+
+        .Pincode {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+            justify-content: space-between;
+            padding-top: 15px;
+
+            .code {
+                width: 14%;
+                border-bottom: 1px solid black;
+                font-size: 16px;
+                font-family: PoppinsRegular;
+                color: black;
+                text-align: center;
+                min-height: 30px;
+            }
+        }
+    }
+
+
+    .continueSection {
         position: absolute;
         bottom: 20px;
         width: 90%;
+
+        .btnCont {
+            padding-bottom: 20px;
+        }
+
+        .keybord {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .keyBtn {
+                font-size: 28px;
+                font-family: PoppinsMedium;
+                width: 33.33%;
+                text-align: center;
+                padding: 20px 0;
+                color: black;
+                background-color: unset;
+                border: none;
+            }
+        }
     }
+
+
 }
