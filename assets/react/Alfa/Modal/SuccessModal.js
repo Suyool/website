@@ -16,6 +16,8 @@ const SuccessModal = (props) => {
                     <img src={props.getSuccessModal.imgPath} alt="flag" />
                     <div className="title">{props.getSuccessModal.title}</div>
                     <div className="desc">{props.getSuccessModal.desc}</div>
+                    <button className="okiBtnModal" onClick={props.onHide}>ok</button>
+                
                 </div>
             </Modal.Body>
         </Modal>

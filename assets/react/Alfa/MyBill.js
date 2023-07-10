@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = ({ setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -51,6 +51,7 @@ const MyBill = ({ setModalName, setSuccessModal, setErrorModal, setActiveButton,
       title: "Alfa Bill Paid Successfully",
       desc: "You have successfully paid your Alfa bill of {currency}{amount}."
     })
+    setModalShow(true);
   };
 
   return (
