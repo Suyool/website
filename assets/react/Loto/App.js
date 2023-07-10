@@ -35,11 +35,11 @@ const App = ({ parameters }) => {
                 <img className="mt-3" src="/build/images/Loto/LibanaiseJeux.png" alt="La Libanaise des Jeux" />
                 {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
 
-                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} setIsHide={setIsHide} isHideBack={isHideBack} />}
+                {activeButton.name === "LLDJ" && <LLDJ parameters={parameters} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} setTotalAmount={setTotalAmount} setPickYourGrid={setPickYourGrid} setIsHide={setIsHide} isHideBack={isHideBack} />}
                 {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} setDisabledBtn={setDisabledBtn} getDisabledBtn={getDisabledBtn} />}
                 {activeButton.name === "Result" && <Result parameters={parameters} />}
 
-                {activeButton.name === "Buy" && <Buy setDisabledBtn={setDisabledBtn} />}
+                {activeButton.name === "Buy" && <Buy setDisabledBtn={setDisabledBtn}  />}
             </div>
 
             {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed} setIsHide={setIsHide} />}

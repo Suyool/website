@@ -24,7 +24,7 @@ const Buy = ({ setDisabledBtn }) => {
             })
             .then((response) => {
                 console.log(response);
-                localStorage.removeItem("selectedBalls")
+                // localStorage.removeItem("selectedBalls")
                 setPlayedBalls([]);
                 setDisabledBtn(
                     selectedBallsToShow == null ||
@@ -66,22 +66,51 @@ const Buy = ({ setDisabledBtn }) => {
     return (
         <div id="Buy">
             {getPlayedBalls &&
-                getPlayedBalls.map((ballsSet, index) => (
-                    <div className="gridborder" key={index}>
+                getPlayedBalls.map((ballsSet, index) => {
+                    const hasBouquet = ballsSet.hasOwnProperty('bouquet');
+                    const hasBalls = ballsSet.hasOwnProperty('balls');
+                    if(hasBouquet){
+                        return(
+<div className="gridborder" key={index}>
+                        
                         <div className="header">
                             <span><img src="/build/images/Loto/LotoGrid.png" alt="loto" />Bouquet</span>
                         </div>
                         <div className="body">
-                            <div className="ballSection">
-                                <span>25 Grids</span>
+                            <div className="bouquetSection">
+                                <span>{ballsSet.bouquet.replace('B','')} Grids</span>
                             </div>
                         </div>
                         <div className="footer">
-                            <span className="price">L.L 5,000,000</span>
+                            <span className="price"><span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}</span>
                             <span className="delete" onClick={() => handleDelete(index)} ><img src="/build/images/Loto/trash.png" /></span>
                         </div>
                     </div>
+                        )
+                        
+                    }else{
+                      return (
+                        <div className="gridborder" key={index}>
+                        
+                        <div className="header">
+                            <span><img src="/build/images/Loto/LotoGrid.png" alt="loto" />Grid</span>
+                        </div>
+                        <div className="body">
+                            <div className="ballSection">
+                            {ballsSet.balls.map((ball, ballIndex) => (
+                  <span key={ballIndex} className="">{ball}</span>
                 ))}
+                            </div>
+                        </div>
+                        <div className="footer">
+                            <span className="price"><span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}</span>
+                            <span className="delete" onClick={() => handleDelete(index)} ><img src="/build/images/Loto/trash.png" /></span>
+                        </div>
+                    </div>
+                      )
+                    }
+                    
+            })}
 
 
 

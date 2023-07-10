@@ -83,7 +83,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                 </div>
 
             </div>
-            {getShowBouquet && <BouquetOptions getBouquetgridprice={getBouquetgridprice} setShowBouquet={setShowBouquet} setIsHide={setIsHide} />}
+            {getShowBouquet && <BouquetOptions getBouquetgridprice={getBouquetgridprice} setShowBouquet={setShowBouquet} setIsHide={setIsHide}/>}
         </>
 
     );

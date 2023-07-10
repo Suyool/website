@@ -172,6 +172,18 @@
                 }
             }
 
+            .bouquetSection {
+                display: flex;
+                flex-direction: row;
+                width: 65%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: PoppinsSemiBold;
+                    font-size: 20px;
+                }
+            }
+
         }
 
         .footer {

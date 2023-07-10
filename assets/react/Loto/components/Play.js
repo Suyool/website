@@ -12,7 +12,6 @@ const Play = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [checked, setChecked] = useState(false);
-
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
 
   useEffect(() => {
@@ -23,6 +22,9 @@ const Play = ({
   }, []);
 
   const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(selectedBallsToShow) || []);
+
+  const hasBalls = getPlayedBalls.some(item => item.hasOwnProperty('balls'));
+
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
@@ -135,8 +137,31 @@ const Play = ({
       </div>
 
       {getPlayedBalls &&
-        getPlayedBalls.map((ballsSet, index) => (
-          <div className="gridborder mt-2" key={index}>
+                getPlayedBalls.map((ballsSet, index) => {
+                    const hasBouquet = ballsSet.hasOwnProperty('bouquet');
+                    const hasBalls = ballsSet.hasOwnProperty('balls');
+                    if(hasBouquet){
+                        return(
+<div className="gridborder mt-2" key={index}>
+                        
+                        <div className="header">
+                            <span><img src="/build/images/Loto/LotoGrid.png" alt="loto" />Bouquet</span>
+                        </div>
+                        <div className="body">
+                            <div className="bouquetSection">
+                                <span>{ballsSet.bouquet.replace('B','')} Grids</span>
+                            </div>
+                        </div>
+                        <div className="footer">
+                            <span className="price"><span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}</span>
+                            <span className="delete" onClick={() => handleDelete(index)} ><img src="/build/images/Loto/trash.png" /></span>
+                        </div>
+                    </div>
+                        )
+                        
+                    }else{
+                      return (
+                       <div className="gridborder mt-2" key={index}>
             <div className="header">
               <span>
                 <img src="/build/images/Loto/LotoGrid.png" alt="loto" /> GRID{" "}
@@ -177,7 +202,10 @@ const Play = ({
               </span>
             </div>
           </div>
-        ))}
+                      )
+                    }
+                    
+            })}
 
       <div
         className="addGrid"

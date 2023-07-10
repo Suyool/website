@@ -1,12 +1,21 @@
 {
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
+<<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
   "build/Alfa.js": "/build/Alfa.fbb8fb35.js",
   "build/Touch.js": "/build/Touch.fa25b735.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
+=======
+=======
+  "build/app1.js": "/build/app1.b8115c60.js",
+  "build/Loto.js": "/build/Loto.48c3f269.js",
+>>>>>>> 9c9e0f8 (notification in loto and design)
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
+>>>>>>> 495c552 (notification in loto and design)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
+  "build/Lotostyles.css": "/build/Lotostyles.82ead8fc.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",
