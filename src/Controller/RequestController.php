@@ -61,7 +61,7 @@ class RequestController extends AbstractController
         ];
         // dd($form_data);
         $params['data']= json_encode($form_data);
-        $params['url'] = 'SuyoolGlobalApi/api/Payment/RequestDetails';
+        $params['url'] = 'SuyoolGlobalAPIs/api/Payment/RequestDetails';
         $response = Helper::send_curl($params);
 // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
@@ -121,6 +121,26 @@ class RequestController extends AbstractController
             isset($parameters['request_details_response']['iban'])
                 ? $parameters['request_details_response']['iban'] 
                 : '');
+                $additionalData = $parameters['request_details_response']['additionalData'];
+            $additionalData = json_decode($additionalData, true);
+            $this->session->set(
+                "receiverFname",
+                isset($additionalData['receiverFname'])
+                    ? $additionalData['receiverFname']
+                    : ''
+            );
+            $this->session->set(
+                "receiverLname",
+                isset($additionalData['receiverLname'])
+                    ? $additionalData['receiverLname']
+                    : ''
+            );
+            $this->session->set(
+                "ReceiverPhone",
+                isset($additionalData['ReceiverPhone'])
+                    ? $additionalData['ReceiverPhone']
+                    : ''
+            );
 
         // $session = $request->getSession();
         // dd($session);
@@ -138,8 +158,9 @@ class RequestController extends AbstractController
         $parameters=$this->trans->translation($request,$translator);
         $parameters=$this->trans->translation($request,$translator);
         $code = $this->session->get('code');
+        $parameters['ReceiverPhone']=$this->session->get('ReceiverPhone');
         if(isset($_POST['submit'])){
-            if($this->isCsrfTokenValid('request', $submittedToken) && !empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['mobile'])){
+            if($this->isCsrfTokenValid('request', $submittedToken) && !empty($_POST['fname']) && !empty($_POST['lname']) ){
 
             $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID'). $_POST['fname'] . $_POST['lname'] . $this->certificate, true));
             // dd($Hash);
@@ -155,7 +176,7 @@ class RequestController extends AbstractController
             $params['data']= json_encode($form_data);
            
             // dd($params['data']);
-            $params['url'] = 'SuyoolGlobalApi/api/NonSuyooler/NonSuyoolerCashIn';
+            $params['url'] = 'SuyoolGlobalAPIs/api/NonSuyooler/NonSuyoolerCashIn';
     
             $response = Helper::send_curl($params);
             $parameters['cashin'] = json_decode($response, true);
