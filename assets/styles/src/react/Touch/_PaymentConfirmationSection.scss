@@ -1,0 +1,123 @@
+#PaymentConfirmationSection {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    // height: 80vh;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: 1001;
+    box-shadow: 2px -3px 10px #F4F4F4;
+    flex-direction: column;
+    align-items: center;
+
+    .topSection {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 15px;
+
+        .brBoucket {
+            height: 3px;
+            border-radius: 3px;
+            margin-top: 15px;
+            background-color: #EBEBEB;
+            width: 80px;
+        }
+
+        .titles {
+            display: flex;
+            flex-direction: row;
+            padding-top: 15px;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            .titleGrid {
+                font-size: 1tpx;
+                font-family: PoppinsSemiBold;
+                color: black;
+            }
+
+            button {
+                background-color: white;
+                border: none;
+                color: #D32127;
+                font-size: 15px;
+                font-family: PoppinsMedium;
+            }
+        }
+    }
+
+    .bodySection {
+        display: flex;
+        flex-direction: row;
+        width: 85%;
+        align-content: flex-start;
+        flex-wrap: wrap;
+        height: 220px;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-top: 15px;
+
+        .cardSec {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .method {
+                padding-left: 15px;
+                font-family: PoppinsSemiBold;
+                color: black;
+                font-size: 14px;
+            }
+        }
+
+        .descSec {
+            width: 100%;
+            font-size: 14px;
+            font-family: PoppinsMedium;
+            color: #767676;
+            padding-top: 10px;
+        }
+
+        .Amount {
+            width: 100%;
+            font-size: 20px;
+            font-family: PoppinsSemiBold;
+            color: black;
+        }
+    }
+
+    .footSectionPick {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 15px;
+        position: absolute;
+        bottom: 0;
+        background-color: white;
+
+        button{
+            width: 90%;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: PoppinsMedium;
+            color: white;
+            background-color: #226d96;
+            border: none;
+            padding: 16px 0;
+            text-align: center;
+        }
+    }
+
+}

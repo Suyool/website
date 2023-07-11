@@ -76,6 +76,12 @@
 >>>>>>> 36d78d3 (add bundle page ui)
       ]
     },
+    "Touch": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.4aa2a82f.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
@@ -134,6 +140,14 @@
 =======
         "/build/AlfaStyle.b7aff52e.css"
 >>>>>>> 36d78d3 (add bundle page ui)
+      ]
+    },
+    "TouchStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/TouchStyle.2e1a7cc2.css"
       ]
     }
   }
