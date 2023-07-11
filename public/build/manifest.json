@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -22,14 +23,22 @@
 >>>>>>> f94fa5e (add mybill page)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 =======
+=======
+>>>>>>> 8381fb0 (done with ogero ui)
   "build/app1.js": "/build/app1.js",
   "build/Loto.js": "/build/Loto.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
   "build/Alfa.js": "/build/Alfa.js",
+<<<<<<< HEAD
+=======
+  "build/Touch.js": "/build/Touch.js",
+  "build/Ogero.js": "/build/Ogero.js",
+>>>>>>> 8381fb0 (done with ogero ui)
   "build/styles.css": "/build/styles.css",
   "build/Lotostyles.css": "/build/Lotostyles.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.css",
+<<<<<<< HEAD
   "build/runtime.js": "/build/runtime.js",
 >>>>>>> 044b2e9 (handle header navigation)
 =======
@@ -45,6 +54,11 @@
   "build/TouchStyle.css": "/build/TouchStyle.2e1a7cc2.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 1e22ae9 (add pin section)
+=======
+  "build/TouchStyle.css": "/build/TouchStyle.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> 8381fb0 (done with ogero ui)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
@@ -55,6 +69,7 @@
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/commingSoon/Base.png": "/build/images/commingSoon/Base.png",
   "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
+  "build/images/Ogero/Bundle.png": "/build/images/Ogero/Bundle.png",
   "build/images/Touch/Bundle.png": "/build/images/Touch/Bundle.png",
   "build/images/alfa/Bundle.png": "/build/images/alfa/Bundle.png",
   "build/images/visacard.png": "/build/images/visacard.png",
@@ -89,10 +104,12 @@
   "build/images/alfa/bundleImg2.png": "/build/images/alfa/bundleImg2.png",
   "build/images/Loto/LotoLogo.png": "/build/images/Loto/LotoLogo.png",
   "build/images/alfa/bundleImg3.png": "/build/images/alfa/bundleImg3.png",
+  "build/images/Ogero/bundleImg3.png": "/build/images/Ogero/bundleImg3.png",
   "build/images/Touch/bundleImg3.png": "/build/images/Touch/bundleImg3.png",
   "build/images/alfa/bundleImg.png": "/build/images/alfa/bundleImg.png",
   "build/images/logo.svg": "/build/images/logo.svg",
   "build/images/invitation/mobile-invite-image.png": "/build/images/invitation/mobile-invite-image.png",
+  "build/images/Ogero/bundleImg2.png": "/build/images/Ogero/bundleImg2.png",
   "build/images/Touch/bundleImg2.png": "/build/images/Touch/bundleImg2.png",
   "build/images/commingSoon/playstore.png": "/build/images/commingSoon/playstore.png",
   "build/images/email-verified.png": "/build/images/email-verified.png",
@@ -103,15 +120,19 @@
   "build/images/suyool-Logo.png": "/build/images/suyool-Logo.png",
   "build/images/Loto/popular.png": "/build/images/Loto/popular.png",
   "build/images/s-logo-blue.png": "/build/images/s-logo-blue.png",
+  "build/images/Ogero/bundleImg.png": "/build/images/Ogero/bundleImg.png",
   "build/images/Touch/bundleImg.png": "/build/images/Touch/bundleImg.png",
   "build/images/envelope.png": "/build/images/envelope.png",
+  "build/images/Ogero/TouchLogo.png": "/build/images/Ogero/TouchLogo.png",
   "build/images/Touch/TouchLogo.png": "/build/images/Touch/TouchLogo.png",
   "build/images/usd.svg": "/build/images/usd.svg",
   "build/images/Loto/zeedLogo.png": "/build/images/Loto/zeedLogo.png",
   "build/images/zeedLogo.png": "/build/images/zeedLogo.37ea31e5.png",
   "build/images/Loto/play.png": "/build/images/Loto/play.png",
+  "build/images/Ogero/bundleImg1.png": "/build/images/Ogero/bundleImg1.png",
   "build/images/Touch/bundleImg1.png": "/build/images/Touch/bundleImg1.png",
   "build/images/Loto/LotoGrid.png": "/build/images/Loto/LotoGrid.png",
+  "build/images/Ogero/OgeroLogo.png": "/build/images/Ogero/OgeroLogo.png",
   "build/images/Loto/LLDJSlected.png": "/build/images/Loto/LLDJSlected.png",
   "build/images/commingSoon/love.png": "/build/images/commingSoon/love.png",
   "build/images/pay-at-real.png": "/build/images/pay-at-real.png",
@@ -119,9 +140,11 @@
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/bank.png": "/build/images/bank.png",
+  "build/images/Ogero/ErrorImg.png": "/build/images/Ogero/ErrorImg.png",
   "build/images/Touch/ErrorImg.png": "/build/images/Touch/ErrorImg.png",
   "build/images/alfa/ErrorImg.png": "/build/images/alfa/ErrorImg.png",
   "build/images/decline.png": "/build/images/decline.png",
+  "build/images/Ogero/SuccessImg.png": "/build/images/Ogero/SuccessImg.png",
   "build/images/Touch/SuccessImg.png": "/build/images/Touch/SuccessImg.png",
   "build/images/alfa/SuccessImg.png": "/build/images/alfa/SuccessImg.png",
   "build/images/approved.png": "/build/images/approved.png",
@@ -158,12 +181,15 @@
   "build/images/Loto/edit.png": "/build/images/Loto/edit.png",
   "build/images/Loto/goNext.png": "/build/images/Loto/goNext.png",
   "build/images/Loto/trash.png": "/build/images/Loto/trash.png",
+  "build/images/Ogero/flag.png": "/build/images/Ogero/flag.png",
   "build/images/Touch/flag.png": "/build/images/Touch/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/remove-till.png": "/build/images/remove-till.png",
+  "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
   "build/images/Touch/clearNb.png": "/build/images/Touch/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
+  "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
 }

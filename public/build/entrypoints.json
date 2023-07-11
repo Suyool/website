@@ -4,6 +4,7 @@
       "js": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -18,22 +19,27 @@
         "/build/runtime.e40c1cca.js",
         "/build/app1.b8115c60.js"
 >>>>>>> 1e22ae9 (add pin section)
+=======
+        "/build/runtime.js",
+        "/build/app1.js"
+>>>>>>> 8381fb0 (done with ogero ui)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.ffe283ef.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.2a0493dc.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
@@ -74,43 +80,54 @@
 =======
         "/build/Alfa.de11f21c.js"
 >>>>>>> 36d78d3 (add bundle page ui)
+=======
+        "/build/runtime.js",
+        "/build/Alfa.js"
+>>>>>>> 8381fb0 (done with ogero ui)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.4aa2a82f.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
+      ]
+    },
+    "Ogero": {
+      "js": [
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.adb49e82.css"
+        "/build/styles.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.2a4800b6.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.5fad0f46.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -140,14 +157,25 @@
 =======
         "/build/AlfaStyle.b7aff52e.css"
 >>>>>>> 36d78d3 (add bundle page ui)
+=======
+        "/build/AlfaStyle.css"
+>>>>>>> 8381fb0 (done with ogero ui)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.2e1a7cc2.css"
+        "/build/TouchStyle.css"
+      ]
+    },
+    "OgeroStyle": {
+      "js": [
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/OgeroStyle.css"
       ]
     }
   }
