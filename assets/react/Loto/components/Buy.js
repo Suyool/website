@@ -3,9 +3,14 @@ import axios from "axios";
 
 const Buy = ({ setDisabledBtn }) => {
     const selectedBallsToShow = localStorage.getItem("selectedBalls");
+    var totalPrice = 0;
     const [getPlayedBalls, setPlayedBalls] = useState(
         JSON.parse(selectedBallsToShow) || []
     );
+
+    getPlayedBalls.forEach((item) => {
+        totalPrice += item.price;
+    });
 
     const handleDelete = (index) => {
         const updatedBalls = [...getPlayedBalls];
@@ -125,7 +130,7 @@ const Buy = ({ setDisabledBtn }) => {
 
             <div id="Total">
                 <span>TOTAL</span>
-                <div className="thePrice"><div>L.L </div><div className="big">200,000</div></div>
+                <div className="thePrice"><div>L.L </div><div className="big">{parseInt(totalPrice).toLocaleString()}</div></div>
             </div>
 
             <button className="BuyBtn" onClick={() => { handleBuy() }}>

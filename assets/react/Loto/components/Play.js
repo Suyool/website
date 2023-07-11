@@ -13,6 +13,8 @@ const Play = ({
   const [selectedOption, setSelectedOption] = useState(null);
   const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  var totalPrice = 0;
+
 
   useEffect(() => {
     setDisabledBtn(
@@ -24,6 +26,12 @@ const Play = ({
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
+
+getPlayedBalls.forEach((item) => {
+    totalPrice += item.price;
+});
+
+// console.log(parseInt(totalPrice));
 
   const hasBalls = getPlayedBalls.some((item) => item.hasOwnProperty("balls"));
 
@@ -277,7 +285,7 @@ const Play = ({
         <div id="Total">
           <span>TOTAL</span>
           <div className="thePrice">
-            L.L <div className="big">200,000</div>
+            L.L <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
           </div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>

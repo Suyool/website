@@ -11,11 +11,15 @@
 =======
   "build/app1.js": "/build/app1.b8115c60.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.48c3f269.js",
 >>>>>>> 9c9e0f8 (notification in loto and design)
 =======
   "build/Loto.js": "/build/Loto.d63b56f8.js",
 >>>>>>> 350cbe9 (handle some notification bouquet with zeed and prices when command run)
+=======
+  "build/Loto.js": "/build/Loto.dbea2537.js",
+>>>>>>> 393f210 (design)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
 >>>>>>> 495c552 (notification in loto and design)
   "build/styles.css": "/build/styles.adb49e82.css",
