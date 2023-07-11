@@ -44,35 +44,6 @@ class LotoController extends AbstractController
      */
     public function index(Request $request, ManagerRegistry $em,HttpClientInterface $client)
     {
-        // $form_data = [
-        //     "ChannelType" => "API",
-        //     "AlfaPinParam" => [
-        //         "GSMNumber" => "70102030"
-        //         // "GSMNumber" => "03184740"
-        //     ],
-        //     "Credentials" => [
-        //         "User" => "suyool1",
-        //         "Password" => "SUYOOL1"
-        //     ]
-        //     // "Credentials" => [
-        //     //     "User" => "suyool",
-        //     //     "Password" => "p@123123"
-        //     // ]
-        // ];
-        // $req=$client->request(
-        //     'POST',
-        //     'https://185.174.240.230:8445/BoBFinanceAPI/WS/SendPinRequest',
-        //     [
-        //         'headers' => [
-        //             'Content-Type: application/json',
-        //             'Connection: Keep-Alive',
-        //             ],
-        //             'body'=>json_encode($form_data,true)
-        //     ]
-        // );
-        
-        // var_dump($req);die();
-
         $printsession = $request->query->get('printsession');
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -192,6 +163,7 @@ class LotoController extends AbstractController
                 $ballsArray = [];
 
                 $ballsArrayNoZeed = [];
+                $ballsArrayNoZeedBouquet=null;
                 $amounttotal = 0;
                 $amounttotalBouquet=0;
                 $selected = [];
@@ -225,8 +197,15 @@ class LotoController extends AbstractController
 
                         
                     } else {
-                        $balls = implode(" ", $item['balls']);
-                        $ballsArray = $balls;
+                        if(isset($item['balls']) && $item['balls']!=null){
+                            $balls = implode(" ", $item['balls']);
+                            $ballsArray = $balls;
+                            $bouquet=false;
+                        }else{
+                            $ballsArray = $item['bouquet'];
+                            $bouquet=true;
+                        }
+                        
                         $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
 
                         foreach ($orderid as $orderid) {
@@ -238,7 +217,7 @@ class LotoController extends AbstractController
                                 ->setgridSelected($ballsArray)
                                 ->setprice($item['price'])
                                 ->setcurrency($currency)
-                                ->setbouquet($item['isbouquet']);
+                                ->setbouquet($bouquet);
 
                             $this->mr->persist($loto);
                             $this->mr->flush();
@@ -453,7 +432,7 @@ class LotoController extends AbstractController
                                 $notification = new notification;
                                 $notification->setIdentifier('Play Bouquet With Zeed');
                                 $notification->setTitle("LOTO Bouquet Confirmed ");
-                                $notification->setNotify("You have successfully purchased the Bouquet of {$bouquetgrids}Grids with Zeed. ");
+                                $notification->setNotify("You have successfully purchased the Bouquet of {$bouquetgrids[0]}Grids with Zeed. ");
                                 $notification->setSubject("LOTO Bouquet Confirmed ");
                                 $notification->setOrderId($orderCompleted);
                                 $notification->settransId($orderCompleted->gettransId());

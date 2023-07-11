@@ -84,18 +84,40 @@ class LotoDrawData extends Command
         // }
 
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
-        $numbers = 6;
+        // Check if any rows need to be deleted
+        $deleteRows = false;
+
         foreach ($loto_numbers as $number_price) {
-            // $num[]= $number_price['price0J'];
-            // dd();
+            if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $number_price['price0J']])) {
+                $deleteRows = true;
+                break;
+            }
+        }
+
+        // Delete existing rows if required
+        if ($deleteRows) {
+            $repository = $this->mr->getRepository(LOTO_numbers::class);
+            $existingNumbers = $repository->findAll();
+
+            foreach ($existingNumbers as $existingNumber) {
+                $this->mr->remove($existingNumber);
+            }
+
+            $this->mr->flush();
+        }
+
+        // Insert new rows
+        $numbers = 6;
+
+        foreach ($loto_numbers as $number_price) {
             if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $number_price['price0J']])) {
                 $LOTO_numbers = new LOTO_numbers;
-
                 $LOTO_numbers->setnumbers($numbers);
                 $LOTO_numbers->setprice($number_price['price0J']);
                 $LOTO_numbers->setzeed($GetFullGridPriceMatrix['d']['zeedprice']);
                 $this->mr->persist($LOTO_numbers);
                 $this->mr->flush();
+
                 $numbers++;
             }
         }

@@ -24,7 +24,7 @@ const Buy = ({ setDisabledBtn }) => {
             })
             .then((response) => {
                 console.log(response);
-                // localStorage.removeItem("selectedBalls")
+                localStorage.removeItem("selectedBalls")
                 setPlayedBalls([]);
                 setDisabledBtn(
                     selectedBallsToShow == null ||
