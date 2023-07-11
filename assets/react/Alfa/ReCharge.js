@@ -147,7 +147,7 @@ const ReCharge = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }
 
       <div className="bundlesSection">
         {filteredData.map((record, index) => (
-          <div className="bundleGrid" key={index}>
+          <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }) }}>
             <img className="GridImg" src={record.imageSrc} alt="bundleImg" />
             <div className="gridDesc">
               <div className="Price">{record.price}</div>

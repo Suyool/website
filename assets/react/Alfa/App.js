@@ -6,6 +6,7 @@ import Default from "./Default";
 import Header from "./Header";
 import SuccessModal from "./Modal/SuccessModal";
 import ErrorModal from "./Modal/ErrorModal";
+import MyBundle from "./MyBundle";
 
 const App = ({ parameters }) => {
     // console.log(parameters)
@@ -33,6 +34,7 @@ const App = ({ parameters }) => {
                         {activeButton.name === "ReCharge" && <ReCharge activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
                         {activeButton.name === "MyBill" && <MyBill setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBundle" && <MyBundle setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                     </>
                 }
             </div>
