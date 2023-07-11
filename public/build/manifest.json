@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -47,11 +48,20 @@
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
+=======
+  "build/app1.js": "/build/app1.b8115c60.js",
+  "build/Loto.js": "/build/Loto.ffe283ef.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
+  "build/Alfa.js": "/build/Alfa.de11f21c.js",
+  "build/Touch.js": "/build/Touch.4aa2a82f.js",
+  "build/Ogero.js": "/build/Ogero.431f83f7.js",
+>>>>>>> 8e2aaa4 (handle 2 bugs in legal_enrollement)
   "build/styles.css": "/build/styles.adb49e82.css",
   "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.b7aff52e.css",
   "build/TouchStyle.css": "/build/TouchStyle.2e1a7cc2.css",
+<<<<<<< HEAD
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 1e22ae9 (add pin section)
 =======
@@ -59,6 +69,10 @@
   "build/OgeroStyle.css": "/build/OgeroStyle.css",
   "build/runtime.js": "/build/runtime.js",
 >>>>>>> 8381fb0 (done with ogero ui)
+=======
+  "build/OgeroStyle.css": "/build/OgeroStyle.2bfcac7d.css",
+  "build/runtime.js": "/build/runtime.e40c1cca.js",
+>>>>>>> 8e2aaa4 (handle 2 bugs in legal_enrollement)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
@@ -69,7 +83,6 @@
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/commingSoon/Base.png": "/build/images/commingSoon/Base.png",
   "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
-  "build/images/Ogero/Bundle.png": "/build/images/Ogero/Bundle.png",
   "build/images/Touch/Bundle.png": "/build/images/Touch/Bundle.png",
   "build/images/alfa/Bundle.png": "/build/images/alfa/Bundle.png",
   "build/images/visacard.png": "/build/images/visacard.png",
@@ -104,12 +117,10 @@
   "build/images/alfa/bundleImg2.png": "/build/images/alfa/bundleImg2.png",
   "build/images/Loto/LotoLogo.png": "/build/images/Loto/LotoLogo.png",
   "build/images/alfa/bundleImg3.png": "/build/images/alfa/bundleImg3.png",
-  "build/images/Ogero/bundleImg3.png": "/build/images/Ogero/bundleImg3.png",
   "build/images/Touch/bundleImg3.png": "/build/images/Touch/bundleImg3.png",
   "build/images/alfa/bundleImg.png": "/build/images/alfa/bundleImg.png",
   "build/images/logo.svg": "/build/images/logo.svg",
   "build/images/invitation/mobile-invite-image.png": "/build/images/invitation/mobile-invite-image.png",
-  "build/images/Ogero/bundleImg2.png": "/build/images/Ogero/bundleImg2.png",
   "build/images/Touch/bundleImg2.png": "/build/images/Touch/bundleImg2.png",
   "build/images/commingSoon/playstore.png": "/build/images/commingSoon/playstore.png",
   "build/images/email-verified.png": "/build/images/email-verified.png",
@@ -120,16 +131,13 @@
   "build/images/suyool-Logo.png": "/build/images/suyool-Logo.png",
   "build/images/Loto/popular.png": "/build/images/Loto/popular.png",
   "build/images/s-logo-blue.png": "/build/images/s-logo-blue.png",
-  "build/images/Ogero/bundleImg.png": "/build/images/Ogero/bundleImg.png",
   "build/images/Touch/bundleImg.png": "/build/images/Touch/bundleImg.png",
   "build/images/envelope.png": "/build/images/envelope.png",
-  "build/images/Ogero/TouchLogo.png": "/build/images/Ogero/TouchLogo.png",
   "build/images/Touch/TouchLogo.png": "/build/images/Touch/TouchLogo.png",
   "build/images/usd.svg": "/build/images/usd.svg",
   "build/images/Loto/zeedLogo.png": "/build/images/Loto/zeedLogo.png",
   "build/images/zeedLogo.png": "/build/images/zeedLogo.37ea31e5.png",
   "build/images/Loto/play.png": "/build/images/Loto/play.png",
-  "build/images/Ogero/bundleImg1.png": "/build/images/Ogero/bundleImg1.png",
   "build/images/Touch/bundleImg1.png": "/build/images/Touch/bundleImg1.png",
   "build/images/Loto/LotoGrid.png": "/build/images/Loto/LotoGrid.png",
   "build/images/Ogero/OgeroLogo.png": "/build/images/Ogero/OgeroLogo.png",

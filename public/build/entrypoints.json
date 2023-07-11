@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -23,22 +24,27 @@
         "/build/runtime.js",
         "/build/app1.js"
 >>>>>>> 8381fb0 (done with ogero ui)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.b8115c60.js"
+>>>>>>> 8e2aaa4 (handle 2 bugs in legal_enrollement)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.ffe283ef.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.67d25036.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -84,49 +90,54 @@
         "/build/runtime.js",
         "/build/Alfa.js"
 >>>>>>> 8381fb0 (done with ogero ui)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.de11f21c.js"
+>>>>>>> 8e2aaa4 (handle 2 bugs in legal_enrollement)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.js",
-        "/build/Touch.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.4aa2a82f.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.js",
-        "/build/Ogero.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.431f83f7.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.adb49e82.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.2a4800b6.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.5fad0f46.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -160,22 +171,25 @@
 =======
         "/build/AlfaStyle.css"
 >>>>>>> 8381fb0 (done with ogero ui)
+=======
+        "/build/AlfaStyle.b7aff52e.css"
+>>>>>>> 8e2aaa4 (handle 2 bugs in legal_enrollement)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.css"
+        "/build/TouchStyle.2e1a7cc2.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.css"
+        "/build/OgeroStyle.2bfcac7d.css"
       ]
     }
   }
