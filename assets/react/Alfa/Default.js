@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
 
@@ -23,7 +24,20 @@ const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
         </div>
       </div>
 
-      <div className="Cards" onClick={() => { handleButtonClick("ReCharge") }}>
+      <div className="Cards"
+        onClick={() => {
+          handleButtonClick("ReCharge");
+
+          axios
+            .post("/alfa/ReCharge")
+            .then((response) => {
+              console.log(response?.data?.message?.d?.ppavouchertypes);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }}
+      >
         <img src="/build/images/Alfa/alfaLogo.png" alt="alfaLogo" />
         <div className="Text">
           <div className="SubTitle">Re-charge Alfa</div>

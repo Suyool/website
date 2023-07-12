@@ -10,29 +10,45 @@ use App\Utils\Helper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class AlfaController extends AbstractController
 {
-    public function decodeGzipString(string $gzipString): string
-{
-    // Decode GZip string
-    $decodedString = '';
-    $decodedData = @gzdecode($gzipString);
 
-    // Check if the decoding was successful
-    if ($decodedData !== false) {
-        $decodedString = $decodedData;
-    }
-
-    return $decodedString;
-}
+    private $BOB_API_HOST;
+    private $LOTO_API_HOST;
 
     private $mr;
+    private $client;
 
-    public function __construct(ManagerRegistry $mr)
+    public function __construct(ManagerRegistry $mr, HttpClientInterface $client)
     {
         $this->mr = $mr->getManager('alfa');
+        $this->client = $client;
+
+        //todo: if prod environment
+        if ($_ENV['APP_ENV'] == 'prod') {
+            $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
+            $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
+        } else {
+            $this->BOB_API_HOST = 'https://185.174.240.230:8445/BoBFinanceAPI/WS/';
+            $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
+        }
+    }
+
+    private function _decodeGzipString(string $gzipString): string
+    {
+        // Decode GZip string
+        $decodedString = '';
+        $decodedData = @gzdecode($gzipString);
+
+        // Check if the decoding was successful
+        if ($decodedData !== false) {
+            $decodedString = $decodedData;
+        }
+
+        return $decodedString;
     }
 
     /**
@@ -51,6 +67,9 @@ class AlfaController extends AbstractController
     }
 
     /**
+     * PostPaid
+     * Provider : BOB
+     * Desc: Send Pin to user based on phoneNumber
      * @Route("/alfa/bill", name="app_alfa_bill",methods="POST")
      */
     public function bill(Request $request)
@@ -58,45 +77,90 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if ($data != null) {
-            $params['mobileNumber'] = json_encode($data['mobileNumber'], true);
 
-            $form_data = [
-                "ChannelType" => "API",
-                "AlfaPinParam" => [
-                    "GSMNumber" => "70102030"
-                    // "GSMNumber" => "03184740"
-                ],
-                "Credentials" => [
-                    "User" => "suyool1",
-                    "Password" => "SUYOOL1"
+            $response = $this->client->request('POST', $this->BOB_API_HOST . '/SendPinRequest', [
+                'body' => json_encode([
+                    "ChannelType" => "API",
+                    "AlfaPinParam" => [
+                        "GSMNumber" => "70102030"
+                        // "GSMNumber" => "03184740"
+                    ],
+                    "Credentials" => [
+                        "User" => "suyool1",
+                        "Password" => "SUYOOL1"
+                        // "User" => "suyool",
+                        // "Password" => "p@123123"
+                    ]
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
                 ]
-                // "Credentials" => [
-                //     "User" => "suyool",
-                //     "Password" => "p@123123"
-                // ]
-            ];
+            ]);
 
-            $params['data'] = json_encode($form_data);
-            $params['url'] = '/BoBFinanceAPI/WS/SendPinRequest';
-            // dd($params['data']);
+            $content = $response->getContent();
+            $content = $response->toArray();
 
-            /*** Call the api ***/
-            $response = Helper::send_curl($params, 'alfa');
-            dd($response);
-
-            $parameters['update_utility_response'] = json_decode($response, true);
-            $res = $parameters['update_utility_response']['Response'];
-            $decodedString = $this->decodeGzipString(base64_decode($res));
-            dd($decodedString);
-            dd($res);
-            $message = "connected";
-
-            dd($parameters['update_utility_response']);
+            dd($content);
         } else {
             $message = "not connected";
         }
 
-        dd($data);
+        return new JsonResponse([
+            'status' => true,
+            'message' => $message
+        ], 200);
+    }
+
+    /**
+     * PostPaid
+     * Provider : BOB
+     * Desc: Retrieve Channel Results 
+     * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
+     */
+    public function billPay(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if ($data != null) {
+            $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+                'body' => json_encode([
+                    "ChannelType" => "API",
+                    "ItemId" => "1",
+                    "VenId" => "1",
+                    "ProductId" => "4",
+                    "TransactionId" => "tst",
+
+                    "AlfaBillResult" => [
+                        "Fees" => "tst",
+                        "TransactionId" => "tst",
+                        "Amount" => "tst",
+                        "Amount1" => "tst",
+                        "ReferenceNumber" => "tst",
+                        "Fees1" => "tst",
+                        "Amount2" => "tst",
+                        "InformativeOriginalWSAmount" => "tst",
+                        "TotalAmount" => "tst",
+                        "Currency" => "tst",
+                        "Rounding" => "tst",
+                        "AdditionalFees" => "tst",
+                    ],
+                    "Credentials" => [
+                        "User" => "suyool1",
+                        "Password" => "SUYOOL1"
+                    ]
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+
+            $content = $response->getContent();
+            $content = $response->toArray();
+
+            dd($content);
+        } else {
+            $message = "not connected";
+        }
 
         return new JsonResponse([
             'status' => true,
@@ -105,63 +169,29 @@ class AlfaController extends AbstractController
     }
 
 
-    // /**
-    //  * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
-    //  */
-    // public function billPay(Request $request)
-    // {
-    //     $data = json_decode($request->getContent(), true);
+    /**
+     * PrePaid
+     * Provider : LOTO
+     * Desc: Fetch ReCharge vouchers
+     * @Route("/alfa/ReCharge", name="app_alfa_ReCharge",methods="POST")
+     */
+    public function ReCharge()
+    {
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetAllVouchersType", [
+            'body' => json_encode([
+                "Token" => "",
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
 
-    //     if ($data != null) {
-    //         $params['mobileNumber'] = json_encode($data['mobileNumber'], true);
+        $content = $response->getContent();
+        $content = $response->toArray();
 
-    //         $form_data = [
-    //             "ChannelType" => "API",
-    //             "ItemId" => "1",
-    //             "VenId" => "1",
-    //             "ProductId" => "4",
-    //             "TransactionId" => $tst,
-
-    //             "AlfaBillResult" => [
-    //                 "Fees" => $tst,
-    //                 "TransactionId" => $tst,
-    //                 "Amount" => $tst,
-    //                 "Amount1" => $tst,
-    //                 "ReferenceNumber" => $tst,
-    //                 "Fees1" => $tst,
-    //                 "Amount2" => $tst,
-    //                 "InformativeOriginalWSAmount" => $tst,
-    //                 "TotalAmount" => $tst,
-    //                 "Currency" => $tst,
-    //                 "Rounding" => $tst,
-    //                 "AdditionalFees" => $tst,
-    //             ],
-    //             "Credentials" => [
-    //                 "User" => "suyool1",
-    //                 "Password" => "SUYOOL1"
-    //             ]
-    //         ];
-
-    //         $params['data'] = json_encode($form_data);
-    //         $params['url'] = '/BoBFinanceAPI/WS/RetrieveChannelResults';
-    //         // dd($params['data']);
-
-    //         /*** Call the api ***/
-    //         $response = Helper::send_curl($params, 'alfa');
-
-    //         $parameters['update_utility_response'] = json_decode($response, true);
-    //         $message = "connected";
-
-    //         dd($parameters['update_utility_response']);
-    //     } else {
-    //         $message = "not connected";
-    //     }
-
-    //     dd($data);
-
-    //     return new JsonResponse([
-    //         'status' => true,
-    //         'message' => $message
-    //     ], 200);
-    // }
+        return new JsonResponse([
+            'status' => true,
+            'message' => $content
+        ], 200);
+    }
 }
