@@ -19,6 +19,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class DefaultController extends AbstractController
 {
@@ -35,7 +37,7 @@ class DefaultController extends AbstractController
      * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em,MailerInterface $mailer)
+    public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em, MailerInterface $mailer)
     {
         $submittedToken = $request->request->get('token');
 
@@ -51,7 +53,7 @@ class DefaultController extends AbstractController
                 if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
                     $emailSubcriber = new emailsubscriber;
                     $emailSubcriber->setEmail($_POST['email']);
-//                    $emailSubcriber->setCreated(new DateTime());
+                    //                    $emailSubcriber->setCreated(new DateTime());
                     $em->persist($emailSubcriber);
                     $em->flush();
                     $message = "Email Added";
@@ -78,5 +80,17 @@ class DefaultController extends AbstractController
             'message' => $message
         ]);
         // return $this->render('homepage/index.html.twig');
+    }
+
+    /**
+     * @Route("/privacy", name="app_privacy")
+     */
+    public function privacy(Request $request)
+    {
+        $pdfPath = __DIR__ .'/../../Suyoolprivacypolicy.pdf';
+
+        $response = new BinaryFileResponse($pdfPath);
+
+        return $response;
     }
 }

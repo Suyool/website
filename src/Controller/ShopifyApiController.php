@@ -41,7 +41,7 @@ class ShopifyApiController extends AbstractController
         $createdAt = $order->getCreateDate()->getTimestamp();
 
         $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = $metadata['total_price'] / 100;
+        $totalPrice = trim($metadata['total_price']) / 100;
         $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
         $timestamp = $createdAt * 1000;
@@ -56,33 +56,32 @@ class ShopifyApiController extends AbstractController
 
         if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
             $transactionData = [
-                'TransactionID' => $orderId,
+                'TransactionID' => "$orderId",
                 'Amount' => $amount,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
-                'TS' => $timestamp,
-                'TranTS' => $timestamp,
+                'TS' => "$timestamp",
+                'TranTS' => "$timestamp",
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
             $params = [
                 'data' => json_encode($transactionData),
-                'url' => 'SuyoolOnlinePayment/PayQR',
+                'url' => 'api/OnlinePayment/PayQR',
             ];
 
             $result = Helper::send_curl($params);
             $response = json_decode($result, true);
             
-            if($response['PictureURL'] != null)
+            if($response['pictureURL'] != null)
                 $showQR = 'displayBlock';
             else
                 $showQR = '';
 
             return $this->render('shopify/pay-qr.html.twig', [
-                'pictureURL' => $response['PictureURL'],
-                'message' => $response['ReturnText'],
+                'pictureURL' => $response['pictureURL'],
                 'order_id' => $orderId,
-                'ReturnText' => $response['ReturnText'],
+                'ReturnText' => $response['returnText'],
                 'displayBlock' =>$showQR,
             ]);
         }
@@ -91,53 +90,60 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/payMobile/", name="app_pay_mobile")
      */
-    public function payMobile(Request $request, OrdersRepository $ordersRepository): Response
+    public function payMobile(Request $request): Response
     {
-        $orderId = $request->request->get('order_id');
-        $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = $metadata['total_price'] / 100;
-        $amount = number_format($totalPrice, 2, '.', '');
-        $currency = $metadata['currency'];
+        if($request->request->get('order_id') !=null) {
 
-        $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
+            $orderId = $request->request->get('order_id');
+            $metadata = json_decode($request->request->get('metadata'), true);
+            $totalPrice = trim($metadata['total_price']) / 100;
+            $amount = number_format($totalPrice, 2, '.', '');
+            $currency = $metadata['currency'];
 
-        if (!$order) {
-            throw $this->createNotFoundException('Order not found');
+            $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+            $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
+
+            if (!$order) {
+                throw $this->createNotFoundException('Order not found');
+            }
+
+            $createdAt = $order->getCreateDate()->getTimestamp();
+            $timestamp = $createdAt * 1000;
+            $domain = $metadata['domain'];
+            $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+            $merchantId = $merchantCredentials['merchantId'];
+            $certificate = $merchantCredentials['certificate'];
+            $additionalInfo = '';
+
+            $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
+            $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
+            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . "/result-page/".$orderId;
+
+            $json = [
+                'TransactionID' => $orderId,
+                'Amount' => $amount,
+                'Currency' => $currency,
+                'SecureHash' => $secureHash,
+                'TS' => $timestamp,
+                'TranTS' => $timestamp,
+                'MerchantAccountID' => $merchantId,
+                'CallBackURL' => '',
+                'currentUrl' => $current_page,
+                'browsertype' => Helper::getBrowserType(),
+                'AdditionalInfo' => $additionalInfo
+            ];
+
+            $jsonEncoded = json_encode($json);
+            $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
+
+            return $this->render('shopify/pay-mobile.html.twig', [
+                'deepLink' => $appUrl,
+                'order_id' => $orderId,
+            ]);
+        }else {
+            return $this->render('shopify/pay-mobile.html.twig');
         }
 
-        $createdAt = $order->getCreateDate()->getTimestamp();
-        $timestamp = $createdAt * 1000;
-        $domain = $metadata['domain'];
-        $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
-        $merchantId = $merchantCredentials['merchantId'];
-        $certificate = $merchantCredentials['certificate'];
-        $additionalInfo = '';
-
-        $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
-        $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
-        $current_page = $_SERVER['REQUEST_URI'];
-
-        $json = [
-            'TransactionID' => $orderId,
-            'Amount' => $amount,
-            'Currency' => $currency,
-            'SecureHash' => $secureHash,
-            'TS' => $timestamp,
-            'TranTS' => $timestamp,
-            'MerchantAccountID' => $merchantId,
-            'CallBackURL' => '',
-            'currentUrl' => $current_page,
-            'browsertype' => Helper::getBrowserType(),
-            'AdditionalInfo' => $additionalInfo
-        ];
-
-        $jsonEncoded = json_encode($json);
-        $appUrl = "skashpay://skash.com/skash=?" . $jsonEncoded;
-
-        return $this->render('shopify/pay-mobile.html.twig', [
-            'deepLink' => $appUrl,
-            'order_id' => $orderId,
-        ]);
     }
 
 
@@ -278,5 +284,15 @@ class ShopifyApiController extends AbstractController
         $response['merchantId'] = $merchantId;
 
         return $response;
+    }
+    /**
+     * @Route("/result-page/{orderId}", name="app_result_page")
+     */
+    public function resultPage($orderId): Response
+    {
+        return $this->render('shopify/result-page.html.twig', [
+            'order_id' => $orderId,
+        ]);
+
     }
 }
