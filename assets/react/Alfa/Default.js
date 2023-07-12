@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Alfa")
@@ -31,7 +31,8 @@ const Default = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
           axios
             .post("/alfa/ReCharge")
             .then((response) => {
-              console.log(response?.data?.message?.d?.ppavouchertypes);
+              // console.log(response?.data?.message);
+              SetVoucherData(response?.data?.message);
             })
             .catch((error) => {
               console.log(error);

@@ -20,6 +20,8 @@ const App = ({ parameters }) => {
     const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/Alfa//build/images/Alfa/SuccessImg.png", title: "", desc: "" });
     const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/Alfa//build/images/Alfa/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
+    const [getVoucherData, SetVoucherData] = useState([]);
+
     return (
         <div id="AlfaBody">
 
@@ -28,10 +30,10 @@ const App = ({ parameters }) => {
                 <Header activeButton={activeButton} setActiveButton={setActiveButton} getHeaderTitle={getHeaderTitle} getBackLink={getBackLink} />
                 {getModalName === "" &&
                     <>
-                        {activeButton.name === "" && <Default activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "" && <Default SetVoucherData={SetVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
                         {activeButton.name === "PayBill" && <PayBill activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
-                        {activeButton.name === "ReCharge" && <ReCharge activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "ReCharge" && <ReCharge getVoucherData={getVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
                         {activeButton.name === "MyBill" && <MyBill setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                         {activeButton.name === "MyBundle" && <MyBundle setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}

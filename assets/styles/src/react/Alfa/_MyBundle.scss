@@ -125,6 +125,7 @@
 
     .SuggestedSection {
         width: 100%;
+
         .title {
             font-family: PoppinsMedium;
             font-size: 14px;
@@ -139,7 +140,8 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-between;
-            // height: 75vh;
+            height: 75vh;
+            align-content: flex-start;
             overflow-y: auto;
             overflow-x: hidden;
 
@@ -155,7 +157,8 @@
 
 
                 .GridImg {
-                    // width: ;
+                    width: 55px;
+                    height: 55px;
                     border-radius: 50%;
                 }
 

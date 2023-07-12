@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
+use App\Service\FilteringVoucher;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Utils\Helper;
@@ -175,23 +176,13 @@ class AlfaController extends AbstractController
      * Desc: Fetch ReCharge vouchers
      * @Route("/alfa/ReCharge", name="app_alfa_ReCharge",methods="POST")
      */
-    public function ReCharge()
+    public function ReCharge(FilteringVoucher $filteringVoucher)
     {
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetAllVouchersType", [
-            'body' => json_encode([
-                "Token" => "",
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $content = $response->getContent();
-        $content = $response->toArray();
+        $filter = $filteringVoucher->VoucherFilter("ALFA");
 
         return new JsonResponse([
             'status' => true,
-            'message' => $content
+            'message' => $filter
         ], 200);
     }
 }

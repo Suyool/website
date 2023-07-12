@@ -125,6 +125,7 @@
 
     .SuggestedSection {
         width: 100%;
+
         .title {
             font-family: PoppinsMedium;
             font-size: 14px;
@@ -142,6 +143,7 @@
             // height: 75vh;
             overflow-y: auto;
             overflow-x: hidden;
+            align-content: flex-start;
 
             .bundleGrid {
                 width: 48%;
@@ -155,7 +157,8 @@
 
 
                 .GridImg {
-                    // width: ;
+                    width: 55px;
+                    height: 55px;
                     border-radius: 50%;
                 }
 
