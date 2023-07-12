@@ -8,6 +8,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -38,22 +39,27 @@
         "/build/runtime.e40c1cca.js",
         "/build/app1.b8115c60.js"
 >>>>>>> 5decb04 (flter data using servises and display them in ui)
+=======
+        "/build/runtime.js",
+        "/build/app1.js"
+>>>>>>> 50240bb (working on postpaid bob api and set dumy in the db)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.ffe283ef.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.67d25036.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -114,49 +120,54 @@
         "/build/runtime.e40c1cca.js",
         "/build/Alfa.9f5a4d47.js"
 >>>>>>> 5decb04 (flter data using servises and display them in ui)
+=======
+        "/build/runtime.js",
+        "/build/Alfa.js"
+>>>>>>> 50240bb (working on postpaid bob api and set dumy in the db)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.4aa2a82f.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.431f83f7.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.adb49e82.css"
+        "/build/styles.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.2a4800b6.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.5fad0f46.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -202,22 +213,25 @@
 =======
         "/build/AlfaStyle.18a4c51c.css"
 >>>>>>> 5decb04 (flter data using servises and display them in ui)
+=======
+        "/build/AlfaStyle.css"
+>>>>>>> 50240bb (working on postpaid bob api and set dumy in the db)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.c51624e4.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.fb4f908d.css"
+        "/build/OgeroStyle.css"
       ]
     }
   }

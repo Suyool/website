@@ -77,13 +77,14 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
+        // dd($data);
         if ($data != null) {
-
             $response = $this->client->request('POST', $this->BOB_API_HOST . '/SendPinRequest', [
                 'body' => json_encode([
                     "ChannelType" => "API",
                     "AlfaPinParam" => [
-                        "GSMNumber" => "70102030"
+                        "GSMNumber" => $data["mobileNumber"]
+                        // "GSMNumber" => "70102030"
                         // "GSMNumber" => "03184740"
                     ],
                     "Credentials" => [
@@ -116,12 +117,59 @@ class AlfaController extends AbstractController
      * PostPaid
      * Provider : BOB
      * Desc: Retrieve Channel Results 
+     * @Route("/alfa/bill/RetrieveResults", name="app_alfa_RetrieveResults",methods="POST")
+     */
+    public function RetrieveResults(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        // dd($data);
+        if ($data != null) {
+            $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+                'body' => json_encode([
+                    "ChannelType" => "API",
+                    "ItemId" => "1",
+                    "VenId" => "1",
+                    "ProductId" => "4",
+
+                    "AlfaBillMeta" => [
+                        "Currency" => $data["currency"],
+                        "GSMNumber" => $data["mobileNumber"],
+                        "PIN" => $data["Pin"],
+                    ],
+                    "Credentials" => [
+                        "User" => "suyool1",
+                        "Password" => "SUYOOL1"
+                    ]
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+
+            $content = $response->getContent();
+            $content = $response->toArray();
+
+            dd($content);
+        } else {
+            $message = "not connected";
+        }
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => $message
+        ], 200);
+    }
+
+    /**
+     * PostPaid
+     * Provider : BOB
+     * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
      */
     public function billPay(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-
+        // dd($data);
         if ($data != null) {
             $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
                 'body' => json_encode([

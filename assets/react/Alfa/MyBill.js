@@ -29,18 +29,20 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
       console.log("Payment processing...");
       console.log(pinCode);
       setPaymentConfirmation(true);
-      // axios
-      //   .post("/alfa/bill/pay",
-      //     {
-      //       mobileNumber: mobileNumber
-      //     }
-      //   )
-      //   .then((response) => {
-      //     console.log(response);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      axios
+        .post("/alfa/bill/RetrieveResults",
+          {
+            mobileNumber: localStorage.getItem("billMobileNumber"),
+            currency: localStorage.getItem("billcurrency"),
+            Pin: pinCode,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 

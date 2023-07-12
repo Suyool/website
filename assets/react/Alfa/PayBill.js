@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("70102030");
   const [currency, setCurrency] = useState("USD");
 
   useEffect(() => {
@@ -14,10 +14,14 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
     // console.log("Mobile Number:", mobileNumber);
     // console.log("Currency:", currency);
 
+    localStorage.setItem("billMobileNumber", mobileNumber);
+    localStorage.setItem("billcurrency", currency);
+
     axios
       .post("/alfa/bill",
         {
-          mobileNumber: mobileNumber
+          mobileNumber: mobileNumber,
+          currency:currency
         }
       )
       .then((response) => {
