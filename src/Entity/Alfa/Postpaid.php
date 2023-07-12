@@ -127,6 +127,7 @@ class Postpaid
     public function setfees($fees)
     {
         $this->fees = $fees;
+        return $this;
     }
 
     public function getfees1()
@@ -137,6 +138,7 @@ class Postpaid
     public function setfees1($fees1)
     {
         $this->fees1 = $fees1;
+        return $this;
     }
 
     public function getamount()
@@ -147,6 +149,7 @@ class Postpaid
     public function setamount($amount)
     {
         $this->amount = $amount;
+        return $this;
     }
 
 
@@ -158,6 +161,7 @@ class Postpaid
     public function setamount1($amount1)
     {
         $this->amount1 = $amount1;
+        return $this;
     }
 
     public function getamount2()
@@ -168,6 +172,7 @@ class Postpaid
     public function setamount2($amount2)
     {
         $this->amount2 = $amount2;
+        return $this;
     }
 
     public function getreferenceNumber()
@@ -178,6 +183,7 @@ class Postpaid
     public function setreferenceNumber($referenceNumber)
     {
         $this->referenceNumber = $referenceNumber;
+        return $this;
     }
 
     public function getinformativeOriginalWSamount()
@@ -188,6 +194,7 @@ class Postpaid
     public function setinformativeOriginalWSamount($informativeOriginalWSamount)
     {
         $this->informativeOriginalWSamount = $informativeOriginalWSamount;
+        return $this;
     }
 
     public function gettotalamount()
@@ -198,6 +205,7 @@ class Postpaid
     public function settotalamount($totalamount)
     {
         $this->totalamount = $totalamount;
+        return $this;
     }
 
     public function getcurrency()
@@ -208,6 +216,7 @@ class Postpaid
     public function setcurrency($currency)
     {
         $this->currency = $currency;
+        return $this;
     }
 
     public function getrounding()
@@ -218,6 +227,7 @@ class Postpaid
     public function setrounding($rounding)
     {
         $this->rounding = $rounding;
+        return $this;
     }
 
     public function getadditionalfees()
@@ -228,6 +238,7 @@ class Postpaid
     public function setadditionalfees($additionalfees)
     {
         $this->additionalfees = $additionalfees;
+        return $this;
     }
 
     public function getSuyoolUserId()
@@ -238,6 +249,7 @@ class Postpaid
     public function setSuyoolUserId($suyoolUserId)
     {
         $this->suyoolUserId = $suyoolUserId;
+        return $this;
     }
 
     public function getPin()
@@ -248,6 +260,7 @@ class Postpaid
     public function setPin($pin)
     {
         $this->pin = $pin;
+        return $this;
     }
 
     function getGsmNumber()
@@ -258,6 +271,7 @@ class Postpaid
     function setGsmNumber($gsmNumber)
     {
         $this->gsmNumber = $gsmNumber;
+        return $this;
     }
 
     function getTransactionId()
@@ -268,5 +282,6 @@ class Postpaid
     function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
+        return $this;
     }
 }

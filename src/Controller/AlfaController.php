@@ -100,7 +100,14 @@ class AlfaController extends AbstractController
             ]);
 
             $content = $response->getContent();
-            $content = $response->toArray();
+            // $content = $response->toArray();
+
+            $ApiResponse = json_decode($content, true);
+            $res = $ApiResponse['Response'];
+            $decodedString = $this->_decodeGzipString(base64_decode($res));
+            dd($decodedString);
+            // dd($res);
+            $message = "connected";
 
             dd($content);
         } else {
@@ -124,32 +131,54 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         // dd($data);
         if ($data != null) {
-            $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
-                'body' => json_encode([
-                    "ChannelType" => "API",
-                    "ItemId" => "1",
-                    "VenId" => "1",
-                    "ProductId" => "4",
+            // $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+            //     'body' => json_encode([
+            //         "ChannelType" => "API",
+            //         "ItemId" => "1",
+            //         "VenId" => "1",
+            //         "ProductId" => "4",
 
-                    "AlfaBillMeta" => [
-                        "Currency" => $data["currency"],
-                        "GSMNumber" => $data["mobileNumber"],
-                        "PIN" => $data["Pin"],
-                    ],
-                    "Credentials" => [
-                        "User" => "suyool1",
-                        "Password" => "SUYOOL1"
-                    ]
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            //         "AlfaBillMeta" => [
+            //             "Currency" => $data["currency"],
+            //             "GSMNumber" => $data["mobileNumber"],
+            //             "PIN" => $data["Pin"],
+            //         ],
+            //         "Credentials" => [
+            //             "User" => "suyool1",
+            //             "Password" => "SUYOOL1"
+            //         ]
+            //     ]),
+            //     'headers' => [
+            //         'Content-Type' => 'application/json'
+            //     ]
+            // ]);
 
-            $content = $response->getContent();
-            $content = $response->toArray();
+            // $content = $response->getContent();
+            // $content = $response->toArray();
 
-            dd($content);
+            // dd($content);
+
+            $Postpaid = new Postpaid;
+            $Postpaid->setfees("2")
+                ->setfees1("0")
+                ->setamount("104.58")
+                ->setamount1("0")
+                ->setamount2("0")
+                ->setreferenceNumber("20230700000042")
+                ->setinformativeOriginalWSamount("104.58")
+                ->settotalamount("106.58")
+                ->setcurrency("USD")
+                ->setrounding("0")
+                ->setadditionalfees("0")
+                ->setSuyoolUserId("1234567")
+                ->setPin("0000")
+                ->setGsmNumber("70102030")
+                ->setTransactionId("1735028");
+
+            $this->mr->persist($Postpaid);
+            $this->mr->flush();
+            $message = "connected";
+        
         } else {
             $message = "not connected";
         }
