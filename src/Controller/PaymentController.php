@@ -70,6 +70,11 @@ class PaymentController extends AbstractController
             // $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
+            // dd
+            if($parameters['payment_details_response']['respCode'] == 2){
+                // dd();
+                return $this->redirectToRoute("homepage");
+            }
             $this->session->set("request_details_response", $parameters['payment_details_response']);
             $this->session->set("code", $code);
             $this->session->set(
@@ -124,6 +129,15 @@ class PaymentController extends AbstractController
                     ? $additionalData['ReceiverPhone']
                     : ''
             );
+            if(isset($additionalData['AuthenticationCode']) || $parameters['payment_details_response']['respCode'] == 1){
+                $this->session->set(
+                    "codeGenerated",
+                    isset($additionalData['AuthenticationCode'])
+                        ? $additionalData['AuthenticationCode']
+                        : ''
+                );
+            }
+           
 
             // $parameters['']
             // dd(json_decode($additionalData,true));
@@ -137,6 +151,11 @@ class PaymentController extends AbstractController
      */
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
+        $code=$this->session->get('codeGenerated');
+        if(isset($code)){
+            $parameters['cashout']['data']=$code;
+            return $this->render('payment/codeGenerated.html.twig', $parameters);
+        }
         $submittedToken = $request->request->get('token');
         $parameters = $this->trans->translation($request, $translator);
         $parameters = $this->trans->translation($request, $translator);
@@ -159,10 +178,12 @@ class PaymentController extends AbstractController
 
                 // dd($params['data']);
                 $params['url'] = 'SuyoolGlobalAPIs/api/NonSuyooler/NonSuyoolerCashOut';
-
+                // dd($params['data']);
                 $response = Helper::send_curl($params);
                 $parameters['cashout'] = json_decode($response, true);
                 // dd($parameters['cashout']);
+                // $parameters['cashout']['globalCode']=1;
+                // $parameters['cashout']['data']=123;
                 if ($parameters['cashout']['globalCode'] == 0) {
                     // dd("ok");
                     
@@ -170,6 +191,12 @@ class PaymentController extends AbstractController
                     
                     return $this->render('payment/generateCode.html.twig', $parameters);
                 } else {
+                    $this->session->set(
+                        "codeGenerated",
+                        isset($parameters['cashout']['data'])
+                            ? $parameters['cashout']['data']
+                            : ''
+                    );
                     return $this->render('payment/codeGenerated.html.twig', $parameters);
                 }
                 // dd($parameters['cashout']);

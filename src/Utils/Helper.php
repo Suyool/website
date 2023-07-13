@@ -27,11 +27,21 @@ class Helper
            if($accessToken != null){
                $host = $params['url'];
            }else{
-               if($_ENV['APP_ENV']=='prod'){
-                   $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/'.$params['url'];
-               }else{
-                   $host = 'http://10.20.80.58/'.$params['url'];
-               }
+            if($_ENV['APP_ENV']=='prod'){
+                if($app=='loto'){
+                    $host = 'https://backbone.lebaneseloto.com';
+                }else{
+                    $host = 'https://globalapi.suyool.money/api/';
+                }
+            }else{
+         
+         if($app=='loto'){
+            $host = 'https://backbone.lebaneseloto.com';
+         }else{
+            $host = 'http://10.20.80.62/' ;
+            //  $host = 'https://globalapi.suyool.money/api/';
+         }
+                }
            }
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
