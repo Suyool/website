@@ -79,37 +79,38 @@ class AlfaController extends AbstractController
 
         // dd($data);
         if ($data != null) {
-            $response = $this->client->request('POST', $this->BOB_API_HOST . '/SendPinRequest', [
-                'body' => json_encode([
-                    "ChannelType" => "API",
-                    "AlfaPinParam" => [
-                        "GSMNumber" => $data["mobileNumber"]
-                        // "GSMNumber" => "70102030"
-                        // "GSMNumber" => "03184740"
-                    ],
-                    "Credentials" => [
-                        "User" => "suyool1",
-                        "Password" => "SUYOOL1"
-                        // "User" => "suyool",
-                        // "Password" => "p@123123"
-                    ]
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            // $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendPinRequest', [
+            //     'body' => json_encode([
+            //         "ChannelType" => "API",
+            //         "AlfaPinParam" => [
+            //             "GSMNumber" => $data["mobileNumber"]
+            //             // "GSMNumber" => "70102030"
+            //             // "GSMNumber" => "03184740"
+            //         ],
+            //         "Credentials" => [
+            //             "User" => "suyool1",
+            //             "Password" => "SUYOOL1"
+            //             // "User" => "suyool",
+            //             // "Password" => "p@123123"
+            //         ]
+            //     ]),
+            //     'headers' => [
+            //         'Content-Type' => 'application/json'
+            //     ]
+            // ]);
 
-            $content = $response->getContent();
+            // $content = $response->getContent();
             // $content = $response->toArray();
+            // dd($content);
 
-            $ApiResponse = json_decode($content, true);
-            $res = $ApiResponse['Response'];
-            $decodedString = $this->_decodeGzipString(base64_decode($res));
-            dd($decodedString);
+            // $ApiResponse = json_decode($content, true);
+            // $res = $ApiResponse['Response'];
+            // $decodedString = $this->_decodeGzipString(base64_decode($res));
+            // dd($decodedString);
+
             // dd($res);
             $message = "connected";
 
-            dd($content);
         } else {
             $message = "not connected";
         }
@@ -177,15 +178,19 @@ class AlfaController extends AbstractController
 
             $this->mr->persist($Postpaid);
             $this->mr->flush();
+            // dd($Postpaid->getId());
+            $postpayed = $Postpaid->getId();
             $message = "connected";
         
         } else {
             $message = "not connected";
+            $postpayed = -1;
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message
+            'message' => $message,
+            'postpayed' => $postpayed
         ], 200);
     }
 
@@ -199,50 +204,54 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         // dd($data);
-        if ($data != null) {
-            $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
-                'body' => json_encode([
-                    "ChannelType" => "API",
-                    "ItemId" => "1",
-                    "VenId" => "1",
-                    "ProductId" => "4",
-                    "TransactionId" => "tst",
+ 
+        $Postpaid_With_id = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $data["ResponseId"]]);
+        dd($Postpaid_With_id);
+ 
+        // if ($data != null) {
+        //     $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+        //         'body' => json_encode([
+        //             "ChannelType" => "API",
+        //             "ItemId" => "1",
+        //             "VenId" => "1",
+        //             "ProductId" => "4",
+        //             "TransactionId" => "tst",
 
-                    "AlfaBillResult" => [
-                        "Fees" => "tst",
-                        "TransactionId" => "tst",
-                        "Amount" => "tst",
-                        "Amount1" => "tst",
-                        "ReferenceNumber" => "tst",
-                        "Fees1" => "tst",
-                        "Amount2" => "tst",
-                        "InformativeOriginalWSAmount" => "tst",
-                        "TotalAmount" => "tst",
-                        "Currency" => "tst",
-                        "Rounding" => "tst",
-                        "AdditionalFees" => "tst",
-                    ],
-                    "Credentials" => [
-                        "User" => "suyool1",
-                        "Password" => "SUYOOL1"
-                    ]
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+        //             "AlfaBillResult" => [
+        //                 "Fees" => "tst",
+        //                 "TransactionId" => "tst",
+        //                 "Amount" => "tst",
+        //                 "Amount1" => "tst",
+        //                 "ReferenceNumber" => "tst",
+        //                 "Fees1" => "tst",
+        //                 "Amount2" => "tst",
+        //                 "InformativeOriginalWSAmount" => "tst",
+        //                 "TotalAmount" => "tst",
+        //                 "Currency" => "tst",
+        //                 "Rounding" => "tst",
+        //                 "AdditionalFees" => "tst",
+        //             ],
+        //             "Credentials" => [
+        //                 "User" => "suyool1",
+        //                 "Password" => "SUYOOL1"
+        //             ]
+        //         ]),
+        //         'headers' => [
+        //             'Content-Type' => 'application/json'
+        //         ]
+        //     ]);
 
-            $content = $response->getContent();
-            $content = $response->toArray();
+        //     $content = $response->getContent();
+        //     $content = $response->toArray();
 
-            dd($content);
-        } else {
-            $message = "not connected";
-        }
+        //     dd($content);
+        // } else {
+        //     $message = "not connected";
+        // }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message
+            // 'message' => $message
         ], 200);
     }
 

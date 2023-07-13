@@ -9,6 +9,7 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
   }, [])
 
   const [pinCode, setPinCode] = useState([]);
+  const [getResponseId, setResponseId] = useState(null);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
 
   const handleNbClick = (num) => {
@@ -39,6 +40,7 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
         )
         .then((response) => {
           console.log(response);
+          setResponseId(response?.data?.postpayed);
         })
         .catch((error) => {
           console.log(error);
@@ -47,13 +49,26 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
   };
 
   const handleConfirmPay = () => {
-    setModalName("SuccessModal");
-    setSuccessModal({
-      imgPath: "/build/images/Alfa/SuccessImg.png",
-      title: "Alfa Bill Paid Successfully",
-      desc: "You have successfully paid your Alfa bill of {currency}{amount}."
-    })
-    setModalShow(true);
+    console.log(getResponseId)
+    axios
+      .post("/alfa/bill/pay",
+        {
+          ResponseId: getResponseId
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        setModalName("SuccessModal");
+        setSuccessModal({
+          imgPath: "/build/images/Alfa/SuccessImg.png",
+          title: "Alfa Bill Paid Successfully",
+          desc: "You have successfully paid your Alfa bill of {currency}{amount}."
+        })
+        setModalShow(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
