@@ -30,7 +30,7 @@
   gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Facebook Pixel Code -->
-<script>
+{# <script>
     !function(f,b,e,v,n,t,s)
     {
         if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -44,7 +44,7 @@
 
     fbq('track', 'PageView');
 
-</script>
+</script> #}
     {% for file in encore_entry_js_files('app1') %}
         <script src="{{ asset(file|substr(1)) }}"></script>
     {% endfor %}
