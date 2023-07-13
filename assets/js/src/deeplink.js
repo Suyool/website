@@ -22,25 +22,25 @@ function getMobileOperatingSystem() {
     return "unknown";
 }
     //Execute Google Analytics and Facebook Pixel events
-    function googleFacebookEvents(eventNameKey, eventName, eventCategory, eventLabel){
-        //Set the name of the resolution
-        var eventResolution = '';
-        //If Ipad - Add "Ipad - " to the eventLabel
-        if(window.screen.width > 767 && window.screen.width < 769){
-            eventResolution = 'Ipad - ';
-            //If Mobile - Add "Mobile - " to the eventLabel
-        }else if(window.screen.width < 992){
-            eventResolution = 'Mobile - ';
-            //If Desktop - Add "Desktop - " to the eventLabel
-        }else{
-            eventResolution = 'Desktop - ';
-        }
+    // function googleFacebookEvents(eventNameKey, eventName, eventCategory, eventLabel){
+    //     //Set the name of the resolution
+    //     var eventResolution = '';
+    //     //If Ipad - Add "Ipad - " to the eventLabel
+    //     if(window.screen.width > 767 && window.screen.width < 769){
+    //         eventResolution = 'Ipad - ';
+    //         //If Mobile - Add "Mobile - " to the eventLabel
+    //     }else if(window.screen.width < 992){
+    //         eventResolution = 'Mobile - ';
+    //         //If Desktop - Add "Desktop - " to the eventLabel
+    //     }else{
+    //         eventResolution = 'Desktop - ';
+    //     }
     
-        //Google Analytics
-        gtag('event', eventName, {'event_category': eventCategory, 'event_label': eventResolution + eventLabel});
-        //Facebook Pixel
-        fbq('trackCustom', eventCategory, {eventNameKey: eventName});
-    }
+    //     //Google Analytics
+    //     gtag('event', eventName, {'event_category': eventCategory, 'event_label': eventResolution + eventLabel});
+    //     //Facebook Pixel
+    //     fbq('trackCustom', eventCategory, {eventNameKey: eventName});
+    // }
     function getTheApp(position, downloadAppUrl) {
         //Event label - Menu or Homepage - top
         var eventLabel = '';
