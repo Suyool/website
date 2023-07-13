@@ -1,6 +1,6 @@
 {
-<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -18,8 +18,9 @@
   "build/Loto.js": "/build/Loto.d63b56f8.js",
 >>>>>>> 350cbe9 (handle some notification bouquet with zeed and prices when command run)
 =======
+=======
+>>>>>>> 7eab9dc (public yarn prod)
   "build/Loto.js": "/build/Loto.dbea2537.js",
->>>>>>> 393f210 (design)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
 >>>>>>> 495c552 (notification in loto and design)
   "build/styles.css": "/build/styles.adb49e82.css",
