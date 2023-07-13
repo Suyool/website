@@ -1,0 +1,40 @@
+<div style="padding: 60px 0;">
+    <form method="post" action="{{ path('form_submit') }}" style="margin: auto; width: 330px;">
+        {{ form_start(form) }}
+        <div>
+            {{ form_label(form.domain) }}
+        {{ form_widget(form.domain) }}
+        </div>
+        <div>
+            {{ form_label(form.appKey) }}
+        {{ form_widget(form.appKey) }}
+        </div>
+        <div>
+            {{ form_label(form.appPass) }}
+        {{ form_widget(form.appPass) }}
+        </div>
+        <div>
+            {{ form_label(form.appSecret) }}
+        {{ form_widget(form.appSecret) }}
+        </div>
+        <div>
+            {{ form_label(form.shopCurrency) }}
+        {{ form_widget(form.shopCurrency) }}
+        </div>
+        <div>
+            {{ form_label(form.merchantId) }}
+        {{ form_widget(form.merchantId) }}
+        </div>
+        <div>
+            {{ form_label(form.certificateKey) }}
+        {{ form_widget(form.certificateKey) }}
+        </div>
+        <div>
+            {{ form_label(form.integrationType) }}
+        {{ form_widget(form.integrationType) }}
+        </div>
+
+        {{ form_end(form) }}
+    </form>
+</div>
+
