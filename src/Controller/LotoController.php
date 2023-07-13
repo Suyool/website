@@ -57,7 +57,8 @@ class LotoController extends AbstractController
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
         }
 
-        $this->session->set('userId', rand());
+        // $this->session->set('userId', rand());
+        $session=$this->session->get('userId');
 
         if ($loto_draw) {
             $parameters['next_draw_number'] = $loto_draw->getdrawid();
@@ -126,9 +127,16 @@ class LotoController extends AbstractController
                 'parameters' => $parameters
             ]);
         } else {
-            return $this->render('loto/index.html.twig', [
-                'parameters' => $parameters
-            ]);
+            if(isset($session)){
+                return $this->render('loto/index.html.twig', [
+                    'parameters' => $parameters
+                ]);
+            }else{
+                return new JsonResponse([
+                    'message'=>'Not found'
+                ],404);
+            }
+            
         }
 
     }

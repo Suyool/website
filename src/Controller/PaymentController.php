@@ -34,6 +34,7 @@ class PaymentController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
+        $this->session->remove('codeGenerated');
         $parameters = $this->trans->translation($request, $translator);
 
 
