@@ -6,7 +6,7 @@ use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\notificationRepository")
  * @ORM\Table(name="notification")
  */
 class notification
