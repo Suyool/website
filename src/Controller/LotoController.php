@@ -58,8 +58,9 @@ class LotoController extends AbstractController
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
         }
 
-        // $this->session->set('userId', rand());
+        $this->session->set('userId', rand());
         $session=$this->session->get('userId');
+        // dd($session);
 
         if ($loto_draw) {
             $parameters['next_draw_number'] = $loto_draw->getdrawid();

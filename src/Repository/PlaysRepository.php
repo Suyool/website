@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\order;
 use App\Entity\Plays;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -41,6 +42,19 @@ class PlaysRepository extends EntityRepository
             ->setParameter('transId',$transId)
             ->setParameter('order',$order)
             ->setParameter('completed',"completed")
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPlayedUser($drawid)
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l.drawNumber,o.id,o.suyoolUserId,r.numbers')
+            ->innerJoin(LOTO_results::class,'r')
+            ->innerJoin(order::class,'o')
+            ->where('l.drawNumber = :drawid and r.drawId = :drawid')
+            ->setParameter('drawid',$drawid)
+            ->groupBy('o.id')
             ->getQuery()
             ->getResult();
     }
