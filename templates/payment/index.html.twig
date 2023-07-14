@@ -50,4 +50,16 @@
         <a class="lear_abou_suyool" href="/" title="suyool">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
     </div>
+    <script>
+        {# window.location.assign(window.history.back()); #}
+        {# Self.opener.location.reload (); #}
+        // Check if the page is loaded from a cache or refreshed
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      // Page was loaded from cache
+      location.reload();
+    }
+  });
+
+        </script>
 {% endblock %}
