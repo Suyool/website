@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
+use App\Entity\Alfa\Prepaid;
 use App\Service\FilteringVoucher;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -110,7 +111,6 @@ class AlfaController extends AbstractController
 
             // dd($res);
             $message = "connected";
-
         } else {
             $message = "not connected";
         }
@@ -181,7 +181,6 @@ class AlfaController extends AbstractController
             // dd($Postpaid->getId());
             $postpayed = $Postpaid->getId();
             $message = "connected";
-        
         } else {
             $message = "not connected";
             $postpayed = -1;
@@ -204,10 +203,10 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         // dd($data);
- 
+
         $Postpaid_With_id = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $data["ResponseId"]]);
         dd($Postpaid_With_id);
- 
+
         // if ($data != null) {
         //     $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
         //         'body' => json_encode([
@@ -265,6 +264,25 @@ class AlfaController extends AbstractController
     public function ReCharge(FilteringVoucher $filteringVoucher)
     {
         $filter = $filteringVoucher->VoucherFilter("ALFA");
+
+        $prepaid = new Prepaid;
+        $prepaid
+            ->setvoucherSerial("1234567890123456")
+            ->setvoucherCode("12345678901234")
+            ->setvoucherExpiry("2020-06-10")
+            ->setdescription("Alfa 25")
+            ->setdisplayMessage("You have successfully purchased a 'Alfa 25' Voucher code. Please recharge it using the code 12345678901234 before 2020-06-10")
+            ->settoken("5dfd1c18-34ed-4080-bbdd-e78aef0f5ee9")
+            ->setbalance("99745000")
+            ->seterrorMsg("SUCCESS")
+            ->setinsertId(null)
+            ->setSuyoolUserId(1234567);
+
+        $this->mr->persist($prepaid);
+        $this->mr->flush();
+        // dd($Postpaid->getId());
+        $prepaidId = $prepaid->getId();
+        // dd($prepaidId);
 
         return new JsonResponse([
             'status' => true,
