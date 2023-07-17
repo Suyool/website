@@ -16,9 +16,11 @@ class DeepLinksController extends AbstractController
     public function deepLinks(): Response
     {
         $request = Request::createFromGlobals();
+        // dd($request->query->get('browsertype', ''));
+
         $flag = $request->query->has('f') || $request->query->has('F') || $request->query->has('flag') || $request->query->has('Flag') ? $request->query->get('f') ?? $request->query->get('F') ?? $request->query->get('flag') ?? $request->query->get('Flag') : null;
         $currentUrl = $request->getSchemeAndHttpHost();
-        $browser =  isset($request->query->get('browsertype'))?$request->query->get('browsertype'):'';
+        $browser = $request->query->get('browsertype', '');
 
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
 
