@@ -17,7 +17,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class notificationresult extends Command
+class reminderNotification extends Command
 {
     private $mr;
     public function __construct(ManagerRegistry $mr)
@@ -31,53 +31,16 @@ class notificationresult extends Command
     {
         //php bin/console 
         $this
-            ->setName('app:result');
+            ->setName('app:reminder');
+        //reminder users if played loto once every monday and thursday and don't play loto for 6 months at 10am
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
-            'Notification result send'
+            'Notification reminder send'
         ]);
-
-        $token_prize = [
-            'Token' => '',
-            'from' => 0,
-            'to' => 0
-        ];
-        $prize['data'] = json_encode($token_prize);
-        $prize['url'] = '/Service.asmx/GetDrawsInformation';
-
-        $reponseprize = Helper::send_curl($prize, 'loto');
-        $prize_loto = json_decode($reponseprize, true);
-        // dd($prize_loto);
-        // $drawdate=strtotime($prize_loto['d']['draws'][0]['drawdate']);
-        // dd($drawdate);
-        // dd($prize_loto);
-        foreach ($prize_loto['d']['draws'] as $prize_loto) {
-            $results = new LOTO_results;
-            $drawdate = strtotime($prize_loto['drawdate']);
-            if (!$this->mr->getRepository(LOTO_results::class)->findBy(['drawId' => $prize_loto['drawnumber']])) {
-                $numbers = [$prize_loto['B1'], $prize_loto['B2'], $prize_loto['B3'], $prize_loto['B4'], $prize_loto['B5'], $prize_loto['B6'], $prize_loto['B7']];
-                $numbers = implode(",", $numbers);
-                // dd($prize_loto['drawdate']->forma);
-                $drawdate = strtotime($prize_loto['drawdate'] . '+1 hour');
-                $time = new DateTime();
-                $time->setTimestamp($drawdate);
-                //    dd(date('Y-m-d H:i:s',$drawdate));
-                $results->setdrawid($prize_loto['drawnumber']);
-                $results->setnumbers($numbers);
-                $results->setdrawdate($time);
-                $results->setwinner1($prize_loto['prize1']);
-                $results->setwinner2($prize_loto['prize2']);
-                $results->setwinner3($prize_loto['prize3']);
-                $results->setwinner4($prize_loto['prize4']);
-                $results->setwinner5($prize_loto['prize5']);
-                $this->mr->persist($results);
-                $this->mr->flush();
-            }
-        }
-
+        dd($this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek());
         $lastdraw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
         // dd(($lastdraw->getdrawid()));
         $drawid=$lastdraw->getdrawid();
