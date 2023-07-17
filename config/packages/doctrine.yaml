@@ -10,6 +10,8 @@ doctrine:
                 url: '%env(resolve:LOTO_DATABASE_URL)%'
             alfa:
                 url: '%env(resolve:ALFA_DATABASE_URL)%'
+            estore:
+                url: '%env(resolve:ESTORE_DATABASE_URL)%'
         default_connection: default        
         # charset: UTF8
         # logging: true
@@ -59,6 +61,15 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Alfa'
                         prefix: 'App\Entity\Alfa'
                         alias: Alfa
+            estore:
+                connection: estore
+                mappings:
+                    Estore:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Estore'
+                        prefix: 'App\Entity\Estore'
+                        alias: Estore
                         
         # dql:
         #     datetime_functions:
