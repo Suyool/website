@@ -18,9 +18,10 @@ class DeepLinksController extends AbstractController
         $request = Request::createFromGlobals();
         $flag = $request->query->has('f') || $request->query->has('F') || $request->query->has('flag') || $request->query->has('Flag') ? $request->query->get('f') ?? $request->query->get('F') ?? $request->query->get('flag') ?? $request->query->get('Flag') : null;
         $currentUrl = $request->getSchemeAndHttpHost();
-        $browser = Helper::getBrowserType();
+        $browser =  isset($request->query->get('browsertype'))?$request->query->get('browsertype'):'';
 
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
+
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
             // JavaScript redirect
@@ -28,16 +29,15 @@ class DeepLinksController extends AbstractController
             echo "<script>window.location.href = '{$redirectUrl}';</script>";
             exit();
         }
-//        elseif ($flag === '73') {
-//            // Redirect desktop devices landed on flag 73 to Merchant page
-//            return $this->redirectToRoute('merchant');
-//
-//        } elseif ($flag === '17') {
-//            return $this->redirectToRoute('homepage');
-//        }
+        //        elseif ($flag === '73') {
+        //            // Redirect desktop devices landed on flag 73 to Merchant page
+        //            return $this->redirectToRoute('merchant');
+        //
+        //        } elseif ($flag === '17') {
+        //            return $this->redirectToRoute('homepage');
+        //        }
 
         // Redirect desktop devices to homepage by default
         return $this->redirectToRoute('homepage');
     }
-
 }
