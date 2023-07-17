@@ -368,7 +368,11 @@ class LotoController extends AbstractController
                     foreach ($lotoidcompleted as $lotoidcompletedsum) {
                         $newsum += $lotoidcompletedsum->getprice();
                     }
-                    $transId = rand();
+                    
+                    if($newsum != $sum){
+                        $transId = rand();
+
+                    }
                     $orderid->setamount($newsum)
                         ->setcurrency($lotoidcompletedsum->getcurrency())
                         ->settransId($transId)

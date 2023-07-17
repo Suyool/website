@@ -1,6 +1,7 @@
 {
   "build/app1.js": "/build/app1.3b7df2df.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -21,10 +22,13 @@
 =======
 >>>>>>> 7eab9dc (public yarn prod)
   "build/Loto.js": "/build/Loto.dbea2537.js",
+=======
+  "build/Loto.js": "/build/Loto.7300db77.js",
+>>>>>>> 0931518 (notification reminder)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
 >>>>>>> 495c552 (notification in loto and design)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.82ead8fc.css",
+  "build/Lotostyles.css": "/build/Lotostyles.ac7eaff3.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",

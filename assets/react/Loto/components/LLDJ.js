@@ -10,6 +10,55 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
     })
     // console.log(parameters);
     const [getShowBouquet, setShowBouquet] = useState(false);
+    // const [get8Grids, set8Grids]=useState(false);
+    const set8Grids = () => {
+        // const lastBall = selectedBalls[selectedBalls.length - 1];
+        const bouquetData = {
+            bouquet: "B" + 8, // Use the gridNb property instead of balls
+            price: parameters.gridprice*8,
+            currency:"LBP",
+            withZeed:false,
+            isbouquet:true
+          };
+      
+          // Get the existing data from local storage
+          const existingData = localStorage.getItem("selectedBalls");
+      
+          if (existingData) {
+            // Parse the existing data and add the new bouquet data
+            const newData = [...JSON.parse(existingData), bouquetData];
+            localStorage.setItem("selectedBalls", JSON.stringify(newData));
+          } else {
+            // Create a new array with the bouquet data and store it in local storage
+            localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+          }
+      
+    };
+    //
+    const set1Grid = () => {
+        // const lastBall = selectedBalls[selectedBalls.length - 1];
+        const bouquetData = {
+            bouquet: "B" + 1, // Use the gridNb property instead of balls
+            price: parameters.gridprice,
+            currency:"LBP",
+            withZeed:false,
+            isbouquet:true
+          };
+      
+          // Get the existing data from local storage
+          const existingData = localStorage.getItem("selectedBalls");
+      
+          if (existingData) {
+            // Parse the existing data and add the new bouquet data
+            const newData = [...JSON.parse(existingData), bouquetData];
+            localStorage.setItem("selectedBalls", JSON.stringify(newData));
+          } else {
+            // Create a new array with the bouquet data and store it in local storage
+            localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+          }
+      
+    };
+
     return (
         <>
             <div id="LLDJ" className={`${isHideBack ? "isHideBack" : ""}`} >
@@ -42,14 +91,14 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                         <div className="items">
                             <div className="title">1 GRID</div>
                             <div className="price">{parseInt(parameters.gridprice).toLocaleString()} LBP</div>
-                            <button className="letsPlayBtn">PLAY NOW</button>
+                            <button className="letsPlayBtn" onClick={() => { set1Grid(true); }}>PLAY NOW</button>
                         </div>
 
                         <div className="items redone">
                             <div className="image"><img src="/build/images/Loto/popular.png" alt="popular" /></div>
                             <div className="title">8 GRIDS</div>
                             <div className="price">{parseInt(parameters.gridprice*8).toLocaleString()} LBP</div>
-                            <button className="letsPlayBtn">PLAY NOW</button>
+                            <button className="letsPlayBtn" onClick={() => { set8Grids(true); }}>PLAY NOW</button>
                         </div>
 
                         <div className="items">

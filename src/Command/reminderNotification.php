@@ -40,12 +40,9 @@ class reminderNotification extends Command
         $output->writeln([
             'Notification reminder send'
         ]);
-        dd($this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek());
-        $lastdraw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
-        // dd(($lastdraw->getdrawid()));
-        $drawid=$lastdraw->getdrawid();
-        $notifyUser=$this->mr->getRepository(loto::class)->findPlayedUser($drawid);
 
+        $notify=$this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek();
+// dd($notify);
         $next_draw_form_data = ["Token" => ""];
         $NextDrawparams['data'] = json_encode($next_draw_form_data);
         // $params['type']='post';
@@ -80,17 +77,17 @@ class reminderNotification extends Command
 
         $lastresultprice = $this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
 
-        foreach($notifyUser as $notifyUser)
+        foreach($notify as $notify)
         {
-            $orderid=$this->mr->getRepository(order::class)->findOneBy(['id'=>$notifyUser['id']]);
+            $orderid=$this->mr->getRepository(order::class)->findOneBy(['id'=>$notify['id']]);
             $notification = new notification;
-                    $notification->setIdentifier('Loto result');
-                    $notification->setTitle("Draw ". $notifyUser['drawNumber'] ." results");
-                    $notification->setNotify("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
-                    $notification->setSubject("Draw ". $notifyUser['drawNumber'] ." results");
+                    $notification->setIdentifier('reminder notification');
+                    $notification->setTitle("Ready for today's LOTO");
+                    $notification->setNotify("Enter today's draw & get the chance to win today's jackpot: LBP " . $lastresultprice->getlotoprize());
+                    $notification->setSubject("Ready for today's LOTO! ");
                     $notification->setOrderId($orderid);
                     $notification->settransId($orderid->gettransId());
-                    $notification->setText("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
+                    $notification->setText("{fname} enter today's draw & get the chance to win the jackpot of LBP " . $lastresultprice->getlotoprize());
                     // $notification->setGrids($i);
                     $notification->setamount($orderid->getamount());
                     $notification->setcurrency($orderid->getcurrency());

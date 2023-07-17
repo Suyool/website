@@ -39,7 +39,7 @@ const App = ({ parameters }) => {
                 {activeButton.name === "Play" && <Play setBallPlayed={setBallPlayed} setPickYourGrid={setPickYourGrid} setTotalAmount={setTotalAmount} setBallNumbers={setBallNumbers} setActiveButton={setActiveButton} setDisabledBtn={setDisabledBtn} getDisabledBtn={getDisabledBtn} />}
                 {activeButton.name === "Result" && <Result parameters={parameters} />}
 
-                {activeButton.name === "Buy" && <Buy setDisabledBtn={setDisabledBtn}  />}
+                {activeButton.name === "Buy" && <Buy parameters={parameters} setDisabledBtn={setDisabledBtn}  />}
             </div>
 
             {getPickYourGrid && <PickYourGrid setPickYourGrid={setPickYourGrid} getBallNumbers={getBallNumbers} getTotalAmount={getTotalAmount} getBallPlayed={getBallPlayed} setIsHide={setIsHide} />}
