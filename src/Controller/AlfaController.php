@@ -265,28 +265,73 @@ class AlfaController extends AbstractController
     {
         $filter = $filteringVoucher->VoucherFilter("ALFA");
 
-        $prepaid = new Prepaid;
-        $prepaid
-            ->setvoucherSerial("1234567890123456")
-            ->setvoucherCode("12345678901234")
-            ->setvoucherExpiry("2020-06-10")
-            ->setdescription("Alfa 25")
-            ->setdisplayMessage("You have successfully purchased a 'Alfa 25' Voucher code. Please recharge it using the code 12345678901234 before 2020-06-10")
-            ->settoken("5dfd1c18-34ed-4080-bbdd-e78aef0f5ee9")
-            ->setbalance("99745000")
-            ->seterrorMsg("SUCCESS")
-            ->setinsertId(null)
-            ->setSuyoolUserId(1234567);
-
-        $this->mr->persist($prepaid);
-        $this->mr->flush();
-        // dd($Postpaid->getId());
-        $prepaidId = $prepaid->getId();
-        // dd($prepaidId);
-
         return new JsonResponse([
             'status' => true,
             'message' => $filter
+        ], 200);
+    }
+
+    /**
+     * PrePaid
+     * Provider : LOTO
+     * Desc: Buy PrePaid vouchers
+     * @Route("/alfa/BuyPrePaid", name="app_alfa_BuyPrePaid",methods="POST")
+     */
+    public function BuyPrePaid(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if ($data != null) {
+            $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
+                'body' => json_encode([
+                    "Token" => $data["Token"],
+                    "category" => $data["category"],
+                    "type" => $data["type"],
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+
+            $content = $response->getContent();
+            $content = $response->toArray();
+
+            $PayResonse = $content["d"];
+            // dd($PayResonse);
+            if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
+                $prepaid = new Prepaid;
+                $prepaid
+                    ->setvoucherSerial($PayResonse["voucherSerial"])
+                    ->setvoucherCode($PayResonse["voucherCode"])
+                    ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                    ->setdescription($PayResonse["desc"])
+                    ->setdisplayMessage($PayResonse["displayMessage"])
+                    ->settoken($PayResonse["token"])
+                    ->setbalance($PayResonse["balance"])
+                    ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                    ->setinsertId($PayResonse["insertId"])
+                    ->setSuyoolUserId(1234567);
+
+                $this->mr->persist($prepaid);
+                $this->mr->flush();
+                $IsSuccess=true;
+            }else{
+                $IsSuccess=false;
+            }
+
+            // dd($content);
+            // dd($Postpaid->getId());
+            // $prepaidId = $prepaid->getId();
+            // dd($prepaidId);
+        } else {
+            $content = "not connected";
+            $IsSuccess=false;
+        }
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => $content,
+            'IsSuccess' =>$IsSuccess,
         ], 200);
     }
 }

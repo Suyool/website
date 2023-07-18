@@ -62,7 +62,7 @@ import React, { useEffect, useState } from "react";
 const ReCharge = ({ getVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [filteredData, setFilteredData] = useState([]);
 
-  console.log(filteredData);
+  // console.log(filteredData);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa");

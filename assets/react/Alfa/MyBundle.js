@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
@@ -8,28 +9,25 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
 
   const handleConfirmPay = () => {
-    setPaymentConfirmation(true);
+    axios
+      .post("/alfa/BuyPrePaid",
+        {
+          Token: "60f83251-b4e3-4f03-83fc-c87a77bd4177",
+          category: "MTC",
+          type: "30"
+        })
+      .then((response) => {
+        console.log(response?.data.IsSuccess)
+        if (response?.data.IsSuccess) {
+          setPaymentConfirmation(true);
+        } else {
 
-    // console.log(getResponseId)
-    // axios
-    //   .post("",
-    //     {
-    //       ResponseId: getResponseId
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log(response);
-    //     setModalName("SuccessModal");
-    //     setSuccessModal({
-    //       imgPath: "/build/images/Alfa/SuccessImg.png",
-    //       title: "Alfa Bill Paid Successfully",
-    //       desc: "You have successfully paid your Alfa bill of {currency}{amount}."
-    //     })
-    //     setModalShow(true);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+        }
+        // console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -39,6 +37,10 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
           <div id="PaymentConfirmationPrePaid">
             <div className="topSection">
               <div className="brBoucket"></div>
+              <div className="titles">
+                <div className="titleGrid"></div>
+                <button onClick={() => { setActiveButton({ name: "MyBundle" }); setPaymentConfirmation(false) }}>Cancel</button>
+              </div>
             </div>
 
             <div className="bodySection">
