@@ -166,10 +166,11 @@ class AlfaController extends AbstractController
 
         if ($data != null) {
             $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-            // dd($BuyPrePaid);
-
             $PayResonse = $BuyPrePaid["d"];
             // dd($PayResonse);
+
+
+
             if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
                 $prepaid = new Prepaid;
                 $prepaid
@@ -188,6 +189,17 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
                 $IsSuccess = true;
                 $prepaidId = $prepaid->getId();
+                
+                $order = new Order;
+                $order
+                    ->setsuyoolUserId(1234)
+                    ->setpostpaid_Id(null)
+                    ->setprepaid_Id($prepaidId)
+                    ->setstatus("true")
+                    ->setamount(50000)
+                    ->setcurrency("LBP");
+                $this->mr->persist($order);
+                $this->mr->flush();
                 // dd($prepaidId);
             } else {
                 $IsSuccess = false;
