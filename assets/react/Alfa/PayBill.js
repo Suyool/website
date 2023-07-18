@@ -66,14 +66,14 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
-      <div className="pCurrency">
+      {/* <div className="pCurrency">
         <div className="subTitle">My Payment Currency</div>
       </div>
 
       <div className="currencies">
         <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
         <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-      </div>
+      </div> */}
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
     </div>

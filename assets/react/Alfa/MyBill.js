@@ -90,8 +90,33 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
                 <img src="/build/images/Alfa/alfaLogo.png" alt="flag" />
                 <div className="method">Alfa Bill Payment</div>
               </div>
-              <div className="descSec">Amount</div>
-              <div className="Amount">10 $</div>
+
+              <div className="MoreInfo">
+                <div className="label">Phone Number</div>
+                <div className="value">+961 03453277</div>
+              </div>
+
+              <div className="br"></div>
+
+              <div className="MoreInfo">
+                <div className="label">Amount in USD</div>
+                <div className="value1">$ 1.22</div>
+              </div>
+
+              <div className="MoreInfo">
+                <div className="label">Amount in LBP (Sayrafa Rate)</div>
+                <div className="value1">LBP 90,000</div>
+              </div>
+
+              <div className="taxes">*All taxes included</div>
+
+              <div className="br"></div>
+
+              <div className="MoreInfo">
+                <div className="label">Total</div>
+                <div className="value2">LBP 100,000</div>
+              </div>
+
             </div>
 
             <div className="footSectionPick">

@@ -166,21 +166,21 @@ class EstoreController extends AbstractController
         $JsonResponse = json_decode($decodedString);
         $JsonResponse = json_decode($decodedString, true);
         $Prices = $JsonResponse['ConfigurationFileDataId:23'][0];
-        // dd($Prices);
-        foreach ($Prices as $price) {
-            $Price = new Price;
-            $Price
-                ->setdenominationId($price[0])
-                ->setdenominationDescription($price[1])
-                ->setAmount($price[2])
-                ->setCommission($price[3])
-                ->setparentConfigurationDataId($price[4])
-                ->setserviceCode($price[5])
-                ->setserviceProviderCode($price[6]);
+        dd($Prices);
+        // foreach ($Prices as $price) {
+        //     $Price = new Price;
+        //     $Price
+        //         ->setdenominationId($price[0])
+        //         ->setdenominationDescription($price[1])
+        //         ->setAmount($price[2])
+        //         ->setCommission($price[3])
+        //         ->setparentConfigurationDataId($price[4])
+        //         ->setserviceCode($price[5])
+        //         ->setserviceProviderCode($price[6]);
 
-            $this->mr->persist($Price);
-            $this->mr->flush();
-        }
+        //     $this->mr->persist($Price);
+        //     $this->mr->flush();
+        // }
 
         return $this->render('estore/index.html.twig', [
             'controller_name' => 'EstoreController',
