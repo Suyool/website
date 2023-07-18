@@ -1,3 +1,135 @@
+import React, { useEffect, useState } from "react";
+
+const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+  useEffect(() => {
+    setHeaderTitle("Pay Mobile Bill")
+    setBackLink("ReCharge")
+  }, [])
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+
+  const handleConfirmPay = () => {
+    setPaymentConfirmation(true);
+
+    // console.log(getResponseId)
+    // axios
+    //   .post("",
+    //     {
+    //       ResponseId: getResponseId
+    //     }
+    //   )
+    //   .then((response) => {
+    //     console.log(response);
+    //     setModalName("SuccessModal");
+    //     setSuccessModal({
+    //       imgPath: "/build/images/Alfa/SuccessImg.png",
+    //       title: "Alfa Bill Paid Successfully",
+    //       desc: "You have successfully paid your Alfa bill of {currency}{amount}."
+    //     })
+    //     setModalShow(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
+
+  return (
+    <div id="MyBundle" className={`${getPaymentConfirmation && "hideBack"}`}>
+      {getPaymentConfirmation ?
+        <>
+          <div id="PaymentConfirmationPrePaid">
+            <div className="topSection">
+              <div className="brBoucket"></div>
+            </div>
+
+            <div className="bodySection">
+              <img className="SuccessImg" src="/build/images/Alfa/SuccessImg.png" alt="Bundle" />
+              <div className="bigTitle">Payment Successful</div>
+              <div className="descriptio">You have successfully purchased the $1.22 Alfa recharge card.</div>
+
+              <div className="br"></div>
+
+              <div className="copyTitle">To recharge your prepaid number: </div>
+              <div className="copyDesc">Copy the secret code below</div>
+
+              <button className="copySerialBtn">
+                <div></div>
+                <div className="serial">12345678912340</div>
+                <img className="copySerial" src="/build/images/Alfa/copySerial.png" alt="copySerial" />
+              </button>
+
+              <button id="ContinueBtn" className="mt-3" onClick={() => { console.log("share code") }} >Share Code</button>
+
+              <div className="stepsToRecharge">
+
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Go to your phone tab</div>
+                </div>
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Dial “ *14* ”</div>
+                </div>
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Paste the code</div>
+                </div>
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Press “ # ” </div>
+                </div>
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Tap Call</div>
+                </div>
+                <div className="steps">
+                  <div className="dot"></div>
+                  <div className="textStep">Your mobile prepaid line is now recharged</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </>
+        :
+        <>
+          <div className="MyBundleBody">
+            <div className="mainTitle">Bundle Name</div>
+            <div className="mainDesc">*All taxes excluded</div>
+            <img className="BundleBigImg" src="/build/images/Alfa/Bundle.png" alt="Bundle" />
+
+            <div className="MoreInfo">
+              <div className="label">Amount in USD</div>
+              <div className="value">$ 77.28</div>
+            </div>
+
+            <div className="MoreInfo">
+              <div className="label">Amount in LBP (Sayrafa Rate)</div>
+              <div className="value">LBP 90,000</div>
+            </div>
+
+            <div className="MoreInfo">
+              <div className="label">+ V.A.T & Stamp Duty</div>
+              <div className="value">LBP 10,000</div>
+            </div>
+
+            <div className="br"></div>
+            <div className="MoreInfo">
+              <div className="label">Total</div>
+              <div className="value1">LBP 100,000</div>
+            </div>
+          </div>
+
+
+          <button id="ContinueBtn" className="btnCont mt-5" onClick={handleConfirmPay} >Pay Now</button>
+        </>
+      }
+    </div>
+  );
+};
+
+export default MyBundle;
+
+
 // import React, { useEffect, useState } from "react";
 // const dummyData = [
 //   {
@@ -88,45 +220,3 @@
 // };
 
 // export default MyBundle;
-
-import React, { useEffect, useState } from "react";
-
-const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
-  useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
-    setBackLink("ReCharge")
-  }, [])
-
-  return (
-    <div id="MyBundle">
-      <div className="mainTitle">Bundle Name</div>
-      <div className="mainDesc">*All taxes excluded</div>
-      <img className="BundleBigImg" src="/build/images/Alfa/Bundle.png" alt="Bundle" />
-
-      <div className="MoreInfo">
-        <div className="label">Amount in USD</div>
-        <div className="value">$ 77.28</div>
-      </div>
-
-      <div className="MoreInfo">
-        <div className="label">Amount in LBP (Sayrafa Rate)</div>
-        <div className="value">LBP 90,000</div>
-      </div>
-
-      <div className="MoreInfo">
-        <div className="label">+ V.A.T & Stamp Duty</div>
-        <div className="value">LBP 10,000</div>
-      </div>
-
-      <div className="br"></div>
-      <div className="MoreInfo">
-        <div className="label">Total</div>
-        <div className="value1">LBP 100,000</div>
-      </div>
-
-      <button id="ContinueBtn" className="btnCont mt-5" >Pay Now</button>
-    </div>
-  );
-};
-
-export default MyBundle;
