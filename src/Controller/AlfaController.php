@@ -5,52 +5,22 @@ namespace App\Controller;
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
-use App\Service\FilteringVoucher;
+use App\Service\LotoServices;
+use App\Service\BobServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Utils\Helper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class AlfaController extends AbstractController
 {
-
-    private $BOB_API_HOST;
-    private $LOTO_API_HOST;
-
     private $mr;
-    private $client;
 
-    public function __construct(ManagerRegistry $mr, HttpClientInterface $client)
+    public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('alfa');
-        $this->client = $client;
-
-        //todo: if prod environment
-        if ($_ENV['APP_ENV'] == 'prod') {
-            $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
-            $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
-        } else {
-            $this->BOB_API_HOST = 'https://185.174.240.230:8445/BoBFinanceAPI/WS/';
-            $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
-        }
-    }
-
-    private function _decodeGzipString(string $gzipString): string
-    {
-        // Decode GZip string
-        $decodedString = '';
-        $decodedData = @gzdecode($gzipString);
-
-        // Check if the decoding was successful
-        if ($decodedData !== false) {
-            $decodedString = $decodedData;
-        }
-
-        return $decodedString;
     }
 
     /**
@@ -74,42 +44,12 @@ class AlfaController extends AbstractController
      * Desc: Send Pin to user based on phoneNumber
      * @Route("/alfa/bill", name="app_alfa_bill",methods="POST")
      */
-    public function bill(Request $request)
+    public function bill(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
-
-        // dd($data);
         if ($data != null) {
-            // $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendPinRequest', [
-            //     'body' => json_encode([
-            //         "ChannelType" => "API",
-            //         "AlfaPinParam" => [
-            //             "GSMNumber" => $data["mobileNumber"]
-            //             // "GSMNumber" => "70102030"
-            //             // "GSMNumber" => "03184740"
-            //         ],
-            //         "Credentials" => [
-            //             "User" => "suyool1",
-            //             "Password" => "SUYOOL1"
-            //             // "User" => "suyool",
-            //             // "Password" => "p@123123"
-            //         ]
-            //     ]),
-            //     'headers' => [
-            //         'Content-Type' => 'application/json'
-            //     ]
-            // ]);
-
-            // $content = $response->getContent();
-            // $content = $response->toArray();
-            // dd($content);
-
-            // $ApiResponse = json_decode($content, true);
-            // $res = $ApiResponse['Response'];
-            // $decodedString = $this->_decodeGzipString(base64_decode($res));
-            // dd($decodedString);
-
-            // dd($res);
+            // $sendBill = $bobServices->Bill($data["mobileNumber"]);
+            // dd($sendBill);
             $message = "connected";
         } else {
             $message = "not connected";
@@ -127,37 +67,13 @@ class AlfaController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/RetrieveResults", name="app_alfa_RetrieveResults",methods="POST")
      */
-    public function RetrieveResults(Request $request)
+    public function RetrieveResults(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
         // dd($data);
         if ($data != null) {
-            // $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
-            //     'body' => json_encode([
-            //         "ChannelType" => "API",
-            //         "ItemId" => "1",
-            //         "VenId" => "1",
-            //         "ProductId" => "4",
-
-            //         "AlfaBillMeta" => [
-            //             "Currency" => $data["currency"],
-            //             "GSMNumber" => $data["mobileNumber"],
-            //             "PIN" => $data["Pin"],
-            //         ],
-            //         "Credentials" => [
-            //             "User" => "suyool1",
-            //             "Password" => "SUYOOL1"
-            //         ]
-            //     ]),
-            //     'headers' => [
-            //         'Content-Type' => 'application/json'
-            //     ]
-            // ]);
-
-            // $content = $response->getContent();
-            // $content = $response->toArray();
-
-            // dd($content);
+            // $retrieveResults = $bobServices->Bill($data["currency"],$data["mobileNumber"],$data["Pin"]);
+            // dd($retrieveResults);
 
             $Postpaid = new Postpaid;
             $Postpaid->setfees("2")
@@ -199,58 +115,25 @@ class AlfaController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
      */
-    public function billPay(Request $request)
+    public function billPay(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
-        // dd($data);
 
         $Postpaid_With_id = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $data["ResponseId"]]);
         dd($Postpaid_With_id);
 
-        // if ($data != null) {
-        //     $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
-        //         'body' => json_encode([
-        //             "ChannelType" => "API",
-        //             "ItemId" => "1",
-        //             "VenId" => "1",
-        //             "ProductId" => "4",
-        //             "TransactionId" => "tst",
+        if ($data != null) {
+            // $billPay = $bobServices->BillPay();
+            // dd($billPay);
 
-        //             "AlfaBillResult" => [
-        //                 "Fees" => "tst",
-        //                 "TransactionId" => "tst",
-        //                 "Amount" => "tst",
-        //                 "Amount1" => "tst",
-        //                 "ReferenceNumber" => "tst",
-        //                 "Fees1" => "tst",
-        //                 "Amount2" => "tst",
-        //                 "InformativeOriginalWSAmount" => "tst",
-        //                 "TotalAmount" => "tst",
-        //                 "Currency" => "tst",
-        //                 "Rounding" => "tst",
-        //                 "AdditionalFees" => "tst",
-        //             ],
-        //             "Credentials" => [
-        //                 "User" => "suyool1",
-        //                 "Password" => "SUYOOL1"
-        //             ]
-        //         ]),
-        //         'headers' => [
-        //             'Content-Type' => 'application/json'
-        //         ]
-        //     ]);
-
-        //     $content = $response->getContent();
-        //     $content = $response->toArray();
-
-        //     dd($content);
-        // } else {
-        //     $message = "not connected";
-        // }
+            $message = "connected";
+        } else {
+            $message = "not connected";
+        }
 
         return new JsonResponse([
             'status' => true,
-            // 'message' => $message
+            'message' => $message
         ], 200);
     }
 
@@ -261,9 +144,9 @@ class AlfaController extends AbstractController
      * Desc: Fetch ReCharge vouchers
      * @Route("/alfa/ReCharge", name="app_alfa_ReCharge",methods="POST")
      */
-    public function ReCharge(FilteringVoucher $filteringVoucher)
+    public function ReCharge(LotoServices $lotoServices)
     {
-        $filter = $filteringVoucher->VoucherFilter("ALFA");
+        $filter = $lotoServices->VoucherFilter("ALFA");
 
         return new JsonResponse([
             'status' => true,
@@ -277,26 +160,15 @@ class AlfaController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/alfa/BuyPrePaid", name="app_alfa_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices)
     {
         $data = json_decode($request->getContent(), true);
 
         if ($data != null) {
-            $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
-                'body' => json_encode([
-                    "Token" => $data["Token"],
-                    "category" => $data["category"],
-                    "type" => $data["type"],
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+            // dd($BuyPrePaid);
 
-            $content = $response->getContent();
-            $content = $response->toArray();
-
-            $PayResonse = $content["d"];
+            $PayResonse = $BuyPrePaid["d"];
             // dd($PayResonse);
             if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
                 $prepaid = new Prepaid;
@@ -310,28 +182,25 @@ class AlfaController extends AbstractController
                     ->setbalance($PayResonse["balance"])
                     ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
                     ->setinsertId($PayResonse["insertId"])
-                    ->setSuyoolUserId(1234567);
+                    ->setSuyoolUserId(345);
 
                 $this->mr->persist($prepaid);
                 $this->mr->flush();
-                $IsSuccess=true;
-            }else{
-                $IsSuccess=false;
+                $IsSuccess = true;
+                $prepaidId = $prepaid->getId();
+                // dd($prepaidId);
+            } else {
+                $IsSuccess = false;
             }
-
-            // dd($content);
-            // dd($Postpaid->getId());
-            // $prepaidId = $prepaid->getId();
-            // dd($prepaidId);
         } else {
-            $content = "not connected";
-            $IsSuccess=false;
+            $BuyPrePaid = "not connected";
+            $IsSuccess = false;
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $content,
-            'IsSuccess' =>$IsSuccess,
+            'message' => $BuyPrePaid,
+            'IsSuccess' => $IsSuccess,
         ], 200);
     }
 }

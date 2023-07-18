@@ -1,19 +1,19 @@
 <?php
 
 namespace App\Service;
+
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FilteringVoucher
+class LotoServices
 {
     private $LOTO_API_HOST;
 
     private $client;
 
-    public function __construct( HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;
 
-        //todo: if prod environment
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
         } else {
@@ -31,14 +31,32 @@ class FilteringVoucher
                 'Content-Type' => 'application/json'
             ]
         ]);
-    
+
         $content = $response->toArray();
-    
+
         $filteredVouchers = array_filter($content["d"]["ppavouchertypes"], function ($voucher) use ($vcategory) {
             return $voucher["vouchercategory"] === $vcategory;
         });
-    
+
         return $filteredVouchers;
     }
-    
+
+    public function BuyPrePaid($Token, $category, $type)
+    {
+        $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
+            'body' => json_encode([
+                "Token" => $Token,
+                "category" => $category,
+                "type" => $type,
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+        $content = $response->toArray();
+        // dd($content);
+        return $content;
+    }
 }

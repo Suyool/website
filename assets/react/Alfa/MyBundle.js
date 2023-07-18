@@ -12,7 +12,7 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
     axios
       .post("/alfa/BuyPrePaid",
         {
-          Token: "60f83251-b4e3-4f03-83fc-c87a77bd4177",
+          Token: "3573f680-c9e0-4c9e-977c-5d59df006a90",
           category: "MTC",
           type: "30"
         })

@@ -21,11 +21,23 @@ class Order
      */
     private $id;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
+
+    /**
+     * 
+     * @ORM\Column(name="postpaid_Id")
+     */
+    private $postpaid_Id;
+
+    /**
+     * 
+     * @ORM\Column(name="prepaid_Id")
+     */
+    private $prepaid_Id;
 
     /**
      * 
@@ -39,24 +51,12 @@ class Order
      */
     private $amount;
 
-     /**
+    /**
      * 
      * @ORM\Column(type="string")
      */
     private $currency;
 
-    /**
-     * 
-     * @ORM\Column(type="integer")
-     */
-    private $transId;
-
-
-
-    // public function __construct()
-    // {
-    //     $this->loto_id = new ArrayCollection();
-    // }
 
     public function getId()
     {
@@ -70,7 +70,7 @@ class Order
 
     public function setsuyoolUserId($suyoolUserId)
     {
-        $this->suyoolUserId=$suyoolUserId;
+        $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
 
@@ -81,7 +81,7 @@ class Order
 
     public function setstatus($status)
     {
-        $this->status=$status;
+        $this->status = $status;
         return $this;
     }
 
@@ -92,18 +92,13 @@ class Order
 
     public function setamount($amount)
     {
-        $this->amount=$amount;
+        $this->amount = $amount;
         return $this;
-    }
-
-    public function gettransId()
-    {
-        return $this->transId;
     }
 
     public function setcurrency($currency)
     {
-        $this->currency=$currency;
+        $this->currency = $currency;
         return $this;
     }
 
@@ -112,11 +107,25 @@ class Order
         return $this->currency;
     }
 
-    public function settransId($transId)
+    public function setpostpaid_Id($postpaid_Id)
     {
-        $this->transId=$transId;
+        $this->postpaid_Id = $postpaid_Id;
         return $this;
     }
 
+    public function getpostpaid_Id()
+    {
+        return $this->postpaid_Id;
+    }
 
+    public function setprepaid_Id($prepaid_Id)
+    {
+        $this->prepaid_Id = $prepaid_Id;
+        return $this;
+    }
+
+    public function getprepaid_Id()
+    {
+        return $this->prepaid_Id;
+    }
 }

@@ -258,6 +258,7 @@
   "build/images/payment/person.png": "/build/images/payment/person.png",
   "build/images/pin.png": "/build/images/pin.png",
   "build/images/info.png": "/build/images/info.png",
+  "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",
   "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/Loto/edit.png": "/build/images/Loto/edit.png",
@@ -273,7 +274,5 @@
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
-  "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
-  "build/images/alfa/Group 39077.png": "/build/images/alfa/Group 39077.png",
-  "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png"
+  "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
 }
