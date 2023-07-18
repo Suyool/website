@@ -11,6 +11,7 @@ use App\Entity\Loto\LOTO_tickets;
 use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
 use App\Entity\Loto\Table1;
+use App\Services\LotoServices;
 use App\Utils\Helper;
 use DateInterval;
 use DateTime;
@@ -30,20 +31,24 @@ class LotoController extends AbstractController
     private $session;
     private $certificate;
     private $hash_algo;
+    private $LotoServices;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, $certificate, $hash_algo)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, $certificate, $hash_algo, LotoServices $LotoServices)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
         $this->certificate = $certificate;
         $this->hash_algo = $hash_algo;
+        $this->LotoServices = $LotoServices;
     }
 
     /**
      * @Route("/loto", name="app_loto")
      */
-    public function index(Request $request, ManagerRegistry $em,HttpClientInterface $client)
+    public function index(Request $request, ManagerRegistry $em, HttpClientInterface $client)
     {
+        // dd($this->LotoServices->Login());
+        dd($this->LotoServices->GetTicketId());
         $printsession = $request->query->get('printsession');
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -59,7 +64,7 @@ class LotoController extends AbstractController
         }
 
         $this->session->set('userId', rand());
-        $session=$this->session->get('userId');
+        $session = $this->session->get('userId');
         // dd($session);
 
         if ($loto_draw) {
@@ -129,16 +134,15 @@ class LotoController extends AbstractController
                 'parameters' => $parameters
             ]);
         } else {
-            if(isset($session)){
+            if (isset($session)) {
                 return $this->render('loto/index.html.twig', [
                     'parameters' => $parameters
                 ]);
-            }else{
+            } else {
                 return new JsonResponse([
-                    'message'=>'Not found'
-                ],404);
+                    'message' => 'Not found'
+                ], 404);
             }
-            
         }
     }
 
@@ -164,9 +168,9 @@ class LotoController extends AbstractController
                 $ballsArray = [];
 
                 $ballsArrayNoZeed = [];
-                $ballsArrayNoZeedBouquet=null;
+                $ballsArrayNoZeedBouquet = null;
                 $amounttotal = 0;
-                $amounttotalBouquet=0;
+                $amounttotalBouquet = 0;
                 $selected = [];
 
                 $order = new order;
@@ -195,18 +199,16 @@ class LotoController extends AbstractController
                         }
 
                         $withZeed = 0;
-
-                        
                     } else {
-                        if(isset($item['balls']) && $item['balls']!=null){
+                        if (isset($item['balls']) && $item['balls'] != null) {
                             $balls = implode(" ", $item['balls']);
                             $ballsArray = $balls;
-                            $bouquet=false;
-                        }else{
+                            $bouquet = false;
+                        } else {
                             $ballsArray = $item['bouquet'];
-                            $bouquet=true;
+                            $bouquet = true;
                         }
-                        
+
                         $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
 
                         foreach ($orderid as $orderid) {
@@ -218,7 +220,7 @@ class LotoController extends AbstractController
                                 ->setgridSelected($ballsArray)
                                 ->setprice($item['price'])
                                 ->setcurrency($currency)
-                                ->setbouquet($bouquet);
+                            ->setbouquet($bouquet);
 
                             $this->mr->persist($loto);
                             $this->mr->flush();
@@ -226,7 +228,7 @@ class LotoController extends AbstractController
                     }
                 }
                 if ($ballsArrayNoZeed != null) {
-                   
+
                     // dd("ok");
                     $selected = implode('|', $ballsArrayNoZeed);
 
@@ -241,14 +243,14 @@ class LotoController extends AbstractController
                         ->setgridSelected($selected)
                         ->setprice($amounttotal)
                         ->setcurrency($currency)
-                        ->setbouquet(false);
+                    ->setbouquet(false);
 
                     $this->mr->persist($loto);
-                    $this->mr->flush(); 
+                    $this->mr->flush();
                 }
-                if($ballsArrayNoZeedBouquet != null){
-                    // $amounttotal = $item['price'];
-                    $selected=$ballsArrayNoZeedBouquet;
+                if ($ballsArrayNoZeedBouquet != null) {
+                    $BouquetGrids=$this->LotoServices->BouquetGrids();
+                    // dd($selectedBallsBouquet);
                     $nozeed = 1;
                     $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'pending']);
                     $loto = new loto;
@@ -256,13 +258,14 @@ class LotoController extends AbstractController
                         ->setdrawnumber($drawnumber)
                         ->setnumdraws($numDraws)
                         ->setWithZeed(false)
-                        ->setgridSelected($selected)
+                        ->setgridSelected($BouquetGrids)
                         ->setprice($amounttotalBouquet)
                         ->setcurrency($currency)
-                        ->setbouquet(true);
+                    ->setbouquet(true);
 
                     $this->mr->persist($loto);
-                    $this->mr->flush(); 
+                    $this->mr->flush();
+
                 }
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                 $i = sizeof($lotoid);
@@ -325,53 +328,53 @@ class LotoController extends AbstractController
                     $this->mr->persist($orderid);
                     $this->mr->flush();
 
-                    $notification = new notification;
-                    $notification->setIdentifier('Payment taken');
-                    $notification->setTitle("LOTO Purchased Successfully");
-                    $notification->setNotify("You have successfully paid " . $lotoid->getcurrency() . $sum . " to purchase " . $i . " Grids");
-                    $notification->setSubject("LOTO Purchased Successfully");
-                    $notification->setOrderId($orderid);
-                    $notification->settransId($orderid->gettransId());
-                    $notification->setText("You have successfully paid " . $lotoid->getcurrency() . $sum . "to purchase " . $i . " Grids");
-                    // $notification->setGrids($i);
-                    $notification->setamount($sum);
-                    $notification->setcurrency($orderid->getcurrency());
+                    // $notification = new notification;
+                    // $notification->setIdentifier('Payment taken');
+                    // $notification->setTitle("LOTO Purchased Successfully");
+                    // $notification->setNotify("You have successfully paid " . $lotoid->getcurrency() . $sum . " to purchase " . $i . " Grids");
+                    // $notification->setSubject("LOTO Purchased Successfully");
+                    // $notification->setOrderId($orderid);
+                    // $notification->settransId($orderid->gettransId());
+                    // $notification->setText("You have successfully paid " . $lotoid->getcurrency() . $sum . "to purchase " . $i . " Grids");
+                    // // $notification->setGrids($i);
+                    // $notification->setamount($sum);
+                    // $notification->setcurrency($orderid->getcurrency());
                     // $notification->setDrawId($drawId);
                     // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
                     // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
                     // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
 
-                    $this->mr->persist($notification);
+                    // $this->mr->persist($notification);
 
                     $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                     // dd($lotoid);               
-                    foreach ($lotoid as $index => $lotoid) {
-                        if ($index === 0 || $index === 1) {
-                            $arr = 1;
-                        } else {
-                            $arr = 0;
-                        }
+                    // foreach ($lotoid as $index => $lotoid) {
+                    //     if ($index === 0 || $index === 1) {
+                    //         $arr = 1;
+                    //     } else {
+                    //         $arr = 0;
+                    //     }
 
-                        if ($arr == 1) {
-                            $lotoid->setcompleted(true);
-                        } else {
-                            $lotoid->setcompleted(false);
-                        }
+                    //     if ($arr == 1) {
+                    //         $lotoid->setcompleted(true);
+                    //     } else {
+                    //         $lotoid->setcompleted(false);
+                    //     }
 
-                        $this->mr->persist($lotoid);
-                        $this->mr->flush();
-                    }
-                    $lotoidcompleted = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid, 'iscompleted' => true]);
+                    //     $this->mr->persist($lotoid);
+                    //     $this->mr->flush();
+                    // }
+                    $lotoidcompleted = $this->mr->getRepository(loto::class)->completed($orderid);
+
                     $i = sizeof($lotoidcompleted);
                     $newsum = 0;
                     foreach ($lotoidcompleted as $lotoidcompletedsum) {
                         $newsum += $lotoidcompletedsum->getprice();
                     }
-                    
-                    if($newsum != $sum){
-                        $transId = rand();
 
+                    if ($newsum != $sum) {
+                        $transId = rand();
                     }
                     $orderid->setamount($newsum)
                         ->setcurrency($lotoidcompletedsum->getcurrency())
@@ -381,125 +384,125 @@ class LotoController extends AbstractController
                     $this->mr->persist($orderid);
                     $this->mr->flush();
 
-                    if ($newsum != $sum) {
+                    // if ($newsum != $sum) {
 
-                        $diff = $sum - $newsum;
+                    //     $diff = $sum - $newsum;
 
-                        $notification = new notification;
-                        $notification->setIdentifier('Payment retrieved');
-                        $notification->setTitle("Reversed LOTO Payment ");
-                        $notification->setNotify(" LOTO has reversed your Suyool payment of " . $lotoidcompletedsum->getcurrency() . $diff . " related the Draw " . $lotoidcompletedsum->getdrawnumber() . "");
-                        $notification->setSubject("Reversed LOTO Payment ");
-                        $notification->setOrderId($orderid);
-                        $notification->settransId($orderid->gettransId());
-                        $notification->setText("{fname}, LOTO has reversed your Suyool payment of " . $lotoidcompletedsum->getcurrency() . $diff . " related the Draw " . $lotoidcompletedsum->getdrawnumber() . "");
-                        // $notification->setGrids($i);
-                        $notification->setamount($newsum);
-                        $notification->setcurrency($orderid->getcurrency());
-                        // $notification->setDrawId($drawId);
-                        // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                        // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                        // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                    //     $notification = new notification;
+                    //     $notification->setIdentifier('Payment retrieved');
+                    //     $notification->setTitle("Reversed LOTO Payment ");
+                    //     $notification->setNotify(" LOTO has reversed your Suyool payment of " . $lotoidcompletedsum->getcurrency() . $diff . " related the Draw " . $lotoidcompletedsum->getdrawnumber() . "");
+                    //     $notification->setSubject("Reversed LOTO Payment ");
+                    //     $notification->setOrderId($orderid);
+                    //     $notification->settransId($orderid->gettransId());
+                    //     $notification->setText("{fname}, LOTO has reversed your Suyool payment of " . $lotoidcompletedsum->getcurrency() . $diff . " related the Draw " . $lotoidcompletedsum->getdrawnumber() . "");
+                    //     // $notification->setGrids($i);
+                    //     $notification->setamount($newsum);
+                    //     $notification->setcurrency($orderid->getcurrency());
+                    //     // $notification->setDrawId($drawId);
+                    //     // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                    //     // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                    //     // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
 
-                        $this->mr->persist($notification);
-                    }
+                    //     $this->mr->persist($notification);
+                    // }
 
 
                     // $orderCompleted = $this->mr->getRepository(loto::class)->getlotonotify($transId,$orderid);
 
-                    $orderCompleted = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'completed', 'transId' => $transId]);
+                    // $orderCompleted = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'completed', 'transId' => $transId]);
                     // dd($orderCompleted);
-                    foreach ($lotoidcompleted as $lotoidcompletedtonot) {
-                        $drawId = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoidcompletedtonot->getdrawnumber()]);
-                        if ($lotoidcompletedtonot->getwithZeed()) {
-                            if (!$lotoidcompletedtonot->getbouquet()) {
-                                $notification = new notification;
-                                $notification->setIdentifier('Play With Zeed');
-                                $notification->setTitle("LOTO Ticket Confirmed");
-                                $notification->setNotify("You have successfully purchased a LOTO ticket with Zeed");
-                                $notification->setSubject("LOTO Ticket Confirmed");
-                                $notification->setOrderId($orderCompleted);
-                                $notification->settransId($orderCompleted->gettransId());
-                                $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
-                                $notification->setGrids($lotoidcompletedtonot->getgridSelected());
-                                $notification->setamount($lotoidcompletedtonot->getprice());
-                                $notification->setcurrency($lotoidcompletedtonot->getcurrency());
-                                $notification->setDrawId($drawId);
-                                $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                                $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                                $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                    // foreach ($lotoidcompleted as $lotoidcompletedtonot) {
+                    //     $drawId = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoidcompletedtonot->getdrawnumber()]);
+                    //     if ($lotoidcompletedtonot->getwithZeed()) {
+                    //         if (!$lotoidcompletedtonot->getbouquet()) {
+                    //             $notification = new notification;
+                    //             $notification->setIdentifier('Play With Zeed');
+                    //             $notification->setTitle("LOTO Ticket Confirmed");
+                    //             $notification->setNotify("You have successfully purchased a LOTO ticket with Zeed");
+                    //             $notification->setSubject("LOTO Ticket Confirmed");
+                    //             $notification->setOrderId($orderCompleted);
+                    //             $notification->settransId($orderCompleted->gettransId());
+                    //             $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
+                    //             $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                    //             $notification->setamount($lotoidcompletedtonot->getprice());
+                    //             $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                    //             $notification->setDrawId($drawId);
+                    //             $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                    //             $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                    //             $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
 
-                                $this->mr->persist($notification);
-                            } else {
-                                $bouquetgrids = explode("B", $lotoidcompletedtonot->getgridSelected());
-                                $notification = new notification;
-                                $notification->setIdentifier('Play Bouquet With Zeed');
-                                $notification->setTitle("LOTO Bouquet Confirmed ");
-                                $notification->setNotify("You have successfully purchased the Bouquet of {$bouquetgrids[0]}Grids with Zeed. ");
-                                $notification->setSubject("LOTO Bouquet Confirmed ");
-                                $notification->setOrderId($orderCompleted);
-                                $notification->settransId($orderCompleted->gettransId());
-                                $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
-                                $notification->setGrids($lotoidcompletedtonot->getgridSelected());
-                                $notification->setamount($lotoidcompletedtonot->getprice());
-                                $notification->setcurrency($lotoidcompletedtonot->getcurrency());
-                                $notification->setDrawId($drawId);
-                                $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                                $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                                $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                    //             $this->mr->persist($notification);
+                    //         } else {
+                    //             $bouquetgrids = explode("B", $lotoidcompletedtonot->getgridSelected());
+                    //             $notification = new notification;
+                    //             $notification->setIdentifier('Play Bouquet With Zeed');
+                    //             $notification->setTitle("LOTO Bouquet Confirmed ");
+                    //             $notification->setNotify("You have successfully purchased the Bouquet of {$bouquetgrids[0]}Grids with Zeed. ");
+                    //             $notification->setSubject("LOTO Bouquet Confirmed ");
+                    //             $notification->setOrderId($orderCompleted);
+                    //             $notification->settransId($orderCompleted->gettransId());
+                    //             $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
+                    //             $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                    //             $notification->setamount($lotoidcompletedtonot->getprice());
+                    //             $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                    //             $notification->setDrawId($drawId);
+                    //             $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                    //             $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                    //             $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
 
-                                $this->mr->persist($notification);
-                            }
-                        } else {
-                            if (!$lotoidcompletedtonot->getbouquet()) {
-                                $notification = new notification;
-                                $notification->setIdentifier('Play Without Zeed');
-                                $notification->setTitle("LOTO Ticket Confirmed");
-                                $notification->setNotify("You have successfully purchased a LOTO ticket");
-                                $notification->setSubject("LOTO Ticket Confirmed");
-                                $notification->setOrderId($orderCompleted);
-                                $notification->settransId($orderCompleted->gettransId());
-                                $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
-                                $notification->setGrids($lotoidcompletedtonot->getgridSelected());
-                                $notification->setamount($lotoidcompletedtonot->getprice());
-                                $notification->setcurrency($lotoidcompletedtonot->getcurrency());
-                                $notification->setDrawId($drawId);
-                                $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                                $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                                $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                    //             $this->mr->persist($notification);
+                    //         }
+                    //     } else {
+                    //         if (!$lotoidcompletedtonot->getbouquet()) {
+                    //             $notification = new notification;
+                    //             $notification->setIdentifier('Play Without Zeed');
+                    //             $notification->setTitle("LOTO Ticket Confirmed");
+                    //             $notification->setNotify("You have successfully purchased a LOTO ticket");
+                    //             $notification->setSubject("LOTO Ticket Confirmed");
+                    //             $notification->setOrderId($orderCompleted);
+                    //             $notification->settransId($orderCompleted->gettransId());
+                    //             $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
+                    //             $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                    //             $notification->setamount($lotoidcompletedtonot->getprice());
+                    //             $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                    //             $notification->setDrawId($drawId);
+                    //             $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                    //             $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                    //             $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
-                                $this->mr->persist($notification);
-                            } else {
-                                $bouquetgrids = explode("B", $lotoidcompletedtonot->getgridSelected());
+                    //             $this->mr->persist($notification);
+                    //         } else {
+                    //             $bouquetgrids = explode("B", $lotoidcompletedtonot->getgridSelected());
 
-                                $notification = new notification;
-                                $notification->setIdentifier('Play Bouquet Without Zeed');
-                                $notification->setTitle("LOTO Bouquet Confirmed ");
-                                $notification->setNotify(" You have successfully purchased the Bouquet of {$bouquetgrids[0]}Grids.");
-                                $notification->setSubject("LOTO Bouquet Confirmed ");
-                                $notification->setOrderId($orderCompleted);
-                                $notification->settransId($orderCompleted->gettransId());
-                                $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
-                                $notification->setGrids($lotoidcompletedtonot->getgridSelected());
-                                $notification->setamount($lotoidcompletedtonot->getprice());
-                                $notification->setcurrency($lotoidcompletedtonot->getcurrency());
-                                $notification->setDrawId($drawId);
-                                $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                                $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                                $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+                    //             $notification = new notification;
+                    //             $notification->setIdentifier('Play Bouquet Without Zeed');
+                    //             $notification->setTitle("LOTO Bouquet Confirmed ");
+                    //             $notification->setNotify(" You have successfully purchased the Bouquet of {$bouquetgrids[0]}Grids.");
+                    //             $notification->setSubject("LOTO Bouquet Confirmed ");
+                    //             $notification->setOrderId($orderCompleted);
+                    //             $notification->settransId($orderCompleted->gettransId());
+                    //             $notification->setText("Draw " . $lotoidcompletedtonot->getdrawnumber() . "<br>" . $lotoidcompletedtonot->getgridSelected() . "");
+                    //             $notification->setGrids($lotoidcompletedtonot->getgridSelected());
+                    //             $notification->setamount($lotoidcompletedtonot->getprice());
+                    //             $notification->setcurrency($lotoidcompletedtonot->getcurrency());
+                    //             $notification->setDrawId($drawId);
+                    //             $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+                    //             $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+                    //             $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
-                                $this->mr->persist($notification);
-                            }
-                            // dd($drawId->getdrawdate());
+                    //             $this->mr->persist($notification);
+                    //         }
+                    //         // dd($drawId->getdrawdate());
 
-                        }
-                        // dd($lotoidcompletedtonot);
+                    //     }
+                    //     // dd($lotoidcompletedtonot);
 
-                        $this->mr->flush();
-                    }
+                    //     $this->mr->flush();
+                    // }
                     // ->settransId($parameters['push_utility_response']['data']);
 
                     // $message = $parameters['push_utility_response']['message'];

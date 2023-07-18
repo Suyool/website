@@ -30,7 +30,7 @@ class loto
      * 
      * @ORM\Column(name="ticketId")
      */
-    private $ticketId;
+    private $ticketId = 0;
 
     /**
      * 

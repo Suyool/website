@@ -104,4 +104,13 @@ class PlaysRepository extends EntityRepository
         }
         return $response;
     }
+
+    public function completed($orderid){
+        return $this->createQueryBuilder('l')
+        ->select('l')
+        ->where('l.order=:order and l.ticketId != 0 and l.ticketId is not null')
+        ->setParameter('order',$orderid)
+        ->getQuery()
+        ->getResult();
+    }
 }
