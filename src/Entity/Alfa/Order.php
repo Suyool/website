@@ -57,6 +57,12 @@ class Order
      */
     private $currency;
 
+    /**
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $transId;
+
 
     public function getId()
     {
@@ -127,5 +133,16 @@ class Order
     public function getprepaid_Id()
     {
         return $this->prepaid_Id;
+    }
+
+    public function gettransId()
+    {
+        return $this->transId;
+    }
+
+    public function settransId($transId)
+    {
+        $this->transId = $transId;
+        return $this;
     }
 }

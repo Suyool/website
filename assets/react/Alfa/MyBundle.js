@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("ReCharge")
+    console.log(getPrepaidVoucher)
   }, [])
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
 
@@ -12,9 +13,12 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
     axios
       .post("/alfa/BuyPrePaid",
         {
-          Token: "3573f680-c9e0-4c9e-977c-5d59df006a90",
+          Token: "fefc7b3a-a94f-4f14-891f-8848b8b966c9",
           category: "MTC",
-          type: "30"
+          // category: getPrepaidVoucher.vouchercategory,
+          type: getPrepaidVoucher.vouchertype,
+          amountLBP:getPrepaidVoucher.priceLBP,
+          amountUSD:getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
         console.log(response?.data.IsSuccess)
@@ -46,7 +50,7 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
             <div className="bodySection">
               <img className="SuccessImg" src="/build/images/Alfa/SuccessImg.png" alt="Bundle" />
               <div className="bigTitle">Payment Successful</div>
-              <div className="descriptio">You have successfully purchased the $1.22 Alfa recharge card.</div>
+              <div className="descriptio">You have successfully purchased the ${getPrepaidVoucher.priceUSD} Alfa recharge card.</div>
 
               <div className="br"></div>
 
@@ -101,12 +105,12 @@ const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, 
 
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
-              <div className="value">$ 77.28</div>
+              <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
             </div>
 
             <div className="MoreInfo">
               <div className="label">Amount in LBP (Sayrafa Rate)</div>
-              <div className="value">LBP 90,000</div>
+              <div className="value">LBP {getPrepaidVoucher.priceLBP}</div>
             </div>
 
             <div className="MoreInfo">

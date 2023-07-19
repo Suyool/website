@@ -59,7 +59,7 @@
 
 import React, { useEffect, useState } from "react";
 
-const ReCharge = ({ getVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
+const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [filteredData, setFilteredData] = useState([]);
 
   // console.log(filteredData);
@@ -78,7 +78,7 @@ const ReCharge = ({ getVoucherData, setActiveButton, setHeaderTitle, setBackLink
 
       <div className="bundlesSection">
         {filteredData.map((record, index) => (
-          <div className="bundleGrid" key={index} onClick={() => setActiveButton({ name: "MyBundle" })}>
+          <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable }); }}>
             <img className="GridImg" src="/build/images/Alfa/bundleImg1.png" alt="bundleImg" />
             <div className="gridDesc">
               <div className="Price">${record.priceUSD} <span>(LBP 90,000)</span></div>
