@@ -5,25 +5,27 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("ReCharge")
-    console.log(getPrepaidVoucher)
+    // console.log(getPrepaidVoucher)
   }, [])
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [getSerialToClipboard, setSerialToClipboard] = useState("");
 
   const handleConfirmPay = () => {
     axios
       .post("/alfa/BuyPrePaid",
         {
-          Token: "fefc7b3a-a94f-4f14-891f-8848b8b966c9",
+          Token: "7c47acd3-b6d3-4d29-b11f-dfb213362cab",
           category: "MTC",
           // category: getPrepaidVoucher.vouchercategory,
           type: getPrepaidVoucher.vouchertype,
-          amountLBP:getPrepaidVoucher.priceLBP,
-          amountUSD:getPrepaidVoucher.priceUSD,
+          amountLBP: getPrepaidVoucher.priceLBP,
+          amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
-        console.log(response?.data.IsSuccess)
+        console.log(response)
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
+          setSerialToClipboard(response?.data?.message?.d?.voucherSerial);
         } else {
 
         }
@@ -33,6 +35,16 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
         console.log(error);
       });
   };
+
+  const copyToClipboard = () => {
+    const tempInput = document.createElement("input");
+    tempInput.value = getSerialToClipboard;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+  };
+
 
   return (
     <div id="MyBundle" className={`${getPaymentConfirmation && "hideBack"}`}>
@@ -57,9 +69,9 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               <div className="copyTitle">To recharge your prepaid number: </div>
               <div className="copyDesc">Copy the secret code below</div>
 
-              <button className="copySerialBtn">
+              <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
-                <div className="serial">12345678912340</div>
+                <div className="serial">{getSerialToClipboard}</div>
                 <img className="copySerial" src="/build/images/Alfa/copySerial.png" alt="copySerial" />
               </button>
 

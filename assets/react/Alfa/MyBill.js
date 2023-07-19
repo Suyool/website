@@ -27,9 +27,9 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
   const handlePayNow = () => {
     if (pinCode.length === 4) {
       // Perform payment or further actions
-      console.log("Payment processing...");
-      console.log(pinCode);
-      setPaymentConfirmation(true);
+      // console.log("Payment processing...");
+      // console.log(pinCode);
+      // setPaymentConfirmation(true);
       axios
         .post("/alfa/bill/RetrieveResults",
           {
@@ -40,7 +40,12 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
         )
         .then((response) => {
           console.log(response);
-          setResponseId(response?.data?.postpayed);
+          if (response.data.message == "connected") {
+            setPaymentConfirmation(true);
+            setResponseId(response?.data?.postpayed);
+          } else {
+            console.log("Something went wrong")
+          }
         })
         .catch((error) => {
           console.log(error);

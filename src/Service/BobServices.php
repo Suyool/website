@@ -64,17 +64,21 @@ class BobServices
         $content = $response->getContent();
         // $content = $response->toArray();
         // dd($content);
-      
+
         $ApiResponse = json_decode($content, true);
         $res = $ApiResponse['Response'];
         $decodedString = $this->_decodeGzipString(base64_decode($res));
-        dd($decodedString);
+        // dd($decodedString);
 
-        return $content;
+        return $decodedString;
+        // return $content;
     }
 
     public function RetrieveResults($currency, $mobileNumber, $Pin)
     {
+        $Pin = implode("", $Pin);
+        // dd($Pin);
+
         $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
             'body' => json_encode([
                 "ChannelType" => "API",
@@ -104,34 +108,36 @@ class BobServices
         $ApiResponse = json_decode($content, true);
         $res = $ApiResponse['Response'];
         $decodedString = $this->_decodeGzipString(base64_decode($res));
-        dd($decodedString);
+        // dd($decodedString);
 
-        return $content;
+        return $decodedString;
+        // return $content;
     }
 
-    public function BillPay()
+    public function BillPay($Postpaid_With_id_Res)
     {
+        // dd($Postpaid_With_id_Res->getCurrency());
         $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
                 "VenId" => "1",
                 "ProductId" => "4",
-                "TransactionId" => "tst",
+                "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
 
                 "AlfaBillResult" => [
-                    "Fees" => "tst",
-                    "TransactionId" => "tst",
-                    "Amount" => "tst",
-                    "Amount1" => "tst",
-                    "ReferenceNumber" => "tst",
-                    "Fees1" => "tst",
-                    "Amount2" => "tst",
-                    "InformativeOriginalWSAmount" => "tst",
-                    "TotalAmount" => "tst",
-                    "Currency" => "tst",
-                    "Rounding" => "tst",
-                    "AdditionalFees" => "tst",
+                    "Fees" => $Postpaid_With_id_Res->getfees(),
+                    "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
+                    "Amount" => $Postpaid_With_id_Res->getamount(),
+                    "Amount1" => $Postpaid_With_id_Res->getamount1(),
+                    "ReferenceNumber" => $Postpaid_With_id_Res->getreferenceNumber(),
+                    "Fees1" => $Postpaid_With_id_Res->getfees1(),
+                    "Amount2" => $Postpaid_With_id_Res->getamount2(),
+                    "InformativeOriginalWSAmount" => $Postpaid_With_id_Res->getinformativeOriginalWSamount(),
+                    "TotalAmount" => $Postpaid_With_id_Res->gettotalamount(),
+                    "Currency" => $Postpaid_With_id_Res->getcurrency(),
+                    "Rounding" => $Postpaid_With_id_Res->getrounding(),
+                    "AdditionalFees" => $Postpaid_With_id_Res->getadditionalfees(),
                 ],
                 "Credentials" => [
                     "User" => $this->USERNAME,
@@ -144,14 +150,14 @@ class BobServices
         ]);
 
         $content = $response->getContent();
-        $content = $response->toArray();
-        dd($content);
-      
-        // $ApiResponse = json_decode($content, true);
-        // $res = $ApiResponse['Response'];
-        // $decodedString = $this->_decodeGzipString(base64_decode($res));
+        // $content = $response->toArray();
+        // dd($content);
+
+        $ApiResponse = json_decode($content, true);
+        $res = $ApiResponse['Response'];
+        $decodedString = $this->_decodeGzipString(base64_decode($res));
         // dd($decodedString);
 
-        return $content;
+        return $decodedString;
     }
 }

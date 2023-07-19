@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -38,10 +39,13 @@
 >>>>>>> 50240bb (working on postpaid bob api and set dumy in the db)
 =======
 >>>>>>> bb96bfa (fix the ui after changing prebulid logic)
+=======
+>>>>>>> e00735a (preDone with step 1 2 in alfa postpaid)
   "build/app1.js": "/build/app1.js",
   "build/Loto.js": "/build/Loto.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
   "build/Alfa.js": "/build/Alfa.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -62,10 +66,15 @@
   "build/Touch.js": "/build/Touch.js",
   "build/Ogero.js": "/build/Ogero.js",
 >>>>>>> bb96bfa (fix the ui after changing prebulid logic)
+=======
+  "build/Touch.js": "/build/Touch.js",
+  "build/Ogero.js": "/build/Ogero.js",
+>>>>>>> e00735a (preDone with step 1 2 in alfa postpaid)
   "build/styles.css": "/build/styles.css",
   "build/Lotostyles.css": "/build/Lotostyles.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -161,6 +170,11 @@
   "build/OgeroStyle.css": "/build/OgeroStyle.4834972a.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> a21410b (send prices to controller)
+=======
+  "build/TouchStyle.css": "/build/TouchStyle.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> e00735a (preDone with step 1 2 in alfa postpaid)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",

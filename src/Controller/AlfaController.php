@@ -48,7 +48,7 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         if ($data != null) {
-            // $sendBill = $bobServices->Bill($data["mobileNumber"]);
+            $sendBill = $bobServices->Bill($data["mobileNumber"]);
             // dd($sendBill);
             $message = "connected";
         } else {
@@ -72,40 +72,59 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         // dd($data);
         if ($data != null) {
-            // $retrieveResults = $bobServices->Bill($data["currency"],$data["mobileNumber"],$data["Pin"]);
-            // dd($retrieveResults);
+            $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
+            $jsonResult = json_decode($retrieveResults, true);
+            // dd($jsonResult);
+
+            $Pin=implode("",$data["Pin"]);
+            $RandSuyoolUserId = rand();
 
             $Postpaid = new Postpaid;
-            $Postpaid->setfees("2")
-                ->setfees1("0")
-                ->setamount("104.58")
-                ->setamount1("0")
-                ->setamount2("0")
-                ->setreferenceNumber("20230700000042")
-                ->setinformativeOriginalWSamount("104.58")
-                ->settotalamount("106.58")
-                ->setcurrency("USD")
-                ->setrounding("0")
-                ->setadditionalfees("0")
-                ->setSuyoolUserId("1234567")
-                ->setPin("0000")
-                ->setGsmNumber("70102030")
-                ->setTransactionId("1735028");
+            $Postpaid
+                ->setfees($jsonResult["Values"]["Fees"])
+                ->setfees1($jsonResult["Values"]["Fees1"])
+                ->setamount($jsonResult["Values"]["Amount"])
+                ->setamount1($jsonResult["Values"]["Amount1"])
+                ->setamount2($jsonResult["Values"]["Amount2"])
+                ->setreferenceNumber($jsonResult["Values"]["ReferenceNumber"])
+                ->setinformativeOriginalWSamount($jsonResult["Values"]["InformativeOriginalWSAmount"])
+                ->settotalamount($jsonResult["Values"]["TotalAmount"])
+                ->setcurrency($jsonResult["Values"]["Currency"])
+                ->setrounding($jsonResult["Values"]["Rounding"])
+                ->setadditionalfees($jsonResult["Values"]["AdditionalFees"])
+                ->setSuyoolUserId($RandSuyoolUserId)
+                ->setPin($Pin)
+                ->setGsmNumber($data["mobileNumber"])
+                ->setTransactionId($jsonResult["Values"]["TransactionId"]);
 
             $this->mr->persist($Postpaid);
             $this->mr->flush();
+
             // dd($Postpaid->getId());
-            $postpayed = $Postpaid->getId();
+            $postpayedId = $Postpaid->getId();
+
+            $order = new Order;
+            $order
+                ->setsuyoolUserId($RandSuyoolUserId)
+                ->settransId(null)
+                ->setpostpaid_Id($postpayedId)
+                ->setprepaid_Id(null)
+                ->setstatus("Pending")
+                ->setamount($jsonResult["Values"]["TotalAmount"])
+                ->setcurrency($jsonResult["Values"]["Currency"]);
+            $this->mr->persist($order);
+            $this->mr->flush();
+
             $message = "connected";
         } else {
             $message = "not connected";
-            $postpayed = -1;
+            $postpayedId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $message,
-            'postpayed' => $postpayed
+            'postpayed' => $postpayedId
         ], 200);
     }
 
@@ -120,11 +139,11 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $Postpaid_With_id = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $data["ResponseId"]]);
-        dd($Postpaid_With_id);
+        // dd($Postpaid_With_id);
 
         if ($data != null) {
-            // $billPay = $bobServices->BillPay();
-            // dd($billPay);
+            $billPay = $bobServices->BillPay($Postpaid_With_id);
+            dd($billPay);
 
             $message = "connected";
         } else {
@@ -190,7 +209,7 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
                 $IsSuccess = true;
                 $prepaidId = $prepaid->getId();
-                
+
                 $order = new Order;
                 $order
                     ->setsuyoolUserId(1234)
@@ -198,7 +217,7 @@ class AlfaController extends AbstractController
                     ->setpostpaid_Id(null)
                     ->setprepaid_Id($prepaidId)
                     ->setstatus("true")
-                    ->setamount(50000)
+                    ->setamount($data["amountLBP"])
                     ->setcurrency("LBP");
                 $this->mr->persist($order);
                 $this->mr->flush();

@@ -23,12 +23,17 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
       )
       .then((response) => {
         console.log(response);
+        if (response?.data?.message == "connected") {
+          setActiveButton({ name: "MyBill" });
+        } else {
+          console.log("something went wrong!!")
+        }
       })
       .catch((error) => {
         console.log(error);
       });
 
-    setActiveButton({ name: "MyBill" });
+
   };
 
   const handleMobileNumberChange = (event) => {
@@ -38,18 +43,11 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
   };
 
   const formatMobileNumber = (value) => {
-    // Remove any non-digit characters
     const digitsOnly = value.replace(/\D/g, "");
-
-    // Truncate to a maximum length of 8 digits
     const truncatedValue = digitsOnly.slice(0, 8);
-
-    // Apply formatting if the length exceeds 8 characters
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }
-
-    // Otherwise, return the input as is
     return truncatedValue;
   };
 
