@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Shopify\MerchantCredentials;
+use App\Entity\Shopify\RequestedData;
 use App\Entity\Shopify\ShopifyOrders;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,12 +21,12 @@ class ShopifyGdprController extends AbstractController
     }
 
     /**
+     *
      * @Route("/customers/data", name="customers", methods={"POST"})
      */
     public function customersData(Request $request): Response
     {
         $requestData = $request->request->all();
-
         // Extract the necessary data from the request
         $shopId = $requestData['shop_id'];
         $shopDomain = $requestData['shop_domain'];
@@ -42,28 +43,18 @@ class ShopifyGdprController extends AbstractController
 
             if ($order) {
                 // Sanitize the metaInfo property
-                $order->setMetaInfo($this->sanitizeMetaInfo($order->getMetaInfo()));
+                $order->setMetaInfo($this->_sanitizeMetaInfo($order->getMetaInfo()));
 
                 // Add the order to the orders array
                 $orders[] = $order;
             }
         }
+        $this->saveRequestedData($requestData,$orders);
 
         // Return the array of sanitized orders as JSON response
         return $this->json($orders, Response::HTTP_OK, [], ['json_encode_options' => JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES]);
     }
 
-    private function sanitizeMetaInfo($metaInfo)
-    {
-        // Perform your sanitization logic on the metaInfo property
-        // For example, you can use the PHP `json_decode()` and `json_encode()` functions
-
-        $sanitizedMetaInfo = json_decode($metaInfo, true);
-        // Perform any sanitization operations on the $sanitizedMetaInfo array
-
-        // Return the sanitized metaInfo as a JSON-encoded string
-        return json_encode($sanitizedMetaInfo, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    }
     /**
      * @Route("/customers/redact", name="customers_redact", methods={"POST"})
      */
@@ -87,10 +78,12 @@ class ShopifyGdprController extends AbstractController
                 $this->mr->flush();
             }
         }
-
+        $response = "Orders deleted successfully";
+        $this->saveRequestedData($requestData,$response);
         // Return a success response
-        return new Response('Orders deleted successfully', Response::HTTP_OK);
+        return new Response($response, Response::HTTP_OK);
     }
+
     /**
      * @Route("/shop/redact", name="customers_redact", methods={"POST"})
      */
@@ -111,12 +104,37 @@ class ShopifyGdprController extends AbstractController
                 $this->mr->remove($order);
                 $this->mr->flush();
             }
+        $response = "Shop deleted successfully";
+        $this->saveRequestedData($requestData,$response);
 
         // Return a success response
-        return new Response('Shop deleted successfully', Response::HTTP_OK);
+        return new Response($response, Response::HTTP_OK);
+    }
+
+    private function saveRequestedData(array $request, $response) {
+        if(is_array($response)){
+            $response = "";
+            foreach ($response as $res) {
+                $data = "Order_id:". $res->getOrderId() . ", MetaData: " . $res->getMetaInfo() . ", Status:" . $res->getStatus();
+                $response .= $data . " ; ";
+            }
+        }
+
+        $queryStringRequest= http_build_query($request);
+        $queryStringRequest = str_replace('%22', ' , ', $queryStringRequest);
+
+        $requestedData = new RequestedData();
+        $requestedData->setShop($request['shop_domain']);
+        $requestedData->setData("Request: ".$queryStringRequest . " Response: " . $response);
+
+        $this->mr->persist($requestedData);
+        $this->mr->flush();
+    }
+
+    private function _sanitizeMetaInfo($metaInfo)
+    {
+        $sanitizedMetaInfo = json_decode($metaInfo, true);
+        // Return the sanitized metaInfo as a JSON-encoded string
+        return json_encode($sanitizedMetaInfo, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
-
-
-
-
