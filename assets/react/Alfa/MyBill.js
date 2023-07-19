@@ -34,7 +34,8 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
         .post("/alfa/bill/RetrieveResults",
           {
             mobileNumber: localStorage.getItem("billMobileNumber"),
-            currency: localStorage.getItem("billcurrency"),
+            // currency: localStorage.getItem("billcurrency"),
+            currency: "LBP",
             Pin: pinCode,
           }
         )

@@ -149,9 +149,9 @@ class BobServices
             ]
         ]);
 
-        $content = $response->getContent();
+        $content = $response->getContent(false);
         // $content = $response->toArray();
-        // dd($content);
+        dd($content);
 
         $ApiResponse = json_decode($content, true);
         $res = $ApiResponse['Response'];

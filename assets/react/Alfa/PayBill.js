@@ -3,7 +3,7 @@ import axios from "axios";
 
 const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("70102030");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("LBP");
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
