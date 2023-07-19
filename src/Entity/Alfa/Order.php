@@ -28,16 +28,16 @@ class Order
     private $suyoolUserId;
 
     /**
-     * 
-     * @ORM\Column(name="postpaid_Id")
+     * @ORM\OneToOne(targetEntity="Postpaid",fetch="EAGER")
+     * @ORM\JoinColumn(name="postpaid_id", referencedColumnName="id")
      */
-    private $postpaid_Id;
+    private $postpaid;
 
     /**
-     * 
-     * @ORM\Column(name="prepaid_Id")
+     * @ORM\OneToOne(targetEntity="Prepaid",fetch="EAGER")
+     * @ORM\JoinColumn(name="prepaid_id", referencedColumnName="id")
      */
-    private $prepaid_Id;
+    private $prepaid;
 
     /**
      * 
@@ -113,27 +113,47 @@ class Order
         return $this->currency;
     }
 
-    public function setpostpaid_Id($postpaid_Id)
+    public function getpostpaidId()
     {
-        $this->postpaid_Id = $postpaid_Id;
+        return $this->postpaid;
+    }
+    public function setpostpaidId(?Postpaid $postpaid_id): self
+    {
+        $this->postpaid = $postpaid_id;
         return $this;
     }
 
-    public function getpostpaid_Id()
-    {
-        return $this->postpaid_Id;
-    }
+    // public function setpostpaid_Id($postpaid_Id)
+    // {
+    //     $this->postpaid_Id = $postpaid_Id;
+    //     return $this;
+    // }
 
-    public function setprepaid_Id($prepaid_Id)
+    // public function getpostpaid_Id()
+    // {
+    //     return $this->postpaid_Id;
+    // }
+
+    public function getprepaidId()
     {
-        $this->prepaid_Id = $prepaid_Id;
+        return $this->prepaid;
+    }
+    public function setprepaidId(?Prepaid $prepaid_id): self
+    {
+        $this->prepaid = $prepaid_id;
         return $this;
     }
 
-    public function getprepaid_Id()
-    {
-        return $this->prepaid_Id;
-    }
+    // public function setprepaid_Id($prepaid_Id)
+    // {
+    //     $this->prepaid_Id = $prepaid_Id;
+    //     return $this;
+    // }
+
+    // public function getprepaid_Id()
+    // {
+    //     return $this->prepaid_Id;
+    // }
 
     public function gettransId()
     {

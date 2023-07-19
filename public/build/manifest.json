@@ -11,6 +11,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -148,11 +149,18 @@
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
   "build/Alfa.js": "/build/Alfa.c50303a5.js",
 >>>>>>> a21410b (send prices to controller)
+=======
+  "build/app1.js": "/build/app1.b8115c60.js",
+  "build/Loto.js": "/build/Loto.ffe283ef.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
+  "build/Alfa.js": "/build/Alfa.800924db.js",
+>>>>>>> 451d8e4 (fix one to one in all project)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
   "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
   "build/AlfaStyle.css": "/build/AlfaStyle.8ece3247.css",
   "build/TouchStyle.css": "/build/TouchStyle.19499611.css",
@@ -175,6 +183,12 @@
   "build/OgeroStyle.css": "/build/OgeroStyle.css",
   "build/runtime.js": "/build/runtime.js",
 >>>>>>> e00735a (preDone with step 1 2 in alfa postpaid)
+=======
+  "build/AlfaStyle.css": "/build/AlfaStyle.f39f8ed2.css",
+  "build/TouchStyle.css": "/build/TouchStyle.19499611.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.4834972a.css",
+  "build/runtime.js": "/build/runtime.e40c1cca.js",
+>>>>>>> 451d8e4 (fix one to one in all project)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",

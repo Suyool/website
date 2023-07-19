@@ -30,13 +30,14 @@ class AlfaController extends AbstractController
     {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
-        // dd($postpaid);
+        dd($orders);
         $parameters['Test'] = "tst";
 
         return $this->render('alfa/index.html.twig', [
             'parameters' => $parameters
         ]);
     }
+
 
     /**
      * PostPaid
@@ -76,7 +77,7 @@ class AlfaController extends AbstractController
             $jsonResult = json_decode($retrieveResults, true);
             // dd($jsonResult);
 
-            $Pin=implode("",$data["Pin"]);
+            $Pin = implode("", $data["Pin"]);
             $RandSuyoolUserId = rand();
 
             $Postpaid = new Postpaid;
@@ -102,19 +103,22 @@ class AlfaController extends AbstractController
 
             // dd($Postpaid->getId());
             $postpayedId = $Postpaid->getId();
+            $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
 
+            
             $order = new Order;
             $order
                 ->setsuyoolUserId($RandSuyoolUserId)
                 ->settransId(null)
-                ->setpostpaid_Id($postpayedId)
-                ->setprepaid_Id(null)
+                ->setpostpaidId($postpaid)
+                ->setprepaidId(null)
                 ->setstatus("Pending")
                 ->setamount($jsonResult["Values"]["TotalAmount"])
                 ->setcurrency($jsonResult["Values"]["Currency"]);
             $this->mr->persist($order);
             $this->mr->flush();
 
+            // dd($order);
             $message = "connected";
         } else {
             $message = "not connected";
@@ -208,14 +212,16 @@ class AlfaController extends AbstractController
                 $this->mr->persist($prepaid);
                 $this->mr->flush();
                 $IsSuccess = true;
+
                 $prepaidId = $prepaid->getId();
+                $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
                 $order = new Order;
                 $order
                     ->setsuyoolUserId(1234)
                     ->settransId(null)
-                    ->setpostpaid_Id(null)
-                    ->setprepaid_Id($prepaidId)
+                    ->setpostpaidId(null)
+                    ->setprepaidId($prepaid)
                     ->setstatus("true")
                     ->setamount($data["amountLBP"])
                     ->setcurrency("LBP");
@@ -236,4 +242,49 @@ class AlfaController extends AbstractController
             'IsSuccess' => $IsSuccess,
         ], 200);
     }
+
+    // /**
+    //  * @Route("/tst", name="app_alfa_tst")
+    //  */
+    // public function test()
+    // {
+    //     // $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['suyoolUserId'=>123]);
+    //     // $order=$this->mr->getRepository(Order::class)->findAll();
+    //     // dd($order[0]->getprepaidId());
+    //     // $order = new Order;
+    //     // $order
+    //     //     ->setsuyoolUserId(345)
+    //     //     ->settransId(null)
+    //     //     ->setpostpaidId(null)
+    //     //     ->setprepaidId($prepaid)
+    //     //     ->setstatus("Pending")
+    //     //     ->setamount("ss")
+    //     //     ->setcurrency("lbp");
+    //     // $this->mr->persist($order);
+    //     // $this->mr->flush();
+
+    //     // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['suyoolUserId'=>1189401235]);
+    //     $order = $this->mr->getRepository(Order::class)->findAll();
+    //     dd($order[1]->getpostpaidId());
+    //     // dd($order);
+    //     $order = new Order;
+    //     $order
+    //         ->setsuyoolUserId(1189401235)
+    //         ->settransId(null)
+    //         ->setpostpaidId($postpaid)
+    //         ->setprepaidId(null)
+    //         ->setstatus("Pending")
+    //         ->setamount("ss")
+    //         ->setcurrency("lbp");
+    //     $this->mr->persist($order);
+    //     $this->mr->flush();
+
+    //     dd();
+    //     // $orders = $this->mr->getRepository(Order::class)->findAll();
+    //     // dd($postpaid);
+    //     $parameters['Test'] = "tst";
+    //     return $this->render('alfa/index.html.twig', [
+    //         'parameters' => $parameters
+    //     ]);
+    // }
 }
