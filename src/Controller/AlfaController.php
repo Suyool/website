@@ -263,72 +263,63 @@ class AlfaController extends AbstractController
                     ->settransId($response[1])
                     ->setstatus("held");
 
-                    $this->mr->persist($orderupdate1);
-                    $this->mr->flush();
+                $this->mr->persist($orderupdate1);
+                $this->mr->flush();
 
-                // // if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
-                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                // $PayResonse = $BuyPrePaid["d"];
+
+                $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                $PayResonse = $BuyPrePaid["d"];
                 // dd($PayResonse);
-                $prepaid = new Prepaid;
-                $prepaid
-                    // ->setvoucherSerial($PayResonse["voucherSerial"])
-                    // ->setvoucherCode($PayResonse["voucherCode"])
-                    // ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                    // ->setdescription($PayResonse["desc"])
-                    // ->setdisplayMessage($PayResonse["displayMessage"])
-                    // ->settoken($PayResonse["token"])
-                    // ->setbalance($PayResonse["balance"])
-                    // ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                    // ->setinsertId($PayResonse["insertId"])
-                    // ->setSuyoolUserId(345);
-                    ->setvoucherSerial(1234567890101112)
-                    ->setvoucherCode(12345678901011)
-                    ->setvoucherExpiry("2022-06-10")
-                    ->setdescription("Alfa 25")
-                    ->setdisplayMessage("you have succsesfuly ...")
-                    ->settoken("2e47d23e-7431-4fb8-a45c-2354cc1746b5")
-                    ->setbalance(99745000)
-                    ->seterrorMsg("SUCCESS")
-                    ->setinsertId(null)
-                    ->setSuyoolUserId(rand());
+                if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
+                    // dd("hello");
+                    $prepaid = new Prepaid;
+                    $prepaid
+                        ->setvoucherSerial($PayResonse["voucherSerial"])
+                        ->setvoucherCode($PayResonse["voucherCode"])
+                        ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                        ->setdescription($PayResonse["desc"])
+                        ->setdisplayMessage($PayResonse["displayMessage"])
+                        ->settoken($PayResonse["token"])
+                        ->setbalance($PayResonse["balance"])
+                        ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                        ->setinsertId($PayResonse["insertId"])
+                        ->setSuyoolUserId($session);
 
-                $this->mr->persist($prepaid);
-                $this->mr->flush();
-                $IsSuccess = true;
+                    $this->mr->persist($prepaid);
+                    $this->mr->flush();
+                    $IsSuccess = true;
 
-                $prepaidId = $prepaid->getId();
-                $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
+                    $prepaidId = $prepaid->getId();
+                    $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
-                $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
-                $orderupdate
-                    ->setprepaidId($prepaid)
-                    ->setstatus("purchased");
-                $this->mr->persist($orderupdate);
-                $this->mr->flush();
-                // dd($prepaidId);
-                // } else {
-                //     $BuyPrePaid = "not connected";
-                //     $IsSuccess = false; 
-                // }
-
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                    $orderupdate
+                        ->setprepaidId($prepaid)
+                        ->setstatus("purchased");
+                    $this->mr->persist($orderupdate);
+                    $this->mr->flush();
+                    // dd($prepaidId);
+                } else {
+                    $BuyPrePaid = "not connected";
+                    $IsSuccess = false;
+                }
             } else {
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
                 $orderupdate3
                     ->setstatus("canceled");
-    
+
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
             }
         } else {
-           
+
             $IsSuccess = false;
         }
 
         return new JsonResponse([
             'status' => true,
-            // 'message' => $BuyPrePaid,
+            'message' => $BuyPrePaid,
             'IsSuccess' => $IsSuccess,
         ], 200);
     }

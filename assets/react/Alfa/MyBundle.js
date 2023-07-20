@@ -14,8 +14,8 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
     axios
       .post("/alfa/BuyPrePaid",
         {
-          Token: "2e47d23e-7431-4fb8-a45c-2354cc1746b5",
-          category: "MTC",
+          Token: "18b1527f-cc1c-4b3e-8df2-41e7ae2faf3f",
+          category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,

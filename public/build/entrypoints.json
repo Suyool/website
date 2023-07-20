@@ -192,8 +192,12 @@
 >>>>>>> 26d4720 (change first 2 step from postpaid to invoices)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.957037c2.js"
 >>>>>>> 35c1108 (predone with post and pre paid)
+=======
+        "/build/Alfa.e6a0964b.js"
+>>>>>>> 44153aa (done with purshase voucher with .net still need update them)
       ]
     },
     "Touch": {

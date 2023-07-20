@@ -169,8 +169,12 @@
   "build/app1.js": "/build/app1.b8115c60.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.957037c2.js",
 >>>>>>> 35c1108 (predone with post and pre paid)
+=======
+  "build/Alfa.js": "/build/Alfa.e6a0964b.js",
+>>>>>>> 44153aa (done with purshase voucher with .net still need update them)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
