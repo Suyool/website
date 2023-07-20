@@ -117,27 +117,27 @@ class BobServices
     public function BillPay($Postpaid_With_id_Res)
     {
         // dd($Postpaid_With_id_Res->getCurrency());
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
                 "VenId" => "1",
                 "ProductId" => "4",
-                "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
+                "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
 
                 "AlfaBillResult" => [
-                    "Fees" => $Postpaid_With_id_Res->getfees(),
+                    "Fees" => strval($Postpaid_With_id_Res->getfees()),
                     "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
-                    "Amount" => $Postpaid_With_id_Res->getamount(),
-                    "Amount1" => $Postpaid_With_id_Res->getamount1(),
-                    "ReferenceNumber" => $Postpaid_With_id_Res->getreferenceNumber(),
-                    "Fees1" => $Postpaid_With_id_Res->getfees1(),
-                    "Amount2" => $Postpaid_With_id_Res->getamount2(),
-                    "InformativeOriginalWSAmount" => $Postpaid_With_id_Res->getinformativeOriginalWSamount(),
-                    "TotalAmount" => $Postpaid_With_id_Res->gettotalamount(),
-                    "Currency" => $Postpaid_With_id_Res->getcurrency(),
-                    "Rounding" => $Postpaid_With_id_Res->getrounding(),
-                    "AdditionalFees" => $Postpaid_With_id_Res->getadditionalfees(),
+                    "Amount" => strval($Postpaid_With_id_Res->getamount()),
+                    "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
+                    "ReferenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
+                    "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
+                    "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
+                    "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
+                    "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
+                    "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
+                    "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
+                    "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
                 ],
                 "Credentials" => [
                     "User" => $this->USERNAME,
@@ -151,13 +151,13 @@ class BobServices
 
         $content = $response->getContent(false);
         // $content = $response->toArray();
-        dd($content);
+        // dd($content);
 
-        $ApiResponse = json_decode($content, true);
-        $res = $ApiResponse['Response'];
-        $decodedString = $this->_decodeGzipString(base64_decode($res));
+        // $ApiResponse = json_decode($content, true);
+        // $res = $ApiResponse['Response'];
+        // $decodedString = $this->_decodeGzipString(base64_decode($res));
         // dd($decodedString);
 
-        return $decodedString;
+        return $content;
     }
 }

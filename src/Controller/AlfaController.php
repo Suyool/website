@@ -107,7 +107,7 @@ class AlfaController extends AbstractController
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
             $jsonResult = json_decode($retrieveResults, true);
-            // dd($jsonResult);
+            // dd($jsonResult["Values"]["ReferenceNumber"]);
 
             $Pin = implode("", $data["Pin"]);
             $RandSuyoolUserId = rand();
@@ -136,9 +136,9 @@ class AlfaController extends AbstractController
             $this->mr->persist($invoices);
             $this->mr->flush();
 
-            // dd($Postpaid->getId());
+            // dd($invoices->getId());
 
-            // $postpayedId = $invoices->getId();
+            $invoicesId = $invoices->getId();
             // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
 
 
@@ -158,13 +158,13 @@ class AlfaController extends AbstractController
             $message = "connected";
         } else {
             $message = "not connected";
-            // $postpayedId = -1;
+            $invoicesId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $message,
-            // 'postpayed' => $postpayedId
+            'postpayed' => $invoicesId
         ], 200);
     }
 
@@ -177,8 +177,9 @@ class AlfaController extends AbstractController
     public function billPay(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        // dd($data);
 
-        $Postpaid_With_id = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $data["ResponseId"]]);
+        $Postpaid_With_id = $this->mr->getRepository(Invoices::class)->findOneBy(['id' => $data["ResponseId"]]);
         // dd($Postpaid_With_id);
 
         if ($data != null) {
