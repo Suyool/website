@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
+use App\Entity\Alfa\Invoices;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,13 +31,14 @@ class AlfaController extends AbstractController
     {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
-        dd($orders);
+        // dd($orders);
         $parameters['Test'] = "tst";
 
         return $this->render('alfa/index.html.twig', [
             'parameters' => $parameters
         ]);
     }
+
 
 
     /**
@@ -50,15 +52,45 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
-            // dd($sendBill);
+            $sendBillRes = json_decode($sendBill, true);
+            if ($sendBillRes["ResponseText"] == "Success") {
+                // dd($sendBillRes);
+                $invoices = new Invoices;
+                $invoices
+                    ->setfees(null)
+                    ->setfees1(null)
+                    ->setamount(null)
+                    ->setamount1(null)
+                    ->setamount2(null)
+                    ->setreferenceNumber(null)
+                    ->setinformativeOriginalWSamount(null)
+                    ->settotalamount(null)
+                    ->setcurrency(null)
+                    ->setrounding(null)
+                    ->setadditionalfees(null)
+                    ->setPin(null)
+                    ->setTransactionId(null)
+                    ->setSuyoolUserId(rand())
+                    ->setGsmNumber($data["mobileNumber"]);
+                $this->mr->persist($invoices);
+                $this->mr->flush();
+
+                $invoicesId = $invoices->getId();
+                // dd($invoicesId);
+            } else {
+                echo "error";
+                $invoicesId = -1;
+            }
             $message = "connected";
         } else {
             $message = "not connected";
+            $invoicesId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message
+            'message' => $message,
+            'invoicesId' => $invoicesId
         ], 200);
     }
 
@@ -79,9 +111,12 @@ class AlfaController extends AbstractController
 
             $Pin = implode("", $data["Pin"]);
             $RandSuyoolUserId = rand();
+            $invoicesId = $data["invoicesId"];
+            // dd($invoicesId);
 
-            $Postpaid = new Postpaid;
-            $Postpaid
+            $invoices =  $this->mr->getRepository(Invoices::class)->findOneBy(['id' => $invoicesId]);
+            // $Postpaid = new Postpaid;
+            $invoices
                 ->setfees($jsonResult["Values"]["Fees"])
                 ->setfees1($jsonResult["Values"]["Fees1"])
                 ->setamount($jsonResult["Values"]["Amount"])
@@ -98,37 +133,38 @@ class AlfaController extends AbstractController
                 ->setGsmNumber($data["mobileNumber"])
                 ->setTransactionId($jsonResult["Values"]["TransactionId"]);
 
-            $this->mr->persist($Postpaid);
+            $this->mr->persist($invoices);
             $this->mr->flush();
 
             // dd($Postpaid->getId());
-            $postpayedId = $Postpaid->getId();
-            $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
 
-            
-            $order = new Order;
-            $order
-                ->setsuyoolUserId($RandSuyoolUserId)
-                ->settransId(null)
-                ->setpostpaidId($postpaid)
-                ->setprepaidId(null)
-                ->setstatus("Pending")
-                ->setamount($jsonResult["Values"]["TotalAmount"])
-                ->setcurrency($jsonResult["Values"]["Currency"]);
-            $this->mr->persist($order);
-            $this->mr->flush();
+            // $postpayedId = $invoices->getId();
+            // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
+
+
+            // $order = new Order;
+            // $order
+            //     ->setsuyoolUserId($RandSuyoolUserId)
+            //     ->settransId(null)
+            //     ->setpostpaidId($postpaid)
+            //     ->setprepaidId(null)
+            //     ->setstatus("Pending")
+            //     ->setamount($jsonResult["Values"]["TotalAmount"])
+            //     ->setcurrency($jsonResult["Values"]["Currency"]);
+            // $this->mr->persist($order);
+            // $this->mr->flush();
 
             // dd($order);
             $message = "connected";
         } else {
             $message = "not connected";
-            $postpayedId = -1;
+            // $postpayedId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $message,
-            'postpayed' => $postpayedId
+            // 'postpayed' => $postpayedId
         ], 200);
     }
 
@@ -159,6 +195,7 @@ class AlfaController extends AbstractController
             'message' => $message
         ], 200);
     }
+
 
 
     /**

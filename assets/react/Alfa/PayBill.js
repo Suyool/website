@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
 
@@ -25,6 +25,7 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
         console.log(response);
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
+          setPostpaidData({ id: response?.data?.invoicesId })
         } else {
           console.log("something went wrong!!")
         }

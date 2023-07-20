@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -37,6 +37,7 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
             // currency: localStorage.getItem("billcurrency"),
             currency: "LBP",
             Pin: pinCode,
+            invoicesId: getPostpaidData.id,
           }
         )
         .then((response) => {
