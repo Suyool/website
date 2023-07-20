@@ -8,6 +8,7 @@ use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\Invoices;
 use App\Service\LotoServices;
 use App\Service\BobServices;
+use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,14 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class AlfaController extends AbstractController
 {
     private $mr;
+    private $hash_algo;
+    private $certificate;
 
-    public function __construct(ManagerRegistry $mr)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('alfa');
+        $this->hash_algo = $hash_algo;
+        $this->certificate = $certificate;
     }
 
     /**
@@ -221,31 +226,72 @@ class AlfaController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/alfa/BuyPrePaid", name="app_alfa_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request, LotoServices $lotoServices)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices)
     {
+        $session = 89;
+        $app_id = 3;
         $data = json_decode($request->getContent(), true);
 
         // dd($data["amountLBP"]);
         // dd($data["amountUSD"]);
 
         if ($data != null) {
-            $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-            $PayResonse = $BuyPrePaid["d"];
-            // dd($PayResonse);
 
-            if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
+
+            $order = new Order;
+            $order
+                ->setsuyoolUserId($session)
+                ->settransId(null)
+                ->setpostpaidId(null)
+                ->setprepaidId(null)
+                ->setstatus("pending")
+                ->setamount($data["amountLBP"])
+                ->setcurrency("LBP");
+            $this->mr->persist($order);
+            $this->mr->flush();
+
+
+
+            $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+
+
+            // dd($response);
+
+            if ($response[0]) {
+                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate1
+                    ->settransId($response[1])
+                    ->setstatus("held");
+
+                    $this->mr->persist($orderupdate1);
+                    $this->mr->flush();
+
+                // // if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
+                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                // $PayResonse = $BuyPrePaid["d"];
+                // dd($PayResonse);
                 $prepaid = new Prepaid;
                 $prepaid
-                    ->setvoucherSerial($PayResonse["voucherSerial"])
-                    ->setvoucherCode($PayResonse["voucherCode"])
-                    ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                    ->setdescription($PayResonse["desc"])
-                    ->setdisplayMessage($PayResonse["displayMessage"])
-                    ->settoken($PayResonse["token"])
-                    ->setbalance($PayResonse["balance"])
-                    ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                    ->setinsertId($PayResonse["insertId"])
-                    ->setSuyoolUserId(345);
+                    // ->setvoucherSerial($PayResonse["voucherSerial"])
+                    // ->setvoucherCode($PayResonse["voucherCode"])
+                    // ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                    // ->setdescription($PayResonse["desc"])
+                    // ->setdisplayMessage($PayResonse["displayMessage"])
+                    // ->settoken($PayResonse["token"])
+                    // ->setbalance($PayResonse["balance"])
+                    // ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                    // ->setinsertId($PayResonse["insertId"])
+                    // ->setSuyoolUserId(345);
+                    ->setvoucherSerial(1234567890101112)
+                    ->setvoucherCode(12345678901011)
+                    ->setvoucherExpiry("2022-06-10")
+                    ->setdescription("Alfa 25")
+                    ->setdisplayMessage("you have succsesfuly ...")
+                    ->settoken("2e47d23e-7431-4fb8-a45c-2354cc1746b5")
+                    ->setbalance(99745000)
+                    ->seterrorMsg("SUCCESS")
+                    ->setinsertId(null)
+                    ->setSuyoolUserId(rand());
 
                 $this->mr->persist($prepaid);
                 $this->mr->flush();
@@ -254,75 +300,36 @@ class AlfaController extends AbstractController
                 $prepaidId = $prepaid->getId();
                 $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
-                $order = new Order;
-                $order
-                    ->setsuyoolUserId(1234)
-                    ->settransId(null)
-                    ->setpostpaidId(null)
+                $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                $orderupdate
                     ->setprepaidId($prepaid)
-                    ->setstatus("true")
-                    ->setamount($data["amountLBP"])
-                    ->setcurrency("LBP");
-                $this->mr->persist($order);
+                    ->setstatus("purchased");
+                $this->mr->persist($orderupdate);
                 $this->mr->flush();
                 // dd($prepaidId);
+                // } else {
+                //     $BuyPrePaid = "not connected";
+                //     $IsSuccess = false; 
+                // }
+
             } else {
+                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate3
+                    ->setstatus("canceled");
+    
+                $this->mr->persist($orderupdate3);
+                $this->mr->flush();
                 $IsSuccess = false;
             }
         } else {
-            $BuyPrePaid = "not connected";
+           
             $IsSuccess = false;
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $BuyPrePaid,
+            // 'message' => $BuyPrePaid,
             'IsSuccess' => $IsSuccess,
         ], 200);
     }
-
-    // /**
-    //  * @Route("/tst", name="app_alfa_tst")
-    //  */
-    // public function test()
-    // {
-    //     // $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['suyoolUserId'=>123]);
-    //     // $order=$this->mr->getRepository(Order::class)->findAll();
-    //     // dd($order[0]->getprepaidId());
-    //     // $order = new Order;
-    //     // $order
-    //     //     ->setsuyoolUserId(345)
-    //     //     ->settransId(null)
-    //     //     ->setpostpaidId(null)
-    //     //     ->setprepaidId($prepaid)
-    //     //     ->setstatus("Pending")
-    //     //     ->setamount("ss")
-    //     //     ->setcurrency("lbp");
-    //     // $this->mr->persist($order);
-    //     // $this->mr->flush();
-
-    //     // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['suyoolUserId'=>1189401235]);
-    //     $order = $this->mr->getRepository(Order::class)->findAll();
-    //     dd($order[1]->getpostpaidId());
-    //     // dd($order);
-    //     $order = new Order;
-    //     $order
-    //         ->setsuyoolUserId(1189401235)
-    //         ->settransId(null)
-    //         ->setpostpaidId($postpaid)
-    //         ->setprepaidId(null)
-    //         ->setstatus("Pending")
-    //         ->setamount("ss")
-    //         ->setcurrency("lbp");
-    //     $this->mr->persist($order);
-    //     $this->mr->flush();
-
-    //     dd();
-    //     // $orders = $this->mr->getRepository(Order::class)->findAll();
-    //     // dd($postpaid);
-    //     $parameters['Test'] = "tst";
-    //     return $this->render('alfa/index.html.twig', [
-    //         'parameters' => $parameters
-    //     ]);
-    // }
 }
