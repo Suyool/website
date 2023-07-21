@@ -109,9 +109,11 @@ class PaymentController extends AbstractController
                     ? $parameters['payment_details_response']['allowExternal']
                     : ''
             );
-
-            $additionalData = $parameters['payment_details_response']['additionalData'];
-            $additionalData = json_decode($additionalData, true);
+            if(isset($parameters['payment_details_response']['additionalData'])){
+                $additionalData = $parameters['payment_details_response']['additionalData'];
+                $additionalData = json_decode($additionalData, true);
+            }
+            
             // dd($additionalData);
             $this->session->set(
                 "receiverFname",

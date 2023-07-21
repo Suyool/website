@@ -144,8 +144,11 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['iban']
                 : ''
         );
-        $additionalData = $parameters['request_details_response']['additionalData'];
-        $additionalData = json_decode($additionalData, true);
+        if(isset($parameters['request_details_response']['additionalData'])){
+            $additionalData = $parameters['request_details_response']['additionalData'];
+            $additionalData = json_decode($additionalData, true);
+        }
+        
         $this->session->set(
             "receiverFname",
             isset($additionalData['receiverFname'])
