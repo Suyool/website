@@ -58,6 +58,12 @@ class loto
 
      /**
      * 
+     * @ORM\Column(name="zeednumbers")
+     */
+    private $zeednumbers;
+
+     /**
+     * 
      * @ORM\Column(name="price")
      */
     private $price;
@@ -133,7 +139,12 @@ class loto
 
     public function getwithZeed()
     {
-        return $this->withZeed;
+        if($this->withZeed == true){
+            return 1;
+        }else{
+            return 0;
+        }
+        // return $this->withZeed;
     }
 
     public function setWithZeed($withZeed)
@@ -150,6 +161,17 @@ class loto
     public function setgridSelected($gridSelected)
     {
         $this->gridSelected=$gridSelected;
+        return $this;
+    }
+
+    public function getzeednumber()
+    {
+        return $this->zeednumbers;
+    }
+
+    public function setzeednumber($zeednumbers)
+    {
+        $this->zeednumbers=$zeednumbers;
         return $this;
     }
 

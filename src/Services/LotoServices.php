@@ -32,18 +32,18 @@ class LotoServices
             ]
         ]);
         $content = $response->toArray();
-        $token=$content['d']['token'];
+        $token = $content['d']['token'];
 
         return $token;
     }
 
-    public function BouquetGrids()
+    public function BouquetGrids($ticketId)
     {
-        $token=$this->Login();
+        $token = $this->Login();
         $response1 = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail", [
             'body' => json_encode([
                 'Token' => $token,
-                'historyId' => 5191419,
+                'historyId' => $ticketId,
                 'bouquetId' => 0
             ]),
             'headers' => [
@@ -59,7 +59,7 @@ class LotoServices
         $response2 = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail", [
             'body' => json_encode([
                 'Token' => $token,
-                'historyId' => 5191419,
+                'historyId' => $ticketId,
                 'bouquetId' => $bouquetId
             ]),
             'headers' => [
@@ -79,13 +79,13 @@ class LotoServices
     {
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        $token=$this->Login();
+        $token = $this->Login();
         $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
             'body' => json_encode([
                 'Token' => $token,
-                'fromDate' => '2023-06-20',
-                'toDate' => '2023-06-21',
-                'transactionType'=>0
+                'fromDate' =>  date('Y-m-d'),
+                'toDate' => date('Y-m-d', strtotime("+1 day")),
+                'transactionType' => 0
             ]),
             'headers' => [
                 'Content-Type' => 'application/json'
@@ -93,14 +93,42 @@ class LotoServices
         ]);
         $content = $response->toArray();
 
-        $historyEntries=$content['d']['historyEntries'];
-        foreach($historyEntries as $historyEntries)
-        {
-            $historyId[]=$historyEntries['historyId'];
+        $historyEntries = $content['d']['historyEntries'];
+        foreach ($historyEntries as $historyEntries) {
+            $historyId[] = $historyEntries['historyId'];
         }
-        dd($historyId[0]);
-        
-        return $content;
+        $historyId = $historyId[0];
 
+        return $historyId;
+    }
+
+    public function playLoto($draw, $withZeed, $gridselected)
+    {
+        // date('Y-m-d'),
+        //         'toDate' => date('Y-m-d',strtotime("+1 day"))
+        $token = $this->Login();
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
+            'body' => json_encode([
+                'Token' => $token,
+                'drawNumber' => $draw,
+                'numDraws' => 1,
+                'withZeed' => $withZeed,
+                'saveToFavorite' => 1,
+                'GridsSelected' => $gridselected
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray();
+
+        $submit = $content['d']['errorinfo']['errorcode'];
+        if ($submit == 0) {
+            $zeed = $content['d']['insertId'];
+            return array(true, $zeed);
+        } else {
+            return array(false);
+        }
     }
 }

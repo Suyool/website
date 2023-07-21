@@ -63,6 +63,54 @@ class LOTO_results
      */
     private $numbers;
 
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $zeednumber1;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $zeednumber2;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $zeednumber3;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $zeednumber4;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $winner1zeed;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $winner2zeed;
+
+     /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $winner3zeed;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $winner4zeed;
+
     /**
      * 
      * @ORM\Column(type="string")
@@ -162,6 +210,94 @@ class LOTO_results
     public function getnumbers()
     {
         return $this->numbers;
+    }
+
+    public function getzeednumber1()
+    {
+        return $this->zeednumber1;
+    }
+
+    public function setzeednumber1($zeednumber1)
+    {
+        $this->zeednumber1=$zeednumber1;
+        return $this;
+    }
+
+    public function getzeednumber2()
+    {
+        return $this->zeednumber2;
+    }
+
+    public function setzeednumber2($zeednumber2)
+    {
+        $this->zeednumber2=$zeednumber2;
+        return $this;
+    }
+
+    public function getzeednumber3()
+    {
+        return $this->zeednumber3;
+    }
+
+    public function setzeednumber3($zeednumber3)
+    {
+        $this->zeednumber3=$zeednumber3;
+        return $this;
+    }
+
+    public function getzeednumber4()
+    {
+        return $this->zeednumber4;
+    }
+
+    public function setzeednumber4($zeednumber4)
+    {
+        $this->zeednumber4=$zeednumber4;
+        return $this;
+    }
+
+    public function getwinner1zeed()
+    {
+        return $this->winner1zeed;
+    }
+
+    public function setwinner1zeed($winner1zeed)
+    {
+        $this->winner1zeed=$winner1zeed;
+        return $this;
+    }
+
+    public function getwinner2zeed()
+    {
+        return $this->winner2zeed;
+    }
+
+    public function setwinner2zeed($winner2zeed)
+    {
+        $this->winner2zeed=$winner2zeed;
+        return $this;
+    }
+
+    public function getwinner3zeed()
+    {
+        return $this->winner3zeed;
+    }
+
+    public function setwinner3zeed($winner3zeed)
+    {
+        $this->winner3zeed=$winner3zeed;
+        return $this;
+    }
+
+    public function getwinner4zeed()
+    {
+        return $this->winner4zeed;
+    }
+
+    public function setwinner4zeed($winner4zeed)
+    {
+        $this->winner4zeed=$winner4zeed;
+        return $this;
     }
 
 }

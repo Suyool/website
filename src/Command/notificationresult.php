@@ -73,6 +73,14 @@ class notificationresult extends Command
                 $results->setwinner3($prize_loto['prize3']);
                 $results->setwinner4($prize_loto['prize4']);
                 $results->setwinner5($prize_loto['prize5']);
+                $results->setzeednumber1($prize_loto['zeednumber']);
+                $results->setzeednumber2($prize_loto['zeednumber2']);
+                $results->setzeednumber3($prize_loto['zeednumber3']);
+                $results->setzeednumber4($prize_loto['zeednumber4']);
+                $results->setwinner1zeed($prize_loto['zeedprize1']);
+                $results->setwinner2zeed($prize_loto['zeedprize2']);
+                $results->setwinner3zeed($prize_loto['zeedprize3']);
+                $results->setwinner4zeed($prize_loto['zeedprize4']);
                 $this->mr->persist($results);
                 $this->mr->flush();
             }
@@ -117,29 +125,29 @@ class notificationresult extends Command
 
         $lastresultprice = $this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
 
-        foreach($notifyUser as $notifyUser)
-        {
-            $orderid=$this->mr->getRepository(order::class)->findOneBy(['id'=>$notifyUser['id']]);
-            $notification = new notification;
-                    $notification->setIdentifier('Loto result');
-                    $notification->setTitle("Draw ". $notifyUser['drawNumber'] ." results");
-                    $notification->setNotify("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
-                    $notification->setSubject("Draw ". $notifyUser['drawNumber'] ." results");
-                    $notification->setOrderId($orderid);
-                    $notification->settransId($orderid->gettransId());
-                    $notification->setText("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
-                    // $notification->setGrids($i);
-                    $notification->setamount($orderid->getamount());
-                    $notification->setcurrency($orderid->getcurrency());
-                    // $notification->setDrawId($drawId);
-                    // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-                    // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-                    // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+        // foreach($notifyUser as $notifyUser)
+        // {
+        //     $orderid=$this->mr->getRepository(order::class)->findOneBy(['id'=>$notifyUser['id']]);
+        //     $notification = new notification;
+        //             $notification->setIdentifier('Loto result');
+        //             $notification->setTitle("Draw ". $notifyUser['drawNumber'] ." results");
+        //             $notification->setNotify("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
+        //             $notification->setSubject("Draw ". $notifyUser['drawNumber'] ." results");
+        //             $notification->setOrderId($orderid);
+        //             $notification->settransId($orderid->gettransId());
+        //             $notification->setText("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
+        //             // $notification->setGrids($i);
+        //             $notification->setamount($orderid->getamount());
+        //             $notification->setcurrency($orderid->getcurrency());
+        //             // $notification->setDrawId($drawId);
+        //             // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
+        //             // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
+        //             // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
 
 
-                    $this->mr->persist($notification);
-                    $this->mr->flush();
-        }
+        //             $this->mr->persist($notification);
+        //             $this->mr->flush();
+        // }
 
 
         return 1;

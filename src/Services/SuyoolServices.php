@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Utils\Helper;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SuyoolServices
@@ -23,6 +24,7 @@ class SuyoolServices
     public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate)
     {
         $Hash = base64_encode(hash($hash_algo, $session . 1 . $id . $sum . $currency . $certificate, true));
+        // dd($Hash);
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment", [
             'body' => json_encode([
@@ -37,37 +39,73 @@ class SuyoolServices
                 'Content-Type' => 'application/json'
             ]
         ]);
-        $push_utility_response = $response->toArray();
-        $globalCode = $push_utility_response['globalCode'];
-        if($globalCode){
-            $transId=$push_utility_response['data'];
-            return $transId;
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status === 400) {
+            $push_utility_response = $response->toArray(false);
         }else{
-            return;
+            $push_utility_response = $response->toArray();
+
+        }
+
+        $globalCode = $push_utility_response['globalCode'];
+        $message=$push_utility_response['message'];
+
+        // $form_data = [
+        //     'userAccountID' => $session,
+        //     "merchantAccountID" => 1,
+        //     'orderID' => $id,
+        //     'amount' => $sum,
+        //     'currency' => $currency,
+        //     'secureHash' =>  $Hash,
+        // ];
+        // $params['data'] = json_encode($form_data);
+        // $params['url'] = 'SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment';
+        // /*** Call the api ***/
+        // $response = Helper::send_curl($params);
+        // $parameters['push_utility_response'] = json_decode($response, true);
+        // dd($response);
+
+        if ($globalCode) {
+            $transId = $push_utility_response['data'];
+            return array(true, $transId);
+        } else {
+            return array(false,$message);
         }
     }
 
-    public function UpdateUtilities($session, $id, $sum, $currency, $hash_algo, $certificate)
+    /*
+     * Update utilities Api  
+     */
+    public function UpdateUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$additionalData)
     {
-        $transId=$this->PushUtilities($session,$id,$sum,$currency,$hash_algo,$certificate);
-        $Hash = base64_encode(hash($hash_algo, $transId . "testing" . $certificate, true));
+        // dd($additionalData);
+        // $additionalDataString = json_encode($additionalData);
+        
+        // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
+        // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
+        $Hash = base64_encode(hash($hash_algo, 3258 . $additionalData . $certificate, true));
+        // intval($transId[1])
+        echo $Hash;
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/UpdateUtilityPayment", [
             'body' => json_encode([
-                'transactionID' => $transId,
-                "additionalData" => "testing",
+                'transactionID' => 3258,
+                "amountPaid" => $sum,
+                "additionalData" => $additionalData,
                 'secureHash' =>  $Hash,
             ]),
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
-        $update_utility_response = $response->toArray();
+        $update_utility_response = $response->toArray(false);
+        dd($update_utility_response);
         $globalCode = $update_utility_response['globalCode'];
-        if($globalCode){
+        $message = $update_utility_response['message'];
+        if ($globalCode) {
             return true;
-        }else{
-            return false;
+        } else {
+            return array(false,$message);
         }
     }
 }

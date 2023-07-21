@@ -99,18 +99,54 @@ class PlaysRepository extends EntityRepository
                 ->getQuery()
                 ->getResult();
             if (!empty($result)) {
-                $response =array_merge($response, $result);;
+                $response = array_merge($response, $result);;
             }
         }
         return $response;
     }
 
-    public function completed($orderid){
+    public function completed($orderid)
+    {
         return $this->createQueryBuilder('l')
-        ->select('l')
-        ->where('l.order=:order and l.ticketId != 0 and l.ticketId is not null')
-        ->setParameter('order',$orderid)
-        ->getQuery()
-        ->getResult();
+            ->select('l')
+            ->where('l.order=:order and l.ticketId != 0 and l.ticketId is not null')
+            ->setParameter('order', $orderid)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getResultsPerUser($session,$drawNumber)
+    {
+        $rawResults = $this->createQueryBuilder('l')
+            ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers')
+            ->innerJoin(order::class, 'o')
+            ->innerJoin(LOTO_results::class, 'r')
+            ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null')
+            ->setParameter('session', $session)
+            ->setParameter('drawNumber',$drawNumber)
+            ->groupBy('l.gridSelected')
+            ->getQuery()
+            ->getResult();
+
+        $groupedResults = [];
+        foreach ($rawResults as $result) {
+            $drawdate = $result['drawdate']->format('Y-m-d');
+            if (!isset($groupedResults[$drawdate])) {
+                $groupedResults[$drawdate] = [
+                    'date' => $drawdate,
+                    'drawId' => $result['drawId'],
+                    'gridSelected'=>[]
+                                ];
+            }
+            $gridSelectedArrays = explode("|", $result['gridSelected']);
+            foreach ($gridSelectedArrays as $gridSelectedArray) {
+                $numbers = explode(" ", $gridSelectedArray);
+                $gridSelectedString = implode(" ", $numbers);
+                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected'=>$gridSelectedString,'zeedSelected'=>$result['zeednumbers']];
+            }
+            // $groupedResults[$drawdate]['zeedSelected'][] = $result['zeednumbers'];
+        }
+
+        return array_values($groupedResults); // Return the grouped results as indexed array
     }
 }

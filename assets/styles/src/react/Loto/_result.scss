@@ -33,6 +33,30 @@
 
             }
         }
+        .ballSectionZeed {
+            display: flex;
+            flex-direction: row;
+            width: 75%;
+            justify-content: space-evenly;
+
+            span {
+                font-family: PoppinsSemiBold;
+                font-size: 15px;
+                color: white;
+                background-color: #FFB800;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &.nouse{
+                    background-color: unset;
+                }
+
+            }
+        }
     }
 
     .nextDrawSection {
@@ -74,6 +98,12 @@
                     border-radius: 10px;
                     width: 17%;
                     padding: 10px 0;
+                    cursor: pointer;
+
+                    &.clicked{
+                        background-color: #C82F2A;
+                        color: #ffffff!important;
+                    }
 
                     .time {
                         font-family: PoppinsRegular;
@@ -160,6 +190,35 @@
                     color: white;
                 }
             }
+
+            .ballSectionZeed {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: PoppinsSemiBold;
+                    font-size: 15px;
+                    color: #676767;
+                    background-color: white;
+                    border-radius: 50%;
+                    border: 1px solid #676767;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 5px;
+
+                }
+
+                .win {
+                    background-color: #FFB800 ;
+                    border: 1px solid #FFB800;
+                    color: #FFFFFF;
+                }
+            }
         }
 
         .winnweFooter {
@@ -168,6 +227,25 @@
             padding: 10px 25px;
             justify-content: space-between;
             background-color: #BC2D29;
+
+            .price {
+                font-size: PoppinsSemiBold;
+                font-size: 20px;
+                color: white;
+                span{
+                    font-size: 14px;
+                }
+            }
+
+
+        }
+
+        .winnweFooterZeed {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px;
+            justify-content: space-between;
+            background-color: #F2B341;
 
             .price {
                 font-size: PoppinsSemiBold;
