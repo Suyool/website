@@ -68,7 +68,6 @@ const Result = ({ parameters }) => {
         const zeedSelected = item["zeedSelected"];
         if (zeedSelected === null) {
           return null;
-          
         } else {
           return zeedSelected.split("").map(Number);
         }
@@ -142,6 +141,7 @@ const Result = ({ parameters }) => {
   useEffect(() => {
     setSelectedMonthYear(uniqueFilters[0]);
   }, []);
+  console.log(getMyGrids);
   console.log(getMyGridsZeed);
   return (
     <div id="Result">
@@ -204,15 +204,15 @@ const Result = ({ parameters }) => {
 
         {getMyGrids &&
           getMyGrids
-            .sort((a, b) => {
-              const aHasWin =
-                getWinBallInitial.filter((winBall) => a.includes(winBall))
-                  .length >= 3;
-              const bHasWin =
-                getWinBallInitial.filter((winBall) => b.includes(winBall))
-                  .length >= 3;
-              return bHasWin - aHasWin;
-            })
+            // .sort((a, b) => {
+            //   const aHasWin =
+            //     getWinBallInitial.filter((winBall) => a.includes(winBall))
+            //       .length >= 3;
+            //   const bHasWin =
+            //     getWinBallInitial.filter((winBall) => b.includes(winBall))
+            //       .length >= 3;
+            //   return bHasWin - aHasWin;
+            // })
             .map((grid, index) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
@@ -278,54 +278,60 @@ const Result = ({ parameters }) => {
                 )}
                 {getMyGridsZeed[index] ? (
                   <>
-                  <div className="winnweHeader">
-                   <div>
-                    <img
-                      src="/build/images/Loto/zeedLogo.png"
-                      alt="SmileLOGO"
-                    />
-                    <span>Zeed</span>
-                    </div>
+                    <div className="winnweHeader">
+                      <div>
+                        <img
+                          src="/build/images/Loto/zeedLogo.png"
+                          alt="SmileLOGO"
+                        />
+                        <span>Zeed</span>
+                      </div>
                     </div>
                     <div className="winnweBody">
-                    <div className="ballSectionZeed mt-2">
-                      {getMyGridsZeed}
-                    {getMyGridsZeed[index] != null  &&
-                      getMyGridsZeed[index].map((Zeed, ZeedIndex) => (
-                        <span
-                          key={ZeedIndex}
-                          className={`${
-                            getWinBallInitialZeed.includes(Zeed) ? "win" : ""
-                          }`}
-                        >
-                          {Zeed}
-                        </span>
-                      ))}
+                      <div className="ballSectionZeed mt-2">
+                        {getMyGridsZeed[index] != null &&
+                          getMyGridsZeed[index].map((Zeed, ZeedIndex) => (
+                            <span
+                              key={ZeedIndex}
+                              className={`${
+                                getWinBallInitialZeed.includes(Zeed)
+                                  ? "win"
+                                  : ""
+                              }`}
+                            >
+                              {Zeed}
+                            </span>
+                          ))}
                       </div>
-                      </div>
-                      {getMyGridsZeed.map((zeed)=>{
-                        {getWinBallInitialZeed.filter((winBallZeed) => zeed.includes(winBallZeed))
-                          .length >= 1 ? (
+                    </div>
+                    {getMyGridsZeed[index] && 
+                        getWinBallInitialZeed.filter((winBallZeed) =>
+                        getMyGridsZeed[index].includes(winBallZeed)
+                        ).length >= 1 ? (
                           <div className="winnweFooterZeed">
                             <div className="price">
                               <span>L.L </span>
                               {getWinBallInitialZeed.filter((winBallZeed) =>
-                                zeed.includes(winBallZeed)
+                                getMyGridsZeed[index].includes(winBallZeed)
                               ).length == 5 &&
-                              zeed.includes(zeednumber1) &&
+                              getMyGridsZeed[index].includes(zeednumber1) &&
                                 parseInt(prize1zeed).toLocaleString()}
                               {getWinBallInitialZeed.filter((winBallZeed) =>
-                                zeed.includes(winBallZeed)
+                                getMyGridsZeed[index].includes(winBallZeed)
                               ).length == 4 &&
-                              zeed.includes(zeednumber2) &&
+                              getMyGridsZeed[index].includes(zeednumber2) &&
                                 parseInt(prize2zeed).toLocaleString()}
                               {getWinBallInitialZeed.filter((winBallZeed) =>
-                                zeed.includes(winBallZeed)
-                              ).length == 3 && zeed.includes(zeednumber3) && parseInt(prize3zeed).toLocaleString()}
+                                getMyGridsZeed[index].includes(winBallZeed)
+                              ).length == 3 &&
+                              getMyGridsZeed[index].includes(zeednumber3) &&
+                                parseInt(prize3zeed).toLocaleString()}
                               {getWinBallInitialZeed.filter((winBallZeed) =>
-                                zeed.includes(winBallZeed)
-                              ).length == 2 && zeed.includes(zeednumber4) && parseInt(prize4zeed).toLocaleString()}
-                              {grid}
+                                getMyGridsZeed[index].includes(winBallZeed)
+                              ).length == 2 &&
+                              getMyGridsZeed[index].includes(zeednumber4) &&
+                                parseInt(prize4zeed).toLocaleString()}
+                              {" "}
                               Won
                             </div>
                             <div className="img">
@@ -339,13 +345,11 @@ const Result = ({ parameters }) => {
                           <div className="NoWinnweFooter">
                             <div>No Wins </div>
                           </div>
-                        )}
-                      })}
-                      
-                      {/* oki */}
+                        )
+                    }
                   </>
                 ) : (
-                  <></>
+                  <>oo</>
                 )}
               </div>
             ))}
