@@ -10,14 +10,14 @@
 
     .mainTitle {
         font-family: PoppinsMedium;
-        font-size: 14px;
+        font-size: 16px;
         color: black;
         width: 100%;
     }
 
     .mainDesc {
         font-family: PoppinsRegular;
-        font-size: 12px;
+        font-size: 13px;
         color: black;
         width: 100%;
     }
@@ -112,12 +112,12 @@
             width: 100%;
             display: flex;
             flex-direction: row;
-            padding: 12px 15px;
+            padding: 17px 15px;
             border: 1px solid #edf0f3;
             border-radius: 7px;
             justify-content: space-around;
             margin-top: 13px;
-
+            box-shadow: 0px 3px 10px #D8DEE6;
 
             .GridImg {
                 width: 55px;
@@ -137,6 +137,7 @@
                     span{
                         font-size: 12px;
                         font-family: PoppinsRegular;
+                        padding-left: 12px;
                         color: black;
                     }
                 }

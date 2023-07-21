@@ -115,12 +115,14 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             <div className="mainDesc">*All taxes excluded</div>
             <img className="BundleBigImg" src={`/build/images/Alfa/bundle${getPrepaidVoucher.vouchertype}.png`} alt="Bundle" />
 
+            <div className="smlDesc">Alfa only accepts payments in LBP.</div>
+
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
               <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
             </div>
 
-            <div className="MoreInfo">
+            {/* <div className="MoreInfo">
               <div className="label">Amount in LBP (Sayrafa Rate)</div>
               <div className="value">LBP {getPrepaidVoucher.priceLBP}</div>
             </div>
@@ -128,12 +130,12 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             <div className="MoreInfo">
               <div className="label">+ V.A.T & Stamp Duty</div>
               <div className="value">LBP 10,000</div>
-            </div>
+            </div> */}
 
             <div className="br"></div>
             <div className="MoreInfo">
               <div className="label">Total</div>
-              <div className="value1">LBP 100,000</div>
+              <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 

@@ -16,6 +16,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -78,22 +79,27 @@
         "/build/runtime.e40c1cca.js",
         "/build/app1.b8115c60.js"
 >>>>>>> 35c1108 (predone with post and pre paid)
+=======
+        "/build/runtime.js",
+        "/build/app1.js"
+>>>>>>> 2a2966c (fix ui)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.ffe283ef.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.67d25036.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -202,49 +208,54 @@
 =======
         "/build/Alfa.e6ffb664.js"
 >>>>>>> ee6b39b (handle images)
+=======
+        "/build/runtime.js",
+        "/build/Alfa.js"
+>>>>>>> 2a2966c (fix ui)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.74a45897.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.9cf2dfb6.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.adb49e82.css"
+        "/build/styles.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.2a4800b6.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.5fad0f46.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -322,22 +333,25 @@
 =======
         "/build/AlfaStyle.f39f8ed2.css"
 >>>>>>> 35c1108 (predone with post and pre paid)
+=======
+        "/build/AlfaStyle.css"
+>>>>>>> 2a2966c (fix ui)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.19499611.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.4834972a.css"
+        "/build/OgeroStyle.css"
       ]
     }
   }
