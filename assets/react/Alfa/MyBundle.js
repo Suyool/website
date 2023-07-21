@@ -113,7 +113,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           <div className="MyBundleBody">
             <div className="mainTitle">Bundle Name</div>
             <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src="/build/images/Alfa/Bundle.png" alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/Alfa/bundle${getPrepaidVoucher.vouchertype}.png`} alt="Bundle" />
 
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
