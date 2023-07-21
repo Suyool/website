@@ -16,6 +16,7 @@ const Result = ({ parameters }) => {
   const [getMyGridsZeed, setMyGridsZeed] = useState([]);
   const [clickedIndex, setClickedIndex] = useState([]);
   const [getLastNumber, setLastNumber] = useState([]);
+  const [getZeedNumber, setZeedNumber] = useState([]);
 
   const prize1 = parameters.prize_loto_win.prize1;
   const prize2 = parameters.prize_loto_win.prize2;
@@ -61,11 +62,17 @@ const Result = ({ parameters }) => {
       const parsedGrids = item.gridSelected.map((item) =>
         item["gridSelected"].split(" ").map(Number)
       );
+
+      const zeedSelectedArray = item.gridSelected
+        .map((item) => item["zeedSelected"])
+        .filter((zeedSelected) => zeedSelected !== null);
       // const parsedGridsZeed = item.gridSelected.map((item) =>
       //   item["zeedSelected"].split("").map(Number)
       // );
+      setZeedNumber(zeedSelectedArray);
       const parsedGridsZeed = item.gridSelected.map((item) => {
         const zeedSelected = item["zeedSelected"];
+        // console.log(zeedSelected)
         if (zeedSelected === null) {
           return null;
         } else {
@@ -141,8 +148,8 @@ const Result = ({ parameters }) => {
   useEffect(() => {
     setSelectedMonthYear(uniqueFilters[0]);
   }, []);
-  console.log(getMyGrids);
-  console.log(getMyGridsZeed);
+  // console.log(getZeedNumber[0]);
+  // console.log(getZeedNumber[0].indexOf(getZeedNumber[0]))
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -304,49 +311,45 @@ const Result = ({ parameters }) => {
                           ))}
                       </div>
                     </div>
-                    {getMyGridsZeed[index] && 
-                        getWinBallInitialZeed.filter((winBallZeed) =>
-                        getMyGridsZeed[index].includes(winBallZeed)
-                        ).length >= 1 ? (
-                          <div className="winnweFooterZeed">
-                            <div className="price">
-                              <span>L.L </span>
-                              {getWinBallInitialZeed.filter((winBallZeed) =>
-                                getMyGridsZeed[index].includes(winBallZeed)
-                              ).length == 5 &&
-                              getMyGridsZeed[index].includes(zeednumber1) &&
-                                parseInt(prize1zeed).toLocaleString()}
-                              {getWinBallInitialZeed.filter((winBallZeed) =>
-                                getMyGridsZeed[index].includes(winBallZeed)
-                              ).length == 4 &&
-                              getMyGridsZeed[index].includes(zeednumber2) &&
-                                parseInt(prize2zeed).toLocaleString()}
-                              {getWinBallInitialZeed.filter((winBallZeed) =>
-                                getMyGridsZeed[index].includes(winBallZeed)
-                              ).length == 3 &&
-                              getMyGridsZeed[index].includes(zeednumber3) &&
-                                parseInt(prize3zeed).toLocaleString()}
-                              {getWinBallInitialZeed.filter((winBallZeed) =>
-                                getMyGridsZeed[index].includes(winBallZeed)
-                              ).length == 2 &&
-                              getMyGridsZeed[index].includes(zeednumber4) &&
-                                parseInt(prize4zeed).toLocaleString()}
-                              {" "}
-                              Won
-                            </div>
-                            <div className="img">
-                              <img
-                                src="/build/images/Loto/trofie.png"
-                                alt="SmileLOGO"
-                              />
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="NoWinnweFooter">
-                            <div>No Wins </div>
-                          </div>
-                        )
-                    }
+                    {getMyGridsZeed[index] &&
+                    (getZeedNumber[index].substring(0, 5) === zeednumber1 ||
+                      getZeedNumber[index].substring(1, 5) === zeednumber2 ||
+                      getZeedNumber[index].substring(2, 5) === zeednumber3 ||
+                      getZeedNumber[index].substring(3, 5) === zeednumber4) ? (
+                      <div className="winnweFooterZeed">
+                        <div className="price">
+                          <span>L.L </span>
+                          {getWinBallInitialZeed.filter((winBallZeed) =>
+                            getMyGridsZeed[index].includes(winBallZeed)
+                          ).length > 0
+                            ? getZeedNumber[index].substring(0, 5) ===
+                              zeednumber1
+                              ? parseInt(prize1zeed).toLocaleString()
+                              : getZeedNumber[index].substring(1, 5) ===
+                                zeednumber2
+                              ? parseInt(prize2zeed).toLocaleString()
+                              : getZeedNumber[index].substring(2, 5) ===
+                                zeednumber3
+                              ? parseInt(prize3zeed).toLocaleString()
+                              : getZeedNumber[index].substring(3, 5) ===
+                                zeednumber4
+                              ? parseInt(prize4zeed).toLocaleString()
+                              : " "
+                            : " "}
+                          Won
+                        </div>
+                        <div className="img">
+                          <img
+                            src="/build/images/Loto/trofie.png"
+                            alt="SmileLOGO"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="NoWinnweFooter">
+                        <div>No Wins </div>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <>oo</>
