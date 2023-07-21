@@ -31,14 +31,14 @@ class Helper
                 if($app=='loto'){
                     $host = 'https://backbone.lebaneseloto.com';
                 }else{
-                    $host = 'https://globalapi.suyool.money/api/';
+                    $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
                 }
             }else{
          
          if($app=='loto'){
             $host = 'https://backbone.lebaneseloto.com';
          }else{
-            $host = 'http://10.20.80.62/' ;
+            $host = 'http://10.20.80.62/SuyoolGlobalAPIs/api/' ;
             //  $host = 'https://globalapi.suyool.money/api/';
          }
                 }

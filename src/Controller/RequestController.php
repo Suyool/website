@@ -64,7 +64,7 @@ class RequestController extends AbstractController
         ];
         // dd($form_data);
         $params['data'] = json_encode($form_data);
-        $params['url'] = 'SuyoolGlobalAPIs/api/Payment/RequestDetails';
+        $params['url'] = 'Payment/RequestDetails';
         $response = Helper::send_curl($params);
         // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
@@ -212,7 +212,7 @@ class RequestController extends AbstractController
                 $params['data'] = json_encode($form_data);
 
                 // dd($params['data']);
-                $params['url'] = 'SuyoolGlobalAPIs/api/NonSuyooler/NonSuyoolerCashIn';
+                $params['url'] = 'NonSuyooler/NonSuyoolerCashIn';
 
                 $response = Helper::send_curl($params);
                 $parameters['cashin'] = json_decode($response, true);
