@@ -19,8 +19,8 @@ const App = ({ parameters }) => {
     //Modal Variable
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
-    const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/Alfa//build/images/Alfa/SuccessImg.png", title: "", desc: "" });
-    const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/Alfa//build/images/Alfa/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
+    const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/alfa//build/images/alfa/SuccessImg.png", title: "", desc: "" });
+    const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/alfa//build/images/alfa/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
     const [getVoucherData, SetVoucherData] = useState([]);
 

@@ -220,8 +220,12 @@
 >>>>>>> 2a2966c (fix ui)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.8e2ab70e.js"
 >>>>>>> 333a50a (yarn encore prod)
+=======
+        "/build/Alfa.a6bb8435.js"
+>>>>>>> f7f4445 (rename Alfa to alfa)
       ]
     },
     "Touch": {

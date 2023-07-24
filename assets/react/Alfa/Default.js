@@ -17,7 +17,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink 
       <div className="MainTitle">What do you want to do?</div>
 
       <div className="Cards" onClick={() => { handleButtonClick("PayBill") }}>
-        <img className="logoImg" src="/build/images/Alfa/alfaLogo.png" alt="alfaLogo" />
+        <img className="logoImg" src="/build/images/alfa/alfaLogo.png" alt="alfaLogo" />
         <div className="Text">
           <div className="SubTitle">Pay Mobile Bills</div>
           <div className="description">Settle your Alfa bill quickly and securely</div>
@@ -39,7 +39,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink 
             });
         }}
       >
-        <img className="logoImg" src="/build/images/Alfa/alfaLogo.png" alt="alfaLogo" />
+        <img className="logoImg" src="/build/images/alfa/alfaLogo.png" alt="alfaLogo" />
         <div className="Text">
           <div className="SubTitle">Re-charge Alfa</div>
           <div className="description">Recharge your Alfa prepaid number</div>

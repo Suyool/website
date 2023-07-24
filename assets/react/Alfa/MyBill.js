@@ -67,7 +67,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         console.log(response);
         setModalName("SuccessModal");
         setSuccessModal({
-          imgPath: "/build/images/Alfa/SuccessImg.png",
+          imgPath: "/build/images/alfa/SuccessImg.png",
           title: "Alfa Bill Paid Successfully",
           desc: "You have successfully paid your Alfa bill of {currency}{amount}."
         })
@@ -94,7 +94,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
             <div className="bodySection">
               <div className="cardSec">
-                <img src="/build/images/Alfa/alfaLogo.png" alt="flag" />
+                <img src="/build/images/alfa/alfaLogo.png" alt="flag" />
                 <div className="method">Alfa Bill Payment</div>
               </div>
 

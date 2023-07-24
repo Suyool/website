@@ -60,7 +60,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             </div>
 
             <div className="bodySection">
-              <img className="SuccessImg" src="/build/images/Alfa/SuccessImg.png" alt="Bundle" />
+              <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">You have successfully purchased the ${getPrepaidVoucher.priceUSD} Alfa recharge card.</div>
 
@@ -72,7 +72,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
                 <div className="serial">{getSerialToClipboard}</div>
-                <img className="copySerial" src="/build/images/Alfa/copySerial.png" alt="copySerial" />
+                <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
               </button>
 
               <button id="ContinueBtn" className="mt-3" onClick={() => { console.log("share code") }} >Share Code</button>
@@ -113,7 +113,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           <div className="MyBundleBody">
             <div className="mainTitle">Bundle Name</div>
             <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src={`/build/images/Alfa/bundle${getPrepaidVoucher.vouchertype}.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}.png`} alt="Bundle" />
 
             <div className="smlDesc">Alfa only accepts payments in LBP.</div>
 

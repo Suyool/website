@@ -59,7 +59,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
 
       <div className="MobileNbContainer mt-3">
         <div className="place">
-          <img src="/build/images/Alfa/flag.png" alt="flag" />
+          <img src="/build/images/alfa/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />

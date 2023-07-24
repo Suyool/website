@@ -193,8 +193,12 @@
   "build/app1.js": "/build/app1.b8115c60.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.8e2ab70e.js",
 >>>>>>> 333a50a (yarn encore prod)
+=======
+  "build/Alfa.js": "/build/Alfa.a6bb8435.js",
+>>>>>>> f7f4445 (rename Alfa to alfa)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
