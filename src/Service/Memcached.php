@@ -7,8 +7,12 @@ use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 class Memcached
 {
     protected $cache;
-    public function __construct()
+    private $mediumLifetime;
+
+    public function __construct($mediumLifetime)
     {
+        $this->mediumLifetime = $mediumLifetime;
+
         if (MemcachedAdapter::isSupported()) {
             try {
                 $client = MemcachedAdapter::createConnection('memcached://' . "89.108.165.201");
@@ -33,7 +37,7 @@ class Memcached
 
             if (!$cachedData->isHit()) {
                 $data = $filter;
-                $cachedData->set($data)->expiresAfter(3600);
+                $cachedData->set($data)->expiresAfter($this->mediumLifetime);
                 $this->cache->save($cachedData);
                 echo "data from memcached";
             } else {
