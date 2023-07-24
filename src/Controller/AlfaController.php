@@ -215,7 +215,7 @@ class AlfaController extends AbstractController
     {
 
         $filter = $lotoServices->VoucherFilter("ALFA");
-        $Memcached->testmem();
+        // $Memcached->testmem();
 
         return new JsonResponse([
             'status' => true,
