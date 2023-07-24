@@ -35,6 +35,7 @@ class AlfaController extends AbstractController
      */
     public function index()
     {
+        // phpinfo();
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
         // dd($orders);
@@ -214,8 +215,9 @@ class AlfaController extends AbstractController
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
 
-        $filter = $lotoServices->VoucherFilter("ALFA");
-        // $Memcached->testmem();
+        // $filter = $lotoServices->VoucherFilter("ALFA");
+        $filter =  $Memcached->testmem($lotoServices);
+        // dd($filter);
 
         return new JsonResponse([
             'status' => true,
