@@ -8,6 +8,7 @@ use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\Invoices;
 use App\Service\LotoServices;
 use App\Service\BobServices;
+use App\Service\Memcached;
 use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -210,9 +211,11 @@ class AlfaController extends AbstractController
      * Desc: Fetch ReCharge vouchers
      * @Route("/alfa/ReCharge", name="app_alfa_ReCharge",methods="POST")
      */
-    public function ReCharge(LotoServices $lotoServices)
+    public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
+
         $filter = $lotoServices->VoucherFilter("ALFA");
+        $Memcached->testmem();
 
         return new JsonResponse([
             'status' => true,
