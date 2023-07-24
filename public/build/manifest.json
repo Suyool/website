@@ -113,6 +113,7 @@
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -199,6 +200,9 @@
 =======
   "build/Alfa.js": "/build/Alfa.a6bb8435.js",
 >>>>>>> f7f4445 (rename Alfa to alfa)
+=======
+  "build/Alfa.js": "/build/Alfa.5f19e8ec.js",
+>>>>>>> 5f9a2ce (remove memcache)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",

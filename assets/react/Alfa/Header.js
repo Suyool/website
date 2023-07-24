@@ -8,7 +8,7 @@ const Header = ({ activeButton, setActiveButton, getHeaderTitle, getBackLink }) 
 
   return (
     <div id="MobileHeader">
-      <div className="back" onClick={() => { handleButtonClick(getBackLink) }}><img src="/build/images/Alfa/Back.png" alt="Back" /></div>
+      <div className="back" onClick={() => { handleButtonClick(getBackLink) }}><img src="/build/images/alfa/Back.png" alt="Back" /></div>
       <div className="headerTitle">{getHeaderTitle}</div>
       <div className="empty"></div>
     </div>
