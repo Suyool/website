@@ -16,6 +16,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.3b7df2df.js",
   "build/Loto.js": "/build/Loto.ffe283ef.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
@@ -50,10 +51,13 @@
 >>>>>>> 26d4720 (change first 2 step from postpaid to invoices)
 =======
 >>>>>>> 2a2966c (fix ui)
+=======
+>>>>>>> a266ad7 (add data in a file and read them thrus)
   "build/app1.js": "/build/app1.js",
   "build/Loto.js": "/build/Loto.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
   "build/Alfa.js": "/build/Alfa.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -89,10 +93,15 @@
   "build/Touch.js": "/build/Touch.js",
   "build/Ogero.js": "/build/Ogero.js",
 >>>>>>> 2a2966c (fix ui)
+=======
+  "build/Touch.js": "/build/Touch.js",
+  "build/Ogero.js": "/build/Ogero.js",
+>>>>>>> a266ad7 (add data in a file and read them thrus)
   "build/styles.css": "/build/styles.css",
   "build/Lotostyles.css": "/build/Lotostyles.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -260,6 +269,11 @@
   "build/OgeroStyle.css": "/build/OgeroStyle.4834972a.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 333a50a (yarn encore prod)
+=======
+  "build/TouchStyle.css": "/build/TouchStyle.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> a266ad7 (add data in a file and read them thrus)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
@@ -270,15 +284,8 @@
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/commingSoon/Base.png": "/build/images/commingSoon/Base.png",
   "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
-  "build/images/alfa/Bundle13.png": "/build/images/alfa/Bundle13.png",
-  "build/images/alfa/Bundle65.png": "/build/images/alfa/Bundle65.png",
-  "build/images/alfa/Bundle4.png": "/build/images/alfa/Bundle4.png",
-  "build/images/alfa/Bundle35.png": "/build/images/alfa/Bundle35.png",
-  "build/images/alfa/Bundle95.png": "/build/images/alfa/Bundle95.png",
   "build/images/Touch/Bundle.png": "/build/images/Touch/Bundle.png",
-  "build/images/alfa/Bundle1.png": "/build/images/alfa/Bundle1.png",
-  "build/images/alfa/Bundle33.png": "/build/images/alfa/Bundle33.png",
-  "build/images/alfa/Bundle32.png": "/build/images/alfa/Bundle32.png",
+  "build/images/alfa/Bundle.png": "/build/images/alfa/Bundle.png",
   "build/images/visacard.png": "/build/images/visacard.png",
   "build/images/invitation/top-section-invitation-image-1.png": "/build/images/invitation/top-section-invitation-image-1.png",
   "build/images/top-section-invitation-image-1.png": "/build/images/top-section-invitation-image-1.bd08a654.png",
@@ -296,9 +303,7 @@
   "build/images/rectangle-topsection.png": "/build/images/rectangle-topsection.png",
   "build/images/aoun.png": "/build/images/aoun.png",
   "build/images/u2sd.png": "/build/images/u2sd.png",
-  "build/images/alfa/bundleImg33.png": "/build/images/alfa/bundleImg33.png",
   "build/images/login2.jpg": "/build/images/login2.jpg",
-  "build/images/alfa/bundleImg32.png": "/build/images/alfa/bundleImg32.png",
   "build/images/zwz.png": "/build/images/zwz.png",
   "build/images/commingSoon/suyoolLogo.png": "/build/images/commingSoon/suyoolLogo.png",
   "build/images/safe&secure.png": "/build/images/safe&secure.png",
@@ -309,14 +314,12 @@
   "build/images/Loto/LibanaiseJeux.png": "/build/images/Loto/LibanaiseJeux.png",
   "build/images/suyool-final-logo.png": "/build/images/suyool-final-logo.png",
   "build/images/usd.png": "/build/images/usd.png",
-  "build/images/alfa/bundleImg65.png": "/build/images/alfa/bundleImg65.png",
-  "build/images/alfa/bundleImg13.png": "/build/images/alfa/bundleImg13.png",
-  "build/images/alfa/bundleImg35.png": "/build/images/alfa/bundleImg35.png",
-  "build/images/alfa/bundleImg95.png": "/build/images/alfa/bundleImg95.png",
-  "build/images/Loto/LotoLogo.png": "/build/images/Loto/LotoLogo.png",
-  "build/images/Touch/bundleImg3.png": "/build/images/Touch/bundleImg3.png",
-  "build/images/alfa/bundleImg4.png": "/build/images/alfa/bundleImg4.png",
   "build/images/alfa/bundleImg1.png": "/build/images/alfa/bundleImg1.png",
+  "build/images/alfa/bundleImg2.png": "/build/images/alfa/bundleImg2.png",
+  "build/images/Loto/LotoLogo.png": "/build/images/Loto/LotoLogo.png",
+  "build/images/alfa/bundleImg3.png": "/build/images/alfa/bundleImg3.png",
+  "build/images/Touch/bundleImg3.png": "/build/images/Touch/bundleImg3.png",
+  "build/images/alfa/bundleImg.png": "/build/images/alfa/bundleImg.png",
   "build/images/logo.svg": "/build/images/logo.svg",
   "build/images/invitation/mobile-invite-image.png": "/build/images/invitation/mobile-invite-image.png",
   "build/images/Touch/bundleImg2.png": "/build/images/Touch/bundleImg2.png",
@@ -398,5 +401,22 @@
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
-  "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
+  "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
+  "build/images/alfa/bundleImg65.png": "/build/images/alfa/bundleImg65.png",
+  "build/images/alfa/bundleImg13.png": "/build/images/alfa/bundleImg13.png",
+  "build/images/alfa/bundleImg35.png": "/build/images/alfa/bundleImg35.png",
+  "build/images/alfa/bundleImg95.png": "/build/images/alfa/bundleImg95.png",
+  "build/images/alfa/bundleImg4.png": "/build/images/alfa/bundleImg4.png",
+  "build/images/alfa/Bundle13.png": "/build/images/alfa/Bundle13.png",
+  "build/images/alfa/Bundle65.png": "/build/images/alfa/Bundle65.png",
+  "build/images/alfa/Bundle35.png": "/build/images/alfa/Bundle35.png",
+  "build/images/alfa/Bundle4.png": "/build/images/alfa/Bundle4.png",
+  "build/images/alfa/Bundle95.png": "/build/images/alfa/Bundle95.png",
+  "build/images/alfa/Bundle1.png": "/build/images/alfa/Bundle1.png",
+  "build/images/alfa/Image 90.png": "/build/images/alfa/Image 90.png",
+  "build/images/alfa/1.22.png": "/build/images/alfa/1.22.png",
+  "build/images/alfa/Bundle33.png": "/build/images/alfa/Bundle33.png",
+  "build/images/alfa/Bundle32.png": "/build/images/alfa/Bundle32.png",
+  "build/images/alfa/bundleImg33.png": "/build/images/alfa/bundleImg33.png",
+  "build/images/alfa/bundleImg32.png": "/build/images/alfa/bundleImg32.png"
 }
