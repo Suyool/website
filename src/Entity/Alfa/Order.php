@@ -2,7 +2,6 @@
 
 namespace App\Entity\Alfa;
 
-use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -12,8 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
-
-    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
