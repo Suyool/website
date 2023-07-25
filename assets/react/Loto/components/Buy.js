@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Buy = ({ parameters, setDisabledBtn }) => {
+const Buy = ({ parameters, setDisabledBtn, setSuccessModal, setErrorModal,setModalName,setModalShow,setWarningModal }) => {
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   var totalPrice = 0;
@@ -39,15 +39,55 @@ const Buy = ({ parameters, setDisabledBtn }) => {
         selectedBalls: selectedBallsToShow,
       })
       .then((response) => {
-        console.log(response.data.status);
         if (response.data.status) {
-          console.log("ok");
+          const amount=response.data.amount;
           localStorage.removeItem("selectedBalls");
           setPlayedBalls([]);
           setDisabledBtn(
             selectedBallsToShow == null ||
               JSON.parse(selectedBallsToShow).length === 0
           );
+          setModalName("SuccessModal");
+          setSuccessModal({
+          imgPath: "/build/images/Loto/success.png",
+          title: "LOTO Purchased Successfully",
+          desc:  `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`
+        })
+        setModalShow(true);
+        }
+        else if(!response.data.status && response.data.message == 'Exchange Money'){
+          setModalName("ErrorModal");
+        setErrorModal({
+          img: "/build/images/Loto/error.png",
+          title: "Insufficient Funds",
+          desc:  `Exchange from USD to LBP to proceed with this transaction.`,
+          path: response.data.path,
+          btn:'Exchange'
+        })
+        setModalShow(true);
+        }
+        else if(!response.data.status && response.data.message == 'Top Up Wallet'){
+          setModalName("ErrorModal");
+        setErrorModal({
+          img: "/build/images/Loto/error.png",
+          title: "Insufficient Funds",
+          desc:  `Top up your wallet with LBP ${amount} to proceed with this transaction.`,
+          path: response.data.path,
+          btn:'Top up'
+        })
+        setModalShow(true);
+        }
+        else if(!response.data.status && response.data.message == 'Late Draw'){
+          const amount=response.data.amount;
+          setModalName("WarningModal");
+          setWarningModal({
+            imgPath: "/build/images/Loto/warning.png",
+          title: "Too Late for Today’s Draw!",
+          desc:  `Play these number for the next draw on: ${response.data.date} at ${response.data.hours}`,
+          path: response.data.path,
+          btn:'Play'
+        })
+        setModalShow(true);
         }
       })
       .catch((error) => {

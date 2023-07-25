@@ -21,6 +21,9 @@ class SuyoolServices
         }
     }
 
+    /**
+     * Push Utility Api
+     */
     public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate)
     {
         $Hash = base64_encode(hash($hash_algo, $session . 1 . $id . $sum . $currency . $certificate, true));
@@ -76,20 +79,20 @@ class SuyoolServices
     /*
      * Update utilities Api  
      */
-    public function UpdateUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$additionalData)
+    public function UpdateUtilities($sum,$hash_algo, $certificate,$additionalData,$transId)
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
         
         // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
         // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
-        $Hash = base64_encode(hash($hash_algo, 3258 . $additionalData . $certificate, true));
+        $Hash = base64_encode(hash($hash_algo, $transId . $additionalData . $certificate, true));
         // intval($transId[1])
-        echo $Hash;
+        // echo $Hash;
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/UpdateUtilityPayment", [
             'body' => json_encode([
-                'transactionID' => 3258,
+                'transactionID' => $transId,
                 "amountPaid" => $sum,
                 "additionalData" => $additionalData,
                 'secureHash' =>  $Hash,
@@ -99,7 +102,7 @@ class SuyoolServices
             ]
         ]);
         $update_utility_response = $response->toArray(false);
-        dd($update_utility_response);
+        // dd($update_utility_response);
         $globalCode = $update_utility_response['globalCode'];
         $message = $update_utility_response['message'];
         if ($globalCode) {

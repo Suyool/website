@@ -30,7 +30,6 @@ const Result = ({ parameters }) => {
   const zeednumber4 = parameters.prize_loto_win.zeednumbers4;
 
   const prize1zeed = parameters.prize_loto_win.prize1zeed;
-  console.log(prize1zeed);
   const prize2zeed = parameters.prize_loto_win.prize2zeed;
   const prize3zeed = parameters.prize_loto_win.prize3zeed;
   const prize4zeed = parameters.prize_loto_win.prize4zeed;
@@ -123,13 +122,13 @@ const Result = ({ parameters }) => {
         drawNumber: item,
       })
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setWinBallInitial(
           response.data.parameters.prize_loto_win.numbers.split(",").map(Number)
         );
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-            (item) => item.split(" ").map(Number)
+            (item) => item['gridSelected'].split(" ").map(Number)
           );
         const resultsnumbers = response.data.parameters.prize_loto_win.numbers
           .split(",")
@@ -138,6 +137,26 @@ const Result = ({ parameters }) => {
         setMyGrids(parsedGrids);
         const lastNumber = resultsnumbers[resultsnumbers.length - 1];
         setLastNumber(lastNumber);
+
+        const zeedSelectedArray = response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map((item) => item["zeedSelected"])
+        .filter((zeedSelected) => zeedSelected !== null);
+      // const parsedGridsZeed = item.gridSelected.map((item) =>
+      //   item["zeedSelected"].split("").map(Number)
+      // );
+      setZeedNumber(zeedSelectedArray);
+      const parsedGridsZeed = response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map((item) => {
+
+        const zeedSelected = item["zeedSelected"];
+        // console.log(zeedSelected)
+        if (zeedSelected === null) {
+          return null;
+        } else {
+          return zeedSelected.split("").map(Number);
+        }
+      });
+      setMyGridsZeed(parsedGridsZeed);
+
+
         setClickedIndex(index);
       })
       .catch((error) => {

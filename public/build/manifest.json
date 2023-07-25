@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -39,8 +40,12 @@
 >>>>>>> d0d2b67 (zeed results)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
 >>>>>>> 495c552 (notification in loto and design)
+=======
+  "build/Loto.js": "/build/Loto.d0f5eaea.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
+>>>>>>> 9f65494 (handling popup with some functionality)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.5d9d5da2.css",
+  "build/Lotostyles.css": "/build/Lotostyles.f9cc1c64.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",
@@ -175,6 +180,7 @@
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/bank.png": "/build/images/bank.png",
+<<<<<<< HEAD
   "build/images/Ogero/ErrorImg.png": "/build/images/Ogero/ErrorImg.png",
   "build/images/Touch/ErrorImg.png": "/build/images/Touch/ErrorImg.png",
   "build/images/alfa/ErrorImg.png": "/build/images/alfa/ErrorImg.png",
@@ -183,6 +189,11 @@
   "build/images/Ogero/SuccessImg.png": "/build/images/Ogero/SuccessImg.png",
   "build/images/Touch/SuccessImg.png": "/build/images/Touch/SuccessImg.png",
   "build/images/alfa/SuccessImg.png": "/build/images/alfa/SuccessImg.png",
+=======
+  "build/images/Loto/error.png": "/build/images/Loto/error.png",
+  "build/images/decline.png": "/build/images/decline.png",
+  "build/images/Loto/success.png": "/build/images/Loto/success.png",
+>>>>>>> 9f65494 (handling popup with some functionality)
   "build/images/approved.png": "/build/images/approved.png",
   "build/images/Loto/resultSelected.png": "/build/images/Loto/resultSelected.png",
   "build/images/Loto/bouquet.png": "/build/images/Loto/bouquet.png",
@@ -195,6 +206,7 @@
   "build/images/Transfer.png": "/build/images/Transfer.png",
   "build/images/check.png": "/build/images/check.png",
   "build/images/check2.png": "/build/images/check2.png",
+  "build/images/Loto/warning.png": "/build/images/Loto/warning.png",
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/Payment.png": "/build/images/Payment.png",
   "build/images/commingSoon/twitter.png": "/build/images/commingSoon/twitter.png",

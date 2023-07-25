@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBallPlayed, setIsHide }) => {
+const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBallPlayed, setIsHide , setErrorModal,setModalName,setModalShow }) => {
     const [selectedBalls, setSelectedBalls] = useState([]);
     useEffect(() => {
         if (getBallPlayed.length == 0) {
@@ -49,8 +49,21 @@ const PickYourGrid = ({ setPickYourGrid, getBallNumbers, getTotalAmount, getBall
             };
             const existingData = localStorage.getItem('selectedBalls');
             const existingBalls = existingData ? JSON.parse(existingData) : [];
-            const updatedBalls = [...existingBalls, ballSet];
-            localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
+            const isNewSet = existingBalls.every((set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls));
+
+            if (isNewSet) {
+                // If the set is unique, add it to the existing data and save to localStorage
+                const updatedBalls = [...existingBalls, ballSet];
+                localStorage.setItem('selectedBalls', JSON.stringify(updatedBalls));
+              } else {
+                setModalName("ErrorModal");
+                setErrorModal({
+                  img: "/build/images/Loto/error.png",
+                  title: "Can not play grid",
+                  desc:  `You have a grid with same numbers in this draw`,
+                })
+                setModalShow(true);
+              }
             setPickYourGrid(false);
         } else {
             console.log("The last ball is null");
