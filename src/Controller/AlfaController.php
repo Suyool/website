@@ -114,7 +114,7 @@ class AlfaController extends AbstractController
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
             $jsonResult = json_decode($retrieveResults, true);
-            // dd($jsonResult["Values"]["ReferenceNumber"]);
+            $displayData = $jsonResult["Values"];
 
             $Pin = implode("", $data["Pin"]);
             $RandSuyoolUserId = rand();
@@ -164,14 +164,16 @@ class AlfaController extends AbstractController
             // dd($order);
             $message = "connected";
         } else {
-            $message = "not connected";
+            $displayData = -1;
+            $message = "No data retrived!!";
             $invoicesId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $message,
-            'postpayed' => $invoicesId
+            'postpayed' => $invoicesId,
+            'displayData' => $displayData,
         ], 200);
     }
 
@@ -195,7 +197,7 @@ class AlfaController extends AbstractController
 
             $message = "connected";
         } else {
-            $message = "not connected";
+            $message = "No data retrived!!";
         }
 
         return new JsonResponse([

@@ -10,6 +10,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
+  const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
 
   const handleNbClick = (num) => {
@@ -26,10 +27,6 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
   const handlePayNow = () => {
     if (pinCode.length === 4) {
-      // Perform payment or further actions
-      // console.log("Payment processing...");
-      // console.log(pinCode);
-      // setPaymentConfirmation(true);
       axios
         .post("/alfa/bill/RetrieveResults",
           {
@@ -43,6 +40,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         .then((response) => {
           console.log(response);
           if (response.data.message == "connected") {
+            setDisplayData(response?.data?.displayData);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
           } else {
@@ -105,19 +103,19 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
             <div className="MoreInfo">
               <div className="label">Phone Number</div>
-              <div className="value">+961 03453277</div>
+              <div className="value">+961 {localStorage.getItem("billMobileNumber")}</div>
             </div>
 
             <div className="br"></div>
 
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
-              <div className="value1">$ 1.22</div>
+              <div className="value1">$ {getDisplayData.InformativeOriginalWSAmount}</div>
             </div>
 
             <div className="MoreInfo">
               <div className="label">Amount in LBP (Sayrafa Rate)</div>
-              <div className="value1">LBP 90,000</div>
+              <div className="value1">LBP {parseInt(getDisplayData.Amount).toLocaleString()}</div>
             </div>
 
             <div className="taxes">*All taxes included</div>
@@ -126,7 +124,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
             <div className="MoreInfo">
               <div className="label">Total</div>
-              <div className="value2">LBP 100,000</div>
+              <div className="value2">LBP {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
             </div>
 
           </div>

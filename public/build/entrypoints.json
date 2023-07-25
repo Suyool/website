@@ -248,8 +248,12 @@
 >>>>>>> a266ad7 (add data in a file and read them thrus)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.96b8064f.js"
 >>>>>>> 74ebe64 (done with prepaid)
+=======
+        "/build/Alfa.959544ae.js"
+>>>>>>> 74e678e (fix display popups of postpaid)
       ]
     },
     "Touch": {
