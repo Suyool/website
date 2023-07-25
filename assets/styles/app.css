@@ -47,6 +47,11 @@ a:hover {
   src: url("../../../fonts/Poppins-Regular.ttf");
 }
 
+@font-face {
+  font-family: PoppinsItalic;
+  src: url("../../../fonts/Poppins-Italic.ttf");
+}
+
 header {
   text-align: left;
   direction: ltr;

@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Service;
+
 use App\Utils\Helper;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 class SuyoolServices1
 {
     private $client;
@@ -15,7 +18,7 @@ class SuyoolServices1
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/';
         }
     }
-    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$app_id)
+    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate, $app_id)
     {
         $Hash = base64_encode(hash($hash_algo, $session . $app_id . $id . $sum . $currency . $certificate, true));
         // dd ($Hash);
@@ -32,15 +35,17 @@ class SuyoolServices1
                 'Content-Type' => 'application/json'
             ]
         ]);
-        
+
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
             $push_utility_response = $response->toArray(false);
-        }else{
+        } else {
             $push_utility_response = $response->toArray();
         }
+        // dd($push_utility_response);
+
         $globalCode = $push_utility_response['globalCode'];
-        $message=$push_utility_response['message'];
+        $message = $push_utility_response['message'];
         // $form_data = [
         //     'userAccountID' => $session,
         //     "merchantAccountID" => 1,
@@ -59,21 +64,25 @@ class SuyoolServices1
             $transId = $push_utility_response['data'];
             return array(true, $transId);
         } else {
-            return array(false,$message);
+            return array(false, $message);
         }
     }
+
     /*
      * Update utilities Api
      */
-    public function UpdateUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$additionalData)
+    public function UpdateUtilities($sum, $hash_algo, $certificate, $additionalData, $transId)
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
-        $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
-        $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
+        // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
+        // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
+        $Hash = base64_encode(hash($hash_algo, $transId . $additionalData . $certificate, true));
+        // intval($transId[1])
+        // echo $Hash;
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/UpdateUtilityPayment", [
             'body' => json_encode([
-                'transactionID' => intval($transId[1]),
+                'transactionID' => $transId,
                 "amountPaid" => $sum,
                 "additionalData" => $additionalData,
                 'secureHash' =>  $Hash,
@@ -83,13 +92,13 @@ class SuyoolServices1
             ]
         ]);
         $update_utility_response = $response->toArray(false);
-        dd($update_utility_response);
+        // dd($update_utility_response);
         $globalCode = $update_utility_response['globalCode'];
         $message = $update_utility_response['message'];
         if ($globalCode) {
             return true;
         } else {
-            return array(false,$message);
+            return array(false, $message);
         }
     }
 }

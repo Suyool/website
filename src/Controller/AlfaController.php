@@ -216,7 +216,7 @@ class AlfaController extends AbstractController
     {
 
         // $filter = $lotoServices->VoucherFilter("ALFA");
-        $filter =  $Memcached->testmem($lotoServices);
+        $filter =  $Memcached->getVouchers($lotoServices);
         // dd($filter);
 
         return new JsonResponse([
@@ -237,12 +237,8 @@ class AlfaController extends AbstractController
         $app_id = 3;
         $data = json_decode($request->getContent(), true);
 
-        // dd($data["amountLBP"]);
-        // dd($data["amountUSD"]);
-
         if ($data != null) {
-
-
+            //Initial order with status pending
             $order = new Order;
             $order
                 ->setsuyoolUserId($session)
@@ -255,28 +251,26 @@ class AlfaController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-
-
+            //Take amount from .net
             $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
 
-
             // dd($response);
-
             if ($response[0]) {
+                //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
                 $orderupdate1
                     ->settransId($response[1])
                     ->setstatus("held");
-
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
 
 
+                //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
                 $PayResonse = $BuyPrePaid["d"];
-                // dd($PayResonse);
+                $dataPayResponse = $PayResonse;
                 if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
-                    // dd("hello");
+                    //if payment from loto provider success insert prepaid data to db
                     $prepaid = new Prepaid;
                     $prepaid
                         ->setvoucherSerial($PayResonse["voucherSerial"])
@@ -297,35 +291,69 @@ class AlfaController extends AbstractController
                     $prepaidId = $prepaid->getId();
                     $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
+                    //update order by passing prepaidId to order and set status to purshased
                     $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                     $orderupdate
                         ->setprepaidId($prepaid)
                         ->setstatus("purchased");
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
-                    // dd($prepaidId);
+
+                    //tell the .net that total amount is paid
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    if ($responseUpdateUtilities) {
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'purchased']);
+
+                        //update te status from purshased to completed
+                        $orderupdate5
+                            ->setstatus("completed");
+                        $this->mr->persist($orderupdate5);
+                        $this->mr->flush();
+
+                        $message = "Success";
+                    } else {
+                        $message = "something wrong while UpdateUtilities";
+                    }
                 } else {
-                    $BuyPrePaid = "not connected";
                     $IsSuccess = false;
+
+                    //if not purchase return money
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    if ($responseUpdateUtilities) {
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                        $orderupdate4
+                            ->setstatus("completed");
+                        $this->mr->persist($orderupdate4);
+                        $this->mr->flush();
+
+                        $message = "Success return money!!";
+                    } else {
+                        $message = "Can not return money!!";
+                    }
                 }
             } else {
+
+                //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
                 $orderupdate3
                     ->setstatus("canceled");
-
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
+                $message = $response[1];
+                $dataPayResponse = -1;
             }
         } else {
-
             $IsSuccess = false;
+            $dataPayResponse = -1;
+            $message = "Can not retrive data !!";
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $BuyPrePaid,
+            'message' => $message,
             'IsSuccess' => $IsSuccess,
+            'data' => $dataPayResponse
         ], 200);
     }
 }

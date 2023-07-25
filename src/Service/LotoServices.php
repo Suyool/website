@@ -20,6 +20,22 @@ class LotoServices
             $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
         }
     }
+    public function Login()
+    {
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}LoginUser", [
+            'body' => json_encode([
+                'Username' => 'suyool',
+                'Password' => 'ZvNud5qY3qmM3@h',
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $content = $response->toArray();
+        $token = $content['d']['token'];
+        return $token;
+    }
+
 
     public function VoucherFilter($vcategory)
     {
@@ -43,9 +59,10 @@ class LotoServices
 
     public function BuyPrePaid($Token, $category, $type)
     {
+        // dd($this->Login());
         $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
             'body' => json_encode([
-                "Token" => $Token,
+                "Token" => $this->Login(),
                 "category" => $category,
                 "type" => $type,
             ]),

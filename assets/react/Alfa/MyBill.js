@@ -79,93 +79,100 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   };
 
   return (
-    <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
+    // <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
+    <div id="MyBill" className={`${getPaymentConfirmation && ""}`}>
 
-      {getPaymentConfirmation ?
-        <>
-          <div id="PaymentConfirmationSection">
-            <div className="topSection">
-              <div className="brBoucket"></div>
-              <div className="titles">
-                <div className="titleGrid">Payment Confirmation</div>
-                <button onClick={() => { setActiveButton({ name: "PayBill" }); }}>Cancel</button>
-              </div>
-            </div>
+      {/* {getPaymentConfirmation ?
+        <> */}
 
-            <div className="bodySection">
-              <div className="cardSec">
-                <img src="/build/images/alfa/alfaLogo.png" alt="flag" />
-                <div className="method">Alfa Bill Payment</div>
-              </div>
+      {
+        getPaymentConfirmation &&
 
-              <div className="MoreInfo">
-                <div className="label">Phone Number</div>
-                <div className="value">+961 03453277</div>
-              </div>
-
-              <div className="br"></div>
-
-              <div className="MoreInfo">
-                <div className="label">Amount in USD</div>
-                <div className="value1">$ 1.22</div>
-              </div>
-
-              <div className="MoreInfo">
-                <div className="label">Amount in LBP (Sayrafa Rate)</div>
-                <div className="value1">LBP 90,000</div>
-              </div>
-
-              <div className="taxes">*All taxes included</div>
-
-              <div className="br"></div>
-
-              <div className="MoreInfo">
-                <div className="label">Total</div>
-                <div className="value2">LBP 100,000</div>
-              </div>
-
-            </div>
-
-            <div className="footSectionPick">
-              <button onClick={handleConfirmPay} >Confirm & Pay</button>
-            </div>
-          </div>
-        </>
-        :
-        <>
-          <div className="mainTitle">Insert the PIN you have received by SMS</div>
-
-          <div className="PinSection">
-            <div className="Pintitle">PIN</div>
-            <div className="Pincode">
-              {Array.from({ length: 4 }, (_, index) => (
-                <div className="code" key={index}>
-                  {pinCode[index] !== undefined ? pinCode[index] : ""}
-                </div>
-              ))}
+        <div id="PaymentConfirmationSection">
+          <div className="topSection">
+            <div className="brBoucket"></div>
+            <div className="titles">
+              <div className="titleGrid">Payment Confirmation</div>
+              <button onClick={() => { setActiveButton({ name: "PayBill" }); }}>Cancel</button>
             </div>
           </div>
 
-          <div className="continueSection">
-            <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
-
-            <div className="keybord">
-              <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
-              <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
-              <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
-              <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
-              <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
-              <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
-              <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
-              <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
-              <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
-              <button className="keyBtn"></button>
-              <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
-              <button className="keyBtn" onClick={handleDelete}><img src="/build/images/Alfa/clearNb.png" alt="flag" /></button>
+          <div className="bodySection">
+            <div className="cardSec">
+              <img src="/build/images/alfa/alfaLogo.png" alt="flag" />
+              <div className="method">Alfa Bill Payment</div>
             </div>
+
+            <div className="MoreInfo">
+              <div className="label">Phone Number</div>
+              <div className="value">+961 03453277</div>
+            </div>
+
+            <div className="br"></div>
+
+            <div className="MoreInfo">
+              <div className="label">Amount in USD</div>
+              <div className="value1">$ 1.22</div>
+            </div>
+
+            <div className="MoreInfo">
+              <div className="label">Amount in LBP (Sayrafa Rate)</div>
+              <div className="value1">LBP 90,000</div>
+            </div>
+
+            <div className="taxes">*All taxes included</div>
+
+            <div className="br"></div>
+
+            <div className="MoreInfo">
+              <div className="label">Total</div>
+              <div className="value2">LBP 100,000</div>
+            </div>
+
           </div>
-        </>
+
+          <div className="footSectionPick">
+            <button onClick={handleConfirmPay} >Confirm & Pay</button>
+          </div>
+        </div>
       }
+
+      {/* </>
+        :
+        <> */}
+      <div className="mainTitle">Insert the PIN you have received by SMS</div>
+
+      <div className="PinSection">
+        <div className="Pintitle">PIN</div>
+        <div className="Pincode">
+          {Array.from({ length: 4 }, (_, index) => (
+            <div className="code" key={index}>
+              {pinCode[index] !== undefined ? pinCode[index] : ""}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="continueSection">
+        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
+
+        <div className="keybord">
+          <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
+          <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
+          <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
+          <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
+          <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
+          <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
+          <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
+          <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
+          <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
+          <button className="keyBtn"></button>
+          <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
+          <button className="keyBtn" onClick={handleDelete}><img src="/build/images/Alfa/clearNb.png" alt="flag" /></button>
+        </div>
+      </div>
+      {/* </>
+      } */}
 
 
     </div>

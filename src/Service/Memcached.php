@@ -84,7 +84,7 @@ class Memcached
     /**
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function testmem($lotoServices)
+    public function getVouchers($lotoServices)
     {
         $file = "../var/cache/dev/newfile.txt";
         $clearingTime = time() - (60);
@@ -96,6 +96,49 @@ class Memcached
             return json_decode($operationsjson, true);
         } else {
             $filter = $lotoServices->VoucherFilter("ALFA");
+
+            foreach ($filter as &$item) {
+                switch ($item['vouchertype']) {
+                    case 1:
+                        $item['desc1'] = "$1.22 Alfa recharge card";
+                        $item['desc2'] = "$1.37 Credit Only without validity";
+                        break;
+                    case 13:
+                        $item['desc1'] = "$3.02 Alfa recharge card";
+                        $item['desc2'] = "Credit and 13 Days Validity";
+                        break;
+                    case 4:
+                        $item['desc1'] = "$4.50 Alfa recharge card";
+                        $item['desc2'] = "Credit and up to 35 Days";
+                        break;
+                    case 35:
+                        $item['desc1'] = "$7.58 Alfa recharge card";
+                        $item['desc2'] = "Credit and 35 Days Validity";
+                        break;
+                    case 65:
+                        $item['desc1'] = "$15.15 Alfa recharge card";
+                        $item['desc2'] = "Credit and 65 Days Validity";
+                        break;
+                    case 95:
+                        $item['desc1'] = "$22.73 Alfa recharge card";
+                        $item['desc2'] = "Credit and 95 Days Validity";
+                        break;
+                    case 32:
+                        $item['desc1'] = "$7.50 Alfa recharge card";
+                        $item['desc2'] = "Waffer Credit and 30 Days Validity";
+                        break;
+                    case 33:
+                        $item['desc1'] = "Waffer Credit and 30 Days Validity";
+                        $item['desc2'] = "Waffer Credit and 30 Days Validity";
+                        break;
+                    default:
+                        $item['desc1'] = "default";
+                        $item['desc2'] = "default";
+                        break;
+                }
+            }
+
+            // dd($filter);
             $jsonData = json_encode($filter);
 
             $myfile = fopen($file, "w") or die("Unable to open file!");

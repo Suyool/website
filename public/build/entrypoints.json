@@ -19,6 +19,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
         "/build/app1.3b7df2df.js"
@@ -93,22 +94,27 @@
         "/build/runtime.js",
         "/build/app1.js"
 >>>>>>> a266ad7 (add data in a file and read them thrus)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.b8115c60.js"
+>>>>>>> 74ebe64 (done with prepaid)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.ffe283ef.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.67d25036.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -240,49 +246,54 @@
         "/build/runtime.js",
         "/build/Alfa.js"
 >>>>>>> a266ad7 (add data in a file and read them thrus)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.96b8064f.js"
+>>>>>>> 74ebe64 (done with prepaid)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.js",
-        "/build/Touch.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.74a45897.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.js",
-        "/build/Ogero.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.9cf2dfb6.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.adb49e82.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.2a4800b6.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.5fad0f46.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -372,22 +383,25 @@
 =======
         "/build/AlfaStyle.css"
 >>>>>>> a266ad7 (add data in a file and read them thrus)
+=======
+        "/build/AlfaStyle.5ed007f6.css"
+>>>>>>> 74ebe64 (done with prepaid)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.css"
+        "/build/TouchStyle.19499611.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.css"
+        "/build/OgeroStyle.4834972a.css"
       ]
     }
   }

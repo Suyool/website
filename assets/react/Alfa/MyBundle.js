@@ -14,7 +14,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
     axios
       .post("/alfa/BuyPrePaid",
         {
-          Token: "18b1527f-cc1c-4b3e-8df2-41e7ae2faf3f",
+          Token: "",
           category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
           type: getPrepaidVoucher.vouchertype,
@@ -23,11 +23,12 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
         })
       .then((response) => {
         console.log(response)
+        // console.log()
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
-          setSerialToClipboard(response?.data?.message?.d?.voucherSerial);
+          setSerialToClipboard("*14*" + response?.data?.data?.voucherSerial + "#");
         } else {
-
+          console.log("someThing wrong !!!");
         }
         // console.log(response);
       })
@@ -85,15 +86,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
                 </div>
                 <div className="steps">
                   <div className="dot"></div>
-                  <div className="textStep">Dial “ *14* ”</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
                   <div className="textStep">Paste the code</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Press “ # ” </div>
                 </div>
                 <div className="steps">
                   <div className="dot"></div>
@@ -111,26 +104,19 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
         :
         <>
           <div className="MyBundleBody">
-            <div className="mainTitle">Bundle Name</div>
+            <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
             <div className="mainDesc">*All taxes excluded</div>
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}.png`} alt="Bundle" />
+            {/* <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x2.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
 
             <div className="smlDesc">Alfa only accepts payments in LBP.</div>
-
+            <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
               <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
             </div>
-
-            {/* <div className="MoreInfo">
-              <div className="label">Amount in LBP (Sayrafa Rate)</div>
-              <div className="value">LBP {getPrepaidVoucher.priceLBP}</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">+ V.A.T & Stamp Duty</div>
-              <div className="value">LBP 10,000</div>
-            </div> */}
 
             <div className="br"></div>
             <div className="MoreInfo">
@@ -140,7 +126,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           </div>
 
 
-          <button id="ContinueBtn" className="btnCont mt-5" onClick={handleConfirmPay} >Pay Now</button>
+          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} >Pay Now</button>
         </>
       }
     </div>
@@ -148,95 +134,3 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
 };
 
 export default MyBundle;
-
-
-// import React, { useEffect, useState } from "react";
-// const dummyData = [
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg1.png",
-//     price: "$1.22",
-//     bundleName: "ReCharge 1",
-//   },
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg2.png",
-//     price: "$2.45",
-//     bundleName: "ReCharge 2",
-//   },
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg1.png",
-//     price: "$1.22",
-//     bundleName: "ReCharge 1",
-//   },
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg2.png",
-//     price: "$2.45",
-//     bundleName: "ReCharge 2",
-//   },
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg1.png",
-//     price: "$1.22",
-//     bundleName: "ReCharge 1",
-//   },
-//   {
-//     imageSrc: "/build/images/Alfa/bundleImg2.png",
-//     price: "$2.45",
-//     bundleName: "ReCharge 2",
-//   }
-// ];
-
-// const MyBundle = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
-//   useEffect(() => {
-//     setHeaderTitle("Pay Mobile Bill")
-//     setBackLink("ReCharge")
-//   }, [])
-//   const [mobileNumber, setMobileNumber] = useState("");
-
-//   return (
-//     <div id="MyBundle">
-//       <div className="mainTitle">Bundle Name</div>
-//       <div className="mainDesc">*All taxes excluded</div>
-//       <img className="BundleBigImg" src="/build/images/Alfa/Bundle.png" alt="Bundle" />
-
-//       <div className="phNum">
-//         <div className="title">Enter your phone number to recharge</div>
-//         <div className="lbNum">
-//           <div className="MobileNbContainer mt-1">
-//             <div className="place">
-//               <img src="/build/images/Alfa/flag.png" alt="flag" />
-//               <div className="code">+961</div>
-//             </div>
-//             <input className="nbInput" placeholder="|" value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} />
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="CurrencySec">
-//         <div className="title">Enter your phone number to recharge</div>
-//         <div className="switch">
-//           <div className="selected">USD</div>
-//           <div className="notSelected">LBP</div>
-//         </div>
-//       </div>
-
-//       <button id="ContinueBtn" className="btnCont mt-5" >Pay Now</button>
-
-//       <div className="SuggestedSection mt-5">
-//         <div className="title">Suggested for you</div>
-//         <div className="bundlesSection mt-3">
-//           {dummyData.map((record, index) => (
-//             <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }) }}>
-//               <img className="GridImg" src={record.imageSrc} alt="bundleImg" />
-//               <div className="gridDesc">
-//                 <div className="Price">{record.price}</div>
-//                 <div className="bundleName">{record.bundleName}</div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//     </div>
-//   );
-// };
-
-// export default MyBundle;
