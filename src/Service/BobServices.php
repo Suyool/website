@@ -4,6 +4,8 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+use function Safe\json_encode;
+
 class BobServices
 {
     private $BOB_API_HOST;
@@ -149,15 +151,13 @@ class BobServices
             ]
         ]);
 
-        $content = $response->getContent(false);
-        // $content = $response->toArray();
-        // dd($content);
+        $content = $response->getContent();
 
-        // $ApiResponse = json_decode($content, true);
-        // $res = $ApiResponse['Response'];
-        // $decodedString = $this->_decodeGzipString(base64_decode($res));
-        // dd($decodedString);
+        $ApiResponse = json_decode($content, true);
+        // dd($ApiResponse);
+        $res = $ApiResponse['Response'];
+        $decodedString = $this->_decodeGzipString(base64_decode($res));
 
-        return $content;
+        return $decodedString;
     }
 }

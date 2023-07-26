@@ -35,7 +35,7 @@ class Postpaid
      * @ORM\Column(name="currency",type="string")
      */
     private $currency;
-    
+
     /**
      * 
      * @ORM\Column(name="pin",type="integer")
@@ -47,6 +47,18 @@ class Postpaid
      * @ORM\Column(name="transactionId")
      */
     private $transactionId;
+
+    /**
+     * 
+     * @ORM\Column(name="transactionDescription")
+     */
+    private $transactionDescription;
+
+    /**
+     * 
+     * @ORM\Column(name="status")
+     */
+    private $status;
 
     /**
      * 
@@ -280,6 +292,28 @@ class Postpaid
     function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
+        return $this;
+    }
+
+    function getstatus()
+    {
+        return $this->status;
+    }
+
+    function setstatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    function gettransactionDescription()
+    {
+        return $this->transactionDescription;
+    }
+
+    function settransactionDescription($transactionDescription)
+    {
+        $this->transactionDescription = $transactionDescription;
         return $this;
     }
 }

@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
-use App\Entity\Alfa\Invoices;
-use App\Entity\Alfa\TstDb;
+use App\Entity\Alfa\PostpaidRequest;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
@@ -46,7 +45,7 @@ class AlfaController extends AbstractController
             'parameters' => $parameters
         ]);
     }
-    
+
 
     /**
      * PostPaid
@@ -62,7 +61,7 @@ class AlfaController extends AbstractController
             $sendBillRes = json_decode($sendBill, true);
             if ($sendBillRes["ResponseText"] == "Success") {
                 // dd($sendBillRes);
-                $invoices = new Invoices;
+                $invoices = new PostpaidRequest;
                 $invoices
                     ->setfees(null)
                     ->setfees1(null)
@@ -121,7 +120,7 @@ class AlfaController extends AbstractController
             $invoicesId = $data["invoicesId"];
             // dd($invoicesId);
 
-            $invoices =  $this->mr->getRepository(Invoices::class)->findOneBy(['id' => $invoicesId]);
+            $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
             // $Postpaid = new Postpaid;
             $invoices
                 ->setfees($jsonResult["Values"]["Fees"])
@@ -183,26 +182,137 @@ class AlfaController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices)
+    public function billPay(Request $request, BobServices $bobServices, SuyoolServices1 $suyoolServices)
     {
         $data = json_decode($request->getContent(), true);
-        // dd($data);
-
-        $Postpaid_With_id = $this->mr->getRepository(Invoices::class)->findOneBy(['id' => $data["ResponseId"]]);
-        // dd($Postpaid_With_id);
+        $session = 89;
+        $app_id = 3;
+        $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
 
         if ($data != null) {
-            $billPay = $bobServices->BillPay($Postpaid_With_id);
-            dd($billPay);
+            //Initial order with status pending
+            $order = new Order;
+            $order
+                ->setsuyoolUserId($session)
+                ->settransId(null)
+                ->setpostpaidId(null)
+                ->setprepaidId(null)
+                ->setstatus("pending")
+                ->setamount($Postpaid_With_id->gettotalamount())
+                ->setcurrency("LBP");
+            $this->mr->persist($order);
+            $this->mr->flush();
 
-            $message = "connected";
+            //Take amount from .net
+            $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+
+            if ($response[0]) {
+                //set order status to held
+                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate1
+                    ->settransId($response[1])
+                    ->setstatus("held");
+                $this->mr->persist($orderupdate1);
+                $this->mr->flush();
+
+
+                //paid postpaid from bob Provider
+                $billPay = $bobServices->BillPay($Postpaid_With_id);
+                dd($billPay);
+                if ($billPay != "") {
+                    $billPayArray = json_decode($billPay, true);
+
+                    //if payment from loto provider success insert prepaid data to db
+                    $postpaid = new Postpaid;
+                    $postpaid
+                        ->settransactionDescription($billPayArray["TransactionDescription"])
+                        ->setstatus("pending")
+                        ->setfees($Postpaid_With_id->getfees())
+                        ->setfees1($Postpaid_With_id->getfees1())
+                        ->setamount($Postpaid_With_id->getamount())
+                        ->setamount1($Postpaid_With_id->getamount1())
+                        ->setamount2($Postpaid_With_id->getamount2())
+                        ->setreferenceNumber($Postpaid_With_id->getreferenceNumber())
+                        ->setinformativeOriginalWSamount($Postpaid_With_id->getinformativeOriginalWSamount())
+                        ->settotalamount($Postpaid_With_id->gettotalamount())
+                        ->setcurrency($Postpaid_With_id->getcurrency())
+                        ->setrounding($Postpaid_With_id->getrounding())
+                        ->setadditionalfees($Postpaid_With_id->getadditionalfees())
+                        ->setPin($Postpaid_With_id->getPin())
+                        ->setTransactionId($Postpaid_With_id->getTransactionId())
+                        ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
+                        ->setGsmNumber($Postpaid_With_id->getGsmNumber());
+                    $this->mr->persist($postpaid);
+                    $this->mr->flush();
+
+                    $IsSuccess = true;
+
+                    $postpaidId = $postpaid->getId();
+                    $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpaidId]);
+
+                    //update order by passing prepaidId to order and set status to purshased
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                    $orderupdate
+                        ->setprepaidId($postpaid)
+                        ->setstatus("purchased");
+                    $this->mr->persist($orderupdate);
+                    $this->mr->flush();
+
+                    //tell the .net that total amount is paid
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    if ($responseUpdateUtilities) {
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'purchased']);
+
+                        //update te status from purshased to completed
+                        $orderupdate5
+                            ->setstatus("completed");
+                        $this->mr->persist($orderupdate5);
+                        $this->mr->flush();
+
+                        $message = "Success";
+                    } else {
+                        $message = "something wrong while UpdateUtilities";
+                    }
+                } else {
+                    $IsSuccess = false;
+
+                    //if not purchase return money
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    if ($responseUpdateUtilities) {
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                        $orderupdate4
+                            ->setstatus("completed");
+                        $this->mr->persist($orderupdate4);
+                        $this->mr->flush();
+
+                        $message = "Success return money!!";
+                    } else {
+                        $message = "Can not return money!!";
+                    }
+                }
+            } else {
+
+                //if can not take money from .net cancel the state of the order
+                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate3
+                    ->setstatus("canceled");
+                $this->mr->persist($orderupdate3);
+                $this->mr->flush();
+                $IsSuccess = false;
+                $message = $response[1];
+                // $dataPayResponse = -1;
+            }
         } else {
-            $message = "No data retrived!!";
+            $IsSuccess = false;
+            // $dataPayResponse = -1;
+            $message = "Can not retrive data !!";
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message
+            'message' => $message,
+            'IsSuccess' => $IsSuccess,
+            // 'data' => $dataPayResponse
         ], 200);
     }
 
@@ -288,6 +398,7 @@ class AlfaController extends AbstractController
 
                     $this->mr->persist($prepaid);
                     $this->mr->flush();
+
                     $IsSuccess = true;
 
                     $prepaidId = $prepaid->getId();

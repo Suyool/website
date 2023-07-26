@@ -124,6 +124,7 @@
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -223,6 +224,9 @@
 =======
   "build/Alfa.js": "/build/Alfa.959544ae.js",
 >>>>>>> 74e678e (fix display popups of postpaid)
+=======
+  "build/Alfa.js": "/build/Alfa.724de783.js",
+>>>>>>> 28f46c9 (handle postpaid pay still need testing)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
@@ -304,12 +308,20 @@
   "build/images/alfa/Bundle95x2.png": "/build/images/alfa/Bundle95x2.png",
   "build/images/alfa/Bundle1x3.png": "/build/images/alfa/Bundle1x3.png",
   "build/images/alfa/Bundle1x2.png": "/build/images/alfa/Bundle1x2.png",
+  "build/images/alfa/Bundle65h.png": "/build/images/alfa/Bundle65h.png",
+  "build/images/alfa/Bundle4h.png": "/build/images/alfa/Bundle4h.png",
   "build/fonts/Poppins-Regular.ttf": "/build/fonts/Poppins-Regular.35d26b78.ttf",
   "build/fonts/Poppins-Medium.ttf": "/build/fonts/Poppins-Medium.673ed423.ttf",
   "build/fonts/Poppins-SemiBold.ttf": "/build/fonts/Poppins-SemiBold.ac8d04b6.ttf",
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
+  "build/images/alfa/Bundle13h.png": "/build/images/alfa/Bundle13h.png",
+  "build/images/alfa/Bundle35h.png": "/build/images/alfa/Bundle35h.png",
   "build/images/commingSoon/Base.png": "/build/images/commingSoon/Base.png",
+  "build/images/alfa/Bundle95h.png": "/build/images/alfa/Bundle95h.png",
   "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
+  "build/images/alfa/Bundle33h.png": "/build/images/alfa/Bundle33h.png",
+  "build/images/alfa/Bundle1h.png": "/build/images/alfa/Bundle1h.png",
+  "build/images/alfa/Bundle32h.png": "/build/images/alfa/Bundle32h.png",
   "build/images/alfa/Bundle13.png": "/build/images/alfa/Bundle13.png",
   "build/images/alfa/Bundle65.png": "/build/images/alfa/Bundle65.png",
   "build/images/alfa/Bundle4.png": "/build/images/alfa/Bundle4.png",

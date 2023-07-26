@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="invoices")
+ * @ORM\Table(name="postpaidRequest")
  */
-class Invoices
+class PostpaidRequest
 {
     /**
      * @ORM\Id
