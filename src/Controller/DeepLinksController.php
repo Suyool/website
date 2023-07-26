@@ -42,4 +42,16 @@ class DeepLinksController extends AbstractController
         // Redirect desktop devices to homepage by default
         return $this->redirectToRoute('homepage');
     }
+    /**
+     * @Route("/application", name="suyoolapplication")
+     */
+    public function redirectionApp(): Response
+    {
+
+        if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
+            return $this->redirectToRoute('https://skashapp.page.link/app_install');
+        }else {
+            return $this->redirectToRoute('homepage');
+        }
+    }
 }
