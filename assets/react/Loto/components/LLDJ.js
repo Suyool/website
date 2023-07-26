@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Countdown from "./Countdown";
 import BouquetOptions from "./BouquetOptions";
 
-const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, setIsHide, isHideBack }) => {
+const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, setIsHide, isHideBack,setActiveButton }) => {
     const [getBouquetgridprice,setBouquetgridprice] = useState(0)
     useEffect(()=>{
         // console.log(parameters)
@@ -32,7 +32,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
             // Create a new array with the bouquet data and store it in local storage
             localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
           }
-      
+          setActiveButton({ name: "Play" });
     };
     //
     const set1Grid = () => {
@@ -56,7 +56,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
             // Create a new array with the bouquet data and store it in local storage
             localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
           }
-      
+          setActiveButton({ name: "Play" });
     };
 
     return (
@@ -132,7 +132,7 @@ const LLDJ = ({ parameters, setPickYourGrid, setTotalAmount, setBallNumbers, set
                 </div>
 
             </div>
-            {getShowBouquet && <BouquetOptions getBouquetgridprice={getBouquetgridprice} setShowBouquet={setShowBouquet} setIsHide={setIsHide}/>}
+            {getShowBouquet && <BouquetOptions getBouquetgridprice={getBouquetgridprice} setShowBouquet={setShowBouquet} setIsHide={setIsHide} setActiveButton={setActiveButton}/>}
         </>
 
     );

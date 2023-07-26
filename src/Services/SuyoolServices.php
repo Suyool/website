@@ -43,6 +43,9 @@ class SuyoolServices
             ]
         ]);
         $status = $response->getStatusCode(); // Get the status code
+        if($status == 500){
+            return array(false,'Internal Server Error');
+        }
         if ($status === 400) {
             $push_utility_response = $response->toArray(false);
         }else{
@@ -51,7 +54,9 @@ class SuyoolServices
         }
 
         $globalCode = $push_utility_response['globalCode'];
-        $message=$push_utility_response['message'];
+        $message=$push_utility_response['data'];
+        $flagCode=$push_utility_response['flagCode'];
+
 
         // $form_data = [
         //     'userAccountID' => $session,
@@ -72,7 +77,7 @@ class SuyoolServices
             $transId = $push_utility_response['data'];
             return array(true, $transId);
         } else {
-            return array(false,$message);
+            return array(false,$message,$flagCode);
         }
     }
 

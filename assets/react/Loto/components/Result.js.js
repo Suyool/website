@@ -126,6 +126,9 @@ const Result = ({ parameters }) => {
         setWinBallInitial(
           response.data.parameters.prize_loto_win.numbers.split(",").map(Number)
         );
+        setWinBallInitialZeed(
+          response.data.parameters.prize_loto_win.zeednumbers.split("").map(Number)
+        );
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
             (item) => item['gridSelected'].split(" ").map(Number)
@@ -371,7 +374,7 @@ const Result = ({ parameters }) => {
                     )}
                   </>
                 ) : (
-                  <>oo</>
+                  <></>
                 )}
               </div>
             ))}

@@ -131,4 +131,41 @@ class LotoServices
             return array(false);
         }
     }
+
+    public function getDrawsResult()
+    {
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetDrawsInformation", [
+            'body' => json_encode([
+                'Token' => '',
+                'from' => 0,
+                'to' => 0
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray();
+
+        return $content['d']['draws'];
+    }
+
+    public function fetchDrawDetails()
+    {
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetInPlayAndNextDrawInformation", [
+            'body' => json_encode([
+                'Token' => ''
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray();
+
+        $date=$content['d']['draws'][0]['drawdate'];
+        $nextdrawdetails=$content['d']['draws'][1];
+
+        return array($date,$nextdrawdetails);
+    }
 }

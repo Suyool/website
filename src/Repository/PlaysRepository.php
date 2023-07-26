@@ -149,4 +149,13 @@ class PlaysRepository extends EntityRepository
 
         return array_values($groupedResults); // Return the grouped results as indexed array
     }
+
+    public function lotoToBePlayed($heldorder)
+    {
+        return $this->createQueryBuilder('l')
+        ->where('l.order = :heldorder and (l.ticketId = 0 or l.ticketId is null) ')
+        ->setParameter('heldorder',$heldorder)
+        ->getQuery()
+        ->getResult();
+    }
 }

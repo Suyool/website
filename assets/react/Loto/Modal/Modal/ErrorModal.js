@@ -22,7 +22,7 @@ const ErrorModal = (props) => {
               <button
                 className="exchangeBtnModal"
                 onClick={(event) =>
-                  (window.location.href = `${props.getErrorModal.path}`)
+                  (window.location.href = `/app?f=${props.getErrorModal.path}`)
                 }
               >
                 {props.getErrorModal.btn}

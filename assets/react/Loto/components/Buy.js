@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Buy = ({ parameters, setDisabledBtn, setSuccessModal, setErrorModal,setModalName,setModalShow,setWarningModal }) => {
+const Buy = ({
+  parameters,
+  setDisabledBtn,
+  setSuccessModal,
+  setErrorModal,
+  setModalName,
+  setModalShow,
+  setWarningModal,
+}) => {
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   var totalPrice = 0;
@@ -22,10 +30,10 @@ const Buy = ({ parameters, setDisabledBtn, setSuccessModal, setErrorModal,setMod
     // Update the localStorage
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
   };
-//   useEffect(() => {
-//     setDisable(true);
-//     console.log(getDisable);
-//   }, [getDisable]);
+  //   useEffect(() => {
+  //     setDisable(true);
+  //     console.log(getDisable);
+  //   }, [getDisable]);
 
   const handleBuy = () => {
     // const buttonElement = document.getElementById("buyButton");
@@ -39,8 +47,10 @@ const Buy = ({ parameters, setDisabledBtn, setSuccessModal, setErrorModal,setMod
         selectedBalls: selectedBallsToShow,
       })
       .then((response) => {
+        const jsonResponse = response.data.message;
+
         if (response.data.status) {
-          const amount=response.data.amount;
+          const amount = response.data.amount;
           localStorage.removeItem("selectedBalls");
           setPlayedBalls([]);
           setDisabledBtn(
@@ -49,45 +59,61 @@ const Buy = ({ parameters, setDisabledBtn, setSuccessModal, setErrorModal,setMod
           );
           setModalName("SuccessModal");
           setSuccessModal({
-          imgPath: "/build/images/Loto/success.png",
-          title: "LOTO Purchased Successfully",
-          desc:  `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`
-        })
-        setModalShow(true);
-        }
-        else if(!response.data.status && response.data.message == 'Exchange Money'){
+            imgPath: "/build/images/Loto/success.png",
+            title: "LOTO Purchased Successfully",
+            desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
+          });
+          setModalShow(true);
+        } else if (!response.data.status && response.data.flagCode == 10) {
           setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Insufficient Funds",
-          desc:  `Exchange from USD to LBP to proceed with this transaction.`,
-          path: response.data.path,
-          btn:'Exchange'
-        })
-        setModalShow(true);
-        }
-        else if(!response.data.status && response.data.message == 'Top Up Wallet'){
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.ButtonOne.flag,
+            btn: jsonResponse.ButtonOne.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+           response.data.flagCode == 11
+        ) {
           setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Insufficient Funds",
-          desc:  `Top up your wallet with LBP ${amount} to proceed with this transaction.`,
-          path: response.data.path,
-          btn:'Top up'
-        })
-        setModalShow(true);
-        }
-        else if(!response.data.status && response.data.message == 'Late Draw'){
-          const amount=response.data.amount;
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.ButtonOne.flag,
+            btn: jsonResponse.ButtonOne.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+          response.data.flagCode == 150
+        ) {
+          const amount = response.data.amount;
           setModalName("WarningModal");
           setWarningModal({
             imgPath: "/build/images/Loto/warning.png",
-          title: "Too Late for Today’s Draw!",
-          desc:  `Play these number for the next draw on: ${response.data.date} at ${response.data.hours}`,
-          path: response.data.path,
-          btn:'Play'
-        })
-        setModalShow(true);
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.flag,
+            btn: jsonResponse.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+          response.data.message == "Internal Server Error"
+        ) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Internal Server Error",
+            desc: `Internal Server Error`,
+            // path: response.data.path,
+            // btn:'Top up'
+          });
+          setModalShow(true);
         }
       })
       .catch((error) => {

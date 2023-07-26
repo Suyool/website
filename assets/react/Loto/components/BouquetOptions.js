@@ -38,7 +38,7 @@ const BouquetOptions = ({ setShowBouquet, setIsHide, getBouquetgridprice,setActi
     setShowBouquet(false);
     setIsHide(false);
 
-    // setActiveButton({ name: "Buy" });
+    setActiveButton({ name: "Play" });
   };
   return (
     <div className="PickYourBoucket">
