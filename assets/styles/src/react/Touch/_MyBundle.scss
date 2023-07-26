@@ -10,176 +10,88 @@
     overflow-x: hidden;
     padding: 20px 15px;
 
-    .mainTitle {
-        font-family: PoppinsMedium;
-        font-size: 14px;
-        color: black;
+    .MyBundleBody {
+        height: 100vh;
         width: 100%;
-    }
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-    .mainDesc {
-        font-family: PoppinsRegular;
-        font-size: 12px;
-        color: black;
-        width: 100%;
-    }
-
-    .BundleBigImg {
-        width: 100%;
-        padding-top: 10px;
-    }
-
-    .phNum {
-        width: 100%;
-        margin-top: 15px;
-
-        .title {
+        .mainTitle {
             font-family: PoppinsMedium;
             font-size: 14px;
             color: black;
             width: 100%;
         }
 
-        .lbNum {
-            .MobileNbContainer {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-
-                .place {
-                    border: 1px solid #7588A034;
-                    border-radius: 5px;
-                    // box-shadow: 0px 3px 5px #E7EAF0;
-                    width: 27%;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    height: 50px;
-                    justify-content: space-evenly;
-
-                    .code {
-                        font-family: PoppinsBold;
-                        font-size: 14px;
-                        color: black;
-                    }
-                }
-
-                .nbInput {
-                    height: 50px;
-                    width: 70%;
-                    margin-left: 3%;
-                    border-radius: 5px;
-                    border: 1px solid #7588A034;
-                    // box-shadow: 0px 3px 5px #E7EAF0;
-                    font-family: PoppinsMedium;
-                    font-size: 14px;
-                    color: #9C9DA2;
-                    padding: 5px 15px;
-                }
-            }
-        }
-    }
-
-    .CurrencySec {
-        width: 100%;
-        margin-top: 25px;
-
-        .title {
-            font-family: PoppinsMedium;
-            font-size: 14px;
+        .mainDesc {
+            font-family: PoppinsRegular;
+            font-size: 12px;
             color: black;
             width: 100%;
         }
 
-        .switch {
-            margin-top: 10px;
-            background-color: #f2f2f2;
-            border-radius: 12px;
-            padding: 5px;
+        .BundleBigImg {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 22px;
+        }
+
+        .smlDesc {
+            font-family: PoppinsRegular;
+            font-size: 12px;
+            width: 100%;
+            color: #F47A00;
+        }
+
+        .relatedInfo {
+            font-family: PoppinsItalic;
+            font-size: 12px;
+            // width: 100%;
+            padding: 10px 0;
+            color: black;
+        }
+
+        .MoreInfo {
             display: flex;
-
-            .selected {
-                padding: 12px;
-                text-align: center;
-                width: 50%;
-                background-color: white;
-                font-family: PoppinsMedium;
-                color: #373464;
-                font-size: 14PX;
-                border-radius: 12px;
-
-            }
-
-            .notSelected {
-                padding: 12px;
-                text-align: center;
-                width: 50%;
-                font-family: PoppinsMedium;
-                color: #9c9da2;
-                border-radius: 12px;
-                font-size: 14PX;
-
-            }
-        }
-    }
-
-    .SuggestedSection {
-        width: 100%;
-
-        .title {
-            font-family: PoppinsMedium;
-            font-size: 14px;
-            color: black;
             width: 100%;
-        }
-
-        .bundlesSection {
-            margin-top: 20px;
-            width: 100%;
-            display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
             justify-content: space-between;
-            // height: 75vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            align-content: flex-start;
+            padding: 10px 0;
 
-            .bundleGrid {
-                width: 48%;
-                display: flex;
-                flex-direction: row;
-                padding: 12px 15px;
-                border: 1px solid #edf0f3;
-                border-radius: 7px;
-                justify-content: space-around;
-                margin-top: 13px;
-
-
-                .GridImg {
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 50%;
-                }
-
-                .gridDesc {
-                    display: flex;
-                    flex-direction: column;
-
-                    .Price {
-                        font-family: PoppinsBold;
-                        color: black;
-                        width: 20px;
-                    }
-
-                    .bundleName {
-                        font-family: PoppinsRegular;
-                        font-size: 13px;
-                        color: #929292;
-                    }
-                }
+            .label {
+                font-family: PoppinsMedium;
+                color: #1C1A32;
+                font-size: 14px;
             }
 
+            .value {
+                font-family: PoppinsSemiBold;
+                color: #000000;
+                font-size: 14px;
+            }
+
+            .value1 {
+                font-family: PoppinsSemiBold;
+                color: #000000;
+                font-size: 20px;
+            }
+        }
+
+        .br {
+            margin: 10px 0;
+            height: 0.5px;
+            width: 100%;
+            background-color: #EBEBEB;
+            width: -webkit-fill-available;
+        }
+
+        .btnCont {
+            position: absolute;
+            bottom: 10px;
+            width: 90%;
         }
     }
 }

@@ -143,6 +143,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.c9005a6e.js"
 =======
         "/build/Alfa.3f339493.js"
@@ -262,12 +263,15 @@
 =======
         "/build/Alfa.73f596b7.js"
 >>>>>>> ca32782 (changes images and test all alfa still need popups and notification)
+=======
+        "/build/Alfa.d191671c.js"
+>>>>>>> 565e9b1 (done with touch ui)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.74a45897.js"
+        "/build/Touch.0d10c0ac.js"
       ]
     },
     "Ogero": {
@@ -405,7 +409,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.19499611.css"
+        "/build/TouchStyle.f143dda3.css"
       ]
     },
     "OgeroStyle": {

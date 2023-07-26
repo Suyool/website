@@ -13,7 +13,7 @@
         font-size: 16px;
         color: black;
         width: 100%;
-        padding-left: 20px;
+        // padding-left: 20px;
         margin-top: 20px;
     }
 
@@ -26,10 +26,9 @@
         border: 1px solid #D8DEE6;
         box-shadow: 0px 3px 10px #E7EAF0;
         margin-top: 15px;
-
-        img {
-            height: 55px;
-            width: 55px;
+        .logoImg{
+            width: 54px;
+            height: 54px;
         }
 
         .Text {
