@@ -51,7 +51,7 @@ class DeepLinksController extends AbstractController
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== false) {
             return new RedirectResponse('https://skashapp.page.link/app_install');
         } else {
-            return $this->redirectToRoute('homepage_route_name');
+            return $this->redirectToRoute('homepage');
         }
     }
 }
