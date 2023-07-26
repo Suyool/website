@@ -125,6 +125,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -227,6 +228,9 @@
 =======
   "build/Alfa.js": "/build/Alfa.724de783.js",
 >>>>>>> 28f46c9 (handle postpaid pay still need testing)
+=======
+  "build/Alfa.js": "/build/Alfa.73f596b7.js",
+>>>>>>> ca32782 (changes images and test all alfa still need popups and notification)
   "build/Touch.js": "/build/Touch.74a45897.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
@@ -331,13 +335,21 @@
   "build/images/alfa/Bundle1.png": "/build/images/alfa/Bundle1.png",
   "build/images/alfa/Bundle33.png": "/build/images/alfa/Bundle33.png",
   "build/images/alfa/Bundle33x2.png": "/build/images/alfa/Bundle33x2.png",
+  "build/images/alfa/bundleImg65h.png": "/build/images/alfa/bundleImg65h.png",
   "build/images/alfa/Bundle32.png": "/build/images/alfa/Bundle32.png",
   "build/images/alfa/Bundle32x2.png": "/build/images/alfa/Bundle32x2.png",
   "build/images/visacard.png": "/build/images/visacard.png",
+  "build/images/alfa/bundleImg13h.png": "/build/images/alfa/bundleImg13h.png",
+  "build/images/alfa/bundleImg95h.png": "/build/images/alfa/bundleImg95h.png",
+  "build/images/alfa/bundleImg4h.png": "/build/images/alfa/bundleImg4h.png",
   "build/images/invitation/top-section-invitation-image-1.png": "/build/images/invitation/top-section-invitation-image-1.png",
   "build/images/top-section-invitation-image-1.png": "/build/images/top-section-invitation-image-1.bd08a654.png",
+  "build/images/alfa/bundleImg35h.png": "/build/images/alfa/bundleImg35h.png",
+  "build/images/alfa/bundleImg1h.png": "/build/images/alfa/bundleImg1h.png",
   "build/images/login.png": "/build/images/login.png",
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
+  "build/images/alfa/bundleImg33h.png": "/build/images/alfa/bundleImg33h.png",
+  "build/images/alfa/bundleImg32h.png": "/build/images/alfa/bundleImg32h.png",
   "build/images/Group 5987.png": "/build/images/Group 5987.png",
   "build/images/notifications.png": "/build/images/notifications.png",
   "build/images/auth.png": "/build/images/auth.png",

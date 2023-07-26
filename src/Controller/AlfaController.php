@@ -186,7 +186,7 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $session = 89;
-        $app_id = 3;
+        $app_id = 2;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
 
         if ($data != null) {
@@ -218,7 +218,7 @@ class AlfaController extends AbstractController
 
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPay($Postpaid_With_id);
-                dd($billPay);
+                // dd($billPay);
                 if ($billPay != "") {
                     $billPayArray = json_decode($billPay, true);
 
@@ -253,7 +253,7 @@ class AlfaController extends AbstractController
                     //update order by passing prepaidId to order and set status to purshased
                     $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                     $orderupdate
-                        ->setprepaidId($postpaid)
+                        ->setpostpaidId($postpaid)
                         ->setstatus("purchased");
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();

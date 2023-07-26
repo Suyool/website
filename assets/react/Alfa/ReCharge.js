@@ -43,7 +43,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
             <>
               {filteredData.map((record, index) => (
                 <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2 }); }}>
-                  <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}.png`} alt="bundleImg" />
+                  <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
                   <div className="gridDesc">
                     <div className="Price">${record.priceUSD} <span>(LBP {parseInt(record.priceLBP).toLocaleString()})</span></div>
                     <div className="bundleName">{record.desc}</div>
