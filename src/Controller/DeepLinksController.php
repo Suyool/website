@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\Helper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DeepLinksController extends AbstractController
 {
@@ -43,15 +44,14 @@ class DeepLinksController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
     /**
-     * @Route("/application", name="suyoolapplication")
+     * @Route("/application", name="suyoolapplication", methods={"GET"})
      */
     public function redirectionApp(): Response
     {
-
-        if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-            return $this->redirectToRoute('https://skashapp.page.link/app_install');
-        }else {
-            return $this->redirectToRoute('homepage');
+        if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== false) {
+            return new RedirectResponse('https://skashapp.page.link/app_install');
+        } else {
+            return $this->redirectToRoute('homepage_route_name');
         }
     }
 }
