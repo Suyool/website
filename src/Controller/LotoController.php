@@ -205,7 +205,8 @@ class LotoController extends AbstractController
         // dd("ok");
         // $session = $this->session->get('userId');
         // dd();
-        $session = 155;
+        $session = 141;
+        // dd($session);
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         $date=new DateTime();
         $currentDayOfWeek = (int) date('N');
@@ -370,7 +371,7 @@ class LotoController extends AbstractController
                 $sum = 0;
                 $warning=['Title'=>'Too Late for Today’s Draw!','SubTitle'=>'Play these number for the next draw on '.$nextDate.' at 17:45','Text'=>'Play','flag'=>'?goto=Play'];
                 // $WarningPopUp=json_encode($warning,true);
-                if($date<$loto_draw->getdrawdate()){
+                if($date>$loto_draw->getdrawdate()){
                     $orderid->setstatus("canceled");
 
                     $this->mr->persist($orderid);

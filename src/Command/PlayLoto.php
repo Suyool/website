@@ -75,6 +75,10 @@ class PlayLoto extends Command
             }
             foreach ($heldOrder as $held) {
                 $lotoToBePlayed = $this->mr->getRepository(loto::class)->lotoToBePlayed($held->getId());
+                $additionaldata=[];
+                $newElement=[];
+                $count=[];
+                $newsum=0;
                 // dd($lotoToBePlayed);
                 foreach ($lotoToBePlayed as $lotoToBePlayed) {
                     $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected());
@@ -140,11 +144,11 @@ class PlayLoto extends Command
 
                 $additionalData = json_encode($additionaldata, true);
 
-                $updateutility = $this->suyoolServices->UpdateUtilities(40000, $this->hash_algo, $this->certificate, $additionalData, $held->gettransId());
+                $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $this->hash_algo, $this->certificate, $additionalData, $held->gettransId());
                 // var_dump($additionaldata);
                 echo $additionalData;
                 if ($updateutility) {
-                    $held->setamount(40000)
+                    $held->setamount($newsum)
                         ->setcurrency("LBP")
                         ->setstatus("completed");
 
