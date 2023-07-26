@@ -6,6 +6,7 @@ use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\PostpaidRequest;
+use App\Entity\Notification\Users;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;

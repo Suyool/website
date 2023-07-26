@@ -101,4 +101,26 @@ class SuyoolServices1
             return array(false, $message);
         }
     }
+
+    /*
+     * Gettin Suyool Users
+     */
+    public function GetAllUsers($ChannelID, $hash_algo, $certificate)
+    {
+        $Hash = base64_encode(hash($hash_algo, $ChannelID . $certificate, true));
+
+        // dd($Hash);
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/User/GetAllUsers", [
+            'query' => ['SecureHash' => $Hash],
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $update_utility_response = $response->toArray(true);
+
+        $dataString = $update_utility_response["data"];
+        $dataArray = json_decode($dataString, true);
+
+        return $dataArray;
+    }
 }

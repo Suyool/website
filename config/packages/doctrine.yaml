@@ -12,6 +12,8 @@ doctrine:
                 url: '%env(resolve:ALFA_DATABASE_URL)%'
             estore:
                 url: '%env(resolve:ESTORE_DATABASE_URL)%'
+            notification:
+                url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
         default_connection: default        
         # charset: UTF8
         # logging: true
@@ -70,6 +72,15 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Estore'
                         prefix: 'App\Entity\Estore'
                         alias: Estore
+            notification:
+                connection: notification
+                mappings:
+                    Notification:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Notification'
+                        prefix: 'App\Entity\Notification'
+                        alias: Notification
                         
         # dql:
         #     datetime_functions:
