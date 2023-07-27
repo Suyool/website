@@ -20,7 +20,7 @@ class DeepLinksController extends AbstractController
         // dd($request->query->get('browsertype', ''));
 
         $flag = $request->query->has('f') || $request->query->has('F') || $request->query->has('flag') || $request->query->has('Flag') ? $request->query->get('f') ?? $request->query->get('F') ?? $request->query->get('flag') ?? $request->query->get('Flag') : null;
-        $currentUrl = $request->getSchemeAndHttpHost();
+        $currentUrl = $request->query->has('currentUrl')?$request->query->get('currentUrl'):$request->getSchemeAndHttpHost();
         $browser = $request->query->get('browsertype', '');
 
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
