@@ -3,6 +3,7 @@ import axios from "axios";
 
 const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("70102030");
+  const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
     axios
       .post("/alfa/bill",
         {
-          mobileNumber: mobileNumber,
+          mobileNumber: mobileNumber.replace(/\s/g, ''),
           currency: currency
         }
       )
@@ -33,8 +34,6 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
       .catch((error) => {
         console.log(error);
       });
-
-
   };
 
   const handleMobileNumberChange = (event) => {
@@ -64,15 +63,6 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
         </div>
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
-
-      {/* <div className="pCurrency">
-        <div className="subTitle">My Payment Currency</div>
-      </div>
-
-      <div className="currencies">
-        <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
-        <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-      </div> */}
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
     </div>

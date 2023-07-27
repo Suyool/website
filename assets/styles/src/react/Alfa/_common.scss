@@ -38,19 +38,16 @@
     flex-direction: column;
     padding: 15px 10px 10px 10px;
     align-items: center;
-
     img {
         width: 60px;
         height: 60px;
     }
-
     .title {
         font-family: PoppinsSemiBold;
         font-size: 15px;
         color: black;
         padding-top: 33px;
     }
-
     .desc {
         font-family: PoppinsMedium;
         font-size: 15px;
@@ -58,16 +55,65 @@
         text-align: center;
         padding-top: 2px;
     }
-
     .okiBtnModal{
         margin-top: 40px;
         padding: 15px;
         font-family: PoppinsMedium;
         font-size: 15px;
         color: black;
-        background-color: #f4f4f4;
+        background-color: #F4F4F4;
         border-radius: 7px;
         width: 100%;
         border: none;
+    }
+}
+
+#ErrorModal {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px 10px 10px;
+    align-items: center;
+    img {
+        width: 60px;
+        height: 60px;
+    }
+    .title {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: black;
+        padding-top: 33px;
+    }
+    .desc {
+        font-family: PoppinsMedium;
+        font-size: 15px;
+        color: black;
+        text-align: center;
+        padding-top: 2px;
+    }
+    .buttonsDesign{
+        display: flex;
+        .okiBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: black;
+            background-color: #F4F4F4;
+            border-radius: 7px;
+            width: 100%;
+            border: none;
+        }
+        .exchangeBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: #FFFFFF;
+            background-color: #226D96;
+            border-radius: 7px;
+            width: 100%;
+            border: none;
+            margin-left: 10px;
+        }
     }
 }

@@ -21,6 +21,14 @@ class SuyoolServices1
     public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate, $app_id)
     {
         $Hash = base64_encode(hash($hash_algo, $session . $app_id . $id . $sum . $currency . $certificate, true));
+        // dd(json_encode([
+        //     'userAccountID' => $session,
+        //     "merchantAccountID" => $app_id,
+        //     'orderID' => $id,
+        //     'amount' => $sum,
+        //     'currency' => $currency,
+        //     'secureHash' =>  $Hash,
+        // ]));
         // dd ($Hash);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment", [
             'body' => json_encode([
@@ -43,9 +51,10 @@ class SuyoolServices1
             $push_utility_response = $response->toArray();
         }
         // dd($push_utility_response);
-
+// dd($push_utility_response);
         $globalCode = $push_utility_response['globalCode'];
-        $message = $push_utility_response['message'];
+        $message = $push_utility_response['data'];
+        $flagCode=$push_utility_response['flagCode'];
         // $form_data = [
         //     'userAccountID' => $session,
         //     "merchantAccountID" => 1,
@@ -64,7 +73,7 @@ class SuyoolServices1
             $transId = $push_utility_response['data'];
             return array(true, $transId);
         } else {
-            return array(false, $message);
+            return array(false,$message,$flagCode);
         }
     }
 

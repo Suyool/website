@@ -127,6 +127,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -235,12 +236,16 @@
   "build/Touch.js": "/build/Touch.74a45897.js",
 =======
   "build/Alfa.js": "/build/Alfa.d191671c.js",
+=======
+  "build/Alfa.js": "/build/Alfa.b8e3bd09.js",
+>>>>>>> b43aa3e (handle popups error)
   "build/Touch.js": "/build/Touch.0d10c0ac.js",
 >>>>>>> 565e9b1 (done with touch ui)
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
   "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -301,6 +306,9 @@
 >>>>>>> a266ad7 (add data in a file and read them thrus)
 =======
   "build/AlfaStyle.css": "/build/AlfaStyle.5ed007f6.css",
+=======
+  "build/AlfaStyle.css": "/build/AlfaStyle.d411b476.css",
+>>>>>>> b43aa3e (handle popups error)
   "build/TouchStyle.css": "/build/TouchStyle.f143dda3.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.4834972a.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
@@ -437,6 +445,7 @@
   "build/images/Ogero/ErrorImg.png": "/build/images/Ogero/ErrorImg.png",
   "build/images/Touch/ErrorImg.png": "/build/images/Touch/ErrorImg.png",
   "build/images/alfa/ErrorImg.png": "/build/images/alfa/ErrorImg.png",
+  "build/images/alfa/error.png": "/build/images/alfa/error.png",
   "build/images/decline.png": "/build/images/decline.png",
   "build/images/Ogero/SuccessImg.png": "/build/images/Ogero/SuccessImg.png",
   "build/images/Touch/SuccessImg.png": "/build/images/Touch/SuccessImg.png",

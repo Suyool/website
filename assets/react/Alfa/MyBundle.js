@@ -22,13 +22,40 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
-        console.log(response)
+        const jsonResponse=response?.data?.message;
+        console.log(jsonResponse)
         // console.log()
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
           setSerialToClipboard("*14*" + response?.data?.data?.voucherSerial + "#");
         } else {
-          console.log("someThing wrong !!!");
+          console.log(response.data.flagCode)
+          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
+          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+          // console.log("step 3")
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (
+            !response.data.IsSuccess &&
+            response.data.flagCode == 11
+          ) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
         }
         // console.log(response);
       })

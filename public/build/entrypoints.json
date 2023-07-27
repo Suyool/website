@@ -144,6 +144,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.c9005a6e.js"
 =======
         "/build/Alfa.3f339493.js"
@@ -266,6 +267,9 @@
 =======
         "/build/Alfa.d191671c.js"
 >>>>>>> 565e9b1 (done with touch ui)
+=======
+        "/build/Alfa.b8e3bd09.js"
+>>>>>>> b43aa3e (handle popups error)
       ]
     },
     "Touch": {
@@ -309,6 +313,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -402,6 +407,9 @@
 =======
         "/build/AlfaStyle.5ed007f6.css"
 >>>>>>> 74ebe64 (done with prepaid)
+=======
+        "/build/AlfaStyle.d411b476.css"
+>>>>>>> b43aa3e (handle popups error)
       ]
     },
     "TouchStyle": {

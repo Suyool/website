@@ -189,6 +189,7 @@ class AlfaController extends AbstractController
         $session = 89;
         $app_id = 2;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
+        $flagCode = null;
 
         if ($data != null) {
             //Initial order with status pending
@@ -270,13 +271,15 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
+                        $dataPayResponse=['amount'=>$order->getamount(),'currency'=>$order->getcurrency()];
                         $message = "Success";
                     } else {
                         $message = "something wrong while UpdateUtilities";
+                        $dataPayResponse = -1;
                     }
                 } else {
                     $IsSuccess = false;
-
+                    $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
@@ -300,12 +303,14 @@ class AlfaController extends AbstractController
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = $response[1];
-                // $dataPayResponse = -1;
+                $message = json_decode($response[1], true);
+                $flagCode = $response[2];
+                // $message = $response[1];
+                $dataPayResponse = -1;
             }
         } else {
             $IsSuccess = false;
-            // $dataPayResponse = -1;
+            $dataPayResponse = -1;
             $message = "Can not retrive data !!";
         }
 
@@ -313,7 +318,8 @@ class AlfaController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
-            // 'data' => $dataPayResponse
+            'flagCode' => $flagCode,
+            'data' => $dataPayResponse
         ], 200);
     }
 
@@ -349,6 +355,7 @@ class AlfaController extends AbstractController
         $session = 89;
         $app_id = 3;
         $data = json_decode($request->getContent(), true);
+        $flagCode = null;
 
         if ($data != null) {
             //Initial order with status pending
@@ -366,6 +373,7 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
             // dd($response);
             if ($response[0]) {
@@ -454,7 +462,8 @@ class AlfaController extends AbstractController
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = $response[1];
+                $message = json_decode($response[1], true);
+                $flagCode = $response[2];
                 $dataPayResponse = -1;
             }
         } else {
@@ -467,6 +476,7 @@ class AlfaController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
+            'flagCode' => $flagCode,
             'data' => $dataPayResponse
         ], 200);
     }
