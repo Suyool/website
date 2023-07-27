@@ -9,7 +9,14 @@ const Buy = ({
   setModalName,
   setModalShow,
   setWarningModal,
+  setHeaderTitle,
+  setBackLink
 }) => {
+  useEffect(()=>{
+    setBackLink(localStorage.getItem('BackPage'));
+    setHeaderTitle("Checkout");
+    localStorage.setItem('BackPage','Buy');
+  },[])
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   var totalPrice = 0;

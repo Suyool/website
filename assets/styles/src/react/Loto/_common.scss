@@ -199,3 +199,29 @@
     }
     
 }
+
+#MobileHeader {
+    background-image: linear-gradient(to bottom, #353A6A, #246992);
+    height: 46px;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    .back{
+        padding-left: 30px;
+    }
+    .headerTitle {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: white;
+    }
+    .empty{
+        padding-right: 50px;
+    }
+}

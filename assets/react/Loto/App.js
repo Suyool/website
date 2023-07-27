@@ -8,8 +8,11 @@ import SuccessModal from "./Modal/Modal/SuccessModal";
 import ErrorModal from "./Modal/Modal/ErrorModal";
 import Buy from "./components/Buy";
 import WarningModal from "./Modal/Modal/WarningModal";
+import Header from "./Header";
 
 const App = ({ parameters }) => {
+  const [getBackLink, setBackLink] = useState({ name: "" });
+  const [getHeaderTitle, setHeaderTitle] = useState("Loto");
 
   const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
   const [getPickYourGrid, setPickYourGrid] = useState(false);
@@ -29,14 +32,15 @@ const App = ({ parameters }) => {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get("goto");
-    if(idParam){
-        setActiveButton({ name: idParam });
+    if (idParam) {
+      setActiveButton({ name: idParam });
     }
-
 
     window.handleCheckout = (message) => {
       setDataGetting(message);
     };
+
+
   }, []);
 
   const [getModalName, setModalName] = useState("");
@@ -58,104 +62,119 @@ const App = ({ parameters }) => {
   });
 
   return (
-    <div id="LotoBody">
-      <div
-        className={`scrolableView ${
-          activeButton.name === "Result" && "resultScroll"
-        }`}
-      >
-        <img
-          className="mt-3"
-          src="/build/images/Loto/LibanaiseJeux.png"
-          alt="La Libanaise des Jeux"
-        />
-        {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
+    <>
+      <Header
+        activeButton={activeButton}
+        setActiveButton={setActiveButton}
+        getHeaderTitle={getHeaderTitle}
+        getBackLink={getBackLink}
+      />
+      <div id="LotoBody">
+        <div
+          className={`scrolableView ${
+            activeButton.name === "Result" && "resultScroll"
+          }`}
+        >
+          <img
+            className="mt-5"
+            src="/build/images/Loto/LibanaiseJeux.png"
+            alt="La Libanaise des Jeux"
+          />
+          {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
 
-        {activeButton.name === "LLDJ" && (
-          <LLDJ
-            parameters={parameters}
-            setBallNumbers={setBallNumbers}
-            setActiveButton={setActiveButton}
-            setTotalAmount={setTotalAmount}
+          {activeButton.name === "LLDJ" && (
+            <LLDJ
+              setHeaderTitle={setHeaderTitle}
+              setBackLink={setBackLink}
+              parameters={parameters}
+              setBallNumbers={setBallNumbers}
+              setActiveButton={setActiveButton}
+              setTotalAmount={setTotalAmount}
+              setPickYourGrid={setPickYourGrid}
+              setIsHide={setIsHide}
+              isHideBack={isHideBack}
+            />
+          )}
+          {activeButton.name === "Play" && (
+            <Play
+            setHeaderTitle={setHeaderTitle}
+              setBackLink={setBackLink}
+              setBallPlayed={setBallPlayed}
+              setPickYourGrid={setPickYourGrid}
+              setTotalAmount={setTotalAmount}
+              setBallNumbers={setBallNumbers}
+              setActiveButton={setActiveButton}
+              setDisabledBtn={setDisabledBtn}
+              getDisabledBtn={getDisabledBtn}
+            />
+          )}
+          {activeButton.name === "Result" && <Result setHeaderTitle={setHeaderTitle}
+              setBackLink={setBackLink} parameters={parameters} />}
+
+          {activeButton.name === "Buy" && (
+            <Buy
+            setHeaderTitle={setHeaderTitle}
+              setBackLink={setBackLink}
+              parameters={parameters}
+              setDisabledBtn={setDisabledBtn}
+              setModalShow={setModalShow}
+              setModalName={setModalName}
+              setSuccessModal={setSuccessModal}
+              setErrorModal={setErrorModal}
+              setWarningModal={setWarningModal}
+            />
+          )}
+        </div>
+
+        {getPickYourGrid && (
+          <PickYourGrid
             setPickYourGrid={setPickYourGrid}
+            getBallNumbers={getBallNumbers}
+            getTotalAmount={getTotalAmount}
+            getBallPlayed={getBallPlayed}
             setIsHide={setIsHide}
-            isHideBack={isHideBack}
-          />
-        )}
-        {activeButton.name === "Play" && (
-          <Play
-            setBallPlayed={setBallPlayed}
-            setPickYourGrid={setPickYourGrid}
-            setTotalAmount={setTotalAmount}
-            setBallNumbers={setBallNumbers}
-            setActiveButton={setActiveButton}
-            setDisabledBtn={setDisabledBtn}
-            getDisabledBtn={getDisabledBtn}
-          />
-        )}
-        {activeButton.name === "Result" && <Result parameters={parameters} />}
-
-        {activeButton.name === "Buy" && (
-          <Buy
-            parameters={parameters}
-            setDisabledBtn={setDisabledBtn}
             setModalShow={setModalShow}
             setModalName={setModalName}
-            setSuccessModal={setSuccessModal}
             setErrorModal={setErrorModal}
-            setWarningModal={setWarningModal}
+          />
+        )}
+        <BottomNav
+          activeButton={activeButton}
+          setActiveButton={setActiveButton}
+        />
+
+        {getModalName === "SuccessModal" && (
+          <SuccessModal
+            getSuccessModal={getSuccessModal}
+            show={modalShow}
+            onHide={() => {
+              setModalShow(false);
+              setModalName("");
+            }}
+          />
+        )}
+        {getModalName === "ErrorModal" && (
+          <ErrorModal
+            getErrorModal={getErrorModal}
+            show={modalShow}
+            onHide={() => {
+              setModalShow(false);
+              setModalName("");
+            }}
+          />
+        )}
+        {getModalName === "WarningModal" && (
+          <WarningModal
+            getWarningModal={getWarningModal}
+            show={modalShow}
+            onHide={() => {
+              setModalShow(false);
+              setModalName("");
+            }}
           />
         )}
       </div>
-
-      {getPickYourGrid && (
-        <PickYourGrid
-          setPickYourGrid={setPickYourGrid}
-          getBallNumbers={getBallNumbers}
-          getTotalAmount={getTotalAmount}
-          getBallPlayed={getBallPlayed}
-          setIsHide={setIsHide}
-          setModalShow={setModalShow}
-          setModalName={setModalName}
-          setErrorModal={setErrorModal}
-        />
-      )}
-      <BottomNav
-        activeButton={activeButton}
-        setActiveButton={setActiveButton}
-      />
-
-      {getModalName === "SuccessModal" && (
-        <SuccessModal
-          getSuccessModal={getSuccessModal}
-          show={modalShow}
-          onHide={() => {
-            setModalShow(false);
-            setModalName("");
-          }}
-        />
-      )}
-      {getModalName === "ErrorModal" && (
-        <ErrorModal
-          getErrorModal={getErrorModal}
-          show={modalShow}
-          onHide={() => {
-            setModalShow(false);
-            setModalName("");
-          }}
-        />
-      )}
-      {getModalName === "WarningModal" && (
-        <WarningModal
-          getWarningModal={getWarningModal}
-          show={modalShow}
-          onHide={() => {
-            setModalShow(false);
-            setModalName("");
-          }}
-        />
-      )}
-    </div>
+    </>
   );
 };
 

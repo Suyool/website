@@ -9,6 +9,8 @@ const Play = ({
   setActiveButton,
   getDisabledBtn,
   setDisabledBtn,
+  setHeaderTitle,
+  setBackLink
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [checked, setChecked] = useState(false);
@@ -17,6 +19,9 @@ const Play = ({
 
 
   useEffect(() => {
+    setBackLink(localStorage.getItem('BackPage'));
+    setHeaderTitle("Play");
+    localStorage.setItem('BackPage','Play');
     setDisabledBtn(
       selectedBallsToShow == null ||
         JSON.parse(selectedBallsToShow).length === 0

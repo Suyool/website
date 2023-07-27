@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import data from "./result.json";
 import axios from "axios";
 
-const Result = ({ parameters }) => {
+const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const results = parameters.prize_loto_result;
   const data = parameters.prize_loto_perdays;
   // console.log(data);
@@ -45,6 +45,9 @@ const Result = ({ parameters }) => {
   // });
 
   useEffect(() => {
+    setBackLink(localStorage.getItem('BackPage'));
+    setHeaderTitle("Results");
+    localStorage.setItem('BackPage','Result');
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
       .map(Number);

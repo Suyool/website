@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -46,10 +47,13 @@
 =======
   "build/Loto.js": "/build/Loto.3d2a3e05.js",
 >>>>>>> 934552a (response handling with queuing scripts and fetch drawdetails command)
+=======
+  "build/Loto.js": "/build/Loto.037b173a.js",
+>>>>>>> 0278a81 (finish with handling response and loto process)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
 >>>>>>> 9f65494 (handling popup with some functionality)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.bbe7ae9e.css",
+  "build/Lotostyles.css": "/build/Lotostyles.2d659c57.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",
@@ -238,6 +242,7 @@
   "build/images/Touch/flag.png": "/build/images/Touch/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/remove-till.png": "/build/images/remove-till.png",
+<<<<<<< HEAD
   "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
   "build/images/Touch/clearNb.png": "/build/images/Touch/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
@@ -245,4 +250,8 @@
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
+=======
+  "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
+  "build/images/Loto/Back.png": "/build/images/Loto/Back.png"
+>>>>>>> 0278a81 (finish with handling response and loto process)
 }
