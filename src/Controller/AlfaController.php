@@ -6,10 +6,12 @@ use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\PostpaidRequest;
+use App\Entity\Notification\Notification;
 use App\Entity\Notification\Users;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
+use App\Service\NotificationServices;
 use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -271,7 +273,7 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse=['amount'=>$order->getamount(),'currency'=>$order->getcurrency()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
                         $message = "Success";
                     } else {
                         $message = "something wrong while UpdateUtilities";
@@ -478,6 +480,52 @@ class AlfaController extends AbstractController
             'IsSuccess' => $IsSuccess,
             'flagCode' => $flagCode,
             'data' => $dataPayResponse
+        ], 200);
+    }
+
+
+
+    /**
+     * @Route("/alfa/TestNotfication", name="TestNotfication",methods="GET")
+     */
+    public function TestNotfication(NotificationServices $notificationServices)
+    {
+
+        // $userId= 155;
+        $userId = 89;
+        $notificationTemplate = 1;
+
+        // $pushSingleNot = $notificationServices->PushSingleNotification($userId, $notificationTemplate);
+
+        return new JsonResponse([
+            'status' => true,
+        ], 200);
+    }
+
+    /**
+     * @Route("/alfa/addNotification", name="addNotification",methods="GET")
+     */
+    public function addNotification(NotificationServices $notificationServices)
+    {
+        $userId = 89;
+        $notificationTemplate = 1;
+
+        $addNotification = $notificationServices->addNotification($userId, $notificationTemplate);
+
+        return new JsonResponse([
+            'status' => true,
+        ], 200);
+    }
+
+    /**
+     * @Route("/alfa/cron", name="cron",methods="GET")
+     */
+    public function cron(NotificationServices $notificationServices)
+    {
+        $addNotification = $notificationServices->cron();
+
+        return new JsonResponse([
+            'status' => true,
         ], 200);
     }
 }

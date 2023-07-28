@@ -51,10 +51,10 @@ class SuyoolServices1
             $push_utility_response = $response->toArray();
         }
         // dd($push_utility_response);
-// dd($push_utility_response);
+        // dd($push_utility_response);
         $globalCode = $push_utility_response['globalCode'];
         $message = $push_utility_response['data'];
-        $flagCode=$push_utility_response['flagCode'];
+        $flagCode = $push_utility_response['flagCode'];
         // $form_data = [
         //     'userAccountID' => $session,
         //     "merchantAccountID" => 1,
@@ -73,7 +73,7 @@ class SuyoolServices1
             $transId = $push_utility_response['data'];
             return array(true, $transId);
         } else {
-            return array(false,$message,$flagCode);
+            return array(false, $message, $flagCode);
         }
     }
 
@@ -131,5 +131,88 @@ class SuyoolServices1
         $dataArray = json_decode($dataString, true);
 
         return $dataArray;
+    }
+
+    /*
+     * Gettin Suyool User
+     */
+    public function GetUser($userId, $hash_algo, $certificate)
+    {
+        $Hash = base64_encode(hash($hash_algo, $userId . $certificate, true));
+        // dd($Hash);
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/User/GetUser", [
+            'body' => json_encode([
+                'userAccountID' => $userId,
+                "secureHash" => $Hash,
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status === 400) {
+            $push_utility_response = $response->toArray(false);
+        } else {
+            $push_utility_response = $response->toArray();
+        }
+        // dd($push_utility_response);
+        $data = json_decode($push_utility_response["data"], true);
+
+        return $data;
+    }
+
+    /*
+     * Push Single Notification
+     */
+    public function PushSingleNotification($userId, $title, $subject, $body, $notification)
+    {
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NotificationServiceApi/Notification/PushSingleNotification", [
+            'body' => json_encode([
+                'userID' => $userId,
+                'title' => $title,
+                'subject' => $subject,
+                'body' => $body,
+                'notification' => $notification,
+                'generator' => 'string',
+                'isNotification' => true,
+                'isInbox' => true,
+                'isPayment' => true,
+                'isDebit' => true,
+                'isRequest' => true,
+                'isMerchant' => true,
+                'isAuthentication' => true,
+                'flag' => 0,
+                'additionalData' => 'string',
+                'refNo' => 'string',
+                'imageURL' => 'string',
+                'notifType' => 1,
+                'actionButtons' => [[
+                    'flag' => 0,
+                    'description' => "string",
+                    'additionalData' => "string",
+                    'isAuthentication' => true,
+                ]],
+                'proceedButton' => 'string',
+                'cancelButton' => 'string',
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status === 400) {
+            $push_utility_response = $response->toArray(false);
+        } else {
+            $push_utility_response = $response->toArray();
+        }
+
+        // dd($push_utility_response);
+        // $data = $push_utility_response["message"];
+
+        // $data = json_decode($push_utility_response["message"], true);
+        // $data = $push_utility_response["message"];
+
+        return $push_utility_response;
     }
 }

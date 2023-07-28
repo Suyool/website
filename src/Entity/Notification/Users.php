@@ -14,7 +14,7 @@ class Users
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="suyoolUserId",type="string")
+     * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
