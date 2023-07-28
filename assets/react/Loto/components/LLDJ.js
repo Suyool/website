@@ -107,7 +107,12 @@ const LLDJ = ({
 
         <div className="questionsSection mt-3">
           <div className="title">What are you waiting for?</div>
-          <button className="PlayBtn">Play Now</button>
+          <button className="PlayBtn" onClick={() => {
+            setBallNumbers(6);
+            setTotalAmount(parameters.gridpricematrix[0].price);
+          setPickYourGrid(true);
+          setIsHide(true);
+        }}>Play Now</button>
         </div>
 
         <div className="gridsSwction">
