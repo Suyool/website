@@ -11,18 +11,20 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
 
   const handleConfirmPay = () => {
+    // console.log(getPrepaidVoucher.desc)
     axios
       .post("/alfa/BuyPrePaid",
         {
           Token: "",
           category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
+          desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
-        const jsonResponse=response?.data?.message;
+        const jsonResponse = response?.data?.message;
         console.log(jsonResponse)
         // console.log()
         if (response?.data.IsSuccess) {
@@ -32,7 +34,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           console.log(response.data.flagCode)
           // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
           if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-          // console.log("step 3")
+            // console.log("step 3")
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",

@@ -125,16 +125,16 @@ class NotificationServices
         return 1;
     }
 
-    public function addNotification($userId, $notificationTemplate)
+    public function addNotification($userId, $notificationTemplate,$params)
     {
 
         $notification = new Notification;
         $notification
             ->setuserId($userId)
             ->settemplateId($notificationTemplate)
-            ->setstatus("complete")
+            ->setstatus("pending")
             ->seterrorMsg(null)
-            ->setparams("");
+            ->setparams($params);
 
         $this->mr->persist($notification);
         $this->mr->flush();
@@ -142,16 +142,16 @@ class NotificationServices
         return 1;
     }
 
-    public function cron()
-    {
+    // public function cron()
+    // {
 
-        $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);
+    //     $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);
 
-        foreach ($not as $notify) {
-            $PushSingleNot = $this->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparams());
-        }
-        // dd($not);
+    //     foreach ($not as $notify) {
+    //         $PushSingleNot = $this->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparams());
+    //     }
+    //     // dd($not);
 
-        return 1;
-    }
+    //     return 1;
+    // }
 }

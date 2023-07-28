@@ -185,7 +185,7 @@ class AlfaController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices, SuyoolServices1 $suyoolServices)
+    public function billPay(Request $request, BobServices $bobServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
     {
         $data = json_decode($request->getContent(), true);
         $session = 89;
@@ -261,6 +261,14 @@ class AlfaController extends AbstractController
                         ->setstatus("purchased");
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
+
+                    //intial notification
+                    $params = json_encode([
+                        'amount' => $order->getamount(),
+                        'currency' => $order->getcurrency(),
+                        'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
+                    ]);
+                    $notificationServices->addNotification($session, 3, $params);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -352,12 +360,13 @@ class AlfaController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/alfa/BuyPrePaid", name="app_alfa_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
     {
         $session = 89;
         $app_id = 3;
         $data = json_decode($request->getContent(), true);
         $flagCode = null;
+        // dd($data["desc"]);
 
         if ($data != null) {
             //Initial order with status pending
@@ -423,6 +432,15 @@ class AlfaController extends AbstractController
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
+                    //intial notification
+                    $params = json_encode([
+                        'amount' => $order->getamount(),
+                        'currency' => $order->getcurrency(),
+                        'plan' => $data["desc"],
+                        'code' => $PayResonse["voucherSerial"],
+                    ]);
+                    $notificationServices->addNotification($session, 4, $params);
+
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
@@ -484,48 +502,30 @@ class AlfaController extends AbstractController
     }
 
 
+    // /**
+    //  * @Route("/alfa/addNotification", name="addNotification",methods="GET")
+    //  */
+    // public function addNotification(NotificationServices $notificationServices)
+    // {
+    //     $userId = 89;
+    //     $notificationTemplate = 1;
 
-    /**
-     * @Route("/alfa/TestNotfication", name="TestNotfication",methods="GET")
-     */
-    public function TestNotfication(NotificationServices $notificationServices)
-    {
+    //     $addNotification = $notificationServices->addNotification($userId, $notificationTemplate);
 
-        // $userId= 155;
-        $userId = 89;
-        $notificationTemplate = 1;
+    //     return new JsonResponse([
+    //         'status' => true,
+    //     ], 200);
+    // }
 
-        // $pushSingleNot = $notificationServices->PushSingleNotification($userId, $notificationTemplate);
+    // /**
+    //  * @Route("/alfa/cron", name="cron",methods="GET")
+    //  */
+    // public function cron(NotificationServices $notificationServices)
+    // {
+    //     $addNotification = $notificationServices->cron();
 
-        return new JsonResponse([
-            'status' => true,
-        ], 200);
-    }
-
-    /**
-     * @Route("/alfa/addNotification", name="addNotification",methods="GET")
-     */
-    public function addNotification(NotificationServices $notificationServices)
-    {
-        $userId = 89;
-        $notificationTemplate = 1;
-
-        $addNotification = $notificationServices->addNotification($userId, $notificationTemplate);
-
-        return new JsonResponse([
-            'status' => true,
-        ], 200);
-    }
-
-    /**
-     * @Route("/alfa/cron", name="cron",methods="GET")
-     */
-    public function cron(NotificationServices $notificationServices)
-    {
-        $addNotification = $notificationServices->cron();
-
-        return new JsonResponse([
-            'status' => true,
-        ], 200);
-    }
+    //     return new JsonResponse([
+    //         'status' => true,
+    //     ], 200);
+    // }
 }

@@ -128,6 +128,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -239,6 +240,9 @@
 =======
   "build/Alfa.js": "/build/Alfa.b8e3bd09.js",
 >>>>>>> b43aa3e (handle popups error)
+=======
+  "build/Alfa.js": "/build/Alfa.6e938a00.js",
+>>>>>>> 502c053 (done with notification on alfa postpaid and prepaid wit ui)
   "build/Touch.js": "/build/Touch.0d10c0ac.js",
 >>>>>>> 565e9b1 (done with touch ui)
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
