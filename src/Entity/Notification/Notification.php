@@ -41,33 +41,39 @@ class Notification
 
     /**
      * 
-     * @ORM\Column(name="paramsText")
+     * @ORM\Column(name="params")
      */
-    private $paramsText;
+    private $params;
 
-    // /**
-    //  * 
-    //  * @ORM\Column(name="informativeOriginalWSamount")
-    //  */
-    // private $informativeOriginalWSamount;
+    /**
+     * @ORM\Column(name="titleOut")
+     */
+    private $titleOut;
 
-    // /**
-    //  * 
-    //  * @ORM\Column(name="totalamount")
-    //  */
-    // private $totalamount;
+    /**
+     * @ORM\Column(name="bodyOut")
+     */
+    private $bodyOut;
 
-    // /**
-    //  * 
-    //  * @ORM\Column(name="rounding")
-    //  */
-    // private $rounding;
+    /**
+     * @ORM\Column(name="titleIn")
+     */
+    private $titleIn;
 
-    // /**
-    //  * 
-    //  * @ORM\Column(name="additionalfees")
-    //  */
-    // private $additionalfees;
+    /**
+     * @ORM\Column(name="bodyIn")
+     */
+    private $bodyIn;
+
+    /**
+     * @ORM\Column(name="proceedButton")
+     */
+    private $proceedButton;
+
+    /**
+     * @ORM\Column(name="send_Date")
+     */
+    private $sendDate;
 
 
 
@@ -121,58 +127,80 @@ class Notification
         return $this;
     }
 
-    public function getparamsText()
+    public function getparams()
     {
-        return $this->paramsText;
+        return $this->params;
     }
 
-    public function setparamsText($paramsText)
+    public function setparams($params)
     {
-        $this->paramsText = $paramsText;
+        $this->params = $params;
         return $this;
     }
 
-    // public function getinformativeOriginalWSamount()
-    // {
-    //     return $this->informativeOriginalWSamount;
-    // }
+    public function gettitleOut()
+    {
+        return $this->titleOut;
+    }
 
-    // public function setinformativeOriginalWSamount($informativeOriginalWSamount)
-    // {
-    //     $this->informativeOriginalWSamount = $informativeOriginalWSamount;
-    //     return $this;
-    // }
+    public function settitleOut($titleOut)
+    {
+        $this->titleOut = $titleOut;
+        return $this;
+    }
 
-    // public function gettotalamount()
-    // {
-    //     return $this->totalamount;
-    // }
+    public function getbodyOut()
+    {
+        return $this->bodyOut;
+    }
 
-    // public function settotalamount($totalamount)
-    // {
-    //     $this->totalamount = $totalamount;
-    //     return $this;
-    // }
+    public function setbodyOut($bodyOut)
+    {
+        $this->bodyOut = $bodyOut;
+        return $this;
+    }
 
-    // public function getrounding()
-    // {
-    //     return $this->rounding;
-    // }
+    public function gettitleIn()
+    {
+        return $this->titleIn;
+    }
 
-    // public function setrounding($rounding)
-    // {
-    //     $this->rounding = $rounding;
-    //     return $this;
-    // }
+    public function settitleIn($titleIn)
+    {
+        $this->titleIn = $titleIn;
+        return $this;
+    }
 
-    // public function getadditionalfees()
-    // {
-    //     return $this->additionalfees;
-    // }
+    public function getbodyIn()
+    {
+        return $this->bodyIn;
+    }
 
-    // public function setadditionalfees($additionalfees)
-    // {
-    //     $this->additionalfees = $additionalfees;
-    //     return $this;
-    // }
+    public function setbodyIn($bodyIn)
+    {
+        $this->bodyIn = $bodyIn;
+        return $this;
+    }
+
+    public function getproceedButton()
+    {
+        return $this->proceedButton;
+    }
+
+    public function setproceedButton($proceedButton)
+    {
+        $this->proceedButton = $proceedButton;
+        return $this;
+    }
+
+    public function getsendDate()
+    {
+        return $this->sendDate;
+    }
+
+    public function setsendDate($sendDate)
+    {
+        $this->sendDate = $sendDate;
+        return $this;
+    }
 }

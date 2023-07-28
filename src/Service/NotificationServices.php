@@ -26,9 +26,9 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function PushSingleNotification($notificationId, $userId, $notificationTemplate, $paramsText)
+    public function PushSingleNotification($notificationId, $userId, $notificationTemplate, $params)
     {
-        $paramsTextDecoded = json_decode($paramsText, true);
+        $paramsTextDecoded = json_decode($params, true);
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
@@ -66,33 +66,43 @@ class NotificationServices
                 $subject = $notTemplate->getsubjectEN();
                 $body = $notTemplate->getbodyEN();
                 $notification = $notTemplate->getnotificationEN();
+                $proceedButton = $notTemplate->getproceedButtonEN();
             } else {
                 $title = $notTemplate->gettitleAR();
                 $subject = $notTemplate->getsubjectAR();
                 $body = $notTemplate->getbodyAR();
                 $notification = $notTemplate->getnotificationAR();
+                $proceedButton = $notTemplate->getproceedButtonAR();
             }
         } else {
             echo "No Template availble for this id!!";
         }
-        
-        eval("\$title = \"$title\";");
-        echo "<br>".$title;
-        eval("\$subject = \"$subject\";");
-        echo "<br>".$subject;
-        eval("\$body = \"$body\";");
-        echo "<br>".$body;
-        eval("\$notification = \"$notification\";");
-        echo "<br>".$notification;
 
-        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification);
+        eval("\$title = \"$title\";");
+        echo "<br>" . $title;
+        eval("\$subject = \"$subject\";");
+        echo "<br>" . $subject;
+        eval("\$body = \"$body\";");
+        echo "<br>" . $body;
+        eval("\$notification = \"$notification\";");
+        echo "<br>" . $notification;
+        eval("\$proceedButton = \"$proceedButton\";");
+        echo "<br>" . $proceedButton;
+
+        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton);
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
 
             if ($singleNotification != null) {
                 $singleNotification
-                    ->setstatus("complete")
-                    ->seterrorMsg("success");
+                    ->setstatus("send")
+                    ->seterrorMsg("success")
+                    ->setproceedButton($proceedButton)
+                    ->settitleOut($title)
+                    ->setbodyOut($notification)
+                    ->settitleIn($subject)
+                    ->setbodyIn($body)
+                    ->setsendDate(date('Y-m-d H:i:s'));
                 $this->mr->persist($singleNotification);
                 $this->mr->flush();
             } else {
@@ -103,7 +113,7 @@ class NotificationServices
             if ($singleNotification != null) {
                 $singleNotification
                     ->setstatus("not complete")
-                    ->seterrorMsg("error");
+                    ->seterrorMsg($PushSingle["flagCode"]);
                 $this->mr->persist($singleNotification);
                 $this->mr->flush();
             } else {
@@ -111,7 +121,7 @@ class NotificationServices
             }
         }
 
-        dd($PushSingle);
+        // dd($PushSingle);
         return 1;
     }
 
@@ -124,7 +134,7 @@ class NotificationServices
             ->settemplateId($notificationTemplate)
             ->setstatus("complete")
             ->seterrorMsg(null)
-            ->setparamsText("");
+            ->setparams("");
 
         $this->mr->persist($notification);
         $this->mr->flush();
@@ -138,7 +148,7 @@ class NotificationServices
         $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);
 
         foreach ($not as $notify) {
-            $PushSingleNot = $this->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparamsText());
+            $PushSingleNot = $this->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparams());
         }
         // dd($not);
 

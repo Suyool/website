@@ -30,6 +30,18 @@ class Template
     private $titleAR;
 
     /**
+     * 
+     * @ORM\Column(name="notificationEN")
+     */
+    private $notificationEN;
+
+    /**
+     * 
+     * @ORM\Column(name="notificationAR")
+     */
+    private $notificationAR;
+
+    /**
      * @ORM\Column(name="subjectEN")
      */
     private $subjectEN;
@@ -39,7 +51,7 @@ class Template
      */
     private $subjectAR;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="bodyEN")
      */
@@ -53,15 +65,15 @@ class Template
 
     /**
      * 
-     * @ORM\Column(name="notificationEN")
+     * @ORM\Column(name="proceedButtonEN")
      */
-    private $notificationEN;
+    private $proceedButtonEN;
 
     /**
      * 
-     * @ORM\Column(name="notificationAR")
+     * @ORM\Column(name="proceedButtonAR")
      */
-    private $notificationAR;
+    private $proceedButtonAR;
 
     /**
      * 
@@ -74,18 +86,6 @@ class Template
      * @ORM\Column(name="flag",type="integer")
      */
     private $flag;
-
-    /**
-     * 
-     * @ORM\Column(name="additionalData")
-     */
-    private $additionalData;
-
-    /**
-     * 
-     * @ORM\Column(name="proceedButton")
-     */
-    private $proceedButton;
 
     /**
      * 
@@ -175,25 +175,14 @@ class Template
         return $this;
     }
 
-    public function getadditionalData()
+    public function getproceedButtonEN()
     {
-        return $this->additionalData;
+        return $this->proceedButtonEN;
     }
 
-    public function setadditionalData($additionalData)
+    public function setproceedButtonEN($proceedButtonEN)
     {
-        $this->additionalData = $additionalData;
-        return $this;
-    }
-
-    public function getproceedButton()
-    {
-        return $this->proceedButton;
-    }
-
-    public function setproceedButton($proceedButton)
-    {
-        $this->proceedButton = $proceedButton;
+        $this->proceedButtonEN = $proceedButtonEN;
         return $this;
     }
 
@@ -230,16 +219,16 @@ class Template
     //     return $this;
     // }
 
-    // public function gettotalamount()
-    // {
-    //     return $this->totalamount;
-    // }
+    public function getproceedButtonAR()
+    {
+        return $this->proceedButtonAR;
+    }
 
-    // public function settotalamount($totalamount)
-    // {
-    //     $this->totalamount = $totalamount;
-    //     return $this;
-    // }
+    public function setproceedButtonAR($proceedButtonAR)
+    {
+        $this->proceedButtonAR = $proceedButtonAR;
+        return $this;
+    }
 
     public function getnotificationEN()
     {
@@ -328,5 +317,4 @@ class Template
         $this->isInbox = $isInbox;
         return $this;
     }
-
 }
