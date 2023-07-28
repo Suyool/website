@@ -121,7 +121,7 @@ class PlaysRepository extends EntityRepository
             ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers')
             ->innerJoin(order::class, 'o')
             ->innerJoin(LOTO_results::class, 'r')
-            ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null')
+            ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null and l.ticketId != 0')
             ->setParameter('session', $session)
             ->setParameter('drawNumber',$drawNumber)
             ->groupBy('l.gridSelected')

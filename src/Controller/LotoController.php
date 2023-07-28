@@ -79,6 +79,7 @@ class LotoController extends AbstractController
         $this->session->set('userId', $session);
 
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
 
         $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
@@ -203,11 +204,11 @@ class LotoController extends AbstractController
     public function play(Request $request)
     {
         $session = $this->session->get('userId');
-        dd($session);
+        // dd($session);
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
         $today = new DateTime("-30 minutes");
-        $nextThursday = $today->modify('+1 hour 30 minutes');
+        $nextThursday = $today->modify('+2 hour 30 minutes');
         $nextDate = $nextThursday->format('Y/m/d');
 
         if (isset($session)) {
@@ -341,7 +342,7 @@ class LotoController extends AbstractController
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                 $i = sizeof($lotoid);
                 $sum = 0;
-                $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 19:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
+                $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
                 // $WarningPopUp=json_encode($warning,true);
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
                     $orderid->setstatus("canceled");

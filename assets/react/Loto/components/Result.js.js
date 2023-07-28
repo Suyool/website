@@ -14,7 +14,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const [getWinBallInitialZeed, setWinBallInitialZeed] = useState([]);
   const [getMyGrids, setMyGrids] = useState([]);
   const [getMyGridsZeed, setMyGridsZeed] = useState([]);
-  const [clickedIndex, setClickedIndex] = useState([]);
+  const [clickedIndex, setClickedIndex] = useState(0);
   const [getLastNumber, setLastNumber] = useState([]);
   const [getZeedNumber, setZeedNumber] = useState([]);
 
@@ -45,9 +45,9 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   // });
 
   useEffect(() => {
-    setBackLink(localStorage.getItem('BackPage'));
+    setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
-    localStorage.setItem('BackPage','Result');
+    localStorage.setItem("BackPage", "Result");
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
       .map(Number);
@@ -107,16 +107,19 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const handleMonthYearChange = (event) => {
     setSelectedMonthYear(event.target.value);
     setStartIndex(0); // Reset the startIndex when month or year changes
+    setClickedIndex(null);
   };
 
   const handlePrevious = () => {
     setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setClickedIndex(null);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
       Math.min(prevIndex + 1, filteredData.length - 4)
     );
+    setClickedIndex(null);
   };
 
   const handleChangeDate = (item, index) => {
@@ -130,11 +133,13 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
           response.data.parameters.prize_loto_win.numbers.split(",").map(Number)
         );
         setWinBallInitialZeed(
-          response.data.parameters.prize_loto_win.zeednumbers.split("").map(Number)
+          response.data.parameters.prize_loto_win.zeednumbers
+            .split("")
+            .map(Number)
         );
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-            (item) => item['gridSelected'].split(" ").map(Number)
+            (item) => item["gridSelected"].split(" ").map(Number)
           );
         const resultsnumbers = response.data.parameters.prize_loto_win.numbers
           .split(",")
@@ -144,24 +149,27 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
         const lastNumber = resultsnumbers[resultsnumbers.length - 1];
         setLastNumber(lastNumber);
 
-        const zeedSelectedArray = response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map((item) => item["zeedSelected"])
-        .filter((zeedSelected) => zeedSelected !== null);
-      // const parsedGridsZeed = item.gridSelected.map((item) =>
-      //   item["zeedSelected"].split("").map(Number)
-      // );
-      setZeedNumber(zeedSelectedArray);
-      const parsedGridsZeed = response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map((item) => {
-
-        const zeedSelected = item["zeedSelected"];
-        // console.log(zeedSelected)
-        if (zeedSelected === null) {
-          return null;
-        } else {
-          return zeedSelected.split("").map(Number);
-        }
-      });
-      setMyGridsZeed(parsedGridsZeed);
-
+        const zeedSelectedArray =
+          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
+            ?.map((item) => item["zeedSelected"])
+            .filter((zeedSelected) => zeedSelected !== null);
+        // const parsedGridsZeed = item.gridSelected.map((item) =>
+        //   item["zeedSelected"].split("").map(Number)
+        // );
+        setZeedNumber(zeedSelectedArray);
+        const parsedGridsZeed =
+          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
+            (item) => {
+              const zeedSelected = item["zeedSelected"];
+              // console.log(zeedSelected)
+              if (zeedSelected === null) {
+                return null;
+              } else {
+                return zeedSelected.split("").map(Number);
+              }
+            }
+          );
+        setMyGridsZeed(parsedGridsZeed);
 
         setClickedIndex(index);
       })
@@ -236,16 +244,19 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
 
         {getMyGrids &&
           getMyGrids
-            // .sort((a, b) => {
-            //   const aHasWin =
-            //     getWinBallInitial.filter((winBall) => a.includes(winBall))
-            //       .length >= 3;
-            //   const bHasWin =
-            //     getWinBallInitial.filter((winBall) => b.includes(winBall))
-            //       .length >= 3;
-            //   return bHasWin - aHasWin;
-            // })
-            .map((grid, index) => (
+            .map((grid, index) => ({ grid, index })) // Combine grid with its original index
+            .sort((a, b) => {
+              const aHasWin =
+                getWinBallInitial.filter((winBall) => a.grid.includes(winBall))
+                  .length >= 3;
+              const bHasWin =
+                getWinBallInitial.filter((winBall) => b.grid.includes(winBall))
+                  .length >= 3;
+
+              // Sort based on win ball presence, but keep the original order for grids with the same result
+              return bHasWin - aHasWin || a.index - b.index;
+            })
+            .map(({ grid, index }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
                   <div>
@@ -322,25 +333,49 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                     <div className="winnweBody">
                       <div className="ballSectionZeed mt-2">
                         {getMyGridsZeed[index] != null &&
-                          getMyGridsZeed[index].map((Zeed, ZeedIndex) => (
-                            <span
-                              key={ZeedIndex}
-                              className={`${
-                                getWinBallInitialZeed.includes(Zeed)
-                                  ? "win"
-                                  : ""
-                              }`}
-                            >
-                              {Zeed}
-                            </span>
-                          ))}
+                          getMyGridsZeed[index].map((Zeed, ZeedIndex) => {
+                            const zeedNumber = getZeedNumber[index];
+                            const zeedChar = zeedNumber.charAt(ZeedIndex);
+
+                            // Check for specific conditions to apply the "win" class
+                            const isWin =
+                              getWinBallInitialZeed.includes(Zeed) &&
+                              ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
+                                ZeedIndex < 5) || // First 5 balls
+                                (zeedChar ===
+                                  zeednumber2.charAt(ZeedIndex - 1) &&
+                                  ZeedIndex >= 1) || (zeedChar ===
+                                    zeednumber3.charAt(ZeedIndex -2) &&
+                                    ZeedIndex >= 2) || (zeedChar ===
+                                      zeednumber4.charAt(ZeedIndex - 3) &&
+                                      ZeedIndex >= 3) ); // Second ball to last
+
+                            return (
+                              <span
+                                key={ZeedIndex}
+                                className={`${isWin ? "win" : ""}`}
+                              >
+                                {Zeed}
+                              </span>
+                            );
+                            // <span
+                            //   key={ZeedIndex}
+                            //   className={`${
+                            //     getWinBallInitialZeed.includes(Zeed)
+                            //       ? "win"
+                            //       : ""
+                            //   }`}
+                            // >
+                            //   {Zeed}
+                            // </span>
+                          })}
                       </div>
                     </div>
                     {getMyGridsZeed[index] &&
-                    (getZeedNumber[index].substring(0, 5) === zeednumber1 ||
-                      getZeedNumber[index].substring(1, 5) === zeednumber2 ||
-                      getZeedNumber[index].substring(2, 5) === zeednumber3 ||
-                      getZeedNumber[index].substring(3, 5) === zeednumber4) ? (
+                    (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
+                      getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
+                      getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
+                      getZeedNumber[index]?.substring(3, 5) === zeednumber4) ? (
                       <div className="winnweFooterZeed">
                         <div className="price">
                           <span>L.L </span>

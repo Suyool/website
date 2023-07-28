@@ -8,6 +8,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -50,6 +51,9 @@
 =======
   "build/Loto.js": "/build/Loto.037b173a.js",
 >>>>>>> 0278a81 (finish with handling response and loto process)
+=======
+  "build/Loto.js": "/build/Loto.e1dfc4b3.js",
+>>>>>>> 0a3f3dc (zeed results and fetch details command)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
 >>>>>>> 9f65494 (handling popup with some functionality)
   "build/styles.css": "/build/styles.adb49e82.css",

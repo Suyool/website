@@ -144,8 +144,12 @@ class LotoServices
                 'Content-Type' => 'application/json'
             ]
         ]);
+        $status = $response->getStatusCode(); // Get the status code
 
-        $content = $response->toArray();
+        if($status == 500){
+            return false;
+        }
+        $content = $response->toArray(false);
 
         return $content['d']['draws'];
     }
@@ -160,8 +164,12 @@ class LotoServices
                 'Content-Type' => 'application/json'
             ]
         ]);
+        $status = $response->getStatusCode(); // Get the status code
+        if($status == 500){
+            return false;
+        }
 
-        $content = $response->toArray();
+        $content = $response->toArray(false);
 
         $date=$content['d']['draws'][0]['drawdate'];
         $nextdrawdetails=$content['d']['draws'][1];
