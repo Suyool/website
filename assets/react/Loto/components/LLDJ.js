@@ -12,6 +12,7 @@ const LLDJ = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  setPlay
 }) => {
   const [getBouquetgridprice, setBouquetgridprice] = useState(0);
   useEffect(() => {
@@ -108,10 +109,11 @@ const LLDJ = ({
         <div className="questionsSection mt-3">
           <div className="title">What are you waiting for?</div>
           <button className="PlayBtn" onClick={() => {
-            setBallNumbers(6);
-            setTotalAmount(parameters.gridpricematrix[0].price);
+            setBallNumbers(10);
+            setTotalAmount(0);
           setPickYourGrid(true);
           setIsHide(true);
+          setPlay(1)
         }}>Play Now</button>
         </div>
 

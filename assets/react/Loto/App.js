@@ -18,6 +18,7 @@ const App = ({ parameters }) => {
   const [getPickYourGrid, setPickYourGrid] = useState(false);
   const [getBallNumbers, setBallNumbers] = useState(0);
   const [getTotalAmount, setTotalAmount] = useState(0);
+  const [getPlay, setPlay] = useState(0);
 
   const [getBallPlayed, setBallPlayed] = useState([]);
   const [isHideBack, setIsHide] = useState(false);
@@ -39,8 +40,6 @@ const App = ({ parameters }) => {
     window.handleCheckout = (message) => {
       setDataGetting(message);
     };
-
-
   }, []);
 
   const [getModalName, setModalName] = useState("");
@@ -89,6 +88,7 @@ const App = ({ parameters }) => {
               parameters={parameters}
               setBallNumbers={setBallNumbers}
               setActiveButton={setActiveButton}
+              setPlay={setPlay}
               setTotalAmount={setTotalAmount}
               setPickYourGrid={setPickYourGrid}
               setIsHide={setIsHide}
@@ -97,7 +97,7 @@ const App = ({ parameters }) => {
           )}
           {activeButton.name === "Play" && (
             <Play
-            setHeaderTitle={setHeaderTitle}
+              setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               setBallPlayed={setBallPlayed}
               setPickYourGrid={setPickYourGrid}
@@ -108,12 +108,17 @@ const App = ({ parameters }) => {
               getDisabledBtn={getDisabledBtn}
             />
           )}
-          {activeButton.name === "Result" && <Result setHeaderTitle={setHeaderTitle}
-              setBackLink={setBackLink} parameters={parameters} />}
+          {activeButton.name === "Result" && (
+            <Result
+              setHeaderTitle={setHeaderTitle}
+              setBackLink={setBackLink}
+              parameters={parameters}
+            />
+          )}
 
           {activeButton.name === "Buy" && (
             <Buy
-            setHeaderTitle={setHeaderTitle}
+              setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               parameters={parameters}
               setDisabledBtn={setDisabledBtn}
@@ -128,10 +133,13 @@ const App = ({ parameters }) => {
 
         {getPickYourGrid && (
           <PickYourGrid
+            parameters={parameters}
             setPickYourGrid={setPickYourGrid}
             getBallNumbers={getBallNumbers}
             getTotalAmount={getTotalAmount}
+            setTotalAmount={setTotalAmount}
             getBallPlayed={getBallPlayed}
+            getPlay={getPlay}
             setIsHide={setIsHide}
             setModalShow={setModalShow}
             setModalName={setModalName}

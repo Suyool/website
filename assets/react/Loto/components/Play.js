@@ -230,7 +230,7 @@ getPlayedBalls.forEach((item) => {
                 <div className="body">
                   <div className="ballSection mt-2">
                     {ballsSet.balls.map((ball, ballIndex) => (
-                      <span key={ballIndex}>{ball}</span>
+                      ball !== null ? <span key={ballIndex}>{ball}</span> : null
                     ))}
                   </div>
                   <div className="edit" onClick={() => handleEdit(index)}>
