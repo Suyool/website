@@ -146,6 +146,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.c9005a6e.js"
 =======
         "/build/Alfa.3f339493.js"
@@ -274,12 +275,15 @@
 =======
         "/build/Alfa.6e938a00.js"
 >>>>>>> 502c053 (done with notification on alfa postpaid and prepaid wit ui)
+=======
+        "/build/Alfa.fbb8fb35.js"
+>>>>>>> 380b3de (fixing ui)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.0d10c0ac.js"
+        "/build/Touch.fa25b735.js"
       ]
     },
     "Ogero": {
@@ -317,6 +321,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -414,6 +419,9 @@
 =======
         "/build/AlfaStyle.d411b476.css"
 >>>>>>> b43aa3e (handle popups error)
+=======
+        "/build/AlfaStyle.22181f55.css"
+>>>>>>> 380b3de (fixing ui)
       ]
     },
     "TouchStyle": {
@@ -421,7 +429,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.f143dda3.css"
+        "/build/TouchStyle.43496b1a.css"
       ]
     },
     "OgeroStyle": {

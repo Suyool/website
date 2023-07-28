@@ -32,7 +32,7 @@ class NotificationSendSingle extends Command
     {
 
         $output->writeln([
-            'Getting All suyool users'
+            'Send Notification to pending users'
         ]);
 
         $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);

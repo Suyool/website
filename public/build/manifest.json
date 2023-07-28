@@ -129,6 +129,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.de11f21c.js",
   "build/Touch.js": "/build/Touch.4aa2a82f.js",
   "build/Ogero.js": "/build/Ogero.431f83f7.js",
@@ -245,10 +246,15 @@
 >>>>>>> 502c053 (done with notification on alfa postpaid and prepaid wit ui)
   "build/Touch.js": "/build/Touch.0d10c0ac.js",
 >>>>>>> 565e9b1 (done with touch ui)
+=======
+  "build/Alfa.js": "/build/Alfa.fbb8fb35.js",
+  "build/Touch.js": "/build/Touch.fa25b735.js",
+>>>>>>> 380b3de (fixing ui)
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
   "build/styles.css": "/build/styles.adb49e82.css",
   "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -314,6 +320,10 @@
   "build/AlfaStyle.css": "/build/AlfaStyle.d411b476.css",
 >>>>>>> b43aa3e (handle popups error)
   "build/TouchStyle.css": "/build/TouchStyle.f143dda3.css",
+=======
+  "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
+  "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",
+>>>>>>> 380b3de (fixing ui)
   "build/OgeroStyle.css": "/build/OgeroStyle.4834972a.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 74ebe64 (done with prepaid)

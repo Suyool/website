@@ -79,17 +79,18 @@ class NotificationServices
         }
 
         eval("\$title = \"$title\";");
-        echo "<br>" . $title;
+        // echo "<br>" . $title;
         eval("\$subject = \"$subject\";");
-        echo "<br>" . $subject;
+        // echo "<br>" . $subject;
         eval("\$body = \"$body\";");
-        echo "<br>" . $body;
+        // echo "<br>" . $body;
         eval("\$notification = \"$notification\";");
-        echo "<br>" . $notification;
+        // echo "<br>" . $notification;
         eval("\$proceedButton = \"$proceedButton\";");
-        echo "<br>" . $proceedButton;
+        // echo "<br>" . $proceedButton;
 
-        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton);
+        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton,$notTemplate->getisInbox(),$notTemplate->getflag());
+        // echo json_encode($PushSingle);
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
 
