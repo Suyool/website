@@ -1,0 +1,25 @@
+#MobileHeader {
+    background-image: linear-gradient(to bottom, #353a6a, #246992);
+    height: 50px;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .back{
+        padding-left: 30px;
+    }
+
+    .headerTitle {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: white;
+    }
+
+    .empty{
+        padding-right: 50px;
+    }
+}

@@ -1,0 +1,166 @@
+#PaymentConfirmationPrePaid {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: 1001;
+    box-shadow: 2px -3px 10px #F4F4F4;
+    flex-direction: column;
+    align-items: center;
+
+    .topSection {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 15px;
+
+        .brBoucket {
+            height: 3px;
+            border-radius: 3px;
+            margin-top: 15px;
+            background-color: #EBEBEB;
+            width: 80px;
+        }
+
+        .titles {
+            display: flex;
+            flex-direction: row;
+            padding-top: 15px;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            .titleGrid {
+                font-size: 1tpx;
+                font-family: PoppinsSemiBold;
+                color: black;
+            }
+
+            button {
+                background-color: white;
+                border: none;
+                color: #D32127;
+                font-size: 15px;
+                font-family: PoppinsMedium;
+            }
+        }
+    }
+
+    .bodySection {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        align-content: flex-start;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-top: 15px;
+        padding-bottom: 80px;
+        align-items: center;
+        height: 80vh;
+
+        .SuccessImg {
+            width: 55px;
+            height: 55px;
+        }
+
+        .bigTitle {
+            padding-top: 25px;
+            font-family: PoppinsBold;
+            font-size: 15px;
+            color: black;
+        }
+
+        .descriptio {
+            padding-top: 15px;
+            font-family: PoppinsMedium;
+            font-size: 14px;
+            color: black;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .copyTitle {
+            width: 100%;
+            padding-top: 10px;
+            font-family: PoppinsSemiBold;
+            font-size: 16px;
+            color: black;
+        }
+
+        .copyDesc {
+            width: 100%;
+            padding-top: 5px;
+            font-family: PoppinsMedium;
+            font-size: 14px;
+            font-weight: 400;
+            color: black;
+        }
+
+        .copySerialBtn {
+            width: 100%;
+            border: 1px solid #EBEBEB;
+            background-color: white;
+            padding: 12px;
+            display: flex;
+            flex-direction: row;
+            margin-top: 25px;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 9px;
+
+            .serial {
+                font-family: PoppinsBold;
+                font-size: 22px;
+                color: black;
+            }
+
+            .copySerial {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .br {
+            // margin: 10px 0;
+            height: 0.5px;
+            width: 100%;
+            background-color: #EBEBEB;
+            width: -webkit-fill-available;
+        }
+
+        .stepsToRecharge {
+            margin-top: 20px;
+            background-color: #f2f4f7;
+            border-radius: 9px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            width: 100%;
+
+            .steps {
+                display: flex;
+                padding: 3px 0;
+                align-items: center;
+
+                .dot {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background-color: #7588A0;
+                }
+
+                .textStep {
+                    font-family: PoppinsMedium;
+                    font-size: 14px;
+                    color: black;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}

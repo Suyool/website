@@ -1,0 +1,155 @@
+#ReCharge {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: hidden;
+    padding: 20px 15px;
+
+    .mainTitle {
+        font-family: PoppinsMedium;
+        font-size: 16px;
+        color: black;
+        width: 100%;
+    }
+
+    .mainDesc {
+        font-family: PoppinsRegular;
+        font-size: 13px;
+        color: black;
+        width: 100%;
+    }
+
+    // .searchSection {
+    //     padding-top: 12px;
+    //     position: relative;
+    //     width: 100%;
+
+    //     .searchInput {
+    //         background-color: #f4f4f4;
+    //         border: none;
+    //         border-radius: 8px;
+    //         padding: 16px 10px 14px 50px;
+    //         font-family: PoppinsRegular;
+    //         font-size: 16px;
+    //         color: black;
+    //         width: 100%;
+    //     }
+
+    //     .searchImg {
+    //         position: absolute;
+    //         left: 10px;
+    //         bottom: 13px;
+    //         width: 30px;
+    //         height: 30px;
+    //     }
+    // }
+
+    // .bundlesSection {
+    //     margin-top: 20px;
+    //     width: 100%;
+    //     display: flex;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+    //     justify-content: space-between;
+    //     height: 75vh;
+    //     overflow-y: auto;
+    //     overflow-x: hidden;
+    //     align-content: flex-start;
+
+    //     .bundleGrid {
+    //         width: 48%;
+    //         display: flex;
+    //         flex-direction: row;
+    //         padding: 12px 15px;
+    //         border: 1px solid #edf0f3;
+    //         border-radius: 7px;
+    //         justify-content: space-around;
+    //         margin-top: 13px;
+
+
+    //         .GridImg {
+    //             width: 55px;
+    //             height: 55px;
+    //             border-radius: 50%;
+    //         }
+
+    //         .gridDesc {
+    //             display: flex;
+    //             flex-direction: column;
+
+    //             .Price {
+    //                 font-family: PoppinsBold;
+    //                 color: black;
+    //                 width: 20px;
+    //             }
+
+    //             .bundleName {
+    //                 font-family: PoppinsRegular;
+    //                 font-size: 13px;
+    //                 color: #929292;
+    //             }
+    //         }
+    //     }
+
+    // }
+
+    .bundlesSection {
+        // margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        // height: 75vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        align-content: flex-start;
+
+        .bundleGrid {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding: 17px 15px;
+            border: 1px solid #edf0f3;
+            border-radius: 7px;
+            justify-content: space-around;
+            margin-top: 13px;
+            box-shadow: 0px 3px 10px #D8DEE6;
+
+            .GridImg {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+            }
+
+            .gridDesc {
+                display: flex;
+                flex-direction: column;
+                width: 70%;
+
+                .Price {
+                    font-family: PoppinsBold;
+                    color: black;
+                    font-size: 20px;
+                    span{
+                        font-size: 12px;
+                        font-family: PoppinsRegular;
+                        padding-left: 12px;
+                        color: black;
+                    }
+                }
+
+                .bundleName {
+                    font-family: PoppinsRegular;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #929292;
+                }
+            }
+        }
+
+    }
+}

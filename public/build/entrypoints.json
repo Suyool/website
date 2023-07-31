@@ -15,7 +15,25 @@
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.1e0a3f89.js"
+        "/build/LegalEnrollement.67d25036.js"
+      ]
+    },
+    "Alfa": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.fbb8fb35.js"
+      ]
+    },
+    "Touch": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.fa25b735.js"
+      ]
+    },
+    "Ogero": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.9cf2dfb6.js"
       ]
     },
     "styles": {
@@ -40,6 +58,30 @@
       ],
       "css": [
         "/build/LegalEnrollementStyle.5fad0f46.css"
+      ]
+    },
+    "AlfaStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/AlfaStyle.22181f55.css"
+      ]
+    },
+    "TouchStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/TouchStyle.43496b1a.css"
+      ]
+    },
+    "OgeroStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/OgeroStyle.4834972a.css"
       ]
     }
   }

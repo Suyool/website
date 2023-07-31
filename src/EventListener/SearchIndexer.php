@@ -13,21 +13,21 @@ class SearchIndexer
     {
     }
 
-    public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getObject();
+    // public function prePersist(LifecycleEventArgs $args)
+    // {
+    //     $entity = $args->getObject();
 
-        if(!$entity->getId()) {
-            $entity->setCreateDate(new \DateTime());
-        }
+    //     if(!$entity->getId()) {
+    //         $entity->setCreateDate(new \DateTime());
+    //     }
 
-        $entity->setUpdateDate(new \DateTime());
-    }
+    //     $entity->setUpdateDate(new \DateTime());
+    // }
 
-    public function preUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getObject();
+    // public function preUpdate(LifecycleEventArgs $args)
+    // {
+    //     $entity = $args->getObject();
 
-        $entity->setUpdateDate(new \DateTime());
-    }
+    //     $entity->setUpdateDate(new \DateTime());
+    // }
 }

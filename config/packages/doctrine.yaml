@@ -8,6 +8,14 @@ doctrine:
                 url: '%env(resolve:SHOPIFY_DATABASE_URL)%'
             loto:
                 url: '%env(resolve:LOTO_DATABASE_URL)%'
+            alfa:
+                url: '%env(resolve:ALFA_DATABASE_URL)%'
+            touch:
+                url: '%env(resolve:TOUCH_DATABASE_URL)%'
+            estore:
+                url: '%env(resolve:ESTORE_DATABASE_URL)%'
+            notification:
+                url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
         default_connection: default        
         # charset: UTF8
         # logging: true
@@ -48,6 +56,43 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Loto'
                         prefix: 'App\Entity\Loto'
                         alias: Loto
+            touch:
+                connection: touch
+                mappings:
+                    Touch:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Touch'
+                        prefix: 'App\Entity\Touch'
+                        alias: Touch
+            alfa:
+                connection: alfa
+                mappings:
+                    Alfa:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Alfa'
+                        prefix: 'App\Entity\Alfa'
+                        alias: Alfa
+            estore:
+                connection: estore
+                mappings:
+                    Estore:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Estore'
+                        prefix: 'App\Entity\Estore'
+                        alias: Estore
+            notification:
+                connection: notification
+                mappings:
+                    Notification:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Notification'
+                        prefix: 'App\Entity\Notification'
+                        alias: Notification
+                        
         # dql:
         #     datetime_functions:
         #         UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp

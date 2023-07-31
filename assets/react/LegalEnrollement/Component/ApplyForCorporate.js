@@ -84,6 +84,8 @@ const ApplyForCorporate = ({ steSent }) => {
 
         if (!formData.businessType.trim()) {
             newErrors.businessType = "Type of Business is required";
+        }else if(formData.businessType == 0){
+            newErrors.businessType = "You should select one";
         }
 
         if (!formData.phoneNumber.trim()) {
@@ -173,15 +175,24 @@ const ApplyForCorporate = ({ steSent }) => {
         );
     };
 
- 
+
 
     const searchInput = useRef(null);
-    const [getaddress, setAddress] = useState({});
-
     const initMapScript = () => { if (window.google) return Promise.resolve(); const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`; return loadAsyncScript(src); }
-    const onChangeAddress = (autocomplete) => { const place = autocomplete.getPlace(); setAddress(extractAddress(place)); }
-    const initAutocomplete = () => { if (!searchInput.current) return; const autocomplete = new window.google.maps.places.Autocomplete(searchInput.current); autocomplete.setFields(["address_component", "geometry"]); autocomplete.addListener("place_changed", () => onChangeAddress(autocomplete)); }
+    const initAutocomplete = () => {
+        if (!searchInput.current) return;
+        const autocomplete = new window.google.maps.places.Autocomplete(searchInput.current);
+        autocomplete.setFields(["address_component", "geometry", "name"]);
+        autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            const formattedAddress = place.name;
 
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                address: formattedAddress,
+            }));
+        });
+    };
     useEffect(() => { initMapScript().then(() => initAutocomplete()) }, []);
 
     return (
