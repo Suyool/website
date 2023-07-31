@@ -360,7 +360,7 @@ class AlfaController extends AbstractController
      */
     public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
     {
-        $session = 155;
+        $session = 89;
         $app_id = 3;
         $data = json_decode($request->getContent(), true);
         $flagCode = null;
