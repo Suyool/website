@@ -89,7 +89,7 @@ class NotificationServices
         eval("\$proceedButton = \"$proceedButton\";");
         // echo "<br>" . $proceedButton;
 
-        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton,$notTemplate->getisInbox(),$notTemplate->getflag());
+        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton,$notTemplate->getisInbox(),$notTemplate->getflag(),$notTemplate->getnotificationType(),$notTemplate->getisPayment(),$notTemplate->getisDebit());
         // echo json_encode($PushSingle);
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);

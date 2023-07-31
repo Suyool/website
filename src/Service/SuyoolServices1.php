@@ -164,13 +164,8 @@ class SuyoolServices1
     /*
      * Push Single Notification
      */
-    public function PushSingleNotification($userId, $title, $subject, $body, $notification,$proceedButton,$isInbox,$flag)
+    public function PushSingleNotification($userId, $title, $subject, $body, $notification,$proceedButton,$isInbox,$flag,$notificationType,$isPayment,$isDebit)
     {
-        if($isInbox == 0){
-            $inbox = false;
-        }else{
-            $inbox = true;
-        }
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NotificationServiceApi/Notification/PushSingleNotification", [
             'body' => json_encode([
                 'userID' => $userId,
@@ -178,29 +173,12 @@ class SuyoolServices1
                 'subject' => $subject,
                 'body' => $body,
                 'notification' => $notification,
-                // 'body' => 'Test inside body notif',
-                // 'notification' => "test outside",
-                // 'generator' => '20',
-                // 'isNotification' => true,
-                'isInbox' => $inbox,
-                // 'isInbox' => false,
-                'isPayment' => true,
-                'isDebit' => true,
-                // 'isRequest' => true,
-                // 'isMerchant' => true,
-                // 'isAuthentication' => true,
+                'isInbox' => $isInbox,
+                'isPayment' => $isPayment,
+                'isDebit' => $isDebit,
                 'flag' => $flag,
-                // 'flag' => 94,
                 'additionalData' => '*14*763737378387#',
-                // 'refNo' => 'string',
-                // 'imageURL' => 'string',
-                'notifType' => 1,
-                // 'actionButtons' => [[
-                //     'flag' => 0,
-                //     'description' => $proceedButton,
-                //     'additionalData' => "string",
-                //     'isAuthentication' => true,
-                // ]],
+                'notifType' => $notificationType,
                 'proceedButton' => $proceedButton,
                 'cancelButton' => 'Cancel',
             ]),

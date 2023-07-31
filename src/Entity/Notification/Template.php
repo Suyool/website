@@ -83,6 +83,19 @@ class Template
 
     /**
      * 
+     * @ORM\Column(name="isPayment",type="integer")
+     */
+    private $isPayment;
+
+    /**
+     * 
+     * @ORM\Column(name="isDebit",type="integer")
+     */
+    private $isDebit;
+
+
+    /**
+     * 
      * @ORM\Column(name="flag",type="integer")
      */
     private $flag;
@@ -208,16 +221,21 @@ class Template
         return $this;
     }
 
-    // public function getinformativeOriginalWSamount()
-    // {
-    //     return $this->informativeOriginalWSamount;
-    // }
+    public function getisPayment()
+    {
+        if($this->isPayment == 1){
+            return true;
+        }else{
+            return false;
+        }
+        // return $this->isPayment;
+    }
 
-    // public function setinformativeOriginalWSamount($informativeOriginalWSamount)
-    // {
-    //     $this->informativeOriginalWSamount = $informativeOriginalWSamount;
-    //     return $this;
-    // }
+    public function setisPayment($isPayment)
+    {
+        $this->isPayment = $isPayment;
+        return $this;
+    }
 
     public function getproceedButtonAR()
     {
@@ -241,16 +259,21 @@ class Template
         return $this;
     }
 
-    // public function getrounding()
-    // {
-    //     return $this->rounding;
-    // }
+    public function getisDebit()
+    {
+        if($this->isDebit == 1){
+            return true;
+        }else{
+            return false;
+        }
+        // return $this->isDebit;
+    }
 
-    // public function setrounding($rounding)
-    // {
-    //     $this->rounding = $rounding;
-    //     return $this;
-    // }
+    public function setisDebit($isDebit)
+    {
+        $this->isDebit = $isDebit;
+        return $this;
+    }
 
     // public function getadditionalfees()
     // {
@@ -309,7 +332,12 @@ class Template
 
     function getisInbox()
     {
-        return $this->isInbox;
+        if($this->isInbox == 1){
+            return true;
+        }else{
+            return false;
+        }
+        // return $this->isInbox;
     }
 
     function setisInbox($isInbox)
