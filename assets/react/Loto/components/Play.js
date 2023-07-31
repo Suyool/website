@@ -31,7 +31,7 @@ const Play = ({
   }, []);
 
   const [getPlayedBalls, setPlayedBalls] = useState(
-    JSON.parse(selectedBallsToShow) 
+    JSON.parse(selectedBallsToShow) || []
   );
 
 
@@ -39,13 +39,18 @@ const Play = ({
     setPlayedBalls(JSON.parse(selectedBallsToShow));
   }, [selectedBallsToShow]);
 
-getPlayedBalls.forEach((item) => {
-    totalPrice += item.price;
-});
+  if(getPlayedBalls != null){
+    getPlayedBalls.forEach((item) => {
+      totalPrice += item.price;
+  });
+  const hasBalls = getPlayedBalls.some((item) => item.hasOwnProperty("balls"));
+
+  }
+
+
 
 // console.log(parseInt(totalPrice));
 
-  const hasBalls = getPlayedBalls.some((item) => item.hasOwnProperty("balls"));
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];

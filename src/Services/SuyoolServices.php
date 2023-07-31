@@ -53,6 +53,8 @@ class SuyoolServices
 
         }
 
+        // dd($push_utility_response);
+
         $globalCode = $push_utility_response['globalCode'];
         $message=$push_utility_response['data'];
         $flagCode=$push_utility_response['flagCode'];

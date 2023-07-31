@@ -79,25 +79,27 @@ class LotoServices
     {
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        $token = $this->Login();
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
-            'body' => json_encode([
-                'Token' => $token,
-                'fromDate' =>  date('Y-m-d'),
-                'toDate' => date('Y-m-d', strtotime("+1 day")),
-                'transactionType' => 0
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-        $content = $response->toArray();
+        // $token = $this->Login();
+        // $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
+        //     'body' => json_encode([
+        //         'Token' => $token,
+        //         'fromDate' =>  date('Y-m-d'),
+        //         'toDate' => date('Y-m-d', strtotime("+1 day")),
+        //         'transactionType' => 0
+        //     ]),
+        //     'headers' => [
+        //         'Content-Type' => 'application/json'
+        //     ]
+        // ]);
+        // $content = $response->toArray();
 
-        $historyEntries = $content['d']['historyEntries'];
-        foreach ($historyEntries as $historyEntries) {
-            $historyId[] = $historyEntries['historyId'];
-        }
-        $historyId = $historyId[0];
+        // $historyEntries = $content['d']['historyEntries'];
+        // foreach ($historyEntries as $historyEntries) {
+        //     $historyId[] = $historyEntries['historyId'];
+        // }
+        // $historyId = $historyId[0];
+
+        $historyId=5227340;
 
         return $historyId;
     }
@@ -106,26 +108,31 @@ class LotoServices
     {
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        $token = $this->Login();
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
-            'body' => json_encode([
-                'Token' => $token,
-                'drawNumber' => $draw,
-                'numDraws' => 1,
-                'withZeed' => $withZeed,
-                'saveToFavorite' => 1,
-                'GridsSelected' => $gridselected
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        // $token = $this->Login();
+        // $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
+        //     'body' => json_encode([
+        //         'Token' => $token,
+        //         'drawNumber' => $draw,
+        //         'numDraws' => 1,
+        //         'withZeed' => $withZeed,
+        //         'saveToFavorite' => 1,
+        //         'GridsSelected' => $gridselected
+        //     ]),
+        //     'headers' => [
+        //         'Content-Type' => 'application/json'
+        //     ]
+        // ]);
 
-        $content = $response->toArray();
+        // $content = $response->toArray();
 
-        $submit = $content['d']['errorinfo']['errorcode'];
+        // $submit = $content['d']['errorinfo']['errorcode'];
+        $submit = 0;
+        $zeed=null;
         if ($submit == 0) {
-            $zeed = $content['d']['insertId'];
+            // $zeed = $content['d']['insertId'];
+            if($withZeed){
+                $zeed = 45676;
+            }
             return array(true, $zeed);
         } else {
             return array(false);

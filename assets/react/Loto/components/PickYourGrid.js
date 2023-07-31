@@ -150,6 +150,8 @@ const PickYourGrid = ({
 
   const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
 
+  console.log(selectedBalls);
+
   return (
     <div className="PickYourGrid">
       <div className="topSectionPick">
@@ -159,13 +161,20 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-          {selectedBalls.map((number, index) => (
-            <div key={index} id={`${getPlay && number == null && index > 5 ? `boxappear${index}` : ""}`}>
-              <span className={`${number !== null ? "active" : ""}`}>
-                {number}
-              </span>
-              <div className="shadow"></div>
-            </div>
+          {selectedBalls.length }
+           {selectedBalls.map((number, index) => (
+            index > 5 ? (<div><div key={index} id={`${getPlay && number == null && index > 5 ? `boxappear${index}` : ""}`}>
+            <span className={`${number !== null ? "active" : ""}`}>
+              {number}
+            </span>
+            <div className="shadow"></div>
+          </div></div>) : (<div key={index} id={`${getPlay && number == null && index > 5 ? `boxappear${index}` : ""}`}>
+            <span className={`${number !== null ? "active" : ""}`}>
+              {number}
+            </span>
+            <div className="shadow"></div>
+          </div>)
+            
           ))}
         </div>
       </div>

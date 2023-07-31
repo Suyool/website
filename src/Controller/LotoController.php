@@ -363,7 +363,7 @@ class LotoController extends AbstractController
                 // dd($sum);
                 $id = $orderid->getId();
 
-                $pushutility = $this->suyoolServices->PushUtilities($session, $id, $sum, $orderid->getcurrency(), $this->hash_algo, $this->certificate);
+                $pushutility = $this->suyoolServices->PushUtilities($session, $id, $sum, $lotoid->getcurrency(), $this->hash_algo, $this->certificate);
                 // dd($pushutility);
 
 
