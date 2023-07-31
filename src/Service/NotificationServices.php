@@ -26,7 +26,7 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function PushSingleNotification($notificationId, $userId, $notificationTemplate, $params)
+    public function PushSingleNotification($notificationId, $userId, $notificationTemplate, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
         foreach ($paramsTextDecoded as $field => $value) {
@@ -89,7 +89,7 @@ class NotificationServices
         eval("\$proceedButton = \"$proceedButton\";");
         // echo "<br>" . $proceedButton;
 
-        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton,$notTemplate->getisInbox(),$notTemplate->getflag(),$notTemplate->getnotificationType(),$notTemplate->getisPayment(),$notTemplate->getisDebit());
+        $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
         // echo json_encode($PushSingle);
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
@@ -126,7 +126,7 @@ class NotificationServices
         return 1;
     }
 
-    public function addNotification($userId, $notificationTemplate,$params)
+    public function addNotification($userId, $notificationTemplate, $params, $additionalData)
     {
 
         $notification = new Notification;
@@ -135,7 +135,8 @@ class NotificationServices
             ->settemplateId($notificationTemplate)
             ->setstatus("pending")
             ->seterrorMsg(null)
-            ->setparams($params);
+            ->setparams($params)
+            ->setadditionalData($additionalData);
 
         $this->mr->persist($notification);
         $this->mr->flush();

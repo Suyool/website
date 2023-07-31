@@ -164,7 +164,7 @@ class SuyoolServices1
     /*
      * Push Single Notification
      */
-    public function PushSingleNotification($userId, $title, $subject, $body, $notification,$proceedButton,$isInbox,$flag,$notificationType,$isPayment,$isDebit)
+    public function PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
     {
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NotificationServiceApi/Notification/PushSingleNotification", [
             'body' => json_encode([
@@ -177,7 +177,7 @@ class SuyoolServices1
                 'isPayment' => $isPayment,
                 'isDebit' => $isDebit,
                 'flag' => $flag,
-                'additionalData' => '*14*763737378387#',
+                'additionalData' => $additionalData,
                 'notifType' => $notificationType,
                 'proceedButton' => $proceedButton,
                 'cancelButton' => 'Cancel',

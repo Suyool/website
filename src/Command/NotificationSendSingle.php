@@ -38,7 +38,7 @@ class NotificationSendSingle extends Command
         $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);
 
         foreach ($not as $notify) {
-            $PushSingleNot = $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparams());
+            $PushSingleNot = $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $notify->gettemplateId(), $notify->getparams(), $notify->getadditionalData());
         }
 
         $output->writeln([

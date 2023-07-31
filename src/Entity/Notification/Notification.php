@@ -46,6 +46,12 @@ class Notification
     private $params;
 
     /**
+     * @ORM\Column(name="additionalData")
+     */
+    private $additionalData;
+
+
+    /**
      * @ORM\Column(name="titleOut")
      */
     private $titleOut;
@@ -90,6 +96,17 @@ class Notification
     public function setuserId($userId)
     {
         $this->userId = $userId;
+        return $this;
+    }
+
+    public function getadditionalData()
+    {
+        return $this->additionalData;
+    }
+
+    public function setadditionalData($additionalData)
+    {
+        $this->additionalData = $additionalData;
         return $this;
     }
 

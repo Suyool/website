@@ -265,7 +265,8 @@ class AlfaController extends AbstractController
                         'currency' => $order->getcurrency(),
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
-                    $notificationServices->addNotification($session, 3, $params);
+                    $additionalData = "";
+                    $notificationServices->addNotification($session, 3, $params,$additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -359,7 +360,7 @@ class AlfaController extends AbstractController
      */
     public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
     {
-        $session = 89;
+        $session = 155;
         $app_id = 3;
         $data = json_decode($request->getContent(), true);
         $flagCode = null;
@@ -436,7 +437,8 @@ class AlfaController extends AbstractController
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);
-                    $notificationServices->addNotification($session, 4, $params);
+                    $additionalData = "*14*".$prepaid->getvoucherSerial()."#";
+                    $notificationServices->addNotification($session, 4, $params,$additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -478,13 +480,13 @@ class AlfaController extends AbstractController
                     ->setstatus("canceled");
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
-                $IsSuccess = false;
-                $message = $response[1];
-                $dataPayResponse = -1;
                 // $IsSuccess = false;
-                // $message = json_decode($response[1], true);
-                // $flagCode = $response[2];
+                // $message = $response[1];
                 // $dataPayResponse = -1;
+                $IsSuccess = false;
+                $message = json_decode($response[1], true);
+                $flagCode = $response[2];
+                $dataPayResponse = -1;
             }
         } else {
             $IsSuccess = false;
@@ -496,6 +498,7 @@ class AlfaController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
+            'flagCode' => $flagCode,
             'data' => $dataPayResponse
         ], 200);
     }
