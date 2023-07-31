@@ -13,6 +13,7 @@ const PickYourGrid = ({
   setModalName,
   setModalShow,
 }) => {
+  
   const [selectedBalls, setSelectedBalls] = useState([]);
   useEffect(() => {
     if (getBallPlayed.length == 0) {
@@ -79,16 +80,16 @@ const PickYourGrid = ({
       }
     });
     if (getPlay) {
-        const availableBalls = ballNumbers;
-        const randomBalls = [];
+      const availableBalls = ballNumbers;
+      const randomBalls = [];
       while (randomBalls.length < 6) {
         const randomIndex = Math.floor(Math.random() * availableBalls.length);
         randomBalls.push(availableBalls[randomIndex]);
         availableBalls.splice(randomIndex, 1);
       }
       const filledBalls = randomBalls.concat(Array(4).fill(null));
-  setSelectedBalls(filledBalls);
-    //   return randomBalls;
+      setSelectedBalls(filledBalls);
+      //   return randomBalls;
     }
   };
 
@@ -97,8 +98,7 @@ const PickYourGrid = ({
     if (selectedBalls.length > 5) {
       setIsHide(false);
 
-      const filteredBalls = selectedBalls.filter(ball => ball !== null);
-
+      const filteredBalls = selectedBalls.filter((ball) => ball !== null);
 
       if (filteredBalls.length < 6) {
         setModalName("ErrorModal");
@@ -150,8 +150,6 @@ const PickYourGrid = ({
 
   const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
 
-  console.log(selectedBalls);
-
   return (
     <div className="PickYourGrid">
       <div className="topSectionPick">
@@ -161,21 +159,40 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-          {selectedBalls.length }
-           {selectedBalls.map((number, index) => (
-            index > 5 ? (<div><div key={index} id={`${getPlay && number == null && index > 5 ? `boxappear${index}` : ""}`}>
-            <span className={`${number !== null ? "active" : ""}`}>
-              {number}
-            </span>
-            <div className="shadow"></div>
-          </div></div>) : (<div key={index} id={`${getPlay && number == null && index > 5 ? `boxappear${index}` : ""}`}>
-            <span className={`${number !== null ? "active" : ""}`}>
-              {number}
-            </span>
-            <div className="shadow"></div>
-          </div>)
-            
-          ))}
+          {selectedBalls.map((number, index) =>
+            index <= 5 ? (
+              <div
+                key={index}
+                id={`${
+                  getPlay && number == null && index > 5
+                    ? `boxappear${index}`
+                    : ""
+                }`}
+              >
+                <span className={`${number !== null ? "active" : ""}`}>
+                  {number}
+                </span>
+                <div className="shadow"></div>
+              </div>
+            ) : null
+          )}
+          { selectedBalls.slice(6).length > 0 && (
+            <div style={{display:"flex"}}>
+              {selectedBalls.slice(6).map((number, index) => (
+                <div
+                  key={index}
+                  id={`${
+                    getPlay && number == null ? `boxappear${index + 6}` : ""
+                  }`}
+                >
+                  <span className={`${number !== null ? "active" : ""}`}>
+                    {number}
+                  </span>
+                  <div className="shadow"></div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

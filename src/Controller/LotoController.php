@@ -45,30 +45,12 @@ class LotoController extends AbstractController
         $this->suyoolServices = $suyoolServices;
     }
 
-    function safeDecrypt(string $encrypted, string $key): string
-    {
-        $decoded = base64_decode($encrypted);
-        $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
-        $ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
-
-        $plain = sodium_crypto_secretbox_open(
-            $ciphertext,
-            $nonce,
-            $key
-        );
-        if (!is_string($plain)) {
-            throw new Exception('Invalid MAC');
-        }
-        sodium_memzero($ciphertext);
-        sodium_memzero($key);
-        return $plain;
-    }
-
     /**
      * @Route("/loto", name="app_loto")
      */
     public function index(Request $request, ManagerRegistry $em, HttpClientInterface $client)
     {
+        // dd($this->LotoServices->playLoto(1,2,1));
         // $string_to_encrypt = "89Android";
         // $password = "password";
         // $encrypted_string = openssl_encrypt($string_to_encrypt, "AES-128-ECB", $password);
@@ -207,9 +189,8 @@ class LotoController extends AbstractController
         // dd($session);
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
-        $today = new DateTime("-30 minutes");
-        $nextThursday = $today->modify('+2 hour 30 minutes');
-        $nextDate = $nextThursday->format('Y/m/d');
+        $today = new DateTime();
+
 
         if (isset($session)) {
             $data = json_decode($request->getContent(), true);
@@ -224,7 +205,6 @@ class LotoController extends AbstractController
                 $numDraws = 1;
 
                 $drawnumber = $loto_draw->getdrawId();
-
                 $ballsArray = [];
 
                 $ballsArrayNoZeed = [];
@@ -342,9 +322,13 @@ class LotoController extends AbstractController
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                 $i = sizeof($lotoid);
                 $sum = 0;
-                $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
                 // $WarningPopUp=json_encode($warning,true);
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
+                    $nextThursday = $today->modify('+2 hour 30 minutes');
+
+                    $nextDate = $nextThursday->format('Y/m/d');
+                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
+
                     $orderid->setstatus("canceled");
 
                     $this->mr->persist($orderid);
@@ -674,6 +658,11 @@ class LotoController extends AbstractController
             $status = false;
             $message = "Don't have userId in session please contact the administrator or login";
         }
+
+        return new JsonResponse([
+            'status' => $status,
+            'message' => $message
+        ], 200);
     }
 
     /**

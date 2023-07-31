@@ -53,20 +53,22 @@ class PlayLoto extends Command
 
         $play  = 1;
         $newsum = 0;
-        // $additionaldata[] = ['ticketId'=>123,'zeed'=>1,'bouquet'=>false];
-        // dd(json_encode($additionaldata));
-        // $array1=[1];
-        // $array=[1,2,3,4];
-        // foreach($array as $array){
-        //     $ticketId=1;
-        //     $zeed=1;
-        //     $bouquet=1;
+        // $additionaldata = [];
+        // $newElement = [];
+        // $array = [1, 2, 3, 4];
+        // $count = [];
+        // foreach ($array as $array) {
+        //     $ticketId = 1;
+        //     $zeed = 1;
+        //     $bouquet = 1;
         //     $newElement = ['ticketId' => $ticketId, 'zeed' => $zeed, 'bouquet' => $bouquet];
         //     $additionaldata[] = [$newElement];
+        //     // $count['count'] = count($additionaldata);
+        //     // $additionaldata[] = $count;
         // }
-        // $count['count']=count($additionaldata);
-        // $additionaldata[]=$count;
-        // $additionalData=json_encode($additionaldata,true);
+        // $count['count'] = count($additionaldata);
+        // $additionaldata[] = $count;
+        // $additionalData = json_encode($additionaldata, true);
         // dd($additionalData);
         while ($play) {
             $heldOrder = $this->mr->getRepository(order::class)->findBy(['status' => 'held']);
@@ -75,35 +77,43 @@ class PlayLoto extends Command
             }
             foreach ($heldOrder as $held) {
                 $lotoToBePlayed = $this->mr->getRepository(loto::class)->lotoToBePlayed($held->getId());
-                $additionaldata=[];
-                $newElement=[];
-                $count=[];
-                $newsum=0;
+                $additionaldata = [];
+                $newElement = [];
+                $count = [];
+                $newsum = 0;
                 // dd($lotoToBePlayed);
                 foreach ($lotoToBePlayed as $lotoToBePlayed) {
+                    $newElement=[];
                     $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected());
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(1);
                             $ticketId = $this->lotoServices->GetTicketId();
                             sleep(1);
-                            $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            // $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            $BouquetGrids="1 2 3 4 5 6";
                             $lotoToBePlayed->setticketId($ticketId);
                             $lotoToBePlayed->setzeednumber($submit[1]);
                             $lotoToBePlayed->setgridSelected($BouquetGrids);
 
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();
-                            if($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()){
+                            if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            }else if(!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()){
+                            } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            }else if($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()){
+                            } else if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
-                            }else{
+                            } else {
                                 $newElement = ['ticketId' => $ticketId];
                             }
                             // $additionaldata[] = $newElement;
+                        } else {
+                            $errorInfo = ['errorCode' => $submit[1], 'errorMsg' => $submit[2]];
+                            $errorInfo = json_encode($errorInfo, true);
+                            $lotoToBePlayed->seterror($errorInfo);
+                            $this->mr->persist($lotoToBePlayed);
+                            $this->mr->flush();
                         }
                     } else {
                         if ($submit[0]) {
@@ -115,22 +125,31 @@ class PlayLoto extends Command
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();
                             // $ticketId = 522;
-                            if($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()){
+                            if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            }else if(!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()){
+                            } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            }else if($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()){
+                            } else if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
-                            }else{
+                            } else {
                                 $newElement = ['ticketId' => $ticketId];
                             }
-
+                        } else {
+                            $errorInfo = ['errorCode' => $submit[1], 'errorMsg' => $submit[2]];
+                            $errorInfo = json_encode($errorInfo, true);
+                            $lotoToBePlayed->seterror($errorInfo);
+                            $this->mr->persist($lotoToBePlayed);
+                            $this->mr->flush();
                         }
                     }
-                    $additionaldata[] = [$newElement];
-                    $count['count']=count($additionaldata);
-                    $additionaldata[]=$count;
+                    if($newElement != null && !empty($newElement)){
+                        $additionaldata[] = [$newElement];
+                    }
+                          
                 }
+                $count['count'] = count($additionaldata);
+                $additionaldata[] = $count;
+
                 $held->setstatus("purchased");
                 $this->mr->persist($held);
                 $this->mr->flush();

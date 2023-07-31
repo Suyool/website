@@ -7,9 +7,9 @@ const Play = ({
   setBallNumbers,
   setTotalAmount,
   setActiveButton,
-  getDisabledBtn,
+  
   setIsHide,
-  setDisabledBtn,
+  
   setHeaderTitle,
   setBackLink,
   setPlay
@@ -18,6 +18,9 @@ const Play = ({
   const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   var totalPrice = 0;
+  const [getDisabledBtn, setDisabledBtn] = useState(
+    selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
+  );
 
 
   useEffect(() => {
@@ -37,6 +40,15 @@ const Play = ({
 
   useEffect(()=>{
     setPlayedBalls(JSON.parse(selectedBallsToShow));
+    if(selectedBallsToShow != null ){
+      if(JSON.parse(selectedBallsToShow).length == 0){
+        setDisabledBtn(true);
+      }else{
+        setDisabledBtn(false);
+      }
+        
+      }
+    
   }, [selectedBallsToShow]);
 
   if(getPlayedBalls != null){

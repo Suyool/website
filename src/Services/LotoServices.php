@@ -106,37 +106,49 @@ class LotoServices
 
     public function playLoto($draw, $withZeed, $gridselected)
     {
+        $retryattempt = 1;
+        while($retryattempt <= 2){
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
         // $token = $this->Login();
-        // $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
-        //     'body' => json_encode([
-        //         'Token' => $token,
-        //         'drawNumber' => $draw,
-        //         'numDraws' => 1,
-        //         'withZeed' => $withZeed,
-        //         'saveToFavorite' => 1,
-        //         'GridsSelected' => $gridselected
-        //     ]),
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ]
-        // ]);
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
+            'body' => json_encode([
+                'Token' => '',
+                'drawNumber' => $draw,
+                'numDraws' => 1,
+                'withZeed' => $withZeed,
+                'saveToFavorite' => 1,
+                'GridsSelected' => $gridselected
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
 
-        // $content = $response->toArray();
+        $content = $response->toArray();
 
-        // $submit = $content['d']['errorinfo']['errorcode'];
-        $submit = 0;
-        $zeed=null;
-        if ($submit == 0) {
-            // $zeed = $content['d']['insertId'];
-            if($withZeed){
-                $zeed = 45676;
-            }
-            return array(true, $zeed);
-        } else {
-            return array(false);
+        
+        if($retryattempt == 2){
+            $submit = 0;
+        }else{
+            $submit = $content['d']['errorinfo']['errorcode'];
         }
+       
+            if ($submit == 0) {
+                // $zeed = $content['d']['insertId'];
+                $zeed=12345;
+                return array(true, $zeed);
+            } else {
+                sleep(10);
+                echo "attemp ".$retryattempt;
+                $retryattempt ++ ;
+            }
+        }
+        $error = $content['d']['errorinfo']['errormsg'];
+        return array(false,$submit,$error);
+       
+
+        
     }
 
     public function getDrawsResult()

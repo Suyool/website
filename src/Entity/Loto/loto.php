@@ -80,11 +80,13 @@ class loto
      */
     private $bouquet;
 
-     /**
+
+
+    /**
      * 
-     * @ORM\Column(name="iscompleted")
+     * @ORM\Column(name="errorInfo")
      */
-    private $iscompleted;
+    private $errorInfo;
 
 
     public function getId()
@@ -214,19 +216,14 @@ class loto
         return $this;
     }
 
-    public function getcompleted()
+    public function geterror()
     {
-        if($this->iscompleted){
-            return true;
-        }else{
-            return false;
-        }
-        // return $this->bouquet;
+        return $this->errorInfo;
     }
 
-    public function setcompleted($iscompleted)
+    public function seterror($errorInfo)
     {
-        $this->iscompleted=$iscompleted;
+        $this->errorInfo=$errorInfo;
         return $this;
     }
 

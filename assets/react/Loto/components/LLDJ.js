@@ -189,6 +189,7 @@ const LLDJ = ({
                       setTotalAmount(item.price);
                       setPickYourGrid(true);
                       setIsHide(true);
+                      setPlay(0);
                     }}
                   >
                     PLAY
