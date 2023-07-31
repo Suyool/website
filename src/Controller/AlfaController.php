@@ -6,8 +6,6 @@ use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\PostpaidRequest;
-use App\Entity\Notification\Notification;
-use App\Entity\Notification\Users;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
@@ -18,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AlfaController extends AbstractController
 {
@@ -482,9 +479,12 @@ class AlfaController extends AbstractController
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = json_decode($response[1], true);
-                $flagCode = $response[2];
+                $message = $response[1];
                 $dataPayResponse = -1;
+                // $IsSuccess = false;
+                // $message = json_decode($response[1], true);
+                // $flagCode = $response[2];
+                // $dataPayResponse = -1;
             }
         } else {
             $IsSuccess = false;
@@ -496,7 +496,6 @@ class AlfaController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
-            'flagCode' => $flagCode,
             'data' => $dataPayResponse
         ], 200);
     }

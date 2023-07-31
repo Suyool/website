@@ -9,6 +9,7 @@ use App\Entity\Touch\PostpaidRequest;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
+use App\Service\NotificationServices;
 use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -342,11 +343,13 @@ class TouchController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/touch/BuyPrePaid", name="app_touch_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
     {
         $session = 89;
-        $app_id = 3;
+        $app_id = 5;
         $data = json_decode($request->getContent(), true);
+        $flagCode = null;
+        // dd($data["desc"]);
 
         if ($data != null) {
             //Initial order with status pending
@@ -364,6 +367,7 @@ class TouchController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
             // dd($response);
             if ($response[0]) {
@@ -410,6 +414,15 @@ class TouchController extends AbstractController
                         ->setstatus("purchased");
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
+
+                    //intial notification
+                    $params = json_encode([
+                        'amount' => $order->getamount(),
+                        'currency' => $order->getcurrency(),
+                        'plan' => $data["desc"],
+                        'code' => $PayResonse["voucherSerial"],
+                    ]);
+                    $notificationServices->addNotification($session, 4, $params);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
