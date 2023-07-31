@@ -76,10 +76,20 @@
                 filter: blur(3px);
             }
 
-            #boxappear{
-                background-color: #1C2676;
+            #boxappear6{
+                position: relative;
+                left: 45px;
+                z-index: 2;
             }
-
+            #boxappear7{
+                position: relative;
+                left: 30px;
+                z-index: 1;
+            }
+            #boxappear8{
+                position: relative;
+                left: 15px;
+            }
 
         }
     }

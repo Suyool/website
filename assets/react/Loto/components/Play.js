@@ -8,9 +8,11 @@ const Play = ({
   setTotalAmount,
   setActiveButton,
   getDisabledBtn,
+  setIsHide,
   setDisabledBtn,
   setHeaderTitle,
-  setBackLink
+  setBackLink,
+  setPlay
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [checked, setChecked] = useState(false);
@@ -29,8 +31,13 @@ const Play = ({
   }, []);
 
   const [getPlayedBalls, setPlayedBalls] = useState(
-    JSON.parse(selectedBallsToShow) || []
+    JSON.parse(selectedBallsToShow) 
   );
+
+
+  useEffect(()=>{
+    setPlayedBalls(JSON.parse(selectedBallsToShow));
+  }, [selectedBallsToShow]);
 
 getPlayedBalls.forEach((item) => {
     totalPrice += item.price;
@@ -253,8 +260,12 @@ getPlayedBalls.forEach((item) => {
       <div
         className="addGrid"
         onClick={() => {
-          setActiveButton({ name: "LLDJ" });
-        }}
+          setBallNumbers(10);
+          setTotalAmount(0);
+        setPickYourGrid(true);
+        setIsHide(true);
+        setPlay(1)
+      }}
       >
         <span>+</span>
       </div>

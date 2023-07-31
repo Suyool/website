@@ -11,6 +11,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
 <<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
@@ -62,10 +63,13 @@
 =======
   "build/Loto.js": "/build/Loto.b09ecd17.js",
 >>>>>>> 61a7170 (pick your grid on play button)
+=======
+  "build/Loto.js": "/build/Loto.bcfa01f7.js",
+>>>>>>> f293bd1 (pick your grid ui)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
 >>>>>>> 9f65494 (handling popup with some functionality)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.bd1cfa73.css",
+  "build/Lotostyles.css": "/build/Lotostyles.dbf5c542.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",

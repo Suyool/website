@@ -94,10 +94,25 @@ const PickYourGrid = ({
 
   const handleDone = () => {
     const lastBall = selectedBalls[selectedBalls.length - 1];
-    if (selectedBalls.length > 5 || lastBall !== null) {
+    if (selectedBalls.length > 5) {
       setIsHide(false);
+
+      const filteredBalls = selectedBalls.filter(ball => ball !== null);
+
+
+      if (filteredBalls.length < 6) {
+        setModalName("ErrorModal");
+        setErrorModal({
+          img: "/build/images/Loto/error.png",
+          title: "Can not play grid",
+          desc: `You need to select at least 6 numbers`,
+        });
+        setModalShow(true);
+        return;
+      }
+
       const ballSet = {
-        balls: selectedBalls,
+        balls: filteredBalls,
         price: getTotalAmount,
         withZeed: false,
         currency: "LBP",

@@ -97,6 +97,7 @@ const App = ({ parameters }) => {
           )}
           {activeButton.name === "Play" && (
             <Play
+            parameters={parameters}
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               setBallPlayed={setBallPlayed}
@@ -106,6 +107,8 @@ const App = ({ parameters }) => {
               setActiveButton={setActiveButton}
               setDisabledBtn={setDisabledBtn}
               getDisabledBtn={getDisabledBtn}
+              setPlay={setPlay}
+              setIsHide={setIsHide}
             />
           )}
           {activeButton.name === "Result" && (

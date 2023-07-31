@@ -109,6 +109,7 @@ const LLDJ = ({
         <div className="questionsSection mt-3">
           <div className="title">What are you waiting for?</div>
           <button className="PlayBtn" onClick={() => {
+            setActiveButton({ name: "Play" });
             setBallNumbers(10);
             setTotalAmount(0);
           setPickYourGrid(true);
