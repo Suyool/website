@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 class order
 {
 
-    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

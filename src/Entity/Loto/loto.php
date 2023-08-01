@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class loto
 {
 
-    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
