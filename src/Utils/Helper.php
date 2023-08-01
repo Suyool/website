@@ -61,6 +61,8 @@ class Helper
                 'X-Shopify-Access-Token: ' . $accessToken,
             ]);
 
+            
+
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_VERBOSE, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

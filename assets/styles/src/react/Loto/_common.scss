@@ -60,3 +60,168 @@
         }
     }
 }
+
+#SuccessModal {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px 10px 10px;
+    align-items: center;
+    img {
+        width: 60px;
+        height: 60px;
+    }
+    .title {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: black;
+        padding-top: 33px;
+    }
+    .desc {
+        font-family: PoppinsMedium;
+        font-size: 15px;
+        color: black;
+        text-align: center;
+        padding-top: 2px;
+    }
+    .okiBtnModal{
+        margin-top: 40px;
+        padding: 15px;
+        font-family: PoppinsMedium;
+        font-size: 15px;
+        color: black;
+        background-color: #F4F4F4;
+        border-radius: 7px;
+        width: 100%;
+        border: none;
+    }
+}
+
+#ErrorModal {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px 10px 10px;
+    align-items: center;
+    img {
+        width: 60px;
+        height: 60px;
+    }
+    .title {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: black;
+        padding-top: 33px;
+    }
+    .desc {
+        font-family: PoppinsMedium;
+        font-size: 15px;
+        color: black;
+        text-align: center;
+        padding-top: 2px;
+    }
+    .buttonsDesign{
+        display: flex;
+        .okiBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: black;
+            background-color: #F4F4F4;
+            border-radius: 7px;
+            width: 100%;
+            border: none;
+            
+        }
+        .exchangeBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: #FFFFFF;
+            background-color: #226D96;
+            border-radius: 7px;
+            width: 100%;
+            border: none;
+            margin-left: 10px;
+        }
+    }
+    
+}
+
+#WarningModal {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px 10px 10px;
+    align-items: center;
+    img {
+        width: 60px;
+        height: 60px;
+    }
+    .title {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: black;
+        padding-top: 33px;
+    }
+    .desc {
+        font-family: PoppinsMedium;
+        font-size: 15px;
+        color: black;
+        text-align: center;
+        padding-top: 2px;
+    }
+    .buttonsDesign{
+        display: flex;
+        .okiBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: black;
+            background-color: #F4F4F4;
+            border-radius: 7px;
+            width: 50%;
+            border: none;
+            
+        }
+        .exchangeBtnModal{
+            margin-top: 40px;
+            padding: 15px 36px;
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: #FFFFFF;
+            background-color: #226D96;
+            border-radius: 7px;
+            width: 50%;
+            border: none;
+            margin-left: 10px;
+        }
+    }
+    
+}
+
+#MobileHeader {
+    background-image: linear-gradient(to bottom, #353A6A, #246992);
+    height: 46px;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    .back{
+        padding-left: 30px;
+    }
+    .headerTitle {
+        font-family: PoppinsSemiBold;
+        font-size: 15px;
+        color: white;
+    }
+    .empty{
+        padding-right: 50px;
+    }
+}

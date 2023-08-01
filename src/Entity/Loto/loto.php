@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class loto
 {
 
-    use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,7 +29,7 @@ class loto
      * 
      * @ORM\Column(name="ticketId")
      */
-    private $ticketId;
+    private $ticketId = 0;
 
     /**
      * 
@@ -58,6 +57,12 @@ class loto
 
      /**
      * 
+     * @ORM\Column(name="zeednumbers")
+     */
+    private $zeednumbers;
+
+     /**
+     * 
      * @ORM\Column(name="price")
      */
     private $price;
@@ -74,11 +79,13 @@ class loto
      */
     private $bouquet;
 
-     /**
+
+
+    /**
      * 
-     * @ORM\Column(name="iscompleted")
+     * @ORM\Column(name="errorInfo")
      */
-    private $iscompleted;
+    private $errorInfo;
 
 
     public function getId()
@@ -133,7 +140,12 @@ class loto
 
     public function getwithZeed()
     {
-        return $this->withZeed;
+        if($this->withZeed == true){
+            return 1;
+        }else{
+            return 0;
+        }
+        // return $this->withZeed;
     }
 
     public function setWithZeed($withZeed)
@@ -150,6 +162,17 @@ class loto
     public function setgridSelected($gridSelected)
     {
         $this->gridSelected=$gridSelected;
+        return $this;
+    }
+
+    public function getzeednumber()
+    {
+        return $this->zeednumbers;
+    }
+
+    public function setzeednumber($zeednumbers)
+    {
+        $this->zeednumbers=$zeednumbers;
         return $this;
     }
 
@@ -192,19 +215,14 @@ class loto
         return $this;
     }
 
-    public function getcompleted()
+    public function geterror()
     {
-        if($this->iscompleted){
-            return true;
-        }else{
-            return false;
-        }
-        // return $this->bouquet;
+        return $this->errorInfo;
     }
 
-    public function setcompleted($iscompleted)
+    public function seterror($errorInfo)
     {
-        $this->iscompleted=$iscompleted;
+        $this->errorInfo=$errorInfo;
         return $this;
     }
 

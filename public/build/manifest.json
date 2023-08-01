@@ -1,12 +1,83 @@
 {
   "build/app1.js": "/build/app1.3b7df2df.js",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.ffe283ef.js",
+<<<<<<< HEAD
   "build/LegalEnrollement.js": "/build/LegalEnrollement.67d25036.js",
   "build/Alfa.js": "/build/Alfa.fbb8fb35.js",
   "build/Touch.js": "/build/Touch.fa25b735.js",
   "build/Ogero.js": "/build/Ogero.9cf2dfb6.js",
+=======
+=======
+  "build/app1.js": "/build/app1.b8115c60.js",
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/Loto.js": "/build/Loto.48c3f269.js",
+>>>>>>> 9c9e0f8 (notification in loto and design)
+=======
+  "build/Loto.js": "/build/Loto.d63b56f8.js",
+>>>>>>> 350cbe9 (handle some notification bouquet with zeed and prices when command run)
+=======
+=======
+>>>>>>> 7eab9dc (public yarn prod)
+  "build/Loto.js": "/build/Loto.dbea2537.js",
+=======
+  "build/Loto.js": "/build/Loto.7300db77.js",
+>>>>>>> 0931518 (notification reminder)
+=======
+  "build/Loto.js": "/build/Loto.549c3bd0.js",
+>>>>>>> 6075dde (working on loto apis handling)
+=======
+  "build/Loto.js": "/build/Loto.62e25df3.js",
+>>>>>>> f5876ec (zeed results)
+=======
+  "build/Loto.js": "/build/Loto.8428e379.js",
+>>>>>>> d0d2b67 (zeed results)
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.1e0a3f89.js",
+>>>>>>> 495c552 (notification in loto and design)
+=======
+  "build/Loto.js": "/build/Loto.d0f5eaea.js",
+=======
+  "build/Loto.js": "/build/Loto.3d2a3e05.js",
+>>>>>>> 934552a (response handling with queuing scripts and fetch drawdetails command)
+=======
+  "build/Loto.js": "/build/Loto.037b173a.js",
+>>>>>>> 0278a81 (finish with handling response and loto process)
+=======
+  "build/Loto.js": "/build/Loto.e1dfc4b3.js",
+>>>>>>> 0a3f3dc (zeed results and fetch details command)
+=======
+  "build/Loto.js": "/build/Loto.6e862bbf.js",
+>>>>>>> 5194e47 (handle button play now)
+=======
+  "build/Loto.js": "/build/Loto.b09ecd17.js",
+>>>>>>> 61a7170 (pick your grid on play button)
+=======
+  "build/Loto.js": "/build/Loto.bcfa01f7.js",
+>>>>>>> f293bd1 (pick your grid ui)
+=======
+  "build/Loto.js": "/build/Loto.0291303d.js",
+>>>>>>> c03b8b4 (pick you grid ui)
+=======
+  "build/Loto.js": "/build/Loto.6dcb4029.js",
+>>>>>>> 8915cac (two attempts if i get error when i call to loto)
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.2a0493dc.js",
+>>>>>>> 9f65494 (handling popup with some functionality)
   "build/styles.css": "/build/styles.adb49e82.css",
-  "build/Lotostyles.css": "/build/Lotostyles.2a4800b6.css",
+  "build/Lotostyles.css": "/build/Lotostyles.dbf5c542.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.22181f55.css",
   "build/TouchStyle.css": "/build/TouchStyle.43496b1a.css",
@@ -141,6 +212,7 @@
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/unverified-msg.png": "/build/images/unverified-msg.png",
   "build/images/bank.png": "/build/images/bank.png",
+<<<<<<< HEAD
   "build/images/Ogero/ErrorImg.png": "/build/images/Ogero/ErrorImg.png",
   "build/images/Touch/ErrorImg.png": "/build/images/Touch/ErrorImg.png",
   "build/images/alfa/ErrorImg.png": "/build/images/alfa/ErrorImg.png",
@@ -149,6 +221,11 @@
   "build/images/Ogero/SuccessImg.png": "/build/images/Ogero/SuccessImg.png",
   "build/images/Touch/SuccessImg.png": "/build/images/Touch/SuccessImg.png",
   "build/images/alfa/SuccessImg.png": "/build/images/alfa/SuccessImg.png",
+=======
+  "build/images/Loto/error.png": "/build/images/Loto/error.png",
+  "build/images/decline.png": "/build/images/decline.png",
+  "build/images/Loto/success.png": "/build/images/Loto/success.png",
+>>>>>>> 9f65494 (handling popup with some functionality)
   "build/images/approved.png": "/build/images/approved.png",
   "build/images/Loto/resultSelected.png": "/build/images/Loto/resultSelected.png",
   "build/images/Loto/bouquet.png": "/build/images/Loto/bouquet.png",
@@ -161,6 +238,7 @@
   "build/images/Transfer.png": "/build/images/Transfer.png",
   "build/images/check.png": "/build/images/check.png",
   "build/images/check2.png": "/build/images/check2.png",
+  "build/images/Loto/warning.png": "/build/images/Loto/warning.png",
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/Payment.png": "/build/images/Payment.png",
   "build/images/commingSoon/twitter.png": "/build/images/commingSoon/twitter.png",
@@ -188,6 +266,7 @@
   "build/images/Touch/flag.png": "/build/images/Touch/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/remove-till.png": "/build/images/remove-till.png",
+<<<<<<< HEAD
   "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
   "build/images/Touch/clearNb.png": "/build/images/Touch/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
@@ -195,4 +274,8 @@
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png"
+=======
+  "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
+  "build/images/Loto/Back.png": "/build/images/Loto/Back.png"
+>>>>>>> 0278a81 (finish with handling response and loto process)
 }

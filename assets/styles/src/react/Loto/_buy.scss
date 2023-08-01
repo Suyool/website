@@ -48,6 +48,32 @@
 
                 span {
                     font-family: PoppinsSemiBold;
+                    font-size: 15px;
+                    align-items: center;
+                    background-color: #c82f2a;
+                    border-radius: 50%;
+                    box-shadow: 0 5px #e9e6e6;
+                    color: #fff;
+                    display: flex;
+                    // font-family: PoppinsSemiBold;
+                    // font-size: 15px;
+                    height: 30px;
+                    justify-content: center;
+                    margin-bottom: 6px;
+                    margin-right: 6px;
+                    padding: 10px;
+                    width: 30px;
+                }
+            }
+
+            .bouquetSection {
+                display: flex;
+                flex-direction: row;
+                width: 65%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: PoppinsSemiBold;
                     font-size: 20px;
                 }
             }

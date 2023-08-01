@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LOTO_numbers
 {
-    use DateTrait;
 
     /**
      * @ORM\Id

@@ -7,22 +7,62 @@ const Play = ({
   setBallNumbers,
   setTotalAmount,
   setActiveButton,
-  getDisabledBtn,
-  setDisabledBtn,
+  
+  setIsHide,
+  
+  setHeaderTitle,
+  setBackLink,
+  setPlay
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [checked, setChecked] = useState(false);
-
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  var totalPrice = 0;
+  const [getDisabledBtn, setDisabledBtn] = useState(
+    selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
+  );
+
 
   useEffect(() => {
+    setBackLink(localStorage.getItem('BackPage'));
+    setHeaderTitle("Play");
+    localStorage.setItem('BackPage','Play');
     setDisabledBtn(
       selectedBallsToShow == null ||
-      JSON.parse(selectedBallsToShow).length === 0
+        JSON.parse(selectedBallsToShow).length === 0
     );
   }, []);
 
-  const [getPlayedBalls, setPlayedBalls] = useState(JSON.parse(selectedBallsToShow) || []);
+  const [getPlayedBalls, setPlayedBalls] = useState(
+    JSON.parse(selectedBallsToShow) || []
+  );
+
+
+  useEffect(()=>{
+    setPlayedBalls(JSON.parse(selectedBallsToShow));
+    if(selectedBallsToShow != null ){
+      if(JSON.parse(selectedBallsToShow).length == 0){
+        setDisabledBtn(true);
+      }else{
+        setDisabledBtn(false);
+      }
+        
+      }
+    
+  }, [selectedBallsToShow]);
+
+  if(getPlayedBalls != null){
+    getPlayedBalls.forEach((item) => {
+      totalPrice += item.price;
+  });
+  const hasBalls = getPlayedBalls.some((item) => item.hasOwnProperty("balls"));
+
+  }
+
+
+
+// console.log(parseInt(totalPrice));
+
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
@@ -39,10 +79,10 @@ const Play = ({
   };
 
   const handleCheckbox = (index) => {
-    setChecked(!checked)
+    setChecked(!checked);
     setPlayedBalls((prevState) => {
       const updatedBalls = [...prevState];
-      console.log(index)
+      console.log(index);
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
@@ -59,13 +99,13 @@ const Play = ({
     if (!selectedBallsToShow || JSON.parse(selectedBallsToShow).length === 0) {
       setDisabledBtn(
         selectedBallsToShow == null ||
-        JSON.parse(selectedBallsToShow).length === 0
+          JSON.parse(selectedBallsToShow).length === 0
       );
       setActiveButton({ name: "Buy" });
     } else {
       setDisabledBtn(
         selectedBallsToShow == null ||
-        JSON.parse(selectedBallsToShow).length === 0
+          JSON.parse(selectedBallsToShow).length === 0
       );
       setActiveButton({ name: "Buy" });
       //   axios
@@ -135,55 +175,114 @@ const Play = ({
       </div>
 
       {getPlayedBalls &&
-        getPlayedBalls.map((ballsSet, index) => (
-          <div className="gridborder mt-2" key={index}>
-            <div className="header">
-              <span>
-                <img src="/build/images/Loto/LotoGrid.png" alt="loto" /> GRID{" "}
-                {index + 1}
-              </span>
-              <span className="right">
-                <span>PLAY ZEED (+ L.L 5,000)</span>
+        getPlayedBalls.map((ballsSet, index) => {
+          const hasBouquet = ballsSet.hasOwnProperty("bouquet");
+          const hasBalls = ballsSet.hasOwnProperty("balls");
+          if (hasBouquet) {
+            return (
+              <div className="gridborder mt-2" key={index}>
+                <div className="header">
+                  <span>
+                    <img src="/build/images/Loto/LotoGrid.png" alt="loto" />
+                    Bouquet
+                  </span>
+                  <span className="right">
+                    <span>PLAY ZEED (+ L.L 5,000)</span>
 
-                <div className="toggle">
-                  <div className="toggle-switch">
-                    <div
-                      id="toggle"
-                      className={ballsSet.withZeed ? "toggle-input checked-toggle" : "toggle-input"}
-                      onClick={() => { handleCheckbox(index) }}
-                    />
-                    <label htmlFor="toggle" className="toggle-label" />
+                    <div className="toggle">
+                      <div className="toggle-switch">
+                        <div
+                          id="toggle"
+                          className={
+                            ballsSet.withZeed
+                              ? "toggle-input checked-toggle"
+                              : "toggle-input"
+                          }
+                          onClick={() => {
+                            handleCheckbox(index);
+                          }}
+                        />
+                        <label htmlFor="toggle" className="toggle-label" />
+                      </div>
+                    </div>
+                  </span>
+                </div>
+                <div className="body">
+                  <div className="bouquetSection">
+                    <span>{ballsSet.bouquet.replace("B", "")} Grids</span>
                   </div>
                 </div>
+                <div className="footer">
+                  <span className="price">
+                    <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
+                  </span>
+                  <span className="delete" onClick={() => handleDelete(index)}>
+                    <img src="/build/images/Loto/trash.png" />
+                  </span>
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="gridborder mt-2" key={index}>
+                <div className="header">
+                  <span>
+                    <img src="/build/images/Loto/LotoGrid.png" alt="loto" />{" "}
+                    GRID {index + 1}
+                  </span>
+                  <span className="right">
+                    <span>PLAY ZEED (+ L.L 5,000)</span>
 
-              </span>
-            </div>
-            <div className="body">
-              <div className="ballSection mt-2">
-                {ballsSet.balls.map((ball, ballIndex) => (
-                  <span key={ballIndex}>{ball}</span>
-                ))}
+                    <div className="toggle">
+                      <div className="toggle-switch">
+                        <div
+                          id="toggle"
+                          className={
+                            ballsSet.withZeed
+                              ? "toggle-input checked-toggle"
+                              : "toggle-input"
+                          }
+                          onClick={() => {
+                            handleCheckbox(index);
+                          }}
+                        />
+                        <label htmlFor="toggle" className="toggle-label" />
+                      </div>
+                    </div>
+                  </span>
+                </div>
+                <div className="body">
+                  <div className="ballSection mt-2">
+                    {ballsSet.balls.map((ball, ballIndex) => (
+                      ball !== null ? <span key={ballIndex}>{ball}</span> : null
+                    ))}
+                  </div>
+                  <div className="edit" onClick={() => handleEdit(index)}>
+                    <img src="/build/images/Loto/edit.png" alt="edit" />
+                  </div>
+                </div>
+                <div className="footer">
+                  <span className="price">
+                    <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
+                  </span>
+                  <span className="delete" onClick={() => handleDelete(index)}>
+                    <img src="/build/images/Loto/trash.png" alt="delete" />
+                  </span>
+                </div>
               </div>
-              <div className="edit" onClick={() => handleEdit(index)}>
-                <img src="/build/images/Loto/edit.png" alt="edit" />
-              </div>
-            </div>
-            <div className="footer">
-              <span className="price">
-                <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
-              </span>
-              <span className="delete" onClick={() => handleDelete(index)}>
-                <img src="/build/images/Loto/trash.png" alt="delete" />
-              </span>
-            </div>
-          </div>
-        ))}
+            );
+          }
+        })}
 
       <div
         className="addGrid"
         onClick={() => {
-          setActiveButton({ name: "LLDJ" });
-        }}
+          setBallNumbers(10);
+          setTotalAmount(0);
+        setPickYourGrid(true);
+        setIsHide(true);
+        setPlay(1)
+      }}
       >
         <span>+</span>
       </div>
@@ -192,12 +291,15 @@ const Play = ({
       <div className="wantToPlay">
         <div className="title">How often do you want to play?</div>
         <div className="listSection">
-
           {howOftenYouWantToPlay.map((item, index) => (
             <div className="listItem" key={index}>
               <div className="checkbox">
                 <img
-                  src={selectedOption === index ? "/build/images/Loto/radioTrue.svg" : "/build/images/Loto/radioFalse.svg"}
+                  src={
+                    selectedOption === index
+                      ? "/build/images/Loto/radioTrue.svg"
+                      : "/build/images/Loto/radioFalse.svg"
+                  }
                   alt="loto"
                   onClick={() => handleOptionSelect(index)}
                 />
@@ -216,7 +318,7 @@ const Play = ({
         <div id="Total">
           <span>TOTAL</span>
           <div className="thePrice">
-            L.L <div className="big">200,000</div>
+            L.L <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
           </div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>

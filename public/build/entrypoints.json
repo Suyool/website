@@ -9,12 +9,13 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.ffe283ef.js"
+        "/build/Loto.6dcb4029.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/LegalEnrollement.67d25036.js"
       ]
     },
@@ -34,6 +35,9 @@
       "js": [
         "/build/runtime.e40c1cca.js",
         "/build/Ogero.9cf2dfb6.js"
+=======
+        "/build/LegalEnrollement.2a0493dc.js"
+>>>>>>> 9f65494 (handling popup with some functionality)
       ]
     },
     "styles": {
@@ -49,7 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.2a4800b6.css"
+        "/build/Lotostyles.dbf5c542.css"
       ]
     },
     "LegalEnrollementStyle": {

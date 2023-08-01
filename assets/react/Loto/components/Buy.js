@@ -1,116 +1,277 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Buy = ({ setDisabledBtn }) => {
-    const selectedBallsToShow = localStorage.getItem("selectedBalls");
-    const [getPlayedBalls, setPlayedBalls] = useState(
-        JSON.parse(selectedBallsToShow) || []
-    );
+const Buy = ({
+  parameters,
+  setDisabledBtn,
+  setSuccessModal,
+  setErrorModal,
+  setModalName,
+  setModalShow,
+  setWarningModal,
+  setHeaderTitle,
+  setBackLink
+}) => {
+  useEffect(()=>{
+    setBackLink(localStorage.getItem('BackPage'));
+    setHeaderTitle("Checkout");
+    localStorage.setItem('BackPage','Buy');
+  },[])
+  const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  const [getDisable, setDisable] = useState(false);
+  var totalPrice = 0;
+  const [getPlayedBalls, setPlayedBalls] = useState(
+    JSON.parse(selectedBallsToShow) || []
+  );
 
-    const handleDelete = (index) => {
-        const updatedBalls = [...getPlayedBalls];
-        updatedBalls.splice(index, 1); // Remove the selected balls from the array
+  getPlayedBalls.forEach((item) => {
+    totalPrice += item.price;
+  });
 
-        setPlayedBalls(updatedBalls); // Update the state
+  const handleDelete = (index) => {
+    const updatedBalls = [...getPlayedBalls];
+    updatedBalls.splice(index, 1); // Remove the selected balls from the array
 
-        // Update the localStorage
-        localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-    };
+    setPlayedBalls(updatedBalls); // Update the state
 
-    const handleBuy = () => {
-        axios
-            .post("/loto/play", {
-                selectedBalls: selectedBallsToShow,
-            })
-            .then((response) => {
-                console.log(response);
-                localStorage.removeItem("selectedBalls")
-                setPlayedBalls([]);
-                setDisabledBtn(
-                    selectedBallsToShow == null ||
-                    JSON.parse(selectedBallsToShow).length === 0
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-                setDisabledBtn(
-                    selectedBallsToShow == null ||
-                    JSON.parse(selectedBallsToShow).length === 0
-                );
-            });
-    }
+    // Update the localStorage
+    localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+  };
+  //   useEffect(() => {
+  //     setDisable(true);
+  //     console.log(getDisable);
+  //   }, [getDisable]);
 
-    const handletst = () => {
-        console.log("tst");
-        // const message = "data"; 
+  const handleBuy = () => {
+    // const buttonElement = document.getElementById("buyButton");
+    // if (buttonElement) {
+    //   console.log("h");
+    //   buttonElement.disabled = true;
+    // }
+    setDisable(true);
+    axios
+      .post("/loto/play", {
+        selectedBalls: selectedBallsToShow,
+      })
+      .then((response) => {
+        const jsonResponse = response.data.message;
 
-        setTimeout(() => {
-            // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-            //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
-            window.webkit.messageHandlers.callbackHandler.postMessage('Hello Native mark!');
+        if (response.data.status) {
+          const amount = response.data.amount;
+          localStorage.removeItem("selectedBalls");
+          setPlayedBalls([]);
+          setDisabledBtn(
+            selectedBallsToShow == null ||
+              JSON.parse(selectedBallsToShow).length === 0
+          );
+          setModalName("SuccessModal");
+          setSuccessModal({
+            imgPath: "/build/images/Loto/success.png",
+            title: "LOTO Purchased Successfully",
+            desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
+          });
+          setModalShow(true);
+        } else if (!response.data.status && response.data.flagCode == 10) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.ButtonOne.flag,
+            btn: jsonResponse.ButtonOne.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+           response.data.flagCode == 11
+        ) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.ButtonOne.flag,
+            btn: jsonResponse.ButtonOne.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+          response.data.flagCode == 150
+        ) {
+          const amount = response.data.amount;
+          setModalName("WarningModal");
+          setWarningModal({
+            imgPath: "/build/images/Loto/warning.png",
+            title: jsonResponse.Title,
+            desc: jsonResponse.SubTitle,
+            path: jsonResponse.flag,
+            btn: jsonResponse.Text,
+          });
+          setModalShow(true);
+        } else if (
+          !response.data.status &&
+          response.data.message == "Internal Server Error"
+        ) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Internal Server Error",
+            desc: `Internal Server Error`,
+            // path: response.data.path,
+            // btn:'Top up'
+          });
+          setModalShow(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setDisabledBtn(
+          selectedBallsToShow == null ||
+            JSON.parse(selectedBallsToShow).length === 0
+        );
+      });
+  };
 
-        }, 8000);
-    };
+  const handletst = () => {
+    console.log("tst");
+    // const message = "data";
 
-    const handletstAndroid = () => {
-        console.log("tstandroid");
+    setTimeout(() => {
+      // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+      //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+      window.webkit.messageHandlers.callbackHandler.postMessage(
+        "Hello Native mark!"
+      );
+    }, 8000);
+  };
 
-        setTimeout(() => {
-            window.AndroidInterface.callbackHandler('message');
+  const handletstAndroid = () => {
+    console.log("tstandroid");
 
-        }, 8000);
-    };
+    setTimeout(() => {
+      window.AndroidInterface.callbackHandler("message");
+    }, 8000);
+  };
 
+  return (
+    <div id="Buy">
+      {getPlayedBalls &&
+        getPlayedBalls.map((ballsSet, index) => {
+          const hasBouquet = ballsSet.hasOwnProperty("bouquet");
+          const hasBalls = ballsSet.hasOwnProperty("balls");
+          if (hasBouquet) {
+            return (
+              <div className="gridborder" key={index}>
+                <div className="header">
+                  <span>
+                    <img src="/build/images/Loto/LotoGrid.png" alt="loto" />
+                    Bouquet
+                  </span>
+                </div>
+                <div className="body">
+                  <div className="bouquetSection">
+                    <span>
+                      {ballsSet.bouquet.replace("B", "")}{" "}
+                      {ballsSet.bouquet === "B1" ? "Grid" : "Grids"}
+                    </span>
+                  </div>
+                </div>
+                <div className="footer">
+                  <span className="price">
+                    <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
+                  </span>
+                  <span className="delete" onClick={() => handleDelete(index)}>
+                    <img src="/build/images/Loto/trash.png" />
+                  </span>
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="gridborder" key={index}>
+                <div className="header">
+                  <span>
+                    <img src="/build/images/Loto/LotoGrid.png" alt="loto" />
+                    Grid
+                  </span>
+                </div>
+                <div className="body">
+                  <div className="ballSection">
+                    {ballsSet.balls.map((ball, ballIndex) => (
+                      <span key={ballIndex} className="">
+                        {ball}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="footer">
+                  <span className="price">
+                    <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
+                  </span>
+                  <span className="delete" onClick={() => handleDelete(index)}>
+                    <img src="/build/images/Loto/trash.png" />
+                  </span>
+                </div>
+              </div>
+            );
+          }
+        })}
 
-
-    return (
-        <div id="Buy">
-            {getPlayedBalls &&
-                getPlayedBalls.map((ballsSet, index) => (
-                    <div className="gridborder" key={index}>
-                        <div className="header">
-                            <span><img src="/build/images/Loto/LotoGrid.png" alt="loto" />Bouquet</span>
-                        </div>
-                        <div className="body">
-                            <div className="ballSection">
-                                <span>25 Grids</span>
-                            </div>
-                        </div>
-                        <div className="footer">
-                            <span className="price">L.L 5,000,000</span>
-                            <span className="delete" onClick={() => handleDelete(index)} ><img src="/build/images/Loto/trash.png" /></span>
-                        </div>
-                    </div>
-                ))}
-
-
-
-
-            <div className="zeedSection">
-                <div className="title">Next Zeed Estimated Jackpot</div>
-                <div className="price">LBP 400,000,000</div>
-                <div className="desc">Zeed is an additional game played on the Loto grid. It gives you an additional chance to win big. Zeed’s draw is made with Loto’s draw. It is also 2 draws per week.</div>
-                <div className="playZeed"><span>PLAY ZEED (+ 5,000 LBP)</span></div>
-                <div className="zeedImage"><img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" /></div>
-            </div>
-
-            <div id="Total">
-                <span>TOTAL</span>
-                <div className="thePrice"><div>L.L </div><div className="big">200,000</div></div>
-            </div>
-
-            <button className="BuyBtn" onClick={() => { handleBuy() }}>
-                Buy
-            </button>
-            <button className="BuyBtn" onClick={() => { handletst() }}>
-                tst
-            </button>
-
-            <button className="BuyBtn" onClick={() => { handletstAndroid() }}>
-                tst Android
-            </button>
+      <div className="zeedSection">
+        <div className="title">Next Zeed Estimated Jackpot</div>
+        <div className="price">
+          LBP {parseInt(parameters.next_zeed_prize).toLocaleString()}
         </div>
-    );
+        <div className="desc">
+          Zeed is an additional game played on the Loto grid. It gives you an
+          additional chance to win big. Zeed’s draw is made with Loto’s draw. It
+          is also 2 draws per week.
+        </div>
+        <div className="playZeed">
+          <span>PLAY ZEED (+ 5,000 LBP)</span>
+        </div>
+        <div className="zeedImage">
+          <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />
+        </div>
+      </div>
+
+      <div id="Total">
+        <span>TOTAL</span>
+        <div className="thePrice">
+          <div>L.L </div>
+          <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
+        </div>
+      </div>
+
+      <button
+        className="BuyBtn"
+        id="buyButton"
+        disabled={getDisable}
+        onClick={() => {
+          handleBuy();
+        }}
+      >
+        Buy
+      </button>
+      <button
+        className="BuyBtn"
+        onClick={() => {
+          handletst();
+        }}
+      >
+        tst
+      </button>
+
+      <button
+        className="BuyBtn"
+        onClick={() => {
+          handletstAndroid();
+        }}
+      >
+        tst Android
+      </button>
+    </div>
+  );
 };
 
 export default Buy;
