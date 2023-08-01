@@ -10,6 +10,7 @@ use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
+use App\Service\SuyoolServices;
 use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -182,7 +183,7 @@ class TouchController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/touch/bill/pay", name="app_touch_bill_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices, SuyoolServices1 $suyoolServices)
+    public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices)
     {
         $data = json_decode($request->getContent(), true);
         $session = 89;
@@ -343,7 +344,7 @@ class TouchController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/touch/BuyPrePaid", name="app_touch_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $session = 89;
         $app_id = 5;
@@ -422,7 +423,7 @@ class TouchController extends AbstractController
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);
-                    $notificationServices->addNotification($session, 4, $params);
+                    $notificationServices->addNotification($session, 4, $params,"");
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());

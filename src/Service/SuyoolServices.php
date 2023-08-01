@@ -5,10 +5,12 @@ namespace App\Service;
 use App\Utils\Helper;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class SuyoolServices1
+class SuyoolServices
 {
+
     private $client;
     private $SUYOOL_API_HOST;
+
     public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;
@@ -18,22 +20,19 @@ class SuyoolServices1
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/';
         }
     }
-    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate, $app_id)
+
+    /**
+     * Push Utility Api
+     */
+    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate)
     {
-        $Hash = base64_encode(hash($hash_algo, $session . $app_id . $id . $sum . $currency . $certificate, true));
-        // dd(json_encode([
-        //     'userAccountID' => $session,
-        //     "merchantAccountID" => $app_id,
-        //     'orderID' => $id,
-        //     'amount' => $sum,
-        //     'currency' => $currency,
-        //     'secureHash' =>  $Hash,
-        // ]));
-        // dd ($Hash);
+        $Hash = base64_encode(hash($hash_algo, $session . 1 . $id . $sum . $currency . $certificate, true));
+        // dd($Hash);
+
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment", [
             'body' => json_encode([
                 'userAccountID' => $session,
-                "merchantAccountID" => $app_id,
+                "merchantAccountID" => 1,
                 'orderID' => $id,
                 'amount' => $sum,
                 'currency' => $currency,
@@ -43,18 +42,24 @@ class SuyoolServices1
                 'Content-Type' => 'application/json'
             ]
         ]);
-
         $status = $response->getStatusCode(); // Get the status code
+        if($status == 500){
+            return array(false,'Internal Server Error');
+        }
         if ($status === 400) {
             $push_utility_response = $response->toArray(false);
-        } else {
+        }else{
             $push_utility_response = $response->toArray();
+
         }
+
         // dd($push_utility_response);
-        // dd($push_utility_response);
+
         $globalCode = $push_utility_response['globalCode'];
-        $message = $push_utility_response['data'];
-        $flagCode = $push_utility_response['flagCode'];
+        $message=$push_utility_response['data'];
+        $flagCode=$push_utility_response['flagCode'];
+
+
         // $form_data = [
         //     'userAccountID' => $session,
         //     "merchantAccountID" => 1,
@@ -69,26 +74,29 @@ class SuyoolServices1
         // $response = Helper::send_curl($params);
         // $parameters['push_utility_response'] = json_decode($response, true);
         // dd($response);
+
         if ($globalCode) {
             $transId = $push_utility_response['data'];
             return array(true, $transId);
         } else {
-            return array(false, $message, $flagCode);
+            return array(false,$message,$flagCode);
         }
     }
 
     /*
-     * Update utilities Api
+     * Update utilities Api  
      */
-    public function UpdateUtilities($sum, $hash_algo, $certificate, $additionalData, $transId)
+    public function UpdateUtilities($sum,$hash_algo, $certificate,$additionalData,$transId)
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
+        
         // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
         // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
         $Hash = base64_encode(hash($hash_algo, $transId . $additionalData . $certificate, true));
         // intval($transId[1])
         // echo $Hash;
+
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/UpdateUtilityPayment", [
             'body' => json_encode([
                 'transactionID' => $transId,
@@ -107,11 +115,11 @@ class SuyoolServices1
         if ($globalCode) {
             return true;
         } else {
-            return array(false, $message);
+            return array(false,$message);
         }
     }
 
-    /*
+       /*
      * Gettin Suyool Users
      */
     public function GetAllUsers($ChannelID, $hash_algo, $certificate)

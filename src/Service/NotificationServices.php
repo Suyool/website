@@ -17,7 +17,7 @@ class NotificationServices
     private $certificate;
     private $suyoolServices;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices1 $suyoolServices, $certificate, $hash_algo)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('notification');
 

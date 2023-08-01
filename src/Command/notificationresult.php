@@ -2,16 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
-use App\Entity\Loto\LOTO_numbers;
 use App\Entity\Loto\LOTO_results;
-use App\Entity\Loto\LOTO_tickets;
-use App\Entity\Loto\notification;
-use App\Entity\Loto\order;
-use App\Services\LotoServices;
-use App\Services\sendEmail;
-use App\Utils\Helper;
+use App\Service\LotoServices;
+use App\Service\sendEmail;
 use DateInterval;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;

@@ -3,13 +3,11 @@
 namespace App\Command;
 
 use App\Entity\Notification\Users;
-use App\Service\SuyoolServices1;
+use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
-use DoctrineExtensions\Query\Mysql\Truncate;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class NotificationGetUsers extends Command
 {
@@ -18,7 +16,7 @@ class NotificationGetUsers extends Command
     private $hash_algo;
     private $certificate;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices1 $suyoolServices, $certificate, $hash_algo)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
     {
         parent::__construct();
         $this->suyoolServices = $suyoolServices;

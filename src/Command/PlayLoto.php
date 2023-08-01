@@ -3,17 +3,9 @@
 namespace App\Command;
 
 use App\Entity\Loto\loto;
-use App\Entity\Loto\LOTO_draw;
-use App\Entity\Loto\LOTO_numbers;
-use App\Entity\Loto\LOTO_results;
-use App\Entity\Loto\LOTO_tickets;
-use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
-use App\Services\LotoServices;
-use App\Services\SuyoolServices;
-use App\Utils\Helper;
-use DateInterval;
-use DateTime;
+use App\Service\LotoServices;
+use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

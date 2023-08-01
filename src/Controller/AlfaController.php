@@ -10,7 +10,7 @@ use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
-use App\Service\SuyoolServices1;
+use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -182,7 +182,7 @@ class AlfaController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/alfa/bill/pay", name="app_alfa_bill_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
+    public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $data = json_decode($request->getContent(), true);
         $session = 89;
@@ -358,7 +358,7 @@ class AlfaController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("/alfa/BuyPrePaid", name="app_alfa_BuyPrePaid",methods="POST")
      */
-    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices1 $suyoolServices, NotificationServices $notificationServices)
+    public function BuyPrePaid(Request $request, LotoServices $lotoServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $session = 89;
         $app_id = 3;
