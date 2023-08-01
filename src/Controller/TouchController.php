@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Touch\Logs;
 use App\Entity\Touch\Order;
 use App\Entity\Touch\Postpaid;
 use App\Entity\Touch\Prepaid;
@@ -187,7 +188,7 @@ class TouchController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $session = 89;
-        $app_id = 2;
+        $app_id = 4;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
 
         if ($data != null) {
@@ -383,8 +384,19 @@ class TouchController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $PayResonse = $BuyPrePaid["d"];
+                $PayResonse = $BuyPrePaid[0]["d"];
                 $dataPayResponse = $PayResonse;
+                if ($PayResonse["errorinfo"]["errorcode"] != 0) {
+                    $logs = new Logs;
+                    $logs
+                        ->setidentifier("Prepaid Request")
+                        ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                        ->setrequest($BuyPrePaid[1])
+                        ->setresponse(json_encode($PayResonse))
+                        ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
+                }
                 if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
                     //if payment from loto provider success insert prepaid data to db
                     $prepaid = new Prepaid;
