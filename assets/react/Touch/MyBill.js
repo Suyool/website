@@ -39,7 +39,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         )
         .then((response) => {
           console.log(response);
-          if (response.data.message == "connected") {
+          if (response.data?.isSuccess) {
             setDisplayData(response?.data?.displayData);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);

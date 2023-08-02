@@ -69,6 +69,8 @@ class TouchController extends AbstractController
                     ->setGsmNumber($data["mobileNumber"])
                     ->settoken($sendBill[1])
                     ->seterror($sendBill[2])
+                    ->sets2error(null)
+                    ->setrequestId(null)
                     ->setPin(null)
                     ->setTransactionId(null)
                     ->setcurrency(null)
@@ -93,6 +95,8 @@ class TouchController extends AbstractController
                     ->setGsmNumber($data["mobileNumber"])
                     ->settoken($sendBill[1])
                     ->seterror($sendBill[2])
+                    ->sets2error(null)
+                    ->setrequestId(null)
                     ->setPin(null)
                     ->setTransactionId(null)
                     ->setcurrency(null)
@@ -134,68 +138,56 @@ class TouchController extends AbstractController
         $data = json_decode($request->getContent(), true);
         // dd($data);
         if ($data != null) {
-            $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
-            $jsonResult = json_decode($retrieveResults, true);
-            $displayData = $jsonResult["Values"];
+            $postpaidRequestId = $data["invoicesId"];
+            $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
+            $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
+            // dd($retrieveResults);
 
             $Pin = implode("", $data["Pin"]);
-            $RandSuyoolUserId = rand();
-            $invoicesId = $data["invoicesId"];
-            // dd($invoicesId);
+            if ($retrieveResults[0]) {
+                $values = $retrieveResults[1]["Values"];
 
-            $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
-            // $Postpaid = new Postpaid;
-            $invoices
-                ->setfees($jsonResult["Values"]["Fees"])
-                ->setfees1($jsonResult["Values"]["Fees1"])
-                ->setamount($jsonResult["Values"]["Amount"])
-                ->setamount1($jsonResult["Values"]["Amount1"])
-                ->setamount2($jsonResult["Values"]["Amount2"])
-                ->setreferenceNumber($jsonResult["Values"]["ReferenceNumber"])
-                ->setinformativeOriginalWSamount($jsonResult["Values"]["InformativeOriginalWSAmount"])
-                ->settotalamount($jsonResult["Values"]["TotalAmount"])
-                ->setcurrency($jsonResult["Values"]["Currency"])
-                ->setrounding($jsonResult["Values"]["Rounding"])
-                ->setadditionalfees($jsonResult["Values"]["AdditionalFees"])
-                ->setSuyoolUserId($RandSuyoolUserId)
-                ->setPin($Pin)
-                ->setGsmNumber($data["mobileNumber"])
-                ->setTransactionId($jsonResult["Values"]["TransactionId"]);
-
-            $this->mr->persist($invoices);
-            $this->mr->flush();
-
-            // dd($invoices->getId());
-
-            $invoicesId = $invoices->getId();
-            // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
-
-
-            // $order = new Order;
-            // $order
-            //     ->setsuyoolUserId($RandSuyoolUserId)
-            //     ->settransId(null)
-            //     ->setpostpaidId($postpaid)
-            //     ->setprepaidId(null)
-            //     ->setstatus("Pending")
-            //     ->setamount($jsonResult["Values"]["TotalAmount"])
-            //     ->setcurrency($jsonResult["Values"]["Currency"]);
-            // $this->mr->persist($order);
-            // $this->mr->flush();
-
-            // dd($order);
-            $message = "connected";
+                $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
+                $postpaidRequest
+                    ->sets2error($retrieveResults[2])
+                    ->setPin($Pin)
+                    ->setTransactionId($values["transactionId"])
+                    ->setcurrency($values["Currency"])
+                    ->setfees($values["Fees"])
+                    ->setfees1($values["Fees1"])
+                    ->setamount($values["Amount"])
+                    ->setamount1($values["Amount1"])
+                    ->setamount2($values["Amount2"])
+                    ->setreferenceNumber($values["referenceNumber"])
+                    ->setinformativeOriginalWSamount($values["InformativeOriginalWSAmount"])
+                    ->settotalamount($values["TotalAmount"])
+                    ->setrounding($values["Rounding"])
+                    ->setadditionalfees($values["AdditionalFees"])
+                    ->setinvoiceNumber($values["InvoiceNumber"])
+                    ->setpaymentId($values["PaymentId"]);
+                $this->mr->persist($postpaidRequest);
+                $this->mr->flush();
+            } else {
+                $values = 0;
+                $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
+                $postpaidRequest
+                    ->sets2error($retrieveResults[2])
+                    ->setrequestId($retrieveResults[1])
+                    ->setPin($Pin);
+                $this->mr->persist($postpaidRequest);
+                $this->mr->flush();
+            }
+            $invoicesId = $postpaidRequest->getId();
         } else {
-            $displayData = -1;
-            $message = "No data retrived!!";
+            $values = -1;
             $invoicesId = -1;
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message,
+            'isSuccess' => $retrieveResults[0],
             'postpayed' => $invoicesId,
-            'displayData' => $displayData,
+            'displayData' => $values,
         ], 200);
     }
 

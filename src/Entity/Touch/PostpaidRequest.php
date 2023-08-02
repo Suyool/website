@@ -38,6 +38,15 @@ class PostpaidRequest
      */
     private $error;
 
+    /**
+     * @ORM\Column(name="s2error")
+     */
+    private $s2error;
+
+    /**
+     * @ORM\Column(name="requestId")
+     */
+    private $requestId;
 
     /**
      * @ORM\Column(name="currency")
@@ -162,6 +171,28 @@ class PostpaidRequest
     public function seterror($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function gets2error()
+    {
+        return $this->s2error;
+    }
+
+    public function sets2error($s2error)
+    {
+        $this->s2error = $s2error;
+        return $this;
+    }
+
+    public function getrequestId()
+    {
+        return $this->requestId;
+    }
+
+    public function setrequestId($requestId)
+    {
+        $this->requestId = $requestId;
         return $this;
     }
 

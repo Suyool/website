@@ -201,4 +201,51 @@ class BobServices
 
         return array($isSuccess, $decodedString, $ErrorDescription);
     }
+
+    public function RetrieveResultsTouch($currency, $mobileNumber, $Pin, $token)
+    {
+        $Pin = implode("", $Pin);
+        // dd($Pin);
+
+        $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => "1",
+                "VenId" => "2",
+                "ProductId" => "1",
+
+                "TouchDueMeta" => [
+                    "Currency" => $currency,
+                    "GSMNumber" => $mobileNumber,
+                    "PIN" => $Pin,
+                    "Token" => $token,
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+        $ApiResponse = json_decode($content, true);
+
+        // dd($ApiResponse);
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['RequestId'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
 }
