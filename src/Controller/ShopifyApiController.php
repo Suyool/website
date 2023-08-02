@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Service\ShopifyServices;
 //const CERTIFICATE_PAYMENT_SUYOOL = "GVkCbD9ghQIPzfNrI5HX3GpkAI60HjUaqV2FIPpXN6IB6ZioUbcAeKJVATY6X74s2DNAE5N3T70nCPszxF8gpfUGSU2ity69c2fA";
 
 
@@ -28,7 +28,7 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/payQR/", name="app_pay_qr")
      */
-    public function paySkashQR(Request $request): Response
+    public function paySkashQR(Request $request,ShopifyServices $shopifyServices): Response
     {
         $ordersRepository = $this->mr->getRepository(Orders::class);
 
@@ -69,9 +69,9 @@ class ShopifyApiController extends AbstractController
                 'data' => json_encode($transactionData),
                 'url' => 'api/OnlinePayment/PayQR',
             ];
+            $response = $shopifyServices->getQr($params);
 
-            $result = Helper::send_curl($params);
-            $response = json_decode($result, true);
+
             $logs =array('orderId' =>$orderId,'request'=>$params,'response'=>$response,'env' =>$metadata['env']);
             $this->saveLog($logs);
 
@@ -152,7 +152,7 @@ class ShopifyApiController extends AbstractController
     /**
      * @Route("/update_status/{order_id}", name="app_update_status")
      */
-    public function updateStatus(Request $request, $order_id)
+    public function updateStatus(Request $request, $order_id, ShopifyServices $shopifyServices)
     {
         $data = $request->request->all();
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
@@ -163,15 +163,13 @@ class ShopifyApiController extends AbstractController
             $order = $orders[0];
 
             if ($flag == '1') {
-                $metaInfo = json_decode($order->getMetaInfo(), true);
-                $currency = $metaInfo['currency'];
-                $domain = Helper::getHost($metaInfo['domain']);
+                $currency = $order->getCurrency();
+                $domain = Helper::getHost($order->getShopName());
 
                 $merchantCredentials = $this->getCredentials($domain);
-                $merchantId = $merchantCredentials['merchantId'];
                 $certificate = $merchantCredentials['certificate'];
 
-                $totalPrice = $metaInfo['total_price'];
+                $totalPrice = $order->getAmount();
                 $url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
 
                 $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
@@ -213,9 +211,8 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
+                $response = $shopifyServices->updateStatusShopify($params,$accessToken);
 
-                $result = Helper::send_curl($params, $accessToken);
-                $response = json_decode($result, true);
                 $logs =array('orderId' =>$order_id,'request'=>$params,'response'=>$response,'env' =>"");
 
                 $this->saveLog($logs);
