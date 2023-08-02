@@ -37,49 +37,47 @@ class loto
      */
     private $drawNumber;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="numdraws",type="string")
      */
     private $numdraws;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="withZeed")
      */
     private $withZeed;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="gridSelected")
      */
     private $gridSelected;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="zeednumbers")
      */
     private $zeednumbers;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="price")
      */
     private $price;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="currency")
      */
     private $currency;
 
-     /**
+    /**
      * 
      * @ORM\Column(name="bouquet")
      */
     private $bouquet;
-
-
 
     /**
      * 
@@ -87,6 +85,18 @@ class loto
      */
     private $errorInfo;
 
+    /**
+     * 
+     * @ORM\Column(name="created",type="datetime",nullable=true)
+     */
+    private $created;
+
+
+    public function __construct()
+    {
+        // Set a default value (e.g., the current date/time) for the $created property
+        $this->created = new \DateTime();
+    }
 
     public function getId()
     {
@@ -112,7 +122,7 @@ class loto
 
     public function setticketId($ticketId)
     {
-        $this->ticketId=$ticketId;
+        $this->ticketId = $ticketId;
         return $this;
     }
 
@@ -123,7 +133,7 @@ class loto
 
     public function setdrawnumber($drawNumber)
     {
-        $this->drawNumber=$drawNumber;
+        $this->drawNumber = $drawNumber;
         return $this;
     }
 
@@ -134,15 +144,15 @@ class loto
 
     public function setnumdraws($numdraws)
     {
-        $this->numdraws=$numdraws;
+        $this->numdraws = $numdraws;
         return $this;
     }
 
     public function getwithZeed()
     {
-        if($this->withZeed == true){
+        if ($this->withZeed == true) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
         // return $this->withZeed;
@@ -150,7 +160,7 @@ class loto
 
     public function setWithZeed($withZeed)
     {
-        $this->withZeed=$withZeed;
+        $this->withZeed = $withZeed;
         return $this;
     }
 
@@ -161,7 +171,7 @@ class loto
 
     public function setgridSelected($gridSelected)
     {
-        $this->gridSelected=$gridSelected;
+        $this->gridSelected = $gridSelected;
         return $this;
     }
 
@@ -172,7 +182,7 @@ class loto
 
     public function setzeednumber($zeednumbers)
     {
-        $this->zeednumbers=$zeednumbers;
+        $this->zeednumbers = $zeednumbers;
         return $this;
     }
 
@@ -184,7 +194,7 @@ class loto
 
     public function setprice($price)
     {
-        $this->price=$price;
+        $this->price = $price;
         return $this;
     }
 
@@ -195,15 +205,15 @@ class loto
 
     public function setcurrency($currency)
     {
-        $this->currency=$currency;
+        $this->currency = $currency;
         return $this;
     }
 
     public function getbouquet()
     {
-        if($this->bouquet){
+        if ($this->bouquet) {
             return true;
-        }else{
+        } else {
             return false;
         }
         // return $this->bouquet;
@@ -211,7 +221,7 @@ class loto
 
     public function setbouquet($bouquet)
     {
-        $this->bouquet=$bouquet;
+        $this->bouquet = $bouquet;
         return $this;
     }
 
@@ -222,10 +232,12 @@ class loto
 
     public function seterror($errorInfo)
     {
-        $this->errorInfo=$errorInfo;
+        $this->errorInfo = $errorInfo;
         return $this;
     }
 
-
-
+    public function getCreated()
+    {
+        return $this->created;
+    }
 }

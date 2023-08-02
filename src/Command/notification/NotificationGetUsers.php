@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\notification;
 
 use App\Entity\Notification\Users;
 use App\Service\SuyoolServices;

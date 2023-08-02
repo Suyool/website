@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\loto;
 
 use App\Entity\Loto\loto;
+use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\order;
+use App\Entity\Notification\Template;
 use App\Service\LotoServices;
+use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Command\Command;
@@ -18,8 +21,10 @@ class PlayLoto extends Command
     private $suyoolServices;
     private $certificate;
     private $hash_algo;
+    private $notificationService;
+    private $notifyMr;
 
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, $certificate, $hash_algo)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, $certificate, $hash_algo,NotificationServices $notificationService)
     {
         parent::__construct();
 
@@ -28,6 +33,8 @@ class PlayLoto extends Command
         $this->lotoServices = $lotoServices;
         $this->certificate = $certificate;
         $this->hash_algo = $hash_algo;
+        $this->notificationService=$notificationService;
+        $this->notifyMr=$mr->getManager('notification');
     }
 
     protected function configure()
@@ -45,6 +52,7 @@ class PlayLoto extends Command
 
         $play  = 1;
         $newsum = 0;
+        $drawNumber=0;
         // $additionaldata = [];
         // $newElement = [];
         // $array = [1, 2, 3, 4];
@@ -68,13 +76,17 @@ class PlayLoto extends Command
                 $play = 0;
             }
             foreach ($heldOrder as $held) {
+                $userId=$held->getsuyoolUserId();
+                $sum=$held->getamount();
+                $currency=$held->getcurrency();
                 $lotoToBePlayed = $this->mr->getRepository(loto::class)->lotoToBePlayed($held->getId());
                 $additionaldata = [];
                 $newElement = [];
-                $count = [];
+                $ticketscount = 0;
                 $newsum = 0;
                 // dd($lotoToBePlayed);
                 foreach ($lotoToBePlayed as $lotoToBePlayed) {
+                    $ticketscount++;
                     $newElement=[];
                     $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected());
                     if ($lotoToBePlayed->getbouquet()) {
@@ -90,14 +102,24 @@ class PlayLoto extends Command
 
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();
+
+                            $gridsBouquet[]=explode("|",$BouquetGrids);
+                            $gridsBouquet=array_merge(...$gridsBouquet);
+                            $gridsBouquet=sizeof($gridsBouquet);
+                           $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId'=>$lotoToBePlayed->getdrawnumber()]);
+                           $drawNumber=$lotoToBePlayed->getdrawnumber();
+                           $result=$draw->getdrawdate()->format('d/m/Y');
+
                             if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
+                                $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'bouquet with zeed']);
+                                $params=json_encode(['draw'=>$lotoToBePlayed->getdrawnumber(),'grids'=>$gridsBouquet,'result'=>$result,'ticket'=>$ticketId,'zeed'=>$lotoToBePlayed->getwithZeed()],true);
+                                $this->notificationService->addNotification($userId,$template->getId(),$params);
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
                             } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
+                                $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'bouquet without zeed']);
+                                $params=json_encode(['draw'=>$lotoToBePlayed->getdrawnumber(),'grids'=>$gridsBouquet,'result'=>$result,'ticket'=>$ticketId],true);
+                                $this->notificationService->addNotification($userId,$template->getId(),$params);
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            } else if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
-                                $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
-                            } else {
-                                $newElement = ['ticketId' => $ticketId];
                             }
                             // $additionaldata[] = $newElement;
                         } else {
@@ -116,16 +138,28 @@ class PlayLoto extends Command
 
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();
+
+                            $grids[]=explode("|",$lotoToBePlayed->getgridSelected());
+                            $grids=array_merge(...$grids);
+                            $grids=json_encode($grids,true);
+                           $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId'=>$lotoToBePlayed->getdrawnumber()]);
+                           $drawNumber=$lotoToBePlayed->getdrawnumber();
+                           $result=$draw->getdrawdate()->format('d/m/Y');
+
+                           
                             // $ticketId = 522;
-                            if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            } else if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
+                            if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
+                                $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'with zeed & without bouquet']);
+                                $params=json_encode(['draw'=>$lotoToBePlayed->getdrawnumber(),'grids'=>$grids,'result'=>$result,'ticket'=>$ticketId,'zeed'=>$lotoToBePlayed->getwithZeed()],true);
+                                $this->notificationService->addNotification($userId,$template->getId(),$params);
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
-                            } else {
+                            } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()){
+                                $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'without zeed & without bouquet']);
+                                $params=json_encode(['draw'=>$lotoToBePlayed->getdrawnumber(),'grids'=>$grids,'result'=>$result,'ticket'=>$ticketId],true);
+                                $this->notificationService->addNotification($userId,$template->getId(),$params);
                                 $newElement = ['ticketId' => $ticketId];
                             }
+
                         } else {
                             $errorInfo = ['errorCode' => $submit[1], 'errorMsg' => $submit[2]];
                             $errorInfo = json_encode($errorInfo, true);
@@ -139,7 +173,7 @@ class PlayLoto extends Command
                     }
                           
                 }
-                $count['count'] = count($additionaldata);
+                $count['count'] = $ticketscount;
                 $additionaldata[] = $count;
 
                 $held->setstatus("purchased");
@@ -165,6 +199,13 @@ class PlayLoto extends Command
 
                     $this->mr->persist($held);
                     $this->mr->flush();
+
+                    if($newsum != $sum){
+                        $diff=$sum-$newsum;
+                        $params=json_encode(['currency'=>$currency,'amount'=>$diff,'draw'=>$drawNumber],true);
+                        $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'Payment reversed loto']);
+                        $this->notificationService->addNotification($userId,$template->getId(),$params);
+                    }
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";
                 } else {

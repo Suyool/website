@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\loto;
 
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;

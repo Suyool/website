@@ -168,7 +168,7 @@ class LotoServices
         $content = $response->toArray();
 
         
-        if($retryattempt == 2){
+        if(!$withZeed){
             $submit = 0;
         }else{
             $submit = $content['d']['errorinfo']['errorcode'];
@@ -178,7 +178,11 @@ class LotoServices
                 // $zeed = $content['d']['insertId'];
                 $zeed=12345;
                 return array(true, $zeed);
-            } else {
+            } else if($submit == 4 || $submit == 6 || $submit == 9){
+                $error = $content['d']['errorinfo']['errormsg'];
+                return array(false,$submit,$error);
+            }
+             else {
                 sleep(10);
                 echo "attemp ".$retryattempt;
                 $retryattempt ++ ;

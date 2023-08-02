@@ -126,7 +126,7 @@ class NotificationServices
         return 1;
     }
 
-    public function addNotification($userId, $notificationTemplate, $params, $additionalData)
+    public function addNotification($userId, $notificationTemplate, $params, $additionalData=null)
     {
 
         $notification = new Notification;

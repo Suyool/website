@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\loto;
 
 
 use Symfony\Component\Console\Command\Command;
