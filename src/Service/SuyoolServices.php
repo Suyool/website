@@ -108,6 +108,12 @@ class SuyoolServices
                 'Content-Type' => 'application/json'
             ]
         ]);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if($status == 500){
+            return array(false,'Internal Server Error');
+        }
+        
         $update_utility_response = $response->toArray(false);
         // dd($update_utility_response);
         $globalCode = $update_utility_response['globalCode'];

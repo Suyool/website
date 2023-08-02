@@ -32,7 +32,7 @@ class LotoController extends AbstractController
     private $notificationServices;
     private $notMr;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, $certificate, $hash_algo, LotoServices $LotoServices, SuyoolServices $suyoolServices,NotificationServices $notificationServices)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, $certificate, $hash_algo, LotoServices $LotoServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
@@ -40,8 +40,8 @@ class LotoController extends AbstractController
         $this->hash_algo = $hash_algo;
         $this->LotoServices = $LotoServices;
         $this->suyoolServices = $suyoolServices;
-        $this->notificationServices=$notificationServices;
-        $this->notMr=$mr->getManager('notification');
+        $this->notificationServices = $notificationServices;
+        $this->notMr = $mr->getManager('notification');
     }
 
     /**
@@ -58,8 +58,8 @@ class LotoController extends AbstractController
         // $useragent = $_SERVER['HTTP_USER_AGENT'];
         $session = 155;
         $this->session->set('userId', $session);
-       
- 
+
+
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
         $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -76,8 +76,6 @@ class LotoController extends AbstractController
         } else {
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
             $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($session, $loto_prize->getDrawId());
-            dd($loto_prize_per_days);
-
         }
 
         if ($loto_draw) {
@@ -191,7 +189,7 @@ class LotoController extends AbstractController
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
         $today = new DateTime();
-        $grids=[];
+        $grids = [];
 
 
         if (isset($session)) {
@@ -344,8 +342,8 @@ class LotoController extends AbstractController
                 }
 
                 foreach ($lotoid as $lotoid) {
-                    if(strpos($lotoid->getgridSelected(),'B') !== 0){
-                        $grids[]=explode("|",$lotoid->getgridSelected());
+                    if (strpos($lotoid->getgridSelected(), 'B') !== 0) {
+                        $grids[] = explode("|", $lotoid->getgridSelected());
                     }
                     $sum += $lotoid->getprice();
                 }
@@ -370,11 +368,13 @@ class LotoController extends AbstractController
                     $this->mr->persist($orderid);
                     $this->mr->flush();
 
-                    $templateId=$this->notMr->getRepository(Template::class)->findOneBy(['identifier'=>'Payment taken loto']);
+                    $templateId = $this->notMr->getRepository(Template::class)->findOneBy(['identifier' => 'Payment taken loto']);
+                    $index = $templateId->getIndex();
+                    $content = $this->notMr->getRepository(content::class)->findOneBy(['template' => $templateId->getId(), 'version' => $index]);
 
-                    $params=json_encode(['amount'=>$sum,'currency'=>$lotoid->getcurrency(),'numgrids'=>$numGrids],true);
+                    $params = json_encode(['amount' => $sum, 'currency' => $lotoid->getcurrency(), 'numgrids' => $numGrids], true);
 
-                    $this->notificationServices->addNotification($session,$templateId->getId(),$params);
+                    $this->notificationServices->addNotification($session, $content, $params);
 
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Notification\content;
 use App\Entity\Notification\Notification;
 use App\Entity\Notification\Template;
 use App\Entity\Notification\Users;
@@ -26,14 +27,13 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function PushSingleNotification($notificationId, $userId, $notificationTemplate, $params, $additionalData)
+    public function PushSingleNotification($notificationId, $userId, $content, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
 
-        // dd($amount);
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
         if ($singleUser == null) {
             $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
@@ -51,15 +51,15 @@ class NotificationServices
 
             $this->mr->persist($user);
             $this->mr->flush();
-            echo "user coming from api";
+            // echo "user coming from api";
         } else {
             $userFirstname = $singleUser->getfname();
             $userLastname = $singleUser->getlname();
             $userLang = $singleUser->getlang();
-            echo "user coming from db";
+            // echo "user coming from db";
         }
 
-        $notTemplate = $this->mr->getRepository(Template::class)->findOneBy(['id' => $notificationTemplate]);
+        $notTemplate = $this->mr->getRepository(content::class)->findOneBy(['id' => $content]);
         if ($notTemplate != null) {
             if ($userLang == 1) {
                 $title = $notTemplate->gettitleEN();
@@ -113,7 +113,7 @@ class NotificationServices
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
             if ($singleNotification != null) {
                 $singleNotification
-                    ->setstatus("not complete")
+                    ->setstatus("canceled")
                     ->seterrorMsg($PushSingle["flagCode"]);
                 $this->mr->persist($singleNotification);
                 $this->mr->flush();
@@ -126,13 +126,12 @@ class NotificationServices
         return 1;
     }
 
-    public function addNotification($userId, $notificationTemplate, $params, $additionalData=null)
+    public function addNotification($userId, $content, $params, $additionalData=null)
     {
-
         $notification = new Notification;
         $notification
             ->setuserId($userId)
-            ->settemplateId($notificationTemplate)
+            ->setcontentId($content)
             ->setstatus("pending")
             ->seterrorMsg(null)
             ->setparams($params)

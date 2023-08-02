@@ -23,15 +23,15 @@ class notificationresult extends Command
     private $sendEmail;
     private $notificationServices;
     private $notifyMr;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail,NotificationServices $notificationServices)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices)
     {
         parent::__construct();
 
         $this->lotoServices = $lotoServices;
         $this->mr = $mr->getManager('loto');
         $this->sendEmail = $sendEmail;
-        $this->notificationServices=$notificationServices;
-        $this->notifyMr=$mr->getManager('notification');
+        $this->notificationServices = $notificationServices;
+        $this->notifyMr = $mr->getManager('notification');
     }
 
     protected function configure()
@@ -98,10 +98,10 @@ class notificationresult extends Command
         //     $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com','charbel.ghadban@gmail.com', 'Warning Email', 'Results already inserted');
         // }
 
-        $lastdraw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
+        $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
         // // dd(($lastdraw->getdrawid()));
-        $drawid=$lastdraw->getdrawid();
-        $notifyUser=$this->mr->getRepository(loto::class)->findPlayedUser($drawid);
+        $drawid = $lastdraw->getdrawid();
+        $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid);
 
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
 
@@ -136,12 +136,13 @@ class notificationresult extends Command
 
             // dd($notifyUser);
 
-            foreach($notifyUser as $notifyUser)
-            {
-                $userId= $notifyUser['suyoolUserId'];
-                $template=$this->notifyMr->getRepository(Template::class)->findOneBy(['identifier'=>'result if user has grid in this draw']);
-                $params=json_encode(['balls'=>$notifyUser['numbers'],'draw'=>$notifyUser['drawNumber'],'currency'=>'LBP','amount'=>number_format($lastresultprice->getlotoprize())],true);
-                $this->notificationServices->addNotification($userId,$template->getId(),$params);
+            foreach ($notifyUser as $notifyUser) {
+                $userId = $notifyUser['suyoolUserId'];
+                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'result if user has grid in this draw']);
+                $index = $template->getIndex();
+                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                $params = json_encode(['balls' => $notifyUser['numbers'], 'draw' => $notifyUser['drawNumber'], 'currency' => 'LBP', 'amount' => number_format($lastresultprice->getlotoprize())], true);
+                $this->notificationServices->addNotification($userId, $$content, $params);
             }
         }
 

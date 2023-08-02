@@ -9,6 +9,7 @@ use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\LOTO_tickets;
 use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
+use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
 use App\Service\NotificationServices;
 use App\Utils\Helper;
@@ -48,15 +49,36 @@ class reminderNotification extends Command
         ]);
 
         $notify=$this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek();
+        // dd($notify);
 
         $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
+
+        $date=new DateTime();
+        $day=$date->format('w');
+        // dd($day);
 
         foreach($notify as $notify)
         {
             $params=json_encode(['currency'=>'LBP','amount'=>number_format($draw->getlotoprize())]);
             $template=$this->notifMr->getRepository(Template::class)->findOneBy(['identifier'=>"reminder notification"]);
-            $this->notificationServices->addNotification($notify['suyoolUserId'],$template->getId(),$params,"play");
+            $index=$template->getIndex();
+            $content=$this->notifMr->getRepository(content::class)->findOneBy(['template'=>$template->getId(),'version'=>$index]);
+            $this->notificationServices->addNotification($notify['suyoolUserId'],$content,$params);
+            
+
         }
+
+        if($day==4){
+            if($index==6){
+                $index = 1;
+            }else{
+                $index += 1;
+            }
+            $template->setindex($index);
+            $this->notifMr->persist($template);
+            $this->notifMr->flush();
+        }
+        
 
 
         return 1;
