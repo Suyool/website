@@ -12,7 +12,6 @@ use App\Service\BobServices;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
-use App\Service\SuyoolServices1;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,14 +56,22 @@ class TouchController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
+        $session = 89;
         $data = json_decode($request->getContent(), true);
+
         if ($data != null) {
-            $sendBill = $bobServices->Bill($data["mobileNumber"]);
-            $sendBillRes = json_decode($sendBill, true);
-            if ($sendBillRes["ResponseText"] == "Success") {
-                // dd($sendBillRes);
-                $invoices = new PostpaidRequest;
-                $invoices
+            $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
+
+            if ($sendBill[0]) {
+                $postpaidRequest = new PostpaidRequest;
+                $postpaidRequest
+                    ->setSuyoolUserId($session)
+                    ->setGsmNumber($data["mobileNumber"])
+                    ->settoken($sendBill[1])
+                    ->seterror($sendBill[2])
+                    ->setPin(null)
+                    ->setTransactionId(null)
+                    ->setcurrency(null)
                     ->setfees(null)
                     ->setfees1(null)
                     ->setamount(null)
@@ -73,32 +80,46 @@ class TouchController extends AbstractController
                     ->setreferenceNumber(null)
                     ->setinformativeOriginalWSamount(null)
                     ->settotalamount(null)
-                    ->setcurrency(null)
                     ->setrounding(null)
                     ->setadditionalfees(null)
+                    ->setinvoiceNumber(null)
+                    ->setpaymentId(null);
+                $this->mr->persist($postpaidRequest);
+                $this->mr->flush();
+            } else {
+                $postpaidRequest = new PostpaidRequest;
+                $postpaidRequest
+                    ->setSuyoolUserId($session)
+                    ->setGsmNumber($data["mobileNumber"])
+                    ->settoken($sendBill[1])
+                    ->seterror($sendBill[2])
                     ->setPin(null)
                     ->setTransactionId(null)
-                    ->setSuyoolUserId(rand())
-                    ->setGsmNumber($data["mobileNumber"]);
-                $this->mr->persist($invoices);
+                    ->setcurrency(null)
+                    ->setfees(null)
+                    ->setfees1(null)
+                    ->setamount(null)
+                    ->setamount1(null)
+                    ->setamount2(null)
+                    ->setreferenceNumber(null)
+                    ->setinformativeOriginalWSamount(null)
+                    ->settotalamount(null)
+                    ->setrounding(null)
+                    ->setadditionalfees(null)
+                    ->setinvoiceNumber(null)
+                    ->setpaymentId(null);
+                $this->mr->persist($postpaidRequest);
                 $this->mr->flush();
-
-                $invoicesId = $invoices->getId();
-                // dd($invoicesId);
-            } else {
-                echo "error";
-                $invoicesId = -1;
             }
-            $message = "connected";
-        } else {
-            $message = "not connected";
-            $invoicesId = -1;
+
+            $postpaidRequestId = $postpaidRequest->getId();
+            // dd($postpaidRequestId);
         }
 
         return new JsonResponse([
             'status' => true,
-            'message' => $message,
-            'invoicesId' => $invoicesId
+            'isSuccess' => $sendBill[0],
+            'postpaidRequestId' => $postpaidRequestId
         ], 200);
     }
 
@@ -435,7 +456,7 @@ class TouchController extends AbstractController
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);
-                    $notificationServices->addNotification($session, 4, $params,"");
+                    $notificationServices->addNotification($session, 4, $params, "");
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());

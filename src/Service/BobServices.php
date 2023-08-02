@@ -43,6 +43,7 @@ class BobServices
         return $decodedString;
     }
 
+    //Alfa
     public function Bill($gsmMobileNb)
     {
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendPinRequest', [
@@ -159,5 +160,45 @@ class BobServices
         $decodedString = $this->_decodeGzipString(base64_decode($res));
 
         return $decodedString;
+    }
+
+    //Touch
+    public function SendTouchPinRequest($gsmMobileNb)
+    {
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendTouchPinRequest', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "TouchPinParam" => [
+                    "Service" => "invoice",
+                    "GSMNumber" => $gsmMobileNb
+                    // "GSMNumber" => "70102030"
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+        // dd($ApiResponse);
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decoded = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
     }
 }
