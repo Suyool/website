@@ -78,7 +78,6 @@ class ShopifyController extends AbstractController
                 }
 
                 $this->mr->flush();
-                dd("123");
                 return $this->render('shopify/index.html.twig', [
                     'order_id' => $orderID,
                     'meta_data' => $metadata,

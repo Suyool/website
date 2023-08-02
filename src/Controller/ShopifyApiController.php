@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Shopify\Orders;
+use App\Entity\Shopify\Logs;
 use App\Entity\Shopify\MerchantCredentials;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,12 +34,11 @@ class ShopifyApiController extends AbstractController
 
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
-
         if (!$order) {
             throw $this->createNotFoundException('Order not found');
         }
 
-        $createdAt = $order->getCreateDate()->getTimestamp();
+        $createdAt = $order->getCreated()->getTimestamp();
 
         $metadata = json_decode($request->request->get('metadata'), true);
         $totalPrice = trim($metadata['total_price']) / 100;
@@ -72,7 +72,9 @@ class ShopifyApiController extends AbstractController
 
             $result = Helper::send_curl($params);
             $response = json_decode($result, true);
-            
+            $logs =array('orderId' =>$orderId,'request'=>$params,'response'=>$response,'env' =>$metadata['env']);
+            $this->saveLog($logs);
+
             if($response['pictureURL'] != null)
                 $showQR = 'displayBlock';
             else
@@ -214,6 +216,10 @@ class ShopifyApiController extends AbstractController
 
                 $result = Helper::send_curl($params, $accessToken);
                 $response = json_decode($result, true);
+                $logs =array('orderId' =>$order_id,'request'=>$params,'response'=>$response,'env' =>"");
+
+                $this->saveLog($logs);
+
                 return new JsonResponse($response);
             }
 
@@ -294,5 +300,17 @@ class ShopifyApiController extends AbstractController
             'order_id' => $orderId,
         ]);
 
+    }
+    private function saveLog (array $data) {
+
+        $log = new Logs();
+
+        $log->setOrderId($data['orderId']);
+        $log->setRequest(json_encode($data['request']));
+        $log->setResponse(json_encode($data['response']));
+        $log->setEnv($data['env']);
+
+        $this->mr->persist($log);
+        $this->mr->flush();
     }
 }
