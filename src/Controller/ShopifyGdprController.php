@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Shopify\MerchantCredentials;
 use App\Entity\Shopify\RequestedData;
-use App\Entity\Shopify\ShopifyOrders;
+use App\Entity\Shopify\Orders;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class ShopifyGdprController extends AbstractController
         $shopDomain = $requestData['shop_domain'];
         $ordersRequestedString = $requestData['orders_requested'];
 
-        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+        $ordersRepository = $this->mr->getRepository(Orders::class);
 
         $orderIds = explode(',', $ordersRequestedString);
 
@@ -41,13 +41,8 @@ class ShopifyGdprController extends AbstractController
             // Fetch the order details from the repository
             $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
-            if ($order) {
-                // Sanitize the metaInfo property
-                $order->setMetaInfo($this->_sanitizeMetaInfo($order->getMetaInfo()));
-
-                // Add the order to the orders array
+            if ($order)
                 $orders[] = $order;
-            }
         }
         $this->saveRequestedData($requestData,$orders);
 
@@ -66,7 +61,7 @@ class ShopifyGdprController extends AbstractController
         $ordersRequestedString = $requestData['orders_to_redact'];
         $orderIds = explode(',', $ordersRequestedString);
 
-        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+        $ordersRepository = $this->mr->getRepository(Orders::class);
 
         foreach ($orderIds as $orderId) {
             // Fetch the order details from the repository
@@ -113,10 +108,10 @@ class ShopifyGdprController extends AbstractController
 
     private function saveRequestedData(array $request, $response) {
         if(is_array($response)){
-            $response = "";
+            $result = "";
             foreach ($response as $res) {
-                $data = "Order_id:". $res->getOrderId() . ", MetaData: " . $res->getMetaInfo() . ", Status:" . $res->getStatus();
-                $response .= $data . " ; ";
+                $data = "Order_id:". $res->getOrderId() . ", Price: " . $res->getAmount() . ", Status:" . $res->getStatus();
+                $result .= $data . " ; ";
             }
         }
 
@@ -125,7 +120,7 @@ class ShopifyGdprController extends AbstractController
 
         $requestedData = new RequestedData();
         $requestedData->setShop($request['shop_domain']);
-        $requestedData->setData("Request: ".$queryStringRequest . " Response: " . $response);
+        $requestedData->setData("Request: ".$queryStringRequest . " Response: " . $result);
 
         $this->mr->persist($requestedData);
         $this->mr->flush();
