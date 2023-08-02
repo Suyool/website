@@ -516,31 +516,4 @@ class AlfaController extends AbstractController
         ], 200);
     }
 
-
-    // /**
-    //  * @Route("/alfa/addNotification", name="addNotification",methods="GET")
-    //  */
-    // public function addNotification(NotificationServices $notificationServices)
-    // {
-    //     $userId = 89;
-    //     $notificationTemplate = 1;
-
-    //     $addNotification = $notificationServices->addNotification($userId, $notificationTemplate);
-
-    //     return new JsonResponse([
-    //         'status' => true,
-    //     ], 200);
-    // }
-
-    // /**
-    //  * @Route("/alfa/cron", name="cron",methods="GET")
-    //  */
-    // public function cron(NotificationServices $notificationServices)
-    // {
-    //     $addNotification = $notificationServices->cron();
-
-    //     return new JsonResponse([
-    //         'status' => true,
-    //     ], 200);
-    // }
 }

@@ -27,7 +27,7 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.d13b726e.js"
+        "/build/Touch.30f5160f.js"
       ]
     },
     "Ogero": {
@@ -73,7 +73,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.43496b1a.css"
+        "/build/TouchStyle.c3447200.css"
       ]
     },
     "OgeroStyle": {

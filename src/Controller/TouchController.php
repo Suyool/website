@@ -56,7 +56,7 @@ class TouchController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
-        $session = 89;
+        $session = 155;
         $data = json_decode($request->getContent(), true);
 
         if ($data != null) {
@@ -197,12 +197,13 @@ class TouchController extends AbstractController
      * Desc: Retrieve Channel Results 
      * @Route("/touch/bill/pay", name="app_touch_bill_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices)
+    public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $data = json_decode($request->getContent(), true);
-        $session = 89;
+        $session = 155;
         $app_id = 4;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
+        $flagCode = null;
 
         if ($data != null) {
             //Initial order with status pending
@@ -219,6 +220,7 @@ class TouchController extends AbstractController
             $this->mr->flush();
 
             //Take amount from .net
+            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 30000000, $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
             $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
 
             if ($response[0]) {
@@ -232,16 +234,19 @@ class TouchController extends AbstractController
 
 
                 //paid postpaid from bob Provider
-                $billPay = $bobServices->BillPay($Postpaid_With_id);
-                // dd($billPay);
-                if ($billPay != "") {
-                    $billPayArray = json_decode($billPay, true);
+                $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
 
+                // dd($billPay);
+                if ($billPay[0]) {
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
                     $postpaid
-                        ->settransactionDescription($billPayArray["TransactionDescription"])
-                        ->setstatus("pending")
+                        ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
+                        ->setGsmNumber($Postpaid_With_id->getGsmNumber())
+                        ->settoken($Postpaid_With_id->gettoken())
+                        ->setPin($Postpaid_With_id->getpin())
+                        ->setTransactionId($Postpaid_With_id->getTransactionId())
+                        ->setcurrency($Postpaid_With_id->getcurrency())
                         ->setfees($Postpaid_With_id->getfees())
                         ->setfees1($Postpaid_With_id->getfees1())
                         ->setamount($Postpaid_With_id->getamount())
@@ -250,13 +255,11 @@ class TouchController extends AbstractController
                         ->setreferenceNumber($Postpaid_With_id->getreferenceNumber())
                         ->setinformativeOriginalWSamount($Postpaid_With_id->getinformativeOriginalWSamount())
                         ->settotalamount($Postpaid_With_id->gettotalamount())
-                        ->setcurrency($Postpaid_With_id->getcurrency())
                         ->setrounding($Postpaid_With_id->getrounding())
                         ->setadditionalfees($Postpaid_With_id->getadditionalfees())
-                        ->setPin($Postpaid_With_id->getPin())
-                        ->setTransactionId($Postpaid_With_id->getTransactionId())
-                        ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
-                        ->setGsmNumber($Postpaid_With_id->getGsmNumber());
+                        ->setinvoiceNumber($Postpaid_With_id->getinvoiceNumber())
+                        ->setpaymentId($Postpaid_With_id->getpaymentId())
+                        ->seterror($billPay[2]);
                     $this->mr->persist($postpaid);
                     $this->mr->flush();
 
@@ -273,6 +276,15 @@ class TouchController extends AbstractController
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
+                    //intial notification
+                    $params = json_encode([
+                        'amount' => $order->getamount(),
+                        'currency' => $order->getcurrency(),
+                        'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
+                    ]);
+                    $additionalData = "";
+                    $notificationServices->addNotification($session, 5, $params, $additionalData);
+
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
@@ -284,13 +296,15 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
                         $message = "Success";
                     } else {
                         $message = "something wrong while UpdateUtilities";
+                        $dataPayResponse = -1;
                     }
                 } else {
                     $IsSuccess = false;
-
+                    $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
@@ -314,12 +328,13 @@ class TouchController extends AbstractController
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = $response[1];
-                // $dataPayResponse = -1;
+                $message = json_decode($response[1], true);
+                $flagCode = $response[2];
+                $dataPayResponse = -1;
             }
         } else {
             $IsSuccess = false;
-            // $dataPayResponse = -1;
+            $dataPayResponse = -1;
             $message = "Can not retrive data !!";
         }
 
@@ -327,7 +342,8 @@ class TouchController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
-            // 'data' => $dataPayResponse
+            'flagCode' => $flagCode,
+            'data' => $dataPayResponse
         ], 200);
     }
 
@@ -491,7 +507,10 @@ class TouchController extends AbstractController
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = $response[1];
+                // $message = $response[1];
+                // $dataPayResponse = -1;
+                $message = json_decode($response[1], true);
+                $flagCode = $response[2];
                 $dataPayResponse = -1;
             }
         } else {
@@ -504,6 +523,7 @@ class TouchController extends AbstractController
             'status' => true,
             'message' => $message,
             'IsSuccess' => $IsSuccess,
+            'flagCode' => $flagCode,
             'data' => $dataPayResponse
         ], 200);
     }

@@ -19,108 +19,99 @@ class Postpaid
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
     /**
-     * 
      * @ORM\Column(name="gsmNumber")
      */
     private $gsmNumber;
 
     /**
-     * 
-     * @ORM\Column(name="currency",type="string")
+     * @ORM\Column(name="token")
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(name="error")
+     */
+    private $error;
+
+    /**
+     * @ORM\Column(name="currency")
      */
     private $currency;
 
     /**
-     * 
-     * @ORM\Column(name="pin",type="integer")
+     * @ORM\Column(name="pin")
      */
     private $pin;
 
     /**
-     * 
      * @ORM\Column(name="transactionId")
      */
     private $transactionId;
 
     /**
-     * 
-     * @ORM\Column(name="transactionDescription")
-     */
-    private $transactionDescription;
-
-    /**
-     * 
-     * @ORM\Column(name="status")
-     */
-    private $status;
-
-    /**
-     * 
-     * @ORM\Column(name="fees",type="integer")
+     * @ORM\Column(name="fees")
      */
     private $fees;
 
     /**
-     * 
-     * @ORM\Column(name="fees1",type="integer")
+     * @ORM\Column(name="fees1")
      */
     private $fees1;
 
     /**
-     * 
      * @ORM\Column(name="amount")
      */
     private $amount;
 
     /**
-     * 
      * @ORM\Column(name="amount1")
      */
     private $amount1;
 
     /**
-     * 
      * @ORM\Column(name="amount2")
      */
     private $amount2;
 
     /**
-     * 
-     * @ORM\Column(name="referenceNumber",type="integer")
+     * @ORM\Column(name="referenceNumber")
      */
     private $referenceNumber;
 
     /**
-     * 
      * @ORM\Column(name="informativeOriginalWSamount")
      */
     private $informativeOriginalWSamount;
 
     /**
-     * 
      * @ORM\Column(name="totalamount")
      */
     private $totalamount;
 
     /**
-     * 
-     * @ORM\Column(name="rounding",type="integer")
+     * @ORM\Column(name="rounding")
      */
     private $rounding;
 
     /**
-     * 
-     * @ORM\Column(name="additionalfees",type="integer")
+     * @ORM\Column(name="additionalfees")
      */
     private $additionalfees;
 
+    /**
+     * @ORM\Column(name="invoiceNumber")
+     */
+    private $invoiceNumber;
 
+    /**
+     * @ORM\Column(name="paymentId")
+     */
+    private $paymentId;
 
 
     public function getId()
@@ -128,6 +119,28 @@ class Postpaid
         return $this->id;
     }
 
+
+    public function getinvoiceNumber()
+    {
+        return $this->invoiceNumber;
+    }
+
+    public function setinvoiceNumber($invoiceNumber)
+    {
+        $this->invoiceNumber = $invoiceNumber;
+        return $this;
+    }
+
+    public function getpaymentId()
+    {
+        return $this->paymentId;
+    }
+
+    public function setpaymentId($paymentId)
+    {
+        $this->paymentId = $paymentId;
+        return $this;
+    }
 
     public function getfees()
     {
@@ -137,6 +150,17 @@ class Postpaid
     public function setfees($fees)
     {
         $this->fees = $fees;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
         return $this;
     }
 
@@ -195,6 +219,18 @@ class Postpaid
         $this->referenceNumber = $referenceNumber;
         return $this;
     }
+
+    public function gettoken()
+    {
+        return $this->token;
+    }
+
+    public function settoken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
 
     public function getinformativeOriginalWSamount()
     {
@@ -292,28 +328,6 @@ class Postpaid
     function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
-        return $this;
-    }
-
-    function getstatus()
-    {
-        return $this->status;
-    }
-
-    function setstatus($status)
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    function gettransactionDescription()
-    {
-        return $this->transactionDescription;
-    }
-
-    function settransactionDescription($transactionDescription)
-    {
-        $this->transactionDescription = $transactionDescription;
         return $this;
     }
 }

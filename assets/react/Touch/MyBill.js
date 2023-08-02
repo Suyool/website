@@ -62,14 +62,54 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         }
       )
       .then((response) => {
-        console.log(response);
-        setModalName("SuccessModal");
-        setSuccessModal({
-          imgPath: "/build/images/touch/SuccessImg.png",
-          title: "Touch Bill Paid Successfully",
-          desc: "You have successfully paid your Touch bill of {currency}{amount}."
-        })
-        setModalShow(true);
+        console.log(response.data);
+        const jsonResponse = response?.data?.message;
+
+        if (response.data?.IsSuccess) {
+          setModalName("SuccessModal");
+          setSuccessModal({
+            imgPath: "/build/images/alfa/SuccessImg.png",
+            title: "Alfa Bill Paid Successfully",
+            desc: `You have successfully paid your Alfa bill of ${response.data?.data.currency} ${" "} ${response.data?.data.amount}.`
+          })
+          setModalShow(true);
+        } else {
+          console.log(response.data.flagCode)
+          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
+          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            // console.log("step 3")
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (
+            !response.data.IsSuccess &&
+            response.data.flagCode == 11
+          ) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
+        }
+
+        // setModalName("SuccessModal");
+        // setSuccessModal({
+        //   imgPath: "/build/images/alfa/SuccessImg.png",
+        //   title: "Alfa Bill Paid Successfully",
+        //   desc: "You have successfully paid your Alfa bill of {currency}{amount}."
+        // })
+        // setModalShow(true);
       })
       .catch((error) => {
         console.log(error);
