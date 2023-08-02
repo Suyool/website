@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Shopify\ShopifyOrders;
+use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\MerchantCredentials;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,7 +29,7 @@ class ShopifyApiController extends AbstractController
      */
     public function paySkashQR(Request $request): Response
     {
-        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+        $ordersRepository = $this->mr->getRepository(Orders::class);
 
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
@@ -100,7 +100,7 @@ class ShopifyApiController extends AbstractController
             $amount = number_format($totalPrice, 2, '.', '');
             $currency = $metadata['currency'];
 
-            $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+            $ordersRepository = $this->mr->getRepository(Orders::class);
             $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
             if (!$order) {
@@ -156,7 +156,7 @@ class ShopifyApiController extends AbstractController
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if ($flag !== null) {
-            $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+            $ordersRepository = $this->mr->getRepository(Orders::class);
             $orders = $ordersRepository->findBy(['orderId' => $order_id]);
             $order = $orders[0];
 
@@ -232,7 +232,7 @@ class ShopifyApiController extends AbstractController
      */
     public function checkOrderStatus($orderId)
     {
-        $ordersRepository = $this->mr->getRepository(ShopifyOrders::class);
+        $ordersRepository = $this->mr->getRepository(Orders::class);
         $order = $ordersRepository->findBy(["orderId"=> $orderId]);
 //        dd($order);
         if ($order) {
