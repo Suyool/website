@@ -29,6 +29,16 @@ class Postpaid
     private $gsmNumber;
 
     /**
+     * @ORM\Column(name="transactionDescription")
+     */
+    private $transactionDescription;
+
+     /**
+     * @ORM\Column(name="transactionReference")
+     */
+    private $transactionReference;
+
+    /**
      * @ORM\Column(name="token")
      */
     private $token;
@@ -119,6 +129,28 @@ class Postpaid
         return $this->id;
     }
 
+
+    public function gettransactionDescription()
+    {
+        return $this->transactionDescription;
+    }
+
+    public function settransactionDescription($transactionDescription)
+    {
+        $this->transactionDescription = $transactionDescription;
+        return $this;
+    }
+
+    public function gettransactionReference()
+    {
+        return $this->transactionReference;
+    }
+
+    public function settransactionReference($transactionReference)
+    {
+        $this->transactionReference = $transactionReference;
+        return $this;
+    }
 
     public function getinvoiceNumber()
     {

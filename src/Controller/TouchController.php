@@ -56,14 +56,14 @@ class TouchController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
-        $session = 155;
+        $session = 89;
         $data = json_decode($request->getContent(), true);
 
         if ($data != null) {
             $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
 
+            $postpaidRequest = new PostpaidRequest;
             if ($sendBill[0]) {
-                $postpaidRequest = new PostpaidRequest;
                 $postpaidRequest
                     ->setSuyoolUserId($session)
                     ->setGsmNumber($data["mobileNumber"])
@@ -86,10 +86,7 @@ class TouchController extends AbstractController
                     ->setadditionalfees(null)
                     ->setinvoiceNumber(null)
                     ->setpaymentId(null);
-                $this->mr->persist($postpaidRequest);
-                $this->mr->flush();
             } else {
-                $postpaidRequest = new PostpaidRequest;
                 $postpaidRequest
                     ->setSuyoolUserId($session)
                     ->setGsmNumber($data["mobileNumber"])
@@ -112,10 +109,10 @@ class TouchController extends AbstractController
                     ->setadditionalfees(null)
                     ->setinvoiceNumber(null)
                     ->setpaymentId(null);
-                $this->mr->persist($postpaidRequest);
-                $this->mr->flush();
             }
 
+            $this->mr->persist($postpaidRequest);
+            $this->mr->flush();
             $postpaidRequestId = $postpaidRequest->getId();
             // dd($postpaidRequestId);
         }
@@ -200,11 +197,12 @@ class TouchController extends AbstractController
     public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $data = json_decode($request->getContent(), true);
-        $session = 155;
+        $session = 89;
         $app_id = 4;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
-
+        // $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
+        // dd($billPay);
         if ($data != null) {
             //Initial order with status pending
             $order = new Order;
@@ -222,6 +220,8 @@ class TouchController extends AbstractController
             //Take amount from .net
             // $response = $suyoolServices->PushUtilities($session, $order->getId(), 30000000, $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
             $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+
+            // dd($response);
 
             if ($response[0]) {
                 //set order status to held
@@ -244,6 +244,8 @@ class TouchController extends AbstractController
                         ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
                         ->setGsmNumber($Postpaid_With_id->getGsmNumber())
                         ->settoken($Postpaid_With_id->gettoken())
+                        ->settransactionDescription($billPay[0]["TransactionDescription"])
+                        ->settransactionReference($billPay[0]["TransactionReference"])
                         ->setPin($Postpaid_With_id->getpin())
                         ->setTransactionId($Postpaid_With_id->getTransactionId())
                         ->setcurrency($Postpaid_With_id->getcurrency())
