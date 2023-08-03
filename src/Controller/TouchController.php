@@ -244,8 +244,8 @@ class TouchController extends AbstractController
                         ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
                         ->setGsmNumber($Postpaid_With_id->getGsmNumber())
                         ->settoken($Postpaid_With_id->gettoken())
-                        ->settransactionDescription($billPay[0]["TransactionDescription"])
-                        ->settransactionReference($billPay[0]["TransactionReference"])
+                        ->settransactionDescription($billPay[1]["TransactionDescription"])
+                        ->settransactionReference($billPay[1]["TransactionReference"])
                         ->setPin($Postpaid_With_id->getpin())
                         ->setTransactionId($Postpaid_With_id->getTransactionId())
                         ->setcurrency($Postpaid_With_id->getcurrency())
@@ -308,7 +308,7 @@ class TouchController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                         $orderupdate4
@@ -487,7 +487,8 @@ class TouchController extends AbstractController
                     $IsSuccess = false;
 
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    dd($responseUpdateUtilities);
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                         $orderupdate4
