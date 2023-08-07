@@ -59,22 +59,47 @@ class LotoServices
 
     public function BuyPrePaid($Token, $category, $type)
     {
+        $login = $this->Login();
         // dd($this->Login());
-        $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
-            'body' => json_encode([
-                "Token" => $this->Login(),
-                "category" => $category,
-                "type" => $type,
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $retryattempt = 1;
+        while ($retryattempt <= 2) {
+            $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
+                'body' => json_encode([
+                    "Token" => $login,
+                    "category" => $category,
+                    "type" => $type,
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
 
-        $content = $response->getContent();
-        $content = $response->toArray();
+            $content = $response->getContent();
+            $content = $response->toArray();
+
+            // dd($content['d']['errorinfo']['errorcode']);
+            if ($content['d']['errorinfo']['errorcode'] == 0) {
+                $submit = 0;
+            } else if ($retryattempt == 2) {
+                $submit = 0;
+            } else {
+                $submit = $content['d']['errorinfo']['errorcode'];
+            }
+
+            if ($submit == 0) {
+                return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
+            } else {
+                // $login = $this->Login();
+                // // $login = "a1066b81-af54-4aa3-bd33-0ea4c87777ab";
+                sleep(3);
+                echo "attemp " . $retryattempt;
+                $retryattempt++;
+            }
+        }
+
         // dd($content);
-        return $content;
+        // return $content;
+        return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
     }
 
     public function BouquetGrids($ticketId)
@@ -139,7 +164,7 @@ class LotoServices
         // }
         // $historyId = $historyId[0];
 
-        $historyId=5227340;
+        $historyId = 5227340;
 
         return $historyId;
     }
@@ -147,25 +172,32 @@ class LotoServices
     public function playLoto($draw, $withZeed, $gridselected)
     {
         $retryattempt = 1;
-        while($retryattempt <= 2){
-        // date('Y-m-d'),
-        //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        // $token = $this->Login();
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
-            'body' => json_encode([
-                'Token' => '',
-                'drawNumber' => $draw,
-                'numDraws' => 1,
-                'withZeed' => $withZeed,
-                'saveToFavorite' => 1,
-                'GridsSelected' => $gridselected
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        while ($retryattempt <= 2) {
+            // date('Y-m-d'),
+            //         'toDate' => date('Y-m-d',strtotime("+1 day"))
+            // $token = $this->Login();
+            $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
+                'body' => json_encode([
+                    'Token' => '',
+                    'drawNumber' => $draw,
+                    'numDraws' => 1,
+                    'withZeed' => $withZeed,
+                    'saveToFavorite' => 1,
+                    'GridsSelected' => $gridselected
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
 
-        $content = $response->toArray();
+            $content = $response->toArray();
+
+
+            if ($retryattempt == 2) {
+                $submit = 0;
+            } else {
+                $submit = $content['d']['errorinfo']['errorcode'];
+            }
 
         
         if(!$withZeed){
@@ -176,7 +208,7 @@ class LotoServices
        
             if ($submit == 0) {
                 // $zeed = $content['d']['insertId'];
-                $zeed=12345;
+                $zeed = 12345;
                 return array(true, $zeed);
             } else if($submit == 4 || $submit == 6 || $submit == 9){
                 $error = $content['d']['errorinfo']['errormsg'];
@@ -184,15 +216,12 @@ class LotoServices
             }
              else {
                 sleep(10);
-                echo "attemp ".$retryattempt;
-                $retryattempt ++ ;
+                echo "attemp " . $retryattempt;
+                $retryattempt++;
             }
         }
         $error = $content['d']['errorinfo']['errormsg'];
-        return array(false,$submit,$error);
-       
-
-        
+        return array(false, $submit, $error);
     }
 
     public function getDrawsResult()
@@ -209,7 +238,7 @@ class LotoServices
         ]);
         $status = $response->getStatusCode(); // Get the status code
 
-        if($status == 500){
+        if ($status == 500) {
             return false;
         }
         $content = $response->toArray(false);
@@ -228,15 +257,15 @@ class LotoServices
             ]
         ]);
         $status = $response->getStatusCode(); // Get the status code
-        if($status == 500){
+        if ($status == 500) {
             return false;
         }
 
         $content = $response->toArray(false);
 
-        $date=$content['d']['draws'][0]['drawdate'];
-        $nextdrawdetails=$content['d']['draws'][1];
+        $date = $content['d']['draws'][0]['drawdate'];
+        $nextdrawdetails = $content['d']['draws'][1];
 
-        return array($date,$nextdrawdetails);
+        return array($date, $nextdrawdetails);
     }
 }

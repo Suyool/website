@@ -3,7 +3,7 @@ import axios from "axios";
 
 const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  // const [currency, setCurrency] = useState("USD");
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -12,7 +12,6 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
 
   const handleContinue = () => {
     console.log("Mobile Number:", mobileNumber);
-    // console.log("Currency:", currency);
 
     // axios
     //   .post("/Ogero/bill",
@@ -38,25 +37,18 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
   };
 
   const formatMobileNumber = (value) => {
-    // Remove any non-digit characters
     const digitsOnly = value.replace(/\D/g, "");
-
-    // Truncate to a maximum length of 8 digits
     const truncatedValue = digitsOnly.slice(0, 8);
-
-    // Apply formatting if the length exceeds 8 characters
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }
-
-    // Otherwise, return the input as is
     return truncatedValue;
   };
 
 
   return (
     <div id="PayBill">
-      <div className="mainTitle">Enter your phone number to recharge</div>
+      <div className="mainTitle">Enter the landline number</div>
 
       <div className="MobileNbContainer mt-3">
         <div className="place">
@@ -66,15 +58,14 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
-      <div className="pCurrency">
+      {/* <div className="pCurrency">
         <div className="subTitle">My Payment Currency</div>
-
       </div>
 
       <div className="currencies">
         <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
         <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-      </div>
+      </div> */}
 
       {/* {currency == "USD" && <p>USD</p>}
       {currency == "LBP" && <p>LBP</p>} */}

@@ -71,10 +71,38 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
             <div className="bodySection">
               <div className="cardSec">
                 <img src="/build/images/Ogero/OgeroLogo.png" alt="flag" />
-                <div className="method">Ogero Bill Payment</div>
+                <div className="method">Ogero Landline Bill Payment</div>
               </div>
-              <div className="descSec">Amount</div>
-              <div className="Amount">10 $</div>
+
+              <div className="MoreInfo">
+                <div className="label">Phone Number</div>
+                {/* <div className="value">+961 {localStorage.getItem("billMobileNumber")}</div> */}
+                <div className="value">+961 04453277</div>
+              </div>
+
+              <div className="br"></div>
+
+              {/* <div className="MoreInfo">
+                <div className="label">Amount in USD</div>
+                <div className="value1">$ {getDisplayData.InformativeOriginalWSAmount}</div>
+              </div> */}
+
+              <div className="MoreInfo">
+                <div className="label">Amount in LBP (Sayrafa Rate)</div>
+                {/* <div className="value1">LBP {parseInt(getDisplayData.Amount).toLocaleString()}</div> */}
+                <div className="value1">LBP 90,000</div>
+              </div>
+
+              <div className="taxes">*All taxes included</div>
+
+              <div className="br"></div>
+
+              <div className="MoreInfo">
+                <div className="label">Total</div>
+                {/* <div className="value2">LBP {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div> */}
+                <div className="value2">LBP 100,000</div>
+              </div>
+
             </div>
 
             <div className="footSectionPick">

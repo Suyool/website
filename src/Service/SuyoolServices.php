@@ -24,15 +24,15 @@ class SuyoolServices
     /**
      * Push Utility Api
      */
-    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate)
+    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$app)
     {
-        $Hash = base64_encode(hash($hash_algo, $session . 1 . $id . $sum . $currency . $certificate, true));
+        $Hash = base64_encode(hash($hash_algo, $session . $app . $id . $sum . $currency . $certificate, true));
         // dd($Hash);
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment", [
             'body' => json_encode([
                 'userAccountID' => $session,
-                "merchantAccountID" => 1,
+                "merchantAccountID" => $app,
                 'orderID' => $id,
                 'amount' => $sum,
                 'currency' => $currency,

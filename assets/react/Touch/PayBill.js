@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("70102030");
+  const [mobileNumber, setMobileNumber] = useState("03030405");
   const [currency, setCurrency] = useState("LBP");
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
       )
       .then((response) => {
         console.log(response);
-        if (response?.data?.message == "connected") {
+        if (response?.data?.isSuccess) {
           setActiveButton({ name: "MyBill" });
-          setPostpaidData({ id: response?.data?.invoicesId })
+          setPostpaidData({ id: response?.data?.postpaidRequestId })
         } else {
           console.log("something went wrong!!")
         }

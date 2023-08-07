@@ -27,13 +27,13 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.fa25b735.js"
+        "/build/Touch.30f5160f.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.9cf2dfb6.js"
+        "/build/Ogero.b8e15785.js"
       ]
     },
     "styles": {
@@ -73,7 +73,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.43496b1a.css"
+        "/build/TouchStyle.c3447200.css"
       ]
     },
     "OgeroStyle": {
@@ -81,7 +81,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.4834972a.css"
+        "/build/OgeroStyle.9189f8ae.css"
       ]
     }
   }

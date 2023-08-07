@@ -43,6 +43,7 @@ class BobServices
         return $decodedString;
     }
 
+    //Alfa
     public function Bill($gsmMobileNb)
     {
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendPinRequest', [
@@ -159,5 +160,153 @@ class BobServices
         $decodedString = $this->_decodeGzipString(base64_decode($res));
 
         return $decodedString;
+    }
+
+    //Touch
+    public function SendTouchPinRequest($gsmMobileNb)
+    {
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendTouchPinRequest', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "TouchPinParam" => [
+                    "Service" => "invoice",
+                    "GSMNumber" => $gsmMobileNb
+                    // "GSMNumber" => "70102030"
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+        // dd($ApiResponse);
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decoded = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
+
+    public function RetrieveResultsTouch($currency, $mobileNumber, $Pin, $token)
+    {
+        $Pin = implode("", $Pin);
+        // dd($Pin);
+
+        $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => "1",
+                "VenId" => "2",
+                "ProductId" => "1",
+
+                "TouchDueMeta" => [
+                    "Currency" => $currency,
+                    "GSMNumber" => $mobileNumber,
+                    "PIN" => $Pin,
+                    "Token" => $token,
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+        $ApiResponse = json_decode($content, true);
+
+        // dd($ApiResponse);
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['RequestId'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
+
+    public function BillPayTouch($Postpaid_With_id_Res)
+    {
+        // dd($Postpaid_With_id_Res->getCurrency());
+        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => "1",
+                "VenId" => "2",
+                "ProductId" => "2",
+                "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
+
+                "TouchAdvancedResult" => [
+                    "Fees" => strval($Postpaid_With_id_Res->getfees()),
+                    "transactionId" => $Postpaid_With_id_Res->gettransactionId(),
+                    "Amount" => strval($Postpaid_With_id_Res->getamount()),
+                    "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
+                    "referenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
+                    "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
+                    "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
+                    "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
+                    "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
+                    "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
+                    "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
+                    "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
+                    "PaymentId" => strval($Postpaid_With_id_Res->getpaymentId()),
+                    "InvoiceNumber" => strval($Postpaid_With_id_Res->getinvoiceNumber()),
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+        // dd($ApiResponse);
+        // $res = $ApiResponse['Response'];
+        // $decodedString = $this->_decodeGzipString(base64_decode($res));
+
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+
+        // return $decodedString;
     }
 }

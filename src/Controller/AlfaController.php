@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Alfa\Logs;
 use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
@@ -266,7 +267,7 @@ class AlfaController extends AbstractController
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
                     $additionalData = "";
-                    $notificationServices->addNotification($session, 3, $params,$additionalData);
+                    $notificationServices->addNotification($session, 3, $params, $additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -289,7 +290,7 @@ class AlfaController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                         $orderupdate4
@@ -397,8 +398,20 @@ class AlfaController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $PayResonse = $BuyPrePaid["d"];
+                // dd($BuyPrePaid);
+                $PayResonse = $BuyPrePaid[0]["d"];
                 $dataPayResponse = $PayResonse;
+                if ($PayResonse["errorinfo"]["errorcode"] != 0) {
+                    $logs = new Logs;
+                    $logs
+                        ->setidentifier("Prepaid Request")
+                        ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                        ->setrequest($BuyPrePaid[1])
+                        ->setresponse(json_encode($PayResonse))
+                        ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
+                }
                 if ($PayResonse["errorinfo"]["errormsg"] == "SUCCESS") {
                     //if payment from loto provider success insert prepaid data to db
                     $prepaid = new Prepaid;
@@ -437,8 +450,8 @@ class AlfaController extends AbstractController
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);
-                    $additionalData = "*14*".$prepaid->getvoucherSerial()."#";
-                    $notificationServices->addNotification($session, 4, $params,$additionalData);
+                    $additionalData = "*14*" . $prepaid->getvoucherSerial() . "#";
+                    $notificationServices->addNotification($session, 4, $params, $additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -459,7 +472,7 @@ class AlfaController extends AbstractController
                     $IsSuccess = false;
 
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(10, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
                         $orderupdate4
@@ -503,31 +516,4 @@ class AlfaController extends AbstractController
         ], 200);
     }
 
-
-    // /**
-    //  * @Route("/alfa/addNotification", name="addNotification",methods="GET")
-    //  */
-    // public function addNotification(NotificationServices $notificationServices)
-    // {
-    //     $userId = 89;
-    //     $notificationTemplate = 1;
-
-    //     $addNotification = $notificationServices->addNotification($userId, $notificationTemplate);
-
-    //     return new JsonResponse([
-    //         'status' => true,
-    //     ], 200);
-    // }
-
-    // /**
-    //  * @Route("/alfa/cron", name="cron",methods="GET")
-    //  */
-    // public function cron(NotificationServices $notificationServices)
-    // {
-    //     $addNotification = $notificationServices->cron();
-
-    //     return new JsonResponse([
-    //         'status' => true,
-    //     ], 200);
-    // }
 }
