@@ -52,12 +52,19 @@ class order
      */
     private $transId;
 
+    /**
+     * 
+     * @ORM\Column(name="created",type="datetime",nullable=true)
+     */
+    private $created;
 
 
-    // public function __construct()
-    // {
-    //     $this->loto_id = new ArrayCollection();
-    // }
+
+    public function __construct()
+{
+    // Set a default value (e.g., the current date/time) for the $created property
+    $this->created = new \DateTime();
+}
 
     public function getId()
     {
@@ -118,6 +125,12 @@ class order
         $this->transId=$transId;
         return $this;
     }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
 
 
 }

@@ -20,14 +20,19 @@ class Notification
     private $id;
 
     /**
+     * @ORM\Column(name="bulk")
+     */
+    private $bulk;
+
+    /**
      * @ORM\Column(name="userId")
      */
     private $userId;
 
-    /**
-     * @ORM\Column(name="templateId")
+     /**
+     * @ORM\ManyToOne(targetEntity=content::class, inversedBy="id")
      */
-    private $templateId;
+    private $content;
 
     /**
      * @ORM\Column(name="status")
@@ -88,6 +93,17 @@ class Notification
         return $this->id;
     }
 
+    public function getbulk()
+    {
+        return $this->bulk;
+    }
+
+    public function setbulk($bulk)
+    {
+        $this->bulk = $bulk;
+        return $this;
+    }
+
     public function getuserId()
     {
         return $this->userId;
@@ -110,14 +126,15 @@ class Notification
         return $this;
     }
 
-    public function gettemplateId()
+    public function getcontentId(): ?content
     {
-        return $this->templateId;
+        return $this->content;
     }
 
-    public function settemplateId($templateId)
+    public function setcontentId(?content $content_id): self
     {
-        $this->templateId = $templateId;
+        $this->content = $content_id;
+
         return $this;
     }
 

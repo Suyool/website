@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\loto;
 
+use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
+use App\Entity\Notification\content;
+use App\Entity\Notification\Template;
 use App\Service\LotoServices;
+use App\Service\NotificationServices;
 use App\Service\sendEmail;
 use DateInterval;
 use DateTime;
@@ -18,13 +22,17 @@ class notificationresult extends Command
     private $mr;
     private $lotoServices;
     private $sendEmail;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail)
+    private $notificationServices;
+    private $notifyMr;
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices)
     {
         parent::__construct();
 
         $this->lotoServices = $lotoServices;
         $this->mr = $mr->getManager('loto');
         $this->sendEmail = $sendEmail;
+        $this->notificationServices = $notificationServices;
+        $this->notifyMr = $mr->getManager('notification');
     }
 
     protected function configure()
@@ -37,19 +45,12 @@ class notificationresult extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
-            'Notification fetch details send'
+            'Fetch details send'
         ]);
-
-
-
-        $results = $this->lotoServices->getDrawsResult();
+          $results = $this->lotoServices->getDrawsResult();
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');
         } else {
-            // dd($prize_loto);
-            // $drawdate=strtotime($prize_loto['d']['draws'][0]['drawdate']);
-            // dd($drawdate);
-            // dd($prize_loto);
             $notInserted = true;
             foreach ($results as $prize_loto) {
                 $results = new LOTO_results;
@@ -57,11 +58,9 @@ class notificationresult extends Command
                 if (!$this->mr->getRepository(LOTO_results::class)->findBy(['drawId' => $prize_loto['drawnumber']])) {
                     $numbers = [$prize_loto['B1'], $prize_loto['B2'], $prize_loto['B3'], $prize_loto['B4'], $prize_loto['B5'], $prize_loto['B6'], $prize_loto['B7']];
                     $numbers = implode(",", $numbers);
-                    // dd($prize_loto['drawdate']->forma);
                     $drawdate = strtotime($prize_loto['drawdate']);
                     $time = new DateTime();
                     $time->setTimestamp($drawdate);
-                    //    dd(date('Y-m-d H:i:s',$drawdate));
                     $results->setdrawid($prize_loto['drawnumber']);
                     $results->setnumbers($numbers);
                     $results->setdrawdate($time);
@@ -86,24 +85,16 @@ class notificationresult extends Command
             }
         }
 
-
-        // if ($notInserted) {
-        //     $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com','charbel.ghadban@gmail.com', 'Warning Email', 'Results already inserted');
-        // }
-
-        // $lastdraw=$this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
-        // // dd(($lastdraw->getdrawid()));
-        // $drawid=$lastdraw->getdrawid();
-        // $notifyUser=$this->mr->getRepository(loto::class)->findPlayedUser($drawid);
+        $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+        $drawid = $lastdraw->getdrawid();
+        $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid);
 
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
 
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');
         } else {
-            // dd($response);
             $LOTO_draw = new LOTO_draw;
-            // $LOTO_tickets=new LOTO_tickets;
             $next_date = new DateTime($detailsnextdraw[0]);
             $interval = new DateInterval('PT3H');
             $next_date->add($interval);
@@ -121,35 +112,22 @@ class notificationresult extends Command
                 $this->mr->persist($LOTO_draw);
                 $this->mr->flush();
             }
-            // else {
-            //     $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com','charbel.ghadban@gmail.com', 'Warning Email', 'Draw details already inserted');
-            // }
 
             $lastresultprice = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
 
-            // foreach($notifyUser as $notifyUser)
-            // {
-            //     $orderid=$this->mr->getRepository(order::class)->findOneBy(['id'=>$notifyUser['id']]);
-            //     $notification = new notification;
-            //             $notification->setIdentifier('Loto result');
-            //             $notification->setTitle("Draw ". $notifyUser['drawNumber'] ." results");
-            //             $notification->setNotify("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
-            //             $notification->setSubject("Draw ". $notifyUser['drawNumber'] ." results");
-            //             $notification->setOrderId($orderid);
-            //             $notification->settransId($orderid->gettransId());
-            //             $notification->setText("Balls: ". $notifyUser['numbers'] . "<br>Next Estimate Jackbot LBP " . $lastresultprice->getlotoprize());
-            //             // $notification->setGrids($i);
-            //             $notification->setamount($orderid->getamount());
-            //             $notification->setcurrency($orderid->getcurrency());
-            //             // $notification->setDrawId($drawId);
-            //             // $notification->setResultDate($drawId->getdrawdate()->format('Y-m-d H:i:s'));
-            //             // $notification->setzeed($lotoidcompletedtonot->getwithZeed());
-            //             // $notification->setbouquet($lotoidcompletedtonot->getbouquet());
+            foreach($notifyUser as $notify){
+                $userid[]=$notify['suyoolUserId'];
+            }
+            $userIds=implode(",",$userid);
 
+            $bulk = 1;//1 for broadcast
 
-            //             $this->mr->persist($notification);
-            //             $this->mr->flush();
-            // }
+                
+                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'result if user has grid in this draw']);
+                $index = $template->getIndex();
+                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'LBP', 'amount' => number_format($lastresultprice->getlotoprize())], true);
+                $this->notificationServices->addNotification($userIds, $content, $params,$bulk);
         }
 
 

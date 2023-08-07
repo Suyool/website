@@ -52,9 +52,10 @@ class PlaysRepository extends EntityRepository
             ->select('l.drawNumber,o.id,o.suyoolUserId,r.numbers')
             ->innerJoin(LOTO_results::class, 'r')
             ->innerJoin(order::class, 'o')
-            ->where('l.drawNumber = :drawid and r.drawId = :drawid')
+            ->where('l.drawNumber = :drawid and r.drawId = :drawid and l.order = o.id and o.status = :completed')
             ->setParameter('drawid', $drawid)
-            ->groupBy('o.id')
+            ->setParameter('completed','completed')
+            ->groupBy('o.suyoolUserId')
             ->getQuery()
             ->getResult();
     }
@@ -63,23 +64,28 @@ class PlaysRepository extends EntityRepository
     {
         $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         $day = date('w');
+        // $day=0;
         $monday = $day - 1;
         $current_time = strtotime('now');
 
         if ($current_time < strtotime('today 10:00:00')) {
-            $monday -= 7;
+            $monday = 6 - $monday;
         }
         // dd($monday);
         $week_start = date('Y-m-d ', strtotime('-' . $monday . ' days'));
         $week_end = date('Y-m-d ', strtotime('+' . (6 - $monday) . ' days'));
-        // dd($week_start);
+        // dd($week_end);
+
+        $sixmonth = date("Y-m-d", strtotime("+6 months"));
+
+        // dd($sixmonth);
 
         $userid = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId')
             ->innerJoin(order::class, 'o')
-            ->where("l.createDate < :week_end and o.createDate < :week_end and o.status = 'completed' ")
+            ->where("l.created < :week_end and o.created < :week_end and o.status = 'completed' and o.id = l.order ")
             ->setParameter('week_end', $week_end)
-            ->groupBy('o.suyoolUserId, o.id')
+            ->groupBy('o.suyoolUserId')
             ->getQuery()
             ->getResult();
         // dd($userid);
@@ -92,10 +98,11 @@ class PlaysRepository extends EntityRepository
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
                 ->innerJoin(order::class, 'o')
-                ->where("l.createDate < :week_start and o.createDate < :week_start and o.suyoolUserId = :userid ")
+                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order) and o.created < :sixmonth ")
                 ->setParameter('week_start', $week_start)
                 ->setParameter('userid', $userid)
-                ->groupBy('o.suyoolUserId, o.id')
+                ->setParameter('sixmonth',$sixmonth)
+                ->groupBy('o.suyoolUserId')
                 ->getQuery()
                 ->getResult();
             if (!empty($result)) {
