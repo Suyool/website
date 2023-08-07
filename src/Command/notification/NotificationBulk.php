@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class NotificationSendSingle extends Command
+class NotificationBulk extends Command
 {
     private $mr;
     private $notificationServices;
@@ -25,7 +25,7 @@ class NotificationSendSingle extends Command
     {
         //php bin/console 
         $this
-            ->setName('app:notificationSendSingle');
+            ->setName('app:notificationBulk');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,11 +35,14 @@ class NotificationSendSingle extends Command
             'Send Notification to pending users'
         ]);
 
-        $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending"]);
+        $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending",'bulk'=>1]);
+
+        // dd($not);
 
         foreach ($not as $notify) {
+            // dd($notify->getuserId());
             $content=$notify->getcontentId()->getId();
-            $PushSingleNot = $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
+            $this->notificationServices->PushBulkNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
         }
 
         $output->writeln([

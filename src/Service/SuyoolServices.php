@@ -121,8 +121,10 @@ class SuyoolServices
         if ($globalCode) {
             return true;
         } else {
+            // dd($globalCode);
             return array(false,$message);
         }
+        
     }
 
        /*
@@ -165,12 +167,12 @@ class SuyoolServices
         ]);
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
-            $push_utility_response = $response->toArray(false);
+            $push_get_response = $response->toArray(false);
         } else {
-            $push_utility_response = $response->toArray();
+            $push_get_response = $response->toArray();
         }
         // dd($push_utility_response);
-        $data = json_decode($push_utility_response["data"], true);
+        $data = json_decode($push_get_response["data"], true);
 
         return $data;
     }
@@ -203,9 +205,9 @@ class SuyoolServices
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
-            $push_utility_response = $response->toArray(false);
+            $push_single_response = $response->toArray(false);
         } else {
-            $push_utility_response = $response->toArray();
+            $push_single_response = $response->toArray();
         }
 
         // dd($push_utility_response);
@@ -214,6 +216,51 @@ class SuyoolServices
         // $data = json_decode($push_utility_response["message"], true);
         // $data = $push_utility_response["message"];
 
-        return $push_utility_response;
+        return $push_single_response;
+    }
+
+    /*
+     * Push Bulk Notification
+     */
+    public function PushBulkNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
+    {
+        // dd($userId);
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NotificationServiceApi/Notification/PushBulkNotification", [
+            'body' => json_encode([
+                'userID' => $userId,
+                'title' => $title,
+                'subject' => $subject,
+                'inboxBody' => $body,
+                'notificationBody' => $notification,
+                'isInbox' => $isInbox,
+                'isPayment' => $isPayment,
+                'isDebit' => $isDebit,
+                'flag' => $flag,
+                'additionalData' => $additionalData,
+                'notifType' => $notificationType,
+                'proceedButton' => $proceedButton,
+                'cancelButton' => 'Cancel',
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status === 400) {
+            $push_Bulk_response = $response->toArray(false);
+        } else {
+            $push_Bulk_response = $response->toArray();
+        }
+
+        // dd($push_Bulk_response);
+
+        // dd($push_utility_response);
+        // $data = $push_utility_response["message"];
+
+        // $data = json_decode($push_utility_response["message"], true);
+        // $data = $push_utility_response["message"];
+
+        return $push_Bulk_response;
     }
 }

@@ -64,16 +64,17 @@ class PlaysRepository extends EntityRepository
     {
         $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         $day = date('w');
+        // $day=0;
         $monday = $day - 1;
         $current_time = strtotime('now');
 
         if ($current_time < strtotime('today 10:00:00')) {
-            $monday -= 7;
+            $monday = 6 - $monday;
         }
         // dd($monday);
         $week_start = date('Y-m-d ', strtotime('-' . $monday . ' days'));
         $week_end = date('Y-m-d ', strtotime('+' . (6 - $monday) . ' days'));
-        // dd($week_start);
+        // dd($week_end);
 
         $sixmonth = date("Y-m-d", strtotime("+6 months"));
 

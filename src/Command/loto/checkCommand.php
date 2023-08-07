@@ -20,21 +20,29 @@ class checkCommand extends Command
     {
         //php bin/console 
         $this
-            ->setName('app:check');
-            $this->setDescription('Check if the play lottery command is running');
+            ->setName('app:health');
+            $this->setDescription('Check if the play lottery and the notification send commands are running');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Checking....');
 
-        exec('ps aux | grep app:play | grep -v grep', $processOutput, $returnValue);
+        exec('ps aux | grep app:play | grep -v grep', $processOutput, $returnValuePlay);
+        exec('ps aux | grep app:play | grep -v grep', $processOutput, $returnValueNotification);
 
-        if ($returnValue === 0) {
+        if ($returnValuePlay === 0) {
             $output->writeln('Populate Process is running.');
         } else {
             $output->writeln('Populate Process is not running.');
             exec('php bin/console app:play');
+        }
+
+        if ($returnValueNotification === 0) {
+            $output->writeln('Populate Process is running.');
+        } else {
+            $output->writeln('Populate Process is not running.');
+            exec('php bin/console app:notificationSend');
         }
 
 

@@ -20,6 +20,11 @@ class Notification
     private $id;
 
     /**
+     * @ORM\Column(name="bulk")
+     */
+    private $bulk;
+
+    /**
      * @ORM\Column(name="userId")
      */
     private $userId;
@@ -86,6 +91,17 @@ class Notification
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getbulk()
+    {
+        return $this->bulk;
+    }
+
+    public function setbulk($bulk)
+    {
+        $this->bulk = $bulk;
+        return $this;
     }
 
     public function getuserId()
