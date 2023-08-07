@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
@@ -10,6 +11,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
 
@@ -30,7 +32,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       axios
         .post("/alfa/bill/RetrieveResults",
           {
-            mobileNumber: localStorage.getItem("billMobileNumber"),
+            mobileNumber: localStorage.getItem("billMobileNumber").replace(/\s/g, ''),
             // currency: localStorage.getItem("billcurrency"),
             currency: "LBP",
             Pin: pinCode,
@@ -55,6 +57,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
   const handleConfirmPay = () => {
     // console.log(getResponseId)
+    setSpinnerLoader(true);
     axios
       .post("/alfa/bill/pay",
         {
@@ -64,6 +67,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       .then((response) => {
         console.log(response.data);
         const jsonResponse = response?.data?.message;
+        setSpinnerLoader(false);
 
         if (response.data?.IsSuccess) {
           setModalName("SuccessModal");
@@ -102,23 +106,17 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             setModalShow(true);
           }
         }
-
-        // setModalName("SuccessModal");
-        // setSuccessModal({
-        //   imgPath: "/build/images/alfa/SuccessImg.png",
-        //   title: "Alfa Bill Paid Successfully",
-        //   desc: "You have successfully paid your Alfa bill of {currency}{amount}."
-        // })
-        // setModalShow(true);
       })
       .catch((error) => {
         console.log(error);
+        setSpinnerLoader(false);
       });
   };
 
   return (
     // <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
-    <div id="MyBill" className={`${getPaymentConfirmation && ""}`}>
+    <div id={`MyBill`} className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
 
       {/* {getPaymentConfirmation ?
         <> */}
@@ -192,7 +190,10 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       </div>
 
       <div className="continueSection">
-        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
+        <button id="ContinueBtn" className="btnCont"
+          // onClick={()=>{setSpinnerLoader(false)}} 
+          onClick={handlePayNow} disabled={pinCode.length !== 4}
+        >continue</button>
 
         <div className="keybord">
           <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

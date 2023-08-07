@@ -30,7 +30,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       axios
         .post("/touch/bill/RetrieveResults",
           {
-            mobileNumber: localStorage.getItem("billMobileNumber"),
+            mobileNumber: localStorage.getItem("billMobileNumber").replace(/\s/g, ''),
             // currency: localStorage.getItem("billcurrency"),
             currency: "LBP",
             Pin: pinCode,

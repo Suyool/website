@@ -17,7 +17,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
     axios
       .post("/touch/bill",
         {
-          mobileNumber: mobileNumber,
+          mobileNumber: mobileNumber.replace(/\s/g, ''),
           currency: currency
         }
       )

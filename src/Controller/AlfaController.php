@@ -62,6 +62,7 @@ class AlfaController extends AbstractController
     public function bill(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        // dd($data);
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
             $sendBillRes = json_decode($sendBill, true);

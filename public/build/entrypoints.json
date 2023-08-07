@@ -9,7 +9,15 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Loto.9199aa35.js"
+=======
+<<<<<<< HEAD
+        "/build/Loto.06b13b38.js"
+=======
+        "/build/Loto.cc8d3f04.js"
+>>>>>>> 3dedebb (add spinner in alfa postpaid buy)
+>>>>>>> 2533a41 (add spinner in alfa postpaid buy)
       ]
     },
     "LegalEnrollement": {
@@ -21,13 +29,21 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
+=======
+        "/build/Alfa.92f391de.js"
+>>>>>>> 3dedebb (add spinner in alfa postpaid buy)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Touch.ebd481c8.js"
+=======
+        "/build/Touch.7e3ddfe3.js"
+>>>>>>> 3dedebb (add spinner in alfa postpaid buy)
       ]
     },
     "Ogero": {
@@ -65,7 +81,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.22181f55.css"
+        "/build/AlfaStyle.6eda1bac.css"
       ]
     },
     "TouchStyle": {
