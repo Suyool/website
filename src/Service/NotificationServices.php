@@ -261,4 +261,13 @@ class NotificationServices
         // dd($PushSingle);
         return 1;
     }
+
+    public function getContent($template)
+    {
+        $templateId=$this->mr->getRepository(Template::class)->findOneBy(['identifier'=>$template]);
+        $index = $templateId->getIndex();
+        $content = $this->mr->getRepository(content::class)->findOneBy(['template' => $templateId->getId(), 'version' => $index]);
+
+        return $content;
+    }
 }

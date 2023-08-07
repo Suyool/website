@@ -285,8 +285,9 @@ class TouchController extends AbstractController
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
                     $additionalData = "";
-                    $notificationServices->addNotification($session, 5, $params, $additionalData);
-
+                    $content=$notificationServices->getContent('AcceptedTouchPayment');
+                    $bulk=0;//1 for broadcast 0 for unicast
+                    $notificationServices->addNotification($session, $content, $params,$bulk, $additionalData);
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
@@ -466,8 +467,9 @@ class TouchController extends AbstractController
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);
-                    $notificationServices->addNotification($session, 4, $params, "");
-
+                    $content=$notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                    $bulk=0;//1 for broadcast 0 for unicast
+                    $notificationServices->addNotification($session, $content, $params,$bulk);
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {

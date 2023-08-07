@@ -23,12 +23,14 @@ class AlfaController extends AbstractController
     private $mr;
     private $hash_algo;
     private $certificate;
+    private $notMr;
 
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('alfa');
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
+        $this->notMr=$mr->getManager('notification');
     }
 
     /**
@@ -267,7 +269,10 @@ class AlfaController extends AbstractController
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
                     $additionalData = "";
-                    $notificationServices->addNotification($session, 3, $params, $additionalData);
+
+                    $content=$notificationServices->getContent('AcceptedAlfaPayment');
+                    $bulk=0;//1 for broadcast 0 for unicast
+                    $notificationServices->addNotification($session, $content, $params,$bulk, $additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
@@ -451,7 +456,9 @@ class AlfaController extends AbstractController
                         'code' => $PayResonse["voucherSerial"],
                     ]);
                     $additionalData = "*14*" . $prepaid->getvoucherSerial() . "#";
-                    $notificationServices->addNotification($session, 4, $params, $additionalData);
+                    $content=$notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                    $bulk=0;//1 for broadcast 0 for unicast
+                    $notificationServices->addNotification($session, $content, $params,$bulk, $additionalData);
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
