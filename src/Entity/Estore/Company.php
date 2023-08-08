@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Company
 {
-    use DateTrait;
+    //use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

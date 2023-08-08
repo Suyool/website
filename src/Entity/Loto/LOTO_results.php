@@ -2,7 +2,6 @@
 
 namespace App\Entity\Loto;
 
-use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 

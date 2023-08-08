@@ -3,7 +3,6 @@
 namespace App\Entity\Shopify;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\DateTrait;
 
 /**
  * @ORM\Entity
@@ -11,7 +10,7 @@ use App\Entity\Traits\DateTrait;
  */
 class ShopifyInstallation
 {
-    use DateTrait;
+    //use DateTrait;
 
     /**
      * @ORM\Id

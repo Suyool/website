@@ -1,6 +1,7 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    enable_csrf_token: true
     #access_decision_manager:
     #strategy: unanimous
 

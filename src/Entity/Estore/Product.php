@@ -2,7 +2,6 @@
 
 namespace App\Entity\Estore;
 
-use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -12,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
-    use DateTrait;
+    //use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
