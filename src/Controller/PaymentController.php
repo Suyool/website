@@ -15,6 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PaymentController extends AbstractController
 {
 
+    
     private $trans;
 
     private $session;
@@ -23,13 +24,14 @@ class PaymentController extends AbstractController
     private $atm = false;
     private $suyoolServices;
 
-    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate,SuyoolServices $suyoolServices)
+    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate, SuyoolServices $suyoolServices)
     {
         $this->trans = $trans;
         $this->session = $session;
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
-        $this->suyoolServices=$suyoolServices;
+        $this->suyoolServices = $suyoolServices;
+
     }
 
     /**
@@ -45,15 +47,15 @@ class PaymentController extends AbstractController
 
         $parameters['currentPage'] = "payment_landingPage";
 
-        $parameters['payment_details_response']=$this->suyoolServices->PaymentDetails($code,$this->hash_algo,$this->certificate,$parameters['lang']);
-        
+        $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $this->hash_algo, $this->certificate, $parameters['lang']);
+
 
         if ($parameters['payment_details_response'] != null) {
             // $parameters['currency'] = $parameters['payment_details_response']['currency'];
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
             // dd
-            if($parameters['payment_details_response']['respCode'] == 2){
+            if ($parameters['payment_details_response']['respCode'] == 2) {
                 // dd();
                 return $this->redirectToRoute("homepage");
             }
@@ -89,11 +91,11 @@ class PaymentController extends AbstractController
                     ? $parameters['payment_details_response']['allowExternal']
                     : ''
             );
-            if(isset($parameters['payment_details_response']['additionalData'])){
+            if (isset($parameters['payment_details_response']['additionalData'])) {
                 $additionalData = $parameters['payment_details_response']['additionalData'];
                 $additionalData = json_decode($additionalData, true);
             }
-            
+
             // dd($additionalData);
             $this->session->set(
                 "receiverFname",
@@ -113,7 +115,7 @@ class PaymentController extends AbstractController
                     ? $additionalData['ReceiverPhone']
                     : ''
             );
-            if(isset($additionalData['AuthenticationCode']) || $parameters['payment_details_response']['respCode'] == 1){
+            if (isset($additionalData['AuthenticationCode']) || $parameters['payment_details_response']['respCode'] == 1) {
                 $this->session->set(
                     "codeGenerated",
                     isset($additionalData['AuthenticationCode'])
@@ -121,7 +123,7 @@ class PaymentController extends AbstractController
                         : ''
                 );
             }
-           
+
 
             // $parameters['']
             // dd(json_decode($additionalData,true));
@@ -135,27 +137,28 @@ class PaymentController extends AbstractController
      */
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
-        $code=$this->session->get('codeGenerated');
-        if(isset($code)){
-            $parameters['cashout']['data']=$code;
+        $code = $this->session->get('codeGenerated');
+        if (isset($code)) {
+            $parameters['cashout']['data'] = $code;
             return $this->render('payment/codeGenerated.html.twig', $parameters);
         }
         $submittedToken = $request->request->get('token');
         $parameters = $this->trans->translation($request, $translator);
         $parameters = $this->trans->translation($request, $translator);
         $code = $this->session->get('code');
-        $parameters['ReceiverPhone']=$this->session->get('ReceiverPhone');
+        $parameters['ReceiverPhone'] = $this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
-                $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'),$_POST['receiverfname'],$_POST['receiverlname'],$this->certificate,$this->hash_algo);
+                $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname'], $this->certificate, $this->hash_algo);
                 // dd($parameters['cashout']);
                 // $parameters['cashout']['globalCode']=1;
                 // $parameters['cashout']['data']=123;
+                // dd($parameters['cashout']);
                 if ($parameters['cashout']['globalCode'] == 0) {
                     // dd("ok");
-                    
+
                     $parameters['message'] = $parameters['cashout']['message'];
-                    
+
                     return $this->render('payment/generateCode.html.twig', $parameters);
                 } else {
                     $this->session->set(
@@ -204,5 +207,16 @@ class PaymentController extends AbstractController
         $parameters['currentPage'] = "visaCard";
 
         return $this->render('payment/visaCard.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test()
+    {
+        
+
+        $_SESSION["favcolor"] = "green";
+        $_SESSION["favanimal"] = "cat";
     }
 }

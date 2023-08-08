@@ -302,10 +302,17 @@ class SuyoolServices
 
     public function PaymentCashout($TranSimId,$fname,$lname, $certificate,$hash_algo)
     {
-
         $Hash = base64_encode(hash($hash_algo,  $TranSimId . $fname . $lname . $certificate, true));
+
+        // dd(json_encode([
+        //     'transactionId'=>$TranSimId,
+        //     'receiverFname'=>$fname,
+        //     'hash'=>$Hash,
+        //     'receiverLname'=>$lname,
+        // ]));
+
         // dd($userId);
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Payment/PaymentDetails", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn", [
             'body' => json_encode([
                 'transactionId'=>$TranSimId,
                 'receiverFname'=>$fname,
