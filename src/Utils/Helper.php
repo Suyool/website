@@ -23,26 +23,19 @@ class Helper
         curl_close($ch);
         return $ret;
     }
-       public static function send_curl($params,$app=null,$accessToken=null) {
+       public static function send_curl($params,$accessToken=null) {
            if($accessToken != null){
                $host = $params['url'];
            }else{
             if($_ENV['APP_ENV']=='prod'){
-                if($app=='loto'){
-                    $host = 'https://backbone.lebaneseloto.com';
-                }else{
                     $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
-                }
+                
             }else{
-         
-         if($app=='loto'){
-            $host = 'https://backbone.lebaneseloto.com';
-         }else{
-            $host = 'http://10.20.80.62/SuyoolGlobalAPIs/api/' ;
+            $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/' ;
             //  $host = 'https://globalapi.suyool.money/api/';
          }
                 }
-           }
+           
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
             //Set the options
