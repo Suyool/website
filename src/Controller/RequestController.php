@@ -199,7 +199,7 @@ class RequestController extends AbstractController
         $code = $this->session->get('code');
         $parameters['ReceiverPhone'] = $this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
-            if ($this->isCsrfTokenValid('request', $submittedToken) && !empty($_POST['fname']) && !empty($_POST['lname'])) {
+            if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
 
                 $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $_POST['fname'] . $_POST['lname'] . $this->certificate, true));
                 // dd($Hash);

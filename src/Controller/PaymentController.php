@@ -34,6 +34,7 @@ class PaymentController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
+        // session_start();
         // dd("ok");
         $this->session->remove('codeGenerated');
         $parameters = $this->trans->translation($request, $translator);
@@ -166,7 +167,7 @@ class PaymentController extends AbstractController
         $code = $this->session->get('code');
         $parameters['ReceiverPhone']=$this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
-            if ($this->isCsrfTokenValid('payment', $submittedToken) && !empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
+            if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
                 $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $_POST['receiverfname'] . $_POST['receiverlname'] . $this->certificate, true));
                 // dd($Hash);
                 $form_data = [
