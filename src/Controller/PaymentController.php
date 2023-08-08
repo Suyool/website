@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\SuyoolServices;
 use App\Translation\translation;
 use App\Utils\Helper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,13 +21,15 @@ class PaymentController extends AbstractController
     private $hash_algo;
     private $certificate;
     private $atm = false;
+    private $suyoolServices;
 
-    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate)
+    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate,SuyoolServices $suyoolServices)
     {
         $this->trans = $trans;
         $this->session = $session;
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
+        $this->suyoolServices=$suyoolServices;
     }
 
     /**
@@ -41,33 +44,9 @@ class PaymentController extends AbstractController
 
 
         $parameters['currentPage'] = "payment_landingPage";
-        // dd(date("ymdHis"));
-        // $code=$request->query->get('code');
 
-        // $params['url'] = 'Incentive/ValidateEmail?Data=' . $code;
-        // $params['type'] = 'get';
-
-        // dd(Helper::send_curl($params));
-        $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $parameters['lang'] . $this->certificate, true));
-        // dd($Hash);
-        $form_data = [
-            'code' => $code,
-            "dateSent" => date("ymdHis"),
-            'hash' =>  $Hash,
-            "lang" => $parameters['lang'],
-        ];
-
-        // dd($form_data);
-
-        $params['data'] = json_encode($form_data);
-        // dd($params['data']);
-
-        $params['url'] = 'Payment/PaymentDetails';
-        /*** Call the api ***/
-        $response = Helper::send_curl($params);
-        // dd($response);
-        $parameters['payment_details_response'] = json_decode($response, true);
-        // dd($parameters['payment_details_response']);
+        $parameters['payment_details_response']=$this->suyoolServices->PaymentCashout($code,$this->hash_algo,$this->certificate,$parameters['lang']);
+        
 
         if ($parameters['payment_details_response'] != null) {
             // $parameters['currency'] = $parameters['payment_details_response']['currency'];

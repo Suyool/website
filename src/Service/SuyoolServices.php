@@ -15,9 +15,9 @@ class SuyoolServices
     {
         $this->client = $client;
         if ($_ENV['APP_ENV'] == 'prod') {
-            $this->SUYOOL_API_HOST = 'http://10.20.80.62/';
+            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
         } else {
-            $this->SUYOOL_API_HOST = 'http://10.20.80.62/';
+            $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
         }
     }
 
@@ -262,5 +262,39 @@ class SuyoolServices
         // $data = $push_utility_response["message"];
 
         return $push_Bulk_response;
+    }
+
+    public function PaymentCashout($code,$hash_algo, $certificate,$lang)
+    {
+        $Hash = base64_encode(hash($hash_algo, $code . date("ymdHis") . $lang . $certificate, true));
+        // dd($userId);
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Payment/PaymentDetails", [
+            'body' => json_encode([
+                'code'=>$code,
+                'dateSent'=>date("ymdHis"),
+                'hash'=>$Hash,
+                'lang'=>$lang
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status === 400) {
+            $payment_details_response = $response->toArray(false);
+        } else {
+            $payment_details_response = $response->toArray();
+        }
+
+        // dd($push_Bulk_response);
+
+        // dd($push_utility_response);
+        // $data = $push_utility_response["message"];
+
+        // $data = json_decode($push_utility_response["message"], true);
+        // $data = $push_utility_response["message"];
+
+        return $payment_details_response;
     }
 }
