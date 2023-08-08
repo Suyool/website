@@ -57,7 +57,7 @@ class winningTickets extends Command
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
         $drawId = $getLastResults->getdrawid();
 
-        $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getGridWithTicket($drawId);
+        $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getUsersIdWhoPlayesLotoInThisDraw($drawId);
         //   dd($getgridsSelectedInThisDraw);
 
         $winningBalls[] = $getLastResults->getnumbers();
@@ -67,9 +67,9 @@ class winningTickets extends Command
 
         foreach ($getgridsSelectedInThisDraw as $getgridsSelectedInThisDraw) {
             $winnerPrize = 0;
-            $orderId = $getgridsSelectedInThisDraw->getOrderId()->getId();
-            $PlayerInfo = $this->mr->getRepository(order::class)->getPlayerInfo($orderId);
-            $lotoGridsForSelect = $this->mr->getRepository(loto::class)->findOrdersIds($PlayerInfo['suyoolUserId'], $drawId);
+            // $orderId = $getgridsSelectedInThisDraw->getOrderId()->getId();
+            // $PlayerInfo = $this->mr->getRepository(order::class)->getPlayerInfo($orderId);
+            $lotoGridsForSelect = $this->mr->getRepository(loto::class)->findOrdersIds($getgridsSelectedInThisDraw['suyoolUserId'], $drawId);
             // dd($lotoGridsForSelect);
             foreach ($lotoGridsForSelect as $lotoGridsForSelect) {
                 // dd($lotoGridsForSelect);
@@ -119,11 +119,12 @@ class winningTickets extends Command
                     }
                 }
                 // dd($winnerPrize);
-                if($winnerPrize != 0){
-                    $params=json_encode(['currency'=>'LBP','amount'=>number_format($winnerPrize),'number'=>$drawId]);
-                    $content=$this->notificationServices->getContent('won loto added to suyool wallet');
-                    $this->notificationServices->addNotification($PlayerInfo['suyoolUserId'],$content,$params,0);
-                }
+                
+            }
+            if($winnerPrize != 0){
+                $params=json_encode(['currency'=>'LBP','amount'=>number_format($winnerPrize),'number'=>$drawId]);
+                $content=$this->notificationServices->getContent('won loto added to suyool wallet');
+                $this->notificationServices->addNotification($getgridsSelectedInThisDraw['suyoolUserId'],$content,$params,0);
             }
            
         }

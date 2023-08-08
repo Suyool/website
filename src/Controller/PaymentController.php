@@ -45,7 +45,7 @@ class PaymentController extends AbstractController
 
         $parameters['currentPage'] = "payment_landingPage";
 
-        $parameters['payment_details_response']=$this->suyoolServices->PaymentCashout($code,$this->hash_algo,$this->certificate,$parameters['lang']);
+        $parameters['payment_details_response']=$this->suyoolServices->PaymentDetails($code,$this->hash_algo,$this->certificate,$parameters['lang']);
         
 
         if ($parameters['payment_details_response'] != null) {
@@ -147,24 +147,7 @@ class PaymentController extends AbstractController
         $parameters['ReceiverPhone']=$this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
-                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $_POST['receiverfname'] . $_POST['receiverlname'] . $this->certificate, true));
-                // dd($Hash);
-                $form_data = [
-                    'transactionId' => $this->session->get('TranSimID'),
-                    'receiverFname' => $_POST['receiverfname'],
-                    'receiverLname' => $_POST['receiverlname'],
-                    'hash' =>  $Hash
-                ];
-
-
-
-                $params['data'] = json_encode($form_data);
-
-                // dd($params['data']);
-                $params['url'] = 'NonSuyooler/NonSuyoolerCashOut';
-                // dd($params['data']);
-                $response = Helper::send_curl($params);
-                $parameters['cashout'] = json_decode($response, true);
+                $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'),$_POST['receiverfname'],$_POST['receiverlname'],$this->certificate,$this->hash_algo);
                 // dd($parameters['cashout']);
                 // $parameters['cashout']['globalCode']=1;
                 // $parameters['cashout']['data']=123;

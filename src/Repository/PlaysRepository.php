@@ -187,4 +187,16 @@ class PlaysRepository extends EntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function getUsersIdWhoPlayesLotoInThisDraw($drawId)
+    {
+        return $this->createQueryBuilder('l')
+        ->select('o.suyoolUserId')
+        ->innerJoin(order::class,'o')
+        ->where('o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null)')
+        ->groupBy('o.suyoolUserId')
+        ->setParameter('drawId',$drawId)
+        ->getQuery()
+        ->getResult();
+    }
 }
