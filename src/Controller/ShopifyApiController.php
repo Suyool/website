@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ShopifyServices;
+use ReCaptcha\ReCaptcha;
+
 //const CERTIFICATE_PAYMENT_SUYOOL = "GVkCbD9ghQIPzfNrI5HX3GpkAI60HjUaqV2FIPpXN6IB6ZioUbcAeKJVATY6X74s2DNAE5N3T70nCPszxF8gpfUGSU2ity69c2fA";
 
 
@@ -20,15 +22,16 @@ class ShopifyApiController extends AbstractController
 {
 
     private $mr;
+
     public function __construct(ManagerRegistry $mr)
     {
-        $this->mr=$mr->getManager('Shopify');
+        $this->mr = $mr->getManager('Shopify');
     }
 
     /**
      * @Route("/payQR/", name="app_pay_qr")
      */
-    public function paySkashQR(Request $request,ShopifyServices $shopifyServices): Response
+    public function paySkashQR(Request $request, ShopifyServices $shopifyServices): Response
     {
         $ordersRepository = $this->mr->getRepository(Orders::class);
 
@@ -47,45 +50,57 @@ class ShopifyApiController extends AbstractController
         $timestamp = $createdAt * 1000;
         $additionalInfo = '';
         $domain = $metadata['domain'];
+        $hostname = Helper::getHost($domain);
         $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
         $merchantId = $merchantCredentials['merchantId'];
         $certificate = $merchantCredentials['certificate'];
+        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
 
-        $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
-        $secureHash = base64_encode(hash('sha512', $secure, true));
+        $credentials = $credentialsRepository->findBy(['shop' => $hostname]);
 
-        if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
-            $transactionData = [
-                'TransactionID' => "$orderId",
-                'Amount' => $amount,
-                'Currency' => $currency,
-                'SecureHash' => $secureHash,
-                'TS' => "$timestamp",
-                'TranTS' => "$timestamp",
-                'MerchantAccountID' => $merchantId,
-                'AdditionalInfo' => $additionalInfo,
-            ];
-            $params = [
-                'data' => json_encode($transactionData),
-                'url' => 'api/OnlinePayment/PayQR',
-            ];
-            $response = $shopifyServices->getQr($params);
+        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $credentials[0]->getAccessToken(), $hostname);
+
+        $shopifyAmount = $checkAmount['transactions']['0']['amount'];
+        $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
+        if ($resAmount == 0) {
+            $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
+            $secureHash = base64_encode(hash('sha512', $secure, true));
+
+            if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
+                $transactionData = [
+                    'TransactionID' => "$orderId",
+                    'Amount' => $amount,
+                    'Currency' => $currency,
+                    'SecureHash' => $secureHash,
+                    'TS' => "$timestamp",
+                    'TranTS' => "$timestamp",
+                    'MerchantAccountID' => $merchantId,
+                    'AdditionalInfo' => $additionalInfo,
+                ];
+                $params = [
+                    'data' => json_encode($transactionData),
+                    'url' => 'api/OnlinePayment/PayQR',
+                ];
+                $response = $shopifyServices->getQr($params);
 
 
-            $logs =array('orderId' =>$orderId,'request'=>$params,'response'=>$response,'env' =>$metadata['env']);
-            $this->saveLog($logs);
+                $logs = array('orderId' => $orderId, 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
+                $this->saveLog($logs);
 
-            if($response['pictureURL'] != null)
-                $showQR = 'displayBlock';
-            else
-                $showQR = '';
+                if ($response['pictureURL'] != null)
+                    $showQR = 'displayBlock';
+                else
+                    $showQR = '';
 
-            return $this->render('shopify/pay-qr.html.twig', [
-                'pictureURL' => $response['pictureURL'],
-                'order_id' => $orderId,
-                'ReturnText' => $response['returnText'],
-                'displayBlock' =>$showQR,
-            ]);
+                return $this->render('shopify/pay-qr.html.twig', [
+                    'pictureURL' => $response['pictureURL'],
+                    'order_id' => $orderId,
+                    'ReturnText' => $response['returnText'],
+                    'displayBlock' => $showQR,
+                ]);
+            }
+        }else {
+            return new Response("404");
         }
     }
 
@@ -94,7 +109,7 @@ class ShopifyApiController extends AbstractController
      */
     public function payMobile(Request $request): Response
     {
-        if($request->request->get('order_id') !=null) {
+        if ($request->request->get('order_id') != null) {
 
             $orderId = $request->request->get('order_id');
             $metadata = json_decode($request->request->get('metadata'), true);
@@ -119,7 +134,7 @@ class ShopifyApiController extends AbstractController
 
             $mobileSecure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
             $secureHash = base64_encode(hash('sha512', $mobileSecure, true));
-            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . "/result-page/".$orderId;
+            $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . "/result-page/" . $orderId;
 
             $json = [
                 'TransactionID' => $orderId,
@@ -142,7 +157,7 @@ class ShopifyApiController extends AbstractController
                 'deepLink' => $appUrl,
                 'order_id' => $orderId,
             ]);
-        }else {
+        } else {
             return $this->render('shopify/pay-mobile.html.twig');
         }
 
@@ -211,9 +226,9 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
-                $response = $shopifyServices->updateStatusShopify($params,$accessToken);
+                $response = $shopifyServices->updateStatusShopify($params, $accessToken);
 
-                $logs =array('orderId' =>$order_id,'request'=>$params,'response'=>$response,'env' =>"");
+                $logs = array('orderId' => $order_id, 'request' => $params, 'response' => $response, 'env' => "");
 
                 $this->saveLog($logs);
 
@@ -236,7 +251,7 @@ class ShopifyApiController extends AbstractController
     public function checkOrderStatus($orderId)
     {
         $ordersRepository = $this->mr->getRepository(Orders::class);
-        $order = $ordersRepository->findBy(["orderId"=> $orderId]);
+        $order = $ordersRepository->findBy(["orderId" => $orderId]);
 //        dd($order);
         if ($order) {
             $status = $order[0]->getStatus();
@@ -288,6 +303,7 @@ class ShopifyApiController extends AbstractController
 
         return $response;
     }
+
     /**
      * @Route("/result-page/{orderId}", name="app_result_page")
      */
@@ -298,7 +314,9 @@ class ShopifyApiController extends AbstractController
         ]);
 
     }
-    private function saveLog (array $data) {
+
+    private function saveLog(array $data)
+    {
 
         $log = new Logs();
 

@@ -53,5 +53,20 @@ class ShopifyServices
 
         return $response;
     }
+    public function getShopifyOrder($order_id,$accessToken,$domain)
+    {
+        $url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
+        $response = $this->client->request('GET', $url, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'X-Shopify-Access-Token: ' . $accessToken
+            ]
+        ]);
 
+        $content = $response->getContent();
+
+        $response = json_decode($content, true);
+
+        return $response;
+    }
 }
