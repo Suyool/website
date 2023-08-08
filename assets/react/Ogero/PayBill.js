@@ -6,7 +6,7 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
   // const [currency, setCurrency] = useState("USD");
 
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
+    setHeaderTitle("Pay Landline Bill")
     setBackLink("")
   }, [])
 

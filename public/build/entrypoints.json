@@ -31,6 +31,7 @@
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
 =======
         "/build/Alfa.92f391de.js"
@@ -38,11 +39,15 @@
 =======
         "/build/Alfa.eebed97d.js"
 >>>>>>> bc9e909 (disable double check on btn)
+=======
+        "/build/Alfa.b93b125b.js"
+>>>>>>> 1923c4f (fix css in all project)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/Touch.ebd481c8.js"
@@ -52,12 +57,15 @@
 =======
         "/build/Touch.49109236.js"
 >>>>>>> bc9e909 (disable double check on btn)
+=======
+        "/build/Touch.9bc0c118.js"
+>>>>>>> 1923c4f (fix css in all project)
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.20bd8a1d.js"
+        "/build/Ogero.921b8d15.js"
       ]
     },
     "styles": {
@@ -89,7 +97,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.6eda1bac.css"
+        "/build/AlfaStyle.28a808f6.css"
       ]
     },
     "TouchStyle": {
@@ -97,7 +105,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.c3447200.css"
+        "/build/TouchStyle.5972dd5b.css"
       ]
     },
     "OgeroStyle": {
@@ -105,7 +113,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.9189f8ae.css"
+        "/build/OgeroStyle.d66c5bbf.css"
       ]
     }
   }

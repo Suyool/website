@@ -4,7 +4,7 @@ import axios from "axios";
 const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
+    setHeaderTitle("Pay Landline Bill")
     setBackLink("PayBill")
   }, [])
 
@@ -48,8 +48,8 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
     setModalName("SuccessModal");
     setSuccessModal({
       imgPath: "/build/images/Ogero/SuccessImg.png",
-      title: "Ogero Bill Paid Successfully",
-      desc: "You have successfully paid your Ogero bill of {currency}{amount}."
+      title: "Ogero Landline Bill Paid Successfully",
+      desc: "You have successfully paid your Ogero Landline bill of {currency}{amount}."
     })
     setModalShow(true);
   };
@@ -126,7 +126,7 @@ const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, se
           </div>
 
           <div className="continueSection">
-            <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
+            <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
 
             <div className="keybord">
               <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

@@ -5,14 +5,14 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  
+
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
+    setHeaderTitle("Re-charge Touch")
     setBackLink("ReCharge")
     setIsButtonDisabled(false);
     // console.log(getPrepaidVoucher)
   }, [])
-  
+
   const handleConfirmPay = () => {
     // console.log("clicked");
     setIsButtonDisabled(true);
@@ -74,7 +74,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               <div className="br"></div>
 
               <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">Copy the secret code below</div>
+              <div className="copyDesc">Copy the 14-digit secret code below</div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
@@ -114,7 +114,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             <div className="mainDesc">*All taxes excluded</div>
             <img className="BundleBigImg" src={`/build/images/touch/bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
 
-            <div className="smlDesc">Touch only accepts payments in LBP.</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in LBP.</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
               <div className="label">Amount in USD</div>
@@ -123,7 +123,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
 
             <div className="br"></div>
             <div className="MoreInfo">
-              <div className="label">Total</div>
+              <div className="label">Total (Sayrafa rate)</div>
               <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>

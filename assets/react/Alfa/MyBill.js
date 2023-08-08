@@ -77,7 +77,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
             title: "Alfa Bill Paid Successfully",
-            desc: `You have successfully paid your Alfa bill of ${response.data?.data.currency} ${" "} ${response.data?.data.amount}.`
+            desc: `You have successfully paid your Alfa bill of LL ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
           })
           setModalShow(true);
         } else {
@@ -196,7 +196,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         <button id="ContinueBtn" className="btnCont"
           // onClick={()=>{setSpinnerLoader(false)}} 
           onClick={handlePayNow} disabled={pinCode.length !== 4}
-        >continue</button>
+        >Continue</button>
 
         <div className="keybord">
           <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

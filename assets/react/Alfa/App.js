@@ -14,7 +14,7 @@ const App = ({ parameters }) => {
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState({ vouchercategory: "", vouchertype: "", priceLBP: "", priceUSD: "", desc: "", isavailable: "" });
-    const [getPostpaidData, setPostpaidData] = useState({id:""});
+    const [getPostpaidData, setPostpaidData] = useState({ id: "" });
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
@@ -45,8 +45,8 @@ const App = ({ parameters }) => {
 
 
             {/* Modal */}
-            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
-            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
+            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
+            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
         </div>
     );
 };

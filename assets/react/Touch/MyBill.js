@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -14,8 +16,6 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
     setBackLink("PayBill")
     setIsButtonDisabled(false);
   }, [])
-
-
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
@@ -58,9 +58,8 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   };
 
   const handleConfirmPay = () => {
-    // console.log(getResponseId)
-    // console.log("click");
     setIsButtonDisabled(true);
+    setSpinnerLoader(true);
     axios
       .post("/touch/bill/pay",
         {
@@ -70,20 +69,18 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       .then((response) => {
         console.log(response.data);
         const jsonResponse = response?.data?.message;
-
+        setSpinnerLoader(false);
         if (response.data?.IsSuccess) {
           setModalName("SuccessModal");
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
-            title: "Alfa Bill Paid Successfully",
-            desc: `You have successfully paid your Alfa bill of ${response.data?.data.currency} ${" "} ${response.data?.data.amount}.`
+            title: "Touch Bill Paid Successfully",
+            desc: `You have successfully paid your Touch bill of LL ${parseInt(response.data?.data.amount).toLocaleString()}.`
           })
           setModalShow(true);
         } else {
           console.log(response.data.flagCode)
-          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
           if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-            // console.log("step 3")
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",
@@ -108,30 +105,18 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             setModalShow(true);
           }
         }
-
-        // setModalName("SuccessModal");
-        // setSuccessModal({
-        //   imgPath: "/build/images/alfa/SuccessImg.png",
-        //   title: "Alfa Bill Paid Successfully",
-        //   desc: "You have successfully paid your Alfa bill of {currency}{amount}."
-        // })
-        // setModalShow(true);
       })
       .catch((error) => {
         console.log(error);
+        setSpinnerLoader(false);
       });
   };
 
   return (
-    // <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
-    <div id="MyBill" className={`${getPaymentConfirmation && ""}`}>
+    <div id="MyBill" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
 
-      {/* {getPaymentConfirmation ?
-        <> */}
-
-      {
-        getPaymentConfirmation &&
-
+      {getPaymentConfirmation &&
         <div id="PaymentConfirmationSection">
           <div className="topSection">
             <div className="brBoucket"></div>
@@ -181,9 +166,6 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         </div>
       }
 
-      {/* </>
-        :
-        <> */}
       <div className="mainTitle">Insert the PIN you have received by SMS</div>
 
       <div className="PinSection">
@@ -198,7 +180,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       </div>
 
       <div className="continueSection">
-        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
+        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
 
         <div className="keybord">
           <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
@@ -215,9 +197,6 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           <button className="keyBtn" onClick={handleDelete}><img src="/build/images/touch/clearNb.png" alt="flag" /></button>
         </div>
       </div>
-      {/* </>
-      } */}
-
 
     </div>
   );
