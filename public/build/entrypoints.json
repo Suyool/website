@@ -32,6 +32,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
 =======
         "/build/Alfa.92f391de.js"
@@ -42,11 +43,15 @@
 =======
         "/build/Alfa.b93b125b.js"
 >>>>>>> 1923c4f (fix css in all project)
+=======
+        "/build/Alfa.c7ee58cd.js"
+>>>>>>> a3656ca (done with ui)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -60,6 +65,9 @@
 =======
         "/build/Touch.9bc0c118.js"
 >>>>>>> 1923c4f (fix css in all project)
+=======
+        "/build/Touch.3bc7c1f9.js"
+>>>>>>> a3656ca (done with ui)
       ]
     },
     "Ogero": {
@@ -97,7 +105,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.28a808f6.css"
+        "/build/AlfaStyle.96ddbe17.css"
       ]
     },
     "TouchStyle": {
@@ -105,7 +113,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.5972dd5b.css"
+        "/build/TouchStyle.baed4d65.css"
       ]
     },
     "OgeroStyle": {
@@ -113,7 +121,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.d66c5bbf.css"
+        "/build/OgeroStyle.8fed9355.css"
       ]
     }
   }

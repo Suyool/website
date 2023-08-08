@@ -17,6 +17,11 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
     }
   }, [filteredData]);
 
+  const order = ["10", "29", "30", "60", "90", "1", "31"];
+  const sortedData = filteredData.sort((a, b) => {
+    return order.indexOf(a.vouchertype) - order.indexOf(b.vouchertype);
+  });
+
   return (
     <div id="ReCharge">
 
@@ -42,7 +47,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
             </ContentLoader>
             :
             <>
-              {filteredData.map((record, index) => (
+              {sortedData.map((record, index) => (
                 <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2 }); }}>
                   <img className="GridImg" src={`/build/images/touch/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
                   <div className="gridDesc">

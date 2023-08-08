@@ -4,18 +4,18 @@ import { Spinner } from "react-bootstrap";
 
 const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
+  useEffect(() => {
+    setHeaderTitle("Pay Mobile Bill")
+    setBackLink("PayBill")
+    setIsButtonDisabled(false);
+  }, [])
+
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
-    setBackLink("PayBill")
-    setIsButtonDisabled(false);
-  }, [])
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
@@ -113,11 +113,9 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   };
 
   return (
-    <div id="MyBill" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
-      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
-
+    <>
       {getPaymentConfirmation &&
-        <div id="PaymentConfirmationSection">
+        <div id="PaymentConfirmationSection" className={`${getSpinnerLoader ? "opacityNone" : ""}`}>
           <div className="topSection">
             <div className="brBoucket"></div>
             <div className="titles">
@@ -166,39 +164,44 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         </div>
       }
 
-      <div className="mainTitle">Insert the PIN you have received by SMS</div>
+      <div id="MyBill" className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
+        {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
 
-      <div className="PinSection">
-        <div className="Pintitle">PIN</div>
-        <div className="Pincode">
-          {Array.from({ length: 4 }, (_, index) => (
-            <div className="code" key={index}>
-              {pinCode[index] !== undefined ? pinCode[index] : ""}
-            </div>
-          ))}
+        <div className="mainTitle">Insert the PIN you have received by SMS</div>
+
+        <div className="PinSection">
+          <div className="Pintitle">PIN</div>
+          <div className="Pincode">
+            {Array.from({ length: 4 }, (_, index) => (
+              <div className="code" key={index}>
+                {pinCode[index] !== undefined ? pinCode[index] : ""}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="continueSection">
-        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
+        <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className="continueSection">
+          <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
 
-        <div className="keybord">
-          <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
-          <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
-          <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
-          <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
-          <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
-          <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
-          <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
-          <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
-          <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
-          <button className="keyBtn"></button>
-          <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
-          <button className="keyBtn" onClick={handleDelete}><img src="/build/images/touch/clearNb.png" alt="flag" /></button>
+          <div className="keybord">
+            <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
+            <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
+            <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
+            <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
+            <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
+            <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
+            <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
+            <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
+            <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
+            <button className="keyBtn"></button>
+            <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
+            <button className="keyBtn" onClick={handleDelete}><img src="/build/images/touch/clearNb.png" alt="flag" /></button>
+          </div>
         </div>
-      </div>
 
-    </div>
+      </div>
+    </>
+
   );
 };
 
