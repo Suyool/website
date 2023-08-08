@@ -2,8 +2,6 @@
 
 namespace App\Entity\Shopify;
 
-
-use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,10 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="requested_data")
+ * @ORM\HasLifecycleCallbacks
  */
 class RequestedData
 {
-    use DateTrait;
 
     /**
      * @var integer
@@ -40,6 +38,24 @@ class RequestedData
      * @Assert\Length(max=4096)
      */
     private $data;
+    /**
+     * @ORM\Column(type="datetime", name="created")
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated")
+     */
+    private $updated;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function updatedTimestamps()
+    {
+        $this->created = new \DateTime('now');
+        $this->updated = new \DateTime('now');
+    }
 
     /**
      * Set the value of id
@@ -87,6 +103,30 @@ class RequestedData
     public function getData(): ?string
     {
         return $this->data;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
     }
 
 }

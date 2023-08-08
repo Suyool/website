@@ -91,5 +91,18 @@ class Helper
         }
         return $browser;
     }
+    public static function getHost($domain){
+        $parsedUrl = parse_url($domain);
 
+        // Get the hostname from the parsed URL
+        $hostname = $parsedUrl['host'];
+
+        // Remove the "www" and any subdomains
+        $parts = explode('.', $hostname);
+        $partsCount = count($parts);
+        if ($partsCount >= 3 && $parts[0] === 'www') {
+            $hostname = implode('.', array_slice($parts, 1));
+        }
+        return $hostname;
+    }
 }
