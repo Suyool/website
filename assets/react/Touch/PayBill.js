@@ -4,16 +4,19 @@ import axios from "axios";
 const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("03030405");
   const [currency, setCurrency] = useState("LBP");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("")
+    // setIsButtonDisabled(false);
   }, [])
 
   const handleContinue = () => {
+    setIsButtonDisabled(true);
+    // console.log("clicked");
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
-
     axios
       .post("/touch/bill",
         {
@@ -33,11 +36,10 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
       .catch((error) => {
         console.log(error);
       });
-
-
   };
 
   const handleMobileNumberChange = (event) => {
+    setIsButtonDisabled(false);
     const value = event.target.value;
     const formattedValue = formatMobileNumber(value);
     setMobileNumber(formattedValue);
@@ -65,16 +67,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
-      {/* <div className="pCurrency">
-        <div className="subTitle">My Payment Currency</div>
-      </div>
-
-      <div className="currencies">
-        <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
-        <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-      </div> */}
-
-      <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
+      <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>
     </div>
   );
 };

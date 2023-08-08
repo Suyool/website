@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AlfaController extends AbstractController
 {
@@ -42,14 +43,25 @@ class AlfaController extends AbstractController
     public function index()
     {
         // phpinfo();
-        $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
-        $orders = $this->mr->getRepository(Order::class)->findAll();
+        // $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
+        // $orders = $this->mr->getRepository(Order::class)->findAll();
         // dd($orders);
         $parameters['Test'] = "tst";
+        // $param1 = $_GET['param1'];
+        // echo "Param 1: " . $param1 . "<br>";
 
-        return $this->render('alfa/index.html.twig', [
-            'parameters' => $parameters
-        ]);
+        // if (isset($_GET['param']) && $_GET['param'] == "suyoolalfa") {
+        //     if(isset($_GET['session'])){
+        //         // echo $_GET['session'];
+        //     }
+
+            return $this->render('alfa/index.html.twig', [
+                'parameters' => $parameters
+            ]);
+        // } else {
+        //     return $this->render('ExceptionHandling.html.twig');
+        //     // return new Response("No route find!!");
+        // }
     }
 
 

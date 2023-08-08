@@ -30,20 +30,28 @@
       "js": [
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
 =======
         "/build/Alfa.92f391de.js"
 >>>>>>> 3dedebb (add spinner in alfa postpaid buy)
+=======
+        "/build/Alfa.eebed97d.js"
+>>>>>>> bc9e909 (disable double check on btn)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Touch.ebd481c8.js"
 =======
         "/build/Touch.7e3ddfe3.js"
 >>>>>>> 3dedebb (add spinner in alfa postpaid buy)
+=======
+        "/build/Touch.49109236.js"
+>>>>>>> bc9e909 (disable double check on btn)
       ]
     },
     "Ogero": {

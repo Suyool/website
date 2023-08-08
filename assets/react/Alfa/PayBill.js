@@ -5,6 +5,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
   const [mobileNumber, setMobileNumber] = useState("70102030");
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -12,6 +13,8 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
   }, [])
 
   const handleContinue = () => {
+    setIsButtonDisabled(true);
+
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
 
@@ -37,6 +40,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
   };
 
   const handleMobileNumberChange = (event) => {
+    setIsButtonDisabled(false);
     const value = event.target.value;
     const formattedValue = formatMobileNumber(value);
     setMobileNumber(formattedValue);
@@ -64,7 +68,7 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
-      <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
+      <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>
     </div>
   );
 };

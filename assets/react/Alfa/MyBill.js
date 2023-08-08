@@ -7,6 +7,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("PayBill")
+    setIsButtonDisabled(false)
   }, [])
 
   const [pinCode, setPinCode] = useState([]);
@@ -14,6 +15,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
@@ -56,7 +58,8 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   };
 
   const handleConfirmPay = () => {
-    // console.log(getResponseId)
+    // console.log("click")
+    setIsButtonDisabled(true);
     setSpinnerLoader(true);
     axios
       .post("/alfa/bill/pay",
@@ -168,7 +171,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           </div>
 
           <div className="footSectionPick">
-            <button onClick={handleConfirmPay} >Confirm & Pay</button>
+            <button onClick={handleConfirmPay} disabled={isButtonDisabled}>Confirm & Pay</button>
           </div>
         </div>
       }

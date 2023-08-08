@@ -2,15 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("ReCharge")
+    setIsButtonDisabled(false);
     // console.log(getPrepaidVoucher)
   }, [])
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [getSerialToClipboard, setSerialToClipboard] = useState("");
-
+  
   const handleConfirmPay = () => {
+    // console.log("clicked");
+    setIsButtonDisabled(true);
+
     axios
       .post("/touch/BuyPrePaid",
         {
@@ -123,7 +129,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           </div>
 
 
-          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} >Pay Now</button>
+          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled} >Pay Now</button>
         </>
       }
     </div>
