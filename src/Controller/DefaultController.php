@@ -44,7 +44,7 @@ class DefaultController extends AbstractController
         // dd($em->getRepository(Managers::class)->findAll());
         $trans = $this->trans->translation($request, $translator);
         $message = '';
-        if ($this->isCsrfTokenValid('email', $submittedToken)) {
+        if (isset($_POST['email'])) {
 
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $message = "email invalid";
