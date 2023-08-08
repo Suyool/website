@@ -41,7 +41,7 @@ app_payment:
   path: /{code}
   controller: App\Controller\PaymentController::index
   requirements:
-    code: '^P(?:[A-Za-z0-9]*)$' 
+    code: '^(?:(P|p)[A-Za-z0-9]*)$' 
 
 invitation_card:
   path: '/{code}'
@@ -53,4 +53,4 @@ app_request:
   path: /{code}
   controller: App\Controller\RequestController::index
   requirements:
-    code: '^R(?:[A-Za-z0-9]*)$' 
+    code: '^(?:(R|r)[A-Za-z0-9]*)$' 
