@@ -45,7 +45,7 @@ form.addEventListener('submit', function(event) {
   })
   .catch(function(error) {
     // Handle any errors that occurred during form submission
-    console.error('Error submitting form:', error);
+    console.error('Error submitting forms:', error);
   });
 });
  }
