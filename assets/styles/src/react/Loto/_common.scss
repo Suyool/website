@@ -20,7 +20,11 @@
     .resultScroll{
         padding-bottom: 80px;
     }
+    .hideBackk {
+        opacity: 0.5;
+    }
 }
+
 
 .isHideBack {
     opacity: 0.4;
@@ -223,5 +227,20 @@
     }
     .empty{
         padding-right: 50px;
+    }
+}
+
+#spinnerLoader {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    z-index: 1002;
+    position: absolute;
+    justify-content: center;
+    .spinner {
+        width: 100px;
+        height: 100px;
     }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const Buy = ({
   parameters,
@@ -19,6 +20,7 @@ const Buy = ({
   },[])
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   var totalPrice = 0;
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
@@ -48,6 +50,7 @@ const Buy = ({
     //   console.log("h");
     //   buttonElement.disabled = true;
     // }
+    setSpinnerLoader(true);
     setDisable(true);
     axios
       .post("/loto/play", {
@@ -55,7 +58,7 @@ const Buy = ({
       })
       .then((response) => {
         const jsonResponse = response.data.message;
-
+        setSpinnerLoader(false)
         if (response.data.status) {
           const amount = response.data.amount;
           localStorage.removeItem("selectedBalls");
@@ -124,6 +127,7 @@ const Buy = ({
         }
       })
       .catch((error) => {
+        setSpinnerLoader(false)
         console.log(error);
         setDisabledBtn(
           selectedBallsToShow == null ||
@@ -154,7 +158,8 @@ const Buy = ({
   };
 
   return (
-    <div id="Buy">
+    <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       {getPlayedBalls &&
         getPlayedBalls.map((ballsSet, index) => {
           const hasBouquet = ballsSet.hasOwnProperty("bouquet");

@@ -123,9 +123,8 @@ class notificationresult extends Command
             $bulk = 1;//1 for broadcast
 
                 
-                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'result if user has grid in this draw']);
-                $index = $template->getIndex();
-                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+            $content=$this->notificationServices->getContent('result if user has grid in this draw');
+
                 $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'LBP', 'amount' => number_format($lastresultprice->getlotoprize())], true);
                 $this->notificationServices->addNotification($userIds, $content, $params,$bulk);
         }

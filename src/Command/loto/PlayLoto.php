@@ -56,9 +56,9 @@ class PlayLoto extends Command
         $drawNumber = 0;
         $bulk=0;// o for unicast
         while ($play) {
-            $output->writeln([
-                'Successfully RePlaying Loto'
-            ]);
+            // $output->writeln([
+            //     'Successfully RePlaying Loto'
+            // ]);
     
             $heldOrder = $this->mr->getRepository(order::class)->findBy(['status' => 'held']);
             if ($heldOrder == null) {
@@ -104,16 +104,14 @@ class PlayLoto extends Command
                             $result = $draw->getdrawdate()->format('d/m/Y');
 
                             if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'bouquet with zeed']);
-                                $index = $template->getIndex();
-                                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                                $content=$this->notificationService->getContent('bouquet with zeed');
+
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk);
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
                             } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'bouquet without zeed']);
-                                $index = $template->getIndex();
-                                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                                $content=$this->notificationService->getContent('bouquet without zeed');
+
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk);
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
@@ -150,16 +148,14 @@ class PlayLoto extends Command
 
                             // $ticketId = 522;
                             if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
-                                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'with zeed & without bouquet']);
-                                $index = $template->getIndex();
-                                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                                $content=$this->notificationService->getContent('with zeed & without bouquet');
+
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk);
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
                             } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
-                                $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'without zeed & without bouquet']);
-                                $index = $template->getIndex();
-                                $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                                $content=$this->notificationService->getContent('without zeed & without bouquet');
+
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk);
                                 $newElement = ['ticketId' => $ticketId];
@@ -206,9 +202,7 @@ class PlayLoto extends Command
                     if ($newsum != $sum) {
                         $diff = $sum - $newsum;
                         $params = json_encode(['currency' => $currency, 'amount' => $diff, 'draw' => $drawNumber], true);
-                        $template = $this->notifyMr->getRepository(Template::class)->findOneBy(['identifier' => 'Payment reversed loto']);
-                        $index = $template->getIndex();
-                        $content = $this->notifyMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+                        $content=$this->notificationService->getContent('Payment reversed loto');
                         $this->notificationService->addNotification($userId, $content, $params,$bulk);
                     }
                     $status = true;

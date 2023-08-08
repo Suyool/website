@@ -165,4 +165,26 @@ class PlaysRepository extends EntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function getGridWithTicket($drawId)
+    {
+        return $this->createQueryBuilder('l')
+        ->select('l')
+        ->where('l.drawNumber = :drawId and l.ticketId != 0 and l.ticketId is not null')
+        ->setParameter('drawId',$drawId)
+        ->getQuery()
+        ->getResult();
+    }
+
+    
+    public function findOrdersIds($userid,$drawId){
+        return $this->createQueryBuilder('l')
+        ->select('l')
+        ->innerJoin(order::class,'o')
+        ->where('o.suyoolUserId = :userid and o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null)')
+        ->setParameter('userid',$userid)
+        ->setParameter('drawId',$drawId)
+        ->getQuery()
+        ->getResult();
+    }
 }

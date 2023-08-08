@@ -56,6 +56,25 @@ class LotoController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
+        // $TS=time();
+
+        // $pattern = '/\b(?:Mobile|Tablet|iPhone|iPad|Android|Windows Phone)\b/i';
+        // preg_match($pattern, $useragent, $matches);
+
+        // if (isset($matches[0])) {
+        //     $deviceName = $matches[0];
+        // } else {
+        //     $deviceName = "";
+        // }
+
+        // $session=155;
+
+        // $string="{$session}!#!{$deviceName}!#!1!#!{$TS}";
+
+        // $encryption=openssl_encrypt($string,"AES128",$this->key,0,$this->iv);
+
+        
+
         $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
 
         $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
@@ -67,7 +86,7 @@ class LotoController extends AbstractController
 
 
             // $useragent = $_SERVER['HTTP_USER_AGENT'];
-            $session = 89;
+            $session = 155;
             $this->session->set('userId', $session);
 
 
@@ -134,6 +153,7 @@ class LotoController extends AbstractController
             ];
 
             $parameters['prize_loto_win'] = $loto_prize_array;
+            // dd($parameters);
             $prize_loto_perdays = [];
             foreach ($loto_prize_per_days as $days) {
                 foreach ($days['gridSelected'] as $gridselected) {
@@ -166,11 +186,12 @@ class LotoController extends AbstractController
             $parameters['prize_loto_result'] = $prize_loto_result;
 
 
-            // if (isset($data)) {
-            //     return new JsonResponse([
-            //         'parameters' => $parameters
-            //     ]);
-            // } else {
+            if (isset($data)) {
+                return new JsonResponse([
+                    'parameters' => $parameters
+                ]);
+            } 
+            // else {
             // if (isset($session)) {
             return $this->render('loto/index.html.twig', [
                 'parameters' => $parameters
@@ -351,9 +372,9 @@ class LotoController extends AbstractController
                 $numGrids += sizeof($mergegrids);
                 $id = $orderid->getId();
 
+                $app = 1;
 
-
-                $pushutility = $this->suyoolServices->PushUtilities($session, $id, $sum, $lotoid->getcurrency(), $this->hash_algo, $this->certificate);
+                $pushutility = $this->suyoolServices->PushUtilities($session, $id, $sum, $lotoid->getcurrency(), $this->hash_algo, $this->certificate, $app);
 
 
                 if ($pushutility[0]) {
@@ -365,9 +386,7 @@ class LotoController extends AbstractController
                     $this->mr->persist($orderid);
                     $this->mr->flush();
 
-                    $templateId = $this->notMr->getRepository(Template::class)->findOneBy(['identifier' => 'Payment taken loto']);
-                    $index = $templateId->getIndex();
-                    $content = $this->notMr->getRepository(content::class)->findOneBy(['template' => $templateId->getId(), 'version' => $index]);
+                    $content = $this->notificationServices->getContent('Payment taken loto');
 
                     $params = json_encode(['amount' => $sum, 'currency' => $lotoid->getcurrency(), 'numgrids' => $numGrids], true);
 

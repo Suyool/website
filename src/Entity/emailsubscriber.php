@@ -9,7 +9,7 @@ use App\Entity\Traits\DateTrait;
  */
 class emailsubscriber
 {
-    use DateTrait;
+    //use DateTrait;
 
     /**
      * @var integer
