@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\Logs;
 use App\Entity\Shopify\MerchantCredentials;
+use App\Entity\Shopify\Session;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,11 +55,9 @@ class ShopifyApiController extends AbstractController
         $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
         $merchantId = $merchantCredentials['merchantId'];
         $certificate = $merchantCredentials['certificate'];
-        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
-
-        $credentials = $credentialsRepository->findBy(['shop' => $hostname]);
-
-        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $credentials[0]->getAccessToken(), $hostname);
+        $sessionRepository = $this->mr->getRepository(Session::class);
+        $sessionInfo = $sessionRepository->findOneBy(['shop' => $hostname]);
+        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
 
         $shopifyAmount = $checkAmount['transactions']['0']['amount'];
         $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
@@ -190,9 +189,9 @@ class ShopifyApiController extends AbstractController
                 $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
 
-                $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
-                $credential = $credentialsRepository->findOneBy(['shop' => $domain]);
-                $accessToken = $credential->getAccessToken();
+                $sessionRepository = $this->mr->getRepository(Session::class);
+                $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
+                $accessToken = $sessionInfo->getAccessToken();
 
                 if ($secureHash == $data['SecureHash']) {
                     if ($order) {
