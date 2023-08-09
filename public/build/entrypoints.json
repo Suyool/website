@@ -33,6 +33,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
 =======
         "/build/Alfa.92f391de.js"
@@ -46,11 +47,15 @@
 =======
         "/build/Alfa.c7ee58cd.js"
 >>>>>>> a3656ca (done with ui)
+=======
+        "/build/Alfa.3e6bbe9b.js"
+>>>>>>> 68e699b (rename some file to lower case)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -72,6 +77,9 @@
 =======
         "/build/Touch.393d076b.js"
 >>>>>>> 7aacc9e (yarn encore prod)
+=======
+        "/build/Touch.8875f5e9.js"
+>>>>>>> 68e699b (rename some file to lower case)
       ]
     },
     "Ogero": {

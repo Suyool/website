@@ -112,7 +112,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           <div className="MyBundleBody">
             <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
             <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src={`/build/images/touch/bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/touch/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
 
             <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in LBP.</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
