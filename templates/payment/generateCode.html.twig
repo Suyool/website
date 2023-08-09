@@ -16,13 +16,13 @@
             <label for='receiverlname' class='required innerLabel'>Receiver Family Name</label><br>
             <input type="text" name="receiverlname" id="" required><br>
             <label for='mobile' class='required innerLabel'>Mobile Numer</label><br>
-            <input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="{{ ReceiverPhone }}" disabled><br>
+            <input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
         
         <div class="desc">
             Go to the nearest & show them the code to receive your money.<span> This code is valid for 7 days.</span>
         </div>
         <div class="center">
-            <input type="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %}data-code="{{ cashout.data }}"{% endif %} class="generate-code btn" ></input>
+            <input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %}data-code="{{ cashout.data }}"{% endif %} class="generate-code btn" ></input>
         </div>
         </form>
     </div>

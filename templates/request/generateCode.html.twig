@@ -22,7 +22,7 @@
             Go to the nearest & show them the code to add money to their Suyool wallet.<br><span> This code is valid for 7 days.</span>
         </div>
         <div class="center">
-            <input type="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashin.data is defined and cashin.data != null %}data-code="{{ cashin.data }}"{% endif %} class="generate-code btn" ></input>
+            <input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashin.data is defined and cashin.data != null %}data-code="{{ cashin.data }}"{% endif %} class="generate-code btn"></input>
         </div>
         </form>
     </div>

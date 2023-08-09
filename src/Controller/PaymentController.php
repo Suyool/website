@@ -47,8 +47,11 @@ class PaymentController extends AbstractController
 
         $parameters['currentPage'] = "payment_landingPage";
 
-        $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $this->hash_algo, $this->certificate, $parameters['lang']);
-
+        // $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $this->hash_algo, $this->certificate, $parameters['lang']);
+        $parameters['payment_details_response']['allowCashOut']="true";
+        $parameters['payment_details_response']['respCode']=0;
+        $parameters['payment_details_response']['additionalData']=json_encode(['ReceiverPhone'=>"76197840"]);
+        // dd($parameters['payment_details_response']);
 
         if ($parameters['payment_details_response'] != null) {
             // $parameters['currency'] = $parameters['payment_details_response']['currency'];
@@ -59,7 +62,7 @@ class PaymentController extends AbstractController
                 // dd();
                 return $this->redirectToRoute("homepage");
             }
-            $this->session->set("request_details_response", $parameters['payment_details_response']);
+            $this->session->set("pequest_details_response", $parameters['payment_details_response']);
             $this->session->set("code", $code);
             $this->session->set(
                 "image",
@@ -148,14 +151,13 @@ class PaymentController extends AbstractController
         $code = $this->session->get('code');
         $parameters['ReceiverPhone'] = $this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
+            // dd("ok");
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
                 $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname'], $this->certificate, $this->hash_algo);
                 // dd($parameters['cashout']);
-                // $parameters['cashout']['globalCode']=1;
                 // $parameters['cashout']['data']=123;
                 // dd($parameters['cashout']);
                 if ($parameters['cashout']['globalCode'] == 0) {
-                    // dd("ok");
 
                     $parameters['message'] = $parameters['cashout']['message'];
 

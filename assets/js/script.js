@@ -250,6 +250,27 @@ if(document.querySelector('.generate-code')){
     }
   })
 }
+
+// if(document.getElementById('formDetails')){
+//   const form =  document.getElementById('formDetails')
+//   form.addEventListener("submit",function(event){
+//     event.preventDefault(); // Prevent the default form submission
+//     const btn= document.getElementById("submit");
+//     btn.disabled = true;
+
+//   })
+
+// }
+if(document.getElementById("submit")){
+  var submitButton = document.getElementById("submit");
+  submitButton.addEventListener("click", function() {
+    setTimeout(function() {
+      submitButton.disabled = true;
+    }, 1); // Delay in milliseconds (adjust as needed)
+  });
+}
+
+
 function resubscribe(uniqueCode, flag) {
     jQuery.ajax({
         type: "GET",

@@ -31,7 +31,7 @@ class Helper
                     $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
                 
             }else{
-            $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/' ;
+            $host = 'http://10.20.80.62/SuyoolGlobalAPIs/api/' ;
             //  $host = 'https://globalapi.suyool.money/api/';
          }
                 }
