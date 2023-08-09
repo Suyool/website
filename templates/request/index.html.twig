@@ -53,7 +53,7 @@
             </div>
         </a> #}
        
-            {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin is not null %}
+            {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
                 <a  type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
                     <div class="row">
                         <div class="col-2 logo_container">

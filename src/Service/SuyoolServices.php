@@ -312,7 +312,7 @@ class SuyoolServices
         // ]));
 
         // dd($userId);
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashOut", [
             'body' => json_encode([
                 'transactionId'=>$TranSimId,
                 'receiverFname'=>$fname,
