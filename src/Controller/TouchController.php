@@ -498,7 +498,7 @@ class TouchController extends AbstractController
 
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
-                    dd($responseUpdateUtilities);
+                    // dd($responseUpdateUtilities);
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'held']);
                         $orderupdate4

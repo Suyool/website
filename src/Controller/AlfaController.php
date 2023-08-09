@@ -55,9 +55,9 @@ class AlfaController extends AbstractController
         //         // echo $_GET['session'];
         //     }
 
-            return $this->render('alfa/index.html.twig', [
-                'parameters' => $parameters
-            ]);
+        return $this->render('alfa/index.html.twig', [
+            'parameters' => $parameters
+        ]);
         // } else {
         //     return $this->render('ExceptionHandling.html.twig');
         //     // return new Response("No route find!!");
@@ -413,7 +413,7 @@ class AlfaController extends AbstractController
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
             // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
-            dd($response);
+            // dd($response);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'pending']);
@@ -545,4 +545,28 @@ class AlfaController extends AbstractController
             'data' => $dataPayResponse
         ], 200);
     }
+
+
+    // /**
+    //  * @Route("/tst", name="app_tst")
+    //  */
+    // public function tst(NotificationServices $notificationServices)
+    // {
+    //     $session = rand();
+    //     //intial notification
+    //     $params = json_encode([
+    //         'amount' => rand(),
+    //         'currency' => "oki" . rand(),
+    //         'mobilenumber' => rand()
+    //     ]);
+    //     $additionalData = "";
+
+    //     $content = $notificationServices->getContent('AcceptedAlfaPayment');
+    //     $bulk = 0; //1 for broadcast 0 for unicast
+    //     $notificationServices->addNotification($session, $content, $params, $bulk, $additionalData);
+
+    //     return new JsonResponse([
+    //         'status' => "oki",
+    //     ], 200);;
+    // }
 }
