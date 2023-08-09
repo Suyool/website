@@ -23,18 +23,46 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           Token: "",
           category: "MTC",
           // category: getPrepaidVoucher.vouchercategory,
+          desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
-        console.log(response)
+        const jsonResponse = response?.data?.message;
+        console.log(jsonResponse)
         // console.log()
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
           setSerialToClipboard("*14*" + response?.data?.data?.voucherSerial + "#");
         } else {
-          console.log("someThing wrong !!!");
+          console.log(response.data.flagCode)
+          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
+          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            // console.log("step 3")
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (
+            !response.data.IsSuccess &&
+            response.data.flagCode == 11
+          ) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
         }
         // console.log(response);
       })
@@ -52,7 +80,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
     document.body.removeChild(tempInput);
   };
 
-
+// console.log(getPrepaidVoucher);
   return (
     <div id="MyBundle" className={`${getPaymentConfirmation && "hideBack"}`}>
       {getPaymentConfirmation ?
@@ -110,15 +138,15 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
         :
         <>
           <div className="MyBundleBody">
-            <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+            <div className="mainTitle">{getPrepaidVoucher.desc3}</div>
             <div className="mainDesc">*All taxes excluded</div>
             <img className="BundleBigImg" src={`/build/images/touch/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
 
             <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in LBP.</div>
-            <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
+            <div className="relatedInfo">{getPrepaidVoucher.desc1}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
-              <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+              <div className="label">Amount in LBP (Including taxes)</div>
+              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>

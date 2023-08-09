@@ -75,7 +75,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
             title: "Touch Bill Paid Successfully",
-            desc: `You have successfully paid your Touch bill of LL ${parseInt(response.data?.data.amount).toLocaleString()}.`
+            desc: `You have successfully paid your Touch bill of L.L ${parseInt(response.data?.data.amount).toLocaleString()}.`
           })
           setModalShow(true);
         } else {

@@ -34,6 +34,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.2aa699bc.js"
 =======
         "/build/Alfa.92f391de.js"
@@ -50,11 +51,15 @@
 =======
         "/build/Alfa.3e6bbe9b.js"
 >>>>>>> 68e699b (rename some file to lower case)
+=======
+        "/build/Alfa.d824fb57.js"
+>>>>>>> 6f3ed5b (fix ui popups)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -80,12 +85,15 @@
 =======
         "/build/Touch.8875f5e9.js"
 >>>>>>> 68e699b (rename some file to lower case)
+=======
+        "/build/Touch.81cb9a5c.js"
+>>>>>>> 6f3ed5b (fix ui popups)
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.921b8d15.js"
+        "/build/Ogero.4b6587d4.js"
       ]
     },
     "styles": {
@@ -117,7 +125,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.96ddbe17.css"
+        "/build/AlfaStyle.dfc6fc84.css"
       ]
     },
     "TouchStyle": {
@@ -125,7 +133,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.baed4d65.css"
+        "/build/TouchStyle.8524426f.css"
       ]
     },
     "OgeroStyle": {
@@ -133,7 +141,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.8fed9355.css"
+        "/build/OgeroStyle.47b557f9.css"
       ]
     }
   }

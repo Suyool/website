@@ -146,8 +146,8 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in LBP.</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
-              <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+              <div className="label">Amount in LBP (Including taxes)</div>
+              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>

@@ -75,7 +75,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
             title: "Alfa Bill Paid Successfully",
-            desc: `You have successfully paid your Alfa bill of LL ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
+            desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
           })
           setModalShow(true);
         } else {

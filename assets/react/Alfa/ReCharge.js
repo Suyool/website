@@ -23,7 +23,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
 
       <div className="bundlesSection">
         <div className="mainTitle">Available Re-charge Packages</div>
-        <div className="mainDesc">*All taxes excluded</div>
+        <div className="mainDesc">*All taxes included</div>
         {
           getLoading ?
             <ContentLoader

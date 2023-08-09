@@ -28,7 +28,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
 
       <div className="bundlesSection">
         <div className="mainTitle">Available Re-charge Packages</div>
-        <div className="mainDesc">*All taxes excluded</div>
+        <div className="mainDesc">*All taxes included</div>
         {
           getLoading ?
             <ContentLoader
@@ -48,7 +48,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
             :
             <>
               {sortedData.map((record, index) => (
-                <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2 }); }}>
+                <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2, desc3: record.desc3 }); }}>
                   <img className="GridImg" src={`/build/images/touch/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
                   <div className="gridDesc">
                     <div className="Price">${record.priceUSD} <span>(LBP {parseInt(record.priceLBP).toLocaleString()})</span></div>
