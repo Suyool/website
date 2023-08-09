@@ -3,15 +3,14 @@
     <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <div align="center"><img src="https://suyool.com/build/images/suyool-Logo.png"></div>
+
     <form id="captchaForm" method="post" style="margin: auto; width: 304px; padding-top: 50px;">
         <!-- Google recaptcha -->
         <div class="g-recaptcha" data-callback="imNotARobot" data-sitekey="6LfFZI0nAAAAAH9-GSKhurD-cqLTIVjYUTjB3Hja"></div>
     </form>
+    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src=""  height="600px" width="900px" style="border: 1px solid #ccc; display:none;margin:50px auto;border: none"></iframe>
 
-    <iframe name="skash-iframe-QR" id="skash-iframe-QR" src=""  height="600px" width="900px" style="border: 1px solid #ccc; display:none;margin:50px auto">
-        <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/>
-        <img src="http://dev.suyool.com/build/images/suyool-Logo.png">
-    </iframe>
     <script type="text/javascript">
         var imNotARobot = function() {
             $("#skash-iframe-QR").css("display", "block");
