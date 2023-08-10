@@ -34,6 +34,17 @@ class Landline
     private $transactionId;
 
     /**
+     * @ORM\Column(name="transactionDescription")
+     */
+    private $transactionDescription;
+
+    /**
+     * @ORM\Column(name="referenceNumber")
+     */
+    private $referenceNumber;
+
+
+    /**
      * @ORM\Column(name="ogeroBills")
      */
     private $ogeroBills;
@@ -132,6 +143,28 @@ class Landline
     public function setadditionalFees($additionalFees)
     {
         $this->additionalFees = $additionalFees;
+        return $this;
+    }
+
+    public function gettransactionDescription()
+    {
+        return $this->transactionDescription;
+    }
+
+    public function settransactionDescription($transactionDescription)
+    {
+        $this->transactionDescription = $transactionDescription;
+        return $this;
+    }
+
+    public function getreferenceNumber()
+    {
+        return $this->referenceNumber;
+    }
+
+    public function setreferenceNumber($referenceNumber)
+    {
+        $this->referenceNumber = $referenceNumber;
         return $this;
     }
 

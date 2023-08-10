@@ -1,21 +1,64 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = ({ setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill")
     setBackLink("PayBill")
   }, [])
-  
+
   const handleConfirmPay = () => {
-    setModalName("SuccessModal");
-    setSuccessModal({
-      imgPath: "/build/images/Ogero/SuccessImg.png",
-      title: "Ogero Landline Bill Paid Successfully",
-      desc: "You have successfully paid your Ogero Landline bill of {currency}{amount}."
-    })
-    setModalShow(true);
+    axios
+      .post("/ogero/landline/pay",
+        {
+          LandlineId: getLandlineData.id
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        const jsonResponse = response?.data?.message;
+        setSpinnerLoader(false);
+        if (response.data?.IsSuccess) {
+          setModalName("SuccessModal");
+          setSuccessModal({
+            imgPath: "/build/images/alfa/SuccessImg.png",
+            title: "Alfa Bill Paid Successfully",
+            desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
+          })
+          setModalShow(true);
+        } else {
+          console.log(response.data.flagCode)
+          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (
+            !response.data.IsSuccess &&
+            response.data.flagCode == 11
+          ) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setSpinnerLoader(false);
+      });
   };
 
   return (

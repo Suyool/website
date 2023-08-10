@@ -11,6 +11,7 @@ const App = ({ parameters }) => {
     const [activeButton, setActiveButton] = useState({ name: "" });
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Ogero");
+    const [getLandlineData, setLandlineData] = useState({ id: "" });
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
@@ -28,9 +29,9 @@ const App = ({ parameters }) => {
                     <>
                         {activeButton.name === "" && <Default activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "PayBill" && <PayBill activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "PayBill" && <PayBill setLandlineData={setLandlineData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "MyBill" && <MyBill setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBill" && <MyBill getLandlineData={getLandlineData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                     </>
                 }
             </div>
