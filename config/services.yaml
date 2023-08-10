@@ -10,6 +10,7 @@ parameters:
     router.request_context.base_url: '%env(SITE_BASE_URL)%'
     asset.request_context.base_path: '%router.request_context.base_url%'
     asset.request_context.secure: '%env(SITE_SECURE)%'
+    google_recaptcha_site_key: '6LdFtHgnAAAAABD55OKfi_bKEG3ktD8cAKwyUfOx'
     hash_algo: 'sha512'
     certificate: '%env(CERTIFICATE)%'
     # production_url: 'https://www.elnashra.com/'
@@ -34,6 +35,10 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+
+    ReCaptcha\ReCaptcha:
+        arguments:
+            - '%env(GOOGLE_RECAPTCHA_SECRET_KEY)%'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

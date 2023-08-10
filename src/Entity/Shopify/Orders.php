@@ -65,6 +65,11 @@ class Orders
     private $merchantId;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, name="flag")
+     */
+    private $flag;
+
+    /**
      * @ORM\Column(type="datetime", name="created")
      */
     private $created;
@@ -193,6 +198,18 @@ class Orders
     public function setMerchantId(int $merchantId): self
     {
         $this->merchantId = $merchantId;
+
+        return $this;
+    }
+
+    public function getFlag(): ?int
+    {
+        return $this->flag;
+    }
+
+    public function setFlag(?int $flag): self
+    {
+        $this->flag = $flag;
 
         return $this;
     }

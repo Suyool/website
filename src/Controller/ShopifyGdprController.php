@@ -41,7 +41,7 @@ class ShopifyGdprController extends AbstractController
             // Fetch the order details from the repository
             $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
 
-            if ($order)
+            if (!empty($order) && $order->getFlag()==0)
                 $orders[] = $order;
         }
         $this->saveRequestedData($requestData,$orders);
@@ -51,7 +51,7 @@ class ShopifyGdprController extends AbstractController
     }
 
     /**
-     * @Route("/customers/redact", name="customers_redact", methods={"POST"})
+     * @Route("/customers/redact", name="customersredact", methods={"POST"})
      */
     public function customersRedact(Request $request): Response
     {
@@ -66,11 +66,12 @@ class ShopifyGdprController extends AbstractController
         foreach ($orderIds as $orderId) {
             // Fetch the order details from the repository
             $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
-
-            if ($order) {
-                // Delete the order
-                $this->mr->remove($order);
+            if (!empty($order)) {
+                // set flag to 1 DELETED
+                $order->setFlag(1);
+                $this->mr->persist($order);
                 $this->mr->flush();
+
             }
         }
         $response = "Orders deleted successfully";
@@ -107,12 +108,14 @@ class ShopifyGdprController extends AbstractController
     }
 
     private function saveRequestedData(array $request, $response) {
+        $result = "";
         if(is_array($response)){
-            $result = "";
             foreach ($response as $res) {
                 $data = "Order_id:". $res->getOrderId() . ", Price: " . $res->getAmount() . ", Status:" . $res->getStatus();
                 $result .= $data . " ; ";
             }
+        }else{
+            $result = $response;
         }
 
         $queryStringRequest= http_build_query($request);
@@ -120,8 +123,10 @@ class ShopifyGdprController extends AbstractController
 
         $requestedData = new RequestedData();
         $requestedData->setShop($request['shop_domain']);
+        if(!empty($request['data_request']['id'])){
+            $requestedData->setRequestId($request['data_request']['id']);
+        }
         $requestedData->setData("Request: ".$queryStringRequest . " Response: " . $result);
-
         $this->mr->persist($requestedData);
         $this->mr->flush();
     }
