@@ -309,4 +309,47 @@ class BobServices
 
         // return $decodedString;
     }
+
+    //Ogero
+    public function RetrieveChannelResults($gsmMobileNb)
+    {
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => 1,
+                "OgeroMeta" => [
+                    "PhoneNumber" => $gsmMobileNb
+                    // "GSMNumber" => "70102030"
+                    // "GSMNumber" => "03184740"
+                ],
+                "VenId" => 3,
+                "ProductId" => 16,
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+    
+
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
 }
