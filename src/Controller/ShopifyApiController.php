@@ -61,7 +61,6 @@ class ShopifyApiController extends AbstractController
 
         $shopifyAmount = $checkAmount['transactions']['0']['amount'];
         $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
-        if ($resAmount == 0) {
             $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
 
@@ -98,9 +97,7 @@ class ShopifyApiController extends AbstractController
                     'displayBlock' => $showQR,
                 ]);
             }
-        }else {
-            return new Response("404");
-        }
+
     }
 
     /**
@@ -123,7 +120,7 @@ class ShopifyApiController extends AbstractController
                 throw $this->createNotFoundException('Order not found');
             }
 
-            $createdAt = $order->getCreateDate()->getTimestamp();
+            $createdAt = $order->getCreated()->getTimestamp();
             $timestamp = $createdAt * 1000;
             $domain = $metadata['domain'];
             $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
@@ -250,18 +247,16 @@ class ShopifyApiController extends AbstractController
     public function checkOrderStatus($orderId)
     {
         $ordersRepository = $this->mr->getRepository(Orders::class);
-        $order = $ordersRepository->findBy(["orderId" => $orderId]);
-//        dd($order);
+        $order = $ordersRepository->findOneBy(["orderId" => $orderId]);
         if ($order) {
-            $status = $order[0]->getStatus();
-            $metaInfo = json_decode($order[0]->getMetaInfo(), true);
+            $status = $order->getStatus();
 
             if ($status == 1) {
                 // The order status is 1
                 // Return the status and URL as JSON response
                 $response = [
                     'status' => 1,
-                    'url' => $metaInfo['url']
+                    'url' => $order->getCallbackUrl()
                 ];
                 return $this->json($response);
             } elseif ($status == 2) {
@@ -269,7 +264,7 @@ class ShopifyApiController extends AbstractController
                 // Return the status and error URL as JSON response
                 $response = [
                     'status' => 2,
-                    'url' => $metaInfo['error_url']
+                    'url' => $order->getErrorUrl()
                 ];
                 return $this->json($response);
             }
