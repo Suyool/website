@@ -24,6 +24,11 @@ class RequestedData
     private $id;
 
     /**
+     * @ORM\Column(name="request_id", type="integer", nullable=true)
+     */
+    private $requestId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="shop", type="string", length=250, nullable=false)
@@ -71,6 +76,22 @@ class RequestedData
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Set the value of requestId
+     */
+    public function setRequestId(int $requestId): void
+    {
+        $this->id = $requestId;
+    }
+
+    /**
+     * Get the value of requestId
+     */
+    public function getRequestId(): ?int
+    {
+        return $this->requestId;
     }
 
     /**

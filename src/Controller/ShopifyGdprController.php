@@ -114,6 +114,8 @@ class ShopifyGdprController extends AbstractController
                 $data = "Order_id:". $res->getOrderId() . ", Price: " . $res->getAmount() . ", Status:" . $res->getStatus();
                 $result .= $data . " ; ";
             }
+        }else{
+            $result = $response;
         }
 
         $queryStringRequest= http_build_query($request);
@@ -121,8 +123,10 @@ class ShopifyGdprController extends AbstractController
 
         $requestedData = new RequestedData();
         $requestedData->setShop($request['shop_domain']);
+        if(!empty($request['data_request']['id'])){
+            $requestedData->setRequestId($request['data_request']['id']);
+        }
         $requestedData->setData("Request: ".$queryStringRequest . " Response: " . $result);
-
         $this->mr->persist($requestedData);
         $this->mr->flush();
     }
