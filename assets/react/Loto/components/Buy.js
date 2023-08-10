@@ -112,9 +112,7 @@ const Buy = ({
           });
           setModalShow(true);
         } else if (
-          !response.data.status &&
-          response.data.message == "Internal Server Error"
-        ) {
+          !response.data.status) {
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/Loto/error.png",

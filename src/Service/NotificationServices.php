@@ -27,9 +27,34 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function checkUser($userid,$lang)
+    public function checkUser($userid,$lang,$hash_algo,$certificate)
     {
-        $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+        $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+        if($singleUser == null){
+            $suyoolUser = $this->suyoolServices->GetUser($userid, $hash_algo, $certificate);
+            // dd($suyoolUser);
+            if($suyoolUser != null){
+                $userFirstname = $suyoolUser["FirstName"];
+                $userLastname = $suyoolUser["LastName"];
+                $userLang = $suyoolUser["LanguageID"];
+    
+                $user = new Users;
+                $user
+                    ->setsuyoolUserId($userid)
+                    ->setfname($userFirstname)
+                    ->setlname($userLastname)
+                    ->setlang($userLang);
+    
+                $this->mr->persist($user);
+                $this->mr->flush();
+                
+            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+            }
+            
+        }else{
+            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+        }
+        
 
         if($userid !=null ){
             return true;
