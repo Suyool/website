@@ -202,7 +202,7 @@ class TouchController extends AbstractController
     {
         $suyoolServices=new SuyoolServices($this->params->get('TOUCH_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $SuyoolUserId = 155;
+        $SuyoolUserId = 89;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
         // $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
@@ -479,7 +479,7 @@ class TouchController extends AbstractController
                     $bulk=0;//1 for broadcast 0 for unicast
                     $notificationServices->addNotification($SuyoolUserId, $content, $params,$bulk);
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -497,7 +497,7 @@ class TouchController extends AbstractController
                     $IsSuccess = false;
 
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     // dd($responseUpdateUtilities);
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);

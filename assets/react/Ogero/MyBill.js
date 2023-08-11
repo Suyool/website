@@ -20,10 +20,11 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
         }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         const jsonResponse = response?.data?.message;
-        setSpinnerLoader(false);
+        // setSpinnerLoader(false);
         if (response.data?.IsSuccess) {
+          console.log("ftt");
           setModalName("SuccessModal");
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
@@ -32,7 +33,7 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
           })
           setModalShow(true);
         } else {
-          console.log(response.data.flagCode)
+          // console.log(response.data.flagCode)
           if (response.data.IsSuccess == false && response.data.flagCode == 10) {
             setModalName("ErrorModal");
             setErrorModal({

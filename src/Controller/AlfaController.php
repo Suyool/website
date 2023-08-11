@@ -296,7 +296,7 @@ class AlfaController extends AbstractController
                     $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PURCHASED']]);
 
@@ -316,7 +316,7 @@ class AlfaController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -484,7 +484,7 @@ class AlfaController extends AbstractController
                     $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -502,7 +502,7 @@ class AlfaController extends AbstractController
                     $IsSuccess = false;
 
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4

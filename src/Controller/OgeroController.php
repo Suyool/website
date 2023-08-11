@@ -19,8 +19,6 @@ use Symfony\Component\HttpFoundation\Request;
 class OgeroController extends AbstractController
 {
     private $mr;
-    private $hash_algo;
-    private $certificate;
     private $params;
 
     public function __construct(ManagerRegistry $mr, ParameterBagInterface $params)
@@ -115,7 +113,7 @@ class OgeroController extends AbstractController
 
         $suyoolServices=new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $suyoolUserId = 155;
+        $suyoolUserId = 89;
         
         $Landline_With_id = $this->mr->getRepository(LandlineRequest::class)->findOneBy(['id' => $data["LandlineId"]]);
         $flagCode = null;
@@ -208,7 +206,6 @@ class OgeroController extends AbstractController
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
                         //update te status from purshased to completed
-                        echo Order::$statusOrder['COMPLETED'];
                         $orderupdate5
                             ->setstatus(Order::$statusOrder['COMPLETED']);
                         $this->mr->persist($orderupdate5);

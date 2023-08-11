@@ -111,12 +111,12 @@ class SuyoolServices
         // intval($transId[1])
         // echo $Hash;
 
-        echo json_encode([
-            'transactionID' => $transId,
-            "amountPaid" => $sum,
-            "additionalData" => $additionalData,
-            'secureHash' =>  $Hash,
-        ]);
+        // echo json_encode([
+        //     'transactionID' => $transId,
+        //     "amountPaid" => $sum,
+        //     "additionalData" => $additionalData,
+        //     'secureHash' =>  $Hash,
+        // ]);
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
             'body' => json_encode([

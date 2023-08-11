@@ -10,7 +10,6 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
   }, [])
 
   const handleContinue = () => {
-    // console.log("Mobile Number:", mobileNumber);
     axios
       .post("/ogero/landline",
         {
@@ -18,7 +17,7 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
         }
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setActiveButton({ name: "MyBill" });
         setLandlineData({ id: response?.data?.LandlineReqId })
         setLandlineDisplayedData(response?.data?.message)
