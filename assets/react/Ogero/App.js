@@ -12,6 +12,8 @@ const App = ({ parameters }) => {
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Ogero");
     const [getLandlineData, setLandlineData] = useState({ id: "" });
+    const [getLandlineDisplayedData, setLandlineDisplayedData] = useState({ });
+    const [getLandlineMobile, setLandlineMobile] = useState("");
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
@@ -29,9 +31,9 @@ const App = ({ parameters }) => {
                     <>
                         {activeButton.name === "" && <Default activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "PayBill" && <PayBill setLandlineData={setLandlineData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "PayBill" && <PayBill setLandlineMobile={setLandlineMobile} setLandlineDisplayedData={setLandlineDisplayedData} setLandlineData={setLandlineData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "MyBill" && <MyBill getLandlineData={getLandlineData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBill" && <MyBill getLandlineMobile={getLandlineMobile} getLandlineDisplayedData={getLandlineDisplayedData} getLandlineData={getLandlineData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                     </>
                 }
             </div>

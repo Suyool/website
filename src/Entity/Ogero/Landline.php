@@ -2,7 +2,7 @@
 
 namespace App\Entity\Ogero;
 
-use Doctrine\ORM\MapogeroBillsg as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 
 /**
@@ -19,7 +19,7 @@ class Landline
     private $id;
 
     /**
-     * @ORM\Column(name="suyoolUserId",type="integer")
+     * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
 

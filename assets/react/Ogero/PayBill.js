@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ setLandlineData, setActiveButton, setHeaderTitle, setBackLink }) => {
+const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("01123120");
 
   useEffect(() => {
@@ -21,6 +21,8 @@ const PayBill = ({ setLandlineData, setActiveButton, setHeaderTitle, setBackLink
         console.log(response);
         setActiveButton({ name: "MyBill" });
         setLandlineData({ id: response?.data?.LandlineReqId })
+        setLandlineDisplayedData(response?.data?.message)
+        setLandlineMobile(response?.data?.mobileNb)
       })
       .catch((error) => {
         console.log(error);

@@ -86,15 +86,18 @@ class OgeroController extends AbstractController
                 echo "error";
                 $LandlineReqId = -1;
             }
-            $message = "connected";
+            $message = $resp;
+            $mobileNb = $data["mobileNumber"];
         } else {
             $message = "not connected";
             $LandlineReqId = -1;
+            $mobileNb = -1;
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $message,
+            'mobileNb' => $mobileNb,
             'LandlineReqId' => $LandlineReqId
         ], 200);
     }
@@ -126,14 +129,15 @@ class OgeroController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
+            $orderTst=$session . "-" .$order->getId() ;
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($session, $order->getId(), $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+            $response = $suyoolServices->PushUtilities($session, $orderTst, $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
 
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
                 $orderupdate1
-                    ->settransId($response[1])
+                    ->settransId(1234)
                     ->setstatus("held");
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();

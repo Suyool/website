@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const MyBill = ({ getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill")
     setBackLink("PayBill")
+    setIsButtonDisabled(false);
   }, [])
 
   const handleConfirmPay = () => {
+    setIsButtonDisabled(true);
     axios
       .post("/ogero/landline/pay",
         {
@@ -81,14 +85,14 @@ const MyBill = ({ getLandlineData, setModalShow, setModalName, setSuccessModal, 
 
           <div className="MoreInfo">
             <div className="label">Phone Number</div>
-            <div className="value">+961 04453277</div>
+            <div className="value">+961 {getLandlineMobile}</div>
           </div>
 
           <div className="br"></div>
 
           <div className="MoreInfo">
-            <div className="label">Amount in LBP (Sayrafa Rate)</div>
-            <div className="value1">LBP 90,000</div>
+            <div className="label">Amount in LBP</div>
+            <div className="value1">LBP {parseInt(getLandlineDisplayedData.Amount).toLocaleString()}</div>
           </div>
 
           <div className="taxes">*All taxes included</div>
@@ -97,13 +101,13 @@ const MyBill = ({ getLandlineData, setModalShow, setModalName, setSuccessModal, 
 
           <div className="MoreInfo">
             <div className="label">Total</div>
-            <div className="value2">LBP 100,000</div>
+            <div className="value2">LBP {parseInt(getLandlineDisplayedData.TotalAmount).toLocaleString()}</div>
           </div>
 
         </div>
 
         <div className="footSectionPick">
-          <button onClick={handleConfirmPay} >Confirm & Pay</button>
+          <button onClick={handleConfirmPay} disabled={isButtonDisabled}>Confirm & Pay</button>
         </div>
       </div>
 
