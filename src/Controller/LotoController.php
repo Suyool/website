@@ -29,8 +29,6 @@ class LotoController extends AbstractController
 {
     private $mr;
     private $session;
-    private $certificate;
-    private $hash_algo;
     private $LotoServices;
     private $suyoolServices;
     private $notificationServices;
@@ -42,12 +40,10 @@ class LotoController extends AbstractController
     private $CURRENCY_USD; 
     private $params;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, $certificate, $hash_algo, LotoServices $LotoServices, NotificationServices $notificationServices,ParameterBagInterface $params)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices,ParameterBagInterface $params)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
-        $this->certificate = $certificate;
-        $this->hash_algo = $hash_algo;
         $this->LotoServices = $LotoServices;
         $this->suyoolServices = new SuyoolServices($params->get('LOTO_MERCHANT_ID'));
         $this->notificationServices = $notificationServices;
@@ -99,7 +95,7 @@ class LotoController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
     
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2], $this->hash_algo, $this->certificate) && !$devicetype) {
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
     
     
                 // $useragent = $_SERVER['HTTP_USER_AGENT'];
@@ -398,9 +394,9 @@ class LotoController extends AbstractController
 
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
                 $order_id=$merchantId."-".$id;
-                echo $order_id;
 
                 $pushutility = $this->suyoolServices->PushUtilities($session, $order_id, $sum, $this->CURRENCY_LBP);
+                // $pushutility=[true,123];
 
 
                 if ($pushutility[0]) {

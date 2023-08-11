@@ -30,10 +30,6 @@ class SuyoolServices
         
     }
 
-    public function test(){
-        dd($this->merchantAccountID);
-    }
-
     /**
      * Push Utility Api
      */
@@ -110,13 +106,6 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
         // intval($transId[1])
         // echo $Hash;
-
-        // echo json_encode([
-        //     'transactionID' => $transId,
-        //     "amountPaid" => $sum,
-        //     "additionalData" => $additionalData,
-        //     'secureHash' =>  $Hash,
-        // ]);
 
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
             'body' => json_encode([

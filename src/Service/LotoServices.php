@@ -142,31 +142,39 @@ class LotoServices
 
     public function GetTicketId()
     {
+        $retry = 1;
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        $token = $this->Login();
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
-            'body' => json_encode([
-                'Token' => $token,
-                'fromDate' =>  date('Y-m-d'),
-                'toDate' => date('Y-m-d', strtotime("+1 day")),
-                'transactionType' => 0
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-        $content = $response->toArray();
+        while ($retry) {
+            $token = $this->Login();
+            $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
+                'body' => json_encode([
+                    'Token' => $token,
+                    'fromDate' =>  date('Y-m-d'),
+                    'toDate' => date('Y-m-d', strtotime("+1 day")),
+                    'transactionType' => 0
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+            $content = $response->toArray();
+            if (empty($content) || $content == null) {
+                $retry = 1;
+            } else {
+                $historyEntries = $content['d']['historyEntries'];
 
-        $historyEntries = $content['d']['historyEntries'];
-        foreach ($historyEntries as $historyEntries) {
-            $historyId[] = $historyEntries['historyId'];
+                // var_dump($historyEntries);
+                foreach ($historyEntries as $historyEntries) {
+                    $historyId[] = $historyEntries['historyId'];
+                }
+                $historyId = $historyId[0];
+
+                // $historyId = 5227340;
+
+                return $historyId;
+            }
         }
-        $historyId = $historyId[0];
-
-        // $historyId = 5227340;
-
-        return $historyId;
     }
 
     public function playLoto($draw, $withZeed, $gridselected)
@@ -194,27 +202,26 @@ class LotoServices
 
 
             // if ($retryattempt == 2) {
-                // $submit = 0;
+            // $submit = 0;
             // } else {
-                // $submit = $content['d']['errorinfo']['errorcode'];
+            // $submit = $content['d']['errorinfo']['errorcode'];
             // }
 
-        
-        // if(!$withZeed){
+
+            // if(!$withZeed){
             // $submit = 0;
-        // }else{
+            // }else{
             $submit = $content['d']['errorinfo']['errorcode'];
-        // }
-       
+            // }
+
             if ($submit == 0) {
                 $zeed = $content['d']['insertId'];
                 // $zeed = 12345;
                 return array(true, $zeed);
-            } else if($submit == 4 || $submit == 6 || $submit == 9){
+            } else if ($submit == 4 || $submit == 6 || $submit == 9) {
                 $error = $content['d']['errorinfo']['errormsg'];
-                return array(false,$submit,$error);
-            }
-             else {
+                return array(false, $submit, $error);
+            } else {
                 sleep(10);
                 echo "attemp " . $retryattempt;
                 $retryattempt++;

@@ -27,11 +27,11 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function checkUser($userid,$lang,$hash_algo,$certificate)
+    public function checkUser($userid,$lang)
     {
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
         if($singleUser == null){
-            $suyoolUser = $this->suyoolServices->GetUser($userid, $hash_algo, $certificate);
+            $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
             // dd($suyoolUser);
             if($suyoolUser != null){
                 $userFirstname = $suyoolUser["FirstName"];

@@ -155,7 +155,7 @@ class PlayLoto extends Command
                         }
                     } else {
                         if ($submit[0]) {
-                            sleep(1);
+                            sleep(2);
                             $ticketId = $this->lotoServices->GetTicketId();
                             // $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);

@@ -111,8 +111,8 @@ const Buy = ({
             btn: jsonResponse.Text,
           });
           setModalShow(true);
-        } else if (
-          !response.data.status) {
+        } 
+        else {
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/Loto/error.png",
