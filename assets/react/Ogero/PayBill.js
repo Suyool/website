@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  // const [currency, setCurrency] = useState("USD");
+const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink }) => {
+  const [mobileNumber, setMobileNumber] = useState("01123120");
 
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
+    setHeaderTitle("Pay Landline Bill")
     setBackLink("")
   }, [])
 
   const handleContinue = () => {
-    console.log("Mobile Number:", mobileNumber);
-
-    // axios
-    //   .post("/Ogero/bill",
-    //     {
-    //       mobileNumber: mobileNumber
-    //     }
-    //   )
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-    setActiveButton({ name: "MyBill" });
+    // console.log("Mobile Number:", mobileNumber);
+    axios
+      .post("/ogero/landline",
+        {
+          mobileNumber: mobileNumber.replace(/\s/g, ''),
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        setActiveButton({ name: "MyBill" });
+        setLandlineData({ id: response?.data?.LandlineReqId })
+        setLandlineDisplayedData(response?.data?.message)
+        setLandlineMobile(response?.data?.mobileNb)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
   };
 
@@ -57,18 +57,6 @@ const PayBill = ({ activeButton, setActiveButton, setHeaderTitle, setBackLink })
         </div>
         <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
-
-      {/* <div className="pCurrency">
-        <div className="subTitle">My Payment Currency</div>
-      </div>
-
-      <div className="currencies">
-        <div className={`${currency === "USD" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("USD")}>USD</div>
-        <div className={`${currency === "LBP" ? "Currency" : "activeCurrency"}`} onClick={() => setCurrency("LBP")}>LBP</div>
-      </div> */}
-
-      {/* {currency == "USD" && <p>USD</p>}
-      {currency == "LBP" && <p>LBP</p>} */}
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
     </div>

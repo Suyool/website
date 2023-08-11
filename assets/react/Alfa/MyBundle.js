@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 
 const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
+    setHeaderTitle("Re-charge Alfa")
     setBackLink("ReCharge")
+    setIsButtonDisabled(false);
     // console.log(getPrepaidVoucher)
   }, [])
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleConfirmPay = () => {
-    // console.log(getPrepaidVoucher.desc)
+    // console.log("click")
+    setIsButtonDisabled(true);
     axios
       .post("/alfa/BuyPrePaid",
         {
@@ -97,7 +100,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               <div className="br"></div>
 
               <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">Copy the secret code below</div>
+              <div className="copyDesc">Copy the 14-digit secret code below</div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
@@ -135,27 +138,27 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
           <div className="MyBundleBody">
             <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
             <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
             {/* <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x2.png`} alt="Bundle" />
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
 
-            <div className="smlDesc">Alfa only accepts payments in LBP.</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in LBP.</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
-              <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+              <div className="label">Amount in LBP (Including taxes)</div>
+              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>
             <div className="MoreInfo">
-              <div className="label">Total</div>
+              <div className="label">Total (Sayrafa rate)</div>
               <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 
 
-          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} >Pay Now</button>
+          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled}>Pay Now</button>
         </>
       }
     </div>

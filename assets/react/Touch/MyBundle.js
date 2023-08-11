@@ -2,33 +2,67 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
-  useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
-    setBackLink("ReCharge")
-    // console.log(getPrepaidVoucher)
-  }, [])
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    setHeaderTitle("Re-charge Touch")
+    setBackLink("ReCharge")
+    setIsButtonDisabled(false);
+    // console.log(getPrepaidVoucher)
+  }, [])
 
   const handleConfirmPay = () => {
+    // console.log("clicked");
+    setIsButtonDisabled(true);
+
     axios
       .post("/touch/BuyPrePaid",
         {
           Token: "",
           category: "MTC",
           // category: getPrepaidVoucher.vouchercategory,
+          desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
-        console.log(response)
+        const jsonResponse = response?.data?.message;
+        console.log(jsonResponse)
         // console.log()
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
           setSerialToClipboard("*14*" + response?.data?.data?.voucherSerial + "#");
         } else {
-          console.log("someThing wrong !!!");
+          console.log(response.data.flagCode)
+          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
+          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            // console.log("step 3")
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (
+            !response.data.IsSuccess &&
+            response.data.flagCode == 11
+          ) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.Flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
         }
         // console.log(response);
       })
@@ -46,7 +80,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
     document.body.removeChild(tempInput);
   };
 
-
+// console.log(getPrepaidVoucher);
   return (
     <div id="MyBundle" className={`${getPaymentConfirmation && "hideBack"}`}>
       {getPaymentConfirmation ?
@@ -68,7 +102,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               <div className="br"></div>
 
               <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">Copy the secret code below</div>
+              <div className="copyDesc">Copy the 14-digit secret code below</div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
@@ -104,26 +138,26 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
         :
         <>
           <div className="MyBundleBody">
-            <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+            <div className="mainTitle">{getPrepaidVoucher.desc3}</div>
             <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src={`/build/images/touch/bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
+            <img className="BundleBigImg" src={`/build/images/touch/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
 
-            <div className="smlDesc">Touch only accepts payments in LBP.</div>
-            <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in LBP.</div>
+            <div className="relatedInfo">{getPrepaidVoucher.desc1}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
-              <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+              <div className="label">Amount in LBP (Including taxes)</div>
+              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>
             <div className="MoreInfo">
-              <div className="label">Total</div>
+              <div className="label">Total (Sayrafa rate)</div>
               <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 
 
-          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} >Pay Now</button>
+          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled} >Pay Now</button>
         </>
       }
     </div>

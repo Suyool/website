@@ -12,6 +12,8 @@ doctrine:
                 url: '%env(resolve:ALFA_DATABASE_URL)%'
             touch:
                 url: '%env(resolve:TOUCH_DATABASE_URL)%'
+            ogero:
+                url: '%env(resolve:OGERO_DATABASE_URL)%'
             estore:
                 url: '%env(resolve:ESTORE_DATABASE_URL)%'
             notification:
@@ -74,6 +76,15 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Alfa'
                         prefix: 'App\Entity\Alfa'
                         alias: Alfa
+            ogero:
+                connection: ogero
+                mappings:
+                    Ogero:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Ogero'
+                        prefix: 'App\Entity\Ogero'
+                        alias: Ogero
             estore:
                 connection: estore
                 mappings:

@@ -35,16 +35,40 @@ class NotificationSend extends Command
             'Send Notification to pending users'
         ]);
 
-        $notification=1;
+        $notification = 1;
 
-        while($notification){
+        while ($notification) {
             $notBulk = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending",'bulk'=>1]);
-            $notSingle = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending",'bulk'=>0]);
-    
-    
-            // dd($not);
+            $notSingle = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending", 'bulk' => 0]);
+            // dd($notSingle);
+
+            if ($notSingle != null) {
+                foreach ($notSingle as $notify) {
+
+                    $this->notificationServices->PrcessingNot($notify->getId());
+
+                    $output->writeln([
+                        'proccessing!'
+                    ]);
+                }
+            }
+            if ($notBulk != null) {
+                foreach ($notBulk as $notify) {
+
+                    $this->notificationServices->PrcessingNot($notify->getId());
+
+                    $output->writeln([
+                        'proccessing!'
+                    ]);
+                }
+            }
+            // dd($notSingle);
+
+
+            // // dd($not);
             if($notBulk != null){
                 foreach ($notBulk as $notify) {
+                    // sleep(4);
                     $content=$notify->getcontentId()->getId();
                     $this->notificationServices->PushBulkNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
                     $output->writeln([
@@ -52,22 +76,21 @@ class NotificationSend extends Command
                     ]);
                 }
             }
-            
-            if($notSingle != null){
+
+            if ($notSingle != null) {
                 foreach ($notSingle as $notify) {
-                    $content=$notify->getcontentId()->getId();
-                   $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
-                   $output->writeln([
-                    'Success!'
-                ]);
+                    // sleep(4);
+                    $content = $notify->getcontentId()->getId();
+                    $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
+                    $output->writeln([
+                        'Success!'
+                    ]);
                 }
             }
-           sleep(10);
-    
-           
+            sleep(10);
         }
 
-      
+
         return 1;
     }
 }

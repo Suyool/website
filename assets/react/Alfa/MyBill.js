@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
     setBackLink("PayBill")
+    setIsButtonDisabled(false)
   }, [])
 
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
@@ -30,7 +34,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       axios
         .post("/alfa/bill/RetrieveResults",
           {
-            mobileNumber: localStorage.getItem("billMobileNumber"),
+            mobileNumber: localStorage.getItem("billMobileNumber").replace(/\s/g, ''),
             // currency: localStorage.getItem("billcurrency"),
             currency: "LBP",
             Pin: pinCode,
@@ -54,7 +58,8 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   };
 
   const handleConfirmPay = () => {
-    // console.log(getResponseId)
+    setIsButtonDisabled(true);
+    setSpinnerLoader(true);
     axios
       .post("/alfa/bill/pay",
         {
@@ -64,20 +69,18 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
       .then((response) => {
         console.log(response.data);
         const jsonResponse = response?.data?.message;
-
+        setSpinnerLoader(false);
         if (response.data?.IsSuccess) {
           setModalName("SuccessModal");
           setSuccessModal({
             imgPath: "/build/images/alfa/SuccessImg.png",
             title: "Alfa Bill Paid Successfully",
-            desc: `You have successfully paid your Alfa bill of ${response.data?.data.currency} ${" "} ${response.data?.data.amount}.`
+            desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
           })
           setModalShow(true);
         } else {
           console.log(response.data.flagCode)
-          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
           if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-            // console.log("step 3")
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",
@@ -102,31 +105,17 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             setModalShow(true);
           }
         }
-
-        // setModalName("SuccessModal");
-        // setSuccessModal({
-        //   imgPath: "/build/images/alfa/SuccessImg.png",
-        //   title: "Alfa Bill Paid Successfully",
-        //   desc: "You have successfully paid your Alfa bill of {currency}{amount}."
-        // })
-        // setModalShow(true);
       })
       .catch((error) => {
         console.log(error);
+        setSpinnerLoader(false);
       });
   };
 
   return (
-    // <div id="MyBill" className={`${getPaymentConfirmation && "hideBack"}`}>
-    <div id="MyBill" className={`${getPaymentConfirmation && ""}`}>
-
-      {/* {getPaymentConfirmation ?
-        <> */}
-
-      {
-        getPaymentConfirmation &&
-
-        <div id="PaymentConfirmationSection">
+    <>
+      {getPaymentConfirmation &&
+        <div id="PaymentConfirmationSection" className={`${getSpinnerLoader ? "opacityNone" : ""}`}>
           <div className="topSection">
             <div className="brBoucket"></div>
             <div className="titles">
@@ -170,50 +159,51 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           </div>
 
           <div className="footSectionPick">
-            <button onClick={handleConfirmPay} >Confirm & Pay</button>
+            <button onClick={handleConfirmPay} disabled={isButtonDisabled}>Confirm & Pay</button>
           </div>
         </div>
       }
 
-      {/* </>
-        :
-        <> */}
-      <div className="mainTitle">Insert the PIN you have received by SMS</div>
+      <div id={`MyBill`} className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
+        {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
 
-      <div className="PinSection">
-        <div className="Pintitle">PIN</div>
-        <div className="Pincode">
-          {Array.from({ length: 4 }, (_, index) => (
-            <div className="code" key={index}>
-              {pinCode[index] !== undefined ? pinCode[index] : ""}
-            </div>
-          ))}
+        <div className="mainTitle">Insert the PIN you have received by SMS</div>
+
+        <div className="PinSection">
+          <div className="Pintitle">PIN</div>
+          <div className="Pincode">
+            {Array.from({ length: 4 }, (_, index) => (
+              <div className="code" key={index}>
+                {pinCode[index] !== undefined ? pinCode[index] : ""}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className="continueSection">
+          <button id="ContinueBtn" className="btnCont"
+            // onClick={()=>{setSpinnerLoader(false)}} 
+            onClick={handlePayNow} disabled={pinCode.length !== 4}
+          >Continue</button>
+
+          <div className="keybord">
+            <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
+            <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
+            <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
+            <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
+            <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
+            <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
+            <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
+            <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
+            <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
+            <button className="keyBtn"></button>
+            <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
+            <button className="keyBtn" onClick={handleDelete}><img src="/build/images/Alfa/clearNb.png" alt="flag" /></button>
+          </div>
         </div>
       </div>
+    </>
 
-      <div className="continueSection">
-        <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>continue</button>
-
-        <div className="keybord">
-          <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
-          <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
-          <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
-          <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
-          <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
-          <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
-          <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
-          <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
-          <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
-          <button className="keyBtn"></button>
-          <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
-          <button className="keyBtn" onClick={handleDelete}><img src="/build/images/Alfa/clearNb.png" alt="flag" /></button>
-        </div>
-      </div>
-      {/* </>
-      } */}
-
-
-    </div>
   );
 };
 

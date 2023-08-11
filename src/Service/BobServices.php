@@ -309,4 +309,102 @@ class BobServices
 
         // return $decodedString;
     }
+
+    //Ogero
+    public function RetrieveChannelResults($gsmMobileNb)
+    {
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => 1,
+                "OgeroMeta" => [
+                    "PhoneNumber" => $gsmMobileNb
+                    // "GSMNumber" => "70102030"
+                    // "GSMNumber" => "03184740"
+                ],
+                "VenId" => 3,
+                "ProductId" => 16,
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+    
+
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
+
+    public function BillPayOgero($Landline_With_id)
+    {
+        // dd(strval($Landline_With_id->getgsmNumber()));
+        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
+            'body' => json_encode([
+                "ChannelType" => "API",
+                "ItemId" => 1,
+                "VenId" => 3,
+                "ProductId" => 16,
+                "TransactionId" => strval($Landline_With_id->gettransactionId()),
+
+                "OgeroResult" => [
+                    "Amount" => strval($Landline_With_id->getamount()),
+
+                    // "PayerName" => $Landline_With_id->getogeroClientName(),
+                    // "PayerMobileNumber" => strval($Landline_With_id->getgsmNumber()),
+                    "PayerName" => "Elie Yammouni",
+                    "PayerMobileNumber" => "79143921",
+
+                    "Fees" => strval($Landline_With_id->getfees()),
+                    "Rounding" => strval($Landline_With_id->getrounding()),
+                    "AdditionalFees" => strval($Landline_With_id->getadditionalFees()),
+                    "Currency" => strval($Landline_With_id->getcurrency()),
+                    "TotalAmount" => strval($Landline_With_id->gettotalAmount()),
+                    "PhoneNumber" => strval($Landline_With_id->getgsmNumber()),
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+
+        $ApiResponse = json_decode($content, true);
+
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            // $decodedString = $decoded['token'];
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription);
+    }
 }

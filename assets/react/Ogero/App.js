@@ -11,6 +11,9 @@ const App = ({ parameters }) => {
     const [activeButton, setActiveButton] = useState({ name: "" });
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Ogero");
+    const [getLandlineData, setLandlineData] = useState({ id: "" });
+    const [getLandlineDisplayedData, setLandlineDisplayedData] = useState({ });
+    const [getLandlineMobile, setLandlineMobile] = useState("");
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
@@ -28,17 +31,17 @@ const App = ({ parameters }) => {
                     <>
                         {activeButton.name === "" && <Default activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "PayBill" && <PayBill activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "PayBill" && <PayBill setLandlineMobile={setLandlineMobile} setLandlineDisplayedData={setLandlineDisplayedData} setLandlineData={setLandlineData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "MyBill" && <MyBill setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBill" && <MyBill getLandlineMobile={getLandlineMobile} getLandlineDisplayedData={getLandlineDisplayedData} getLandlineData={getLandlineData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                     </>
                 }
             </div>
 
 
             {/* Modal */}
-            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
-            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
+            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
+            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
         </div>
     );
 };

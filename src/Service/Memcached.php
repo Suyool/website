@@ -86,7 +86,13 @@ class Memcached
      */
     public function getVouchers($lotoServices)
     {
-        $file = "../var/cache/dev/alfaVoucher.txt";
+        if ($_ENV['APP_ENV'] == 'prod') {
+            $file = "../var/cache/prod/alfaVoucher.txt";
+        } else {
+            $file = "../var/cache/dev/alfaVoucher.txt";
+        }
+
+        // $file = "../var/cache/dev/alfaVoucher.txt";
         $clearingTime = time() - (60);
 
         $filter = null;
@@ -103,43 +109,47 @@ class Memcached
                     case 1:
                         $item['desc1'] = "$1.22 Alfa recharge card";
                         $item['desc2'] = "$1.37 Credit Only without validity";
+                        $item['desc3'] = "Credit Only";
                         break;
                     case 13:
                         $item['desc1'] = "$3.02 Alfa recharge card";
                         $item['desc2'] = "Credit and 13 Days Validity";
+                        $item['desc3'] = "Credit and 13 Days Validity";
                         break;
                     case 4:
                         $item['desc1'] = "$4.50 Alfa recharge card";
                         $item['desc2'] = "Credit and up to 35 Days";
+                        $item['desc3'] = "Credit and up to 35 Days";
                         break;
                     case 35:
                         $item['desc1'] = "$7.58 Alfa recharge card";
                         $item['desc2'] = "Credit and 35 Days Validity";
-
+                        $item['desc3'] = "Credit and 35 Days Validity";
                         break;
                     case 65:
                         $item['desc1'] = "$15.15 Alfa recharge card";
                         $item['desc2'] = "Credit and 65 Days Validity";
-
+                        $item['desc3'] = "Credit and 65 Days Validity";
                         break;
                     case 95:
                         $item['desc1'] = "$22.73 Alfa recharge card";
                         $item['desc2'] = "Credit and 95 Days Validity";
-
+                        $item['desc3'] = "Credit and 95 Days Validity";
                         break;
                     case 32:
                         $item['desc1'] = "$7.50 Alfa recharge card";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
-
+                        $item['desc3'] = "Waffer Credit and 30 Days Validity";
                         break;
                     case 33:
                         $item['desc1'] = "Waffer Credit and 30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
+                        $item['desc3'] = "Waffer Credit and 30 Days Validity";
                         break;
                     default:
                         $item['desc1'] = "default";
                         $item['desc2'] = "default";
-
+                        $item['desc3'] = "default";
                         break;
                 }
             }
@@ -160,7 +170,13 @@ class Memcached
      */
     public function getVouchersTouch($lotoServices)
     {
-        $file = "../var/cache/dev/touchVoucher.txt";
+        if ($_ENV['APP_ENV'] == 'prod') {
+            $file = "../var/cache/prod/touchVoucher.txt";
+        } else {
+            $file = "../var/cache/dev/touchVoucher.txt";
+        }
+
+        // $file = "../var/cache/dev/touchVoucher.txt";
         $clearingTime = time() - (60);
 
         $filter = null;
@@ -177,34 +193,42 @@ class Memcached
                     case 1:
                         $item['desc1'] = "Credit Only";
                         $item['desc2'] = "$1.22 Touch recharge card";
+                        $item['desc3'] = "$1.22 Touch recharge card";
                         break;
                     case 10:
                         $item['desc1'] = "10 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 13 Days Validity";
+                        $item['desc3'] = "$3.79 Touch recharge card";
                         break;
                     case 29:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and up to 35 Days";
+                        $item['desc3'] = "$4.50 Touch recharge card";
                         break;
                     case 30:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 35 Days Validity";
+                        $item['desc3'] = "$7.58 Touch recharge card";
                         break;
                     case 60:
                         $item['desc1'] = "60 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 65 Days Validity";
+                        $item['desc3'] = "$15.15 Touch recharge card";
                         break;
                     case 90:
                         $item['desc1'] = "90 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 95 Days Validity";
+                        $item['desc3'] = "$22.73 Touch recharge card";
                         break;
                     case 31:
                         $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
+                        $item['desc3'] = "$4.50 Touch recharge card";
                         break;
                     default:
                         $item['desc1'] = "default";
                         $item['desc2'] = "default";
+                        $item['desc3'] = "default";
                         break;
                 }
             }

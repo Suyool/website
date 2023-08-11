@@ -1,0 +1,132 @@
+<?php
+
+namespace App\Entity\Ogero;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="orders")
+ */
+class Order
+{
+
+    public static $statusOrder = array("PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","COMPLETED"=>"completed","CANCELED"=>"canceled");
+
+
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * 
+     * @ORM\Column(name="suyoolUserId")
+     */
+    private $suyoolUserId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Landline",fetch="EAGER")
+     * @ORM\JoinColumn(name="landline_id", referencedColumnName="id")
+     */
+    private $landline;
+
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $currency;
+
+    /**
+     * 
+     * @ORM\Column(type="integer")
+     */
+    private $transId;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getsuyoolUserId()
+    {
+        return $this->suyoolUserId;
+    }
+
+    public function setsuyoolUserId($suyoolUserId)
+    {
+        $this->suyoolUserId = $suyoolUserId;
+        return $this;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
+
+    public function setstatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getamount()
+    {
+        return $this->amount;
+    }
+
+    public function setamount($amount)
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
+    public function setcurrency($currency)
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    public function getcurrency()
+    {
+        return $this->currency;
+    }
+
+    public function getlandlineId()
+    {
+        return $this->landline;
+    }
+    public function setlandlineId(?Landline $landline_id): self
+    {
+        $this->landline = $landline_id;
+        return $this;
+    }
+
+    public function gettransId()
+    {
+        return $this->transId;
+    }
+
+    public function settransId($transId)
+    {
+        $this->transId = $transId;
+        return $this;
+    }
+}

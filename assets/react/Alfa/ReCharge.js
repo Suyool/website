@@ -23,7 +23,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
 
       <div className="bundlesSection">
         <div className="mainTitle">Available Re-charge Packages</div>
-        <div className="mainDesc">*All taxes excluded</div>
+        <div className="mainDesc">*All taxes included</div>
         {
           getLoading ?
             <ContentLoader
@@ -47,7 +47,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
                   <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
                   <div className="gridDesc">
                     <div className="Price">${record.priceUSD} <span>(LBP {parseInt(record.priceLBP).toLocaleString()})</span></div>
-                    <div className="bundleName">{record.desc1}</div>
+                    <div className="bundleName">{record.desc3}</div>
                   </div>
                 </div>
               ))}

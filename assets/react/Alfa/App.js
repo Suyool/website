@@ -14,13 +14,13 @@ const App = ({ parameters }) => {
     const [getBackLink, setBackLink] = useState({ name: "" });
     const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState({ vouchercategory: "", vouchertype: "", priceLBP: "", priceUSD: "", desc: "", isavailable: "" });
-    const [getPostpaidData, setPostpaidData] = useState({id:""});
+    const [getPostpaidData, setPostpaidData] = useState({ id: "" });
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
-    const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/alfa//build/images/alfa/SuccessImg.png", title: "", desc: "" });
-    const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/alfa//build/images/alfa/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
+    const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/alfa/SuccessImg.png", title: "SuccessModal", desc: "SuccessModalSuccessModalSuccessModal" });
+    const [getErrorModal, setErrorModal] = useState({ img: "/build/images/alfa/error.png", title: "Error Modal",btn:"Top Up", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
     const [getVoucherData, SetVoucherData] = useState([]);
 
@@ -45,8 +45,8 @@ const App = ({ parameters }) => {
 
 
             {/* Modal */}
-            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
-            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName("") }} />}
+            {getModalName === "SuccessModal" && <SuccessModal getSuccessModal={getSuccessModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
+            {getModalName === "ErrorModal" && <ErrorModal getErrorModal={getErrorModal} show={modalShow} onHide={() => { setModalShow(false); setModalName(""); setActiveButton({ name: "" }); }} />}
         </div>
     );
 };

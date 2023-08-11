@@ -56,9 +56,9 @@ class NotificationServices
         }
         
 
-        if($userid !=null ){
+        if ($userid != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -127,8 +127,18 @@ class NotificationServices
 
         $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
         // echo json_encode($PushSingle);
+
+        // $file = "notification.txt";
+
+
+
+        // $PushSingle["globalCode"] = 0;
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
+
+            // $myfile = fopen($file, "a");
+            // fwrite($myfile, $singleNotification->getId() . " --- ");
+            // fclose($myfile);
 
             if ($singleNotification != null) {
                 $singleNotification
@@ -162,7 +172,7 @@ class NotificationServices
         return 1;
     }
 
-    public function addNotification($userId, $content, $params,$bulk, $additionalData=null)
+    public function addNotification($userId, $content, $params, $bulk, $additionalData = null)
     {
         //Bulk 1 to be added if bulknotification 0 if single notification
         $notification = new Notification;
@@ -181,6 +191,19 @@ class NotificationServices
         return 1;
     }
 
+    public function PrcessingNot($notId)
+    {
+
+        $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notId]);
+        $singleNotification
+            ->setstatus("processing");
+        $this->mr->persist($singleNotification);
+        $this->mr->flush();
+
+        return 1;
+    }
+
+
     public function PushBulkNotification($notificationId, $userId, $content, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
@@ -188,26 +211,26 @@ class NotificationServices
             $$field = $value;
         }
 
-        $userIds=explode(",",$userId);
+        $userIds = explode(",", $userId);
 
         // dd($userId);
 
-        foreach($userIds as $userId){
+        foreach ($userIds as $userId) {
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
-    
+
                 $userFirstname = $suyoolUser["FirstName"];
                 $userLastname = $suyoolUser["LastName"];
                 $userLang = $suyoolUser["LanguageID"];
-    
+
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($userId)
                     ->setfname($userFirstname)
                     ->setlname($userLastname)
                     ->setlang($userLang);
-    
+
                 $this->mr->persist($user);
                 $this->mr->flush();
                 // echo "user coming from api";
@@ -218,7 +241,7 @@ class NotificationServices
                 // echo "user coming from db";
             }
         }
-        
+
 
         $notTemplate = $this->mr->getRepository(content::class)->findOneBy(['id' => $content]);
         if ($notTemplate != null) {
@@ -289,7 +312,7 @@ class NotificationServices
 
     public function getContent($template)
     {
-        $templateId=$this->mr->getRepository(Template::class)->findOneBy(['identifier'=>$template]);
+        $templateId = $this->mr->getRepository(Template::class)->findOneBy(['identifier' => $template]);
         $index = $templateId->getIndex();
         $content = $this->mr->getRepository(content::class)->findOneBy(['template' => $templateId->getId(), 'version' => $index]);
 
