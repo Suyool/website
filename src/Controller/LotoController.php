@@ -121,6 +121,7 @@ class LotoController extends AbstractController
                 } else {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
                     $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($session, $loto_prize->getDrawId());
+                    // dd($loto_prize_per_days);
                 }
     
                 if ($loto_draw) {
