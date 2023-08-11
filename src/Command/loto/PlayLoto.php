@@ -108,8 +108,8 @@ class PlayLoto extends Command
                     // $this->mr->flush($lotoToBePlayed);
                     $ticketscount++;
                     $newElement = [];
-                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected());
-                    $submit=[true];
+                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected());
+                    // $submit=[true];
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(1);
@@ -156,10 +156,10 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(1);
-                            // $ticketId = $this->lotoServices->GetTicketId();
-                            $ticketId="55";
+                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);
-                            // $lotoToBePlayed->setzeednumber($submit[1]);
+                            $lotoToBePlayed->setzeednumber($submit[1]);
 
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();
@@ -221,30 +221,30 @@ class PlayLoto extends Command
                 
                 
 
-                // $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $this->hash_algo, $this->certificate, $additionalData, $held->gettransId());
-                // // var_dump($additionaldata);
+                $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
+                // var_dump($additionaldata);
                 
                 
-                // if ($updateutility) {
-                //     $held->setamount($newsum)
-                //         ->setcurrency("LBP")
-                //         ->setstatus("completed");
+                if ($updateutility) {
+                    $held->setamount($newsum)
+                        ->setcurrency("LBP")
+                        ->setstatus("completed");
 
-                //     $this->mr->persist($held);
-                //     $this->mr->flush();
+                    $this->mr->persist($held);
+                    $this->mr->flush();
 
-                //     if ($newsum != $sum) {
-                //         $diff = $sum - $newsum;
-                //         $params = json_encode(['currency' => $currency, 'amount' => $diff, 'draw' => $drawNumber], true);
-                //         $content=$this->notificationService->getContent('Payment reversed loto');
-                //         $this->notificationService->addNotification($userId, $content, $params,$bulk);
-                //     }
-                //     $status = true;
-                //     $message = "You have played your grid , Best of luck :)";
-                // } else {
-                //     $status = false;
-                //     $message = $updateutility[1];
-                // }
+                    if ($newsum != $sum) {
+                        $diff = $sum - $newsum;
+                        $params = json_encode(['currency' => $currency, 'amount' => $diff, 'draw' => $drawNumber], true);
+                        $content=$this->notificationService->getContent('Payment reversed loto');
+                        $this->notificationService->addNotification($userId, $content, $params,$bulk);
+                    }
+                    $status = true;
+                    $message = "You have played your grid , Best of luck :)";
+                } else {
+                    $status = false;
+                    $message = $updateutility[1];
+                }
                 
             }
         }
