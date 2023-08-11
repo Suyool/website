@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\BobServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,12 +21,12 @@ class OgeroController extends AbstractController
     private $mr;
     private $hash_algo;
     private $certificate;
+    private $params;
 
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo)
+    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params)
     {
         $this->mr = $mr->getManager('ogero');
-        $this->hash_algo = $hash_algo;
-        $this->certificate = $certificate;
+        $this->params=$params;
     }
 
     /**
@@ -33,6 +34,7 @@ class OgeroController extends AbstractController
      */
     public function index(): Response
     {
+        // dd(Order::$statusOrder['COMPLETED']);
         $parameters['Test'] = "tst";
         // dd("oki");
         // $orders = $this->mr->getRepository(Order::class)->findAll();
@@ -108,11 +110,13 @@ class OgeroController extends AbstractController
      * Desc: Pay Landline Request 
      * @Route("/ogero/landline/pay", name="app_ogero_landline_pay",methods="POST")
      */
-    public function billPay(Request $request, BobServices $bobServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
+    public function billPay(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
+
+        $suyoolServices=new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $session = 89;
-        $app_id = 6;
+        $suyoolUserId = 155;
+        
         $Landline_With_id = $this->mr->getRepository(LandlineRequest::class)->findOneBy(['id' => $data["LandlineId"]]);
         $flagCode = null;
 
@@ -120,25 +124,25 @@ class OgeroController extends AbstractController
             //Initial order with status pending
             $order = new Order;
             $order
-                ->setsuyoolUserId($session)
+                ->setsuyoolUserId($suyoolUserId)
                 ->settransId(null)
                 ->setlandlineId(null)
-                ->setstatus("pending")
+                ->setstatus(Order::$statusOrder['PENDING'])
                 ->setamount($Landline_With_id->gettotalamount())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $orderTst=$session . "-" .$order->getId() ;
+            $orderTst=$suyoolUserId . "-" .$order->getId() ;
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($session, $orderTst, $order->getamount(), $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
+            $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'));
 
             if ($response[0]) {
                 //set order status to held
-                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate1
-                    ->settransId(1234)
-                    ->setstatus("held");
+                    ->settransId($response[1])
+                    ->setstatus(Order::$statusOrder['HELD']);
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
 
@@ -149,7 +153,7 @@ class OgeroController extends AbstractController
                     //if payment from Bob provider success insert landline data to db
                     $landline = new Landline;
                     $landline
-                        ->setsuyoolUserId(89)
+                        ->setsuyoolUserId($suyoolUserId)
                         ->setgsmNumber($Landline_With_id->getgsmNumber())
                         ->settransactionId($Landline_With_id->gettransactionId())
                         ->settransactionDescription($BillPayOgero[1]["TransactionDescription"])
@@ -179,10 +183,10 @@ class OgeroController extends AbstractController
                     $landline = $this->mr->getRepository(Landline::class)->findOneBy(['id' => $landlineId]);
 
                     //update order by passing prepaidId to order and set status to purshased
-                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                     $orderupdate
                         ->setlandlineId($landline)
-                        ->setstatus("purchased");
+                        ->setstatus(Order::$statusOrder['PURCHASED']);
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
@@ -196,16 +200,17 @@ class OgeroController extends AbstractController
 
                     $content = $notificationServices->getContent('AcceptedAlfaPayment');
                     $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($session, $content, $params, $bulk, $additionalData);
+                    $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, $additionalData);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),"", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'purchased']);
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
                         //update te status from purshased to completed
+                        echo Order::$statusOrder['COMPLETED'];
                         $orderupdate5
-                            ->setstatus("completed");
+                            ->setstatus(Order::$statusOrder['COMPLETED']);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
@@ -219,11 +224,11 @@ class OgeroController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'held']);
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
-                            ->setstatus("completed");
+                            ->setstatus(Order::$statusOrder['COMPLETED']);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
@@ -235,9 +240,9 @@ class OgeroController extends AbstractController
             } else {
 
                 //if can not take money from .net cancel the state of the order
-                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $session, 'status' => 'pending']);
+                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
-                    ->setstatus("canceled");
+                    ->setstatus(Order::$statusOrder['CANCELED']);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;

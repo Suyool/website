@@ -231,7 +231,7 @@ class AlfaController extends AbstractController
 
             if ($response[0]) {
                 //set order status to held
-                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'pending']);
+                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PENDING']]);
                 $orderupdate1
                     ->settransId($response[1])
                     ->setstatus(Order::$statusOrder['HELD']);
@@ -276,7 +276,7 @@ class AlfaController extends AbstractController
                     
 
                     //update order by passing prepaidId to order and set status to purshased
-                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'held']);
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                     $orderupdate
                         ->setpostpaidId($postpaid)
                         ->setstatus(Order::$statusOrder['PURCHASED']);
@@ -298,7 +298,7 @@ class AlfaController extends AbstractController
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'purchased']);
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PURCHASED']]);
 
                         //update te status from purshased to completed
                         $orderupdate5
@@ -318,7 +318,7 @@ class AlfaController extends AbstractController
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'held']);
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['COMPLETED']);
                         $this->mr->persist($orderupdate4);
@@ -332,7 +332,7 @@ class AlfaController extends AbstractController
             } else {
 
                 //if can not take money from .net cancel the state of the order
-                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'pending']);
+                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PENDING']]);
                 $orderupdate3
                     ->setstatus(Order::$statusOrder['CANCELED']);
                 $this->mr->persist($orderupdate3);
@@ -416,7 +416,7 @@ class AlfaController extends AbstractController
             // dd($response);
             if ($response[0]) {
                 //set order status to held
-                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'pending']);
+                $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PENDING']]);
                 $orderupdate1
                     ->settransId($response[1])
                     ->setstatus(Order::$statusOrder['HELD']);
@@ -464,7 +464,7 @@ class AlfaController extends AbstractController
                     $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
                     //update order by passing prepaidId to order and set status to purshased
-                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'held']);
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                     $orderupdate
                         ->setprepaidId($prepaid)
                         ->setstatus(Order::$statusOrder['PURCHASED']);
@@ -486,7 +486,7 @@ class AlfaController extends AbstractController
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $this->hash_algo, $this->certificate, "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'purchased']);
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
                         //update te status from purshased to completed
                         $orderupdate5
@@ -504,7 +504,7 @@ class AlfaController extends AbstractController
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $this->hash_algo, $this->certificate, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'held']);
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['COMPLETED']);
                         $this->mr->persist($orderupdate4);
@@ -518,7 +518,7 @@ class AlfaController extends AbstractController
             } else {
 
                 //if can not take money from .net cancel the state of the order
-                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => 'pending']);
+                $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
                     ->setstatus(Order::$statusOrder['CANCELED']);
                 $this->mr->persist($orderupdate3);
