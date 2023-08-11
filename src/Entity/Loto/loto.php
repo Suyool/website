@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class loto
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,6 +40,8 @@ class loto
      * @ORM\Column(name="numdraws",type="string")
      */
     private $numdraws;
+
+    
 
     /**
      * 
@@ -234,6 +235,7 @@ class loto
         $this->errorInfo = $errorInfo;
         return $this;
     }
+
 
     public function getCreated()
     {

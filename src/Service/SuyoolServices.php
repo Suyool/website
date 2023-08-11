@@ -3,38 +3,50 @@
 namespace App\Service;
 
 use App\Utils\Helper;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SuyoolServices
 {
 
-    private $client;
     private $SUYOOL_API_HOST;
     private $NOTIFICATION_SUYOOL_HOST="http://10.20.80.62/NotificationServiceApi/";
+    private $client;
+    private $merchantAccountID;
+    private $certificate;
+    private $hash_algo;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct($merchantAccountID)
     {
-        $this->client = $client;
+        $this->certificate=$_ENV['CERTIFICATE'];
+        $this->hash_algo=$_ENV['ALGO'];
+        $this->merchantAccountID=$merchantAccountID;
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
         } else {
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
         }
+        $this->client=HttpClient::create();
+        
+    }
 
+    public function test(){
+        dd($this->merchantAccountID);
     }
 
     /**
      * Push Utility Api
      */
-    public function PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate,$app)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency)
     {
-        $Hash = base64_encode(hash($hash_algo, $session . $app . $id . $sum . $currency . $certificate, true));
+        
+        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
         // dd($Hash);
 
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/PushUtilityPayment", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment", [
             'body' => json_encode([
-                'userAccountID' => $session,
-                "merchantAccountID" => $app,
+                'userAccountID' => $SuyoolUserId,
+                "merchantAccountID" => $this->merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
                 'currency' => $currency,
@@ -88,18 +100,25 @@ class SuyoolServices
     /*
      * Update utilities Api  
      */
-    public function UpdateUtilities($sum,$hash_algo, $certificate,$additionalData,$transId)
+    public function UpdateUtilities($sum,$additionalData,$transId)
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
         
         // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
         // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
-        $Hash = base64_encode(hash($hash_algo, $transId . $additionalData . $certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
         // intval($transId[1])
         // echo $Hash;
 
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/Utilities/UpdateUtilityPayment", [
+        echo json_encode([
+            'transactionID' => $transId,
+            "amountPaid" => $sum,
+            "additionalData" => $additionalData,
+            'secureHash' =>  $Hash,
+        ]);
+
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
             'body' => json_encode([
                 'transactionID' => $transId,
                 "amountPaid" => $sum,
@@ -117,7 +136,7 @@ class SuyoolServices
         }
         
         $update_utility_response = $response->toArray(false);
-        // dd($update_utility_response);
+        // echo ($update_utility_response);
         $globalCode = $update_utility_response['globalCode'];
         $message = $update_utility_response['message'];
         if ($globalCode) {
@@ -132,12 +151,12 @@ class SuyoolServices
        /*
      * Gettin Suyool Users
      */
-    public function GetAllUsers($ChannelID, $hash_algo, $certificate)
+    public function GetAllUsers($ChannelID)
     {
-        $Hash = base64_encode(hash($hash_algo, $ChannelID . $certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo, $ChannelID . $this->certificate, true));
 
         // dd($Hash);
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/User/GetAllUsers", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
             'query' => ['SecureHash' => $Hash],
             'headers' => [
                 'Content-Type' => 'application/json'
@@ -154,11 +173,11 @@ class SuyoolServices
     /*
      * Gettin Suyool User
      */
-    public function GetUser($userId, $hash_algo, $certificate)
+    public function GetUser($userId)
     {
-        $Hash = base64_encode(hash($hash_algo, $userId . $certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo, $userId . $this->certificate, true));
         // dd($Hash);
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}SuyoolGlobalAPIs/api/User/GetUser", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetUser", [
             'body' => json_encode([
                 'userAccountID' => $userId,
                 "secureHash" => $Hash,
@@ -173,7 +192,7 @@ class SuyoolServices
         } else {
             $push_get_response = $response->toArray();
         }
-        // dd($push_utility_response);
+        // $push_get_response['data']=null;
         $data = json_decode($push_get_response["data"], true);
 
         return $data;
@@ -266,9 +285,9 @@ class SuyoolServices
         return $push_Bulk_response;
     }
 
-    public function PaymentDetails($code,$hash_algo, $certificate,$lang)
+    public function PaymentDetails($code,$lang)
     {
-        $Hash = base64_encode(hash($hash_algo, $code . date("ymdHis") . $lang . $certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $lang . $this->certificate, true));
         // dd($userId);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Payment/PaymentDetails", [
             'body' => json_encode([
@@ -300,9 +319,9 @@ class SuyoolServices
         return $payment_details_response;
     }
 
-    public function PaymentCashout($TranSimId,$fname,$lname, $certificate,$hash_algo)
+    public function PaymentCashout($TranSimId,$fname,$lname)
     {
-        $Hash = base64_encode(hash($hash_algo,  $TranSimId . $fname . $lname . $certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo,  $TranSimId . $fname . $lname . $this->certificate, true));
 
         // dd(json_encode([
         //     'transactionId'=>$TranSimId,

@@ -160,8 +160,10 @@ class PlaysRepository extends EntityRepository
     public function lotoToBePlayed($heldorder)
     {
         return $this->createQueryBuilder('l')
-        ->where('l.order = :heldorder and (l.ticketId = 0 or l.ticketId is null) ')
+        ->where('l.order = :heldorder and (l.ticketId = 0 or l.ticketId is null)')
         ->setParameter('heldorder',$heldorder)
+        // ->setMaxResults(1)
+        // ->setParameter('processing','completed')
         ->getQuery()
         ->getResult();
     }

@@ -144,27 +144,27 @@ class LotoServices
     {
         // date('Y-m-d'),
         //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-        // $token = $this->Login();
-        // $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
-        //     'body' => json_encode([
-        //         'Token' => $token,
-        //         'fromDate' =>  date('Y-m-d'),
-        //         'toDate' => date('Y-m-d', strtotime("+1 day")),
-        //         'transactionType' => 0
-        //     ]),
-        //     'headers' => [
-        //         'Content-Type' => 'application/json'
-        //     ]
-        // ]);
-        // $content = $response->toArray();
+        $token = $this->Login();
+        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
+            'body' => json_encode([
+                'Token' => $token,
+                'fromDate' =>  date('Y-m-d'),
+                'toDate' => date('Y-m-d', strtotime("+1 day")),
+                'transactionType' => 0
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $content = $response->toArray();
 
-        // $historyEntries = $content['d']['historyEntries'];
-        // foreach ($historyEntries as $historyEntries) {
-        //     $historyId[] = $historyEntries['historyId'];
-        // }
-        // $historyId = $historyId[0];
+        $historyEntries = $content['d']['historyEntries'];
+        foreach ($historyEntries as $historyEntries) {
+            $historyId[] = $historyEntries['historyId'];
+        }
+        $historyId = $historyId[0];
 
-        $historyId = 5227340;
+        // $historyId = 5227340;
 
         return $historyId;
     }
@@ -175,10 +175,10 @@ class LotoServices
         while ($retryattempt <= 2) {
             // date('Y-m-d'),
             //         'toDate' => date('Y-m-d',strtotime("+1 day"))
-            // $token = $this->Login();
+            $token = $this->Login();
             $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
                 'body' => json_encode([
-                    'Token' => '',
+                    'Token' => $token,
                     'drawNumber' => $draw,
                     'numDraws' => 1,
                     'withZeed' => $withZeed,
@@ -193,22 +193,22 @@ class LotoServices
             $content = $response->toArray();
 
 
-            if ($retryattempt == 2) {
-                $submit = 0;
-            } else {
-                $submit = $content['d']['errorinfo']['errorcode'];
-            }
+            // if ($retryattempt == 2) {
+                // $submit = 0;
+            // } else {
+                // $submit = $content['d']['errorinfo']['errorcode'];
+            // }
 
         
-        if(!$withZeed){
-            $submit = 0;
-        }else{
+        // if(!$withZeed){
+            // $submit = 0;
+        // }else{
             $submit = $content['d']['errorinfo']['errorcode'];
-        }
+        // }
        
             if ($submit == 0) {
-                // $zeed = $content['d']['insertId'];
-                $zeed = 12345;
+                $zeed = $content['d']['insertId'];
+                // $zeed = 12345;
                 return array(true, $zeed);
             } else if($submit == 4 || $submit == 6 || $submit == 9){
                 $error = $content['d']['errorinfo']['errormsg'];

@@ -17,22 +17,19 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const [clickedIndex, setClickedIndex] = useState(0);
   const [getLastNumber, setLastNumber] = useState([]);
   const [getZeedNumber, setZeedNumber] = useState([]);
-
-  const prize1 = parameters.prize_loto_win.prize1;
-  const prize2 = parameters.prize_loto_win.prize2;
-  const prize3 = parameters.prize_loto_win.prize3;
-  const prize4 = parameters.prize_loto_win.prize4;
-  const prize5 = parameters.prize_loto_win.prize5;
-
-  const zeednumber1 = parameters.prize_loto_win.zeednumbers;
-  const zeednumber2 = parameters.prize_loto_win.zeednumbers2;
-  const zeednumber3 = parameters.prize_loto_win.zeednumbers3;
-  const zeednumber4 = parameters.prize_loto_win.zeednumbers4;
-
-  const prize1zeed = parameters.prize_loto_win.prize1zeed;
-  const prize2zeed = parameters.prize_loto_win.prize2zeed;
-  const prize3zeed = parameters.prize_loto_win.prize3zeed;
-  const prize4zeed = parameters.prize_loto_win.prize4zeed;
+  const [prize1, setprize1] = useState([]);
+  const [prize2, setprize2] = useState([]);
+  const [prize3, setprize3] = useState([]);
+  const [prize4, setprize4] = useState([]);
+  const [prize5, setprize5] = useState([]);
+  const [zeednumber1, setZeedNumber1] = useState([]);
+  const [zeednumber2, setZeedNumber2] = useState([]);
+  const [zeednumber3, setZeedNumber3] = useState([]);
+  const [zeednumber4, setZeedNumber4] = useState([]);
+  const [prize1zeed, setprize1zeed] = useState([]);
+  const [prize2zeed, setprize2zeed] = useState([]);
+  const [prize3zeed, setprize3zeed] = useState([]);
+  const [prize4zeed, setprize4zeed] = useState([]);
 
   // useEffect(() => {
   //   console.log(getMyGrids);
@@ -57,6 +54,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     );
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
+
     // console.log(lastNumber);
     // setMyGrids(grids.split(',').map(Number));
     data.forEach((item) => {
@@ -86,6 +84,25 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
       setMyGrids(parsedGrids);
     });
     setClickedIndex(0);
+    
+  }, []);
+
+  useEffect(() => {
+    setprize1(parameters.prize_loto_win.prize1);
+    setprize2(parameters.prize_loto_win.prize2);
+    setprize3(parameters.prize_loto_win.prize3);
+    setprize4(parameters.prize_loto_win.prize4);
+    setprize5(parameters.prize_loto_win.prize5);
+
+    setZeedNumber1(parameters.prize_loto_win.zeednumbers);
+    setZeedNumber2(parameters.prize_loto_win.zeednumbers2);
+    setZeedNumber3(parameters.prize_loto_win.zeednumbers3);
+    setZeedNumber4(parameters.prize_loto_win.zeednumbers4);
+
+    setprize1zeed(parameters.prize_loto_win.prize1zeed);
+    setprize2zeed(parameters.prize_loto_win.prize2zeed);
+    setprize3zeed(parameters.prize_loto_win.prize3zeed);
+    setprize4zeed(parameters.prize_loto_win.prize4zeed);
   }, []);
 
   const [selectedMonthYear, setSelectedMonthYear] = useState("");
@@ -128,7 +145,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
         drawNumber: item,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setWinBallInitial(
           response.data.parameters.prize_loto_win.numbers.split(",").map(Number)
         );
@@ -170,6 +187,23 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
             }
           );
         setMyGridsZeed(parsedGridsZeed);
+        console.log(response.data.parameters.prize_loto_win.prize2);
+
+        setprize1(response.data.parameters.prize_loto_win.prize1);
+        setprize2(response.data.parameters.prize_loto_win.prize2);
+        setprize3(response.data.parameters.prize_loto_win.prize3);
+        setprize4(response.data.parameters.prize_loto_win.prize4);
+        setprize5(response.data.parameters.prize_loto_win.prize5);
+
+        setZeedNumber1(response.data.parameters.prize_loto_win.zeednumbers);
+        setZeedNumber2(response.data.parameters.prize_loto_win.zeednumbers2);
+        setZeedNumber3(response.data.parameters.prize_loto_win.zeednumbers3);
+        setZeedNumber4(response.data.parameters.prize_loto_win.zeednumbers4);
+
+        setprize1zeed(response.data.parameters.prize_loto_win.prize1zeed);
+        setprize2zeed(response.data.parameters.prize_loto_win.prize2zeed);
+        setprize3zeed(response.data.parameters.prize_loto_win.prize3zeed);
+        setprize4zeed(response.data.parameters.prize_loto_win.prize4zeed);
 
         setClickedIndex(index);
       })
@@ -304,7 +338,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                       ).length == 4 && parseInt(prize4).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
-                      ).length == 3 && parseInt(prize5).toLocaleString()}{" "}
+                      ).length == 3 && parseInt(prize5).toLocaleString()}{}
                       Won
                     </div>
                     <div className="img">
@@ -335,7 +369,8 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                         {getMyGridsZeed[index] != null &&
                           getMyGridsZeed[index].map((Zeed, ZeedIndex) => {
                             const zeedNumber = getZeedNumber[index];
-                            const zeedChar = zeedNumber.charAt(ZeedIndex);
+                            // console.log(zeedNumber);
+                            const zeedChar = zeedNumber?.charAt(ZeedIndex);
 
                             // Check for specific conditions to apply the "win" class
                             const isWin =
@@ -344,11 +379,13 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                                 ZeedIndex < 5) || // First 5 balls
                                 (zeedChar ===
                                   zeednumber2.charAt(ZeedIndex - 1) &&
-                                  ZeedIndex >= 1) || (zeedChar ===
-                                    zeednumber3.charAt(ZeedIndex -2) &&
-                                    ZeedIndex >= 2) || (zeedChar ===
-                                      zeednumber4.charAt(ZeedIndex - 3) &&
-                                      ZeedIndex >= 3) ); // Second ball to last
+                                  ZeedIndex >= 1) ||
+                                (zeedChar ===
+                                  zeednumber3.charAt(ZeedIndex - 2) &&
+                                  ZeedIndex >= 2) ||
+                                (zeedChar ===
+                                  zeednumber4.charAt(ZeedIndex - 3) &&
+                                  ZeedIndex >= 3)); // Second ball to last
 
                             return (
                               <span
