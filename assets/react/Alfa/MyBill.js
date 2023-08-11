@@ -120,7 +120,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             <div className="brBoucket"></div>
             <div className="titles">
               <div className="titleGrid">Payment Confirmation</div>
-              <button onClick={() => { setActiveButton({ name: "PayBill" }); }}>Cancel</button>
+              <button onClick={() => { setActiveButton({ name: "" }); }}>Cancel</button>
             </div>
           </div>
 

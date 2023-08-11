@@ -196,7 +196,7 @@ class OgeroController extends AbstractController
                     ]);
                     $additionalData = "";
 
-                    $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                    $content = $notificationServices->getContent('AcceptedOgeroPayment');
                     $bulk = 0; //1 for broadcast 0 for unicast
                     $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, $additionalData);
 

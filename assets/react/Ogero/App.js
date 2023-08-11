@@ -19,7 +19,7 @@ const App = ({ parameters }) => {
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
     const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/Ogero//build/images/Ogero/SuccessImg.png", title: "", desc: "" });
-    const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/Ogero//build/images/Ogero/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
+    const [getErrorModal, setErrorModal] = useState({ imgPath: "/build/images/Ogero/ErrorImg.png", title: "Error Modal", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
     return (
         <div id="OgeroBody">
