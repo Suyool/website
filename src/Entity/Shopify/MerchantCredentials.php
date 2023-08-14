@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="merchant_credentials")
+ * @ORM\Table(name="suyool_shopify.merchant_credentials")
  */
 class MerchantCredentials
 {

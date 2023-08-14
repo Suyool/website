@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="notification")
+ * @ORM\Table(name="suyool_notification.notification")
  */
 class Notification
 {
