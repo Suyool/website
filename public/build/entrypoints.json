@@ -21,7 +21,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.7dcb82d7.js"
+        "/build/Alfa.e305b09b.js"
       ]
     },
     "Touch": {
@@ -33,7 +33,7 @@
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.33de38ea.js"
+        "/build/Ogero.52c18836.js"
       ]
     },
     "styles": {

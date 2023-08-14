@@ -84,6 +84,7 @@ class AlfaController extends AbstractController
                 $invoices
                     ->setfees(null)
                     ->setfees1(null)
+                    ->setdisplayedFees(null)
                     ->setamount(null)
                     ->setamount1(null)
                     ->setamount2(null)
@@ -128,6 +129,8 @@ class AlfaController extends AbstractController
     public function RetrieveResults(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        $displayedFees = 0;
+
         // dd($data);
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
@@ -137,13 +140,15 @@ class AlfaController extends AbstractController
             $Pin = implode("", $data["Pin"]);
             $RandSuyoolUserId = rand();
             $invoicesId = $data["invoicesId"];
-            // dd($invoicesId);
+            $displayedFees = intval($jsonResult["Values"]["Fees"])+intval($jsonResult["Values"]["Fees1"])+intval($jsonResult["Values"]["AdditionalFees"]);
 
+            // dd($invoicesId);
             $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
             // $Postpaid = new Postpaid;
             $invoices
                 ->setfees($jsonResult["Values"]["Fees"])
                 ->setfees1($jsonResult["Values"]["Fees1"])
+                ->setdisplayedFees($displayedFees)
                 ->setamount($jsonResult["Values"]["Amount"])
                 ->setamount1($jsonResult["Values"]["Amount1"])
                 ->setamount2($jsonResult["Values"]["Amount2"])
@@ -192,6 +197,7 @@ class AlfaController extends AbstractController
             'message' => $message,
             'postpayed' => $invoicesId,
             'displayData' => $displayData,
+            'displayedFees' => $displayedFees,
         ], 200);
     }
 
@@ -205,7 +211,7 @@ class AlfaController extends AbstractController
     {
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $SuyoolUserId = 89;
+        $SuyoolUserId = 155;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
 
@@ -252,6 +258,7 @@ class AlfaController extends AbstractController
                         ->setstatus(Order::$statusOrder['PENDING'])
                         ->setfees($Postpaid_With_id->getfees())
                         ->setfees1($Postpaid_With_id->getfees1())
+                        ->setdisplayedFees($Postpaid_With_id->getdisplayedFees())
                         ->setamount($Postpaid_With_id->getamount())
                         ->setamount1($Postpaid_With_id->getamount1())
                         ->setamount2($Postpaid_With_id->getamount2())
@@ -354,7 +361,7 @@ class AlfaController extends AbstractController
             'message' => $message,
             'IsSuccess' => $IsSuccess,
             'flagCode' => $flagCode,
-            'data' => $dataPayResponse
+            'data' => $dataPayResponse,
         ], 200);
     }
 
@@ -546,27 +553,4 @@ class AlfaController extends AbstractController
         ], 200);
     }
 
-
-    // /**
-    //  * @Route("/tst", name="app_tst")
-    //  */
-    // public function tst(NotificationServices $notificationServices)
-    // {
-    //     $session = rand();
-    //     //intial notification
-    //     $params = json_encode([
-    //         'amount' => rand(),
-    //         'currency' => "oki" . rand(),
-    //         'mobilenumber' => rand()
-    //     ]);
-    //     $additionalData = "";
-
-    //     $content = $notificationServices->getContent('AcceptedAlfaPayment');
-    //     $bulk = 0; //1 for broadcast 0 for unicast
-    //     $notificationServices->addNotification($session, $content, $params, $bulk, $additionalData);
-
-    //     return new JsonResponse([
-    //         'status' => "oki",
-    //     ], 200);;
-    // }
 }

@@ -100,7 +100,13 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
               <div className="value1">LBP {parseInt(getLandlineDisplayedData.Amount).toLocaleString()}</div>
             </div>
 
-            <div className="taxes">*All taxes included</div>
+            <div className="MoreInfo">
+              <div className="label">Fees in LBP</div>
+              <div className="value1">LBP {parseInt(getLandlineDisplayedData.Fees).toLocaleString()}</div>
+            </div>
+
+
+            {/* <div className="taxes">*All taxes included</div> */}
 
             <div className="br"></div>
 

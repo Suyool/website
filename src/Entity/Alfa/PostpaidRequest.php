@@ -62,6 +62,18 @@ class PostpaidRequest
 
     /**
      * 
+     * @ORM\Column(name="additionalfees")
+     */
+    private $additionalfees;
+
+    /**
+     * 
+     * @ORM\Column(name="displayedFees")
+     */
+    private $displayedFees;
+
+    /**
+     * 
      * @ORM\Column(name="amount")
      */
     private $amount;
@@ -101,15 +113,6 @@ class PostpaidRequest
      * @ORM\Column(name="rounding")
      */
     private $rounding;
-
-    /**
-     * 
-     * @ORM\Column(name="additionalfees")
-     */
-    private $additionalfees;
-
-
-
 
     public function getId()
     {
@@ -181,6 +184,17 @@ class PostpaidRequest
     public function setreferenceNumber($referenceNumber)
     {
         $this->referenceNumber = $referenceNumber;
+        return $this;
+    }
+
+    public function getdisplayedFees()
+    {
+        return $this->displayedFees;
+    }
+
+    public function setdisplayedFees($displayedFees)
+    {
+        $this->displayedFees = $displayedFees;
         return $this;
     }
 

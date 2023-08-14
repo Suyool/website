@@ -71,6 +71,18 @@ class Postpaid
      * @ORM\Column(name="fees1",type="integer")
      */
     private $fees1;
+    
+    /**
+     * 
+     * @ORM\Column(name="additionalfees",type="integer")
+     */
+    private $additionalfees;
+
+    /**
+     * 
+     * @ORM\Column(name="displayedFees")
+     */
+    private $displayedFees;
 
     /**
      * 
@@ -114,11 +126,7 @@ class Postpaid
      */
     private $rounding;
 
-    /**
-     * 
-     * @ORM\Column(name="additionalfees",type="integer")
-     */
-    private $additionalfees;
+
 
 
 
@@ -128,6 +136,16 @@ class Postpaid
         return $this->id;
     }
 
+    public function getdisplayedFees()
+    {
+        return $this->displayedFees;
+    }
+
+    public function setdisplayedFees($displayedFees)
+    {
+        $this->displayedFees = $displayedFees;
+        return $this;
+    }
 
     public function getfees()
     {
