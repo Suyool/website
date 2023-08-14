@@ -6,6 +6,7 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [getdisplayedFees, setdisplayedFees] = useState("");
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill")
@@ -25,6 +26,8 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
       .then((response) => {
         console.log(response);
         const jsonResponse = response?.data?.message;
+        setdisplayedFees(response?.data?.displayedFees);
+        console.log(getdisplayedFees);
         setSpinnerLoader(false);
         if (response.data?.IsSuccess) {
           setModalName("SuccessModal");
@@ -97,7 +100,7 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
 
             <div className="MoreInfo">
               <div className="label">Amount in LBP</div>
-              <div className="value1">LBP {parseInt(getLandlineDisplayedData.Amount).toLocaleString()}</div>
+              <div className="value1">LBP {parseInt(getLandlineDisplayedData.OgeroTotalAmount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">

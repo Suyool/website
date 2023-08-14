@@ -52,10 +52,14 @@ class OgeroController extends AbstractController
     public function bill(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        $displayedFees = 0;
+
         if ($data != null) {
             $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
+            // dd($RetrieveChannel);
             if ($RetrieveChannel[0] == true) {
                 $resp = $RetrieveChannel[1]["Values"];
+                $displayedFees = intval($resp["Fees"])+intval($resp["Fees1"])+intval($resp["AdditionalFees"])+intval($resp["OgeroFees"]);
 
                 $LandlineReq = new LandlineRequest;
                 $LandlineReq
@@ -77,6 +81,7 @@ class OgeroController extends AbstractController
                     ->setadditionalFees($resp["AdditionalFees"])
                     ->setfees($resp["Fees"])
                     ->setfees1($resp["Fees1"])
+                    ->setdisplayedFees($displayedFees)
                     ->setrounding($resp["Rounding"]);
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
@@ -98,7 +103,8 @@ class OgeroController extends AbstractController
             'status' => true,
             'message' => $message,
             'mobileNb' => $mobileNb,
-            'LandlineReqId' => $LandlineReqId
+            'LandlineReqId' => $LandlineReqId,
+            'displayedFees' => $displayedFees,
         ], 200);
     }
 
@@ -161,6 +167,7 @@ class OgeroController extends AbstractController
                         ->setogeroInitiationDate($Landline_With_id->getogeroInitiationDate())
                         ->setogeroClientName($Landline_With_id->getogeroClientName())
                         ->setogeroAddress($Landline_With_id->getogeroAddress())
+                        ->setdisplayedFees($Landline_With_id->getdisplayedFees())
                         ->setcurrency($Landline_With_id->getcurrency())
                         ->setamount($Landline_With_id->getamount())
                         ->setamount1($Landline_With_id->getamount1())

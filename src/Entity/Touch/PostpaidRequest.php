@@ -74,6 +74,16 @@ class PostpaidRequest
     private $fees1;
 
     /**
+     * @ORM\Column(name="additionalfees")
+     */
+    private $additionalfees;
+
+    /**
+     * @ORM\Column(name="displayedFees")
+     */
+    private $displayedFees;
+
+    /**
      * @ORM\Column(name="amount")
      */
     private $amount;
@@ -109,11 +119,6 @@ class PostpaidRequest
     private $rounding;
 
     /**
-     * @ORM\Column(name="additionalfees")
-     */
-    private $additionalfees;
-
-    /**
      * @ORM\Column(name="invoiceNumber")
      */
     private $invoiceNumber;
@@ -129,6 +134,16 @@ class PostpaidRequest
         return $this->id;
     }
 
+    public function getdisplayedFees()
+    {
+        return $this->displayedFees;
+    }
+
+    public function setdisplayedFees($displayedFees)
+    {
+        $this->displayedFees = $displayedFees;
+        return $this;
+    }
 
     public function getinvoiceNumber()
     {

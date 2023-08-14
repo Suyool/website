@@ -60,7 +60,7 @@ class TouchController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
-        $session = 89;
+        $session = 155;
         $data = json_decode($request->getContent(), true);
 
         if ($data != null) {
@@ -76,6 +76,7 @@ class TouchController extends AbstractController
                     ->sets2error(null)
                     ->setrequestId(null)
                     ->setPin(null)
+                    ->setdisplayedFees(null)
                     ->setTransactionId(null)
                     ->setcurrency(null)
                     ->setfees(null)
@@ -103,6 +104,7 @@ class TouchController extends AbstractController
                     ->setcurrency(null)
                     ->setfees(null)
                     ->setfees1(null)
+                    ->setdisplayedFees(null)
                     ->setamount(null)
                     ->setamount1(null)
                     ->setamount2(null)
@@ -137,6 +139,8 @@ class TouchController extends AbstractController
     public function RetrieveResults(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        $displayedFees = 0;
+
         // dd($data);
         if ($data != null) {
             $postpaidRequestId = $data["invoicesId"];
@@ -147,6 +151,7 @@ class TouchController extends AbstractController
             $Pin = implode("", $data["Pin"]);
             if ($retrieveResults[0]) {
                 $values = $retrieveResults[1]["Values"];
+                $displayedFees = intval($values["Fees"])+intval($values["Fees1"])+intval($values["AdditionalFees"]);
 
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
                 $postpaidRequest
@@ -159,6 +164,7 @@ class TouchController extends AbstractController
                     ->setamount($values["Amount"])
                     ->setamount1($values["Amount1"])
                     ->setamount2($values["Amount2"])
+                    ->setdisplayedFees($displayedFees)
                     ->setreferenceNumber($values["referenceNumber"])
                     ->setinformativeOriginalWSamount($values["InformativeOriginalWSAmount"])
                     ->settotalamount($values["TotalAmount"])
@@ -189,6 +195,7 @@ class TouchController extends AbstractController
             'isSuccess' => $retrieveResults[0],
             'postpayed' => $invoicesId,
             'displayData' => $values,
+            'displayedFees' => $displayedFees,
         ], 200);
     }
 
@@ -202,7 +209,7 @@ class TouchController extends AbstractController
     {
         $suyoolServices=new SuyoolServices($this->params->get('TOUCH_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $SuyoolUserId = 89;
+        $SuyoolUserId = 155;
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
         // $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
@@ -257,6 +264,7 @@ class TouchController extends AbstractController
                         ->setcurrency($Postpaid_With_id->getcurrency())
                         ->setfees($Postpaid_With_id->getfees())
                         ->setfees1($Postpaid_With_id->getfees1())
+                        ->setdisplayedFees($Postpaid_With_id->getdisplayedFees())
                         ->setamount($Postpaid_With_id->getamount())
                         ->setamount1($Postpaid_With_id->getamount1())
                         ->setamount2($Postpaid_With_id->getamount2())
