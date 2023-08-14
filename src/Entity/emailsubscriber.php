@@ -33,7 +33,7 @@ class emailsubscriber
         return $this;
     }
     public function getEmail(){
-        return $this->id;
+        return $this->email;
     }
     public function setEmail($email){
         $this->email=$email;

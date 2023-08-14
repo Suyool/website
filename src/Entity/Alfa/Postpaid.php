@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="postpaid")
+ * @ORM\Table(name="suyool_alfa.postpaid")
  */
 class Postpaid
 {

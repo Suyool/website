@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="logs")
+ * @ORM\Table(name="suyool_shopify.logs")
  * @ORM\HasLifecycleCallbacks
  */
 class Logs
@@ -19,7 +19,7 @@ class Logs
     private $id;
 
     /**
-     * @ORM\Column(type="string",name="order_id")
+     * @ORM\Column(type="integer",name="order_id")
      */
     private $orderId;
 
@@ -63,7 +63,7 @@ class Logs
         return $this->orderId;
     }
 
-    public function setOrderId(int $orderId): self
+    public function setOrderId(string $orderId): self
     {
         $this->orderId = $orderId;
 

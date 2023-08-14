@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="draws")
+ * @ORM\Table(name="suyool_loto.draws")
  */
 class LOTO_draw
 {
