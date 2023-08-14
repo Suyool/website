@@ -48,9 +48,9 @@ class PaymentController extends AbstractController
         $parameters['currentPage'] = "payment_landingPage";
 
         // $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $this->hash_algo, $this->certificate, $parameters['lang']);
-        $parameters['payment_details_response']['allowCashOut']="true";
-        $parameters['payment_details_response']['respCode']=0;
-        $parameters['payment_details_response']['additionalData']=json_encode(['ReceiverPhone'=>"76197840"]);
+        // $parameters['payment_details_response']['allowCashOut']="true";
+        // $parameters['payment_details_response']['respCode']=0;
+        // $parameters['payment_details_response']['additionalData']=json_encode(['ReceiverPhone'=>"76197840"]);
         // dd($parameters['payment_details_response']);
 
         if ($parameters['payment_details_response'] != null) {
