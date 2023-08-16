@@ -107,8 +107,10 @@ const App = ({ parameters }) => {
               setActiveButton={setActiveButton}
               setDisabledBtn={setDisabledBtn}
               getDisabledBtn={getDisabledBtn}
+              getTotalAmount={getTotalAmount}
               setPlay={setPlay}
               setIsHide={setIsHide}
+              
             />
           )}
           {activeButton.name === "Result" && (
@@ -124,6 +126,7 @@ const App = ({ parameters }) => {
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               parameters={parameters}
+              getTotalAmount={getTotalAmount}
               setDisabledBtn={setDisabledBtn}
               setModalShow={setModalShow}
               setModalName={setModalName}

@@ -7,14 +7,16 @@ const Play = ({
   setBallNumbers,
   setTotalAmount,
   setActiveButton,
-  
+  parameters,
   setIsHide,
-  
+  getTotalAmount,
   setHeaderTitle,
   setBackLink,
-  setPlay
+  setPlay,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  // console.log(parameters);
+  const [selectedOption, setSelectedOption] = useState(false);
+  const [selectedSub, setSelectedSub] = useState(false);
   const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   var totalPrice = 0;
@@ -22,47 +24,59 @@ const Play = ({
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
   );
 
-
+  // Calculate the total price dynamically based on selected balls
+  const calculateTotalPrice = (balls) => {
+    let total = 0;
+    balls.forEach((item) => {
+      total += item.price;
+    });
+    return total;
+  };
   useEffect(() => {
-    setBackLink(localStorage.getItem('BackPage'));
+    setSelectedOption(0)
+    setSelectedSub(1)
+    setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Play");
-    localStorage.setItem('BackPage','Play');
+    localStorage.setItem("BackPage", "Play");
     setDisabledBtn(
       selectedBallsToShow == null ||
         JSON.parse(selectedBallsToShow).length === 0
     );
+    // setTotalAmount(totalPrice);
+
   }, []);
 
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
-
-
-  useEffect(()=>{
-    setPlayedBalls(JSON.parse(selectedBallsToShow));
-    if(selectedBallsToShow != null ){
-      if(JSON.parse(selectedBallsToShow).length == 0){
-        setDisabledBtn(true);
-      }else{
-        setDisabledBtn(false);
-      }
-        
-      }
-    
-  }, [selectedBallsToShow]);
-
-  if(getPlayedBalls != null){
+  if (getPlayedBalls != null) {
     getPlayedBalls.forEach((item) => {
       totalPrice += item.price;
-  });
-  const hasBalls = getPlayedBalls.some((item) => item.hasOwnProperty("balls"));
+    });    
+    const hasBalls = getPlayedBalls.some((item) =>
+      item.hasOwnProperty("balls")
+    );
+  } 
 
-  }
+  useEffect(() => {
+    setSelectedOption(0);
+    
+    setTotalAmount(totalPrice);
+    setPlayedBalls(JSON.parse(selectedBallsToShow));
+    if (selectedBallsToShow != null) {
+      if (JSON.parse(selectedBallsToShow).length == 0) {
+        setDisabledBtn(true);
+      } else {
+        setDisabledBtn(false);
+      }
+    }
+    console.log(totalPrice)
+  
+  }, [selectedBallsToShow]);
+  let subscription = null
+  
 
-
-
-// console.log(parseInt(totalPrice));
-
+  // console.log(parseInt(totalPrice));
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
@@ -91,6 +105,8 @@ const Play = ({
         updatedBalls[index].price = updatedBalls[index].price - 5000;
       }
       localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+      const newTotalPrice = calculateTotalPrice(updatedBalls);
+      setTotalAmount(newTotalPrice);
       return updatedBalls;
     });
   };
@@ -101,8 +117,20 @@ const Play = ({
         selectedBallsToShow == null ||
           JSON.parse(selectedBallsToShow).length === 0
       );
-      setActiveButton({ name: "Buy" });
+      // setActiveButton({ name: "Buy" });
     } else {
+      const subscription = { subscription: selectedOption };
+      const existingData = localStorage.getItem("selectedBalls");
+
+      if (existingData) {
+        const parsedData = JSON.parse(existingData);
+        const newData = parsedData.map((entry) => ({
+          ...entry,
+          subscription: selectedSub,
+        }));
+
+        localStorage.setItem("selectedBalls", JSON.stringify(newData));
+      }
       setDisabledBtn(
         selectedBallsToShow == null ||
           JSON.parse(selectedBallsToShow).length === 0
@@ -128,44 +156,61 @@ const Play = ({
       //         JSON.parse(selectedBallsToShow).length === 0
       //       );
       //     });
+   
+        setTotalAmount(totalPrice * selectedSub);
+      
     }
   };
 
   const howOftenYouWantToPlay = [
     {
       titleNb: "Play Once",
-      desc: "Thursday X at 9:00PM",
-      price: "200,000 LBP",
+      desc: parameters.HowOftenDoYouWantToPlay[0] + " at 7:30PM",
+      price: parseInt(totalPrice * 1).toLocaleString(),
     },
     {
-      titleNb: "Play Once",
-      desc: "Thursday X at 9:00PM",
-      price: "200,000 LBP",
+      titleNb: "1 Week",
+      desc: "2 Draws - until " + parameters.HowOftenDoYouWantToPlay[1],
+      price: parseInt(totalPrice * 2).toLocaleString(),
     },
     {
       titleNb: "1 Month",
-      desc: "4 Draws - until xxx",
-      price: "800,000 LBP",
+      desc: "8 Draws - until " + parameters.HowOftenDoYouWantToPlay[2],
+      price: parseInt(totalPrice * 8).toLocaleString(),
     },
     {
-      titleNb: "6 Months x Draws",
-      desc: "until xxx",
-      price: "1,200,000 LBP",
+      titleNb: "6 Months 52 Draws",
+      desc: "until " + parameters.HowOftenDoYouWantToPlay[3],
+      price: parseInt(totalPrice * 52).toLocaleString(),
     },
     {
-      titleNb: "1 Year x Draws",
-      desc: "until xxx",
-      price: "1,200,000 LBP",
-    },
-    {
-      titleNb: "Autoplay",
-      desc: "Can be canceled at any time",
-      price: "200,000 LBP/ Draw",
+      titleNb: "1 Year 104 Draws",
+      desc: "until " + parameters.HowOftenDoYouWantToPlay[4],
+      price: parseInt(totalPrice * 104).toLocaleString(),
     },
   ];
 
   const handleOptionSelect = (index) => {
-    setSelectedOption(index);
+    let sub = 0;
+    if (index == 0) {
+      totalPrice = totalPrice * 1;
+      sub=1;
+    } else if (index == 1) {
+      totalPrice = totalPrice * 2;
+      sub=2;
+    } else if (index == 2) {
+      totalPrice = totalPrice * 8;
+      sub=8;
+    } else if (index == 3) {
+      totalPrice = totalPrice * 52;
+      sub=52;
+    } else if (index == 4) {
+      totalPrice = totalPrice * 104;
+      sub=104;
+    }
+    setTotalAmount(totalPrice);
+    setSelectedOption(index); // Select the option if it's not already selected
+    setSelectedSub(sub)
   };
 
   return (
@@ -253,9 +298,9 @@ const Play = ({
                 </div>
                 <div className="body">
                   <div className="ballSection mt-2">
-                    {ballsSet.balls.map((ball, ballIndex) => (
+                    {ballsSet.balls.map((ball, ballIndex) =>
                       ball !== null ? <span key={ballIndex}>{ball}</span> : null
-                    ))}
+                    )}
                   </div>
                   <div className="edit" onClick={() => handleEdit(index)}>
                     <img src="/build/images/Loto/edit.png" alt="edit" />
@@ -279,10 +324,10 @@ const Play = ({
         onClick={() => {
           setBallNumbers(10);
           setTotalAmount(0);
-        setPickYourGrid(true);
-        setIsHide(true);
-        setPlay(1)
-      }}
+          setPickYourGrid(true);
+          setIsHide(true);
+          setPlay(1);
+        }}
       >
         <span>+</span>
       </div>
@@ -318,7 +363,8 @@ const Play = ({
         <div id="Total">
           <span>TOTAL</span>
           <div className="thePrice">
-            L.L <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
+            L.L{" "}
+            <div className="big">{parseInt(getTotalAmount).toLocaleString()}</div>
           </div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>

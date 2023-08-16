@@ -151,7 +151,7 @@ class LotoServices
                 'body' => json_encode([
                     'Token' => $token,
                     'fromDate' =>  date('Y-m-d'),
-                    'toDate' => date('Y-m-d', strtotime("+1 day")),
+                    'toDate' => date('Y-m-d',strtotime("+1 day")),
                     'transactionType' => 0
                 ]),
                 'headers' => [
@@ -159,16 +159,24 @@ class LotoServices
                 ]
             ]);
             $content = $response->toArray();
-            if (empty($content) || $content == null) {
+            // dd($content);
+            $historyEntries = $content['d']['historyEntries'];
+            // $content = [];
+
+            if (empty($content) || $historyEntries == null) {
+                echo "History Entries Is Null in Loto server will retry in 10sec \n";
+                sleep(10);
                 $retry = 1;
             } else {
-                $historyEntries = $content['d']['historyEntries'];
+                
 
                 // var_dump($historyEntries);
                 foreach ($historyEntries as $historyEntries) {
                     $historyId[] = $historyEntries['historyId'];
                 }
                 $historyId = $historyId[0];
+
+                // echo $historyId;
 
                 // $historyId = 5227340;
 
@@ -177,7 +185,7 @@ class LotoServices
         }
     }
 
-    public function playLoto($draw, $withZeed, $gridselected)
+    public function playLoto($draw, $withZeed, $gridselected,$numdraws)
     {
         $retryattempt = 1;
         while ($retryattempt <= 2) {
@@ -188,7 +196,7 @@ class LotoServices
                 'body' => json_encode([
                     'Token' => $token,
                     'drawNumber' => $draw,
-                    'numDraws' => 1,
+                    'numDraws' => $numdraws,
                     'withZeed' => $withZeed,
                     'saveToFavorite' => 1,
                     'GridsSelected' => $gridselected

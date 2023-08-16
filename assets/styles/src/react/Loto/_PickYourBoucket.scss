@@ -119,6 +119,16 @@
                     .basic {
                         font-size: 15px;
                         font-family: PoppinsSemiBold;
+                        input[type=number]{
+                            border: none;
+                            font-family: PoppinsSemiBold;
+                            font-size: 15px;
+                            width: 55px;
+                            &:focus{
+                                outline: none;
+                                border: none;
+                            }
+                        }
                     }
 
                     .price {

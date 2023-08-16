@@ -11,7 +11,8 @@ const Buy = ({
   setModalShow,
   setWarningModal,
   setHeaderTitle,
-  setBackLink
+  setBackLink,
+  getTotalAmount
 }) => {
   useEffect(()=>{
     setBackLink(localStorage.getItem('BackPage'));
@@ -21,14 +22,14 @@ const Buy = ({
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  var totalPrice = 0;
+  var totalPrice = getTotalAmount;
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
 
-  getPlayedBalls.forEach((item) => {
-    totalPrice += item.price;
-  });
+  // getPlayedBalls.forEach((item) => {
+  //   totalPrice += item.price;
+  // });
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];

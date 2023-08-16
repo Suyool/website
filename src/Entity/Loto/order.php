@@ -31,9 +31,15 @@ class order
 
     /**
      * 
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="status",type="string")
      */
     private $status;
+
+    /**
+     * 
+     * @ORM\Column(type="string")
+     */
+    private $subscription;
 
     /**
      * 
@@ -91,6 +97,17 @@ class order
     public function setstatus($status)
     {
         $this->status=$status;
+        return $this;
+    }
+
+    public function getsubscription()
+    {
+        return $this->subscription;
+    }
+
+    public function setsubscription($subscription)
+    {
+        $this->subscription=$subscription;
         return $this;
     }
 

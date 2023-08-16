@@ -118,6 +118,7 @@ const PickYourGrid = ({
         currency: "LBP",
         isbouquet: false,
       };
+      setTotalAmount(getTotalAmount);
       const existingData = localStorage.getItem("selectedBalls");
       const existingBalls = existingData ? JSON.parse(existingData) : [];
       const isNewSet = existingBalls.every(
