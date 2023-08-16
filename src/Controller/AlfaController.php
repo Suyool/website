@@ -302,8 +302,23 @@ class AlfaController extends AbstractController
                     $bulk = 0; //1 for broadcast 0 for unicast
                     $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
+                    $updateUtilitiesAdditionalData = json_encode([
+                        'Fees' => $Postpaid_With_id->getfees(),
+                        'Fees1' => $Postpaid_With_id->getfees1(),
+                        'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),
+                        'TransactionId' => $Postpaid_With_id->getTransactionId(),
+                        'Amount' => $Postpaid_With_id->getamount(),
+                        'Amount1' => $Postpaid_With_id->getamount1(),
+                        'ReferenceNumber' => $Postpaid_With_id->getreferenceNumber(),
+                        'Amount2' => $Postpaid_With_id->getamount2(),
+                        'InformativeOriginalWSAmount' => $Postpaid_With_id->getinformativeOriginalWSamount(),
+                        'TotalAmount' => $Postpaid_With_id->gettotalamount(),
+                        'Currency' => $Postpaid_With_id->getcurrency(),
+                        'Rounding' => $Postpaid_With_id->getrounding(),
+                    ]);
+                    // dd($updateUtilitiesAdditionalData);
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  $updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PURCHASED']]);
 

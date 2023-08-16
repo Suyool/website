@@ -302,8 +302,26 @@ class TouchController extends AbstractController
                     $content=$notificationServices->getContent('AcceptedTouchPayment');
                     $bulk=0;//1 for broadcast 0 for unicast
                     $notificationServices->addNotification($SuyoolUserId, $content, $params,$bulk, $additionalData);
+
+                    $updateUtilitiesAdditionalData = json_encode([
+                        'Amount' => $Postpaid_With_id->getamount(),
+                        'TransactionId' => $Postpaid_With_id->getTransactionId(),
+                        'Amount1' => $Postpaid_With_id->getamount1(),
+                        'referenceNumber' => $Postpaid_With_id->getreferenceNumber(),
+                        'Amount2' => $Postpaid_With_id->getamount2(),
+                        'InformativeOriginalWSAmount' => $Postpaid_With_id->getinformativeOriginalWSamount(),
+                        'InvoiceNumber' => $Postpaid_With_id->getinvoiceNumber(),
+                        'Fees' => $Postpaid_With_id->getfees(),
+                        'Fees1' => $Postpaid_With_id->getfees1(),
+                        'TotalAmount' => $Postpaid_With_id->gettotalamount(),
+                        'Currency' => $Postpaid_With_id->getcurrency(),
+                        'Rounding' => $Postpaid_With_id->getrounding(),
+                        'PaymentId' => $Postpaid_With_id->getpaymentId(),
+                        'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),  
+                    ]);
+
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData , $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 

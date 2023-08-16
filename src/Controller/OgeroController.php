@@ -207,8 +207,28 @@ class OgeroController extends AbstractController
                     $bulk = 0; //1 for broadcast 0 for unicast
                     $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, $additionalData);
 
+                    $updateUtilitiesAdditionalData = json_encode([
+                        'OgeroPenalty' => $Landline_With_id->getogeroPenalty(),
+                        'Amount' => $Landline_With_id->getamount(),
+                        'OgeroFees' => $Landline_With_id->getogeroFees(),
+                        'OgeroInitiationDate' => $Landline_With_id->getogeroInitiationDate(),
+                        'Amount1' => $Landline_With_id->getamount1(),
+                        'Amount2' => $Landline_With_id->getamount2(),
+                        'OgeroAddress' => $Landline_With_id->getogeroAddress(),
+                        'TransactionId' => $Landline_With_id->gettransactionId(),
+                        'Fees' => $Landline_With_id->getfees(),
+                        'OgeroBills' => $Landline_With_id->getogeroBills(),
+                        'Fees1' => $Landline_With_id->getfees1(),
+                        'OgeroClientName' => $Landline_With_id->getogeroClientName(),
+                        'TotalAmount' => $Landline_With_id->gettotalAmount(),
+                        'Currency' => $Landline_With_id->getcurrency(),  
+                        'Rounding' => $Landline_With_id->getrounding(),  
+                        'OgeroTotalAmount' => $Landline_With_id->getogeroTotalAmount(),  
+                        'AdditionalFees' => $Landline_With_id->getadditionalFees(),  
+                    ]);
+
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),"", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),$updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
