@@ -57,35 +57,55 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Email Subscriber', 'fa fa-envelope', emailsubscriber::class);
-        yield MenuItem::linkToCrud('Loto', 'fa fa-poll', loto::class);
-        yield MenuItem::linkToCrud('Loto Price', 'fa fa-dollar-sign', LOTO_numbers::class);
-        yield MenuItem::linkToCrud('Loto Draw', 'fa fa-dice', LOTO_draw::class);
-        yield MenuItem::linkToCrud('Loto Result', 'fa fa-poll', LOTO_results::class);
-        yield MenuItem::linkToCrud('Loto orders', 'fa fa-poll', order::class);
-        yield MenuItem::linkToCrud('Alfa Logs', 'fa fa-poll', Logs::class);
-        yield MenuItem::linkToCrud('Alfa Orders', 'fa fa-poll', \App\Entity\Alfa\Order::class);
-        yield MenuItem::linkToCrud('Alfa Postpaid', 'fa fa-poll', Postpaid::class);
-        yield MenuItem::linkToCrud('Alfa Postpaid Request', 'fa fa-poll', PostpaidRequest::class);
-        yield MenuItem::linkToCrud('Alfa Prepaid', 'fa fa-poll', Prepaid::class);
-        yield MenuItem::linkToCrud('Touch Logs', 'fa fa-poll', \App\Entity\Touch\Logs::class);
-        yield MenuItem::linkToCrud('Touch Orders', 'fa fa-poll', \App\Entity\Touch\Order::class);
-        yield MenuItem::linkToCrud('Touch Postpaid', 'fa fa-poll', \App\Entity\Touch\Postpaid::class);
-        yield MenuItem::linkToCrud('Touch Postpaid Request', 'fa fa-poll', \App\Entity\Touch\PostpaidRequest::class);
-        yield MenuItem::linkToCrud('Touch Prepaid', 'fa fa-poll', \App\Entity\Touch\Prepaid::class);
-        yield MenuItem::linkToCrud('Estore Company', 'fa fa-poll', Company::class);
-        yield MenuItem::linkToCrud('Estore Price', 'fa fa-dollar-sign', Price::class);
-        yield MenuItem::linkToCrud('Estore Product', 'fab fa-product-hunt', Product::class);
-        yield MenuItem::linkToCrud('Notification Content', 'fa fa-poll', content::class);
-        yield MenuItem::linkToCrud('Notification Users', 'fa fa-poll', Users::class);
-        yield MenuItem::linkToCrud('Notification Template', 'fa fa-poll', Template::class);
-        yield MenuItem::linkToCrud('Notification', 'fas fa-sms', Notification::class);
-        yield MenuItem::linkToCrud('Shopify Logs', 'fa fa-poll', \App\Entity\Shopify\Logs::class);
-        yield MenuItem::linkToCrud('Shopify Merchant Cred', 'fas fa-key', MerchantCredentials::class);
-        yield MenuItem::linkToCrud('Shopify Orders', 'fa fa-poll', Orders::class);
-        yield MenuItem::linkToCrud('Shopify Test Orders', 'fa fa-poll', OrdersTest::class);
-        yield MenuItem::linkToCrud('Shopify Requested Data', 'fa fa-poll', RequestedData::class);
-        yield MenuItem::linkToCrud('Shopify Session', 'fa fa-poll', Session::class);
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::subMenu('Loto Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Loto', 'fa fa-poll', loto::class),
+                MenuItem::linkToCrud('Loto Price', 'fa fa-dollar-sign', LOTO_numbers::class),
+                MenuItem::linkToCrud('Loto Draw', 'fa fa-dice', LOTO_draw::class),
+                MenuItem::linkToCrud('Loto Result', 'fa fa-poll', LOTO_results::class),
+                MenuItem::linkToCrud('Loto orders', 'fa fa-poll', order::class),
+            ]);
+        yield MenuItem::subMenu('Alfa Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Alfa Logs', 'fa fa-poll', Logs::class),
+                MenuItem::linkToCrud('Alfa Orders', 'fa fa-poll', \App\Entity\Alfa\Order::class),
+                MenuItem::linkToCrud('Alfa Postpaid', 'fa fa-poll', Postpaid::class),
+                MenuItem::linkToCrud('Alfa Postpaid Request', 'fa fa-poll', PostpaidRequest::class),
+                MenuItem::linkToCrud('Alfa Prepaid', 'fa fa-poll', Prepaid::class),
+            ]);
+        yield MenuItem::subMenu('Touch Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Touch Logs', 'fa fa-poll', \App\Entity\Touch\Logs::class),
+                MenuItem::linkToCrud('Touch Orders', 'fa fa-poll', \App\Entity\Touch\Order::class),
+                MenuItem::linkToCrud('Touch Postpaid', 'fa fa-poll', \App\Entity\Touch\Postpaid::class),
+                MenuItem::linkToCrud('Touch Postpaid Request', 'fa fa-poll', \App\Entity\Touch\PostpaidRequest::class),
+                MenuItem::linkToCrud('Touch Prepaid', 'fa fa-poll', \App\Entity\Touch\Prepaid::class),
+        ]);
+
+        yield MenuItem::subMenu('Estore Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Estore Company', 'fa fa-poll', Company::class),
+                MenuItem::linkToCrud('Estore Price', 'fa fa-dollar-sign', Price::class),
+                MenuItem::linkToCrud('Estore Product', 'fab fa-product-hunt', Product::class),
+            ]);
+
+        yield MenuItem::subMenu('Notification Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Notification Content', 'fa fa-poll', content::class),
+                MenuItem::linkToCrud('Notification Users', 'fa fa-poll', Users::class),
+                MenuItem::linkToCrud('Notification Template', 'fa fa-poll', Template::class),
+                MenuItem::linkToCrud('Notification', 'fas fa-sms', Notification::class),
+            ]);
+        yield MenuItem::subMenu('Shopify Management')
+            ->setSubItems([
+                MenuItem::linkToCrud('Shopify Logs', 'fa fa-poll', \App\Entity\Shopify\Logs::class),
+                MenuItem::linkToCrud('Shopify Merchant Cred', 'fas fa-key', MerchantCredentials::class),
+                MenuItem::linkToCrud('Shopify Orders', 'fa fa-poll', Orders::class),
+                MenuItem::linkToCrud('Shopify Test Orders', 'fa fa-poll', OrdersTest::class),
+                MenuItem::linkToCrud('Shopify Requested Data', 'fa fa-poll', RequestedData::class),
+                MenuItem::linkToCrud('Shopify Session', 'fa fa-poll', Session::class),
+            ]);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
