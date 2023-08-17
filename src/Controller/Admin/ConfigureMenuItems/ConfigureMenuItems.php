@@ -34,7 +34,7 @@ class ConfigureMenuItems
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Email Subscriber', 'fa fa-envelope', emailsubscriber::class);
-        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+        yield MenuItem::linkToRoute('Users', 'fa fa-user', 'admin_users');
         yield MenuItem::subMenu('Loto Management')
             ->setSubItems([
                 MenuItem::linkToRoute('Loto', '', 'admin_loto'),

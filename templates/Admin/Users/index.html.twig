@@ -1,0 +1,42 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block title %}
+    {{ '_LIST_CATEGORY_'|trans({},'admin') }}
+{% endblock %}
+{% block main %}
+    <a href="{{ path('admin_users_new') }}" class="btn btn-primary btn-sm float-end">{{ 'Create User'|trans({},'admin') }}</a>
+
+    <div class="container">
+        <h1 class="mb-4">User List</h1>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">{{ knp_pagination_sortable(users, 'ID', 'u.id') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
+                <th scope="col">Role</th>
+                <th scope="col">{{ 'EDIT'|trans({},'admin') }}</th>
+
+                <!-- Add other headers as needed -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.getRoles()|join(', ') }}</td>
+
+                    <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('edit_user',{'id':user.id}) }}" ><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+
+                    <!-- Add other fields as needed -->
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# Display pagination links #}
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}
