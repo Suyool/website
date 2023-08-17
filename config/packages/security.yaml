@@ -1,72 +1,23 @@
-# To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
 security:
-    # enable_csrf_token: true
-    #access_decision_manager:
-    #strategy: unanimous
-
     encoders:
-        App\Entity\Managers:
-            algorithm: md5
-            encode_as_base64: false
-            iterations: 0
+        App\Entity\User:
+            algorithm: auto
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         our_db_provider:
             entity:
-                class: App\Entity\Managers
-                # if you're using multiple entity managers
-                # manager_name: customer
+                class: App\Entity\User
+                property: email
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        # dev:
-        #    pattern: ^/(_(profiler|wdt)|css|images|js)/
-        #    security: false
-        #main:
-        #    guard:
-        #        authenticators:
-        #            - App\Security\LoginFormAuthenticator
-        # admin_secured_area:
-        #     pattern:   ^/admin
-        #     anonymous: ~
-        #     guard:
-        #         authenticators:
-        #             - App\Security\AdminLoginFormAuthenticator
-        #     form_login:
-        #         login_path: login_admin
-        #         check_path: login_admin
-        #         failure_path: login_admin
-        #         default_target_path: admin_homepage
-        #     logout:
-        #         path: /admin/logout
-        #         target: /admin/login
-        #     two_factor:
-        #         auth_form_path: 2fa_login_admin    # The route name you have used in the routes.yaml
-        #         check_path: 2fa_login_check_admin  # The route name you have used in the routes.yaml
-        #         default_target_path: admin_homepage                # Where to redirect by default after successful authentication
-        #         always_use_default_target_path: true # If it should always redirect to default_target_path
-
-        user_secured_area:
-            pattern:   ^/(?!/admin)
+        main:
+            anonymous: ~
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
-            anonymous: ~
-            form_login:
-                login_path: login
-                check_path: login
-                failure_path: login
-                default_target_path: homepage
             logout:
-                path: /logout
-                target: /login
-            two_factor:
-                auth_form_path: 2fa_login    # The route name you have used in the routes.yaml
-                check_path: 2fa_login_check  # The route name you have used in the routes.yaml
-                default_target_path: homepage                # Where to redirect by default after successful authentication
-                always_use_default_target_path: true # If it should always redirect to default_target_path
+                path: app_logout   # The logout route name
 
     access_control:
-        # - { path: '^/admin/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/dashadmin, roles: ROLE_ADMIN }
