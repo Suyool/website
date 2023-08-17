@@ -40,7 +40,7 @@ const TypeOfBusiness = ({ getDropDown, setFormData, formData, handleInputChange 
                         value={formData["businessType"]}
                         onChange={handleInputChange}
                     />
-                    <div className="remove" onClick={handleRemove}> <img className="addImg" src="/build/images/remove-till.png" alt="remove" /></div>
+                    <div className="remove" onClick={handleRemove}> <img className="addImg" src="/build/images/removeName.png" alt="remove" /></div>
                 </div>
             ) : (
                 <select
