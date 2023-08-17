@@ -40,8 +40,10 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(emailsubscriberCrudController::class)->generateUrl());
+        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        // return $this->redirect($adminUrlGenerator->setController(DefaultController::class)->generateUrl());
+
+        return $this->render('Admin/dashboard.html.twig');
 
     }
 
@@ -53,7 +55,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        //yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Email Subscriber', 'fa fa-envelope', emailsubscriber::class);
         yield MenuItem::linkToCrud('Loto', 'fa fa-poll', loto::class);
         yield MenuItem::linkToCrud('Loto Price', 'fa fa-dollar-sign', LOTO_numbers::class);
