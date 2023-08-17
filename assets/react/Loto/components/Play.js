@@ -13,12 +13,15 @@ const Play = ({
   setHeaderTitle,
   setBackLink,
   setPlay,
+  setTotalAmountLLDJ,
 }) => {
   // console.log(parameters);
+  // console.log("getTotalAmount",getTotalAmount)
   const [selectedOption, setSelectedOption] = useState(false);
   const [selectedSub, setSelectedSub] = useState(false);
   const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  const [getHowOftenPlay,setHowOftenPlay]=useState(0);
   var totalPrice = 0;
   const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
@@ -59,9 +62,10 @@ const Play = ({
   } 
 
   useEffect(() => {
-    setSelectedOption(0);
+    console.log("clicked")
+    // setSelectedOption(0);
     
-    setTotalAmount(totalPrice);
+    // setTotalAmount(totalPrice);
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
@@ -70,9 +74,9 @@ const Play = ({
         setDisabledBtn(false);
       }
     }
-    console.log(totalPrice)
+    // console.log(totalPrice)
   
-  }, [selectedBallsToShow]);
+  }, [selectedBallsToShow,getHowOftenPlay]);
   let subscription = null
   
 
@@ -96,7 +100,7 @@ const Play = ({
     setChecked(!checked);
     setPlayedBalls((prevState) => {
       const updatedBalls = [...prevState];
-      console.log(index);
+      // console.log(index);
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
@@ -162,35 +166,37 @@ const Play = ({
     }
   };
 
+
   const howOftenYouWantToPlay = [
     {
       titleNb: "Play Once",
       desc: parameters.HowOftenDoYouWantToPlay[0] + " at 7:30PM",
-      price: parseInt(totalPrice * 1).toLocaleString(),
+      price:  totalPrice === 0 ? "" : (parseInt(totalPrice * 1)).toLocaleString() ,
     },
     {
       titleNb: "1 Week",
       desc: "2 Draws - until " + parameters.HowOftenDoYouWantToPlay[1],
-      price: parseInt(totalPrice * 2).toLocaleString(),
+      price:  totalPrice === 0 ? "" : (parseInt(totalPrice * 2)).toLocaleString() ,
     },
     {
       titleNb: "1 Month",
       desc: "8 Draws - until " + parameters.HowOftenDoYouWantToPlay[2],
-      price: parseInt(totalPrice * 8).toLocaleString(),
+      price: totalPrice === 0 ? "" : (parseInt(totalPrice * 8)).toLocaleString() ,
     },
     {
       titleNb: "6 Months 52 Draws",
       desc: "until " + parameters.HowOftenDoYouWantToPlay[3],
-      price: parseInt(totalPrice * 52).toLocaleString(),
+      price: totalPrice === 0 ? "" : (parseInt(totalPrice * 52)).toLocaleString() ,
     },
     {
       titleNb: "1 Year 104 Draws",
       desc: "until " + parameters.HowOftenDoYouWantToPlay[4],
-      price: parseInt(totalPrice * 104).toLocaleString(),
+      price: totalPrice === 0 ? "" : (parseInt(totalPrice * 104)).toLocaleString() ,
     },
   ];
 
   const handleOptionSelect = (index) => {
+    setHowOftenPlay(index)
     let sub = 0;
     if (index == 0) {
       totalPrice = totalPrice * 1;
@@ -323,7 +329,8 @@ const Play = ({
         className="addGrid"
         onClick={() => {
           setBallNumbers(10);
-          setTotalAmount(0);
+          // setTotalAmount(0);
+          setTotalAmountLLDJ(0)
           setPickYourGrid(true);
           setIsHide(true);
           setPlay(1);
@@ -364,7 +371,7 @@ const Play = ({
           <span>TOTAL</span>
           <div className="thePrice">
             L.L{" "}
-            <div className="big">{parseInt(getTotalAmount).toLocaleString()}</div>
+            <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
           </div>
         </div>
         <button disabled={getDisabledBtn} onClick={() => handleCheckout()}>

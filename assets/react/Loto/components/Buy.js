@@ -27,6 +27,29 @@ const Buy = ({
     JSON.parse(selectedBallsToShow) || []
   );
 
+  // if (getPlayedBalls != null) {
+  //   getPlayedBalls.forEach((item) => {
+  //     totalPrice += item.price;
+  //   });    
+  // } 
+
+  useEffect(() => {
+    console.log("clicked")
+    // setSelectedOption(0);
+    
+    // setTotalAmount(totalPrice);
+    setPlayedBalls(JSON.parse(selectedBallsToShow));
+    if (selectedBallsToShow != null) {
+      if (JSON.parse(selectedBallsToShow).length == 0) {
+        setDisable(true);
+      } else {
+        setDisable(false);
+      }
+    }
+    // console.log(totalPrice)
+  
+  }, [selectedBallsToShow]);
+
   // getPlayedBalls.forEach((item) => {
   //   totalPrice += item.price;
   // });
@@ -212,9 +235,9 @@ const Buy = ({
                   <span className="price">
                     <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
                   </span>
-                  <span className="delete" onClick={() => handleDelete(index)}>
+                  {/* <span className="delete" onClick={() => handleDelete(index)}>
                     <img src="/build/images/Loto/trash.png" />
-                  </span>
+                  </span> */}
                 </div>
               </div>
             );
@@ -251,6 +274,7 @@ const Buy = ({
         className="BuyBtn"
         id="buyButton"
         disabled={getDisable}
+        // disabled={getDisabledBtn}
         onClick={() => {
           handleBuy();
         }}

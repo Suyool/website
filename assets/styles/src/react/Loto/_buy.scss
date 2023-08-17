@@ -44,7 +44,8 @@
             .ballSection {
                 display: flex;
                 flex-direction: row;
-                width: 65%;
+                width: 100%;
+                flex-wrap: wrap;
                 justify-content: flex-start;
 
                 span {

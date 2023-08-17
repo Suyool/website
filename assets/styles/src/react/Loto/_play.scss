@@ -37,7 +37,7 @@
 
                 &.right {
                     float: right;
-                    padding-top: 7px;
+                    padding-top: 6px;
                     font-family: PoppinsSemiBold;
                     display: flex;
                     position: relative;
@@ -46,7 +46,7 @@
                         color: black;
                         font-size: 11px;
                         font-family: PoppinsBold;
-                        padding-top: 7px;
+                        // padding-top: 7px;
                         padding-right: 7px;
                     }
 
@@ -96,7 +96,7 @@
                                 box-sizing: border-box;
                                 width: 40px;
                                 height: 16px;
-                                top: 10px;
+                                // top: 10px;
 
                                 &:after {
                                     content: '';

@@ -18,6 +18,7 @@ const App = ({ parameters }) => {
   const [getPickYourGrid, setPickYourGrid] = useState(false);
   const [getBallNumbers, setBallNumbers] = useState(0);
   const [getTotalAmount, setTotalAmount] = useState(0);
+  const [getTotalAmountLLDJ, setTotalAmountLLDJ] = useState(0);
   const [getPlay, setPlay] = useState(0);
 
   const [getBallPlayed, setBallPlayed] = useState([]);
@@ -89,7 +90,7 @@ const App = ({ parameters }) => {
               setBallNumbers={setBallNumbers}
               setActiveButton={setActiveButton}
               setPlay={setPlay}
-              setTotalAmount={setTotalAmount}
+              setTotalAmountLLDJ={setTotalAmountLLDJ}
               setPickYourGrid={setPickYourGrid}
               setIsHide={setIsHide}
               isHideBack={isHideBack}
@@ -108,6 +109,7 @@ const App = ({ parameters }) => {
               setDisabledBtn={setDisabledBtn}
               getDisabledBtn={getDisabledBtn}
               getTotalAmount={getTotalAmount}
+              setTotalAmountLLDJ={setTotalAmountLLDJ}
               setPlay={setPlay}
               setIsHide={setIsHide}
               
@@ -144,6 +146,8 @@ const App = ({ parameters }) => {
             getBallNumbers={getBallNumbers}
             getTotalAmount={getTotalAmount}
             setTotalAmount={setTotalAmount}
+            getTotalAmountLLDJ={getTotalAmountLLDJ}
+            setTotalAmountLLDJ={setTotalAmountLLDJ}
             getBallPlayed={getBallPlayed}
             getPlay={getPlay}
             setIsHide={setIsHide}
