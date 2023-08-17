@@ -12,16 +12,16 @@ const LLDJ = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
-  setPlay
+  setPlay,
+  setTotalAmountLLDJ,
 }) => {
   const [getBouquetgridprice, setBouquetgridprice] = useState(0);
   useEffect(() => {
     // console.log(parameters)
-    setBackLink(localStorage.getItem('BackPage'));
-    localStorage.setItem('BackPage','LLDJ');
+    setBackLink(localStorage.getItem("BackPage"));
+    localStorage.setItem("BackPage", "LLDJ");
     setBouquetgridprice(parameters.gridprice);
     setHeaderTitle("La Libanaise Des Jeux");
-    
   }, []);
   // console.log(parameters);
   const [getShowBouquet, setShowBouquet] = useState(false);
@@ -108,14 +108,20 @@ const LLDJ = ({
 
         <div className="questionsSection mt-3">
           <div className="title">What are you waiting for?</div>
-          <button className="PlayBtn" onClick={() => {
-            setActiveButton({ name: "Play" });
-            setBallNumbers(10);
-            setTotalAmount(0);
-          setPickYourGrid(true);
-          setIsHide(true);
-          setPlay(1)
-        }}>Play Now</button>
+          <button
+            className="PlayBtn"
+            onClick={() => {
+              setActiveButton({ name: "Play" });
+              setBallNumbers(10);
+              setTotalAmountLLDJ(0);
+
+              setPickYourGrid(true);
+              setIsHide(true);
+              setPlay(1);
+            }}
+          >
+            Play Now
+          </button>
         </div>
 
         <div className="gridsSwction">

@@ -11,7 +11,8 @@ const Buy = ({
   setModalShow,
   setWarningModal,
   setHeaderTitle,
-  setBackLink
+  setBackLink,
+  getTotalAmount
 }) => {
   useEffect(()=>{
     setBackLink(localStorage.getItem('BackPage'));
@@ -21,14 +22,37 @@ const Buy = ({
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  var totalPrice = 0;
+  var totalPrice = getTotalAmount;
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
 
-  getPlayedBalls.forEach((item) => {
-    totalPrice += item.price;
-  });
+  // if (getPlayedBalls != null) {
+  //   getPlayedBalls.forEach((item) => {
+  //     totalPrice += item.price;
+  //   });    
+  // } 
+
+  useEffect(() => {
+    console.log("clicked")
+    // setSelectedOption(0);
+    
+    // setTotalAmount(totalPrice);
+    setPlayedBalls(JSON.parse(selectedBallsToShow));
+    if (selectedBallsToShow != null) {
+      if (JSON.parse(selectedBallsToShow).length == 0) {
+        setDisable(true);
+      } else {
+        setDisable(false);
+      }
+    }
+    // console.log(totalPrice)
+  
+  }, [selectedBallsToShow]);
+
+  // getPlayedBalls.forEach((item) => {
+  //   totalPrice += item.price;
+  // });
 
   const handleDelete = (index) => {
     const updatedBalls = [...getPlayedBalls];
@@ -211,9 +235,9 @@ const Buy = ({
                   <span className="price">
                     <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
                   </span>
-                  <span className="delete" onClick={() => handleDelete(index)}>
+                  {/* <span className="delete" onClick={() => handleDelete(index)}>
                     <img src="/build/images/Loto/trash.png" />
-                  </span>
+                  </span> */}
                 </div>
               </div>
             );
@@ -250,6 +274,7 @@ const Buy = ({
         className="BuyBtn"
         id="buyButton"
         disabled={getDisable}
+        // disabled={getDisabledBtn}
         onClick={() => {
           handleBuy();
         }}

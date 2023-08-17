@@ -96,11 +96,36 @@ class LotoController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
     
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+
+                $date=date('w');
+                if($date>1 && $date<=4){
+                    
+                    $PlayOnce=date("l",strtotime("next thursday"));
+                }
+                $current_time = strtotime('now');
+
+                if($date == 1 && $current_time > strtotime('today 19:30:00')){
+                    $PlayOnce=date("l",strtotime("next thursday"));
+                }else if($date == 4 && $current_time > strtotime('today 19:30:00')){
+                    $PlayOnce=date("l",strtotime("next monday"));
+                }
+                    
+
+                $OneWeek=date("d-m-Y",strtotime("+1 week"));
+                $OneMonth=date("d-m-Y",strtotime("+1 month"));
+                $SixMonth=date("d-m-Y",strtotime("+6 month"));
+                $OneYear=date("d-m-Y",strtotime("+1 year"));
+
+                $parameters['HowOftenDoYouWantToPlay']=[
+                    $PlayOnce,$OneWeek,$OneMonth,$SixMonth,$OneYear
+                ];
+
+                // dd($parameters['HowOftenDoYouWantToPlay']);
     
     
                 // $useragent = $_SERVER['HTTP_USER_AGENT'];
-                $session = 155;
-                $this->session->set('userId', $session);
+                $suyoolUserId = 155;
+                $this->session->set('suyoolUserId', $suyoolUserId);
     
     
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
@@ -113,10 +138,10 @@ class LotoController extends AbstractController
                 if (isset($data)) {
                     $drawId = $data['drawNumber'];
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($session, $drawId);
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $drawId);
                 } else {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($session, $loto_prize->getDrawId());
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
                     // dd($loto_prize_per_days);
                 }
     
@@ -198,6 +223,8 @@ class LotoController extends AbstractController
     
                 $parameters['prize_loto_perdays'] = $prize_loto_perdays;
                 $parameters['prize_loto_result'] = $prize_loto_result;
+
+                // dd($parameters);
     
     
                 if (isset($data)) {
@@ -230,7 +257,7 @@ class LotoController extends AbstractController
     public function play(Request $request)
     {
         $bulk = 0; //0 if unicast
-        $session = $this->session->get('userId');
+        $suyoolUserId = $this->session->get('suyoolUserId');
         $numGrids = 0;
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
@@ -238,7 +265,7 @@ class LotoController extends AbstractController
         $grids = [];
 
 
-        if (isset($session)) {
+        if (isset($suyoolUserId)) {
             $data = json_decode($request->getContent(), true);
 
             $getPlayedBalls = $data['selectedBalls'];
@@ -247,7 +274,7 @@ class LotoController extends AbstractController
             if ($getPlayedBalls != null && !empty($getPlayedBalls)) {
 
 
-                $numDraws = 1;
+                // $numDraws = 1;
 
                 $drawnumber = $loto_draw->getdrawId();
                 $ballsArray = [];
@@ -261,12 +288,13 @@ class LotoController extends AbstractController
 
 
                 $order = new order;
-                $order->setsuyoolUserId($session)
+                $order->setsuyoolUserId($suyoolUserId)
                     ->setstatus(order::$statusOrder['PENDING']);
 
                 $this->mr->persist($order);
                 $this->mr->flush();
                 foreach ($getPlayedBalls as $item) {
+                    $numDraws=$item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
                     if ($withZeed == false) {
@@ -309,7 +337,7 @@ class LotoController extends AbstractController
                             $numGrids += $bouquetNum[1];
                         }
 
-                        $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $session, 'status' => 'pending']);
+                        $orderid = $this->mr->getRepository(order::class)->findBy(['suyoolUserId' => $suyoolUserId, 'status' => 'pending']);
 
                         foreach ($orderid as $orderid) {
                             $loto = new loto;
@@ -332,7 +360,7 @@ class LotoController extends AbstractController
                     $selected = implode('|', $ballsArrayNoZeed);
 
                     $nozeed = 1;
-                    $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'pending']);
+                    $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $suyoolUserId, 'status' => 'pending']);
                     $loto = new loto;
                     $loto->setOrderId($orderid)
                         ->setdrawnumber($drawnumber)
@@ -348,7 +376,7 @@ class LotoController extends AbstractController
                 }
                 if ($ballsArrayNoZeedBouquet != null) {
                     $nozeed = 1;
-                    $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $session, 'status' => 'pending']);
+                    $orderid = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $suyoolUserId, 'status' => 'pending']);
                     $loto = new loto;
                     $loto->setOrderId($orderid)
                         ->setdrawnumber($drawnumber)
@@ -395,7 +423,9 @@ class LotoController extends AbstractController
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
                 $order_id=$merchantId."-".$id;
 
-                $pushutility = $this->suyoolServices->PushUtilities($session, $order_id, $sum, $this->CURRENCY_LBP);
+                $sum=$sum*$numDraws;
+
+                $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP);
                 // $pushutility=[true,123];
 
 
@@ -403,7 +433,8 @@ class LotoController extends AbstractController
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
                         ->settransId($pushutility[1])
-                        ->setstatus(order::$statusOrder['HELD']);
+                        ->setstatus(order::$statusOrder['HELD'])
+                        ->setsubscription($numDraws);
 
                     $this->mr->persist($orderid);
                     $this->mr->flush();
@@ -412,7 +443,7 @@ class LotoController extends AbstractController
 
                     $params = json_encode(['amount' => $sum, 'currency' => $lotoid->getcurrency(), 'numgrids' => $numGrids], true);
 
-                    $this->notificationServices->addNotification($session, $content, $params, $bulk);
+                    $this->notificationServices->addNotification($suyoolUserId, $content, $params, $bulk);
 
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";

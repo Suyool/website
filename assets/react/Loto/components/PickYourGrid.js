@@ -12,9 +12,11 @@ const PickYourGrid = ({
   setErrorModal,
   setModalName,
   setModalShow,
+  setTotalAmountLLDJ,
+  getTotalAmountLLDJ,
 }) => {
-  
   const [selectedBalls, setSelectedBalls] = useState([]);
+  // console.log(getTotalAmount)
   useEffect(() => {
     if (getBallPlayed.length == 0) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
@@ -47,7 +49,7 @@ const PickYourGrid = ({
       const filledBoxes = selectedBalls.filter((ball) => ball !== null).length;
       const totalAmount = calculateTotalAmount(filledBoxes);
       // Update the total amount whenever the selectedBalls change
-      setTotalAmount(totalAmount);
+      setTotalAmountLLDJ(totalAmount);
     }, [selectedBalls]);
   }
 
@@ -107,24 +109,29 @@ const PickYourGrid = ({
           title: "Can not play grid",
           desc: `You need to select at least 6 numbers`,
         });
+        setTotalAmount(10);
         setModalShow(true);
         return;
       }
 
       const ballSet = {
         balls: filteredBalls,
-        price: getTotalAmount,
+        price: getTotalAmountLLDJ,
         withZeed: false,
         currency: "LBP",
         isbouquet: false,
       };
+
       const existingData = localStorage.getItem("selectedBalls");
       const existingBalls = existingData ? JSON.parse(existingData) : [];
       const isNewSet = existingBalls.every(
         (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
       );
 
+      
+
       if (isNewSet) {
+       
         // If the set is unique, add it to the existing data and save to localStorage
         const updatedBalls = [...existingBalls, ballSet];
         localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
@@ -176,8 +183,8 @@ const PickYourGrid = ({
               </div>
             ) : null
           )}
-          { selectedBalls.slice(6).length > 0 && (
-            <div style={{display:"flex"}}>
+          {selectedBalls.slice(6).length > 0 && (
+            <div style={{ display: "flex" }}>
               {selectedBalls.slice(6).map((number, index) => (
                 <div
                   key={index}
@@ -217,7 +224,7 @@ const PickYourGrid = ({
           <div className="thePrice">
             L.L{" "}
             <div className="big">
-              {parseInt(getTotalAmount).toLocaleString()}
+              {parseInt(getTotalAmountLLDJ).toLocaleString()}
             </div>
           </div>
         </div>
