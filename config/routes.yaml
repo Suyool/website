@@ -2,14 +2,13 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-# admin:
-#   controller: App\AdminBundle\Controller\HomeController::indexAction
-#   path: /admin
+admin:
+  controller: App\Controller\Admin\DashboardController::index
+  path: /dashadmin
 
-# admin_app:
-#   resource: '@AdminBundle/Controller/'
-#   type: annotation
-#   prefix: /admin
+admin_loto:
+  resource: 'App\Controller\Admin\lotoAdminController'
+  prefix: /dashadmin
 
 2fa_login:
   path: /2fa
