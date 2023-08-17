@@ -25,6 +25,7 @@ use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
 use App\Entity\Shopify\RequestedData;
 use App\Entity\Shopify\Session;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -35,7 +36,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/dashadmin", name="admin")
      */
     public function index(): Response
     {
@@ -53,7 +54,6 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         //yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Admin', 'fa fa-user', Admin::class);
         yield MenuItem::linkToCrud('Email Subscriber', 'fa fa-envelope', emailsubscriber::class);
         yield MenuItem::linkToCrud('Loto', 'fa fa-poll', loto::class);
         yield MenuItem::linkToCrud('Loto Price', 'fa fa-dollar-sign', LOTO_numbers::class);
@@ -83,6 +83,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Shopify Test Orders', 'fa fa-poll', OrdersTest::class);
         yield MenuItem::linkToCrud('Shopify Requested Data', 'fa fa-poll', RequestedData::class);
         yield MenuItem::linkToCrud('Shopify Session', 'fa fa-poll', Session::class);
+        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
