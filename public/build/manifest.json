@@ -1,5 +1,6 @@
 {
   "build/app1.js": "/build/app1.0441501c.js",
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.f5da530c.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.eb968c8a.js",
   "build/Alfa.js": "/build/Alfa.e305b09b.js",
@@ -8,6 +9,16 @@
   "build/styles.css": "/build/styles.5ad16d06.css",
   "build/Lotostyles.css": "/build/Lotostyles.5a3d9125.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.5fad0f46.css",
+=======
+  "build/Loto.js": "/build/Loto.357d07f2.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.56b145c5.js",
+  "build/Alfa.js": "/build/Alfa.7ddc19f9.js",
+  "build/Touch.js": "/build/Touch.010ad491.js",
+  "build/Ogero.js": "/build/Ogero.26d4570a.js",
+  "build/styles.css": "/build/styles.5ad16d06.css",
+  "build/Lotostyles.css": "/build/Lotostyles.6e0aaa77.css",
+  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.839214a6.css",
+>>>>>>> f3134bd (done with ui of self enrollement)
   "build/AlfaStyle.css": "/build/AlfaStyle.99225507.css",
   "build/TouchStyle.css": "/build/TouchStyle.c87440f8.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.cf9591eb.css",
@@ -171,6 +182,7 @@
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
   "build/images/OnlinePayment.png": "/build/images/OnlinePayment.png",
   "build/images/commingSoon/instagram.png": "/build/images/commingSoon/instagram.png",
+  "build/images/calender.png": "/build/images/calender.png",
   "build/images/commingSoon/youtube.png": "/build/images/commingSoon/youtube.png",
   "build/images/Loto/result.png": "/build/images/Loto/result.png",
   "build/images/commingSoon/facebook.png": "/build/images/commingSoon/facebook.png",
@@ -191,7 +203,7 @@
   "build/images/Ogero/flag.png": "/build/images/Ogero/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/touch/flag.png": "/build/images/touch/flag.png",
-  "build/images/remove-till.png": "/build/images/remove-till.png",
+  "build/images/removeName.png": "/build/images/removeName.png",
   "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
   "build/images/touch/clearNb.png": "/build/images/touch/clearNb.png",

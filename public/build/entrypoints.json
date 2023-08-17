@@ -9,31 +9,35 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Loto.f5da530c.js"
+=======
+        "/build/Loto.357d07f2.js"
+>>>>>>> f3134bd (done with ui of self enrollement)
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.eb968c8a.js"
+        "/build/LegalEnrollement.56b145c5.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.e305b09b.js"
+        "/build/Alfa.7ddc19f9.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.c6006384.js"
+        "/build/Touch.010ad491.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.2ad89e76.js"
+        "/build/Ogero.26d4570a.js"
       ]
     },
     "styles": {
@@ -57,7 +61,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.5fad0f46.css"
+        "/build/LegalEnrollementStyle.839214a6.css"
       ]
     },
     "AlfaStyle": {
