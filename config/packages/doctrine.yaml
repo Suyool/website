@@ -18,7 +18,7 @@ doctrine:
                 url: '%env(resolve:ESTORE_DATABASE_URL)%'
             notification:
                 url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
-        default_connection: default        
+        default_connection: default
         # charset: UTF8
         # logging: true
         # profiling: false
@@ -30,7 +30,7 @@ doctrine:
         auto_generate_proxy_classes: true
         # naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         # auto_mapping: true
-        entity_managers: 
+        entity_managers:
             default:
                 connection: default
                 mappings:
@@ -103,7 +103,7 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Notification'
                         prefix: 'App\Entity\Notification'
                         alias: Notification
-                        
+
         # dql:
         #     datetime_functions:
         #         UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp

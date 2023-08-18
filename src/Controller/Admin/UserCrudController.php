@@ -4,11 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\ConfigureMenuItems\ConfigureMenuItems;
 use App\Entity\User;
+use App\Form\SearchUsersType;
 use Doctrine\Persistence\ManagerRegistry;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,19 +35,26 @@ class UserCrudController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $usersRepository = $this->mr->getRepository(User::class);
-        $allUsersQuery = $usersRepository->createQueryBuilder('u')
-            ->getQuery();
-        $currentPage = $this->request->query->getInt('page', 1);
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException('You do not have permission to access this page.');
+        }
+        $formSearch = $this->createForm(SearchUsersType::class);
+        $formSearch->handleRequest($this->request);
+        $value = $this->request->get('search_users',"");
+
+        $UsersQuery = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->getAllUsers($value);
 
         $pagination = $this->paginator->paginate(
-            $allUsersQuery,  // Query to paginate
-            $currentPage,   // Current page number
+            $UsersQuery,  // Query to paginate
+            $this->request->query->getInt('page', 1),   // Current page number
             15             // Records per page
         );
 
         return $this->render('Admin/Users/index.html.twig', [
             'users' => $pagination,
+            'formSearch' => $formSearch->createView(),
         ]);
     }
 
@@ -96,6 +104,11 @@ class UserCrudController extends AbstractDashboardController
     {
         $configureMenuItems = new ConfigureMenuItems();
         return $configureMenuItems->configureMenuItems();
+    }
+    public function configureDashboard(): Dashboard
+    {
+        return Dashboard::new()
+            ->disableUrlSignatures();
     }
 }
 

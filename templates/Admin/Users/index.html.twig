@@ -4,7 +4,20 @@
 
     <div class="container">
         <h1 class="mb-4">User List</h1>
+        <div class="formWrapper searchForm row mb-5">
+            {{ form_start(formSearch) }}
+            <div class="row">
+                {% for field in ['user','role','save'] %}
+                    {% if (attribute(formSearch, field) is defined) %}
+                        <div class="col-lg-3">
+                            {{ form_row(attribute(formSearch, field)) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
 
+            {{ form_end(formSearch) }}
+        </div>
         <table class="table table-bordered">
             <thead>
             <tr>

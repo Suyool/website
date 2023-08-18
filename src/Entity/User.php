@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface
 {
-    public static $UsersStatusArray = array(0=>"",1=> "ROLE_ADMIN",2=> "ROLE_USER");
+    public static $UsersStatusArray = array(0=>"FILTER BY ROLE","ROLE_ADMIN"=> "ROLE_ADMIN","ROLE_USER"=> "ROLE_USER");
 
     /**
      * @ORM\Id
