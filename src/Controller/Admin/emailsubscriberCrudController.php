@@ -30,15 +30,16 @@ class emailsubscriberCrudController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(emailsubscriber::class)->findAll();
+        $emailSubscribersRepository = $this->mr->getRepository(emailsubscriber::class);
+        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('s')
+            ->getQuery();
         $currentPage = $this->request->query->getInt('page', 1);
 
         $pagination = $this->paginator->paginate(
-            $emailSubscribersRepository,  // Query to paginate
+            $allSubscribersQuery,  // Query to paginate
             $currentPage,   // Current page number
             15              // Records per page
         );
-
         return $this->render('Admin/EmailSubscribers/index.html.twig', [
             'subscribers' => $pagination,
         ]);

@@ -34,14 +34,15 @@ class UserCrudController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        $usersRepository = $this->mr->getRepository(User::class)->findAll();
-
+        $usersRepository = $this->mr->getRepository(User::class);
+        $allUsersQuery = $usersRepository->createQueryBuilder('u')
+            ->getQuery();
         $currentPage = $this->request->query->getInt('page', 1);
 
         $pagination = $this->paginator->paginate(
-            $usersRepository,  // Query to paginate
+            $allUsersQuery,  // Query to paginate
             $currentPage,   // Current page number
-            5             // Records per page
+            15             // Records per page
         );
 
         return $this->render('Admin/Users/index.html.twig', [

@@ -8,8 +8,9 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">{{ knp_pagination_sortable(subscribers, 'ID', 'u.id') }}</th>
-                <th scope="col">{{ knp_pagination_sortable(subscribers, 'Email', 'u.email') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(subscribers, 'ID', 's.id') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(subscribers, 'Email', 's.email') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(subscribers, 'Created', 's.created') }}</th>
 
                 <!-- Add other headers as needed -->
             </tr>
@@ -19,6 +20,7 @@
                 <tr>
                     <td>{{ subscriber.id }}</td>
                     <td>{{ subscriber.email }}</td>
+                    <td>{{ subscriber.getCreateDateFormat() }}</td>
                     <!-- Add other fields as needed -->
                 </tr>
             {% endfor %}

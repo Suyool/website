@@ -14,12 +14,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface
 {
+    public static $UsersStatusArray = array(0=>"",1=> "ROLE_ADMIN",2=> "ROLE_USER");
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -42,6 +49,16 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="datetime", name="created",nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated",nullable=true)
+     */
+    private $updated;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,15 +76,18 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return (string) $this->email;
+        return $this->username;
     }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
 
     /**
      * @see UserInterface
@@ -132,5 +152,30 @@ class User implements UserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function getCreated(){
+        return $this->created;
+    }
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function getCreateDateFormat()
+    {
+        if(isset($this->created)){
+            return $this->created->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
+    public function getUpdatedDateFormat()
+    {
+        if(isset($this->updated)){
+            return $this->updated->format('h:i Y-m-d');
+        }
+        else
+            return Null;
     }
 }
