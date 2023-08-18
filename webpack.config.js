@@ -41,6 +41,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addStyleEntry('styles', './assets/styles/app.scss')
+    .addStyleEntry('admin', './assets/styles/admin.scss')
     .addStyleEntry('Lotostyles', './assets/styles/src/react/Loto.scss')
     .addStyleEntry('LegalEnrollementStyle', './assets/styles/src/react/LegalEnrollement.scss')
     .addStyleEntry('AlfaStyle', './assets/styles/src/react/Alfa.scss')

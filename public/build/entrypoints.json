@@ -41,7 +41,15 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.5ad16d06.css"
+        "/build/styles.83f67d92.css"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/admin.8ae3e3c9.css"
       ]
     },
     "Lotostyles": {
