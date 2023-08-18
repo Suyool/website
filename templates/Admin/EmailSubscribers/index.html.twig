@@ -1,0 +1,33 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+
+    <div class="container">
+        <h1 class="mb-4">Email Subscribers List</h1>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">{{ knp_pagination_sortable(subscribers, 'ID', 'u.id') }}</th>
+                <th scope="col">{{ knp_pagination_sortable(subscribers, 'Email', 'u.email') }}</th>
+
+                <!-- Add other headers as needed -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for subscriber in subscribers %}
+                <tr>
+                    <td>{{ subscriber.id }}</td>
+                    <td>{{ subscriber.email }}</td>
+                    <!-- Add other fields as needed -->
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# Display pagination links #}
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(subscribers) }}
+        </div>
+    </div>
+{% endblock %}
