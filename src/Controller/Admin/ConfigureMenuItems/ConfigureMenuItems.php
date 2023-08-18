@@ -33,13 +33,13 @@ class ConfigureMenuItems
     public function configureMenuItems() : Iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Email Subscriber', 'fa fa-envelope', emailsubscriber::class);
+        yield MenuItem::linkToRoute('Email Subscriber', 'fa fa-envelope', 'admin_email_subscribers');
         yield MenuItem::linkToRoute('Users', 'fa fa-user', 'admin_users');
-        yield MenuItem::subMenu('Loto Management')
+        yield MenuItem::subMenu('Loto')
             ->setSubItems([
                 MenuItem::linkToRoute('Loto', '', 'admin_loto'),
             ]);
-        yield MenuItem::subMenu('Alfa Management')
+        yield MenuItem::subMenu('Alfa')
             ->setSubItems([
                 MenuItem::linkToCrud('Logs', 'fa fa-poll', Logs::class),
                 MenuItem::linkToCrud('Orders', 'fa fa-poll', \App\Entity\Alfa\Order::class),
@@ -47,7 +47,7 @@ class ConfigureMenuItems
                 MenuItem::linkToCrud('Postpaid Request', 'fa fa-poll', PostpaidRequest::class),
                 MenuItem::linkToCrud('Prepaid', 'fa fa-poll', Prepaid::class),
             ]);
-        yield MenuItem::subMenu('Touch Management')
+        yield MenuItem::subMenu('Touch')
             ->setSubItems([
                 MenuItem::linkToCrud('Logs', 'fa fa-poll', \App\Entity\Touch\Logs::class),
                 MenuItem::linkToCrud('Orders', 'fa fa-poll', \App\Entity\Touch\Order::class),
@@ -56,21 +56,21 @@ class ConfigureMenuItems
                 MenuItem::linkToCrud('Prepaid', 'fa fa-poll', \App\Entity\Touch\Prepaid::class),
         ]);
 
-        yield MenuItem::subMenu('Estore Management')
+        yield MenuItem::subMenu('Estore')
             ->setSubItems([
                 MenuItem::linkToCrud('Company', 'fa fa-poll', Company::class),
                 MenuItem::linkToCrud('Price', 'fa fa-dollar-sign', Price::class),
                 MenuItem::linkToCrud('Product', 'fab fa-product-hunt', Product::class),
             ]);
 
-        yield MenuItem::subMenu('Notification Management')
+        yield MenuItem::subMenu('Notification')
             ->setSubItems([
                 MenuItem::linkToCrud('Content', 'fa fa-poll', content::class),
                 MenuItem::linkToCrud('Users', 'fa fa-poll', Users::class),
                 MenuItem::linkToCrud('Template', 'fa fa-poll', Template::class),
                 MenuItem::linkToCrud('Notification', 'fas fa-sms', Notification::class),
             ]);
-        yield MenuItem::subMenu('Shopify Management')
+        yield MenuItem::subMenu('Shopify')
             ->setSubItems([
                 MenuItem::linkToCrud('Logs', 'fa fa-poll', \App\Entity\Shopify\Logs::class),
                 MenuItem::linkToCrud('Merchant Cred', 'fas fa-key', MerchantCredentials::class),
