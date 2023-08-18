@@ -2,18 +2,32 @@
 
    
     {% block main  %}
-        <table class="datagrid">
+        <table class="table">
             <thead>
                 <tr>
                     <td>Id</td>
-                    <td>name</td>
+                    <td>SuyoolUserId</td>
+                    <td>Status</td>
+                    <td>Subscription</td>
+                    <td>Amount</td>
+                    <td>TransId</td>
+                    <td>Currency</td>
+                    <td>Created</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
+                {% for order in orders  %}
+                <tr {% if order.redFlag is defined %}class="redFlag"{% endif %}>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.suyoolUserId }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.subscription }}</td>
+                        <td>{{ order.amount }}</td>
+                        <td>{{ order.transId }}</td>
+                        <td>{{ order.currency }}</td>
+                        <td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
 

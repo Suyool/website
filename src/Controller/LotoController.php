@@ -101,6 +101,8 @@ class LotoController extends AbstractController
                 if($date>1 && $date<=4){
                     
                     $PlayOnce=date("l",strtotime("next thursday"));
+                }else{
+                    $PlayOnce=date("l",strtotime("next monday"));
                 }
                 $current_time = strtotime('now');
 

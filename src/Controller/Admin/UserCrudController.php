@@ -41,7 +41,7 @@ class UserCrudController extends AbstractDashboardController
         $pagination = $this->paginator->paginate(
             $usersRepository,  // Query to paginate
             $currentPage,   // Current page number
-            2              // Records per page
+            5             // Records per page
         );
 
         return $this->render('Admin/Users/index.html.twig', [

@@ -27,6 +27,7 @@ use App\Entity\Shopify\OrdersTest;
 use App\Entity\Shopify\RequestedData;
 use App\Entity\Shopify\Session;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -36,6 +37,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    public function configureAssets(): Assets
+    {
+        return parent::configureAssets()->addWebpackEncoreEntry('admin');;
+
+    }
+
     /**
      * @Route("/dashadmin", name="admin")
      */

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Loto\loto;
 use Doctrine\ORM\EntityRepository;
 
 class OrdersRepository extends EntityRepository
@@ -14,6 +15,50 @@ class OrdersRepository extends EntityRepository
         ->setParameter('orderId',$orderId)
         ->getQuery()
         ->getOneOrNullResult();
+    
     }
+
+    public function OrderSubscription(){
+        $qb= $this->createQueryBuilder('o')
+        ->select('l.ticketId,o.id,o.suyoolUserId,o.status,o.subscription,o.amount,o.currency,o.created,o.transId')
+        ->innerJoin(loto::class,'l')
+        ->where('o.id = l.order ')
+        ->orderBy('o.created','DESC')
+        // ->groupBy('o.id')
+        ->getQuery()
+        ->getResult();
+
+
+        foreach($qb as $row){
+            if(!isset($array[$row['id']])){
+                $array[$row['id']]=['id'=>$row['id'],'suyoolUserId'=>$row['suyoolUserId'],'status'=>$row['status'],'subscription'=>$row['subscription'],'amount'=>$row['amount'],'currency'=>$row['currency'],'transId'=>$row['transId'],'created'=>$row['created']];
+                if($row['ticketId'] == null || $row['ticketId'] == 0){
+                    // $array[$row['id']][]=['ticketId'=>$row['ticketId'],'suyoolUserId'=>$row['suyoolUserId'],'redFlag'=>true];
+
+                   $array[$row['id']]['redFlag']=true;
+                    
+                }else{
+                    // $array[$row['id']][]=['ticketId'=>$row['ticketId'],'suyoolUserId'=>$row['suyoolUserId']];
+
+                }
+            }else{
+                if($row['ticketId'] == null || $row['ticketId'] == 0){
+                    // $array[$row['id']][]=['ticketId'=>$row['ticketId'],'suyoolUserId'=>$row['suyoolUserId'],'redFlag'=>true];
+                    $array[$row['id']]['redFlag']=true;
+
+
+                }else{
+                    // $array[$row['id']][]=['ticketId'=>$row['ticketId'],'suyoolUserId'=>$row['suyoolUserId']];
+
+                }
+
+            }
+            
+        }
+
+        // dd(array_merge($array));
+        return array_merge($array);
+    }
+
 
 }
