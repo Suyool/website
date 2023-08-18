@@ -28,6 +28,8 @@ class OrdersRepository extends EntityRepository
         ->getQuery()
         ->getResult();
 
+        $array=array();
+
 
         foreach($qb as $row){
             if(!isset($array[$row['id']])){
