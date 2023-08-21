@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class lotoAdminController extends AbstractDashboardController
+class lotoAdminController extends AbstractController
 {
 
     private $mr;
@@ -32,19 +32,6 @@ class lotoAdminController extends AbstractDashboardController
         $this->mr=$mr;
         $this->pagination=$pagination;
         $this->request=$request->getCurrentRequest();
-    }
-
-    public function configureAssets(): Assets
-    {
-        return parent::configureAssets()->addWebpackEncoreEntry('admin');;
-
-    }
-
-    public function configureDashboard(): Dashboard
-    {
-        return Dashboard::new()
-                        ->setTitle('Suyool')
-                        ->disableUrlSignatures(); 
     }
 
     /**
@@ -67,21 +54,12 @@ class lotoAdminController extends AbstractDashboardController
 
 
         if ($form->isSubmitted()) {
-            // dd("ok");
-            // $searchQuery=$form->getData();
-            // dd($searchQuery);
+
             $searchQuery=$this->request->get('search_loto_form');
             $orders=$this->mr->getRepository(order::class)->OrderSubscription($searchQuery);
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            // $task = $form->getData();
-
-            // ... perform some action, such as saving the task to the database
 
         }
 
-
-        // $parameters['orders']=$orders;
 
         $pagination = $this->pagination->paginate(
             $orders,  // Query to paginate
@@ -89,13 +67,7 @@ class lotoAdminController extends AbstractDashboardController
             20             // Records per page
         );
 
-        // dd($pagination);
-        // if($pagination->getItems())
-
         $parameters['pagination']=$pagination;
-        // dd($parameters);
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(DefaultController::class)->generateUrl());
 
         return $this->render('Admin/Loto/loto.html.twig',$parameters);
 
@@ -118,21 +90,9 @@ class lotoAdminController extends AbstractDashboardController
             $currentPage,
             20
         );
-        // if($currentPage>1){
-        //     dd($pagination);
-        // }
-
         $parameters['pagination']=$pagination;
 
         return $this->render('Admin/Loto/tickets.html.twig',$parameters);
     }
 
-    
-
-    
-    // public function configureMenuItems(): iterable
-    // {
-    //     $configureMenuItems = new ConfigureMenuItems();
-    //     return $configureMenuItems->configureMenuItems();
-    // }
 }
