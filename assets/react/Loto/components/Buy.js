@@ -140,8 +140,8 @@ const Buy = ({
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/Loto/error.png",
-            title: "Internal Server Error",
-            desc: `Internal Server Error`,
+            title: "Please Try again",
+            desc: `You can not purchase now`,
             // path: response.data.path,
             // btn:'Top up'
           });

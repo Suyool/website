@@ -29,6 +29,12 @@ class order
      */
     private $suyoolUserId;
 
+     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
     /**
      * 
      * @ORM\Column(name="status",type="string")
@@ -136,6 +142,17 @@ class order
     public function getcurrency()
     {
         return $this->currency;
+    }
+
+    public function seterror($error)
+    {
+        $this->error=$error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
     }
 
     public function settransId($transId)

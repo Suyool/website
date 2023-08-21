@@ -1,6 +1,7 @@
 {
   "build/app1.js": "/build/app1.0441501c.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.89a570e1.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.3ed06689.js",
   "build/Alfa.js": "/build/Alfa.7ddc19f9.js",
@@ -10,10 +11,13 @@
   "build/admin.css": "/build/admin.8ae3e3c9.css",
 =======
   "build/Loto.js": "/build/Loto.f5da530c.js",
+=======
+  "build/Loto.js": "/build/Loto.36f1189a.js",
+>>>>>>> f1d2ed0 (handle error api and push it to database)
   "build/LegalEnrollement.js": "/build/LegalEnrollement.eb968c8a.js",
   "build/Alfa.js": "/build/Alfa.d824fb57.js",
   "build/Touch.js": "/build/Touch.81cb9a5c.js",
-  "build/Ogero.js": "/build/Ogero.a097e3a7.js",
+  "build/Ogero.js": "/build/Ogero.7a03f054.js",
   "build/styles.css": "/build/styles.cbfbf3db.css",
   "build/admin.css": "/build/admin.d750f727.css",
 >>>>>>> 7a2b624 (ogero alfa touch security encrypt)

@@ -108,8 +108,8 @@ class PlayLoto extends Command
                     // $this->mr->flush($lotoToBePlayed);
                     $ticketscount++;
                     $newElement = [];
-                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
-                    // $submit=[true,null];
+                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
+                    $submit=[true,null];
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
@@ -176,9 +176,9 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(2);
-                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId = $this->lotoServices->GetTicketId();
                             // dd();
-                            // $ticketId="55";
+                            $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);
                             $lotoToBePlayed->setzeednumber($submit[1]);
 
@@ -267,9 +267,11 @@ class PlayLoto extends Command
                 // dd();
                 $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
                 // var_dump($additionaldata);
+
+                var_dump($updateutility);
                 
                 
-                if ($updateutility) {
+                if ($updateutility[0]) {
                     $held->setamount($newsum)
                         ->setcurrency("LBP")
                         ->setstatus(order::$statusOrder['COMPLETED']);
@@ -286,6 +288,13 @@ class PlayLoto extends Command
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";
                 } else {
+                    $held->setstatus(order::$statusOrder['CANCELED']);
+                    $held->seterror($updateutility[1]);
+
+                    $this->mr->persist($held);
+                    $this->mr->flush();
+
+                    echo $updateutility[1];
                     $status = false;
                     $message = $updateutility[1];
                 }

@@ -434,7 +434,6 @@ class LotoController extends AbstractController
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP);
                 // $pushutility=[true,123];
 
-
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
@@ -469,6 +468,9 @@ class LotoController extends AbstractController
                     // $transId = rand();
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
+                    $orderid->seterror($pushutility[1]);
+                    $orderid->setamount($sum);
+                    $orderid->setcurrency($this->CURRENCY_LBP);
 
                     $this->mr->persist($orderid);
                     $this->mr->flush();
