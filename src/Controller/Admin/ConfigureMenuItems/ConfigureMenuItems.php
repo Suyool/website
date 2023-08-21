@@ -32,12 +32,12 @@ class ConfigureMenuItems
 {
     public function configureMenuItems() : Iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Dashboard', 'fa fa-home','admin');
         yield MenuItem::linkToRoute('Email Subscriber', 'fa fa-envelope', 'admin_email_subscribers');
         yield MenuItem::linkToRoute('Users', 'fa fa-user', 'admin_users');
         yield MenuItem::subMenu('Loto')
             ->setSubItems([
-                MenuItem::linkToRoute('Loto', '', 'admin_loto'),
+                MenuItem::linkToRoute('Orders', '', 'admin_loto_orders'),
             ]);
         yield MenuItem::subMenu('Alfa')
             ->setSubItems([

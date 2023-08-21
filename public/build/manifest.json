@@ -1,5 +1,6 @@
 {
   "build/app1.js": "/build/app1.0441501c.js",
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.89a570e1.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.3ed06689.js",
   "build/Alfa.js": "/build/Alfa.7ddc19f9.js",
@@ -7,6 +8,15 @@
   "build/Ogero.js": "/build/Ogero.26d4570a.js",
   "build/styles.css": "/build/styles.83f67d92.css",
   "build/admin.css": "/build/admin.8ae3e3c9.css",
+=======
+  "build/Loto.js": "/build/Loto.f5da530c.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.eb968c8a.js",
+  "build/Alfa.js": "/build/Alfa.d824fb57.js",
+  "build/Touch.js": "/build/Touch.81cb9a5c.js",
+  "build/Ogero.js": "/build/Ogero.a097e3a7.js",
+  "build/styles.css": "/build/styles.cbfbf3db.css",
+  "build/admin.css": "/build/admin.d750f727.css",
+>>>>>>> 7a2b624 (ogero alfa touch security encrypt)
   "build/Lotostyles.css": "/build/Lotostyles.5a3d9125.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.839214a6.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.99225507.css",

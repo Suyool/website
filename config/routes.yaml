@@ -6,9 +6,10 @@ admin:
   controller: App\Controller\Admin\DashboardController::index
   path: /dashadmin
 
-admin_loto:
-  resource: 'App\Controller\Admin\lotoAdminController'
-  prefix: /dashadmin
+# admin_loto_orders:
+#   resource: 'App\Controller\Admin\lotoAdminController'
+#   prefix: /dashadmin
+
 
 2fa_login:
   path: /2fa

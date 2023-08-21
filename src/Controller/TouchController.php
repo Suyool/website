@@ -25,6 +25,9 @@ class TouchController extends AbstractController
     private $hash_algo;
     private $certificate;
     private $params;
+    public $cipher_algorithme = "AES128";
+    public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
+    public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
 
 
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo,ParameterBagInterface $params)
@@ -38,9 +41,17 @@ class TouchController extends AbstractController
     /**
      * @Route("/touch", name="app_touch")
      */
-    public function index()
+    public function index(NotificationServices $notificationServices)
     {
-        // phpinfo();
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+        if(!isset($_POST['infoString'])){
+            $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            // dd($decrypted_string);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+    
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
         $orders = $this->mr->getRepository(Order::class)->findAll();
         // dd($orders);
@@ -49,6 +60,12 @@ class TouchController extends AbstractController
         return $this->render('touch/index.html.twig', [
             'parameters' => $parameters
         ]);
+    }else{
+        return $this->render('ExceptionHandling.html.twig');
+    }
+    }else{
+        return $this->render('ExceptionHandling.html.twig');
+    }
     }
 
 

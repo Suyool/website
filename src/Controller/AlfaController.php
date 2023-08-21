@@ -27,6 +27,9 @@ class AlfaController extends AbstractController
     private $certificate;
     private $notMr;
     private $params;
+    public $cipher_algorithme = "AES128";
+    public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
+    public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
 
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params)
     {
@@ -40,28 +43,30 @@ class AlfaController extends AbstractController
     /**
      * @Route("/alfa", name="app_alfa")
      */
-    public function index()
+    public function index(NotificationServices $notificationServices)
     {
-        // phpinfo();
-        // $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();
-        // $orders = $this->mr->getRepository(Order::class)->findAll();
-        // dd($orders);
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+        if(!isset($_POST['infoString'])){
+            $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            // dd($decrypted_string);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+    
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
         $parameters['Test'] = "tst";
-        // $param1 = $_GET['param1'];
-        // echo "Param 1: " . $param1 . "<br>";
 
-        // if (isset($_GET['param']) && $_GET['param'] == "suyoolalfa") {
-        //     if(isset($_GET['session'])){
-        //         // echo $_GET['session'];
-        //     }
 
         return $this->render('alfa/index.html.twig', [
             'parameters' => $parameters
         ]);
-        // } else {
-        //     return $this->render('ExceptionHandling.html.twig');
-        //     // return new Response("No route find!!");
-        // }
+    }else{
+        return $this->render('ExceptionHandling.html.twig');
+    }
+    }else{
+        return $this->render('ExceptionHandling.html.twig');
+    }
+
     }
 
 
@@ -209,6 +214,7 @@ class AlfaController extends AbstractController
      */
     public function billPay(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
+           
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
         $SuyoolUserId = 155;
@@ -378,6 +384,7 @@ class AlfaController extends AbstractController
             'flagCode' => $flagCode,
             'data' => $dataPayResponse,
         ], 200);
+    
     }
 
 
