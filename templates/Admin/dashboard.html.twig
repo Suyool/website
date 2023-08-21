@@ -1,8 +1,24 @@
-{% extends '@EasyAdmin/page/content.html.twig' %}
+{% extends 'Admin/base.html.twig' %}
 
-   
-    {% block main  %}
+{% block currentPage %}homepage{% endblock %}
 
-        dashboard
-
-    {% endblock %}
+{% block content %}
+        <div class="panel panel-default multi-panel">
+            <div class="panel-heading">
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12 main-menu">
+                    <div class="row placeholders">
+                        <a class="col-xs-6 col-sm-2 placeholder text-center" href="{{ path('admin_users') }}">
+                            <i class="fa fa-edit"></i>
+                            <h4>Users</h4>
+                        </a>
+                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_email_subscribers') }}">
+                            <i class="fa fa-file-alt"></i>
+                            <h4>Email Subscribers</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
