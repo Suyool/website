@@ -20,27 +20,38 @@ class OgeroController extends AbstractController
 {
     private $mr;
     private $params;
+    public $cipher_algorithme = "AES128";
+    public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
+    public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
 
     public function __construct(ManagerRegistry $mr, ParameterBagInterface $params)
     {
         $this->mr = $mr->getManager('ogero');
-        $this->params=$params;
+        $this->params = $params;
     }
 
     /**
      * @Route("/ogero", name="app_ogero")
      */
-    public function index(): Response
+    public function index(NotificationServices $notificationServices): Response
     {
-        // dd(Order::$statusOrder['COMPLETED']);
-        $parameters['Test'] = "tst";
-        // dd("oki");
-        // $orders = $this->mr->getRepository(Order::class)->findAll();
-        // dd($orders);
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+        if (!isset($_POST['infoString'])) {
+            $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-        return $this->render('ogero/index.html.twig', [
-            'parameters' => $parameters
-        ]);
+
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+                // $parameters['Test'] = "tst";
+                return $this->render('ogero/index.html.twig');
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
     }
 
     /**
@@ -111,10 +122,10 @@ class OgeroController extends AbstractController
     public function billPay(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
 
-        $suyoolServices=new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
+        $suyoolServices = new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $suyoolUserId = 89;
-        
+        $suyoolUserId = 155;
+
         $Landline_With_id = $this->mr->getRepository(LandlineRequest::class)->findOneBy(['id' => $data["LandlineId"]]);
         $flagCode = null;
 
@@ -131,7 +142,7 @@ class OgeroController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $orderTst=$suyoolUserId . "-" .$order->getId() ;
+            $orderTst = $suyoolUserId . "-" . $order->getId();
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'));
 
@@ -201,7 +212,7 @@ class OgeroController extends AbstractController
                     $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, $additionalData);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),"", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 

@@ -62,6 +62,7 @@ class LotoController extends AbstractController
         // dd($this->CURRENCY_LBP);
         // $this->suyoolServices->test();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+        // dd($useragent);
 
         // $TS=time();
 
@@ -92,8 +93,11 @@ class LotoController extends AbstractController
             // dd($_POST['infoString']);
             // $string_to_decrypt=$_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+
+            // dd($devicetype);
     
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
 

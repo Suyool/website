@@ -33,7 +33,7 @@
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.9aa9e6dc.js"
+        "/build/Ogero.a097e3a7.js"
       ]
     },
     "styles": {
@@ -41,7 +41,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.83f67d92.css"
+        "/build/styles.cbfbf3db.css"
       ]
     },
     "admin": {
@@ -49,7 +49,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.8ae3e3c9.css"
+        "/build/admin.d750f727.css"
       ]
     },
     "Lotostyles": {

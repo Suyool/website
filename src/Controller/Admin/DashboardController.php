@@ -45,7 +45,7 @@ class DashboardController extends AbstractDashboardController
     }
 
     /**
-     * @Route("/dashadmin", name="admin")
+     * @Route("/", name="admin")
      */
     public function index(): Response
     {
@@ -56,10 +56,12 @@ class DashboardController extends AbstractDashboardController
 
     }
 
+    
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Suyool');
+                        ->setTitle('Suyool')
+                        ->disableUrlSignatures(); 
     }
 
     public function configureMenuItems(): iterable

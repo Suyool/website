@@ -6,7 +6,7 @@ import Header from "./Header";
 import SuccessModal from "./Modal/SuccessModal";
 import ErrorModal from "./Modal/ErrorModal";
 
-const App = ({ parameters }) => {
+const App = ({}) => {
     // console.log(parameters)
     const [activeButton, setActiveButton] = useState({ name: "" });
     const [getBackLink, setBackLink] = useState({ name: "" });

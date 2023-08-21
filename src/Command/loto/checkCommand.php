@@ -29,7 +29,7 @@ class checkCommand extends Command
         $output->writeln('Checking....');
 
         exec('ps aux | grep app:play | grep -v grep', $processOutput, $returnValuePlay);
-        exec('ps aux | grep app:play | grep -v grep', $processOutput, $returnValueNotification);
+        exec('ps aux | grep app:notificationSend | grep -v grep', $processOutput, $returnValueNotification);
 
         if ($returnValuePlay === 0) {
             $output->writeln('Populate Process is running.');

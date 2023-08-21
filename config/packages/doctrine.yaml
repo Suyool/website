@@ -103,14 +103,14 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Notification'
                         prefix: 'App\Entity\Notification'
                         alias: Notification
-
-        # dql:
-        #     datetime_functions:
-        #         UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
-        #         NOW: DoctrineExtensions\Query\Mysql\Now
-        #         DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
-        #         FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
-        #     string_functions:
-        #         MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
-        #         GREATEST: DoctrineExtensions\Query\Mysql\Greatest
-        #         COLLATE: DoctrineExtensions\Query\Mysql\Collate
+            example_manager:            
+                dql:
+                    datetime_functions:
+                        UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+                        NOW: DoctrineExtensions\Query\Mysql\Now
+                        DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+                        FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+                    string_functions:
+                        MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+                        GREATEST: DoctrineExtensions\Query\Mysql\Greatest
+                        COLLATE: DoctrineExtensions\Query\Mysql\Collate

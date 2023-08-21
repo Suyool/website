@@ -202,6 +202,17 @@ class PlaysRepository extends EntityRepository
         ->getResult();
     }
 
+    public function findLotoTicketByOrderId($order_id){
+        return $this->createQueryBuilder('l')
+        ->select('l')
+        ->where('l.order = :order_id')
+        ->addOrderBy('l.drawNumber','ASC')
+        ->addOrderBy('l.ticketId','0')
+        ->setParameter('order_id',$order_id)
+        ->getQuery()
+        ->getResult();
+    }
+
     
 
 
