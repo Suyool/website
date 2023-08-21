@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class order
 {
 
-    public static $statusOrder = array("PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","COMPLETED"=>"completed","CANCELED"=>"canceled");
+    public static $statusOrder = array("COMPLETED"=>"completed","PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","CANCELED"=>"canceled");
 
     /**
      * @ORM\Id
