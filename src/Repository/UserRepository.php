@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Doctrine\DBAL\Types;
 /**
  * @extends ServiceEntityRepository<User>
  *
@@ -87,7 +87,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $role = $searchFilter['role'];
             // Check if the desired role is ROLE_ADMIN using JSON_CONTAINS
             if ($searchFilter['role'] !=0) {
-                $conditions[] = "JSON_CONTAINS(u.roles, '\"$role\"')";
+                $conditions[] = "u.roles like '%$role%'";
             } else {
                 $conditions[] = "u.roles = ";
             }

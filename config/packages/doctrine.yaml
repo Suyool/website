@@ -40,6 +40,17 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity'
                         prefix: 'App\Entity'
                         alias: App
+                dql:
+                    datetime_functions:
+                        UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+                        NOW: DoctrineExtensions\Query\Mysql\Now
+                        DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+                        FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+                        JSON_CONTAINS: DoctrineExtensions\Query\Mysql\JsonContains
+                    string_functions:
+                        MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+                        GREATEST: DoctrineExtensions\Query\Mysql\Greatest
+                        COLLATE: DoctrineExtensions\Query\Mysql\Collate
             Shopify:
                 connection: Shopify
                 mappings:
@@ -103,14 +114,4 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Notification'
                         prefix: 'App\Entity\Notification'
                         alias: Notification
-            example_manager:            
-                dql:
-                    datetime_functions:
-                        UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
-                        NOW: DoctrineExtensions\Query\Mysql\Now
-                        DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
-                        FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
-                    string_functions:
-                        MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
-                        GREATEST: DoctrineExtensions\Query\Mysql\Greatest
-                        COLLATE: DoctrineExtensions\Query\Mysql\Collate
+
