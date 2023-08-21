@@ -19,5 +19,5 @@ security:
                 path: app_logout   # The logout route name
 
     access_control:
-        - { path: ^/admin_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/dashadmin, roles: ROLE_ADMIN }
+        #- { path: ^/admin_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/dashadmin, roles: ROLE_ADMIN }

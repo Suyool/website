@@ -35,9 +35,9 @@ class UserCrudController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        if (!$this->isGranted('ROLE_ADMIN')) {
-            throw new AccessDeniedException('You do not have permission to access this page.');
-        }
+//        if (!$this->isGranted('ROLE_ADMIN')) {
+//            throw new AccessDeniedException('You do not have permission to access this page.');
+//        }
         $formSearch = $this->createForm(SearchUsersType::class);
         $formSearch->handleRequest($this->request);
         $value = $this->request->get('search_users',"");
