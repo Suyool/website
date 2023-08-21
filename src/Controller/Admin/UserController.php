@@ -2,53 +2,47 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\ConfigureMenuItems\ConfigureMenuItems;
 use App\Entity\User;
 use App\Form\SearchUsersType;
 use Doctrine\Persistence\ManagerRegistry;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\UserFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserCrudController extends AbstractDashboardController
+class UserController extends AbstractController
 {
     private $mr;
-    private $paginator;
-    private $request;
 
-    public function __construct(ManagerRegistry $mr, PaginatorInterface $paginator,RequestStack $request)
+    public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('default');
-        $this->paginator = $paginator;
-        $this->request = $request->getCurrentRequest();
 
     }
 
     /**
-     * @Route("/users", name="admin_users")
+     * @Route("dashadmin/users", name="admin_users")
      */
-    public function index(): Response
+    public function index(Request $request,PaginatorInterface $paginator): Response
     {
 //        if (!$this->isGranted('ROLE_ADMIN')) {
 //            throw new AccessDeniedException('You do not have permission to access this page.');
 //        }
         $formSearch = $this->createForm(SearchUsersType::class);
-        $formSearch->handleRequest($this->request);
-        $value = $this->request->get('search_users',"");
+        $formSearch->handleRequest($request);
+        $value = $request->get('search_users',"");
 
         $UsersQuery = $this->getDoctrine()
             ->getRepository(User::class)
             ->getAllUsers($value);
 
-        $pagination = $this->paginator->paginate(
+        $pagination = $paginator->paginate(
             $UsersQuery,  // Query to paginate
-            $this->request->query->getInt('page', 1),   // Current page number
+            $request->get('page', 1),   // Current page number
             15             // Records per page
         );
 
@@ -60,17 +54,17 @@ class UserCrudController extends AbstractDashboardController
 
     /**
      * @Route(
-     *     "/user/new", name="admin_users_new",
+     *     "dashadmin/user/new", name="admin_users_new",
      * )
      *
      * @Route(
-     *     "/user/edit/{id}", name="edit_user",
+     *     "dashadmin/user/edit/{id}", name="edit_user",
      *     requirements = {
      *           "id": "\d+"
      *     }
      * )
      */
-    public function create($id = null,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create($id = null,UserPasswordEncoderInterface $passwordEncoder,Request $request): Response
     {
 
         $user = new User();
@@ -80,9 +74,11 @@ class UserCrudController extends AbstractDashboardController
                 ->find($id);
         }
 
-        $form = $this->createForm(UserFormType::class, $user);
+        $form = $this->createForm(UserFormType::class, $user, [
+            'is_edit' => isset($id),
+        ]);
 
-        $form->handleRequest($this->request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
@@ -98,17 +94,6 @@ class UserCrudController extends AbstractDashboardController
         return $this->render('Admin/Users/create.html.twig', [
             'form' => $form->createView()
         ]);
-    }
-
-    public function configureMenuItems(): iterable
-    {
-        $configureMenuItems = new ConfigureMenuItems();
-        return $configureMenuItems->configureMenuItems();
-    }
-    public function configureDashboard(): Dashboard
-    {
-        return Dashboard::new()
-            ->disableUrlSignatures();
     }
 }
 

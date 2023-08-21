@@ -1,5 +1,0 @@
-easy_admin:
-    design:
-        menu:
-            - { label: 'Orders', route: 'admin_loto_orders' }
-            - { label: 'Tickets', route: 'admin_loto_tickets' }
