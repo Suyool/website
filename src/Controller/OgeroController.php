@@ -36,14 +36,14 @@ class OgeroController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        if (!isset($_POST['infoString'])) {
-            $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+        if (isset($_POST['infoString'])) {
+            $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 // $parameters['Test'] = "tst";
                 return $this->render('ogero/index.html.twig');
             } else {

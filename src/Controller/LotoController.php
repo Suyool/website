@@ -58,37 +58,12 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-        // dd(loto::$status['PENDING']);
-        // dd($this->CURRENCY_LBP);
-        // $this->suyoolServices->test();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // dd($useragent);
 
-        // $TS=time();
+        if(isset($_POST['infoString'])){
+                    // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
 
-        // $pattern = '/\b(?:Mobile|Tablet|iPhone|iPad|Android|Windows Phone)\b/i';
-        // preg_match($pattern, $useragent, $matches);
-
-        // if (isset($matches[0])) {
-        //     $deviceName = $matches[0];
-        // } else {
-        //     $deviceName = "";
-        // }                                                                                                                                                                                    
-
-        // $session=155;
-
-        // $string="{$session}!#!{$deviceName}!#!1!#!{$TS}";
-
-        // $encryption=openssl_encrypt($string,"AES128",$this->key,0,$this->iv);
-
-       
-
-
-
-        // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
-
-        if(!isset($_POST['infoString'])){
-                    $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+            $string_to_decrypt = $_POST['infoString'];
 
             // dd($_POST['infoString']);
             // $string_to_decrypt=$_POST['infoString'];

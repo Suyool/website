@@ -83,17 +83,18 @@ const Buy = ({
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
       }, 8000);
-    } else if (parameters?.deviceType === "iPhone") {
+    } else if (parameters?.deviceType === "Iphone") {
       console.log("tstIOS");
       // const message = "data";
 
       setTimeout(() => {
-        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
         //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "Hello Native mark!"
         );
-      }, 8000);
+      }, 2000);
     }
   };
 
