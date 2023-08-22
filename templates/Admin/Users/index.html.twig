@@ -31,7 +31,6 @@
             <th scope="col">{{ knp_pagination_sortable(users, 'Updated', 'u.updated') }}</th>
             <th scope="col">{{ 'EDIT'|trans({},'admin') }}</th>
 
-            <!-- Add other headers as needed -->
         </tr>
         </thead>
         <tbody>
@@ -43,17 +42,12 @@
                 <td>{{ user.getRoles()|join(', ') }}</td>
                 <td>{{ user.getCreateDateFormat() }}</td>
                 <td>{{ user.getUpdatedDateFormat() }}</td>
-                <td><a class="btn btn-primary btn-xs" data-title="Edit"
-                       href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa fa-pencil"
-                                                                        aria-hidden="true"></i></a></td>
-
-                <!-- Add other fields as needed -->
+                <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    {# Display pagination links #}
     <div class="pagination justify-content-center">
         {{ knp_pagination_render(users) }}
     </div>

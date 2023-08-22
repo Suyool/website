@@ -1,0 +1,40 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Products</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(products, 'ID', 'pt.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Product ID', 'pt.productId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Product Name', 'pt.productName') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Denomination ID', 'pt.denominationId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Denomination Description', 'pt.denominationDescription') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Parent Config DataId', 'pt.parentConfigurationDataId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Service Code', 'pt.serviceCode') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(products, 'Service Provider Code', 'pt.serviceProviderCode') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.productId }}</td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.denominationId }}</td>
+                <td>{{ product.denominationDescription }}</td>
+                <td>{{ product.parentConfigurationDataId }}</td>
+                <td>{{ product.serviceCode }}</td>
+                <td>{{ product.serviceProviderCode }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(products) }}
+    </div>
+{% endblock %}
+

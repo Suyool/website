@@ -237,4 +237,33 @@ class Orders
 
         return $this;
     }
+    public function setStatusName() {
+        if(isset($this->status)){
+            $status = '';
+            if($this->status == 1) {
+                $status = "Completed";
+            }elseif($this->status == 2) {
+                $status = "Rejected";
+            }else
+                $status = "Pending";
+
+        return $status;
+        }
+        else
+            return Null;
+    }
+
+    public function setFlagName() {
+        if(isset($this->flag)){
+            $flag = '';
+            if($this->flag == 1) {
+                $flag = "Deleted";
+            }else
+                $flag = "Available";
+
+            return $flag;
+        }
+        else
+            return Null;
+    }
 }

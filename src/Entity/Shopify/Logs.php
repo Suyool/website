@@ -117,4 +117,13 @@ class Logs
 
         return $this;
     }
+
+    public function getCreateDateFormat()
+    {
+        if(isset($this->created)){
+            return $this->created->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
 }

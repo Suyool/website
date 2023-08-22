@@ -1,0 +1,40 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Companies</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'ID', 'c.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Company ID', 'c.companyId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Company Description', 'c.companyDescription') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Internal', 'c.internalCode') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Product ID', 'c.productId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Product Description', 'c.productDescription') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Service Code', 'c.servicesCode') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(companies, 'Service Provider Code', 'c.servicesProviderCode') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.companyId }}</td>
+                <td>{{ company.companyDescription }}</td>
+                <td>{{ company.internalCode }}</td>
+                <td>{{ company.productId }}</td>
+                <td>{{ company.productDescription }}</td>
+                <td>{{ company.servicesCode }}</td>
+                <td>{{ company.servicesProviderCode() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(companies) }}
+    </div>
+{% endblock %}
+

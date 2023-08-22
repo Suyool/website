@@ -1,0 +1,37 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">sessions</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'ID', 's.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'Order Id', 's.sessionId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'Shop Name', 's.shop') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'is Online', 's.isOnline') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'Access Token', 's.accessToken') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'Created', 's.createdAt') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(sessions, 'Updated', 's.updatedAT') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for session in sessions %}
+            <tr>
+                <td>{{ session.id }}</td>
+                <td>{{ session.sessionId }}</td>
+                <td>{{ session.shop }}</td>
+                <td>{{ session.isOnline }}</td>
+                <td>{{ session.accessToken }}</td>
+                <td>{{ session.getCreateDateFormat() }}</td>
+                <td>{{ session.getUpdatedDateFormat() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(sessions) }}
+    </div>
+{% endblock %}
+
