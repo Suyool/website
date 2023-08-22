@@ -58,7 +58,6 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-
         // dd(loto::$status['PENDING']);
         // dd($this->CURRENCY_LBP);
         // $this->suyoolServices->test();

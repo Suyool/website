@@ -50,6 +50,7 @@ const PickYourGrid = ({
       const totalAmount = calculateTotalAmount(filledBoxes);
       // Update the total amount whenever the selectedBalls change
       setTotalAmountLLDJ(totalAmount);
+      setTotalAmount(0);
     }, [selectedBalls]);
   }
 
@@ -166,7 +167,7 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-          {selectedBalls.map((number, index) =>
+        {selectedBalls.map((number, index) =>
             index <= 5 ? (
               <div
                 key={index}
