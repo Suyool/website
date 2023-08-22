@@ -14,6 +14,7 @@ const App = ({ parameters }) => {
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Loto");
 
+
   const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
   const [getPickYourGrid, setPickYourGrid] = useState(false);
   const [getBallNumbers, setBallNumbers] = useState(0);
@@ -135,6 +136,7 @@ const App = ({ parameters }) => {
               setSuccessModal={setSuccessModal}
               setErrorModal={setErrorModal}
               setWarningModal={setWarningModal}
+              getDataGetting={getDataGetting}
             />
           )}
         </div>

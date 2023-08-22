@@ -58,6 +58,7 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
+
         // dd(loto::$status['PENDING']);
         // dd($this->CURRENCY_LBP);
         // $this->suyoolServices->test();
@@ -99,7 +100,9 @@ class LotoController extends AbstractController
 
             // dd($devicetype);
     
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+
+                $parameters['deviceType']=$suyoolUserInfo[1];
 
                 $date=date('w');
                 if($date>1 && $date<=4){
@@ -230,7 +233,6 @@ class LotoController extends AbstractController
                 $parameters['prize_loto_perdays'] = $prize_loto_perdays;
                 $parameters['prize_loto_result'] = $prize_loto_result;
 
-                // dd($parameters);
     
     
                 if (isset($data)) {

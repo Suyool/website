@@ -54,7 +54,7 @@ class TouchController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = 155;
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
                 $postpaid = $this->mr->getRepository(Postpaid::class)->findAll();

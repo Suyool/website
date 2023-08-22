@@ -45,7 +45,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               img: "/build/images/alfa/error.png",
               title: jsonResponse.Title,
               desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
+              path: 50,
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);

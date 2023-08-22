@@ -9,7 +9,11 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Loto.72cccdc0.js"
+=======
+        "/build/Loto.58fd947b.js"
+>>>>>>> 3370a96 (handlecheckout test android and iphone)
       ]
     },
     "LegalEnrollement": {
@@ -27,7 +31,11 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Touch.1de29049.js"
+=======
+        "/build/Touch.be770c18.js"
+>>>>>>> 3370a96 (handlecheckout test android and iphone)
       ]
     },
     "Ogero": {

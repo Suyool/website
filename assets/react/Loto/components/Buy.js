@@ -12,13 +12,15 @@ const Buy = ({
   setWarningModal,
   setHeaderTitle,
   setBackLink,
-  getTotalAmount
+  getTotalAmount,
+  getDataGetting,
 }) => {
-  useEffect(()=>{
-    setBackLink(localStorage.getItem('BackPage'));
+  // console.log(parameters?.deviceType);
+  useEffect(() => {
+    setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
-    localStorage.setItem('BackPage','Buy');
-  },[])
+    localStorage.setItem("BackPage", "Buy");
+  }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
@@ -30,13 +32,13 @@ const Buy = ({
   // if (getPlayedBalls != null) {
   //   getPlayedBalls.forEach((item) => {
   //     totalPrice += item.price;
-  //   });    
-  // } 
+  //   });
+  // }
 
   useEffect(() => {
-    console.log("clicked")
+    console.log("clicked");
     // setSelectedOption(0);
-    
+
     // setTotalAmount(totalPrice);
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
@@ -47,7 +49,6 @@ const Buy = ({
       }
     }
     // console.log(totalPrice)
-  
   }, [selectedBallsToShow]);
 
   // getPlayedBalls.forEach((item) => {
@@ -76,112 +77,112 @@ const Buy = ({
     // }
     setSpinnerLoader(true);
     setDisable(true);
-    axios
-      .post("/loto/play", {
-        selectedBalls: selectedBallsToShow,
-      })
-      .then((response) => {
-        const jsonResponse = response.data.message;
-        setSpinnerLoader(false)
-        if (response.data.status) {
-          const amount = response.data.amount;
-          localStorage.removeItem("selectedBalls");
-          setPlayedBalls([]);
+    if (parameters?.deviceType === "Android") {
+      console.log("tstandroid");
+
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 8000);
+    } else if (parameters?.deviceType === "iPhone") {
+      console.log("tstIOS");
+      // const message = "data";
+
+      setTimeout(() => {
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "Hello Native mark!"
+        );
+      }, 8000);
+    }
+  };
+
+  useEffect(() => {
+    console.log(getDataGetting);
+    if (getDataGetting == "hi") {
+      axios
+        .post("/loto/play", {
+          selectedBalls: selectedBallsToShow,
+        })
+        .then((response) => {
+          const jsonResponse = response.data.message;
+          setSpinnerLoader(false);
+          if (response.data.status) {
+            const amount = response.data.amount;
+            localStorage.removeItem("selectedBalls");
+            setPlayedBalls([]);
+            setDisabledBtn(
+              selectedBallsToShow == null ||
+                JSON.parse(selectedBallsToShow).length === 0
+            );
+            setModalName("SuccessModal");
+            setSuccessModal({
+              imgPath: "/build/images/Loto/success.png",
+              title: "LOTO Purchased Successfully",
+              desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
+            });
+            setModalShow(true);
+          } else if (!response.data.status && response.data.flagCode == 10) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/Loto/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (!response.data.status && response.data.flagCode == 11) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/Loto/error.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.ButtonOne.flag,
+              btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          } else if (!response.data.status && response.data.flagCode == 150) {
+            const amount = response.data.amount;
+            setModalName("WarningModal");
+            setWarningModal({
+              imgPath: "/build/images/Loto/warning.png",
+              title: jsonResponse.Title,
+              desc: jsonResponse.SubTitle,
+              path: jsonResponse.flag,
+              btn: jsonResponse.Text,
+            });
+            setModalShow(true);
+          } else {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/Loto/error.png",
+              title: "Please Try again",
+              desc: `You can not purchase now`,
+              // path: response.data.path,
+              // btn:'Top up'
+            });
+            setModalShow(true);
+          }
+        })
+        .catch((error) => {
+          setSpinnerLoader(false);
+          console.log(error);
           setDisabledBtn(
             selectedBallsToShow == null ||
               JSON.parse(selectedBallsToShow).length === 0
           );
-          setModalName("SuccessModal");
-          setSuccessModal({
-            imgPath: "/build/images/Loto/success.png",
-            title: "LOTO Purchased Successfully",
-            desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
-          });
-          setModalShow(true);
-        } else if (!response.data.status && response.data.flagCode == 10) {
-          setModalName("ErrorModal");
-          setErrorModal({
-            img: "/build/images/Loto/error.png",
-            title: jsonResponse.Title,
-            desc: jsonResponse.SubTitle,
-            path: jsonResponse.ButtonOne.flag,
-            btn: jsonResponse.ButtonOne.Text,
-          });
-          setModalShow(true);
-        } else if (
-          !response.data.status &&
-           response.data.flagCode == 11
-        ) {
-          setModalName("ErrorModal");
-          setErrorModal({
-            img: "/build/images/Loto/error.png",
-            title: jsonResponse.Title,
-            desc: jsonResponse.SubTitle,
-            path: jsonResponse.ButtonOne.flag,
-            btn: jsonResponse.ButtonOne.Text,
-          });
-          setModalShow(true);
-        } else if (
-          !response.data.status &&
-          response.data.flagCode == 150
-        ) {
-          const amount = response.data.amount;
-          setModalName("WarningModal");
-          setWarningModal({
-            imgPath: "/build/images/Loto/warning.png",
-            title: jsonResponse.Title,
-            desc: jsonResponse.SubTitle,
-            path: jsonResponse.flag,
-            btn: jsonResponse.Text,
-          });
-          setModalShow(true);
-        } 
-        else {
-          setModalName("ErrorModal");
-          setErrorModal({
-            img: "/build/images/Loto/error.png",
-            title: "Please Try again",
-            desc: `You can not purchase now`,
-            // path: response.data.path,
-            // btn:'Top up'
-          });
-          setModalShow(true);
-        }
-      })
-      .catch((error) => {
-        setSpinnerLoader(false)
-        console.log(error);
-        setDisabledBtn(
-          selectedBallsToShow == null ||
-            JSON.parse(selectedBallsToShow).length === 0
-        );
-      });
-  };
-
-  const handletst = () => {
-    console.log("tst");
-    // const message = "data";
-
-    setTimeout(() => {
-      // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-      //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
-      window.webkit.messageHandlers.callbackHandler.postMessage(
-        "Hello Native mark!"
-      );
-    }, 8000);
-  };
-
-  const handletstAndroid = () => {
-    console.log("tstandroid");
-
-    setTimeout(() => {
-      window.AndroidInterface.callbackHandler("message");
-    }, 8000);
-  };
+        });
+    }
+  },[getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
-      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
+      {getSpinnerLoader && (
+        <div id="spinnerLoader">
+          <Spinner className="spinner" animation="border" variant="secondary" />
+        </div>
+      )}
       {getPlayedBalls &&
         getPlayedBalls.map((ballsSet, index) => {
           const hasBouquet = ballsSet.hasOwnProperty("bouquet");
@@ -280,23 +281,6 @@ const Buy = ({
         }}
       >
         Buy
-      </button>
-      <button
-        className="BuyBtn"
-        onClick={() => {
-          handletst();
-        }}
-      >
-        tst
-      </button>
-
-      <button
-        className="BuyBtn"
-        onClick={() => {
-          handletstAndroid();
-        }}
-      >
-        tst Android
       </button>
     </div>
   );

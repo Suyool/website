@@ -1,10 +1,18 @@
 {
   "build/app1.js": "/build/app1.0441501c.js",
+<<<<<<< HEAD
   "build/Loto.js": "/build/Loto.72cccdc0.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.3ed06689.js",
   "build/Alfa.js": "/build/Alfa.541521e5.js",
   "build/Touch.js": "/build/Touch.1de29049.js",
   "build/Ogero.js": "/build/Ogero.bdf7dec5.js",
+=======
+  "build/Loto.js": "/build/Loto.58fd947b.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.eb968c8a.js",
+  "build/Alfa.js": "/build/Alfa.d9762e25.js",
+  "build/Touch.js": "/build/Touch.be770c18.js",
+  "build/Ogero.js": "/build/Ogero.f56cc75c.js",
+>>>>>>> 3370a96 (handlecheckout test android and iphone)
   "build/styles.css": "/build/styles.cbfbf3db.css",
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.5a3d9125.css",
