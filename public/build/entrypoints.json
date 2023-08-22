@@ -9,11 +9,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Loto.89a570e1.js"
-=======
-        "/build/Loto.36f1189a.js"
->>>>>>> f1d2ed0 (handle error api and push it to database)
+        "/build/Loto.72cccdc0.js"
       ]
     },
     "LegalEnrollement": {
@@ -25,27 +21,19 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.7ddc19f9.js"
+        "/build/Alfa.541521e5.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.010ad491.js"
+        "/build/Touch.1de29049.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Ogero.26d4570a.js"
-=======
-        "/build/Ogero.a097e3a7.js"
->>>>>>> 7a2b624 (ogero alfa touch security encrypt)
-=======
-        "/build/Ogero.7a03f054.js"
->>>>>>> f1d2ed0 (handle error api and push it to database)
+        "/build/Ogero.bdf7dec5.js"
       ]
     },
     "styles": {

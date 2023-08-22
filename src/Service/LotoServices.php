@@ -92,7 +92,7 @@ class LotoServices
                 // $login = $this->Login();
                 // // $login = "a1066b81-af54-4aa3-bd33-0ea4c87777ab";
                 sleep(3);
-                echo "attemp " . $retryattempt;
+                // echo "attemp " . $retryattempt;
                 $retryattempt++;
             }
         }

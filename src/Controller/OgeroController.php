@@ -252,6 +252,10 @@ class OgeroController extends AbstractController
                         $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
                         $message = "Success";
                     } else {
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                        $orderupdate5
+                        ->setstatus(Order::$statusOrder['CANCELED'])
+                        ->seterror($responseUpdateUtilities[1]);
                         $message = "something wrong while UpdateUtilities";
                         $dataPayResponse = -1;
                     }
@@ -260,10 +264,11 @@ class OgeroController extends AbstractController
                     $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                    if ($responseUpdateUtilities) {
+                    if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
-                            ->setstatus(Order::$statusOrder['COMPLETED']);
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
@@ -277,12 +282,17 @@ class OgeroController extends AbstractController
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
-                    ->setstatus(Order::$statusOrder['CANCELED']);
+                    ->setstatus(Order::$statusOrder['CANCELED'])
+                    ->setamount($order->getamount())
+                    ->setcurrency($this->params->get('CURRENCY_LBP'))
+                    ->seterror($response[1]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
                 $message = json_decode($response[1], true);
-                $flagCode = $response[2];
+                if(isset($response[2])){
+                    $flagCode = $response[2];
+                }
                 // $message = $response[1];
                 $dataPayResponse = -1;
             }

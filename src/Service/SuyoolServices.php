@@ -92,7 +92,7 @@ class SuyoolServices
                 return array(false, $message, $flagCode);
             }
         } catch (Exception $e) {
-            echo 'Exception occurred: ' . $e->getMessage();
+            // echo 'Exception occurred: ' . $e->getMessage();
             return array(false, $e->getMessage());
         }
     }
@@ -112,7 +112,7 @@ class SuyoolServices
         // echo $Hash;
         try {
 
-            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPaymentss", [
+            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
                 'body' => json_encode([
                     'transactionID' => $transId,
                     "amountPaid" => $sum,
@@ -140,7 +140,7 @@ class SuyoolServices
                 return array(false, $message);
             }
         } catch (Exception $e) {
-            echo 'Exception occurred: ' . $e->getMessage();
+            // echo 'Exception occurred: ' . $e->getMessage();
             return array(false, $e->getMessage());
         }
     }

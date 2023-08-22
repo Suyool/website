@@ -29,6 +29,12 @@ class Order
     private $suyoolUserId;
 
     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
+    /**
      * @ORM\OneToOne(targetEntity="Postpaid",fetch="EAGER")
      * @ORM\JoinColumn(name="postpaid_id", referencedColumnName="id")
      */
@@ -100,6 +106,17 @@ class Order
     public function setamount($amount)
     {
         $this->amount = $amount;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
         return $this;
     }
 

@@ -81,7 +81,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           })
           setModalShow(true);
         } else {
-          console.log(response.data.flagCode)
+          // console.log(response.data.flagCode)
           if (response.data.IsSuccess == false && response.data.flagCode == 10) {
             setModalName("ErrorModal");
             setErrorModal({
@@ -103,6 +103,17 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
               desc: jsonResponse.SubTitle,
               path: jsonResponse.ButtonOne.Flag,
               btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }
+          else{
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: `You can not purchase now`,
+              // path: response.data.path,
+              // btn:'Top up'
             });
             setModalShow(true);
           }

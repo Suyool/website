@@ -41,6 +41,12 @@ class Order
      */
     private $status;
 
+     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
     /**
      * 
      * @ORM\Column(type="integer")
@@ -132,5 +138,16 @@ class Order
     {
         $this->transId = $transId;
         return $this;
+    }
+
+    public function seterror($error)
+    {
+        $this->error=$error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
     }
 }
