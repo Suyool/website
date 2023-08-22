@@ -304,4 +304,20 @@ class Session
 
         return $this;
     }
+    public function getCreateDateFormat()
+    {
+        if(isset($this->createdAt)){
+            return $this->createdAt->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
+    public function getUpdatedDateFormat()
+    {
+        if(isset($this->updatedAt)){
+            return $this->updatedAt->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
 }

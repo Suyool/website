@@ -1,0 +1,37 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Requested Data</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'ID', 'rq.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'Request Id', 'rq.requestId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'Shop Name', 'rq.shop') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'Data', 'rq.data') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'Created', 'rq.created') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(requestedData, 'Updated', 'rq.updated') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in requestedData %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.requestId }}</td>
+                <td>{{ data.shop }}</td>
+                <td>{{ data.data }}</td>
+                <td>{{ data.getCreateDateFormat() }}</td>
+                <td>{{ data.getUpdatedDateFormat() }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(requestedData) }}
+    </div>
+{% endblock %}
+

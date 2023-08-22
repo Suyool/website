@@ -19,31 +19,51 @@
                         <a href="{{ path('admin_email_subscribers') }}" class="nav-link px-0 align-middle">
                             <i class="far fa-envelope"></i> <span class="ms-1 d-none d-sm-inline">Email subscriber</span></a>
                     </li>
-
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Alfa</span> </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                            </li>
-                        </ul>
-                    </li>
                     <li>
                         <a href="#loto" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Loto</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="loto" data-bs-parent="#menu">
                             <li class="w-100">
                                 <a href="{{ path('admin_loto_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#shopify" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Shopify</span> </a>
+                        <ul class="collapse nav flex-column ms-1" id="shopify" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_credentials') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Credentials</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_ordersTest') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders Test</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_session') }}" class="nav-link px-0"> <i class="fa-solid fa-cloud"></i> <span class="d-none d-sm-inline">Sessions</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_requestedData') }}" class="nav-link px-0"> <i class="fa-solid fa-server"></i> <span class="d-none d-sm-inline">Requested Data</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-database"></i> <span class="d-none d-sm-inline">Logs</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#estores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">EStores</span> </a>
+                        <ul class="collapse nav flex-column ms-1" id="estores" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_company') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Companies</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_price') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">Prices</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_products') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Products</span></a>
                             </li>
                         </ul>
                     </li>

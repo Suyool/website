@@ -1,0 +1,40 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Orders</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'ID', 'o.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Order Id', 'o.orderId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Shop Name', 'o.shopName') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Amount', 'o.amount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Currency', 'o.currency') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Status', 'o.status') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Merchant ID', 'o.merchantId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Flag', 'o.flag') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr class="{% if order.flag ==1 %}redFlag{% endif %}">
+                <td>{{ order.id }}</td>
+                <td>{{ order.orderId }}</td>
+                <td>{{ order.shopName }}</td>
+                <td>{{ order.amount }}</td>
+                <td>{{ order.currency }}</td>
+                <td>{{ order.setStatusName() }}</td>
+                <td>{{ order.merchantId }}</td>
+                <td>{{ order.setFlagName() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(orders) }}
+    </div>
+{% endblock %}
+
