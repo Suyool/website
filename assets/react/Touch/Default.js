@@ -41,7 +41,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink 
       >
         <img className="logoImg" src="/build/images/touch/touchLogo.png" alt="touchLogo" />
         <div className="Text">
-          <div className="SubTitle">Re-charge Touch</div>
+          <div className="SubTitle">Buy Code To Re-charge</div>
           <div className="description">Recharge your Touch prepaid number</div>
         </div>
       </div>

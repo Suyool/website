@@ -52,10 +52,14 @@ class OgeroController extends AbstractController
     public function bill(Request $request, BobServices $bobServices)
     {
         $data = json_decode($request->getContent(), true);
+        $displayedFees = 0;
+
         if ($data != null) {
             $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
+            // dd($RetrieveChannel);
             if ($RetrieveChannel[0] == true) {
                 $resp = $RetrieveChannel[1]["Values"];
+                $displayedFees = intval($resp["Fees"])+intval($resp["Fees1"])+intval($resp["AdditionalFees"])+intval($resp["OgeroFees"]);
 
                 $LandlineReq = new LandlineRequest;
                 $LandlineReq
@@ -77,6 +81,7 @@ class OgeroController extends AbstractController
                     ->setadditionalFees($resp["AdditionalFees"])
                     ->setfees($resp["Fees"])
                     ->setfees1($resp["Fees1"])
+                    ->setdisplayedFees($displayedFees)
                     ->setrounding($resp["Rounding"]);
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
@@ -98,7 +103,8 @@ class OgeroController extends AbstractController
             'status' => true,
             'message' => $message,
             'mobileNb' => $mobileNb,
-            'LandlineReqId' => $LandlineReqId
+            'LandlineReqId' => $LandlineReqId,
+            'displayedFees' => $displayedFees,
         ], 200);
     }
 
@@ -161,6 +167,7 @@ class OgeroController extends AbstractController
                         ->setogeroInitiationDate($Landline_With_id->getogeroInitiationDate())
                         ->setogeroClientName($Landline_With_id->getogeroClientName())
                         ->setogeroAddress($Landline_With_id->getogeroAddress())
+                        ->setdisplayedFees($Landline_With_id->getdisplayedFees())
                         ->setcurrency($Landline_With_id->getcurrency())
                         ->setamount($Landline_With_id->getamount())
                         ->setamount1($Landline_With_id->getamount1())
@@ -196,12 +203,32 @@ class OgeroController extends AbstractController
                     ]);
                     $additionalData = "";
 
-                    $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                    $content = $notificationServices->getContent('AcceptedOgeroPayment');
                     $bulk = 0; //1 for broadcast 0 for unicast
                     $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, $additionalData);
 
+                    $updateUtilitiesAdditionalData = json_encode([
+                        'OgeroPenalty' => $Landline_With_id->getogeroPenalty(),
+                        'Amount' => $Landline_With_id->getamount(),
+                        'OgeroFees' => $Landline_With_id->getogeroFees(),
+                        'OgeroInitiationDate' => $Landline_With_id->getogeroInitiationDate(),
+                        'Amount1' => $Landline_With_id->getamount1(),
+                        'Amount2' => $Landline_With_id->getamount2(),
+                        'OgeroAddress' => $Landline_With_id->getogeroAddress(),
+                        'TransactionId' => $Landline_With_id->gettransactionId(),
+                        'Fees' => $Landline_With_id->getfees(),
+                        'OgeroBills' => $Landline_With_id->getogeroBills(),
+                        'Fees1' => $Landline_With_id->getfees1(),
+                        'OgeroClientName' => $Landline_With_id->getogeroClientName(),
+                        'TotalAmount' => $Landline_With_id->gettotalAmount(),
+                        'Currency' => $Landline_With_id->getcurrency(),  
+                        'Rounding' => $Landline_With_id->getrounding(),  
+                        'OgeroTotalAmount' => $Landline_With_id->getogeroTotalAmount(),  
+                        'AdditionalFees' => $Landline_With_id->getadditionalFees(),  
+                    ]);
+
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),"", $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),$updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 

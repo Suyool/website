@@ -109,6 +109,10 @@ class LandlineRequest
     private $fees1;
 
     /**
+     * @ORM\Column(name="displayedFees")
+     */
+    private $displayedFees;
+    /**
      * @ORM\Column(name="rounding",type="integer")
      */
     private $rounding;
@@ -123,6 +127,16 @@ class LandlineRequest
         return $this->id;
     }
 
+    public function getdisplayedFees()
+    {
+        return $this->displayedFees;
+    }
+
+    public function setdisplayedFees($displayedFees)
+    {
+        $this->displayedFees = $displayedFees;
+        return $this;
+    }
 
     public function getadditionalFees()
     {

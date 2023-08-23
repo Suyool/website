@@ -14,6 +14,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   const [getResponseId, setResponseId] = useState(null);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getDisplayData, setDisplayData] = useState([]);
+  const [getdisplayedFees, setdisplayedFees] = useState("");
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -45,6 +46,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
           console.log(response);
           if (response.data?.isSuccess) {
             setDisplayData(response?.data?.displayData);
+            setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
           } else {
@@ -120,7 +122,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             <div className="brBoucket"></div>
             <div className="titles">
               <div className="titleGrid">Payment Confirmation</div>
-              <button onClick={() => { setActiveButton({ name: "PayBill" }); }}>Cancel</button>
+              <button onClick={() => { setActiveButton({ name: "" }); }}>Cancel</button>
             </div>
           </div>
 
@@ -147,7 +149,12 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
               <div className="value1">LBP {parseInt(getDisplayData.Amount).toLocaleString()}</div>
             </div>
 
-            <div className="taxes">*All taxes included</div>
+            <div className="MoreInfo">
+              <div className="label">Fees in LBP (Sayrafa Rate)</div>
+              <div className="value1">LBP {parseInt(getdisplayedFees).toLocaleString()}</div>
+            </div>
+            
+            {/* <div className="taxes">*All taxes included</div> */}
 
             <div className="br"></div>
 
