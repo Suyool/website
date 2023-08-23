@@ -78,21 +78,19 @@ const Buy = ({
     setSpinnerLoader(true);
     setDisable(true);
     if (parameters?.deviceType === "Android") {
-      console.log("tstandroid");
 
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
       }, 8000);
     } else if (parameters?.deviceType === "Iphone") {
-      console.log("tstIOS");
       // const message = "data";
 
       setTimeout(() => {
-        window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
         //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
 
         window.webkit.messageHandlers.callbackHandler.postMessage(
-          "Hello Native mark!"
+          "fingerprint"
         );
       }, 2000);
     }
@@ -100,13 +98,14 @@ const Buy = ({
 
   useEffect(() => {
     console.log(getDataGetting);
-    if (getDataGetting == "hi") {
+    if (getDataGetting == "success") {
       axios
         .post("/loto/play", {
           selectedBalls: selectedBallsToShow,
         })
         .then((response) => {
           const jsonResponse = response.data.message;
+          console.log(jsonResponse);
           setSpinnerLoader(false);
           if (response.data.status) {
             const amount = response.data.amount;
@@ -129,7 +128,7 @@ const Buy = ({
               img: "/build/images/Loto/error.png",
               title: jsonResponse.Title,
               desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.flag,
+              path: jsonResponse.ButtonOne.Flag,
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
@@ -139,7 +138,7 @@ const Buy = ({
               img: "/build/images/Loto/error.png",
               title: jsonResponse.Title,
               desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.flag,
+              path: jsonResponse.ButtonOne.Flag,
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);

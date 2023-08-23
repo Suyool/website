@@ -61,6 +61,7 @@ class LotoController extends AbstractController
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
         if(isset($_POST['infoString'])){
+            // dd("ok");
                     // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
 
             $string_to_decrypt = $_POST['infoString'];

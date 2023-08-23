@@ -55,11 +55,13 @@ const App = ({ parameters }) => {
     img: "/build/images/Loto//build/images/Loto/error.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",
+    path: ""
   });
   const [getWarningModal, setWarningModal] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/warning.png",
     title: "Warning Modal",
     desc: "Warning Modal",
+    path: ""
   });
 
   return (
