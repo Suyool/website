@@ -41,6 +41,12 @@ class Order
      */
     private $status;
 
+     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
     /**
      * 
      * @ORM\Column(type="integer")
@@ -109,9 +115,13 @@ class Order
         return $this->currency;
     }
 
-    public function getlandlineId()
+    public function getLandlineId()
     {
-        return $this->landline;
+        if ($this->landline) {
+            return $this->landline->getId();
+        }
+
+        return null;
     }
     public function setlandlineId(?Landline $landline_id): self
     {
@@ -128,5 +138,16 @@ class Order
     {
         $this->transId = $transId;
         return $this;
+    }
+
+    public function seterror($error)
+    {
+        $this->error=$error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
     }
 }

@@ -1,0 +1,52 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block currentPage %}LOTO_order{% endblock %}
+
+
+    {% block content  %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>ticketId</th>
+                    <th>drawNumber</th>
+                    <th>numdraws</th>
+                    <th>withZeed</th>
+                    <th>gridSelected</th>
+                    <th>zeednumbers</th>
+                    <th>price</th>
+                    <th>currency</th>
+                    <th>bouquet</th>
+                    <th>created</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for tickets in pagination  %}
+                    {# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
+                <tr {% if tickets.ticketId == 0 %}class="redFlag" {% endif %}>
+                        <td>{{ tickets.id }}</td>
+                        <td>{{ tickets.ticketId }}</td>
+                        <td>{{ tickets.drawNumber }}</td>
+                        <td>{{ tickets.numdraws }}</td>
+                        <td>{{ tickets.withZeed }}</td>
+                        <td>{{ tickets.gridSelected|split('|')|join('<br>')|raw }}</td>
+                        <td>{{ tickets.getzeednumber() }}</td>
+                        <td>{{ tickets.price }}</td>
+                        <td>{{ tickets.currency }}</td>
+                        <td>{{ tickets.bouquet }}</td>
+                        <td>{{ tickets.created|date("Y-m-d H:i:s") }}</td>
+                    </tr>
+                    {# </a> #}
+                {% endfor %}
+    
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        {% if pagination.getItems() == null %}
+            <div class="orderEmpty">Tickets empty</div>
+        {% endif %}
+    {% endblock %}
+    

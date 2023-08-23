@@ -62,6 +62,16 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
+          }else{
+            setModalName("ErrorModal");
+            setErrorModal({
+              imgPath: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: `You can not purchase now`,
+              // path: response.data.path,
+              // btn:'Top up'
+            });
+            setModalShow(true);
           }
         }
       })

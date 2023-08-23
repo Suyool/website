@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2023 at 10:14 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.26
+-- Generation Time: Aug 22, 2023 at 09:18 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,17 +49,18 @@ CREATE TABLE `landline` (
   `additionalFees` varchar(50) NOT NULL,
   `fees` varchar(50) NOT NULL,
   `fees1` varchar(50) NOT NULL,
+  `displayedFees` int(50) DEFAULT NULL,
   `rounding` varchar(50) NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `landline`
 --
 
-INSERT INTO `landline` (`id`, `suyoolUserId`, `gsmNumber`, `transactionId`, `transactionDescription`, `referenceNumber`, `ogeroBills`, `ogeroPenalty`, `ogeroInitiationDate`, `ogeroClientName`, `ogeroAddress`, `currency`, `amount`, `amount1`, `amount2`, `totalAmount`, `ogeroTotalAmount`, `ogeroFees`, `additionalFees`, `fees`, `fees1`, `rounding`, `created`, `updated`) VALUES
-(1, 89, 1123120, 1735641, '20230800000196', '20230800000196', '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', '0', '2023-08-11 10:48:12', '2023-08-11 10:48:12');
+INSERT INTO `landline` (`id`, `suyoolUserId`, `gsmNumber`, `transactionId`, `transactionDescription`, `referenceNumber`, `ogeroBills`, `ogeroPenalty`, `ogeroInitiationDate`, `ogeroClientName`, `ogeroAddress`, `currency`, `amount`, `amount1`, `amount2`, `totalAmount`, `ogeroTotalAmount`, `ogeroFees`, `additionalFees`, `fees`, `fees1`, `displayedFees`, `rounding`, `created`, `updated`) VALUES
+(1, 155, 1123120, 1735835, '20230800000363', '20230800000363', '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 10:10:01', '2023-08-21 10:10:01');
 
 -- --------------------------------------------------------
 
@@ -87,17 +88,24 @@ CREATE TABLE `landlinerequest` (
   `additionalFees` varchar(50) NOT NULL,
   `fees` varchar(50) NOT NULL,
   `fees1` varchar(50) NOT NULL,
+  `displayedFees` int(50) DEFAULT NULL,
   `rounding` varchar(50) NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `landlinerequest`
 --
 
-INSERT INTO `landlinerequest` (`id`, `suyoolUserId`, `gsmNumber`, `transactionId`, `ogeroBills`, `ogeroPenalty`, `ogeroInitiationDate`, `ogeroClientName`, `ogeroAddress`, `currency`, `amount`, `amount1`, `amount2`, `totalAmount`, `ogeroTotalAmount`, `ogeroFees`, `additionalFees`, `fees`, `fees1`, `rounding`, `created`, `updated`) VALUES
-(1, 89, '01123120', 1735641, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', '0', '2023-08-11 10:48:04', '2023-08-11 10:48:04');
+INSERT INTO `landlinerequest` (`id`, `suyoolUserId`, `gsmNumber`, `transactionId`, `ogeroBills`, `ogeroPenalty`, `ogeroInitiationDate`, `ogeroClientName`, `ogeroAddress`, `currency`, `amount`, `amount1`, `amount2`, `totalAmount`, `ogeroTotalAmount`, `ogeroFees`, `additionalFees`, `fees`, `fees1`, `displayedFees`, `rounding`, `created`, `updated`) VALUES
+(1, 89, '01123120', 1735835, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 10:09:37', '2023-08-21 10:09:37'),
+(2, 89, '01123120', 1735842, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 12:28:04', '2023-08-21 12:28:04'),
+(3, 89, '01123120', 1735843, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 13:36:30', '2023-08-21 13:36:30'),
+(4, 89, '01123120', 1735844, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 13:39:47', '2023-08-21 13:39:47'),
+(5, 89, '01123120', 1735845, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 13:43:00', '2023-08-21 13:43:00'),
+(6, 89, '01123120', 1735846, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 13:44:23', '2023-08-21 13:44:23'),
+(7, 89, '01123120', 1735847, '[{\"Year\":\"2019\",\"Amount\":\"50,000\",\"Month\":\"5\"}]', '', '15/08/1945', 'ملحم بركات', 'كفرشيما ش. نزار فرنسيس ب. ماجدة الرومي / ملكه', 'LBP', '52000', '50000', '0', '53000', '52000', '2000', '0', '1000', '0', NULL, '0', '2023-08-21 13:45:52', '2023-08-21 13:45:52');
 
 -- --------------------------------------------------------
 
@@ -113,17 +121,22 @@ CREATE TABLE `orders` (
   `status` varchar(30) NOT NULL,
   `amount` int(50) DEFAULT NULL,
   `currency` varchar(11) DEFAULT NULL,
+  `errorInfo` text DEFAULT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `suyoolUserId`, `transId`, `landline_id`, `status`, `amount`, `currency`, `create_date`, `update_date`) VALUES
-(1, 89, NULL, NULL, 'pending', 53000, 'LBP', '2023-08-11 10:45:18', '2023-08-11 10:45:18'),
-(2, 89, 1234, 1, 'completed', 53000, 'LBP', '2023-08-11 10:48:06', '2023-08-11 10:48:13');
+INSERT INTO `orders` (`id`, `suyoolUserId`, `transId`, `landline_id`, `status`, `amount`, `currency`, `errorInfo`, `create_date`, `update_date`) VALUES
+(1, 155, 9150, 1, 'completed', 53000, 'LBP', NULL, '2023-08-21 10:09:46', '2023-08-21 10:10:01'),
+(3, 155, NULL, NULL, 'canceled', 53000, 'LBP', 'HTTP/1.1 404 Not Found returned for \"http://10.20.80.62/SuyoolGlobalAPIs/api/Utilities/PushUtilityPayments\".', '2023-08-21 13:36:32', '2023-08-21 13:36:34'),
+(4, 155, NULL, NULL, 'canceled', 53000, 'LBP', 'HTTP/1.1 404 Not Found returned for \"http://10.20.80.62/SuyoolGlobalAPIs/api/Utilities/PushUtilityPayments\".', '2023-08-21 13:39:50', '2023-08-21 13:39:50'),
+(5, 155, NULL, NULL, 'canceled', 53000, 'LBP', 'HTTP/1.1 404 Not Found returned for \"http://10.20.80.62/SuyoolGlobalAPIs/api/Utilities/PushUtilityPayments\".', '2023-08-21 13:43:02', '2023-08-21 13:43:02'),
+(6, 155, NULL, NULL, 'canceled', 53000, 'LBP', 'HTTP/1.1 404 Not Found returned for \"http://10.20.80.62/SuyoolGlobalAPIs/api/Utilities/PushUtilityPayments\".', '2023-08-21 13:44:25', '2023-08-21 13:44:25'),
+(7, 155, NULL, NULL, 'canceled', 53000, 'LBP', 'HTTP/1.1 404 Not Found returned for \"http://10.20.80.62/SuyoolGlobalAPIs/api/Utilities/PushUtilityPayments\".', '2023-08-21 13:45:53', '2023-08-21 13:45:53');
 
 --
 -- Indexes for dumped tables
@@ -162,13 +175,13 @@ ALTER TABLE `landline`
 -- AUTO_INCREMENT for table `landlinerequest`
 --
 ALTER TABLE `landlinerequest`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

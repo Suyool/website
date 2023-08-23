@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("70102030");
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
@@ -30,9 +30,17 @@ const PayBill = ({ setPostpaidData, activeButton, setActiveButton, setHeaderTitl
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId })
-        } else {
-          console.log("something went wrong!!")
-        }
+        }  else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: "Please Try again",
+            desc: `Mobile number not found`,
+            // path: response.data.path,
+            // btn:'Top up'
+          });
+          setModalShow(true);
+      }
       })
       .catch((error) => {
         console.log(error);

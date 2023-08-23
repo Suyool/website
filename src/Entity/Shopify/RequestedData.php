@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="requested_data")
+ * @ORM\Table(name="suyool_shopify.requested_data")
  * @ORM\HasLifecycleCallbacks
  */
 class RequestedData
@@ -149,5 +149,20 @@ class RequestedData
 
         return $this;
     }
-
+    public function getCreateDateFormat()
+    {
+        if(isset($this->created)){
+            return $this->created->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
+    public function getUpdatedDateFormat()
+    {
+        if(isset($this->updated)){
+            return $this->updated->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
 }

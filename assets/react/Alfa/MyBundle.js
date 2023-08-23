@@ -60,6 +60,16 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
+          }else{
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: jsonResponse,
+              // path: response.data.path,
+              // btn:'Top up'
+            });
+            setModalShow(true);
           }
         }
         // console.log(response);

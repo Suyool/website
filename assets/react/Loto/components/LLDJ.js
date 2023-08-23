@@ -192,7 +192,7 @@ const LLDJ = ({
                     className="letsPlayBtn"
                     onClick={() => {
                       setBallNumbers(item.numbers);
-                      setTotalAmount(item.price);
+                      setTotalAmountLLDJ(item.price);
                       setPickYourGrid(true);
                       setIsHide(true);
                       setPlay(0);

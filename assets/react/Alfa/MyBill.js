@@ -105,6 +105,16 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
+          }else{
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: `You can not purchase now`,
+              // path: response.data.path,
+              // btn:'Top up'
+            });
+            setModalShow(true);
           }
         }
       })

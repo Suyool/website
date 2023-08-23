@@ -1,0 +1,36 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Logs Data</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'ID', 'l.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Order Id', 'l.orderId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Rquest', 'l.request') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Response', 'l.response') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'ENV', 'l.env') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Created', 'l.created') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in logs %}
+            <tr>
+                <td>{{ log.id }}</td>
+                <td>{{ log.orderId }}</td>
+                <td>{{ log.request }}</td>
+                <td>{{ log.response }}</td>
+                <td>{{ log.env }}</td>
+                <td>{{ log.getCreateDateFormat() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(logs) }}
+    </div>
+{% endblock %}
+

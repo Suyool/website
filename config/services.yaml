@@ -45,6 +45,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Form/'
 
     ReCaptcha\ReCaptcha:
         arguments:
@@ -78,7 +79,7 @@ services:
     App\Service\SuyoolServices:
         arguments:
             $merchantAccountID: ''
-    
+
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'

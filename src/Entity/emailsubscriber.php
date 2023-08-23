@@ -25,6 +25,16 @@ class emailsubscriber
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="datetime", name="created",nullable=true)
+     */
+    private $created;
+
+    /**
+     * @ORM\Column(type="datetime", name="updated",nullable=true)
+     */
+    private $updated;
+
     public function getId(){
         return $this->id;
     }
@@ -33,15 +43,27 @@ class emailsubscriber
         return $this;
     }
     public function getEmail(){
-        return $this->id;
+        return $this->email;
     }
     public function setEmail($email){
         $this->email=$email;
         return $this;
     }
-//    public function getCreated(){
-//        return $this->created;
-//    }
+    public function getCreated(){
+        return $this->created;
+    }
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+    public function getCreateDateFormat()
+    {
+        if(isset($this->created)){
+            return $this->created->format('h:i Y-m-d');
+        }
+        else
+            return Null;
+    }
 //    public function setCreated($created){
 //        $this->created=$created;
 //        return $this;

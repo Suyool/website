@@ -34,7 +34,7 @@ const App = ({ parameters }) => {
                     <>
                         {activeButton.name === "" && <Default SetVoucherData={SetVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "PayBill" && <PayBill setPostpaidData={setPostpaidData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "PayBill" && <PayBill setPostpaidData={setPostpaidData} setModalShow={setModalShow} setErrorModal={setErrorModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                         {activeButton.name === "ReCharge" && <ReCharge setPrepaidVoucher={setPrepaidVoucher} getVoucherData={getVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
                         {activeButton.name === "MyBill" && <MyBill getPostpaidData={getPostpaidData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}

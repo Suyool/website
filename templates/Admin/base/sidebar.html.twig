@@ -1,0 +1,151 @@
+<div class="col-md-2 sidebar">
+    <div class="flex-nowrap">
+        <div class="col-auto bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/dashadmin" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Suyool Admin</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/dashadmin" class="nav-link align-middle px-0">
+                            <i class="fas fa-home"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_users') }}" class="nav-link px-0 align-middle">
+                            <i class="fas fa-user"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_email_subscribers') }}" class="nav-link px-0 align-middle">
+                            <i class="far fa-envelope"></i> <span class="ms-1 d-none d-sm-inline">Email subscriber</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#loto" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Loto</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="loto" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_loto_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#shopify" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Shopify</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="shopify" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_credentials') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Credentials</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_ordersTest') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline">Orders Test</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_session') }}" class="nav-link px-0"> <i class="fa-solid fa-cloud"></i> <span class="d-none d-sm-inline">Sessions</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_requestedData') }}" class="nav-link px-0"> <i class="fa-solid fa-server"></i> <span class="d-none d-sm-inline">Requested Data</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_shopify_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-database"></i> <span class="d-none d-sm-inline">Logs</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#estores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">EStores</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="estores" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_company') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Companies</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_price') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">Prices</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_estore_products') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Products</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#alfa" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Alfa</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="alfa" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_alfa_prepaid') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Prepaid</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_alfa_postpaidRequest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">Postpaid Request</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_alfa_postpaid') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Postpaid</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_alfa_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_alfa_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Logs</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#touch" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Touch</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="touch" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_touch_prepaid') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">Prepaid</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_touch_postpaidRequest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">Postpaid Request</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_touch_postpaid') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Postpaid</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_touch_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_touch_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Logs</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#ogero" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Ogero</span> </a>
+                        <ul class="collapse nav flex-column ms-1" id="ogero" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_ogero_landLine') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">LandLine</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_ogero_landLineReqest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">LandLine Request</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_ogero_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    {% if app.user %}
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">{{ app.user.username }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -58,49 +58,33 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-        // dd(loto::$status['PENDING']);
-        // dd($this->CURRENCY_LBP);
-        // $this->suyoolServices->test();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-        // $TS=time();
+        if(isset($_POST['infoString'])){
+            // dd("ok");
+                    // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
 
-        // $pattern = '/\b(?:Mobile|Tablet|iPhone|iPad|Android|Windows Phone)\b/i';
-        // preg_match($pattern, $useragent, $matches);
-
-        // if (isset($matches[0])) {
-        //     $deviceName = $matches[0];
-        // } else {
-        //     $deviceName = "";
-        // }                                                                                                                                                                                    
-
-        // $session=155;
-
-        // $string="{$session}!#!{$deviceName}!#!1!#!{$TS}";
-
-        // $encryption=openssl_encrypt($string,"AES128",$this->key,0,$this->iv);
-
-       
-
-
-
-        // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
-
-        if(!isset($_POST['infoString'])){
-                    $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+            $string_to_decrypt = $_POST['infoString'];
 
             // dd($_POST['infoString']);
             // $string_to_decrypt=$_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+
+            // dd($devicetype);
     
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+
+                $parameters['deviceType']=$suyoolUserInfo[1];
 
                 $date=date('w');
                 if($date>1 && $date<=4){
                     
                     $PlayOnce=date("l",strtotime("next thursday"));
+                }else{
+                    $PlayOnce=date("l",strtotime("next monday"));
                 }
                 $current_time = strtotime('now');
 
@@ -224,7 +208,6 @@ class LotoController extends AbstractController
                 $parameters['prize_loto_perdays'] = $prize_loto_perdays;
                 $parameters['prize_loto_result'] = $prize_loto_result;
 
-                // dd($parameters);
     
     
                 if (isset($data)) {
@@ -428,7 +411,6 @@ class LotoController extends AbstractController
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP);
                 // $pushutility=[true,123];
 
-
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
@@ -463,6 +445,9 @@ class LotoController extends AbstractController
                     // $transId = rand();
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
+                    $orderid->seterror($pushutility[1]);
+                    $orderid->setamount($sum);
+                    $orderid->setcurrency($this->CURRENCY_LBP);
 
                     $this->mr->persist($orderid);
                     $this->mr->flush();

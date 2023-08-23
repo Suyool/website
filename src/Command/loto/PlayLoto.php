@@ -113,11 +113,11 @@ class PlayLoto extends Command
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
-                            // $ticketId = $this->lotoServices->GetTicketId();
-                            $ticketId = "55";
+                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId = "55";
                             sleep(2);
-                            // $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
-                            $BouquetGrids = "1 2 3 4 5 6";
+                            $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            // $BouquetGrids = "1 2 3 4 5 6";
                             $lotoToBePlayed->setticketId($ticketId);
                             $lotoToBePlayed->setzeednumber($submit[1]);
                             $lotoToBePlayed->setgridSelected($BouquetGrids);
@@ -267,9 +267,11 @@ class PlayLoto extends Command
                 // dd();
                 $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
                 // var_dump($additionaldata);
+
+                var_dump($updateutility);
                 
                 
-                if ($updateutility) {
+                if ($updateutility[0]) {
                     $held->setamount($newsum)
                         ->setcurrency("LBP")
                         ->setstatus(order::$statusOrder['COMPLETED']);
@@ -286,6 +288,13 @@ class PlayLoto extends Command
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";
                 } else {
+                    $held->setstatus(order::$statusOrder['CANCELED']);
+                    $held->seterror($updateutility[1]);
+
+                    $this->mr->persist($held);
+                    $this->mr->flush();
+
+                    echo $updateutility[1];
                     $status = false;
                     $message = $updateutility[1];
                 }

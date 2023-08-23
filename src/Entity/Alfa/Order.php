@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orders")
+ * @ORM\Table(name="suyool_alfa.orders")
  */
 class Order
 {
@@ -62,6 +62,13 @@ class Order
      */
     private $transId;
 
+    
+     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
 
     public function getId()
     {
@@ -114,7 +121,11 @@ class Order
 
     public function getpostpaidId()
     {
-        return $this->postpaid;
+        if ($this->postpaid) {
+            return $this->postpaid->getId();
+        }
+
+        return null;
     }
     public function setpostpaidId(?Postpaid $postpaid_id): self
     {
@@ -135,7 +146,11 @@ class Order
 
     public function getprepaidId()
     {
-        return $this->prepaid;
+        if ($this->prepaid) {
+            return $this->prepaid->getId();
+        }
+
+        return null;
     }
     public function setprepaidId(?Prepaid $prepaid_id): self
     {
@@ -163,5 +178,16 @@ class Order
     {
         $this->transId = $transId;
         return $this;
+    }
+
+    public function seterror($error)
+    {
+        $this->error=$error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
     }
 }

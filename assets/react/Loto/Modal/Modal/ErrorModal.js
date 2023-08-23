@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 const ErrorModal = (props) => {
+  console.log(props.getErrorModal.path);
   return (
     <Modal
       {...props}

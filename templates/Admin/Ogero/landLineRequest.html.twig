@@ -1,0 +1,63 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">LandLine</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'ID', 'lnr.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'User ID', 'lnr.suyoolUserId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'GSM Number', 'lnr.gsmNumber') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Tran Id', 'lnr.transactionId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Bills', 'lnr.ogeroBills') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Penalty', 'lnr.ogeroPenalty') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Initiation Date', 'lnr.ogeroInitiationDate') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O ClientName', 'lnr.ogeroClientName') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Address', 'lnr.ogeroAddress') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Currency', 'lnr.currency') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Amount', 'lnr.amount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Amount 1', 'lnr.amount1') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Amount 2', 'lnr.amount2') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Total Amount', 'lnr.totalamount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Total Amount', 'lnr.ogeroTotalAmount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'O Fees', 'lnr.additionalfees') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Addt Fees', 'lnr.additionalfees') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Fees', 'lnr.fees') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Fees1', 'lnr.fees1') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(landLineRequests, 'Rounding', 'lnr.rounding') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for landLineRequest in landLineRequests %}
+            <tr>
+                <td>{{ landLineRequest.id }}</td>
+                <td>{{ landLineRequest.suyoolUserId }}</td>
+                <td>{{ landLineRequest.gsmNumber }}</td>
+                <td>{{ landLineRequest.transactionId }}</td>
+                <td>{{ landLineRequest.ogeroBills }}</td>
+                <td>{{ landLineRequest.ogeroPenalty }}</td>
+                <td>{{ landLineRequest.ogeroInitiationDate }}</td>
+                <td>{{ landLineRequest.ogeroClientName }}</td>
+                <td>{{ landLineRequest.ogeroAddress }}</td>
+                <td>{{ landLineRequest.currency }}</td>
+                <td>{{ landLineRequest.amount }}</td>
+                <td>{{ landLineRequest.amount1 }}</td>
+                <td>{{ landLineRequest.amount2 }}</td>
+                <td>{{ landLineRequest.totalamount }}</td>
+                <td>{{ landLineRequest.ogeroTotalAmount }}</td>
+                <td>{{ landLineRequest.ogeroFees }}</td>
+                <td>{{ landLineRequest.additionalfees }}</td>
+                <td>{{ landLineRequest.fees }}</td>
+                <td>{{ landLineRequest.fees1 }}</td>
+                <td>{{ landLineRequest.rounding }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(landLineRequests) }}
+    </div>
+{% endblock %}
+

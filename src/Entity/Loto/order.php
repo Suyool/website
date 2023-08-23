@@ -9,12 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
- * @ORM\Table(name="orders")
+ * @ORM\Table(name="suyool_loto.orders")
  */
 class order
 {
 
-    public static $statusOrder = array("PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","COMPLETED"=>"completed","CANCELED"=>"canceled");
+    public static $statusOrder = array("COMPLETED"=>"completed","PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","CANCELED"=>"canceled");
 
     /**
      * @ORM\Id
@@ -28,6 +28,12 @@ class order
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
+
+     /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
 
     /**
      * 
@@ -136,6 +142,17 @@ class order
     public function getcurrency()
     {
         return $this->currency;
+    }
+
+    public function seterror($error)
+    {
+        $this->error=$error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
     }
 
     public function settransId($transId)

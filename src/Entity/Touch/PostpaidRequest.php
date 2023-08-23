@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="postpaidRequest")
+ * @ORM\Entity(repositoryClass="App\Repository\PostPaidRequestRepository")
+ * @ORM\Table(name="suyool_touch.postpaidRequest")
  */
 class PostpaidRequest
 {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="orders")
+ * @ORM\Table(name="suyool_touch.orders")
  */
 class Order
 {
@@ -27,6 +27,12 @@ class Order
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
+
+    /**
+     * 
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
 
     /**
      * @ORM\OneToOne(targetEntity="Postpaid",fetch="EAGER")
@@ -103,6 +109,17 @@ class Order
         return $this;
     }
 
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
+        return $this;
+    }
+
     public function setcurrency($currency)
     {
         $this->currency = $currency;
@@ -116,7 +133,11 @@ class Order
 
     public function getpostpaidId()
     {
-        return $this->postpaid;
+        if ($this->postpaid) {
+            return $this->postpaid->getId();
+        }
+
+        return null;
     }
     public function setpostpaidId(?Postpaid $postpaid_id): self
     {
@@ -137,7 +158,11 @@ class Order
 
     public function getprepaidId()
     {
-        return $this->prepaid;
+        if ($this->prepaid) {
+            return $this->prepaid->getId();
+        }
+
+        return null;
     }
     public function setprepaidId(?Prepaid $prepaid_id): self
     {

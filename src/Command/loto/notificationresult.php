@@ -114,7 +114,10 @@ class notificationresult extends Command
             }
 
             $lastresultprice = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+            $userid=array();
+            if(!empty($notifyUser)){
 
+            
             foreach($notifyUser as $notify){
                 $userid[]=$notify['suyoolUserId'];
             }
@@ -127,6 +130,7 @@ class notificationresult extends Command
 
                 $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'LBP', 'amount' => number_format($lastresultprice->getlotoprize())], true);
                 $this->notificationServices->addNotification($userIds, $content, $params,$bulk);
+        }
         }
 
 

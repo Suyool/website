@@ -14,6 +14,7 @@ const App = ({ parameters }) => {
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Loto");
 
+
   const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
   const [getPickYourGrid, setPickYourGrid] = useState(false);
   const [getBallNumbers, setBallNumbers] = useState(0);
@@ -54,11 +55,13 @@ const App = ({ parameters }) => {
     img: "/build/images/Loto//build/images/Loto/error.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",
+    path: ""
   });
   const [getWarningModal, setWarningModal] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/warning.png",
     title: "Warning Modal",
     desc: "Warning Modal",
+    path: ""
   });
 
   return (
@@ -135,6 +138,7 @@ const App = ({ parameters }) => {
               setSuccessModal={setSuccessModal}
               setErrorModal={setErrorModal}
               setWarningModal={setWarningModal}
+              getDataGetting={getDataGetting}
             />
           )}
         </div>

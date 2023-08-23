@@ -45,7 +45,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               img: "/build/images/alfa/error.png",
               title: jsonResponse.Title,
               desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
+              path: 50,
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
@@ -60,6 +60,16 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               desc: jsonResponse.SubTitle,
               path: jsonResponse.ButtonOne.Flag,
               btn: jsonResponse.ButtonOne.Text,
+            });
+            setModalShow(true);
+          }else{
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: jsonResponse,
+              // path: response.data.path,
+              // btn:'Top up'
             });
             setModalShow(true);
           }

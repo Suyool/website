@@ -1,0 +1,40 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Price</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'ID', 'p.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Denomination ID', 'p.denominationId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Denomination Description', 'p.denominationDescription') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Amount', 'p.Amount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Comission', 'p.Commission') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Parent Config DataId', 'p.parentConfigurationDataId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Service Code', 'p.serviceCode') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(prices, 'Service Provider Code', 'p.serviceProviderCode') }}</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for price in prices %}
+            <tr>
+                <td>{{ price.id }}</td>
+                <td>{{ price.denominationId }}</td>
+                <td>{{ price.denominationDescription }}</td>
+                <td>{{ price.Amount }}</td>
+                <td>{{ price.Commission }}</td>
+                <td>{{ price.parentConfigurationDataId }}</td>
+                <td>{{ price.serviceCode }}</td>
+                <td>{{ price.serviceProviderCode }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(prices) }}
+    </div>
+{% endblock %}
+

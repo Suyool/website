@@ -69,8 +69,12 @@ class BobServices
         // dd($content);
 
         $ApiResponse = json_decode($content, true);
-        $res = $ApiResponse['Response'];
-        $decodedString = $this->_decodeGzipString(base64_decode($res));
+        if($ApiResponse['Response'] == ""){
+            $decodedString=$ApiResponse['ErrorDescription'];
+        }else{
+            $res = $ApiResponse['Response'];
+            $decodedString = $this->_decodeGzipString(base64_decode($res));
+        }
         // dd($decodedString);
 
         return $decodedString;
