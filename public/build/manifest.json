@@ -1,30 +1,10 @@
 {
   "build/app1.js": "/build/app1.0441501c.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Loto.js": "/build/Loto.72cccdc0.js",
+  "build/Loto.js": "/build/Loto.115c3f64.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.3ed06689.js",
   "build/Alfa.js": "/build/Alfa.541521e5.js",
-  "build/Touch.js": "/build/Touch.1de29049.js",
+  "build/Touch.js": "/build/Touch.2ea2e055.js",
   "build/Ogero.js": "/build/Ogero.bdf7dec5.js",
-=======
-  "build/Loto.js": "/build/Loto.58fd947b.js",
-=======
-  "build/Loto.js": "/build/Loto.00e31830.js",
->>>>>>> 51da6fb (setTotalAMountLLdj)
-=======
-  "build/Loto.js": "/build/Loto.6ffab650.js",
->>>>>>> 3a6ecf6 (404 not found)
-=======
-  "build/Loto.js": "/build/Loto.e8ec947e.js",
->>>>>>> 3cc6f7e (ios integration webview)
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.eb968c8a.js",
-  "build/Alfa.js": "/build/Alfa.d9762e25.js",
-  "build/Touch.js": "/build/Touch.be770c18.js",
-  "build/Ogero.js": "/build/Ogero.f56cc75c.js",
->>>>>>> 3370a96 (handlecheckout test android and iphone)
   "build/styles.css": "/build/styles.cbfbf3db.css",
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.5a3d9125.css",

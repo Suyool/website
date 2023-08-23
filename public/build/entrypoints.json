@@ -9,23 +9,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Loto.72cccdc0.js"
-=======
-        "/build/Loto.58fd947b.js"
->>>>>>> 3370a96 (handlecheckout test android and iphone)
-=======
-        "/build/Loto.00e31830.js"
->>>>>>> 51da6fb (setTotalAMountLLdj)
-=======
-        "/build/Loto.6ffab650.js"
->>>>>>> 3a6ecf6 (404 not found)
-=======
-        "/build/Loto.e8ec947e.js"
->>>>>>> 3cc6f7e (ios integration webview)
+        "/build/Loto.115c3f64.js"
       ]
     },
     "LegalEnrollement": {
@@ -43,11 +27,7 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Touch.1de29049.js"
-=======
-        "/build/Touch.be770c18.js"
->>>>>>> 3370a96 (handlecheckout test android and iphone)
+        "/build/Touch.2ea2e055.js"
       ]
     },
     "Ogero": {
