@@ -9,11 +9,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Loto.f5da530c.js"
-=======
-        "/build/Loto.357d07f2.js"
->>>>>>> f3134bd (done with ui of self enrollement)
+        "/build/Loto.89a570e1.js"
       ]
     },
     "LegalEnrollement": {
