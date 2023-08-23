@@ -1,19 +1,22 @@
-*{
+* {
     margin: 0;
 }
 
-.ar{
+.ar {
     text-align: right;
     direction: rtl;
 }
+
 body {
     background-color: hsl(0deg 5.57% 71.65% / 9%);
 }
-a{
+
+a {
     text-decoration: none;
     color: unset;
 }
-a:hover{
+
+a:hover {
     text-decoration: none;
     color: unset;
 }
@@ -37,7 +40,8 @@ a:hover{
     padding-right: 5%;
     padding-left: 5%;
 }
-.learnmore{
+
+.learnmore {
     background: #226d96;
     border: none;
     border-radius: 10px;
@@ -46,11 +50,26 @@ a:hover{
     font-family: PoppinsMedium;
     margin-top: 50px;
     padding: 15px 30px;
-    &:hover{
+
+    &:hover {
         color: #fff;
     }
 }
 
-.right{
+.right {
     text-align: right;
+}
+
+.tryagain {
+    padding-top: 38vh;
+    text-align: center;
+
+    .close {
+        border: none;
+        padding: 13px 57px;
+        margin-top: 32px;
+        background-color: #c82f2a;
+        color: #ffffff;
+        border-radius: 10px;
+    }
 }

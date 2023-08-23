@@ -14,6 +14,7 @@ const Play = ({
   setBackLink,
   setPlay,
   setTotalAmountLLDJ,
+  setDataGetting
 }) => {
   // console.log(parameters);
   // console.log("getTotalAmount",getTotalAmount)
@@ -36,11 +37,13 @@ const Play = ({
     return total;
   };
   useEffect(() => {
+    setDataGetting("");
     setSelectedOption(0)
     setSelectedSub(1)
+    localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Play");
-    localStorage.setItem("BackPage", "Play");
+    
     setDisabledBtn(
       selectedBallsToShow == null ||
         JSON.parse(selectedBallsToShow).length === 0

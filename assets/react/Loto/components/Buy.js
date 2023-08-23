@@ -17,9 +17,10 @@ const Buy = ({
 }) => {
   // console.log(parameters?.deviceType);
   useEffect(() => {
+    localStorage.setItem("BackPage", "Play");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
-    localStorage.setItem("BackPage", "Buy");
+    
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
@@ -78,10 +79,9 @@ const Buy = ({
     setSpinnerLoader(true);
     setDisable(true);
     if (parameters?.deviceType === "Android") {
-
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
-      }, 8000);
+      }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
       // const message = "data";
 
@@ -173,6 +173,9 @@ const Buy = ({
               JSON.parse(selectedBallsToShow).length === 0
           );
         });
+    }else if(getDataGetting == "failed"){
+      setSpinnerLoader(false);
+      setDisable(false);
     }
   },[getDataGetting]);
 

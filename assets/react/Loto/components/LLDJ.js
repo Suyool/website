@@ -16,9 +16,8 @@ const LLDJ = ({
   setTotalAmountLLDJ,
 }) => {
   const [getBouquetgridprice, setBouquetgridprice] = useState(0);
-  useEffect(() => {
-    // console.log(parameters)
-    setBackLink(localStorage.getItem("BackPage"));
+  useEffect(() => { 
+    
     localStorage.setItem("BackPage", "LLDJ");
     setBouquetgridprice(parameters.gridprice);
     setHeaderTitle("La Libanaise Des Jeux");

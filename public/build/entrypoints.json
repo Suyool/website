@@ -2,6 +2,7 @@
   "entrypoints": {
     "app1": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/app1.js"
       ]
@@ -10,12 +11,21 @@
       "js": [
         "/build/runtime.js",
         "/build/admin-app.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.a9522f5f.js"
+>>>>>>> 89292d9 (loto handling with mobile)
       ]
     },
     "Loto": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/Loto.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.6bc2803a.js"
+>>>>>>> 89292d9 (loto handling with mobile)
       ]
     },
     "LegalEnrollement": {
@@ -47,7 +57,11 @@
         "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.css"
+=======
+        "/build/styles.8f6eb6aa.css"
+>>>>>>> 89292d9 (loto handling with mobile)
       ]
     },
     "admin": {

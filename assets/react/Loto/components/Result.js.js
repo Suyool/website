@@ -42,9 +42,10 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   // });
 
   useEffect(() => {
+    localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
-    localStorage.setItem("BackPage", "Result");
+    
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
       .map(Number);

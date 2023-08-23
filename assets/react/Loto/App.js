@@ -43,6 +43,7 @@ const App = ({ parameters }) => {
       setDataGetting(message);
     };
   }, []);
+  
 
   const [getModalName, setModalName] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -67,6 +68,7 @@ const App = ({ parameters }) => {
   return (
     <>
       <Header
+        setBackLink={setBackLink}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
@@ -115,6 +117,7 @@ const App = ({ parameters }) => {
               setTotalAmountLLDJ={setTotalAmountLLDJ}
               setPlay={setPlay}
               setIsHide={setIsHide}
+              setDataGetting={setDataGetting}
               
             />
           )}
@@ -169,6 +172,7 @@ const App = ({ parameters }) => {
           <SuccessModal
             getSuccessModal={getSuccessModal}
             show={modalShow}
+            setActiveButton={setActiveButton}
             onHide={() => {
               setModalShow(false);
               setModalName("");
@@ -179,6 +183,7 @@ const App = ({ parameters }) => {
           <ErrorModal
             getErrorModal={getErrorModal}
             show={modalShow}
+            
             onHide={() => {
               setModalShow(false);
               setModalName("");
