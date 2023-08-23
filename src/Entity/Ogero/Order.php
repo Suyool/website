@@ -109,9 +109,13 @@ class Order
         return $this->currency;
     }
 
-    public function getlandlineId()
+    public function getLandlineId()
     {
-        return $this->landline;
+        if ($this->landline) {
+            return $this->landline->getId();
+        }
+
+        return null;
     }
     public function setlandlineId(?Landline $landline_id): self
     {
