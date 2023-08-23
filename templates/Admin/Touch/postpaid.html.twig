@@ -1,0 +1,67 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Postpaid</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'ID', 'pd.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'User ID', 'pd.suyoolUserId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'GSM Number', 'pd.gsmNumber') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Tran Desc', 'pd.transactionDescription') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Tran Ref', 'pd.transactionReference') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Token', 'pd.token') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Error', 'pd.error') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Currency', 'pd.currency') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Pin', 'pd.pin') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Trans Id', 'pd.transactionId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Fees', 'pd.fees') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Fees1', 'pd.fees1') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Amount', 'pd.amount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Amount 1', 'pd.amount1') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Amount 2', 'pd.amount2') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Reference Number', 'pd.referenceNumber') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Informative Original WSamount', 'pd.informativeOriginalWSamount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Total Amount', 'pd.totalamount') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Rounding', 'pd.rounding') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Addt Fees', 'pd.additionalfees') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Invoice Numb', 'pd.invoiceNumber') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(postpaids, 'Payment Id', 'pd.paymentId') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postpaid in postpaids %}
+            <tr>
+                <td>{{ postpaid.id }}</td>
+                <td>{{ postpaid.suyoolUserId }}</td>
+                <td>{{ postpaid.gsmNumber }}</td>
+                <td>{{ postpaid.transactionDescription }}</td>
+                <td>{{ postpaid.transactionReference }}</td>
+                <td>{{ postpaid.token }}</td>
+                <td>{{ postpaid.error }}</td>
+                <td>{{ postpaid.currency }}</td>
+                <td>{{ postpaid.pin }}</td>
+                <td>{{ postpaid.transactionId }}</td>
+                <td>{{ postpaid.fees }}</td>
+                <td>{{ postpaid.fees1 }}</td>
+                <td>{{ postpaid.amount }}</td>
+                <td>{{ postpaid.amount1 }}</td>
+                <td>{{ postpaid.amount2 }}</td>
+                <td>{{ postpaid.referenceNumber }}</td>
+                <td>{{ postpaid.informativeOriginalWSamount }}</td>
+                <td>{{ postpaid.totalamount }}</td>
+                <td>{{ postpaid.rounding }}</td>
+                <td>{{ postpaid.additionalfees }}</td>
+                <td>{{ postpaid.invoiceNumber }}</td>
+                <td>{{ postpaid.paymentId }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(postpaids) }}
+    </div>
+{% endblock %}
+
