@@ -17,8 +17,12 @@
 		{% endblock %}
 	</head>
 <body>
+	<div class="logoTryagain">
+		<img class="logoImg" src="{{ asset('build/images/suyool-final-logo.png') }}" alt="Suyool logo">
+
+	</div>
 	<div class="tryagain">
-		<h2>Unable to process your request, Please try again?</h2>
+		<h2>Unable to process your request<br>Please try again?</h2>
 		<button class="close">Retry</button>
 	</div>
 	{% for file in encore_entry_js_files('app1') %}

@@ -26,11 +26,11 @@ class OgeroController extends AbstractController
     public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
     private $session;
 
-    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params,SessionInterface $sessionInterface)
+    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params, SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('ogero');
         $this->params = $params;
-        $this->session=$sessionInterface;
+        $this->session = $sessionInterface;
     }
 
     /**
@@ -45,13 +45,13 @@ class OgeroController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            $parameters['deviceType']=$suyoolUserInfo[1];
+            $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $suyoolUserId=$this->session->set('suyoolUserId',$suyoolUserInfo[0]);
+                $suyoolUserId = $this->session->set('suyoolUserId', 214);
                 // $parameters['Test'] = "tst";
-                return $this->render('ogero/index.html.twig',['parameters'=>$parameters]);
+                return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
@@ -68,7 +68,7 @@ class OgeroController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
-        $suyoolUserId=$this->session->get('suyoolUserId');
+        $suyoolUserId = $this->session->get('suyoolUserId');
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
 
@@ -77,7 +77,7 @@ class OgeroController extends AbstractController
             // dd($RetrieveChannel);
             if ($RetrieveChannel[0] == true) {
                 $resp = $RetrieveChannel[1]["Values"];
-                $displayedFees = intval($resp["Fees"])+intval($resp["Fees1"])+intval($resp["AdditionalFees"])+intval($resp["OgeroFees"]);
+                $displayedFees = intval($resp["Fees"]) + intval($resp["Fees1"]) + intval($resp["AdditionalFees"]) + intval($resp["OgeroFees"]);
 
                 $LandlineReq = new LandlineRequest;
                 $LandlineReq
@@ -105,12 +105,13 @@ class OgeroController extends AbstractController
                 $this->mr->flush();
 
                 $LandlineReqId = $LandlineReq->getId();
+                $message = $resp;
+                $mobileNb = $data["mobileNumber"];
             } else {
-                echo "error";
+                $message="Not found";
                 $LandlineReqId = -1;
+                $mobileNb=$data["mobileNumber"];
             }
-            $message = $resp;
-            $mobileNb = $data["mobileNumber"];
         } else {
             $message = "not connected";
             $LandlineReqId = -1;
@@ -239,14 +240,14 @@ class OgeroController extends AbstractController
                         'Fees1' => $Landline_With_id->getfees1(),
                         'OgeroClientName' => $Landline_With_id->getogeroClientName(),
                         'TotalAmount' => $Landline_With_id->gettotalAmount(),
-                        'Currency' => $Landline_With_id->getcurrency(),  
-                        'Rounding' => $Landline_With_id->getrounding(),  
-                        'OgeroTotalAmount' => $Landline_With_id->getogeroTotalAmount(),  
-                        'AdditionalFees' => $Landline_With_id->getadditionalFees(),  
+                        'Currency' => $Landline_With_id->getcurrency(),
+                        'Rounding' => $Landline_With_id->getrounding(),
+                        'OgeroTotalAmount' => $Landline_With_id->getogeroTotalAmount(),
+                        'AdditionalFees' => $Landline_With_id->getadditionalFees(),
                     ]);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),$updateUtilitiesAdditionalData, $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -261,8 +262,8 @@ class OgeroController extends AbstractController
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         $orderupdate5
-                        ->setstatus(Order::$statusOrder['CANCELED'])
-                        ->seterror($responseUpdateUtilities[1]);
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror($responseUpdateUtilities[1]);
                         $message = "something wrong while UpdateUtilities";
                         $dataPayResponse = -1;
                     }
@@ -297,7 +298,7 @@ class OgeroController extends AbstractController
                 $this->mr->flush();
                 $IsSuccess = false;
                 $message = json_decode($response[1], true);
-                if(isset($response[2])){
+                if (isset($response[2])) {
                     $flagCode = $response[2];
                 }
                 // $message = $response[1];

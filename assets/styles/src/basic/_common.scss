@@ -60,15 +60,22 @@ a:hover {
     text-align: right;
 }
 
-.tryagain {
-    padding-top: 38vh;
+.logoTryagain{
     text-align: center;
-
+    position: relative;
+    top: 100px;
+}
+.tryagain {
+    padding-top: 32vh;
+    text-align: center;
+    h2{
+        color: #3f6e98;
+    }
     .close {
         border: none;
         padding: 13px 57px;
         margin-top: 32px;
-        background-color: #c82f2a;
+        background-color: #246299;
         color: #ffffff;
         border-radius: 10px;
     }

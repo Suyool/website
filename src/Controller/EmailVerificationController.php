@@ -47,7 +47,7 @@ class EmailVerificationController extends AbstractController
                 $title = 'Email verification failed';
                 $description = "Your email address couldn’t be verified.<br> Kindly request a new verification link from your Suyool app.";
                 $image = "unverified-msg.png";
-                $class = "unverified";
+            $class = "unverified";
             }
 
             

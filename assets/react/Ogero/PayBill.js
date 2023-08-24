@@ -20,11 +20,16 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
         }
       )
       .then((response) => {
-        // console.log(response);
-        setActiveButton({ name: "MyBill" });
-        setLandlineData({ id: response?.data?.LandlineReqId })
-        setLandlineDisplayedData(response?.data?.message)
-        setLandlineMobile(response?.data?.mobileNb)
+        if(response?.data?.LandlineReqId != -1){
+          setActiveButton({ name: "MyBill" });
+          setLandlineData({ id: response?.data?.LandlineReqId })
+          setLandlineDisplayedData(response?.data?.message)
+          setLandlineMobile(response?.data?.mobileNb)
+        }else{
+          setSpinnerLoader(false);
+
+        }
+     
       })
       .catch((error) => {
         console.log(error);

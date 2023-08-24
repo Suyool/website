@@ -1,3 +1,4 @@
+import { object } from "prop-types";
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
@@ -7,7 +8,7 @@ const ErrorModal = (props) => {
     let object = [
       {
         flag: props.getErrorModal.path,
-        url: window.location.href + "?goto=Play",
+        url: window.location.href,
       },
     ];
     if (props.parameters?.deviceType === "Android") {
@@ -17,6 +18,7 @@ const ErrorModal = (props) => {
       window.webkit.messageHandlers.callbackHandler.postMessage(object);
     }
   };
+  console.log(JSON.parse(object));
 
   return (
     <Modal

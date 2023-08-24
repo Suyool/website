@@ -368,8 +368,8 @@ class SuyoolServices
                 'Content-Type' => 'application/json'
             ]
         ]);
-
-        $content=$response->toArray();
+        
+        $content=$response->toArray(false);
 
         return $content;
     }

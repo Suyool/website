@@ -66,7 +66,7 @@ class RequestController extends AbstractController
         $params['data'] = json_encode($form_data);
         $params['url'] = 'Payment/RequestDetails';
         $response = Helper::send_curl($params);
-        dd($response);
+        // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
         // $parameters['request_details_response']['allowExternal']="false";
         // dd($parameters['request_details_response']);

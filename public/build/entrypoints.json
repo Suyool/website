@@ -45,8 +45,12 @@
         "/build/Alfa.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.71bd529a.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
+=======
+        "/build/Alfa.63485b3b.js"
+>>>>>>> ee26044 (fix 400 bad request in email verification and bills)
       ]
     },
     "Touch": {
@@ -56,8 +60,12 @@
         "/build/Touch.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Touch.41b4c440.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
+=======
+        "/build/Touch.ee00df43.js"
+>>>>>>> ee26044 (fix 400 bad request in email verification and bills)
       ]
     },
     "Ogero": {
@@ -67,8 +75,12 @@
         "/build/Ogero.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Ogero.2a84d624.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
+=======
+        "/build/Ogero.f141849b.js"
+>>>>>>> ee26044 (fix 400 bad request in email verification and bills)
       ]
     },
     "styles": {
@@ -77,10 +89,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.css"
 =======
         "/build/styles.8f6eb6aa.css"
 >>>>>>> 89292d9 (loto handling with mobile)
+=======
+        "/build/styles.d2700f13.css"
+>>>>>>> ee26044 (fix 400 bad request in email verification and bills)
       ]
     },
     "admin": {
