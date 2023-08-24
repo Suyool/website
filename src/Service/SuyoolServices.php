@@ -68,7 +68,7 @@ class SuyoolServices
             }
 
             // dd($push_utility_response);
-$error="";
+            $error="";
             $globalCode = $push_utility_response['globalCode'];
             $message = $push_utility_response['data'];
             $flagCode = $push_utility_response['flagCode'];
@@ -111,7 +111,7 @@ $error="";
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
-
+        $sum=number_format( (float) $sum, 1, '.', '');
         // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
         // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
