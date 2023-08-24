@@ -75,6 +75,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Touch.41b4c440.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
@@ -86,6 +87,9 @@
 =======
         "/build/Touch.46519e0a.js"
 >>>>>>> 68646c4 (remove static number in bills)
+=======
+        "/build/Touch.46a61631.js"
+>>>>>>> e49ee21 (share code prepaid touch alfa)
       ]
     },
     "Ogero": {

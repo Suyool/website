@@ -14,14 +14,22 @@ const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, s
   }, [])
 
   const handleShare= () => {
+    let object = [
+      {
+        Share: {
+          share: "share",
+          text: shareCode,
+        },
+      },
+    ];
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
-        window.AndroidInterface.callbackHandler("share");
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
       }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
       setTimeout(() => {
         window.webkit.messageHandlers.callbackHandler.postMessage(
-          "share"
+          object
         );
       }, 2000);
     }
