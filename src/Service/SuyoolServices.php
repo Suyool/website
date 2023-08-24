@@ -35,9 +35,13 @@ class SuyoolServices
      */
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency)
     {
+        $sum=number_format( (float) $sum, 1, '.', '');
+
+
+        // echo ($SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate);
 
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
-        // dd($Hash);
+        // echo $Hash;
         try {
 
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment", [
@@ -64,10 +68,13 @@ class SuyoolServices
             }
 
             // dd($push_utility_response);
-
+$error="";
             $globalCode = $push_utility_response['globalCode'];
             $message = $push_utility_response['data'];
             $flagCode = $push_utility_response['flagCode'];
+            if(isset($push_utility_response['message'])){
+                $error= $push_utility_response['message'];
+            }
 
 
             // $form_data = [
@@ -89,11 +96,11 @@ class SuyoolServices
                 $transId = $push_utility_response['data'];
                 return array(true, $transId);
             } else {
-                return array(false, $message, $flagCode);
+                return array(false, $message, $flagCode,$error);
             }
         } catch (Exception $e) {
             // echo 'Exception occurred: ' . $e->getMessage();
-            return array(false, $e->getMessage());
+            return array(false, "","",$e->getMessage());
         }
     }
 

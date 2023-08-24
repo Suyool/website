@@ -448,7 +448,7 @@ class LotoController extends AbstractController
                     // $transId = rand();
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
-                    $orderid->seterror($pushutility[1]);
+                    $orderid->seterror($pushutility[3]);
                     $orderid->setamount($sum);
                     $orderid->setcurrency($this->CURRENCY_LBP);
 
