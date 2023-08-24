@@ -77,7 +77,7 @@ class LotoController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             // dd($devicetype);
-    
+    // dd($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]));
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
 
                 $parameters['deviceType']=$suyoolUserInfo[1];

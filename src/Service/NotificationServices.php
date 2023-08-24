@@ -49,6 +49,8 @@ class NotificationServices
                 $this->mr->flush();
                 
             $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+            }else{
+                $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
             }
             
         }else{
