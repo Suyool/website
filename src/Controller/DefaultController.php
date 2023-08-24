@@ -93,4 +93,20 @@ class DefaultController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/privacy_policy", name="app_privacy_policy")
+     */
+    public function privacy_policy(Request $request)
+    {
+        return $this->render('policies/privacyPolicy.html.twig');
+    }
+
+    /**
+     * @Route("/terms_and_conditions", name="app_terms_and_conditions")
+     */
+    public function terms_and_conditions(Request $request)
+    {
+        return $this->render('policies/termsConditions.html.twig');
+    }
 }
