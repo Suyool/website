@@ -17,6 +17,8 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
   const [getdisplayedFees, setdisplayedFees] = useState("");
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getPinWrong,setPinWrong] = useState(false);
+
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
@@ -49,8 +51,12 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
-          } else {
-            console.log("Something went wrong")
+          } else if(response.data.message == "pinwrong") {
+            setPinWrong(true)
+            setPinCode("");
+          }else{
+            console.log("something wrong");
+            setPinCode("");
           }
         })
         .catch((error) => {
@@ -223,6 +229,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
             // onClick={()=>{setSpinnerLoader(false)}} 
             onClick={handlePayNow} disabled={pinCode.length !== 4}
           >Continue</button>
+          {getPinWrong && <p>Pin wrong please try again</p>}
 
           <div className="keybord">
             <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

@@ -135,6 +135,8 @@ class AlfaController extends AbstractController
         // dd($data);
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
+            // dd($retrieveResults);
+            if(isset($retrieveResults) && $retrieveResults != ""){
             $jsonResult = json_decode($retrieveResults, true);
             $displayData = $jsonResult["Values"];
 
@@ -187,6 +189,11 @@ class AlfaController extends AbstractController
 
             // dd($order);
             $message = "connected";
+            }else{
+                $displayData = -1;
+            $message = "pinwrong";
+            $invoicesId = -1;
+            }
         } else {
             $displayData = -1;
             $message = "No data retrived!!";

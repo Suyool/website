@@ -52,6 +52,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.71bd529a.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
@@ -63,6 +64,9 @@
 =======
         "/build/Alfa.4682631b.js"
 >>>>>>> 68646c4 (remove static number in bills)
+=======
+        "/build/Alfa.bb4e3ac7.js"
+>>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
       ]
     },
     "Touch": {
@@ -72,6 +76,7 @@
         "/build/Touch.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -90,6 +95,9 @@
 =======
         "/build/Touch.46a61631.js"
 >>>>>>> e49ee21 (share code prepaid touch alfa)
+=======
+        "/build/Touch.25f59797.js"
+>>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
       ]
     },
     "Ogero": {
