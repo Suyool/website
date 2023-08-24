@@ -2,94 +2,100 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/app1.0441501c.js"
+        "/build/runtime.js",
+        "/build/app1.js"
+      ]
+    },
+    "admin-app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/admin-app.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.115c3f64.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.3ed06689.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.541521e5.js"
+        "/build/runtime.js",
+        "/build/Alfa.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.2ea2e055.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.bdf7dec5.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.cbfbf3db.css"
+        "/build/styles.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/admin.d750f727.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.5a3d9125.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.839214a6.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/AlfaStyle.99225507.css"
+        "/build/AlfaStyle.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.c87440f8.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.cf9591eb.css"
+        "/build/OgeroStyle.css"
       ]
     }
   }

@@ -14,7 +14,12 @@
 </head>
 <body data-page="{% block currentPage %}{% endblock %}">
 <div class="row">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {{ include("Admin/base/sidebar.html.twig") }}
+    <div class="col-md-10 content">
+        {% else %}
+        <div class="authentication-form">
+    {% endif %}
     <div class="col pt-5">
         <div class="container-fluid">
             {% block content %}{% endblock %}
@@ -28,7 +33,7 @@
     {% block javascripts %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
 
-        {% for file in encore_entry_js_files('admin') %}
+        {% for file in encore_entry_js_files('admin-app') %}
             <script src="{{ asset(file|substr(1)) }}"></script>
         {% endfor %}
     {% endblock %}

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -12,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface
+class User implements UserInterface, TwoFactorInterface
 {
     public static $UsersStatusArray = array(0=>"FILTER BY ROLE","ROLE_ADMIN"=> "ROLE_ADMIN","ROLE_USER"=> "ROLE_USER");
 
@@ -34,9 +36,19 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string",length=20, unique=true, nullable=false)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\Column(type="string", nullable=true,)
+     */
+    private $authCode;
 
     /**
      * @var string The hashed password
@@ -44,10 +56,6 @@ class User implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
 
     /**
      * @ORM\Column(type="datetime", name="created",nullable=true)
@@ -72,6 +80,18 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -141,17 +161,6 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
 
     public function getCreated(){
         return $this->created;
@@ -176,5 +185,30 @@ class User implements UserInterface
         }
         else
             return Null;
+    }
+
+    public function isEmailAuthEnabled(): bool
+    {
+        return true;
+    }
+
+    public function getEmailAuthRecipient(): string
+    {
+        return $this->email;
+    }
+
+    public function getEmailAuthCode(): string
+    {
+        return $this->authCode;
+
+    }
+
+    public function setEmailAuthCode(string $authCode): void
+    {
+        $this->authCode = $authCode;
+    }
+
+    public function sendAuthCode($sms){
+        return $sms->send($this->authCode,$this->phone) == "0";
     }
 }

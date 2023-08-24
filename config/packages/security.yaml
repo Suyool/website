@@ -17,7 +17,13 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout   # The logout route name
+            two_factor:
+                auth_form_path: /2fa                  # Path or route name of the two-factor form
+                check_path: /2fa_check                # Path or route name of the two-factor code check
+                default_target_path: /                # Where to redirect by default after successful authentication
 
     access_control:
         - { path: ^/admin_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/dashadmin, roles: ROLE_ADMIN }
+        - { path: ^/dashadmin, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin/sendAuthCode, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/2fa, role: IS_AUTHENTICATED_2FA_IN_PROGRESS }

@@ -51,6 +51,7 @@ Encore
     // .addEntry('app', './assets/app.js')
     // .addEntry('app', './assets/react/index.js')
     .addEntry('app1', './assets/app.js')
+    .addEntry('admin-app', './assets/admin-app.js')
     .addEntry('Loto', './assets/react/Loto/index.js')
     .addEntry('LegalEnrollement', './assets/react/LegalEnrollement/index.js')
     .addEntry('Alfa', './assets/react/Alfa/index.js')
