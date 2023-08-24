@@ -8,6 +8,7 @@ const WarningModal = (props) => {
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      id="modalRadius"
     >
       <Modal.Body>
         <div id="WarningModal">

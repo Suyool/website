@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("70102030");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
-    setBackLink("")
+  setBackLink("")
   }, [])
 
   const handleContinue = () => {

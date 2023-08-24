@@ -14,6 +14,7 @@ const Buy = ({
   setBackLink,
   getTotalAmount,
   getDataGetting,
+  setDataGetting
 }) => {
   // console.log(parameters?.deviceType);
   useEffect(() => {
@@ -174,6 +175,7 @@ const Buy = ({
           );
         });
     }else if(getDataGetting == "failed"){
+      setDataGetting("")
       setSpinnerLoader(false);
       setDisable(false);
     }

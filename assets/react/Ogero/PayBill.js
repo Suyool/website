@@ -3,7 +3,7 @@ import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
 const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink  }) => {
-  const [mobileNumber, setMobileNumber] = useState("01123120");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {

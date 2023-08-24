@@ -25,11 +25,15 @@
 =======
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Loto.6bc2803a.js"
 >>>>>>> 89292d9 (loto handling with mobile)
 =======
         "/build/Loto.bb9afa81.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
+=======
+        "/build/Loto.ce89c55a.js"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "LegalEnrollement": {
@@ -46,11 +50,15 @@
 =======
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.71bd529a.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
         "/build/Alfa.63485b3b.js"
 >>>>>>> ee26044 (fix 400 bad request in email verification and bills)
+=======
+        "/build/Alfa.eee9c270.js"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "Touch": {
@@ -61,11 +69,15 @@
 =======
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Touch.41b4c440.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
         "/build/Touch.ee00df43.js"
 >>>>>>> ee26044 (fix 400 bad request in email verification and bills)
+=======
+        "/build/Touch.0459a62c.js"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "Ogero": {
@@ -76,11 +88,15 @@
 =======
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Ogero.2a84d624.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
         "/build/Ogero.f141849b.js"
 >>>>>>> ee26044 (fix 400 bad request in email verification and bills)
+=======
+        "/build/Ogero.19efde90.js"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "styles": {
@@ -132,7 +148,11 @@
         "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/AlfaStyle.css"
+=======
+        "/build/AlfaStyle.5e94c966.css"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "TouchStyle": {
@@ -140,7 +160,11 @@
         "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/TouchStyle.css"
+=======
+        "/build/TouchStyle.a9f0b56d.css"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     },
     "OgeroStyle": {
@@ -148,7 +172,11 @@
         "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/OgeroStyle.css"
+=======
+        "/build/OgeroStyle.e6afb23a.css"
+>>>>>>> 27bca8f (handle all bills to mobile webview)
       ]
     }
   }

@@ -4,21 +4,32 @@ import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
 
   const handleExchange = () => {
-    // window.location.href = "/app?f="+props.getErrorModal.path;
-    let object = [
-      {
-        flag: props.getErrorModal.path,
-        url: window.location.href,
-      },
-    ];
-    if (props.parameters?.deviceType === "Android") {
-      window.AndroidInterface.callbackHandler(object);
-    } else if (props.parameters?.deviceType === "Iphone") {
-      // const message = "data";
-      window.webkit.messageHandlers.callbackHandler.postMessage(object);
+    if(props.getErrorModal.path == "84"){
+      // let object = [
+      //   {
+      //     flag: props.getErrorModal.path,
+      //     url: window.location.href,
+      //   },
+      // ];
+      let object = [{
+        'exhange' : {
+          flag: props.getErrorModal.path,
+          url: window.location.href,
+        }
+      }
+         ];
+      console.log(JSON.stringify(object));
+  
+      if (props.parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(object);
+      } else if (props.parameters?.deviceType === "Iphone") {
+        // const message = "data";
+        window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }
     }
+   
   };
-  console.log(JSON.parse(object));
+ 
 
   return (
     <Modal

@@ -12,12 +12,20 @@ const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, s
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const handleShare= () => {
+  const handleShare= (shareCode) => {
+    
+    let object=[{
+      "Share":{
+        "share":"share",
+        "text": shareCode
+      }
+    }]
+    console.log(JSON.stringify(object));
     if (parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler("share");
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
     } else if (parameters?.deviceType === "Iphone") {
         window.webkit.messageHandlers.callbackHandler.postMessage(
-          "share"
+          object
         );
     }
   }
@@ -152,7 +160,7 @@ const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, s
                 <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
               </button>
 
-              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare() }} >Share Code</button>
+              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare(getSerialToClipboard) }} >Share Code</button>
 
               <div className="stepsToRecharge">
 
