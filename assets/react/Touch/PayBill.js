@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("`");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [currency, setCurrency] = useState("LBP");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -72,7 +72,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,ac
           <img src="/build/images/touch/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>

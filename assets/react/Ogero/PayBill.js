@@ -63,7 +63,7 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
           <img src="/build/images/Ogero/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input className="nbInput" placeholder="|" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
