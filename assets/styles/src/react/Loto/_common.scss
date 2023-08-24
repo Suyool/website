@@ -65,68 +65,36 @@
     }
 }
 
-#SuccessModal {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 10px 10px 10px;
-    align-items: center;
-    img {
-        width: 60px;
-        height: 60px;
-    }
-    .title {
-        font-family: PoppinsSemiBold;
-        font-size: 15px;
-        color: black;
-        padding-top: 33px;
-    }
-    .desc {
-        font-family: PoppinsMedium;
-        font-size: 15px;
-        color: black;
-        text-align: center;
-        padding-top: 2px;
-    }
-    .okiBtnModal{
-        margin-top: 40px;
-        padding: 15px;
-        font-family: PoppinsMedium;
-        font-size: 15px;
-        color: black;
-        background-color: #F4F4F4;
-        border-radius: 7px;
-        width: 100%;
+#modalRadius{
+    .modal-content{
+        border-radius: 13px;
         border: none;
     }
-}
-
-#ErrorModal {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 10px 10px 10px;
-    align-items: center;
-    img {
-        width: 60px;
-        height: 60px;
-    }
-    .title {
-        font-family: PoppinsSemiBold;
-        font-size: 15px;
-        color: black;
-        padding-top: 33px;
-    }
-    .desc {
-        font-family: PoppinsMedium;
-        font-size: 15px;
-        color: black;
-        text-align: center;
-        padding-top: 2px;
-    }
-    .buttonsDesign{
+    #SuccessModal {
         display: flex;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+        .title {
+            font-family: PoppinsSemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 33px;
+        }
+        .desc {
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: black;
+            text-align: center;
+            padding-top: 2px;
+        }
         .okiBtnModal{
             margin-top: 40px;
-            padding: 15px 36px;
+            padding: 15px;
             font-family: PoppinsMedium;
             font-size: 15px;
             color: black;
@@ -134,75 +102,114 @@
             border-radius: 7px;
             width: 100%;
             border: none;
-            
-        }
-        .exchangeBtnModal{
-            margin-top: 40px;
-            padding: 15px 36px;
-            font-family: PoppinsMedium;
-            font-size: 15px;
-            color: #FFFFFF;
-            background-color: #226D96;
-            border-radius: 7px;
-            width: 100%;
-            border: none;
-            margin-left: 10px;
         }
     }
     
-}
-
-#WarningModal {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 10px 10px 10px;
-    align-items: center;
-    img {
-        width: 60px;
-        height: 60px;
-    }
-    .title {
-        font-family: PoppinsSemiBold;
-        font-size: 15px;
-        color: black;
-        padding-top: 33px;
-    }
-    .desc {
-        font-family: PoppinsMedium;
-        font-size: 15px;
-        color: black;
-        text-align: center;
-        padding-top: 2px;
-    }
-    .buttonsDesign{
+    #ErrorModal {
         display: flex;
-        .okiBtnModal{
-            margin-top: 40px;
-            padding: 15px 36px;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+        .title {
+            font-family: PoppinsSemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 15px;
+        }
+        .desc {
             font-family: PoppinsMedium;
             font-size: 15px;
             color: black;
-            background-color: #F4F4F4;
-            border-radius: 7px;
-            width: 50%;
-            border: none;
-            
+            text-align: center;
+            padding-top: 2px;
         }
-        .exchangeBtnModal{
-            margin-top: 40px;
-            padding: 15px 36px;
-            font-family: PoppinsMedium;
-            font-size: 15px;
-            color: #FFFFFF;
-            background-color: #226D96;
-            border-radius: 7px;
-            width: 50%;
-            border: none;
-            margin-left: 10px;
+        .buttonsDesign{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            .okiBtnModal{
+                margin-top: 10px;
+                padding: 15px 36px;
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: black;
+                background-color: #F4F4F4;
+                border-radius: 7px;
+                border: none;
+                
+            }
+            .exchangeBtnModal{
+                margin-top: 10px;
+                padding: 15px 36px;
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: #FFFFFF;
+                background-color: #226D96;
+                border-radius: 7px;
+                border: none;
+            }
         }
+        
     }
     
+    #WarningModal {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+        img {
+            width: 60px;
+            height: 60px;
+        }
+        .title {
+            font-family: PoppinsSemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 33px;
+        }
+        .desc {
+            font-family: PoppinsMedium;
+            font-size: 15px;
+            color: black;
+            text-align: center;
+            padding-top: 2px;
+        }
+        .buttonsDesign{
+            display: flex;
+            .okiBtnModal{
+                margin-top: 40px;
+                padding: 15px 36px;
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: black;
+                background-color: #F4F4F4;
+                border-radius: 7px;
+                width: 50%;
+                border: none;
+                
+            }
+            .exchangeBtnModal{
+                margin-top: 40px;
+                padding: 15px 36px;
+                font-family: PoppinsMedium;
+                font-size: 15px;
+                color: #FFFFFF;
+                background-color: #226D96;
+                border-radius: 7px;
+                width: 50%;
+                border: none;
+                margin-left: 10px;
+            }
+        }
+        
+    }
 }
+
+
 
 #MobileHeader {
     background-image: linear-gradient(to bottom, #353A6A, #246992);

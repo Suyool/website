@@ -3,12 +3,30 @@ import Modal from "react-bootstrap/Modal";
 
 const ErrorModal = (props) => {
   console.log(props.getErrorModal.path);
+
+  const handleExchange = () => {
+    // window.location.href = "/app?f="+props.getErrorModal.path;
+    let object = [
+      {
+        flag: props.getErrorModal.path,
+        url: window.location.href + "?goto=Play",
+      },
+    ];
+    if (props.parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler(object);
+    } else if (props.parameters?.deviceType === "Iphone") {
+      // const message = "data";
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
+    }
+  };
+
   return (
     <Modal
       {...props}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      id="modalRadius"
     >
       <Modal.Body>
         <div id="ErrorModal">
@@ -20,12 +38,7 @@ const ErrorModal = (props) => {
               Cancel
             </button>
             {props.getErrorModal.btn && (
-              <button
-                className="exchangeBtnModal"
-                onClick={(event) =>
-                  (window.location.href = `/app?f=${props.getErrorModal.path}`)
-                }
-              >
+              <button className="exchangeBtnModal" onClick={handleExchange}>
                 {props.getErrorModal.btn}
               </button>
             )}

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
-const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink }) => {
+const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink  }) => {
   const [mobileNumber, setMobileNumber] = useState("01123120");
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill")
@@ -10,6 +12,7 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
   }, [])
 
   const handleContinue = () => {
+    setSpinnerLoader(true);
     axios
       .post("/ogero/landline",
         {
@@ -46,7 +49,8 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
 
 
   return (
-    <div id="PayBill">
+    <div id="PayBill" className={getSpinnerLoader ?  "hideBack" : ""}>
+       {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       <div className="mainTitle">Enter the landline number</div>
 
       <div className="MobileNbContainer mt-3">

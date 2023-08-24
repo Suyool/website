@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\SuyoolServices;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\Helper;
@@ -11,14 +12,19 @@ class EmailVerificationController extends AbstractController
     /**
      * @Route("/emailVerification/code={code}", name="app_email_verification")
      */
-    public function index($code)
+    public function index($code,SuyoolServices $suyoolServices)
     {
         $parameters['currentPage'] = "generate_Code";
         if ($code != '') {
             // Set the API URL
-            $params['url'] = 'api/User/ValidateEmail?Data=' . $code;
-            $params['type'] = 'post';
+            if($_ENV['APP_ENV'] == "prod"){
+                $params['url'] = 'User/ValidateEmail?Data=' . $code;
 
+            }else{
+                $params['url'] = 'User/ValidateEmail?Data=' . $code;
+
+            }
+// dd($params);
             // Call the API
             $result = Helper::send_curl($params);
             // Get the response
@@ -26,6 +32,11 @@ class EmailVerificationController extends AbstractController
             // Default value of the notification
 // dd($result);
             // $response['RespCode'] = 1;
+            $response=$suyoolServices->ValidateEmail($code);
+
+            if($response == null){
+                return $this->render('ExceptionHandlingEmail.html.twig');
+            }
             // If the Email is Verified and the user is not registered
             if ($response['flagCode'] == 1) {
                 $title = 'You have verified your email';

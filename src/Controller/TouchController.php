@@ -58,7 +58,7 @@ class TouchController extends AbstractController
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
-                $parameters['Test'] = "tst";
+                $parameters['deviceType'] =$suyoolUserInfo[1] ;
 
                 return $this->render('touch/index.html.twig', [
                     'parameters' => $parameters

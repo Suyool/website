@@ -5,10 +5,10 @@ import App from "./App";
 const container = document.getElementById('ogero');
 const root = createRoot(container);
 
-// const data = JSON.parse(container.dataset.data);
+const data = JSON.parse(container.dataset.data);
 
 root.render(
     <React.StrictMode>
-        <App/>
+        <App parameters={data}/>
     </React.StrictMode>
 );

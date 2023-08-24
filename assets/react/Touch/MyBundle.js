@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -13,11 +13,45 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
     // console.log(getPrepaidVoucher)
   }, [])
 
+  const handleShare= () => {
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("share");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      setTimeout(() => {
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "share"
+        );
+      }, 2000);
+    }
+  }
+
   const handleConfirmPay = () => {
     // console.log("clicked");
     setIsButtonDisabled(true);
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      // const message = "data";
 
-    axios
+      setTimeout(() => {
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "fingerprint"
+        );
+      }, 2000);
+    }
+    
+  };
+
+  useEffect(()=>{
+    if(getDataGetting == "success"){
+      axios
       .post("/touch/BuyPrePaid",
         {
           Token: "",
@@ -79,7 +113,12 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
       .catch((error) => {
         console.log(error);
       });
-  };
+    } 
+    else if(getDataGetting == "failed"){
+      setIsButtonDisabled(false);
+
+    }
+  })
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -120,7 +159,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
                 <img className="copySerial" src="/build/images/touch/copySerial.png" alt="copySerial" />
               </button>
 
-              <button id="ContinueBtn" className="mt-3" onClick={() => { console.log("share code") }} >Share Code</button>
+              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare() }} >Share Code</button>
 
               <div className="stepsToRecharge">
 

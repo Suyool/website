@@ -57,9 +57,9 @@ class AlfaController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $SuyoolUserId = 89;
+                $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                $parameters['Test'] = "tst";
+                $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
                 return $this->render('alfa/index.html.twig', [

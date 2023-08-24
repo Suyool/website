@@ -183,7 +183,7 @@ const App = ({ parameters }) => {
           <ErrorModal
             getErrorModal={getErrorModal}
             show={modalShow}
-            
+            parameters={parameters}
             onHide={() => {
               setModalShow(false);
               setModalName("");

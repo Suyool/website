@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -62,7 +62,29 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   const handleConfirmPay = () => {
     setIsButtonDisabled(true);
     setSpinnerLoader(true);
-    axios
+
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      // const message = "data";
+
+      setTimeout(() => {
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "fingerprint"
+        );
+      }, 2000);
+    }
+    
+  };
+
+  useEffect(()=>{
+    if(getDataGetting == "success"){
+      axios
       .post("/touch/bill/pay",
         {
           ResponseId: getResponseId
@@ -123,7 +145,12 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         console.log(error);
         setSpinnerLoader(false);
       });
-  };
+    }
+    else if(getDataGetting == "failed"){
+      setSpinnerLoader(false);
+      setIsButtonDisabled(false);
+    }
+  },[getDataGetting])
 
   return (
     <>

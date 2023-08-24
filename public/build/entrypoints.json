@@ -24,8 +24,12 @@
         "/build/Loto.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Loto.6bc2803a.js"
 >>>>>>> 89292d9 (loto handling with mobile)
+=======
+        "/build/Loto.bb9afa81.js"
+>>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "LegalEnrollement": {
@@ -36,20 +40,35 @@
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/Alfa.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.71bd529a.js"
+>>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "Touch": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/Touch.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.41b4c440.js"
+>>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "Ogero": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/Ogero.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.2a84d624.js"
+>>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "styles": {
@@ -77,7 +96,11 @@
         "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/Lotostyles.css"
+=======
+        "/build/Lotostyles.186a869c.css"
+>>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "LegalEnrollementStyle": {

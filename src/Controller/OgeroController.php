@@ -15,6 +15,7 @@ use App\Service\SuyoolServices;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class OgeroController extends AbstractController
 {
@@ -23,11 +24,13 @@ class OgeroController extends AbstractController
     public $cipher_algorithme = "AES128";
     public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
     public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
+    private $session;
 
-    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params)
+    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params,SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('ogero');
         $this->params = $params;
+        $this->session=$sessionInterface;
     }
 
     /**
@@ -42,10 +45,13 @@ class OgeroController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
+            $parameters['deviceType']=$suyoolUserInfo[1];
+
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $suyoolUserId=$this->session->set('suyoolUserId',$suyoolUserInfo[0]);
                 // $parameters['Test'] = "tst";
-                return $this->render('ogero/index.html.twig');
+                return $this->render('ogero/index.html.twig',['parameters'=>$parameters]);
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
@@ -62,6 +68,7 @@ class OgeroController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
+        $suyoolUserId=$this->session->get('suyoolUserId');
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
 
@@ -74,7 +81,7 @@ class OgeroController extends AbstractController
 
                 $LandlineReq = new LandlineRequest;
                 $LandlineReq
-                    ->setsuyoolUserId(89)
+                    ->setsuyoolUserId($suyoolUserId)
                     ->setgsmNumber($data["mobileNumber"])
                     ->settransactionId($resp["TransactionId"])
                     ->setogeroBills(json_encode($resp["OgeroBills"]))
@@ -130,7 +137,7 @@ class OgeroController extends AbstractController
 
         $suyoolServices = new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $suyoolUserId = 155;
+        $suyoolUserId = $this->session->get('suyoolUserId');
 
         $Landline_With_id = $this->mr->getRepository(LandlineRequest::class)->findOneBy(['id' => $data["LandlineId"]]);
         $flagCode = null;

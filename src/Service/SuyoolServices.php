@@ -357,4 +357,20 @@ class SuyoolServices
 
         return $payment_details_response;
     }
+
+    public function ValidateEmail($code)
+    {
+        $response = $this->client->request('GET', "{$this->SUYOOL_API_HOST}User/ValidateEmail", [
+            'query' => [
+                'Data' => $code,
+            ],
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content=$response->toArray();
+
+        return $content;
+    }
 }
