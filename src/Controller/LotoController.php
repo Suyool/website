@@ -167,10 +167,6 @@ class LotoController extends AbstractController
         }
 
         if(isset($_POST['infoString'])){
-            // dd($_POST['infoString']);
-            // dd("ok");
-                    // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
-
             $string_to_decrypt = $_POST['infoString'];
 
             
@@ -181,9 +177,6 @@ class LotoController extends AbstractController
             // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-
-            // dd($devicetype);
-    // dd($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]));
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
 
                 $parameters['deviceType']=$suyoolUserInfo[1];
@@ -330,10 +323,6 @@ class LotoController extends AbstractController
                     'parameters' => $parameters
                 ]);
             } else {
-                // return new JsonResponse([
-                //     'message' => 'Not found'
-                // ], 404);
-    
                 return $this->render('ExceptionHandling.html.twig');
             }
         }else{

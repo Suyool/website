@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 const Header = ({
+  parameters,
   activeButton,
   setActiveButton,
   getHeaderTitle,
   getBackLink,
   setBackLink
 }) => {
-  if (activeButton.name == "LLDJ") {
-  }
 
   const handleButtonClick = (getBackLink) => {
     if (activeButton.name == "LLDJ") {
-         setBackLink(window.webkit.messageHandlers.callbackHandler.postMessage(
-      "GoToApp"
-    ));
+      if (parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler("GoToApp");
+    } else if (parameters?.deviceType === "Iphone") {
+          window.webkit.messageHandlers.callbackHandler.postMessage(
+            "GoToApp"
+          );
+        }
     }
 
-    setActiveButton({ name: getBackLink });
+    // setActiveButton({ name: getBackLink });
   };
   return (
     <div id="MobileHeader">

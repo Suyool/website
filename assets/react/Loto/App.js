@@ -73,6 +73,7 @@ const App = ({ parameters }) => {
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
         getBackLink={getBackLink}
+        parameters={parameters}
       />
       <div id="LotoBody">
         <div
