@@ -59,6 +59,112 @@ class LotoController extends AbstractController
     public function index(Request $request)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+        $data = json_decode($request->getContent(), true);
+
+        if(isset($data)){
+            $suyoolUserId=$this->session->get('suyoolUserId');
+            $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+
+            $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
+
+            $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
+
+            $data = json_decode($request->getContent(), true);
+            if (isset($data)) {
+                $drawId = $data['drawNumber'];
+                $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $drawId);
+            } else {
+                $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
+                // dd($loto_prize_per_days);
+            }
+
+            if ($loto_draw) {
+                $parameters['next_draw_number'] = $loto_draw->getdrawid();
+                $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
+                $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
+                $parameters['next_date'] = $loto_draw->getdrawdate();
+                $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+            }
+
+            if ($loto_numbers) {
+                foreach ($loto_numbers as $loto_numbers) {
+                    $gridpricematrix[] = [
+                        'numbers' => $loto_numbers->getnumbers(),
+                        'price' => $loto_numbers->getprice(),
+                        'zeed' => $loto_numbers->getzeed(),
+                    ];
+                }
+                $parameters['gridpricematrix'] = $gridpricematrix;
+            }
+
+
+            $parameters['unit_price'] = $gridpricematrix[0]['price'];
+
+
+            $next_date = new DateTime($parameters['next_date']);
+
+            $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
+            $parameters['gridprice'] =
+                $parameters['unit_price'];
+            $loto_prize_array = [
+                'numbers' => $loto_prize->getnumbers(),
+                'prize1' => $loto_prize->getwinner1(),
+                'prize2' => $loto_prize->getwinner2(),
+                'prize3' => $loto_prize->getwinner3(),
+                'prize4' => $loto_prize->getwinner4(),
+                'prize5' => $loto_prize->getwinner5(),
+                'zeednumbers' => $loto_prize->getzeednumber1(),
+                'zeednumbers2' => $loto_prize->getzeednumber2(),
+                'zeednumbers3' => $loto_prize->getzeednumber3(),
+                'zeednumbers4' => $loto_prize->getzeednumber4(),
+                'prize1zeed' => $loto_prize->getwinner1zeed(),
+                'prize2zeed' => $loto_prize->getwinner2zeed(),
+                'prize3zeed' => $loto_prize->getwinner3zeed(),
+                'prize4zeed' => $loto_prize->getwinner4zeed(),
+                'date' => $loto_prize->getdrawdate()
+            ];
+
+            $parameters['prize_loto_win'] = $loto_prize_array;
+            // dd($parameters);
+            $prize_loto_perdays = [];
+            foreach ($loto_prize_per_days as $days) {
+                foreach ($days['gridSelected'] as $gridselected) {
+                    $grids[] = $gridselected;
+                }
+                $date = new DateTime($days['date']);
+
+
+                $prize_loto_perdays[] = [
+                    'month' => $date->format('M'),
+                    'day' => $date->format('d'),
+                    'date' => $date->format('l'),
+                    'year' => $date->format('Y'),
+                    'drawNumber' => $days['drawId'],
+                    'gridSelected' => $grids,
+                ];
+            }
+
+            foreach ($loto_prize_result as $result) {
+                $prize_loto_result[] = [
+                    'month' => $result->getdrawdate()->format('M'),
+                    'day' => $result->getdrawdate()->format('d'),
+                    'date' => $result->getdrawdate()->format('l'),
+                    'year' => $result->getdrawdate()->format('Y'),
+                    'drawNumber' => $result->getdrawid()
+                ];
+            }
+
+            $parameters['prize_loto_perdays'] = $prize_loto_perdays;
+            $parameters['prize_loto_result'] = $prize_loto_result;
+
+
+
+                return new JsonResponse([
+                    'parameters' => $parameters
+                ]);
+        }
 
         if(isset($_POST['infoString'])){
             // dd($_POST['infoString']);
