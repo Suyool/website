@@ -1,40 +1,58 @@
-<div style="padding: 60px 0;">
-    <form method="post" action="{{ path('form_submit') }}" style="margin: auto; width: 330px;">
-        {{ form_start(form) }}
-        <div>
-            {{ form_label(form.domain) }}
-        {{ form_widget(form.domain) }}
-        </div>
-        <div>
-            {{ form_label(form.appKey) }}
-        {{ form_widget(form.appKey) }}
-        </div>
-        <div>
-            {{ form_label(form.appPass) }}
-        {{ form_widget(form.appPass) }}
-        </div>
-        <div>
-            {{ form_label(form.appSecret) }}
-        {{ form_widget(form.appSecret) }}
-        </div>
-        <div>
-            {{ form_label(form.shopCurrency) }}
-        {{ form_widget(form.shopCurrency) }}
-        </div>
-        <div>
-            {{ form_label(form.merchantId) }}
-        {{ form_widget(form.merchantId) }}
-        </div>
-        <div>
-            {{ form_label(form.certificateKey) }}
-        {{ form_widget(form.certificateKey) }}
-        </div>
-        <div>
-            {{ form_label(form.integrationType) }}
-        {{ form_widget(form.integrationType) }}
-        </div>
+{% extends 'base.html.twig' %}
 
-        {{ form_end(form) }}
-    </form>
+{% block title %}Shopify Installation Form{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Shopify Installation Form</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ path('form_submit') }}">
+                        {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_label(form.domain, 'Domain') }}
+                            {{ form_widget(form.domain, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.appKey, 'App Key') }}
+                            {{ form_widget(form.appKey, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.appPass, 'App Password') }}
+                            {{ form_widget(form.appPass, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.appSecret, 'App Secret') }}
+                            {{ form_widget(form.appSecret, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.shopCurrency, 'Shop Currency') }}
+                            {{ form_widget(form.shopCurrency, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.merchantId, 'Merchant ID') }}
+                            {{ form_widget(form.merchantId, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.certificateKey, 'Certificate Key') }}
+                            {{ form_widget(form.certificateKey, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form_label(form.integrationType, 'Integration Type') }}
+                            {{ form_widget(form.integrationType, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="text-center">
+                            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
+{% endblock %}
