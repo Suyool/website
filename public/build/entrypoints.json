@@ -2,257 +2,100 @@
   "entrypoints": {
     "app1": {
       "js": [
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/app1.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.a9522f5f.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.js",
-        "/build/admin-app.js"
-=======
         "/build/runtime.e40c1cca.js",
-        "/build/app1.a9522f5f.js"
->>>>>>> 89292d9 (loto handling with mobile)
+        "/build/admin-app.26567332.js"
       ]
     },
     "Loto": {
       "js": [
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/Loto.js"
-=======
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Loto.6bc2803a.js"
->>>>>>> 89292d9 (loto handling with mobile)
-=======
-        "/build/Loto.bb9afa81.js"
->>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
-=======
-        "/build/Loto.ce89c55a.js"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
-        "/build/Loto.97fce411.js"
->>>>>>> f5a98ed (loto remove weekly subscription)
-=======
-        "/build/Loto.7cecd301.js"
->>>>>>> 280b71e (remove data getting ionm loto)
-=======
-        "/build/Loto.da249748.js"
->>>>>>> 2f46522 (redirect to app in loto)
-=======
         "/build/Loto.25b12f6d.js"
->>>>>>> 46d69df (fix databse name entity)
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.3ed06689.js"
       ]
     },
     "Alfa": {
       "js": [
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/Alfa.js"
-=======
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Alfa.71bd529a.js"
->>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
-=======
-        "/build/Alfa.63485b3b.js"
->>>>>>> ee26044 (fix 400 bad request in email verification and bills)
-=======
-        "/build/Alfa.eee9c270.js"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
-        "/build/Alfa.4682631b.js"
->>>>>>> 68646c4 (remove static number in bills)
-=======
-        "/build/Alfa.bb4e3ac7.js"
->>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
-=======
         "/build/Alfa.dae12959.js"
->>>>>>> 5dae9cf (exhange to exchange)
       ]
     },
     "Touch": {
       "js": [
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/Touch.js"
-=======
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Touch.41b4c440.js"
->>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
-=======
-        "/build/Touch.ee00df43.js"
->>>>>>> ee26044 (fix 400 bad request in email verification and bills)
-=======
-        "/build/Touch.0459a62c.js"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
-        "/build/Touch.46519e0a.js"
->>>>>>> 68646c4 (remove static number in bills)
-=======
-        "/build/Touch.46a61631.js"
->>>>>>> e49ee21 (share code prepaid touch alfa)
-=======
-        "/build/Touch.25f59797.js"
->>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
-=======
         "/build/Touch.a5de5a65.js"
->>>>>>> 5dae9cf (exhange to exchange)
       ]
     },
     "Ogero": {
       "js": [
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/Ogero.js"
-=======
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Ogero.2a84d624.js"
->>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
-=======
-        "/build/Ogero.f141849b.js"
->>>>>>> ee26044 (fix 400 bad request in email verification and bills)
-=======
-        "/build/Ogero.19efde90.js"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
-        "/build/Ogero.5f4e22b0.js"
->>>>>>> 68646c4 (remove static number in bills)
-=======
-        "/build/Ogero.b78c2d26.js"
->>>>>>> d4fe367 (ogero error modal)
-=======
-        "/build/Ogero.c6ff8279.js"
->>>>>>> 81cad22 (error modal ogero json in android)
-=======
-        "/build/Ogero.6da8e95c.js"
->>>>>>> 5dae9cf (exhange to exchange)
-=======
         "/build/Ogero.ef104cd9.js"
->>>>>>> c90374b (ogero handling response and logs)
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.css"
-=======
-        "/build/styles.8f6eb6aa.css"
->>>>>>> 89292d9 (loto handling with mobile)
-=======
         "/build/styles.d2700f13.css"
->>>>>>> ee26044 (fix 400 bad request in email verification and bills)
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.css"
+        "/build/admin.d750f727.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-        "/build/Lotostyles.css"
-=======
         "/build/Lotostyles.186a869c.css"
->>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.839214a6.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/AlfaStyle.css"
-=======
-        "/build/AlfaStyle.5e94c966.css"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
         "/build/AlfaStyle.8ad7a800.css"
->>>>>>> 2489a66 (header fixed)
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/TouchStyle.css"
-=======
-        "/build/TouchStyle.a9f0b56d.css"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
         "/build/TouchStyle.9e08400f.css"
->>>>>>> 2489a66 (header fixed)
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/OgeroStyle.css"
-=======
-        "/build/OgeroStyle.e6afb23a.css"
->>>>>>> 27bca8f (handle all bills to mobile webview)
-=======
         "/build/OgeroStyle.d97587d0.css"
->>>>>>> 2489a66 (header fixed)
       ]
     }
   }

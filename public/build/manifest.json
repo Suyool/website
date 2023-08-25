@@ -1,22 +1,6 @@
 {
-<<<<<<< HEAD
-  "build/app1.js": "/build/app1.js",
-  "build/admin-app.js": "/build/admin-app.js",
-  "build/Loto.js": "/build/Loto.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
-  "build/Alfa.js": "/build/Alfa.js",
-  "build/Touch.js": "/build/Touch.js",
-  "build/Ogero.js": "/build/Ogero.js",
-  "build/styles.css": "/build/styles.css",
-  "build/admin.css": "/build/admin.css",
-  "build/Lotostyles.css": "/build/Lotostyles.css",
-  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.css",
-  "build/TouchStyle.css": "/build/TouchStyle.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.css",
-  "build/runtime.js": "/build/runtime.js",
-=======
   "build/app1.js": "/build/app1.a9522f5f.js",
+  "build/admin-app.js": "/build/admin-app.26567332.js",
   "build/Loto.js": "/build/Loto.25b12f6d.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.3ed06689.js",
   "build/Alfa.js": "/build/Alfa.dae12959.js",
@@ -30,7 +14,6 @@
   "build/TouchStyle.css": "/build/TouchStyle.9e08400f.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.d97587d0.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> 89292d9 (loto handling with mobile)
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
