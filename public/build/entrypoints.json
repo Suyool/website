@@ -27,6 +27,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Loto.6bc2803a.js"
 >>>>>>> 89292d9 (loto handling with mobile)
 =======
@@ -38,6 +39,9 @@
 =======
         "/build/Loto.97fce411.js"
 >>>>>>> f5a98ed (loto remove weekly subscription)
+=======
+        "/build/Loto.7cecd301.js"
+>>>>>>> 280b71e (remove data getting ionm loto)
       ]
     },
     "LegalEnrollement": {

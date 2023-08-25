@@ -85,7 +85,7 @@ const App = ({ parameters }) => {
             src="/build/images/Loto/LibanaiseJeux.png"
             alt="La Libanaise des Jeux"
           />
-          {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
+          {/* {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>} */}
 
           {activeButton.name === "LLDJ" && (
             <LLDJ
