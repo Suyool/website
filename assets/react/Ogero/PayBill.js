@@ -68,6 +68,9 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
+    if(truncatedValue[0] !== '0'){
+      return '0' + truncatedValue;
+    }
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }
@@ -85,7 +88,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
           <img src="/build/images/Ogero/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
+        <input type="tel" className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
