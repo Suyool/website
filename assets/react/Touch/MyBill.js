@@ -33,6 +33,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
 
   const handlePayNow = () => {
     if (pinCode.length === 4) {
+      setSpinnerLoader(true);
       axios
         .post("/touch/bill/RetrieveResults",
           {
@@ -46,6 +47,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
         .then((response) => {
           console.log(response);
           if (response.data?.isSuccess) {
+            setSpinnerLoader(false);
             setDisplayData(response?.data?.displayData);
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
@@ -53,6 +55,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
           } else {
             setPinWrong(true)
             setPinCode("");
+            setSpinnerLoader(false);
           }
         })
         .catch((error) => {

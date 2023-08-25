@@ -159,7 +159,9 @@ class SuyoolServices
      */
     public function GetAllUsers($ChannelID)
     {
+        // echo $ChannelID . $this->certificate;
         $Hash = base64_encode(hash($this->hash_algo, $ChannelID . $this->certificate, true));
+        // dd($Hash);
 
         // dd($Hash);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [

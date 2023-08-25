@@ -108,8 +108,8 @@ class PlayLoto extends Command
                     // $this->mr->flush($lotoToBePlayed);
                     $ticketscount++;
                     $newElement = [];
-                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
-                    // $submit=[true,null];
+                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
+                    $submit=[true,null];
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
@@ -136,13 +136,13 @@ class PlayLoto extends Command
                                 $content=$this->notificationService->getContent('bouquet with zeed');
 
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk);
+                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto");
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
                             } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $content=$this->notificationService->getContent('bouquet without zeed');
 
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk);
+                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto");
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
                             }
                             // $additionaldata[] = $newElement;
@@ -176,9 +176,9 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(2);
-                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId = $this->lotoServices->GetTicketId();
                             // dd();
-                            // $ticketId="55";
+                            $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);
                             $lotoToBePlayed->setzeednumber($submit[1]);
 
@@ -202,13 +202,13 @@ class PlayLoto extends Command
                                 $content=$this->notificationService->getContent('with zeed & without bouquet');
 
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk);
+                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto");
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
                             } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
                                 $content=$this->notificationService->getContent('without zeed & without bouquet');
 
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk);
+                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto");
                                 $newElement = ['ticketId' => $ticketId];
                             }
 
@@ -268,7 +268,7 @@ class PlayLoto extends Command
                 $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
                 // var_dump($additionaldata);
 
-                var_dump($updateutility);
+                // var_dump($updateutility);
                 
                 
                 if ($updateutility[0]) {

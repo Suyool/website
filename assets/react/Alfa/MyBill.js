@@ -34,6 +34,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
 
   const handlePayNow = () => {
     if (pinCode.length === 4) {
+      setSpinnerLoader(true);
       axios
         .post("/alfa/bill/RetrieveResults",
           {
@@ -47,6 +48,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
         .then((response) => {
           console.log(response);
           if (response.data.message == "connected") {
+            setSpinnerLoader(false);
             setDisplayData(response?.data?.displayData);
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
@@ -54,6 +56,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
           } else if(response.data.message == "pinwrong") {
             setPinWrong(true)
             setPinCode("");
+            setSpinnerLoader(false);
           }else{
             console.log("something wrong");
             setPinCode("");
