@@ -26,6 +26,7 @@
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Loto.6bc2803a.js"
 >>>>>>> 89292d9 (loto handling with mobile)
 =======
@@ -34,6 +35,9 @@
 =======
         "/build/Loto.ce89c55a.js"
 >>>>>>> 27bca8f (handle all bills to mobile webview)
+=======
+        "/build/Loto.97fce411.js"
+>>>>>>> f5a98ed (loto remove weekly subscription)
       ]
     },
     "LegalEnrollement": {

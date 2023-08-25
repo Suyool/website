@@ -11,7 +11,7 @@ class SuyoolServices
 {
 
     private $SUYOOL_API_HOST;
-    private $NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
+    private $NOTIFICATION_SUYOOL_HOST;
     private $client;
     private $merchantAccountID;
     private $certificate;
@@ -24,8 +24,10 @@ class SuyoolServices
         $this->merchantAccountID = $merchantAccountID;
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+            $this->NOTIFICATION_SUYOOL_HOST="https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         } else {
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+            $this->NOTIFICATION_SUYOOL_HOST="http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
     }
