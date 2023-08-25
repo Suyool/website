@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.8ad7a800.css"
+        "/build/AlfaStyle.5e94c966.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.9e08400f.css"
+        "/build/TouchStyle.a9f0b56d.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.d97587d0.css"
+        "/build/OgeroStyle.e6afb23a.css"
       ]
     }
   }
