@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="suyool_notification.template")
+ * @ORM\Table(name="template")
  */
 class Template
 {

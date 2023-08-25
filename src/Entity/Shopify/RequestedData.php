@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="suyool_shopify.requested_data")
+ * @ORM\Table(name="requested_data")
  * @ORM\HasLifecycleCallbacks
  */
 class RequestedData

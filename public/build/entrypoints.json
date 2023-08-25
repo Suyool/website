@@ -29,6 +29,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Loto.6bc2803a.js"
 >>>>>>> 89292d9 (loto handling with mobile)
 =======
@@ -46,6 +47,9 @@
 =======
         "/build/Loto.da249748.js"
 >>>>>>> 2f46522 (redirect to app in loto)
+=======
+        "/build/Loto.25b12f6d.js"
+>>>>>>> 46d69df (fix databse name entity)
       ]
     },
     "LegalEnrollement": {

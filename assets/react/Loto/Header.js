@@ -19,7 +19,7 @@ const Header = ({
         }
     }
 
-    // setActiveButton({ name: getBackLink });
+    setActiveButton({ name: getBackLink });
   };
   return (
     <div id="MobileHeader">

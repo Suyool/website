@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlaysRepository")
- * @ORM\Table(name="suyool_loto.loto")
+ * @ORM\Table(name="loto")
  */
 class loto
 {
