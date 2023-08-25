@@ -34,6 +34,9 @@ class NotificationServices
             $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
             // dd($suyoolUser);
             if($suyoolUser != null){
+                if($suyoolUser["FirstName"] == null){
+                    return false;
+                }
                 $userFirstname = $suyoolUser["FirstName"];
                 $userLastname = $suyoolUser["LastName"];
                 $userLang = $suyoolUser["LanguageID"];

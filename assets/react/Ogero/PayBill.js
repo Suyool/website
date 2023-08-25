@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink  }) => {
+const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink  }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
@@ -27,6 +27,15 @@ const PayBill = ({ setLandlineMobile, setLandlineDisplayedData , setLandlineData
           setLandlineMobile(response?.data?.mobileNb)
         }else{
           setSpinnerLoader(false);
+          setModalName("ErrorModal");
+            setErrorModal({
+              imgPath: "/build/images/alfa/error.png",
+              title: "Please Try again",
+              desc: `Mobile number not found`,
+              // path: response.data.path,
+              // btn:'Top up'
+            });
+            setModalShow(true);
 
         }
      

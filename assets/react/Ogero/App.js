@@ -62,6 +62,9 @@ const App = ({ parameters }) => {
                 setLandlineMobile={setLandlineMobile}
                 setLandlineDisplayedData={setLandlineDisplayedData}
                 setLandlineData={setLandlineData}
+                setModalShow={setModalShow}
+                setErrorModal={setErrorModal}
+                setModalName={setModalName}
                 activeButton={activeButton}
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
