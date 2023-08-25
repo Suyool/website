@@ -389,7 +389,7 @@ class BobServices
             ]
         ]);
 
-        $myfile = fopen("../var/cache/ogerologs.txt", "w");
+        $myfile = fopen("../var/cache/ogerologs.txt", "a");
        
 
         $content = $response->getContent();

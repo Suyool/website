@@ -213,10 +213,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.css"
 =======
         "/build/AlfaStyle.5e94c966.css"
 >>>>>>> 27bca8f (handle all bills to mobile webview)
+=======
+        "/build/AlfaStyle.8ad7a800.css"
+>>>>>>> 2489a66 (header fixed)
       ]
     },
     "TouchStyle": {
@@ -225,10 +229,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/TouchStyle.css"
 =======
         "/build/TouchStyle.a9f0b56d.css"
 >>>>>>> 27bca8f (handle all bills to mobile webview)
+=======
+        "/build/TouchStyle.9e08400f.css"
+>>>>>>> 2489a66 (header fixed)
       ]
     },
     "OgeroStyle": {
@@ -237,10 +245,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/OgeroStyle.css"
 =======
         "/build/OgeroStyle.e6afb23a.css"
 >>>>>>> 27bca8f (handle all bills to mobile webview)
+=======
+        "/build/OgeroStyle.d97587d0.css"
+>>>>>>> 2489a66 (header fixed)
       ]
     }
   }
