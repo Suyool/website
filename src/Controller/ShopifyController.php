@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Shopify\ShopifyInstallation;
+use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
-use App\Entity\Shopify\MerchantCredentials;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class ShopifyController extends AbstractController
     {
         $orderID = $request->query->get('order_id');
         $totalPrice = $request->query->get('Merc_id');
-        $totalPrice = base64_decode($totalPrice)/ 100;
+        $totalPrice = base64_decode($totalPrice)/100;
         $url = $request->query->get('url');
         $domain = $request->query->get('domain');
         $errorUrl = $request->query->get('error_url');
@@ -38,20 +39,15 @@ class ShopifyController extends AbstractController
         }
 
         $hostname = Helper::getHost($domain);
-        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
+        $credentialsRepository = $this->mr->getRepository(ShopifyInstallation::class);
         $credentials = $credentialsRepository->findAll();
-
         foreach($credentials as $credential){
-            if($credential->getShop() == $hostname){
-                if ($credential->getLiveChecked())
-                    $merchantId = $credential->getLiveMerchantId();
-                else
-                    $merchantId = $credential->getTestMerchantId();
-
+            if($credential->getDomain() == $hostname){
+                $merchantId = $credential->getMerchantId();
                 $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
                 $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
-                $order = new $orderClass();
 
+                $order = new $orderClass();
                 $order->setOrderId($orderID);
                 $order->setShopName($domain);
                 $order->setAmount($totalPrice);
@@ -61,9 +57,10 @@ class ShopifyController extends AbstractController
                 $order->setEnv($env);
                 $order->setMerchantId($merchantId);
                 $order->setStatus(0);
+                $order->setFlag(0);
 
-                // Check if the order already exists in the database
                 $existingOrder = $this->mr->getRepository($orderClass)->findOneBy(['orderId' => $orderID]);
+
                 if ($existingOrder) {
                     // Update the existing order
                     $existingOrder->setAmount($totalPrice);
@@ -78,12 +75,14 @@ class ShopifyController extends AbstractController
                 }
 
                 $this->mr->flush();
+                dd("ouppa");
                 return $this->render('shopify/index.html.twig', [
                     'order_id' => $orderID,
                     'meta_data' => $metadata,
                 ]);
             }
         }
+
         return new Response("false");
     }
 }
