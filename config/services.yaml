@@ -80,6 +80,10 @@ services:
         arguments:
             $merchantAccountID: ''
 
+    App\EventListener\DomainAccessListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'
