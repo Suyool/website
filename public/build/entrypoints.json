@@ -133,6 +133,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Ogero.2a84d624.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
@@ -153,6 +154,9 @@
 =======
         "/build/Ogero.6da8e95c.js"
 >>>>>>> 5dae9cf (exhange to exchange)
+=======
+        "/build/Ogero.ef104cd9.js"
+>>>>>>> c90374b (ogero handling response and logs)
       ]
     },
     "styles": {

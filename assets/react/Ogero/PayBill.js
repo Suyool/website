@@ -12,38 +12,51 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
   }, [])
 
   const handleContinue = () => {
-    setSpinnerLoader(true);
-    axios
-      .post("/ogero/landline",
-        {
-          mobileNumber: mobileNumber.replace(/\s/g, ''),
-        }
-      )
-      .then((response) => {
-        if(response?.data?.LandlineReqId != -1){
-          setActiveButton({ name: "MyBill" });
-          setLandlineData({ id: response?.data?.LandlineReqId })
-          setLandlineDisplayedData(response?.data?.message)
-          setLandlineMobile(response?.data?.mobileNb)
-        }else{
-          setSpinnerLoader(false);
-          setModalName("ErrorModal");
-            setErrorModal({
-              imgPath: "/build/images/alfa/error.png",
-              title: "Please Try again",
-              desc: `Mobile number not found`,
-              // path: response.data.path,
-              // btn:'Top up'
-            });
-            setModalShow(true);
-
-        }
-     
-      })
-      .catch((error) => {
-        console.log(error);
+    if(mobileNumber == ""){
+      setModalName("ErrorModal");
+      setErrorModal({
+        imgPath: "/build/images/alfa/error.png",
+        title: "Please Try again",
+        desc: `Mobile number required`,
+        // path: response.data.path,
+        // btn:'Top up'
       });
-
+      setModalShow(true);
+    }else{
+      setSpinnerLoader(true);
+      axios
+        .post("/ogero/landline",
+          {
+            mobileNumber: mobileNumber.replace(/\s/g, ''),
+          }
+        )
+        .then((response) => {
+          if(response?.data?.LandlineReqId != -1){
+            setActiveButton({ name: "MyBill" });
+            setLandlineData({ id: response?.data?.LandlineReqId })
+            setLandlineDisplayedData(response?.data?.message)
+            setLandlineMobile(response?.data?.mobileNb)
+          }else{
+            setSpinnerLoader(false);
+            setModalName("ErrorModal");
+              setErrorModal({
+                imgPath: "/build/images/alfa/error.png",
+                title: "Please Try again",
+                desc: `Mobile number not found`,
+                // path: response.data.path,
+                // btn:'Top up'
+              });
+              setModalShow(true);
+  
+          }
+       
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  
+    }
+    
   };
 
   const handleMobileNumberChange = (event) => {
@@ -72,7 +85,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
           <img src="/build/images/Ogero/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>

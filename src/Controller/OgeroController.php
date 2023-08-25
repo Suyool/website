@@ -44,6 +44,9 @@ class OgeroController extends AbstractController
             $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            if(!isset($suyoolUserInfo[1])){
+                return $this->render('ExceptionHandling.html.twig');
+            }
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             $parameters['deviceType'] = $suyoolUserInfo[1];

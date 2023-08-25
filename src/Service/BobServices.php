@@ -86,7 +86,7 @@ class BobServices
         $Pin = implode("", $Pin);
         // dd($Pin);
 
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
@@ -124,7 +124,7 @@ class BobServices
     public function BillPay($Postpaid_With_id_Res)
     {
         // dd($Postpaid_With_id_Res->getCurrency());
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
@@ -211,7 +211,7 @@ class BobServices
         $Pin = implode("", $Pin);
         // dd($Pin);
 
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/RetrieveChannelResults', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
@@ -256,7 +256,7 @@ class BobServices
     public function BillPayTouch($Postpaid_With_id_Res)
     {
         // dd($Postpaid_With_id_Res->getCurrency());
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => "1",
@@ -360,7 +360,7 @@ class BobServices
     public function BillPayOgero($Landline_With_id)
     {
         // dd(strval($Landline_With_id->getgsmNumber()));
-        $response = $this->client->request('POST', $this->BOB_API_HOST . '/InjectTransactionalPayment', [
+        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
                 "ItemId" => 1,
@@ -389,7 +389,13 @@ class BobServices
             ]
         ]);
 
+        $myfile = fopen("../var/cache/ogerologs.txt", "w");
+       
+
         $content = $response->getContent();
+
+        $txt=json_encode(['response'=>$response,'content'=>$content]);
+        fwrite($myfile, $txt);
 
         $ApiResponse = json_decode($content, true);
 
