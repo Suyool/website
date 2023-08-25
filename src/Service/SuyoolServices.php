@@ -163,14 +163,14 @@ class SuyoolServices
 
         // dd($Hash);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
-            'query' => ['SecureHash' => $Hash],
+            'query' => ['Data' => $Hash],
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
-        $update_utility_response = $response->toArray(true);
+        $getAllUsers = $response->toArray(false);
 
-        $dataString = $update_utility_response["data"];
+        $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
 
         return $dataArray;
