@@ -143,7 +143,7 @@ class SuyoolServices
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
-                return array(true);
+                return array(true,"reversed");
             } else {
                 // dd($globalCode);
                 return array(false, $message);

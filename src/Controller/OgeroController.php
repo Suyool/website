@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ogero\Landline;
 use App\Entity\Ogero\LandlineRequest;
+use App\Entity\Ogero\Logs;
 use App\Entity\Ogero\Order;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,7 @@ class OgeroController extends AbstractController
 
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
+                $suyoolUserId = $this->session->set('suyoolUserId', 89);
                 // $parameters['Test'] = "tst";
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
             } else {
@@ -248,7 +249,7 @@ class OgeroController extends AbstractController
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                    if ($responseUpdateUtilities) {
+                    if ($responseUpdateUtilities[0]) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
                         //update te status from purshased to completed
@@ -268,20 +269,41 @@ class OgeroController extends AbstractController
                         $dataPayResponse = -1;
                     }
                 } else {
+                    $logs=new Logs;
+                    $logs->setidentifier("ogero error");
+                    $logs->seterror($BillPayOgero[2]);
+
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
+
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0,"", $orderupdate1->gettransId());
+                    // dd($responseUpdateUtilities);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
-                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->setstatus(Order::$statusOrder['CANCELED'])
                             ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
                         $message = "Success return money!!";
                     } else {
+                        $logs=new Logs;
+                        $logs->setidentifier("Update Utility error");
+
+                        if(isset($responseUpdateUtilities[1])){
+                            $logs->seterror($responseUpdateUtilities[1]);
+
+                        }else{
+                            $logs->seterror(null);
+
+                        }
+
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
                         $message = "Can not return money!!";
                     }
                 }

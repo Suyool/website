@@ -370,12 +370,8 @@ class BobServices
 
                 "OgeroResult" => [
                     "Amount" => strval($Landline_With_id->getamount()),
-
-                    // "PayerName" => $Landline_With_id->getogeroClientName(),
-                    // "PayerMobileNumber" => strval($Landline_With_id->getgsmNumber()),
-                    "PayerName" => "Elie Yammouni",
-                    "PayerMobileNumber" => "79143921",
-
+                    "PayerName" => $Landline_With_id->getogeroClientName(),
+                    "PayerMobileNumber" => strval($Landline_With_id->getgsmNumber()),
                     "Fees" => strval($Landline_With_id->getfees()),
                     "Rounding" => strval($Landline_With_id->getrounding()),
                     "AdditionalFees" => strval($Landline_With_id->getadditionalFees()),
@@ -396,6 +392,8 @@ class BobServices
         $content = $response->getContent();
 
         $ApiResponse = json_decode($content, true);
+
+        // dd($ApiResponse);
 
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
