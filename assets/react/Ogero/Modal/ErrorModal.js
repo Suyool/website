@@ -18,10 +18,10 @@ const ErrorModal = (props) => {
         }
       }
          ];
-      console.log(JSON.stringify(object));
+      // console.log(JSON.stringify(object));
   
       if (props.parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler(object);
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
