@@ -57,7 +57,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if(truncatedValue[0] !== '0'){
+    if(truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8'){
       return '0' + truncatedValue;
     }
     if (truncatedValue.length > 3) {
