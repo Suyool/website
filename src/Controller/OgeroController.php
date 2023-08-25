@@ -271,7 +271,7 @@ class OgeroController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0,"", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -293,7 +293,7 @@ class OgeroController extends AbstractController
                     ->setstatus(Order::$statusOrder['CANCELED'])
                     ->setamount($order->getamount())
                     ->setcurrency($this->params->get('CURRENCY_LBP'))
-                    ->seterror($response[1]);
+                    ->seterror($response[3]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;

@@ -57,6 +57,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.71bd529a.js"
 >>>>>>> 8ace8ef (email verification with sending object as json to mobile in bills)
 =======
@@ -71,6 +72,9 @@
 =======
         "/build/Alfa.bb4e3ac7.js"
 >>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
+=======
+        "/build/Alfa.dae12959.js"
+>>>>>>> 5dae9cf (exhange to exchange)
       ]
     },
     "Touch": {
@@ -80,6 +84,7 @@
         "/build/Touch.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -102,6 +107,9 @@
 =======
         "/build/Touch.25f59797.js"
 >>>>>>> e7be9b1 (fix if pin wrong in alfa and touch)
+=======
+        "/build/Touch.a5de5a65.js"
+>>>>>>> 5dae9cf (exhange to exchange)
       ]
     },
     "Ogero": {
@@ -111,6 +119,7 @@
         "/build/Ogero.js"
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -133,6 +142,9 @@
 =======
         "/build/Ogero.c6ff8279.js"
 >>>>>>> 81cad22 (error modal ogero json in android)
+=======
+        "/build/Ogero.6da8e95c.js"
+>>>>>>> 5dae9cf (exhange to exchange)
       ]
     },
     "styles": {

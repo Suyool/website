@@ -12,7 +12,7 @@ const ErrorModal = (props) => {
       //   },
       // ];
       let object = [{
-        'exhange' : {
+        'exchange' : {
           flag: props.getErrorModal.path,
           url: window.location.href,
         }

@@ -6,7 +6,7 @@ const ErrorModal = (props) => {
     // window.location.href = "/app?f="+props.getErrorModal.path;
     if(props.getErrorModal.path == "84"){
     let object = [{
-      'exhange' : {
+      'exchange' : {
         flag: props.getErrorModal.path,
         url: window.location.href,
       }
