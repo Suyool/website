@@ -14,6 +14,7 @@ const PickYourGrid = ({
   setModalShow,
   setTotalAmountLLDJ,
   getTotalAmountLLDJ,
+  getBallNumbersIndex
 }) => {
   const [selectedBalls, setSelectedBalls] = useState([]);
   // console.log(getTotalAmount)
@@ -98,6 +99,7 @@ const PickYourGrid = ({
 
   const handleDone = () => {
     const lastBall = selectedBalls[selectedBalls.length - 1];
+    if(getPlay){
     if (selectedBalls.length > 5) {
       setIsHide(false);
 
@@ -134,8 +136,16 @@ const PickYourGrid = ({
       if (isNewSet) {
        
         // If the set is unique, add it to the existing data and save to localStorage
-        const updatedBalls = [...existingBalls, ballSet];
-        localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+        // const updatedBalls = [...existingBalls, ballSet];
+        // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+        if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+          existingBalls[getBallNumbersIndex]=ballSet;
+          localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+        } else {
+          // If the set is unique, add it to the existing data and save to localStorage
+          const updatedBalls = [...existingBalls, ballSet];
+          localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+        }
       } else {
         setModalName("ErrorModal");
         setErrorModal({
@@ -148,8 +158,69 @@ const PickYourGrid = ({
       setPickYourGrid(false);
     } else {
       console.log("The last ball is null");
+    }}else{
+      if (selectedBalls.length > 5) {
+        setIsHide(false);
+  
+        const filteredBalls = selectedBalls.filter((ball) => ball !== null);
+  
+        if (filteredBalls.length < getBallNumbers) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You need to select at least ${getBallNumbers} numbers`,
+          });
+          setTotalAmount(10);
+          setModalShow(true);
+          return;
+        }
+  
+        const ballSet = {
+          balls: filteredBalls,
+          price: getTotalAmountLLDJ,
+          withZeed: false,
+          currency: "LBP",
+          isbouquet: false,
+        };
+  
+        const existingData = localStorage.getItem("selectedBalls");
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+        const isNewSet = existingBalls.every(
+          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
+        );
+  
+        
+  
+        if (isNewSet) {
+         
+          // If the set is unique, add it to the existing data and save to localStorage
+          // const updatedBalls = [...existingBalls, ballSet];
+          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+            existingBalls[getBallNumbersIndex]=ballSet;
+            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+          } else {
+            // If the set is unique, add it to the existing data and save to localStorage
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          }
+        } else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You have a grid with same numbers in this draw`,
+          });
+          setModalShow(true);
+        }
+        setPickYourGrid(false);
+      } else {
+        console.log("The last ball is null");
+      }
     }
-  };
+  }
+
 
   const handleCancel = () => {
     setPickYourGrid(false);

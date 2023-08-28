@@ -13,7 +13,7 @@ import Header from "./Header";
 const App = ({ parameters }) => {
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Loto");
-
+  const [getBallNumbersIndex, setBallNumbersIndex] = useState(-1);
 
   const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
   const [getPickYourGrid, setPickYourGrid] = useState(false);
@@ -119,6 +119,8 @@ const App = ({ parameters }) => {
               setPlay={setPlay}
               setIsHide={setIsHide}
               setDataGetting={setDataGetting}
+              setBallNumbersIndex={setBallNumbersIndex}
+              getBallNumbersIndex={getBallNumbersIndex}
               
             />
           )}
@@ -163,6 +165,7 @@ const App = ({ parameters }) => {
             setModalShow={setModalShow}
             setModalName={setModalName}
             setErrorModal={setErrorModal}
+            getBallNumbersIndex={getBallNumbersIndex}
           />
         )}
         <BottomNav

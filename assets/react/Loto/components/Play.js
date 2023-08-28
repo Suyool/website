@@ -14,7 +14,9 @@ const Play = ({
   setBackLink,
   setPlay,
   setTotalAmountLLDJ,
-  setDataGetting
+  setDataGetting,
+  setBallNumbersIndex,
+  getBallNumbersIndex
 }) => {
   // console.log(parameters);
   // console.log("getTotalAmount",getTotalAmount)
@@ -92,10 +94,10 @@ const Play = ({
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
   };
   const handleEdit = (index) => {
-    // console.log(getPlayedBalls[index].balls);
+    setBallNumbersIndex(index);
     setBallPlayed(getPlayedBalls[index].balls);
     setBallNumbers(getPlayedBalls[index].balls.length);
-    setTotalAmount(getPlayedBalls[index].price);
+    setTotalAmountLLDJ(getPlayedBalls[index].price);
     setPickYourGrid(true);
   };
 
