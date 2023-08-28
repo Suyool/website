@@ -174,6 +174,7 @@ const Buy = ({
               JSON.parse(selectedBallsToShow).length === 0
           );
         });
+        setDisable(false);
     }else if(getDataGetting == "failed"){
       setDataGetting("")
       setSpinnerLoader(false);

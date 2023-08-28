@@ -30,6 +30,7 @@ class NotificationServices
     public function checkUser($userid,$lang)
     {
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+        // dd($singleUser);
         if($singleUser == null){
             $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
             // dd($suyoolUser);
@@ -58,6 +59,7 @@ class NotificationServices
             
         }else{
             $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+            // dd($userid);
         }
         
 

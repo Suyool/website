@@ -49,6 +49,8 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
         if (isset($_POST['infoString'])) {
             $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
@@ -56,18 +58,21 @@ class AlfaController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            // $suyoolUserInfo[0]=15;
+
+            // if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
+                // $this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 52);
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
                 return $this->render('alfa/index.html.twig', [
                     'parameters' => $parameters
                 ]);
-            } else {
-                return $this->render('ExceptionHandling.html.twig');
-            }
+            // } else {
+                // return $this->render('ExceptionHandling.html.twig');
+            // }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }

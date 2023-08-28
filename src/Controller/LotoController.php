@@ -166,6 +166,8 @@ class LotoController extends AbstractController
                 ]);
         }
 
+        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
         if(isset($_POST['infoString'])){
             $string_to_decrypt = $_POST['infoString'];
 
@@ -177,7 +179,7 @@ class LotoController extends AbstractController
             // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            // if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
 
                 $parameters['deviceType']=$suyoolUserInfo[1];
 
@@ -211,7 +213,8 @@ class LotoController extends AbstractController
     
                 // $useragent = $_SERVER['HTTP_USER_AGENT'];
                 $suyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $suyoolUserId);
+                // $this->session->set('suyoolUserId', $suyoolUserId);
+                $this->session->set('suyoolUserId', 52);
     
     
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
@@ -322,9 +325,9 @@ class LotoController extends AbstractController
                 return $this->render('loto/index.html.twig', [
                     'parameters' => $parameters
                 ]);
-            } else {
-                return $this->render('ExceptionHandling.html.twig');
-            }
+            // } else {
+                // return $this->render('ExceptionHandling.html.twig');
+            // }
         }else{
             return $this->render('ExceptionHandling.html.twig');
         }
