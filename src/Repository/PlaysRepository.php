@@ -60,7 +60,7 @@ class PlaysRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findPlayedUserAndDontPlayThisWeek()
+    public function findPlayedUserAndDontPlayThisWeek($lastdraw)
     {
         $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         $day = date('w');
@@ -83,8 +83,9 @@ class PlaysRepository extends EntityRepository
         $userid = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId')
             ->innerJoin(order::class, 'o')
-            ->where("l.created < :week_end and o.created < :week_end and o.status = 'completed' and o.id = l.order ")
+            ->where("l.created < :week_end and o.created < :week_end and o.status = 'completed' and o.id = l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId from App\Entity\Loto\loto l2 , App\Entity\Loto\order o2 where l2.ticketId != 0 and l2.drawNumber = :lastdraw and o2.id = l2.order)")
             ->setParameter('week_end', $week_end)
+            ->setParameter('lastdraw',$lastdraw)
             ->groupBy('o.suyoolUserId')
             ->getQuery()
             ->getResult();
@@ -98,10 +99,11 @@ class PlaysRepository extends EntityRepository
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
                 ->innerJoin(order::class, 'o')
-                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order) and o.created < :sixmonth ")
+                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order and l2.drawNumber != :lastdraw) and o.created < :sixmonth ")
                 ->setParameter('week_start', $week_start)
                 ->setParameter('userid', $userid)
                 ->setParameter('sixmonth',$sixmonth)
+                ->setParameter('lastdraw',$lastdraw)
                 ->groupBy('o.suyoolUserId')
                 ->getQuery()
                 ->getResult();
@@ -109,6 +111,7 @@ class PlaysRepository extends EntityRepository
                 $response = array_merge($response, $result);;
             }
         }
+        // dd($response);
         return $response;
     }
 

@@ -25,13 +25,13 @@ class reminderNotification extends Command
     private $mr;
     private $notifMr;
     private $notificationServices;
-    public function __construct(ManagerRegistry $mr,NotificationServices $notificationServices)
+    public function __construct(ManagerRegistry $mr, NotificationServices $notificationServices)
     {
         parent::__construct();
 
         $this->mr = $mr->getManager('loto');
-        $this->notifMr=$mr->getManager('notification');
-        $this->notificationServices=$notificationServices;
+        $this->notifMr = $mr->getManager('notification');
+        $this->notificationServices = $notificationServices;
     }
 
     protected function configure()
@@ -50,41 +50,47 @@ class reminderNotification extends Command
 
         $bulk = 1;
 
-        $notify=$this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek();
+        $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+        // dd($lastdraw);
+
+        $notify = $this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek($lastdraw->getdrawid());
         // dd($notify);
-        foreach($notify as $notify){
-            $userid[]=$notify['suyoolUserId'];
-        }
-        $userIds=implode(",",$userid);
-// dd($userIds);
-        $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([],['drawdate'=>'desc']);
-
-        $date=new DateTime();
-        $day=$date->format('w');
-        // dd($day);
-
-        // foreach($notify as $notify)
-        // {
-            $params=json_encode(['currency'=>'LBP','amount'=>number_format($draw->getlotoprize())]);
-            $template=$this->notifMr->getRepository(Template::class)->findOneBy(['identifier'=>"reminder notification"]);
-            $index=$template->getIndex();
-            $content=$this->notifMr->getRepository(content::class)->findOneBy(['template'=>$template->getId(),'version'=>$index]);
-            $this->notificationServices->addNotification($userIds,$content,$params,$bulk);
-            
-
-        // }
-
-        if($day==4){
-            if($index==6){
-                $index = 1;
-            }else{
-                $index += 1;
+        if ($notify != null) {
+            foreach ($notify as $notify) {
+                $userid[] = $notify['suyoolUserId'];
             }
-            $template->setindex($index);
-            $this->notifMr->persist($template);
-            $this->notifMr->flush();
+            $userIds = implode(",", $userid);
+            // dd($userIds);
+            $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+
+            $date = new DateTime();
+            $day = $date->format('w');
+            // dd($day);
+
+            // foreach($notify as $notify)
+            // {
+            $params = json_encode(['currency' => 'LBP', 'amount' => number_format($draw->getlotoprize())]);
+            $template = $this->notifMr->getRepository(Template::class)->findOneBy(['identifier' => "reminder notification"]);
+            $index = $template->getIndex();
+            $content = $this->notifMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
+            $this->notificationServices->addNotification($userIds, $content, $params, $bulk);
+
+
+            // }
+
+            if ($day == 4) {
+                if ($index == 6) {
+                    $index = 1;
+                } else {
+                    $index += 1;
+                }
+                $template->setindex($index);
+                $this->notifMr->persist($template);
+                $this->notifMr->flush();
+            }
         }
-        
+
+
 
 
         return 1;
