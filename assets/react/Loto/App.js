@@ -165,6 +165,7 @@ const App = ({ parameters }) => {
             setModalShow={setModalShow}
             setModalName={setModalName}
             setErrorModal={setErrorModal}
+            setBallNumbersIndex={setBallNumbersIndex}
             getBallNumbersIndex={getBallNumbersIndex}
           />
         )}

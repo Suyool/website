@@ -14,7 +14,8 @@ const PickYourGrid = ({
   setModalShow,
   setTotalAmountLLDJ,
   getTotalAmountLLDJ,
-  getBallNumbersIndex
+  getBallNumbersIndex,
+  setBallNumbersIndex
 }) => {
   const [selectedBalls, setSelectedBalls] = useState([]);
   // console.log(getTotalAmount)
@@ -23,6 +24,10 @@ const PickYourGrid = ({
       setSelectedBalls(Array(getBallNumbers).fill(null));
     } else {
       setSelectedBalls(getBallPlayed);
+    }
+
+    if (getBallNumbersIndex == -1) {
+      setSelectedBalls(Array(getBallNumbers).fill(null));
     }
   }, []);
 
@@ -99,71 +104,75 @@ const PickYourGrid = ({
 
   const handleDone = () => {
     const lastBall = selectedBalls[selectedBalls.length - 1];
-    if(getPlay){
-    if (selectedBalls.length > 5) {
-      setIsHide(false);
-
-      const filteredBalls = selectedBalls.filter((ball) => ball !== null);
-
-      if (filteredBalls.length < 6) {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You need to select at least 6 numbers`,
-        });
-        setTotalAmount(10);
-        setModalShow(true);
-        return;
-      }
-
-      const ballSet = {
-        balls: filteredBalls,
-        price: getTotalAmountLLDJ,
-        withZeed: false,
-        currency: "LBP",
-        isbouquet: false,
-      };
-
-      const existingData = localStorage.getItem("selectedBalls");
-      const existingBalls = existingData ? JSON.parse(existingData) : [];
-      const isNewSet = existingBalls.every(
-        (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
-      );
-
-      
-
-      if (isNewSet) {
-       
-        // If the set is unique, add it to the existing data and save to localStorage
-        // const updatedBalls = [...existingBalls, ballSet];
-        // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-        if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
-          existingBalls[getBallNumbersIndex]=ballSet;
-          localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
-        } else {
-          // If the set is unique, add it to the existing data and save to localStorage
-          const updatedBalls = [...existingBalls, ballSet];
-          localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-        }
-      } else {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You have a grid with same numbers in this draw`,
-        });
-        setModalShow(true);
-      }
-      setPickYourGrid(false);
-    } else {
-      console.log("The last ball is null");
-    }}else{
+    if (getPlay) {
       if (selectedBalls.length > 5) {
         setIsHide(false);
-  
+
         const filteredBalls = selectedBalls.filter((ball) => ball !== null);
-  
+
+        if (filteredBalls.length < 6) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You need to select at least 6 numbers`,
+          });
+          setTotalAmount(10);
+          setModalShow(true);
+          return;
+        }
+
+        const ballSet = {
+          balls: filteredBalls,
+          price: getTotalAmountLLDJ,
+          withZeed: false,
+          currency: "LBP",
+          isbouquet: false,
+        };
+
+        const existingData = localStorage.getItem("selectedBalls");
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+        const isNewSet = existingBalls.every(
+          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
+        );
+
+        if (isNewSet) {
+          // If the set is unique, add it to the existing data and save to localStorage
+          // const updatedBalls = [...existingBalls, ballSet];
+          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          if (
+            getBallNumbersIndex >= 0 &&
+            getBallNumbersIndex <= existingBalls.length
+          ) {
+            existingBalls[getBallNumbersIndex] = ballSet;
+            localStorage.setItem(
+              "selectedBalls",
+              JSON.stringify(existingBalls)
+            );
+          } else {
+            // If the set is unique, add it to the existing data and save to localStorage
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          }
+        } else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You have a grid with same numbers in this draw`,
+          });
+          setModalShow(true);
+        }
+        setPickYourGrid(false);
+      } else {
+        console.log("The last ball is null");
+      }
+    } else {
+      if (selectedBalls.length > 5) {
+        setIsHide(false);
+
+        const filteredBalls = selectedBalls.filter((ball) => ball !== null);
+
         if (filteredBalls.length < getBallNumbers) {
           setModalName("ErrorModal");
           setErrorModal({
@@ -175,7 +184,7 @@ const PickYourGrid = ({
           setModalShow(true);
           return;
         }
-  
+
         const ballSet = {
           balls: filteredBalls,
           price: getTotalAmountLLDJ,
@@ -183,23 +192,26 @@ const PickYourGrid = ({
           currency: "LBP",
           isbouquet: false,
         };
-  
+
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = existingBalls.every(
           (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
         );
-  
-        
-  
+
         if (isNewSet) {
-         
           // If the set is unique, add it to the existing data and save to localStorage
           // const updatedBalls = [...existingBalls, ballSet];
           // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
-            existingBalls[getBallNumbersIndex]=ballSet;
-            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+          if (
+            getBallNumbersIndex >= 0 &&
+            getBallNumbersIndex <= existingBalls.length
+          ) {
+            existingBalls[getBallNumbersIndex] = ballSet;
+            localStorage.setItem(
+              "selectedBalls",
+              JSON.stringify(existingBalls)
+            );
           } else {
             // If the set is unique, add it to the existing data and save to localStorage
             const updatedBalls = [...existingBalls, ballSet];
@@ -219,12 +231,13 @@ const PickYourGrid = ({
         console.log("The last ball is null");
       }
     }
-  }
-
+    setBallNumbersIndex(-1);
+  };
 
   const handleCancel = () => {
     setPickYourGrid(false);
     setIsHide(false);
+    setBallNumbersIndex(-1);
   };
 
   const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
@@ -238,7 +251,7 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-        {selectedBalls.map((number, index) =>
+          {selectedBalls.map((number, index) =>
             index <= 5 ? (
               <div
                 key={index}
