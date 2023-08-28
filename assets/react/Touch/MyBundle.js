@@ -109,7 +109,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
             setErrorModal({
               img: "/build/images/alfa/error.png",
               title: "Please Try again",
-              desc: jsonResponse,
+              desc: "you can not purchase now",
               // path: response.data.path,
               // btn:'Top up'
             });

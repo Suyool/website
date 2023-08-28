@@ -4,26 +4,42 @@ import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
   // console.log(props.getErrorModal.path);
   const handleExchange = () => {
-if(props.getErrorModal.path == "84"){
- 
-    // window.location.href = "/app?f="+props.getErrorModal.path;
-    let object = [ {
-      "exchange":{
-        flag: props.getErrorModal.path,
-        url: window.location.href + "?goto=Play",
-      },
+    if (props.getErrorModal.path == "84") {
+      // window.location.href = "/app?f="+props.getErrorModal.path;
+      let object = [
+        {
+          exchange: {
+            flag: props.getErrorModal.path,
+            url: window.location.href + "?goto=Play",
+          },
+        },
+      ];
+      if (props.parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
+      } else if (props.parameters?.deviceType === "Iphone") {
+        // const message = "data";
+        window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }
     }
-      
-    ];
-    if (props.parameters?.deviceType === "Android") {
-      window.AndroidInterface.callbackHandler(JSON.stringify(object));
-    } else if (props.parameters?.deviceType === "Iphone") {
-      // const message = "data";
-      window.webkit.messageHandlers.callbackHandler.postMessage(object);
-    }
-}
-};
 
+    if (props.getErrorModal.path == "90") {
+      // window.location.href = "/app?f="+props.getErrorModal.path;
+      let object = [
+        {
+          topup: {
+            flag: props.getErrorModal.path,
+            url: window.location.href + "?goto=Play",
+          },
+        },
+      ];
+      if (props.parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
+      } else if (props.parameters?.deviceType === "Iphone") {
+        // const message = "data";
+        window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }
+    }
+  };
 
   return (
     <Modal

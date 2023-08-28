@@ -26,6 +26,21 @@ const ErrorModal = (props) => {
     window.webkit.messageHandlers.callbackHandler.postMessage(object);
   }
     }
+    if(props.getErrorModal.path == "90"){
+      let object = [{
+        'topup' : {
+          flag: props.getErrorModal.path,
+          url: window.location.href,
+        }
+      }
+         ];
+      if (props.parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(object);
+      } else if (props.parameters?.deviceType === "Iphone") {
+        // const message = "data";
+        window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }
+    }
   
   };
 

@@ -585,7 +585,7 @@ class AlfaController extends AbstractController
                 $IsSuccess = false;
                 
                 if (isset($response[2])) {
-                    $message = json_decode($response[3], true);
+                    $message = json_decode($response[1], true);
                     $flagCode = $response[2];
                 }else{
                     $message = "You can not purchase now";
