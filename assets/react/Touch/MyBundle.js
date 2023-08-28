@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -124,6 +124,7 @@ const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, s
     } 
     else if(getDataGetting == "failed"){
       setIsButtonDisabled(false);
+      setDataGetting("");
 
     }
   })

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa")
     setBackLink("ReCharge")
@@ -118,6 +118,7 @@ const MyBundle = ({parameters,getDataGetting, getPrepaidVoucher, setModalShow, s
     }
     else if(getDataGetting=="failed"){
       setIsButtonDisabled(false);
+      setDataGetting("");
     }
   })
 

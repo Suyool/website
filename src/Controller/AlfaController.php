@@ -576,7 +576,7 @@ class AlfaController extends AbstractController
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
                     ->setstatus(Order::$statusOrder['CANCELED'])
-                    ->seterror($response[1]);
+                    ->seterror($response[3]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 // $IsSuccess = false;
@@ -585,7 +585,7 @@ class AlfaController extends AbstractController
                 $IsSuccess = false;
                 
                 if (isset($response[2])) {
-                    $message = json_decode($response[1], true);
+                    $message = json_decode($response[3], true);
                     $flagCode = $response[2];
                 }else{
                     $message = "You can not purchase now";

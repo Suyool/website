@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -154,6 +154,7 @@ const MyBill = ({ getDataGetting,parameters,getPostpaidData, setModalShow, setMo
     else if(getDataGetting == "failed"){
       setSpinnerLoader(false);
       setIsButtonDisabled(false);
+      setDataGetting("");
     }
   },[getDataGetting])
 
