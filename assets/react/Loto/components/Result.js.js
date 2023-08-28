@@ -49,9 +49,9 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
       .map(Number);
-    setWinBallInitial(parameters.prize_loto_win.numbers.split(",").map(Number));
+    setWinBallInitial(parameters.prize_loto_win?.numbers?.split(",").map(Number));
     setWinBallInitialZeed(
-      parameters.prize_loto_win.zeednumbers.split("").map(Number)
+      parameters.prize_loto_win?.zeednumbers?.split("").map(Number)
     );
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);

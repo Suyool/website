@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\order;
 use App\Entity\Plays;
@@ -132,6 +133,41 @@ class PlaysRepository extends EntityRepository
             ->innerJoin(order::class, 'o')
             ->innerJoin(LOTO_results::class, 'r')
             ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null and l.ticketId != 0')
+            ->setParameter('session', $session)
+            ->setParameter('drawNumber',$drawNumber)
+            ->groupBy('l.gridSelected')
+            ->getQuery()
+            ->getResult();
+
+        $groupedResults = [];
+        foreach ($rawResults as $result) {
+            $drawdate = $result['drawdate']->format('Y-m-d');
+            if (!isset($groupedResults[$drawdate])) {
+                $groupedResults[$drawdate] = [
+                    'date' => $drawdate,
+                    'drawId' => $result['drawId'],
+                    'gridSelected'=>[]
+                                ];
+            }
+            $gridSelectedArrays = explode("|", $result['gridSelected']);
+            foreach ($gridSelectedArrays as $gridSelectedArray) {
+                $numbers = explode(" ", $gridSelectedArray);
+                $gridSelectedString = implode(" ", $numbers);
+                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected'=>$gridSelectedString,'zeedSelected'=>$result['zeednumbers']];
+            }
+            // $groupedResults[$drawdate]['zeedSelected'][] = $result['zeednumbers'];
+        }
+
+        return array_values($groupedResults); // Return the grouped results as indexed array
+    }
+
+    public function getfetchhistory($session,$drawNumber)
+    {
+        $rawResults = $this->createQueryBuilder('l')
+            ->select('l.gridSelected, d.drawdate, d.drawId,l.zeednumbers')
+            ->innerJoin(order::class, 'o')
+            ->innerJoin(LOTO_draw::class, 'd')
+            ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = d.drawId and l.ticketId is not null and l.ticketId != 0')
             ->setParameter('session', $session)
             ->setParameter('drawNumber',$drawNumber)
             ->groupBy('l.gridSelected')

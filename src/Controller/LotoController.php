@@ -216,7 +216,7 @@ class LotoController extends AbstractController
                 // $this->session->set('suyoolUserId', $suyoolUserId);
                 $this->session->set('suyoolUserId', 52);
     
-    
+                $suyoolUserId = 89;
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
     
                 $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -230,8 +230,9 @@ class LotoController extends AbstractController
                     $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $drawId);
                 } else {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
-                    // dd($loto_prize_per_days);
+                    $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
+                    dd($loto_prize_per_days);
                 }
     
                 if ($loto_draw) {
@@ -313,7 +314,7 @@ class LotoController extends AbstractController
                 $parameters['prize_loto_perdays'] = $prize_loto_perdays;
                 $parameters['prize_loto_result'] = $prize_loto_result;
 
-    
+    dd($parameters);
     
                 if (isset($data)) {
                     return new JsonResponse([
