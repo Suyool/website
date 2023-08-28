@@ -6,6 +6,7 @@ use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\Logs;
 use App\Entity\Shopify\MerchantCredentials;
 use App\Entity\Shopify\Session;
+use App\Entity\Shopify\ShopifyInstallation;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +43,7 @@ class ShopifyApiController extends AbstractController
         $createdAt = $order->getCreated()->getTimestamp();
 
         $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = trim($metadata['total_price']) / 100;
+        $totalPrice = trim($metadata['total_price']);
         $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
         $timestamp = $createdAt * 1000;
@@ -52,9 +53,13 @@ class ShopifyApiController extends AbstractController
         $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
         $merchantId = $merchantCredentials['merchantId'];
         $certificate = $merchantCredentials['certificate'];
-        $sessionRepository = $this->mr->getRepository(Session::class);
-        $sessionInfo = $sessionRepository->findOneBy(['shop' => $hostname]);
-        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
+//        $sessionRepository = $this->mr->getRepository(Session::class);
+//        $sessionInfo = $sessionRepository->findOneBy(['shop' => $hostname]);
+        $appKey = $merchantCredentials['appKey'];
+        $appPass = $merchantCredentials['appPass'];
+        //$checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
+
+        $checkAmount = $shopifyServices->getShopifyOrder($orderId,$appKey, $appPass,$hostname);
 
         $shopifyAmount = $checkAmount['transactions']['0']['amount'];
         $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
@@ -86,6 +91,45 @@ class ShopifyApiController extends AbstractController
                 $showQR = 'displayBlock';
             else
                 $showQR = '';
+
+        if($resAmount == 0){
+            $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
+            $secureHash = base64_encode(hash('sha512', $secure, true));
+            if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
+                $transactionData = [
+                    'TransactionID' => "$orderId",
+                    'Amount' => $amount,
+                    'Currency' => $currency,
+                    'SecureHash' => $secureHash,
+                    'TS' => "$timestamp",
+                    'TranTS' => "$timestamp",
+                    'MerchantAccountID' => $merchantId,
+                    'AdditionalInfo' => $additionalInfo,
+                ];
+                $params = [
+                    'data' => json_encode($transactionData),
+                    'url' => 'api/OnlinePayment/PayQR',
+                ];
+                $response = $shopifyServices->getQr($params);
+
+                $logs = array('orderId' => $orderId, 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
+                $this->saveLog($logs);
+
+                if ($response['pictureURL'] != null)
+                    $showQR = 'displayBlock';
+                else
+                    $showQR = '';
+
+                return $this->render('shopify/pay-qr.html.twig', [
+                    'pictureURL' => $response['pictureURL'],
+                    'order_id' => $orderId,
+                    'ReturnText' => $response['returnText'],
+                    'displayBlock' => $showQR,
+                ]);
+            }
+        }else{
+            return "Illegitimate  transaction";
+        }
 
             return $this->render('shopify/pay-qr.html.twig', [
                 'pictureURL' => $response['pictureURL'],
@@ -161,6 +205,7 @@ class ShopifyApiController extends AbstractController
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if ($flag !== null) {
+
             $ordersRepository = $this->mr->getRepository(Orders::class);
             $orders = $ordersRepository->findBy(['orderId' => $order_id]);
             $order = $orders[0];
@@ -177,8 +222,19 @@ class ShopifyApiController extends AbstractController
                 $sessionRepository = $this->mr->getRepository(Session::class);
                 $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
                 $accessToken = $sessionInfo->getAccessToken();
+                //$url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
+                $appKey = $merchantCredentials['appKey'];
+                $appPass = $merchantCredentials['appPass'];
+                $url = 'https://'.$appKey.':'.$appPass.'@'.$domain.'/admin/api/2020-04/orders/'.$order_id.'/transactions.json';
+
+                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
+                $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
+//                $sessionRepository = $this->mr->getRepository(Session::class);
+//                $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
+//                $accessToken = $sessionInfo->getAccessToken();
 
                 if ($secureHash == $data['SecureHash']) {
+
                     if ($order) {
                         $order->setStatus(1);
                     }
@@ -210,7 +266,7 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
-                $response = $shopifyServices->updateStatusShopify($params, $accessToken);
+                $response = $shopifyServices->updateStatusShopify($params);
 
                 $logs = array('orderId' => $order_id, 'request' => $params, 'response' => $response, 'env' => "");
 
@@ -260,22 +316,38 @@ class ShopifyApiController extends AbstractController
         return $this->json($response);
     }
 
+//    private function getCredentials($domain)
+//    {
+//        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
+//        $credentials = $credentialsRepository->findBy(['shop' => $domain]);
+//        $credential = $credentials[0];
+//
+//        $response = [];
+//        if ($credential->getTestChecked()) {
+//            $certificate = $credential->getTestCertificateKey();
+//            $merchantId = $credential->getTestMerchantId();
+//        } else {
+//            $certificate = $credential->getLiveCertificateKey();
+//            $merchantId = $credential->getLiveMerchantId();
+//        }
+//        $response['certificate'] = $certificate;
+//        $response['merchantId'] = $merchantId;
+//
+//        return $response;
+//    }
+
     private function getCredentials($domain)
     {
-        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
-        $credentials = $credentialsRepository->findBy(['shop' => $domain]);
+        $credentialsRepository = $this->mr->getRepository(ShopifyInstallation::class);
+        $credentials = $credentialsRepository->findBy(['domain' => $domain]);
         $credential = $credentials[0];
 
         $response = [];
-        if ($credential->getTestChecked()) {
-            $certificate = $credential->getTestCertificateKey();
-            $merchantId = $credential->getTestMerchantId();
-        } else {
-            $certificate = $credential->getLiveCertificateKey();
-            $merchantId = $credential->getLiveMerchantId();
-        }
-        $response['certificate'] = $certificate;
-        $response['merchantId'] = $merchantId;
+        $response['certificate'] = $credential->getCertificateKey();
+        $response['merchantId'] = $credential->getMerchantId();
+        $response['appKey'] = $credential->getAppKey();
+        $response['appSecret'] = $credential->getAppSecret();
+        $response['appPass'] = $credential->getAppPass();
 
         return $response;
     }
