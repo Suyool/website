@@ -15,7 +15,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.cd85a857.js"
+        "/build/Loto.6d535dbb.js"
       ]
     },
     "LegalEnrollement": {
@@ -27,19 +27,19 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.598bd0f0.js"
+        "/build/Alfa.7ca8b7b2.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.61245b61.js"
+        "/build/Touch.93e98204.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.50051502.js"
+        "/build/Ogero.f9af70f2.js"
       ]
     },
     "styles": {

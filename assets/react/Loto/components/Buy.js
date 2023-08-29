@@ -127,7 +127,7 @@ const Buy = ({
           const jsonResponse = response.data.message;
           console.log(jsonResponse);
           setSpinnerLoader(false);
-          if (response.data.status) {
+          if (!response.data.status) {
             const amount = response.data.amount;
             localStorage.removeItem("selectedBalls");
             setPlayedBalls([]);
@@ -139,7 +139,14 @@ const Buy = ({
             setSuccessModal({
               imgPath: "/build/images/Loto/success.png",
               title: "LOTO Purchased Successfully",
-              desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
+              // desc: `You have successfully paid LBP ${parseInt(50000).toLocaleString()} for LOTO. \n\nBest of Luck!`,
+              desc: (
+                <div>
+                  You have successfully paid LBP {parseInt(amount).toLocaleString()} for LOTO.
+                  <br />
+                  Best of Luck!
+                </div>
+              ),
             });
             setModalShow(true);
           } else if (!response.data.status && response.data.flagCode == 10) {
@@ -178,7 +185,7 @@ const Buy = ({
             setErrorModal({
               img: "/build/images/Loto/error.png",
               title: "Please Try again",
-              desc: `You can not purchase now`,
+              desc: `You cannot purchase now`,
               // path: response.data.path,
               // btn:'Top up'
             });

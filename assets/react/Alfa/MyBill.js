@@ -134,7 +134,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
               setErrorModal({
                 img: "/build/images/alfa/error.png",
                 title: "Please Try again",
-                desc: `You can not purchase now`,
+                desc: `You cannot purchase now`,
                 // path: response.data.path,
                 // btn:'Top up'
               });
