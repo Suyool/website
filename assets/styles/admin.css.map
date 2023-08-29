@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AAAA,QAAQ,CAAA;EACJ,gBAAgB,EAAC,oBAAoB;CACxC;;AACD,AAAA,WAAW,CAAA;EACH,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,IAAI;EACjB,SAAS,EAAE,IAAI;EACf,OAAO,EAAE,EAAE;CAClB;;AACD,AAAA,QAAQ,CAAA;EACJ,MAAM,EAAE,OAAO;CAClB",
+    "sources": [
+        "admin.scss",
+        "src/admin/_loto.scss"
+    ],
+    "names": [],
+    "file": "admin.css"
+}
