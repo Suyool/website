@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [currency, setCurrency] = useState("LBP");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -14,6 +17,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,ac
 
   const handleContinue = () => {
     setIsButtonDisabled(true);
+    setSpinnerLoader(true)
     // console.log("clicked");
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
@@ -67,7 +71,8 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,ac
 
 
   return (
-    <div id="PayBill">
+    <div id="PayBill" className={getSpinnerLoader ?  "hideBack" : ""}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       <div className="mainTitle">Enter your phone number to recharge</div>
 
       <div className="MobileNbContainer mt-3">
@@ -75,7 +80,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,ac
           <img src="/build/images/touch/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input type="tel" className="nbInput" placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>

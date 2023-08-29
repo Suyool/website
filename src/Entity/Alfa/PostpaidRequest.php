@@ -30,6 +30,11 @@ class PostpaidRequest
      */
     private $gsmNumber;
 
+     /**
+     * @ORM\Column(name="error")
+     */
+    private $error;
+
     /**
      * 
      * @ORM\Column(name="currency")
@@ -117,6 +122,17 @@ class PostpaidRequest
     public function getId()
     {
         return $this->id;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
+        return $this;
     }
 
 

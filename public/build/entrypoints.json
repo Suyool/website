@@ -33,13 +33,13 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.b19f5ed8.js"
+        "/build/Touch.6eadee55.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.0bd5c004.js"
+        "/build/Ogero.83d68e17.js"
       ]
     },
     "styles": {

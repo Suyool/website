@@ -108,6 +108,14 @@ class AlfaController extends AbstractController
                 // dd($invoicesId);
                 $message = "connected";
             } else {
+                $postpaidrequest=new PostpaidRequest;
+                $postpaidrequest
+            ->setSuyoolUserId($SuyoolUserId)
+            ->setGsmNumber($data["mobileNumber"])
+            ->seterror($sendBillRes["ResponseText"]);
+
+            $this->mr->persist($postpaidrequest);
+                $this->mr->flush();
                 echo "error";
                 $invoicesId = -1;
                 $message="not connected";
