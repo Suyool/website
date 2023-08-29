@@ -80,7 +80,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal,ac
           <img src="/build/images/touch/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className="nbInput" placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input type="tel" className={getSpinnerLoader ?  "nbInputHide" : "nbInput"} placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>

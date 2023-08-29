@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const PayBill = ({
   setPostpaidData,
@@ -15,6 +16,7 @@ const PayBill = ({
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
@@ -26,7 +28,7 @@ const PayBill = ({
 
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
-
+    setSpinnerLoader(true);
     axios
       .post("/alfa/bill", {
         mobileNumber: mobileNumber.replace(/\s/g, ""),
@@ -38,6 +40,7 @@ const PayBill = ({
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId });
         } else {
+          setSpinnerLoader(false);
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/alfa/error.png",
@@ -90,7 +93,8 @@ const PayBill = ({
   // };
 
   return (
-    <div id="PayBill">
+    <div id="PayBill" className={getSpinnerLoader ? "hideBack" : ""}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       <div className="mainTitle">Enter your phone number to recharge</div>
 
       <div className="MobileNbContainer mt-3">
@@ -100,7 +104,7 @@ const PayBill = ({
         </div>
         <input
           type="tel"
-          className="nbInput"
+          className={getSpinnerLoader ? "nbInputHide" : "nbInput"}
           placeholder="Phone number"
           value={mobileNumber}
           onChange={handleMobileNumberChange}

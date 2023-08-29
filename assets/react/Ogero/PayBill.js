@@ -89,7 +89,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
           <img src="/build/images/Ogero/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className="nbInput" placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
+        <input type="tel" className={getSpinnerLoader ?  "nbInputHide" : "nbInput"} placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>

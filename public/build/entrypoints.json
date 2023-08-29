@@ -27,19 +27,19 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.15b5ab3d.js"
+        "/build/Alfa.cee3fb81.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.6eadee55.js"
+        "/build/Touch.1a8bd8b8.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.83d68e17.js"
+        "/build/Ogero.060215cc.js"
       ]
     },
     "styles": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.9fbc7de6.css"
+        "/build/AlfaStyle.4803856c.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.a9f0b56d.css"
+        "/build/TouchStyle.b760bc4b.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.e6afb23a.css"
+        "/build/OgeroStyle.676f8a17.css"
       ]
     }
   }
