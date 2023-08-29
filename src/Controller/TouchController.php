@@ -47,7 +47,7 @@ class TouchController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
@@ -57,7 +57,7 @@ class TouchController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            // if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $SuyoolUserId = $this->session->set('suyoolUserId', 52);
@@ -67,9 +67,9 @@ class TouchController extends AbstractController
                 return $this->render('touch/index.html.twig', [
                     'parameters' => $parameters
                 ]);
-            // } else {
-            //     return $this->render('ExceptionHandling.html.twig');
-            // }
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }
@@ -137,13 +137,13 @@ class TouchController extends AbstractController
                 $displayedFees = intval($values["Fees"])+intval($values["Fees1"])+intval($values["AdditionalFees"]);
 
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin, $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"],$displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
+                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3], $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"],$displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
             } else {
                 $values = 0;
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin);
+                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3]);
                 $this->mr->persist($postpaidRequest);
                 $this->mr->flush();
             }
@@ -156,6 +156,7 @@ class TouchController extends AbstractController
         return new JsonResponse([
             'status' => true,
             'isSuccess' => $retrieveResults[0],
+            'errorCode' => $retrieveResults[3],
             'postpayed' => $invoicesId,
             'displayData' => $values,
             'displayedFees' => $displayedFees,

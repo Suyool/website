@@ -39,6 +39,11 @@ class PostpaidRequest
     private $error;
 
     /**
+     * @ORM\Column(name="codeError")
+     */
+    private $codeError;
+
+    /**
      * @ORM\Column(name="s2error")
      */
     private $s2error;
@@ -186,6 +191,17 @@ class PostpaidRequest
     public function seterror($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function getCodeerror()
+    {
+        return $this->codeError;
+    }
+
+    public function setCodeerror($codeerror)
+    {
+        $this->codeError = $codeerror;
         return $this;
     }
 

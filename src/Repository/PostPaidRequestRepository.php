@@ -6,9 +6,10 @@ use Doctrine\ORM\EntityRepository;
 
 class PostPaidRequestRepository extends EntityRepository
 {
-    public function insertRetrieveResults($postpaidrequest, $sets2error = null, $pin = null, $transId = null, $currency = null, $fees = null, $fees1 = null, $amount = null, $amount1 = null, $amount2 = null, $refnum = null,$displayedfees=null, $infooriginalamount = null, $totalamount = null, $rounding = null, $additionalfees = null, $invoicenum = null, $paymentId = null)
+    public function insertRetrieveResults($postpaidrequest, $sets2error = null, $pin = null,$errorCode, $transId = null, $currency = null, $fees = null, $fees1 = null, $amount = null, $amount1 = null, $amount2 = null, $refnum = null,$displayedfees=null, $infooriginalamount = null, $totalamount = null, $rounding = null, $additionalfees = null, $invoicenum = null, $paymentId = null)
     {
         $postpaidrequest
+            ->setCodeerror($errorCode)
             ->sets2error($sets2error)
             ->setPin($pin)
             ->setTransactionId($transId)

@@ -250,7 +250,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription);
+        return array($isSuccess, $decodedString, $ErrorDescription,$ApiResponse["ErrorCode"]);
     }
 
     public function BillPayTouch($Postpaid_With_id_Res)
