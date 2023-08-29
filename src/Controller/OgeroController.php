@@ -54,15 +54,15 @@ class OgeroController extends AbstractController
             $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
-            // if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                // $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
-                $suyoolUserId = $this->session->set('suyoolUserId', 52);
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
+                // $suyoolUserId = $this->session->set('suyoolUserId', 52);
 
                 // $parameters['Test'] = "tst";
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
-            // } else {
-                // return $this->render('ExceptionHandling.html.twig');
-            // }
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }

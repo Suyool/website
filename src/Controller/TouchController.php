@@ -57,19 +57,19 @@ class TouchController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            // if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                // $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
-                $SuyoolUserId = $this->session->set('suyoolUserId', 52);
+                $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
+                // $SuyoolUserId = $this->session->set('suyoolUserId', 52);
 
                 $parameters['deviceType'] =$suyoolUserInfo[1] ;
 
                 return $this->render('touch/index.html.twig', [
                     'parameters' => $parameters
                 ]);
-            // } else {
-                // return $this->render('ExceptionHandling.html.twig');
-            // }
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }
