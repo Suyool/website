@@ -58,16 +58,20 @@ const ErrorModal = (props) => {
           <div className="title">{props.getErrorModal.title}</div>
           <div className="desc">{props.getErrorModal.desc}</div>
           <div className="buttonsDesign">
-            <button className="okiBtnModal" onClick={props.onHide}>
-              Cancel
-            </button>
-            {props.getErrorModal.btn && (
-              <button
-                className="exchangeBtnModal"
-                onClick={handleExchange}
-              >
+          {props.getErrorModal.btn == "OK" && (
+              <button className="exchangeBtnModal" onClick={props.onHide}>
                 {props.getErrorModal.btn}
               </button>
+            )}
+            {props.getErrorModal.btn != "OK" && (
+              <>
+                <button className="okiBtnModal" onClick={props.onHide}>
+                  Cancel
+                </button>
+                <button className="exchangeBtnModal" onClick={handleExchange}>
+                  {props.getErrorModal.btn}
+                </button>
+              </>
             )}
           </div>
         </div>

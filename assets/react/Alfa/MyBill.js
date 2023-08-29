@@ -65,6 +65,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
           console.log(error);
         });
     }
+    setBtnDesign(false);
   };
 
   const handleConfirmPay = () => {
@@ -157,10 +158,12 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
   const [getBtnDesign, setBtnDesign] = useState(false);
 
   const handleInputFocus = () => {
+    
     setBtnDesign(true);
   };
 
   const handleInputBlur = () => {
+    console.log("hi")
     setBtnDesign(false);
   };
 
@@ -237,10 +240,10 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
             <input
               ref={inputRef}
               type="text"
-              value={pinCode.join('')}
+              value={pinCode ? pinCode.join('') : ''} 
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
+              // onBlur={handleInputBlur}
               style={{ opacity: 0, position: 'absolute', left: '-10000px' }}
             />
           </div>
@@ -250,7 +253,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
           <button id="ContinueBtn" className="btnCont"
             onClick={handlePayNow} disabled={pinCode.length !== 6}
           >Continue</button>
-          {getPinWrong && <p>Pin wrong please try again</p>}
+          {getPinWrong && <p style={{color:"red"}}>Pin wrong please try again</p>}
 
         </div>
       </div>

@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
+const PayBill = ({
+  setPostpaidData,
+  setModalShow,
+  setModalName,
+  setErrorModal,
+  activeButton,
+  setActiveButton,
+  setHeaderTitle,
+  setBackLink,
+}) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
-    setHeaderTitle("Pay Mobile Bill")
-    setBackLink("")
-  }, [])
+    setHeaderTitle("Pay Mobile Bill");
+    setBackLink("");
+  }, []);
 
   const handleContinue = () => {
     setIsButtonDisabled(true);
@@ -19,25 +28,23 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
     localStorage.setItem("billcurrency", currency);
 
     axios
-      .post("/alfa/bill",
-        {
-          mobileNumber: mobileNumber.replace(/\s/g, ''),
-          currency: currency
-        }
-      )
+      .post("/alfa/bill", {
+        mobileNumber: mobileNumber.replace(/\s/g, ""),
+        currency: currency,
+      })
       .then((response) => {
         console.log(response);
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
-          setPostpaidData({ id: response?.data?.invoicesId })
+          setPostpaidData({ id: response?.data?.invoicesId });
         } else {
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/alfa/error.png",
-            title: "Please Try again",
-            desc: `Mobile number not found`,
+            title: "Number Not Found ",
+            desc: ` The number you entered was not found in the system. Kindly try another number. `,
             // path: response.data.path,
-            // btn:'Top up'
+            btn: "OK",
           });
           setModalShow(true);
         }
@@ -45,6 +52,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
       .catch((error) => {
         console.log(error);
       });
+    setBtnDesign(false);
   };
 
   const handleMobileNumberChange = (event) => {
@@ -57,8 +65,13 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if (truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8') {
-      return '0' + truncatedValue;
+    if (
+      truncatedValue.length > 0 &&
+      truncatedValue[0] !== "0" &&
+      truncatedValue[0] !== "7" &&
+      truncatedValue[0] !== "8"
+    ) {
+      return "0" + truncatedValue;
     }
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
@@ -72,9 +85,9 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
     setBtnDesign(true);
   };
 
-  const handleInputBlur = () => {
-    setBtnDesign(false);
-  };
+  // const handleInputBlur = () => {
+  //   setBtnDesign(false);
+  // };
 
   return (
     <div id="PayBill">
@@ -85,13 +98,28 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
           <img src="/build/images/alfa/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className="nbInput" placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} onFocus={handleInputFocus} onBlur={handleInputBlur}/>
+        <input
+          type="tel"
+          className="nbInput"
+          placeholder="Phone number"
+          value={mobileNumber}
+          onChange={handleMobileNumberChange}
+          onFocus={handleInputFocus}
+        />
       </div>
 
-      <button id="ContinueBtn" className={`${!getBtnDesign ? "btnCont" : "btnContFocus"}`} onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>
+      <button
+        id="ContinueBtn"
+        className={`${!getBtnDesign ? "btnCont" : "btnContFocus"}`}
+        onClick={handleContinue}
+        disabled={
+          mobileNumber.replace(/\s/g, "").length !== 8 || isButtonDisabled
+        }
+      >
+        Continue
+      </button>
     </div>
   );
 };
 
 export default PayBill;
-

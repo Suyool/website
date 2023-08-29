@@ -41,10 +41,11 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
             setModalName("ErrorModal");
               setErrorModal({
                 imgPath: "/build/images/alfa/error.png",
-                title: "Please Try again",
-                desc: `Mobile number not found`,
+                title: "Number Not Found",
+                desc: `The number you entered was not found in the system. 
+                Kindly try another number.`,
                 // path: response.data.path,
-                // btn:'Top up'
+                btn:'OK'
               });
               setModalShow(true);
   

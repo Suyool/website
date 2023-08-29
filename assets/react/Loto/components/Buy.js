@@ -127,7 +127,7 @@ const Buy = ({
           const jsonResponse = response.data.message;
           console.log(jsonResponse);
           setSpinnerLoader(false);
-          if (!response.data.status) {
+          if (response.data.status) {
             const amount = response.data.amount;
             localStorage.removeItem("selectedBalls");
             setPlayedBalls([]);
