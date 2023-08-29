@@ -232,7 +232,12 @@ const ApplyForCorporate = ({ steSent }) => {
                             <div className="row">
                                 <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Name", "Company Registered name", "registeredName")}</div>
                                 {/* <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Legal Form", "Drop down + Others", "legalForm")}</div> */}
-                                <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} />
+                                <div className="col-lg-4 col-md-6 col-sm-12">
+                                    <div className="label">Drop down</div>
+                                    <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} handleInputChange={handleInputChange} />
+                                    {errors["businessType"] && <div className="error">{errors["businessType"]}</div>}
+                                </div>
+                                {/* <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} /> */}
                             </div>
 
                             <div className="row">
@@ -240,11 +245,14 @@ const ApplyForCorporate = ({ steSent }) => {
                                     <div className="label">Date of incorporation</div>
                                     <img className="addImgss" src="/build/images/calender.png" />
                                     <DatePicker className="input" selected={startDate}
+                                        showYearDropdown
+                                        dateFormat="MM/dd/yyyy"
+                                        yearDropdownItemNumber={15}
                                         onChange={(date) => {
                                             setStartDate(date);
                                             setFormData((prevFormData) => ({
                                                 ...prevFormData,
-                                                "dateIncorporation": startDate.toLocaleDateString("en-US"),
+                                                "dateIncorporation": startDate?.toLocaleDateString("en-US"),
                                             }));
                                         }} />
                                     {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
@@ -274,7 +282,7 @@ const ApplyForCorporate = ({ steSent }) => {
                                         pattern="[0-9]*"
                                         name={"yearlyTurnover"}
                                         value={formData["yearlyTurnover"]}
-                                        onChange={handleyearlyTurnoverChange }
+                                        onChange={handleyearlyTurnoverChange}
                                     />
                                     {errors["yearlyTurnover"] && <div className="error">{errors["yearlyTurnover"]}</div>}
                                 </div>
