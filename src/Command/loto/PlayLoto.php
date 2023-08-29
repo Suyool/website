@@ -108,8 +108,8 @@ class PlayLoto extends Command
                     // $this->mr->flush($lotoToBePlayed);
                     $ticketscount++;
                     $newElement = [];
-                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
-                    $submit=[true,null];
+                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(),$lotoToBePlayed->getnumdraws());
+                    // $submit=[true,null];
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
@@ -176,9 +176,9 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(2);
-                            // $ticketId = $this->lotoServices->GetTicketId();
+                            $ticketId = $this->lotoServices->GetTicketId();
                             // dd();
-                            $ticketId="55";
+                            // $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);
                             $lotoToBePlayed->setzeednumber($submit[1]);
 
