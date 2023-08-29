@@ -20,14 +20,14 @@ const PickYourGrid = ({
   const [selectedBalls, setSelectedBalls] = useState([]);
   // console.log(getTotalAmount)
   useEffect(() => {
-    
+
     if (getBallPlayed.length == 0) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
     } else {
       setSelectedBalls(getBallPlayed);
     }
 
-    if(getBallNumbersIndex == -1){
+    if (getBallNumbersIndex == -1) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
     }
   }, []);
@@ -106,71 +106,72 @@ const PickYourGrid = ({
 
   const handleDone = () => {
     const lastBall = selectedBalls[selectedBalls.length - 1];
-    if(getPlay){
-    if (selectedBalls.length > 5) {
-      setIsHide(false);
-
-      const filteredBalls = selectedBalls.filter((ball) => ball !== null);
-
-      if (filteredBalls.length < 6) {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You need to select at least 6 numbers`,
-        });
-        setTotalAmount(10);
-        setModalShow(true);
-        return;
-      }
-
-      const ballSet = {
-        balls: filteredBalls,
-        price: getTotalAmountLLDJ,
-        withZeed: false,
-        currency: "LBP",
-        isbouquet: false,
-      };
-
-      const existingData = localStorage.getItem("selectedBalls");
-      const existingBalls = existingData ? JSON.parse(existingData) : [];
-      const isNewSet = existingBalls.every(
-        (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
-      );
-
-      
-
-      if (isNewSet) {
-       
-        // If the set is unique, add it to the existing data and save to localStorage
-        // const updatedBalls = [...existingBalls, ballSet];
-        // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-        if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
-          existingBalls[getBallNumbersIndex]=ballSet;
-          localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
-        } else {
-          // If the set is unique, add it to the existing data and save to localStorage
-          const updatedBalls = [...existingBalls, ballSet];
-          localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-        }
-      } else {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You have a grid with same numbers in this draw`,
-        });
-        setModalShow(true);
-      }
-      setPickYourGrid(false);
-    } else {
-      console.log("The last ball is null");
-    }}else{
+    if (getPlay) {
       if (selectedBalls.length > 5) {
         setIsHide(false);
-  
+
         const filteredBalls = selectedBalls.filter((ball) => ball !== null);
-  
+
+        if (filteredBalls.length < 6) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You need to select at least 6 numbers`,
+          });
+          setTotalAmount(10);
+          setModalShow(true);
+          return;
+        }
+
+        const ballSet = {
+          balls: filteredBalls,
+          price: getTotalAmountLLDJ,
+          withZeed: false,
+          currency: "LBP",
+          isbouquet: false,
+        };
+
+        const existingData = localStorage.getItem("selectedBalls");
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+        const isNewSet = existingBalls.every(
+          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
+        );
+
+
+
+        if (isNewSet) {
+
+          // If the set is unique, add it to the existing data and save to localStorage
+          // const updatedBalls = [...existingBalls, ballSet];
+          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+            existingBalls[getBallNumbersIndex] = ballSet;
+            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+          } else {
+            // If the set is unique, add it to the existing data and save to localStorage
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          }
+        } else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You have a grid with same numbers in this draw`,
+          });
+          setModalShow(true);
+        }
+        setPickYourGrid(false);
+      } else {
+        console.log("The last ball is null");
+      }
+    } else {
+      if (selectedBalls.length > 5) {
+        setIsHide(false);
+
+        const filteredBalls = selectedBalls.filter((ball) => ball !== null);
+
         if (filteredBalls.length < getBallNumbers) {
           setModalName("ErrorModal");
           setErrorModal({
@@ -182,7 +183,7 @@ const PickYourGrid = ({
           setModalShow(true);
           return;
         }
-  
+
         const ballSet = {
           balls: filteredBalls,
           price: getTotalAmountLLDJ,
@@ -190,22 +191,22 @@ const PickYourGrid = ({
           currency: "LBP",
           isbouquet: false,
         };
-  
+
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = existingBalls.every(
           (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
         );
-  
-        
-  
+
+
+
         if (isNewSet) {
-         
+
           // If the set is unique, add it to the existing data and save to localStorage
           // const updatedBalls = [...existingBalls, ballSet];
           // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
-            existingBalls[getBallNumbersIndex]=ballSet;
+            existingBalls[getBallNumbersIndex] = ballSet;
             localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
           } else {
             // If the set is unique, add it to the existing data and save to localStorage
@@ -239,6 +240,37 @@ const PickYourGrid = ({
 
   const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
 
+  // useEffect(() => {
+  //   console.log(selectedBalls)
+  // }, [selectedBalls])
+
+  // const handleRemoveBtn = (number, index) => {
+  //   console.log(selectedBalls)
+  //   console.log("number: ", number);
+  //   console.log("index: ", index);
+  // };
+  // const handleRemoveBtn = (number, index) => {
+  //   if (index !== -1) {
+  //     setSelectedBalls()
+  //     selectedBalls.splice(index, 1); // Remove 1 element at the given index
+  //     console.log("Updated selectedBalls:", selectedBalls);
+  //   }
+  // };
+  // const handleRemoveBtn = (number) => {
+  //   console.log(selectedBalls)
+  //   setSelectedBalls((prevSelectedBalls) =>
+  //     prevSelectedBalls.filter((ball) => ball !== number)
+  //   );
+  //   console.log(selectedBalls)
+  // };
+  const handleRemoveBtn = (number) => {
+    setSelectedBalls((prevSelectedBalls) =>
+      prevSelectedBalls.filter((ball) => ball !== number).concat(null)
+    );
+  };
+
+
+
   return (
     <div className="PickYourGrid">
       <div className="topSectionPick">
@@ -248,17 +280,16 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-        {selectedBalls.map((number, index) =>
+          {selectedBalls.map((number, index) =>
             index <= 5 ? (
               <div
                 key={index}
-                id={`${
-                  getPlay && number == null && index > 5
-                    ? `boxappear${index}`
-                    : ""
-                }`}
+                id={`${getPlay && number == null && index > 5
+                  ? `boxappear${index}`
+                  : ""
+                  }`}
               >
-                <span className={`${number !== null ? "active" : ""}`}>
+                <span onClick={() => { handleRemoveBtn(number) }} className={`${number !== null ? "active" : ""}`}>
                   {number}
                 </span>
                 <div className="shadow"></div>
@@ -270,11 +301,10 @@ const PickYourGrid = ({
               {selectedBalls.slice(6).map((number, index) => (
                 <div
                   key={index}
-                  id={`${
-                    getPlay && number == null ? `boxappear${index + 6}` : ""
-                  }`}
+                  id={`${getPlay && number == null ? `boxappear${index + 6}` : ""
+                    }`}
                 >
-                  <span className={`${number !== null ? "active" : ""}`}>
+                  <span onClick={() => { handleRemoveBtn(number) }} className={`${number !== null ? "active" : ""}`}>
                     {number}
                   </span>
                   <div className="shadow"></div>
@@ -293,7 +323,7 @@ const PickYourGrid = ({
           return (
             <div className="ballCont" key={number}>
               <button onClick={() => handleBallClick(number)}>
-                <span className={`${ballClass}`}>{number}</span>
+                <span onClick={() => { handleRemoveBtn(number) }} className={`${ballClass}`}>{number}</span>
               </button>
             </div>
           );
