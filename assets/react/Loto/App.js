@@ -147,6 +147,7 @@ const App = ({ parameters }) => {
               setWarningModal={setWarningModal}
               getDataGetting={getDataGetting}
               setDataGetting={setDataGetting}
+              setTotalAmount={setTotalAmount}
             />
           )}
         </div>

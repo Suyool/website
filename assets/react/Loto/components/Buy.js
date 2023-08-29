@@ -14,20 +14,19 @@ const Buy = ({
   setBackLink,
   getTotalAmount,
   getDataGetting,
-  setDataGetting
+  setDataGetting,
+  setTotalAmount,
 }) => {
   // console.log(parameters?.deviceType);
   useEffect(() => {
     localStorage.setItem("BackPage", "Play");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
-
-    
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  var totalPrice = getTotalAmount;
+  // var totalPrice = getTotalAmount;
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
@@ -42,7 +41,8 @@ const Buy = ({
     console.log("clicked");
     // setSelectedOption(0);
 
-    // setTotalAmount(totalPrice);
+    //  totalPrice = getTotalAmount;
+
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
@@ -66,6 +66,19 @@ const Buy = ({
 
     // Update the localStorage
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+
+    // Retrieve the selected balls from localStorage
+    const selectedBallsJSON = localStorage.getItem("selectedBalls");
+    const selectedBalls = JSON.parse(selectedBallsJSON) || [];
+
+    // Assuming each ball has a "price" property
+    const totalAmount = selectedBalls.reduce(
+      (total, ball) => total + ball.price,
+      0
+    );
+
+    // Update the state with the calculated total amount
+    setTotalAmount(totalAmount);
   };
   //   useEffect(() => {
   //     setDisable(true);
@@ -73,7 +86,7 @@ const Buy = ({
   //   }, [getDisable]);
 
   const handleBuy = () => {
-    setDataGetting("")
+    setDataGetting("");
     // const buttonElement = document.getElementById("buyButton");
     // if (buttonElement) {
     //   console.log("h");
@@ -105,7 +118,7 @@ const Buy = ({
   useEffect(() => {
     console.log(getDataGetting);
     if (getDataGetting == "success") {
-      setDataGetting("")
+      setDataGetting("");
       axios
         .post("/loto/play", {
           selectedBalls: selectedBallsToShow,
@@ -180,13 +193,13 @@ const Buy = ({
               JSON.parse(selectedBallsToShow).length === 0
           );
         });
-        setDisable(false);
-    }else if(getDataGetting == "failed"){
-      setDataGetting("")
+      setDisable(false);
+    } else if (getDataGetting == "failed") {
+      setDataGetting("");
       setSpinnerLoader(false);
       setDisable(false);
     }
-  },[getDataGetting]);
+  }, [getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
@@ -248,9 +261,9 @@ const Buy = ({
                   <span className="price">
                     <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
                   </span>
-                  {/* <span className="delete" onClick={() => handleDelete(index)}>
+                  <span className="delete" onClick={() => handleDelete(index)}>
                     <img src="/build/images/Loto/trash.png" />
-                  </span> */}
+                  </span>
                 </div>
               </div>
             );
@@ -279,7 +292,7 @@ const Buy = ({
         <span>TOTAL</span>
         <div className="thePrice">
           <div>L.L </div>
-          <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
+          <div className="big">{parseInt(getTotalAmount).toLocaleString()}</div>
         </div>
       </div>
 
