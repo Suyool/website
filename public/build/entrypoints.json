@@ -27,7 +27,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.8828ecf0.js"
+        "/build/Alfa.598bd0f0.js"
       ]
     },
     "Touch": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.5e94c966.css"
+        "/build/AlfaStyle.9fbc7de6.css"
       ]
     },
     "TouchStyle": {

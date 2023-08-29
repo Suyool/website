@@ -9,7 +9,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
-  setBackLink("")
+    setBackLink("")
   }, [])
 
   const handleContinue = () => {
@@ -30,7 +30,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId })
-        }  else {
+        } else {
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/alfa/error.png",
@@ -40,7 +40,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
             // btn:'Top up'
           });
           setModalShow(true);
-      }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +57,7 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if(truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8'){
+    if (truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8') {
       return '0' + truncatedValue;
     }
     if (truncatedValue.length > 3) {
@@ -66,6 +66,15 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
     return truncatedValue;
   };
 
+  const [getBtnDesign, setBtnDesign] = useState(false);
+
+  const handleInputFocus = () => {
+    setBtnDesign(true);
+  };
+
+  const handleInputBlur = () => {
+    setBtnDesign(false);
+  };
 
   return (
     <div id="PayBill">
@@ -76,10 +85,10 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
           <img src="/build/images/alfa/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className="nbInput" placeholder="phone number" value={mobileNumber} onChange={handleMobileNumberChange} />
+        <input type="tel" className="nbInput" placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} onFocus={handleInputFocus} onBlur={handleInputBlur}/>
       </div>
 
-      <button id="ContinueBtn" className="btnCont" onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>
+      <button id="ContinueBtn" className={`${!getBtnDesign ? "btnCont" : "btnContFocus"}`} onClick={handleContinue} disabled={mobileNumber.replace(/\s/g, '').length !== 8 || isButtonDisabled}>Continue</button>
     </div>
   );
 };

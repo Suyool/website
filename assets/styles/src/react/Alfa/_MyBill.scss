@@ -76,4 +76,31 @@
         }
     }
 
+    .continueSectionFocused{
+        position: relative;
+        // bottom: 20px;
+        padding-top: 30px;
+        width: 90%;
+
+        .btnCont {
+            margin-bottom: 20px;
+        }
+
+        .keybord {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .keyBtn {
+                font-size: 28px;
+                font-family: PoppinsMedium;
+                width: 33.33%;
+                text-align: center;
+                padding: 20px 0;
+                color: black;
+                background-color: unset;
+                border: none;
+            }
+        }
+    }
 }
