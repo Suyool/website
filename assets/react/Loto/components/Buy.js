@@ -21,6 +21,7 @@ const Buy = ({
     localStorage.setItem("BackPage", "Play");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
+
     
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
@@ -72,6 +73,7 @@ const Buy = ({
   //   }, [getDisable]);
 
   const handleBuy = () => {
+    setDataGetting("")
     // const buttonElement = document.getElementById("buyButton");
     // if (buttonElement) {
     //   console.log("h");
@@ -95,11 +97,15 @@ const Buy = ({
         );
       }, 2000);
     }
+    window.handleCheckout = (message) => {
+      setDataGetting(message);
+    };
   };
 
   useEffect(() => {
     console.log(getDataGetting);
     if (getDataGetting == "success") {
+      setDataGetting("")
       axios
         .post("/loto/play", {
           selectedBalls: selectedBallsToShow,

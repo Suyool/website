@@ -73,7 +73,7 @@ class reminderNotification extends Command
             $template = $this->notifMr->getRepository(Template::class)->findOneBy(['identifier' => "reminder notification"]);
             $index = $template->getIndex();
             $content = $this->notifMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
-            $this->notificationServices->addNotification($userIds, $content, $params, $bulk);
+            $this->notificationServices->addNotification($userIds, $content, $params, $bulk,"https://www.suyool.com/loto");
 
 
             // }

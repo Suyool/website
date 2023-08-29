@@ -33,6 +33,7 @@ const App = ({ parameters }) => {
   );
 
   useEffect(() => {
+    setDataGetting("");
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get("goto");
     if (idParam) {
