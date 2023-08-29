@@ -52,12 +52,21 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
-          } else if (response.data.message == "pinwrong") {
+          } else if (response.data.message == "213") {
             setPinWrong(true)
             setPinCode("");
             setSpinnerLoader(false);
           } else {
-            console.log("something wrong");
+            setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: "No Available Bill",
+                desc: `There is no available bill for ${localStorage.getItem("billMobileNumber")} at the moment. 
+                Kindly try again later. `,
+                // path: response.data.path,
+                btn:'OK'
+              });
+              setModalShow(true);
             setPinCode("");
           }
         })

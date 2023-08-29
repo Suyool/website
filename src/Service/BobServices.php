@@ -113,11 +113,15 @@ class BobServices
         // dd($content);
 
         $ApiResponse = json_decode($content, true);
+        // dd($ApiResponse);
         $res = $ApiResponse['Response'];
+        if($res==""){
+            return array(false,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode']);
+        }
         $decodedString = $this->_decodeGzipString(base64_decode($res));
         // dd($decodedString);
 
-        return $decodedString;
+        return array(true,$decodedString);
         // return $content;
     }
 

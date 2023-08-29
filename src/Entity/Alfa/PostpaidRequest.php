@@ -35,6 +35,16 @@ class PostpaidRequest
      */
     private $error;
 
+     /**
+     * @ORM\Column(name="errorDesc")
+     */
+    private $errordesc;
+
+     /**
+     * @ORM\Column(name="errorCode")
+     */
+    private $errorcode;
+
     /**
      * 
      * @ORM\Column(name="currency")
@@ -132,6 +142,28 @@ class PostpaidRequest
     public function seterror($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function geterrordesc()
+    {
+        return $this->errordesc;
+    }
+
+    public function seterrordesc($error)
+    {
+        $this->errordesc = $error;
+        return $this;
+    }
+
+    public function geterrorcode()
+    {
+        return $this->errorcode;
+    }
+
+    public function seterrorcode($error)
+    {
+        $this->errorcode = $error;
         return $this;
     }
 

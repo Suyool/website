@@ -149,8 +149,8 @@ class AlfaController extends AbstractController
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
             // dd($retrieveResults);
-            if(isset($retrieveResults) && $retrieveResults != ""){
-            $jsonResult = json_decode($retrieveResults, true);
+            if(isset($retrieveResults) && $retrieveResults[0] ){
+            $jsonResult = json_decode($retrieveResults[1], true);
             $displayData = $jsonResult["Values"];
 
             $Pin = implode("", $data["Pin"]);
@@ -203,8 +203,18 @@ class AlfaController extends AbstractController
             // dd($order);
             $message = "connected";
             }else{
+                $invoicesId = $data["invoicesId"];
+
+                $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
+                $invoices
+                ->seterrordesc($retrieveResults[1])
+                ->seterrorcode($retrieveResults[2]);
+
+                $this->mr->persist($invoices);
+            $this->mr->flush();
+
                 $displayData = -1;
-            $message = "pinwrong";
+            $message = $retrieveResults[2];
             $invoicesId = -1;
             }
         } else {
