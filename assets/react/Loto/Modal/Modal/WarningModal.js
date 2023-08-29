@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 const WarningModal = (props) => {
+  const handleWarning = () => {
+    props.setModalShow(false);
+    props.setModalName("");
+    props.setActiveButton({ name: "Play" });
+  };
   return (
     <Modal
       {...props}
@@ -19,12 +24,7 @@ const WarningModal = (props) => {
             <button className="okiBtnModal" onClick={props.onHide}>
               Cancel
             </button>
-            <button
-              className="exchangeBtnModal"
-              onClick={(event) =>
-                (window.location.href = `${props.getWarningModal.path}`)
-              }
-            >
+            <button className="exchangeBtnModal" onClick={handleWarning}>
               {props.getWarningModal.btn}
             </button>
           </div>

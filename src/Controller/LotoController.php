@@ -600,8 +600,8 @@ class LotoController extends AbstractController
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
                     $nextThursday = $today->modify('+2 hour 30 minutes');
 
-                    $nextDate = $nextThursday->format('Y/m/d');
-                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
+                    $nextDate = $nextThursday->format('d/m/Y');
+                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these numbers for the next draw on: ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
 

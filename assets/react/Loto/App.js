@@ -199,8 +199,11 @@ const App = ({ parameters }) => {
         )}
         {getModalName === "WarningModal" && (
           <WarningModal
+          setModalShow={setModalShow}
+          setModalName={setModalName}
             getWarningModal={getWarningModal}
             show={modalShow}
+            setActiveButton={setActiveButton}
             onHide={() => {
               setModalShow(false);
               setModalName("");
