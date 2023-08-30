@@ -60,7 +60,7 @@ class TouchController extends AbstractController
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $SuyoolUserId = $this->session->set('suyoolUserId', 52);
+                // $SuyoolUserId = $this->session->set('suyoolUserId', 185);
 
                 $parameters['deviceType'] =$suyoolUserInfo[1] ;
 
@@ -137,13 +137,13 @@ class TouchController extends AbstractController
                 $displayedFees = intval($values["Fees"])+intval($values["Fees1"])+intval($values["AdditionalFees"]);
 
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3], $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"],$displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
+                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3],$retrieveResults[4], $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"],$displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
             } else {
                 $values = 0;
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3]);
+                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3],$retrieveResults[4]);
                 $this->mr->persist($postpaidRequest);
                 $this->mr->flush();
             }

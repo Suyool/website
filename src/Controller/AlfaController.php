@@ -63,7 +63,7 @@ class AlfaController extends AbstractController
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $this->session->set('suyoolUserId', 52);
+                // $this->session->set('suyoolUserId', 185);
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
@@ -177,7 +177,10 @@ class AlfaController extends AbstractController
                 ->setSuyoolUserId($SuyoolUserId)
                 ->setPin($Pin)
                 ->setGsmNumber($data["mobileNumber"])
-                ->setTransactionId($jsonResult["Values"]["TransactionId"]);
+                ->setTransactionId($jsonResult["Values"]["TransactionId"])
+                ->seterrordesc($retrieveResults[2])
+                ->seterrorcode($retrieveResults[3])
+                ->setresponse($retrieveResults[4]);
 
             $this->mr->persist($invoices);
             $this->mr->flush();
@@ -208,7 +211,8 @@ class AlfaController extends AbstractController
                 $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
                 $invoices
                 ->seterrordesc($retrieveResults[1])
-                ->seterrorcode($retrieveResults[2]);
+                ->seterrorcode($retrieveResults[2])
+                ->setresponse($retrieveResults[3]);
 
                 $this->mr->persist($invoices);
             $this->mr->flush();

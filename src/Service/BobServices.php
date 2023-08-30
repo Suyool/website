@@ -111,17 +111,18 @@ class BobServices
         $content = $response->getContent();
         // $content = $response->toArray();
         // dd($content);
+        $reponse=json_encode($content);
 
         $ApiResponse = json_decode($content, true);
         // dd($ApiResponse);
         $res = $ApiResponse['Response'];
         if($res==""){
-            return array(false,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode']);
+            return array(false,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode'],$reponse);
         }
         $decodedString = $this->_decodeGzipString(base64_decode($res));
         // dd($decodedString);
 
-        return array(true,$decodedString);
+        return array(true,$decodedString,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode'],$reponse);
         // return $content;
     }
 
@@ -239,6 +240,7 @@ class BobServices
         ]);
 
         $content = $response->getContent();
+        $response=json_encode($content);
         $ApiResponse = json_decode($content, true);
 
         // dd($ApiResponse);
@@ -254,7 +256,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription,$ApiResponse["ErrorCode"]);
+        return array($isSuccess, $decodedString, $ErrorDescription,$ApiResponse["ErrorCode"],$response);
     }
 
     public function BillPayTouch($Postpaid_With_id_Res)
@@ -343,6 +345,8 @@ class BobServices
         ]);
         $content = $response->getContent();
 
+        $response=json_encode($content);
+
         $ApiResponse = json_decode($content, true);
     
 
@@ -358,7 +362,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription);
+        return array($isSuccess, $decodedString, $ErrorDescription,$response);
     }
 
     public function BillPayOgero($Landline_With_id)

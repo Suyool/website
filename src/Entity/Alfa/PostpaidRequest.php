@@ -45,6 +45,11 @@ class PostpaidRequest
      */
     private $errorcode;
 
+     /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
+
     /**
      * 
      * @ORM\Column(name="currency")
@@ -164,6 +169,17 @@ class PostpaidRequest
     public function seterrorcode($error)
     {
         $this->errorcode = $error;
+        return $this;
+    }
+
+    public function getresponse()
+    {
+        return $this->response;
+    }
+
+    public function setresponse($response)
+    {
+        $this->response = $response;
         return $this;
     }
 

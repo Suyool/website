@@ -56,7 +56,7 @@ class OgeroController extends AbstractController
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
-                // $suyoolUserId = $this->session->set('suyoolUserId', 52);
+                // $suyoolUserId = $this->session->set('suyoolUserId', 185);
 
                 // $parameters['Test'] = "tst";
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
@@ -91,6 +91,8 @@ class OgeroController extends AbstractController
                 $LandlineReq
                     ->setsuyoolUserId($suyoolUserId)
                     ->setgsmNumber($data["mobileNumber"])
+                    ->setresponse($RetrieveChannel[3])
+                    ->seterrordesc($RetrieveChannel[2])
                     ->settransactionId($resp["TransactionId"])
                     ->setogeroBills(json_encode($resp["OgeroBills"]))
                     ->setogeroPenalty($resp["OgeroPenalty"])
@@ -116,6 +118,14 @@ class OgeroController extends AbstractController
                 $message = $resp;
                 $mobileNb = $data["mobileNumber"];
             } else {
+                $LandlineReq = new LandlineRequest;
+                $LandlineReq
+                    ->setsuyoolUserId($suyoolUserId)
+                    ->setgsmNumber($data["mobileNumber"])
+                    ->setresponse($RetrieveChannel[3])
+                    ->seterrordesc($RetrieveChannel[2]);
+                $this->mr->persist($LandlineReq);
+                $this->mr->flush();
                 $message="Not found";
                 $LandlineReqId = -1;
                 $mobileNb=$data["mobileNumber"];

@@ -33,6 +33,11 @@ class PostpaidRequest
      */
     private $token;
 
+     /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
+
     /**
      * @ORM\Column(name="error")
      */
@@ -191,6 +196,17 @@ class PostpaidRequest
     public function seterror($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function getresponse()
+    {
+        return $this->response;
+    }
+
+    public function setresponse($response)
+    {
+        $this->response = $response;
         return $this;
     }
 
