@@ -16,7 +16,6 @@ const AddressLable = ({ handleInputChange, errors, formData ,setFormData }) => {
         autocomplete.addListener("place_changed", () => {
             const place = autocomplete.getPlace();
             const formattedAddress = place.name;
-
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 address: formattedAddress,

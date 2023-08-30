@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import TypeOfBusiness from "./TypeOfBusiness";
 import AddressLable from "./AddressLable";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
@@ -8,7 +8,7 @@ import OwnerInput from "./OwnerInput";
 import DatePicker from "react-datepicker";
 import LegalForm from "./LegalForm";
 
-const ApplyForCorporate = ({ steSent }) => {
+const ApplyForCorporate = ({steSent}) => {
     const [getInfoShowing, setInfoShowing] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [getModalTitle, setModalTitle] = useState("");
@@ -37,7 +37,7 @@ const ApplyForCorporate = ({ steSent }) => {
         address: "",
     });
     const [data, setData] = useState([
-        { Name: "" }
+        {Name: ""}
     ])
     const [startDate, setStartDate] = useState(new Date());
 
@@ -61,7 +61,7 @@ const ApplyForCorporate = ({ steSent }) => {
     }, [])
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevFormData) => ({
             ...prevFormData,
             [name]: value,
@@ -69,7 +69,7 @@ const ApplyForCorporate = ({ steSent }) => {
     };
 
     const handleyearlyTurnoverChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         const numericInput = value.replace(/[^0-9]/g, "");
         setFormData((prevFormData) => ({
             ...prevFormData,
@@ -104,7 +104,7 @@ const ApplyForCorporate = ({ steSent }) => {
 
         if (!formData.email.trim()) {
             newErrors.email = "Email is required";
-        } else if (! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = "Invalid email format";
         }
 
@@ -230,11 +230,13 @@ const ApplyForCorporate = ({ steSent }) => {
                         <div className="title">COMPANY INFORMATION</div>
                         <>
                             <div className="row">
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Name", "Company Registered name", "registeredName")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Name", "Company Registered name", "registeredName")}</div>
                                 {/* <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Legal Form", "Drop down + Others", "legalForm")}</div> */}
                                 <div className="col-lg-4 col-md-6 col-sm-12">
                                     <div className="label">Drop down</div>
-                                    <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} handleInputChange={handleInputChange} />
+                                    <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData}
+                                               handleInputChange={handleInputChange}/>
                                     {errors["businessType"] && <div className="error">{errors["businessType"]}</div>}
                                 </div>
                                 {/* <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} /> */}
@@ -243,30 +245,38 @@ const ApplyForCorporate = ({ steSent }) => {
                             <div className="row">
                                 <div className="col-lg-4 col-md-6 col-sm-12 relativity">
                                     <div className="label">Date of incorporation</div>
-                                    <img className="addImgss" src="/build/images/calender.png" />
-                                    <DatePicker className="input" selected={startDate}
+                                    <img className="addImgss" src="/build/images/calender.png"/>
+                                    <DatePicker
+                                        className="input"
                                         showYearDropdown
                                         dateFormat="MM/dd/yyyy"
-                                        yearDropdownItemNumber={15}
+                                        scrollableYearDropdown
+                                        yearDropdownItemNumber={100}
+                                        maxDate={new Date()}
+                                        selected={startDate}
                                         onChange={(date) => {
-                                            setStartDate(date);
+                                            if (date) {
+                                                setStartDate(date);
+                                            }
                                             setFormData((prevFormData) => ({
                                                 ...prevFormData,
                                                 "dateIncorporation": startDate?.toLocaleDateString("en-US"),
                                             }));
-                                        }} />
+                                        }}/>
                                     {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
                                 </div>
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Registration Number", "123456", "registrationNumber")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Registration Number", "123456", "registrationNumber")}</div>
                             </div>
 
                             <div className="row">
                                 <div className="col-lg-4 col-md-6 col-sm-12">
                                     <div className="label">Type of Business</div>
-                                    <TypeOfBusiness getDropDown={getDropDown} setFormData={setFormData} formData={formData} handleInputChange={handleInputChange} />
+                                    <TypeOfBusiness getDropDown={getDropDown} setFormData={setFormData}
+                                                    formData={formData} handleInputChange={handleInputChange}/>
                                     {errors["businessType"] && <div className="error">{errors["businessType"]}</div>}
                                 </div>
                             </div>
@@ -284,17 +294,22 @@ const ApplyForCorporate = ({ steSent }) => {
                                         value={formData["yearlyTurnover"]}
                                         onChange={handleyearlyTurnoverChange}
                                     />
-                                    {errors["yearlyTurnover"] && <div className="error">{errors["yearlyTurnover"]}</div>}
+                                    {errors["yearlyTurnover"] &&
+                                        <div className="error">{errors["yearlyTurnover"]}</div>}
                                 </div>
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Business Phone Number", "+961", "phoneNumber")}</div>
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Email", "name@name.com", "email")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Business Phone Number", "+961", "phoneNumber")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Email", "name@name.com", "email")}</div>
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-10 col-md-12 col-sm-12 address"><AddressLable handleInputChange={handleInputChange} errors={errors} formData={formData} setFormData={setFormData} />
+                                <div className="col-lg-10 col-md-12 col-sm-12 address"><AddressLable
+                                    handleInputChange={handleInputChange} errors={errors} formData={formData}
+                                    setFormData={setFormData}/>
 
                                 </div>
                             </div>
@@ -302,13 +317,14 @@ const ApplyForCorporate = ({ steSent }) => {
 
                         <div className="title">OWNERS INFORMATION</div>
                         <>
-                            <OwnerInput data={data} setData={setData} />
+                            <OwnerInput data={data} setData={setData}/>
                             {errors["ownerInfos"] && <div className="error">{errors["ownerInfos"]}</div>}
 
                             <div className={`row`}>
                                 <div className="col-lg-4 col-md-6 col-sm-12 relativity">
-                                    <div className="label">Person In charge (Authorized Signatory) </div>
-                                    <img className="addImgs" src="/build/images/info.png" onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo" />
+                                    <div className="label">Person In charge (Authorized Signatory)</div>
+                                    <img className="addImgs" src="/build/images/info.png"
+                                         onClick={() => setInfoShowing(!getInfoShowing)} alt="Logo"/>
                                     <input
                                         className="input"
                                         placeholder="First Name, Father’s Name, Last Name"
@@ -319,15 +335,17 @@ const ApplyForCorporate = ({ steSent }) => {
                                     {errors.authorizedPerson && <div className="error">{errors.authorizedPerson}</div>}
                                     {getInfoShowing && (
                                         <div className="infoCont">
-                                            <div className="titleInf">Authorized Signatory: </div>
+                                            <div className="titleInf">Authorized Signatory:</div>
                                             <div className="desc">
-                                                The person who is allowed to act on behalf of the company. Their name should be mentioned in the official
+                                                The person who is allowed to act on behalf of the company. Their name
+                                                should be mentioned in the official
                                                 records.
                                             </div>
                                         </div>
                                     )}
                                 </div>
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Mobile Number", "+961", "authorizedPhoneNumber")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Mobile Number", "+961", "authorizedPhoneNumber")}</div>
                             </div>
                         </>
 
@@ -335,12 +353,15 @@ const ApplyForCorporate = ({ steSent }) => {
                         <div className="title">CONTACT PERSON</div>
                         <>
                             <div className="row">
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Full Name", "Full Name", "contactFullName")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Full Name", "Full Name", "contactFullName")}</div>
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Phone Number", "+961", "contactPhoneNumber")}</div>
-                                <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Email", "name@name.com", "contactEmail")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Phone Number", "+961", "contactPhoneNumber")}</div>
+                                <div
+                                    className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Email", "name@name.com", "contactEmail")}</div>
                             </div>
                         </>
 
@@ -351,7 +372,7 @@ const ApplyForCorporate = ({ steSent }) => {
                             onHide={() => setModalShow(false)}
                         />
 
-                        <Footer handleFormSubmit={handleFormSubmit} />
+                        <Footer handleFormSubmit={handleFormSubmit}/>
                     </div>
                 </div>
             </div>
