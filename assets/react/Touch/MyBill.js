@@ -244,7 +244,7 @@ const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setM
 
         <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className="continueSection">
           <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
-          {getPinWrong && <p style={{color:"red"}}>Pin is wrong please try again</p>}
+          {getPinWrong && <p style={{color:"red"}}>Unable to proceed, kindly try again.</p>}
 
           <div className="keybord">
             <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

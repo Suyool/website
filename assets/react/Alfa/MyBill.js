@@ -32,7 +32,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
   };
 
   const handlePayNow = () => {
-    if (pinCode.length === 6) {
+    if (pinCode.length === 4) {
       setSpinnerLoader(true);
       axios
         .post("/alfa/bill/RetrieveResults",
@@ -241,7 +241,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
         <div className="PinSection" onClick={handlePincodeClick}>
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
-            {Array.from({ length: 6 }, (_, index) => (
+            {Array.from({ length: 4 }, (_, index) => (
               <div className="code" key={index}>
                 {pinCode[index] !== undefined ? pinCode[index] : ""}
               </div>
@@ -260,9 +260,9 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
 
         <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className={`${!getBtnDesign ? "continueSection" : "continueSectionFocused"}`}>
           <button id="ContinueBtn" className="btnCont"
-            onClick={handlePayNow} disabled={pinCode.length !== 6}
+            onClick={handlePayNow} disabled={pinCode.length !== 4}
           >Continue</button>
-          {getPinWrong && <p style={{color:"red"}}>Pin wrong please try again</p>}
+          {getPinWrong && <p style={{color:"red"}}>Unable to proceed, kindly try again.</p>}
 
         </div>
       </div>

@@ -104,7 +104,19 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
-          }else{
+          }else if(jsonResponse == "There are no vouchers of this type currently availalble."){
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Recharge Card Unavailable ",
+              desc: `The ${getPrepaidVoucher.priceUSD}$ Touch Recharge card is unavailable. 
+              Kindly choose another one.`,
+              // path: response.data.path,
+              btn:'OK'
+            });
+            setModalShow(true);
+          }
+          else{
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",
