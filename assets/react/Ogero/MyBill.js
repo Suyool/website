@@ -35,6 +35,7 @@ const MyBill = ({ parameters,getLandlineMobile, getLandlineDisplayedData, getLan
     }
     
   };
+  
 useEffect(()=>{
   if(getDataGetting == "success"){
     axios

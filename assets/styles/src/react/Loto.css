@@ -12,6 +12,10 @@
       -ms-flex-align: center;
           align-items: center;
   overflow-y: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 #LotoBody .scrolableView {
@@ -86,8 +90,55 @@
 }
 
 #Total .thePrice .big {
-  font-size: 20px;
-  padding-left: 10px;
+  font-size: 21px;
+  padding-left: 5px;
+}
+
+#TotalPlay {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #1C2676;
+  border-radius: 7px;
+  padding: 10px 0;
+  margin-top: 30px;
+  width: 90%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  letter-spacing: 0.9pt;
+}
+
+#TotalPlay span {
+  color: white;
+  font-size: 15px;
+  font-family: PoppinsSemiBold;
+  padding-left: 20px;
+}
+
+#TotalPlay .thePrice {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 15px;
+  font-family: PoppinsSemiBold;
+  padding-right: 20px;
+}
+
+#TotalPlay .thePrice .big {
+  font-size: 21px;
+  padding-left: 5px;
 }
 
 #modalRadius .modal-content {
@@ -179,8 +230,9 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
 }
 
@@ -193,6 +245,7 @@
   background-color: #F4F4F4;
   border-radius: 7px;
   border: none;
+  width: 45%;
 }
 
 #modalRadius #ErrorModal .buttonsDesign .exchangeBtnModal {
@@ -204,6 +257,7 @@
   background-color: #226D96;
   border-radius: 7px;
   border: none;
+  width: 45%;
 }
 
 #modalRadius #WarningModal {
@@ -221,8 +275,8 @@
 }
 
 #modalRadius #WarningModal img {
-  width: 60px;
-  height: 60px;
+  width: 54px;
+  height: 45px;
 }
 
 #modalRadius #WarningModal .title {
@@ -235,7 +289,7 @@
 #modalRadius #WarningModal .desc {
   font-family: PoppinsMedium;
   font-size: 15px;
-  color: black;
+  color: #767676;
   text-align: center;
   padding-top: 2px;
 }
@@ -244,6 +298,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #modalRadius #WarningModal .buttonsDesign .okiBtnModal {
@@ -254,7 +312,7 @@
   color: black;
   background-color: #F4F4F4;
   border-radius: 7px;
-  width: 50%;
+  width: 45%;
   border: none;
 }
 
@@ -266,7 +324,7 @@
   color: #FFFFFF;
   background-color: #226D96;
   border-radius: 7px;
-  width: 50%;
+  width: 45%;
   border: none;
   margin-left: 10px;
 }
@@ -550,6 +608,14 @@
   letter-spacing: 0.92pt;
 }
 
+#LLDJ .gridsSwction .itemsSection .items .priceWhite {
+  font-family: PoppinsSemiBold;
+  font-size: 11px;
+  color: white;
+  padding: 8px 0;
+  letter-spacing: 0.92pt;
+}
+
 #LLDJ .gridsSwction .itemsSection .items .letsPlayBtn {
   width: 80%;
   text-align: center;
@@ -573,6 +639,7 @@
 
 #LLDJ .gridsSwction .itemsSection .redone .title {
   color: white;
+  padding-top: 6px;
 }
 
 #LLDJ .gridsSwction .itemsSection .redone .image {
@@ -2110,6 +2177,11 @@
 
 #Buy .gridborder .footer .price {
   font-family: PoppinsSemiBold;
+  font-size: 20px;
+}
+
+#Buy .gridborder .footer .price span {
+  font-size: 16px;
 }
 
 #Buy .zeedSection {
@@ -2199,7 +2271,8 @@
   color: white;
   font-size: 15px;
   font-family: PoppinsMedium;
-  margin-top: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   width: 90%;
   text-align: center;
 }

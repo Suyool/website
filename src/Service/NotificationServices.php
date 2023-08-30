@@ -76,6 +76,14 @@ class NotificationServices
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
+        $amount=number_format($amount);
+        if(isset($numgrids)){
+            if($numgrids>1){
+                $numgrids=$numgrids . " Grids";
+            }else{
+                $numgrids=$numgrids . " Grid";
+            }
+        }
 
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
         if ($singleUser == null) {

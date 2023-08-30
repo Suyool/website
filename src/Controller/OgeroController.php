@@ -40,7 +40,7 @@ class OgeroController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $string_to_decrypt = $_POST['infoString'];
@@ -54,15 +54,15 @@ class OgeroController extends AbstractController
             $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
-            // if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                // $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
-                $suyoolUserId = $this->session->set('suyoolUserId', 185);
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
+                // $suyoolUserId = $this->session->set('suyoolUserId', 185);
 
                 // $parameters['Test'] = "tst";
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
-            // } else {
-                // return $this->render('ExceptionHandling.html.twig');
-            // }
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }
