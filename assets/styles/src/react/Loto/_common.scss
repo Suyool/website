@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     overflow-y: hidden;
+    user-select: none;
 
     .scrolableView {
         width: 100%;
