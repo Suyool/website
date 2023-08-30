@@ -15,14 +15,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        
-        .opacityNone{
+        padding-top: 50px;
+
+        .opacityNone {
             opacity: 0;
         }
     }
 
     .hideBack {
-        background-color: hsl(0deg 0% 59% / 41%);;
+        background-color: hsl(0deg 0% 59% / 41%);
+        ;
         border-radius: 7px;
     }
 
@@ -51,6 +53,7 @@
     .modal-content {
         border-radius: 10px !important;
     }
+
     .modal-body {
         padding: 12px;
         padding-top: 20px;
@@ -125,6 +128,7 @@
     .buttonsDesign {
         display: flex;
         width: 100%;
+
         .okiBtnModal {
             margin-top: 40px;
             padding: 15px 36px;

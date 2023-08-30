@@ -145,7 +145,7 @@ const LLDJ = ({
                 <img src="/build/images/Loto/popular.png" alt="popular" />
               </div>
               <div className="title">8 GRIDS</div>
-              <div className="price">
+              <div className="priceWhite">
                 {parseInt(parameters.gridprice * 8).toLocaleString()} LBP
               </div>
               <button

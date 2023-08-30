@@ -295,7 +295,7 @@ const Buy = ({
         </div>
       </div>
 
-      <div id="Total">
+      <div id="TotalBuy">
         <span>TOTAL</span>
         <div className="thePrice">
           <div>L.L </div>
@@ -312,7 +312,7 @@ const Buy = ({
           handleBuy();
         }}
       >
-        Buy
+        BUY
       </button>
     </div>
   );

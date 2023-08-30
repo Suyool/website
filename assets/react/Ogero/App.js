@@ -38,14 +38,15 @@ const App = ({ parameters }) => {
   });
   return (
     <div id="OgeroBody">
-      <div className="scrolableView">
-        <Header
+       <Header
           activeButton={activeButton}
           setActiveButton={setActiveButton}
           getHeaderTitle={getHeaderTitle}
           getBackLink={getBackLink}
           parameters={parameters}
         />
+      <div className="scrolableView">
+       
         {getModalName === "" && (
           <>
             {activeButton.name === "" && (

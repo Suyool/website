@@ -18,9 +18,11 @@
         align-items: center;
         padding-bottom: 120px;
     }
-    .resultScroll{
+
+    .resultScroll {
         padding-bottom: 80px;
     }
+
     .hideBackk {
         opacity: 0.5;
     }
@@ -60,32 +62,73 @@
         width: 70%;
 
         .big {
-            font-size: 20px;
-            padding-left: 10px;
+            font-size: 21px;
+            padding-left: 5px;
         }
     }
 }
 
-#modalRadius{
-    .modal-content{
+#TotalBuy {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C2676;
+    border-radius: 7px;
+    padding: 10px 0;
+    margin-top: 30px;
+    width: 90%;
+    justify-content: space-between;
+    letter-spacing: 0.9pt;
+    align-items: center;
+
+    span {
+        color: white;
+        font-size: 15px;
+        font-family: PoppinsSemiBold;
+        padding-left: 20px;
+        // margin: auto;
+        // width: 30%;
+    }
+
+    .thePrice {
+        display: flex;
+        color: white;
+        align-items: center;
+        font-size: 15px;
+        font-family: PoppinsSemiBold;
+        padding-right: 20px;
+        // width: 70%;
+
+        .big {
+            font-size: 21px;
+            padding-left: 5px;
+        }
+    }
+}
+
+#modalRadius {
+    .modal-content {
         border-radius: 13px;
         border: none;
     }
+
     #SuccessModal {
         display: flex;
         flex-direction: column;
         padding: 15px 10px 10px 10px;
         align-items: center;
+
         img {
             width: 60px;
             height: 60px;
         }
+
         .title {
             font-family: PoppinsSemiBold;
             font-size: 15px;
             color: black;
             padding-top: 33px;
         }
+
         .desc {
             font-family: PoppinsMedium;
             font-size: 15px;
@@ -93,7 +136,8 @@
             text-align: center;
             padding-top: 2px;
         }
-        .okiBtnModal{
+
+        .okiBtnModal {
             margin-top: 40px;
             padding: 15px;
             font-family: PoppinsMedium;
@@ -105,22 +149,25 @@
             border: none;
         }
     }
-    
+
     #ErrorModal {
         display: flex;
         flex-direction: column;
         padding: 15px 10px 10px 10px;
         align-items: center;
+
         img {
             width: 60px;
             height: 60px;
         }
+
         .title {
             font-family: PoppinsSemiBold;
             font-size: 15px;
             color: black;
             padding-top: 15px;
         }
+
         .desc {
             font-family: PoppinsMedium;
             font-size: 15px;
@@ -128,11 +175,13 @@
             text-align: center;
             padding-top: 2px;
         }
-        .buttonsDesign{
+
+        .buttonsDesign {
             display: flex;
             justify-content: space-around;
             width: 100%;
-            .okiBtnModal{
+
+            .okiBtnModal {
                 margin-top: 10px;
                 padding: 15px 36px;
                 font-family: PoppinsMedium;
@@ -141,9 +190,10 @@
                 background-color: #F4F4F4;
                 border-radius: 7px;
                 border: none;
-                
+
             }
-            .exchangeBtnModal{
+
+            .exchangeBtnModal {
                 margin-top: 10px;
                 padding: 15px 36px;
                 font-family: PoppinsMedium;
@@ -154,24 +204,27 @@
                 border: none;
             }
         }
-        
+
     }
-    
+
     #WarningModal {
         display: flex;
         flex-direction: column;
         padding: 15px 10px 10px 10px;
         align-items: center;
+
         img {
-            width: 60px;
-            height: 60px;
+            width: 54px;
+            height: 45px;
         }
+
         .title {
             font-family: PoppinsSemiBold;
             font-size: 15px;
             color: black;
             padding-top: 33px;
         }
+
         .desc {
             font-family: PoppinsMedium;
             font-size: 15px;
@@ -179,9 +232,13 @@
             text-align: center;
             padding-top: 2px;
         }
-        .buttonsDesign{
+
+        .buttonsDesign {
             display: flex;
-            .okiBtnModal{
+            width: 100%;
+            justify-content: space-between;
+
+            .okiBtnModal {
                 margin-top: 40px;
                 padding: 15px 36px;
                 font-family: PoppinsMedium;
@@ -189,11 +246,12 @@
                 color: black;
                 background-color: #F4F4F4;
                 border-radius: 7px;
-                width: 50%;
+                width: 45%;
                 border: none;
-                
+
             }
-            .exchangeBtnModal{
+
+            .exchangeBtnModal {
                 margin-top: 40px;
                 padding: 15px 36px;
                 font-family: PoppinsMedium;
@@ -201,12 +259,12 @@
                 color: #FFFFFF;
                 background-color: #226D96;
                 border-radius: 7px;
-                width: 50%;
+                width: 45%;
                 border: none;
                 margin-left: 10px;
             }
         }
-        
+
     }
 }
 
@@ -225,15 +283,18 @@
     position: fixed;
     top: 0;
     z-index: 9999;
-    .back{
+
+    .back {
         padding-left: 30px;
     }
+
     .headerTitle {
         font-family: PoppinsSemiBold;
         font-size: 15px;
         color: white;
     }
-    .empty{
+
+    .empty {
         padding-right: 50px;
     }
 }
@@ -247,6 +308,7 @@
     z-index: 1002;
     position: absolute;
     justify-content: center;
+
     .spinner {
         width: 100px;
         height: 100px;

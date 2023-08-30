@@ -208,12 +208,12 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
 
             <div className="MoreInfo">
               <div className="label">Amount in LBP (Sayrafa Rate)</div>
-              <div className="value1">LBP {parseInt(getDisplayData.Amount).toLocaleString()}</div>
+              <div className="value1">L.L {parseInt(getDisplayData.Amount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">
               <div className="label">Fees in LBP (Sayrafa Rate)</div>
-              <div className="value1">LBP {parseInt(getdisplayedFees).toLocaleString()}</div>
+              <div className="value1">L.L {parseInt(getdisplayedFees).toLocaleString()}</div>
             </div>
 
             {/* <div className="taxes">*All taxes included</div> */}
@@ -222,7 +222,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
 
             <div className="MoreInfo">
               <div className="label">Total</div>
-              <div className="value2">LBP {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
+              <div className="value2">L.L {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
             </div>
 
           </div>

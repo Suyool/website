@@ -45,8 +45,13 @@ const PayBill = ({
           setErrorModal({
             img: "/build/images/alfa/error.png",
             title: "Number Not Found ",
-            desc: ` The number you entered was not found in the system. Kindly try another number. `,
-            // path: response.data.path,
+            desc: (
+              <div>
+                The number you entered was not found in the system.
+                <br />
+                Kindly try another number.
+              </div>
+            ),
             btn: "OK",
           });
           setModalShow(true);

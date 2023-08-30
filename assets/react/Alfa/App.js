@@ -15,31 +15,29 @@ const App = ({ parameters }) => {
     const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState({ vouchercategory: "", vouchertype: "", priceLBP: "", priceUSD: "", desc: "", isavailable: "" });
     const [getPostpaidData, setPostpaidData] = useState({ id: "" });
-    const [getDataGetting,setDataGetting] = useState("");
+    const [getDataGetting, setDataGetting] = useState("");
 
 
     //Modal Variable
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
     const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/alfa/SuccessImg.png", title: "SuccessModal", desc: "SuccessModalSuccessModalSuccessModal" });
-    const [getErrorModal, setErrorModal] = useState({ img: "/build/images/alfa/error.png", title: "Error Modal",btn:"Top Up", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
+    const [getErrorModal, setErrorModal] = useState({ img: "/build/images/alfa/error.png", title: "Error Modal", btn: "Top Up", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
     const [getVoucherData, SetVoucherData] = useState([]);
 
-    
+
     useEffect(() => {
         setDataGetting("");
         window.handleCheckout = (message) => {
-          setDataGetting(message);
+            setDataGetting(message);
         };
-      });
+    });
 
     return (
         <div id="AlfaBody">
-
+            <Header parameters={parameters} activeButton={activeButton} setActiveButton={setActiveButton} getHeaderTitle={getHeaderTitle} getBackLink={getBackLink} />
             <div className="scrolableView">
-
-                <Header parameters={parameters} activeButton={activeButton} setActiveButton={setActiveButton} getHeaderTitle={getHeaderTitle} getBackLink={getBackLink} />
                 {getModalName === "" &&
                     <>
                         {activeButton.name === "" && <Default SetVoucherData={SetVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
@@ -47,8 +45,8 @@ const App = ({ parameters }) => {
                         {activeButton.name === "PayBill" && <PayBill setPostpaidData={setPostpaidData} setModalShow={setModalShow} setErrorModal={setErrorModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                         {activeButton.name === "ReCharge" && <ReCharge setPrepaidVoucher={setPrepaidVoucher} getVoucherData={getVoucherData} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
 
-                        {activeButton.name === "MyBill" && <MyBill setDataGetting={setDataGetting}  parameters={parameters} getDataGetting={getDataGetting}  getPostpaidData={getPostpaidData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
-                        {activeButton.name === "MyBundle" && <MyBundle setDataGetting={setDataGetting} parameters={parameters} getDataGetting={getDataGetting}  getPrepaidVoucher={getPrepaidVoucher} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBill" && <MyBill setDataGetting={setDataGetting} parameters={parameters} getDataGetting={getDataGetting} getPostpaidData={getPostpaidData} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+                        {activeButton.name === "MyBundle" && <MyBundle setDataGetting={setDataGetting} parameters={parameters} getDataGetting={getDataGetting} getPrepaidVoucher={getPrepaidVoucher} setModalShow={setModalShow} setErrorModal={setErrorModal} setSuccessModal={setSuccessModal} setModalName={setModalName} activeButton={activeButton} setActiveButton={setActiveButton} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
                     </>
                 }
             </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, setLandlineDisplayedData , setLandlineData, setActiveButton, setHeaderTitle, setBackLink  }) => {
+const PayBill = ({ setModalShow, setErrorModal, setModalName, setLandlineMobile, setLandlineDisplayedData, setLandlineData, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
@@ -12,7 +12,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
   }, [])
 
   const handleContinue = () => {
-    if(mobileNumber == ""){
+    if (mobileNumber == "") {
       setModalName("ErrorModal");
       setErrorModal({
         imgPath: "/build/images/alfa/error.png",
@@ -22,7 +22,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
         // btn:'Top up'
       });
       setModalShow(true);
-    }else{
+    } else {
       setSpinnerLoader(true);
       axios
         .post("/ogero/landline",
@@ -31,33 +31,37 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
           }
         )
         .then((response) => {
-          if(response?.data?.LandlineReqId != -1){
+          if (response?.data?.LandlineReqId != -1) {
             setActiveButton({ name: "MyBill" });
             setLandlineData({ id: response?.data?.LandlineReqId })
             setLandlineDisplayedData(response?.data?.message)
             setLandlineMobile(response?.data?.mobileNb)
-          }else{
+          } else {
             setSpinnerLoader(false);
             setModalName("ErrorModal");
-              setErrorModal({
-                imgPath: "/build/images/alfa/error.png",
-                title: "Number Not Found",
-                desc: `The number you entered was not found in the system. 
-                Kindly try another number.`,
-                // path: response.data.path,
-                btn:'OK'
-              });
-              setModalShow(true);
-  
+            setErrorModal({
+              imgPath: "/build/images/alfa/error.png",
+              title: "Number Not Found",
+              desc: (
+                <div>
+                  The number you entered was not found in the system.
+                  <br />
+                  Kindly try another number.
+                </div>
+              ),
+              btn: 'OK'
+            });
+            setModalShow(true);
+
           }
-       
+
         })
         .catch((error) => {
           console.log(error);
         });
-  
+
     }
-    
+
   };
 
   const handleMobileNumberChange = (event) => {
@@ -69,7 +73,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if(truncatedValue[0] !== '0'){
+    if (truncatedValue[0] !== '0') {
       return '0' + truncatedValue;
     }
     if (truncatedValue.length > 3) {
@@ -80,8 +84,8 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
 
 
   return (
-    <div id="PayBill" className={getSpinnerLoader ?  "hideBack" : ""}>
-       {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
+    <div id="PayBill" className={getSpinnerLoader ? "hideBack" : ""}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       <div className="mainTitle">Enter the landline number</div>
 
       <div className="MobileNbContainer mt-3">
@@ -89,7 +93,7 @@ const PayBill = ({ setModalShow,setErrorModal,setModalName,setLandlineMobile, se
           <img src="/build/images/Ogero/flag.png" alt="flag" />
           <div className="code">+961</div>
         </div>
-        <input type="tel" className={getSpinnerLoader ?  "nbInputHide" : "nbInput"} placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} required/>
+        <input type="tel" className={getSpinnerLoader ? "nbInputHide" : "nbInput"} placeholder="Phone number" value={mobileNumber} onChange={handleMobileNumberChange} required />
       </div>
 
       <button id="ContinueBtn" className="btnCont" onClick={handleContinue}>Continue</button>
