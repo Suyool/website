@@ -264,9 +264,12 @@ const PickYourGrid = ({
   //   console.log(selectedBalls)
   // };
   const handleRemoveBtn = (number) => {
-    setSelectedBalls((prevSelectedBalls) =>
+    if(selectedBalls.includes(number)){
+      setSelectedBalls((prevSelectedBalls) =>
       prevSelectedBalls.filter((ball) => ball !== number).concat(null)
     );
+    }
+
   };
 
 

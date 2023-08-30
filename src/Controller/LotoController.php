@@ -284,7 +284,7 @@ class LotoController extends AbstractController
             $this->session->set('suyoolUserId', $suyoolUserId);
             // $this->session->set('suyoolUserId', 185);
 
-            // $suyoolUserId = 89;
+            // $suyoolUserId = 185;
             $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
             $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);

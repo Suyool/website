@@ -89,7 +89,7 @@ useEffect(()=>{
               title: "Please Try again",
               desc: `You cannot purchase now`,
               // path: response.data.path,
-              // btn:'Top up'
+              btn:'OK'
             });
             setModalShow(true);
           }
