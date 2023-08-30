@@ -76,7 +76,9 @@ class NotificationServices
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
-        $amount=number_format($amount);
+        if(isset($amount)){
+            $amount=number_format($amount);
+        }
         if(isset($numgrids)){
             if($numgrids>1){
                 $numgrids=$numgrids . " Grids";
