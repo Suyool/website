@@ -48,7 +48,7 @@ function getMobileOperatingSystem() {
         var downloadAppUrl = (typeof downloadAppUrl != 'undefined') ? downloadAppUrl : '';
 
         //Call the googleFacebookEvents to execute Google and Facebook events
-        googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
+        // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
 
         //If width > 992 - scroll to the bottom section to download the app
         if(window.screen.width > 768){
@@ -86,7 +86,7 @@ function clickOne(downloadAppUrl, conversion_code,uri) {
         console.log('ok');
 
         $('.conversion-button').css('margin-top',"20px");
-        gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
+        // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
     }else{
         console.log('already clicked');
 
