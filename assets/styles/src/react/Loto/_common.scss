@@ -68,7 +68,7 @@
     }
 }
 
-#TotalBuy {
+#TotalPlay {
     display: flex;
     flex-direction: row;
     background-color: #1C2676;
@@ -76,17 +76,15 @@
     padding: 10px 0;
     margin-top: 30px;
     width: 90%;
+    align-items: center;
     justify-content: space-between;
     letter-spacing: 0.9pt;
-    align-items: center;
 
     span {
         color: white;
         font-size: 15px;
         font-family: PoppinsSemiBold;
         padding-left: 20px;
-        // margin: auto;
-        // width: 30%;
     }
 
     .thePrice {
@@ -96,7 +94,6 @@
         font-size: 15px;
         font-family: PoppinsSemiBold;
         padding-right: 20px;
-        // width: 70%;
 
         .big {
             font-size: 21px;
@@ -178,7 +175,7 @@
 
         .buttonsDesign {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             width: 100%;
 
             .okiBtnModal {
@@ -190,7 +187,7 @@
                 background-color: #F4F4F4;
                 border-radius: 7px;
                 border: none;
-
+                width: 45%;
             }
 
             .exchangeBtnModal {
@@ -202,6 +199,7 @@
                 background-color: #226D96;
                 border-radius: 7px;
                 border: none;
+                width: 45%;
             }
         }
 
@@ -228,7 +226,7 @@
         .desc {
             font-family: PoppinsMedium;
             font-size: 15px;
-            color: black;
+            color: #767676;
             text-align: center;
             padding-top: 2px;
         }

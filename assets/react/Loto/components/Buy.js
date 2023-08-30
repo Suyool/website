@@ -187,7 +187,7 @@ const Buy = ({
               title: "Please Try again",
               desc: `You cannot purchase now`,
               // path: response.data.path,
-              // btn:'OK'
+              btn:'OK'
             });
             setModalShow(true);
           }
@@ -295,7 +295,7 @@ const Buy = ({
         </div>
       </div>
 
-      <div id="TotalBuy">
+      <div id="TotalPlay">
         <span>TOTAL</span>
         <div className="thePrice">
           <div>L.L </div>
