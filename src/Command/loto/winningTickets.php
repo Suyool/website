@@ -69,7 +69,7 @@ class winningTickets extends Command
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
         // dd($getGridsinThisDraw);
         foreach($getGridsinThisDraw as $gridsTobeUpdated){
-            $keyInArray1=null;
+            $keyInArray1=-1;
             $result=[];
             // $zeednumbers=;
             $won=null;
@@ -85,12 +85,25 @@ class winningTickets extends Command
                 // var_dump($result);
                 foreach($winningBallsZeed as $winningBallsZeeds){
                     if(in_array($winningBallsZeeds,$result)){
-                        echo "entered";
                         $keyInArray1 = array_search($winningBallsZeeds, $result);
                         break;
                     }
                 }
-                echo $keyInArray1;
+                if($keyInArray1 == 0){
+                    $prizezeed=1;
+                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
+                }else if($keyInArray1 == 1){
+                    $prizezeed=2;
+                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner2zeed());
+                }else if($keyInArray1 == 2){
+                    $prizezeed=3;
+                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner3zeed());
+                }else if($keyInArray1 == 3){
+                    $prizezeed=4;
+                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner4zeed());
+                }else{
+                    $prizezeed=null;
+                }
                 $grids = explode("|", $gridSelected);
                 foreach ($grids as $Selectedgrids) {
                     $count = 0;
@@ -119,22 +132,28 @@ class winningTickets extends Command
                 }
                 if($count==3){
                     $won=5;
+                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner5());
                 }else if($count==4){
                     $won=4;
+                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner4());
                 }else if($count==5){
                     $won=3;
+                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner3());
                 }else if($count==7){
                     $won=2;
+                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner2());
                 }else if($count==6){
                     $won=1;
+                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner1());
                 }else{
                     $won=null;
                 }
                 $gridsTobeUpdated->setwonloto($won);
+                $gridsTobeUpdated->setwonzeed($prizezeed);
                 $this->mr->persist($gridsTobeUpdated);
                 $this->mr->flush();
         }
-        dd();
+        // dd();
 
 
         $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getUsersIdWhoPlayesLotoInThisDraw($drawId);
@@ -145,63 +164,69 @@ class winningTickets extends Command
 
 
         foreach ($getgridsSelectedInThisDraw as $getgridsSelectedInThisDraw) {
-            $winnerPrize = 0;
+            $TotalWinnerZeedPrize=0;
+            $TotalWinnerLotoPrize=0;
+            // $winnerPrize = 0;
             // $orderId = $getgridsSelectedInThisDraw->getOrderId()->getId();
             // $PlayerInfo = $this->mr->getRepository(order::class)->getPlayerInfo($orderId);
             $lotoGridsForSelect = $this->mr->getRepository(loto::class)->findOrdersIds($getgridsSelectedInThisDraw['suyoolUserId'], $drawId);
             // dd($lotoGridsForSelect);
             foreach ($lotoGridsForSelect as $lotoGridsForSelect) {
-                // dd($lotoGridsForSelect);
-                $gridSelected = $lotoGridsForSelect->getgridSelected();
-                $grids = explode("|", $gridSelected);
-                foreach ($grids as $Selectedgrids) {
-                    $count = 0;
-                    $SelectedgridsExplode = [];
-                    // dd($Selectedgrids);
-                    $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-                    // dd($SelectedgridsExplode);
-                    // dd($winningBallsExplode);
+                $TotalWinnerLotoPrize+=$lotoGridsForSelect->getwinloto();
+                $TotalWinnerZeedPrize+=$lotoGridsForSelect->getwinzeed();
+                // $gridSelected = $lotoGridsForSelect->getgridSelected();
+                // $grids = explode("|", $gridSelected);
+                // foreach ($grids as $Selectedgrids) {
+                //     $count = 0;
+                //     $SelectedgridsExplode = [];
+                //     // dd($Selectedgrids);
+                //     $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
+                //     // dd($SelectedgridsExplode);
+                //     // dd($winningBallsExplode);
 
-                    // $Selectedgrids=str_replace(' ',',',$Selectedgrids);
-                    // var_dump($Selectedgrids[0]);
-                    // var_dump($winningBalls[0]);
-                    // $info[]=['orderId'=>$orderId,'grid'=>$Selectedgrids];
+                //     // $Selectedgrids=str_replace(' ',',',$Selectedgrids);
+                //     // var_dump($Selectedgrids[0]);
+                //     // var_dump($winningBalls[0]);
+                //     // $info[]=['orderId'=>$orderId,'grid'=>$Selectedgrids];
 
-                    $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                    // var_dump( $commonElements);
-                    $count = count($commonElements);
-                    if ($count == 6) {
-                        if (in_array($winningBallsExplode[0][6], $commonElements)) {
-                            $count = 7;
-                        }
-                    }
-                    // echo $orderId;
-                    // dd($count);
-                    switch ($count) {
-                        case 3:
-                            $winnerPrize += $getLastResults->getwinner5();
-                            break;
-                        case 4:
-                            $winnerPrize += $getLastResults->getwinner4();
-                            break;
-                        case 5:
-                            $winnerPrize += $getLastResults->getwinner3();
-                            break;
-                        case 6:
-                            $winnerPrize += $getLastResults->getwinner1();
-                            break;
-                        case 7:
-                            $winnerPrize += $getLastResults->getwinner2();
-                            break;
-                        default:
+                //     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
+                //     // var_dump( $commonElements);
+                //     $count = count($commonElements);
+                //     if ($count == 6) {
+                //         if (in_array($winningBallsExplode[0][6], $commonElements)) {
+                //             $count = 7;
+                //         }
+                //     }
+                //     // echo $orderId;
+                //     // dd($count);
+                //     switch ($count) {
+                //         case 3:
+                //             $winnerPrize += $getLastResults->getwinner5();
+                //             break;
+                //         case 4:
+                //             $winnerPrize += $getLastResults->getwinner4();
+                //             break;
+                //         case 5:
+                //             $winnerPrize += $getLastResults->getwinner3();
+                //             break;
+                //         case 6:
+                //             $winnerPrize += $getLastResults->getwinner1();
+                //             break;
+                //         case 7:
+                //             $winnerPrize += $getLastResults->getwinner2();
+                //             break;
+                //         default:
                             
-                    }
-                }
-                // dd($winnerPrize);
+                //     }
+                // }
+                // // dd($winnerPrize);
                 
             }
-            if($winnerPrize != 0){
-                $params=json_encode(['currency'=>'LBP','amount'=>number_format($winnerPrize),'number'=>$drawId]);
+            $Total=$TotalWinnerLotoPrize+$TotalWinnerZeedPrize;
+            // echo $Total;
+            // dd();
+            if($Total != 0){
+                $params=json_encode(['currency'=>'L.L','amount'=>$Total,'number'=>$drawId]);
                 $content=$this->notificationServices->getContent('won loto added to suyool wallet');
                 $this->notificationServices->addNotification($getgridsSelectedInThisDraw['suyoolUserId'],$content,$params,0);
             }

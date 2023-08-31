@@ -233,7 +233,7 @@ class TouchController extends AbstractController
                     //intial notification
                     $params = json_encode([
                         'amount' => $order->getamount(),
-                        'currency' => $order->getcurrency(),
+                        'currency' => "L.L",
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
                     $additionalData = "";
@@ -476,7 +476,7 @@ class TouchController extends AbstractController
                     //intial notification
                     $params = json_encode([
                         'amount' => $order->getamount(),
-                        'currency' => $order->getcurrency(),
+                        'currency' => "L.L",
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherSerial"],
                     ]);

@@ -281,7 +281,7 @@ class PlayLoto extends Command
 
                     if ($newsum != $sum) {
                         $diff = $sum - $newsum;
-                        $params = json_encode(['currency' => $currency, 'amount' => $diff, 'draw' => $drawNumber], true);
+                        $params = json_encode(['currency' => "L.L", 'amount' => $diff, 'draw' => $drawNumber], true);
                         $content=$this->notificationService->getContent('Payment reversed loto');
                         $this->notificationService->addNotification($userId, $content, $params,$bulk);
                     }

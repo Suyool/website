@@ -128,7 +128,7 @@ class notificationresult extends Command
                 
             $content=$this->notificationServices->getContent('result if user has grid in this draw');
 
-                $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'LBP', 'amount' => number_format($lastresultprice->getlotoprize())], true);
+                $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'L.L', 'amount' => number_format($lastresultprice->getlotoprize())], true);
                 $this->notificationServices->addNotification($userIds, $content, $params,$bulk,"https://www.suyool.com/loto");
         }
         }

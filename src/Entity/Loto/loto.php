@@ -100,6 +100,19 @@ class loto
 
     /**
      * 
+     * @ORM\Column(name="winLoto")
+     */
+    private $winloto;
+
+
+    /**
+     * 
+     * @ORM\Column(name="winZeed")
+     */
+    private $winzeed;
+
+    /**
+     * 
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -268,6 +281,28 @@ class loto
     public function setwonzeed($wonzeed)
     {
         $this->wonzeed = $wonzeed;
+        return $this;
+    }
+
+    public function getwinloto()
+    {
+        return $this->winloto;
+    }
+
+    public function setwinloto($winloto)
+    {
+        $this->winloto = $winloto;
+        return $this;
+    }
+
+    public function getwinzeed()
+    {
+        return $this->winzeed;
+    }
+
+    public function setwinzeed($winzeed)
+    {
+        $this->winzeed = $winzeed;
         return $this;
     }
 
