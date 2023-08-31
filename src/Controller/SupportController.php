@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Support;
+use App\Form\SupportType;
 use Symfony\Component\HttpFoundation\Request;
 
 class SupportController extends AbstractController
@@ -19,44 +20,26 @@ class SupportController extends AbstractController
         $this->mr = $mr->getManager('default');
     }
 
-    // /**
-    //  * @Route("/support", name="app_support")
-    //  */
-    // public function index(): Response
-    // {
-    
-    //     // $support = new Support;
-    //     // $support
-    //     //     ->setname("elie")
-    //     //     ->setmail("yammouni@hotmail.com")
-    //     //     ->setsubject("tst Db")
-    //     //     ->setmessage("Testing Testing Testing");
-    //     // $this->mr->persist($support);
-    //     // $this->mr->flush();
-
-    //     return $this->render('support/index.html.twig');
-    // }
-
-    /**
+     /**
      * @Route("/support", name="app_support")
      */
     public function index(Request $request): Response
     {
+        $support = new Support();
+        $form = $this->createForm(SupportType::class, $support);
+
         if ($request->isMethod('POST')) {
-            $data = $request->request->all();
+            $form->handleRequest($request);
 
-            $support = new Support();
-            $support
-                ->setName($data['name'])
-                ->setMail($data['email'])
-                ->setSubject($data['subject'])
-                ->setMessage($data['message']);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($support);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($support);
+                $entityManager->flush();
+            }
         }
 
-        return $this->render('support/index.html.twig');
+        return $this->render('support/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

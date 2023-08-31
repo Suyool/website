@@ -3,44 +3,39 @@
 	{% include 'elements/header.html.twig' %}
 
 	<div class="supportBody">
+
 		<div class="form-main">
 			<div class="main-wrapper">
 				<h2 class="form-head">Contact Form</h2>
 
-				<form
-					class="form-wrapper" method="post" action="{{ path('app_support') }}">
-					<div class="form-card">
-						<input class="form-input" type="text" name="name" required="required"/>
-						<label class="form-label" for="name">Full Name</label>
-					</div>
-
-					<div class="form-card">
-						<input class="form-input" type="email" name="email" required="required"/>
-						<label class="form-label" for="email">Email</label>
-					</div>
-
-					<div class="form-card">
-						<input class="form-input" type="number" name="subject" required="required"/>
-						<label class="form-label" for="subject">Phone number</label>
-					</div>
-
-					<div class="form-card">
-						<textarea class="form-textarea" maxlength="420" rows="3" name="message" required="required"></textarea>
-						<label class="form-textarea-label" for="message">Message</label>
-					</div>
-					<div class="btn-wrap">
-						<button type="submit">
-							Submit
-						</button>
-					</div>
-				</form>
+				{{ form_start(form) }}
+				<div class="form-card">
+					{{ form_row(form.name) }}
+				</div>
+				<div class="form-card">
+					{{ form_row(form.mail) }}
+				</div>
+				<div class="form-card">
+					{{ form_row(form.subject) }}
+				</div>
+				<div class="form-card">
+					{{ form_row(form.message) }}
+				</div>
+				<div class="btn-wrap">
+					<button type="submit">
+						Submit
+					</button>
+				</div>
+				{{ form_end(form) }}
 			</div>
 		</div>
 
 		<div class="info">
-			Contact us on:<a href="tel:96181484000" class="contactus">+961 81 484 000</a><br> Email:<a href="mailto: contact@suyool.com" class="contactus">contact@suyool.com</a>
+			Contact us on:
+			<a href="tel:96181484000" class="contactus">+961 81 484 000</a><br>
+			Email:
+			<a href="mailto: contact@suyool.com" class="contactus">contact@suyool.com</a>
 		</div>
-
 	</div>
 
 	{% include 'elements/footer.html.twig' %}
