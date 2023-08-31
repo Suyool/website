@@ -19,8 +19,8 @@ parameters:
     TOUCH_POSTPAID_MERCHANT_ID: '4'
     TOUCH_PREPAID_MERCHANT_ID: '5'
     OGERO_MERCHANT_ID: '6'
-    CURRENCY_LBP: 'LBP'
-    CURRENCY_USD: 'USD'
+    CURRENCY_LBP: 'L.L'
+    CURRENCY_USD: '$'
 
     # production_url: 'https://www.elnashra.com/'
     app.name: 'Suyool'

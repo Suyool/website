@@ -223,9 +223,9 @@ class LotoServices
             // }
 
             if ($submit == 0) {
-                $zeed = $content['d']['insertId'];
+                // $zeed = $content['d']['insertId'];
                 // $zeed = 12345;
-                return array(true, $zeed);
+                return array(true, $content['d']['insertId']);
             } else if ($submit == 4 || $submit == 6 || $submit == 9) {
                 $error = $content['d']['errorinfo']['errormsg'];
                 return array(false, $submit, $error);
