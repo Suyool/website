@@ -16,6 +16,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
       setLoading(false);
     }
   }, [filteredData]);
+  console.log(filteredData)
 
   return (
     <div id="ReCharge">

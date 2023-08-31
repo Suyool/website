@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -17,21 +17,23 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
   const [getdisplayedFees, setdisplayedFees] = useState("");
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getPinWrong, setPinWrong] = useState(false);
 
-  const handleNbClick = (num) => {
-    if (pinCode.length < 4) {
-      setPinCode([...pinCode, num]);
-    }
+  const inputRef = useRef(null);
+
+  const handlePincodeClick = () => {
+    inputRef.current.focus();
   };
 
-  const handleDelete = () => {
-    if (pinCode.length > 0) {
-      setPinCode(pinCode.slice(0, -1));
-    }
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    const newPinCode = inputValue.slice(0, 6).split('');
+    setPinCode(newPinCode);
   };
 
   const handlePayNow = () => {
-    if (pinCode.length === 4) {
+    if (pinCode.length === 6) {
+      setSpinnerLoader(true);
       axios
         .post("/alfa/bill/RetrieveResults",
           {
@@ -45,83 +47,133 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
         .then((response) => {
           console.log(response);
           if (response.data.message == "connected") {
+            setSpinnerLoader(false);
             setDisplayData(response?.data?.displayData);
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
+          } else if (response.data.message == "213") {
+            setPinWrong(true)
+            setPinCode("");
+            setSpinnerLoader(false);
           } else {
-            console.log("Something went wrong")
+            setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: "No Available Bill",
+                desc: `There is no available bill for ${localStorage.getItem("billMobileNumber")} at the moment. 
+                Kindly try again later. `,
+                // path: response.data.path,
+                btn:'OK'
+              });
+              setModalShow(true);
+            setPinCode("");
           }
         })
         .catch((error) => {
           console.log(error);
         });
     }
+    setBtnDesign(false);
   };
 
   const handleConfirmPay = () => {
     setIsButtonDisabled(true);
     setSpinnerLoader(true);
-    axios
-      .post("/alfa/bill/pay",
-        {
-          ResponseId: getResponseId
-        }
-      )
-      .then((response) => {
-        console.log(response.data);
-        const jsonResponse = response?.data?.message;
-        setSpinnerLoader(false);
-        if (response.data?.IsSuccess) {
-          setModalName("SuccessModal");
-          setSuccessModal({
-            imgPath: "/build/images/alfa/SuccessImg.png",
-            title: "Alfa Bill Paid Successfully",
-            desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
-          })
-          setModalShow(true);
-        } else {
-          console.log(response.data.flagCode)
-          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else if (
-            !response.data.IsSuccess &&
-            response.data.flagCode == 11
-          ) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          }else{
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: "Please Try again",
-              desc: `You can not purchase now`,
-              // path: response.data.path,
-              // btn:'Top up'
-            });
-            setModalShow(true);
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+
+      setTimeout(() => {
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "fingerprint"
+        );
+      }, 2000);
+    }
+  };
+
+  useEffect(() => {
+    if (getDataGetting == "success") {
+      axios
+        .post("/alfa/bill/pay",
+          {
+            ResponseId: getResponseId
           }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        setSpinnerLoader(false);
-      });
+        )
+        .then((response) => {
+          console.log(response.data);
+          const jsonResponse = response?.data?.message;
+          setSpinnerLoader(false);
+          if (response.data?.IsSuccess) {
+            setModalName("SuccessModal");
+            setSuccessModal({
+              imgPath: "/build/images/alfa/SuccessImg.png",
+              title: "Alfa Bill Paid Successfully",
+              desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(response.data?.data.amount).toLocaleString()}.`
+            })
+            setModalShow(true);
+          } else {
+            console.log(response.data.flagCode)
+            if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else if (
+              !response.data.IsSuccess &&
+              response.data.flagCode == 11
+            ) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: "Please Try again",
+                desc: `You cannot purchase now`,
+                // path: response.data.path,
+                btn:'OK'
+              });
+              setModalShow(true);
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setSpinnerLoader(false);
+        });
+    }
+    else if (getDataGetting == "failed") {
+      setSpinnerLoader(false);
+      setIsButtonDisabled(false);
+      setDataGetting("");
+    }
+  })
+
+  const [getBtnDesign, setBtnDesign] = useState(false);
+
+  const handleInputFocus = () => {
+    
+    setBtnDesign(true);
+  };
+
+  const handleInputBlur = () => {
+    console.log("hi")
+    setBtnDesign(false);
   };
 
   return (
@@ -150,18 +202,18 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
             <div className="br"></div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
+              <div className="label">Amount in $</div>
               <div className="value1">$ {getDisplayData.InformativeOriginalWSAmount}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in LBP (Sayrafa Rate)</div>
-              <div className="value1">LBP {parseInt(getDisplayData.Amount).toLocaleString()}</div>
+              <div className="label">Amount in L.L (Sayrafa Rate)</div>
+              <div className="value1">L.L {parseInt(getDisplayData.Amount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Fees in LBP (Sayrafa Rate)</div>
-              <div className="value1">LBP {parseInt(getdisplayedFees).toLocaleString()}</div>
+              <div className="label">Fees in L.L (Sayrafa Rate)</div>
+              <div className="value1">L.L {parseInt(getdisplayedFees).toLocaleString()}</div>
             </div>
 
             {/* <div className="taxes">*All taxes included</div> */}
@@ -170,7 +222,7 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
             <div className="MoreInfo">
               <div className="label">Total</div>
-              <div className="value2">LBP {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
+              <div className="value2">L.L {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
             </div>
 
           </div>
@@ -186,37 +238,32 @@ const MyBill = ({ getPostpaidData, setModalShow, setModalName, setSuccessModal, 
 
         <div className="mainTitle">Insert the PIN you have received by SMS</div>
 
-        <div className="PinSection">
+        <div className="PinSection" onClick={handlePincodeClick}>
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
-            {Array.from({ length: 4 }, (_, index) => (
+            {Array.from({ length: 6 }, (_, index) => (
               <div className="code" key={index}>
                 {pinCode[index] !== undefined ? pinCode[index] : ""}
               </div>
             ))}
+            <input
+              ref={inputRef}
+              type="text"
+              value={pinCode ? pinCode.join('') : ''} 
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              // onBlur={handleInputBlur}
+              style={{ opacity: 0, position: 'absolute', left: '-10000px' }}
+            />
           </div>
         </div>
 
-        <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className="continueSection">
+        <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className={`${!getBtnDesign ? "continueSection" : "continueSectionFocused"}`}>
           <button id="ContinueBtn" className="btnCont"
-            // onClick={()=>{setSpinnerLoader(false)}} 
-            onClick={handlePayNow} disabled={pinCode.length !== 4}
+            onClick={handlePayNow} disabled={pinCode.length !== 6}
           >Continue</button>
+          {getPinWrong && <p style={{color:"red"}}>Unable to proceed, kindly try again.</p>}
 
-          <div className="keybord">
-            <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>
-            <button className="keyBtn" onClick={() => handleNbClick(2)}>2</button>
-            <button className="keyBtn" onClick={() => handleNbClick(3)}>3</button>
-            <button className="keyBtn" onClick={() => handleNbClick(4)}>4</button>
-            <button className="keyBtn" onClick={() => handleNbClick(5)}>5</button>
-            <button className="keyBtn" onClick={() => handleNbClick(6)}>6</button>
-            <button className="keyBtn" onClick={() => handleNbClick(7)}>7</button>
-            <button className="keyBtn" onClick={() => handleNbClick(8)}>8</button>
-            <button className="keyBtn" onClick={() => handleNbClick(9)}>9</button>
-            <button className="keyBtn"></button>
-            <button className="keyBtn" onClick={() => handleNbClick(0)}>0</button>
-            <button className="keyBtn" onClick={handleDelete}><img src="/build/images/Alfa/clearNb.png" alt="flag" /></button>
-          </div>
         </div>
       </div>
     </>

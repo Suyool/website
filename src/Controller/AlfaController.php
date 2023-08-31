@@ -49,6 +49,8 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
         if (isset($_POST['infoString'])) {
             $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
@@ -56,10 +58,13 @@ class AlfaController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
+            // $suyoolUserInfo[0]=15;
+
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $SuyoolUserId = 89;
+                $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                $parameters['Test'] = "tst";
+                // $this->session->set('suyoolUserId', 89);
+                $parameters['deviceType'] = $suyoolUserInfo[1];
 
 
                 return $this->render('alfa/index.html.twig', [
@@ -103,6 +108,14 @@ class AlfaController extends AbstractController
                 // dd($invoicesId);
                 $message = "connected";
             } else {
+                $postpaidrequest=new PostpaidRequest;
+                $postpaidrequest
+            ->setSuyoolUserId($SuyoolUserId)
+            ->setGsmNumber($data["mobileNumber"])
+            ->seterror($sendBillRes["ResponseText"]);
+
+            $this->mr->persist($postpaidrequest);
+                $this->mr->flush();
                 echo "error";
                 $invoicesId = -1;
                 $message="not connected";
@@ -135,7 +148,9 @@ class AlfaController extends AbstractController
         // dd($data);
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
-            $jsonResult = json_decode($retrieveResults, true);
+            // dd($retrieveResults);
+            if(isset($retrieveResults) && $retrieveResults[0] ){
+            $jsonResult = json_decode($retrieveResults[1], true);
             $displayData = $jsonResult["Values"];
 
             $Pin = implode("", $data["Pin"]);
@@ -162,7 +177,10 @@ class AlfaController extends AbstractController
                 ->setSuyoolUserId($SuyoolUserId)
                 ->setPin($Pin)
                 ->setGsmNumber($data["mobileNumber"])
-                ->setTransactionId($jsonResult["Values"]["TransactionId"]);
+                ->setTransactionId($jsonResult["Values"]["TransactionId"])
+                ->seterrordesc($retrieveResults[2])
+                ->seterrorcode($retrieveResults[3])
+                ->setresponse($retrieveResults[4]);
 
             $this->mr->persist($invoices);
             $this->mr->flush();
@@ -187,6 +205,22 @@ class AlfaController extends AbstractController
 
             // dd($order);
             $message = "connected";
+            }else{
+                $invoicesId = $data["invoicesId"];
+
+                $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
+                $invoices
+                ->seterrordesc($retrieveResults[1])
+                ->seterrorcode($retrieveResults[2])
+                ->setresponse($retrieveResults[3]);
+
+                $this->mr->persist($invoices);
+            $this->mr->flush();
+
+                $displayData = -1;
+            $message = $retrieveResults[2];
+            $invoicesId = -1;
+            }
         } else {
             $displayData = -1;
             $message = "No data retrived!!";
@@ -569,7 +603,7 @@ class AlfaController extends AbstractController
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
                     ->setstatus(Order::$statusOrder['CANCELED'])
-                    ->seterror($response[1]);
+                    ->seterror($response[3]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 // $IsSuccess = false;

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostPaidRequestRepository")
- * @ORM\Table(name="suyool_touch.postpaidRequest")
+ * @ORM\Table(name="postpaidrequest")
  */
 class PostpaidRequest
 {
@@ -33,10 +33,20 @@ class PostpaidRequest
      */
     private $token;
 
+     /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
+
     /**
      * @ORM\Column(name="error")
      */
     private $error;
+
+    /**
+     * @ORM\Column(name="codeError")
+     */
+    private $codeError;
 
     /**
      * @ORM\Column(name="s2error")
@@ -186,6 +196,28 @@ class PostpaidRequest
     public function seterror($error)
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function getresponse()
+    {
+        return $this->response;
+    }
+
+    public function setresponse($response)
+    {
+        $this->response = $response;
+        return $this;
+    }
+
+    public function getCodeerror()
+    {
+        return $this->codeError;
+    }
+
+    public function setCodeerror($codeerror)
+    {
+        $this->codeError = $codeerror;
         return $this;
     }
 

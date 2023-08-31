@@ -28,92 +28,102 @@ class LandlineRequest
      */
     private $gsmNumber;
 
+     /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
+
+     /**
+     * @ORM\Column(name="errorDesc")
+     */
+    private $errorDesc;
+
     /**
-     * @ORM\Column(name="transactionId")
+     * @ORM\Column(name="transactionId", nullable="true")
      */
     private $transactionId;
 
     /**
-     * @ORM\Column(name="ogeroBills")
+     * @ORM\Column(name="ogeroBills", nullable="true")
      */
     private $ogeroBills;
 
     /**
-     * @ORM\Column(name="ogeroPenalty")
+     * @ORM\Column(name="ogeroPenalty", nullable="true")
      */
     private $ogeroPenalty;
 
     /**
-     * @ORM\Column(name="ogeroInitiationDate")
+     * @ORM\Column(name="ogeroInitiationDate", nullable="true")
      */
     private $ogeroInitiationDate;
 
     /**
-     * @ORM\Column(name="ogeroClientName")
+     * @ORM\Column(name="ogeroClientName", nullable="true")
      */
     private $ogeroClientName;
 
     /**
-     * @ORM\Column(name="ogeroAddress")
+     * @ORM\Column(name="ogeroAddress", nullable="true")
      */
     private $ogeroAddress;
 
     /**
-     * @ORM\Column(name="currency")
+     * @ORM\Column(name="currency", nullable="true")
      */
     private $currency;
 
     /**
-     * @ORM\Column(name="amount")
+     * @ORM\Column(name="amount", nullable="true")
      */
     private $amount;
 
     /**
-     * @ORM\Column(name="amount1")
+     * @ORM\Column(name="amount1", nullable="true")
      */
     private $amount1;
 
     /**
-     * @ORM\Column(name="amount2")
+     * @ORM\Column(name="amount2", nullable="true")
      */
     private $amount2;
 
     /**
-     * @ORM\Column(name="totalAmount")
+     * @ORM\Column(name="totalAmount", nullable="true")
      */
     private $totalAmount;
 
     /**
-     * @ORM\Column(name="ogeroTotalAmount")
+     * @ORM\Column(name="ogeroTotalAmount", nullable="true")
      */
     private $ogeroTotalAmount;
 
     /**
-     * @ORM\Column(name="ogeroFees")
+     * @ORM\Column(name="ogeroFees", nullable="true")
      */
     private $ogeroFees;
 
     /**
-     * @ORM\Column(name="additionalFees")
+     * @ORM\Column(name="additionalFees", nullable="true")
      */
     private $additionalFees;
 
     /**
-     * @ORM\Column(name="fees",type="integer")
+     * @ORM\Column(name="fees",type="integer", nullable="true")
      */
     private $fees;
 
     /**
-     * @ORM\Column(name="fees1",type="integer")
+     * @ORM\Column(name="fees1",type="integer", nullable="true")
      */
     private $fees1;
 
     /**
-     * @ORM\Column(name="displayedFees")
+     * @ORM\Column(name="displayedFees", nullable="true")
      */
     private $displayedFees;
     /**
-     * @ORM\Column(name="rounding",type="integer")
+     * @ORM\Column(name="rounding",type="integer", nullable="true")
      */
     private $rounding;
 
@@ -157,6 +167,28 @@ class LandlineRequest
     public function setfees($fees)
     {
         $this->fees = $fees;
+        return $this;
+    }
+
+    public function getresponse()
+    {
+        return $this->response;
+    }
+
+    public function setresponse($response)
+    {
+        $this->response = $response;
+        return $this;
+    }
+
+    public function geterrordesc()
+    {
+        return $this->errorDesc;
+    }
+
+    public function seterrordesc($errorDesc)
+    {
+        $this->errorDesc = $errorDesc;
         return $this;
     }
 

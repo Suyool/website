@@ -14,14 +14,21 @@ const PickYourGrid = ({
   setModalShow,
   setTotalAmountLLDJ,
   getTotalAmountLLDJ,
+  getBallNumbersIndex,
+  setBallNumbersIndex
 }) => {
   const [selectedBalls, setSelectedBalls] = useState([]);
   // console.log(getTotalAmount)
   useEffect(() => {
+
     if (getBallPlayed.length == 0) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
     } else {
       setSelectedBalls(getBallPlayed);
+    }
+
+    if (getBallNumbersIndex == -1) {
+      setSelectedBalls(Array(getBallNumbers).fill(null));
     }
   }, []);
 
@@ -51,6 +58,7 @@ const PickYourGrid = ({
       // Update the total amount whenever the selectedBalls change
       setTotalAmountLLDJ(totalAmount);
       setTotalAmount(0);
+      // setSelectedBalls("");
     }, [selectedBalls]);
   }
 
@@ -98,65 +106,173 @@ const PickYourGrid = ({
 
   const handleDone = () => {
     const lastBall = selectedBalls[selectedBalls.length - 1];
-    if (selectedBalls.length > 5) {
-      setIsHide(false);
+    if (getPlay) {
+      if (selectedBalls.length > 5) {
+        setIsHide(false);
 
-      const filteredBalls = selectedBalls.filter((ball) => ball !== null);
+        const filteredBalls = selectedBalls.filter((ball) => ball !== null);
 
-      if (filteredBalls.length < 6) {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You need to select at least 6 numbers`,
-        });
-        setTotalAmount(10);
-        setModalShow(true);
-        return;
-      }
+        if (filteredBalls.length < 6) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You need to select at least 6 numbers`,
+          });
+          setTotalAmount(10);
+          setModalShow(true);
+          return;
+        }
 
-      const ballSet = {
-        balls: filteredBalls,
-        price: getTotalAmountLLDJ,
-        withZeed: false,
-        currency: "LBP",
-        isbouquet: false,
-      };
+        const ballSet = {
+          balls: filteredBalls,
+          price: getTotalAmountLLDJ,
+          withZeed: false,
+          currency: "LBP",
+          isbouquet: false,
+        };
 
-      const existingData = localStorage.getItem("selectedBalls");
-      const existingBalls = existingData ? JSON.parse(existingData) : [];
-      const isNewSet = existingBalls.every(
-        (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
-      );
+        const existingData = localStorage.getItem("selectedBalls");
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+        const isNewSet = existingBalls.every(
+          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
+        );
 
-      
 
-      if (isNewSet) {
-       
-        // If the set is unique, add it to the existing data and save to localStorage
-        const updatedBalls = [...existingBalls, ballSet];
-        localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+
+        if (isNewSet) {
+
+          // If the set is unique, add it to the existing data and save to localStorage
+          // const updatedBalls = [...existingBalls, ballSet];
+          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+            existingBalls[getBallNumbersIndex] = ballSet;
+            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+          } else {
+            // If the set is unique, add it to the existing data and save to localStorage
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          }
+        } else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You have a grid with same numbers in this draw`,
+          });
+          setModalShow(true);
+        }
+        setPickYourGrid(false);
       } else {
-        setModalName("ErrorModal");
-        setErrorModal({
-          img: "/build/images/Loto/error.png",
-          title: "Can not play grid",
-          desc: `You have a grid with same numbers in this draw`,
-        });
-        setModalShow(true);
+        console.log("The last ball is null");
       }
-      setPickYourGrid(false);
     } else {
-      console.log("The last ball is null");
+      if (selectedBalls.length > 5) {
+        setIsHide(false);
+
+        const filteredBalls = selectedBalls.filter((ball) => ball !== null);
+
+        if (filteredBalls.length < getBallNumbers) {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You need to select at least ${getBallNumbers} numbers`,
+          });
+          setTotalAmount(10);
+          setModalShow(true);
+          return;
+        }
+
+        const ballSet = {
+          balls: filteredBalls,
+          price: getTotalAmountLLDJ,
+          withZeed: false,
+          currency: "LBP",
+          isbouquet: false,
+        };
+
+        const existingData = localStorage.getItem("selectedBalls");
+        const existingBalls = existingData ? JSON.parse(existingData) : [];
+        const isNewSet = existingBalls.every(
+          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
+        );
+
+
+
+        if (isNewSet) {
+
+          // If the set is unique, add it to the existing data and save to localStorage
+          // const updatedBalls = [...existingBalls, ballSet];
+          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+            existingBalls[getBallNumbersIndex] = ballSet;
+            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+          } else {
+            // If the set is unique, add it to the existing data and save to localStorage
+            const updatedBalls = [...existingBalls, ballSet];
+            localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+          }
+        } else {
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/Loto/error.png",
+            title: "Can not play grid",
+            desc: `You have a grid with same numbers in this draw`,
+          });
+          setModalShow(true);
+        }
+        setPickYourGrid(false);
+      } else {
+        console.log("The last ball is null");
+      }
     }
-  };
+
+    setBallNumbersIndex(-1);
+  }
+
 
   const handleCancel = () => {
     setPickYourGrid(false);
     setIsHide(false);
+    setBallNumbersIndex(-1);
   };
 
   const ballNumbers = Array.from({ length: 42 }, (_, index) => index + 1);
+
+  // useEffect(() => {
+  //   console.log(selectedBalls)
+  // }, [selectedBalls])
+
+  // const handleRemoveBtn = (number, index) => {
+  //   console.log(selectedBalls)
+  //   console.log("number: ", number);
+  //   console.log("index: ", index);
+  // };
+  // const handleRemoveBtn = (number, index) => {
+  //   if (index !== -1) {
+  //     setSelectedBalls()
+  //     selectedBalls.splice(index, 1); // Remove 1 element at the given index
+  //     console.log("Updated selectedBalls:", selectedBalls);
+  //   }
+  // };
+  // const handleRemoveBtn = (number) => {
+  //   console.log(selectedBalls)
+  //   setSelectedBalls((prevSelectedBalls) =>
+  //     prevSelectedBalls.filter((ball) => ball !== number)
+  //   );
+  //   console.log(selectedBalls)
+  // };
+  const handleRemoveBtn = (number) => {
+    if(selectedBalls.includes(number)){
+      setSelectedBalls((prevSelectedBalls) =>
+      prevSelectedBalls.filter((ball) => ball !== number).concat(null)
+    );
+    }
+
+  };
+
+
 
   return (
     <div className="PickYourGrid">
@@ -167,17 +283,18 @@ const PickYourGrid = ({
         </div>
 
         <div className="selectedBalls">
-        {selectedBalls.map((number, index) =>
+          {selectedBalls.map((number, index) =>
             index <= 5 ? (
               <div
                 key={index}
-                id={`${
-                  getPlay && number == null && index > 5
-                    ? `boxappear${index}`
-                    : ""
-                }`}
+                id={`${getPlay && number == null && index > 5
+                  ? `boxappear${index}`
+                  : ""
+                  }`}
               >
-                <span className={`${number !== null ? "active" : ""}`}>
+                <span onClick={() => { 
+                  // handleRemoveBtn(number)
+                   }} className={`${number !== null ? "active" : ""}`}>
                   {number}
                 </span>
                 <div className="shadow"></div>
@@ -189,11 +306,12 @@ const PickYourGrid = ({
               {selectedBalls.slice(6).map((number, index) => (
                 <div
                   key={index}
-                  id={`${
-                    getPlay && number == null ? `boxappear${index + 6}` : ""
-                  }`}
+                  id={`${getPlay && number == null ? `boxappear${index + 6}` : ""
+                    }`}
                 >
-                  <span className={`${number !== null ? "active" : ""}`}>
+                  <span onClick={() => { 
+                    // handleRemoveBtn(number) 
+                    }} className={`${number !== null ? "active" : ""}`}>
                     {number}
                   </span>
                   <div className="shadow"></div>
@@ -212,7 +330,7 @@ const PickYourGrid = ({
           return (
             <div className="ballCont" key={number}>
               <button onClick={() => handleBallClick(number)}>
-                <span className={`${ballClass}`}>{number}</span>
+                <span onClick={() => { handleRemoveBtn(number) }} className={`${ballClass}`}>{number}</span>
               </button>
             </div>
           );

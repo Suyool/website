@@ -37,10 +37,10 @@ class LotoController extends AbstractController
     public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
     public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
     private $CURRENCY_LBP;
-    private $CURRENCY_USD; 
+    private $CURRENCY_USD;
     private $params;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices,ParameterBagInterface $params)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
@@ -48,9 +48,9 @@ class LotoController extends AbstractController
         $this->suyoolServices = new SuyoolServices($params->get('LOTO_MERCHANT_ID'));
         $this->notificationServices = $notificationServices;
         $this->notMr = $mr->getManager('notification');
-        $this->CURRENCY_LBP=$params->get('CURRENCY_LBP');
-        $this->CURRENCY_USD=$params->get('CURRENCY_USD');
-        $this->params=$params;
+        $this->CURRENCY_LBP = $params->get('CURRENCY_LBP');
+        $this->CURRENCY_USD = $params->get('CURRENCY_USD');
+        $this->params = $params;
     }
 
     /**
@@ -59,104 +59,89 @@ class LotoController extends AbstractController
     public function index(Request $request)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+        $data = json_decode($request->getContent(), true);
 
-        if(isset($_POST['infoString'])){
-            // dd("ok");
-                    // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
+        if (isset($data)) {
+            $suyoolUserId = $this->session->get('suyoolUserId');
+            $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
-            $string_to_decrypt = $_POST['infoString'];
+            $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
 
-            // dd($_POST['infoString']);
-            // $string_to_decrypt=$_POST['infoString'];
-            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
-            // dd($decrypted_string);
-            $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+            $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
 
-            // dd($devicetype);
-    
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-
-                $parameters['deviceType']=$suyoolUserInfo[1];
-
-                $date=date('w');
-                if($date>1 && $date<=4){
-                    
-                    $PlayOnce=date("l",strtotime("next thursday"));
-                }else{
-                    $PlayOnce=date("l",strtotime("next monday"));
-                }
-                $current_time = strtotime('now');
-
-                if($date == 1 && $current_time > strtotime('today 19:30:00')){
-                    $PlayOnce=date("l",strtotime("next thursday"));
-                }else if($date == 4 && $current_time > strtotime('today 19:30:00')){
-                    $PlayOnce=date("l",strtotime("next monday"));
-                }
-                    
-
-                $OneWeek=date("d-m-Y",strtotime("+1 week"));
-                $OneMonth=date("d-m-Y",strtotime("+1 month"));
-                $SixMonth=date("d-m-Y",strtotime("+6 month"));
-                $OneYear=date("d-m-Y",strtotime("+1 year"));
-
-                $parameters['HowOftenDoYouWantToPlay']=[
-                    $PlayOnce,$OneWeek,$OneMonth,$SixMonth,$OneYear
-                ];
-
-                // dd($parameters['HowOftenDoYouWantToPlay']);
-    
-    
-                // $useragent = $_SERVER['HTTP_USER_AGENT'];
-                $suyoolUserId = 155;
-                $this->session->set('suyoolUserId', $suyoolUserId);
-    
-    
-                $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
-    
-                $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
-    
-                $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
-    
-                $data = json_decode($request->getContent(), true);
-                if (isset($data)) {
-                    $drawId = $data['drawNumber'];
-                    $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $drawId);
-                } else {
-                    $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
+            $data = json_decode($request->getContent(), true);
+            if (isset($data)) {
+                // $drawId = $data['drawNumber'];
+                // $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
+                // $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $drawId);
+                $drawId = $data['drawNumber'];
+                $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
+                if ($loto_prize != null) {
                     $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
-                    // dd($loto_prize_per_days);
+                }else{
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $drawId);
                 }
-    
-                if ($loto_draw) {
-                    $parameters['next_draw_number'] = $loto_draw->getdrawid();
-                    $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
-                    $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
-                    $parameters['next_date'] = $loto_draw->getdrawdate();
-                    $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+            } else {
+                // $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
+                // $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
+                // // dd($loto_prize_per_days);
+                $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
+                $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+
+                $checkdraw = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $lotohistory->getDrawId()]);
+                if ($checkdraw != null) {
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
+                }else{
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
                 }
-    
-                if ($loto_numbers) {
-                    foreach ($loto_numbers as $loto_numbers) {
-                        $gridpricematrix[] = [
-                            'numbers' => $loto_numbers->getnumbers(),
-                            'price' => $loto_numbers->getprice(),
-                            'zeed' => $loto_numbers->getzeed(),
-                        ];
-                    }
-                    $parameters['gridpricematrix'] = $gridpricematrix;
+            }
+
+            if ($loto_draw) {
+                $parameters['next_draw_number'] = $loto_draw->getdrawid();
+                $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
+                $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
+                $parameters['next_date'] = $loto_draw->getdrawdate();
+                $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+            }
+
+            if ($loto_numbers) {
+                foreach ($loto_numbers as $loto_numbers) {
+                    $gridpricematrix[] = [
+                        'numbers' => $loto_numbers->getnumbers(),
+                        'price' => $loto_numbers->getprice(),
+                        'zeed' => $loto_numbers->getzeed(),
+                    ];
                 }
-    
-    
-                $parameters['unit_price'] = $gridpricematrix[0]['price'];
-    
-    
-                $next_date = new DateTime($parameters['next_date']);
-    
-                $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
-                $parameters['gridprice'] =
-                    $parameters['unit_price'];
+                $parameters['gridpricematrix'] = $gridpricematrix;
+            }
+
+
+            $parameters['unit_price'] = $gridpricematrix[0]['price'];
+
+
+            $next_date = new DateTime($parameters['next_date']);
+
+            $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
+            $parameters['gridprice'] =
+                $parameters['unit_price'];
+            // $loto_prize_array = [
+            //     'numbers' => $loto_prize->getnumbers(),
+            //     'prize1' => $loto_prize->getwinner1(),
+            //     'prize2' => $loto_prize->getwinner2(),
+            //     'prize3' => $loto_prize->getwinner3(),
+            //     'prize4' => $loto_prize->getwinner4(),
+            //     'prize5' => $loto_prize->getwinner5(),
+            //     'zeednumbers' => $loto_prize->getzeednumber1(),
+            //     'zeednumbers2' => $loto_prize->getzeednumber2(),
+            //     'zeednumbers3' => $loto_prize->getzeednumber3(),
+            //     'zeednumbers4' => $loto_prize->getzeednumber4(),
+            //     'prize1zeed' => $loto_prize->getwinner1zeed(),
+            //     'prize2zeed' => $loto_prize->getwinner2zeed(),
+            //     'prize3zeed' => $loto_prize->getwinner3zeed(),
+            //     'prize4zeed' => $loto_prize->getwinner4zeed(),
+            //     'date' => $loto_prize->getdrawdate()
+            // ];
+            if($loto_prize!=null){
                 $loto_prize_array = [
                     'numbers' => $loto_prize->getnumbers(),
                     'prize1' => $loto_prize->getwinner1(),
@@ -174,64 +159,301 @@ class LotoController extends AbstractController
                     'prize4zeed' => $loto_prize->getwinner4zeed(),
                     'date' => $loto_prize->getdrawdate()
                 ];
-    
-                $parameters['prize_loto_win'] = $loto_prize_array;
-                // dd($parameters);
-                $prize_loto_perdays = [];
-                foreach ($loto_prize_per_days as $days) {
-                    foreach ($days['gridSelected'] as $gridselected) {
-                        $grids[] = $gridselected;
-                    }
-                    $date = new DateTime($days['date']);
-    
-    
-                    $prize_loto_perdays[] = [
-                        'month' => $date->format('M'),
-                        'day' => $date->format('d'),
-                        'date' => $date->format('l'),
-                        'year' => $date->format('Y'),
-                        'drawNumber' => $days['drawId'],
-                        'gridSelected' => $grids,
-                    ];
-                }
-    
-                foreach ($loto_prize_result as $result) {
-                    $prize_loto_result[] = [
-                        'month' => $result->getdrawdate()->format('M'),
-                        'day' => $result->getdrawdate()->format('d'),
-                        'date' => $result->getdrawdate()->format('l'),
-                        'year' => $result->getdrawdate()->format('Y'),
-                        'drawNumber' => $result->getdrawid()
-                    ];
-                }
-    
-                $parameters['prize_loto_perdays'] = $prize_loto_perdays;
-                $parameters['prize_loto_result'] = $prize_loto_result;
-
-    
-    
-                if (isset($data)) {
-                    return new JsonResponse([
-                        'parameters' => $parameters
-                    ]);
-                }
-                // else {
-                // if (isset($session)) {
-                return $this->render('loto/index.html.twig', [
-                    'parameters' => $parameters
-                ]);
-            } else {
-                // return new JsonResponse([
-                //     'message' => 'Not found'
-                // ], 404);
-    
-                return $this->render('ExceptionHandling.html.twig');
+            }else{
+                $loto_prize_array = [
+                    'numbers' => '',
+                    'prize1' => '',
+                    'prize2' => '',
+                    'prize3' => '',
+                    'prize4' => '',
+                    'prize5' => '',
+                    'zeednumbers' => '',
+                    'zeednumbers2' =>'',
+                    'zeednumbers3' => '',
+                    'zeednumbers4' => '',
+                    'prize1zeed' => '',
+                    'prize2zeed' => '',
+                    'prize3zeed' => '',
+                    'prize4zeed' => '',
+                    'date' => ''
+                ];
             }
-        }else{
-            return $this->render('ExceptionHandling.html.twig');
+
+            $parameters['prize_loto_win'] = $loto_prize_array;
+            // dd($parameters);
+            $prize_loto_perdays = [];
+            foreach ($loto_prize_per_days as $days) {
+                foreach ($days['gridSelected'] as $gridselected) {
+                    $grids[] = $gridselected;
+                }
+                $date = new DateTime($days['date']);
+
+
+                // $prize_loto_perdays[] = [
+                //     'month' => $date->format('M'),
+                //     'day' => $date->format('d'),
+                //     'date' => $date->format('l'),
+                //     'year' => $date->format('Y'),
+                //     'drawNumber' => $days['drawId'],
+                //     'gridSelected' => $grids,
+                // ];
+                $prize_loto_perdays[] = [
+                    'month' => $date->format('M'),
+                    'day' => $date->format('d'),
+                    'date' => $date->format('l'),
+                    'year' => $date->format('Y'),
+                    'drawNumber' => $days['drawId'],
+                    'gridSelected' => $grids,
+                ];
+                $prize_loto_result[] = [
+                    'month' => $date->format('M'),
+                    'day' => $date->format('d'),
+                    'date' => $date->format('l'),
+                    'year' => $date->format('Y'),
+                    'drawNumber' => $days['drawId']
+                ];
+            }
+
+            foreach ($loto_prize_result as $result) {
+                $prize_loto_result[] = [
+                    'month' => $result->getdrawdate()->format('M'),
+                    'day' => $result->getdrawdate()->format('d'),
+                    'date' => $result->getdrawdate()->format('l'),
+                    'year' => $result->getdrawdate()->format('Y'),
+                    'drawNumber' => $result->getdrawid()
+                ];
+            }
+
+            $parameters['prize_loto_perdays'] = $prize_loto_perdays;
+            $parameters['prize_loto_result'] = $prize_loto_result;
+
+
+
+            return new JsonResponse([
+                'parameters' => $parameters
+            ]);
         }
 
-       
+        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
+        if (isset($_POST['infoString'])) {
+            $string_to_decrypt = $_POST['infoString'];
+
+
+
+            // dd($_POST['infoString']);
+            // $string_to_decrypt=$_POST['infoString'];
+            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            // dd($decrypted_string);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+
+            $parameters['deviceType'] = $suyoolUserInfo[1];
+
+            $date = date('w');
+            if ($date > 1 && $date <= 4) {
+
+                $PlayOnce = date("l", strtotime("next thursday"));
+            } else {
+                $PlayOnce = date("l", strtotime("next monday"));
+            }
+            $current_time = strtotime('now');
+
+            if ($date == 1 && $current_time > strtotime('today 19:30:00')) {
+                $PlayOnce = date("l", strtotime("next thursday"));
+            } else if ($date == 4 && $current_time > strtotime('today 19:30:00')) {
+                $PlayOnce = date("l", strtotime("next monday"));
+            }
+
+
+            $OneWeek = date("d-m-Y", strtotime("+1 week"));
+            $OneMonth = date("d-m-Y", strtotime("+1 month"));
+            $SixMonth = date("d-m-Y", strtotime("+6 month"));
+            $OneYear = date("d-m-Y", strtotime("+1 year"));
+
+            $parameters['HowOftenDoYouWantToPlay'] = [
+                $PlayOnce, $OneWeek, $OneMonth, $SixMonth, $OneYear
+            ];
+
+            // dd($parameters['HowOftenDoYouWantToPlay']);
+
+
+            // $useragent = $_SERVER['HTTP_USER_AGENT'];
+            $suyoolUserId = $suyoolUserInfo[0];
+            $this->session->set('suyoolUserId', $suyoolUserId);
+            // $this->session->set('suyoolUserId', 89);
+
+            // $suyoolUserId = 185;
+            $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+
+            $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
+
+            $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
+
+            $data = json_decode($request->getContent(), true);
+           
+                $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
+                $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
+
+                $checkdraw = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $lotohistory->getDrawId()]);
+                if ($checkdraw != null) {
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
+                }else{
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
+                }
+                if($loto_prize_per_days == null){
+                    $fetchLastDraw=1;
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
+                }
+
+                // dd($loto_prize_per_days);
+            
+
+            if ($loto_draw) {
+                $parameters['next_draw_number'] = $loto_draw->getdrawid();
+                $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
+                $parameters['next_zeed_prize'] = $loto_draw->getzeedprize();
+                $parameters['next_date'] = $loto_draw->getdrawdate();
+                $parameters['next_date'] = $parameters['next_date']->format('l, M d Y H:i:s');
+            }
+
+            if ($loto_numbers) {
+                foreach ($loto_numbers as $loto_numbers) {
+                    $gridpricematrix[] = [
+                        'numbers' => $loto_numbers->getnumbers(),
+                        'price' => $loto_numbers->getprice(),
+                        'zeed' => $loto_numbers->getzeed(),
+                    ];
+                }
+                $parameters['gridpricematrix'] = $gridpricematrix;
+            }
+
+
+            $parameters['unit_price'] = $gridpricematrix[0]['price'];
+
+
+            $next_date = new DateTime($parameters['next_date']);
+
+            $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
+            $parameters['gridprice'] =
+                $parameters['unit_price'];
+                if(isset($fetchLastDraw)){
+                    $loto_prize_array = [
+                        'numbers' => $loto_prize->getnumbers(),
+                        'prize1' => $loto_prize->getwinner1(),
+                        'prize2' => $loto_prize->getwinner2(),
+                        'prize3' => $loto_prize->getwinner3(),
+                        'prize4' => $loto_prize->getwinner4(),
+                        'prize5' => $loto_prize->getwinner5(),
+                        'zeednumbers' => $loto_prize->getzeednumber1(),
+                        'zeednumbers2' => $loto_prize->getzeednumber2(),
+                        'zeednumbers3' => $loto_prize->getzeednumber3(),
+                        'zeednumbers4' => $loto_prize->getzeednumber4(),
+                        'prize1zeed' => $loto_prize->getwinner1zeed(),
+                        'prize2zeed' => $loto_prize->getwinner2zeed(),
+                        'prize3zeed' => $loto_prize->getwinner3zeed(),
+                        'prize4zeed' => $loto_prize->getwinner4zeed(),
+                        'date' => $loto_prize->getdrawdate()
+                    ];
+                }
+                else if($checkdraw != null){
+                    $loto_prize_array = [
+                        'numbers' => $loto_prize->getnumbers(),
+                        'prize1' => $loto_prize->getwinner1(),
+                        'prize2' => $loto_prize->getwinner2(),
+                        'prize3' => $loto_prize->getwinner3(),
+                        'prize4' => $loto_prize->getwinner4(),
+                        'prize5' => $loto_prize->getwinner5(),
+                        'zeednumbers' => $loto_prize->getzeednumber1(),
+                        'zeednumbers2' => $loto_prize->getzeednumber2(),
+                        'zeednumbers3' => $loto_prize->getzeednumber3(),
+                        'zeednumbers4' => $loto_prize->getzeednumber4(),
+                        'prize1zeed' => $loto_prize->getwinner1zeed(),
+                        'prize2zeed' => $loto_prize->getwinner2zeed(),
+                        'prize3zeed' => $loto_prize->getwinner3zeed(),
+                        'prize4zeed' => $loto_prize->getwinner4zeed(),
+                        'date' => $loto_prize->getdrawdate()
+                    ];
+                }else{
+                    $loto_prize_array = [
+                        'numbers' => '',
+                        'prize1' => '',
+                        'prize2' => '',
+                        'prize3' => '',
+                        'prize4' => '',
+                        'prize5' => '',
+                        'zeednumbers' => '',
+                        'zeednumbers2' =>'',
+                        'zeednumbers3' => '',
+                        'zeednumbers4' => '',
+                        'prize1zeed' => '',
+                        'prize2zeed' => '',
+                        'prize3zeed' => '',
+                        'prize4zeed' => '',
+                        'date' => ''
+                    ];
+                }
+            
+
+            $parameters['prize_loto_win'] = $loto_prize_array;
+            // dd($parameters);
+            $prize_loto_perdays = [];
+            foreach ($loto_prize_per_days as $days) {
+                foreach ($days['gridSelected'] as $gridselected) {
+                    $grids[] = $gridselected;
+                }
+                $date = new DateTime($days['date']);
+
+                $prize_loto_perdays[] = [
+                    'month' => $date->format('M'),
+                    'day' => $date->format('d'),
+                    'date' => $date->format('l'),
+                    'year' => $date->format('Y'),
+                    'drawNumber' => $days['drawId'],
+                    'gridSelected' => $grids,
+                ];
+                $prize_loto_result[] = [
+                    'month' => $date->format('M'),
+                    'day' => $date->format('d'),
+                    'date' => $date->format('l'),
+                    'year' => $date->format('Y'),
+                    'drawNumber' => $days['drawId']
+                ];
+            }
+
+            foreach ($loto_prize_result as $result) {
+                $prize_loto_result[] = [
+                    'month' => $result->getdrawdate()->format('M'),
+                    'day' => $result->getdrawdate()->format('d'),
+                    'date' => $result->getdrawdate()->format('l'),
+                    'year' => $result->getdrawdate()->format('Y'),
+                    'drawNumber' => $result->getdrawid()
+                ];
+            }
+
+            $parameters['prize_loto_perdays'] = $prize_loto_perdays;
+            $parameters['prize_loto_result'] =  array_map("unserialize", array_unique(array_map("serialize", $prize_loto_result)));
+            $parameters['prize_loto_result']=array_values( $parameters['prize_loto_result']);
+
+            // dd($parameters);
+
+            if (isset($data)) {
+                return new JsonResponse([
+                    'parameters' => $parameters
+                ]);
+            }
+            // else {
+            // if (isset($session)) {
+            return $this->render('loto/index.html.twig', [
+                'parameters' => $parameters
+            ]);
+            } else {
+            return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
     }
 
     /**
@@ -277,7 +499,7 @@ class LotoController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
                 foreach ($getPlayedBalls as $item) {
-                    $numDraws=$item['subscription'];
+                    $numDraws = $item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
                     if ($withZeed == false) {
@@ -378,8 +600,8 @@ class LotoController extends AbstractController
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
                     $nextThursday = $today->modify('+2 hour 30 minutes');
 
-                    $nextDate = $nextThursday->format('Y/m/d');
-                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these number for the next draw on ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
+                    $nextDate = $nextThursday->format('d/m/Y');
+                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these numbers for the next draw on: ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
 
@@ -404,9 +626,9 @@ class LotoController extends AbstractController
 
 
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
-                $order_id=$merchantId."-".$id;
+                $order_id = $merchantId . "-" . $id;
 
-                $sum=$sum*$numDraws;
+                $sum = $sum * $numDraws;
 
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP);
                 // $pushutility=[true,123];
@@ -445,7 +667,7 @@ class LotoController extends AbstractController
                     // $transId = rand();
 
                     $orderid->setstatus(order::$statusOrder['CANCELED']);
-                    $orderid->seterror($pushutility[1]);
+                    $orderid->seterror($pushutility[3]);
                     $orderid->setamount($sum);
                     $orderid->setcurrency($this->CURRENCY_LBP);
 

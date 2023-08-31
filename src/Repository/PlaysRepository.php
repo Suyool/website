@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\order;
 use App\Entity\Plays;
@@ -60,7 +61,7 @@ class PlaysRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findPlayedUserAndDontPlayThisWeek()
+    public function findPlayedUserAndDontPlayThisWeek($lastdraw)
     {
         $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         $day = date('w');
@@ -83,8 +84,9 @@ class PlaysRepository extends EntityRepository
         $userid = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId')
             ->innerJoin(order::class, 'o')
-            ->where("l.created < :week_end and o.created < :week_end and o.status = 'completed' and o.id = l.order ")
+            ->where("l.created < :week_end and o.created < :week_end and o.status = 'completed' and o.id = l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId from App\Entity\Loto\loto l2 , App\Entity\Loto\order o2 where l2.ticketId != 0 and l2.drawNumber = :lastdraw and o2.id = l2.order)")
             ->setParameter('week_end', $week_end)
+            ->setParameter('lastdraw',$lastdraw)
             ->groupBy('o.suyoolUserId')
             ->getQuery()
             ->getResult();
@@ -98,10 +100,11 @@ class PlaysRepository extends EntityRepository
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
                 ->innerJoin(order::class, 'o')
-                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order) and o.created < :sixmonth ")
+                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order and l2.drawNumber != :lastdraw) and o.created < :sixmonth ")
                 ->setParameter('week_start', $week_start)
                 ->setParameter('userid', $userid)
                 ->setParameter('sixmonth',$sixmonth)
+                ->setParameter('lastdraw',$lastdraw)
                 ->groupBy('o.suyoolUserId')
                 ->getQuery()
                 ->getResult();
@@ -109,6 +112,7 @@ class PlaysRepository extends EntityRepository
                 $response = array_merge($response, $result);;
             }
         }
+        // dd($response);
         return $response;
     }
 
@@ -129,6 +133,41 @@ class PlaysRepository extends EntityRepository
             ->innerJoin(order::class, 'o')
             ->innerJoin(LOTO_results::class, 'r')
             ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null and l.ticketId != 0')
+            ->setParameter('session', $session)
+            ->setParameter('drawNumber',$drawNumber)
+            ->groupBy('l.gridSelected')
+            ->getQuery()
+            ->getResult();
+
+        $groupedResults = [];
+        foreach ($rawResults as $result) {
+            $drawdate = $result['drawdate']->format('Y-m-d');
+            if (!isset($groupedResults[$drawdate])) {
+                $groupedResults[$drawdate] = [
+                    'date' => $drawdate,
+                    'drawId' => $result['drawId'],
+                    'gridSelected'=>[]
+                                ];
+            }
+            $gridSelectedArrays = explode("|", $result['gridSelected']);
+            foreach ($gridSelectedArrays as $gridSelectedArray) {
+                $numbers = explode(" ", $gridSelectedArray);
+                $gridSelectedString = implode(" ", $numbers);
+                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected'=>$gridSelectedString,'zeedSelected'=>$result['zeednumbers']];
+            }
+            // $groupedResults[$drawdate]['zeedSelected'][] = $result['zeednumbers'];
+        }
+
+        return array_values($groupedResults); // Return the grouped results as indexed array
+    }
+
+    public function getfetchhistory($session,$drawNumber)
+    {
+        $rawResults = $this->createQueryBuilder('l')
+            ->select('l.gridSelected, d.drawdate, d.drawId,l.zeednumbers')
+            ->innerJoin(order::class, 'o')
+            ->innerJoin(LOTO_draw::class, 'd')
+            ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = d.drawId and l.ticketId is not null and l.ticketId != 0')
             ->setParameter('session', $session)
             ->setParameter('drawNumber',$drawNumber)
             ->groupBy('l.gridSelected')

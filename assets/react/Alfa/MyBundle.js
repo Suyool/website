@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa")
     setBackLink("ReCharge")
@@ -12,10 +12,48 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+  const handleShare= (shareCode) => {
+    
+    let object=[{
+      "Share":{
+        "share":"share",
+        "text": shareCode
+      }
+    }]
+    console.log(JSON.stringify(object));
+    if (parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
+    } else if (parameters?.deviceType === "Iphone") {
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          object
+        );
+    }
+  }
+
   const handleConfirmPay = () => {
     // console.log("click")
     setIsButtonDisabled(true);
-    axios
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      // const message = "data";
+
+      setTimeout(() => {
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "fingerprint"
+        );
+      }, 2000);
+    }  
+  };
+
+  useEffect(()=>{
+    if(getDataGetting == "success"){
+      axios
       .post("/alfa/BuyPrePaid",
         {
           Token: "",
@@ -60,14 +98,26 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
+          }
+          else if(jsonResponse == "There are no vouchers of this type currently availalble."){
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "Recharge Card Unavailable ",
+              desc: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable. 
+              Kindly choose another one.`,
+              // path: response.data.path,
+              btn:'OK'
+            });
+            setModalShow(true);
           }else{
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",
               title: "Please Try again",
-              desc: jsonResponse,
+              desc: "You cannot purchase now",
               // path: response.data.path,
-              // btn:'Top up'
+              btn:'OK'
             });
             setModalShow(true);
           }
@@ -77,7 +127,12 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
       .catch((error) => {
         console.log(error);
       });
-  };
+    }
+    else if(getDataGetting=="failed"){
+      setIsButtonDisabled(false);
+      setDataGetting("");
+    }
+  })
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -118,7 +173,7 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
                 <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
               </button>
 
-              <button id="ContinueBtn" className="mt-3" onClick={() => { console.log("share code") }} >Share Code</button>
+              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare(getSerialToClipboard) }} >Share Code</button>
 
               <div className="stepsToRecharge">
 
@@ -153,17 +208,17 @@ const MyBundle = ({ getPrepaidVoucher, setModalShow, setModalName, setSuccessMod
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
 
-            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in LBP.</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in L.L</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in LBP (Including taxes)</div>
-              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="label">Amount in L.L (Including taxes)</div>
+              <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>
             <div className="MoreInfo">
               <div className="label">Total (Sayrafa rate)</div>
-              <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 

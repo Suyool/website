@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="suyool_touch.prepaid")
+ * @ORM\Table(name="prepaid")
  */
 class Prepaid
 {

@@ -11,7 +11,7 @@ class SuyoolServices
 {
 
     private $SUYOOL_API_HOST;
-    private $NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
+    private $NOTIFICATION_SUYOOL_HOST;
     private $client;
     private $merchantAccountID;
     private $certificate;
@@ -24,8 +24,10 @@ class SuyoolServices
         $this->merchantAccountID = $merchantAccountID;
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+            $this->NOTIFICATION_SUYOOL_HOST="https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         } else {
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+            $this->NOTIFICATION_SUYOOL_HOST="http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
     }
@@ -35,9 +37,13 @@ class SuyoolServices
      */
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency)
     {
+        $sum=number_format( (float) $sum, 1, '.', '');
+
+
+        // echo ($SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate);
 
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
-        // dd($Hash);
+        // echo $Hash;
         try {
 
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment", [
@@ -64,10 +70,13 @@ class SuyoolServices
             }
 
             // dd($push_utility_response);
-
+            $error="";
             $globalCode = $push_utility_response['globalCode'];
             $message = $push_utility_response['data'];
             $flagCode = $push_utility_response['flagCode'];
+            if(isset($push_utility_response['message'])){
+                $error= $push_utility_response['message'];
+            }
 
 
             // $form_data = [
@@ -89,11 +98,11 @@ class SuyoolServices
                 $transId = $push_utility_response['data'];
                 return array(true, $transId);
             } else {
-                return array(false, $message, $flagCode);
+                return array(false, $message, $flagCode,$error);
             }
         } catch (Exception $e) {
             // echo 'Exception occurred: ' . $e->getMessage();
-            return array(false, $e->getMessage());
+            return array(false, "","",$e->getMessage());
         }
     }
 
@@ -104,7 +113,7 @@ class SuyoolServices
     {
         // dd($additionalData);
         // $additionalDataString = json_encode($additionalData);
-
+        $sum=number_format( (float) $sum, 1, '.', '');
         // $transId = $this->PushUtilities($session, $id, $sum, $currency, $hash_algo, $certificate);
         // $Hash = base64_encode(hash($hash_algo, $transId[1] . $additionalData . $certificate, true));
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
@@ -134,7 +143,7 @@ class SuyoolServices
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
-                return array(true);
+                return array(true,"reversed");
             } else {
                 // dd($globalCode);
                 return array(false, $message);
@@ -150,18 +159,20 @@ class SuyoolServices
      */
     public function GetAllUsers($ChannelID)
     {
+        // echo $ChannelID . $this->certificate;
         $Hash = base64_encode(hash($this->hash_algo, $ChannelID . $this->certificate, true));
+        // dd($Hash);
 
         // dd($Hash);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
-            'query' => ['SecureHash' => $Hash],
+            'query' => ['Data' => $Hash],
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
-        $update_utility_response = $response->toArray(true);
+        $getAllUsers = $response->toArray(false);
 
-        $dataString = $update_utility_response["data"];
+        $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
 
         return $dataArray;
@@ -356,5 +367,21 @@ class SuyoolServices
         // $data = $push_utility_response["message"];
 
         return $payment_details_response;
+    }
+
+    public function ValidateEmail($code)
+    {
+        $response = $this->client->request('GET', "{$this->SUYOOL_API_HOST}User/ValidateEmail", [
+            'query' => [
+                'Data' => $code,
+            ],
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        
+        $content=$response->toArray(false);
+
+        return $content;
     }
 }

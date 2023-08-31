@@ -30,10 +30,14 @@ class NotificationServices
     public function checkUser($userid,$lang)
     {
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+        // dd($singleUser);
         if($singleUser == null){
             $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
             // dd($suyoolUser);
             if($suyoolUser != null){
+                if($suyoolUser["FirstName"] == null){
+                    return false;
+                }
                 $userFirstname = $suyoolUser["FirstName"];
                 $userLastname = $suyoolUser["LastName"];
                 $userLang = $suyoolUser["LanguageID"];
@@ -49,10 +53,13 @@ class NotificationServices
                 $this->mr->flush();
                 
             $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+            }else{
+                $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
             }
             
         }else{
             $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
+            // dd($userid);
         }
         
 
@@ -68,6 +75,16 @@ class NotificationServices
         $paramsTextDecoded = json_decode($params, true);
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
+        }
+        if(isset($amount)){
+            $amount=number_format($amount);
+        }
+        if(isset($numgrids)){
+            if($numgrids>1){
+                $numgrids=$numgrids . " Grids";
+            }else{
+                $numgrids=$numgrids . " Grid";
+            }
         }
 
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);

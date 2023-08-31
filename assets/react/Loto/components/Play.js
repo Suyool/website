@@ -14,6 +14,9 @@ const Play = ({
   setBackLink,
   setPlay,
   setTotalAmountLLDJ,
+  setDataGetting,
+  setBallNumbersIndex,
+  getBallNumbersIndex
 }) => {
   // console.log(parameters);
   // console.log("getTotalAmount",getTotalAmount)
@@ -36,11 +39,13 @@ const Play = ({
     return total;
   };
   useEffect(() => {
+    setDataGetting("");
     setSelectedOption(0)
     setSelectedSub(1)
+    localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Play");
-    localStorage.setItem("BackPage", "Play");
+    
     setDisabledBtn(
       selectedBallsToShow == null ||
         JSON.parse(selectedBallsToShow).length === 0
@@ -89,10 +94,10 @@ const Play = ({
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
   };
   const handleEdit = (index) => {
-    // console.log(getPlayedBalls[index].balls);
+    setBallNumbersIndex(index);
     setBallPlayed(getPlayedBalls[index].balls);
     setBallNumbers(getPlayedBalls[index].balls.length);
-    setTotalAmount(getPlayedBalls[index].price);
+    setTotalAmountLLDJ(getPlayedBalls[index].price);
     setPickYourGrid(true);
   };
 
@@ -338,8 +343,8 @@ const Play = ({
       >
         <span>+</span>
       </div>
-
-      <div className="br"></div>
+{/* DONOTREMOVE */}
+      {/* <div className="br"></div>
       <div className="wantToPlay">
         <div className="title">How often do you want to play?</div>
         <div className="listSection">
@@ -364,7 +369,7 @@ const Play = ({
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="btnSection">
         <div id="Total">

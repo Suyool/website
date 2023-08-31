@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
-
+const MyBill = ({ parameters,getLandlineMobile, getLandlineDisplayedData, getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink,getDataGetting }) => {
+  console.log(parameters?.deviceType);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getdisplayedFees, setdisplayedFees] = useState("");
@@ -17,6 +17,27 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
   const handleConfirmPay = () => {
     setIsButtonDisabled(true);
     setSpinnerLoader(true);
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      // const message = "data";
+
+      setTimeout(() => {
+        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
+        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
+
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "fingerprint"
+        );
+      }, 2000);
+    }
+    
+  };
+  
+useEffect(()=>{
+  if(getDataGetting == "success"){
     axios
       .post("/ogero/landline/pay",
         {
@@ -67,9 +88,9 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
             setErrorModal({
               imgPath: "/build/images/alfa/error.png",
               title: "Please Try again",
-              desc: `You can not purchase now`,
+              desc: `You cannot purchase now`,
               // path: response.data.path,
-              // btn:'Top up'
+              btn:'OK'
             });
             setModalShow(true);
           }
@@ -79,7 +100,12 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
         console.log(error);
         setSpinnerLoader(false);
       });
-  };
+  }else if(getDataGetting == "failed"){
+    setSpinnerLoader(false);
+    setIsButtonDisabled(false);
+  }
+},[getDataGetting])
+  
 
   return (
     <div id="MyBill" className="hideBack">
@@ -109,13 +135,13 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
             <div className="br"></div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in LBP</div>
-              <div className="value1">LBP {parseInt(getLandlineDisplayedData.OgeroTotalAmount).toLocaleString()}</div>
+              <div className="label">Amount in L.L</div>
+              <div className="value1">L.L {parseInt(getLandlineDisplayedData.OgeroTotalAmount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Fees in LBP</div>
-              <div className="value1">LBP {parseInt(getLandlineDisplayedData.Fees).toLocaleString()}</div>
+              <div className="label">Fees in L.L</div>
+              <div className="value1">L.L {parseInt(getLandlineDisplayedData.Fees).toLocaleString()}</div>
             </div>
 
 
@@ -125,7 +151,7 @@ const MyBill = ({ getLandlineMobile, getLandlineDisplayedData, getLandlineData, 
 
             <div className="MoreInfo">
               <div className="label">Total</div>
-              <div className="value2">LBP {parseInt(getLandlineDisplayedData.TotalAmount).toLocaleString()}</div>
+              <div className="value2">L.L {parseInt(getLandlineDisplayedData.TotalAmount).toLocaleString()}</div>
             </div>
 
           </div>

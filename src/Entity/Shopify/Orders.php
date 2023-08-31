@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="suyool_shopify.orders")
+ * @ORM\Table(name="orders")
  * @ORM\HasLifecycleCallbacks
  */
 class Orders

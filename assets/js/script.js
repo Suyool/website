@@ -100,7 +100,7 @@ function getMobileOperatingSystem() {
         var downloadAppUrl = (typeof downloadAppUrl != 'undefined') ? downloadAppUrl : '';
 
         //Call the googleFacebookEvents to execute Google and Facebook events
-        googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
+        // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
 
         //If width > 992 - scroll to the bottom section to download the app
         if(window.screen.width > 768){
@@ -138,7 +138,7 @@ function clickOne(downloadAppUrl, conversion_code,uri) {
         console.log('ok');
 
         $('.conversion-button').css('margin-top',"20px");
-        gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
+        // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
     }else{
         console.log('already clicked');
 
@@ -154,6 +154,20 @@ if(document.querySelector('.open-suyool-account')){
       clickOne('https://skashapp.page.link/app_install','','/');
     })
     }
+if(document.querySelector(".close")){
+
+    var button=document.querySelector(".close");
+        button.addEventListener("click",()=>{
+            if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)){
+                window.webkit.messageHandlers.callbackHandler.postMessage(
+                    "GoToApp"
+                  );
+            }else{
+                document.location.href="/";
+            }
+        })
+
+}
 $('.submitTextDownloadAppBtn').on('click', function(e) {
     // console.log( $(this).attr('code'));
     e.preventDefault();

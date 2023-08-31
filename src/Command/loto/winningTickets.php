@@ -46,7 +46,7 @@ class winningTickets extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
-            'Fetch details send'
+            'Winning details send'
         ]);
         // $arr1=[4, 12, 8, 39, 24, 9];
         // dd($arr1);
@@ -57,8 +57,87 @@ class winningTickets extends Command
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
         $drawId = $getLastResults->getdrawid();
 
+        $winningBalls[] = $getLastResults->getnumbers();
+        $winningBallsExplode[] = explode(",", $winningBalls[0]);
+
+        $winningBallsZeed['prize1'] = $getLastResults->getzeednumber1();
+        $winningBallsZeed['prize2']=$getLastResults->getzeednumber2();
+        $winningBallsZeed['prize3']=$getLastResults->getzeednumber3();
+        $winningBallsZeed['prize4']=$getLastResults->getzeednumber4();
+        // $winningBallsExplode[] = explode("", $winningBalls[0]);
+        // dd($winningBallsZeed);
+        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
+        // dd($getGridsinThisDraw);
+        foreach($getGridsinThisDraw as $gridsTobeUpdated){
+            $keyInArray1=null;
+            $result=[];
+            // $zeednumbers=;
+            $won=null;
+                // dd($lotoGridsForSelect);
+                $gridSelected = $gridsTobeUpdated->getgridSelected();
+                $zeednumbers = $gridsTobeUpdated->getzeednumber();
+                // dd($zeednumbers);
+                // dd($winningBallsZeed);
+                for ($i = 0; $i < strlen($zeednumbers); $i++) {
+                    $result[] = substr($zeednumbers, $i);
+                }
+                // dd($result);
+                // var_dump($result);
+                foreach($winningBallsZeed as $winningBallsZeeds){
+                    if(in_array($winningBallsZeeds,$result)){
+                        echo "entered";
+                        $keyInArray1 = array_search($winningBallsZeeds, $result);
+                        break;
+                    }
+                }
+                echo $keyInArray1;
+                $grids = explode("|", $gridSelected);
+                foreach ($grids as $Selectedgrids) {
+                    $count = 0;
+                    $SelectedgridsExplode = [];
+                    // dd($Selectedgrids);
+                    $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
+                    // dd($SelectedgridsExplode);
+                    // dd($winningBallsExplode);
+
+                    // $Selectedgrids=str_replace(' ',',',$Selectedgrids);
+                    // var_dump($Selectedgrids[0]);
+                    // var_dump($winningBalls[0]);
+                    // $info[]=['orderId'=>$orderId,'grid'=>$Selectedgrids];
+
+                    $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
+                    // dd(in_array($winningBallsExplode[0][6], $commonElements));
+                    $count = count($commonElements);
+                    if ($count >= 6) {
+                        if (in_array($winningBallsExplode[0][6], $commonElements) && !in_array($winningBallsExplode[0][5], $commonElements)) {
+                            $count=7;
+                        }else{
+                            $count=6;
+                        }
+                    }
+
+                }
+                if($count==3){
+                    $won=5;
+                }else if($count==4){
+                    $won=4;
+                }else if($count==5){
+                    $won=3;
+                }else if($count==7){
+                    $won=2;
+                }else if($count==6){
+                    $won=1;
+                }else{
+                    $won=null;
+                }
+                $gridsTobeUpdated->setwonloto($won);
+                $this->mr->persist($gridsTobeUpdated);
+                $this->mr->flush();
+        }
+        dd();
+
+
         $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getUsersIdWhoPlayesLotoInThisDraw($drawId);
-        //   dd($getgridsSelectedInThisDraw);
 
         $winningBalls[] = $getLastResults->getnumbers();
         $winningBallsExplode[] = explode(",", $winningBalls[0]);

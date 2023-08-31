@@ -13,7 +13,7 @@ import Header from "./Header";
 const App = ({ parameters }) => {
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Loto");
-
+  const [getBallNumbersIndex, setBallNumbersIndex] = useState(-1);
 
   const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
   const [getPickYourGrid, setPickYourGrid] = useState(false);
@@ -33,6 +33,7 @@ const App = ({ parameters }) => {
   );
 
   useEffect(() => {
+    setDataGetting("");
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get("goto");
     if (idParam) {
@@ -43,6 +44,7 @@ const App = ({ parameters }) => {
       setDataGetting(message);
     };
   }, []);
+  
 
   const [getModalName, setModalName] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -67,10 +69,12 @@ const App = ({ parameters }) => {
   return (
     <>
       <Header
+        setBackLink={setBackLink}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
         getBackLink={getBackLink}
+        parameters={parameters}
       />
       <div id="LotoBody">
         <div
@@ -83,7 +87,7 @@ const App = ({ parameters }) => {
             src="/build/images/Loto/LibanaiseJeux.png"
             alt="La Libanaise des Jeux"
           />
-          {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>}
+          {/* {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>} */}
 
           {activeButton.name === "LLDJ" && (
             <LLDJ
@@ -115,6 +119,9 @@ const App = ({ parameters }) => {
               setTotalAmountLLDJ={setTotalAmountLLDJ}
               setPlay={setPlay}
               setIsHide={setIsHide}
+              setDataGetting={setDataGetting}
+              setBallNumbersIndex={setBallNumbersIndex}
+              getBallNumbersIndex={getBallNumbersIndex}
               
             />
           )}
@@ -139,6 +146,8 @@ const App = ({ parameters }) => {
               setErrorModal={setErrorModal}
               setWarningModal={setWarningModal}
               getDataGetting={getDataGetting}
+              setDataGetting={setDataGetting}
+              setTotalAmount={setTotalAmount}
             />
           )}
         </div>
@@ -158,6 +167,8 @@ const App = ({ parameters }) => {
             setModalShow={setModalShow}
             setModalName={setModalName}
             setErrorModal={setErrorModal}
+            setBallNumbersIndex={setBallNumbersIndex}
+            getBallNumbersIndex={getBallNumbersIndex}
           />
         )}
         <BottomNav
@@ -169,6 +180,7 @@ const App = ({ parameters }) => {
           <SuccessModal
             getSuccessModal={getSuccessModal}
             show={modalShow}
+            setActiveButton={setActiveButton}
             onHide={() => {
               setModalShow(false);
               setModalName("");
@@ -179,6 +191,7 @@ const App = ({ parameters }) => {
           <ErrorModal
             getErrorModal={getErrorModal}
             show={modalShow}
+            parameters={parameters}
             onHide={() => {
               setModalShow(false);
               setModalName("");
@@ -187,8 +200,11 @@ const App = ({ parameters }) => {
         )}
         {getModalName === "WarningModal" && (
           <WarningModal
+          setModalShow={setModalShow}
+          setModalName={setModalName}
             getWarningModal={getWarningModal}
             show={modalShow}
+            setActiveButton={setActiveButton}
             onHide={() => {
               setModalShow(false);
               setModalName("");

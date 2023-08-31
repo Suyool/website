@@ -16,9 +16,8 @@ const LLDJ = ({
   setTotalAmountLLDJ,
 }) => {
   const [getBouquetgridprice, setBouquetgridprice] = useState(0);
-  useEffect(() => {
-    // console.log(parameters)
-    setBackLink(localStorage.getItem("BackPage"));
+  useEffect(() => { 
+    
     localStorage.setItem("BackPage", "LLDJ");
     setBouquetgridprice(parameters.gridprice);
     setHeaderTitle("La Libanaise Des Jeux");
@@ -146,7 +145,7 @@ const LLDJ = ({
                 <img src="/build/images/Loto/popular.png" alt="popular" />
               </div>
               <div className="title">8 GRIDS</div>
-              <div className="price">
+              <div className="priceWhite">
                 {parseInt(parameters.gridprice * 8).toLocaleString()} LBP
               </div>
               <button

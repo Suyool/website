@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="suyool_alfa.postpaidRequest")
+ * @ORM\Table(name="postpaidrequest")
  */
 class PostpaidRequest
 {
@@ -29,6 +29,26 @@ class PostpaidRequest
      * @ORM\Column(name="gsmNumber")
      */
     private $gsmNumber;
+
+     /**
+     * @ORM\Column(name="error")
+     */
+    private $error;
+
+     /**
+     * @ORM\Column(name="errorDesc")
+     */
+    private $errordesc;
+
+     /**
+     * @ORM\Column(name="errorCode")
+     */
+    private $errorcode;
+
+     /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
 
     /**
      * 
@@ -117,6 +137,50 @@ class PostpaidRequest
     public function getId()
     {
         return $this->id;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
+        return $this;
+    }
+
+    public function geterrordesc()
+    {
+        return $this->errordesc;
+    }
+
+    public function seterrordesc($error)
+    {
+        $this->errordesc = $error;
+        return $this;
+    }
+
+    public function geterrorcode()
+    {
+        return $this->errorcode;
+    }
+
+    public function seterrorcode($error)
+    {
+        $this->errorcode = $error;
+        return $this;
+    }
+
+    public function getresponse()
+    {
+        return $this->response;
+    }
+
+    public function setresponse($response)
+    {
+        $this->response = $response;
+        return $this;
     }
 
 

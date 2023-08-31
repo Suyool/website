@@ -1,5 +1,13 @@
 .commingSoon {
-    height: 100vh;
+    .responsiveimage{
+        @media screen and (max-width:1300px) {
+            width: 100%;
+        }
+    }
+    .contactus{
+        padding-left: 0!important;
+    }
+    // height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -99,18 +107,20 @@
     .footer {
         z-index: 10;
         background-repeat: no-repeat;
-        bottom: 0;
-        height: 233px;
-        position: absolute;
+        // bottom: 0;
+        // height: 233px;
+        height: 270px;
+        // position: absolute;
         display: flex;
         width: 100%;
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-end;
         background-image: url('../../../images/Wave.png');
+        background-size: cover;
         padding-bottom: 30px;
         // padding-top: 120px;
-        // margin-top: 180px;
+        margin-top: 180px;
 
         .socialMedia {
             z-index: 9999;
@@ -234,8 +244,8 @@
 
         .footer {
             bottom: 0;
-            height: 233px;
-            position: relative;
+            height: 250px;
+            // position: relative;
             padding-bottom: 30px;
 
             .socialMedia {
@@ -280,7 +290,7 @@
 
 @media only screen and (max-width: 991px) {
     .commingSoon {
-        height: unset;
+        // height: unset;
 
         .header {
             img {
@@ -334,7 +344,7 @@
 
         .footer {
             padding-bottom: 30px;
-            position: relative;
+            // position: relative;
             margin-top: 200px;
 
             .socialMedia {
@@ -428,7 +438,8 @@
 
         .footer {
             // position: absolute;
-            position: relative;
+            // position: relative;
+            background-color: #372972;
             padding-bottom: 15px;
             flex-direction: column;
             justify-content: flex-end;

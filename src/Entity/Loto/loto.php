@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlaysRepository")
- * @ORM\Table(name="suyool_loto.loto")
+ * @ORM\Table(name="loto")
  */
 class loto
 {
@@ -84,6 +84,19 @@ class loto
      * @ORM\Column(name="errorInfo")
      */
     private $errorInfo;
+
+    /**
+     * 
+     * @ORM\Column(name="prizeLoto")
+     */
+    private $wonloto;
+
+
+    /**
+     * 
+     * @ORM\Column(name="prizeZeed")
+     */
+    private $wonzeed;
 
     /**
      * 
@@ -233,6 +246,28 @@ class loto
     public function seterror($errorInfo)
     {
         $this->errorInfo = $errorInfo;
+        return $this;
+    }
+
+    public function getwonloto()
+    {
+        return $this->wonloto;
+    }
+
+    public function setwonloto($wonloto)
+    {
+        $this->wonloto = $wonloto;
+        return $this;
+    }
+
+    public function getwonzeed()
+    {
+        return $this->wonzeed;
+    }
+
+    public function setwonzeed($wonzeed)
+    {
+        $this->wonzeed = $wonzeed;
         return $this;
     }
 

@@ -42,16 +42,21 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   // });
 
   useEffect(() => {
+    localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
-    localStorage.setItem("BackPage", "Result");
+
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
       .map(Number);
-    setWinBallInitial(parameters.prize_loto_win.numbers.split(",").map(Number));
-    setWinBallInitialZeed(
-      parameters.prize_loto_win.zeednumbers.split("").map(Number)
-    );
+    if (parameters.prize_loto_win?.numbers != "") {
+      setWinBallInitial(
+        parameters.prize_loto_win?.numbers?.split(",").map(Number)
+      );
+      setWinBallInitialZeed(
+        parameters.prize_loto_win?.zeednumbers?.split("").map(Number)
+      );
+    }
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
 
@@ -84,7 +89,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
       setMyGrids(parsedGrids);
     });
     setClickedIndex(0);
-    
   }, []);
 
   useEffect(() => {
@@ -146,14 +150,21 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
       })
       .then((response) => {
         // console.log(response.data);
-        setWinBallInitial(
-          response.data.parameters.prize_loto_win.numbers.split(",").map(Number)
-        );
-        setWinBallInitialZeed(
-          response.data.parameters.prize_loto_win.zeednumbers
-            .split("")
-            .map(Number)
-        );
+        if (response.data.parameters.prize_loto_win.numbers != "") {
+          setWinBallInitial(
+            response.data.parameters.prize_loto_win.numbers
+              .split(",")
+              .map(Number)
+          );
+          setWinBallInitialZeed(
+            response.data.parameters.prize_loto_win.zeednumbers
+              .split("")
+              .map(Number)
+          );
+        } else {
+          setWinBallInitial([]);
+          setWinBallInitialZeed([]);
+        }
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
             (item) => item["gridSelected"].split(" ").map(Number)
@@ -217,19 +228,22 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   }, []);
   // console.log(getZeedNumber[0]);
   // console.log(getZeedNumber[0].indexOf(getZeedNumber[0]))
+  console.log(getWinBallInitialZeed);
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
         <div className="title">Draw Numbers</div>
         <div className="ballSection mt-3">
-          {getWinBallInitial.map((item, index) => (
-            <span key={index}>{item}</span>
-          ))}
+          {getWinBallInitial.length > 0 &&
+            getWinBallInitial.map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
         </div>
         <div className="ballSectionZeed mt-3">
-          {getWinBallInitialZeed.map((item, index) => (
-            <span key={index}>{item}</span>
-          ))}
+          {getWinBallInitialZeed.length > 0 &&
+            getWinBallInitialZeed.map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
           <span className="nouse"></span>
           <span className="nouse"></span>
         </div>
@@ -338,7 +352,8 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                       ).length == 4 && parseInt(prize4).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
-                      ).length == 3 && parseInt(prize5).toLocaleString()}{}
+                      ).length == 3 && parseInt(prize5).toLocaleString()}
+                      {}
                       Won
                     </div>
                     <div className="img">
@@ -409,6 +424,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                       </div>
                     </div>
                     {getMyGridsZeed[index] &&
+                    getWinBallInitialZeed.length > 0 &&
                     (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
                       getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
                       getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||

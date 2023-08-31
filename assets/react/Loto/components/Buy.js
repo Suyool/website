@@ -14,17 +14,19 @@ const Buy = ({
   setBackLink,
   getTotalAmount,
   getDataGetting,
+  setDataGetting,
+  setTotalAmount,
 }) => {
   // console.log(parameters?.deviceType);
   useEffect(() => {
+    localStorage.setItem("BackPage", "Play");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
-    localStorage.setItem("BackPage", "Buy");
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getDisable, setDisable] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  var totalPrice = getTotalAmount;
+  // var totalPrice = getTotalAmount;
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
@@ -39,7 +41,8 @@ const Buy = ({
     console.log("clicked");
     // setSelectedOption(0);
 
-    // setTotalAmount(totalPrice);
+    //  totalPrice = getTotalAmount;
+
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
@@ -63,6 +66,19 @@ const Buy = ({
 
     // Update the localStorage
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+
+    // Retrieve the selected balls from localStorage
+    const selectedBallsJSON = localStorage.getItem("selectedBalls");
+    const selectedBalls = JSON.parse(selectedBallsJSON) || [];
+
+    // Assuming each ball has a "price" property
+    const totalAmount = selectedBalls.reduce(
+      (total, ball) => total + ball.price,
+      0
+    );
+
+    // Update the state with the calculated total amount
+    setTotalAmount(totalAmount);
   };
   //   useEffect(() => {
   //     setDisable(true);
@@ -70,6 +86,7 @@ const Buy = ({
   //   }, [getDisable]);
 
   const handleBuy = () => {
+    setDataGetting("");
     // const buttonElement = document.getElementById("buyButton");
     // if (buttonElement) {
     //   console.log("h");
@@ -78,10 +95,9 @@ const Buy = ({
     setSpinnerLoader(true);
     setDisable(true);
     if (parameters?.deviceType === "Android") {
-
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
-      }, 8000);
+      }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
       // const message = "data";
 
@@ -94,11 +110,15 @@ const Buy = ({
         );
       }, 2000);
     }
+    window.handleCheckout = (message) => {
+      setDataGetting(message);
+    };
   };
 
   useEffect(() => {
     console.log(getDataGetting);
     if (getDataGetting == "success") {
+      setDataGetting("");
       axios
         .post("/loto/play", {
           selectedBalls: selectedBallsToShow,
@@ -119,7 +139,14 @@ const Buy = ({
             setSuccessModal({
               imgPath: "/build/images/Loto/success.png",
               title: "LOTO Purchased Successfully",
-              desc: `You have successfully paid LBP ${amount} for LOTO. Best of Luck!`,
+              // desc: `You have successfully paid LBP ${parseInt(50000).toLocaleString()} for LOTO. \n\nBest of Luck!`,
+              desc: (
+                <div>
+                  You have successfully paid L.L {parseInt(amount).toLocaleString()} for LOTO.
+                  <br />
+                  Best of Luck!
+                </div>
+              ),
             });
             setModalShow(true);
           } else if (!response.data.status && response.data.flagCode == 10) {
@@ -158,9 +185,9 @@ const Buy = ({
             setErrorModal({
               img: "/build/images/Loto/error.png",
               title: "Please Try again",
-              desc: `You can not purchase now`,
+              desc: `You cannot purchase now`,
               // path: response.data.path,
-              // btn:'Top up'
+              btn:'OK'
             });
             setModalShow(true);
           }
@@ -173,8 +200,13 @@ const Buy = ({
               JSON.parse(selectedBallsToShow).length === 0
           );
         });
+      setDisable(false);
+    } else if (getDataGetting == "failed") {
+      setDataGetting("");
+      setSpinnerLoader(false);
+      setDisable(false);
     }
-  },[getDataGetting]);
+  }, [getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
@@ -236,9 +268,9 @@ const Buy = ({
                   <span className="price">
                     <span>L.L</span> {parseInt(ballsSet.price).toLocaleString()}
                   </span>
-                  {/* <span className="delete" onClick={() => handleDelete(index)}>
+                  <span className="delete" onClick={() => handleDelete(index)}>
                     <img src="/build/images/Loto/trash.png" />
-                  </span> */}
+                  </span>
                 </div>
               </div>
             );
@@ -263,11 +295,11 @@ const Buy = ({
         </div>
       </div>
 
-      <div id="Total">
+      <div id="TotalPlay">
         <span>TOTAL</span>
         <div className="thePrice">
           <div>L.L </div>
-          <div className="big">{parseInt(totalPrice).toLocaleString()}</div>
+          <div className="big">{parseInt(getTotalAmount).toLocaleString()}</div>
         </div>
       </div>
 
@@ -280,7 +312,7 @@ const Buy = ({
           handleBuy();
         }}
       >
-        Buy
+        BUY
       </button>
     </div>
   );

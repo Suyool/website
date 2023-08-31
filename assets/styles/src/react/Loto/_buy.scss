@@ -94,6 +94,10 @@
 
             .price {
                 font-family: PoppinsSemiBold;
+                font-size: 20px;
+                span{
+                    font-size: 16px;
+                }
             }
         }
     }
@@ -171,7 +175,8 @@
         color: white;
         font-size: 15px;
         font-family: PoppinsMedium;
-        margin-top: 20px;
+        margin-top: 50px;
+        margin-bottom: 20px;
         width: 90%;
         text-align: center;
     }

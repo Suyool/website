@@ -15,12 +15,20 @@ const BouquetOptions = ({
 
   // Function to handle selecting a bouquet option
   const handleOptionSelect = (option) => {
-    setSelectedOption(option);
+    if (option != selectedOption) {
+      setSelectedOption(option);
+    } else {
+      setSelectedOption("");
+    }
   };
 
   // Function to handle continuing
   const handleContinue = () => {
-    if (selectedOption.gridNb == 0 || selectedOption.gridNb == null) {
+    if (
+      selectedOption.gridNb == 0 ||
+      selectedOption.gridNb == null ||
+      selectedOption.gridNb > 500
+    ) {
     } else {
       // Add the selected bouquet option to the local storage
       const bouquetData = {
@@ -155,12 +163,12 @@ const BouquetOptions = ({
               <input
                 type="radio"
                 name="radio"
-                // onChange={() =>
-                //   handleOptionSelect({
-                //     gridNb: 500,
-                //     price: 500 * getBouquetgridprice,
-                //   })
-                // }
+                onChange={() =>
+                  handleOptionSelect({
+                    gridNb: 0,
+                    price: 0 * getBouquetgridprice,
+                  })
+                }
               />
             </div>
             <div className="data">
