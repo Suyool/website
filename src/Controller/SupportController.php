@@ -21,9 +21,32 @@ class SupportController extends AbstractController
     }
 
      /**
-     * @Route("/contact_us", name="app_support")
+     * @Route("/contact-us", name="app_support")
      */
     public function index(Request $request): Response
+    {
+        $support = new Support();
+        $form = $this->createForm(SupportType::class, $support);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($support);
+                $entityManager->flush();
+            }
+        }
+
+        return $this->render('support/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+         /**
+     * @Route("/support", name="app_support")
+     */
+    public function support(Request $request): Response
     {
         $support = new Support();
         $form = $this->createForm(SupportType::class, $support);
