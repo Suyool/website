@@ -6,7 +6,7 @@
         align-items: flex-start;
         display: flex;
         flex-direction: column;
-        padding: 200px 5% 0 5%;
+        padding: 197px 5% 0 5%;
         max-width: 50%;
 
         .formMain {
@@ -61,6 +61,8 @@
         border-bottom-right-radius: 25px;
         height: 100px;
         z-index: 10;
+
+
 
         .navbar-nav {
             li {
@@ -178,24 +180,24 @@
         .supportleft {
             padding: 500px 5% 0 5%;
             max-width: 100%;
-    
+
             .formMain {
                 .formText {
                     font-size: 20px;
                 }
-    
+
                 .form-card {
                     .form-group {
                         label {
                             font-size: 18px;
                             padding: 20px 0 6px 0;
                         }
-    
+
                         input {
                             font-size: 16px;
                             padding: 13px;
                         }
-    
+
                         textarea {
                             font-size: 16px;
                             padding: 13px;
@@ -203,10 +205,10 @@
                         }
                     }
                 }
-    
+
                 .btn-wrap {
                     padding: 30px 0;
-    
+
                     .crtAcc {
                         border-radius: 20px;
                         background-color: #593884 !important;
@@ -214,17 +216,25 @@
                 }
             }
         }
-    
+
+        .supportNav {
+            .navbar-collapse {
+                background: white;
+                padding: 20px;
+                border: 1px solid gray;
+            }
+        }
+
         .contactUsTopSection {
             height: 230px;
             background-size: 50% auto;
-    
+
             .contactTitle {
                 padding-top: 125px;
                 font-size: 50px;
             }
         }
-    
+
         .leftContainer {
             right: 0;
             left: 0;
@@ -232,13 +242,13 @@
             border-radius: 30px;
             padding: 80px auto 90px auto;
             max-width: 100%;
-    
+
             .desc {
                 font-family: PoppinsSemiBold;
                 font-size: 18px;
                 padding-left: 30px;
             }
-    
+
             .whereToCall {
                 font-size: 30px;
                 font-family: PoppinsMedium;
@@ -249,7 +259,7 @@
                 align-items: center;
                 padding: 20px 0;
                 padding-left: 70px;
-    
+
                 span {
                     padding-left: 20px;
                 }
@@ -263,23 +273,24 @@
     .supportBody {
         .supportleft {
             padding: 430px 5% 0 5%;
+
             .formMain {
                 .formText {
                     font-size: 18px;
                 }
-    
+
                 .form-card {
                     .form-group {
                         label {
                             font-size: 17px;
                             padding: 20px 0 6px 0;
                         }
-    
+
                         input {
                             font-size: 15px;
                             padding: 12px;
                         }
-    
+
                         textarea {
                             font-size: 16px;
                             padding: 12px;
@@ -287,32 +298,32 @@
                         }
                     }
                 }
-    
+
                 .btn-wrap {
                     padding: 25px 0;
                 }
             }
         }
-    
-        .contactUsTopSection {    
+
+        .contactUsTopSection {
             .contactTitle {
                 font-size: 40px;
             }
         }
-    
+
         .leftContainer {
             border-radius: 30px;
             padding: 50px 25px 30px 5px;
-    
+
             .desc {
                 font-size: 17px;
                 padding-left: 5%;
             }
-    
+
             .whereToCall {
                 font-size: 26px;
                 padding: 13px 0 11px 45px;
-    
+
                 span {
                     padding-left: 16px;
                 }
@@ -322,21 +333,21 @@
 }
 
 @media screen and (max-width:768px) {
-    .supportBody { 
-    
+    .supportBody {
+
         .leftContainer {
             border-radius: 30px;
             padding: 45px 25px 25px 3px;
-    
+
             .desc {
                 font-size: 16px;
                 padding-left: 5%;
             }
-    
+
             .whereToCall {
                 font-size: 22px;
                 padding: 10px 0 10px 35px;
-    
+
                 span {
                     padding-left: 12px;
                 }
