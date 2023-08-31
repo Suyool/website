@@ -195,17 +195,17 @@ const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setM
             <div className="br"></div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in USD</div>
+              <div className="label">Amount in $</div>
               <div className="value1">$ {getDisplayData.InformativeOriginalWSAmount}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in LBP (Sayrafa Rate)</div>
+              <div className="label">Amount in L.L (Sayrafa Rate)</div>
               <div className="value1">L.L {parseInt(getDisplayData.Amount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Fees in LBP (Sayrafa Rate)</div>
+              <div className="label">Fees in L.L (Sayrafa Rate)</div>
               <div className="value1">L.L {parseInt(getdisplayedFees).toLocaleString()}</div>
             </div>
             

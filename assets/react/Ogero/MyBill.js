@@ -135,12 +135,12 @@ useEffect(()=>{
             <div className="br"></div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in LBP</div>
+              <div className="label">Amount in L.L</div>
               <div className="value1">L.L {parseInt(getLandlineDisplayedData.OgeroTotalAmount).toLocaleString()}</div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Fees in LBP</div>
+              <div className="label">Fees in L.L</div>
               <div className="value1">L.L {parseInt(getLandlineDisplayedData.Fees).toLocaleString()}</div>
             </div>
 

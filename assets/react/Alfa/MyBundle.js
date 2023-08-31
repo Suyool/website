@@ -208,17 +208,17 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
             <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
 
-            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in LBP.</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in L.L</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in LBP (Including taxes)</div>
-              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="label">Amount in L.L (Including taxes)</div>
+              <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>
             <div className="MoreInfo">
               <div className="label">Total (Sayrafa rate)</div>
-              <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 

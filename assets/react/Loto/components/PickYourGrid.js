@@ -292,7 +292,9 @@ const PickYourGrid = ({
                   : ""
                   }`}
               >
-                <span onClick={() => { handleRemoveBtn(number) }} className={`${number !== null ? "active" : ""}`}>
+                <span onClick={() => { 
+                  // handleRemoveBtn(number)
+                   }} className={`${number !== null ? "active" : ""}`}>
                   {number}
                 </span>
                 <div className="shadow"></div>
@@ -307,7 +309,9 @@ const PickYourGrid = ({
                   id={`${getPlay && number == null ? `boxappear${index + 6}` : ""
                     }`}
                 >
-                  <span onClick={() => { handleRemoveBtn(number) }} className={`${number !== null ? "active" : ""}`}>
+                  <span onClick={() => { 
+                    // handleRemoveBtn(number) 
+                    }} className={`${number !== null ? "active" : ""}`}>
                     {number}
                   </span>
                   <div className="shadow"></div>

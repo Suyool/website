@@ -142,7 +142,7 @@ const Buy = ({
               // desc: `You have successfully paid LBP ${parseInt(50000).toLocaleString()} for LOTO. \n\nBest of Luck!`,
               desc: (
                 <div>
-                  You have successfully paid LBP {parseInt(amount).toLocaleString()} for LOTO.
+                  You have successfully paid L.L {parseInt(amount).toLocaleString()} for LOTO.
                   <br />
                   Best of Luck!
                 </div>

@@ -212,17 +212,17 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
             <div className="mainDesc">*All taxes excluded</div>
             <img className="BundleBigImg" src={`/build/images/touch/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
 
-            <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in LBP.</div>
+            <div className="smlDesc"><img className="question" src={`/build/images/touch/question.png`} alt="question" />Touch only accepts payments in L.L</div>
             <div className="relatedInfo">{getPrepaidVoucher.desc1}</div>
             <div className="MoreInfo">
-              <div className="label">Amount in LBP (Including taxes)</div>
-              <div className="value">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="label">Amount in L.L (Including taxes)</div>
+              <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
 
             <div className="br"></div>
             <div className="MoreInfo">
               <div className="label">Total (Sayrafa rate)</div>
-              <div className="value1">LBP {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+              <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
             </div>
           </div>
 

@@ -87,6 +87,19 @@ class loto
 
     /**
      * 
+     * @ORM\Column(name="prizeLoto")
+     */
+    private $wonloto;
+
+
+    /**
+     * 
+     * @ORM\Column(name="prizeZeed")
+     */
+    private $wonzeed;
+
+    /**
+     * 
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -233,6 +246,28 @@ class loto
     public function seterror($errorInfo)
     {
         $this->errorInfo = $errorInfo;
+        return $this;
+    }
+
+    public function getwonloto()
+    {
+        return $this->wonloto;
+    }
+
+    public function setwonloto($wonloto)
+    {
+        $this->wonloto = $wonloto;
+        return $this;
+    }
+
+    public function getwonzeed()
+    {
+        return $this->wonzeed;
+    }
+
+    public function setwonzeed($wonzeed)
+    {
+        $this->wonzeed = $wonzeed;
         return $this;
     }
 
