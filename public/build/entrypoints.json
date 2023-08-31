@@ -15,7 +15,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.39d7a71c.js"
+        "/build/Loto.9084b48c.js"
       ]
     },
     "LegalEnrollement": {
@@ -63,7 +63,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.8f45ff46.css"
+        "/build/Lotostyles.7486912b.css"
       ]
     },
     "LegalEnrollementStyle": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.c56fbcbc.css"
+        "/build/AlfaStyle.a8503f71.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.0bfcea41.css"
+        "/build/TouchStyle.be2bea69.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.b4b5c759.css"
+        "/build/OgeroStyle.7e48a717.css"
       ]
     }
   }

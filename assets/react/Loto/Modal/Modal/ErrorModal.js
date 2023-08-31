@@ -55,7 +55,13 @@ const ErrorModal = (props) => {
           <div className="title">{props.getErrorModal.title}</div>
           <div className="desc">{props.getErrorModal.desc}</div>
           <div className="buttonsDesign">
-            <button className="okiBtnModal" onClick={props.onHide}>
+            <button
+              className={`${
+                props.getErrorModal.btn ? "okiBtnModal" : "okiBtnModal2"
+              }`}
+              // className="okiBtnModal"
+              onClick={props.onHide}
+            >
               Cancel
             </button>
             {props.getErrorModal.btn && (
