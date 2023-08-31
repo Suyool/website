@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SupportType extends AbstractType
 {
@@ -34,7 +35,7 @@ class SupportType extends AbstractType
                     new NotBlank(['message' => 'Please enter a subject.']),
                 ],
             ])
-            ->add('message', null, [
+            ->add('message', TextareaType::class, [ 
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Please enter a message.']),
@@ -53,4 +54,3 @@ class SupportType extends AbstractType
         ]);
     }
 }
-

@@ -1,196 +1,144 @@
 .supportBody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: calc(100vh - 164px);
-    justify-content: center;
-    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap");
-    $color-gray: #515151;
-    $color-black: #000;
+    background-color: white;
+    min-height: calc(100vh - 72px);
 
-    body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Roboto", sans-serif;
-    }
-
-    .form-main {
-        align-items: center;
-        /* background: linear-gradient(180deg,rgba(0,0,0,.141),rgba(0,0,0,.141)),url(https://res.cloudinary.com/dqifboxk5/image/upload/v1686209968/contact-us-2_y8zzx7.jpg) no-repeat 50%; */
-        background-size: cover;
+    .supportleft {
+        align-items: flex-start;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        width: 100%;
+        padding: 200px 5% 0 5%;
+        max-width: 50%;
 
-        .main-wrapper {
-            border-radius: 10px;
-            padding: 45px;
-            width: 40%;
-            box-shadow: 0 0 5px 5px #00000020;
-            backdrop-filter: blur(5px);
-            background-color: #ffffff85;
-
-            @media screen and (max-width: 991px) {
-                width: 70%;
+        .formMain {
+            .formText {
+                font-family: PoppinsSemiBold;
+                font-size: 18px;
             }
 
-            @media screen and (max-width: 767px) {
-                width: 90%;
-            }
-
-            .form-head {
-                font-size: 30px;
-                line-height: 40px;
-                font-weight: 600;
-                text-align: center;
-                margin: 0px 0 25px;
-            }
-
-            .form-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                gap: 15px;
-
-                .form-card {
-                    position: relative;
-                    width: 100%;
-
-                    .form-input {
-                        padding: 20px 25px 15px;
-                        width: 100%;
-                        border: 1px solid $color-black;
-                        border-radius: 5px;
-                        background: transparent;
-                        outline: none;
-                        font-size: 20px;
-                        line-height: 30px;
-                        font-weight: 400;
-                        box-sizing: border-box;
-
-                        &:valid,
-                        &:focus {
-                            border: 1px solid $color-gray;
-                        }
-
-                        &:valid~.form-label,
-                        &:focus~.form-label {
-                            color: $color-gray;
-                            top: 30%;
-                            transform: translateY(-70%);
-                            font-size: 13px;
-                            line-height: 23px;
-                        }
-
-                        &:-webkit-autofill,
-                        &:-webkit-autofill:hover,
-                        &:-webkit-autofill:focus,
-                        &:-webkit-autofill:active {
-                            transition: background-color 9999s ease-in-out 0s;
-                        }
-
-                        &::-webkit-outer-spin-button,
-                        &::-webkit-inner-spin-button {
-                            -webkit-appearance: none;
-                            margin: 0;
-                        }
-                    }
-
-                    .form-label {
-                        position: absolute;
-                        left: 25px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        pointer-events: none;
-                        transition: 0.3s;
-                        margin: 0;
+            .form-card {
+                .form-group {
+                    label {
+                        font-family: PoppinsSemiBold;
                         font-size: 18px;
-                        line-height: 28px;
-                        font-weight: 500;
+                        color: #004B71;
+                        padding: 20px 0 6px 0;
                     }
 
-                    .form-textarea {
-                        padding: 20px 25px 15px;
-                        width: 100%;
-                        border: 1px solid $color-black;
-                        border-radius: 5px;
-                        background: transparent;
-                        outline: none;
-                        font-size: 20px;
-                        line-height: 30px;
-                        font-weight: 400;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 3;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
-                        resize: none;
-                        box-sizing: border-box;
-
-                        &:valid,
-                        &:focus {
-                            border: 1px solid $color-gray;
-                        }
-
-                        &:valid~.form-textarea-label,
-                        &:focus~.form-textarea-label {
-                            color: $color-gray;
-                            top: 18%;
-                            transform: translateY(-82%);
-                            font-size: 13px;
-                            line-height: 23px;
-                        }
-
-                        &:-webkit-autofill,
-                        &:-webkit-autofill:hover,
-                        &:-webkit-autofill:focus,
-                        &:-webkit-autofill:active {
-                            transition: background-color 9999s ease-in-out 0s;
-                        }
+                    input {
+                        border: 1px solid #593884;
+                        font-size: 16px;
+                        font-family: PoppinsRegular;
+                        border-radius: 10px;
+                        padding: 13px;
                     }
 
-                    .form-textarea-label {
-                        position: absolute;
-                        left: 25px;
-                        top: 30%;
-                        transform: translateY(-70%);
-                        pointer-events: none;
-                        transition: 0.3s;
-                        margin: 0;
-                        font-size: 18px;
-                        line-height: 28px;
-                        font-weight: 500;
+                    textarea {
+                        border: 1px solid #593884;
+                        font-size: 16px;
+                        font-family: PoppinsRegular;
+                        border-radius: 10px;
+                        padding: 13px;
+                        min-height: 170px;
+                    }
+                }
+            }
+
+            .btn-wrap {
+                padding-top: 30px;
+
+                .crtAcc {
+                    border-radius: 20px;
+                    background-color: #593884 !important;
+                }
+            }
+        }
+    }
+
+    .supportNav {
+        background-color: white !important;
+        font-family: PoppinsRegular;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        height: 100px;
+        z-index: 1;
+
+        .navbar-nav {
+            li {
+                margin-right: 50px;
+
+                .nav-link {
+                    color: #004B71 !important;
+                }
+
+                .crtAcc {
+                    background-color: #593884 !important;
+                }
+
+                .button-primary {
+                    padding: 8px 30px;
+                    border-radius: 25px;
+
+                    &:hover {
+                        color: #fff;
                     }
                 }
             }
         }
     }
 
-    .btn-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 16px 0 0;
+    .contactUsTopSection {
+        height: 260px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: #216d96;
+        background-image: url('../../../images/supportLogo.png');
+        background-size: 50% auto;
+        background-position: left center;
+        background-repeat: no-repeat;
+
+        .contactTitle {
+            padding-top: 140px;
+            padding-left: 5%;
+            font-family: PoppinsRegular;
+            color: white;
+            font-size: 60px;
+        }
     }
 
-    .btn-wrap button {
-        padding: 0 32px;
-        font-size: 18px;
-        line-height: 48px;
-        border: 1px solid transparent;
-        font-weight: 600;
-        border-radius: 6px;
-        transition: all 0.5s ease;
-        cursor: pointer;
-        box-shadow: 0 0 5px 5px #00000020;
+    .leftContainer {
+        position: absolute;
+        right: 0;
+        top: 225px;
+        border: 1px solid #593884;
+        box-shadow: 0px 3px 6px #593884BA;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+        padding: 80px 20px 90px 45px;
+        background-color: #fff;
+        z-index: 2;
+        max-width: 690px;
+
+        .desc {
+            font-family: PoppinsSemiBold;
+            font-size: 18px;
+            padding-left: 30px;
+        }
+
+        .whereToCall {
+            font-size: 30px;
+            font-family: PoppinsMedium;
+            width: 100%;
+            color: #593884;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 0;
+            padding-left: 70px;
+
+            span {
+                padding-left: 20px;
+            }
+        }
     }
-
-    .btn-wrap button:hover {
-        border: 1px solid #000;
-        background: transparent;
-
-    }
-
 }
