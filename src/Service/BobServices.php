@@ -163,12 +163,22 @@ class BobServices
 
         $content = $response->getContent();
 
+        $myfile = fopen("../var/cache/alfalogs.txt", "a");
+       
+
+        // $content = $response->getContent();
+
+        $txt=json_encode(['response'=>$response,'content'=>$content]);
+        fwrite($myfile, $txt);
+
         $ApiResponse = json_decode($content, true);
         // dd($ApiResponse);
         $res = $ApiResponse['Response'];
+        $ErrorDescription = $ApiResponse['ErrorDescription'];
+        $ErrorCode= $ApiResponse['ErrorCode'];
         $decodedString = $this->_decodeGzipString(base64_decode($res));
 
-        return $decodedString;
+        return array($decodedString,$ErrorCode,$ErrorDescription);
     }
 
     //Touch

@@ -284,8 +284,8 @@ class AlfaController extends AbstractController
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPay($Postpaid_With_id);
                 // dd($billPay);
-                if ($billPay != "") {
-                    $billPayArray = json_decode($billPay, true);
+                if ($billPay[0] != "") {
+                    $billPayArray = json_decode($billPay[0], true);
 
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
@@ -360,7 +360,8 @@ class AlfaController extends AbstractController
 
                         //update te status from purshased to completed
                         $orderupdate5
-                            ->setstatus(Order::$statusOrder['COMPLETED']);
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror("reversed error from alfa:".$billPay[2]);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
@@ -384,7 +385,8 @@ class AlfaController extends AbstractController
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
-                            ->setstatus(Order::$statusOrder['COMPLETED']);
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror("reversed error from alfa:".$billPay[2]);;
 
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
@@ -394,7 +396,7 @@ class AlfaController extends AbstractController
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1]);
+                            ->seterror($responseUpdateUtilities[1] . " " .$billPay[2]);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
                         $message = "Can not return money!!";
@@ -584,7 +586,8 @@ class AlfaController extends AbstractController
 
                         //update te status from purshased to completed
                         $orderupdate5
-                            ->setstatus(Order::$statusOrder['COMPLETED']);
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
