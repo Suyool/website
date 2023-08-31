@@ -21,7 +21,7 @@ class SupportController extends AbstractController
     }
 
      /**
-     * @Route("/support", name="app_support")
+     * @Route("/contact_us", name="app_support")
      */
     public function index(Request $request): Response
     {
