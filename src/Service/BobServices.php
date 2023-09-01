@@ -412,7 +412,7 @@ class BobServices
 
         $content = $response->getContent();
 
-        $txt=json_encode(['response'=>$response,'content'=>$content]);
+        $txt=json_encode(['response'=>$response,'content'=>$content])." ".date('Y/m/d H:i:s ', time())." \n";
         fwrite($myfile, $txt);
 
         $ApiResponse = json_decode($content, true);

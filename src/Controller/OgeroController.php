@@ -39,6 +39,7 @@ class OgeroController extends AbstractController
      */
     public function index(NotificationServices $notificationServices): Response
     {
+        // dd(date('Y/m/d H:i:s ', time()));
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
@@ -271,7 +272,8 @@ class OgeroController extends AbstractController
 
                         //update te status from purshased to completed
                         $orderupdate5
-                            ->setstatus(Order::$statusOrder['COMPLETED']);
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 

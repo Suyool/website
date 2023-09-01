@@ -119,7 +119,9 @@ class PlayLoto extends Command
                             $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
                             // $BouquetGrids = "1 2 3 4 5 6";
                             $lotoToBePlayed->setticketId($ticketId);
-                            $lotoToBePlayed->setzeednumber(str_pad($submit[1],5,"0",STR_PAD_LEFT));
+                            if($submit[1] != null || $submit[1] != ""){
+                                $lotoToBePlayed->setzeednumber(str_pad($submit[1],5,"0",STR_PAD_LEFT));
+                            }
                             $lotoToBePlayed->setgridSelected($BouquetGrids);
 
                             $this->mr->persist($lotoToBePlayed);
@@ -180,7 +182,9 @@ class PlayLoto extends Command
                             // dd();
                             // $ticketId="55";
                             $lotoToBePlayed->setticketId($ticketId);
-                            $lotoToBePlayed->setzeednumber(str_pad($submit[1],5,"0",STR_PAD_LEFT));
+                            if($submit[1] != null || $submit[1] != ""){
+                                $lotoToBePlayed->setzeednumber(str_pad($submit[1],5,"0",STR_PAD_LEFT));
+                            }
 
                             $this->mr->persist($lotoToBePlayed);
                             $this->mr->flush();

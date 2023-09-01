@@ -26,7 +26,7 @@ return [
     'CODE'=>'Please use the code below:',
     'COPY_CODE'=>'Copy Code',
     'VALID_24HRS'=>'Valid ID is required at cashier.',
-    'COPIED'=>'Cade Copied to Clipboard',
+    'COPIED'=>'Code Copied to Clipboard',
     'SAVE_IT'=>'The code has been copied to clipboard, you can now paste it somewhere secure for future reference.',
     'EXIT'=>'Done',
     //
