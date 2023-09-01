@@ -4,7 +4,7 @@
     width: 100%;
     background-color: white;
     bottom: 0;
-    // height: 80vh;
+    height: 70vh;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     z-index: 1001;
@@ -59,7 +59,7 @@
         flex-wrap: wrap;
         // height: 220px;
         overflow: hidden;
-        overflow-y: auto;
+        // overflow-y: auto;
         overflow-x: hidden;
         padding-top: 15px;
         padding-bottom: 80px;
@@ -136,9 +136,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 15px;
-        position: absolute;
-        bottom: 0;
+        padding-bottom: 46px;
+        // position: absolute;
+        // bottom: 0;
         background-color: white;
 
         button {

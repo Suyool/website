@@ -65,9 +65,9 @@ const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, a
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if (truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8') {
-      return '0' + truncatedValue;
-    }
+    // if (truncatedValue.length > 0 && truncatedValue[0] !== '0' && truncatedValue[0] !== '7' && truncatedValue[0] !== '8') {
+    //   return '0' + truncatedValue;
+    // }
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }

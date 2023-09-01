@@ -1,5 +1,5 @@
 .navigation {
-    position: absolute;
+    position: fixed;
     display: flex;
     width: 100%;
     background-color: white;
@@ -10,6 +10,7 @@
 
     .subCont {
         position: fixed;
+        z-index: 9999;
         bottom: 0;
         display: flex;
         width: 100%;

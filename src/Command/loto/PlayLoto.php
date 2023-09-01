@@ -19,6 +19,8 @@ use Symfony\Component\Lock\Store\SemaphoreStore;
 
 class PlayLoto extends Command
 {
+
+    
     private $mr;
     private $lotoServices;
     private $suyoolServices;
@@ -53,6 +55,8 @@ class PlayLoto extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        set_time_limit(0);
+
         // sleep(10);
         $lock = $this->factory->createLock('loto_play_command');
         // dd($lock->acquire());

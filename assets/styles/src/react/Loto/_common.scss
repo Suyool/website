@@ -1,5 +1,5 @@
 #LotoBody {
-    height: 100vh;
+    // height: 100vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -9,7 +9,7 @@
 
     .scrolableView {
         width: 100%;
-        height: 100vh;
+        // height: 100vh;
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
