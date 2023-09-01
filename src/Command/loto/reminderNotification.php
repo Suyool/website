@@ -57,8 +57,11 @@ class reminderNotification extends Command
         // dd($notify);
         if ($notify != null) {
             foreach ($notify as $notify) {
-                $userid[] = $notify['suyoolUserId'];
+                foreach($notify as $notify){
+                    $userid[] = $notify['suyoolUserId'];
+                }
             }
+            // dd($userid);
             $userIds = implode(",", $userid);
             // dd($userIds);
             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);

@@ -87,6 +87,14 @@ class NotificationServices
             }
         }
 
+        if(isset($grids)){
+            if($grids>1){
+                $grids=$grids . " Grids";
+            }else{
+                $grids=$grids . " Grid";
+            }
+        }
+
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
         if ($singleUser == null) {
             $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);

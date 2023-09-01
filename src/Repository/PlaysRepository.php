@@ -95,12 +95,15 @@ class PlaysRepository extends EntityRepository
         $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         // dd($dateoneweek);
         $response = [];
+        // $responseArray=[];
 
         foreach ($userid as $userid) {
+                // echo $userid['suyoolUserId'];
+                $responseArray= [];
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
                 ->innerJoin(order::class, 'o')
-                ->where("l.created < :week_start and o.created < :week_start and o.suyoolUserId = :userid and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId  FROM App\Entity\Loto\order o2,App\Entity\Loto\loto l2 WHERE l2.created > :week_start and o2.created > :week_start and o2.id = l2.order and l2.drawNumber != :lastdraw) and o.created < :sixmonth ")
+                ->where("o.suyoolUserId = :userid and (l.created < :week_start and o.created < :week_start ) or (l.drawNumber != :lastdraw)  and o.id=l.order   and o.created < :sixmonth ")
                 ->setParameter('week_start', $week_start)
                 ->setParameter('userid', $userid)
                 ->setParameter('sixmonth',$sixmonth)
@@ -108,12 +111,15 @@ class PlaysRepository extends EntityRepository
                 ->groupBy('o.suyoolUserId')
                 ->getQuery()
                 ->getResult();
+
+                // var_dump($result);
             if (!empty($result)) {
-                $response = array_merge($response, $result);;
+                $responseArray[] = array_merge($response, $result);
             }
         }
-        // dd($response);
-        return $response;
+        // dd($result);
+        // var_dump($result);
+        return $responseArray;
     }
 
     public function completed($orderid)

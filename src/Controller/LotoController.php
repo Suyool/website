@@ -242,6 +242,9 @@ class LotoController extends AbstractController
 
 
             // dd($_POST['infoString']);
+            if($_POST['infoString'] == ""){
+                return $this->render('ExceptionHandling.html.twig');
+            }
             // $string_to_decrypt=$_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             // dd($decrypted_string);
