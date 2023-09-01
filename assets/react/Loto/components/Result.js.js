@@ -126,6 +126,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   );
 
   const handleMonthYearChange = (event) => {
+    setMyGrids([]);
     setSelectedMonthYear(event.target.value);
     setStartIndex(0); // Reset the startIndex when month or year changes
     setClickedIndex(null);
