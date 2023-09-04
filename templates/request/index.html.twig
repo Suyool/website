@@ -52,7 +52,7 @@
                 </div>
             </div>
         </a> #}
-       
+
             {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
                 <a  type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
                     <div class="row">
@@ -67,10 +67,28 @@
                 </a>
         {% endif %}
 
+        <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+            <a id="topUpButton">
+                <div class="row">
+                    <div class="col-2 logo_container">
+                        <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}">
+                    </div>
+                    <div class="col-10 text_container">
+                        <div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
+                        <div class="desc">{{ 'TOP_UP_YOUR_ACCOUNT_DESC'|trans }}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
         <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
     </div>
     <script>
+        document.getElementById("topUpButton").addEventListener("click", function() {
+            // Submit the form
+            document.getElementById("myForm").submit();
+        });
+
         window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
       // Page was loaded from cache
@@ -81,4 +99,33 @@
    location.reload(true);
 } #}
         </script>
+    <form style="display: none" name="myForm" id="myForm" method="post" action="https://portal.cscacquiring.com/Lite/Authorise.aspx">
+        <label>ECOM CONSUMER ORDER ID</label>
+        <input  id="ECOM_CONSUMERORDERID"  name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
+        <label>ECOM PAYMENT CARD PROTOCOLS</label>
+        <input id="ECOM_PAYMENT_CARD_PROTOCOLS"  name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
+        <label>LITE CONSUMER ORDER ID PREFIX</label>
+        <input id="LITE_CONSUMERORDERID_PREFIX"  name="LITE_CONSUMERORDERID_PREFIX" value="LITE">
+        <label>LITE MERCHANT APPLICATION ID</label>
+        <input id="LITE_MERCHANT_APPLICATIONID"  name="LITE_MERCHANT_APPLICATIONID" value="A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E">
+        <label>LITE ORDER AMOUNT</label>
+        <input type="hidden" id="LITE_ORDER_AMOUNT" name="LITE_ORDER_AMOUNT" value="{{ 1000 * 100 }}">
+        <label>Lite_Currency AlphaCode</label>
+        <input id="Lite_Currency_AlphaCode"  name="Lite_Currency_AlphaCode" value="USD">
+        <label>LITE WEBSITE SUCCESSFUL URL</label>
+        <input id="LITE_WEBSITE_SUCCESSFUL_URL"  name="LITE_WEBSITE_SUCCESSFUL_URL" value="http://suyool.ls/RequestResult">
+        <label>LITE WEBSITE FAIL URL</label>
+        <input id="LITE_WEBSITE_FAIL_URL"  name="LITE_WEBSITE_FAIL_URL" value="http://suyool.ls/RequestResult">
+        <label>LITE WEBSITE TRYLATER URL</label>
+        <input id="LITE_WEBSITE_TRYLATER_URL"  name="LITE_WEBSITE_TRYLATER_URL" value="http://suyool.ls/RequestResult">
+        <label>LITE WEBSITE ERROR URL</label>
+        <input id="LITE_WEBSITE_ERROR_URL"  name="LITE_WEBSITE_ERROR_URL" value="http://suyool.ls/RequestResult">
+        <label>ECOM BILLTO ONLINE EMAIL</label>
+        <input id="ECOM_BILLTO_ONLINE_EMAIL"  name="ECOM_BILLTO_ONLINE_EMAIL" value="it@suyool.com">
+        <label>LITE TRANSACTION TOKEN</label>
+        <input id="LITE_TRANSACTION_TOKEN" name="LITE_TRANSACTION_TOKEN" value="1692312486:522f2d1e72381f893edd1fbbe28148b7baf8af3c8c5d86367d1b890ead095dc2">
+
+        <!-- <input  id="LITE_WEBSITE_BGCOLOR"  name="LITE_WEBSITE_BGCOLOR" value="#1C4231"> -->
+        <input type="submit">
+    </form>
 {% endblock %}
