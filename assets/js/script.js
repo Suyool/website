@@ -151,7 +151,7 @@ if(document.querySelector('.open-suyool-account')){
     const open_suyool_account = document.querySelector('.open-suyool-account');
     
     open_suyool_account.addEventListener('click',function(){
-      clickOne('https://skashapp.page.link/app_install','','/');
+      clickOne('suyoolpay://suyool.com/suyool','','/');
     })
     }
 if(document.querySelector(".close")){

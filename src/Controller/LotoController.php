@@ -63,6 +63,7 @@ class LotoController extends AbstractController
 
         if (isset($data)) {
             $suyoolUserId = $this->session->get('suyoolUserId');
+            // $suyoolUserId=89;
             $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
             $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -287,7 +288,7 @@ class LotoController extends AbstractController
             $this->session->set('suyoolUserId', $suyoolUserId);
             // $this->session->set('suyoolUserId', 89);
 
-            // $suyoolUserId = 185;
+            // $suyoolUserId = 89;
             $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
             $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -707,45 +708,59 @@ class LotoController extends AbstractController
     }
 
     /**
-     * @Route("/loto/getData", name="app_getData",methods="GET")
+     * @Route("/api/winningPrizeUpdated", name="app_getData",methods="POST")
      * 
      */
-    public function getData(Request $request)
+    public function winningPrizeUpdated(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-        if ($data != null) {
-            $transId = $data['transId'];
-            $order = $data['orderId'];
-            $lotodata = $this->mr->getRepository(loto::class)->getData($transId, $order);
-            if ($lotodata != null) {
-                $response = [];
-                foreach ($lotodata as $lotodata) {
-                    $response[] = [
-                        'orderId' => $lotodata->getOrderId()->getId(),
-                        'transId' => $transId,
-                        'ticketId' => $lotodata->getticketId(),
-                        'gridSelected' => $lotodata->getgridSelected(),
-                        'price' => $lotodata->getprice(),
-                        'currency' => $lotodata->getcurrency(),
-                        'bouquet' => $lotodata->getbouquet(),
-                        'zeed' => $lotodata->getwithZeed()
+        try{
+        if(isset($data)){
 
-                    ];
+            if(isset($data['paidWinners'])){
+                foreach($data['paidWinners'] as $data){
+            $orderId=explode(",",$data['OrderID']);
+            $amount=$data['Amount'];
+            $currency=$data['Currency'];
+            $userid=$data['suyoolUserId'];
+            foreach($orderId as $orderId){
+                $loto=$this->mr->getRepository(loto::class)->getWinTickets($orderId,2140);
+                if($loto == null){
+                    return new JsonResponse([
+                        'status'=>false,
+                        'message'=>'There are no results in database'
+                    ]);
                 }
-                return new JsonResponse([
-                    'status' => true,
-                    'data' => $response
-                ]);
-            } else {
-                return new JsonResponse([
-                    'status' => true,
-                    'data' => 'No data for the user Found'
-                ]);
+                foreach($loto as $loto){
+                    $loto->setwinningStatus('paid');
+                    $this->mr->persist($loto);
+                    $this->mr->flush();
+                }
             }
-        } else {
+            }
             return new JsonResponse([
-                'message' => 'No data Founds'
+                'status'=>true,
+                'message'=>'Success'
+            ]);
+        }else{
+            return new JsonResponse([
+                'status'=>false,
+                'message'=>'Missing request'
+            ]);
+        }
+    }else{
+            return new JsonResponse([
+                'status'=>false,
+                'message'=>'Missing request'
             ]);
         }
     }
+    catch(Exception $e){
+        return new JsonResponse([
+            'status'=>false,
+            'message'=>$e
+        ]);
+    }
+
+}
 }

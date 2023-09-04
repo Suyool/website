@@ -11,6 +11,7 @@ use App\Entity\Notification\Template;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\sendEmail;
+use App\Service\SuyoolServices;
 use DateInterval;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -25,7 +26,8 @@ class winningTickets extends Command
     private $sendEmail;
     private $notificationServices;
     private $notifyMr;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices)
+    private $suyoolServices;
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices,SuyoolServices $suyoolServices)
     {
         parent::__construct();
 
@@ -34,6 +36,7 @@ class winningTickets extends Command
         $this->sendEmail = $sendEmail;
         $this->notificationServices = $notificationServices;
         $this->notifyMr = $mr->getManager('notification');
+        $this->suyoolServices=$suyoolServices;
     }
 
     protected function configure()
@@ -48,6 +51,11 @@ class winningTickets extends Command
         $output->writeln([
             'Winning details send'
         ]);
+
+        $listWinners=[];
+
+
+        // $this->suyoolServices->PushUserPrize($listWinners);
         // $arr1=[4, 12, 8, 39, 24, 9];
         // dd($arr1);
         // $arr2=[4, 9, 12, 23, 26, 34, 2];
@@ -155,6 +163,63 @@ class winningTickets extends Command
         }
         // dd();
 
+        $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
+        // dd($getUsersWhoWon);
+        foreach($getUsersWhoWon as $getUsersWhoWon){
+            $Amount = 0;
+            foreach($getUsersWhoWon['Amount'] as $amount){
+                $Amount += $amount;
+            }
+                $orders=implode(",",$getUsersWhoWon['OrderID']);
+                $tickets=implode(",",$getUsersWhoWon['TicketID']);
+            $listWinners[]=['UserAccountID'=>(int)$getUsersWhoWon['UserAccountID'],'Amount'=>(float)$Amount,'Currency'=>'LBP','OrderID'=>$orders,'TicketID'=>$tickets];
+        }
+
+        // dd($listWinners);
+
+        $response=$this->suyoolServices->PushUserPrize($listWinners);
+        // dd($response);
+
+        if($response[0]){
+            $data=json_decode($response[1],true);
+            // dd($data);
+            foreach($data as $data){
+                $order=explode(",",$data['OrderID']);
+
+                if($data['FlagCode'] == 136){
+                    foreach($order as $order){
+                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        foreach($loto as $loto){
+                            $loto->setwinningStatus('pending');
+                            $this->mr->persist($loto);
+                            $this->mr->flush();
+                        }
+                    }
+                }else if($data['FlagCode'] == 135){
+                    foreach($order as $order){
+                        // $loto=$this->mr->getRepository(loto::class)->findBy(['order'=>$order]);
+                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        foreach($loto as $loto){
+                            $loto->setwinningStatus('redirected');
+                            $this->mr->persist($loto);
+                            $this->mr->flush();
+                        }
+                        
+                    }
+                }else if($data['FlagCode'] == 1){
+                    foreach($order as $order){
+                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        foreach($loto as $loto){
+                            $loto->setwinningStatus('paid');
+                            $this->mr->persist($loto);
+                            $this->mr->flush();
+                        }
+                    }
+                }
+            }
+        }
+
+        dd();
 
         $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getUsersIdWhoPlayesLotoInThisDraw($drawId);
 

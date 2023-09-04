@@ -124,24 +124,30 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const filteredData = results.filter(
     (item) => item.month + " " + item.year === selectedMonthYear
   );
+  console.log(filteredData);
 
   const handleMonthYearChange = (event) => {
     setMyGrids([]);
     setSelectedMonthYear(event.target.value);
     setStartIndex(0); // Reset the startIndex when month or year changes
     setClickedIndex(null);
+    // Call handleChangeDate with the new drawNumber
+    if (filteredData.length > 0) {
+      handleChangeDate(filteredData[0].drawNumber, 0);
+    }
   };
+
 
   const handlePrevious = () => {
     setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    setClickedIndex(null);
+    setClickedIndex(prevIndex);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
       Math.min(prevIndex + 1, filteredData.length - 4)
     );
-    setClickedIndex(null);
+    setClickedIndex(prevIndex);
   };
 
   const handleChangeDate = (item, index) => {
@@ -229,7 +235,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   }, []);
   // console.log(getZeedNumber[0]);
   // console.log(getZeedNumber[0].indexOf(getZeedNumber[0]))
-  console.log(getWinBallInitialZeed);
+  // console.log(getWinBallInitialZeed);
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -335,6 +341,10 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                   <div className="winnweFooter">
                     <div className="price">
                       <span>L.L </span>
+                      {getWinBallInitial.filter((winBall) =>
+                        grid.includes(winBall)
+                      ).length == 7 &&
+                        parseInt(prize1).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 6 &&

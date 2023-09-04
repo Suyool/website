@@ -113,6 +113,12 @@ class loto
 
     /**
      * 
+     * @ORM\Column(type="string")
+     */
+    private $winningStatus;
+
+    /**
+     * 
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -304,6 +310,17 @@ class loto
     {
         $this->winzeed = $winzeed;
         return $this;
+    }
+
+    public function setwinningStatus($winningStatus)
+    {
+        $this->winningStatus=$winningStatus;
+        return $this;
+    }
+
+    public function getwinningStatus()
+    {
+        return $this->winningStatus;
     }
 
 

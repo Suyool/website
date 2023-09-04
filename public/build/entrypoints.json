@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.0edc5656.js"
+        "/build/app1.e372de59.js"
       ]
     },
     "admin-app": {
@@ -15,7 +15,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.cab09697.js"
+        "/build/Loto.e6eb46cf.js"
       ]
     },
     "LegalEnrollement": {

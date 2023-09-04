@@ -78,7 +78,7 @@ class RequestController extends AbstractController
         // $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
         // $parameters['request_details_response']['SenderProfilePic']='';
         // dd($parameters['request_details_response']['image']);
-        if ($parameters['request_details_response']['respCode'] == 2) {
+        if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1) {
             // dd();
             return $this->redirectToRoute("homepage");
         }

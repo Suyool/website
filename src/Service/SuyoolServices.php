@@ -384,4 +384,30 @@ class SuyoolServices
 
         return $content;
     }
+
+    public function PushUserPrize($listWinners)
+    {
+        // echo json_encode($listWinners,JSON_PRESERVE_ZERO_FRACTION). $this->certificate;
+        $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners,JSON_PRESERVE_ZERO_FRACTION). $this->certificate, true));
+
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
+            'body' => json_encode([
+                'listWinners'=>$listWinners,
+                'secureHash'=>$Hash
+            ],JSON_PRESERVE_ZERO_FRACTION),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray(false);
+// dd($content);
+
+        if($content['globalCode'] == 1){
+            return array(true,$content['data']);
+        }else{
+            return array(false);
+        }
+
+    }
 }
