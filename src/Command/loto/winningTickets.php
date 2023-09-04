@@ -161,72 +161,67 @@ class winningTickets extends Command
                 $this->mr->persist($gridsTobeUpdated);
                 $this->mr->flush();
         }
-        // dd();
 
-        $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
-        // dd($getUsersWhoWon);
-        foreach($getUsersWhoWon as $getUsersWhoWon){
-            $Amount = 0;
-            foreach($getUsersWhoWon['Amount'] as $amount){
-                $Amount += $amount;
-            }
-                $orders=implode(",",$getUsersWhoWon['OrderID']);
-                $tickets=implode(",",$getUsersWhoWon['TicketID']);
-            $listWinners[]=['UserAccountID'=>(int)$getUsersWhoWon['UserAccountID'],'Amount'=>(float)$Amount,'Currency'=>'LBP','OrderID'=>$orders,'TicketID'=>$tickets];
-        }
+        // $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
+        // foreach($getUsersWhoWon as $getUsersWhoWon){
+        //     $Amount = 0;
+        //     foreach($getUsersWhoWon['Amount'] as $amount){
+        //         $Amount += $amount;
+        //     }
+        //         $orders=implode(",",$getUsersWhoWon['OrderID']);
+        //         $tickets=implode(",",$getUsersWhoWon['TicketID']);
+        //     $listWinners[]=['UserAccountID'=>(int)$getUsersWhoWon['UserAccountID'],'Amount'=>(float)$Amount,'Currency'=>'LBP','OrderID'=>$orders,'TicketID'=>$tickets];
+        // }
 
-        // dd($listWinners);
 
-        $response=$this->suyoolServices->PushUserPrize($listWinners);
-        // dd($response);
+        // $response=$this->suyoolServices->PushUserPrize($listWinners);
 
-        if($response[0]){
-            $data=json_decode($response[1],true);
-            var_dump($data);
-            foreach($data as $data){
-                $order=explode(",",$data['OrderID']);
+        // if($response[0]){
+        //     $data=json_decode($response[1],true);
+        //     var_dump($data);
+        //     foreach($data as $data){
+        //         $order=explode(",",$data['OrderID']);
 
-                if($data['FlagCode'] == 136){
-                    foreach($order as $order){
-                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                        foreach($loto as $loto){
-                            $loto->setwinningStatus('pending');
-                            $this->mr->persist($loto);
-                            $this->mr->flush();
-                        }
-                    }
-                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                    $content=$this->notificationServices->getContent('L1-ExceedMonthlyLimit');
-                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
-                }else if($data['FlagCode'] == 135){
-                    foreach($order as $order){
-                        // $loto=$this->mr->getRepository(loto::class)->findBy(['order'=>$order]);
-                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                        foreach($loto as $loto){
-                            $loto->setwinningStatus('redirected');
-                            $this->mr->persist($loto);
-                            $this->mr->flush();
-                        }
+        //         if($data['FlagCode'] == 136){
+        //             foreach($order as $order){
+        //                 $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
+        //                 foreach($loto as $loto){
+        //                     $loto->setwinningStatus('pending');
+        //                     $this->mr->persist($loto);
+        //                     $this->mr->flush();
+        //                 }
+        //             }
+        //             $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+        //             $content=$this->notificationServices->getContent('L1-ExceedMonthlyLimit');
+        //             $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
+        //         }else if($data['FlagCode'] == 135){
+        //             foreach($order as $order){
+        //                 $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
+        //                 foreach($loto as $loto){
+        //                     $loto->setwinningStatus('redirected');
+        //                     $this->mr->persist($loto);
+        //                     $this->mr->flush();
+        //                 }
                         
-                    }
-                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                    $content=$this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
-                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
-                }else if($data['FlagCode'] == 1){
-                    foreach($order as $order){
-                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                        foreach($loto as $loto){
-                            $loto->setwinningStatus('paid');
-                            $this->mr->persist($loto);
-                            $this->mr->flush();
-                        }
-                    }
-                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                    $content=$this->notificationServices->getContent('won loto added to suyool wallet');
-                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0,"https://www.suyool.com/loto?goto=Result");
-                }
-            }
-        }
+        //             }
+        //             $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+        //             $content=$this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
+        //             $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
+        //         }else if($data['FlagCode'] == 1){
+        //             foreach($order as $order){
+        //                 $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
+        //                 foreach($loto as $loto){
+        //                     $loto->setwinningStatus('paid');
+        //                     $this->mr->persist($loto);
+        //                     $this->mr->flush();
+        //                 }
+        //             }
+        //             $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+        //             $content=$this->notificationServices->getContent('won loto added to suyool wallet');
+        //             $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0,"https://www.suyool.com/loto?goto=Result");
+        //         }
+        //     }
+        // }
 
         return 1;
     }
