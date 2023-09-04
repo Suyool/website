@@ -182,23 +182,26 @@ class winningTickets extends Command
 
         if($response[0]){
             $data=json_decode($response[1],true);
-            // dd($data);
+            var_dump($data);
             foreach($data as $data){
                 $order=explode(",",$data['OrderID']);
 
                 if($data['FlagCode'] == 136){
                     foreach($order as $order){
-                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
                         foreach($loto as $loto){
                             $loto->setwinningStatus('pending');
                             $this->mr->persist($loto);
                             $this->mr->flush();
                         }
                     }
+                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+                    $content=$this->notificationServices->getContent('L1-ExceedMonthlyLimit');
+                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
                 }else if($data['FlagCode'] == 135){
                     foreach($order as $order){
                         // $loto=$this->mr->getRepository(loto::class)->findBy(['order'=>$order]);
-                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
                         foreach($loto as $loto){
                             $loto->setwinningStatus('redirected');
                             $this->mr->persist($loto);
@@ -206,100 +209,24 @@ class winningTickets extends Command
                         }
                         
                     }
+                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+                    $content=$this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
+                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
                 }else if($data['FlagCode'] == 1){
                     foreach($order as $order){
-                        $loto=$this->mr->getRepository(loto::class)->getWinTickets($order,$drawId);
+                        $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
                         foreach($loto as $loto){
                             $loto->setwinningStatus('paid');
                             $this->mr->persist($loto);
                             $this->mr->flush();
                         }
                     }
+                    $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
+                    $content=$this->notificationServices->getContent('won loto added to suyool wallet');
+                    $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0,"https://www.suyool.com/loto?goto=Result");
                 }
             }
         }
-
-        dd();
-
-        $getgridsSelectedInThisDraw = $this->mr->getRepository(loto::class)->getUsersIdWhoPlayesLotoInThisDraw($drawId);
-
-        $winningBalls[] = $getLastResults->getnumbers();
-        $winningBallsExplode[] = explode(",", $winningBalls[0]);
-        // dd($winningBallsExplode);
-
-
-        foreach ($getgridsSelectedInThisDraw as $getgridsSelectedInThisDraw) {
-            $TotalWinnerZeedPrize=0;
-            $TotalWinnerLotoPrize=0;
-            // $winnerPrize = 0;
-            // $orderId = $getgridsSelectedInThisDraw->getOrderId()->getId();
-            // $PlayerInfo = $this->mr->getRepository(order::class)->getPlayerInfo($orderId);
-            $lotoGridsForSelect = $this->mr->getRepository(loto::class)->findOrdersIds($getgridsSelectedInThisDraw['suyoolUserId'], $drawId);
-            // dd($lotoGridsForSelect);
-            foreach ($lotoGridsForSelect as $lotoGridsForSelect) {
-                $TotalWinnerLotoPrize+=$lotoGridsForSelect->getwinloto();
-                $TotalWinnerZeedPrize+=$lotoGridsForSelect->getwinzeed();
-                // $gridSelected = $lotoGridsForSelect->getgridSelected();
-                // $grids = explode("|", $gridSelected);
-                // foreach ($grids as $Selectedgrids) {
-                //     $count = 0;
-                //     $SelectedgridsExplode = [];
-                //     // dd($Selectedgrids);
-                //     $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-                //     // dd($SelectedgridsExplode);
-                //     // dd($winningBallsExplode);
-
-                //     // $Selectedgrids=str_replace(' ',',',$Selectedgrids);
-                //     // var_dump($Selectedgrids[0]);
-                //     // var_dump($winningBalls[0]);
-                //     // $info[]=['orderId'=>$orderId,'grid'=>$Selectedgrids];
-
-                //     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                //     // var_dump( $commonElements);
-                //     $count = count($commonElements);
-                //     if ($count == 6) {
-                //         if (in_array($winningBallsExplode[0][6], $commonElements)) {
-                //             $count = 7;
-                //         }
-                //     }
-                //     // echo $orderId;
-                //     // dd($count);
-                //     switch ($count) {
-                //         case 3:
-                //             $winnerPrize += $getLastResults->getwinner5();
-                //             break;
-                //         case 4:
-                //             $winnerPrize += $getLastResults->getwinner4();
-                //             break;
-                //         case 5:
-                //             $winnerPrize += $getLastResults->getwinner3();
-                //             break;
-                //         case 6:
-                //             $winnerPrize += $getLastResults->getwinner1();
-                //             break;
-                //         case 7:
-                //             $winnerPrize += $getLastResults->getwinner2();
-                //             break;
-                //         default:
-                            
-                //     }
-                // }
-                // // dd($winnerPrize);
-                
-            }
-            $Total=$TotalWinnerLotoPrize+$TotalWinnerZeedPrize;
-            // echo $Total;
-            // dd();
-            if($Total != 0){
-                $params=json_encode(['currency'=>'L.L','amount'=>$Total,'number'=>$drawId]);
-                $content=$this->notificationServices->getContent('won loto added to suyool wallet');
-                $this->notificationServices->addNotification($getgridsSelectedInThisDraw['suyoolUserId'],$content,$params,0);
-            }
-           
-        }
-        
-        // dd($winnerPrize);
-        //   dd($count);
 
         return 1;
     }

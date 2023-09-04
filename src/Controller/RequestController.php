@@ -44,16 +44,10 @@ class RequestController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
-        // dd("pok");
         $this->session->remove('requestGenerated');
         $parameters = $this->trans->translation($request, $translator);
-        // $parameters['currency'] = "LL";
         $parameters['currentPage'] = "payment_landingPage";
-
-        // $code = $request->query->get('code');
-        // $code = "Rgnd3";
         $dateSent = date("ymdHis");
-        // $Hash = base64_encode(hash('sha512', 'Rgnd3'. date("ymdHis") . 'en'. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
         $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $parameters['lang'] . $this->certificate, true));
 
         $form_data = [
@@ -66,20 +60,9 @@ class RequestController extends AbstractController
         $params['data'] = json_encode($form_data);
         $params['url'] = 'Payment/RequestDetails';
         $response = Helper::send_curl($params);
-        // dd($response);
         $parameters['request_details_response'] = json_decode($response, true);
-        // $parameters['request_details_response']['allowExternal']="false";
-        // dd($parameters['request_details_response']);
 
-        // $parameters['currency']=$parameters['request_details_response']['currency'];
-
-        // dd($parameters);
-
-        // $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
-        // $parameters['request_details_response']['SenderProfilePic']='';
-        // dd($parameters['request_details_response']['image']);
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1) {
-            // dd();
             return $this->redirectToRoute("homepage");
         }
         $this->session->set("request_details_response", $parameters['request_details_response']);
@@ -108,18 +91,7 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['transactionID']
                 : ''
         );
-        //     $this->session->set("AllowATM",
-        // isset($parameters['request_details_response']['AllowATM'])
-        //     ? $parameters['request_details_response']['AllowATM']
-        //     : '');
-        //     $this->session->set("AllowExternal",
-        // isset($parameters['request_details_response']['AllowExternal'])
-        //     ? $parameters['request_details_response']['AllowExternal']
-        //     : '');
-        //     $this->session->set("AllowBenName",
-        // isset($parameters['request_details_response']['AllowBenName'])
-        //     ? $parameters['request_details_response']['AllowBenName']
-        //     : '');
+
         $this->session->set(
             "IBAN",
             isset($parameters['request_details_response']['iban'])
@@ -175,10 +147,6 @@ class RequestController extends AbstractController
                     : ''
             );
         }
-
-        // $session = $request->getSession();
-        // dd($session);
-        // dd($parameters);
 
         return $this->render('request/index.html.twig', $parameters);
     }

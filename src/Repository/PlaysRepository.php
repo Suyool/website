@@ -279,27 +279,44 @@ class PlaysRepository extends EntityRepository
                 $listWinners[$userId] = [
                     'UserAccountID' => $userId,
                     // 'Amount' => [],
-                    'Currency'=>"LBP",
+                    'Currency' => "LBP",
                     // 'OrderID' => [],
                 ];
             }
             $listWinners[$userId]['Amount'][] = $qb['total'];
             $listWinners[$userId]['OrderID'][] = $qb['id'];
             $listWinners[$userId]['TicketID'][] = $qb['ticketId'];
-
         }
         $listWinners = array_values($listWinners);
         return $listWinners;
     }
 
-    public function getWinTickets($order,$drawId){
+    public function getWinTickets($order, $drawId = null)
+    {
+        $where = "";
+        if ($drawId != null) {
+            $where = "l.drawNumber = {$drawId} and";
+        }
 
         return $this->createQueryBuilder('l')
-        ->where('l.drawNumber = :drawNumber and l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null)')
-        ->setParameter('orderid',$order)
-        ->setParameter('drawNumber',$drawId)
-        ->getQuery()
-        ->getResult();
+            ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null) and l.winningStatus = :pending ")
+            ->setParameter('orderid', $order)
+            ->setParameter('pending','pending')
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function getWinTicketsWinStNull($order, $drawId = null)
+    {
+        $where = "";
+        if ($drawId != null) {
+            $where = "l.drawNumber = {$drawId} and";
+        }
+
+        return $this->createQueryBuilder('l')
+            ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null)")
+            ->setParameter('orderid', $order)
+            ->getQuery()
+            ->getResult();
     }
 }

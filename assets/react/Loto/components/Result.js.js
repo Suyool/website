@@ -132,9 +132,9 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     setStartIndex(0); // Reset the startIndex when month or year changes
     setClickedIndex(null);
     // Call handleChangeDate with the new drawNumber
-    if (filteredData.length > 0) {
-      handleChangeDate(filteredData[0].drawNumber, 0);
-    }
+    // if (filteredData.length > 0) {
+    //   handleChangeDate(filteredData[0].drawNumber, 0);
+    // }
   };
 
 
