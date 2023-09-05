@@ -62,7 +62,7 @@ class RequestController extends AbstractController
         $response = Helper::send_curl($params);
         $parameters['request_details_response'] = json_decode($response, true);
 
-        if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1) {
+        if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['respCode'] == 0) {
             return $this->redirectToRoute("homepage");
         }
         $this->session->set("request_details_response", $parameters['request_details_response']);

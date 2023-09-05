@@ -36,7 +36,7 @@ class NotificationServices
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
                 // dd($suyoolUser);
-                if ($suyoolUser != null) {
+                if ($suyoolUser == null) {
 
                     $userFirstname = $suyoolUser["FirstName"];
                     $userLastname = $suyoolUser["LastName"];
@@ -68,9 +68,11 @@ class NotificationServices
                 return false;
             }
         } catch (Exception $e) {
+            $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
+            $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
             // dd("ok0");
             $myfile = fopen("../var/log/usersLogs.log", "a");
-            $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " .  " \n";
+            $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " . "suyoolUser: " . json_encode($suyoolUser) . " suyool.comUser: " . json_encode($singleUser) .  " \n";
             fwrite($myfile, $txt);
             return false;
         }
