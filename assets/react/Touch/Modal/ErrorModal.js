@@ -13,7 +13,7 @@ const ErrorModal = (props) => {
   //   },
   // ];
   let object = [{
-    'exchange' : {
+    "exchange" : {
       flag: props.getErrorModal.path,
       url: window.location.href,
     }
@@ -28,7 +28,7 @@ const ErrorModal = (props) => {
     }
     if(props.getErrorModal.path == "90"){
       let object = [{
-        'topup' : {
+        "topup" : {
           flag: props.getErrorModal.path,
           url: window.location.href,
         }

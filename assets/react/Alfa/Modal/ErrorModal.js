@@ -4,7 +4,6 @@ const ErrorModal = (props) => {
 
   const [getAnth,setAnth] = useState("");
   const handleExchange = () => { 
-    setAnth("oki")
     if (props.getErrorModal.path == "84") {
       let object = [
         {
@@ -52,7 +51,6 @@ const ErrorModal = (props) => {
       <Modal.Body>
         <div id="ErrorModal">
           <img src={props.getErrorModal.img} alt="flag" />
-          <>{getAnth}</>
           <div className="title">{props.getErrorModal.title}</div>
           <div className="desc">{props.getErrorModal.desc}</div>
           <div className="buttonsDesign">
