@@ -32,44 +32,31 @@ class NotificationServices
     {
         try {
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
-            // dd($singleUser);
-            if ($singleUser != null) {
+            
+            //if user not found in our DB
+            if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-                // dd($suyoolUser);
-                if ($suyoolUser == null) {
 
-                    $userFirstname = $suyoolUser["FirstName"];
-                    $userLastname = $suyoolUser["LastName"];
-                    $userLang = $suyoolUser["LanguageID"];
-                    $user = new Users;
-                    $user
-                        ->setsuyoolUserId($userid)
-                        ->setfname($userFirstname)
-                        ->setlname($userLastname)
-                        ->setlang($userLang);
+                if (is_null($suyoolUser)) return false;
 
-                    $this->mr->persist($user);
-                    $this->mr->flush();
+                $userLastname = $suyoolUser["LastName"];
+                $userLang = $suyoolUser["LanguageID"];
+                $user = new Users;
+                $user
+                    ->setsuyoolUserId($userid)
+                    ->setfname($suyoolUser["FirstName"])
+                    ->setlname($userLastname)
+                    ->setlang($userLang);
 
+                $this->mr->persist($user);
+                $this->mr->flush();
 
-                    $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
-                } else {
-                    $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
-                }
-            } else {
-                $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
-                // dd($userid);
             }
+            return true;
 
-
-            if ($userid != null) {
-                return true;
-            } else {
-                return false;
-            }
         } catch (Exception $e) {
-            $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-            $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+            //$suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
+            //$singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
             // dd("ok0");
             $myfile = fopen("../var/log/usersLogs.log", "a");
             $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " . "suyoolUser: " . json_encode($suyoolUser) . " suyool.comUser: " . json_encode($singleUser) .  " \n";
