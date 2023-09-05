@@ -33,7 +33,7 @@ class NotificationServices
         try {
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
             // dd($singleUser);
-            if ($singleUser == null) {
+            if ($singleUser != null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
                 // dd($suyoolUser);
                 if ($suyoolUser == null) {
