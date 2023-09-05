@@ -27,7 +27,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.9607e323.js"
+        "/build/Alfa.d4368fe6.js"
       ]
     },
     "Touch": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.76c4801b.css"
+        "/build/AlfaStyle.cf65abc1.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.cfcbff74.css"
+        "/build/TouchStyle.bba5be15.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.6d597c79.css"
+        "/build/OgeroStyle.31e31afc.css"
       ]
     }
   }
