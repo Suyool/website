@@ -7,6 +7,7 @@ use App\Entity\Notification\Notification;
 use App\Entity\Notification\Template;
 use App\Entity\Notification\Users;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -27,45 +28,50 @@ class NotificationServices
         $this->suyoolServices = $suyoolServices;
     }
 
-    public function checkUser($userid,$lang)
+    public function checkUser($userid, $lang)
     {
-        $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
-        // dd($singleUser);
-        if($singleUser == null){
-            $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-            // dd($suyoolUser);
-            if($suyoolUser != null){
-                if($suyoolUser["FirstName"] == null){
-                    return false;
-                }
-                $userFirstname = $suyoolUser["FirstName"];
-                $userLastname = $suyoolUser["LastName"];
-                $userLang = $suyoolUser["LanguageID"];
-    
-                $user = new Users;
-                $user
-                    ->setsuyoolUserId($userid)
-                    ->setfname($userFirstname)
-                    ->setlname($userLastname)
-                    ->setlang($userLang);
-    
-                $this->mr->persist($user);
-                $this->mr->flush();
-                
-            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
-            }else{
-                $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
-            }
-            
-        }else{
-            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
-            // dd($userid);
-        }
-        
+        try {
+            $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+            // dd($singleUser);
+            if ($singleUser == null) {
+                $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
+                // dd($suyoolUser);
+                if ($suyoolUser != null) {
 
-        if ($userid != null) {
-            return true;
-        } else {
+                    $userFirstname = $suyoolUser["FirstName"];
+                    $userLastname = $suyoolUser["LastName"];
+                    $userLang = $suyoolUser["LanguageID"];
+                    $user = new Users;
+                    $user
+                        ->setsuyoolUserId($userid)
+                        ->setfname($userFirstname)
+                        ->setlname($userLastname)
+                        ->setlang($userLang);
+
+                    $this->mr->persist($user);
+                    $this->mr->flush();
+
+
+                    $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
+                } else {
+                    $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
+                }
+            } else {
+                $userid = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid, 'lang' => $lang]);
+                // dd($userid);
+            }
+
+
+            if ($userid != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            // dd("ok0");
+            $myfile = fopen("../var/log/usersLogs.log", "a");
+            $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " .  " \n";
+            fwrite($myfile, $txt);
             return false;
         }
     }
@@ -76,22 +82,22 @@ class NotificationServices
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
-        if(isset($amount)){
-            $amount=number_format($amount);
+        if (isset($amount)) {
+            $amount = number_format($amount);
         }
-        if(isset($numgrids)){
-            if($numgrids>1){
-                $numgrids=$numgrids . " Grids";
-            }else{
-                $numgrids=$numgrids . " Grid";
+        if (isset($numgrids)) {
+            if ($numgrids > 1) {
+                $numgrids = $numgrids . " Grids";
+            } else {
+                $numgrids = $numgrids . " Grid";
             }
         }
 
-        if(isset($grids)){
-            if($grids>1){
-                $grids=$grids . " Grids";
-            }else{
-                $grids=$grids . " Grid";
+        if (isset($grids)) {
+            if ($grids > 1) {
+                $grids = $grids . " Grids";
+            } else {
+                $grids = $grids . " Grid";
             }
         }
 
