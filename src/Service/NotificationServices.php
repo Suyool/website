@@ -8,6 +8,7 @@ use App\Entity\Notification\Template;
 use App\Entity\Notification\Users;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -18,28 +19,31 @@ class NotificationServices
     private $hash_algo;
     private $certificate;
     private $suyoolServices;
+    private $logger;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
+    public function __construct(LoggerInterface $logger,ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('notification');
 
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
+        $this->logger=$logger;
     }
 
     public function checkUser($userid, $lang)
-    {
+    {   
         try {
 
-            if($userid=='71' || $userid=='54') return false;
+            if($userid=='71') return false;
 
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+            // dd($singleUser);
             
             //if user not found in our DB
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-
+                // dd($suyoolUser);
                 if (is_null($suyoolUser)) return false;
 
                 $user = new Users;
@@ -52,12 +56,13 @@ class NotificationServices
                 $this->mr->persist($user);
                 $this->mr->flush();
             }
+            $this->logger->info("Success");
             return true;
 
         } catch (Exception $e) {
-            $myfile = fopen("../var/log/usersLogs.log", "a");
-            $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " . "suyoolUser: " . json_encode($suyoolUser) . " suyool.comUser: " . json_encode($singleUser) .  " \n";
-            fwrite($myfile, $txt);
+            $this->logger->error($e->getMessage());
+            $this->logger->debug(json_encode($suyoolUser));
+            $this->logger->debug("ID FROM OUR DB: " . $singleUser->getsuyoolUserId());
             return false;
         }
     }

@@ -84,6 +84,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
+    App\Service\NotificationServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Users' }
+
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'
