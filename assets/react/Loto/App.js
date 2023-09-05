@@ -122,6 +122,7 @@ const App = ({ parameters }) => {
               setDataGetting={setDataGetting}
               setBallNumbersIndex={setBallNumbersIndex}
               getBallNumbersIndex={getBallNumbersIndex}
+              setModalShow={setModalShow}
               
             />
           )}

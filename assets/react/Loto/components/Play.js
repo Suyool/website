@@ -16,7 +16,8 @@ const Play = ({
   setTotalAmountLLDJ,
   setDataGetting,
   setBallNumbersIndex,
-  getBallNumbersIndex
+  getBallNumbersIndex,
+  setModalShow
 }) => {
   // console.log(parameters);
   // console.log("getTotalAmount",getTotalAmount)
@@ -67,7 +68,7 @@ const Play = ({
   } 
 
   useEffect(() => {
-    console.log("clicked")
+    setModalShow(false)
     // setSelectedOption(0);
     
     // setTotalAmount(totalPrice);

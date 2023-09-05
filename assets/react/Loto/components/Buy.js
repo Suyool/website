@@ -42,7 +42,7 @@ const Buy = ({
     // setSelectedOption(0);
 
     //  totalPrice = getTotalAmount;
-
+    setModalShow(false);
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
