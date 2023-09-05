@@ -32,7 +32,7 @@ class NotificationServices
     {
         try {
 
-            if($userid=='71') return false;
+            if($userid=='71' || $userid=='54') return false;
 
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
             
