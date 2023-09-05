@@ -3,10 +3,11 @@ import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
   const handleExchange = () => {
     // window.location.href = "/app?f="+props.getErrorModal.path;
+    alert(props.parameters?.deviceType);
     if (props.getErrorModal.path == "84") {
       let object = [
         {
-          exchange: {
+          "exchange": {
             flag: props.getErrorModal.path,
             url: window.location.href,
           },
@@ -22,13 +23,14 @@ const ErrorModal = (props) => {
     if (props.getErrorModal.path == "90") {
       let object = [
         {
-          topup: {
+          "topup": {
             flag: props.getErrorModal.path,
             url: window.location.href,
           },
         },
       ];
       if (props.parameters?.deviceType === "Android") {
+        alert(JSON.stringify(object))
         window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
