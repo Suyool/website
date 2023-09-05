@@ -58,7 +58,7 @@ class PaymentController extends AbstractController
             // dd($parameters['payment_details_response']);
             // $parameters['payment_details_response']['allowExternal']="True";
             // dd
-            if ($parameters['payment_details_response']['respCode'] == 2 || $parameters['payment_details_response']['respCode'] == -1 ||  $parameters['payment_details_response']['respCode'] == 0) {
+            if ($parameters['payment_details_response']['respCode'] == 2 || $parameters['payment_details_response']['respCode'] == -1 ||  $parameters['payment_details_response']['transactionID'] == 0) {
                 // dd();
                 return $this->redirectToRoute("homepage");
             }
