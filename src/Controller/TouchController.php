@@ -60,7 +60,7 @@ class TouchController extends AbstractController
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $SuyoolUserId = $this->session->set('suyoolUserId', 185);
+                // $SuyoolUserId = $this->session->set('suyoolUserId', 89);
 
                 $parameters['deviceType'] =$suyoolUserInfo[1] ;
 
@@ -394,7 +394,7 @@ class TouchController extends AbstractController
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
             // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
-            dd($response);
+            // dd($response);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -433,7 +433,7 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
-                        $message = $PayResonse["errorinfo"]["errormsg"];
+                        $message = $PayResonse["errorinfo"]["errorcode"];
                     } else {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -478,11 +478,11 @@ class TouchController extends AbstractController
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
                         'plan' => $data["desc"],
-                        'code' => $PayResonse["voucherSerial"],
+                        'code' => $PayResonse["voucherCode"],
                     ]);
                     $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk);
+                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk,"*14*".$PayResonse["voucherCode"]."#");
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities[0]) {

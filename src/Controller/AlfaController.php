@@ -516,7 +516,7 @@ class AlfaController extends AbstractController
                     $this->mr->persist($logs);
                     $this->mr->flush();
                     $IsSuccess = false;
-                    $message = $PayResonse["errorinfo"]["errormsg"];
+                    $message = $PayResonse["errorinfo"]["errorcode"];
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities[0]) {
@@ -572,9 +572,9 @@ class AlfaController extends AbstractController
                         'amount' => $order->getamount(),
                         'currency' =>"L.L",
                         'plan' => $data["desc"],
-                        'code' => $PayResonse["voucherSerial"],
+                        'code' => $PayResonse["voucherCode"],
                     ]);
-                    $additionalData = "*14*" . $prepaid->getvoucherSerial() . "#";
+                    $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
                     $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast
                     $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);

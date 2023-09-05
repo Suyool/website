@@ -76,7 +76,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
         // console.log()
         if (response?.data.IsSuccess) {
           setPaymentConfirmation(true);
-          setSerialToClipboard("*14*" + response?.data?.data?.voucherSerial + "#");
+          setSerialToClipboard("*14*" + response?.data?.data?.voucherCode + "#");
         } else {
           console.log(response.data.flagCode)
           // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
@@ -104,7 +104,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
               btn: jsonResponse.ButtonOne.Text,
             });
             setModalShow(true);
-          }else if(jsonResponse == "There are no vouchers of this type currently availalble."){
+          }else if(jsonResponse == "19"){
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",

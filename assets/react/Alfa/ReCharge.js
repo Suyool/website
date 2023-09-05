@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader"
 
-const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
+const ReCharge = ({ parameters, setPrepaidVoucher, getVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [getLoading, setLoading] = useState(true);
 
@@ -44,7 +44,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
             :
             <>
               {filteredData.map((record, index) => (
-                <div className="bundleGrid" key={index} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2 }); }}>
+                <div className="bundleGrid" key={index} style={record.isinstock == 0 ? {display:"none"} : {display:"flex"}} onClick={() => { setActiveButton({ name: "MyBundle" }); setPrepaidVoucher({ vouchercategory: record.vouchercategory, vouchertype: record.vouchertype, priceLBP: record.priceLBP, priceUSD: record.priceUSD, desc: record.desc, isavailable: record.isavailable, desc1: record.desc1, desc2: record.desc2 }); }}>
                   <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
                   <div className="gridDesc">
                     <div className="Price">${record.priceUSD} <span>(LBP {parseInt(record.priceLBP).toLocaleString()})</span></div>
