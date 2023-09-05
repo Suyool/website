@@ -31,6 +31,9 @@ class NotificationServices
     public function checkUser($userid, $lang)
     {
         try {
+
+            if($userid=='71') return false;
+
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
             
             //if user not found in our DB
@@ -39,25 +42,19 @@ class NotificationServices
 
                 if (is_null($suyoolUser)) return false;
 
-                $userLastname = $suyoolUser["LastName"];
-                $userLang = $suyoolUser["LanguageID"];
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($userid)
                     ->setfname($suyoolUser["FirstName"])
-                    ->setlname($userLastname)
-                    ->setlang($userLang);
+                    ->setlname($suyoolUser["LastName"])
+                    ->setlang($suyoolUser["LanguageID"]);
 
                 $this->mr->persist($user);
                 $this->mr->flush();
-
             }
             return true;
 
         } catch (Exception $e) {
-            //$suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-            //$singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
-            // dd("ok0");
             $myfile = fopen("../var/log/usersLogs.log", "a");
             $txt = date('Y/m/d H:i:s ', time()) . " " . $e->getMessage() . " " . "suyoolUser: " . json_encode($suyoolUser) . " suyool.comUser: " . json_encode($singleUser) .  " \n";
             fwrite($myfile, $txt);
