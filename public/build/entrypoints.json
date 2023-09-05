@@ -63,7 +63,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.19d87fc9.css"
+        "/build/Lotostyles.266fdf52.css"
       ]
     },
     "LegalEnrollementStyle": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.c0d9c62d.css"
+        "/build/AlfaStyle.8e1a5f25.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.89030645.css"
+        "/build/TouchStyle.0f5e4899.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.cd985b7a.css"
+        "/build/OgeroStyle.11e86548.css"
       ]
     }
   }

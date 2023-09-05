@@ -39,7 +39,6 @@ class OgeroController extends AbstractController
      */
     public function index(NotificationServices $notificationServices): Response
     {
-        // dd(date('Y/m/d H:i:s ', time()));
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
@@ -56,10 +55,7 @@ class OgeroController extends AbstractController
 
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $suyoolUserId = $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
-                // $suyoolUserId = $this->session->set('suyoolUserId', 185);
-
-                // $parameters['Test'] = "tst";
+                $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
             } else {
                 return $this->render('ExceptionHandling.html.twig');
