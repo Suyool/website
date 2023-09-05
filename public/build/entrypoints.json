@@ -27,19 +27,19 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.c1a801d1.js"
+        "/build/Alfa.85f3ef67.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.69726389.js"
+        "/build/Touch.3ceb8a09.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.29e26a8d.js"
+        "/build/Ogero.e5c47388.js"
       ]
     },
     "styles": {

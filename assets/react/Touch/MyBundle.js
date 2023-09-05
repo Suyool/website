@@ -13,7 +13,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
     // console.log(getPrepaidVoucher)
   }, [])
 
-  const handleShare= () => {
+  const handleShare= (shareCode) => {
     let object = [
       {
         Share: {
@@ -180,7 +180,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
                 <img className="copySerial" src="/build/images/touch/copySerial.png" alt="copySerial" />
               </button>
 
-              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare() }} >Share Code</button>
+              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare(getSerialToClipboard) }} >Share Code</button>
 
               <div className="stepsToRecharge">
 
