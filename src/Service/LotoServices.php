@@ -13,12 +13,12 @@ class LotoServices
     private $METHOD_POST;
     private $helper;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params,Helper $helper)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper)
     {
         $this->client = $client;
         $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
         $this->METHOD_POST = $params->get('METHOD_POST');
-        $this->helper=$helper;
+        $this->helper = $helper;
     }
 
     public function Login()
@@ -36,14 +36,8 @@ class LotoServices
 
     public function VoucherFilter($vcategory)
     {
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetAllVouchersType", [
-            'body' => json_encode([
-                "Token" => "",
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = ["Token" => "",];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetAllVouchersType",  $body);
 
         $content = $response->toArray();
         $filteredVouchers = array_filter($content["d"]["ppavouchertypes"], function ($voucher) use ($vcategory) {
@@ -58,16 +52,12 @@ class LotoServices
         $login = $this->Login();
         $retryattempt = 1;
         while ($retryattempt <= 2) {
-            $response = $this->client->request('POST', $this->LOTO_API_HOST . '/PurchaseVoucher', [
-                'body' => json_encode([
-                    "Token" => $login,
-                    "category" => $category,
-                    "type" => $type,
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $body = [
+                "Token" => $login,
+                "category" => $category,
+                "type" => $type,
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST,  $this->LOTO_API_HOST . '/PurchaseVoucher',  $body);
 
             $content = $response->getContent();
             $content = $response->toArray();
@@ -94,32 +84,25 @@ class LotoServices
     public function BouquetGrids($ticketId)
     {
         $token = $this->Login();
-        $response1 = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail", [
-            'body' => json_encode([
-                'Token' => $token,
-                'historyId' => $ticketId,
-                'bouquetId' => 0
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'Token' => $token,
+            'historyId' => $ticketId,
+            'bouquetId' => 0
+        ];
+        $response1 = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail",  $body);
+
         $content1 = $response1->toArray();
         $grids = $content1['d']['grids'];
         foreach ($grids as $grids) {
             $bouquetId = $grids['gridId'];
         }
+        $body = [
+            'Token' => $token,
+            'historyId' => $ticketId,
+            'bouquetId' => $bouquetId
+        ];
+        $response2 = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail",  $body);
 
-        $response2 = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail", [
-            'body' => json_encode([
-                'Token' => $token,
-                'historyId' => $ticketId,
-                'bouquetId' => $bouquetId
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
         $bouquetResponse = $response2->toArray();
         $bouquetId = $bouquetResponse['d']['grids'];
         foreach ($bouquetId as $bouquetId) {
@@ -134,17 +117,14 @@ class LotoServices
         $retry = 1;
         while ($retry) {
             $token = $this->Login();
-            $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetUserTransactionHistory", [
-                'body' => json_encode([
-                    'Token' => $token,
-                    'fromDate' =>  date('Y-m-d'),
-                    'toDate' => date('Y-m-d', strtotime("+1 day")),
-                    'transactionType' => 0
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $body = [
+                'Token' => $token,
+                'fromDate' =>  date('Y-m-d'),
+                'toDate' => date('Y-m-d', strtotime("+1 day")),
+                'transactionType' => 0
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserTransactionHistory",  $body);
+
             $content = $response->toArray();
             $historyEntries = $content['d']['historyEntries'];
 
@@ -168,19 +148,15 @@ class LotoServices
         $retryattempt = 1;
         while ($retryattempt <= 2) {
             $token = $this->Login();
-            $response = $this->client->request('POST', "{$this->LOTO_API_HOST}SubmitLotoPlayOrder", [
-                'body' => json_encode([
-                    'Token' => $token,
-                    'drawNumber' => $draw,
-                    'numDraws' => $numdraws,
-                    'withZeed' => $withZeed,
-                    'saveToFavorite' => 1,
-                    'GridsSelected' => $gridselected
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $body = [
+                'Token' => $token,
+                'drawNumber' => $draw,
+                'numDraws' => $numdraws,
+                'withZeed' => $withZeed,
+                'saveToFavorite' => 1,
+                'GridsSelected' => $gridselected
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}SubmitLotoPlayOrder",  $body);
 
             $content = $response->toArray();
             $submit = $content['d']['errorinfo']['errorcode'];
@@ -202,16 +178,13 @@ class LotoServices
 
     public function getDrawsResult()
     {
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetDrawsInformation", [
-            'body' => json_encode([
-                'Token' => '',
-                'from' => 0,
-                'to' => 0
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'Token' => '',
+            'from' => 0,
+            'to' => 0
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetDrawsInformation",  $body);
+
         $status = $response->getStatusCode(); // Get the status code
         if ($status == 500) {
             return false;
@@ -222,14 +195,9 @@ class LotoServices
 
     public function fetchDrawDetails()
     {
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}GetInPlayAndNextDrawInformation", [
-            'body' => json_encode([
-                'Token' => ''
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = ['Token' => ''];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetInPlayAndNextDrawInformation",  $body);
+
         $status = $response->getStatusCode(); // Get the status code
         if ($status == 500) {
             return false;

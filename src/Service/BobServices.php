@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Utils\Helper;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -11,12 +13,15 @@ class BobServices
     private $BOB_API_HOST;
     private $USERNAME;
     private $PASSWORD;
-
+    private $helper;
     private $client;
+    private $METHOD_POST;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper)
     {
         $this->client = $client;
+        $this->METHOD_POST = $params->get('METHOD_POST');
+        $this->helper = $helper;
 
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
@@ -46,21 +51,17 @@ class BobServices
     //Alfa
     public function Bill($gsmMobileNb)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendPinRequest', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "AlfaPinParam" => [
-                    "GSMNumber" => $gsmMobileNb
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "AlfaPinParam" => [
+                "GSMNumber" => $gsmMobileNb
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
 
         $content = $response->getContent();
 
@@ -78,27 +79,22 @@ class BobServices
     public function RetrieveResults($currency, $mobileNumber, $Pin)
     {
         $Pin = implode("", $Pin);
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => "1",
-                "VenId" => "1",
-                "ProductId" => "4",
-
-                "AlfaBillMeta" => [
-                    "Currency" => $currency,
-                    "GSMNumber" => $mobileNumber,
-                    "PIN" => $Pin,
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => "1",
+            "VenId" => "1",
+            "ProductId" => "4",
+            "AlfaBillMeta" => [
+                "Currency" => $currency,
+                "GSMNumber" => $mobileNumber,
+                "PIN" => $Pin,
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
 
         $content = $response->getContent();
         $reponse = json_encode($content);
@@ -114,45 +110,38 @@ class BobServices
 
     public function BillPay($Postpaid_With_id_Res)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => "1",
-                "VenId" => "1",
-                "ProductId" => "4",
-                "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
-
-                "AlfaBillResult" => [
-                    "Fees" => strval($Postpaid_With_id_Res->getfees()),
-                    "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
-                    "Amount" => strval($Postpaid_With_id_Res->getamount()),
-                    "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
-                    "ReferenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
-                    "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
-                    "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
-                    "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
-                    "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
-                    "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
-                    "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
-                    "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => "1",
+            "VenId" => "1",
+            "ProductId" => "4",
+            "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
+            "AlfaBillResult" => [
+                "Fees" => strval($Postpaid_With_id_Res->getfees()),
+                "TransactionId" => $Postpaid_With_id_Res->gettransactionId(),
+                "Amount" => strval($Postpaid_With_id_Res->getamount()),
+                "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
+                "ReferenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
+                "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
+                "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
+                "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
+                "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
+                "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
+                "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
+                "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
 
         $content = $response->getContent();
-
         $myfile = fopen("../var/cache/alfalogs.txt", "a");
-
         $txt = json_encode(['response' => $response, 'content' => $content]);
         fwrite($myfile, $txt);
-
         $ApiResponse = json_decode($content, true);
         $res = $ApiResponse['Response'];
         $ErrorDescription = $ApiResponse['ErrorDescription'];
@@ -165,25 +154,20 @@ class BobServices
     //Touch
     public function SendTouchPinRequest($gsmMobileNb)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'SendTouchPinRequest', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "TouchPinParam" => [
-                    "Service" => "invoice",
-                    "GSMNumber" => $gsmMobileNb
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "TouchPinParam" => [
+                "Service" => "invoice",
+                "GSMNumber" => $gsmMobileNb
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendTouchPinRequest',  $body);
 
         $content = $response->getContent();
-
         $ApiResponse = json_decode($content, true);
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
@@ -203,29 +187,23 @@ class BobServices
     public function RetrieveResultsTouch($currency, $mobileNumber, $Pin, $token)
     {
         $Pin = implode("", $Pin);
-
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => "1",
-                "VenId" => "2",
-                "ProductId" => "1",
-
-                "TouchDueMeta" => [
-                    "Currency" => $currency,
-                    "GSMNumber" => $mobileNumber,
-                    "PIN" => $Pin,
-                    "Token" => $token,
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => "1",
+            "VenId" => "2",
+            "ProductId" => "1",
+            "TouchDueMeta" => [
+                "Currency" => $currency,
+                "GSMNumber" => $mobileNumber,
+                "PIN" => $Pin,
+                "Token" => $token,
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
 
         $content = $response->getContent();
         $response = json_encode($content);
@@ -247,42 +225,36 @@ class BobServices
 
     public function BillPayTouch($Postpaid_With_id_Res)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => "1",
-                "VenId" => "2",
-                "ProductId" => "2",
-                "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
-
-                "TouchAdvancedResult" => [
-                    "Fees" => strval($Postpaid_With_id_Res->getfees()),
-                    "transactionId" => $Postpaid_With_id_Res->gettransactionId(),
-                    "Amount" => strval($Postpaid_With_id_Res->getamount()),
-                    "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
-                    "referenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
-                    "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
-                    "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
-                    "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
-                    "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
-                    "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
-                    "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
-                    "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
-                    "PaymentId" => strval($Postpaid_With_id_Res->getpaymentId()),
-                    "InvoiceNumber" => strval($Postpaid_With_id_Res->getinvoiceNumber()),
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => "1",
+            "VenId" => "2",
+            "ProductId" => "2",
+            "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
+            "TouchAdvancedResult" => [
+                "Fees" => strval($Postpaid_With_id_Res->getfees()),
+                "transactionId" => $Postpaid_With_id_Res->gettransactionId(),
+                "Amount" => strval($Postpaid_With_id_Res->getamount()),
+                "Amount1" => strval($Postpaid_With_id_Res->getamount1()),
+                "referenceNumber" => strval($Postpaid_With_id_Res->getreferenceNumber()),
+                "Fees1" => strval($Postpaid_With_id_Res->getfees1()),
+                "Amount2" => strval($Postpaid_With_id_Res->getamount2()),
+                "InformativeOriginalWSAmount" => strval($Postpaid_With_id_Res->getinformativeOriginalWSamount()),
+                "TotalAmount" => strval($Postpaid_With_id_Res->gettotalamount()),
+                "Currency" => strval($Postpaid_With_id_Res->getcurrency()),
+                "Rounding" => strval($Postpaid_With_id_Res->getrounding()),
+                "AdditionalFees" => strval($Postpaid_With_id_Res->getadditionalfees()),
+                "PaymentId" => strval($Postpaid_With_id_Res->getpaymentId()),
+                "InvoiceNumber" => strval($Postpaid_With_id_Res->getinvoiceNumber()),
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
 
         $content = $response->getContent();
-
         $ApiResponse = json_decode($content, true);
 
         if ($ApiResponse["ErrorCode"] == 100) {
@@ -302,24 +274,21 @@ class BobServices
     //Ogero
     public function RetrieveChannelResults($gsmMobileNb)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => 1,
-                "OgeroMeta" => [
-                    "PhoneNumber" => $gsmMobileNb
-                ],
-                "VenId" => 3,
-                "ProductId" => 16,
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => 1,
+            "OgeroMeta" => [
+                "PhoneNumber" => $gsmMobileNb
+            ],
+            "VenId" => 3,
+            "ProductId" => 16,
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
+
         $content = $response->getContent();
         $response = json_encode($content);
         $ApiResponse = json_decode($content, true);
@@ -340,45 +309,38 @@ class BobServices
 
     public function BillPayOgero($Landline_With_id)
     {
-        $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
-            'body' => json_encode([
-                "ChannelType" => "API",
-                "ItemId" => 1,
-                "VenId" => 3,
-                "ProductId" => 16,
-                "TransactionId" => strval($Landline_With_id->gettransactionId()),
-                "OgeroResult" => [
-                    "Amount" => strval($Landline_With_id->getamount()),
-                    "PayerName" => $Landline_With_id->getogeroClientName(),
-                    "PayerMobileNumber" => strval($Landline_With_id->getgsmNumber()),
-                    "Fees" => strval($Landline_With_id->getfees()),
-                    "Rounding" => strval($Landline_With_id->getrounding()),
-                    "AdditionalFees" => strval($Landline_With_id->getadditionalFees()),
-                    "Currency" => strval($Landline_With_id->getcurrency()),
-                    "TotalAmount" => strval($Landline_With_id->gettotalAmount()),
-                    "PhoneNumber" => strval($Landline_With_id->getgsmNumber()),
-                ],
-                "Credentials" => [
-                    "User" => $this->USERNAME,
-                    "Password" => $this->PASSWORD
-                ]
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
+        $body = [
+            "ChannelType" => "API",
+            "ItemId" => 1,
+            "VenId" => 3,
+            "ProductId" => 16,
+            "TransactionId" => strval($Landline_With_id->gettransactionId()),
+            "OgeroResult" => [
+                "Amount" => strval($Landline_With_id->getamount()),
+                "PayerName" => $Landline_With_id->getogeroClientName(),
+                "PayerMobileNumber" => strval($Landline_With_id->getgsmNumber()),
+                "Fees" => strval($Landline_With_id->getfees()),
+                "Rounding" => strval($Landline_With_id->getrounding()),
+                "AdditionalFees" => strval($Landline_With_id->getadditionalFees()),
+                "Currency" => strval($Landline_With_id->getcurrency()),
+                "TotalAmount" => strval($Landline_With_id->gettotalAmount()),
+                "PhoneNumber" => strval($Landline_With_id->getgsmNumber()),
+            ],
+            "Credentials" => [
+                "User" => $this->USERNAME,
+                "Password" => $this->PASSWORD
             ]
-        ]);
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
 
         $myfile = fopen("../var/cache/ogerologs.txt", "a");
         $content = $response->getContent();
-
         $txt = json_encode(['response' => $response, 'content' => $content]) . " " . date('Y/m/d H:i:s ', time()) . " \n";
         fwrite($myfile, $txt);
-
         $ApiResponse = json_decode($content, true);
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
-            // $decodedString = $decoded['token'];
             $isSuccess = true;
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         } else {

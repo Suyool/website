@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Utils\Helper;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -18,12 +19,20 @@ class SuyoolServices
     private $certificate;
     private $hash_algo;
     private $logger;
+    private $METHOD_POST;
+    private $METHOD_GET;
+    private $helper;
 
-    public function __construct($merchantAccountID, LoggerInterface $logger = null)
+
+    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper,ParameterBagInterface $params)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
+        $this->METHOD_POST = $params->get('METHOD_POST');
+        $this->METHOD_GET = $params->get('METHOD_GET');
+        $this->helper = $helper;
+
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
@@ -43,20 +52,16 @@ class SuyoolServices
         $sum = number_format((float) $sum, 1, '.', '');
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
         try {
+            $body = [
+                'userAccountID' => $SuyoolUserId,
+                "merchantAccountID" => $this->merchantAccountID,
+                'orderID' => $id,
+                'amount' => $sum,
+                'currency' => $currency,
+                'secureHash' =>  $Hash,
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
-            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment", [
-                'body' => json_encode([
-                    'userAccountID' => $SuyoolUserId,
-                    "merchantAccountID" => $this->merchantAccountID,
-                    'orderID' => $id,
-                    'amount' => $sum,
-                    'currency' => $currency,
-                    'secureHash' =>  $Hash,
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
             $status = $response->getStatusCode(); // Get the status code
             if ($status == 500) {
                 return array(false, 'Internal Server Error');
@@ -94,17 +99,13 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
 
         try {
-            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
-                'body' => json_encode([
-                    'transactionID' => $transId,
-                    "amountPaid" => $sum,
-                    "additionalData" => $additionalData,
-                    'secureHash' =>  $Hash,
-                ]),
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
+            $body = [
+                'transactionID' => $transId,
+                "amountPaid" => $sum,
+                "additionalData" => $additionalData,
+                'secureHash' =>  $Hash,
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
             if ($status == 500) {
@@ -149,15 +150,12 @@ class SuyoolServices
     public function GetUser($userId)
     {
         $Hash = base64_encode(hash($this->hash_algo, $userId . $this->certificate, true));
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetUser", [
-            'body' => json_encode([
-                'userAccountID' => $userId,
-                "secureHash" => $Hash,
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'userAccountID' => $userId,
+            "secureHash" => $Hash,
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}User/GetUser",  $body);
+
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
             $push_get_response = $response->toArray(false);
@@ -174,26 +172,22 @@ class SuyoolServices
      */
     public function PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
     {
-        $response = $this->client->request('POST', "{$this->NOTIFICATION_SUYOOL_HOST}Notification/PushSingleNotification", [
-            'body' => json_encode([
-                'userID' => $userId,
-                'title' => $title,
-                'subject' => $subject,
-                'body' => $body,
-                'notification' => $notification,
-                'isInbox' => $isInbox,
-                'isPayment' => $isPayment,
-                'isDebit' => $isDebit,
-                'flag' => $flag,
-                'additionalData' => $additionalData,
-                'notifType' => $notificationType,
-                'proceedButton' => $proceedButton,
-                'cancelButton' => 'Cancel',
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'userID' => $userId,
+            'title' => $title,
+            'subject' => $subject,
+            'body' => $body,
+            'notification' => $notification,
+            'isInbox' => $isInbox,
+            'isPayment' => $isPayment,
+            'isDebit' => $isDebit,
+            'flag' => $flag,
+            'additionalData' => $additionalData,
+            'notifType' => $notificationType,
+            'proceedButton' => $proceedButton,
+            'cancelButton' => 'Cancel',
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Notification/PushSingleNotification",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -210,26 +204,22 @@ class SuyoolServices
      */
     public function PushBulkNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
     {
-        $response = $this->client->request('POST', "{$this->NOTIFICATION_SUYOOL_HOST}Notification/PushBulkNotification", [
-            'body' => json_encode([
-                'userID' => $userId,
-                'title' => $title,
-                'subject' => $subject,
-                'inboxBody' => $body,
-                'notificationBody' => $notification,
-                'isInbox' => $isInbox,
-                'isPayment' => $isPayment,
-                'isDebit' => $isDebit,
-                'flag' => $flag,
-                'additionalData' => $additionalData,
-                'notifType' => $notificationType,
-                'proceedButton' => $proceedButton,
-                'cancelButton' => 'Cancel',
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'userID' => $userId,
+            'title' => $title,
+            'subject' => $subject,
+            'inboxBody' => $body,
+            'notificationBody' => $notification,
+            'isInbox' => $isInbox,
+            'isPayment' => $isPayment,
+            'isDebit' => $isDebit,
+            'flag' => $flag,
+            'additionalData' => $additionalData,
+            'notifType' => $notificationType,
+            'proceedButton' => $proceedButton,
+            'cancelButton' => 'Cancel',
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Notification/PushBulkNotification",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -244,17 +234,13 @@ class SuyoolServices
     public function PaymentDetails($code, $lang)
     {
         $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $lang . $this->certificate, true));
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Payment/PaymentDetails", [
-            'body' => json_encode([
-                'code' => $code,
-                'dateSent' => date("ymdHis"),
-                'hash' => $Hash,
-                'lang' => $lang
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'code' => $code,
+            'dateSent' => date("ymdHis"),
+            'hash' => $Hash,
+            'lang' => $lang
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/PaymentDetails",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -270,17 +256,13 @@ class SuyoolServices
     {
         $Hash = base64_encode(hash($this->hash_algo,  $TranSimId . $fname . $lname . $this->certificate, true));
 
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashOut", [
-            'body' => json_encode([
-                'transactionId' => $TranSimId,
-                'receiverFname' => $fname,
-                'hash' => $Hash,
-                'receiverLname' => $lname,
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'transactionId' => $TranSimId,
+            'receiverFname' => $fname,
+            'hash' => $Hash,
+            'receiverLname' => $lname,
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashOut",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -295,17 +277,13 @@ class SuyoolServices
     public function RequestDetails($code, $lang)
     {
         $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $lang . $this->certificate, true));
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Payment/RequestDetails", [
-            'body' => json_encode([
-                'code' => $code,
-                'dateSent' => date("ymdHis"),
-                'hash' => $Hash,
-                'lang' => $lang
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'code' => $code,
+            'dateSent' => date("ymdHis"),
+            'hash' => $Hash,
+            'lang' => $lang
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/RequestDetails",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -321,17 +299,13 @@ class SuyoolServices
     {
         $Hash = base64_encode(hash($this->hash_algo,  $TranSimId . $fname . $lname . $this->certificate, true));
 
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn", [
-            'body' => json_encode([
+        $body = [
                 'transactionId' => $TranSimId,
                 'receiverFname' => $_POST['fname'],
                 'receiverLname' => $_POST['lname'],
                 'hash' =>  $Hash
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+            ];
+        $response = $this->helper->clientRequest($this->METHOD_POST,"{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn" ,  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
