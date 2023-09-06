@@ -81,11 +81,11 @@ class NotificationServices
             }
         }
 
-        if (isset($grids)) {
-            if ($grids > 1) {
-                $grids = $grids . " Grids";
+        if (isset($bouquetgrids)) {
+            if ($bouquetgrids > 1) {
+                $bouquetgrids = $bouquetgrids . " Grids";
             } else {
-                $grids = $grids . " Grid";
+                $bouquetgrids = $bouquetgrids . " Grid";
             }
         }
 

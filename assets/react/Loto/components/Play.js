@@ -98,7 +98,11 @@ const Play = ({
     setBallNumbersIndex(index);
     setBallPlayed(getPlayedBalls[index].balls);
     setBallNumbers(getPlayedBalls[index].balls.length);
-    setTotalAmountLLDJ(getPlayedBalls[index].price);
+    if(getPlayedBalls[index].withZeed){
+      setTotalAmountLLDJ(getPlayedBalls[index].price - 5000);
+    }else{
+      setTotalAmountLLDJ(getPlayedBalls[index].price);
+    }
     setPickYourGrid(true);
   };
 

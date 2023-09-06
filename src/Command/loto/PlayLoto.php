@@ -141,13 +141,13 @@ class PlayLoto extends Command
                             if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $content=$this->notificationService->getContent('bouquet with zeed');
 
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
+                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto?goto=Result");
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
                             } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
                                 $content=$this->notificationService->getContent('bouquet without zeed');
 
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
+                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
                                 $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto?goto=Result");
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
                             }
