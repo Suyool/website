@@ -2,9 +2,7 @@
 
 namespace App\Entity\Estore;
 
-use App\Entity\Traits\DateTrait;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity
@@ -12,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Company
 {
-    //use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -21,55 +18,44 @@ class Company
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="companyId",type="integer")
      */
     private $companyId;
 
     /**
-     * 
      * @ORM\Column(name="companyDescription")
      */
     private $companyDescription;
 
     /**
-     * 
      * @ORM\Column(name="internalCode",type="string")
      */
     private $internalCode;
-    
+
     /**
-     * 
      * @ORM\Column(name="productId",type="integer")
      */
     private $productId;
 
     /**
-     * 
      * @ORM\Column(name="productDescription")
      */
     private $productDescription;
 
     /**
-     * 
      * @ORM\Column(name="servicesCode",type="integer")
      */
     private $servicesCode;
 
     /**
-     * 
      * @ORM\Column(name="servicesProviderCode",type="integer")
      */
     private $servicesProviderCode;
-
-
-
 
     public function getId()
     {
         return $this->id;
     }
-
 
     public function getservicesCode()
     {

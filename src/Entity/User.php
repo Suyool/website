@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, TwoFactorInterface
 {
-    public static $UsersStatusArray = array(0=>"FILTER BY ROLE","ROLE_ADMIN"=> "ROLE_ADMIN","ROLE_USER"=> "ROLE_USER");
+    public static $UsersStatusArray = array(0 => "FILTER BY ROLE", "ROLE_ADMIN" => "ROLE_ADMIN", "ROLE_USER" => "ROLE_USER");
 
     /**
      * @ORM\Id
@@ -55,7 +55,6 @@ class User implements UserInterface, TwoFactorInterface
      * @ORM\Column(type="string")
      */
     private $password;
-
 
     /**
      * @ORM\Column(type="datetime", name="created",nullable=true)
@@ -108,14 +107,12 @@ class User implements UserInterface, TwoFactorInterface
         return $this;
     }
 
-
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         return array_unique($roles);
     }
 
@@ -162,7 +159,8 @@ class User implements UserInterface, TwoFactorInterface
     }
 
 
-    public function getCreated(){
+    public function getCreated()
+    {
         return $this->created;
     }
     public function getUpdated(): ?\DateTimeInterface
@@ -172,18 +170,16 @@ class User implements UserInterface, TwoFactorInterface
 
     public function getCreateDateFormat()
     {
-        if(isset($this->created)){
+        if (isset($this->created)) {
             return $this->created->format('h:i Y-m-d');
-        }
-        else
+        } else
             return Null;
     }
     public function getUpdatedDateFormat()
     {
-        if(isset($this->updated)){
+        if (isset($this->updated)) {
             return $this->updated->format('h:i Y-m-d');
-        }
-        else
+        } else
             return Null;
     }
 
@@ -200,7 +196,6 @@ class User implements UserInterface, TwoFactorInterface
     public function getEmailAuthCode(): string
     {
         return $this->authCode;
-
     }
 
     public function setEmailAuthCode(string $authCode): void
@@ -208,7 +203,8 @@ class User implements UserInterface, TwoFactorInterface
         $this->authCode = $authCode;
     }
 
-    public function sendAuthCode($sms){
-        return $sms->send($this->authCode,$this->phone) == "0";
+    public function sendAuthCode($sms)
+    {
+        return $sms->send($this->authCode, $this->phone) == "0";
     }
 }

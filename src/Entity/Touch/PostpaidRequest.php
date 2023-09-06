@@ -4,7 +4,6 @@ namespace App\Entity\Touch;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostPaidRequestRepository")
  * @ORM\Table(name="postpaidrequest")
@@ -33,7 +32,7 @@ class PostpaidRequest
      */
     private $token;
 
-     /**
+    /**
      * @ORM\Column(name="response")
      */
     private $response;
@@ -309,7 +308,6 @@ class PostpaidRequest
         $this->token = $token;
         return $this;
     }
-
 
     public function getinformativeOriginalWSamount()
     {

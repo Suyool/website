@@ -4,14 +4,12 @@ namespace App\Entity\Loto;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="results")
  */
 class LOTO_results
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,107 +18,89 @@ class LOTO_results
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="drawdate",type="datetime")
      */
     private $drawdate;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $winner1;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner2;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner3;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner4;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner5;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $numbers;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $zeednumber1;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $zeednumber2;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $zeednumber3;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $zeednumber4;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner1zeed;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner2zeed;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $winner3zeed;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $winner4zeed;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $drawId;
-
 
     public function getId()
     {
         return $this->id;
     }
-
 
     public function getdrawdate()
     {
@@ -134,13 +114,13 @@ class LOTO_results
 
     public function setdrawid($drawId)
     {
-        $this->drawId=$drawId;
+        $this->drawId = $drawId;
         return $this;
     }
 
     public function setdrawdate(\DateTimeInterface $drawdate)
     {
-        $this->drawdate=$drawdate;
+        $this->drawdate = $drawdate;
         return $this;
     }
 
@@ -151,7 +131,7 @@ class LOTO_results
 
     public function setwinner1($winner1)
     {
-        $this->winner1=$winner1;
+        $this->winner1 = $winner1;
         return $this;
     }
 
@@ -162,7 +142,7 @@ class LOTO_results
 
     public function setwinner2($winner2)
     {
-        $this->winner2=$winner2;
+        $this->winner2 = $winner2;
         return $this;
     }
 
@@ -173,7 +153,7 @@ class LOTO_results
 
     public function setwinner3($winner3)
     {
-        $this->winner3=$winner3;
+        $this->winner3 = $winner3;
         return $this;
     }
 
@@ -184,7 +164,7 @@ class LOTO_results
 
     public function setwinner4($winner4)
     {
-        $this->winner4=$winner4;
+        $this->winner4 = $winner4;
         return $this;
     }
 
@@ -195,13 +175,13 @@ class LOTO_results
 
     public function setwinner5($winner5)
     {
-        $this->winner5=$winner5;
+        $this->winner5 = $winner5;
         return $this;
     }
 
     public function setnumbers($numbers)
     {
-        $this->numbers=$numbers;
+        $this->numbers = $numbers;
         return $this;
     }
 
@@ -217,7 +197,7 @@ class LOTO_results
 
     public function setzeednumber1($zeednumber1)
     {
-        $this->zeednumber1=$zeednumber1;
+        $this->zeednumber1 = $zeednumber1;
         return $this;
     }
 
@@ -228,7 +208,7 @@ class LOTO_results
 
     public function setzeednumber2($zeednumber2)
     {
-        $this->zeednumber2=$zeednumber2;
+        $this->zeednumber2 = $zeednumber2;
         return $this;
     }
 
@@ -239,7 +219,7 @@ class LOTO_results
 
     public function setzeednumber3($zeednumber3)
     {
-        $this->zeednumber3=$zeednumber3;
+        $this->zeednumber3 = $zeednumber3;
         return $this;
     }
 
@@ -250,7 +230,7 @@ class LOTO_results
 
     public function setzeednumber4($zeednumber4)
     {
-        $this->zeednumber4=$zeednumber4;
+        $this->zeednumber4 = $zeednumber4;
         return $this;
     }
 
@@ -261,7 +241,7 @@ class LOTO_results
 
     public function setwinner1zeed($winner1zeed)
     {
-        $this->winner1zeed=$winner1zeed;
+        $this->winner1zeed = $winner1zeed;
         return $this;
     }
 
@@ -272,7 +252,7 @@ class LOTO_results
 
     public function setwinner2zeed($winner2zeed)
     {
-        $this->winner2zeed=$winner2zeed;
+        $this->winner2zeed = $winner2zeed;
         return $this;
     }
 
@@ -283,7 +263,7 @@ class LOTO_results
 
     public function setwinner3zeed($winner3zeed)
     {
-        $this->winner3zeed=$winner3zeed;
+        $this->winner3zeed = $winner3zeed;
         return $this;
     }
 
@@ -294,8 +274,7 @@ class LOTO_results
 
     public function setwinner4zeed($winner4zeed)
     {
-        $this->winner4zeed=$winner4zeed;
+        $this->winner4zeed = $winner4zeed;
         return $this;
     }
-
 }

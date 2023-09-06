@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="support")
@@ -37,7 +36,6 @@ class Support
      * @ORM\Column(name="message")
      */
     private $message;
-
 
     public function getId()
     {

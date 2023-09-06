@@ -2,10 +2,7 @@
 
 namespace App\Entity\Loto;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
@@ -13,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class order
 {
-
-    public static $statusOrder = array("COMPLETED"=>"completed","PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","CANCELED"=>"canceled");
+    public static $statusOrder = array("COMPLETED" => "completed", "PENDING" => "pending", "HELD" => "held", "PURCHASED" => "purchased", "CANCELED" => "canceled");
 
     /**
      * @ORM\Id
@@ -23,61 +19,50 @@ class order
      */
     private $id;
 
-     /**
-     * 
+    /**
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
 
-     /**
-     * 
+    /**
      * @ORM\Column(name="errorInfo")
      */
     private $error;
 
     /**
-     * 
      * @ORM\Column(name="status",type="string")
      */
     private $status;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $subscription;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $amount;
 
-     /**
-     * 
+    /**
      * @ORM\Column(type="string")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $transId;
 
     /**
-     * 
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
 
-
-
     public function __construct()
-{
-    // Set a default value (e.g., the current date/time) for the $created property
-    $this->created = new \DateTime();
-}
+    {
+        $this->created = new \DateTime();
+    }
 
     public function getId()
     {
@@ -91,7 +76,7 @@ class order
 
     public function setsuyoolUserId($suyoolUserId)
     {
-        $this->suyoolUserId=$suyoolUserId;
+        $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
 
@@ -102,7 +87,7 @@ class order
 
     public function setstatus($status)
     {
-        $this->status=$status;
+        $this->status = $status;
         return $this;
     }
 
@@ -113,7 +98,7 @@ class order
 
     public function setsubscription($subscription)
     {
-        $this->subscription=$subscription;
+        $this->subscription = $subscription;
         return $this;
     }
 
@@ -124,7 +109,7 @@ class order
 
     public function setamount($amount)
     {
-        $this->amount=$amount;
+        $this->amount = $amount;
         return $this;
     }
 
@@ -135,7 +120,7 @@ class order
 
     public function setcurrency($currency)
     {
-        $this->currency=$currency;
+        $this->currency = $currency;
         return $this;
     }
 
@@ -146,7 +131,7 @@ class order
 
     public function seterror($error)
     {
-        $this->error=$error;
+        $this->error = $error;
         return $this;
     }
 
@@ -157,7 +142,7 @@ class order
 
     public function settransId($transId)
     {
-        $this->transId=$transId;
+        $this->transId = $transId;
         return $this;
     }
 
@@ -165,7 +150,4 @@ class order
     {
         return $this->created;
     }
-
-
-
 }

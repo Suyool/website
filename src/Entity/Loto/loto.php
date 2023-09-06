@@ -4,7 +4,6 @@ namespace App\Entity\Loto;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlaysRepository")
  * @ORM\Table(name="loto")
@@ -24,109 +23,87 @@ class loto
     private $order;
 
     /**
-     * 
      * @ORM\Column(name="ticketId")
      */
     private $ticketId = 0;
 
     /**
-     * 
      * @ORM\Column(name="drawNumber",type="string")
      */
     private $drawNumber;
 
     /**
-     * 
      * @ORM\Column(name="numdraws",type="string")
      */
     private $numdraws;
 
-    
-
     /**
-     * 
      * @ORM\Column(name="withZeed",type="integer")
      */
     private $withZeed;
 
     /**
-     * 
      * @ORM\Column(name="gridSelected")
      */
     private $gridSelected;
 
     /**
-     * 
      * @ORM\Column(name="zeednumbers")
      */
     private $zeednumbers;
 
     /**
-     * 
      * @ORM\Column(name="price")
      */
     private $price;
 
     /**
-     * 
      * @ORM\Column(name="currency")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(name="bouquet")
      */
     private $bouquet;
 
     /**
-     * 
      * @ORM\Column(name="errorInfo")
      */
     private $errorInfo;
 
     /**
-     * 
      * @ORM\Column(name="prizeLoto")
      */
     private $wonloto;
 
-
     /**
-     * 
      * @ORM\Column(name="prizeZeed")
      */
     private $wonzeed;
 
     /**
-     * 
      * @ORM\Column(name="winLoto")
      */
     private $winloto;
 
-
     /**
-     * 
      * @ORM\Column(name="winZeed")
      */
     private $winzeed;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $winningStatus;
 
     /**
-     * 
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
 
-
     public function __construct()
     {
-        // Set a default value (e.g., the current date/time) for the $created property
         $this->created = new \DateTime();
     }
 
@@ -143,7 +120,6 @@ class loto
     public function setOrderId(?order $order_id): self
     {
         $this->order = $order_id;
-
         return $this;
     }
 
@@ -187,7 +163,6 @@ class loto
         } else {
             return 0;
         }
-        // return $this->withZeed;
     }
 
     public function setWithZeed($withZeed)
@@ -248,7 +223,6 @@ class loto
         } else {
             return false;
         }
-        // return $this->bouquet;
     }
 
     public function setbouquet($bouquet)
@@ -314,7 +288,7 @@ class loto
 
     public function setwinningStatus($winningStatus)
     {
-        $this->winningStatus=$winningStatus;
+        $this->winningStatus = $winningStatus;
         return $this;
     }
 
@@ -322,7 +296,6 @@ class loto
     {
         return $this->winningStatus;
     }
-
 
     public function getCreated()
     {

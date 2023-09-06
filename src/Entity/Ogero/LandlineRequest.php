@@ -4,7 +4,6 @@ namespace App\Entity\Ogero;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="landlinerequest")
@@ -28,12 +27,12 @@ class LandlineRequest
      */
     private $gsmNumber;
 
-     /**
+    /**
      * @ORM\Column(name="response")
      */
     private $response;
 
-     /**
+    /**
      * @ORM\Column(name="errorDesc")
      */
     private $errorDesc;
@@ -127,11 +126,6 @@ class LandlineRequest
      */
     private $rounding;
 
-
-
-
-
-
     public function getId()
     {
         return $this->id;
@@ -214,7 +208,6 @@ class LandlineRequest
         return $this;
     }
 
-
     public function getfees1()
     {
         return $this->fees1;
@@ -236,7 +229,6 @@ class LandlineRequest
         $this->amount = $amount;
         return $this;
     }
-
 
     public function getamount1()
     {
