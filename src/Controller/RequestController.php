@@ -159,7 +159,7 @@ class RequestController extends AbstractController
         $parameters['ReceiverPhone'] = $this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
             if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
-                $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname']);
+                $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['fname'], $_POST['lname']);
 
                 if ($parameters['cashin']['globalCode'] == 0) {
                     $parameters['message'] = $parameters['cashin']['message'];
