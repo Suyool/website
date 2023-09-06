@@ -132,8 +132,12 @@ const PickYourGrid = ({
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
-          const sortedExistingBalls = [...set.balls].filter(item => item !== null).sort();
-          const sortedSelectedBalls = [...selectedBalls].filter(item => item !== null).sort();
+          const sortedExistingBalls = [...set.balls]
+            .filter((item) => item !== null)
+            .sort();
+          const sortedSelectedBalls = [...selectedBalls]
+            .filter((item) => item !== null)
+            .sort();
           return (
             JSON.stringify(sortedExistingBalls) ===
             JSON.stringify(sortedSelectedBalls)
@@ -196,8 +200,12 @@ const PickYourGrid = ({
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
-          const sortedExistingBalls = [...set.balls].filter(item => item !== null).sort();
-          const sortedSelectedBalls = [...selectedBalls].filter(item => item !== null).sort();
+          const sortedExistingBalls = [...set.balls]
+            .filter((item) => item !== null)
+            .sort();
+          const sortedSelectedBalls = [...selectedBalls]
+            .filter((item) => item !== null)
+            .sort();
           return (
             JSON.stringify(sortedExistingBalls) ===
             JSON.stringify(sortedSelectedBalls)
@@ -274,43 +282,23 @@ const PickYourGrid = ({
   };
 
   return (
-    <div className="PickYourGrid">
-      <div className="topSectionPick">
-        <div className="titles">
-          <div className="titleGrid">Pick Your Grid</div>
-          <button onClick={handleCancel}>Cancel</button>
-        </div>
+    <div className="PickYourGridContainer">
+      <div className="PickYourGrid">
+        <div className="topSectionPick">
+          <div className="titles">
+            <div className="titleGrid">Pick Your Grid</div>
+            <button onClick={handleCancel}>Cancel</button>
+          </div>
 
-        <div className="selectedBalls">
-          {selectedBalls.map((number, index) =>
-            index <= 5 ? (
-              <div
-                key={index}
-                id={`${
-                  getPlay && number == null && index > 5
-                    ? `boxappear${index}`
-                    : ""
-                }`}
-              >
-                <span
-                  onClick={() => {
-                    // handleRemoveBtn(number)
-                  }}
-                  className={`${number !== null ? "active" : ""}`}
-                >
-                  {number}
-                </span>
-                <div className="shadow"></div>
-              </div>
-            ) : null
-          )}
-          {selectedBalls.slice(6).length > 0 && (
-            <div style={{ display: "flex" }}>
-              {selectedBalls.slice(6).map((number, index) => (
+          <div className="selectedBalls">
+            {selectedBalls.map((number, index) =>
+              index <= 5 ? (
                 <div
                   key={index}
                   id={`${
-                    getPlay && number == null ? `boxappear${index + 6}` : ""
+                    getPlay && number == null && index > 5
+                      ? `boxappear${index}`
+                      : ""
                   }`}
                 >
                   <span
@@ -323,55 +311,77 @@ const PickYourGrid = ({
                   </span>
                   <div className="shadow"></div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="bodySectionPick">
-        {ballNumbers.map((number) => {
-          const isSelected = selectedBalls.includes(number);
-          const ballClass = isSelected ? "active" : "";
-
-          return (
-            <div className="ballCont" key={number}>
-              <button onClick={() => handleBallClick(number)}>
-                <span
-                  onClick={() => {
-                    handleRemoveBtn(number);
-                  }}
-                  className={`${ballClass}`}
-                >
-                  {number}
-                </span>
-              </button>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="footSectionPick">
-        <div id="Total">
-          <span>TOTAL</span>
-          <div className="thePrice">
-            L.L{" "}
-            <div className="big">
-              {parseInt(getTotalAmountLLDJ).toLocaleString()}
-            </div>
+              ) : null
+            )}
+            {selectedBalls.slice(6).length > 0 && (
+              <div style={{ display: "flex" }}>
+                {selectedBalls.slice(6).map((number, index) => (
+                  <div
+                    key={index}
+                    id={`${
+                      getPlay && number == null ? `boxappear${index + 6}` : ""
+                    }`}
+                  >
+                    <span
+                      onClick={() => {
+                        // handleRemoveBtn(number)
+                      }}
+                      className={`${number !== null ? "active" : ""}`}
+                    >
+                      {number}
+                    </span>
+                    <div className="shadow"></div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="options">
-          <button className="aboutGrid" onClick={handleClearPick}>
-            Clear grid
-          </button>
-          <button className="aboutGrid" onClick={handleQuickPick}>
-            Quick pick
-          </button>
-          <button className="done" onClick={handleDone}>
-            Done
-          </button>
+        <div className="bodySectionPick">
+          {ballNumbers.map((number) => {
+            const isSelected = selectedBalls.includes(number);
+            const ballClass = isSelected ? "active" : "";
+
+            return (
+              <div className="ballCont" key={number}>
+                <button onClick={() => handleBallClick(number)}>
+                  <span
+                    onClick={() => {
+                      handleRemoveBtn(number);
+                    }}
+                    className={`${ballClass}`}
+                  >
+                    {number}
+                  </span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="footSectionPick">
+          <div id="Total">
+            <span>TOTAL</span>
+            <div className="thePrice">
+              L.L{" "}
+              <div className="big">
+                {parseInt(getTotalAmountLLDJ).toLocaleString()}
+              </div>
+            </div>
+          </div>
+
+          <div className="options">
+            <button className="aboutGrid" onClick={handleClearPick}>
+              Clear grid
+            </button>
+            <button className="aboutGrid" onClick={handleQuickPick}>
+              Quick pick
+            </button>
+            <button className="done" onClick={handleDone}>
+              Done
+            </button>
+          </div>
         </div>
       </div>
     </div>

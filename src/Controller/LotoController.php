@@ -645,4 +645,14 @@ class LotoController extends AbstractController
             ]);
         }
     }
+
+     /**
+     * @Route("/api/getResult", name="getResultApi",methods="GET")
+     * 
+     */
+    public function getResult(Request $request)
+    {
+        
+ 
+    }
 }
