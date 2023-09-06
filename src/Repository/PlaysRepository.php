@@ -272,6 +272,7 @@ class PlaysRepository extends EntityRepository
             ->getResult();
 
         // dd($qb);
+        $listWinners=[];
 
         foreach ($qb as $qb) {
             $userId = $qb['suyoolUserId'];
