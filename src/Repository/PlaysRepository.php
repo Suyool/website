@@ -315,7 +315,7 @@ class PlaysRepository extends EntityRepository
         }
 
         return $this->createQueryBuilder('l')
-            ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null)")
+            ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null) and l.winningStatus is null")
             ->setParameter('orderid', $order)
             ->getQuery()
             ->getResult();
