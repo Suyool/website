@@ -63,23 +63,16 @@ class PlaysRepository extends EntityRepository
 
     public function findPlayedUserAndDontPlayThisWeek($lastdraw)
     {
-        $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
         $day = date('w');
-        // $day=0;
         $monday = $day - 1;
         $current_time = strtotime('now');
 
         if ($current_time < strtotime('today 10:00:00')) {
             $monday = 6 - $monday;
         }
-        // dd($monday);
         $week_start = date('Y-m-d ', strtotime('-' . $monday . ' days'));
         $week_end = date('Y-m-d ', strtotime('+' . (6 - $monday) . ' days'));
-        // dd($week_end);
-
         $sixmonth = date("Y-m-d", strtotime("+6 months"));
-
-        // dd($sixmonth);
 
         $userid = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId')
@@ -90,15 +83,10 @@ class PlaysRepository extends EntityRepository
             ->groupBy('o.suyoolUserId')
             ->getQuery()
             ->getResult();
-        // dd($userid);
-
-        $dateoneweek = date("Y-m-d H:i:s", strtotime("+1 week"));
-        // dd($dateoneweek);
         $response = [];
         $responseArray = [];
 
         foreach ($userid as $userid) {
-            // echo $userid['suyoolUserId'];
             $responseArray = [];
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
@@ -112,13 +100,10 @@ class PlaysRepository extends EntityRepository
                 ->getQuery()
                 ->getResult();
 
-            // var_dump($result);
             if (!empty($result)) {
                 $responseArray[] = array_merge($response, $result);
             }
         }
-        // dd($result);
-        // var_dump($result);
         return $responseArray;
     }
 
@@ -161,7 +146,6 @@ class PlaysRepository extends EntityRepository
                 $gridSelectedString = implode(" ", $numbers);
                 $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers']];
             }
-            // $groupedResults[$drawdate]['zeedSelected'][] = $result['zeednumbers'];
         }
 
         return array_values($groupedResults); // Return the grouped results as indexed array
@@ -196,9 +180,7 @@ class PlaysRepository extends EntityRepository
                 $gridSelectedString = implode(" ", $numbers);
                 $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers']];
             }
-            // $groupedResults[$drawdate]['zeedSelected'][] = $result['zeednumbers'];
         }
-
         return array_values($groupedResults); // Return the grouped results as indexed array
     }
 
@@ -207,8 +189,6 @@ class PlaysRepository extends EntityRepository
         return $this->createQueryBuilder('l')
             ->where('l.order = :heldorder and (l.ticketId = 0 or l.ticketId is null)')
             ->setParameter('heldorder', $heldorder)
-            // ->setMaxResults(1)
-            // ->setParameter('processing','completed')
             ->getQuery()
             ->getResult();
     }
@@ -271,17 +251,14 @@ class PlaysRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        // dd($qb);
-        $listWinners=[];
+        $listWinners = [];
 
         foreach ($qb as $qb) {
             $userId = $qb['suyoolUserId'];
             if (!isset($listWinners[$userId])) {
                 $listWinners[$userId] = [
                     'UserAccountID' => $userId,
-                    // 'Amount' => [],
                     'Currency' => "LBP",
-                    // 'OrderID' => [],
                 ];
             }
             $listWinners[$userId]['Amount'][] = $qb['total'];
@@ -302,7 +279,7 @@ class PlaysRepository extends EntityRepository
         return $this->createQueryBuilder('l')
             ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null) and l.winningStatus = :pending ")
             ->setParameter('orderid', $order)
-            ->setParameter('pending','pending')
+            ->setParameter('pending', 'pending')
             ->getQuery()
             ->getResult();
     }

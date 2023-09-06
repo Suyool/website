@@ -18,12 +18,10 @@ class UserFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('email', EmailType::class, [
                 'label' => 'Email',
             ]);
 
-        // Check if an ID is set (editing an existing user)
         if (!$options['is_edit']) {
             $builder->add('password', PasswordType::class, [
                 'label' => 'Password',
@@ -36,7 +34,6 @@ class UserFormType extends AbstractType
                 'choices' => [
                     'ROLE_USER' => 'ROLE_USER',
                     'ROLE_ADMIN' => 'ROLE_ADMIN',
-                    // Add other roles as needed
                 ],
                 'multiple' => true,
             ])
@@ -55,5 +52,4 @@ class UserFormType extends AbstractType
             'is_edit' => false, // Custom option to indicate if editing an existing user
         ]);
     }
-
 }

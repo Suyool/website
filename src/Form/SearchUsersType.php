@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Form;
 
 use App\Entity\Managers;
@@ -10,11 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-
 class SearchUsersType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -45,7 +43,7 @@ class SearchUsersType extends AbstractType
             'required' => false,
             'validation_groups' => false,
             'csrf_protection'   => false,
-            'method'=>'get',
+            'method' => 'get',
             'locale' => 'en',
         ]);
     }

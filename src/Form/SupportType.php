@@ -35,7 +35,7 @@ class SupportType extends AbstractType
                     new NotBlank(['message' => 'Please enter a subject.']),
                 ],
             ])
-            ->add('message', TextareaType::class, [ 
+            ->add('message', TextareaType::class, [
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Please enter a message.']),

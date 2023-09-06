@@ -8,15 +8,16 @@ class ManagersRepository extends AppRepository implements UserLoaderInterface
 {
     public function getManagers($predicates = false, $select = "m", $orderBy = false, $maxResults = false, $firstResult = false)
     {
-        return $this->executeQuery("m",$predicates, $select, $orderBy, $maxResults, $firstResult);
+        return $this->executeQuery("m", $predicates, $select, $orderBy, $maxResults, $firstResult);
     }
 
-    public function getAllManagers(){
+    public function getAllManagers()
+    {
         return $this->buildQuery(
             'm',
             false,
             "m",
-            ["m.createDate"=>"desc"]
+            ["m.createDate" => "desc"]
         );
     }
 
@@ -31,7 +32,7 @@ class ManagersRepository extends AppRepository implements UserLoaderInterface
             "m.id,m.user,m.name"
         );
 
-        return !empty($manager)?$manager[0]:false;
+        return !empty($manager) ? $manager[0] : false;
     }
 
     public function loadUserByUsername($username)
