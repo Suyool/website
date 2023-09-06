@@ -20,7 +20,7 @@ class SupportController extends AbstractController
         $this->mr = $mr->getManager('default');
     }
 
-     /**
+    /**
      * @Route("/contact-us", name="app_contact_us")
      */
     public function index(Request $request): Response
@@ -43,7 +43,7 @@ class SupportController extends AbstractController
         ]);
     }
 
-         /**
+    /**
      * @Route("/support", name="app_support")
      */
     public function support(Request $request): Response

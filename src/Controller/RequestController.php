@@ -21,13 +21,13 @@ class RequestController extends AbstractController
     private $cashinput = false;
     private $suyoolServices;
 
-    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate,SuyoolServices $suyoolServices)
+    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate, SuyoolServices $suyoolServices)
     {
         $this->trans = $trans;
         $this->session = $session;
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
-        $this->suyoolServices=$suyoolServices;
+        $this->suyoolServices = $suyoolServices;
     }
 
     function GetInitials($name)
@@ -50,7 +50,6 @@ class RequestController extends AbstractController
         $this->session->remove('requestGenerated');
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
-
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
 
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
@@ -107,11 +106,11 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['iban']
                 : ''
         );
-        if(isset($parameters['request_details_response']['additionalData'])){
+        if (isset($parameters['request_details_response']['additionalData'])) {
             $additionalData = $parameters['request_details_response']['additionalData'];
             $additionalData = json_decode($additionalData, true);
         }
-        
+
         $this->session->set(
             "receiverFname",
             isset($additionalData['receiverFname'])
@@ -147,9 +146,9 @@ class RequestController extends AbstractController
      */
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
-        $code=$this->session->get('requestGenerated');
-        if(isset($code)){
-            $parameters['cashin']['data']=$code;
+        $code = $this->session->get('requestGenerated');
+        if (isset($code)) {
+            $parameters['cashin']['data'] = $code;
             return $this->render('request/codeGenerated.html.twig', $parameters);
         }
         $submittedToken = $request->request->get('token');
@@ -188,8 +187,6 @@ class RequestController extends AbstractController
     public function codeGenerated(Request $request, TranslatorInterface $translator): Response
     {
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
 
@@ -202,8 +199,6 @@ class RequestController extends AbstractController
     public function visaCard(Request $request, TranslatorInterface $translator): Response
     {
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 

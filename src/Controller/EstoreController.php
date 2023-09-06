@@ -24,11 +24,9 @@ class EstoreController extends AbstractController
 
     private function _decodeGzipString(string $gzipString): string
     {
-        // Decode GZip string
         $decodedString = '';
         $decodedData = @gzdecode($gzipString);
 
-        // Check if the decoding was successful
         if ($decodedData !== false) {
             $decodedString = $decodedData;
         }
@@ -87,7 +85,7 @@ class EstoreController extends AbstractController
     //         'controller_name' => 'EstoreController',
     //     ]);
     // }
-     /**
+    /**
      * @Route("/estore", name="app_estore")
      */
 
@@ -140,7 +138,6 @@ class EstoreController extends AbstractController
     //     ]);
     // }
 
-
     public function index()
     {
 
@@ -167,20 +164,6 @@ class EstoreController extends AbstractController
         $JsonResponse = json_decode($decodedString, true);
         $Prices = $JsonResponse['ConfigurationFileDataId:23'][0];
         dd($Prices);
-        // foreach ($Prices as $price) {
-        //     $Price = new Price;
-        //     $Price
-        //         ->setdenominationId($price[0])
-        //         ->setdenominationDescription($price[1])
-        //         ->setAmount($price[2])
-        //         ->setCommission($price[3])
-        //         ->setparentConfigurationDataId($price[4])
-        //         ->setserviceCode($price[5])
-        //         ->setserviceProviderCode($price[6]);
-
-        //     $this->mr->persist($Price);
-        //     $this->mr->flush();
-        // }
 
         return $this->render('estore/index.html.twig', [
             'controller_name' => 'EstoreController',

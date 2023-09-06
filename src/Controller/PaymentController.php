@@ -14,10 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PaymentController extends AbstractController
 {
-
-    
     private $trans;
-
     private $session;
     private $hash_algo;
     private $certificate;
@@ -31,7 +28,6 @@ class PaymentController extends AbstractController
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
-
     }
 
     /**
@@ -41,10 +37,7 @@ class PaymentController extends AbstractController
     {
         $this->session->remove('codeGenerated');
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currentPage'] = "payment_landingPage";
-
         $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $parameters['lang']);
 
         if ($parameters['payment_details_response'] != null) {
@@ -113,7 +106,6 @@ class PaymentController extends AbstractController
                         : ''
                 );
             }
-
         }
         return $this->render('payment/index.html.twig', $parameters);
     }
@@ -138,9 +130,7 @@ class PaymentController extends AbstractController
                 $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname']);
 
                 if ($parameters['cashout']['globalCode'] == 0) {
-
                     $parameters['message'] = $parameters['cashout']['message'];
-
                     return $this->render('payment/generateCode.html.twig', $parameters);
                 } else {
                     $this->session->set(
@@ -156,10 +146,8 @@ class PaymentController extends AbstractController
                 $parameters['message'] = 'All input are required';
             }
         }
-
         return $this->render('payment/generateCode.html.twig', $parameters);
     }
-
 
     /**
      * @Route("/codeGenerated", name="payment_codeGenerated")
@@ -168,10 +156,8 @@ class PaymentController extends AbstractController
     {
         $parameters = $this->trans->translation($request, $translator);
         $parameters['code'] = $request->query->get('codeATM');
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
-
 
         return $this->render('payment/codeGenerated.html.twig', $parameters);
     }
@@ -182,8 +168,6 @@ class PaymentController extends AbstractController
     public function visaCard(Request $request, TranslatorInterface $translator): Response
     {
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 
@@ -195,8 +179,6 @@ class PaymentController extends AbstractController
      */
     public function test()
     {
-        
-
         $_SESSION["favcolor"] = "green";
         $_SESSION["favanimal"] = "cat";
     }

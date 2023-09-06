@@ -46,14 +46,11 @@ class OgeroController extends AbstractController
             $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
-            if(!isset($suyoolUserInfo[1])){
+            if (!isset($suyoolUserInfo[1])) {
                 return $this->render('ExceptionHandling.html.twig');
             }
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-
             $parameters['deviceType'] = $suyoolUserInfo[1];
-
-
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $this->session->set('suyoolUserId', $suyoolUserInfo[0]);
                 return $this->render('ogero/index.html.twig', ['parameters' => $parameters]);
@@ -123,9 +120,9 @@ class OgeroController extends AbstractController
                     ->seterrordesc($RetrieveChannel[2]);
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
-                $message="Not found";
+                $message = "Not found";
                 $LandlineReqId = -1;
-                $mobileNb=$data["mobileNumber"];
+                $mobileNb = $data["mobileNumber"];
             }
         } else {
             $message = "not connected";
@@ -150,11 +147,9 @@ class OgeroController extends AbstractController
      */
     public function billPay(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
-
         $suyoolServices = new SuyoolServices($this->params->get('OGERO_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
         $suyoolUserId = $this->session->get('suyoolUserId');
-
         $Landline_With_id = $this->mr->getRepository(LandlineRequest::class)->findOneBy(['id' => $data["LandlineId"]]);
         $flagCode = null;
 
@@ -183,7 +178,6 @@ class OgeroController extends AbstractController
                     ->setstatus(Order::$statusOrder['HELD']);
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
-
 
                 //paid landline from bob Provider
                 $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
@@ -284,7 +278,7 @@ class OgeroController extends AbstractController
                         $dataPayResponse = -1;
                     }
                 } else {
-                    $logs=new Logs;
+                    $logs = new Logs;
                     $logs->setidentifier("ogero error");
                     $logs->seterror($BillPayOgero[2]);
 
@@ -294,8 +288,7 @@ class OgeroController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0,"", $orderupdate1->gettransId());
-                    // dd($responseUpdateUtilities);
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -306,24 +299,21 @@ class OgeroController extends AbstractController
 
                         $message = "Success return money!!";
                     } else {
-                        $logs=new Logs;
+                        $logs = new Logs;
                         $logs->setidentifier("Update Utility error");
 
-                        if(isset($responseUpdateUtilities[1])){
+                        if (isset($responseUpdateUtilities[1])) {
                             $logs->seterror($responseUpdateUtilities[1]);
-
-                        }else{
+                        } else {
                             $logs->seterror(null);
-
                         }
 
-                    $this->mr->persist($logs);
-                    $this->mr->flush();
+                        $this->mr->persist($logs);
+                        $this->mr->flush();
                         $message = "Can not return money!!";
                     }
                 }
             } else {
-
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
@@ -338,7 +328,6 @@ class OgeroController extends AbstractController
                 if (isset($response[2])) {
                     $flagCode = $response[2];
                 }
-                // $message = $response[1];
                 $dataPayResponse = -1;
             }
         } else {

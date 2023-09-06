@@ -54,18 +54,13 @@ class AlfaController extends AbstractController
         if (isset($_POST['infoString'])) {
             $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
-            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-
-            // $suyoolUserInfo[0]=15;
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $this->session->set('suyoolUserId', 89);
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-
 
                 return $this->render('alfa/index.html.twig', [
                     'parameters' => $parameters
@@ -90,13 +85,10 @@ class AlfaController extends AbstractController
         $SuyoolUserId = $this->session->get('suyoolUserId');
 
         $data = json_decode($request->getContent(), true);
-        // dd($data);
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
-            // dd($sendBill);
             $sendBillRes = json_decode($sendBill, true);
             if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
-                // dd($sendBillRes);
                 $invoices = new PostpaidRequest;
                 $invoices
                     ->setSuyoolUserId($SuyoolUserId)
@@ -105,20 +97,19 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 $invoicesId = $invoices->getId();
-                // dd($invoicesId);
                 $message = "connected";
             } else {
-                $postpaidrequest=new PostpaidRequest;
+                $postpaidrequest = new PostpaidRequest;
                 $postpaidrequest
-            ->setSuyoolUserId($SuyoolUserId)
-            ->setGsmNumber($data["mobileNumber"])
-            ->seterror($sendBillRes["ResponseText"]);
+                    ->setSuyoolUserId($SuyoolUserId)
+                    ->setGsmNumber($data["mobileNumber"])
+                    ->seterror($sendBillRes["ResponseText"]);
 
-            $this->mr->persist($postpaidrequest);
+                $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
                 echo "error";
                 $invoicesId = -1;
-                $message="not connected";
+                $message = "not connected";
             }
         } else {
             $message = "not connected";
@@ -145,81 +136,57 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
 
-        // dd($data);
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
-            // dd($retrieveResults);
-            if(isset($retrieveResults) && $retrieveResults[0] ){
-            $jsonResult = json_decode($retrieveResults[1], true);
-            $displayData = $jsonResult["Values"];
+            if (isset($retrieveResults) && $retrieveResults[0]) {
+                $jsonResult = json_decode($retrieveResults[1], true);
+                $displayData = $jsonResult["Values"];
 
-            $Pin = implode("", $data["Pin"]);
-            $RandSuyoolUserId = rand();
-            $invoicesId = $data["invoicesId"];
-            $displayedFees = intval($jsonResult["Values"]["Fees"])+intval($jsonResult["Values"]["Fees1"])+intval($jsonResult["Values"]["AdditionalFees"]);
-
-            // dd($invoicesId);
-            $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
-            // $Postpaid = new Postpaid;
-            $invoices
-                ->setfees($jsonResult["Values"]["Fees"])
-                ->setfees1($jsonResult["Values"]["Fees1"])
-                ->setdisplayedFees($displayedFees)
-                ->setamount($jsonResult["Values"]["Amount"])
-                ->setamount1($jsonResult["Values"]["Amount1"])
-                ->setamount2($jsonResult["Values"]["Amount2"])
-                ->setreferenceNumber($jsonResult["Values"]["ReferenceNumber"])
-                ->setinformativeOriginalWSamount($jsonResult["Values"]["InformativeOriginalWSAmount"])
-                ->settotalamount($jsonResult["Values"]["TotalAmount"])
-                ->setcurrency($jsonResult["Values"]["Currency"])
-                ->setrounding($jsonResult["Values"]["Rounding"])
-                ->setadditionalfees($jsonResult["Values"]["AdditionalFees"])
-                ->setSuyoolUserId($SuyoolUserId)
-                ->setPin($Pin)
-                ->setGsmNumber($data["mobileNumber"])
-                ->setTransactionId($jsonResult["Values"]["TransactionId"])
-                ->seterrordesc($retrieveResults[2])
-                ->seterrorcode($retrieveResults[3])
-                ->setresponse($retrieveResults[4]);
-
-            $this->mr->persist($invoices);
-            $this->mr->flush();
-
-            // dd($invoices->getId());
-
-            $invoicesId = $invoices->getId();
-            // $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpayedId]);
-
-
-            // $order = new Order;
-            // $order
-            //     ->setsuyoolUserId($RandSuyoolUserId)
-            //     ->settransId(null)
-            //     ->setpostpaidId($postpaid)
-            //     ->setprepaidId(null)
-            //     ->setstatus("Pending")
-            //     ->setamount($jsonResult["Values"]["TotalAmount"])
-            //     ->setcurrency($jsonResult["Values"]["Currency"]);
-            // $this->mr->persist($order);
-            // $this->mr->flush();
-
-            // dd($order);
-            $message = "connected";
-            }else{
+                $Pin = implode("", $data["Pin"]);
                 $invoicesId = $data["invoicesId"];
+                $displayedFees = intval($jsonResult["Values"]["Fees"]) + intval($jsonResult["Values"]["Fees1"]) + intval($jsonResult["Values"]["AdditionalFees"]);
 
                 $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
                 $invoices
-                ->seterrordesc($retrieveResults[1])
-                ->seterrorcode($retrieveResults[2])
-                ->setresponse($retrieveResults[3]);
+                    ->setfees($jsonResult["Values"]["Fees"])
+                    ->setfees1($jsonResult["Values"]["Fees1"])
+                    ->setdisplayedFees($displayedFees)
+                    ->setamount($jsonResult["Values"]["Amount"])
+                    ->setamount1($jsonResult["Values"]["Amount1"])
+                    ->setamount2($jsonResult["Values"]["Amount2"])
+                    ->setreferenceNumber($jsonResult["Values"]["ReferenceNumber"])
+                    ->setinformativeOriginalWSamount($jsonResult["Values"]["InformativeOriginalWSAmount"])
+                    ->settotalamount($jsonResult["Values"]["TotalAmount"])
+                    ->setcurrency($jsonResult["Values"]["Currency"])
+                    ->setrounding($jsonResult["Values"]["Rounding"])
+                    ->setadditionalfees($jsonResult["Values"]["AdditionalFees"])
+                    ->setSuyoolUserId($SuyoolUserId)
+                    ->setPin($Pin)
+                    ->setGsmNumber($data["mobileNumber"])
+                    ->setTransactionId($jsonResult["Values"]["TransactionId"])
+                    ->seterrordesc($retrieveResults[2])
+                    ->seterrorcode($retrieveResults[3])
+                    ->setresponse($retrieveResults[4]);
 
                 $this->mr->persist($invoices);
-            $this->mr->flush();
+                $this->mr->flush();
+
+                $invoicesId = $invoices->getId();
+                $message = "connected";
+            } else {
+                $invoicesId = $data["invoicesId"];
+                $invoices =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $invoicesId]);
+                $invoices
+                    ->seterrordesc($retrieveResults[1])
+                    ->seterrorcode($retrieveResults[2])
+                    ->setresponse($retrieveResults[3]);
+
+                $this->mr->persist($invoices);
+                $this->mr->flush();
 
                 $displayData = -1;
-            $message = $retrieveResults[2];
-            $invoicesId = -1;
+                $message = $retrieveResults[2];
+                $invoicesId = -1;
             }
         } else {
             $displayData = -1;
@@ -267,7 +234,6 @@ class AlfaController extends AbstractController
 
             $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
-
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'));
 
@@ -280,13 +246,10 @@ class AlfaController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
 
-
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPay($Postpaid_With_id);
-                // dd($billPay);
                 if ($billPay[0] != "") {
                     $billPayArray = json_decode($billPay[0], true);
-
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
                     $postpaid
@@ -315,8 +278,6 @@ class AlfaController extends AbstractController
 
                     $postpaidId = $postpaid->getId();
                     $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpaidId]);
-
-
 
                     //update order by passing prepaidId to order and set status to purshased
                     $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
@@ -352,16 +313,15 @@ class AlfaController extends AbstractController
                         'Currency' => $Postpaid_With_id->getcurrency(),
                         'Rounding' => $Postpaid_With_id->getrounding(),
                     ]);
-                    // dd($updateUtilitiesAdditionalData);
+
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  $updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' =>Order::$statusOrder['PURCHASED']]);
-
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed
                         $orderupdate5
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror("reversed error from alfa:".$billPay[2]);
+                            ->seterror("reversed error from alfa:" . $billPay[2]);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
@@ -386,7 +346,7 @@ class AlfaController extends AbstractController
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['COMPLETED'])
-                            ->seterror("reversed error from alfa:".$billPay[2]);;
+                            ->seterror("reversed error from alfa:" . $billPay[2]);;
 
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
@@ -396,14 +356,13 @@ class AlfaController extends AbstractController
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1] . " " .$billPay[2]);
+                            ->seterror($responseUpdateUtilities[1] . " " . $billPay[2]);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
                         $message = "Can not return money!!";
                     }
                 }
             } else {
-
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
@@ -416,7 +375,6 @@ class AlfaController extends AbstractController
                 if (isset($response[2])) {
                     $flagCode = $response[2];
                 }
-                // $message = $response[1];
                 $dataPayResponse = -1;
             }
         } else {
@@ -434,8 +392,6 @@ class AlfaController extends AbstractController
         ], 200);
     }
 
-
-
     /**
      * PrePaid
      * Provider : LOTO
@@ -444,10 +400,7 @@ class AlfaController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-
-        // $filter = $lotoServices->VoucherFilter("ALFA");
         $filter =  $Memcached->getVouchers($lotoServices);
-        // dd($filter);
 
         return new JsonResponse([
             'status' => true,
@@ -467,7 +420,6 @@ class AlfaController extends AbstractController
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_PREPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
         $flagCode = null;
-        // dd($data["desc"]);
 
         if ($data != null) {
             //Initial order with status pending
@@ -487,9 +439,7 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
-            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
-            // dd($response);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -499,10 +449,8 @@ class AlfaController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
 
-
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                // dd($BuyPrePaid);
                 $PayResonse = $BuyPrePaid[0]["d"];
                 $dataPayResponse = $PayResonse;
                 if ($PayResonse["errorinfo"]["errorcode"] != 0) {
@@ -517,23 +465,21 @@ class AlfaController extends AbstractController
                     $this->mr->flush();
                     $IsSuccess = false;
                     $message = $PayResonse["errorinfo"]["errorcode"];
+
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror("{reversed ".$message."}");
+                            ->seterror("{reversed " . $message . "}");
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
-
-                        // $message = "Success return money!!";
                     } else {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
                             ->seterror($responseUpdateUtilities[1]);
-                        // $message = "Can not return money!!";
                     }
                 }
                 if ($PayResonse["errorinfo"]["errorcode"] == 0) {
@@ -555,7 +501,6 @@ class AlfaController extends AbstractController
                     $this->mr->flush();
 
                     $IsSuccess = true;
-
                     $prepaidId = $prepaid->getId();
                     $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
 
@@ -570,7 +515,7 @@ class AlfaController extends AbstractController
                     //intial notification
                     $params = json_encode([
                         'amount' => $order->getamount(),
-                        'currency' =>"L.L",
+                        'currency' => "L.L",
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherCode"],
                     ]);
@@ -583,14 +528,12 @@ class AlfaController extends AbstractController
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-
                         //update te status from purshased to completed
                         $orderupdate5
                             ->setstatus(Order::$statusOrder['COMPLETED'])
                             ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
-
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
@@ -601,7 +544,6 @@ class AlfaController extends AbstractController
                     }
                 }
             } else {
-
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
@@ -609,15 +551,12 @@ class AlfaController extends AbstractController
                     ->seterror($response[3]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
-                // $IsSuccess = false;
-                // $message = $response[1];
-                // $dataPayResponse = -1;
                 $IsSuccess = false;
-                
+
                 if (isset($response[2])) {
                     $message = json_decode($response[1], true);
                     $flagCode = $response[2];
-                }else{
+                } else {
                     $message = "You can not purchase now";
                 }
                 $dataPayResponse = -1;

@@ -21,7 +21,6 @@ class ShopifyGdprController extends AbstractController
     }
 
     /**
-     *
      * @Route("/customers/data", name="customers", methods={"POST"})
      */
     public function customersData(Request $request): Response

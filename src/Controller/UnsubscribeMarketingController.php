@@ -69,14 +69,11 @@ class UnsubscribeMarketingController extends AbstractController
     {
         $code = $request->query->get('uniqueCode');
         $flag = $request->query->get('Flag');
-
         $params['url'] = 'MarketingException/subscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
         $params['type'] = 'post';
-
         $result = Helper::send_curl($params);
         $response = json_decode($result, true);
 
-        // Return the response as a JSON object
         return new JsonResponse($response);
     }
 }

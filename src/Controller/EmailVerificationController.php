@@ -12,31 +12,23 @@ class EmailVerificationController extends AbstractController
     /**
      * @Route("/emailVerification/code={code}", name="app_email_verification")
      */
-    public function index($code,SuyoolServices $suyoolServices)
+    public function index($code, SuyoolServices $suyoolServices)
     {
         $parameters['currentPage'] = "generate_Code";
         if ($code != '') {
-            // Set the API URL
-            if($_ENV['APP_ENV'] == "prod"){
+            if ($_ENV['APP_ENV'] == "prod") {
                 $params['url'] = 'User/ValidateEmail?Data=' . $code;
-
-            }else{
+            } else {
                 $params['url'] = 'User/ValidateEmail?Data=' . $code;
-
             }
-// dd($params);
-            // Call the API
             $result = Helper::send_curl($params);
-            // Get the response
             $response = json_decode($result, true);
-            // Default value of the notification
-// dd($result);
-            // $response['RespCode'] = 1;
-            $response=$suyoolServices->ValidateEmail($code);
+            $response = $suyoolServices->ValidateEmail($code);
 
-            if($response == null){
+            if ($response == null) {
                 return $this->render('ExceptionHandlingEmail.html.twig');
             }
+
             // If the Email is Verified and the user is not registered
             if ($response['flagCode'] == 1) {
                 $title = 'You have verified your email';
@@ -47,11 +39,8 @@ class EmailVerificationController extends AbstractController
                 $title = 'Email verification failed';
                 $description = "Your email address couldn’t be verified.<br> Kindly request a new verification link from your Suyool app.";
                 $image = "unverified-msg.png";
-            $class = "unverified";
+                $class = "unverified";
             }
-
-            
-            // if($response)
         }
         return $this->render('emailVerification/index.html.twig', [
             'suyoolLogo' => 'suyool-final-logo.png',
