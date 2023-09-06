@@ -367,12 +367,9 @@ class SuyoolServices
     public function PushUserPrize($listWinners)
     {
 
-       
+
         $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
-        echo json_encode([
-            'listWinners' => $listWinners,
-            'secureHash' => $Hash
-        ], JSON_PRESERVE_ZERO_FRACTION);
+
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
             'body' => json_encode([
                 'listWinners' => $listWinners,

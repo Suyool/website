@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 
 const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+
 
   useEffect(() => {
     setHeaderTitle("Re-charge Touch")
@@ -37,6 +40,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
 
   const handleConfirmPay = () => {
     // console.log("clicked");
+    setSpinnerLoader(true);
     setIsButtonDisabled(true);
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
@@ -71,6 +75,7 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
           amountUSD: getPrepaidVoucher.priceUSD,
         })
       .then((response) => {
+        setSpinnerLoader(false);
         const jsonResponse = response?.data?.message;
         console.log(jsonResponse)
         // console.log()
@@ -131,10 +136,12 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
         // console.log(response);
       })
       .catch((error) => {
+        setSpinnerLoader(false);
         console.log(error);
       });
     } 
     else if(getDataGetting == "failed"){
+      setSpinnerLoader(false);
       setIsButtonDisabled(false);
       setDataGetting("");
 
@@ -152,7 +159,8 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
 
 // console.log(getPrepaidVoucher);
   return (
-    <div id="MyBundle" className={`${getPaymentConfirmation && "hideBack"}`}>
+    <div id="MyBundle" className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
+      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
       {getPaymentConfirmation ?
         <>
           <div id="PaymentConfirmationPrePaid">

@@ -88,6 +88,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Users' }
 
+    App\Command\loto\winningTickets:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Winning' }
+
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'

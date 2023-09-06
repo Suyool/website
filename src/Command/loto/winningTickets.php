@@ -15,6 +15,7 @@ use App\Service\SuyoolServices;
 use DateInterval;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,7 +28,8 @@ class winningTickets extends Command
     private $notificationServices;
     private $notifyMr;
     private $suyoolServices;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices,SuyoolServices $suyoolServices)
+    private $logger;
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices,SuyoolServices $suyoolServices,LoggerInterface $logger)
     {
         parent::__construct();
 
@@ -37,6 +39,7 @@ class winningTickets extends Command
         $this->notificationServices = $notificationServices;
         $this->notifyMr = $mr->getManager('notification');
         $this->suyoolServices=$suyoolServices;
+        $this->logger=$logger;
     }
 
     protected function configure()
@@ -54,14 +57,6 @@ class winningTickets extends Command
 
         $listWinners=[];
 
-
-        // $this->suyoolServices->PushUserPrize($listWinners);
-        // $arr1=[4, 12, 8, 39, 24, 9];
-        // dd($arr1);
-        // $arr2=[4, 9, 12, 23, 26, 34, 2];
-        // $commonElements = array_intersect($arr1,  $arr2);
-        //                 dd($commonElements);
-
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
         $drawId = $getLastResults->getdrawid();
 
@@ -72,25 +67,19 @@ class winningTickets extends Command
         $winningBallsZeed['prize2']=$getLastResults->getzeednumber2();
         $winningBallsZeed['prize3']=$getLastResults->getzeednumber3();
         $winningBallsZeed['prize4']=$getLastResults->getzeednumber4();
-        // $winningBallsExplode[] = explode("", $winningBalls[0]);
-        // dd($winningBallsZeed);
+
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
-        // dd($getGridsinThisDraw);
         foreach($getGridsinThisDraw as $gridsTobeUpdated){
             $keyInArray1=-1;
             $result=[];
-            // $zeednumbers=;
             $won=null;
-                // dd($lotoGridsForSelect);
                 $gridSelected = $gridsTobeUpdated->getgridSelected();
                 $zeednumbers = $gridsTobeUpdated->getzeednumber();
-                // dd($zeednumbers);
-                // dd($winningBallsZeed);
+
                 for ($i = 0; $i < strlen($zeednumbers); $i++) {
                     $result[] = substr($zeednumbers, $i);
                 }
-                // dd($result);
-                // var_dump($result);
+
                 foreach($winningBallsZeed as $winningBallsZeeds){
                     if(in_array($winningBallsZeeds,$result)){
                         $keyInArray1 = array_search($winningBallsZeeds, $result);
@@ -116,18 +105,9 @@ class winningTickets extends Command
                 foreach ($grids as $Selectedgrids) {
                     $count = 0;
                     $SelectedgridsExplode = [];
-                    // dd($Selectedgrids);
                     $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-                    // dd($SelectedgridsExplode);
-                    // dd($winningBallsExplode);
-
-                    // $Selectedgrids=str_replace(' ',',',$Selectedgrids);
-                    // var_dump($Selectedgrids[0]);
-                    // var_dump($winningBalls[0]);
-                    // $info[]=['orderId'=>$orderId,'grid'=>$Selectedgrids];
 
                     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                    // dd(in_array($winningBallsExplode[0][6], $commonElements));
                     $count = count($commonElements);
                     if ($count >= 6) {
                         if (in_array($winningBallsExplode[0][6], $commonElements) && !in_array($winningBallsExplode[0][5], $commonElements)) {
@@ -163,6 +143,7 @@ class winningTickets extends Command
         }
 
         $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
+        $this->logger->debug(json_encode($getUsersWhoWon));
         if(!empty($getUsersWhoWon)){
             foreach($getUsersWhoWon as $getUsersWhoWon){
                 $Amount = 0;
@@ -176,10 +157,10 @@ class winningTickets extends Command
     
     
             $response=$this->suyoolServices->PushUserPrize($listWinners);
-    
             if($response[0]){
                 $data=json_decode($response[1],true);
-                var_dump($data);
+                $this->logger->debug(json_encode($data));
+
                 foreach($data as $data){
                     $order=explode(",",$data['OrderID']);
     

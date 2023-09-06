@@ -2,12 +2,18 @@ monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
         - Users
+        - Winning
     handlers:
         users:
             type: stream
-            path: "%kernel.logs_dir%/Users.log"
+            path: "%kernel.logs_dir%/users.log"
             level: debug
             channels: ['Users']
+        winning:
+            type: stream
+            path: "%kernel.logs_dir%/winning.log"
+            level: debug
+            channels: ['Winning']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

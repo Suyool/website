@@ -275,7 +275,6 @@ class NotificationServices
         eval("\$proceedButton = \"$proceedButton\";");
 
         $BroadCast = $this->suyoolServices->PushBulkNotification($userIds, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
-        // echo json_encode($PushSingle);
         if ($BroadCast["globalCode"] == 0) {
             $BulkNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
 
