@@ -2,16 +2,9 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
 
-
   const handleExchange = () => {
     if(props.getErrorModal.path == "84"){
-  // window.location.href = "/app?f="+props.getErrorModal.path;
-  // let object = [
-  //   {
-  //     flag: props.getErrorModal.path,
-  //     url: window.location.href,
-  //   },
-  // ];
+
   let object = [{
     "exchange" : {
       flag: props.getErrorModal.path,
@@ -22,7 +15,6 @@ const ErrorModal = (props) => {
   if (props.parameters?.deviceType === "Android") {
     window.AndroidInterface.callbackHandler(JSON.stringify(object));
   } else if (props.parameters?.deviceType === "Iphone") {
-    // const message = "data";
     window.webkit.messageHandlers.callbackHandler.postMessage(object);
   }
     }
@@ -37,7 +29,6 @@ const ErrorModal = (props) => {
       if (props.parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
-        // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
       }
     }

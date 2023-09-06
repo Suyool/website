@@ -103,7 +103,7 @@ const MyBundle = ({
                 img: "/build/images/alfa/error.png",
                 title: jsonResponse.Title,
                 desc: jsonResponse.SubTitle,
-                path: 50,
+                path: jsonResponse.ButtonOne.Flag,
                 btn: jsonResponse.ButtonOne.Text,
               });
               setModalShow(true);
