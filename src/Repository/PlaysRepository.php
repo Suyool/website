@@ -265,7 +265,7 @@ class PlaysRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId,COALESCE(SUM(COALESCE(l.winloto, 0) + COALESCE(l.winzeed, 0)), 0) as total,o.id,l.ticketId')
             ->innerJoin(order::class, 'o')
-            ->where('o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null) and (l.winloto is not null or l.winzeed is not null)')
+            ->where('o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null) and (l.winloto is not null or l.winzeed is not null) and l.winningStatus is null')
             ->groupBy('o.id')
             ->setParameter('drawId', $drawId)
             ->getQuery()
