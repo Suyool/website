@@ -41,7 +41,6 @@ class SuyoolServices
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency)
     {
         $sum = number_format((float) $sum, 1, '.', '');
-
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
         try {
 
@@ -75,7 +74,6 @@ class SuyoolServices
             if (isset($push_utility_response['message'])) {
                 $error = $push_utility_response['message'];
             }
-
             if ($globalCode) {
                 $transId = $push_utility_response['data'];
                 return array(true, $transId);
@@ -92,13 +90,10 @@ class SuyoolServices
      */
     public function UpdateUtilities($sum, $additionalData, $transId)
     {
-
         $sum = number_format((float) $sum, 1, '.', '');
-
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
 
         try {
-
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", [
                 'body' => json_encode([
                     'transactionID' => $transId,
@@ -117,7 +112,6 @@ class SuyoolServices
             }
 
             $update_utility_response = $response->toArray(false);
-            // echo ($update_utility_response);
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
@@ -136,7 +130,6 @@ class SuyoolServices
     public function GetAllUsers($ChannelID)
     {
         $Hash = base64_encode(hash($this->hash_algo, $ChannelID . $this->certificate, true));
-
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
             'query' => ['Data' => $Hash],
             'headers' => [
@@ -144,7 +137,6 @@ class SuyoolServices
             ]
         ]);
         $getAllUsers = $response->toArray(false);
-
         $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
 

@@ -51,8 +51,6 @@ class BobServices
                 "ChannelType" => "API",
                 "AlfaPinParam" => [
                     "GSMNumber" => $gsmMobileNb
-                    // "GSMNumber" => "70102030"
-                    // "GSMNumber" => "03184740"
                 ],
                 "Credentials" => [
                     "User" => $this->USERNAME,
@@ -65,27 +63,21 @@ class BobServices
         ]);
 
         $content = $response->getContent();
-        // $content = $response->toArray();
-        // dd($content);
 
         $ApiResponse = json_decode($content, true);
-        if($ApiResponse['Response'] == ""){
-            $decodedString=$ApiResponse['ErrorDescription'];
-        }else{
+        if ($ApiResponse['Response'] == "") {
+            $decodedString = $ApiResponse['ErrorDescription'];
+        } else {
             $res = $ApiResponse['Response'];
             $decodedString = $this->_decodeGzipString(base64_decode($res));
         }
-        // dd($decodedString);
 
         return $decodedString;
-        // return $content;
     }
 
     public function RetrieveResults($currency, $mobileNumber, $Pin)
     {
         $Pin = implode("", $Pin);
-        // dd($Pin);
-
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
             'body' => json_encode([
                 "ChannelType" => "API",
@@ -109,26 +101,19 @@ class BobServices
         ]);
 
         $content = $response->getContent();
-        // $content = $response->toArray();
-        // dd($content);
-        $reponse=json_encode($content);
-
+        $reponse = json_encode($content);
         $ApiResponse = json_decode($content, true);
-        // dd($ApiResponse);
         $res = $ApiResponse['Response'];
-        if($res==""){
-            return array(false,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode'],$reponse);
+        if ($res == "") {
+            return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
         }
         $decodedString = $this->_decodeGzipString(base64_decode($res));
-        // dd($decodedString);
 
-        return array(true,$decodedString,$ApiResponse['ErrorDescription'],$ApiResponse['ErrorCode'],$reponse);
-        // return $content;
+        return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
     }
 
     public function BillPay($Postpaid_With_id_Res)
     {
-        // dd($Postpaid_With_id_Res->getCurrency());
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
@@ -164,21 +149,17 @@ class BobServices
         $content = $response->getContent();
 
         $myfile = fopen("../var/cache/alfalogs.txt", "a");
-       
 
-        // $content = $response->getContent();
-
-        $txt=json_encode(['response'=>$response,'content'=>$content]);
+        $txt = json_encode(['response' => $response, 'content' => $content]);
         fwrite($myfile, $txt);
 
         $ApiResponse = json_decode($content, true);
-        // dd($ApiResponse);
         $res = $ApiResponse['Response'];
         $ErrorDescription = $ApiResponse['ErrorDescription'];
-        $ErrorCode= $ApiResponse['ErrorCode'];
+        $ErrorCode = $ApiResponse['ErrorCode'];
         $decodedString = $this->_decodeGzipString(base64_decode($res));
 
-        return array($decodedString,$ErrorCode,$ErrorDescription);
+        return array($decodedString, $ErrorCode, $ErrorDescription);
     }
 
     //Touch
@@ -190,7 +171,6 @@ class BobServices
                 "TouchPinParam" => [
                     "Service" => "invoice",
                     "GSMNumber" => $gsmMobileNb
-                    // "GSMNumber" => "70102030"
                 ],
                 "Credentials" => [
                     "User" => $this->USERNAME,
@@ -205,7 +185,6 @@ class BobServices
         $content = $response->getContent();
 
         $ApiResponse = json_decode($content, true);
-        // dd($ApiResponse);
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decoded = json_decode($this->_decodeGzipString(base64_decode($res)), true);
@@ -224,7 +203,6 @@ class BobServices
     public function RetrieveResultsTouch($currency, $mobileNumber, $Pin, $token)
     {
         $Pin = implode("", $Pin);
-        // dd($Pin);
 
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'RetrieveChannelResults', [
             'body' => json_encode([
@@ -250,14 +228,12 @@ class BobServices
         ]);
 
         $content = $response->getContent();
-        $response=json_encode($content);
+        $response = json_encode($content);
         $ApiResponse = json_decode($content, true);
 
-        // dd($ApiResponse);
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
-            // $decodedString = $decoded['token'];
             $isSuccess = true;
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         } else {
@@ -266,12 +242,11 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription,$ApiResponse["ErrorCode"],$response);
+        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response);
     }
 
     public function BillPayTouch($Postpaid_With_id_Res)
     {
-        // dd($Postpaid_With_id_Res->getCurrency());
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
@@ -309,14 +284,10 @@ class BobServices
         $content = $response->getContent();
 
         $ApiResponse = json_decode($content, true);
-        // dd($ApiResponse);
-        // $res = $ApiResponse['Response'];
-        // $decodedString = $this->_decodeGzipString(base64_decode($res));
 
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
-            // $decodedString = $decoded['token'];
             $isSuccess = true;
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         } else {
@@ -326,8 +297,6 @@ class BobServices
         }
 
         return array($isSuccess, $decodedString, $ErrorDescription);
-
-        // return $decodedString;
     }
 
     //Ogero
@@ -339,8 +308,6 @@ class BobServices
                 "ItemId" => 1,
                 "OgeroMeta" => [
                     "PhoneNumber" => $gsmMobileNb
-                    // "GSMNumber" => "70102030"
-                    // "GSMNumber" => "03184740"
                 ],
                 "VenId" => 3,
                 "ProductId" => 16,
@@ -354,16 +321,12 @@ class BobServices
             ]
         ]);
         $content = $response->getContent();
-
-        $response=json_encode($content);
-
+        $response = json_encode($content);
         $ApiResponse = json_decode($content, true);
-    
 
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
-            // $decodedString = $decoded['token'];
             $isSuccess = true;
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         } else {
@@ -372,12 +335,11 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription,$response);
+        return array($isSuccess, $decodedString, $ErrorDescription, $response);
     }
 
     public function BillPayOgero($Landline_With_id)
     {
-        // dd(strval($Landline_With_id->getgsmNumber()));
         $response = $this->client->request('POST', $this->BOB_API_HOST . 'InjectTransactionalPayment', [
             'body' => json_encode([
                 "ChannelType" => "API",
@@ -385,7 +347,6 @@ class BobServices
                 "VenId" => 3,
                 "ProductId" => 16,
                 "TransactionId" => strval($Landline_With_id->gettransactionId()),
-
                 "OgeroResult" => [
                     "Amount" => strval($Landline_With_id->getamount()),
                     "PayerName" => $Landline_With_id->getogeroClientName(),
@@ -408,17 +369,12 @@ class BobServices
         ]);
 
         $myfile = fopen("../var/cache/ogerologs.txt", "a");
-       
-
         $content = $response->getContent();
 
-        $txt=json_encode(['response'=>$response,'content'=>$content])." ".date('Y/m/d H:i:s ', time())." \n";
+        $txt = json_encode(['response' => $response, 'content' => $content]) . " " . date('Y/m/d H:i:s ', time()) . " \n";
         fwrite($myfile, $txt);
 
         $ApiResponse = json_decode($content, true);
-
-        // dd($ApiResponse);
-
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
             $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);

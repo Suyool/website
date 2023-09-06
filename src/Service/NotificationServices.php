@@ -24,7 +24,6 @@ class NotificationServices
     public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('notification');
-
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
@@ -34,12 +33,9 @@ class NotificationServices
     public function checkUser($userid, $lang)
     {
         try {
-
             if ($userid == '71') return true;
-
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
 
-            //if user not found in our DB
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
                 if (is_null($suyoolUser)) return false;
@@ -92,7 +88,6 @@ class NotificationServices
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
         if ($singleUser == null) {
             $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
-
             $userFirstname = $suyoolUser["FirstName"];
             $userLastname = $suyoolUser["LastName"];
             $userLang = $suyoolUser["LanguageID"];
@@ -103,7 +98,6 @@ class NotificationServices
                 ->setfname($suyoolUser["FirstName"])
                 ->setlname($suyoolUser["LastName"])
                 ->setlang($suyoolUser["LanguageID"]);
-
             $this->mr->persist($user);
             $this->mr->flush();
         } else {
@@ -132,20 +126,12 @@ class NotificationServices
         }
 
         eval("\$title = \"$title\";");
-
         eval("\$subject = \"$subject\";");
-
         eval("\$body = \"$body\";");
-
         eval("\$notification = \"$notification\";");
-
         eval("\$proceedButton = \"$proceedButton\";");
 
-
         $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
-
-
-
 
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
@@ -177,14 +163,11 @@ class NotificationServices
                 echo "notification not exist!";
             }
         }
-
-        // dd($PushSingle);
         return 1;
     }
 
     public function addNotification($userId, $content, $params, $bulk, $additionalData = null)
     {
-        //Bulk 1 to be added if bulknotification 0 if single notification
         $notification = new Notification;
         $notification
             ->setuserId($userId)
@@ -203,7 +186,6 @@ class NotificationServices
 
     public function PrcessingNot($notId)
     {
-
         $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notId]);
         $singleNotification
             ->setstatus("processing");
@@ -213,7 +195,6 @@ class NotificationServices
         return 1;
     }
 
-
     public function PushBulkNotification($notificationId, $userId, $content, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
@@ -222,12 +203,10 @@ class NotificationServices
         }
 
         $userIds = explode(",", $userId);
-
         foreach ($userIds as $userId) {
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
-
                 $userFirstname = $suyoolUser["FirstName"];
                 $userLastname = $suyoolUser["LastName"];
                 $userLang = $suyoolUser["LanguageID"];
@@ -238,7 +217,6 @@ class NotificationServices
                     ->setfname($suyoolUser["FirstName"])
                     ->setlname($suyoolUser["LastName"])
                     ->setlang($suyoolUser["LanguageID"]);
-
                 $this->mr->persist($user);
                 $this->mr->flush();
             } else {
@@ -247,7 +225,6 @@ class NotificationServices
                 $userLang = $singleUser->getlang();
             }
         }
-
 
         $notTemplate = $this->mr->getRepository(content::class)->findOneBy(['id' => $content]);
         if ($notTemplate != null) {
@@ -305,8 +282,6 @@ class NotificationServices
                 echo "notification not exist!";
             }
         }
-
-        // dd($PushSingle);
         return 1;
     }
 
