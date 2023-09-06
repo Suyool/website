@@ -15,7 +15,7 @@ const MyBundle = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(true);
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
@@ -210,7 +210,7 @@ const MyBundle = ({
                 <div className="serial">{getSerialToClipboard}</div>
                 <img
                   className="copySerial"
-                  src="/build/images/touch/copySerial.png"
+                  src="/build/images/alfa/copySerial.png"
                   alt="copySerial"
                 />
               </button>
