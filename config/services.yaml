@@ -21,7 +21,8 @@ parameters:
     OGERO_MERCHANT_ID: '6'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
-
+    METHOD_POST: 'POST'
+    METHOD_GET: 'GET'
     # production_url: 'https://www.elnashra.com/'
     app.name: 'Suyool'
 

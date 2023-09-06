@@ -2,30 +2,33 @@
 
 namespace App\Service;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Utils\Helper;
 
 class LotoServices
 {
     private $LOTO_API_HOST;
     private $client;
+    private $METHOD_POST;
+    private $helper;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params,Helper $helper)
     {
         $this->client = $client;
         $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
+        $this->METHOD_POST = $params->get('METHOD_POST');
+        $this->helper=$helper;
     }
 
     public function Login()
     {
-        $response = $this->client->request('POST', "{$this->LOTO_API_HOST}LoginUser", [
-            'body' => json_encode([
-                'Username' => 'suyool',
-                'Password' => 'ZvNud5qY3qmM3@h',
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $body = [
+            'Username' => 'suyool',
+            'Password' => 'ZvNud5qY3qmM3@h',
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}LoginUser",  $body);
+
         $content = $response->toArray();
         $token = $content['d']['token'];
         return $token;
