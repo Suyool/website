@@ -2,35 +2,46 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBundle = ({
+  setDataGetting,
+  parameters,
+  getDataGetting,
+  getPrepaidVoucher,
+  setModalShow,
+  setModalName,
+  setSuccessModal,
+  setErrorModal,
+  setActiveButton,
+  setHeaderTitle,
+  setBackLink,
+}) => {
   useEffect(() => {
-    setHeaderTitle("Re-charge Alfa")
-    setBackLink("ReCharge")
+    setHeaderTitle("Re-charge Alfa");
+    setBackLink("ReCharge");
     setIsButtonDisabled(false);
     // console.log(getPrepaidVoucher)
-  }, [])
+  }, []);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
-  const handleShare= (shareCode) => {
-    
-    let object=[{
-      "Share":{
-        "share":"share",
-        "text": shareCode
-      }
-    }]
+  const handleShare = (shareCode) => {
+    let object = [
+      {
+        Share: {
+          share: "share",
+          text: shareCode,
+        },
+      },
+    ];
     console.log(JSON.stringify(object));
     if (parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler(JSON.stringify(object));
+      window.AndroidInterface.callbackHandler(JSON.stringify(object));
     } else if (parameters?.deviceType === "Iphone") {
-        window.webkit.messageHandlers.callbackHandler.postMessage(
-          object
-        );
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
     }
-  }
+  };
 
   const handleConfirmPay = () => {
     // console.log("click")
@@ -51,14 +62,13 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
           "fingerprint"
         );
       }, 2000);
-    }  
+    }
   };
 
-  useEffect(()=>{
-    if(getDataGetting == "success"){
+  useEffect(() => {
+    if (getDataGetting == "success") {
       axios
-      .post("/alfa/BuyPrePaid",
-        {
+        .post("/alfa/BuyPrePaid", {
           Token: "",
           category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
@@ -67,78 +77,81 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
         })
-      .then((response) => {
-        setSpinnerLoader(false);
-        const jsonResponse = response?.data?.message;
-        console.log(jsonResponse)
-        // console.log()
-        if (response?.data.IsSuccess) {
-          setPaymentConfirmation(true);
-          setSerialToClipboard("*14*" + response?.data?.data?.voucherCode + "#");
-        } else {
-          console.log(response.data.flagCode)
-          // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
-          if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-            // console.log("step 3")
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else if (
-            !response.data.IsSuccess &&
-            response.data.flagCode == 11
-          ) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          }
-          else if(jsonResponse == "19"){
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: "Recharge Card Unavailable ",
-              desc: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable. 
+        .then((response) => {
+          setSpinnerLoader(false);
+          const jsonResponse = response?.data?.message;
+          console.log(jsonResponse);
+          // console.log()
+          if (response?.data.IsSuccess) {
+            setPaymentConfirmation(true);
+            setSerialToClipboard(
+              "*14*" + response?.data?.data?.voucherCode + "#"
+            );
+          } else {
+            console.log(response.data.flagCode);
+            // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
+            if (
+              response.data.IsSuccess == false &&
+              response.data.flagCode == 10
+            ) {
+              // console.log("step 3")
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else if (
+              !response.data.IsSuccess &&
+              response.data.flagCode == 11
+            ) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else if (jsonResponse == "19") {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: "Recharge Card Unavailable ",
+                desc: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable. 
               Kindly choose another one.`,
-              // path: response.data.path,
-              btn:'OK'
-            });
-            setModalShow(true);
-          }else{
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/alfa/error.png",
-              title: "Please Try again",
-              desc: "You cannot purchase now",
-              // path: response.data.path,
-              btn:'OK'
-            });
-            setModalShow(true);
+                // path: response.data.path,
+                btn: "OK",
+              });
+              setModalShow(true);
+            } else {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/alfa/error.png",
+                title: "Please Try again",
+                desc: "You cannot purchase now",
+                // path: response.data.path,
+                btn: "OK",
+              });
+              setModalShow(true);
+            }
           }
-        }
-        // console.log(response);
-      })
-      .catch((error) => {
-        setSpinnerLoader(false);
-        console.log(error);
-      });
-    }
-    else if(getDataGetting=="failed"){
+          // console.log(response);
+        })
+        .catch((error) => {
+          setSpinnerLoader(false);
+          console.log(error);
+        });
+    } else if (getDataGetting == "failed") {
       setSpinnerLoader(false);
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  })
+  });
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -149,41 +162,66 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
     document.body.removeChild(tempInput);
   };
 
-
   return (
-    <div id="MyBundle" className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
-      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
-      {getPaymentConfirmation ?
+    <>
+      {getPaymentConfirmation && (
         <>
           <div id="PaymentConfirmationPrePaid">
             <div className="topSection">
               <div className="brBoucket"></div>
               <div className="titles">
                 <div className="titleGrid"></div>
-                <button onClick={() => { setActiveButton({ name: "MyBundle" }); setPaymentConfirmation(false) }}>Cancel</button>
+                <button
+                  onClick={() => {
+                    setActiveButton({ name: "MyBundle" });
+                    setPaymentConfirmation(false);
+                  }}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
 
             <div className="bodySection">
-              <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
+              <img
+                className="SuccessImg"
+                src="/build/images/alfa/SuccessImg.png"
+                alt="Bundle"
+              />
               <div className="bigTitle">Payment Successful</div>
-              <div className="descriptio">You have successfully purchased the ${getPrepaidVoucher.priceUSD} Alfa recharge card.</div>
+              <div className="descriptio">
+                You have successfully purchased the $
+                {getPrepaidVoucher.priceUSD} Alfa recharge card.
+              </div>
 
               <div className="br"></div>
 
               <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">Copy the 14-digit secret code below</div>
+              <div className="copyDesc">
+                Copy the 14-digit secret code below
+              </div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
                 <div className="serial">{getSerialToClipboard}</div>
-                <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
+                <img
+                  className="copySerial"
+                  src="/build/images/alfa/copySerial.png"
+                  alt="copySerial"
+                />
               </button>
 
-              <button id="ContinueBtn" className="mt-3" onClick={() => { handleShare(getSerialToClipboard) }} >Share Code</button>
+              <button
+                id="ContinueBtn"
+                className="mt-3"
+                onClick={() => {
+                  handleShare(getSerialToClipboard);
+                }}
+              >
+                Share Code
+              </button>
 
               <div className="stepsToRecharge">
-
                 <div className="steps">
                   <div className="dot"></div>
                   <div className="textStep">Go to your phone tab</div>
@@ -198,42 +236,81 @@ const MyBundle = ({setDataGetting,parameters,getDataGetting, getPrepaidVoucher, 
                 </div>
                 <div className="steps">
                   <div className="dot"></div>
-                  <div className="textStep">Your mobile prepaid line is now recharged</div>
+                  <div className="textStep">
+                    Your mobile prepaid line is now recharged
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
         </>
-        :
-        <>
-          <div className="MyBundleBody">
-            <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
-            <div className="mainDesc">*All taxes excluded</div>
-            <img className="BundleBigImg" src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
-            {/* <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x2.png`} alt="Bundle" />
-            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
-            <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
-
-            <div className="smlDesc"><img className="question" src={`/build/images/alfa/question.png`} alt="question" />Alfa only accepts payments in L.L</div>
-            <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
-            <div className="MoreInfo">
-              <div className="label">Amount in L.L (Including taxes)</div>
-              <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
-            </div>
-
-            <div className="br"></div>
-            <div className="MoreInfo">
-              <div className="label">Total (Sayrafa rate)</div>
-              <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
-            </div>
+      )}
+      <div
+        id="MyBundle"
+        className={`${
+          getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""
+        }`}
+      >
+        {getSpinnerLoader && (
+          <div id="spinnerLoader">
+            <Spinner
+              className="spinner"
+              animation="border"
+              variant="secondary"
+            />
           </div>
+        )}
+        {!getPaymentConfirmation && (
+          <>
+            <div className="MyBundleBody">
+              <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+              <div className="mainDesc">*All taxes excluded</div>
+              <img
+                className="BundleBigImg"
+                src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}
+                alt="Bundle"
+              />
+              {/* <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x2.png`} alt="Bundle" />
+          <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
+          <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
 
+              <div className="smlDesc">
+                <img
+                  className="question"
+                  src={`/build/images/alfa/question.png`}
+                  alt="question"
+                />
+                Alfa only accepts payments in L.L
+              </div>
+              <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
+              <div className="MoreInfo">
+                <div className="label">Amount in L.L (Including taxes)</div>
+                <div className="value">
+                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
+                </div>
+              </div>
 
-          <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled}>Pay Now</button>
-        </>
-      }
-    </div>
+              <div className="br"></div>
+              <div className="MoreInfo">
+                <div className="label">Total (Sayrafa rate)</div>
+                <div className="value1">
+                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
+                </div>
+              </div>
+            </div>
+
+            <button
+              id="ContinueBtn"
+              className="btnCont"
+              onClick={handleConfirmPay}
+              disabled={isButtonDisabled}
+            >
+              Pay Now
+            </button>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
