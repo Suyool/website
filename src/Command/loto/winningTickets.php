@@ -29,7 +29,7 @@ class winningTickets extends Command
     private $notifyMr;
     private $suyoolServices;
     private $logger;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices,SuyoolServices $suyoolServices,LoggerInterface $logger)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices, SuyoolServices $suyoolServices, LoggerInterface $logger)
     {
         parent::__construct();
 
@@ -38,8 +38,8 @@ class winningTickets extends Command
         $this->sendEmail = $sendEmail;
         $this->notificationServices = $notificationServices;
         $this->notifyMr = $mr->getManager('notification');
-        $this->suyoolServices=$suyoolServices;
-        $this->logger=$logger;
+        $this->suyoolServices = $suyoolServices;
+        $this->logger = $logger;
     }
 
     protected function configure()
@@ -60,14 +60,12 @@ class winningTickets extends Command
 
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
         $drawId = $getLastResults->getdrawid();
-
         $winningBalls[] = $getLastResults->getnumbers();
         $winningBallsExplode[] = explode(",", $winningBalls[0]);
-
         $winningBallsZeed['prize1'] = $getLastResults->getzeednumber1();
-        $winningBallsZeed['prize2']=$getLastResults->getzeednumber2();
-        $winningBallsZeed['prize3']=$getLastResults->getzeednumber3();
-        $winningBallsZeed['prize4']=$getLastResults->getzeednumber4();
+        $winningBallsZeed['prize2'] = $getLastResults->getzeednumber2();
+        $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
+        $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
 
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
         // dd($getGridsinThisDraw);
@@ -82,11 +80,34 @@ class winningTickets extends Command
                 for ($i = 0; $i < strlen($zeednumbers); $i++) {
                     $result[] = substr($zeednumbers, $i);
                 }
-
-                foreach($winningBallsZeed as $winningBallsZeeds){
-                    if(in_array($winningBallsZeeds,$result)){
-                        $keyInArray1 = array_search($winningBallsZeeds, $result);
-                        break;
+            }
+            if ($keyInArray1 == 0) {
+                $prizezeed = 1;
+                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
+            } else if ($keyInArray1 == 1) {
+                $prizezeed = 2;
+                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner2zeed());
+            } else if ($keyInArray1 == 2) {
+                $prizezeed = 3;
+                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner3zeed());
+            } else if ($keyInArray1 == 3) {
+                $prizezeed = 4;
+                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner4zeed());
+            } else {
+                $prizezeed = null;
+            }
+            $grids = explode("|", $gridSelected);
+            foreach ($grids as $Selectedgrids) {
+                $count = 0;
+                $SelectedgridsExplode = [];
+                $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
+                $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
+                $count = count($commonElements);
+                if ($count >= 6) {
+                    if (in_array($winningBallsExplode[0][6], $commonElements) && !in_array($winningBallsExplode[0][5], $commonElements)) {
+                        $count = 7;
+                    } else {
+                        $count = 6;
                     }
                 }
                 if($keyInArray1 == 0){
@@ -146,71 +167,67 @@ class winningTickets extends Command
             $this->mr->flush();
         }
 
-        $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
+        $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         $this->logger->debug(json_encode($getUsersWhoWon));
-        if(!empty($getUsersWhoWon)){
-            foreach($getUsersWhoWon as $getUsersWhoWon){
+        if (!empty($getUsersWhoWon)) {
+            foreach ($getUsersWhoWon as $getUsersWhoWon) {
                 $Amount = 0;
-                foreach($getUsersWhoWon['Amount'] as $amount){
+                foreach ($getUsersWhoWon['Amount'] as $amount) {
                     $Amount += $amount;
                 }
-                    $orders=implode(",",$getUsersWhoWon['OrderID']);
-                    $tickets=implode(",",$getUsersWhoWon['TicketID']);
-                $listWinners[]=['UserAccountID'=>(int)$getUsersWhoWon['UserAccountID'],'Amount'=>(float)$Amount,'Currency'=>'LBP','OrderID'=>$orders,'TicketID'=>$tickets];
+                $orders = implode(",", $getUsersWhoWon['OrderID']);
+                $tickets = implode(",", $getUsersWhoWon['TicketID']);
+                $listWinners[] = ['UserAccountID' => (int)$getUsersWhoWon['UserAccountID'], 'Amount' => (float)$Amount, 'Currency' => 'LBP', 'OrderID' => $orders, 'TicketID' => $tickets];
             }
-    
-    
-            $response=$this->suyoolServices->PushUserPrize($listWinners);
-            if($response[0]){
-                $data=json_decode($response[1],true);
+
+            $response = $this->suyoolServices->PushUserPrize($listWinners);
+            if ($response[0]) {
+                $data = json_decode($response[1], true);
                 $this->logger->debug(json_encode($data));
 
-                foreach($data as $data){
-                    $order=explode(",",$data['OrderID']);
-    
-                    if($data['FlagCode'] == 136){
-                        foreach($order as $order){
-                            $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                            foreach($loto as $loto){
+                foreach ($data as $data) {
+                    $order = explode(",", $data['OrderID']);
+                    if ($data['FlagCode'] == 136) {
+                        foreach ($order as $order) {
+                            $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
+                            foreach ($loto as $loto) {
                                 $loto->setwinningStatus('pending');
                                 $this->mr->persist($loto);
                                 $this->mr->flush();
                             }
                         }
-                        $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                        $content=$this->notificationServices->getContent('L1-ExceedMonthlyLimit');
-                        $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
-                    }else if($data['FlagCode'] == 135){
-                        foreach($order as $order){
-                            $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                            foreach($loto as $loto){
+                        $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
+                        $content = $this->notificationServices->getContent('L1-ExceedMonthlyLimit');
+                        $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0);
+                    } else if ($data['FlagCode'] == 135) {
+                        foreach ($order as $order) {
+                            $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
+                            foreach ($loto as $loto) {
                                 $loto->setwinningStatus('redirected');
                                 $this->mr->persist($loto);
                                 $this->mr->flush();
                             }
-                            
                         }
-                        $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                        $content=$this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
-                        $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0);
-                    }else if($data['FlagCode'] == 1){
-                        foreach($order as $order){
-                            $loto=$this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order,$drawId);
-                            foreach($loto as $loto){
+                        $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
+                        $content = $this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
+                        $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0);
+                    } else if ($data['FlagCode'] == 1) {
+                        foreach ($order as $order) {
+                            $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
+                            foreach ($loto as $loto) {
                                 $loto->setwinningStatus('paid');
                                 $this->mr->persist($loto);
                                 $this->mr->flush();
                             }
                         }
-                        $params=json_encode(['currency'=>'L.L','amount'=>$data['Amount'],'number'=>$drawId]);
-                        $content=$this->notificationServices->getContent('won loto added to suyool wallet');
-                        $this->notificationServices->addNotification($data['UserAccountID'],$content,$params,0,"https://www.suyool.com/loto?goto=Result");
+                        $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
+                        $content = $this->notificationServices->getContent('won loto added to suyool wallet');
+                        $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0, "https://www.suyool.com/loto?goto=Result");
                     }
                 }
             }
-    
         }
-        
+
         return 1;
     }
 }
