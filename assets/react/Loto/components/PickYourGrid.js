@@ -15,12 +15,11 @@ const PickYourGrid = ({
   setTotalAmountLLDJ,
   getTotalAmountLLDJ,
   getBallNumbersIndex,
-  setBallNumbersIndex
+  setBallNumbersIndex,
 }) => {
   const [selectedBalls, setSelectedBalls] = useState([]);
   // console.log(getTotalAmount)
   useEffect(() => {
-
     if (getBallPlayed.length == 0) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
     } else {
@@ -109,9 +108,7 @@ const PickYourGrid = ({
     if (getPlay) {
       if (selectedBalls.length > 5) {
         setIsHide(false);
-
         const filteredBalls = selectedBalls.filter((ball) => ball !== null);
-
         if (filteredBalls.length < 6) {
           setModalName("ErrorModal");
           setErrorModal({
@@ -134,22 +131,26 @@ const PickYourGrid = ({
 
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
-        const isNewSet = existingBalls.every(
-          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
-        );
-
-
+        const isNewSet = !existingBalls.some((set) => {
+          const sortedExistingBalls = [...set.balls].filter(item => item !== null).sort();
+          const sortedSelectedBalls = [...selectedBalls].filter(item => item !== null).sort();
+          return (
+            JSON.stringify(sortedExistingBalls) ===
+            JSON.stringify(sortedSelectedBalls)
+          );
+        });
 
         if (isNewSet) {
-
-          // If the set is unique, add it to the existing data and save to localStorage
-          // const updatedBalls = [...existingBalls, ballSet];
-          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+          if (
+            getBallNumbersIndex >= 0 &&
+            getBallNumbersIndex <= existingBalls.length
+          ) {
             existingBalls[getBallNumbersIndex] = ballSet;
-            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+            localStorage.setItem(
+              "selectedBalls",
+              JSON.stringify(existingBalls)
+            );
           } else {
-            // If the set is unique, add it to the existing data and save to localStorage
             const updatedBalls = [...existingBalls, ballSet];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
@@ -194,22 +195,25 @@ const PickYourGrid = ({
 
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
-        const isNewSet = existingBalls.every(
-          (set) => JSON.stringify(set.balls) !== JSON.stringify(selectedBalls)
-        );
-
-
-
+        const isNewSet = !existingBalls.some((set) => {
+          const sortedExistingBalls = [...set.balls].filter(item => item !== null).sort();
+          const sortedSelectedBalls = [...selectedBalls].filter(item => item !== null).sort();
+          return (
+            JSON.stringify(sortedExistingBalls) ===
+            JSON.stringify(sortedSelectedBalls)
+          );
+        });
         if (isNewSet) {
-
-          // If the set is unique, add it to the existing data and save to localStorage
-          // const updatedBalls = [...existingBalls, ballSet];
-          // localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-          if (getBallNumbersIndex >= 0 && getBallNumbersIndex <= existingBalls.length) {
+          if (
+            getBallNumbersIndex >= 0 &&
+            getBallNumbersIndex <= existingBalls.length
+          ) {
             existingBalls[getBallNumbersIndex] = ballSet;
-            localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+            localStorage.setItem(
+              "selectedBalls",
+              JSON.stringify(existingBalls)
+            );
           } else {
-            // If the set is unique, add it to the existing data and save to localStorage
             const updatedBalls = [...existingBalls, ballSet];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
@@ -227,10 +231,8 @@ const PickYourGrid = ({
         console.log("The last ball is null");
       }
     }
-
     setBallNumbersIndex(-1);
-  }
-
+  };
 
   const handleCancel = () => {
     setPickYourGrid(false);
@@ -264,15 +266,12 @@ const PickYourGrid = ({
   //   console.log(selectedBalls)
   // };
   const handleRemoveBtn = (number) => {
-    if(selectedBalls.includes(number)){
+    if (selectedBalls.includes(number)) {
       setSelectedBalls((prevSelectedBalls) =>
-      prevSelectedBalls.filter((ball) => ball !== number).concat(null)
-    );
+        prevSelectedBalls.filter((ball) => ball !== number).concat(null)
+      );
     }
-
   };
-
-
 
   return (
     <div className="PickYourGrid">
@@ -287,14 +286,18 @@ const PickYourGrid = ({
             index <= 5 ? (
               <div
                 key={index}
-                id={`${getPlay && number == null && index > 5
-                  ? `boxappear${index}`
-                  : ""
-                  }`}
+                id={`${
+                  getPlay && number == null && index > 5
+                    ? `boxappear${index}`
+                    : ""
+                }`}
               >
-                <span onClick={() => { 
-                  // handleRemoveBtn(number)
-                   }} className={`${number !== null ? "active" : ""}`}>
+                <span
+                  onClick={() => {
+                    // handleRemoveBtn(number)
+                  }}
+                  className={`${number !== null ? "active" : ""}`}
+                >
                   {number}
                 </span>
                 <div className="shadow"></div>
@@ -306,12 +309,16 @@ const PickYourGrid = ({
               {selectedBalls.slice(6).map((number, index) => (
                 <div
                   key={index}
-                  id={`${getPlay && number == null ? `boxappear${index + 6}` : ""
-                    }`}
+                  id={`${
+                    getPlay && number == null ? `boxappear${index + 6}` : ""
+                  }`}
                 >
-                  <span onClick={() => { 
-                    // handleRemoveBtn(number) 
-                    }} className={`${number !== null ? "active" : ""}`}>
+                  <span
+                    onClick={() => {
+                      // handleRemoveBtn(number)
+                    }}
+                    className={`${number !== null ? "active" : ""}`}
+                  >
                     {number}
                   </span>
                   <div className="shadow"></div>
@@ -330,7 +337,14 @@ const PickYourGrid = ({
           return (
             <div className="ballCont" key={number}>
               <button onClick={() => handleBallClick(number)}>
-                <span onClick={() => { handleRemoveBtn(number) }} className={`${ballClass}`}>{number}</span>
+                <span
+                  onClick={() => {
+                    handleRemoveBtn(number);
+                  }}
+                  className={`${ballClass}`}
+                >
+                  {number}
+                </span>
               </button>
             </div>
           );
