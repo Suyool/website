@@ -1,0 +1,144 @@
+<style>
+    .logo{
+        margin:20px auto 50px auto;
+    }
+    .buttonCont {
+        margin-bottom: 30px;
+    }
+    .open-app {
+        background-color: #387ea5;
+        color: #fff;
+        border-radius: 7px;
+        padding: 7px 46px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+</style>
+<body>
+<div align="center">
+    <div class="logo">
+        <img src="http://dev.suyool.com/build/images/suyool-Logo.png">
+    </div>
+    <div>
+        <a href='{{ deepLink }}' id="deeplink-url"></a>
+    </div>
+    <div class="buttonCont">
+        {% if deepLink is defined and deepLink is not null %}
+            <a href='{{ deepLink|raw }}' id="open_app" class="open-app">Open App</a>
+        {% endif %}
+    </div>
+</div>
+
+<div>
+    <input type="hidden" id="transaction_id" value="$transactionId">
+    <input type="hidden" id="merchant_id" value="$merchantID">
+    <input type="hidden" id="callBack_URL" value="$callBackURL">
+    <input type="hidden" id="env" value="{{ env }}">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        //Get the deeplink URL
+        var deepLinkURL = $('#deeplink-url').attr('href');
+        if(deepLinkURL != ''){
+            setTimeout(function(){
+                //Post the Deeplink URL to the parent page to trigger there location=url in order to open skash app
+                //Because location=url doesn't work only on safari from an iframe
+                window.parent.postMessage({
+                    'url': deepLinkURL
+                }, "*");
+            }, 1000);
+
+            var osMobile = getMobileOperatingSystem();
+            //If differnet then iOS
+            if(osMobile != 'iOS'){
+                //Call .net API to check the payment status
+                setTimeout(function(){
+                    checkPaymentStatus();
+                }, 12000);
+            }
+        }
+    });
+
+    //Call .net API to check the payment status
+    function checkPaymentStatus() {
+        var merchant_id = $("#merchant_id").val();
+        var transaction_id = $("#transaction_id").val();
+        var callbackUrl = $("#callBack_URL").val();
+        var env = $("#env").val();
+        if(merchant_id != '' && transaction_id != ''){
+            $.ajax({
+                crossOrigin: true,
+                type: 'POST',
+                url: "{{ main_url }}{{ path('app_Iframe_check_status') }}",
+                data: {
+                    merchant_id: merchant_id,
+                    transaction_id: transaction_id,
+                    callBack_URL: callbackUrl,
+                    env: env,
+                },
+                success: function (data) {
+                    var paymentInfo = JSON.parse(data);
+                    //console.log(data);
+
+
+                    //If differnet then iOS
+                    //if(osMobile != 'iOS'){
+                    //Inform the user with the payment status
+                    $('#text-message').show();
+                    $('#text-message').html(paymentInfo['ReturnText']);
+                    //}
+
+                    //If the payment status is different then approved == 1
+                    if(paymentInfo['Flag'] == 2 || paymentInfo['Flag'] == 4){
+                        //If differnet then iOS
+                        //if(osMobile != 'iOS') {
+                        //Recall the api to check if the transaction is approved
+                        setTimeout(function () {
+                            checkPaymentStatus();
+                        }, 3000);
+                        //}
+
+                        //Else if is approved
+                    }else{
+                        //If differnet then iOS
+                        //if(osMobile != 'iOS'){
+                        setTimeout(function(){
+                            //if(window.opener){
+                            //	window.opener.location.href = paymentInfo['CallBackURL'];
+                            //	window.self.close();
+                            //}else{
+
+                            window.open(paymentInfo['CallBackURL'],"_self");
+                            // window.top.location.href = paymentInfo['CallBackURL'];
+                            //}
+                        }, 2000);
+                        //}
+                    }
+                },
+            });
+        }
+    }
+
+    //Get the Mobile Operating System
+    function getMobileOperatingSystem() {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        // Windows Phone must come first because its UA also contains "Android"
+        if (/windows phone/i.test(userAgent)) {
+            return "Windows Phone";
+        }
+
+        if (/android/i.test(userAgent)) {
+            return "Android";
+        }
+
+        // iOS detection from: http://stackoverflow.com/a/9039885/177710
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "iOS";
+        }
+
+        return "unknown";
+    }
+</script>
