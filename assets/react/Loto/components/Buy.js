@@ -38,11 +38,11 @@ const Buy = ({
   // }
 
   useEffect(() => {
-    console.log("clicked");
+    // console.log("clicked");
     // setSelectedOption(0);
 
     //  totalPrice = getTotalAmount;
-    setModalShow(false);
+    // setModalShow(false);
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
@@ -125,21 +125,15 @@ const Buy = ({
         })
         .then((response) => {
           const jsonResponse = response.data.message;
-          console.log(jsonResponse);
+          // console.log(jsonResponse);
           setSpinnerLoader(false);
           if (response.data.status) {
+            // console.log("entered")
             const amount = response.data.amount;
-            localStorage.removeItem("selectedBalls");
-            setPlayedBalls([]);
-            setDisabledBtn(
-              selectedBallsToShow == null ||
-                JSON.parse(selectedBallsToShow).length === 0
-            );
             setModalName("SuccessModal");
             setSuccessModal({
               imgPath: "/build/images/Loto/success.png",
               title: "LOTO Purchased Successfully",
-              // desc: `You have successfully paid LBP ${parseInt(50000).toLocaleString()} for LOTO. \n\nBest of Luck!`,
               desc: (
                 <div>
                   You have successfully paid L.L {parseInt(amount).toLocaleString()} for LOTO.
@@ -149,6 +143,10 @@ const Buy = ({
               ),
             });
             setModalShow(true);
+            localStorage.removeItem("selectedBalls");
+            setPlayedBalls([]);
+            setDisabledBtn(true);
+           
           } else if (!response.data.status && response.data.flagCode == 10) {
             setModalName("ErrorModal");
             setErrorModal({
