@@ -1,0 +1,212 @@
+<?php
+
+
+namespace App\Controller;
+
+
+use App\Service\ShopifyServices;
+use App\Utils\Helper;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+class IframeController extends AbstractController
+{
+    private $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @Route("/paysuyoolqr/", name="app_pay_suyool_qr")
+     */
+    public function paySuyoolQR(Request $request): Response
+    {
+        return $this->processPayment($request, 'live');
+
+    }
+
+    /**
+     * @Route("/paysuyoolqrtest/", name="app_pay_suyool_qr_test")
+     */
+    public function paySuyoolQRTest(Request $request): Response
+    {
+        return $this->processPayment($request, 'test');
+    }
+
+    private function processPayment(Request $request, string $env): Response
+    {
+        $data = $request->query->all();
+        $response = $this->windowProcess($data, $env);
+        $TranID = $data['TranID'] ?? '';
+        $showQR = $response['pictureURL'] ? 'displayBlock' : '';
+        $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+        return $this->render('iframe/pay-qr.html.twig', [
+            'pictureURL' => $response['pictureURL'],
+            'order_id' => $TranID,
+            'ReturnText' => $response['returnText'],
+            'displayBlock' => $showQR,
+            'merchantId' => $data['MerchantID'],
+            'CallBackURL' => $data['CallBackURL'],
+            'env' => $env,
+            'main_url' => $main_url,
+
+        ]);
+    }
+
+    public function windowProcess($data, $env)
+    {
+        $TranID = $data['TranID'] ?? '';
+        $amount = $data['Amount'] ?? '';
+        $currency = $data['Currency'] ?? '';
+        $CallBackURL = rawurldecode($data['CallBackURL'] ?? '');
+        $secureHash = rawurldecode($data['SecureHash'] ?? '');
+        $TS = $data['TS'] ?? '';
+        $TranTS = $data['TranTS'] ?? '';
+        $merchantId = $data['MerchantID'] ?? '';
+        $additionalInfo = $data['AdditionalInfo'] ?? '';
+
+        if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
+            $transactionData = [
+                'TransactionID' => $TranID,
+                'Amount' => $amount,
+                'Currency' => $currency,
+                'SecureHash' => $secureHash,
+                'CallBackURL' => $CallBackURL,
+                'TS' => $TS,
+                'TranTS' => $TranTS,
+                'MerchantAccountID' => $merchantId,
+                'AdditionalInfo' => $additionalInfo,
+            ];
+
+            $params = [
+                'data' => json_encode($transactionData),
+                'url' => 'api/OnlinePayment/PayQR',
+                'env' => $env,
+            ];
+
+            return $this->getQr($params);
+        }
+    }
+
+    public function getQr($data)
+    {
+        if ($data['env'] == 'live') {
+            $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+        } else {
+            $apiHost = 'https://online.suyool.money/';
+        }
+        $response = $this->client->request('POST', $apiHost . $data['url'], [
+            'body' => $data['data'],
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->getContent();
+
+        $response = json_decode($content, true);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/paysuyoolmobile/", name="app_pay_suyool_mobile")
+     */
+    public function paySuyoolMobile(Request $request): Response
+    {
+        $env = "live";
+        $data = $request->query->all();
+        $TranID = isset($data['TranID']) ? $data['TranID'] : "";
+        $amount = isset($data['Amount']) ? $data['Amount'] : "";
+        $currency = isset($data['Currency']) ? $data['Currency'] : "";
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL']) : "";
+        $secureHash = isset($data['SecureHash']) ? rawurldecode($data['SecureHash']) : "";
+        $TS = isset($data['TS']) ? $data['TS'] : "";
+        $TranTS = isset($data['TranTS']) ? $data['TranTS'] : "";
+        $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : "";
+        $CurrentUrlClient = isset($data['currentUrl']) ? rawurldecode($data['currentUrl']) : "";
+        $Browsertype = isset($data['browsertype']) ? $data['browsertype'] : Helper::getBrowserType();
+        $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : "";
+        $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+        if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
+            $transactionData = [
+                'TransactionID' => "$TranID",
+                'Amount' => $amount,
+                'Currency' => $currency,
+                'SecureHash' => $secureHash,
+                'TS' => "$TS",
+                'TranTS' => "$TranTS",
+                "CallBackURL" => $CallBackURL,
+                'MerchantAccountID' => $merchantId,
+                'currentUrl' => "$CurrentUrlClient",
+                'browsertype' => $Browsertype,
+                'AdditionalInfo' => $additionalInfo,
+            ];
+            $params = [
+                'data' => json_encode($transactionData),
+                'url' => 'api/OnlinePayment/PayQR',
+                'env' => $env
+            ];
+            $jsonEncoded = json_encode($transactionData);
+            $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
+
+            return $this->render('iframe/pay-mobile.html.twig', [
+                'deepLink' => $appUrl,
+                'order_id' => $TranID,
+                'env' => $env,
+                'main_url' => $main_url,
+
+            ]);
+        }
+    }
+    /**
+     * @Route("/iframe_check_status/", name="app_Iframe_check_status")
+     */
+    public function checkIFrameStatus(Request $request)
+    {
+        $http_origin = $_SERVER['HTTP_ORIGIN'];
+        header("Access-Control-Allow-Credentials: true");
+        header("Access-Control-Allow-Origin: $http_origin");
+        $data = $request->request->all();
+        $transactionId =$data['transaction_id'];
+        $merchantId = $data['merchant_id'];
+        $callBackURL = $data['callBack_URL'];
+
+        if ($transactionId != '' && $merchantId != '' && $callBackURL != '') {
+            $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
+            $certificate = "6eEimt2ffGTy2Jps3T7XS9aKzl1Rjwut0vk8q3byk1ERUAosAppdzaLorUVEfmMP0ip33aoiWpwKX9iSsFTfX19FqT9WiYPou1tX4KkaZYIJBzdaIPhD49NRsm1JXW8ZJMmTYKsqw7zeYeUjgA9JDc";
+            $secure = $transactionId . $timestamp . $certificate;
+            $secureHash = base64_encode(hash('sha512', $secure, true));
+            $json = [
+                "TranID" => $transactionId,
+                "TS" => $timestamp,
+                "MerchantID" => $merchantId,
+                "SecureHash" => $secureHash
+            ];
+            $params['data'] = json_encode($json);
+
+            $params['url'] = 'OnlinePaymentIntegration/CheckPortalPaymentStatus';
+            if ($data['env'] == 'live') {
+                $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+            } else {
+                $apiHost = 'https://online.suyool.money/';
+            }
+            $response = $this->client->request('POST', $apiHost . $params['url'], [
+                'body' => $params['data'],
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+            dd($response);
+            $result = json_decode($response, true);
+            return $result;
+        }
+    }
+}
