@@ -79,6 +79,8 @@ services:
     App\Service\SuyoolServices:
         arguments:
             $merchantAccountID: ''
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Winning' }
 
     App\EventListener\DomainAccessListener:
         tags:
@@ -91,6 +93,8 @@ services:
     App\Command\loto\winningTickets:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Winning' }
+
+        
 
     # App\Controller\LotoController:
     #     arguments:

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Utils\Helper;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -16,8 +17,9 @@ class SuyoolServices
     private $merchantAccountID;
     private $certificate;
     private $hash_algo;
+    private $logger;
 
-    public function __construct($merchantAccountID)
+    public function __construct($merchantAccountID,LoggerInterface $logger = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -30,6 +32,7 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
+        $this->logger=$logger;
     }
 
     /**
@@ -367,25 +370,29 @@ class SuyoolServices
     public function PushUserPrize($listWinners)
     {
 
+        try{
+            $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
 
-        $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
-
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
-            'body' => json_encode([
-                'listWinners' => $listWinners,
-                'secureHash' => $Hash
-            ], JSON_PRESERVE_ZERO_FRACTION),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $content = $response->toArray(false);
-
-        if ($content['globalCode'] == 1) {
-            return array(true, $content['data']);
-        } else {
-            return array(false);
+            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
+                'body' => json_encode([
+                    'listWinners' => $listWinners,
+                    'secureHash' => $Hash
+                ], JSON_PRESERVE_ZERO_FRACTION),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+    
+            $content = $response->toArray(false);
+    
+            if ($content['globalCode'] == 1) {
+                return array(true, $content['data']);
+            } else {
+                return array(false);
+            }
+        }catch(Exception $e){
+            $this->logger->error($e->getMessage());
         }
+        
     }
 }
