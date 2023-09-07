@@ -132,6 +132,7 @@ const PickYourGrid = ({
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
+          if (set.balls && set.balls.length > 0) {
           const sortedExistingBalls = [...set.balls]
             .filter((item) => item !== null)
             .sort();
@@ -142,6 +143,9 @@ const PickYourGrid = ({
             JSON.stringify(sortedExistingBalls) ===
             JSON.stringify(sortedSelectedBalls)
           );
+          }else{
+            return false
+          }
         });
 
         if (isNewSet) {
@@ -196,10 +200,10 @@ const PickYourGrid = ({
           currency: "LBP",
           isbouquet: false,
         };
-
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
+          if (set.balls && set.balls.length > 0) {
           const sortedExistingBalls = [...set.balls]
             .filter((item) => item !== null)
             .sort();
@@ -210,6 +214,9 @@ const PickYourGrid = ({
             JSON.stringify(sortedExistingBalls) ===
             JSON.stringify(sortedSelectedBalls)
           );
+        }else{
+          return false;
+        }
         });
         if (isNewSet) {
           if (

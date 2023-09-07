@@ -93,6 +93,7 @@ const Play = ({
     updatedBalls.splice(index, 1);
     setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
+    index= index -1;
   };
   const handleEdit = (index) => {
     setBallNumbersIndex(index);
