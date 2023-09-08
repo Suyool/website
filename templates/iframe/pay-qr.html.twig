@@ -87,7 +87,7 @@
                     env: env,
                 },
                 success: function (data) {
-                    var paymentInfo = JSON.parse(data);
+                    var paymentInfo = data;
 
                     //If the payment status is different then approved == 1
                     if(paymentInfo['Flag'] == 2 || paymentInfo['Flag'] == 4){
@@ -104,10 +104,10 @@
                         $('.QR-cont').hide();
                         setTimeout(function(){
                             if(window.opener){
-                                window.opener.location.href = paymentInfo['CallBackURL'];
+                                window.opener.location.href = callbackUrl;
                                 window.self.close();
                             }else{
-                                window.top.location.href = paymentInfo['CallBackURL'];
+                                window.top.location.href = callbackUrl;
                             }
                         }, 3000);
                     }
