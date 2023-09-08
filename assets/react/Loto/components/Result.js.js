@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import data from "./result.json";
 import axios from "axios";
 
-const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
+const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckBuy}) => {
 
  
   const results = parameters.prize_loto_result;
@@ -47,6 +47,10 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
+
+    if(getCheckBuy){
+      handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0)
+    }
 
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
@@ -126,91 +130,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   const filteredData = results.filter(
     (item) => item.month + " " + item.year === selectedMonthYear
   );
-  console.log(filteredData);
-
-  // useEffect(()=>{
-  //   axios
-  //       .post("/loto", {
-  //         drawNumber: filteredData[0].drawNumber,
-  //       })
-  //       .then((response) => {
-  //         // console.log(response.data);
-  //       if (response.data.parameters.prize_loto_win.numbers != "") {
-  //         setWinBallInitial(
-  //           response.data.parameters.prize_loto_win.numbers
-  //             .split(",")
-  //             .map(Number)
-  //         );
-  //         setWinBallInitialZeed(
-  //           response.data.parameters.prize_loto_win.zeednumbers
-  //             .split("")
-  //             .map(Number)
-  //         );
-  //       } else {
-  //         setWinBallInitial([]);
-  //         setWinBallInitialZeed([]);
-  //       }
-  //       const parsedGrids =
-  //         response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-  //           (item) => item["gridSelected"].split(" ").map(Number)
-  //         );
-  //       const resultsnumbers = response.data.parameters.prize_loto_win.numbers
-  //         .split(",")
-  //         .map(Number);
-
-  //       setMyGrids(parsedGrids);
-  //       const lastNumber = resultsnumbers[resultsnumbers.length - 1];
-  //       setLastNumber(lastNumber);
-
-  //       const zeedSelectedArray =
-  //         response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
-  //           ?.map((item) => item["zeedSelected"])
-  //           .filter((zeedSelected) => zeedSelected !== null);
-  //       // const parsedGridsZeed = item.gridSelected.map((item) =>
-  //       //   item["zeedSelected"].split("").map(Number)
-  //       // );
-  //       setZeedNumber(zeedSelectedArray);
-  //       const parsedGridsZeed =
-  //         response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-  //           (item) => {
-  //             const zeedSelected = item["zeedSelected"];
-  //             // console.log(zeedSelected)
-  //             if (zeedSelected === null) {
-  //               return null;
-  //             } else {
-  //               return zeedSelected.split("").map(Number);
-  //             }
-  //           }
-  //         );
-  //       setMyGridsZeed(parsedGridsZeed);
-  //       console.log(response.data.parameters.prize_loto_win.prize2);
-
-  //       setprize1(response.data.parameters.prize_loto_win.prize1);
-  //       setprize2(response.data.parameters.prize_loto_win.prize2);
-  //       setprize3(response.data.parameters.prize_loto_win.prize3);
-  //       setprize4(response.data.parameters.prize_loto_win.prize4);
-  //       setprize5(response.data.parameters.prize_loto_win.prize5);
-
-  //       setZeedNumber1(response.data.parameters.prize_loto_win.zeednumbers);
-  //       setZeedNumber2(response.data.parameters.prize_loto_win.zeednumbers2);
-  //       setZeedNumber3(response.data.parameters.prize_loto_win.zeednumbers3);
-  //       setZeedNumber4(response.data.parameters.prize_loto_win.zeednumbers4);
-
-  //       setprize1zeed(response.data.parameters.prize_loto_win.prize1zeed);
-  //       setprize2zeed(response.data.parameters.prize_loto_win.prize2zeed);
-  //       setprize3zeed(response.data.parameters.prize_loto_win.prize3zeed);
-  //       setprize4zeed(response.data.parameters.prize_loto_win.prize4zeed);
-
-  //       setClickedIndex(index);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  // },[])
-
-  useEffect(()=>{
-    handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0)
-  },[])
 
   const handleMonthYearChange = (event) => {
     setMyGrids([]);
@@ -226,14 +145,12 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
 
   const handlePrevious = () => {
     setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    setClickedIndex(prevIndex);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
       Math.min(prevIndex + 1, filteredData.length - 4)
     );
-    setClickedIndex(prevIndex);
   };
 
   const handleChangeDate = (item, index) => {

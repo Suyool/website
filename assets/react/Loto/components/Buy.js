@@ -16,6 +16,7 @@ const Buy = ({
   getDataGetting,
   setDataGetting,
   setTotalAmount,
+  setCheckBuy
 }) => {
   // console.log(parameters?.deviceType);
   useEffect(() => {
@@ -146,6 +147,7 @@ const Buy = ({
             localStorage.removeItem("selectedBalls");
             setPlayedBalls([]);
             setDisabledBtn(true);
+            setCheckBuy(true);
            
           } else if (!response.data.status && response.data.flagCode == 10) {
             setModalName("ErrorModal");

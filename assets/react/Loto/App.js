@@ -27,6 +27,8 @@ const App = ({ parameters }) => {
 
   const [getDataGetting, setDataGetting] = useState("");
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  const [getCheckBuy, setCheckBuy] = useState(false);
+
 
   const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
@@ -131,6 +133,8 @@ const App = ({ parameters }) => {
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               parameters={parameters}
+              getCheckBuy={getCheckBuy}
+              setCheckBuy={setCheckBuy}
             />
           )}
 
@@ -149,6 +153,7 @@ const App = ({ parameters }) => {
               getDataGetting={getDataGetting}
               setDataGetting={setDataGetting}
               setTotalAmount={setTotalAmount}
+              setCheckBuy={setCheckBuy}
             />
           )}
         </div>

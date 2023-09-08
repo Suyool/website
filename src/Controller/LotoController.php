@@ -204,23 +204,24 @@ class LotoController extends AbstractController
 
                 $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
 
-                $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
+                $loto_prize_result = $this->mr->getRepository(LOTO_draw::class)->findBy([], ['drawdate' => 'desc']);
 
                 $data = json_decode($request->getContent(), true);
 
                 $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
                 $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
 
-                $checkdraw = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $lotohistory->getDrawId()]);
-                if ($checkdraw != null) {
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
-                } else {
+                // $checkdraw = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $lotohistory->getDrawId()]);
+                // dd($checkdraw);
+                // if ($checkdraw != null) {
+                    // $loto_prize_per_days = [];
+                // } else {
                     $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
-                }
-                if ($loto_prize_per_days == null) {
-                    $fetchLastDraw = 1;
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId());
-                }
+                // }
+                // if ($loto_prize_per_days == null) {
+                    // $fetchLastDraw = 1;
+                    // $loto_prize_per_days = [];
+                // }
 
 
 
@@ -252,43 +253,43 @@ class LotoController extends AbstractController
                 $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
                 $parameters['gridprice'] =
                     $parameters['unit_price'];
-                if (isset($fetchLastDraw)) {
-                    $loto_prize_array = [
-                        'numbers' => $loto_prize->getnumbers(),
-                        'prize1' => $loto_prize->getwinner1(),
-                        'prize2' => $loto_prize->getwinner2(),
-                        'prize3' => $loto_prize->getwinner3(),
-                        'prize4' => $loto_prize->getwinner4(),
-                        'prize5' => $loto_prize->getwinner5(),
-                        'zeednumbers' => $loto_prize->getzeednumber1(),
-                        'zeednumbers2' => $loto_prize->getzeednumber2(),
-                        'zeednumbers3' => $loto_prize->getzeednumber3(),
-                        'zeednumbers4' => $loto_prize->getzeednumber4(),
-                        'prize1zeed' => $loto_prize->getwinner1zeed(),
-                        'prize2zeed' => $loto_prize->getwinner2zeed(),
-                        'prize3zeed' => $loto_prize->getwinner3zeed(),
-                        'prize4zeed' => $loto_prize->getwinner4zeed(),
-                        'date' => $loto_prize->getdrawdate()
-                    ];
-                } else if ($checkdraw != null) {
-                    $loto_prize_array = [
-                        'numbers' => $loto_prize->getnumbers(),
-                        'prize1' => $loto_prize->getwinner1(),
-                        'prize2' => $loto_prize->getwinner2(),
-                        'prize3' => $loto_prize->getwinner3(),
-                        'prize4' => $loto_prize->getwinner4(),
-                        'prize5' => $loto_prize->getwinner5(),
-                        'zeednumbers' => $loto_prize->getzeednumber1(),
-                        'zeednumbers2' => $loto_prize->getzeednumber2(),
-                        'zeednumbers3' => $loto_prize->getzeednumber3(),
-                        'zeednumbers4' => $loto_prize->getzeednumber4(),
-                        'prize1zeed' => $loto_prize->getwinner1zeed(),
-                        'prize2zeed' => $loto_prize->getwinner2zeed(),
-                        'prize3zeed' => $loto_prize->getwinner3zeed(),
-                        'prize4zeed' => $loto_prize->getwinner4zeed(),
-                        'date' => $loto_prize->getdrawdate()
-                    ];
-                } else {
+                // if (!isset($fetchLastDraw)) {
+                //     $loto_prize_array = [
+                //         'numbers' => $loto_prize->getnumbers(),
+                //         'prize1' => $loto_prize->getwinner1(),
+                //         'prize2' => $loto_prize->getwinner2(),
+                //         'prize3' => $loto_prize->getwinner3(),
+                //         'prize4' => $loto_prize->getwinner4(),
+                //         'prize5' => $loto_prize->getwinner5(),
+                //         'zeednumbers' => $loto_prize->getzeednumber1(),
+                //         'zeednumbers2' => $loto_prize->getzeednumber2(),
+                //         'zeednumbers3' => $loto_prize->getzeednumber3(),
+                //         'zeednumbers4' => $loto_prize->getzeednumber4(),
+                //         'prize1zeed' => $loto_prize->getwinner1zeed(),
+                //         'prize2zeed' => $loto_prize->getwinner2zeed(),
+                //         'prize3zeed' => $loto_prize->getwinner3zeed(),
+                //         'prize4zeed' => $loto_prize->getwinner4zeed(),
+                //         'date' => $loto_prize->getdrawdate()
+                //     ];
+                // } else if ($checkdraw != null) {
+                //     $loto_prize_array = [
+                //         'numbers' => $loto_prize->getnumbers(),
+                //         'prize1' => $loto_prize->getwinner1(),
+                //         'prize2' => $loto_prize->getwinner2(),
+                //         'prize3' => $loto_prize->getwinner3(),
+                //         'prize4' => $loto_prize->getwinner4(),
+                //         'prize5' => $loto_prize->getwinner5(),
+                //         'zeednumbers' => $loto_prize->getzeednumber1(),
+                //         'zeednumbers2' => $loto_prize->getzeednumber2(),
+                //         'zeednumbers3' => $loto_prize->getzeednumber3(),
+                //         'zeednumbers4' => $loto_prize->getzeednumber4(),
+                //         'prize1zeed' => $loto_prize->getwinner1zeed(),
+                //         'prize2zeed' => $loto_prize->getwinner2zeed(),
+                //         'prize3zeed' => $loto_prize->getwinner3zeed(),
+                //         'prize4zeed' => $loto_prize->getwinner4zeed(),
+                //         'date' => $loto_prize->getdrawdate()
+                //     ];
+                // } else {
                     $loto_prize_array = [
                         'numbers' => '',
                         'prize1' => '',
@@ -306,7 +307,7 @@ class LotoController extends AbstractController
                         'prize4zeed' => '',
                         'date' => ''
                     ];
-                }
+                // }
 
 
                 $parameters['prize_loto_win'] = $loto_prize_array;
