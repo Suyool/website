@@ -77,13 +77,11 @@ class IframeController extends AbstractController
                 'Amount' => $amount,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
-                'CallBackURL' => $CallBackURL,
                 'TS' => $TS,
                 'TranTS' => $TranTS,
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
-
             $params = [
                 'data' => json_encode($transactionData),
                 'url' => 'api/OnlinePayment/PayQR',
@@ -109,7 +107,6 @@ class IframeController extends AbstractController
         ]);
 
         $content = $response->getContent();
-
         $response = json_decode($content, true);
 
         return $response;
@@ -181,18 +178,17 @@ class IframeController extends AbstractController
 
         if ($transactionId != '' && $merchantId != '' && $callBackURL != '') {
             $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
-            $certificate = "6eEimt2ffGTy2Jps3T7XS9aKzl1Rjwut0vk8q3byk1ERUAosAppdzaLorUVEfmMP0ip33aoiWpwKX9iSsFTfX19FqT9WiYPou1tX4KkaZYIJBzdaIPhD49NRsm1JXW8ZJMmTYKsqw7zeYeUjgA9JDc";
-            $secure = $transactionId . $timestamp . $certificate;
+            $certificate = "kEjHyTPHkKUWdumFmTL64DfqjitQcit1ZxdDTNuljscarcNXEy8zmhaTiTlr0a0YkTnAQjfAP6dOZZcMfouVneaqrLlGZUUj55i3";
+            $secure =  $timestamp .$transactionId. $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
             $json = [
-                "TranID" => $transactionId,
-                "TS" => $timestamp,
-                "MerchantID" => $merchantId,
-                "SecureHash" => $secureHash
+                "transactionID" => $transactionId,
+                "ts" => $timestamp,
+                "merchantAccountID" => $merchantId,
+                "secureHash" => $secureHash
             ];
             $params['data'] = json_encode($json);
-
-            $params['url'] = 'OnlinePaymentIntegration/CheckPortalPaymentStatus';
+            $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
             if ($data['env'] == 'live') {
                 $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
             } else {
@@ -204,9 +200,9 @@ class IframeController extends AbstractController
                     'Content-Type' => 'application/json'
                 ]
             ]);
-            dd($response);
-            $result = json_decode($response, true);
+            $result = json_decode($response->getContent(), true);
             return $result;
         }
+        return false;
     }
 }
