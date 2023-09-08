@@ -86,7 +86,7 @@ class IframeController extends AbstractController
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
                 'TS' => $TS,
-                //"callBackURL" => "$CallBackURL",
+                'callBackURL' => $CallBackURL,
                 'TranTS' => $TranTS,
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
