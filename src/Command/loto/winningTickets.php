@@ -70,6 +70,7 @@ class winningTickets extends Command
         $winningBallsZeed['prize4']=$getLastResults->getzeednumber4();
 
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
+        // dd($getGridsinThisDraw);
         foreach($getGridsinThisDraw as $gridsTobeUpdated){
             $sum=0;
             $keyInArray1=-1;
@@ -138,12 +139,11 @@ class winningTickets extends Command
                         $won=null;
                     }
                 }
-                // echo json_encode($won);
-                $gridsTobeUpdated->setwinloto($sum);
-                $gridsTobeUpdated->setwonloto($won);
-                $gridsTobeUpdated->setwonzeed($prizezeed);
-                $this->mr->persist($gridsTobeUpdated);
-                $this->mr->flush();
+            $gridsTobeUpdated->setwinloto($sum);
+            $gridsTobeUpdated->setwonloto($won);
+            $gridsTobeUpdated->setwonzeed($prizezeed);
+            $this->mr->persist($gridsTobeUpdated);
+            $this->mr->flush();
         }
 
         $getUsersWhoWon=$this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
