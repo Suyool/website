@@ -4,7 +4,6 @@ import ApplyForCorporate from "./Component/ApplyForCorporate";
 import SuccessfullySent from "./Component/SuccessfullySent";
 
 const App = ({ parameters }) => {
-    // console.log(parameters);
 
     const [getSent, steSent] = useState(false)
     return (
@@ -15,7 +14,7 @@ const App = ({ parameters }) => {
                 {getSent ?
                     <SuccessfullySent />
                     :
-                    <ApplyForCorporate getSent={getSent} steSent={steSent} />
+                    <ApplyForCorporate getSent={getSent} steSent={steSent} env={parameters.ENV} />
                 }
             </div>
 

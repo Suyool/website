@@ -13,9 +13,9 @@ class LegalEnrollementController extends AbstractController
      */
     public function index(): Response
     {
-        $parameters['Test'] = "tst";
-
-        return $this->render('legal_enrollement/index.html.twig',[
+        // $parameters['Test'] = "tst";
+        $parameters['ENV'] = $_ENV['APP_ENV'];
+        return $this->render('legal_enrollement/index.html.twig', [
             'parameters' => $parameters
         ]);
     }
