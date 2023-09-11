@@ -43,9 +43,9 @@ function getMobileOperatingSystem() {
     // }
     function getTheApp(position, downloadAppUrl) {
         //Event label - Menu or Homepage - top
-        var eventLabel = '';
+        var eventLabel = "";
         //If the downloadAppUrl isset uset it, otherwise set the default value ''
-        var downloadAppUrl = (typeof downloadAppUrl != 'undefined') ? downloadAppUrl : '';
+        var downloadAppUrl = (typeof downloadAppUrl != "undefined") ? downloadAppUrl : "";
 
         //Call the googleFacebookEvents to execute Google and Facebook events
         // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
@@ -58,7 +58,7 @@ function getMobileOperatingSystem() {
             var osMobile = getMobileOperatingSystem();
 
             //If the Download App URL isset use it
-            if(downloadAppUrl != ''){
+            if(downloadAppUrl != ""){
                 location = downloadAppUrl;
 
                 //Otherwise check the OS and call the Apple or Play Store URL
@@ -83,22 +83,22 @@ function clickOne(downloadAppUrl, conversion_code,uri) {
 
     if (!clicked_once) {
         clicked_once = true;
-        console.log('ok');
+        console.log("ok");
 
-        $('.conversion-button').css('margin-top',"20px");
+        $(".conversion-button").css("margin-top","20px");
         // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
     }else{
-        console.log('already clicked');
+        console.log("already clicked");
 
     }
     getTheApp(uri,downloadAppUrl);
 
 }
 
-if(document.querySelector('.open-suyool-account')){
-    const open_suyool_account = document.querySelector('.open-suyool-account');
+if(document.querySelector(".open-suyool-account")){
+    const open_suyool_account = document.querySelector(".open-suyool-account");
     
-    open_suyool_account.addEventListener('click',function(){
-      clickOne('suyoolpay://suyool.com/suyool','','/');
+    open_suyool_account.addEventListener("click",function(){
+      clickOne("suyoolpay://suyool.com/suyool","","/");
     })
     }

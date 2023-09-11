@@ -1,16 +1,16 @@
- if(document.getElementById('emailForm')){
+ if(document.getElementById("emailForm")){
 // Get the form element
-const form = document.getElementById('emailForm');
+const form = document.getElementById("emailForm");
           
 // Get the email status element
-const emailStatus = document.getElementById('emailStatus');
+const emailStatus = document.getElementById("emailStatus");
 
-const emailTitle = document.getElementById('emailTitle');
+const emailTitle = document.getElementById("emailTitle");
 
-const emailBtn = document.getElementById('emailBtn');
+const emailBtn = document.getElementById("emailBtn");
 
 // Add an event listener to the form submission
-form.addEventListener('submit', function(event) {
+form.addEventListener("submit", function(event) {
   event.preventDefault(); // Prevent the default form submission
 
   fetch(form.action, {
@@ -23,29 +23,29 @@ form.addEventListener('submit', function(event) {
   .then(function(data) {
     // Handle the response accordingly (e.g., show success message, update UI, etc.)
     console.log(data);
-    if(data.success == 'Invalid Email'){
-      emailStatus.textContent = 'Invalid Email';
-      emailTitle.textContent = 'Rejected';
+    if(data.success == "Invalid Email"){
+      emailStatus.textContent = "Invalid Email";
+      emailTitle.textContent = "Rejected";
       emailBtn.textContent="Cancel";
     }else{
      if (data.success) {
-       emailStatus.textContent = 'You will be the first one to know once the Suyool app is launched.';
-       emailTitle.textContent = 'You Are On The Waiting List';
+       emailStatus.textContent = "You will be the first one to know once the Suyool app is launched.";
+       emailTitle.textContent = "You Are On The Waiting List";
        emailBtn.textContent="Youpi!";
      } else {
-       emailStatus.textContent = 'Email exist';
-       emailTitle.textContent = 'Rejected';
+       emailStatus.textContent = "Email exist";
+       emailTitle.textContent = "Rejected";
        emailBtn.textContent="Cancel";
      }
     }
     
 
     // Show the modal
-    $('#emailModal').modal('show');
+    $("#emailModal").modal("show");
   })
   .catch(function(error) {
     // Handle any errors that occurred during form submission
-    console.error('Error submitting forms:', error);
+    console.error("Error submitting forms:", error);
   });
 });
  }
@@ -95,9 +95,9 @@ function getMobileOperatingSystem() {
     // }
     function getTheApp(position, downloadAppUrl) {
         //Event label - Menu or Homepage - top
-        var eventLabel = '';
+        var eventLabel = "";
         //If the downloadAppUrl isset uset it, otherwise set the default value ''
-        var downloadAppUrl = (typeof downloadAppUrl != 'undefined') ? downloadAppUrl : '';
+        var downloadAppUrl = (typeof downloadAppUrl != "undefined") ? downloadAppUrl : "";
 
         //Call the googleFacebookEvents to execute Google and Facebook events
         // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
@@ -110,7 +110,7 @@ function getMobileOperatingSystem() {
             var osMobile = getMobileOperatingSystem();
 
             //If the Download App URL isset use it
-            if(downloadAppUrl != ''){
+            if(downloadAppUrl != ""){
                 location = downloadAppUrl;
 
                 //Otherwise check the OS and call the Apple or Play Store URL
@@ -135,23 +135,23 @@ function clickOne(downloadAppUrl, conversion_code,uri) {
 
     if (!clicked_once) {
         clicked_once = true;
-        console.log('ok');
+        console.log("ok");
 
-        $('.conversion-button').css('margin-top',"20px");
+        $(".conversion-button").css("margin-top","20px");
         // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
     }else{
-        console.log('already clicked');
+        console.log("already clicked");
 
     }
     getTheApp(uri,downloadAppUrl);
 
 }
 
-if(document.querySelector('.open-suyool-account')){
-    const open_suyool_account = document.querySelector('.open-suyool-account');
+if(document.querySelector(".open-suyool-account")){
+    const open_suyool_account = document.querySelector(".open-suyool-account");
     
-    open_suyool_account.addEventListener('click',function(){
-      clickOne('suyoolpay://suyool.com/suyool','','/');
+    open_suyool_account.addEventListener("click",function(){
+      clickOne("suyoolpay://suyool.com/suyool","","/");
     })
     }
 if(document.querySelector(".close")){
@@ -175,29 +175,29 @@ if(document.querySelector(".close")){
         })
 
 }
-$('.submitTextDownloadAppBtn').on('click', function(e) {
+$(".submitTextDownloadAppBtn").on("click", function(e) {
     // console.log( $(this).attr('code'));
     e.preventDefault();
 
     // Get the mobile number from the input field
-    var mobileNumber = $(this).closest('.input-main-cont').find('.mobileTextDownloadApp').val();
+    var mobileNumber = $(this).closest(".input-main-cont").find(".mobileTextDownloadApp").val();
     // Send an AJAX request to the server
     $.ajax({
-        url: '/invitationCard/submitInvitationCard',
-        method: 'POST',
+        url: "/invitationCard/submitInvitationCard",
+        method: "POST",
         data: { mobileNumber: mobileNumber,
-            code: $(this).attr('code') },
+            code: $(this).attr("code") },
         success: function(response) {
             // Show the response message in the modal
-            $('#invitationModal .modal-body').append('<p>' + response.RespDesc + '</p>');
+            $("#invitationModal .modal-body").append("<p>" + response.RespDesc + "</p>");
             // Modify the button label based on the RespCode value
             if(response.RespCode == 0 || response.RespCode == -3) {
-                $('#closeModelResubscribe').text('OK');
+                $("#closeModelResubscribe").text("OK");
             } else {
-                $('#closeModelResubscribe').text('Try Again');
+                $("#closeModelResubscribe").text("Try Again");
             }
             // Show the modal
-            $('#invitationModal').modal('show');
+            $("#invitationModal").modal("show");
         },
         error: function(xhr, status, error) {
             // Show an error message in the console
@@ -208,48 +208,48 @@ $('.submitTextDownloadAppBtn').on('click', function(e) {
 
 $(document).ready(function() {
     // Add an oninput event listener to the #mobile element
-    $('.mobileTextDownloadApp').on('input', function(event) {
+    $(".mobileTextDownloadApp").on("input", function(event) {
         //Parent division of the mobile input
-        var parentDivision = $(this).closest('.input-main-cont').parent().attr("class");
+        var parentDivision = $(this).closest(".input-main-cont").parent().attr("class");
 
         //Main division of the mobile input
-        var mainDivision = '';
+        var mainDivision = "";
         //Check if the parent division is skash-more-than-cash-section - home-v3
         if(parentDivision.indexOf("invitation-card-section-bottom") > 0){
             //Main division of the form
-            mainDivision = '.invitation-card-section-bottom';
+            mainDivision = ".invitation-card-section-bottom";
 
             //Check if the parent division is invitation-card-section-top - invitation-card
         } else if(parentDivision.indexOf("invitation-card-section-top") > 0){
             //Main division of the form
-            mainDivision = '.invitation-card-section-top';
+            mainDivision = ".invitation-card-section-top";
         }
 
         //When entering the mobile number enable the submit button if the input length is > 7
         if($(this).val().length > 6){
-            $(mainDivision+' .submitTextDownloadAppBtn').removeAttr("disabled");
+            $(mainDivision+" .submitTextDownloadAppBtn").removeAttr("disabled");
         } else {
-            $(mainDivision+' .submitTextDownloadAppBtn').attr("disabled","disabled");
+            $(mainDivision+" .submitTextDownloadAppBtn").attr("disabled","disabled");
         }
     });
 });
-if(document.querySelector('.copy-to-clipboard')){
+if(document.querySelector(".copy-to-clipboard")){
   // Get the element with the 'copy-to-clipboard' class
-  const copyBtn = document.querySelector('.copy-to-clipboard');
+  const copyBtn = document.querySelector(".copy-to-clipboard");
 
   // Get the value of the 'data-to-copy' attribute
-  const copyText = copyBtn.getAttribute('data-to-copy');
+  const copyText = copyBtn.getAttribute("data-to-copy");
 
   // Add a click event listener to the button
-  copyBtn.addEventListener('click', function() {
+  copyBtn.addEventListener("click", function() {
     // Create a new textarea element to hold the copied text
-    const textarea = document.createElement('textarea');
+    const textarea = document.createElement("textarea");
     textarea.value = copyText;
     document.body.appendChild(textarea);
 
     // Select the text in the textarea and copy it to the clipboard
     textarea.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
 
     // Remove the textarea element from the DOM
     document.body.removeChild(textarea);
@@ -259,14 +259,14 @@ if(document.querySelector('.copy-to-clipboard')){
   });
 }
 
-if(document.querySelector('.generate-code')){
-  document.querySelector('.generate-code').addEventListener('click',function(){
-    const tag=document.querySelector('.generate-code');
-    if(tag.hasAttribute('data-code')){
-      window.location.href="/codeGenerated?codeATM="+tag.getAttribute('data-code')
+if(document.querySelector(".generate-code")){
+  document.querySelector(".generate-code").addEventListener("click",function(){
+    const tag=document.querySelector(".generate-code");
+    if(tag.hasAttribute("data-code")){
+      window.location.href="/codeGenerated?codeATM="+tag.getAttribute("data-code")
     }else{
-      if(document.querySelector('.error')){
-    document.querySelector('.error').style.display='block';
+      if(document.querySelector(".error")){
+    document.querySelector(".error").style.display="block";
       }
     }
   })
@@ -295,8 +295,8 @@ if(document.getElementById("submit")){
 function resubscribe(uniqueCode, flag) {
     jQuery.ajax({
         type: "GET",
-        url: '/unsubscribeMarketing/resubscribe?uniqueCode=' + uniqueCode + '&flag=' + flag,
-        dataType: 'json',
+        url: "/unsubscribeMarketing/resubscribe?uniqueCode=" + uniqueCode + "&flag=" + flag,
+        dataType: "json",
     });
 }
 

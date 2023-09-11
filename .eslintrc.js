@@ -17,9 +17,9 @@ module.exports = {
         "no-unused-vars": 0,
         "array-bracket-spacing": ["error", "always"],
         "object-curly-spacing": ["error", "always"],
-        "no-undef":"off",
-        "no-prototype-builtins":"off",
-        // "no-empty":"off",
-        "no-redeclare":"off",
+        "no-undef": "off",
+        "no-prototype-builtins": "off",
+        "no-redeclare": "off",
+        "quotes": ["error", "double", { "allowTemplateLiterals": true }]
     }
 };

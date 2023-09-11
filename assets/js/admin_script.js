@@ -23,9 +23,9 @@ function sendAuthCodeBySMS(){
         //start counter for sms button to be enabled and allow resend
         enableSmsButtonTimer();
         $.ajax({
-            type: 'post',
-            dataType: 'json',
-            url: '/admin/sendAuthCode',
+            type: "post",
+            dataType: "json",
+            url: "/admin/sendAuthCode",
             success: function (data) {
                 showAjaxMessage(data)
             }
