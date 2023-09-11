@@ -24,7 +24,7 @@ class SuyoolServices
     private $helper;
 
 
-    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper,ParameterBagInterface $params)
+    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper=null,ParameterBagInterface $params)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -335,10 +335,6 @@ class SuyoolServices
 
     public function PushUserPrize($listWinners)
     {
-<<<<<<< HEAD
-
-=======
->>>>>>> 79c700f (parameters bag interface)
         try {
             $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
             $this->logger->info(json_encode([
