@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import data from "./result.json";
 import axios from "axios";
 
-const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckBuy}) => {
+const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckBuy }) => {
 
  
   const results = parameters.prize_loto_result;
@@ -12,26 +12,26 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
   // console.log(data);
   // console.log(parameters.prize_loto_win.numbers);
 
-  const [getWinBallInitial, setWinBallInitial] = useState([]);
-  const [getWinBallInitialZeed, setWinBallInitialZeed] = useState([]);
-  const [getMyGrids, setMyGrids] = useState([]);
-  const [getMyGridsZeed, setMyGridsZeed] = useState([]);
-  const [clickedIndex, setClickedIndex] = useState(0);
-  const [getLastNumber, setLastNumber] = useState([]);
-  const [getZeedNumber, setZeedNumber] = useState([]);
-  const [prize1, setprize1] = useState([]);
-  const [prize2, setprize2] = useState([]);
-  const [prize3, setprize3] = useState([]);
-  const [prize4, setprize4] = useState([]);
-  const [prize5, setprize5] = useState([]);
-  const [zeednumber1, setZeedNumber1] = useState([]);
-  const [zeednumber2, setZeedNumber2] = useState([]);
-  const [zeednumber3, setZeedNumber3] = useState([]);
-  const [zeednumber4, setZeedNumber4] = useState([]);
-  const [prize1zeed, setprize1zeed] = useState([]);
-  const [prize2zeed, setprize2zeed] = useState([]);
-  const [prize3zeed, setprize3zeed] = useState([]);
-  const [prize4zeed, setprize4zeed] = useState([]);
+  const [ getWinBallInitial, setWinBallInitial ] = useState([]);
+  const [ getWinBallInitialZeed, setWinBallInitialZeed ] = useState([]);
+  const [ getMyGrids, setMyGrids ] = useState([]);
+  const [ getMyGridsZeed, setMyGridsZeed ] = useState([]);
+  const [ clickedIndex, setClickedIndex ] = useState(0);
+  const [ getLastNumber, setLastNumber ] = useState([]);
+  const [ getZeedNumber, setZeedNumber ] = useState([]);
+  const [ prize1, setprize1 ] = useState([]);
+  const [ prize2, setprize2 ] = useState([]);
+  const [ prize3, setprize3 ] = useState([]);
+  const [ prize4, setprize4 ] = useState([]);
+  const [ prize5, setprize5 ] = useState([]);
+  const [ zeednumber1, setZeedNumber1 ] = useState([]);
+  const [ zeednumber2, setZeedNumber2 ] = useState([]);
+  const [ zeednumber3, setZeedNumber3 ] = useState([]);
+  const [ zeednumber4, setZeedNumber4 ] = useState([]);
+  const [ prize1zeed, setprize1zeed ] = useState([]);
+  const [ prize2zeed, setprize2zeed ] = useState([]);
+  const [ prize3zeed, setprize3zeed ] = useState([]);
+  const [ prize4zeed, setprize4zeed ] = useState([]);
 
   // useEffect(() => {
   //   console.log(getMyGrids);
@@ -115,8 +115,8 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
     setprize4zeed(parameters.prize_loto_win.prize4zeed);
   }, []);
 
-  const [selectedMonthYear, setSelectedMonthYear] = useState("");
-  const [startIndex, setStartIndex] = useState(0);
+  const [ selectedMonthYear, setSelectedMonthYear ] = useState("");
+  const [ startIndex, setStartIndex ] = useState(0);
 
   const uniqueFilters = [];
 

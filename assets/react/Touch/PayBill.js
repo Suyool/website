@@ -3,10 +3,10 @@ import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
 const PayBill = ({ setPostpaidData, setModalShow, setModalName, setErrorModal, activeButton, setActiveButton, setHeaderTitle, setBackLink }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [currency, setCurrency] = useState("LBP");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ mobileNumber, setMobileNumber ] = useState("");
+  const [ currency, setCurrency ] = useState("LBP");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
 
   useEffect(() => {

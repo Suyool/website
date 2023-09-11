@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
 
-  const [getAnth,setAnth] = useState("");
+  const [ getAnth,setAnth ] = useState("");
   const handleExchange = () => { 
     if (props.getErrorModal.path == "84") {
       let object = [

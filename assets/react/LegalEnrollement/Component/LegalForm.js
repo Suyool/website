@@ -39,7 +39,7 @@
 import React, { useEffect, useState } from "react";
 
 const LegalForm = ({ getDropDown, setFormData, formData, handleInputChange }) => {
-    const [selectedValue, setSelectedValue] = useState(false);
+    const [ selectedValue, setSelectedValue ] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;

@@ -4,9 +4,9 @@ import { Spinner } from "react-bootstrap";
 
 const MyBill = ({ parameters,getLandlineMobile, getLandlineDisplayedData, getLandlineData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink,getDataGetting }) => {
   console.log(parameters?.deviceType);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getdisplayedFees, setdisplayedFees ] = useState("");
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill")
@@ -104,7 +104,7 @@ useEffect(()=>{
     setSpinnerLoader(false);
     setIsButtonDisabled(false);
   }
-},[getDataGetting])
+},[ getDataGetting ])
   
 
   return (

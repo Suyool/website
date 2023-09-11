@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Header = ({parameters, activeButton, setActiveButton, getHeaderTitle, getBackLink }) => {
+const Header = ({ parameters, activeButton, setActiveButton, getHeaderTitle, getBackLink }) => {
 
   const handleButtonClick = (getBackLink) => {
     if(activeButton.name == ""){

@@ -9,7 +9,7 @@ $('.submitTextDownloadAppBtn').on('click', function(e) {
         url: '/invitationCard/submitInvitationCard',
         method: 'POST',
         data: { mobileNumber: mobileNumber,
-            code: $(this).attr('code')},
+            code: $(this).attr('code') },
         success: function(response) {
             // Show the response message in the modal
             $('#invitationModal .modal-body').append('<p>' + response.RespDesc + '</p>');

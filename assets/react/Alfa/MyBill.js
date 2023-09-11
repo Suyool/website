@@ -10,14 +10,14 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
     setIsButtonDisabled(false)
   }, [])
 
-  const [pinCode, setPinCode] = useState([]);
-  const [getResponseId, setResponseId] = useState(null);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getDisplayData, setDisplayData] = useState([]);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getPinWrong, setPinWrong] = useState(false);
+  const [ pinCode, setPinCode ] = useState([]);
+  const [ getResponseId, setResponseId ] = useState(null);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getDisplayData, setDisplayData ] = useState([]);
+  const [ getdisplayedFees, setdisplayedFees ] = useState("");
+  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getPinWrong, setPinWrong ] = useState(false);
 
   const inputRef = useRef(null);
 
@@ -164,7 +164,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
     }
   })
 
-  const [getBtnDesign, setBtnDesign] = useState(false);
+  const [ getBtnDesign, setBtnDesign ] = useState(false);
 
   const handleInputFocus = () => {
     
@@ -262,7 +262,7 @@ const MyBill = ({ setDataGetting, getDataGetting, parameters, getPostpaidData, s
           <button id="ContinueBtn" className="btnCont"
             onClick={handlePayNow} disabled={pinCode.length !== 6}
           >Continue</button>
-          {getPinWrong && <p style={{color:"red"}}>Unable to proceed, kindly try again.</p>}
+          {getPinWrong && <p style={{ color:"red" }}>Unable to proceed, kindly try again.</p>}
 
         </div>
       </div>

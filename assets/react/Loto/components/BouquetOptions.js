@@ -6,7 +6,7 @@ const BouquetOptions = ({
   getBouquetgridprice,
   setActiveButton,
 }) => {
-  const [selectedOption, setSelectedOption] = useState(""); // Track the selected bouquet option
+  const [ selectedOption, setSelectedOption ] = useState(""); // Track the selected bouquet option
 
   // const [bouquet, setBouquetOther] = useState(""); // Track the selected bouquet option
 
@@ -25,11 +25,10 @@ const BouquetOptions = ({
   // Function to handle continuing
   const handleContinue = () => {
     if (
-      selectedOption.gridNb == 0 ||
-      selectedOption.gridNb == null ||
-      selectedOption.gridNb > 500
+      !selectedOption.gridNb == 0 ||
+      !selectedOption.gridNb == null ||
+      !selectedOption.gridNb > 500
     ) {
-    } else {
       // Add the selected bouquet option to the local storage
       const bouquetData = {
         bouquet: "B" + selectedOption.gridNb, // Use the gridNb property instead of balls
@@ -44,11 +43,11 @@ const BouquetOptions = ({
 
       if (existingData) {
         // Parse the existing data and add the new bouquet data
-        const newData = [...JSON.parse(existingData), bouquetData];
+        const newData = [ ...JSON.parse(existingData), bouquetData ];
         localStorage.setItem("selectedBalls", JSON.stringify(newData));
       } else {
         // Create a new array with the bouquet data and store it in local storage
-        localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+        localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
       }
 
       // Continue with the desired actions

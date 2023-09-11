@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
+const MyBill = ({ setDataGetting, getDataGetting,parameters,getPostpaidData, setModalShow, setModalName, setSuccessModal, setErrorModal, setActiveButton, setHeaderTitle, setBackLink }) => {
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill")
@@ -10,18 +10,18 @@ const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setM
     setIsButtonDisabled(false);
   }, [])
 
-  const [pinCode, setPinCode] = useState([]);
-  const [getResponseId, setResponseId] = useState(null);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getDisplayData, setDisplayData] = useState([]);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getPinWrong,setPinWrong] = useState(false);
+  const [ pinCode, setPinCode ] = useState([]);
+  const [ getResponseId, setResponseId ] = useState(null);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getDisplayData, setDisplayData ] = useState([]);
+  const [ getdisplayedFees, setdisplayedFees ] = useState("");
+  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getPinWrong,setPinWrong ] = useState(false);
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
-      setPinCode([...pinCode, num]);
+      setPinCode([ ...pinCode, num ]);
     }
   };
 
@@ -167,7 +167,7 @@ const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setM
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  },[getDataGetting])
+  },[ getDataGetting ])
 
   return (
     <>
@@ -244,7 +244,7 @@ const MyBill = ({setDataGetting, getDataGetting,parameters,getPostpaidData, setM
 
         <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className="continueSection">
           <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== 4}>Continue</button>
-          {getPinWrong && <p style={{color:"red"}}>Unable to proceed, kindly try again.</p>}
+          {getPinWrong && <p style={{ color:"red" }}>Unable to proceed, kindly try again.</p>}
 
           <div className="keybord">
             <button className="keyBtn" onClick={() => handleNbClick(1)}>1</button>

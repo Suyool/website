@@ -15,7 +15,7 @@ const LLDJ = ({
   setPlay,
   setTotalAmountLLDJ,
 }) => {
-  const [getBouquetgridprice, setBouquetgridprice] = useState(0);
+  const [ getBouquetgridprice, setBouquetgridprice ] = useState(0);
   useEffect(() => { 
     
     localStorage.setItem("BackPage", "LLDJ");
@@ -23,7 +23,7 @@ const LLDJ = ({
     setHeaderTitle("La Libanaise Des Jeux");
   }, []);
   // console.log(parameters);
-  const [getShowBouquet, setShowBouquet] = useState(false);
+  const [ getShowBouquet, setShowBouquet ] = useState(false);
   // const [get8Grids, set8Grids]=useState(false);
   const set8Grids = () => {
     // const lastBall = selectedBalls[selectedBalls.length - 1];
@@ -40,11 +40,11 @@ const LLDJ = ({
 
     if (existingData) {
       // Parse the existing data and add the new bouquet data
-      const newData = [...JSON.parse(existingData), bouquetData];
+      const newData = [ ...JSON.parse(existingData), bouquetData ];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
       // Create a new array with the bouquet data and store it in local storage
-      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
     }
     setActiveButton({ name: "Play" });
   };
@@ -64,11 +64,11 @@ const LLDJ = ({
 
     if (existingData) {
       // Parse the existing data and add the new bouquet data
-      const newData = [...JSON.parse(existingData), bouquetData];
+      const newData = [ ...JSON.parse(existingData), bouquetData ];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
       // Create a new array with the bouquet data and store it in local storage
-      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
     }
     setActiveButton({ name: "Play" });
   };

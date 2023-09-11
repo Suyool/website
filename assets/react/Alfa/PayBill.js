@@ -12,11 +12,11 @@ const PayBill = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
-  const [currency, setCurrency] = useState("LBP");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ mobileNumber, setMobileNumber ] = useState("");
+  const [ mobileNumberNoFormat, setMobileNumberNoFormat ] = useState("70102030");
+  const [ currency, setCurrency ] = useState("LBP");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
@@ -87,7 +87,7 @@ const PayBill = ({
     return truncatedValue;
   };
 
-  const [getBtnDesign, setBtnDesign] = useState(false);
+  const [ getBtnDesign, setBtnDesign ] = useState(false);
 
   const handleInputFocus = () => {
     setBtnDesign(true);

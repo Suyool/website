@@ -10,21 +10,21 @@ import MyBundle from "./MyBundle";
 
 const App = ({ parameters }) => {
     // console.log(parameters)
-    const [activeButton, setActiveButton] = useState({ name: "" });
-    const [getBackLink, setBackLink] = useState({ name: "" });
-    const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
-    const [getPrepaidVoucher, setPrepaidVoucher] = useState({ vouchercategory: "", vouchertype: "", priceLBP: "", priceUSD: "", desc: "", isavailable: "" });
-    const [getPostpaidData, setPostpaidData] = useState({ id: "" });
-    const [getDataGetting, setDataGetting] = useState("");
+    const [ activeButton, setActiveButton ] = useState({ name: "" });
+    const [ getBackLink, setBackLink ] = useState({ name: "" });
+    const [ getHeaderTitle, setHeaderTitle ] = useState("Alfa");
+    const [ getPrepaidVoucher, setPrepaidVoucher ] = useState({ vouchercategory: "", vouchertype: "", priceLBP: "", priceUSD: "", desc: "", isavailable: "" });
+    const [ getPostpaidData, setPostpaidData ] = useState({ id: "" });
+    const [ getDataGetting, setDataGetting ] = useState("");
 
 
     //Modal Variable
-    const [getModalName, setModalName] = useState("");
-    const [modalShow, setModalShow] = useState(false);
-    const [getSuccessModal, setSuccessModal] = useState({ imgPath: "/build/images/alfa/SuccessImg.png", title: "SuccessModal", desc: "SuccessModalSuccessModalSuccessModal" });
-    const [getErrorModal, setErrorModal] = useState({ img: "/build/images/alfa/error.png", title: "Error Modal", btn: "Top Up", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
+    const [ getModalName, setModalName ] = useState("");
+    const [ modalShow, setModalShow ] = useState(false);
+    const [ getSuccessModal, setSuccessModal ] = useState({ imgPath: "/build/images/alfa/SuccessImg.png", title: "SuccessModal", desc: "SuccessModalSuccessModalSuccessModal" });
+    const [ getErrorModal, setErrorModal ] = useState({ img: "/build/images/alfa/error.png", title: "Error Modal", btn: "Top Up", desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal" });
 
-    const [getVoucherData, SetVoucherData] = useState([]);
+    const [ getVoucherData, SetVoucherData ] = useState([]);
 
 
     useEffect(() => {

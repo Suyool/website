@@ -21,10 +21,10 @@ const MyBundle = ({
     setIsButtonDisabled(false);
     // console.log(getPrepaidVoucher)
   }, []);
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [getSerialToClipboard, setSerialToClipboard] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
+  const [ getSerialToClipboard, setSerialToClipboard ] = useState("");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
   const handleShare = (shareCode) => {
     let object = [

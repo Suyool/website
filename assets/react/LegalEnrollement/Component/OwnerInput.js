@@ -4,7 +4,7 @@ function OwnerInput({ data, setData }) {
 
 
     function handleAdd() {
-        setData([...data, { Name: '' }]);
+        setData([ ...data, { Name: '' } ]);
     }
 
     function handleRemove(index) {

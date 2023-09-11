@@ -17,7 +17,7 @@ const PickYourGrid = ({
   getBallNumbersIndex,
   setBallNumbersIndex,
 }) => {
-  const [selectedBalls, setSelectedBalls] = useState([]);
+  const [ selectedBalls, setSelectedBalls ] = useState([]);
   // console.log(getTotalAmount)
   useEffect(() => {
     if (getBallPlayed.length == 0) {
@@ -58,13 +58,13 @@ const PickYourGrid = ({
       setTotalAmountLLDJ(totalAmount);
       setTotalAmount(0);
       // setSelectedBalls("");
-    }, [selectedBalls]);
+    }, [ selectedBalls ]);
   }
 
   const handleBallClick = (number) => {
     const index = selectedBalls.findIndex((ball) => ball === null);
     if (index !== -1 && !selectedBalls.includes(number)) {
-      const updatedBalls = [...selectedBalls];
+      const updatedBalls = [ ...selectedBalls ];
       updatedBalls[index] = number;
       setSelectedBalls(updatedBalls);
     }
@@ -133,10 +133,10 @@ const PickYourGrid = ({
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
           if (set.balls && set.balls.length > 0) {
-          const sortedExistingBalls = [...set.balls]
+          const sortedExistingBalls = [ ...set.balls ]
             .filter((item) => item !== null)
             .sort();
-          const sortedSelectedBalls = [...selectedBalls]
+          const sortedSelectedBalls = [ ...selectedBalls ]
             .filter((item) => item !== null)
             .sort();
           return (
@@ -159,7 +159,7 @@ const PickYourGrid = ({
               JSON.stringify(existingBalls)
             );
           } else {
-            const updatedBalls = [...existingBalls, ballSet];
+            const updatedBalls = [ ...existingBalls, ballSet ];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
         } else {
@@ -204,10 +204,10 @@ const PickYourGrid = ({
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
           if (set.balls && set.balls.length > 0) {
-          const sortedExistingBalls = [...set.balls]
+          const sortedExistingBalls = [ ...set.balls ]
             .filter((item) => item !== null)
             .sort();
-          const sortedSelectedBalls = [...selectedBalls]
+          const sortedSelectedBalls = [ ...selectedBalls ]
             .filter((item) => item !== null)
             .sort();
           return (
@@ -229,7 +229,7 @@ const PickYourGrid = ({
               JSON.stringify(existingBalls)
             );
           } else {
-            const updatedBalls = [...existingBalls, ballSet];
+            const updatedBalls = [ ...existingBalls, ballSet ];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
         } else {

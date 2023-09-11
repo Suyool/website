@@ -9,13 +9,13 @@ import DatePicker from "react-datepicker";
 import LegalForm from "./LegalForm";
 
 const ApplyForCorporate = ({ steSent, env }) => {
-  const [getInfoShowing, setInfoShowing] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
-  const [getModalTitle, setModalTitle] = useState("");
-  const [getModalDes, setModalDes] = useState("");
-  const [getDropDown, setDropDown] = useState([]);
-  const [getDropDown1, setDropDown1] = useState([]);
-  const [formData, setFormData] = useState({
+  const [ getInfoShowing, setInfoShowing ] = useState(false);
+  const [ modalShow, setModalShow ] = useState(false);
+  const [ getModalTitle, setModalTitle ] = useState("");
+  const [ getModalDes, setModalDes ] = useState("");
+  const [ getDropDown, setDropDown ] = useState([]);
+  const [ getDropDown1, setDropDown1 ] = useState([]);
+  const [ formData, setFormData ] = useState({
     registeredName: "",
     legalForm: "",
     dateIncorporation: "",
@@ -30,14 +30,14 @@ const ApplyForCorporate = ({ steSent, env }) => {
     contactEmail: "",
     contactFullName: "",
     contactPhoneNumber: "",
-    ownerInfos: [""],
+    ownerInfos: [ "" ],
   });
 
-  const [errors, setErrors] = useState({
+  const [ errors, setErrors ] = useState({
     address: "",
   });
-  const [data, setData] = useState([{ Name: "" }]);
-  const [startDate, setStartDate] = useState(new Date());
+  const [ data, setData ] = useState([ { Name: "" } ]);
+  const [ startDate, setStartDate ] = useState(new Date());
 let baseUrl;
   if (env == "dev") {
      baseUrl = "http://10.20.80.62/CorporateAPI/api/";
