@@ -106,7 +106,6 @@ class winningTickets extends Command
                     $count = 0;
                     $SelectedgridsExplode = [];
                     $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-
                     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
                     $count = count($commonElements);
                     if ($count >= 6) {
@@ -116,26 +115,27 @@ class winningTickets extends Command
                             $count=6;
                         }
                     }
+                    if($count==3){
+                        $won=5;
+                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner5());
+                    }else if($count==4){
+                        $won=4;
+                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner4());
+                    }else if($count==5){
+                        $won=3;
+                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner3());
+                    }else if($count==7){
+                        $won=2;
+                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner2());
+                    }else if($count==6){
+                        $won=1;
+                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner1());
+                    }else{
+                        $won=null;
+                    }
 
                 }
-                if($count==3){
-                    $won=5;
-                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner5());
-                }else if($count==4){
-                    $won=4;
-                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner4());
-                }else if($count==5){
-                    $won=3;
-                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner3());
-                }else if($count==7){
-                    $won=2;
-                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner2());
-                }else if($count==6){
-                    $won=1;
-                    $gridsTobeUpdated->setwinloto($getLastResults->getwinner1());
-                }else{
-                    $won=null;
-                }
+               
                 $gridsTobeUpdated->setwonloto($won);
                 $gridsTobeUpdated->setwonzeed($prizezeed);
                 $this->mr->persist($gridsTobeUpdated);
