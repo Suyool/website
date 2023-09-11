@@ -7,23 +7,23 @@ import SuccessModal from "./Modal/SuccessModal";
 import ErrorModal from "./Modal/ErrorModal";
 
 const App = ({ parameters }) => {
-  const [activeButton, setActiveButton] = useState({ name: "" });
-  const [getBackLink, setBackLink] = useState({ name: "" });
-  const [getHeaderTitle, setHeaderTitle] = useState("Ogero");
-  const [getLandlineData, setLandlineData] = useState({ id: "" });
-  const [getLandlineDisplayedData, setLandlineDisplayedData] = useState({});
-  const [getLandlineMobile, setLandlineMobile] = useState("");
-  const [getDataGetting, setDataGetting] = useState("");
+  const [ activeButton, setActiveButton ] = useState({ name: "" });
+  const [ getBackLink, setBackLink ] = useState({ name: "" });
+  const [ getHeaderTitle, setHeaderTitle ] = useState("Ogero");
+  const [ getLandlineData, setLandlineData ] = useState({ id: "" });
+  const [ getLandlineDisplayedData, setLandlineDisplayedData ] = useState({});
+  const [ getLandlineMobile, setLandlineMobile ] = useState("");
+  const [ getDataGetting, setDataGetting ] = useState("");
 
   //Modal Variable
-  const [getModalName, setModalName] = useState("");
-  const [modalShow, setModalShow] = useState(false);
-  const [getSuccessModal, setSuccessModal] = useState({
+  const [ getModalName, setModalName ] = useState("");
+  const [ modalShow, setModalShow ] = useState(false);
+  const [ getSuccessModal, setSuccessModal ] = useState({
     imgPath: "/build/images/Ogero//build/images/Ogero/SuccessImg.png",
     title: "",
     desc: "",
   });
-  const [getErrorModal, setErrorModal] = useState({
+  const [ getErrorModal, setErrorModal ] = useState({
     imgPath: "/build/images/Ogero/ErrorImg.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",

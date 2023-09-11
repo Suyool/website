@@ -15,10 +15,10 @@ const MyBundle = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [getSerialToClipboard, setSerialToClipboard] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
+  const [ getSerialToClipboard, setSerialToClipboard ] = useState("");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Touch");

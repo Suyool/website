@@ -17,9 +17,9 @@ const MyBill = ({
   getDataGetting,
 }) => {
   console.log(parameters?.deviceType);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getdisplayedFees, setdisplayedFees ] = useState("");
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill");
@@ -112,7 +112,7 @@ const MyBill = ({
       setSpinnerLoader(false);
       setIsButtonDisabled(false);
     }
-  }, [getDataGetting]);
+  }, [ getDataGetting ]);
 
   return (
     <div id="MyBill" className="hideBack">

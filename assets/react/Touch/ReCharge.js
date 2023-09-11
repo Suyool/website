@@ -8,22 +8,22 @@ const ReCharge = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [filteredData, setFilteredData] = useState([]);
-  const [getLoading, setLoading] = useState(true);
+  const [ filteredData, setFilteredData ] = useState([]);
+  const [ getLoading, setLoading ] = useState(true);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Touch");
     setBackLink("");
     setFilteredData(Object.values(getVoucherData));
-  }, [getVoucherData]);
+  }, [ getVoucherData ]);
 
   useEffect(() => {
     if (filteredData.length > 0) {
       setLoading(false);
     }
-  }, [filteredData]);
+  }, [ filteredData ]);
 
-  const order = ["10", "29", "30", "60", "90", "1", "31"];
+  const order = [ "10", "29", "30", "60", "90", "1", "31" ];
   const sortedData = filteredData.sort((a, b) => {
     return order.indexOf(a.vouchertype) - order.indexOf(b.vouchertype);
   });

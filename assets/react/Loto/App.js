@@ -11,25 +11,25 @@ import WarningModal from "./Modal/Modal/WarningModal";
 import Header from "./Header";
 
 const App = ({ parameters }) => {
-  const [getBackLink, setBackLink] = useState({ name: "" });
-  const [getHeaderTitle, setHeaderTitle] = useState("Loto");
-  const [getBallNumbersIndex, setBallNumbersIndex] = useState(-1);
+  const [ getBackLink, setBackLink ] = useState({ name: "" });
+  const [ getHeaderTitle, setHeaderTitle ] = useState("Loto");
+  const [ getBallNumbersIndex, setBallNumbersIndex ] = useState(-1);
 
-  const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
-  const [getPickYourGrid, setPickYourGrid] = useState(false);
-  const [getBallNumbers, setBallNumbers] = useState(0);
-  const [getTotalAmount, setTotalAmount] = useState(0);
-  const [getTotalAmountLLDJ, setTotalAmountLLDJ] = useState(0);
-  const [getPlay, setPlay] = useState(0);
+  const [ activeButton, setActiveButton ] = useState({ name: "LLDJ" });
+  const [ getPickYourGrid, setPickYourGrid ] = useState(false);
+  const [ getBallNumbers, setBallNumbers ] = useState(0);
+  const [ getTotalAmount, setTotalAmount ] = useState(0);
+  const [ getTotalAmountLLDJ, setTotalAmountLLDJ ] = useState(0);
+  const [ getPlay, setPlay ] = useState(0);
 
-  const [getBallPlayed, setBallPlayed] = useState([]);
-  const [isHideBack, setIsHide] = useState(false);
+  const [ getBallPlayed, setBallPlayed ] = useState([]);
+  const [ isHideBack, setIsHide ] = useState(false);
 
-  const [getDataGetting, setDataGetting] = useState("");
+  const [ getDataGetting, setDataGetting ] = useState("");
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [getCheckBuy, setCheckBuy] = useState(false);
+  const [ getCheckBuy, setCheckBuy ] = useState(false);
 
-  const [getDisabledBtn, setDisabledBtn] = useState(
+  const [ getDisabledBtn, setDisabledBtn ] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
   );
 
@@ -46,20 +46,20 @@ const App = ({ parameters }) => {
     };
   }, []);
 
-  const [getModalName, setModalName] = useState("");
-  const [modalShow, setModalShow] = useState(false);
-  const [getSuccessModal, setSuccessModal] = useState({
+  const [ getModalName, setModalName ] = useState("");
+  const [ modalShow, setModalShow ] = useState(false);
+  const [ getSuccessModal, setSuccessModal ] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/success.png",
     title: "",
     desc: "",
   });
-  const [getErrorModal, setErrorModal] = useState({
+  const [ getErrorModal, setErrorModal ] = useState({
     img: "/build/images/Loto//build/images/Loto/error.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",
     path: "",
   });
-  const [getWarningModal, setWarningModal] = useState({
+  const [ getWarningModal, setWarningModal ] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/warning.png",
     title: "Warning Modal",
     desc: "Warning Modal",

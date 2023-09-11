@@ -9,10 +9,10 @@ import ErrorModal from "./Modal/ErrorModal";
 import MyBundle from "./MyBundle";
 
 const App = ({ parameters }) => {
-  const [activeButton, setActiveButton] = useState({ name: "" });
-  const [getBackLink, setBackLink] = useState({ name: "" });
-  const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
-  const [getPrepaidVoucher, setPrepaidVoucher] = useState({
+  const [ activeButton, setActiveButton ] = useState({ name: "" });
+  const [ getBackLink, setBackLink ] = useState({ name: "" });
+  const [ getHeaderTitle, setHeaderTitle ] = useState("Alfa");
+  const [ getPrepaidVoucher, setPrepaidVoucher ] = useState({
     vouchercategory: "",
     vouchertype: "",
     priceLBP: "",
@@ -20,25 +20,25 @@ const App = ({ parameters }) => {
     desc: "",
     isavailable: "",
   });
-  const [getPostpaidData, setPostpaidData] = useState({ id: "" });
-  const [getDataGetting, setDataGetting] = useState("");
+  const [ getPostpaidData, setPostpaidData ] = useState({ id: "" });
+  const [ getDataGetting, setDataGetting ] = useState("");
 
   //Modal Variable
-  const [getModalName, setModalName] = useState("");
-  const [modalShow, setModalShow] = useState(false);
-  const [getSuccessModal, setSuccessModal] = useState({
+  const [ getModalName, setModalName ] = useState("");
+  const [ modalShow, setModalShow ] = useState(false);
+  const [ getSuccessModal, setSuccessModal ] = useState({
     imgPath: "/build/images/alfa/SuccessImg.png",
     title: "Success Modal",
     desc: "Success Modal",
   });
-  const [getErrorModal, setErrorModal] = useState({
+  const [ getErrorModal, setErrorModal ] = useState({
     img: "/build/images/alfa/error.png",
     title: "Error Modal",
     btn: "Top Up",
     desc: "Error Modal",
   });
 
-  const [getVoucherData, SetVoucherData] = useState([]);
+  const [ getVoucherData, SetVoucherData ] = useState([]);
 
   useEffect(() => {
     setDataGetting("");

@@ -15,13 +15,13 @@ const LLDJ = ({
   setPlay,
   setTotalAmountLLDJ,
 }) => {
-  const [getBouquetgridprice, setBouquetgridprice] = useState(0);
+  const [ getBouquetgridprice, setBouquetgridprice ] = useState(0);
   useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
     setBouquetgridprice(parameters.gridprice);
     setHeaderTitle("La Libanaise Des Jeux");
   }, []);
-  const [getShowBouquet, setShowBouquet] = useState(false);
+  const [ getShowBouquet, setShowBouquet ] = useState(false);
   const set8Grids = () => {
     const bouquetData = {
       bouquet: "B" + 8,
@@ -33,10 +33,10 @@ const LLDJ = ({
     const existingData = localStorage.getItem("selectedBalls");
 
     if (existingData) {
-      const newData = [...JSON.parse(existingData), bouquetData];
+      const newData = [ ...JSON.parse(existingData), bouquetData ];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
-      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
     }
     setActiveButton({ name: "Play" });
   };
@@ -50,10 +50,10 @@ const LLDJ = ({
     };
     const existingData = localStorage.getItem("selectedBalls");
     if (existingData) {
-      const newData = [...JSON.parse(existingData), bouquetData];
+      const newData = [ ...JSON.parse(existingData), bouquetData ];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
-      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
     }
     setActiveButton({ name: "Play" });
   };

@@ -6,7 +6,7 @@ const BouquetOptions = ({
   getBouquetgridprice,
   setActiveButton,
 }) => {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [ selectedOption, setSelectedOption ] = useState("");
   const isContinueDisabled = !selectedOption;
   const handleOptionSelect = (option) => {
     if (option != selectedOption) {
@@ -32,10 +32,10 @@ const BouquetOptions = ({
       const existingData = localStorage.getItem("selectedBalls");
 
       if (existingData) {
-        const newData = [...JSON.parse(existingData), bouquetData];
+        const newData = [ ...JSON.parse(existingData), bouquetData ];
         localStorage.setItem("selectedBalls", JSON.stringify(newData));
       } else {
-        localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
+        localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
       }
 
       setShowBouquet(false);

@@ -24,9 +24,9 @@ const Buy = ({
     setHeaderTitle("Checkout");
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [getDisable, setDisable] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getPlayedBalls, setPlayedBalls] = useState(
+  const [ getDisable, setDisable ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getPlayedBalls, setPlayedBalls ] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
   useEffect(() => {
@@ -38,10 +38,10 @@ const Buy = ({
         setDisable(false);
       }
     }
-  }, [selectedBallsToShow]);
+  }, [ selectedBallsToShow ]);
 
   const handleDelete = (index) => {
-    const updatedBalls = [...getPlayedBalls];
+    const updatedBalls = [ ...getPlayedBalls ];
     updatedBalls.splice(index, 1);
     setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
@@ -159,7 +159,7 @@ const Buy = ({
       setSpinnerLoader(false);
       setDisable(false);
     }
-  }, [getDataGetting]);
+  }, [ getDataGetting ]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>

@@ -13,8 +13,8 @@ const PayBill = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ mobileNumber, setMobileNumber ] = useState("");
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill");

@@ -4,7 +4,7 @@ import ApplyForCorporate from "./Component/ApplyForCorporate";
 import SuccessfullySent from "./Component/SuccessfullySent";
 
 const App = ({ parameters }) => {
-  const [getSent, steSent] = useState(false);
+  const [ getSent, steSent ] = useState(false);
   return (
     <>
       <Header />

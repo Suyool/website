@@ -9,20 +9,20 @@ const ReCharge = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [filteredData, setFilteredData] = useState([]);
-  const [getLoading, setLoading] = useState(true);
+  const [ filteredData, setFilteredData ] = useState([]);
+  const [ getLoading, setLoading ] = useState(true);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa");
     setBackLink("");
     setFilteredData(Object.values(getVoucherData));
-  }, [getVoucherData]);
+  }, [ getVoucherData ]);
 
   useEffect(() => {
     if (filteredData.length > 0) {
       setLoading(false);
     }
-  }, [filteredData]);
+  }, [ filteredData ]);
   console.log(filteredData);
 
   return (

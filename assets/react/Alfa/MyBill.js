@@ -21,14 +21,14 @@ const MyBill = ({
     setIsButtonDisabled(false);
   }, []);
 
-  const [pinCode, setPinCode] = useState([]);
-  const [getResponseId, setResponseId] = useState(null);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getDisplayData, setDisplayData] = useState([]);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getPinWrong, setPinWrong] = useState(false);
+  const [ pinCode, setPinCode ] = useState([]);
+  const [ getResponseId, setResponseId ] = useState(null);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [ getDisplayData, setDisplayData ] = useState([]);
+  const [ getdisplayedFees, setdisplayedFees ] = useState("");
+  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getPinWrong, setPinWrong ] = useState(false);
 
   const inputRef = useRef(null);
 
@@ -176,7 +176,7 @@ const MyBill = ({
     }
   });
 
-  const [getBtnDesign, setBtnDesign] = useState(false);
+  const [ getBtnDesign, setBtnDesign ] = useState(false);
 
   const handleInputFocus = () => {
     setBtnDesign(true);

@@ -24,7 +24,7 @@ const AddressLable = ({ handleInputChange, errors, formData, setFormData }) => {
     const autocomplete = new window.google.maps.places.Autocomplete(
       searchInput.current
     );
-    autocomplete.setFields(["address_component", "geometry", "name"]);
+    autocomplete.setFields([ "address_component", "geometry", "name" ]);
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       const formattedAddress = place.name;
