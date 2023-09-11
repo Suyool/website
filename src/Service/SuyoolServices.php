@@ -19,18 +19,16 @@ class SuyoolServices
     private $certificate;
     private $hash_algo;
     private $logger;
-    private $METHOD_POST;
-    private $METHOD_GET;
+    private $METHOD_POST = "POST";
+    private $METHOD_GET ="GET";
     private $helper;
 
 
-    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper=null,ParameterBagInterface $params)
+    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper=null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
-        $this->METHOD_POST = $params->get('METHOD_POST');
-        $this->METHOD_GET = $params->get('METHOD_GET');
         $this->helper = $helper;
 
         if ($_ENV['APP_ENV'] == 'prod') {
