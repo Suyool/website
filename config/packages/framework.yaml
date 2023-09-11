@@ -1,5 +1,6 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    error_controller: App\Controller\DefaultController::show
     secret: '%env(APP_SECRET)%'
     csrf_protection: ~
     # trusted_proxies: '%env(TRUSTED_PROXIES)%'
