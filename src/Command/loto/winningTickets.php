@@ -106,6 +106,7 @@ class winningTickets extends Command
                     $count = 0;
                     $SelectedgridsExplode = [];
                     $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
+
                     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
                     $count = count($commonElements);
                     if ($count >= 6) {

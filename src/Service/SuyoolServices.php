@@ -392,6 +392,7 @@ class SuyoolServices
             }
         }catch(Exception $e){
             $this->logger->error($e->getMessage());
+            return array(false);
         }
         
     }
