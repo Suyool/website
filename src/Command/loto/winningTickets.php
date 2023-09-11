@@ -56,6 +56,7 @@ class winningTickets extends Command
         ]);
 
         $listWinners=[];
+        
 
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
         $drawId = $getLastResults->getdrawid();
@@ -70,6 +71,7 @@ class winningTickets extends Command
 
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
         foreach($getGridsinThisDraw as $gridsTobeUpdated){
+            $sum=0;
             $keyInArray1=-1;
             $result=[];
             $won=null;
@@ -118,25 +120,26 @@ class winningTickets extends Command
                     }
                     if($count==3){
                         $won=5;
-                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner5());
+                        $sum+=$getLastResults->getwinner5();
+                        // $gridsTobeUpdated->setwinloto($sum);
                     }else if($count==4){
                         $won=4;
-                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner4());
+                        $sum+=$getLastResults->getwinner4();
                     }else if($count==5){
                         $won=3;
-                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner3());
+                        $sum+=$getLastResults->getwinner3();
                     }else if($count==7){
                         $won=2;
-                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner2());
+                        $sum+=$getLastResults->getwinner2();
                     }else if($count==6){
                         $won=1;
-                        $gridsTobeUpdated->setwinloto($getLastResults->getwinner1());
+                        $sum+=$getLastResults->getwinner1();
                     }else{
                         $won=null;
                     }
-
                 }
-               
+                // echo json_encode($won);
+                $gridsTobeUpdated->setwinloto($sum);
                 $gridsTobeUpdated->setwonloto($won);
                 $gridsTobeUpdated->setwonzeed($prizezeed);
                 $this->mr->persist($gridsTobeUpdated);

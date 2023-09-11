@@ -19,7 +19,7 @@ class SuyoolServices
     private $hash_algo;
     private $logger;
 
-    public function __construct($merchantAccountID,LoggerInterface $logger = null)
+    public function __construct($merchantAccountID, LoggerInterface $logger = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -32,7 +32,7 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
-        $this->logger=$logger;
+        $this->logger = $logger;
     }
 
     /**
@@ -370,9 +370,12 @@ class SuyoolServices
     public function PushUserPrize($listWinners)
     {
 
-        try{
+        try {
             $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
-
+            $this->logger->info(json_encode([
+                'listWinners' => $listWinners,
+                'secureHash' => $Hash
+            ], JSON_PRESERVE_ZERO_FRACTION));
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
                 'body' => json_encode([
                     'listWinners' => $listWinners,
@@ -382,18 +385,17 @@ class SuyoolServices
                     'Content-Type' => 'application/json'
                 ]
             ]);
-    
+
             $content = $response->toArray(false);
-    
+
             if ($content['globalCode'] == 1) {
                 return array(true, $content['data']);
             } else {
                 return array(false);
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             return array(false);
         }
-        
     }
 }
