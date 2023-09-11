@@ -300,12 +300,12 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo,  $TranSimId . $fname . $lname . $this->certificate, true));
 
         $body = [
-                'transactionId' => $TranSimId,
-                'receiverFname' => $_POST['fname'],
-                'receiverLname' => $_POST['lname'],
-                'hash' =>  $Hash
-            ];
-        $response = $this->helper->clientRequest($this->METHOD_POST,"{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn" ,  $body);
+            'transactionId' => $TranSimId,
+            'receiverFname' => $_POST['fname'],
+            'receiverLname' => $_POST['lname'],
+            'hash' =>  $Hash
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
@@ -335,7 +335,10 @@ class SuyoolServices
 
     public function PushUserPrize($listWinners)
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79c700f (parameters bag interface)
         try {
             $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
             $this->logger->info(json_encode([
