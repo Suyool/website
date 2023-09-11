@@ -19,12 +19,11 @@ const MyBundle = ({
     setHeaderTitle("Re-charge Alfa");
     setBackLink("ReCharge");
     setIsButtonDisabled(false);
-    // console.log(getPrepaidVoucher)
   }, []);
-  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
-  const [ getSerialToClipboard, setSerialToClipboard ] = useState("");
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   const handleShare = (shareCode) => {
     let object = [
@@ -44,7 +43,6 @@ const MyBundle = ({
   };
 
   const handleConfirmPay = () => {
-    // console.log("click")
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
     if (parameters?.deviceType === "Android") {
@@ -52,12 +50,7 @@ const MyBundle = ({
         window.AndroidInterface.callbackHandler("message");
       }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
-      // const message = "data";
-
       setTimeout(() => {
-        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
-
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "fingerprint"
         );
@@ -89,12 +82,10 @@ const MyBundle = ({
             );
           } else {
             console.log(response.data.flagCode);
-            // console.log(!response.data.IsSuccess && response.data.flagCode == 10)
             if (
               response.data.IsSuccess == false &&
               response.data.flagCode == 10
             ) {
-              // console.log("step 3")
               setModalName("ErrorModal");
               setErrorModal({
                 img: "/build/images/alfa/error.png",
@@ -270,10 +261,6 @@ const MyBundle = ({
                 src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}
                 alt="Bundle"
               />
-              {/* <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x2.png`} alt="Bundle" />
-          <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x3.png`} alt="Bundle" />
-          <img className="BundleBigImg" src={`/build/images/alfa/bundle${getPrepaidVoucher.vouchertype}x4.png`} alt="Bundle" /> */}
-
               <div className="smlDesc">
                 <img
                   className="question"

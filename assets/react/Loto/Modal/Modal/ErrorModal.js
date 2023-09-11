@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
 const ErrorModal = (props) => {
-  // console.log(props.getErrorModal.path);
   const handleExchange = () => {
     if (props.getErrorModal.path == "84") {
-      // window.location.href = "/app?f="+props.getErrorModal.path;
       let object = [
         {
           exchange: {
@@ -17,13 +15,11 @@ const ErrorModal = (props) => {
       if (props.parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
-        // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
       }
     }
 
     if (props.getErrorModal.path == "90") {
-      // window.location.href = "/app?f="+props.getErrorModal.path;
       let object = [
         {
           topup: {
@@ -35,7 +31,6 @@ const ErrorModal = (props) => {
       if (props.parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
-        // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
       }
     }
@@ -59,7 +54,6 @@ const ErrorModal = (props) => {
               className={`${
                 props.getErrorModal.btn ? "okiBtnModal" : "okiBtnModal2"
               }`}
-              // className="okiBtnModal"
               onClick={props.onHide}
             >
               Cancel

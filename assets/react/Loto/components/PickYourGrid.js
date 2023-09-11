@@ -17,8 +17,7 @@ const PickYourGrid = ({
   getBallNumbersIndex,
   setBallNumbersIndex,
 }) => {
-  const [ selectedBalls, setSelectedBalls ] = useState([]);
-  // console.log(getTotalAmount)
+  const [selectedBalls, setSelectedBalls] = useState([]);
   useEffect(() => {
     if (getBallPlayed.length == 0) {
       setSelectedBalls(Array(getBallNumbers).fill(null));
@@ -31,7 +30,6 @@ const PickYourGrid = ({
     }
   }, []);
 
-  // Calculate the total amount based on the number of filled boxes
   if (getPlay) {
     const calculateTotalAmount = () => {
       const data = parameters.gridpricematrix;
@@ -46,25 +44,22 @@ const PickYourGrid = ({
           return data[3].price;
         case 10:
           return data[4].price;
-        // Add more cases as needed
         default:
-          return 0; // Set default value if the number of filled boxes doesn't match any of the cases
+          return 0;
       }
     };
     useEffect(() => {
       const filledBoxes = selectedBalls.filter((ball) => ball !== null).length;
       const totalAmount = calculateTotalAmount(filledBoxes);
-      // Update the total amount whenever the selectedBalls change
       setTotalAmountLLDJ(totalAmount);
       setTotalAmount(0);
-      // setSelectedBalls("");
-    }, [ selectedBalls ]);
+    }, [selectedBalls]);
   }
 
   const handleBallClick = (number) => {
     const index = selectedBalls.findIndex((ball) => ball === null);
     if (index !== -1 && !selectedBalls.includes(number)) {
-      const updatedBalls = [ ...selectedBalls ];
+      const updatedBalls = [...selectedBalls];
       updatedBalls[index] = number;
       setSelectedBalls(updatedBalls);
     }
@@ -133,18 +128,18 @@ const PickYourGrid = ({
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
           if (set.balls && set.balls.length > 0) {
-          const sortedExistingBalls = [ ...set.balls ]
-            .filter((item) => item !== null)
-            .sort();
-          const sortedSelectedBalls = [ ...selectedBalls ]
-            .filter((item) => item !== null)
-            .sort();
-          return (
-            JSON.stringify(sortedExistingBalls) ===
-            JSON.stringify(sortedSelectedBalls)
-          );
-          }else{
-            return false
+            const sortedExistingBalls = [...set.balls]
+              .filter((item) => item !== null)
+              .sort();
+            const sortedSelectedBalls = [...selectedBalls]
+              .filter((item) => item !== null)
+              .sort();
+            return (
+              JSON.stringify(sortedExistingBalls) ===
+              JSON.stringify(sortedSelectedBalls)
+            );
+          } else {
+            return false;
           }
         });
 
@@ -159,7 +154,7 @@ const PickYourGrid = ({
               JSON.stringify(existingBalls)
             );
           } else {
-            const updatedBalls = [ ...existingBalls, ballSet ];
+            const updatedBalls = [...existingBalls, ballSet];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
         } else {
@@ -204,19 +199,19 @@ const PickYourGrid = ({
         const existingBalls = existingData ? JSON.parse(existingData) : [];
         const isNewSet = !existingBalls.some((set) => {
           if (set.balls && set.balls.length > 0) {
-          const sortedExistingBalls = [ ...set.balls ]
-            .filter((item) => item !== null)
-            .sort();
-          const sortedSelectedBalls = [ ...selectedBalls ]
-            .filter((item) => item !== null)
-            .sort();
-          return (
-            JSON.stringify(sortedExistingBalls) ===
-            JSON.stringify(sortedSelectedBalls)
-          );
-        }else{
-          return false;
-        }
+            const sortedExistingBalls = [...set.balls]
+              .filter((item) => item !== null)
+              .sort();
+            const sortedSelectedBalls = [...selectedBalls]
+              .filter((item) => item !== null)
+              .sort();
+            return (
+              JSON.stringify(sortedExistingBalls) ===
+              JSON.stringify(sortedSelectedBalls)
+            );
+          } else {
+            return false;
+          }
         });
         if (isNewSet) {
           if (
@@ -229,7 +224,7 @@ const PickYourGrid = ({
               JSON.stringify(existingBalls)
             );
           } else {
-            const updatedBalls = [ ...existingBalls, ballSet ];
+            const updatedBalls = [...existingBalls, ballSet];
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
         } else {

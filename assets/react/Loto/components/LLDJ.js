@@ -15,60 +15,45 @@ const LLDJ = ({
   setPlay,
   setTotalAmountLLDJ,
 }) => {
-  const [ getBouquetgridprice, setBouquetgridprice ] = useState(0);
-  useEffect(() => { 
-    
+  const [getBouquetgridprice, setBouquetgridprice] = useState(0);
+  useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
     setBouquetgridprice(parameters.gridprice);
     setHeaderTitle("La Libanaise Des Jeux");
   }, []);
-  // console.log(parameters);
-  const [ getShowBouquet, setShowBouquet ] = useState(false);
-  // const [get8Grids, set8Grids]=useState(false);
+  const [getShowBouquet, setShowBouquet] = useState(false);
   const set8Grids = () => {
-    // const lastBall = selectedBalls[selectedBalls.length - 1];
     const bouquetData = {
-      bouquet: "B" + 8, // Use the gridNb property instead of balls
+      bouquet: "B" + 8,
       price: parameters.gridprice * 8,
       currency: "LBP",
       withZeed: false,
       isbouquet: true,
     };
-
-    // Get the existing data from local storage
     const existingData = localStorage.getItem("selectedBalls");
 
     if (existingData) {
-      // Parse the existing data and add the new bouquet data
-      const newData = [ ...JSON.parse(existingData), bouquetData ];
+      const newData = [...JSON.parse(existingData), bouquetData];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
-      // Create a new array with the bouquet data and store it in local storage
-      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
+      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
     }
     setActiveButton({ name: "Play" });
   };
-  //
   const set1Grid = () => {
-    // const lastBall = selectedBalls[selectedBalls.length - 1];
     const bouquetData = {
-      bouquet: "B" + 1, // Use the gridNb property instead of balls
+      bouquet: "B" + 1,
       price: parameters.gridprice,
       currency: "LBP",
       withZeed: false,
       isbouquet: true,
     };
-
-    // Get the existing data from local storage
     const existingData = localStorage.getItem("selectedBalls");
-
     if (existingData) {
-      // Parse the existing data and add the new bouquet data
-      const newData = [ ...JSON.parse(existingData), bouquetData ];
+      const newData = [...JSON.parse(existingData), bouquetData];
       localStorage.setItem("selectedBalls", JSON.stringify(newData));
     } else {
-      // Create a new array with the bouquet data and store it in local storage
-      localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
+      localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
     }
     setActiveButton({ name: "Play" });
   };

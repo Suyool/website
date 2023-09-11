@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import data from "./result.json";
 import axios from "axios";
 
 const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckBuy }) => {
-
- 
   const results = parameters.prize_loto_result;
   const data = parameters.prize_loto_perdays;
-  // console.log(data);
-  // const grids = [['11,23,27,3,29,39']];
-  // console.log(data);
-  // console.log(parameters.prize_loto_win.numbers);
 
   const [ getWinBallInitial, setWinBallInitial ] = useState([]);
   const [ getWinBallInitialZeed, setWinBallInitialZeed ] = useState([]);
@@ -32,16 +25,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
   const [ prize2zeed, setprize2zeed ] = useState([]);
   const [ prize3zeed, setprize3zeed ] = useState([]);
   const [ prize4zeed, setprize4zeed ] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(getMyGrids);
-  // }, [getMyGrids]);
-
-  // data.forEach((item) => {
-  //   useEffect(() => {
-  //     setMyGrids(item.gridSelected);
-  //   }, []);
-  // });
 
   useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
@@ -65,11 +48,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
     }
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
-
-    // console.log(lastNumber);
-    // setMyGrids(grids.split(',').map(Number));
     data.forEach((item) => {
-      // console.log(item)
       const parsedGrids = item.gridSelected.map((item) =>
         item["gridSelected"].split(" ").map(Number)
       );
@@ -77,13 +56,9 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
       const zeedSelectedArray = item.gridSelected
         .map((item) => item["zeedSelected"])
         .filter((zeedSelected) => zeedSelected !== null);
-      // const parsedGridsZeed = item.gridSelected.map((item) =>
-      //   item["zeedSelected"].split("").map(Number)
-      // );
       setZeedNumber(zeedSelectedArray);
       const parsedGridsZeed = item.gridSelected.map((item) => {
         const zeedSelected = item["zeedSelected"];
-        // console.log(zeedSelected)
         if (zeedSelected === null) {
           return null;
         } else {
@@ -134,12 +109,8 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
   const handleMonthYearChange = (event) => {
     setMyGrids([]);
     setSelectedMonthYear(event.target.value);
-    setStartIndex(0); // Reset the startIndex when month or year changes
+    setStartIndex(0);
     setClickedIndex(null);
-    // Call handleChangeDate with the new drawNumber
-    // if (filteredData.length > 0) {
-    //   handleChangeDate(filteredData[0].drawNumber, 0);
-    // }
   };
 
 
@@ -159,7 +130,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
         drawNumber: item,
       })
       .then((response) => {
-        // console.log(response.data);
         if (response.data.parameters.prize_loto_win.numbers != "") {
           setWinBallInitial(
             response.data.parameters.prize_loto_win.numbers
@@ -191,15 +161,11 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
             ?.map((item) => item["zeedSelected"])
             .filter((zeedSelected) => zeedSelected !== null);
-        // const parsedGridsZeed = item.gridSelected.map((item) =>
-        //   item["zeedSelected"].split("").map(Number)
-        // );
         setZeedNumber(zeedSelectedArray);
         const parsedGridsZeed =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
             (item) => {
               const zeedSelected = item["zeedSelected"];
-              // console.log(zeedSelected)
               if (zeedSelected === null) {
                 return null;
               } else {
@@ -236,9 +202,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
   useEffect(() => {
     setSelectedMonthYear(uniqueFilters[0]);
   }, []);
-  // console.log(getZeedNumber[0]);
-  // console.log(getZeedNumber[0].indexOf(getZeedNumber[0]))
-  // console.log(getWinBallInitialZeed);
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -283,7 +246,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
               .slice(startIndex, startIndex + 4)
               .map((item, index) => (
                 <div
-                  // className="item"
                   className={`item ${clickedIndex === index ? "clicked" : ""}`}
                   key={index}
                   onClick={() => {
@@ -302,7 +264,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
 
         {getMyGrids &&
           getMyGrids
-            .map((grid, index) => ({ grid, index })) // Combine grid with its original index
+            .map((grid, index) => ({ grid, index }))
             .sort((a, b) => {
               const aHasWin =
                 getWinBallInitial.filter((winBall) => a.grid.includes(winBall))
@@ -310,8 +272,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
               const bHasWin =
                 getWinBallInitial.filter((winBall) => b.grid.includes(winBall))
                   .length >= 3;
-
-              // Sort based on win ball presence, but keep the original order for grids with the same result
               return bHasWin - aHasWin || a.index - b.index;
             })
             .map(({ grid, index }) => (
@@ -398,10 +358,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                         {getMyGridsZeed[index] != null &&
                           getMyGridsZeed[index].map((Zeed, ZeedIndex) => {
                             const zeedNumber = getZeedNumber[index];
-                            // console.log(zeedNumber);
                             const zeedChar = zeedNumber?.charAt(ZeedIndex);
-
-                            // Check for specific conditions to apply the "win" class
                             const isWin =
                               getWinBallInitialZeed.includes(Zeed) &&
                               ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
@@ -424,16 +381,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                                 {Zeed}
                               </span>
                             );
-                            // <span
-                            //   key={ZeedIndex}
-                            //   className={`${
-                            //     getWinBallInitialZeed.includes(Zeed)
-                            //       ? "win"
-                            //       : ""
-                            //   }`}
-                            // >
-                            //   {Zeed}
-                            // </span>
                           })}
                       </div>
                     </div>

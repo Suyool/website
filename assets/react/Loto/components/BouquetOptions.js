@@ -6,14 +6,8 @@ const BouquetOptions = ({
   getBouquetgridprice,
   setActiveButton,
 }) => {
-  const [ selectedOption, setSelectedOption ] = useState(""); // Track the selected bouquet option
-
-  // const [bouquet, setBouquetOther] = useState(""); // Track the selected bouquet option
-
-  // Enable/disable the Continue button based on the selected option
+  const [selectedOption, setSelectedOption] = useState("");
   const isContinueDisabled = !selectedOption;
-
-  // Function to handle selecting a bouquet option
   const handleOptionSelect = (option) => {
     if (option != selectedOption) {
       setSelectedOption(option);
@@ -21,39 +15,31 @@ const BouquetOptions = ({
       setSelectedOption("");
     }
   };
-
-  // Function to handle continuing
   const handleContinue = () => {
     if (
       !selectedOption.gridNb == 0 ||
       !selectedOption.gridNb == null ||
       !selectedOption.gridNb > 500
     ) {
-      // Add the selected bouquet option to the local storage
       const bouquetData = {
-        bouquet: "B" + selectedOption.gridNb, // Use the gridNb property instead of balls
+        bouquet: "B" + selectedOption.gridNb,
         price: selectedOption.price,
         currency: "LBP",
         withZeed: false,
         isbouquet: true,
       };
 
-      // Get the existing data from local storage
       const existingData = localStorage.getItem("selectedBalls");
 
       if (existingData) {
-        // Parse the existing data and add the new bouquet data
-        const newData = [ ...JSON.parse(existingData), bouquetData ];
+        const newData = [...JSON.parse(existingData), bouquetData];
         localStorage.setItem("selectedBalls", JSON.stringify(newData));
       } else {
-        // Create a new array with the bouquet data and store it in local storage
-        localStorage.setItem("selectedBalls", JSON.stringify([ bouquetData ]));
+        localStorage.setItem("selectedBalls", JSON.stringify([bouquetData]));
       }
 
-      // Continue with the desired actions
       setShowBouquet(false);
       setIsHide(false);
-
       setActiveButton({ name: "Play" });
     }
   };
@@ -176,7 +162,6 @@ const BouquetOptions = ({
                   <input
                     type="number"
                     name="selectedOption"
-                    // value=""
                     onChange={(event) =>
                       handleOptionSelect({
                         gridNb: event.target.value,
@@ -186,21 +171,8 @@ const BouquetOptions = ({
                   />
                   Other
                 </div>
-                {/* <div className="price">
-                {parseInt(2 * getBouquetgridprice).toLocaleString()} LBP
-              </div> */}
               </div>
             </div>
-
-            {/* <div className="bouquetItem">
-            <div className="checkbox">
-              <input type="radio" name="radio" />
-            </div>
-            <div className="data">
-              <div className="basic">500 other</div>
-              <div className="price"></div>
-            </div>
-          </div> */}
           </div>
         </div>
         <div className="footSectionPick">

@@ -9,13 +9,13 @@ import DatePicker from "react-datepicker";
 import LegalForm from "./LegalForm";
 
 const ApplyForCorporate = ({ steSent, env }) => {
-  const [ getInfoShowing, setInfoShowing ] = useState(false);
-  const [ modalShow, setModalShow ] = useState(false);
-  const [ getModalTitle, setModalTitle ] = useState("");
-  const [ getModalDes, setModalDes ] = useState("");
-  const [ getDropDown, setDropDown ] = useState([]);
-  const [ getDropDown1, setDropDown1 ] = useState([]);
-  const [ formData, setFormData ] = useState({
+  const [getInfoShowing, setInfoShowing] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [getModalTitle, setModalTitle] = useState("");
+  const [getModalDes, setModalDes] = useState("");
+  const [getDropDown, setDropDown] = useState([]);
+  const [getDropDown1, setDropDown1] = useState([]);
+  const [formData, setFormData] = useState({
     registeredName: "",
     legalForm: "",
     dateIncorporation: "",
@@ -30,26 +30,25 @@ const ApplyForCorporate = ({ steSent, env }) => {
     contactEmail: "",
     contactFullName: "",
     contactPhoneNumber: "",
-    ownerInfos: [ "" ],
+    ownerInfos: [""],
   });
 
-  const [ errors, setErrors ] = useState({
+  const [errors, setErrors] = useState({
     address: "",
   });
-  const [ data, setData ] = useState([ { Name: "" } ]);
-  const [ startDate, setStartDate ] = useState(new Date());
-let baseUrl;
+  const [data, setData] = useState([{ Name: "" }]);
+  const [startDate, setStartDate] = useState(new Date());
+  let baseUrl;
   if (env == "dev") {
-     baseUrl = "http://10.20.80.62/CorporateAPI/api/";
+    baseUrl = "http://10.20.80.62/CorporateAPI/api/";
   } else {
-     baseUrl = "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
+    baseUrl =
+      "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
   }
 
   useEffect(() => {
     axios
-      .get(
-        `${baseUrl}v1/MerchantEnrollment/GetCorporateBusinessType`
-      )
+      .get(`${baseUrl}v1/MerchantEnrollment/GetCorporateBusinessType`)
       .then((response) => {
         setDropDown(response.data);
       })
@@ -57,9 +56,7 @@ let baseUrl;
         console.log(error);
       });
     axios
-      .get(
-        `${baseUrl}v1/MerchantEnrollment/GetCorporateLegalForm`
-      )
+      .get(`${baseUrl}v1/MerchantEnrollment/GetCorporateLegalForm`)
       .then((response) => {
         setDropDown1(response.data);
       })
@@ -178,26 +175,23 @@ let baseUrl;
         ownerInfos: data,
       });
       axios
-        .post(
-          `${baseUrl}v1/MerchantEnrollment/SaveCorporateOnboardData`,
-          {
-            registeredName: formData.registeredName,
-            legalForm: formData.legalForm,
-            dateIncorporation: formData.dateIncorporation,
-            registrationNumber: formData.registrationNumber,
-            businessType: formData.businessType,
-            yearlyTurnover: formData.yearlyTurnover,
-            phoneNumber: formData.phoneNumber,
-            email: formData.email,
-            address: formData.address,
-            authorizedPerson: formData.authorizedPerson,
-            authorizedPhoneNumber: formData.authorizedPhoneNumber,
-            contactEmail: formData.contactEmail,
-            contactFullName: formData.contactFullName,
-            contactPhoneNumber: formData.contactPhoneNumber,
-            ownerInfos: namesArray,
-          }
-        )
+        .post(`${baseUrl}v1/MerchantEnrollment/SaveCorporateOnboardData`, {
+          registeredName: formData.registeredName,
+          legalForm: formData.legalForm,
+          dateIncorporation: formData.dateIncorporation,
+          registrationNumber: formData.registrationNumber,
+          businessType: formData.businessType,
+          yearlyTurnover: formData.yearlyTurnover,
+          phoneNumber: formData.phoneNumber,
+          email: formData.email,
+          address: formData.address,
+          authorizedPerson: formData.authorizedPerson,
+          authorizedPhoneNumber: formData.authorizedPhoneNumber,
+          contactEmail: formData.contactEmail,
+          contactFullName: formData.contactFullName,
+          contactPhoneNumber: formData.contactPhoneNumber,
+          ownerInfos: namesArray,
+        })
         .then((response) => {
           console.log(response);
           if (
@@ -254,7 +248,6 @@ let baseUrl;
                     "registeredName"
                   )}
                 </div>
-                {/* <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Company Legal Form", "Drop down + Others", "legalForm")}</div> */}
                 <div className="col-lg-4 col-md-6 col-sm-12">
                   <div className="label">Drop down</div>
                   <LegalForm
@@ -267,7 +260,6 @@ let baseUrl;
                     <div className="error">{errors["businessType"]}</div>
                   )}
                 </div>
-                {/* <LegalForm getDropDown={getDropDown1} setFormData={setFormData} formData={formData} /> */}
               </div>
 
               <div className="row">
@@ -325,7 +317,6 @@ let baseUrl;
               </div>
 
               <div className="row">
-                {/* <div className="col-lg-4 col-md-6 col-sm-12">{renderLabelAndInput("Yearly Turnover", "Average", "yearlyTurnover")}</div> */}
                 <div className="col-lg-4 col-md-6 col-sm-12">
                   <div className="label">Yearly Turnover</div>
                   <input

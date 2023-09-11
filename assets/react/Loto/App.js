@@ -11,26 +11,25 @@ import WarningModal from "./Modal/Modal/WarningModal";
 import Header from "./Header";
 
 const App = ({ parameters }) => {
-  const [ getBackLink, setBackLink ] = useState({ name: "" });
-  const [ getHeaderTitle, setHeaderTitle ] = useState("Loto");
-  const [ getBallNumbersIndex, setBallNumbersIndex ] = useState(-1);
+  const [getBackLink, setBackLink] = useState({ name: "" });
+  const [getHeaderTitle, setHeaderTitle] = useState("Loto");
+  const [getBallNumbersIndex, setBallNumbersIndex] = useState(-1);
 
-  const [ activeButton, setActiveButton ] = useState({ name: "LLDJ" });
-  const [ getPickYourGrid, setPickYourGrid ] = useState(false);
-  const [ getBallNumbers, setBallNumbers ] = useState(0);
-  const [ getTotalAmount, setTotalAmount ] = useState(0);
-  const [ getTotalAmountLLDJ, setTotalAmountLLDJ ] = useState(0);
-  const [ getPlay, setPlay ] = useState(0);
+  const [activeButton, setActiveButton] = useState({ name: "LLDJ" });
+  const [getPickYourGrid, setPickYourGrid] = useState(false);
+  const [getBallNumbers, setBallNumbers] = useState(0);
+  const [getTotalAmount, setTotalAmount] = useState(0);
+  const [getTotalAmountLLDJ, setTotalAmountLLDJ] = useState(0);
+  const [getPlay, setPlay] = useState(0);
 
-  const [ getBallPlayed, setBallPlayed ] = useState([]);
-  const [ isHideBack, setIsHide ] = useState(false);
+  const [getBallPlayed, setBallPlayed] = useState([]);
+  const [isHideBack, setIsHide] = useState(false);
 
-  const [ getDataGetting, setDataGetting ] = useState("");
+  const [getDataGetting, setDataGetting] = useState("");
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [ getCheckBuy, setCheckBuy ] = useState(false);
+  const [getCheckBuy, setCheckBuy] = useState(false);
 
-
-  const [ getDisabledBtn, setDisabledBtn ] = useState(
+  const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
   );
 
@@ -46,26 +45,25 @@ const App = ({ parameters }) => {
       setDataGetting(message);
     };
   }, []);
-  
 
-  const [ getModalName, setModalName ] = useState("");
-  const [ modalShow, setModalShow ] = useState(false);
-  const [ getSuccessModal, setSuccessModal ] = useState({
+  const [getModalName, setModalName] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  const [getSuccessModal, setSuccessModal] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/success.png",
     title: "",
     desc: "",
   });
-  const [ getErrorModal, setErrorModal ] = useState({
+  const [getErrorModal, setErrorModal] = useState({
     img: "/build/images/Loto//build/images/Loto/error.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",
-    path: ""
+    path: "",
   });
-  const [ getWarningModal, setWarningModal ] = useState({
+  const [getWarningModal, setWarningModal] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/warning.png",
     title: "Warning Modal",
     desc: "Warning Modal",
-    path: ""
+    path: "",
   });
 
   return (
@@ -89,7 +87,6 @@ const App = ({ parameters }) => {
             src="/build/images/Loto/LibanaiseJeux.png"
             alt="La Libanaise des Jeux"
           />
-          {/* {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>} */}
 
           {activeButton.name === "LLDJ" && (
             <LLDJ
@@ -107,7 +104,7 @@ const App = ({ parameters }) => {
           )}
           {activeButton.name === "Play" && (
             <Play
-            parameters={parameters}
+              parameters={parameters}
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               setBallPlayed={setBallPlayed}
@@ -125,7 +122,6 @@ const App = ({ parameters }) => {
               setBallNumbersIndex={setBallNumbersIndex}
               getBallNumbersIndex={getBallNumbersIndex}
               setModalShow={setModalShow}
-              
             />
           )}
           {activeButton.name === "Result" && (
@@ -206,8 +202,8 @@ const App = ({ parameters }) => {
         )}
         {getModalName === "WarningModal" && (
           <WarningModal
-          setModalShow={setModalShow}
-          setModalName={setModalName}
+            setModalShow={setModalShow}
+            setModalName={setModalName}
             getWarningModal={getWarningModal}
             show={modalShow}
             setActiveButton={setActiveButton}

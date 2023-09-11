@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
-
-  const [ getAnth,setAnth ] = useState("");
-  const handleExchange = () => { 
+  const [getAnth, setAnth] = useState("");
+  const handleExchange = () => {
     if (props.getErrorModal.path == "84") {
       let object = [
         {
-          "exchange": {
+          exchange: {
             flag: props.getErrorModal.path,
             url: window.location.href,
           },
@@ -23,7 +22,7 @@ const ErrorModal = (props) => {
     if (props.getErrorModal.path == "90") {
       let object = [
         {
-          "topup": {
+          topup: {
             flag: props.getErrorModal.path,
             url: window.location.href,
           },
@@ -31,7 +30,7 @@ const ErrorModal = (props) => {
       ];
       setAnth(JSON.stringify(object));
       if (props.parameters?.deviceType === "Android") {
-      setAnth("android");
+        setAnth("android");
         window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
@@ -64,7 +63,7 @@ const ErrorModal = (props) => {
                 <button className="okiBtnModal" onClick={props.onHide}>
                   Cancel
                 </button>
-                <button className="exchangeBtnModal"  onClick={handleExchange}>
+                <button className="exchangeBtnModal" onClick={handleExchange}>
                   {props.getErrorModal.btn}
                 </button>
               </>

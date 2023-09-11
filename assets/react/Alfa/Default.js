@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
-const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink }) => {
-
+const Default = ({
+  SetVoucherData,
+  setActiveButton,
+  setHeaderTitle,
+  setBackLink,
+}) => {
   useEffect(() => {
-    setHeaderTitle("Alfa")
-    setBackLink("default")
-  }, [])
+    setHeaderTitle("Alfa");
+    setBackLink("default");
+  }, []);
 
   const handleButtonClick = (name) => {
     setActiveButton({ name: name });
@@ -24,14 +28,14 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink 
         </div>
       </div> */}
 
-      <div className="Cards"
+      <div
+        className="Cards"
         onClick={() => {
           handleButtonClick("ReCharge");
 
           axios
             .post("/alfa/ReCharge")
             .then((response) => {
-              // console.log(response?.data?.message);
               SetVoucherData(response?.data?.message);
             })
             .catch((error) => {
@@ -39,7 +43,11 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink 
             });
         }}
       >
-        <img className="logoImg" src="/build/images/alfa/alfaLogo.png" alt="alfaLogo" />
+        <img
+          className="logoImg"
+          src="/build/images/alfa/alfaLogo.png"
+          alt="alfaLogo"
+        />
         <div className="Text">
           <div className="SubTitle">Re-charge Alfa</div>
           <div className="description">Recharge your Alfa prepaid number</div>

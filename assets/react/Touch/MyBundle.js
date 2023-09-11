@@ -15,16 +15,15 @@ const MyBundle = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
-  const [ getSerialToClipboard, setSerialToClipboard ] = useState("");
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Touch");
     setBackLink("ReCharge");
     setIsButtonDisabled(false);
-    // console.log(getPrepaidVoucher)
   }, []);
 
   const handleShare = (shareCode) => {
@@ -48,7 +47,6 @@ const MyBundle = ({
   };
 
   const handleConfirmPay = () => {
-    // console.log("clicked");
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
     if (parameters?.deviceType === "Android") {
@@ -56,12 +54,7 @@ const MyBundle = ({
         window.AndroidInterface.callbackHandler("message");
       }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
-      // const message = "data";
-
       setTimeout(() => {
-        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
-
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "fingerprint"
         );
@@ -75,7 +68,6 @@ const MyBundle = ({
         .post("/touch/BuyPrePaid", {
           Token: "",
           category: "MTC",
-          // category: getPrepaidVoucher.vouchercategory,
           desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
@@ -85,7 +77,6 @@ const MyBundle = ({
           setSpinnerLoader(false);
           const jsonResponse = response?.data?.message;
           console.log(jsonResponse);
-          // console.log()
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
             setSerialToClipboard(
@@ -97,7 +88,6 @@ const MyBundle = ({
               response.data.IsSuccess == false &&
               response.data.flagCode == 10
             ) {
-              // console.log("step 3")
               setModalName("ErrorModal");
               setErrorModal({
                 img: "/build/images/alfa/error.png",
@@ -127,7 +117,6 @@ const MyBundle = ({
                 title: "Recharge Card Unavailable ",
                 desc: `The ${getPrepaidVoucher.priceUSD}$ Touch Recharge card is unavailable. 
               Kindly choose another one.`,
-                // path: response.data.path,
                 btn: "OK",
               });
               setModalShow(true);
@@ -137,13 +126,11 @@ const MyBundle = ({
                 img: "/build/images/alfa/error.png",
                 title: "Please Try again",
                 desc: "you cannot purchase now",
-                // path: response.data.path,
                 btn: "OK",
               });
               setModalShow(true);
             }
           }
-          // console.log(response);
         })
         .catch((error) => {
           setSpinnerLoader(false);

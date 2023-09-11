@@ -16,34 +16,20 @@ const Buy = ({
   getDataGetting,
   setDataGetting,
   setTotalAmount,
-  setCheckBuy
+  setCheckBuy,
 }) => {
-  // console.log(parameters?.deviceType);
   useEffect(() => {
     localStorage.setItem("BackPage", "Play");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Checkout");
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [ getDisable, setDisable ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
-  // var totalPrice = getTotalAmount;
-  const [ getPlayedBalls, setPlayedBalls ] = useState(
+  const [getDisable, setDisable] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
-
-  // if (getPlayedBalls != null) {
-  //   getPlayedBalls.forEach((item) => {
-  //     totalPrice += item.price;
-  //   });
-  // }
-
   useEffect(() => {
-    // console.log("clicked");
-    // setSelectedOption(0);
-
-    //  totalPrice = getTotalAmount;
-    // setModalShow(false);
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
       if (JSON.parse(selectedBallsToShow).length == 0) {
@@ -52,47 +38,23 @@ const Buy = ({
         setDisable(false);
       }
     }
-    // console.log(totalPrice)
-  }, [ selectedBallsToShow ]);
-
-  // getPlayedBalls.forEach((item) => {
-  //   totalPrice += item.price;
-  // });
+  }, [selectedBallsToShow]);
 
   const handleDelete = (index) => {
-    const updatedBalls = [ ...getPlayedBalls ];
-    updatedBalls.splice(index, 1); // Remove the selected balls from the array
-
-    setPlayedBalls(updatedBalls); // Update the state
-
-    // Update the localStorage
+    const updatedBalls = [...getPlayedBalls];
+    updatedBalls.splice(index, 1);
+    setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
-
-    // Retrieve the selected balls from localStorage
     const selectedBallsJSON = localStorage.getItem("selectedBalls");
     const selectedBalls = JSON.parse(selectedBallsJSON) || [];
-
-    // Assuming each ball has a "price" property
     const totalAmount = selectedBalls.reduce(
       (total, ball) => total + ball.price,
       0
     );
-
-    // Update the state with the calculated total amount
     setTotalAmount(totalAmount);
   };
-  //   useEffect(() => {
-  //     setDisable(true);
-  //     console.log(getDisable);
-  //   }, [getDisable]);
-
   const handleBuy = () => {
     setDataGetting("");
-    // const buttonElement = document.getElementById("buyButton");
-    // if (buttonElement) {
-    //   console.log("h");
-    //   buttonElement.disabled = true;
-    // }
     setSpinnerLoader(true);
     setDisable(true);
     if (parameters?.deviceType === "Android") {
@@ -100,12 +62,7 @@ const Buy = ({
         window.AndroidInterface.callbackHandler("message");
       }, 2000);
     } else if (parameters?.deviceType === "Iphone") {
-      // const message = "data";
-
       setTimeout(() => {
-        // window.webkit.messageHandlers.postMessage(function(message){alert("oki");}+"");
-        //window.webkit.messageHandlers.callbackHandler.postMessage(function(){alert("oki");}+"");
-
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "fingerprint"
         );
@@ -126,10 +83,8 @@ const Buy = ({
         })
         .then((response) => {
           const jsonResponse = response.data.message;
-          // console.log(jsonResponse);
           setSpinnerLoader(false);
           if (response.data.status) {
-            // console.log("entered")
             const amount = response.data.amount;
             setModalName("SuccessModal");
             setSuccessModal({
@@ -137,7 +92,8 @@ const Buy = ({
               title: "LOTO Purchased Successfully",
               desc: (
                 <div>
-                  You have successfully paid L.L {parseInt(amount).toLocaleString()} for LOTO.
+                  You have successfully paid L.L{" "}
+                  {parseInt(amount).toLocaleString()} for LOTO.
                   <br />
                   Best of Luck!
                 </div>
@@ -148,7 +104,6 @@ const Buy = ({
             setPlayedBalls([]);
             setDisabledBtn(true);
             setCheckBuy(true);
-           
           } else if (!response.data.status && response.data.flagCode == 10) {
             setModalName("ErrorModal");
             setErrorModal({
@@ -186,8 +141,6 @@ const Buy = ({
               img: "/build/images/Loto/error.png",
               title: "Please Try again",
               desc: `You cannot purchase now`,
-              // path: response.data.path,
-              // btn:'OK'
             });
             setModalShow(true);
           }
@@ -206,7 +159,7 @@ const Buy = ({
       setSpinnerLoader(false);
       setDisable(false);
     }
-  }, [ getDataGetting ]);
+  }, [getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
@@ -307,7 +260,6 @@ const Buy = ({
         className="BuyBtn"
         id="buyButton"
         disabled={getDisable}
-        // disabled={getDisabledBtn}
         onClick={() => {
           handleBuy();
         }}
