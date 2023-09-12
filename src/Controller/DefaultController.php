@@ -87,7 +87,7 @@ class DefaultController extends AbstractController
      */
     public function privacy(Request $request)
     {
-        $pdfPath = __DIR__ .'/../../Suyoolprivacypolicy.pdf';
+        $pdfPath = __DIR__ . '/../../Suyoolprivacypolicy.pdf';
 
         $response = new BinaryFileResponse($pdfPath);
 
@@ -108,5 +108,10 @@ class DefaultController extends AbstractController
     public function terms_and_conditions(Request $request)
     {
         return $this->render('policies/termsConditions.html.twig');
+    }
+
+    public function show()
+    {
+        return $this->render('ExceptionHandling.html.twig');
     }
 }
