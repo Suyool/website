@@ -20,6 +20,7 @@ $ yarn encore prod # generate css/js files
 
 ## Command to eslint assets run
 ```
+$ eslint ./
 $ npx eslint assets/
-$ npx eslint assets/ --fix
+$ npx eslint assets/ --fix    //danger
 ```

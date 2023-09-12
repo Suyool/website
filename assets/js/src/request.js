@@ -28,13 +28,13 @@ if(document.querySelector(".generate-code")){
   document.querySelector(".generate-code").addEventListener("click",function(){
     const tag=document.querySelector(".generate-code");
     if(tag.hasAttribute("data-code")){
-      window.location.href="/codeGenerated?codeATM="+tag.getAttribute("data-code")
+      window.location.href="/codeGenerated?codeATM="+tag.getAttribute("data-code");
     }else{
       if(document.querySelector(".error")){
-    document.querySelector(".error").style.display="block";
+        document.querySelector(".error").style.display="block";
       }
     }
-  })
+  });
 }
 
 // if(document.getElementById('formDetails')){

@@ -32,7 +32,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
     setHeaderTitle("Results");
 
     if(getCheckBuy){
-      handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0)
+      handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0);
     }
 
     const resultsnumbers = parameters.prize_loto_win.numbers
@@ -301,47 +301,47 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                 </div>
                 {getWinBallInitial.filter((winBall) => grid.includes(winBall))
                   .length >= 3 ? (
-                  <div className="winnweFooter">
-                    <div className="price">
-                      <span>L.L </span>
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 7 &&
+                    <div className="winnweFooter">
+                      <div className="price">
+                        <span>L.L </span>
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 7 &&
                         parseInt(prize1).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 6 &&
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 6 &&
                         !grid.includes(getLastNumber) &&
                         parseInt(prize1).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 6 &&
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 6 &&
                         grid.includes(getLastNumber) &&
                         parseInt(prize2).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 5 && parseInt(prize3).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 4 && parseInt(prize4).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 3 && parseInt(prize5).toLocaleString()}
-                      {}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 5 && parseInt(prize3).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 4 && parseInt(prize4).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 3 && parseInt(prize5).toLocaleString()}
+                        {}
                       Won
+                      </div>
+                      <div className="img">
+                        <img
+                          src="/build/images/Loto/trofie.png"
+                          alt="SmileLOGO"
+                        />
+                      </div>
                     </div>
-                    <div className="img">
-                      <img
-                        src="/build/images/Loto/trofie.png"
-                        alt="SmileLOGO"
-                      />
+                  ) : (
+                    <div className="NoWinnweFooter">
+                      <div>No Wins </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="NoWinnweFooter">
-                    <div>No Wins </div>
-                  </div>
-                )}
+                  )}
                 {getMyGridsZeed[index] ? (
                   <>
                     <div className="winnweHeader">
@@ -390,40 +390,40 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                       getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
                       getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
                       getZeedNumber[index]?.substring(3, 5) === zeednumber4) ? (
-                      <div className="winnweFooterZeed">
-                        <div className="price">
-                          <span>L.L </span>
-                          {getWinBallInitialZeed.filter((winBallZeed) =>
-                            getMyGridsZeed[index].includes(winBallZeed)
-                          ).length > 0
-                            ? getZeedNumber[index].substring(0, 5) ===
+                        <div className="winnweFooterZeed">
+                          <div className="price">
+                            <span>L.L </span>
+                            {getWinBallInitialZeed.filter((winBallZeed) =>
+                              getMyGridsZeed[index].includes(winBallZeed)
+                            ).length > 0
+                              ? getZeedNumber[index].substring(0, 5) ===
                               zeednumber1
-                              ? parseInt(prize1zeed).toLocaleString()
-                              : getZeedNumber[index].substring(1, 5) ===
+                                ? parseInt(prize1zeed).toLocaleString()
+                                : getZeedNumber[index].substring(1, 5) ===
                                 zeednumber2
-                              ? parseInt(prize2zeed).toLocaleString()
-                              : getZeedNumber[index].substring(2, 5) ===
+                                  ? parseInt(prize2zeed).toLocaleString()
+                                  : getZeedNumber[index].substring(2, 5) ===
                                 zeednumber3
-                              ? parseInt(prize3zeed).toLocaleString()
-                              : getZeedNumber[index].substring(3, 5) ===
+                                    ? parseInt(prize3zeed).toLocaleString()
+                                    : getZeedNumber[index].substring(3, 5) ===
                                 zeednumber4
-                              ? parseInt(prize4zeed).toLocaleString()
-                              : " "
-                            : " "}
+                                      ? parseInt(prize4zeed).toLocaleString()
+                                      : " "
+                              : " "}
                           Won
+                          </div>
+                          <div className="img">
+                            <img
+                              src="/build/images/Loto/trofie.png"
+                              alt="SmileLOGO"
+                            />
+                          </div>
                         </div>
-                        <div className="img">
-                          <img
-                            src="/build/images/Loto/trofie.png"
-                            alt="SmileLOGO"
-                          />
+                      ) : (
+                        <div className="NoWinnweFooter">
+                          <div>No Wins </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="NoWinnweFooter">
-                        <div>No Wins </div>
-                      </div>
-                    )}
+                      )}
                   </>
                 ) : (
                   <></>

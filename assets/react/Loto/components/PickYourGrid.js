@@ -34,18 +34,18 @@ const PickYourGrid = ({
     const calculateTotalAmount = () => {
       const data = parameters.gridpricematrix;
       switch (selectedBalls.filter((ball) => ball !== null).length) {
-        case 6:
-          return data[0].price;
-        case 7:
-          return data[1].price;
-        case 8:
-          return data[2].price;
-        case 9:
-          return data[3].price;
-        case 10:
-          return data[4].price;
-        default:
-          return 0;
+      case 6:
+        return data[0].price;
+      case 7:
+        return data[1].price;
+      case 8:
+        return data[2].price;
+      case 9:
+        return data[3].price;
+      case 10:
+        return data[4].price;
+      default:
+        return 0;
       }
     };
     useEffect(() => {
