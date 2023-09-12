@@ -24,12 +24,12 @@ class SuyoolServices
     private $helper;
 
 
-    public function __construct($merchantAccountID, LoggerInterface $logger = null,Helper $helper=null)
+
+    public function __construct($merchantAccountID, LoggerInterface $logger = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
-        $this->helper = $helper;
 
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
@@ -40,6 +40,8 @@ class SuyoolServices
         }
         $this->client = HttpClient::create();
         $this->logger = $logger;
+        $this->helper=new Helper($this->client);
+
     }
 
     /**
@@ -59,6 +61,7 @@ class SuyoolServices
                 'secureHash' =>  $Hash,
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
+            // dd($response);
 
             $status = $response->getStatusCode(); // Get the status code
             if ($status == 500) {
