@@ -36,7 +36,7 @@
 
             .titleGrid {
                 font-size: 1tpx;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: black;
             }
 
@@ -45,7 +45,7 @@
                 border: none;
                 color: #D32127;
                 font-size: 15px;
-                font-family: PoppinsMedium;
+                font-family: $Medium;
             }
         }
     }
@@ -70,14 +70,14 @@
 
         .bigTitle {
             padding-top: 25px;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-size: 15px;
             color: black;
         }
 
         .descriptio {
             padding-top: 15px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 14px;
             color: black;
             text-align: center;
@@ -87,7 +87,7 @@
         .copyTitle {
             width: 100%;
             padding-top: 10px;
-            font-family: PoppinsSemiBold;
+            font-family: $SemiBold;
             font-size: 16px;
             color: black;
         }
@@ -95,7 +95,7 @@
         .copyDesc {
             width: 100%;
             padding-top: 5px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 14px;
             font-weight: 400;
             color: black;
@@ -114,7 +114,7 @@
             border-radius: 9px;
 
             .serial {
-                font-family: PoppinsBold;
+                font-family: $Bold;
                 font-size: 22px;
                 color: black;
             }
@@ -155,7 +155,7 @@
                 }
 
                 .textStep {
-                    font-family: PoppinsMedium;
+                    font-family: $Medium;
                     font-size: 14px;
                     color: black;
                     padding-left: 10px;

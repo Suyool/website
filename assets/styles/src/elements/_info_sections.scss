@@ -10,7 +10,7 @@
     }
     .updated{
         color: #373464;
-        font-family: 'PoppinsMedium';
+        font-family: $Medium;
         font-size: 20px;
         /* line-height: 100px; */
         padding-bottom: 15px;
@@ -18,20 +18,20 @@
     .receive{
         color: #374A5A;
         font-size: 38px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .title{
         color: #00000080;
         padding-top: 15px;
         font-size: 20px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .checked{
         span{
             display: block;
             color: #00000080;
             padding-top: 18px;
-            font-family: 'PoppinsRegular';
+            font-family: $Regular;
             font-size: 18px;
             img{
                 width: 25px;
@@ -47,7 +47,7 @@
         border: none;
         border-radius: 10px;
         color: #ffffff;
-        font-family: 'PoppinsMedium';
+        font-family: $Medium;
         display: inline-flex;
     }
 }
@@ -61,7 +61,7 @@
     }
     .updated{
         color: #373464;
-        font-family: 'PoppinsMedium';
+        font-family: $Medium;
         font-size: 20px;
         /* line-height: 100px; */
         padding-bottom: 15px;
@@ -69,20 +69,20 @@
     .receive{
         color: #374A5A;
         font-size: 40px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .title{
         color: #00000080;
         padding-top: 15px;
         font-size: 22px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .checked{
         span{
             display: block;
             color: #00000080;
             padding-top: 18px;
-            font-family: 'PoppinsRegular';
+            font-family: $Regular;
             font-size: 18px;
             img{
                 width: 25px;
@@ -98,7 +98,7 @@
         border: none;
         border-radius: 10px;
         color: #ffffff;
-        font-family: 'PoppinsMedium';
+        font-family: $Medium;
         display: inline-flex;
     }
 }
@@ -115,27 +115,27 @@
     }
     .updated{
         color: #373464;
-        font-family: 'PoppinsBold';
+        font-family: $Bold;
         font-size: 20px;
         /* line-height: 100px; */
     }
     .receive{
         color: #374A5A;
         font-size: 38px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .title{
         color: #00000080;
         padding-top: 15px;
         font-size: 16px;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
     }
     .checked{
         span{
             display: block;
             color: #00000080;
             padding-top: 18px;
-            font-family: 'PoppinsRegular';
+            font-family: $Regular;
             font-size: 15px;
             img{
                 width: 25px;
@@ -151,7 +151,7 @@
         border: none;
         border-radius: 10px;
         color: #ffffff;
-        font-family: 'PoppinsMedium';
+        font-family: $Medium;
         display: inline-flex;
     }
 }

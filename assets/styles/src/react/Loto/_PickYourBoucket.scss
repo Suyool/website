@@ -44,7 +44,7 @@
 
                 .titleGrid {
                     font-size: 13px;
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     color: black;
                 }
 
@@ -53,7 +53,7 @@
                     border: none;
                     color: #D32127;
                     font-size: 15px;
-                    font-family: PoppinsMedium;
+                    font-family: $Medium;
                 }
             }
         }
@@ -83,7 +83,7 @@
                 }
 
                 span {
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 15px;
                     color: #C82F2A;
                     background-color: white;
@@ -124,11 +124,11 @@
 
                         .basic {
                             font-size: 15px;
-                            font-family: PoppinsSemiBold;
+                            font-family: $SemiBold;
 
                             input[type=number] {
                                 border: none;
-                                font-family: PoppinsSemiBold;
+                                font-family: $SemiBold;
                                 font-size: 15px;
                                 width: 55px;
 
@@ -141,7 +141,7 @@
 
                         .price {
                             font-size: 15px;
-                            font-family: PoppinsSemiBold;
+                            font-family: $SemiBold;
                             color: #1C2676;
                         }
                     }
@@ -171,7 +171,7 @@
                     background-color: #F7F7F7;
                     border: none;
                     font-size: 10px;
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     color: #C82F2A;
                     padding: 14px 0;
                     width: 30%;
@@ -182,7 +182,7 @@
                     background-color: #C82F2A;
                     border: none;
                     font-size: 10px;
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     color: white;
                     padding: 14px 0;
                     width: 30%;

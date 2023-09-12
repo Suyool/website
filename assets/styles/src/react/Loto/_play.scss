@@ -6,7 +6,7 @@
 
     .gridplays {
         color: #1C2676;
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 14px;
         max-width: 90%;
         padding-top: 20px;
@@ -32,20 +32,20 @@
             }
 
             span {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 11px;
 
                 &.right {
                     float: right;
                     padding-top: 6px;
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     display: flex;
                     position: relative;
 
                     span {
                         color: black;
                         font-size: 11px;
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         // padding-top: 7px;
                         padding-right: 7px;
                     }
@@ -155,7 +155,7 @@
                 flex-wrap: wrap;
 
                 span {
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 15px;
                     color: white;
                     background-color: #C82F2A;
@@ -179,7 +179,7 @@
                 justify-content: flex-start;
 
                 span {
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 20px;
                 }
             }
@@ -197,7 +197,7 @@
             border-bottom-right-radius: 15px;
 
             .price {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 20px;
 
                 span {
@@ -245,7 +245,7 @@
         .title {
             color: #1C2676;
             font-size: 14px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             padding-bottom: 26px;
             width: 90%;
         }
@@ -278,19 +278,19 @@
 
                     .titleNb {
                         font-size: 14px;
-                        font-family: PoppinsSemiBold;
+                        font-family: $SemiBold;
                     }
 
                     .desc {
                         font-size: 11px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         padding-top: 6px;
                     }
                 }
 
                 .price {
                     width: 30%;
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 14px;
                     color: #1C2676;
                 }
@@ -318,7 +318,7 @@
             span {
                 color: white;
                 font-size: 15px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 padding-left: 20px;
                 margin: auto;
                 width: 30%;
@@ -329,7 +329,7 @@
                 color: white;
                 align-items: flex-end;
                 font-size: 15px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 width: 70%;
 
                 .big {
@@ -346,7 +346,7 @@
             border-radius: 5px;
             color: white;
             font-size: 15px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             margin-top: 20px;
             width: 90%;
             text-align: center;

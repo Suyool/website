@@ -4,17 +4,17 @@
     text-align: center;
     span {
       color: #373464;
-      font-family: PoppinsBold;
+      font-family: $Bold;
     }
     h2 {
       font-size: 40px;
       margin: 20px 0;
-      font-family: PoppinsRegular;
+      font-family: $Regular;
     }
     p {
       font-size: 12px;
       color: #373464;
-      font-family: PoppinsRegular;
+      font-family: $Regular;
     }
   }
   .steps {
@@ -30,14 +30,14 @@
       .number {
         font-size: 40px;
         margin-bottom: 50px;
-        font-family: PoppinsBold;
+        font-family: $Bold;
       }
       .title {
-        font-family: PoppinsSemiBold;
+        font-family: $SemiBold;
         margin-bottom: 30px;
       }
       p {
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         color: #6B6B6B;
         font-size: 12px;
         max-width: 365px;

@@ -34,7 +34,7 @@
     border-radius: 5px;
     border: none;
     color: white;
-    font-family: PoppinsMedium;
+    font-family: $Medium;
 }
 
 #modalRadius {
@@ -60,14 +60,14 @@
     }
 
     .title {
-        font-family: PoppinsSemiBold;
+        font-family: $SemiBold;
         font-size: 15px;
         color: black;
         padding-top: 33px;
     }
 
     .desc {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 15px;
         color: black;
         text-align: center;
@@ -77,7 +77,7 @@
     .okiBtnModal {
         margin-top: 40px;
         padding: 15px;
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 15px;
         color: black;
         background-color: #F4F4F4;
@@ -99,14 +99,14 @@
     }
 
     .title {
-        font-family: PoppinsSemiBold;
+        font-family: $SemiBold;
         font-size: 15px;
         color: black;
         padding-top: 33px;
     }
 
     .desc {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 15px;
         color: black;
         text-align: center;
@@ -120,7 +120,7 @@
         .okiBtnModal {
             margin-top: 40px;
             padding: 15px 36px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 15px;
             color: black;
             background-color: #F4F4F4;
@@ -132,7 +132,7 @@
         .exchangeBtnModal {
             margin-top: 40px;
             padding: 15px 36px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 15px;
             color: #FFFFFF;
             background-color: #226D96;

@@ -11,14 +11,14 @@
 
         .formMain {
             .formText {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 18px;
             }
 
             .form-card {
                 .form-group {
                     label {
-                        font-family: PoppinsSemiBold;
+                        font-family: $SemiBold;
                         font-size: 18px;
                         color: #004B71;
                         padding: 20px 0 6px 0;
@@ -27,7 +27,7 @@
                     input {
                         border: 1px solid #593884;
                         font-size: 16px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         border-radius: 10px;
                         padding: 13px;
                     }
@@ -35,7 +35,7 @@
                     textarea {
                         border: 1px solid #593884;
                         font-size: 16px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         border-radius: 10px;
                         padding: 13px;
                         min-height: 170px;
@@ -56,7 +56,7 @@
 
     .supportNav {
         background-color: white !important;
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         border-bottom-left-radius: 25px;
         border-bottom-right-radius: 25px;
         height: 100px;
@@ -102,7 +102,7 @@
         .contactTitle {
             padding-top: 140px;
             padding-left: 5%;
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             color: white;
             font-size: 60px;
         }
@@ -122,14 +122,14 @@
         max-width: 690px;
 
         .desc {
-            font-family: PoppinsSemiBold;
+            font-family: $SemiBold;
             font-size: 18px;
             padding-left: 30px;
         }
 
         .whereToCall {
             font-size: 30px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             width: 100%;
             color: #593884;
             display: flex;
@@ -244,14 +244,14 @@
             max-width: 100%;
 
             .desc {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 18px;
                 padding-left: 30px;
             }
 
             .whereToCall {
                 font-size: 30px;
-                font-family: PoppinsMedium;
+                font-family: $Medium;
                 width: 100%;
                 color: #593884;
                 display: flex;
