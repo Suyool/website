@@ -22,7 +22,12 @@ class Transaction
     private $id;
 
     /**
-     * @ORM\Column(type="string", name="order_id", length=50)
+     * @ORM\Column(type="string", name="users_id", length=50)
+     */
+    private $users;
+
+    /**
+     * @ORM\Column(type="string", name="orderId", length=50)
      */
     private $orderId;
 
@@ -45,6 +50,11 @@ class Transaction
      * @ORM\Column(length=200)
      */
     private $response;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $respCode;
 
     /**
      * @ORM\Column(type="datetime",nullable=true)
@@ -74,6 +84,18 @@ class Transaction
     public function setOrderId(string $orderId): self
     {
         $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    public function getUsersId(): ?string
+    {
+        return $this->users;
+    }
+
+    public function setUsersId(string $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }
@@ -122,6 +144,18 @@ class Transaction
     public function setResponse($response): self
     {
         $this->response = $response;
+
+        return $this;
+    }
+
+    public function getRespCode()
+    {
+        return $this->respCode;
+    }
+
+    public function setRespCode($respCode): self
+    {
+        $this->respCode = $respCode;
 
         return $this;
     }

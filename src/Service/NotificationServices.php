@@ -30,6 +30,16 @@ class NotificationServices
         $this->logger = $logger;
     }
 
+    public function GetuserDetails($userid)
+    {
+        try {
+            $userDetails= $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+            return array($userDetails->getfname(),$userDetails->getlname());
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
+    }
+
     public function checkUser($userid, $lang)
     {
         try {

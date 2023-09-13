@@ -215,6 +215,7 @@ class RequestController extends AbstractController
      */
     public function RequestResult(Request $request, TranslatorInterface $translator): Response
     {
+        // dd($request);
         $parameters = $this->trans->translation($request, $translator);
         $data = $request->request;
         $request->request->set('LITE_ORDER_AMOUNT', $data->get('LITE_ORDER_AMOUNT')/100);
@@ -231,7 +232,7 @@ class RequestController extends AbstractController
             $tranDescription = $resultDescription;
         }
 
-        $this->saveTransactionData($amount, $currency, $tranDescription, $data);
+        $this->saveTransactionData($amount, $currency, $tranDescription, $data,$_POST['LITE_PAYMENT_CARD_STATUS']);
 
         $parameters['currency'] = $currency;
         $parameters['amount'] = $amount;
@@ -240,13 +241,14 @@ class RequestController extends AbstractController
         return $this->render('request/requestResult.html.twig', $parameters);
     }
 
-    private function saveTransactionData($amount, $currency, $tranDescription, $response)
+    private function saveTransactionData($amount, $currency, $tranDescription, $response,$respCode)
     {
         $transaction = new Transaction();
         $transaction->setAmount($amount);
         $transaction->setCurrency($currency);
         $transaction->setDescription($tranDescription);
         $transaction->setOrderId($response->get("ECOM_CONSUMERORDERID"));
+        $transaction->setRespCode($respCode);
 
         $transaction->setResponse(json_encode($response->all()));
 
