@@ -9,23 +9,21 @@ const Play = ({
   setActiveButton,
   parameters,
   setIsHide,
-  getTotalAmount,
   setHeaderTitle,
   setBackLink,
   setPlay,
   setTotalAmountLLDJ,
   setDataGetting,
   setBallNumbersIndex,
-  getBallNumbersIndex,
   setModalShow,
 }) => {
-  const [ selectedOption, setSelectedOption ] = useState(false);
-  const [ selectedSub, setSelectedSub ] = useState(false);
-  const [ checked, setChecked ] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(false);
+  const [selectedSub, setSelectedSub] = useState(false);
+  const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [ getHowOftenPlay, setHowOftenPlay ] = useState(0);
+  const [getHowOftenPlay, setHowOftenPlay] = useState(0);
   var totalPrice = 0;
-  const [ getDisabledBtn, setDisabledBtn ] = useState(
+  const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
   );
 
@@ -50,7 +48,7 @@ const Play = ({
     );
   }, []);
 
-  const [ getPlayedBalls, setPlayedBalls ] = useState(
+  const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
   if (getPlayedBalls != null) {
@@ -72,10 +70,10 @@ const Play = ({
         setDisabledBtn(false);
       }
     }
-  }, [ selectedBallsToShow, getHowOftenPlay ]);
+  }, [selectedBallsToShow, getHowOftenPlay]);
 
   const handleDelete = (index) => {
-    const updatedBalls = [ ...getPlayedBalls ];
+    const updatedBalls = [...getPlayedBalls];
     updatedBalls.splice(index, 1);
     setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
@@ -96,7 +94,7 @@ const Play = ({
   const handleCheckbox = (index) => {
     setChecked(!checked);
     setPlayedBalls((prevState) => {
-      const updatedBalls = [ ...prevState ];
+      const updatedBalls = [...prevState];
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {

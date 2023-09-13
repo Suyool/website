@@ -81,6 +81,7 @@ const App = ({ parameters }) => {
           className={`scrolableView ${
             activeButton.name === "Result" && "resultScroll"
           }`}
+          style={getPickYourGrid ? { position: "fixed" } : {}}
         >
           <img
             className="mt-5"
@@ -109,6 +110,7 @@ const App = ({ parameters }) => {
               setBackLink={setBackLink}
               setBallPlayed={setBallPlayed}
               setPickYourGrid={setPickYourGrid}
+              getPickYourGrid={getPickYourGrid}
               setTotalAmount={setTotalAmount}
               setBallNumbers={setBallNumbers}
               setActiveButton={setActiveButton}
