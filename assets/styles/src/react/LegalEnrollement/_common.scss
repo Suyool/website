@@ -10,7 +10,7 @@
     padding: 15px 40px;
 
     .headerTitle {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 23px;
         color: white;
         padding-left: 4%;
@@ -25,13 +25,13 @@
 
     .title {
         padding-top: 20px;
-        font-family: PoppinsBold;
+        font-family: $Bold;
         color: #495666;
         font-size: 16px;
     }
 
     .description {
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         color: #7588A0;
         font-size: 16px;
         max-width: 95%;
@@ -43,7 +43,7 @@
         background-color: #226D96;
         border-radius: 6px;
         color: white;
-        font-family: PoppinsBold;
+        font-family: $Bold;
         font-size: 16px;
         padding: 20px 100px;
         margin-top: 40px;

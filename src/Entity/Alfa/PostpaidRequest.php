@@ -19,117 +19,101 @@ class PostpaidRequest
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
     /**
-     * 
      * @ORM\Column(name="gsmNumber")
      */
     private $gsmNumber;
 
-     /**
+    /**
      * @ORM\Column(name="error")
      */
     private $error;
 
-     /**
+    /**
      * @ORM\Column(name="errorDesc")
      */
     private $errordesc;
 
-     /**
+    /**
      * @ORM\Column(name="errorCode")
      */
     private $errorcode;
 
-     /**
+    /**
      * @ORM\Column(name="response")
      */
     private $response;
 
     /**
-     * 
      * @ORM\Column(name="currency")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(name="pin")
      */
     private $pin;
 
     /**
-     * 
      * @ORM\Column(name="transactionId")
      */
     private $transactionId;
 
     /**
-     * 
      * @ORM\Column(name="fees")
      */
     private $fees;
 
     /**
-     * 
      * @ORM\Column(name="fees1")
      */
     private $fees1;
 
     /**
-     * 
      * @ORM\Column(name="additionalfees")
      */
     private $additionalfees;
 
     /**
-     * 
      * @ORM\Column(name="displayedFees")
      */
     private $displayedFees;
 
     /**
-     * 
      * @ORM\Column(name="amount")
      */
     private $amount;
 
     /**
-     * 
      * @ORM\Column(name="amount1")
      */
     private $amount1;
 
     /**
-     * 
      * @ORM\Column(name="amount2")
      */
     private $amount2;
 
     /**
-     * 
      * @ORM\Column(name="referenceNumber")
      */
     private $referenceNumber;
 
     /**
-     * 
      * @ORM\Column(name="informativeOriginalWSamount")
      */
     private $informativeOriginalWSamount;
 
     /**
-     * 
      * @ORM\Column(name="totalamount")
      */
     private $totalamount;
 
     /**
-     * 
      * @ORM\Column(name="rounding")
      */
     private $rounding;
@@ -183,7 +167,6 @@ class PostpaidRequest
         return $this;
     }
 
-
     public function getfees()
     {
         return $this->fees;
@@ -216,7 +199,6 @@ class PostpaidRequest
         $this->amount = $amount;
         return $this;
     }
-
 
     public function getamount1()
     {

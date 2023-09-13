@@ -9,14 +9,14 @@
     padding: 20px 15px;
 
     .mainTitle {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 16px;
         color: black;
         width: 100%;
     }
 
     .mainDesc {
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         font-size: 13px;
         color: black;
         width: 100%;
@@ -32,7 +32,7 @@
     //         border: none;
     //         border-radius: 8px;
     //         padding: 16px 10px 14px 50px;
-    //         font-family: PoppinsRegular;
+    //         font-family: $Regular;
     //         font-size: 16px;
     //         color: black;
     //         width: 100%;
@@ -81,13 +81,13 @@
     //             flex-direction: column;
 
     //             .Price {
-    //                 font-family: PoppinsBold;
+    //                 font-family: $Bold;
     //                 color: black;
     //                 width: 20px;
     //             }
 
     //             .bundleName {
-    //                 font-family: PoppinsRegular;
+    //                 font-family: $Regular;
     //                 font-size: 13px;
     //                 color: #929292;
     //             }
@@ -131,19 +131,19 @@
                 width: 70%;
 
                 .Price {
-                    font-family: PoppinsBold;
+                    font-family: $Bold;
                     color: black;
                     font-size: 20px;
                     span{
                         font-size: 12px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         padding-left: 12px;
                         color: black;
                     }
                 }
 
                 .bundleName {
-                    font-family: PoppinsRegular;
+                    font-family: $Regular;
                     font-size: 14px;
                     font-weight: 400;
                     color: #929292;

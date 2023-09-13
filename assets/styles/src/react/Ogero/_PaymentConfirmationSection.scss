@@ -4,7 +4,7 @@
     width: 100%;
     background-color: white;
     bottom: 0;
-    // height: 80vh;
+    height: 70vh;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     z-index: 1001;
@@ -37,7 +37,7 @@
 
             .titleGrid {
                 font-size: 1tpx;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: black;
             }
 
@@ -46,7 +46,7 @@
                 border: none;
                 color: #D32127;
                 font-size: 15px;
-                font-family: PoppinsMedium;
+                font-family: $Medium;
             }
         }
     }
@@ -59,7 +59,7 @@
         flex-wrap: wrap;
         // height: 220px;
         overflow: hidden;
-        overflow-y: auto;
+        // overflow-y: auto;
         overflow-x: hidden;
         padding-top: 15px;
         padding-bottom: 80px;
@@ -77,7 +77,7 @@
 
             .method {
                 padding-left: 15px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: black;
                 font-size: 14px;
             }
@@ -91,25 +91,25 @@
             padding: 10px 0;
 
             .label {
-                font-family: PoppinsMedium;
+                font-family: $Medium;
                 color: #1C1A32;
                 font-size: 14px;
             }
 
             .value {
-                font-family: PoppinsRegular;
+                font-family: $Regular;
                 color: #000000;
                 font-size: 14px;
             }
 
             .value1 {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #000000;
                 font-size: 14px;
             }
 
             .value2 {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #000000;
                 font-size: 20px;
             }
@@ -124,7 +124,7 @@
         }
 
         .taxes {
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             color: #000000;
             font-size: 12px;
         }
@@ -136,16 +136,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 15px;
-        position: absolute;
-        bottom: 0;
+        padding-bottom: 46px;
+        // position: absolute;
+        // bottom: 0;
         background-color: white;
 
         button {
             width: 90%;
             border-radius: 6px;
             font-size: 16px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             color: white;
             background-color: #226d96;
             border: none;

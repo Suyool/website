@@ -9,7 +9,7 @@
     padding: 20px 15px;
 
     .MainTitle {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 16px;
         color: black;
         width: 100%;
@@ -42,13 +42,13 @@
             padding-right: 20px;
 
             .SubTitle {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 15px;
                 color: black;
             }
 
             .description {
-                font-family: PoppinsRegular;
+                font-family: $Regular;
                 font-size: 14px;
                 color: #767676;
             }

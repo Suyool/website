@@ -4,16 +4,13 @@ namespace App\Entity\Ogero;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="orders")
  */
 class Order
 {
-
-    public static $statusOrder = array("PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","COMPLETED"=>"completed","CANCELED"=>"canceled");
-
+    public static $statusOrder = array("PENDING" => "pending", "HELD" => "held", "PURCHASED" => "purchased", "COMPLETED" => "completed", "CANCELED" => "canceled");
 
     /**
      * @ORM\Id
@@ -23,7 +20,6 @@ class Order
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
@@ -34,37 +30,30 @@ class Order
      */
     private $landline;
 
-
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $status;
 
-     /**
-     * 
+    /**
      * @ORM\Column(name="errorInfo")
      */
     private $error;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $amount;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $transId;
-
 
     public function getId()
     {
@@ -142,7 +131,7 @@ class Order
 
     public function seterror($error)
     {
-        $this->error=$error;
+        $this->error = $error;
         return $this;
     }
 

@@ -11,14 +11,14 @@
     padding: 20px 15px;
 
     .mainTitle {
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         font-size: 16px;
         color: black;
         width: 100%;
     }
 
     .mainDesc {
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         font-size: 12px;
         color: black;
         width: 100%;
@@ -34,7 +34,7 @@
         margin-top: 15px;
 
         .title {
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 14px;
             color: black;
             width: 100%;
@@ -58,7 +58,7 @@
                     justify-content: space-evenly;
 
                     .code {
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         font-size: 14px;
                         color: black;
                     }
@@ -71,7 +71,7 @@
                     border-radius: 5px;
                     border: 1px solid #7588A034;
                     // box-shadow: 0px 3px 5px #E7EAF0;
-                    font-family: PoppinsMedium;
+                    font-family: $Medium;
                     font-size: 14px;
                     color: #9C9DA2;
                     padding: 5px 15px;
@@ -85,7 +85,7 @@
         margin-top: 25px;
 
         .title {
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 14px;
             color: black;
             width: 100%;
@@ -103,7 +103,7 @@
                 text-align: center;
                 width: 50%;
                 background-color: white;
-                font-family: PoppinsMedium;
+                font-family: $Medium;
                 color: #373464;
                 font-size: 14PX;
                 border-radius: 12px;
@@ -114,7 +114,7 @@
                 padding: 12px;
                 text-align: center;
                 width: 50%;
-                font-family: PoppinsMedium;
+                font-family: $Medium;
                 color: #9c9da2;
                 border-radius: 12px;
                 font-size: 14PX;
@@ -127,7 +127,7 @@
         width: 100%;
 
         .title {
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             font-size: 14px;
             color: black;
             width: 100%;
@@ -167,13 +167,13 @@
                     flex-direction: column;
 
                     .Price {
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         color: black;
                         width: 20px;
                     }
 
                     .bundleName {
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         font-size: 13px;
                         color: #929292;
                     }

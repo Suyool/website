@@ -1,5 +1,5 @@
 .navigation {
-    position: absolute;
+    position: fixed;
     display: flex;
     width: 100%;
     background-color: white;
@@ -10,6 +10,7 @@
 
     .subCont {
         position: fixed;
+        z-index: 9999;
         bottom: 0;
         display: flex;
         width: 100%;
@@ -23,14 +24,14 @@
 
             .title {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #C82F2A;
                 padding-top: 6px;
             }
 
             .activeTitle {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #1C2676;
                 padding-top: 6px;
             }
@@ -50,14 +51,14 @@
 
             .title {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #C82F2A;
                 padding-top: 6px;
             }
 
             .activeTitle {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 // color: #1C2676;
                 color: white;
                 padding-top: 6px;
@@ -78,14 +79,14 @@
 
             .title {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #C82F2A;
                 padding-top: 6px;
             }
 
             .activeTitle {
                 font-size: 11px;
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 color: #1C2676;
                 padding-top: 6px;
             }

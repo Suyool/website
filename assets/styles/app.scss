@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@import 'src/basic/common';
 @import 'src/basic/fonts';
+@import 'src/basic/common';
 @import 'src/basic/variables';
 // @import 'src/basic/bootstarp-grid';
 // @import 'src/basic/bootstrap-carousel';
@@ -16,6 +16,7 @@
 @import 'src/elements/home_bottom_section';
 @import 'src/elements/home_merchant';
 @import 'src/elements/info_sections.scss';
+@import 'src/elements/support.scss';
 
 @import 'src/pages/payment';
 @import 'src/pages/emailVerification';

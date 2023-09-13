@@ -51,8 +51,6 @@ class Logs
         $this->created = new \DateTime('now');
     }
 
-    // Getter and setter methods for each property
-
     public function getId(): ?int
     {
         return $this->id;
@@ -120,10 +118,9 @@ class Logs
 
     public function getCreateDateFormat()
     {
-        if(isset($this->created)){
+        if (isset($this->created)) {
             return $this->created->format('h:i Y-m-d');
-        }
-        else
+        } else
             return Null;
     }
 }

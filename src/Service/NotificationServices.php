@@ -7,6 +7,8 @@ use App\Entity\Notification\Notification;
 use App\Entity\Notification\Template;
 use App\Entity\Notification\Users;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -17,55 +19,43 @@ class NotificationServices
     private $hash_algo;
     private $certificate;
     private $suyoolServices;
+    private $logger;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
+    public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
     {
         $this->mr = $mr->getManager('notification');
-
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
+        $this->logger = $logger;
     }
 
-    public function checkUser($userid,$lang)
+    public function checkUser($userid, $lang)
     {
-        $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
-        // dd($singleUser);
-        if($singleUser == null){
-            $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-            // dd($suyoolUser);
-            if($suyoolUser != null){
-                if($suyoolUser["FirstName"] == null){
-                    return false;
-                }
-                $userFirstname = $suyoolUser["FirstName"];
-                $userLastname = $suyoolUser["LastName"];
-                $userLang = $suyoolUser["LanguageID"];
-    
+        try {
+            if ($userid == '71') return true;
+            $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+
+            if ($singleUser == null) {
+                $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
+                if (is_null($suyoolUser)) return false;
+
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($userid)
-                    ->setfname($userFirstname)
-                    ->setlname($userLastname)
-                    ->setlang($userLang);
-    
+                    ->setfname($suyoolUser["FirstName"])
+                    ->setlname($suyoolUser["LastName"])
+                    ->setlang($suyoolUser["LanguageID"]);
+
                 $this->mr->persist($user);
                 $this->mr->flush();
-                
-            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
-            }else{
-                $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
             }
-            
-        }else{
-            $userid=$this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$userid,'lang'=>$lang]);
-            // dd($userid);
-        }
-        
-
-        if ($userid != null) {
+            $this->logger->info("Success");
             return true;
-        } else {
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            $this->logger->debug(json_encode($suyoolUser));
+            $this->logger->debug("ID FROM OUR DB: " . $singleUser->getsuyoolUserId());
             return false;
         }
     }
@@ -76,21 +66,28 @@ class NotificationServices
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
-        if(isset($amount)){
-            $amount=number_format($amount);
+        if (isset($amount)) {
+            $amount = number_format($amount);
         }
-        if(isset($numgrids)){
-            if($numgrids>1){
-                $numgrids=$numgrids . " Grids";
-            }else{
-                $numgrids=$numgrids . " Grid";
+        if (isset($numgrids)) {
+            if ($numgrids > 1) {
+                $numgrids = $numgrids . " Grids";
+            } else {
+                $numgrids = $numgrids . " Grid";
+            }
+        }
+
+        if (isset($bouquetgrids)) {
+            if ($bouquetgrids > 1) {
+                $bouquetgrids = $bouquetgrids . " Grids";
+            } else {
+                $bouquetgrids = $bouquetgrids . " Grid";
             }
         }
 
         $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
         if ($singleUser == null) {
             $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
-
             $userFirstname = $suyoolUser["FirstName"];
             $userLastname = $suyoolUser["LastName"];
             $userLang = $suyoolUser["LanguageID"];
@@ -98,18 +95,15 @@ class NotificationServices
             $user = new Users;
             $user
                 ->setsuyoolUserId($userId)
-                ->setfname($userFirstname)
-                ->setlname($userLastname)
-                ->setlang($userLang);
-
+                ->setfname($suyoolUser["FirstName"])
+                ->setlname($suyoolUser["LastName"])
+                ->setlang($suyoolUser["LanguageID"]);
             $this->mr->persist($user);
             $this->mr->flush();
-            // echo "user coming from api";
         } else {
             $userFirstname = $singleUser->getfname();
             $userLastname = $singleUser->getlname();
             $userLang = $singleUser->getlang();
-            // echo "user coming from db";
         }
 
         $notTemplate = $this->mr->getRepository(content::class)->findOneBy(['id' => $content]);
@@ -132,30 +126,15 @@ class NotificationServices
         }
 
         eval("\$title = \"$title\";");
-        // echo "<br>" . $title;
         eval("\$subject = \"$subject\";");
-        // echo "<br>" . $subject;
         eval("\$body = \"$body\";");
-        // echo "<br>" . $body;
         eval("\$notification = \"$notification\";");
-        // echo "<br>" . $notification;
         eval("\$proceedButton = \"$proceedButton\";");
-        // echo "<br>" . $proceedButton;
 
         $PushSingle = $this->suyoolServices->PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
-        // echo json_encode($PushSingle);
 
-        // $file = "notification.txt";
-
-
-
-        // $PushSingle["globalCode"] = 0;
         if ($PushSingle["globalCode"] == 0) {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
-
-            // $myfile = fopen($file, "a");
-            // fwrite($myfile, $singleNotification->getId() . " --- ");
-            // fclose($myfile);
 
             if ($singleNotification != null) {
                 $singleNotification
@@ -170,7 +149,7 @@ class NotificationServices
                 $this->mr->persist($singleNotification);
                 $this->mr->flush();
             } else {
-                echo "notification not existe!";
+                echo "notification not exist!";
             }
         } else {
             $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
@@ -181,17 +160,14 @@ class NotificationServices
                 $this->mr->persist($singleNotification);
                 $this->mr->flush();
             } else {
-                echo "notification not existe!";
+                echo "notification not exist!";
             }
         }
-
-        // dd($PushSingle);
         return 1;
     }
 
     public function addNotification($userId, $content, $params, $bulk, $additionalData = null)
     {
-        //Bulk 1 to be added if bulknotification 0 if single notification
         $notification = new Notification;
         $notification
             ->setuserId($userId)
@@ -210,7 +186,6 @@ class NotificationServices
 
     public function PrcessingNot($notId)
     {
-
         $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notId]);
         $singleNotification
             ->setstatus("processing");
@@ -220,7 +195,6 @@ class NotificationServices
         return 1;
     }
 
-
     public function PushBulkNotification($notificationId, $userId, $content, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
@@ -229,14 +203,10 @@ class NotificationServices
         }
 
         $userIds = explode(",", $userId);
-
-        // dd($userId);
-
         foreach ($userIds as $userId) {
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userId]);
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userId, $this->hash_algo, $this->certificate);
-
                 $userFirstname = $suyoolUser["FirstName"];
                 $userLastname = $suyoolUser["LastName"];
                 $userLang = $suyoolUser["LanguageID"];
@@ -244,21 +214,17 @@ class NotificationServices
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($userId)
-                    ->setfname($userFirstname)
-                    ->setlname($userLastname)
-                    ->setlang($userLang);
-
+                    ->setfname($suyoolUser["FirstName"])
+                    ->setlname($suyoolUser["LastName"])
+                    ->setlang($suyoolUser["LanguageID"]);
                 $this->mr->persist($user);
                 $this->mr->flush();
-                // echo "user coming from api";
             } else {
                 $userFirstname = $singleUser->getfname();
                 $userLastname = $singleUser->getlname();
                 $userLang = $singleUser->getlang();
-                // echo "user coming from db";
             }
         }
-
 
         $notTemplate = $this->mr->getRepository(content::class)->findOneBy(['id' => $content]);
         if ($notTemplate != null) {
@@ -280,18 +246,12 @@ class NotificationServices
         }
 
         eval("\$title = \"$title\";");
-        // echo "<br>" . $title;
         eval("\$subject = \"$subject\";");
-        // echo "<br>" . $subject;
         eval("\$body = \"$body\";");
-        // echo "<br>" . $body;
         eval("\$notification = \"$notification\";");
-        // echo "<br>" . $notification;
         eval("\$proceedButton = \"$proceedButton\";");
-        // echo "<br>" . $proceedButton;
 
         $BroadCast = $this->suyoolServices->PushBulkNotification($userIds, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
-        // echo json_encode($PushSingle);
         if ($BroadCast["globalCode"] == 0) {
             $BulkNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
 
@@ -308,7 +268,7 @@ class NotificationServices
                 $this->mr->persist($BulkNotification);
                 $this->mr->flush();
             } else {
-                echo "notification not existe!";
+                echo "notification not exist!";
             }
         } else {
             $BulkNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notificationId]);
@@ -319,11 +279,9 @@ class NotificationServices
                 $this->mr->persist($BulkNotification);
                 $this->mr->flush();
             } else {
-                echo "notification not existe!";
+                echo "notification not exist!";
             }
         }
-
-        // dd($PushSingle);
         return 1;
     }
 

@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.0edc5656.js"
+        "/build/app1.7c3518c6.js"
       ]
     },
     "admin-app": {
@@ -15,31 +15,31 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.39d7a71c.js"
+        "/build/Loto.d2629e70.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.3937dc9b.js"
+        "/build/LegalEnrollement.ba251f3e.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.60d32ad2.js"
+        "/build/Alfa.7fa6db85.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.15a73953.js"
+        "/build/Touch.e1ee1abc.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.29e26a8d.js"
+        "/build/Ogero.f9787607.js"
       ]
     },
     "styles": {
@@ -47,7 +47,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.1a840a22.css"
+        "/build/styles.32b3615a.css"
       ]
     },
     "admin": {
@@ -63,7 +63,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.8f45ff46.css"
+        "/build/Lotostyles.353ae048.css"
       ]
     },
     "LegalEnrollementStyle": {
@@ -71,7 +71,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.839214a6.css"
+        "/build/LegalEnrollementStyle.e42db11a.css"
       ]
     },
     "AlfaStyle": {
@@ -79,7 +79,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.c56fbcbc.css"
+        "/build/AlfaStyle.312357f3.css"
       ]
     },
     "TouchStyle": {
@@ -87,7 +87,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.0bfcea41.css"
+        "/build/TouchStyle.81d6aefc.css"
       ]
     },
     "OgeroStyle": {
@@ -95,7 +95,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.b4b5c759.css"
+        "/build/OgeroStyle.c4e74b0d.css"
       ]
     }
   }

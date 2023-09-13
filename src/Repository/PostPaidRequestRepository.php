@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class PostPaidRequestRepository extends EntityRepository
 {
-    public function insertRetrieveResults($postpaidrequest, $sets2error = null, $pin = null,$errorCode,$response, $transId = null, $currency = null, $fees = null, $fees1 = null, $amount = null, $amount1 = null, $amount2 = null, $refnum = null,$displayedfees=null, $infooriginalamount = null, $totalamount = null, $rounding = null, $additionalfees = null, $invoicenum = null, $paymentId = null)
+    public function insertRetrieveResults($postpaidrequest, $sets2error = null, $pin = null, $errorCode, $response, $transId = null, $currency = null, $fees = null, $fees1 = null, $amount = null, $amount1 = null, $amount2 = null, $refnum = null, $displayedfees = null, $infooriginalamount = null, $totalamount = null, $rounding = null, $additionalfees = null, $invoicenum = null, $paymentId = null)
     {
         $postpaidrequest
             ->setCodeerror($errorCode)
@@ -43,7 +43,7 @@ class PostPaidRequestRepository extends EntityRepository
         return $postpaidrequest;
     }
 
-    public function insertBillPay($postpaid, $SuyoolUserId = null, $setGsmNumber = null, $settoken = null, $settransactionDescription = null, $settransactionReference = null, $setPin = null, $setTransactionId = null, $setcurrency = null, $setfees = null, $setfees1 = null, $setamount = null, $setamount1 = null, $setamount2 = null, $setreferenceNumber = null, $setinformativeOriginalWSamount = null, $settotalamount = null,$setrounding=null,$setadditionalfees=null,$setinvoiceNumber=null,$setpaymentId=null,$seterror=null)
+    public function insertBillPay($postpaid, $SuyoolUserId = null, $setGsmNumber = null, $settoken = null, $settransactionDescription = null, $settransactionReference = null, $setPin = null, $setTransactionId = null, $setcurrency = null, $setfees = null, $setfees1 = null, $setamount = null, $setamount1 = null, $setamount2 = null, $setreferenceNumber = null, $setinformativeOriginalWSamount = null, $settotalamount = null, $setrounding = null, $setadditionalfees = null, $setinvoiceNumber = null, $setpaymentId = null, $seterror = null)
     {
         $postpaid
             ->setSuyoolUserId($SuyoolUserId)

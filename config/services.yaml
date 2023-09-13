@@ -21,7 +21,8 @@ parameters:
     OGERO_MERCHANT_ID: '6'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
-
+    METHOD_POST: 'POST'
+    METHOD_GET: 'GET'
     # production_url: 'https://www.elnashra.com/'
     app.name: 'Suyool'
 
@@ -79,10 +80,22 @@ services:
     App\Service\SuyoolServices:
         arguments:
             $merchantAccountID: ''
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Winning' }
 
     App\EventListener\DomainAccessListener:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    App\Service\NotificationServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Users' }
+
+    App\Command\loto\winningTickets:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Winning' }
+
+        
 
     # App\Controller\LotoController:
     #     arguments:

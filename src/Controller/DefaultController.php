@@ -41,7 +41,6 @@ class DefaultController extends AbstractController
     {
         $submittedToken = $request->request->get('token');
 
-        // dd($em->getRepository(Managers::class)->findAll());
         $trans = $this->trans->translation($request, $translator);
         $message = '';
         if (isset($_POST['email'])) {
@@ -53,23 +52,16 @@ class DefaultController extends AbstractController
                 if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
                     $emailSubcriber = new emailsubscriber;
                     $emailSubcriber->setEmail($_POST['email']);
-                    //                    $emailSubcriber->setCreated(new DateTime());
                     $em->persist($emailSubcriber);
                     $em->flush();
                     $message = "Email Added";
                     $email = (new TemplatedEmail())
                         ->from('contact@suyool.com')
                         ->to($_POST['email'])
-                        //->cc('cc@example.com')
-                        //->bcc('bcc@example.com')
-                        //->replyTo('fabien@example.com')
-                        //->priority(Email::PRIORITY_HIGH)
-
                         ->subject('You are on the list and we\'re so excited! ' . "\u{1F60D}")
                         ->htmlTemplate('email/email.html.twig');
                     $mailer->send($email);
                     return new JsonResponse(['success' => true, 'message' => $message]);
-                    // header("Refresh:0");
                 } else {
                     $message = "Email already exist";
                     return new JsonResponse(['success' => false, 'message' => $message]);
@@ -87,8 +79,7 @@ class DefaultController extends AbstractController
      */
     public function privacy(Request $request)
     {
-        $pdfPath = __DIR__ .'/../../Suyoolprivacypolicy.pdf';
-
+        $pdfPath = __DIR__ . '/../../Suyoolprivacypolicy.pdf';
         $response = new BinaryFileResponse($pdfPath);
 
         return $response;
@@ -108,5 +99,10 @@ class DefaultController extends AbstractController
     public function terms_and_conditions(Request $request)
     {
         return $this->render('policies/termsConditions.html.twig');
+    }
+
+    public function show()
+    {
+        return $this->render('ExceptionHandling.html.twig');
     }
 }

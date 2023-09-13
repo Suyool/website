@@ -30,23 +30,17 @@ class NotificationSend extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $output->writeln([
             'Send Notification to pending users'
         ]);
 
         $notification = 1;
-
         while ($notification) {
-            $notBulk = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending",'bulk'=>1]);
+            $notBulk = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending", 'bulk' => 1]);
             $notSingle = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending", 'bulk' => 0]);
-            // dd($notSingle);
-
             if ($notSingle != null) {
                 foreach ($notSingle as $notify) {
-
                     $this->notificationServices->PrcessingNot($notify->getId());
-
                     $output->writeln([
                         'proccessing!'
                     ]);
@@ -54,22 +48,16 @@ class NotificationSend extends Command
             }
             if ($notBulk != null) {
                 foreach ($notBulk as $notify) {
-
                     $this->notificationServices->PrcessingNot($notify->getId());
-
                     $output->writeln([
                         'proccessing!'
                     ]);
                 }
             }
-            // dd($notSingle);
 
-
-            // // dd($not);
-            if($notBulk != null){
+            if ($notBulk != null) {
                 foreach ($notBulk as $notify) {
-                    // sleep(4);
-                    $content=$notify->getcontentId()->getId();
+                    $content = $notify->getcontentId()->getId();
                     $this->notificationServices->PushBulkNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
                     $output->writeln([
                         'Success!'
@@ -79,7 +67,6 @@ class NotificationSend extends Command
 
             if ($notSingle != null) {
                 foreach ($notSingle as $notify) {
-                    // sleep(4);
                     $content = $notify->getcontentId()->getId();
                     $this->notificationServices->PushSingleNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
                     $output->writeln([
@@ -89,7 +76,6 @@ class NotificationSend extends Command
             }
             sleep(10);
         }
-
 
         return 1;
     }

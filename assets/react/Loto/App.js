@@ -27,6 +27,7 @@ const App = ({ parameters }) => {
 
   const [getDataGetting, setDataGetting] = useState("");
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
+  const [getCheckBuy, setCheckBuy] = useState(false);
 
   const [getDisabledBtn, setDisabledBtn] = useState(
     selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0
@@ -44,7 +45,6 @@ const App = ({ parameters }) => {
       setDataGetting(message);
     };
   }, []);
-  
 
   const [getModalName, setModalName] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -57,13 +57,13 @@ const App = ({ parameters }) => {
     img: "/build/images/Loto//build/images/Loto/error.png",
     title: "Error Modal",
     desc: "ErrorModal ErrorModal ErrorModal ErrorModal ErrorModal",
-    path: ""
+    path: "",
   });
   const [getWarningModal, setWarningModal] = useState({
     imgPath: "/build/images/Loto//build/images/Loto/warning.png",
     title: "Warning Modal",
     desc: "Warning Modal",
-    path: ""
+    path: "",
   });
 
   return (
@@ -81,13 +81,13 @@ const App = ({ parameters }) => {
           className={`scrolableView ${
             activeButton.name === "Result" && "resultScroll"
           }`}
+          style={getPickYourGrid ? { position: "fixed" } : {}}
         >
           <img
             className="mt-5"
             src="/build/images/Loto/LibanaiseJeux.png"
             alt="La Libanaise des Jeux"
           />
-          {/* {getDataGetting != null && <h1>data Getting: {getDataGetting}</h1>} */}
 
           {activeButton.name === "LLDJ" && (
             <LLDJ
@@ -105,11 +105,12 @@ const App = ({ parameters }) => {
           )}
           {activeButton.name === "Play" && (
             <Play
-            parameters={parameters}
+              parameters={parameters}
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               setBallPlayed={setBallPlayed}
               setPickYourGrid={setPickYourGrid}
+              getPickYourGrid={getPickYourGrid}
               setTotalAmount={setTotalAmount}
               setBallNumbers={setBallNumbers}
               setActiveButton={setActiveButton}
@@ -122,7 +123,7 @@ const App = ({ parameters }) => {
               setDataGetting={setDataGetting}
               setBallNumbersIndex={setBallNumbersIndex}
               getBallNumbersIndex={getBallNumbersIndex}
-              
+              setModalShow={setModalShow}
             />
           )}
           {activeButton.name === "Result" && (
@@ -130,6 +131,8 @@ const App = ({ parameters }) => {
               setHeaderTitle={setHeaderTitle}
               setBackLink={setBackLink}
               parameters={parameters}
+              getCheckBuy={getCheckBuy}
+              setCheckBuy={setCheckBuy}
             />
           )}
 
@@ -148,6 +151,7 @@ const App = ({ parameters }) => {
               getDataGetting={getDataGetting}
               setDataGetting={setDataGetting}
               setTotalAmount={setTotalAmount}
+              setCheckBuy={setCheckBuy}
             />
           )}
         </div>
@@ -200,8 +204,8 @@ const App = ({ parameters }) => {
         )}
         {getModalName === "WarningModal" && (
           <WarningModal
-          setModalShow={setModalShow}
-          setModalName={setModalName}
+            setModalShow={setModalShow}
+            setModalName={setModalName}
             getWarningModal={getWarningModal}
             show={modalShow}
             setActiveButton={setActiveButton}

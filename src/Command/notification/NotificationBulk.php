@@ -30,18 +30,13 @@ class NotificationBulk extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $output->writeln([
             'Send Notification to pending users'
         ]);
 
-        $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending",'bulk'=>1]);
-
-        // dd($not);
-
+        $not = $this->mr->getRepository(Notification::class)->findBy(['status' => "pending", 'bulk' => 1]);
         foreach ($not as $notify) {
-            // dd($notify->getuserId());
-            $content=$notify->getcontentId()->getId();
+            $content = $notify->getcontentId()->getId();
             $this->notificationServices->PushBulkNotification($notify->getId(), $notify->getuserId(), $content, $notify->getparams(), $notify->getadditionalData());
         }
 

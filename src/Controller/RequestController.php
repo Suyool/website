@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\SuyoolServices;
 use App\Utils\Helper;
 use App\Translation\translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,13 +19,15 @@ class RequestController extends AbstractController
     private $hash_algo;
     private $certificate;
     private $cashinput = false;
+    private $suyoolServices;
 
-    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate)
+    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate, SuyoolServices $suyoolServices)
     {
         $this->trans = $trans;
         $this->session = $session;
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
+        $this->suyoolServices = $suyoolServices;
     }
 
     function GetInitials($name)
@@ -44,42 +47,12 @@ class RequestController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
-        // dd("pok");
         $this->session->remove('requestGenerated');
         $parameters = $this->trans->translation($request, $translator);
-        // $parameters['currency'] = "LL";
         $parameters['currentPage'] = "payment_landingPage";
+        $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
 
-        // $code = $request->query->get('code');
-        // $code = "Rgnd3";
-        $dateSent = date("ymdHis");
-        // $Hash = base64_encode(hash('sha512', 'Rgnd3'. date("ymdHis") . 'en'. 'ZL8hKr2Y8emmJjXkSarPW1tR9Qcyk9ue92XYCbsB3yAG90pPmMNuyNyOyVG15HrPL8PkNt6JHEk0ZAo9MMurqrsCOMJFETFHdjMO', true));
-        $Hash = base64_encode(hash($this->hash_algo, $code . date("ymdHis") . $parameters['lang'] . $this->certificate, true));
-
-        $form_data = [
-            'code' => $code,
-            "dateSent" => $dateSent,
-            'hash' =>  $Hash,
-            "lang" => $parameters['lang'],
-        ];
-        // dd($form_data);
-        $params['data'] = json_encode($form_data);
-        $params['url'] = 'Payment/RequestDetails';
-        $response = Helper::send_curl($params);
-        // dd($response);
-        $parameters['request_details_response'] = json_decode($response, true);
-        // $parameters['request_details_response']['allowExternal']="false";
-        // dd($parameters['request_details_response']);
-
-        // $parameters['currency']=$parameters['request_details_response']['currency'];
-
-        // dd($parameters);
-
-        // $parameters['request_details_response']['respTitle'] = str_replace(array("{PayerName}","{Amount}",), array($parameters['request_details_response']['senderName'],$parameters['request_details_response']['amount']), $parameters['request_details_response']['respTitle']);
-        // $parameters['request_details_response']['SenderProfilePic']='';
-        // dd($parameters['request_details_response']['image']);
-        if ($parameters['request_details_response']['respCode'] == 2) {
-            // dd();
+        if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
             return $this->redirectToRoute("homepage");
         }
         $this->session->set("request_details_response", $parameters['request_details_response']);
@@ -108,18 +81,7 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['transactionID']
                 : ''
         );
-        //     $this->session->set("AllowATM",
-        // isset($parameters['request_details_response']['AllowATM'])
-        //     ? $parameters['request_details_response']['AllowATM']
-        //     : '');
-        //     $this->session->set("AllowExternal",
-        // isset($parameters['request_details_response']['AllowExternal'])
-        //     ? $parameters['request_details_response']['AllowExternal']
-        //     : '');
-        //     $this->session->set("AllowBenName",
-        // isset($parameters['request_details_response']['AllowBenName'])
-        //     ? $parameters['request_details_response']['AllowBenName']
-        //     : '');
+
         $this->session->set(
             "IBAN",
             isset($parameters['request_details_response']['iban'])
@@ -144,11 +106,11 @@ class RequestController extends AbstractController
                 ? $parameters['request_details_response']['iban']
                 : ''
         );
-        if(isset($parameters['request_details_response']['additionalData'])){
+        if (isset($parameters['request_details_response']['additionalData'])) {
             $additionalData = $parameters['request_details_response']['additionalData'];
             $additionalData = json_decode($additionalData, true);
         }
-        
+
         $this->session->set(
             "receiverFname",
             isset($additionalData['receiverFname'])
@@ -176,10 +138,6 @@ class RequestController extends AbstractController
             );
         }
 
-        // $session = $request->getSession();
-        // dd($session);
-        // dd($parameters);
-
         return $this->render('request/index.html.twig', $parameters);
     }
 
@@ -188,9 +146,9 @@ class RequestController extends AbstractController
      */
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
-        $code=$this->session->get('requestGenerated');
-        if(isset($code)){
-            $parameters['cashin']['data']=$code;
+        $code = $this->session->get('requestGenerated');
+        if (isset($code)) {
+            $parameters['cashin']['data'] = $code;
             return $this->render('request/codeGenerated.html.twig', $parameters);
         }
         $submittedToken = $request->request->get('token');
@@ -200,30 +158,9 @@ class RequestController extends AbstractController
         $parameters['ReceiverPhone'] = $this->session->get('ReceiverPhone');
         if (isset($_POST['submit'])) {
             if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
+                $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['fname'], $_POST['lname']);
 
-                $Hash = base64_encode(hash($this->hash_algo, $this->session->get('TranSimID') . $_POST['fname'] . $_POST['lname'] . $this->certificate, true));
-                // dd($Hash);
-                $form_data = [
-                    'transactionId' => $this->session->get('TranSimID'),
-                    'receiverFname' => $_POST['fname'],
-                    'receiverLname' => $_POST['lname'],
-                    'hash' =>  $Hash
-                ];
-
-
-
-                $params['data'] = json_encode($form_data);
-
-                // dd($params['data']);
-                $params['url'] = 'NonSuyooler/NonSuyoolerCashIn';
-
-                $response = Helper::send_curl($params);
-                $parameters['cashin'] = json_decode($response, true);
-                // dd($parameters);
-                // $parameters['cashin']['globalCode']=1;
-                // $parameters['cashin']['data' ]= "099-112-999";
                 if ($parameters['cashin']['globalCode'] == 0) {
-                    // dd($params['data']);
                     $parameters['message'] = $parameters['cashin']['message'];
                     return $this->render('request/generateCode.html.twig', $parameters);
                 } else {
@@ -233,10 +170,8 @@ class RequestController extends AbstractController
                             ? $parameters['cashin']['data']
                             : ''
                     );
-                    // dd($parameters);
                     return $this->render('request/codeGenerated.html.twig', $parameters);
                 }
-                // dd($parameters['cashout']);
             } else {
                 $parameters['cashin']['globalCode'] = 0;
                 $parameters['message'] = 'All input are required';
@@ -252,8 +187,6 @@ class RequestController extends AbstractController
     public function codeGenerated(Request $request, TranslatorInterface $translator): Response
     {
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
 
@@ -266,8 +199,6 @@ class RequestController extends AbstractController
     public function visaCard(Request $request, TranslatorInterface $translator): Response
     {
         $parameters = $this->trans->translation($request, $translator);
-
-
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 

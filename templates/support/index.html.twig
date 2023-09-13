@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+	<div class="supportBody">
+		<div class="supportNav navbar navbar-expand-lg navbar-light bg-light sticky-top">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/"><img src="{{ asset('build/images/suyool-Logo.png') }}" alt="Suyool"></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Account</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Payment Tool</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Suyool Card</a>
+						</li>
+						<li class="nav-item">
+							<button type="button" class="btn button-primary crtAcc">Create Account</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="contactUsTopSection">
+			<div class="contactTitle">Contact Us</div>
+		</div>
+
+		<div class="leftContainer">
+			<div class="desc">You can also reach out to us by giving us a call or sending us an email. We’re eager to hear from you and assist in any way we can!</div>
+			<div class="whereToCall">
+				<i class="fa-solid fa-phone"></i>
+				<span>
+					<a href="tel:96181484000" class="contactus">+961 81 484 000</a>
+				</span>
+			</div>
+			<div class="whereToCall">
+				<i class="fa-solid fa-envelope"></i>
+				<span>
+					<a href="mailto: contact@suyool.com" class="contactus">contact@suyool.com</a>
+				</span>
+			</div>
+		</div>
+
+		<div class="supportleft">
+			<div class="formMain">
+				<div class="formText">Questions or feedback? Feel free to reach out through our contact form:</div>
+
+				{{ form_start(form) }}
+
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-card">
+							{{ form_row(form.name) }}
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-card">
+							{{ form_row(form.mail) }}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-card">
+							{{ form_row(form.subject) }}
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12"></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-9 col-sm-12">
+						<div class="form-card">
+							{{ form_row(form.message) }}
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12"></div>
+				</div>
+
+
+				<div class="btn-wrap">
+					<button type="submit" class="btn button-primary crtAcc">Send Message</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+
+	{% include 'elements/footer.html.twig' %}
+
+{% endblock %}

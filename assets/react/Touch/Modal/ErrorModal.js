@@ -1,47 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
-
-
   const handleExchange = () => {
-    if(props.getErrorModal.path == "84"){
-  // window.location.href = "/app?f="+props.getErrorModal.path;
-  // let object = [
-  //   {
-  //     flag: props.getErrorModal.path,
-  //     url: window.location.href,
-  //   },
-  // ];
-  let object = [{
-    'exchange' : {
-      flag: props.getErrorModal.path,
-      url: window.location.href,
-    }
-  }
-     ];
-  if (props.parameters?.deviceType === "Android") {
-    window.AndroidInterface.callbackHandler(object);
-  } else if (props.parameters?.deviceType === "Iphone") {
-    // const message = "data";
-    window.webkit.messageHandlers.callbackHandler.postMessage(object);
-  }
-    }
-    if(props.getErrorModal.path == "90"){
-      let object = [{
-        'topup' : {
-          flag: props.getErrorModal.path,
-          url: window.location.href,
-        }
-      }
-         ];
+    if (props.getErrorModal.path == "84") {
+      let object = [
+        {
+          exchange: {
+            flag: props.getErrorModal.path,
+            url: window.location.href,
+          },
+        },
+      ];
       if (props.parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler(object);
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
-        // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
       }
     }
-  
+    if (props.getErrorModal.path == "90") {
+      let object = [
+        {
+          topup: {
+            flag: props.getErrorModal.path,
+            url: window.location.href,
+          },
+        },
+      ];
+      if (props.parameters?.deviceType === "Android") {
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
+      } else if (props.parameters?.deviceType === "Iphone") {
+        window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }
+    }
   };
 
   return (
@@ -58,7 +48,7 @@ const ErrorModal = (props) => {
           <div className="title">{props.getErrorModal.title}</div>
           <div className="desc">{props.getErrorModal.desc}</div>
           <div className="buttonsDesign">
-          {props.getErrorModal.btn == "OK" && (
+            {props.getErrorModal.btn == "OK" && (
               <button className="exchangeBtnModal" onClick={props.onHide}>
                 {props.getErrorModal.btn}
               </button>

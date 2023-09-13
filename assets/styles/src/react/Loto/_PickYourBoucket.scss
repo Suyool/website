@@ -1,195 +1,208 @@
 .PickYourBoucket {
-    position: absolute;
-    display: flex;
+    height: 100vh;
     width: 100%;
-    background-color: white;
-    bottom: 0;
-    // height: 80vh;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    z-index: 1001;
-    box-shadow: 2px -3px 10px #F4F4F4;
-    flex-direction: column;
-    align-items: center;
+    position: fixed;
+    z-index: 10000;
 
-    .topSectionPick {
-        width: 85%;
+    .thePickGridCont {
+        position: fixed;
         display: flex;
+        width: 100%;
+        background-color: white;
+        bottom: 0;
+        // height: 80vh;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        z-index: 1001;
+        box-shadow: 2px -3px 10px #F4F4F4;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #EBEBEB;
 
-        .brBoucket {
-            height: 3px;
-            border-radius: 3px;
-            margin-top: 15px;
-            background-color: #EBEBEB;
-            width: 80px;
-        }
-
-        .titles {
-            display: flex;
-            flex-direction: row;
-            padding-top: 15px;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-
-            .titleGrid {
-                font-size: 13px;
-                font-family: PoppinsSemiBold;
-                color: black;
-            }
-
-            button {
-                background-color: white;
-                border: none;
-                color: #D32127;
-                font-size: 15px;
-                font-family: PoppinsMedium;
-            }
-        }
-    }
-
-    .bodySectionPick {
-        display: flex;
-        flex-direction: row;
-        width: 95%;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        height: 400px;
-        overflow: hidden;
-        overflow-y: auto;
-        overflow-x: hidden;
-        // padding-bottom: 140px;
-
-        .ballCont {
-            width: 14.2%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 25px;
-
-            button {
-                background-color: white;
-                border: none;
-            }
-
-            span {
-                font-family: PoppinsSemiBold;
-                font-size: 15px;
-                color: #C82F2A;
-                background-color: white;
-                border-radius: 50%;
-                border: 1px solid #C82F2A;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-
-        .bouquetList {
+        .topSectionPick {
+            width: 85%;
             display: flex;
             flex-direction: column;
-            width: 95%;
-            padding: 0 20px;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EBEBEB;
 
-            .bouquetItem {
+            .brBoucket {
+                height: 3px;
+                border-radius: 3px;
+                margin-top: 15px;
+                background-color: #EBEBEB;
+                width: 80px;
+            }
+
+            .titles {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-around;
+                padding-top: 15px;
                 align-items: center;
+                justify-content: space-between;
+                width: 100%;
 
-                .checkbox {
-                    width: 15%;
+                .titleGrid {
+                    font-size: 13px;
+                    font-family: $SemiBold;
+                    color: black;
                 }
 
-                .data {
-                    display: flex;
-                    flex-direction: row;
-                    padding: 20px 0;
-                    border-bottom: 1px solid #EBEBEB;
-                    width: 85%;
-                    justify-content: space-between;
-                    align-items: center;
-
-                    .basic {
-                        font-size: 15px;
-                        font-family: PoppinsSemiBold;
-                        input[type=number]{
-                            border: none;
-                            font-family: PoppinsSemiBold;
-                            font-size: 15px;
-                            width: 55px;
-                            &:focus{
-                                outline: none;
-                                border: none;
-                            }
-                        }
-                    }
-
-                    .price {
-                        font-size: 15px;
-                        font-family: PoppinsSemiBold;
-                        color: #1C2676;
-                    }
+                button {
+                    background-color: white;
+                    border: none;
+                    color: #D32127;
+                    font-size: 15px;
+                    font-family: $Medium;
                 }
             }
         }
 
-    }
-
-    .footSectionPick {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-bottom: 15px;
-        position: absolute;
-        bottom: 0;
-        background-color: white;
-
-        .options {
+        .bodySectionPick {
             display: flex;
             flex-direction: row;
             width: 95%;
-            justify-content: space-between;
-            padding-top: 15px;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            height: 400px;
+            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
+            // padding-bottom: 140px;
 
-            .aboutGrid {
-                background-color: #F7F7F7;
-                border: none;
-                font-size: 10px;
-                font-family: PoppinsSemiBold;
-                color: #C82F2A;
-                padding: 14px 0;
-                width: 30%;
-                border-radius: 7px;
+            .ballCont {
+                width: 14.2%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 25px;
+
+                button {
+                    background-color: white;
+                    border: none;
+                }
+
+                span {
+                    font-family: $SemiBold;
+                    font-size: 15px;
+                    color: #C82F2A;
+                    background-color: white;
+                    border-radius: 50%;
+                    border: 1px solid #C82F2A;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
 
-            .done {
+            .bouquetList {
+                display: flex;
+                flex-direction: column;
+                width: 95%;
+                padding: 0 20px;
+
+                .bouquetItem {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+
+                    .checkbox {
+                        width: 15%;
+                    }
+
+                    .data {
+                        display: flex;
+                        flex-direction: row;
+                        padding: 20px 0;
+                        border-bottom: 1px solid #EBEBEB;
+                        width: 85%;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .basic {
+                            font-size: 15px;
+                            font-family: $SemiBold;
+
+                            input[type=number] {
+                                border: none;
+                                font-family: $SemiBold;
+                                font-size: 15px;
+                                width: 55px;
+
+                                &:focus {
+                                    outline: none;
+                                    border: none;
+                                }
+                            }
+                        }
+
+                        .price {
+                            font-size: 15px;
+                            font-family: $SemiBold;
+                            color: #1C2676;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .footSectionPick {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 15px;
+            position: absolute;
+            bottom: 0;
+            background-color: white;
+
+            .options {
+                display: flex;
+                flex-direction: row;
+                width: 95%;
+                justify-content: space-between;
+                padding-top: 15px;
+
+                .aboutGrid {
+                    background-color: #F7F7F7;
+                    border: none;
+                    font-size: 10px;
+                    font-family: $SemiBold;
+                    color: #C82F2A;
+                    padding: 14px 0;
+                    width: 30%;
+                    border-radius: 7px;
+                }
+
+                .done {
+                    background-color: #C82F2A;
+                    border: none;
+                    font-size: 10px;
+                    font-family: $SemiBold;
+                    color: white;
+                    padding: 14px 0;
+                    width: 30%;
+                    border-radius: 7px;
+                }
+            }
+
+            .ContinueBtn {
                 background-color: #C82F2A;
-                border: none;
-                font-size: 10px;
-                font-family: PoppinsSemiBold;
                 color: white;
-                padding: 14px 0;
-                width: 30%;
-                border-radius: 7px;
+                padding: 15px 0;
+                width: 90%;
+                border: none;
+                border-radius: 10px;
             }
         }
 
-        .ContinueBtn {
-            background-color: #C82F2A;
-            color: white;
-            padding: 15px 0;
-            width: 90%;
-            border: none;
-            border-radius: 10px;
-        }
     }
+
+
+
 
 }

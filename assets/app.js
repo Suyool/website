@@ -6,8 +6,8 @@
  */
 
 // start the Stimulus application
-import 'jquery';
+import "jquery";
 global.$ = $;
 global.jQuery = jQuery;
 
-import './js/script.js';
+import "./js/script.js";

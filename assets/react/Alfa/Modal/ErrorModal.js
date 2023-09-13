@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
+  const [ getAnth, setAnth ] = useState("");
   const handleExchange = () => {
-    // window.location.href = "/app?f="+props.getErrorModal.path;
     if (props.getErrorModal.path == "84") {
       let object = [
         {
@@ -13,7 +13,7 @@ const ErrorModal = (props) => {
         },
       ];
       if (props.parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler(object);
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
@@ -28,8 +28,10 @@ const ErrorModal = (props) => {
           },
         },
       ];
+      setAnth(JSON.stringify(object));
       if (props.parameters?.deviceType === "Android") {
-        window.AndroidInterface.callbackHandler(object);
+        setAnth("android");
+        window.AndroidInterface.callbackHandler(JSON.stringify(object));
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);

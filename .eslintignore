@@ -1,0 +1,69 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/var/cache/*
+/var/log/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/log/.gitkeep
+!var/sessions/.gitkeep
+/vendor/
+/node_modules/
+/var
+###< symfony/framework-bundle ###
+
+# Composer PHAR
+/composer.phar
+/composer.lock
+
+# Bower
+/.bowerrc
+
+# Editors
+.idea
+.vagrant
+.DS_Store
+Vagrantfile
+.svn/
+nbproject/
+
+#Application
+phpunit.xml.dist
+# /public/google-image-sitemap.xml
+# /public/google-news-sitemap.xml
+# /public/google-video-sitemap.xml
+# /public/sitemap.xml
+# /public/js/*
+# /public/rss/*
+# !public/rss/.gitkeep
+# /public/uploads/documents/*
+# !public/uploads/.gitkeep
+# /public/uploads/pictures/*
+# !public/uploads/.gitkeep
+# /public/app/json/*
+# /public/app/v2.0/json/*
+# !public/app/json/.gitkeep
+# !public/app/v2.0/.gitkeep
+# public/elections/var/cache/
+# !public/elections/var/cache/.gitkeep
+/.history
+/public
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
+/.vscode
+webpack.config.js
+
+gulpfile.js
+.eslintrc.js

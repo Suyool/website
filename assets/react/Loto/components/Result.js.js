@@ -1,50 +1,39 @@
 import React, { useEffect, useState } from "react";
-// import data from "./result.json";
 import axios from "axios";
 
-const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
+const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckBuy }) => {
   const results = parameters.prize_loto_result;
   const data = parameters.prize_loto_perdays;
-  // console.log(data);
-  // const grids = [['11,23,27,3,29,39']];
-  // console.log(data);
-  // console.log(parameters.prize_loto_win.numbers);
 
-  const [getWinBallInitial, setWinBallInitial] = useState([]);
-  const [getWinBallInitialZeed, setWinBallInitialZeed] = useState([]);
-  const [getMyGrids, setMyGrids] = useState([]);
-  const [getMyGridsZeed, setMyGridsZeed] = useState([]);
-  const [clickedIndex, setClickedIndex] = useState(0);
-  const [getLastNumber, setLastNumber] = useState([]);
-  const [getZeedNumber, setZeedNumber] = useState([]);
-  const [prize1, setprize1] = useState([]);
-  const [prize2, setprize2] = useState([]);
-  const [prize3, setprize3] = useState([]);
-  const [prize4, setprize4] = useState([]);
-  const [prize5, setprize5] = useState([]);
-  const [zeednumber1, setZeedNumber1] = useState([]);
-  const [zeednumber2, setZeedNumber2] = useState([]);
-  const [zeednumber3, setZeedNumber3] = useState([]);
-  const [zeednumber4, setZeedNumber4] = useState([]);
-  const [prize1zeed, setprize1zeed] = useState([]);
-  const [prize2zeed, setprize2zeed] = useState([]);
-  const [prize3zeed, setprize3zeed] = useState([]);
-  const [prize4zeed, setprize4zeed] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(getMyGrids);
-  // }, [getMyGrids]);
-
-  // data.forEach((item) => {
-  //   useEffect(() => {
-  //     setMyGrids(item.gridSelected);
-  //   }, []);
-  // });
+  const [ getWinBallInitial, setWinBallInitial ] = useState([]);
+  const [ getWinBallInitialZeed, setWinBallInitialZeed ] = useState([]);
+  const [ getMyGrids, setMyGrids ] = useState([]);
+  const [ getMyGridsZeed, setMyGridsZeed ] = useState([]);
+  const [ clickedIndex, setClickedIndex ] = useState(0);
+  const [ getLastNumber, setLastNumber ] = useState([]);
+  const [ getZeedNumber, setZeedNumber ] = useState([]);
+  const [ prize1, setprize1 ] = useState([]);
+  const [ prize2, setprize2 ] = useState([]);
+  const [ prize3, setprize3 ] = useState([]);
+  const [ prize4, setprize4 ] = useState([]);
+  const [ prize5, setprize5 ] = useState([]);
+  const [ zeednumber1, setZeedNumber1 ] = useState([]);
+  const [ zeednumber2, setZeedNumber2 ] = useState([]);
+  const [ zeednumber3, setZeedNumber3 ] = useState([]);
+  const [ zeednumber4, setZeedNumber4 ] = useState([]);
+  const [ prize1zeed, setprize1zeed ] = useState([]);
+  const [ prize2zeed, setprize2zeed ] = useState([]);
+  const [ prize3zeed, setprize3zeed ] = useState([]);
+  const [ prize4zeed, setprize4zeed ] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
+
+    if(getCheckBuy){
+      handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0);
+    }
 
     const resultsnumbers = parameters.prize_loto_win.numbers
       .split(",")
@@ -59,11 +48,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     }
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
-
-    // console.log(lastNumber);
-    // setMyGrids(grids.split(',').map(Number));
     data.forEach((item) => {
-      // console.log(item)
       const parsedGrids = item.gridSelected.map((item) =>
         item["gridSelected"].split(" ").map(Number)
       );
@@ -71,13 +56,9 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
       const zeedSelectedArray = item.gridSelected
         .map((item) => item["zeedSelected"])
         .filter((zeedSelected) => zeedSelected !== null);
-      // const parsedGridsZeed = item.gridSelected.map((item) =>
-      //   item["zeedSelected"].split("").map(Number)
-      // );
       setZeedNumber(zeedSelectedArray);
       const parsedGridsZeed = item.gridSelected.map((item) => {
         const zeedSelected = item["zeedSelected"];
-        // console.log(zeedSelected)
         if (zeedSelected === null) {
           return null;
         } else {
@@ -109,8 +90,8 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
     setprize4zeed(parameters.prize_loto_win.prize4zeed);
   }, []);
 
-  const [selectedMonthYear, setSelectedMonthYear] = useState("");
-  const [startIndex, setStartIndex] = useState(0);
+  const [ selectedMonthYear, setSelectedMonthYear ] = useState("");
+  const [ startIndex, setStartIndex ] = useState(0);
 
   const uniqueFilters = [];
 
@@ -126,21 +107,21 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   );
 
   const handleMonthYearChange = (event) => {
+    setMyGrids([]);
     setSelectedMonthYear(event.target.value);
-    setStartIndex(0); // Reset the startIndex when month or year changes
+    setStartIndex(0);
     setClickedIndex(null);
   };
 
+
   const handlePrevious = () => {
     setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    setClickedIndex(null);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
       Math.min(prevIndex + 1, filteredData.length - 4)
     );
-    setClickedIndex(null);
   };
 
   const handleChangeDate = (item, index) => {
@@ -149,7 +130,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
         drawNumber: item,
       })
       .then((response) => {
-        // console.log(response.data);
         if (response.data.parameters.prize_loto_win.numbers != "") {
           setWinBallInitial(
             response.data.parameters.prize_loto_win.numbers
@@ -181,15 +161,11 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
             ?.map((item) => item["zeedSelected"])
             .filter((zeedSelected) => zeedSelected !== null);
-        // const parsedGridsZeed = item.gridSelected.map((item) =>
-        //   item["zeedSelected"].split("").map(Number)
-        // );
         setZeedNumber(zeedSelectedArray);
         const parsedGridsZeed =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
             (item) => {
               const zeedSelected = item["zeedSelected"];
-              // console.log(zeedSelected)
               if (zeedSelected === null) {
                 return null;
               } else {
@@ -226,9 +202,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
   useEffect(() => {
     setSelectedMonthYear(uniqueFilters[0]);
   }, []);
-  // console.log(getZeedNumber[0]);
-  // console.log(getZeedNumber[0].indexOf(getZeedNumber[0]))
-  console.log(getWinBallInitialZeed);
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -273,7 +246,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
               .slice(startIndex, startIndex + 4)
               .map((item, index) => (
                 <div
-                  // className="item"
                   className={`item ${clickedIndex === index ? "clicked" : ""}`}
                   key={index}
                   onClick={() => {
@@ -292,7 +264,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
 
         {getMyGrids &&
           getMyGrids
-            .map((grid, index) => ({ grid, index })) // Combine grid with its original index
+            .map((grid, index) => ({ grid, index }))
             .sort((a, b) => {
               const aHasWin =
                 getWinBallInitial.filter((winBall) => a.grid.includes(winBall))
@@ -300,8 +272,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
               const bHasWin =
                 getWinBallInitial.filter((winBall) => b.grid.includes(winBall))
                   .length >= 3;
-
-              // Sort based on win ball presence, but keep the original order for grids with the same result
               return bHasWin - aHasWin || a.index - b.index;
             })
             .map(({ grid, index }) => (
@@ -331,43 +301,47 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                 </div>
                 {getWinBallInitial.filter((winBall) => grid.includes(winBall))
                   .length >= 3 ? (
-                  <div className="winnweFooter">
-                    <div className="price">
-                      <span>L.L </span>
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 6 &&
+                    <div className="winnweFooter">
+                      <div className="price">
+                        <span>L.L </span>
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 7 &&
+                        parseInt(prize1).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 6 &&
                         !grid.includes(getLastNumber) &&
                         parseInt(prize1).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 6 &&
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 6 &&
                         grid.includes(getLastNumber) &&
                         parseInt(prize2).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 5 && parseInt(prize3).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 4 && parseInt(prize4).toLocaleString()}
-                      {getWinBallInitial.filter((winBall) =>
-                        grid.includes(winBall)
-                      ).length == 3 && parseInt(prize5).toLocaleString()}
-                      {}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 5 && parseInt(prize3).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 4 && parseInt(prize4).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 3 && parseInt(prize5).toLocaleString()}
+                        {}
                       Won
+                      </div>
+                      <div className="img">
+                        <img
+                          src="/build/images/Loto/trofie.png"
+                          alt="SmileLOGO"
+                        />
+                      </div>
                     </div>
-                    <div className="img">
-                      <img
-                        src="/build/images/Loto/trofie.png"
-                        alt="SmileLOGO"
-                      />
+                  ) : (
+                    <div className="NoWinnweFooter">
+                      <div>No Wins </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="NoWinnweFooter">
-                    <div>No Wins </div>
-                  </div>
-                )}
+                  )}
                 {getMyGridsZeed[index] ? (
                   <>
                     <div className="winnweHeader">
@@ -384,10 +358,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                         {getMyGridsZeed[index] != null &&
                           getMyGridsZeed[index].map((Zeed, ZeedIndex) => {
                             const zeedNumber = getZeedNumber[index];
-                            // console.log(zeedNumber);
                             const zeedChar = zeedNumber?.charAt(ZeedIndex);
-
-                            // Check for specific conditions to apply the "win" class
                             const isWin =
                               getWinBallInitialZeed.includes(Zeed) &&
                               ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
@@ -410,16 +381,6 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                                 {Zeed}
                               </span>
                             );
-                            // <span
-                            //   key={ZeedIndex}
-                            //   className={`${
-                            //     getWinBallInitialZeed.includes(Zeed)
-                            //       ? "win"
-                            //       : ""
-                            //   }`}
-                            // >
-                            //   {Zeed}
-                            // </span>
                           })}
                       </div>
                     </div>
@@ -429,40 +390,40 @@ const Result = ({ parameters, setHeaderTitle, setBackLink }) => {
                       getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
                       getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
                       getZeedNumber[index]?.substring(3, 5) === zeednumber4) ? (
-                      <div className="winnweFooterZeed">
-                        <div className="price">
-                          <span>L.L </span>
-                          {getWinBallInitialZeed.filter((winBallZeed) =>
-                            getMyGridsZeed[index].includes(winBallZeed)
-                          ).length > 0
-                            ? getZeedNumber[index].substring(0, 5) ===
+                        <div className="winnweFooterZeed">
+                          <div className="price">
+                            <span>L.L </span>
+                            {getWinBallInitialZeed.filter((winBallZeed) =>
+                              getMyGridsZeed[index].includes(winBallZeed)
+                            ).length > 0
+                              ? getZeedNumber[index].substring(0, 5) ===
                               zeednumber1
-                              ? parseInt(prize1zeed).toLocaleString()
-                              : getZeedNumber[index].substring(1, 5) ===
+                                ? parseInt(prize1zeed).toLocaleString()
+                                : getZeedNumber[index].substring(1, 5) ===
                                 zeednumber2
-                              ? parseInt(prize2zeed).toLocaleString()
-                              : getZeedNumber[index].substring(2, 5) ===
+                                  ? parseInt(prize2zeed).toLocaleString()
+                                  : getZeedNumber[index].substring(2, 5) ===
                                 zeednumber3
-                              ? parseInt(prize3zeed).toLocaleString()
-                              : getZeedNumber[index].substring(3, 5) ===
+                                    ? parseInt(prize3zeed).toLocaleString()
+                                    : getZeedNumber[index].substring(3, 5) ===
                                 zeednumber4
-                              ? parseInt(prize4zeed).toLocaleString()
-                              : " "
-                            : " "}
+                                      ? parseInt(prize4zeed).toLocaleString()
+                                      : " "
+                              : " "}
                           Won
+                          </div>
+                          <div className="img">
+                            <img
+                              src="/build/images/Loto/trofie.png"
+                              alt="SmileLOGO"
+                            />
+                          </div>
                         </div>
-                        <div className="img">
-                          <img
-                            src="/build/images/Loto/trofie.png"
-                            alt="SmileLOGO"
-                          />
+                      ) : (
+                        <div className="NoWinnweFooter">
+                          <div>No Wins </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="NoWinnweFooter">
-                        <div>No Wins </div>
-                      </div>
-                    )}
+                      )}
                   </>
                 ) : (
                   <></>

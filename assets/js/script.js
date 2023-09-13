@@ -1,248 +1,255 @@
- if(document.getElementById('emailForm')){
+if(document.getElementById("emailForm")){
 // Get the form element
-const form = document.getElementById('emailForm');
+  const form = document.getElementById("emailForm");
           
-// Get the email status element
-const emailStatus = document.getElementById('emailStatus');
+  // Get the email status element
+  const emailStatus = document.getElementById("emailStatus");
 
-const emailTitle = document.getElementById('emailTitle');
+  const emailTitle = document.getElementById("emailTitle");
 
-const emailBtn = document.getElementById('emailBtn');
+  const emailBtn = document.getElementById("emailBtn");
 
-// Add an event listener to the form submission
-form.addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent the default form submission
+  // Add an event listener to the form submission
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-  fetch(form.action, {
-    method: form.method,
-    body: new FormData(form)
-  })
-  .then(function(response) {
-    return response.json();
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form)
     })
-  .then(function(data) {
-    // Handle the response accordingly (e.g., show success message, update UI, etc.)
-    console.log(data);
-    if(data.success == 'Invalid Email'){
-      emailStatus.textContent = 'Invalid Email';
-      emailTitle.textContent = 'Rejected';
-      emailBtn.textContent="Cancel";
-    }else{
-     if (data.success) {
-       emailStatus.textContent = 'You will be the first one to know once the Suyool app is launched.';
-       emailTitle.textContent = 'You Are On The Waiting List';
-       emailBtn.textContent="Youpi!";
-     } else {
-       emailStatus.textContent = 'Email exist';
-       emailTitle.textContent = 'Rejected';
-       emailBtn.textContent="Cancel";
-     }
-    }
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        // Handle the response accordingly (e.g., show success message, update UI, etc.)
+        console.log(data);
+        if(data.success == "Invalid Email"){
+          emailStatus.textContent = "Invalid Email";
+          emailTitle.textContent = "Rejected";
+          emailBtn.textContent="Cancel";
+        }else{
+          if (data.success) {
+            emailStatus.textContent = "You will be the first one to know once the Suyool app is launched.";
+            emailTitle.textContent = "You Are On The Waiting List";
+            emailBtn.textContent="Youpi!";
+          } else {
+            emailStatus.textContent = "Email exist";
+            emailTitle.textContent = "Rejected";
+            emailBtn.textContent="Cancel";
+          }
+        }
     
 
-    // Show the modal
-    $('#emailModal').modal('show');
-  })
-  .catch(function(error) {
-    // Handle any errors that occurred during form submission
-    console.error('Error submitting forms:', error);
+        // Show the modal
+        $("#emailModal").modal("show");
+      })
+      .catch(function(error) {
+        // Handle any errors that occurred during form submission
+        console.error("Error submitting forms:", error);
+      });
   });
-});
- }
+}
  
 function getMobileOperatingSystem() {
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    // Windows Phone must come first because its UA also contains "Android"
-    if (/windows phone/i.test(userAgent)) {
-        return "Windows Phone";
-    }
+  // Windows Phone must come first because its UA also contains "Android"
+  if (/windows phone/i.test(userAgent)) {
+    return "Windows Phone";
+  }
 
-    if (/Tablet/i.test(userAgent)) {
-        return "unknown";
-    }
-
-    if (/android/i.test(userAgent)) {
-        return "Android";
-    }
-
-    // iOS detection from: http://stackoverflow.com/a/9039885/177710
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        return "iOS";
-    }
-
+  if (/Tablet/i.test(userAgent)) {
     return "unknown";
+  }
+
+  if (/android/i.test(userAgent)) {
+    return "Android";
+  }
+
+  // iOS detection from: http://stackoverflow.com/a/9039885/177710
+  if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    return "iOS";
+  }
+
+  return "unknown";
 }
-    //Execute Google Analytics and Facebook Pixel events
-    // function googleFacebookEvents(eventNameKey, eventName, eventCategory, eventLabel){
-    //     //Set the name of the resolution
-    //     var eventResolution = '';
-    //     //If Ipad - Add "Ipad - " to the eventLabel
-    //     if(window.screen.width > 767 && window.screen.width < 769){
-    //         eventResolution = 'Ipad - ';
-    //         //If Mobile - Add "Mobile - " to the eventLabel
-    //     }else if(window.screen.width < 992){
-    //         eventResolution = 'Mobile - ';
-    //         //If Desktop - Add "Desktop - " to the eventLabel
-    //     }else{
-    //         eventResolution = 'Desktop - ';
-    //     }
+//Execute Google Analytics and Facebook Pixel events
+// function googleFacebookEvents(eventNameKey, eventName, eventCategory, eventLabel){
+//     //Set the name of the resolution
+//     var eventResolution = '';
+//     //If Ipad - Add "Ipad - " to the eventLabel
+//     if(window.screen.width > 767 && window.screen.width < 769){
+//         eventResolution = 'Ipad - ';
+//         //If Mobile - Add "Mobile - " to the eventLabel
+//     }else if(window.screen.width < 992){
+//         eventResolution = 'Mobile - ';
+//         //If Desktop - Add "Desktop - " to the eventLabel
+//     }else{
+//         eventResolution = 'Desktop - ';
+//     }
     
-    //     //Google Analytics
-    //     gtag('event', eventName, {'event_category': eventCategory, 'event_label': eventResolution + eventLabel});
-    //     //Facebook Pixel
-    //     fbq('trackCustom', eventCategory, {eventNameKey: eventName});
-    // }
-    function getTheApp(position, downloadAppUrl) {
-        //Event label - Menu or Homepage - top
-        var eventLabel = '';
-        //If the downloadAppUrl isset uset it, otherwise set the default value ''
-        var downloadAppUrl = (typeof downloadAppUrl != 'undefined') ? downloadAppUrl : '';
+//     //Google Analytics
+//     gtag('event', eventName, {'event_category': eventCategory, 'event_label': eventResolution + eventLabel});
+//     //Facebook Pixel
+//     fbq('trackCustom', eventCategory, {eventNameKey: eventName});
+// }
+function getTheApp(position, downloadAppUrl) {
+  //Event label - Menu or Homepage - top
+  var eventLabel = "";
+  //If the downloadAppUrl isset uset it, otherwise set the default value ''
+  var downloadAppUrl = (typeof downloadAppUrl != "undefined") ? downloadAppUrl : "";
 
-        //Call the googleFacebookEvents to execute Google and Facebook events
-        // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
+  //Call the googleFacebookEvents to execute Google and Facebook events
+  // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
 
-        //If width > 992 - scroll to the bottom section to download the app
-        if(window.screen.width > 768){
-                // console.log(window.screen.width );
-        }else{
-            //Get the Mobile Operating System
-            var osMobile = getMobileOperatingSystem();
+  //If width > 992 - scroll to the bottom section to download the app
+  if(window.screen.width > 768){
+    // console.log(window.screen.width );
+  }else{
+    //Get the Mobile Operating System
+    var osMobile = getMobileOperatingSystem();
 
-            //If the Download App URL isset use it
-            if(downloadAppUrl != ''){
-                location = downloadAppUrl;
+    //If the Download App URL isset use it
+    if(downloadAppUrl != ""){
+      location = downloadAppUrl;
 
-                //Otherwise check the OS and call the Apple or Play Store URL
-            }else{
-                location =DefaultDownloadLink;
-                // //If IOS
-                // if(osMobile == 'iOS'){
-                //     location = iosDownloadLink;
-                //
-                //     //Otherwise
-                // }else{
-                //     location = androidDownloadLink;
-                // }
-            }
-        }
+      //Otherwise check the OS and call the Apple or Play Store URL
+    }else{
+      location =DefaultDownloadLink;
+      // //If IOS
+      // if(osMobile == 'iOS'){
+      //     location = iosDownloadLink;
+      //
+      //     //Otherwise
+      // }else{
+      //     location = androidDownloadLink;
+      // }
     }
+  }
+}
 
 
 /** click button once **/
 var clicked_once = false;
 function clickOne(downloadAppUrl, conversion_code,uri) {
 
-    if (!clicked_once) {
-        clicked_once = true;
-        console.log('ok');
+  if (!clicked_once) {
+    clicked_once = true;
+    console.log("ok");
 
-        $('.conversion-button').css('margin-top',"20px");
-        // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
-    }else{
-        console.log('already clicked');
+    $(".conversion-button").css("margin-top","20px");
+    // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
+  }else{
+    console.log("already clicked");
 
-    }
-    getTheApp(uri,downloadAppUrl);
+  }
+  getTheApp(uri,downloadAppUrl);
 
 }
 
-if(document.querySelector('.open-suyool-account')){
-    const open_suyool_account = document.querySelector('.open-suyool-account');
+if(document.querySelector(".open-suyool-account")){
+  const open_suyool_account = document.querySelector(".open-suyool-account");
     
-    open_suyool_account.addEventListener('click',function(){
-      clickOne('https://skashapp.page.link/app_install','','/');
-    })
-    }
+  open_suyool_account.addEventListener("click",function(){
+    clickOne("suyoolpay://suyool.com/suyool","","/");
+  });
+}
 if(document.querySelector(".close")){
 
-    var button=document.querySelector(".close");
-        button.addEventListener("click",()=>{
-            if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)){
-                window.webkit.messageHandlers.callbackHandler.postMessage(
-                    "GoToApp"
-                  );
-            }else{
-                document.location.href="/";
-            }
-        })
+  var button=document.querySelector(".close");
+  button.addEventListener("click",()=>{
+    if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)){
+      // alert("hi")
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        window.webkit.messageHandlers.callbackHandler.postMessage(
+          "GoToApp"
+        );
+      } else {
+        // alert("hi")
+        window.AndroidInterface.callbackHandler("GoToApp");
+      }
+                
+    }else{
+      document.location.href="/";
+    }
+  });
 
 }
-$('.submitTextDownloadAppBtn').on('click', function(e) {
-    // console.log( $(this).attr('code'));
-    e.preventDefault();
+$(".submitTextDownloadAppBtn").on("click", function(e) {
+  // console.log( $(this).attr('code'));
+  e.preventDefault();
 
-    // Get the mobile number from the input field
-    var mobileNumber = $(this).closest('.input-main-cont').find('.mobileTextDownloadApp').val();
-    // Send an AJAX request to the server
-    $.ajax({
-        url: '/invitationCard/submitInvitationCard',
-        method: 'POST',
-        data: { mobileNumber: mobileNumber,
-            code: $(this).attr('code')},
-        success: function(response) {
-            // Show the response message in the modal
-            $('#invitationModal .modal-body').append('<p>' + response.RespDesc + '</p>');
-            // Modify the button label based on the RespCode value
-            if(response.RespCode == 0 || response.RespCode == -3) {
-                $('#closeModelResubscribe').text('OK');
-            } else {
-                $('#closeModelResubscribe').text('Try Again');
-            }
-            // Show the modal
-            $('#invitationModal').modal('show');
-        },
-        error: function(xhr, status, error) {
-            // Show an error message in the console
-            console.error(error);
-        }
-    });
+  // Get the mobile number from the input field
+  var mobileNumber = $(this).closest(".input-main-cont").find(".mobileTextDownloadApp").val();
+  // Send an AJAX request to the server
+  $.ajax({
+    url: "/invitationCard/submitInvitationCard",
+    method: "POST",
+    data: { mobileNumber: mobileNumber,
+      code: $(this).attr("code") },
+    success: function(response) {
+      // Show the response message in the modal
+      $("#invitationModal .modal-body").append("<p>" + response.RespDesc + "</p>");
+      // Modify the button label based on the RespCode value
+      if(response.RespCode == 0 || response.RespCode == -3) {
+        $("#closeModelResubscribe").text("OK");
+      } else {
+        $("#closeModelResubscribe").text("Try Again");
+      }
+      // Show the modal
+      $("#invitationModal").modal("show");
+    },
+    error: function(xhr, status, error) {
+      // Show an error message in the console
+      console.error(error);
+    }
+  });
 });
 
 $(document).ready(function() {
-    // Add an oninput event listener to the #mobile element
-    $('.mobileTextDownloadApp').on('input', function(event) {
-        //Parent division of the mobile input
-        var parentDivision = $(this).closest('.input-main-cont').parent().attr("class");
+  // Add an oninput event listener to the #mobile element
+  $(".mobileTextDownloadApp").on("input", function(event) {
+    //Parent division of the mobile input
+    var parentDivision = $(this).closest(".input-main-cont").parent().attr("class");
 
-        //Main division of the mobile input
-        var mainDivision = '';
-        //Check if the parent division is skash-more-than-cash-section - home-v3
-        if(parentDivision.indexOf("invitation-card-section-bottom") > 0){
-            //Main division of the form
-            mainDivision = '.invitation-card-section-bottom';
+    //Main division of the mobile input
+    var mainDivision = "";
+    //Check if the parent division is skash-more-than-cash-section - home-v3
+    if(parentDivision.indexOf("invitation-card-section-bottom") > 0){
+      //Main division of the form
+      mainDivision = ".invitation-card-section-bottom";
 
-            //Check if the parent division is invitation-card-section-top - invitation-card
-        } else if(parentDivision.indexOf("invitation-card-section-top") > 0){
-            //Main division of the form
-            mainDivision = '.invitation-card-section-top';
-        }
+      //Check if the parent division is invitation-card-section-top - invitation-card
+    } else if(parentDivision.indexOf("invitation-card-section-top") > 0){
+      //Main division of the form
+      mainDivision = ".invitation-card-section-top";
+    }
 
-        //When entering the mobile number enable the submit button if the input length is > 7
-        if($(this).val().length > 6){
-            $(mainDivision+' .submitTextDownloadAppBtn').removeAttr("disabled");
-        } else {
-            $(mainDivision+' .submitTextDownloadAppBtn').attr("disabled","disabled");
-        }
-    });
+    //When entering the mobile number enable the submit button if the input length is > 7
+    if($(this).val().length > 6){
+      $(mainDivision+" .submitTextDownloadAppBtn").removeAttr("disabled");
+    } else {
+      $(mainDivision+" .submitTextDownloadAppBtn").attr("disabled","disabled");
+    }
+  });
 });
-if(document.querySelector('.copy-to-clipboard')){
+if(document.querySelector(".copy-to-clipboard")){
   // Get the element with the 'copy-to-clipboard' class
-  const copyBtn = document.querySelector('.copy-to-clipboard');
+  const copyBtn = document.querySelector(".copy-to-clipboard");
 
   // Get the value of the 'data-to-copy' attribute
-  const copyText = copyBtn.getAttribute('data-to-copy');
+  const copyText = copyBtn.getAttribute("data-to-copy");
 
   // Add a click event listener to the button
-  copyBtn.addEventListener('click', function() {
+  copyBtn.addEventListener("click", function() {
     // Create a new textarea element to hold the copied text
-    const textarea = document.createElement('textarea');
+    const textarea = document.createElement("textarea");
     textarea.value = copyText;
     document.body.appendChild(textarea);
 
     // Select the text in the textarea and copy it to the clipboard
     textarea.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
 
     // Remove the textarea element from the DOM
     document.body.removeChild(textarea);
@@ -252,17 +259,17 @@ if(document.querySelector('.copy-to-clipboard')){
   });
 }
 
-if(document.querySelector('.generate-code')){
-  document.querySelector('.generate-code').addEventListener('click',function(){
-    const tag=document.querySelector('.generate-code');
-    if(tag.hasAttribute('data-code')){
-      window.location.href="/codeGenerated?codeATM="+tag.getAttribute('data-code')
+if(document.querySelector(".generate-code")){
+  document.querySelector(".generate-code").addEventListener("click",function(){
+    const tag=document.querySelector(".generate-code");
+    if(tag.hasAttribute("data-code")){
+      window.location.href="/codeGenerated?codeATM="+tag.getAttribute("data-code");
     }else{
-      if(document.querySelector('.error')){
-    document.querySelector('.error').style.display='block';
+      if(document.querySelector(".error")){
+        document.querySelector(".error").style.display="block";
       }
     }
-  })
+  });
 }
 
 // if(document.getElementById('formDetails')){
@@ -286,10 +293,10 @@ if(document.getElementById("submit")){
 
 
 function resubscribe(uniqueCode, flag) {
-    jQuery.ajax({
-        type: "GET",
-        url: '/unsubscribeMarketing/resubscribe?uniqueCode=' + uniqueCode + '&flag=' + flag,
-        dataType: 'json',
-    });
+  jQuery.ajax({
+    type: "GET",
+    url: "/unsubscribeMarketing/resubscribe?uniqueCode=" + uniqueCode + "&flag=" + flag,
+    dataType: "json",
+  });
 }
 

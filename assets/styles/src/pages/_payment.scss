@@ -14,23 +14,23 @@
         }
         .user_name{
             font-size: 21px;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
         }
         .methode{
             font-size: 21px;
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             padding-top: 5px;
         }
         .amount{
             font-size: 40px;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             padding: 0 20px;
         }
         .desc{
             font-size: 18px;
-            font-family: PoppinsRegular;
+            font-family: $Regular;
         }
     }
     
@@ -44,7 +44,7 @@
         margin-bottom: 50px;
         .title{
             font-size: 12px;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             width: 80%;
             padding-bottom: 10px;
         }
@@ -65,19 +65,19 @@
             .text_container{
                 .sub_title{
                     font-size: 14px;
-                    font-family: PoppinsBold;
+                    font-family: $Bold;
                     font-weight: bold;
                 }
                 .desc{
                     font-size: 12px;
-                    font-family: PoppinsRegular;
+                    font-family: $Regular;
                     max-width: 70%;
                 }
             }
         }
         .lear_abou_suyool{
             color: #373464;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 12px;
         }
@@ -95,12 +95,12 @@
                     }
                     .title{
                         font-size: 15px;
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         font-weight: bold;
                     }
                     .desc{
                         font-size: 12px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         margin: 15px 0 20px 0;
                         text-align: center;
                     }
@@ -108,7 +108,7 @@
                         padding: 15px 120px;
                         background-color: #F4F4F4 ;
                         color: black;
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         font-weight: bold;
                         font-size: 16px;
                         border-radius: 10px;
@@ -131,13 +131,13 @@
         //     display: none;
         // }
         .title{
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 16px;
             margin: 30px 0 20px 0;
         }
         .desc{
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             font-size: 16px;
             span{
                 display: block;
@@ -148,7 +148,7 @@
             padding: 15px 80px;
             background-color: #226D96 ;
             color: white;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-size: 16px;
             border-radius: 10px;
             margin: 65px 0 200px 0;
@@ -161,7 +161,7 @@
             margin-left: 21px;
             font-size: 10px;
             color: #7588A0;
-            font-family:PoppinsRegular ;
+            font-family:$Regular ;
             span{
                 display: block;
                 font-size: 14px;
@@ -195,7 +195,7 @@
           input[type=submit], select {
             background-color: #226D96;
             color: #FFFFFF;
-            font-family:PoppinsSemiBold ;
+            font-family:$SemiBold ;
             padding: 18px;
             width: 100%;
             text-align: center;
@@ -210,14 +210,14 @@
         flex-direction: column;
         align-items: center;
         .title{
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 16px;
             margin: 30px 0 80px 0;
             width: 80%;
         }
         .code{
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 35px;
         }
@@ -225,7 +225,7 @@
             padding: 15px 80px;
             background-color: white ;
             color: #226D96;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             border: 1px solid #226D96;
             font-size: 16px;
@@ -233,7 +233,7 @@
             margin: 45px 0 20px 0;
         }
         .note{
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             font-size: 12px;
             margin: 0 0 280px 0;
         }
@@ -250,14 +250,14 @@
                     }
                     .title{
                         font-size: 15px;
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         font-weight: bold;
                         width: unset;
                         margin: unset;
                     }
                     .desc{
                         font-size: 12px;
-                        font-family: PoppinsRegular;
+                        font-family: $Regular;
                         margin: 15px 0 20px 0;
                         text-align: center;
                     }
@@ -266,7 +266,7 @@
                         background-color: #F4F4F4 ;
                         border: none;
                         color: black;
-                        font-family: PoppinsBold;
+                        font-family: $Bold;
                         font-weight: bold;
                         font-size: 16px;
                         border-radius: 10px;
@@ -285,7 +285,7 @@
         flex-direction: column;
         align-items: center;
         .title{
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 20px;
             margin: 100px 0;
@@ -298,7 +298,7 @@
             padding: 15px 80px;
             background-color: #226D96 ;
             color: white;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             font-weight: bold;
             font-size: 16px;
             border-radius: 10px;

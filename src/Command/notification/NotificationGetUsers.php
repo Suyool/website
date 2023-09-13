@@ -34,14 +34,12 @@ class NotificationGetUsers extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $ChannelID = 20;
         $suyoolUsers = $this->suyoolServices->GetAllUsers($ChannelID, $this->hash_algo, $this->certificate);
 
         $output->writeln([
             'Getting All suyool users'
         ]);
-
 
         if (is_array($suyoolUsers)) {
             $this->mr->getRepository(Users::class)->truncate();
@@ -51,7 +49,6 @@ class NotificationGetUsers extends Command
             ]);
 
             foreach ($suyoolUsers as $item) {
-
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($item["UserAccountID"])

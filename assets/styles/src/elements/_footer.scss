@@ -15,17 +15,17 @@ min-height: 505px;
         padding-top: 23px;
         color: #ffffff;
         opacity: 0.5;
-        font-family: PoppinsRegular;
+        font-family: $Regular;
     }
     .title_A{
         color:#D7D7E2 ;
-        font-family:PoppinsMedium ;
+        font-family:$Medium ;
         font-size: 25px!important;
         line-height: 47px;
     }
     .desc_A{
             color:#D7D7E2 ;
-            font-family:PoppinsMedium ;
+            font-family:$Medium ;
             font-size: 20px;
             line-height: 60px;
             display: block;

@@ -4,7 +4,6 @@ namespace App\Entity\Ogero;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="landline")
@@ -42,7 +41,6 @@ class Landline
      * @ORM\Column(name="referenceNumber")
      */
     private $referenceNumber;
-
 
     /**
      * @ORM\Column(name="ogeroBills")
@@ -129,11 +127,6 @@ class Landline
      */
     private $rounding;
 
-
-
-
-
-
     public function getId()
     {
         return $this->id;
@@ -149,7 +142,6 @@ class Landline
         $this->displayedFees = $displayedFees;
         return $this;
     }
-
 
     public function getadditionalFees()
     {
@@ -217,7 +209,6 @@ class Landline
         return $this;
     }
 
-
     public function getfees1()
     {
         return $this->fees1;
@@ -239,7 +230,6 @@ class Landline
         $this->amount = $amount;
         return $this;
     }
-
 
     public function getamount1()
     {

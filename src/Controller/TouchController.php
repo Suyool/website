@@ -50,19 +50,16 @@ class TouchController extends AbstractController
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
-            // $string_to_decrypt = "nyuOBfRyEydnIXDl2zYXIxuJsfnPcaFMU/y8hVOEfOiif+PpOv7gmUBlygKDdLT7";
-            $string_to_decrypt=$_POST['infoString'];
+            $string_to_decrypt = $_POST['infoString'];
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
-            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $SuyoolUserId = $this->session->set('suyoolUserId', 185);
 
-                $parameters['deviceType'] =$suyoolUserInfo[1] ;
+                $parameters['deviceType'] = $suyoolUserInfo[1];
 
                 return $this->render('touch/index.html.twig', [
                     'parameters' => $parameters
@@ -74,7 +71,6 @@ class TouchController extends AbstractController
             return $this->render('ExceptionHandling.html.twig');
         }
     }
-
 
     /**
      * PostPaid
@@ -90,8 +86,8 @@ class TouchController extends AbstractController
         if ($data != null) {
             $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
 
-            if(isset($sendBill[1]['TouchResponse'])){
-                $sendBill[1]="Invalid Number";
+            if (isset($sendBill[1]['TouchResponse'])) {
+                $sendBill[1] = "Invalid Number";
             }
             $postpaidRequest = new PostpaidRequest;
             if ($sendBill[0]) {
@@ -103,7 +99,6 @@ class TouchController extends AbstractController
             $this->mr->persist($postpaidRequest);
             $this->mr->flush();
             $postpaidRequestId = $postpaidRequest->getId();
-            // dd($postpaidRequestId);
         }
 
         return new JsonResponse([
@@ -124,26 +119,24 @@ class TouchController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
 
-        // dd($data);
         if ($data != null) {
             $postpaidRequestId = $data["invoicesId"];
             $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
             $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
-            // dd($retrieveResults);
 
             $Pin = implode("", $data["Pin"]);
             if ($retrieveResults[0]) {
                 $values = $retrieveResults[1]["Values"];
-                $displayedFees = intval($values["Fees"])+intval($values["Fees1"])+intval($values["AdditionalFees"]);
+                $displayedFees = intval($values["Fees"]) + intval($values["Fees1"]) + intval($values["AdditionalFees"]);
 
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3],$retrieveResults[4], $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"],$displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
+                $postpaidrequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin, $retrieveResults[3], $retrieveResults[4], $values["transactionId"], $values["Currency"], $values["Fees"], $values["Fees1"], $values["Amount"], $values["Amount1"], $values["Amount2"], $values["referenceNumber"], $displayedFees, $values["InformativeOriginalWSAmount"], $values["TotalAmount"], $values["Rounding"], $values["AdditionalFees"], $values["InvoiceNumber"], $values["PaymentId"]);
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
             } else {
                 $values = 0;
                 $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
-                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin,$retrieveResults[3],$retrieveResults[4]);
+                $postpaidRequest = $this->mr->getRepository(PostpaidRequest::class)->insertRetrieveResults($postpaidRequest, $retrieveResults[2], $Pin, $retrieveResults[3], $retrieveResults[4]);
                 $this->mr->persist($postpaidRequest);
                 $this->mr->flush();
             }
@@ -176,8 +169,7 @@ class TouchController extends AbstractController
         $SuyoolUserId = $this->session->get('suyoolUserId');
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
-        // $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
-        // dd($billPay);
+
         if ($data != null) {
             //Initial order with status pending
             $order = new Order;
@@ -192,10 +184,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 30000000, $order->getcurrency(), $this->hash_algo, $this->certificate, $app_id);
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'));
-
-            // dd($response);
 
             if ($response[0]) {
                 //set order status to held
@@ -206,19 +195,15 @@ class TouchController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
 
-
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
-                // dd($billPay);
                 if ($billPay[0]) {
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
-                    $postpaid = $this->mr->getRepository(PostpaidRequest::class)->insertBillPay($postpaid,$Postpaid_With_id->getSuyoolUserId(), $Postpaid_With_id->getGsmNumber(), $Postpaid_With_id->gettoken(), $billPay[1]["TransactionDescription"], $billPay[1]["TransactionReference"], $Postpaid_With_id->getpin(), $Postpaid_With_id->getTransactionId(), $Postpaid_With_id->getcurrency(), $Postpaid_With_id->getfees(), $Postpaid_With_id->getfees1(), $Postpaid_With_id->getamount(), $Postpaid_With_id->getamount1(), $Postpaid_With_id->getamount2(), $Postpaid_With_id->getreferenceNumber(), $Postpaid_With_id->getinformativeOriginalWSamount(), $Postpaid_With_id->gettotalamount(), $Postpaid_With_id->getrounding(), $Postpaid_With_id->getadditionalfees(), $Postpaid_With_id->getinvoiceNumber(), $Postpaid_With_id->getpaymentId(), $billPay[2]);
+                    $postpaid = $this->mr->getRepository(PostpaidRequest::class)->insertBillPay($postpaid, $Postpaid_With_id->getSuyoolUserId(), $Postpaid_With_id->getGsmNumber(), $Postpaid_With_id->gettoken(), $billPay[1]["TransactionDescription"], $billPay[1]["TransactionReference"], $Postpaid_With_id->getpin(), $Postpaid_With_id->getTransactionId(), $Postpaid_With_id->getcurrency(), $Postpaid_With_id->getfees(), $Postpaid_With_id->getfees1(), $Postpaid_With_id->getamount(), $Postpaid_With_id->getamount1(), $Postpaid_With_id->getamount2(), $Postpaid_With_id->getreferenceNumber(), $Postpaid_With_id->getinformativeOriginalWSamount(), $Postpaid_With_id->gettotalamount(), $Postpaid_With_id->getrounding(), $Postpaid_With_id->getadditionalfees(), $Postpaid_With_id->getinvoiceNumber(), $Postpaid_With_id->getpaymentId(), $billPay[2]);
                     $this->mr->persist($postpaid);
                     $this->mr->flush();
-
                     $IsSuccess = true;
-
                     $postpaidId = $postpaid->getId();
                     $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpaidId]);
 
@@ -237,9 +222,9 @@ class TouchController extends AbstractController
                         'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
                     ]);
                     $additionalData = "";
-                    $content=$notificationServices->getContent('AcceptedTouchPayment');
-                    $bulk=0;//1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params,$bulk, $additionalData);
+                    $content = $notificationServices->getContent('AcceptedTouchPayment');
+                    $bulk = 0; //1 for broadcast 0 for unicast
+                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
                     $updateUtilitiesAdditionalData = json_encode([
                         'Amount' => $Postpaid_With_id->getamount(),
@@ -255,11 +240,11 @@ class TouchController extends AbstractController
                         'Currency' => $Postpaid_With_id->getcurrency(),
                         'Rounding' => $Postpaid_With_id->getrounding(),
                         'PaymentId' => $Postpaid_With_id->getpaymentId(),
-                        'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),  
+                        'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),
                     ]);
 
                     //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData , $orderupdate->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -306,7 +291,6 @@ class TouchController extends AbstractController
                     }
                 }
             } else {
-
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
@@ -321,7 +305,6 @@ class TouchController extends AbstractController
                 } else {
                     $message = "You can not purchase now";
                 }
-
                 $dataPayResponse = -1;
             }
         } else {
@@ -339,8 +322,6 @@ class TouchController extends AbstractController
         ], 200);
     }
 
-
-
     /**
      * PrePaid
      * Provider : LOTO
@@ -349,10 +330,7 @@ class TouchController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-
-        // $filter = $lotoServices->VoucherFilter("MTC");
         $filter =  $Memcached->getVouchersTouch($lotoServices);
-        // dd($filter);
 
         return new JsonResponse([
             'status' => true,
@@ -372,7 +350,6 @@ class TouchController extends AbstractController
         $suyoolServices = new SuyoolServices($this->params->get('TOUCH_PREPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
         $flagCode = null;
-        // dd($data["desc"]);
 
         if ($data != null) {
             //Initial order with status pending
@@ -392,9 +369,7 @@ class TouchController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
-            // $response = $suyoolServices->PushUtilities($session, $order->getId(), 1000, 'USD', $this->hash_algo, $this->certificate, $app_id);
 
-            dd($response);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -403,7 +378,6 @@ class TouchController extends AbstractController
                     ->setstatus(Order::$statusOrder['HELD']);
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
-
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
@@ -419,12 +393,10 @@ class TouchController extends AbstractController
                         ->seterror($PayResonse["errorinfo"]["errormsg"]);
                     $this->mr->persist($logs);
                     $this->mr->flush();
-
                     $IsSuccess = false;
 
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                    // dd($responseUpdateUtilities);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -433,13 +405,12 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
-                        $message = $PayResonse["errorinfo"]["errormsg"];
+                        $message = $PayResonse["errorinfo"]["errorcode"];
                     } else {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
                             ->seterror($responseUpdateUtilities[1]);
-                        // $message = "Can not return money!!";
                     }
                 }
                 if ($PayResonse["errorinfo"]["errorcode"] == 0) {
@@ -478,16 +449,15 @@ class TouchController extends AbstractController
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
                         'plan' => $data["desc"],
-                        'code' => $PayResonse["voucherSerial"],
+                        'code' => $PayResonse["voucherCode"],
                     ]);
-                    $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                    $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk);
+                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*14*" . $PayResonse["voucherCode"] . "#");
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-
                         //update te status from purshased to completed
                         $orderupdate5
                             ->setstatus(Order::$statusOrder['COMPLETED']);
@@ -504,7 +474,6 @@ class TouchController extends AbstractController
                     }
                 }
             } else {
-
                 //if can not take money from .net cancel the state of the order
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
@@ -512,9 +481,6 @@ class TouchController extends AbstractController
                     ->seterror($response[1]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
-                // $IsSuccess = false;
-                // $message = $response[1];
-                // $dataPayResponse = -1;
                 $IsSuccess = false;
 
                 if (isset($response[2])) {

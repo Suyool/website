@@ -4,14 +4,12 @@ namespace App\Entity\Notification;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="notification")
  */
 class Notification
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -29,7 +27,7 @@ class Notification
      */
     private $userId;
 
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity=content::class, inversedBy="id")
      */
     private $content;
@@ -54,7 +52,6 @@ class Notification
      * @ORM\Column(name="additionalData")
      */
     private $additionalData;
-
 
     /**
      * @ORM\Column(name="titleOut")
@@ -85,8 +82,6 @@ class Notification
      * @ORM\Column(name="send_Date")
      */
     private $sendDate;
-
-
 
     public function getId()
     {
@@ -137,7 +132,6 @@ class Notification
 
         return $this;
     }
-
 
     public function getstatus()
     {

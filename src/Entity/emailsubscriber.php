@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -8,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class emailsubscriber
 {
-    //use DateTrait;
-
     /**
      * @var integer
      *
@@ -35,21 +35,26 @@ class emailsubscriber
      */
     private $updated;
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function setId($id){
-        $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
         return $this;
     }
-    public function getEmail(){
+    public function getEmail()
+    {
         return $this->email;
     }
-    public function setEmail($email){
-        $this->email=$email;
+    public function setEmail($email)
+    {
+        $this->email = $email;
         return $this;
     }
-    public function getCreated(){
+    public function getCreated()
+    {
         return $this->created;
     }
     public function getUpdated(): ?\DateTimeInterface
@@ -58,14 +63,9 @@ class emailsubscriber
     }
     public function getCreateDateFormat()
     {
-        if(isset($this->created)){
+        if (isset($this->created)) {
             return $this->created->format('h:i Y-m-d');
-        }
-        else
+        } else
             return Null;
     }
-//    public function setCreated($created){
-//        $this->created=$created;
-//        return $this;
-//    }
 }

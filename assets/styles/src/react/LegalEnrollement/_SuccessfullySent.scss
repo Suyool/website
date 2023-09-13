@@ -19,14 +19,14 @@
         }
 
         .approvedTitle {
-            font-family: PoppinsBold;
+            font-family: $Bold;
             color: #495666;
             font-size: 16px;
             padding-top: 10px;
         }
 
         .approvedDesc {
-            font-family: PoppinsRegular;
+            font-family: $Regular;
             font-size: 14px;
             color: #7588A0;
             max-width: 500px;

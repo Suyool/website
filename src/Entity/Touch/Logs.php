@@ -4,7 +4,6 @@ namespace App\Entity\Touch;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="logs")
@@ -19,35 +18,29 @@ class Logs
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="identifier")
      */
     private $identifier;
 
     /**
-     * 
      * @ORM\Column(name="url")
      */
     private $url;
 
     /**
-     * 
      * @ORM\Column(name="request")
      */
     private $request;
 
     /**
-     * 
      * @ORM\Column(name="response")
      */
     private $response;
 
     /**
-     * 
      * @ORM\Column(name="error")
      */
     private $error;
-
 
     public function getId()
     {

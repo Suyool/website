@@ -4,14 +4,12 @@ namespace App\Entity\Estore;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="price")
  */
 class Price
 {
-    //use DateTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,56 +18,44 @@ class Price
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="denominationId")
      */
     private $denominationId;
 
     /**
-     * 
      * @ORM\Column(name="denominationDescription",type="integer")
      */
     private $denominationDescription;
 
     /**
-     * 
      * @ORM\Column(name="Amount",type="integer")
      */
     private $Amount;
 
     /**
-     * 
      * @ORM\Column(name="Commission")
      */
     private $Commission;
 
-
     /**
-     * 
      * @ORM\Column(name="parentConfigurationDataId")
      */
     private $parentConfigurationDataId;
 
     /**
-     * 
      * @ORM\Column(name="serviceCode",type="integer")
      */
     private $serviceCode;
 
     /**
-     * 
      * @ORM\Column(name="serviceProviderCode",type="integer")
      */
     private $serviceProviderCode;
-
-
-
 
     public function getId()
     {
         return $this->id;
     }
-
 
     public function getserviceCode()
     {

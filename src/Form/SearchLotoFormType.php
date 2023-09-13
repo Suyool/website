@@ -13,19 +13,18 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class SearchLotoFormType extends AbstractType
 {
-    private $amount = array('ALL'=>'','less than 100 thousands'=>'< 100000','greater than 100'=>'>100000','equal 100'=>'=100000');
+    private $amount = array('ALL' => '', 'less than 100 thousands' => '< 100000', 'greater than 100' => '>100000', 'equal 100' => '=100000');
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('status', ChoiceType::class, [
-                'choices'=>order::$statusOrder,
+                'choices' => order::$statusOrder,
                 'label' => 'Status',
             ])
             ->add('amount', ChoiceType::class, [
                 'choices' => $this->amount,
-                'label'=>'Amount'
+                'label' => 'Amount'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Search',
@@ -35,9 +34,9 @@ class SearchLotoFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'required'=>false,
+            'required' => false,
             'csrf_protection'   => false,
-            'method'=>'get'
+            'method' => 'get'
         ]);
     }
 }

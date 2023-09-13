@@ -14,3 +14,13 @@ monolog:
             type: console
             process_psr_3_messages: false
             channels: ["!event", "!doctrine"]
+        users:
+            type: stream
+            path: "%kernel.logs_dir%/Users.log"
+            level: debug
+            channels: ['Users']
+        winning:
+            type: stream
+            path: "%kernel.logs_dir%/winning.log"
+            level: debug
+            channels: ['Winning']

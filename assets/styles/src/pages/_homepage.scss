@@ -7,15 +7,15 @@
       h1 {
         font-size: 60px;
         margin-bottom: 40px;
-        font-family: PoppinsRegular;
+        font-family: $Regular;
       }
       p {
         font-size: 18px;
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         color: #949494;
       }
       .buttons-cont {
-        font-family: PoppinsRegular;
+        font-family: $Regular;
         margin-top: 70px;
         .btn{
           &:hover{
@@ -53,7 +53,7 @@
           background-color: #fff;
           border-radius: 70px;
           bottom: 30px;
-          font-family: PoppinsSemiBold;
+          font-family: $SemiBold;
           font-size: 20px;
           padding: 20px 75px;
           position: absolute;

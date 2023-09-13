@@ -27,7 +27,7 @@
             }
 
             span {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 11px;
             }
         }
@@ -49,7 +49,7 @@
                 justify-content: flex-start;
 
                 span {
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 15px;
                     align-items: center;
                     background-color: #c82f2a;
@@ -57,7 +57,7 @@
                     box-shadow: 0 5px #e9e6e6;
                     color: #fff;
                     display: flex;
-                    // font-family: PoppinsSemiBold;
+                    // font-family: $SemiBold;
                     // font-size: 15px;
                     height: 30px;
                     justify-content: center;
@@ -75,7 +75,7 @@
                 justify-content: flex-start;
 
                 span {
-                    font-family: PoppinsSemiBold;
+                    font-family: $SemiBold;
                     font-size: 20px;
                 }
             }
@@ -93,7 +93,7 @@
             border-bottom-right-radius: 15px;
 
             .price {
-                font-family: PoppinsSemiBold;
+                font-family: $SemiBold;
                 font-size: 20px;
                 span{
                     font-size: 16px;
@@ -113,7 +113,7 @@
 
         .title {
             font-size: 12px;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             padding-top: 28px;
             width: 80%;
             text-align: start;
@@ -122,7 +122,7 @@
         .price {
             font-size: 26px;
             text-align: start;
-            font-family: PoppinsBold;
+            font-family: $Bold;
             color: white;
             padding-top: 10px;
             width: 80%;
@@ -130,7 +130,7 @@
 
         .desc {
             font-size: 11px;
-            font-family: PoppinsMedium;
+            font-family: $Medium;
             color: black;
             padding-top: 20px;
             max-width: 80%;
@@ -143,7 +143,7 @@
 
             span {
                 font-size: 11px;
-                font-family: PoppinsBold;
+                font-family: $Bold;
             }
         }
 
@@ -174,7 +174,7 @@
         border-radius: 5px;
         color: white;
         font-size: 15px;
-        font-family: PoppinsMedium;
+        font-family: $Medium;
         margin-top: 50px;
         margin-bottom: 20px;
         width: 90%;

@@ -10,20 +10,21 @@
     align-items: center;
     box-shadow: 0 7px 6px #d8dee6;
     position: fixed;
-    top: 0;
+    // top: 0;
+    z-index: 1;
 
-    .back{
+    .back {
         padding-left: 30px;
     }
 
     .headerTitle {
         color: #fff;
-        font-family: 'PoppinsRegular';
+        font-family: $Regular;
         font-size: 14px;
         padding-left: 20px;
     }
 
-    .empty{
+    .empty {
         padding-right: 50px;
     }
 }

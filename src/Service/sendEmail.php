@@ -7,7 +7,6 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class sendEmail
 {
-
     private $mailerInterface;
 
     public function __construct(MailerInterface $mailerInterface)
@@ -15,7 +14,7 @@ class sendEmail
         $this->mailerInterface = $mailerInterface;
     }
 
-    public function sendEmail($from, $to,$cc, $subject, $text)
+    public function sendEmail($from, $to, $cc, $subject, $text)
     {
         $email = (new TemplatedEmail())
             ->from($from)

@@ -24,11 +24,11 @@
   }
   h1 {
     font-size: 20px;
-    font-family: PoppinsBold;
+    font-family: $Bold;
   }
   p {
     font-size: 16px;
-    font-family: PoppinsMedium;
+    font-family: $Medium;
   }
   .error-check {
     display: block;
@@ -38,13 +38,13 @@
     text-align: center;
     h1 {
       font-size: 20px;
-      font-family: PoppinsBold;
+      font-family: $Bold;
       margin-top: 30px;
       margin-bottom: 20px;
     }
     p {
       font-size: 16px;
-      font-family: PoppinsMedium;
+      font-family: $Medium;
     }
     .modal-footer {
       justify-content: center;

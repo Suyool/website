@@ -4,7 +4,6 @@ namespace App\Entity\Alfa;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="prepaid")
@@ -19,71 +18,59 @@ class Prepaid
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
     /**
-     * 
      * @ORM\Column(name="voucherSerial")
      */
     private $voucherSerial;
 
     /**
-     * 
      * @ORM\Column(name="voucherCode")
      */
     private $voucherCode;
-    
+
     /**
-     * 
      * @ORM\Column(name="voucherExpiry")
      */
     private $voucherExpiry;
 
     /**
-     * 
      * @ORM\Column(name="description")
      */
     private $description;
 
     /**
-     * 
      * @ORM\Column(name="displayMessage")
      */
     private $displayMessage;
 
     /**
-     * 
      * @ORM\Column(name="token")
      */
     private $token;
 
     /**
-     * 
      * @ORM\Column(name="balance")
      */
     private $balance;
 
     /**
-     * 
      * @ORM\Column(name="errorMsg")
      */
     private $errorMsg;
 
     /**
-     * 
      * @ORM\Column(name="insertId")
      */
     private $insertId;
-
 
     public function getId()
     {
         return $this->id;
     }
-
 
     public function getdisplayMessage()
     {
@@ -117,7 +104,6 @@ class Prepaid
         $this->balance = $balance;
         return $this;
     }
-
 
     public function geterrorMsg()
     {

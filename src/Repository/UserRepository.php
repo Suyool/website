@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\DBAL\Types;
+
 /**
  * @extends ServiceEntityRepository<User>
  *
@@ -64,11 +65,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    public function getAllUsers($value){
+    public function getAllUsers($value)
+    {
         $searchQuery = $this->buildAdminSearchQuery($value);
         $qb = $this->createQueryBuilder('u')
             ->select('u');
-        if(!empty($searchQuery))
+        if (!empty($searchQuery))
             $qb->where(implode(" AND ", $searchQuery));
         return $qb->getQuery()
             ->useQueryCache(true);
@@ -86,7 +88,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         if (!empty($searchFilter['role'])) {
             $role = $searchFilter['role'];
             // Check if the desired role is ROLE_ADMIN using JSON_CONTAINS
-            if ($searchFilter['role'] !=0) {
+            if ($searchFilter['role'] != 0) {
                 $conditions[] = "u.roles like '%$role%'";
             } else {
                 $conditions[] = "u.roles = ";
@@ -94,32 +96,4 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
         return $conditions;
     }
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

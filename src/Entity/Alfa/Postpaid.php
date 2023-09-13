@@ -4,7 +4,6 @@ namespace App\Entity\Alfa;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="postpaid")
@@ -19,117 +18,94 @@ class Postpaid
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId",type="integer")
      */
     private $suyoolUserId;
 
     /**
-     * 
      * @ORM\Column(name="gsmNumber")
      */
     private $gsmNumber;
 
     /**
-     * 
      * @ORM\Column(name="currency",type="string")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(name="pin",type="integer")
      */
     private $pin;
 
     /**
-     * 
      * @ORM\Column(name="transactionId")
      */
     private $transactionId;
 
     /**
-     * 
      * @ORM\Column(name="transactionDescription")
      */
     private $transactionDescription;
 
     /**
-     * 
      * @ORM\Column(name="status")
      */
     private $status;
 
     /**
-     * 
      * @ORM\Column(name="fees",type="integer")
      */
     private $fees;
 
     /**
-     * 
      * @ORM\Column(name="fees1",type="integer")
      */
     private $fees1;
-    
+
     /**
-     * 
      * @ORM\Column(name="additionalfees",type="integer")
      */
     private $additionalfees;
 
     /**
-     * 
      * @ORM\Column(name="displayedFees")
      */
     private $displayedFees;
 
     /**
-     * 
      * @ORM\Column(name="amount")
      */
     private $amount;
 
     /**
-     * 
      * @ORM\Column(name="amount1")
      */
     private $amount1;
 
     /**
-     * 
      * @ORM\Column(name="amount2")
      */
     private $amount2;
 
     /**
-     * 
      * @ORM\Column(name="referenceNumber",type="integer")
      */
     private $referenceNumber;
 
     /**
-     * 
      * @ORM\Column(name="informativeOriginalWSamount")
      */
     private $informativeOriginalWSamount;
 
     /**
-     * 
      * @ORM\Column(name="totalamount")
      */
     private $totalamount;
 
     /**
-     * 
      * @ORM\Column(name="rounding",type="integer")
      */
     private $rounding;
-
-
-
-
-
 
     public function getId()
     {

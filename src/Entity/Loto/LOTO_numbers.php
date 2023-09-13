@@ -4,14 +4,12 @@ namespace App\Entity\Loto;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\lotonumbersRepository")
  * @ORM\Table(name="prices")
  */
 class LOTO_numbers
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,23 +18,19 @@ class LOTO_numbers
     private $id;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $numbers;
 
     /**
-     * 
      * @ORM\Column(name="price",type="integer")
      */
     private $price;
 
     /**
-     * 
      * @ORM\Column(name="zeed",type="integer")
      */
     private $zeed;
-
 
     public function getId()
     {
@@ -50,7 +44,7 @@ class LOTO_numbers
 
     public function setnumbers($numbers)
     {
-        $this->numbers=$numbers;
+        $this->numbers = $numbers;
         return $this;
     }
 
@@ -61,7 +55,7 @@ class LOTO_numbers
 
     public function setzeed($zeed)
     {
-        $this->zeed=$zeed;
+        $this->zeed = $zeed;
         return $this;
     }
 
@@ -72,9 +66,7 @@ class LOTO_numbers
 
     public function setprice($price)
     {
-        $this->price=$price;
+        $this->price = $price;
         return $this;
     }
-
-
 }

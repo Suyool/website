@@ -1,8 +1,12 @@
+$Bold: PoppinsBold;
+$Medium: PoppinsMedium;
+$Regular: PoppinsRegular;
+$SemiBold: PoppinsSemiBold;
+
 @font-face {
     font-family: PoppinsBold;
     src: url('../../../fonts/Poppins-Bold.ttf');
 }
-
 @font-face {
     font-family: PoppinsMedium;
     src: url('../../../fonts/Poppins-Medium.ttf');
@@ -12,10 +16,11 @@
     src: url('../../../fonts/Poppins-Regular.ttf');
 }
 @font-face {
-    font-family: OpenSansRegular;
-    src: url('../../../fonts/OpenSans-Regular.ttf');
-}
-@font-face {
     font-family: PoppinsSemiBold;
     src: url('../../../fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: OpenSansRegular;
+    src: url('../../../fonts/OpenSans-Regular.ttf');
 }

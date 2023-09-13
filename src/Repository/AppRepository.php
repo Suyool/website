@@ -37,7 +37,7 @@ class AppRepository extends EntityRepository
     public function buildQuery($alias, $predicates = false, $select, $orderBy = false, $maxResults = false, $firstResult = false, $groupBy = false, $indexBy = false)
     {
         return $this->initQuery($alias, $predicates, $select, $orderBy, $maxResults, $firstResult, $groupBy, $indexBy)
-                    ->getQuery()->useQueryCache(true);
+            ->getQuery()->useQueryCache(true);
     }
 
     public function executeQuery($alias, $predicates = false, $select, $orderBy = false, $maxResults = false, $firstResult = false, $groupBy = false, $indexBy = false)
@@ -46,8 +46,8 @@ class AppRepository extends EntityRepository
             ->getScalarResult();
 
         $object = null;
-        eval('$object = '."new " . $this->getClassName() . "();");
+        eval('$object = ' . "new " . $this->getClassName() . "();");
 
-        return (!is_null($object))?$object->convertToObject($dataArray):false;
+        return (!is_null($object)) ? $object->convertToObject($dataArray) : false;
     }
 }

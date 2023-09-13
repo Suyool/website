@@ -2,9 +2,16 @@
 
 namespace App\Utils;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Helper
 {
+    private $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client=$client;
+    }
 
     /**
      * @param string $url
@@ -23,38 +30,30 @@ class Helper
         curl_close($ch);
         return $ret;
     }
-       public static function send_curl($params,$accessToken=null) {
-           if($accessToken != null){
-               $host = $params['url'];
-           }else{
-            if($_ENV['APP_ENV']=='prod'){
-                    $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
-                
-            }else{
-            $host = 'http://10.20.80.62/SuyoolGlobalAPIs/api/' ;
-            //  $host = 'https://globalapi.suyool.money/api/';
-         }
-                }
-           
+
+    public static function send_curl($params, $accessToken = null)
+    {
+        if ($accessToken != null) {
+            $host = $params['url'];
+        } else {
+            if ($_ENV['APP_ENV'] == 'prod') {
+                $host = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+            } else {
+                $host = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+            }
+        }
+
         if (isset($params['url']) || isset($params['data'])) {
             $ch = curl_init();
-            //Set the options
             curl_setopt($ch, CURLOPT_URL, $host . $params['url']);
-
-            //Set the data
             (isset($params['data'])) ? $data = $params['data'] : $data = "";
-            //If the request type is not get, add the CURL postfield data
             (!isset($params['type']) || $params['type'] != 'get') ? curl_setopt($ch, CURLOPT_POSTFIELDS, $data) : '';
-            //If type of the request is post add it
             (isset($params['type']) && $params['type'] == 'post') ? curl_setopt($ch, CURLOPT_POST, true) : '';
-            //
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json',
                 'Connection: Keep-Alive',
                 'X-Shopify-Access-Token: ' . $accessToken,
             ]);
-
-            
 
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_VERBOSE, true);
@@ -84,13 +83,11 @@ class Helper
         }
         return $browser;
     }
-    public static function getHost($domain){
+
+    public static function getHost($domain)
+    {
         $parsedUrl = parse_url($domain);
-
-        // Get the hostname from the parsed URL
         $hostname = $parsedUrl['host'];
-
-        // Remove the "www" and any subdomains
         $parts = explode('.', $hostname);
         $partsCount = count($parts);
         if ($partsCount >= 3 && $parts[0] === 'www') {
@@ -98,4 +95,17 @@ class Helper
         }
         return $hostname;
     }
+
+    public function clientRequest($method, $url, $body)
+    {
+        $response = $this->client->request($method, $url, [
+            'body' => json_encode($body),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+    
+        return $response;
+    }
+    
 }

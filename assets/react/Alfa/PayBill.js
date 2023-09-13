@@ -12,11 +12,11 @@ const PayBill = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
-  const [currency, setCurrency] = useState("LBP");
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [ mobileNumber, setMobileNumber ] = useState("");
+  const [ mobileNumberNoFormat, setMobileNumberNoFormat ] = useState("70102030");
+  const [ currency, setCurrency ] = useState("LBP");
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
@@ -73,29 +73,17 @@ const PayBill = ({
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
-    if (
-      truncatedValue.length > 0 &&
-      truncatedValue[0] !== "0" &&
-      truncatedValue[0] !== "7" &&
-      truncatedValue[0] !== "8"
-    ) {
-      return "0" + truncatedValue;
-    }
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }
     return truncatedValue;
   };
 
-  const [getBtnDesign, setBtnDesign] = useState(false);
+  const [ getBtnDesign, setBtnDesign ] = useState(false);
 
   const handleInputFocus = () => {
     setBtnDesign(true);
   };
-
-  // const handleInputBlur = () => {
-  //   setBtnDesign(false);
-  // };
 
   return (
     <div id="PayBill" className={getSpinnerLoader ? "hideBack" : ""}>

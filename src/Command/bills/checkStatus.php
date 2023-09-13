@@ -17,14 +17,12 @@ class checkStatus extends Command
     private $touchMr;
     private $suyoolServices;
 
-
-    public function __construct(ManagerRegistry $mr,SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices)
     {
         parent::__construct();
 
         $this->touchMr = $mr->getManager('touch');
-        $this->suyoolServices=$suyoolServices;
-
+        $this->suyoolServices = $suyoolServices;
     }
 
     protected function configure()
@@ -40,27 +38,24 @@ class checkStatus extends Command
             'Checking status...'
         ]);
 
-        $statusHeld=$this->touchMr->getRepository(Order::class)->findBy(['status'=>'held']);
-        $statusPending=$this->touchMr->getRepository(Order::class)->findBy(['status'=>'pending']);
+        $statusHeld = $this->touchMr->getRepository(Order::class)->findBy(['status' => 'held']);
+        $statusPending = $this->touchMr->getRepository(Order::class)->findBy(['status' => 'pending']);
 
-
-        foreach($statusHeld as $status){
-            // $completed=$this->touchMr->
-            $updateUtility=$this->suyoolServices->UpdateUtilities($status->getamount(),"",$status->gettransId());
-            if($updateUtility[0]){
+        foreach ($statusHeld as $status) {
+            $updateUtility = $this->suyoolServices->UpdateUtilities($status->getamount(), "", $status->gettransId());
+            if ($updateUtility[0]) {
                 $status->setstatus(Order::$statusOrder['COMPLETED']);
-            }else{
+            } else {
                 $status->setstatus(Order::$statusOrder['CANCELED'])
-                ->seterror("reversed error ".$updateUtility[1]);
-
+                    ->seterror("reversed error " . $updateUtility[1]);
             }
 
             $this->touchMr->persist($status);
             $this->touchMr->flush();
         }
 
-        foreach($statusPending as $status){
-                $status->setstatus(Order::$statusOrder['CANCELED'])
+        foreach ($statusPending as $status) {
+            $status->setstatus(Order::$statusOrder['CANCELED'])
                 ->seterror("status pending changed to canceled");
 
             $this->touchMr->persist($status);

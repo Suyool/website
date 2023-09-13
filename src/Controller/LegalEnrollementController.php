@@ -9,13 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class LegalEnrollementController extends AbstractController
 {
     /**
-     * @Route("/legal_enrollement", name="app_legal_enrollement")
+     * @Route("/legal_enrollment", name="app_legal_enrollment")
      */
     public function index(): Response
     {
-        $parameters['Test'] = "tst";
-
-        return $this->render('legal_enrollement/index.html.twig',[
+        // $parameters['Test'] = "tst";
+        $parameters['ENV'] = $_ENV['APP_ENV'];
+        return $this->render('legal_enrollement/index.html.twig', [
             'parameters' => $parameters
         ]);
     }

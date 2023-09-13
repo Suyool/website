@@ -4,14 +4,12 @@ namespace App\Entity\Notification;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="template")
  */
 class Template
 {
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,13 +18,11 @@ class Template
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="identifier")
      */
     private $identifier;
 
     /**
-     * 
      * @ORM\Column(name="versionIndex")
      */
     private $index;
@@ -36,7 +32,6 @@ class Template
         return $this->id;
     }
 
-    
     public function getidentifier()
     {
         return $this->identifier;
@@ -50,7 +45,7 @@ class Template
 
     function getIndex()
     {
-        
+
         return $this->index;
     }
 

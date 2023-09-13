@@ -4,7 +4,6 @@ namespace App\Entity\Touch;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="postpaid")

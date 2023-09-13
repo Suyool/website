@@ -4,7 +4,6 @@ namespace App\Entity\Notification;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="content")
@@ -19,7 +18,7 @@ class content
      */
     private $id;
 
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity=Template::class, inversedBy="id")
      */
     private $template;
@@ -46,7 +45,6 @@ class content
     private $notificationEN;
 
     /**
-     * 
      * @ORM\Column(name="notificationAR")
      */
     private $notificationAR;
@@ -68,50 +66,41 @@ class content
     private $bodyEN;
 
     /**
-     * 
      * @ORM\Column(name="bodyAR")
      */
     private $bodyAR;
 
     /**
-     * 
      * @ORM\Column(name="proceedButtonEN")
      */
     private $proceedButtonEN;
 
     /**
-     * 
      * @ORM\Column(name="proceedButtonAR")
      */
     private $proceedButtonAR;
 
     /**
-     * 
      * @ORM\Column(name="isInbox",type="integer")
      */
     private $isInbox;
 
     /**
-     * 
      * @ORM\Column(name="isPayment",type="integer")
      */
     private $isPayment;
 
     /**
-     * 
      * @ORM\Column(name="isDebit",type="integer")
      */
     private $isDebit;
 
-
     /**
-     * 
      * @ORM\Column(name="flag",type="integer")
      */
     private $flag;
 
     /**
-     * 
      * @ORM\Column(name="notificationType",type="integer")
      */
     private $notificationType;
@@ -213,12 +202,11 @@ class content
 
     public function getisPayment()
     {
-        if($this->isPayment == 1){
+        if ($this->isPayment == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        // return $this->isPayment;
     }
 
     public function setisPayment($isPayment)
@@ -251,12 +239,11 @@ class content
 
     public function getisDebit()
     {
-        if($this->isDebit == 1){
+        if ($this->isDebit == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        // return $this->isDebit;
     }
 
     public function setisDebit($isDebit)
@@ -264,17 +251,6 @@ class content
         $this->isDebit = $isDebit;
         return $this;
     }
-
-    // public function getadditionalfees()
-    // {
-    //     return $this->additionalfees;
-    // }
-
-    // public function setadditionalfees($additionalfees)
-    // {
-    //     $this->additionalfees = $additionalfees;
-    //     return $this;
-    // }
 
     public function getbodyEN()
     {
@@ -322,12 +298,11 @@ class content
 
     function getisInbox()
     {
-        if($this->isInbox == 1){
+        if ($this->isInbox == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        // return $this->isInbox;
     }
 
     function setisInbox($isInbox)

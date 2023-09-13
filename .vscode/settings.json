@@ -1,0 +1,12 @@
+{
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "files.autoSave": "onFocusChange",
+  "vs-code-prettier-eslint.prettierLast": false
+}

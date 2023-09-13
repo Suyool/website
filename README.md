@@ -17,3 +17,10 @@ $ php bin/console cache:clear --env=prod --no-debug
 $ yarn install # make sure Yarn is installed
 $ yarn encore prod # generate css/js files
 ```
+
+## Command to eslint assets run
+```
+$ eslint ./
+$ npx eslint assets/
+$ npx eslint assets/ --fix    //danger
+```

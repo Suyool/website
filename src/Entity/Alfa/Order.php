@@ -4,14 +4,13 @@ namespace App\Entity\Alfa;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity
  * @ORM\Table(name="orders")
  */
 class Order
 {
-    public static $statusOrder = array("PENDING"=>"pending","HELD"=>"held","PURCHASED"=>"purchased","COMPLETED"=>"completed","CANCELED"=>"canceled");
+    public static $statusOrder = array("PENDING" => "pending", "HELD" => "held", "PURCHASED" => "purchased", "COMPLETED" => "completed", "CANCELED" => "canceled");
 
     /**
      * @ORM\Id
@@ -21,7 +20,6 @@ class Order
     private $id;
 
     /**
-     * 
      * @ORM\Column(name="suyoolUserId")
      */
     private $suyoolUserId;
@@ -39,36 +37,30 @@ class Order
     private $prepaid;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $status;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $amount;
 
     /**
-     * 
      * @ORM\Column(type="string")
      */
     private $currency;
 
     /**
-     * 
      * @ORM\Column(type="integer")
      */
     private $transId;
 
-    
-     /**
-     * 
+
+    /**
      * @ORM\Column(name="errorInfo")
      */
     private $error;
-
 
     public function getId()
     {
@@ -133,17 +125,6 @@ class Order
         return $this;
     }
 
-    // public function setpostpaid_Id($postpaid_Id)
-    // {
-    //     $this->postpaid_Id = $postpaid_Id;
-    //     return $this;
-    // }
-
-    // public function getpostpaid_Id()
-    // {
-    //     return $this->postpaid_Id;
-    // }
-
     public function getprepaidId()
     {
         if ($this->prepaid) {
@@ -158,17 +139,6 @@ class Order
         return $this;
     }
 
-    // public function setprepaid_Id($prepaid_Id)
-    // {
-    //     $this->prepaid_Id = $prepaid_Id;
-    //     return $this;
-    // }
-
-    // public function getprepaid_Id()
-    // {
-    //     return $this->prepaid_Id;
-    // }
-
     public function gettransId()
     {
         return $this->transId;
@@ -182,7 +152,7 @@ class Order
 
     public function seterror($error)
     {
-        $this->error=$error;
+        $this->error = $error;
         return $this;
     }
 

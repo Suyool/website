@@ -4,14 +4,12 @@ namespace App\Entity\Notification;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\NotificationRepository")
  * @ORM\Table(name="users")
  */
 class Users
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(name="suyoolUserId",type="integer")
@@ -32,7 +30,6 @@ class Users
      * @ORM\Column(name="lang",type="integer")
      */
     private $lang;
-
 
     public function getsuyoolUserId()
     {
@@ -55,7 +52,6 @@ class Users
         $this->fname = $fname;
         return $this;
     }
-
 
     public function getlname()
     {
