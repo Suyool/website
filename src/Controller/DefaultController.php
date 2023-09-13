@@ -105,4 +105,12 @@ class DefaultController extends AbstractController
     {
         return $this->render('ExceptionHandling.html.twig');
     }
+
+    /**
+     * @Route("/app", name="app")
+     */
+    public function app(){
+        header('Location: suyoolpay://suyool.com/suyool');
+        return ;
+    }
 }
