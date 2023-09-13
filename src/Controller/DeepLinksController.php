@@ -28,7 +28,8 @@ class DeepLinksController extends AbstractController
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
             // JavaScript redirect
-            $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
+            // $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
+            $redirectUrl='https://suyoolapp.page.link/app';
             echo "<script>window.location.href = '{$redirectUrl}';</script>";
             exit();
         }
