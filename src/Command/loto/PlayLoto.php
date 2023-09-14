@@ -51,7 +51,7 @@ class PlayLoto extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        set_time_limit(0);
+        
         $lock = $this->factory->createLock('loto_play_command');
 
         if (!$lock->acquire()) {
@@ -68,6 +68,7 @@ class PlayLoto extends Command
         $drawNumber = 0;
         $bulk = 0; // o for unicast
         while ($play) {
+            set_time_limit(0);
             $heldOrder = $this->mr->getRepository(order::class)->findBy(['status' => order::$statusOrder['HELD']], null, 1);
             if ($heldOrder == null) {
                 $play = 1;
