@@ -51,6 +51,7 @@ class NotificationServices
                 $this->mr->flush();
             }
             $this->logger->info("Success");
+            $this->logger->debug($singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
             return true;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
