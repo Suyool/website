@@ -17,7 +17,6 @@ class DeepLinksController extends AbstractController
     public function deepLinks(): Response
     {
         $request = Request::createFromGlobals();
-        // dd($request->query->get('browsertype', ''));
 
         $flag = $request->query->has('f') || $request->query->has('F') || $request->query->has('flag') || $request->query->has('Flag') ? $request->query->get('f') ?? $request->query->get('F') ?? $request->query->get('flag') ?? $request->query->get('Flag') : null;
         $currentUrl = $request->query->has('currentUrl')?$request->query->get('currentUrl'):$request->getSchemeAndHttpHost();
@@ -27,20 +26,10 @@ class DeepLinksController extends AbstractController
 
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-            // JavaScript redirect
             $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
-            echo "<script>window.location.href = '{$redirectUrl}';</script>";
-            exit();
+            return new RedirectResponse($redirectUrl);
         }
-        //        elseif ($flag === '73') {
-        //            // Redirect desktop devices landed on flag 73 to Merchant page
-        //            return $this->redirectToRoute('merchant');
-        //
-        //        } elseif ($flag === '17') {
-        //            return $this->redirectToRoute('homepage');
-        //        }
 
-        // Redirect desktop devices to homepage by default
         return $this->redirectToRoute('homepage');
     }
     /**
@@ -48,10 +37,6 @@ class DeepLinksController extends AbstractController
      */
     public function redirectionApp(): Response
     {
-        // if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== false) {
             return new RedirectResponse('https://suyoolapp.page.link/app');
-        // } else {
-        //     return $this->redirectToRoute('homepage');
-        // }
     }
 }
