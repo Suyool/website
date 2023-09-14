@@ -3,7 +3,11 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/app1.f06e910c.js"
+=======
+        "/build/app1.eeae84e0.js"
+>>>>>>> df46e855 (iveri request amount currency)
       ]
     },
     "admin-app": {

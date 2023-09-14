@@ -43,16 +43,16 @@ class IveriController extends AbstractController
                 $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
                 $transaction->setDescription("Successfully payment for " . $_POST['LITE_ORDER_AMOUNT']/100 . " " . $_POST['LITE_CURRENCY_ALPHACODE']);
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
-                $transaction->setUsersId($_POST['USERID']);
+                if(isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']); 
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['message']="Successfully payment for " . $_POST['LITE_ORDER_AMOUNT']/100 . " " . $_POST['LITE_CURRENCY_ALPHACODE'];
+                $parameters['message']="Successfully payment for " . number_format($_POST['LITE_ORDER_AMOUNT']/100) . " " . $_POST['LITE_CURRENCY_ALPHACODE'];
             }else{
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT']/100);
                 $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
                 $transaction->setDescription($_POST['LITE_RESULT_DESCRIPTION']);
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
-                $transaction->setUsersId($_POST['USERID']);
+                if(isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
                 $transaction->setResponse(json_encode($_POST));
                 $parameters['message']="Invalid card please try again";
             }

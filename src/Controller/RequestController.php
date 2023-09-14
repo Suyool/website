@@ -56,6 +56,12 @@ class RequestController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
+        $parameters['currency']="LBP";
+        if(strpos($parameters['request_details_response']['amount'],"$") !== false) $parameters['currency']="USD";
+
+        $amount=explode(" ",$parameters['request_details_response']['amount']);
+        $amount=str_replace(",","",$amount);
+        $parameters['amount']=(int)$amount[1] * 100;
 
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
             return $this->redirectToRoute("homepage");
@@ -210,50 +216,50 @@ class RequestController extends AbstractController
         return $this->render('request/visaCard.html.twig', $parameters);
     }
 
-    /**
-     * @Route("/RequestResult", name="RequestResult")
-     */
-    public function RequestResult(Request $request, TranslatorInterface $translator): Response
-    {
-        // dd($request);
-        $parameters = $this->trans->translation($request, $translator);
-        $data = $request->request;
-        $request->request->set('LITE_ORDER_AMOUNT', $data->get('LITE_ORDER_AMOUNT')/100);
-        $request->request->set('LITE_ORDER_LINEITEMS_AMOUNT_1', $data->get('LITE_ORDER_LINEITEMS_AMOUNT_1')/100);
+    // /**
+    //  * @Route("/RequestResult", name="RequestResult")
+    //  */
+    // public function RequestResult(Request $request, TranslatorInterface $translator): Response
+    // {
+    //     // dd($request);
+    //     $parameters = $this->trans->translation($request, $translator);
+    //     $data = $request->request;
+    //     $request->request->set('LITE_ORDER_AMOUNT', $data->get('LITE_ORDER_AMOUNT')/100);
+    //     $request->request->set('LITE_ORDER_LINEITEMS_AMOUNT_1', $data->get('LITE_ORDER_LINEITEMS_AMOUNT_1')/100);
 
-        $currency = $data->get('LITE_CURRENCY_ALPHACODE');
-        $amount = $data->get('LITE_ORDER_AMOUNT');
-        $paymentCardStatus = $data->get('LITE_PAYMENT_CARD_STATUS');
-        $resultDescription = $data->get('LITE_RESULT_DESCRIPTION');
+    //     $currency = $data->get('LITE_CURRENCY_ALPHACODE');
+    //     $amount = $data->get('LITE_ORDER_AMOUNT');
+    //     $paymentCardStatus = $data->get('LITE_PAYMENT_CARD_STATUS');
+    //     $resultDescription = $data->get('LITE_RESULT_DESCRIPTION');
 
-        if ($paymentCardStatus == 0) {
-            $tranDescription = 'Your payment was successful with the amount of '.$amount.' '.$currency;
-        } else {
-            $tranDescription = $resultDescription;
-        }
+    //     if ($paymentCardStatus == 0) {
+    //         $tranDescription = 'Your payment was successful with the amount of '.$amount.' '.$currency;
+    //     } else {
+    //         $tranDescription = $resultDescription;
+    //     }
 
-        $this->saveTransactionData($amount, $currency, $tranDescription, $data,$_POST['LITE_PAYMENT_CARD_STATUS']);
+    //     $this->saveTransactionData($amount, $currency, $tranDescription, $data,$_POST['LITE_PAYMENT_CARD_STATUS']);
 
-        $parameters['currency'] = $currency;
-        $parameters['amount'] = $amount;
-        $parameters['tranDescription'] = $tranDescription;
+    //     $parameters['currency'] = $currency;
+    //     $parameters['amount'] = $amount;
+    //     $parameters['tranDescription'] = $tranDescription;
 
-        return $this->render('request/requestResult.html.twig', $parameters);
-    }
+    //     return $this->render('request/requestResult.html.twig', $parameters);
+    // }
 
-    private function saveTransactionData($amount, $currency, $tranDescription, $response,$respCode)
-    {
-        $transaction = new Transaction();
-        $transaction->setAmount($amount);
-        $transaction->setCurrency($currency);
-        $transaction->setDescription($tranDescription);
-        $transaction->setOrderId($response->get("ECOM_CONSUMERORDERID"));
-        $transaction->setRespCode($respCode);
+    // private function saveTransactionData($amount, $currency, $tranDescription, $response,$respCode)
+    // {
+    //     $transaction = new Transaction();
+    //     $transaction->setAmount($amount);
+    //     $transaction->setCurrency($currency);
+    //     $transaction->setDescription($tranDescription);
+    //     $transaction->setOrderId($response->get("ECOM_CONSUMERORDERID"));
+    //     $transaction->setRespCode($respCode);
 
-        $transaction->setResponse(json_encode($response->all()));
+    //     $transaction->setResponse(json_encode($response->all()));
 
-        // Persist the entity to the database
-        $this->mr->persist($transaction);
-        $this->mr->flush();
-    }
+    //     // Persist the entity to the database
+    //     $this->mr->persist($transaction);
+    //     $this->mr->flush();
+    // }
 }
