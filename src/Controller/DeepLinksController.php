@@ -33,7 +33,7 @@ class DeepLinksController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
     /**
-     * @Route("/app_install", name="suyoolapplication")
+     * @Route("/app-install", name="suyoolapplication")
      */
     public function redirectionApp(): Response
     {

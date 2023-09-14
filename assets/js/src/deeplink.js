@@ -35,7 +35,7 @@ function getMobileOperatingSystem() {
 //     }else{
 //         eventResolution = 'Desktop - ';
 //     }
-    
+
 //     //Google Analytics
 //     gtag('event', eventName, {'event_category': eventCategory, 'event_label': eventResolution + eventLabel});
 //     //Facebook Pixel
@@ -45,25 +45,26 @@ function getTheApp(position, downloadAppUrl) {
   //Event label - Menu or Homepage - top
   var eventLabel = "";
   //If the downloadAppUrl isset uset it, otherwise set the default value ''
-  var downloadAppUrl = (typeof downloadAppUrl != "undefined") ? downloadAppUrl : "";
+  var downloadAppUrl =
+    typeof downloadAppUrl != "undefined" ? downloadAppUrl : "";
 
   //Call the googleFacebookEvents to execute Google and Facebook events
   // googleFacebookEvents('Action', 'Get The APP', 'App download', eventLabel);
 
   //If width > 992 - scroll to the bottom section to download the app
-  if(window.screen.width > 768){
+  if (window.screen.width > 768) {
     // console.log(window.screen.width );
-  }else{
+  } else {
     //Get the Mobile Operating System
     var osMobile = getMobileOperatingSystem();
 
     //If the Download App URL isset use it
-    if(downloadAppUrl != ""){
+    if (downloadAppUrl != "") {
       location = downloadAppUrl;
 
       //Otherwise check the OS and call the Apple or Play Store URL
-    }else{
-      location =DefaultDownloadLink;
+    } else {
+      location = DefaultDownloadLink;
       // //If IOS
       // if(osMobile == 'iOS'){
       //     location = iosDownloadLink;
@@ -76,29 +77,25 @@ function getTheApp(position, downloadAppUrl) {
   }
 }
 
-
 /** click button once **/
 var clicked_once = false;
-function clickOne(downloadAppUrl, conversion_code,uri) {
-
+function clickOne(downloadAppUrl, conversion_code, uri) {
   if (!clicked_once) {
     clicked_once = true;
     console.log("ok");
 
-    $(".conversion-button").css("margin-top","20px");
+    $(".conversion-button").css("margin-top", "20px");
     // gtag('event', 'conversion', {'send_to': 'AW-799970313/'+conversion_code});
-  }else{
+  } else {
     console.log("already clicked");
-
   }
-  getTheApp(uri,downloadAppUrl);
-
+  getTheApp(uri, downloadAppUrl);
 }
 
-if(document.querySelector(".open-suyool-account")){
+if (document.querySelector(".open-suyool-account")) {
   const open_suyool_account = document.querySelector(".open-suyool-account");
-    
-  open_suyool_account.addEventListener("click",function(){
-    clickOne("suyoolpay://suyool.com/suyool","","/");
+
+  open_suyool_account.addEventListener("click", function () {
+    clickOne("https://suyoolapp.page.link/app", "", "/");
   });
 }
