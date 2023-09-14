@@ -28,8 +28,7 @@ class DeepLinksController extends AbstractController
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
             // JavaScript redirect
-            // $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
-            $redirectUrl='https://suyoolapp.page.link/app';
+            $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
             echo "<script>window.location.href = '{$redirectUrl}';</script>";
             exit();
         }
@@ -45,14 +44,14 @@ class DeepLinksController extends AbstractController
         return $this->redirectToRoute('homepage');
     }
     /**
-     * @Route("/application", name="suyoolapplication", methods={"GET"})
+     * @Route("/app_install", name="suyoolapplication")
      */
     public function redirectionApp(): Response
     {
-        if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== false) {
-            return new RedirectResponse('https://skashapp.page.link/app_install');
-        } else {
-            return $this->redirectToRoute('homepage');
-        }
+        // if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== false) {
+            return new RedirectResponse('https://suyoolapp.page.link/app');
+        // } else {
+        //     return $this->redirectToRoute('homepage');
+        // }
     }
 }
