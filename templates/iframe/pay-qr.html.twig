@@ -63,11 +63,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
+    var pollingInterval; // Variable to hold the polling interval ID
+
     $(document).ready(function() {
-        setInterval(function() {
-            // Call the checkOrderStatus function
-            checkPaymentStatus({{ order_id }});
-        }, 3000); // Check order status every 3 seconds
+        // Initial call to checkPaymentStatus
+        checkPaymentStatus({{ order_id }});
     });
 
     function checkPaymentStatus() {
@@ -76,7 +76,7 @@
         var callbackUrl = $("#callBack_URL").val();
         var env = $("#env").val();
 
-        if(merchant_id != '' && transaction_id != ''){
+        if (merchant_id != '' && transaction_id != '') {
             $.ajax({
                 type: 'POST',
                 url: "{{ main_url }}{{ path('app_Iframe_check_status') }}",
@@ -86,27 +86,26 @@
                     callBack_URL: callbackUrl,
                     env: env,
                 },
-                success: function (data) {
+                success: function(data) {
                     var paymentInfo = data;
 
-                    //If the payment status is different then approved == 1
-                    if(paymentInfo['Flag'] == 2 || paymentInfo['Flag'] == 4){
-
-                        //Recall the api to check if the transaction is approved
-                        setTimeout(function(){
+                    if (paymentInfo['Flag'] === 2 || paymentInfo['Flag'] === 4) {
+                        // Continue polling if the status is 2 or 4
+                        pollingInterval = setTimeout(function() {
                             checkPaymentStatus();
                         }, 3000);
+                    } else {
+                        // Stop polling and handle the result
+                        clearInterval(pollingInterval); // Stop the polling interval
 
-                        //Else if is approved or canceled ot timedout
-                    }else{
-                        //Inform the user with the payment status
+                        // Inform the user with the payment status
                         $('#text-message').html(paymentInfo['ReturnText']);
                         $('.QR-cont').hide();
-                        setTimeout(function(){
-                            if(window.opener){
+                        setTimeout(function() {
+                            if (window.opener) {
                                 window.opener.location.href = callbackUrl;
                                 window.self.close();
-                            }else{
+                            } else {
                                 window.top.location.href = callbackUrl;
                             }
                         }, 3000);
