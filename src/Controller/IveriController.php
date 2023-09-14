@@ -60,7 +60,7 @@ class IveriController extends AbstractController
             $this->mr->flush();
             return $this->render('iveri/index.html.twig',$parameters);
         }
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if(isset($_POST['infoString'])){
             $string_to_decrypt = $_POST['infoString'];
