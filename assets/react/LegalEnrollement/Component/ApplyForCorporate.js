@@ -88,7 +88,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
     const newErrors = {};
 
     if (!formData.registeredName.trim()) {
-      newErrors.registeredName = "Registered Name is required";
+      newErrors.registeredName = "Company Name is required";
     }
 
     if (!formData.legalForm.trim()) {
@@ -121,8 +121,12 @@ const ApplyForCorporate = ({ steSent, env }) => {
       newErrors.registrationNumber = "Registration Number is required";
     }
 
+    if (!formData.dateIncorporation.trim()) {
+      newErrors.dateIncorporation = "Date of Incorporation is required";
+    }
+
     if (!formData.authorizedPerson.trim()) {
-      newErrors.authorizedPerson = "Person Authorize is required";
+      newErrors.authorizedPerson = "Authorized Person is required";
     }
 
     if (!formData.authorizedPhoneNumber.trim()) {
@@ -156,24 +160,6 @@ const ApplyForCorporate = ({ steSent, env }) => {
     } else {
       setErrors({});
       const namesArray = data.map((item) => item.Name);
-
-      console.log({
-        registeredName: formData.registeredName,
-        legalForm: formData.legalForm,
-        dateIncorporation: formData.dateIncorporation,
-        registrationNumber: formData.registrationNumber,
-        businessType: formData.businessType,
-        yearlyTurnover: formData.yearlyTurnover,
-        phoneNumber: formData.phoneNumber,
-        email: formData.email,
-        address: formData.address,
-        authorizedPerson: formData.authorizedPerson,
-        authorizedPhoneNumber: formData.authorizedPhoneNumber,
-        contactEmail: formData.contactEmail,
-        contactFullName: formData.contactFullName,
-        contactPhoneNumber: formData.contactPhoneNumber,
-        ownerInfos: data,
-      });
       axios
         .post(`${baseUrl}v1/MerchantEnrollment/SaveCorporateOnboardData`, {
           registeredName: formData.registeredName,
@@ -193,7 +179,6 @@ const ApplyForCorporate = ({ steSent, env }) => {
           ownerInfos: namesArray,
         })
         .then((response) => {
-          console.log(response);
           if (
             (response.data.Payload.GlobalCode =
               1 && response.data.Payload.FlagCode > 1)
@@ -249,7 +234,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
                   )}
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-12">
-                  <div className="label">Drop down</div>
+                  <div className="label">Company Legal Form</div>
                   <LegalForm
                     getDropDown={getDropDown1}
                     setFormData={setFormData}
@@ -272,8 +257,8 @@ const ApplyForCorporate = ({ steSent, env }) => {
                     dateFormat="MM/dd/yyyy"
                     scrollableYearDropdown
                     yearDropdownItemNumber={100}
-                    maxDate={new Date()}
                     selected={startDate}
+                    maxDate={new Date()}
                     onChange={(date) => {
                       if (date) {
                         setStartDate(date);
@@ -281,11 +266,11 @@ const ApplyForCorporate = ({ steSent, env }) => {
                       setFormData((prevFormData) => ({
                         ...prevFormData,
                         dateIncorporation:
-                          startDate?.toLocaleDateString("en-US"),
+                          date?.toLocaleDateString("en-US"),
                       }));
                     }}
                   />
-                  {errors.authorizedPerson && (
+                  {errors.dateIncorporation && (
                     <div className="error">{errors.authorizedPerson}</div>
                   )}
                 </div>
