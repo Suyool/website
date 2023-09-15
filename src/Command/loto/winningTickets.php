@@ -80,14 +80,15 @@ class winningTickets extends Command
                 for ($i = 0; $i < strlen($zeednumbers); $i++) {
                     $result[] = substr($zeednumbers, $i);
                 }
+             
 
                 foreach($winningBallsZeed as $winningBallsZeeds){
                     if(in_array($winningBallsZeeds,$result)){
-                        $keyInArray1 = array_search($winningBallsZeeds, $result);
+                        $keyInArray1 = array_search($winningBallsZeeds, $result,true);
                         break;
                     }
                 }
-            
+        
             if ($keyInArray1 == 0) {
                 $prizezeed = 1;
                 $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
