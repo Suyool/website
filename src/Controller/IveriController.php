@@ -45,7 +45,7 @@ class IveriController extends AbstractController
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
                 if(isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']); 
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['message']="Successfully payment for " . number_format($_POST['LITE_ORDER_AMOUNT']/100) . " " . $_POST['LITE_CURRENCY_ALPHACODE'];
+                $parameters['message']="Successfully payment for " . number_format((float)$_POST['LITE_ORDER_AMOUNT']/100,2,'.') . " " . $_POST['LITE_CURRENCY_ALPHACODE'];
             }else{
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT']/100);
@@ -60,7 +60,7 @@ class IveriController extends AbstractController
             $this->mr->flush();
             return $this->render('iveri/index.html.twig',$parameters);
         }
-        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if(isset($_POST['infoString'])){
             $string_to_decrypt = $_POST['infoString'];
