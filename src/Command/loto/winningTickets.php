@@ -80,7 +80,7 @@ class winningTickets extends Command
                 for ($i = 0; $i < strlen($zeednumbers); $i++) {
                     $result[] = substr($zeednumbers, $i);
                 }
-            }
+            
             if ($keyInArray1 == 0) {
                 $prizezeed = 1;
                 $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
@@ -97,35 +97,6 @@ class winningTickets extends Command
                 $prizezeed = null;
             }
             $grids = explode("|", $gridSelected);
-            foreach ($grids as $Selectedgrids) {
-                $count = 0;
-                $SelectedgridsExplode = [];
-                $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-                $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                $count = count($commonElements);
-                if ($count >= 6) {
-                    if (in_array($winningBallsExplode[0][6], $commonElements) && !in_array($winningBallsExplode[0][5], $commonElements)) {
-                        $count = 7;
-                    } else {
-                        $count = 6;
-                    }
-                }
-                if($keyInArray1 == 0){
-                    $prizezeed=1;
-                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
-                }else if($keyInArray1 == 1){
-                    $prizezeed=2;
-                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner2zeed());
-                }else if($keyInArray1 == 2){
-                    $prizezeed=3;
-                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner3zeed());
-                }else if($keyInArray1 == 3){
-                    $prizezeed=4;
-                    $gridsTobeUpdated->setwinzeed($getLastResults->getwinner4zeed());
-                }else{
-                    $prizezeed=null;
-                }
-                $grids = explode("|", $gridSelected);
                 foreach ($grids as $Selectedgrids) {
                     $count = 0;
                     $SelectedgridsExplode = [];
@@ -165,7 +136,7 @@ class winningTickets extends Command
             $gridsTobeUpdated->setwonzeed($prizezeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
-        }
+    }
 
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         $this->logger->debug(json_encode($getUsersWhoWon));
