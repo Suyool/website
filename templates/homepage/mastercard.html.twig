@@ -128,7 +128,7 @@
 
     <div class="home-mastercard">
         <div class="row">
-            <div class="col-md-7 col-12">
+            <div class="col-md-7 col-12 order-lg-0 order-1">
                 <div class="card-desc">
                     <div class="main_title">PEACE OF MIND</div>
                     <div class="title">Purchase Protection</div>
@@ -153,7 +153,7 @@
                     <div class="blue-btn">Claim Online</div>
                 </div>
             </div>
-            <div class="card-img-desk col-5">
+            <div class="card-img-desk col-lg-5 col-sm-12 order-lg-1 order-0">
                 <img src="{{ asset('/build/images/platinumMastercard/platinumCard.png') }}" alt="">
             </div>
         </div>
@@ -193,4 +193,5 @@
         </div>
         
     </footer>
+    {% include 'elements/footer.html.twig' %}
 {% endblock %}
