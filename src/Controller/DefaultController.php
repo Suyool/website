@@ -129,8 +129,32 @@ class DefaultController extends AbstractController
             ],
         ];
 
+        $lifeStyleData = [
+            [
+                'imagePath' => 'build/images/invitation/top-section-invitation-image.png',
+                'title' => 'Middle East & Levant Platinum Lounge Program',
+                'points' => [
+                    'Free access to 25+ airport lounges in multiple countries.',
+                    'Business amenities like email, internet, phones, and more.*',
+                    'Complimentary refreshments and snacks.',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/invitation/top-section-invitation-image.png',
+                'title' => 'Test OneTest OneTest OneTest OneTest OneTest One',
+                'points' => [
+                    'Free access to 25+ airport lounges in multiple countries.',
+                    'Business amenities like email, internet, phones, and more.*',
+                    'Complimentary refreshments and snacks.',
+                ],
+                'learnMoreLink' => '/',
+            ],
+        ];
+
         return $this->render('homepage/mastercard.html.twig', [
             'cardData' => $cardData,
+            'lifeStyleData' => $lifeStyleData,
         ]);
     }
 

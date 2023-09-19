@@ -71,7 +71,6 @@
         <div class="title">TRAVEL</div>
         <div class="descri">Elevate your Travel Experience</div>
 
-
         <div class="cards row">
             {% for card in cardData %}
                 <div class="col-lg-4 col-md-6 col-sm-12 big_card">
@@ -92,6 +91,65 @@
             {% endfor %}
         </div>
        
+    </div>
+
+    <div class="mastercard_page">
+        <div class="title">LIFESTYLE</div>
+        <div class="descri">Enhance your Lifestyle</div>
+
+        <div class="cards row">
+            {% for card in lifeStyleData %}
+                <div class="col-lg-4 col-md-6 col-sm-12 big_card">
+                    <div class="card">
+                        <img src="{{ asset(card.imagePath) }}" alt="Suyool">
+                        <div class="text">
+                            <div class="title">{{ card.title }}</div>
+                            {% for point in card.points %}
+                                <div class="points">
+                                    <div class="dot"></div>
+                                    <div class="desc">{{ point }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+       
+    </div>
+
+    <div class="home-mastercard">
+        <div class="row">
+            <div class="col-md-7 col-12">
+                <div class="card-desc">
+                    <div class="main_title">PEACE OF MIND</div>
+                    <div class="title">Purchase Protection</div>
+                    <div class="text sub-title">Automatically protect your purchases from theft or accident for 180 days with Purchase Protection from your Platinum Mastercard®. Visit <a href="/">Purchase Protection</a>  to claim online.</div>
+                    <div class="text check">
+                        <img src="{{asset('build/images/check.png')}}" alt="">
+                        <p class="desktop">Purchase Protection for eligible Mastercard purchases.</p>
+                    </div>
+                    <div class="text check">
+                        <img src="{{asset('build/images/check.png')}}" alt="">
+                        <p class="desktop">Coverage for theft or accidental damage up to 180 days from purchase.</p>
+                    </div>
+                    <div class="text check">
+                        <img src="{{asset('build/images/check.png')}}" alt="">
+                        <p class="desktop">Up to $2,000 per claim, with a maximum of $5,000 annually.s</p>
+                    </div>
+                    <div class="text check">
+                        <img src="{{asset('build/images/check.png')}}" alt="">
+                        <p class="desktop">Replacement or compensation based on store receipt for damaged items.</p>
+                    </div>
+    
+                    <div class="blue-btn">Claim Online</div>
+                </div>
+            </div>
+            <div class="card-img-desk col-5">
+                <img src="{{ asset('/build/images/visacard.png') }}" alt="">
+            </div>
+        </div>
     </div>
 
 {% endblock %}

@@ -252,3 +252,71 @@
     }
   }
 }
+
+.home-mastercard {
+  overflow: hidden;
+  width: 100%;
+  margin: 100px 0;
+  .card-desc {
+    width: 75%;
+    margin: auto;
+
+    .main_title {
+      color: #373464;
+      font-size: 23px;
+      font-family: $Bold;
+    }
+
+    .title {
+      color: #374a5a;
+      font-size: 52px;
+      font-family: $Regular;
+      margin-bottom: 30px;
+    }
+
+    .sub-title {
+      margin: 20px 0 70px 0 !important;
+    }
+
+    .text {
+      margin: 30px 0;
+      font-family: $Regular;
+      font-size: 22px;
+      color: #00000080;
+
+      span {
+        font-family: $Bold;
+        text-decoration: underline;
+        color: #226d96;
+      }
+      a {
+        font-family: $Bold;
+        text-decoration: underline;
+        color: #226d96;
+      }
+    }
+    .check {
+      display: flex;
+
+      img {
+        margin-right: 20px;
+        height: 38px;
+      }
+    }
+  }
+
+  .blue-btn {
+    margin-left: 40px;
+  }
+}
+
+.blue-btn {
+  color: #ffffff;
+  background: #226d96;
+  font-family: $SemiBold;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 20px 0;
+  width: 200px;
+}
