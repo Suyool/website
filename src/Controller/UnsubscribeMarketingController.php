@@ -34,9 +34,8 @@ class UnsubscribeMarketingController extends AbstractController
                 //Get the response
                 $response = json_decode($result, true);
             }
-            $response['RespCode'] = 1;
             //If the Email is unsubscriped and the user is not registered
-            if ($response['RespCode'] == 1) {
+            if ($response['flagCode'] == 1) {
                 $title = 'You have been unsubscribed';
                 // $url = "/UnsubscribeMarketing?uniqueCode=" . $code . "&Flag=1";
                 $description = 'You have been successfully removed from this list. <span class="error-check">If you did this in error</span> <br>
@@ -46,7 +45,7 @@ class UnsubscribeMarketingController extends AbstractController
                 $image = "unverified-msg.png";
                 $class = "unverified";
                 //If the Email is Failed
-            } else if ($response['RespCode'] == -1) {
+            } else if ($response['flagCode'] == -1) {
                 $title = 'Unsubscribe Request Failed ';
                 $description = 'We are unable to process your request right now. Please try again later ';
                 $image = "fail_icon.gif";
