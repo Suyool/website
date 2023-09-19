@@ -24,3 +24,8 @@ monolog:
             path: "%kernel.logs_dir%/winning.log"
             level: debug
             channels: ['Winning']
+        play:
+            type: stream
+            path: "%kernel.logs_dir%/play.log"
+            level: debug
+            channels: ['Play']

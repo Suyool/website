@@ -60,5 +60,4 @@ public/elections/var/cache/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-
-/.vscode
+.vscode/settings.json

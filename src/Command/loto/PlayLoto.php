@@ -11,6 +11,8 @@ use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,8 +29,9 @@ class PlayLoto extends Command
     private $notificationService;
     private $notifyMr;
     private $factory;
+    private $logger;
 
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, $certificate, $hash_algo, NotificationServices $notificationService, LockFactory $lockFactory)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, $certificate, $hash_algo, NotificationServices $notificationService, LockFactory $lockFactory, LoggerInterface $logger)
     {
         parent::__construct();
 
@@ -40,6 +43,7 @@ class PlayLoto extends Command
         $this->notificationService = $notificationService;
         $this->notifyMr = $mr->getManager('notification');
         $this->factory = $lockFactory;
+        $this->logger = $logger;
     }
 
     protected function configure()
@@ -74,15 +78,15 @@ class PlayLoto extends Command
 
             foreach ($purchaseOrder as $purchaseOrder) {
                 $additionalDataArray = [];
-                $GetPurchasedOrder=$this->mr->getRepository(order::class)->findOneBy(['id'=>$purchaseOrder['orderId']]);
+                $GetPurchasedOrder = $this->mr->getRepository(order::class)->findOneBy(['id' => $purchaseOrder['orderId']]);
                 $ticketDataArray = [];
-                foreach($purchaseOrder['additionalData'] as $addData){
+                foreach ($purchaseOrder['additionalData'] as $addData) {
                     $ticketDataArray[] = $addData;
                 }
                 $additionalDataArray[] = $ticketDataArray;
-                $ticket=count($ticketDataArray);
-                $additionalDataArray[]=['count' => $ticket];
-                $additionalData=json_encode($additionalDataArray,true);
+                $ticket = count($ticketDataArray);
+                $additionalDataArray[] = ['count' => $ticket];
+                $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
                 echo $additionalData;
                 if ($updateutility[0]) {
@@ -146,18 +150,31 @@ class PlayLoto extends Command
                             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoToBePlayed->getdrawnumber()]);
                             $drawNumber = $lotoToBePlayed->getdrawnumber();
                             $result = $draw->getdrawdate()->format('d/m/Y');
+                            sleep(1);
+                            $retryCountToCatchTheError = 3;
 
-                            if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $content = $this->notificationService->getContent('bouquet with zeed');
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
-                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
-                                $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
-                            } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $content = $this->notificationService->getContent('bouquet without zeed');
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
-                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
-                                $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
+                            while ($retryCountToCatchTheError > 0) {
+                                try {
+                                    if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
+                                        $content = $this->notificationService->getContent('bouquet with zeed');
+                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
+                                        $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                                        $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
+                                    } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
+                                        $content = $this->notificationService->getContent('bouquet without zeed');
+                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
+                                        $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                                        $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
+                                    }
+                                    break;
+                                } catch (Exception $e) {
+                                    $this->logger->error($e->getMessage());
+                                    $retryCountToCatchTheError--;
+                                    sleep(1);
+                                }
                             }
+
+
 
                             $drawnumber = $lotoToBePlayed->getdrawnumber();
                             if ($lotoToBePlayed->getnumdraws() > 1) {
@@ -204,18 +221,30 @@ class PlayLoto extends Command
                             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoToBePlayed->getdrawnumber()]);
                             $drawNumber = $lotoToBePlayed->getdrawnumber();
                             $result = $draw->getdrawdate()->format('d/m/Y');
+                            sleep(1);
+                            $retryCountToCatchTheError = 3;
 
-                            if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
-                                $content = $this->notificationService->getContent('with zeed & without bouquet');
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
-                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
-                                $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
-                            } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
-                                $content = $this->notificationService->getContent('without zeed & without bouquet');
-                                $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId], true);
-                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
-                                $newElement = ['ticketId' => $ticketId];
+                            while ($retryCountToCatchTheError > 0) {
+                                try {
+                                    if ($lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
+                                        $content = $this->notificationService->getContent('with zeed & without bouquet');
+                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
+                                        $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                                        $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
+                                    } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
+                                        $content = $this->notificationService->getContent('without zeed & without bouquet');
+                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId], true);
+                                        $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                                        $newElement = ['ticketId' => $ticketId];
+                                    }
+                                    break;
+                                } catch (Exception $e) {
+                                    $this->logger->error($e->getMessage());
+                                    $retryCountToCatchTheError--;
+                                    sleep(1);
+                                }
                             }
+
 
                             $drawnumber = $lotoToBePlayed->getdrawnumber();
                             if ($lotoToBePlayed->getnumdraws() > 1) {

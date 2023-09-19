@@ -94,6 +94,10 @@ services:
     App\Command\loto\winningTickets:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Winning' }
+    
+    App\Command\loto\PlayLoto:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Play' }
 
         
 
