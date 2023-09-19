@@ -51,7 +51,7 @@ class PlayLoto extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        
+
         $lock = $this->factory->createLock('loto_play_command');
 
         if (!$lock->acquire()) {
@@ -69,6 +69,37 @@ class PlayLoto extends Command
         $bulk = 0; // o for unicast
         while ($play) {
             set_time_limit(0);
+            $purchaseOrder = $this->mr->getRepository(loto::class)->CheckPurchasedStatus();
+            // dd($purchaseOrder);
+
+            foreach ($purchaseOrder as $purchaseOrder) {
+                $additionalDataArray = [];
+                $GetPurchasedOrder=$this->mr->getRepository(order::class)->findOneBy(['id'=>$purchaseOrder['orderId']]);
+                $ticketDataArray = [];
+                foreach($purchaseOrder['additionalData'] as $addData){
+                    $ticketDataArray[] = $addData;
+                }
+                $additionalDataArray[] = $ticketDataArray;
+                $ticket=count($ticketDataArray);
+                $additionalDataArray[]=['count' => $ticket];
+                $additionalData=json_encode($additionalDataArray,true);
+                $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
+                echo $additionalData;
+                if ($updateutility[0]) {
+                    $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
+                        ->setcurrency("LBP")
+                        ->setstatus(order::$statusOrder['COMPLETED']);
+
+                    $this->mr->persist($GetPurchasedOrder);
+                    $this->mr->flush();
+                } else {
+                    $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
+                    $GetPurchasedOrder->seterror($updateutility[1]);
+
+                    $this->mr->persist($GetPurchasedOrder);
+                    $this->mr->flush();
+                }
+            }
             $heldOrder = $this->mr->getRepository(order::class)->findBy(['status' => order::$statusOrder['HELD']], null, 1);
             if ($heldOrder == null) {
                 $play = 1;
@@ -117,14 +148,14 @@ class PlayLoto extends Command
                             $result = $draw->getdrawdate()->format('d/m/Y');
 
                             if ($lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $content=$this->notificationService->getContent('bouquet with zeed');
+                                $content = $this->notificationService->getContent('bouquet with zeed');
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId, 'zeed' => $lotoToBePlayed->getzeednumber()], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto?goto=Result");
+                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
                                 $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed(), 'bouquet' => $lotoToBePlayed->getbouquet()];
                             } else if (!$lotoToBePlayed->getwithZeed() && $lotoToBePlayed->getbouquet()) {
-                                $content=$this->notificationService->getContent('bouquet without zeed');
+                                $content = $this->notificationService->getContent('bouquet without zeed');
                                 $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'bouquetgrids' => $gridsBouquetAsString, 'result' => $result, 'ticket' => $ticketId], true);
-                                $this->notificationService->addNotification($userId, $content, $params,$bulk,"https://www.suyool.com/loto?goto=Result");
+                                $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
                                 $newElement = ['ticketId' => $ticketId, 'bouquet' => $lotoToBePlayed->getbouquet()];
                             }
 

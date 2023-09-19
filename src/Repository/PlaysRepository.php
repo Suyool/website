@@ -297,4 +297,47 @@ class PlaysRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function CheckPurchasedStatus()
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select('o.id,l.ticketId,l.withZeed,l.bouquet,l.price,o.amount,o.transId')
+            ->innerJoin(order::class, 'o')
+            ->where('o.id=l.order and o.status = :purchased and l.ticketId != 0 and l.ticketId is not null')
+            ->setParameter('purchased', 'purchased')
+            ->getQuery()
+            ->getResult();
+        $listWinners = [];
+        $purchasedsum = 0;
+        foreach ($qb as $qb) {
+            $userId = $qb['id'];
+            if (!isset($listWinners[$userId])) {
+                $purchasedsum = 0;
+                $additinalData = [];
+                $listWinners[$userId] = [];
+                // continue;
+            }
+            if (isset($listWinners[$userId])) {
+                $qb['withZeed'] ? $qb['withZeed'] = true : $qb['withZeed'] = false;
+                $qb['bouquet'] ? $qb['bouquet'] = true : $qb['withZeed'] = false;
+                $additinalData[] = [
+                    'ticketId' => $qb['ticketId'],
+                    'withZeed' => $qb['withZeed'],
+                    'bouquet' => $qb['bouquet']
+                ];
+
+                $purchasedsum += $qb['price'];
+                $listWinners[$userId] = [
+                    'orderId'=>$userId,
+                    'TotalPrice' => $purchasedsum,
+                    'Currency' => "LBP",
+                    'OrderAmount' => $qb['amount'],
+                    'transId' => $qb['transId'],
+                    'additionalData' => $additinalData
+                ];
+            }
+        }
+        $listWinners = array_values($listWinners);
+        return $listWinners;
+    }
 }
