@@ -23,8 +23,8 @@ class RequestController extends AbstractController
     private $cashinput = false;
     private $suyoolServices;
     private $mr;
-    
-    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate, SuyoolServices $suyoolServices,ManagerRegistry $mr)
+
+    public function __construct(translation $trans, SessionInterface $session, $hash_algo, $certificate, SuyoolServices $suyoolServices, ManagerRegistry $mr)
     {
         $this->trans = $trans;
         $this->session = $session;
@@ -32,7 +32,6 @@ class RequestController extends AbstractController
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
         $this->mr = $mr->getManager('default');
-
     }
 
     function GetInitials($name)
@@ -56,16 +55,17 @@ class RequestController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
-        $parameters['currency']="LBP";
-        if(strpos($parameters['request_details_response']['amount'],"$") !== false) $parameters['currency']="USD";
+        $parameters['currency'] = "LBP";
+        if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
-        $amount=explode(" ",$parameters['request_details_response']['amount']);
-        $amount=str_replace(",","",$amount);
-        $parameters['amount']=(int)$amount[1] * 100;
+        $amount = explode(" ", $parameters['request_details_response']['amount']);
+        $amount = str_replace(",", "", $amount);
+
 
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
             return $this->redirectToRoute("homepage");
         }
+        $parameters['amount'] = (int)$amount[1] * 100;
         $this->session->set("request_details_response", $parameters['request_details_response']);
         $this->session->set("Code", $code);
         $this->session->set(
