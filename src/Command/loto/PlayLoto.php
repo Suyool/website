@@ -220,7 +220,7 @@ class PlayLoto extends Command
                 $count['count'] = $ticketscount;
                 $additionaldata[] = $count;
                 $additionalData = json_encode($additionaldata, true);
-                echo $additionalData;
+                // echo $additionalData;
                 $lotoidcompleted = $this->mr->getRepository(loto::class)->completed($held->getId());
 
                 foreach ($lotoidcompleted as $lotoidcompletedsum) {
