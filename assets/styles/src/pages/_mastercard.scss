@@ -111,8 +111,10 @@
 .four_steps {
   background-color: #d7d7e2;
   margin: 0;
+  padding-top: 20px;
   .step {
     // max-width: 270px;
+
     padding: 20px 5%;
     .title {
       font-size: 24px;
@@ -123,6 +125,7 @@
       font-size: 17px;
       font-family: $Regular;
       color: #5a5a5a;
+      text-align: justify;
     }
   }
 }
@@ -135,6 +138,11 @@
   .step {
     width: 30%;
     .sub {
+      position: relative;
+      img{
+        position: absolute;
+        right: 20px;
+      }
       min-height: 300px;
       width: 90%;
       margin: auto;
@@ -154,6 +162,7 @@
         font-family: $Regular;
         color: #6b6b6b;
         letter-spacing: 0;
+        text-align: justify;
       }
     }
   }
@@ -176,6 +185,7 @@
     font-family: $Regular;
     font-size: 52px;
     color: #202020;
+    text-align: justify;
   }
 
   .cards {
@@ -188,17 +198,18 @@
       justify-content: center;
       .card {
         width: 90%;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
         box-shadow: 0px 10px 60px #0000002e;
         overflow: hidden;
         margin: 20px 0;
+        height: -webkit-fill-available;
 
         img {
           width: 100%;
           height: 300px;
-          border-top-left-radius: 15px;
-          border-top-right-radius: 15px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
         }
         .text {
           padding: 30px;
@@ -283,6 +294,7 @@
       font-family: $Regular;
       font-size: 22px;
       color: #00000080;
+      text-align: justify;
 
       span {
         font-family: $Bold;
