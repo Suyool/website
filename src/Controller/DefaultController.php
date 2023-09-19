@@ -68,10 +68,10 @@ class DefaultController extends AbstractController
                 }
             }
         }
-        return $this->render('homepage/CommingSoon.html.twig', [
-            'message' => $message
-        ]);
-        // return $this->render('homepage/index.html.twig');
+        // return $this->render('homepage/CommingSoon.html.twig', [
+        //     'message' => $message
+        // ]);
+        return $this->render('homepage/index.html.twig');
     }
 
     /**
@@ -99,6 +99,39 @@ class DefaultController extends AbstractController
     public function terms_and_conditions(Request $request)
     {
         return $this->render('policies/termsConditions.html.twig');
+    }
+
+    /**
+     * @Route("/mastercard", name="app_mastercard")
+     */
+    public function mastercard(Request $request)
+    {
+        $cardData = [
+            [
+                'imagePath' => 'build/images/invitation/top-section-invitation-image.png',
+                'title' => 'Middle East & Levant Platinum Lounge Program',
+                'points' => [
+                    'Free access to 25+ airport lounges in multiple countries.',
+                    'Business amenities like email, internet, phones, and more.*',
+                    'Complimentary refreshments and snacks.',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/invitation/top-section-invitation-image.png',
+                'title' => 'Test OneTest OneTest OneTest OneTest OneTest One',
+                'points' => [
+                    'Free access to 25+ airport lounges in multiple countries.',
+                    'Business amenities like email, internet, phones, and more.*',
+                    'Complimentary refreshments and snacks.',
+                ],
+                'learnMoreLink' => '/',
+            ],
+        ];
+
+        return $this->render('homepage/mastercard.html.twig', [
+            'cardData' => $cardData,
+        ]);
     }
 
     public function show()
