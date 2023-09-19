@@ -46,6 +46,12 @@
         "/build/Ogero.f9787607.js"
       ]
     },
+    "iveri": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/iveri.2047acea.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
@@ -100,6 +106,14 @@
       ],
       "css": [
         "/build/OgeroStyle.161ac4bd.css"
+      ]
+    },
+    "iveristyles": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/iveristyles.e23520f4.css"
       ]
     }
   }

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if form is defined %}
+    Hello {{fname}} {{lname}}
+    {{form_start(form)}}
+    {{ form_row(form.amount) }}
+    {{ form_row(form.currency) }}
+    <div id="submit">{{ form_row(form.save) }}</div>
+    {{form_end(form)}}
+    {% else %}
+        {{message}}
+    {% endif %}
+{% endblock %}
