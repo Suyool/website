@@ -39,6 +39,9 @@ class IveriController extends AbstractController
             // dd($_POST);
             $transaction = new Transaction;
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
+                $parameters['amount']=$_POST['LITE_ORDER_AMOUNT'] / 100;
+                $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency']="$" : $parameters['currency']="LL";
+
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
                 $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);

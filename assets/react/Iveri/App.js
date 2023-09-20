@@ -26,7 +26,7 @@ const App = ({ parameters }) => {
         title: "Top Up Successful",
         desc: (
           <div>
-            Your wallet has been topped up with cur Amount. Check your new
+            Your wallet has been topped up with {parameters.currency} {parameters.amount}. Check your new
             balance
           </div>
         ),
