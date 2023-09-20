@@ -51,7 +51,7 @@ function OwnerInput({ data, setData }) {
             <div className="row component">
               <div className="col-12 subTitle">
                 <button className="addTill" onClick={handleAdd}>
-                  + ADD ANOTHER EMPLOYEE
+                  + ADD ANOTHER OWNER
                 </button>
               </div>
             </div>
