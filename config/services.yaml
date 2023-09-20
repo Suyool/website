@@ -99,6 +99,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Play' }
 
+    App\Service\LotoServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Play' }
+
         
 
     # App\Controller\LotoController:

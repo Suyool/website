@@ -74,7 +74,6 @@ class PlayLoto extends Command
         while ($play) {
             set_time_limit(0);
             $purchaseOrder = $this->mr->getRepository(loto::class)->CheckPurchasedStatus();
-            // dd($purchaseOrder);
 
             foreach ($purchaseOrder as $purchaseOrder) {
                 $additionalDataArray = [];
@@ -88,7 +87,7 @@ class PlayLoto extends Command
                 $additionalDataArray[] = ['count' => $ticket];
                 $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
-                echo $additionalData;
+                // echo $additionalData;
                 if ($updateutility[0]) {
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")

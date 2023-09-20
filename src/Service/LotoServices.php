@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Utils\Helper;
+use Psr\Log\LoggerInterface;
 
 class LotoServices
 {
@@ -12,13 +13,15 @@ class LotoServices
     private $client;
     private $METHOD_POST;
     private $helper;
+    private $loggerInterface;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper,LoggerInterface $loggerInterface)
     {
         $this->client = $client;
         $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
+        $this->loggerInterface=$loggerInterface;
     }
 
     public function Login()
@@ -168,7 +171,8 @@ class LotoServices
                 return array(false, $submit, $error);
             } else {
                 sleep(10);
-                echo "attemp " . $retryattempt;
+                $this->loggerInterface->info("attemp " . $retryattempt);
+                $this->loggerInterface->error($content['d']['errorinfo']['errormsg']);
                 $retryattempt++;
             }
         }
