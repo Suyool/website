@@ -1,54 +1,92 @@
-.homepage {
-  background: linear-gradient(31deg, #cccccc94 6%, #fff 26%);
+.homepage{
   .top-section {
-    padding-top: 80px;
+    background: linear-gradient(90deg,#226D96 6%,#373464 76%);
+    padding-top: 20px;
     padding-bottom: 80px;
+    color: #ffffff;
+
+    .navbar {
+      margin-bottom: 120px;
+      .right{
+        display: flex;
+        justify-content: space-around;
+        font-size: 18px;
+        font-family: $Regular;
+
+        .link {
+          padding-top: 6px;
+        }
+
+        .nav-button{
+          background: #48a6d9;
+          border-radius: 5px;
+          height: 40px;
+          text-align: center;
+          width: 170px;
+        }
+      }
+
+    }
+
     .top-info {
       h1 {
-        font-size: 60px;
+        font-size: 72px;
         margin-bottom: 40px;
         font-family: $Regular;
       }
+
       p {
-        font-size: 18px;
+        font-size: 20px;
         font-family: $Regular;
-        color: #949494;
+        width: 80%;
       }
+
       .buttons-cont {
         font-family: $Regular;
         margin-top: 70px;
-        .btn{
-          &:hover{
+        display: flex;
+        justify-content: space-between;
+
+        .btn {
+          &:hover {
             color: #ffffff;
           }
         }
-        .btn-outline-secondar
+
         .button-primary {
           margin-right: 10px;
+          font-size: 18px;
         }
+
         .button-primary, .btn-outline-secondary {
           border-radius: 12px;
           padding: 10px 30px;
-          font-size: 13px;
+          background: #FFFFFF;
+          color: #226D96;
         }
+
         .btn-outline-secondary {
           border-color: #226D96;
           color: #226D96;
-          &:hover{
+
+          &:hover {
             background-color: unset;
             color: #226d96;
           }
         }
       }
     }
+
     .right-section {
       .img-cont {
         position: relative;
         max-width: 615px;
         margin: auto;
+
         img {
           width: 100%;
         }
+
         .img-desc {
           background-color: #fff;
           border-radius: 70px;
@@ -59,7 +97,8 @@
           position: absolute;
           right: 24px;
           box-shadow: 0px 0 4px -2px #888;
-          i{
+
+          i {
             color: #858585;
             display: block;
             position: absolute;
@@ -71,4 +110,306 @@
       }
     }
   }
+
+  .home_body_desktop, .home_body_mobile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    .how_suyool_work{
+      font-size: 22px;
+      font-family: $Bold;
+      color: #373464;
+    }
+    .easy_steps{
+      font-size: 52px;
+      font-family: $Regular;
+      color: #202020;
+      padding: 20px 0;
+    }
+    .manage_spend{
+      font-size: 22px;
+      font-family: $Regular;
+      color: #6B6B6B;
+    }
+  }
+
+  .home_body_mobile {
+    display: none;
+  }
+
+  .home-steps {
+    margin: 30px 0;
+    justify-content: center;
+    .step{
+      padding: 40px;
+      margin: 0 10px 50px 10px;
+      border-radius: 10px;
+      border: none;
+
+      .head {
+        display: flex;
+        justify-content: space-between;
+        font-family: $Bold;
+        font-size: 52px;
+        margin-bottom: 30px;
+      }
+      .title {
+        font-family: $SemiBold;
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+      .text {
+        font-family: $Regular;
+        font-size: 17px;
+        color: #6B6B6B;
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  .home-mastercard{
+    margin: 100px 0;
+    .card-img-mobile{
+      display: none;
+    }
+
+    .card-desc{
+      width: 75%;
+      margin: auto;
+      .title{
+        color: #374A5A;
+        font-size: 52px;
+        font-family: $Regular;
+        margin-bottom: 30px;
+      }
+      
+      .sub-title{
+        margin: 20px 0 70px 0!important;
+      }
+
+      .text{
+        margin: 30px 0;
+        font-family: $Regular;
+        font-size: 22px;
+        color: #00000080;
+
+        span{
+          font-family: $Bold;
+          text-decoration: underline;
+          color: #226D96;
+        }
+      }
+      .check{
+        display: flex;
+
+        img{
+          margin-right: 20px;
+          height: 38px;
+        }
+      }
+    }
+
+    .blue-btn{
+      margin-left: 40px;
+    }
+  }
+
+  .blue-btn{
+    color: #FFFFFF;
+    background: #226D96;
+    font-family: $SemiBold;
+    font-size: 22px;
+    text-align: center;
+    border-radius: 8px;
+    padding:  20px 0;
+    width: 200px;
+  }
+
+  .use-money{
+    margin-bottom: 200px;
+    .use-row{
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      margin: auto;
+
+      .item{
+        width: 25%;
+        margin: 40px;
+
+        .head{
+          display: flex;
+          p{
+            color:#202020;
+            font-size: 24px;
+            font-family: $SemiBold;
+            padding-left: 10px;
+          }
+        }
+
+        .text{
+          font-size: 17px;
+          font-family: $Regular;
+          color: #6B6B6B;
+          padding-left: 50px;
+        }
+      }
+    }
+  }
+
+  .corporate-section{
+    background-image: url("../../../images/homepage/corporate-section-bg.jpg");
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .content{
+      color: #FFFFFF;
+      font-family: $Regular;
+      width: 50%;
+      margin-left: 15%;
+      .title{
+        font-size: 52px;
+        margin: 40px 0;
+      }
+      .text{
+        font-size: 22px;
+      }
+      .blue-btn{
+        width: 350px;
+        margin-top: 50px;
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1400px) {
+    .top-section{
+      .top-info {
+        h1 {
+          font-size: 40px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+
+  }
+
+  @media (min-width: 769px){
+    .mobile{
+      display: none !important;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .desktop{
+      display: none !important;
+    }
+
+    .top-section{
+      .top-info {
+        text-align: center;
+        h1, .buttons-cont{
+          text-align: center;
+        }
+
+        h1 {
+          margin-top: 20px;
+          font-size: 40px;
+          font-family: $Regular;
+        }
+
+        p {
+          font-size: 14px;
+          width: 90%;
+          margin: auto;
+          text-align: left;
+          line-height: 2;
+        }
+      }
+    }
+
+    .home_body_desktop{
+      display: none;
+    }
+
+    .home_body_mobile{
+      display: block;
+      width: 80%;
+      margin: auto;
+      text-align: center;
+      .how_suyool_work, .manage_spend{
+        font-size: 16px;
+      }
+      .easy_steps{
+        font-size: 40px;
+      }
+    }
+
+    .home-steps {
+      .step{
+        padding: 20px 40px;
+        .head {
+          font-size: 52px;
+          margin-bottom: 30px;
+        }
+        .title {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+        .text {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .home-mastercard{
+      .card-img-mobile{
+        display: block;
+        text-align: center;
+
+        img{
+          width: 70%;
+        }
+      }
+
+      .card-desc{
+        width: 80%;
+        .title{
+          font-size: 34px;
+          margin-bottom: 20px;
+        }
+
+        .sub-title{
+          margin: 20px 0 40px 0!important;
+        }
+
+        .text{
+          margin: 30px 0;
+          font-size: 16px;
+        }
+      }
+
+      .card-img-desk{
+        display: none;
+      }
+
+      .blue-btn{
+        margin: auto;
+      }
+    }
+
+    .blue-btn{
+      font-size: 16px;
+      padding:  10px 0;
+      width: 180px;
+    }
+  }
+
 }

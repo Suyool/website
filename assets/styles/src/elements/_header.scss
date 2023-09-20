@@ -20,3 +20,23 @@ nav {
     }
   }
 }
+
+.navbar_v2 {
+  background: linear-gradient(90deg,#226D96 6%,#373464 76%);
+  font-family: $Regular;
+  .navbar-nav {
+    li {
+      margin-right: 50px;
+      .nav-link {
+        color: #FFFFFF!important;
+      }
+      .button-primary {
+        padding: 8px 30px;
+        border-radius: 8px;
+        &:hover{
+          color: #fff;
+        }
+      }
+    }
+  }
+}
