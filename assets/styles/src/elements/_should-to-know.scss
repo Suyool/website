@@ -1,9 +1,12 @@
 .should-to-know {
-  .right{
-    img{
+  margin-top: 120px;
+
+  .right {
+    img {
       width: 70px;
     }
   }
+
   margin-bottom: 100px;
 
   .info {
@@ -11,8 +14,8 @@
 
     h6 {
       color: #373464;
-    font-family: $Bold;
-    font-size: 18px;
+      font-family: $Bold;
+      font-size: 21px;
     }
 
     h2 {
@@ -20,34 +23,33 @@
       /* line-height: 1.5; */
       margin: 30px 0;
       color: #374A5A;
-      font-size: 38px;
+      font-size: 52px;
     }
 
     p {
-      font-size: 14px;
+      font-size: 24px;
       color: #6B6B6B;
       font-family: $Regular;
       margin-bottom: 70px;
     }
 
-    .button-primary {
-      padding: 10px 30px;
-      font-family: $SemiBold;
-    }
   }
+
   .box {
-    background-color: #ffffff;
-    box-shadow:0px 0px 0px 3px #ffffff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    box-shadow: 0px 0px 10px #eeeeee;
+    padding: 50px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    border: none;
+
     span {
       font-family: $SemiBold;
-      font-size: 20px;
+      font-size: 24px;
     }
+
     p {
       color: #6B6B6B;
-      font-size: 14px;
+      font-size: 17px;
       font-family: $Regular;
       margin-top: 10px;
     }

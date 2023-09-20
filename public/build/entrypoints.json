@@ -47,7 +47,11 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.261a3072.css"
+=======
+        "/build/styles.a8f7d4eb.css"
+>>>>>>> 5fac218 (homepage desktop)
       ]
     },
     "admin": {

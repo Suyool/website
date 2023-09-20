@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% include 'elements/header-v2.html.twig' %}
-
     <div class="homepage">
         {% include 'homepage/top-section.html.twig' %}
         {% include 'homepage/homepage-steps.html.twig' %}
         {% include 'homepage/home-mastercard.html.twig' %}
         {% include 'homepage/use-money.html.twig' %}
         {% include 'homepage/corporate-section.html.twig' %}
-
+        {% include 'homepage/why-use-suyool.html.twig' %}
+        {% include 'homepage/account-security-section.html.twig' %}
+        {% include 'homepage/notification-section.html.twig' %}
+        {% include 'elements/merchant.html.twig' %}
+        {% include 'elements/bottom-section.html.twig' %}
     </div>
 
 {% endblock %}

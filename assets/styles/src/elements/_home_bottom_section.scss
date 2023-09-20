@@ -4,13 +4,13 @@
     .register{
         color: #226D96;
         font-family: $Medium;
-        font-size: 20px;
+        font-size: 24px;
         line-height: 50px;
     }
     .adopters{
         color: #374A5A;
         font-family: $SemiBold;
-        font-size: 35px;
+        font-size: 53px;
         padding-bottom: 56px;
     }
     form{
@@ -22,24 +22,25 @@
         }
         margin: auto;
         background-color:#EFEEF6 ;
-        max-width: 570px;
+        max-width: 700px;
         padding: 20px;
         border-radius: 10px;
         input[type=email]{
             border: none;
             background: no-repeat;
+            font-size: 18px;
         }
         input[type=submit]{
             color: #FFFFFF;
             border: none;
             background: #226D96;
-            padding: 14px 25px;
+            padding: 20px 30px;
             font-family: $Medium;
             border-radius: 10px;
-            margin-left: 94px;
+            margin-left: 200px;
             @media screen and (max-width: 768px) {
                 margin-left: 0px;
-                
+
             }
         }
     }
