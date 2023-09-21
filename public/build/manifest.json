@@ -6,15 +6,7 @@
   "build/Alfa.js": "/build/Alfa.7fa6db85.js",
   "build/Touch.js": "/build/Touch.e1ee1abc.js",
   "build/Ogero.js": "/build/Ogero.f9787607.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.261a3072.css",
-=======
-  "build/styles.css": "/build/styles.a8f7d4eb.css",
->>>>>>> 5fac218 (homepage desktop)
-=======
-  "build/styles.css": "/build/styles.6bd3ea9c.css",
->>>>>>> 093ef85 (anthony requires components)
+  "build/styles.css": "/build/styles.cf8bb8b7.css",
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.353ae048.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.e42db11a.css",
@@ -207,11 +199,8 @@
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
   "build/images/Loto/LLDJ.png": "/build/images/Loto/LLDJ.png",
-<<<<<<< HEAD
   "build/images/platinumMastercard/acceptance.png": "/build/images/platinumMastercard/acceptance.png",
-=======
   "build/images/homepage/leb-map.png": "/build/images/homepage/leb-map.png",
->>>>>>> 093ef85 (anthony requires components)
   "build/images/warning.png": "/build/images/warning.png",
   "build/images/Loto/playSelected.png": "/build/images/Loto/playSelected.png",
   "build/images/Transfer.png": "/build/images/Transfer.png",
