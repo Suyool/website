@@ -49,6 +49,7 @@
       "css": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.05681299.css"
 =======
         "/build/styles.a0e302fd.css"
@@ -56,6 +57,9 @@
 =======
         "/build/styles.d1c5e6b5.css"
 >>>>>>> 3829159 (faq section)
+=======
+        "/build/styles.f37f3a46.css"
+>>>>>>> e2a46f7 (section use-money mastercard and steps)
       ]
     },
     "admin": {

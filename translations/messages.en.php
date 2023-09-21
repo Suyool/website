@@ -44,6 +44,13 @@ return [
     'VALID_24HRS_IF_YOU_DONT'=>'Valid ID is required at cashier.',
     //Invitation
     "18_AND_ABOVE"=>"You have to be 18 and above to be eligible",
-    "ALREADY_SUBMITTED"=>"You already submitted a mobile number on this device"
+    "ALREADY_SUBMITTED"=>"You already submitted a mobile number on this device",
+
+    //alfa-employee
+    "ALFABRINGINGYOURPAY"=>"Alfa is bringing your pay to <br> the ultimate digital account!",
+    "FACINGTODAYFINANCIALCHALLENGES"=>"Facing today’s financial challenges, we moved our payroll to Suyool.<br>
+    You will get your own digital dual-currency account,a Platinum Mastercard<br>  & a payment tool
+    with the best rates available.",
+    "OPENYOURSUYOOLACCOUNT"=>"Open Your Suyool Account",
     
 ];

@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Suyool{% endblock %}
+{% block title %}Suyool
+{% endblock %}
 
 {% block body %}
-    {% include 'elements/alfa_employee/topSection.html.twig' %}
-    {% include 'elements/faq/faqSuyool.html.twig' %}
+	{% include 'elements/alfa_employee/topSection.html.twig' %}
+	<div class="homepage">
+		{% include 'homepage/homepage-steps.html.twig' %}
+		{% include 'elements/alfa_employee/alfa_mastercard.html.twig' %}
+	</div>
+    {% include 'elements/alfa_employee/use-money.html.twig' %}
+	{% include 'elements/faq/faqSuyool.html.twig' %}
 
 {% endblock %}
