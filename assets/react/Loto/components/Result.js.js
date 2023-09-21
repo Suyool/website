@@ -110,7 +110,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
     setMyGrids([]);
     setSelectedMonthYear(event.target.value);
     setStartIndex(0);
-    setClickedIndex(null);
+    // setClickedIndex(null);
   };
 
 
