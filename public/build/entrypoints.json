@@ -47,7 +47,11 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.05681299.css"
+=======
+        "/build/styles.a0e302fd.css"
+>>>>>>> 1ff1f99 (alfa employee top section)
       ]
     },
     "admin": {
