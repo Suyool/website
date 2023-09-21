@@ -48,10 +48,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.05681299.css"
 =======
         "/build/styles.a0e302fd.css"
 >>>>>>> 1ff1f99 (alfa employee top section)
+=======
+        "/build/styles.d1c5e6b5.css"
+>>>>>>> 3829159 (faq section)
       ]
     },
     "admin": {

@@ -1,11 +1,64 @@
-.topSectionAlfaEmp{
+.topSectionAlfaEmp {
     background-color: #e41e2c;
-    height: 560px;
-    .logos{
+    padding-bottom: 120px;
+
+    .logos {
+        padding-top: 30px;
         text-align: center;
-        span{
-            font-size: 20px;
-            color: #ffffff;
+
+        span {
+            color: #fff;
+            font-size: 41px;
+            margin-left: 13px;
+            position: relative;
+            margin-right: 13px;
+            top: 8px;
+            font-weight: 300;
         }
+
+        img {
+            width: 112px;
+        }
+    }
+
+    .information {
+        text-align: center;
+
+        .title {
+            margin-top: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-family: $Regular;
+        }
+
+        .desc {
+            margin-top: 30px;
+            font-family: 'PoppinsRegular';
+            font-size: 17px;
+            color: #fff;
+        }
+
+        .OpenSuyoolAccount {
+            margin-top:30px ;
+            .OpenYourSuyoolAccount {
+                padding: 10px 24px;
+                border-radius: 10px;
+                border: none;
+                color: #226D96;
+                font-family: $SemiBold;
+            }
+        }
+    }
+
+}
+.InfoSection{
+    background-color: #fdf2f3;
+    text-align: center;
+    .MasterCard{
+        text-align: center;
+        color: #373464;
+        font-family:$Regular ;
+        font-size: 18px;
+        margin-bottom: 24px;
     }
 }

@@ -7,10 +7,14 @@
   "build/Touch.js": "/build/Touch.e1ee1abc.js",
   "build/Ogero.js": "/build/Ogero.f9787607.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.05681299.css",
 =======
   "build/styles.css": "/build/styles.a0e302fd.css",
 >>>>>>> 1ff1f99 (alfa employee top section)
+=======
+  "build/styles.css": "/build/styles.d1c5e6b5.css",
+>>>>>>> 3829159 (faq section)
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.84a99db3.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.e42db11a.css",
@@ -235,6 +239,7 @@
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/platinumMastercard/safety_security.png": "/build/images/platinumMastercard/safety_security.png",
   "build/images/Payment.png": "/build/images/Payment.png",
+  "build/images/alfa_employee/mastercard.PNG": "/build/images/alfa_employee/mastercard.PNG",
   "build/images/commingSoon/twitter.png": "/build/images/commingSoon/twitter.png",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
   "build/images/OnlinePayment.png": "/build/images/OnlinePayment.png",
