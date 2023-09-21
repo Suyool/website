@@ -48,10 +48,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.261a3072.css"
 =======
         "/build/styles.a8f7d4eb.css"
 >>>>>>> 5fac218 (homepage desktop)
+=======
+        "/build/styles.6bd3ea9c.css"
+>>>>>>> 093ef85 (anthony requires components)
       ]
     },
     "admin": {
