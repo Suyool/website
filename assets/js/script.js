@@ -292,9 +292,8 @@ if(document.getElementById("submit")){
 
 $(document).ready(function() {
   $('#resubscribe').on('click', function() {
-    var uniqueCode = $(this).data('uniqueCode');
+    var uniqueCode = $(this).data('code');
     var flag = $(this).data('flag');
-    console.log(flag);
     resubscribe(uniqueCode, flag);
   });
 });

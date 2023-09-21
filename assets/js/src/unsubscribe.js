@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('#resubscribe').on('click', function() {
-    var uniqueCode = $(this).data('uniqueCode');
+    var uniqueCode = $(this).data('code');
     var flag = $(this).data('flag');
     resubscribe(uniqueCode, flag);
   });
