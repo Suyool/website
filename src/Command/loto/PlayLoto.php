@@ -70,38 +70,40 @@ class PlayLoto extends Command
         $play  = 1;
         $newsum = 0;
         $drawNumber = 0;
-        $bulk = 0; // o for unicast
+        $bulk = 0; // 0 for unicast
         while ($play) {
             set_time_limit(0);
+            
+            $purchaseOrder=[];
             $purchaseOrder = $this->mr->getRepository(loto::class)->CheckPurchasedStatus();
-
             foreach ($purchaseOrder as $purchaseOrder) {
+                $this->mr->clear();
                 $additionalDataArray = [];
                 $GetPurchasedOrder = $this->mr->getRepository(order::class)->findOneBy(['id' => $purchaseOrder['orderId']]);
                 $ticketDataArray = [];
                 foreach ($purchaseOrder['additionalData'] as $addData) {
-                    $ticketDataArray[] = $addData;
+                    if($addData['ticketId']!=0){
+                        $ticketDataArray[] = $addData;
+                    }
                 }
-                $additionalDataArray[] = $ticketDataArray;
-                $ticket = count($ticketDataArray);
-                $additionalDataArray[] = ['count' => $ticket];
+                if($purchaseOrder['TotalPrice'] > 0){
+                    $additionalDataArray[] = $ticketDataArray;
+                    $ticket = count($ticketDataArray);
+                    $additionalDataArray[] = ['count' => $ticket];
+                }
                 $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
-                // echo $additionalData;
                 if ($updateutility[0]) {
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")
                         ->setstatus(order::$statusOrder['COMPLETED']);
-
-                    $this->mr->persist($GetPurchasedOrder);
-                    $this->mr->flush();
                 } else {
-                    $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
-                    $GetPurchasedOrder->seterror($updateutility[1]);
-
-                    $this->mr->persist($GetPurchasedOrder);
-                    $this->mr->flush();
+                        $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
+                        $GetPurchasedOrder->seterror($updateutility[1]);
                 }
+
+                $this->mr->persist($GetPurchasedOrder);
+                $this->mr->flush();
             }
             $heldOrder = $this->mr->getRepository(order::class)->findBy(['status' => order::$statusOrder['HELD']], null, 1);
             if ($heldOrder == null) {
