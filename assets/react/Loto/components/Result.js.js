@@ -110,18 +110,20 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
     setMyGrids([]);
     setSelectedMonthYear(event.target.value);
     setStartIndex(0);
-    // setClickedIndex(null);
+    setClickedIndex(null);
   };
 
 
   const handlePrevious = () => {
     setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setClickedIndex(null);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
       Math.min(prevIndex + 1, filteredData.length - 4)
     );
+    setClickedIndex(null);
   };
 
   const handleChangeDate = (item, index) => {
