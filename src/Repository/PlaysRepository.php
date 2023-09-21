@@ -303,7 +303,7 @@ class PlaysRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
             ->select('o.id,l.ticketId,l.withZeed,l.bouquet,l.price,o.amount,o.transId')
             ->innerJoin(order::class, 'o')
-            ->where('o.id=l.order and o.status = :purchased and l.ticketId != 0 and l.ticketId is not null')
+            ->where('o.id=l.order and o.status = :purchased')
             ->setParameter('purchased', 'purchased')
             ->getQuery()
             ->getResult();
@@ -325,8 +325,9 @@ class PlaysRepository extends EntityRepository
                     'withZeed' => $qb['withZeed'],
                     'bouquet' => $qb['bouquet']
                 ];
+                $qb['ticketId'] == 0 ? $purchasedsum = $purchasedsum : $purchasedsum += $qb['price']; 
+                // $purchasedsum += $qb['price'];
 
-                $purchasedsum += $qb['price'];
                 $listWinners[$userId] = [
                     'orderId'=>$userId,
                     'TotalPrice' => $purchasedsum,
