@@ -24,11 +24,9 @@ class UnsubscribeMarketingController extends AbstractController
 
         if ($code != '') {
 
-            if ($flag == 1) {
                 //Call the API
                 $response = $suyoolServices->UnsubscribeMarketing($code,$flag);
 
-            }
             //If the Email is unsubscriped and the user is not registered
             if ($response['flagCode'] == 1) {
                 $title = 'You have been unsubscribed';
