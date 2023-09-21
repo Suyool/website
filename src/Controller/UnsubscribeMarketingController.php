@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\SuyoolServices;
 use App\Utils\Helper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class UnsubscribeMarketingController extends AbstractController
      * @Route("/unsubscribeMarketing", name="unsubscribe_marketing")
      *
      */
-    public function index(Request $request)
+    public function index(Request $request,SuyoolServices $suyoolServices)
     {
         //To test this page /unsubscribeMarketing?uniqueCode=AyW5pahXmzYRBBVf&Flag=1
         $code = $request->query->get('uniqueCode');
@@ -24,24 +25,18 @@ class UnsubscribeMarketingController extends AbstractController
         if ($code != '') {
 
             if ($flag == 1) {
-                //Set the API URL
-                $params['url'] = 'MarketingException/UnsubscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
-                $params['type'] = 'post';
-
                 //Call the API
-                $result = Helper::send_curl($params);
+                $response = $suyoolServices->UnsubscribeMarketing($code,$flag);
 
-                //Get the response
-                $response = json_decode($result, true);
             }
             //If the Email is unsubscriped and the user is not registered
             if ($response['flagCode'] == 1) {
                 $title = 'You have been unsubscribed';
                 // $url = "/UnsubscribeMarketing?uniqueCode=" . $code . "&Flag=1";
                 $description = 'You have been successfully removed from this list. <span class="error-check">If you did this in error</span> <br>
-                                <button type="button" class="openModel" data-bs-toggle="modal" data-bs-target="#myModal" id="resubscribe" onclick="resubscribe('.$code.', '.$flag.')">
-                                Re-Subscribe
-                                </button>';
+    <button type="button" class="openModel" data-bs-toggle="modal" data-bs-target="#myModal" id="resubscribe" data-uniqueCode='.$code.' data-flag="'.$flag.'">
+    Re-Subscribe
+</button>';
                 $image = "unverified-msg.png";
                 $class = "unverified";
                 //If the Email is Failed
@@ -64,15 +59,12 @@ class UnsubscribeMarketingController extends AbstractController
     /**
      * @Route("/unsubscribeMarketing/resubscribe", name="resubscribe")
      */
-    public function resubscribe(Request $request): JsonResponse
+    public function resubscribe(Request $request,SuyoolServices $suyoolServices): JsonResponse
     {
         $code = $request->query->get('uniqueCode');
-        $flag = $request->query->get('Flag');
-        $params['url'] = 'MarketingException/subscribeMarketing?UniqueCode=' . $code . '&flag=' . $flag;
-        $params['type'] = 'post';
-        $result = Helper::send_curl($params);
-        $response = json_decode($result, true);
+        $flag = $request->query->get('flag');
 
+        $response = $suyoolServices->resubscribeMarketing($code,$flag);
         return new JsonResponse($response);
     }
 }

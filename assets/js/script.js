@@ -290,6 +290,15 @@ if(document.getElementById("submit")){
 }
 
 
+$(document).ready(function() {
+  $('#resubscribe').on('click', function() {
+    var uniqueCode = $(this).data('uniqueCode');
+    var flag = $(this).data('flag');
+    console.log(flag);
+    resubscribe(uniqueCode, flag);
+  });
+});
+
 function resubscribe(uniqueCode, flag) {
   jQuery.ajax({
     type: "GET",

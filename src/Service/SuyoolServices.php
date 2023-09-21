@@ -336,6 +336,44 @@ class SuyoolServices
         return $content;
     }
 
+    public function UnsubscribeMarketing($code,$flag)
+    {
+        $Hash = base64_encode(hash($this->hash_algo, $code . $flag . $this->certificate, true));
+
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MarketingException/UnsubscribeMarketing", [
+            'body' => json_encode([
+                'uniqueCode' => $code,
+                "flag" => $flag,
+                'hash' => $Hash
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray(false);
+        return $content;
+    }
+
+    public function resubscribeMarketing($code,$flag)
+    {
+        $Hash = base64_encode(hash($this->hash_algo, $code . $flag . $this->certificate, true));
+
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MarketingException/subscribeMarketing", [
+            'body' => json_encode([
+                'uniqueCode' => $code,
+                "flag" => $flag,
+                'hash' => $Hash
+            ]),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $content = $response->toArray(false);
+        return $content;
+    }
+
     public function PushUserPrize($listWinners)
     {
         try {
