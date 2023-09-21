@@ -21,8 +21,8 @@ class EmailVerificationController extends AbstractController
             } else {
                 $params['url'] = 'User/ValidateEmail?Data=' . $code;
             }
-            $result = Helper::send_curl($params);
-            $response = json_decode($result, true);
+//            $result = Helper::send_curl($params);
+//            $response = json_decode($result, true);
             $response = $suyoolServices->ValidateEmail($code);
 
             if ($response == null) {

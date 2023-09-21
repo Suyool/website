@@ -320,17 +320,19 @@ class SuyoolServices
 
     public function ValidateEmail($code)
     {
-        $response = $this->client->request('GET', "{$this->SUYOOL_API_HOST}User/ValidateEmail", [
-            'query' => [
-                'Data' => $code,
-            ],
+        $Hash = base64_encode(hash($this->hash_algo, $code . $this->certificate, true));
+
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/ValidateEmail", [
+            'body' => json_encode([
+                'uniqueCode' => $code,
+                'hash' => $Hash
+            ]),
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
 
         $content = $response->toArray(false);
-
         return $content;
     }
 
