@@ -1,34 +1,53 @@
-.merchants{
+.merchants {
     text-align: center;
     padding-top: 100px;
     overflow-x: hidden;
-    .network{
+
+    .network {
         color: #226D96;
         font-family: $Medium;
         font-size: 24px;
         line-height: 50px;
     }
-    .partner{
+
+    .partner {
         color: #374A5A;
         font-family: $SemiBold;
         font-size: 53px;
         padding-bottom: 56px;
     }
-    img{
-        width: 170px;
-        filter: grayscale(100%);
-        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+
+    .merchantsdisplay {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        img{
+            width: auto;
+            padding: 20px 0 38px;
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+        }
     }
-    .merchant1{
+
+    // img{
+    //     width: 170px;
+    //     filter: grayscale(100%);
+    //     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    // }
+    .merchant1 {
         text-align: right;
     }
-    .merchant5{
+
+    .merchant5 {
         text-align: left;
     }
-    .viewAll{
+
+    .viewAll {
         margin-top: 43px;
         margin-bottom: 140px;
-        .btnviewall{
+
+        .btnviewall {
             color: #fff;
             background-color: #226D96;
             padding: 13px 30px;
@@ -36,13 +55,26 @@
             font-family: $SemiBold;
         }
     }
-    
+
     @media screen and (max-width:991px) {
-        .merchant1{
+        .merchant1 {
             text-align: center;
         }
-        .merchant5{
+
+        .merchant5 {
             text-align: center;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .merchantsdisplay{
+            flex-direction: column;
+        }   
+        .network{
+            font-size: 20px;
+        }
+        .partner{
+            font-size: 31px;
         }
     }
 }
