@@ -4,8 +4,8 @@
         margin-bottom: 30px;
         color: #216D96;
         margin-top: 30px;
-        font-family: $Regular;
-        font-size: 17px;
+        font-family: $Medium;
+        font-size: 20px;
     }
     .subtitle{
         text-align: center;
@@ -16,10 +16,11 @@
     }
     .FAQaccordion{
         .accordion-item{
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: none;
         }
         .accordion-button{
+            font-size: 23px;
             color: #226D96;
             font-family: $Regular;
             background-color: #C4D9E495;

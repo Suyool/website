@@ -80,3 +80,18 @@ a:hover {
         border-radius: 10px;
     }
 }
+.mobileMode{
+    display: none;
+}
+.desktopMode{
+    display: block;
+}
+
+@media screen and (max-width:768px) {
+    .mobileMode{
+        display: block;
+    }
+    .desktopMode{
+        display: none;
+    }
+}

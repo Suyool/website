@@ -1,6 +1,7 @@
 .merchants{
     text-align: center;
     padding-top: 100px;
+    overflow-x: hidden;
     .network{
         color: #226D96;
         font-family: $Medium;
@@ -24,6 +25,18 @@
     .merchant5{
         text-align: left;
     }
+    .viewAll{
+        margin-top: 43px;
+        margin-bottom: 140px;
+        .btnviewall{
+            color: #fff;
+            background-color: #226D96;
+            padding: 13px 30px;
+            border-radius: 10px;
+            font-family: $SemiBold;
+        }
+    }
+    
     @media screen and (max-width:991px) {
         .merchant1{
             text-align: center;

@@ -5,11 +5,12 @@
 
 {% block body %}
 	{% include 'elements/alfa_employee/topSection.html.twig' %}
-	<div class="homepage">
-		{% include 'homepage/homepage-steps.html.twig' %}
-		{% include 'elements/alfa_employee/alfa_mastercard.html.twig' %}
-	</div>
-    {% include 'elements/alfa_employee/use-money.html.twig' %}
+	{% include 'elements/alfa_employee/alfa_steps.html.twig' %}
+	{% include 'elements/alfa_employee/alfa_mastercard.html.twig' %}
+	{% include 'elements/alfa_employee/use-money.html.twig' %}
+	{% include 'elements/alfa_employee/solution-suyool.html.twig' %}
+	{% include 'elements/merchant.html.twig' %}
 	{% include 'elements/faq/faqSuyool.html.twig' %}
-
+	{% include 'elements/alfa_employee/questions.html.twig' %}
+	{% include 'elements/footer.html.twig' %}
 {% endblock %}
