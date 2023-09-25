@@ -152,9 +152,10 @@
       img{
         position: absolute;
         right: 20px;
+        width: 17%;
       }
       .title {
-        font-size: 40px;
+        font-size: 25px;
         font-family: $SemiBold;
         color: #000000;
         width: calc(100% - var(66px));
@@ -323,7 +324,7 @@
 
   .card-img-desk{
     img{
-      width: 100%;
+      width: 80%;
     }
   }
 }
