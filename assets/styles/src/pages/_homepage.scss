@@ -10,7 +10,7 @@
     color: #ffffff;
 
     .navbar {
-      margin-bottom: 120px;
+      margin-bottom: 60px;
 
       .right {
         display: flex;
@@ -34,6 +34,7 @@
     }
 
     .top-info {
+      padding-top: 65px;
       h1 {
         font-size: 72px;
         margin-bottom: 40px;
@@ -392,6 +393,7 @@
         margin-bottom: 0;
       }
       .top-info {
+        padding-top: 0;
         text-align: center;
 
         h1, .buttons-cont {
