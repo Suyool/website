@@ -95,7 +95,12 @@ class IveriController extends AbstractController
                 }
                 $parameters['form'] = $form->createView();
 
-                return $this->render('iveri/test.html.twig', $parameters);
+                $parameters['imgsrc']="build/images/Loto/success.png";
+                $parameters['title']="Top Up Successful";
+                $parameters['description']="Your wallet has been topped up with {Currency} {Amount}. Check your new balance";
+                $parameters['button']="Continue";
+
+                return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');
         } else return $this->render('ExceptionHandling.html.twig');
     }

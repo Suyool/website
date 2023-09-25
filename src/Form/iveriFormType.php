@@ -15,15 +15,8 @@ class iveriFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('amount', TextType::class)
-            ->add('currency', ChoiceType::class,[
-                'choices'=>[
-                    'USD'=>'USD',
-                    'LBP'=>'LBP'
-                ]
-            ])
             ->add('save', SubmitType::class,[
-                'label' => 'SUBMIT',
+                'label' => 'Continue',
                 'attr' => [
                     'class' => 'btn-primary tags-btn',
                 ],

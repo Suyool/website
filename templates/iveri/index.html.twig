@@ -1,23 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		{% block stylesheets %}
-			{% for file in encore_entry_css_files('iveristyles') %}
-				<link rel="stylesheet" href="{{ asset(file|substr(1)) }}">
-			{% endfor %}
-		{% endblock %}
-		<title>TopUp</title>
-	</head>
-	<body class="iveri">
-		<div id="iveri" data-data="{{ parameters|json_encode }}"></div>
-	</body>
-	{% block javascripts %}
-		{% for file in encore_entry_js_files('iveri') %}
-			<script src="{{ asset(file|substr(1)) }}"></script>
-		{% endfor %}
+{% extends 'base.html.twig' %}
+
+	{% block body %}
+	<div class="entireBody">
+		<div class="popup">
+		<div class="image">
+			<img src="{{ asset(imgsrc) }}" alt="">
+		</div>
+		<div class="title">
+			{{title}}
+		</div>
+		<div class="desc">
+			{{description}}
+		</div>
+		<div class="button">
+			<button class="action">{{button}}</button>
+		</div>
+	</div>
+	</div>
+{# 	
+		{% if form is defined %}
+		{{form_start(form)}}
+		<div id="submit">{{ form_row(form.save) }}</div>
+		{{form_end(form)}}
+		{% else %}
+		{% endif %} #}
 	{% endblock %}
-</html>
+	
