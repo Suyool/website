@@ -491,7 +491,7 @@ $image-path: '../../../../images/alfa_employee/';
         // background-image: none;
         background-image: url($image-path+"alfamobile.png");
         padding-top: 53px;
-        height: 880px;
+        height: 738px;
 
         .information {
             margin-top: 63px;
@@ -548,6 +548,9 @@ $image-path: '../../../../images/alfa_employee/';
     }
 
     .use-money {
+        .use-money-row{
+            width: 100%;
+        }
         .title{
             font-size: 30px;
         }
