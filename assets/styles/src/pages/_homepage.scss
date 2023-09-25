@@ -10,7 +10,7 @@
     color: #ffffff;
 
     .navbar {
-      margin-bottom: 120px;
+      margin-bottom: 60px;
 
       .right {
         display: flex;
@@ -34,6 +34,7 @@
     }
 
     .top-info {
+      padding-top: 65px;
       h1 {
         font-size: 72px;
         margin-bottom: 40px;
@@ -388,7 +389,11 @@
     }
 
     .top-section {
+      .navbar{
+        margin-bottom: 0;
+      }
       .top-info {
+        padding-top: 0;
         text-align: center;
 
         h1, .buttons-cont {
@@ -411,10 +416,6 @@
       }
     }
 
-    .home_body_desktop {
-      display: none;
-    }
-
     .home_body_mobile {
       display: block;
       width: 80%;
@@ -430,6 +431,31 @@
       }
     }
 
+    .home_body_desktop {
+      display: none;
+    }
+
+    .use-money {
+      margin-bottom: 50px;
+      .use-row {
+        display: block;
+        .item {
+          width: 100%;
+          margin: 45px 0;
+          .head {
+            display: block;
+            text-align: center;
+            img{
+              margin-bottom: 15px;
+            }
+          }
+          .text {
+            text-align: center;
+          }
+        }
+      }
+    }
+
     .home-steps {
       .step {
         padding: 20px 40px;
@@ -438,7 +464,7 @@
           font-size: 52px;
           margin-bottom: 30px;
           img{
-            width: 100px;
+            max-width: 100px;
           }
         }
 
@@ -495,13 +521,19 @@
         display: block;
         text-align: center;
 
+        .notification{
+          width: 100% !important;
+        }
         img {
-          width: 70%;
+          width: 90%;
+          margin-bottom: 50px;
         }
       }
 
       .card-desc {
         width: 80%;
+        padding: 0;
+        margin: 0 10px;
 
         .title {
           font-size: 34px;

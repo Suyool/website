@@ -1,9 +1,31 @@
-<div class="navbar_v2 navbar navbar-expand-lg">
+{#<div class="navbar_v2 navbar navbar-expand-lg">#}
+{#    <a class="navbar-brand" href="/"><img src="{{ asset('build/images/suyool-title-white.png') }}" alt="Suyool"></a>#}
+{#    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"#}
+{#            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{#    <div class="collapse navbar-collapse" id="navbarNav">#}
+{#        <ul class="navbar-nav ms-auto">#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="#">Personal</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="#">Business</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="#">Suyool Mastercard</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <button type="button" class="btn button-primary">I want Suyool</button>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
+
+<div class="navbar navbar-expand-lg navbar_v2">
     <a class="navbar-brand" href="/"><img src="{{ asset('build/images/suyool-title-white.png') }}" alt="Suyool"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+
+    <!-- Desktop Navbar Menu -->
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
@@ -19,5 +41,57 @@
                 <button type="button" class="btn button-primary">I want Suyool</button>
             </li>
         </ul>
+    </div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar"
+            aria-controls="mobileNavbar">
+        <span class="navbar-toggler-icon">
+            <img src="{{ asset('build/images/menu.png')}}" alt="">
+        </span>
+    </button>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavbar" aria-labelledby="mobileNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mobileNavbarLabel"><img src="{{asset('build/images/suyool-title-white.png')}}"></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item head">
+                    <a class="nav-link" href="#">Personal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Suyool Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/mastercard">Suyool Mastercard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pay Bills</a>
+                </li>
+
+                <li class="nav-item head">
+                    <a class="nav-link" href="#">Business</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Corporate Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Merchant Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Payroll</a>
+                </li>
+
+                <li class="nav-item head">
+                    <a class="nav-link" href="#">Suyool Mastercard</a>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn button-primary">I want Suyool</button>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

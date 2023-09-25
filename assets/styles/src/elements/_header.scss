@@ -22,7 +22,6 @@ nav {
 }
 
 .navbar_v2 {
-  //background: linear-gradient(90deg,#226D96 6%,#373464 76%);
   font-family: $Regular;
   .navbar-nav {
     li {
@@ -37,6 +36,20 @@ nav {
           color: #fff;
         }
       }
+    }
+  }
+
+  .offcanvas{
+    background: #155E83;
+    padding: 40px;
+
+    .head{
+      padding: 30px 0;
+    }
+
+    .button-primary{
+      background-color: #FFFFFF;
+      color: #000000;
     }
   }
 }
