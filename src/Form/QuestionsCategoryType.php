@@ -25,7 +25,16 @@ class QuestionsCategoryType extends AbstractType
                     'Inactive' => 0,
                 ],
                 'required' => true,
-            ]);
+            ])
+            ->add('type', ChoiceType::class, [
+                'label' => 'Category Status',
+                'choices' => [
+                    'Personal' => 1,
+                    'Corporate' => 2,
+                ],
+                'required' => true,
+            ]);;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

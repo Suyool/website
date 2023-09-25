@@ -15,6 +15,7 @@
             <th>{{ knp_pagination_sortable(categories, 'Category ID', 'c.id') }}</th>
             <th>{{ knp_pagination_sortable(categories, 'Category Name', 'c.name') }}</th>
             <th>{{ knp_pagination_sortable(categories, 'Category Status', 'c.status') }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Category Type', 'c.type') }}</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -28,6 +29,12 @@
                         <span class="badge bg-success">Active</span>
                     {% else %}
                         <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>{% if category.type == 1 %}
+                        <span>Personal</span>
+                    {% else %}
+                        <span>Corporate</span>
                     {% endif %}
                 </td>
                 <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('admin_categories_edit',{'id':category.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>

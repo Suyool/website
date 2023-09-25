@@ -32,6 +32,11 @@ class QuestionsCategory
     private $status;
 
     /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $type;
+
+    /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="questionsCategory", orphanRemoval=true)
      */
     private $questions;
@@ -72,6 +77,17 @@ class QuestionsCategory
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Question[]
