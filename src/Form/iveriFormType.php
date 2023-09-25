@@ -18,7 +18,7 @@ class iveriFormType extends AbstractType
             ->add('save', SubmitType::class,[
                 'label' => 'Continue',
                 'attr' => [
-                    'class' => 'btn-primary tags-btn',
+                    'class' => 'continueBtn',
                 ],
             ])
         ;

@@ -65,7 +65,7 @@ class RequestController extends AbstractController
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
             return $this->redirectToRoute("homepage");
         }
-        $parameters['amount'] = (int)$amount[1] * 100;
+        $parameters['amount'] = $amount[1] ;
         $this->session->set("request_details_response", $parameters['request_details_response']);
         $this->session->set("Code", $code);
         $this->session->set(

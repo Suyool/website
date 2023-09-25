@@ -4,10 +4,14 @@
       "js": [
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/app1.f06e910c.js"
 =======
         "/build/app1.eeae84e0.js"
 >>>>>>> df46e855 (iveri request amount currency)
+=======
+        "/build/app1.5c4cac0a.js"
+>>>>>>> e892faef (iveri topup and RTL)
       ]
     },
     "admin-app": {
@@ -58,10 +62,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.9b321ee5.css"
 =======
         "/build/styles.8ecb54ab.css"
 >>>>>>> 53c9d449 (working on topup modals)
+=======
+        "/build/styles.99371143.css"
+>>>>>>> e892faef (iveri topup and RTL)
       ]
     },
     "admin": {

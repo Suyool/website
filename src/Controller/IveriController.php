@@ -34,13 +34,14 @@ class IveriController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index(Request $request)
     {
+        // dd($_POST);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
             // dd($_POST);
             $transaction = new Transaction;
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                $parameters['amount']=$_POST['LITE_ORDER_AMOUNT'] / 100;
-                $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency']="$" : $parameters['currency']="LL";
+                $amount = $_POST['LITE_ORDER_AMOUNT'] / 100;
+                $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
 
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
@@ -49,7 +50,11 @@ class IveriController extends AbstractController
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
                 if (isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['status']=true;
+                $parameters['status'] = true;
+                $parameters['imgsrc'] = "build/images/Loto/success.png";
+                $parameters['title'] = "Top Up Successful";
+                $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                $parameters['button'] = "Continue";
                 // $parameters['message'] = "Successfully payment for " . number_format((float)$_POST['LITE_ORDER_AMOUNT'] / 100, 2, '.') . " " . $_POST['LITE_CURRENCY_ALPHACODE'];
             } else {
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
@@ -59,14 +64,38 @@ class IveriController extends AbstractController
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
                 if (isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['status']=false;
+                $parameters['status'] = false;
+                $parameters['imgsrc'] = "build/images/Loto/error.png";
+                $parameters['title'] = "Top Up Failed";
+                $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $parameters['button'] = "Try Again";
                 // $parameters['message'] = "Invalid card please try again";
             }
             $this->mr->persist($transaction);
             $this->mr->flush();
-            return $this->render('iveri/index.html.twig', [
-                'parameters' => $parameters
-            ]);
+            return $this->render('iveri/index.html.twig', $parameters);
+        }
+
+        if (isset($_POST['Request'])) {
+            // $transaction = new Transaction();
+
+            // $form = $this->createForm(iveriFormType::class, $transaction);
+            // $form->handleRequest($request);
+            // if ($form->isSubmitted() && $form->isValid()) {
+            //     $transaction = $form->getData();
+                // $parametersToHiddenForm['amount'] = $transaction->getAmount();
+                $parameters['amount'] = $_POST['ORDER_AMOUNT'];
+                $parameters['currency'] = $_POST['Currency_AlphaCode'];
+                $parameters['userid'] = NULL;
+                $parameters['timestamp'] = time();
+
+                // return $this->render('iveri/hiddenForm.html.twig', $parametersToHiddenForm);
+            // }
+            // $parameters['form'] = $form->createView();
+
+
+
+            return $this->render('iveri/index.html.twig', $parameters);
         }
         $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
@@ -76,29 +105,28 @@ class IveriController extends AbstractController
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
-                $userdetails = $this->notificationServices->GetuserDetails($suyoolUserInfo[0]);
-                $parameters['fname'] = $userdetails[0];
-                $parameters['lname'] = $userdetails[1];
-                $transaction = new Transaction();
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                // $userdetails = $this->notificationServices->GetuserDetails($suyoolUserInfo[0]);
+                // $parameters['fname'] = $userdetails[0];
+                // $parameters['lname'] = $userdetails[1];
+                // $transaction = new Transaction();
 
-                $form = $this->createForm(iveriFormType::class, $transaction);
-                $form->handleRequest($request);
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $transaction = $form->getData();
-                    $parametersToHiddenForm['amount'] = $transaction->getAmount();
-                    $parametersToHiddenForm['currency'] = $transaction->getCurrency();
-                    $parametersToHiddenForm['userid'] = $suyoolUserInfo[0];
-                    $parametersToHiddenForm['timestamp'] = time();
+                // $form = $this->createForm(iveriFormType::class, $transaction);
+                // $form->handleRequest($request);
+                // if ($form->isSubmitted() && $form->isValid()) {
+                    // $transaction = $form->getData();
+                    // $parametersToHiddenForm['amount'] = $transaction->getAmount();
+                    $parameters['amount'] = "50";
+                    $parameters['currency'] = "USD";
+                    $parameters['userid'] = $suyoolUserInfo[0];
+                    $parameters['timestamp'] = time();
+                    // dd($parameters);
 
-                    return $this->render('iveri/hiddenForm.html.twig', $parametersToHiddenForm);
-                }
-                $parameters['form'] = $form->createView();
+                    // return $this->render('iveri/hiddenForm.html.twig', $parametersToHiddenForm);
+                // }
+                // $parameters['form'] = $form->createView();
 
-                $parameters['imgsrc']="build/images/Loto/success.png";
-                $parameters['title']="Top Up Successful";
-                $parameters['description']="Your wallet has been topped up with {Currency} {Amount}. Check your new balance";
-                $parameters['button']="Continue";
+
 
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');

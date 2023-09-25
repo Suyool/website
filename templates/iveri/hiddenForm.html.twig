@@ -15,6 +15,7 @@
 		<input id="ECOM_BILLTO_ONLINE_EMAIL" name="ECOM_BILLTO_ONLINE_EMAIL" value="it@suyool.com">
 		<input id="TimeStamp" name="TimeStamp" value="{{ timestamp }}">
 		<input id="LITE_TRANSACTION_TOKEN" name="LITE_TRANSACTION_TOKEN" value="1692312486:522f2d1e72381f893edd1fbbe28148b7baf8af3c8c5d86367d1b890ead095dc2">
-		<input id="UserId" name="userid" value="{{userid}}">
+		{% if userid is defined and userid is not null %}<input id="UserId" name="userid" value="{{userid}}">
+		{% endif %}
 	</form>
 {% endblock %}
