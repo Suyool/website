@@ -1,0 +1,53 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}Admin Questions{% endblock %}
+
+{% block content %}
+    <h1>Admin Questions</h1>
+
+    {# Render the filter form #}
+    {{ form_start(filterForm) }}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(filterForm.category) }}
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+    {{ form_end(filterForm) }}
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Question ID', 'q.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Question', 'q.question') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Answer', 'q.answer') }}</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for question in pagination %}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.answer|raw }}</td>
+                <td>{{ question.questionsCategory.name }}</td>
+                <td>
+                    <a href="{{ path('admin_questions_edit', {'id': question.id}) }}" class="btn btn-primary">Edit</a>
+                    <!-- Add a delete button here if you want to implement question deletion -->
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <div class="mb-3">
+        <a href="{{ path('admin_questions_new') }}" class="btn btn-primary">Create New Question</a>
+    </div>
+{% endblock %}

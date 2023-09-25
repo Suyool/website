@@ -1,0 +1,42 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}Questions Categories{% endblock %}
+
+{% block content %}
+    <h1>Admin Categories</h1>
+
+    <div class="mb-3">
+        <a href="{{ path('admin_categories_new') }}" class="btn btn-primary">Create New Category</a>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(categories, 'Category ID', 'c.id') }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Category Name', 'c.name') }}</th>
+            <th>{{ knp_pagination_sortable(categories, 'Category Status', 'c.status') }}</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    {% if category.status == 1 %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('admin_categories_edit',{'id':category.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(categories) }}
+    </div>
+{% endblock %}

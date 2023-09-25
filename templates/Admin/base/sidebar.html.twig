@@ -132,6 +132,19 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#faq" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">FAQ</span>
+                        </a>
+                        <ul class="collapse nav flex-column ms-1" id="faq" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="{{ path('admin_questions') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Quesitons</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_questions_categories') }}" class="nav-link px-0"> <span class="d-none d-sm-inline">Questions Category</span></a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
