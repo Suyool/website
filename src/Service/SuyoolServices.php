@@ -336,23 +336,28 @@ class SuyoolServices
         return $content;
     }
 
-    public function UnsubscribeMarketing($code,$flag)
+    public function UnsubscribeMarketing($code,$flag,$key)
     {
         $Hash = base64_encode(hash($this->hash_algo, $code . $flag . $this->certificate, true));
+        $replacement_string = str_replace(' ', '+', $key);
 
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MarketingException/UnsubscribeMarketing", [
-            'body' => json_encode([
-                'uniqueCode' => $code,
-                "flag" => $flag,
-                'hash' => $Hash
-            ]),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        if($Hash == $replacement_string) {
+            $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MarketingException/UnsubscribeMarketing", [
+                'body' => json_encode([
+                    'uniqueCode' => $code,
+                    "flag" => $flag,
+                    'hash' => $Hash
+                ]),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
 
-        $content = $response->toArray(false);
-        return $content;
+            $content = $response->toArray(false);
+            return $content;
+        }else
+            return false;
+
     }
 
     public function resubscribeMarketing($code,$flag)

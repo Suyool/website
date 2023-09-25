@@ -21,11 +21,12 @@ class UnsubscribeMarketingController extends AbstractController
         //To test this page /unsubscribeMarketing?uniqueCode=AyW5pahXmzYRBBVf&Flag=1
         $code = $request->query->get('uniqueCode');
         $flag = $request->query->get('Flag');
+        $key = $request->query->get('key');
 
         if ($code != '') {
 
                 //Call the API
-                $response = $suyoolServices->UnsubscribeMarketing($code,$flag);
+                $response = $suyoolServices->UnsubscribeMarketing($code,$flag,$key);
 
             //If the Email is unsubscriped and the user is not registered
             if ($response['flagCode'] == 1) {
