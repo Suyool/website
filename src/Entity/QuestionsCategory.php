@@ -27,6 +27,11 @@ class QuestionsCategory
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $status;
+
+    /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="questionsCategory", orphanRemoval=true)
      */
     private $questions;
@@ -55,6 +60,19 @@ class QuestionsCategory
         return $this;
     }
 
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
     /**
      * @return Collection|Question[]
      */
@@ -63,26 +81,5 @@ class QuestionsCategory
         return $this->questions;
     }
 
-    public function addQuestion(Question $question): self
-    {
-        if (!$this->questions->contains($question)) {
-            $this->questions[] = $question;
-            $question->setQuestionsCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuestion(Question $question): self
-    {
-        if ($this->questions->removeElement($question)) {
-            // set the owning side to null (unless already changed)
-            if ($question->getQuestionsCategory() === $this) {
-                $question->setQuestionsCategory(null);
-            }
-        }
-
-        return $this;
-    }
 }
 

@@ -29,9 +29,10 @@ class Question
 
     /**
      * @ORM\ManyToOne(targetEntity=QuestionsCategory::class, inversedBy="questions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
     private $questionsCategory;
+
 
     public function getId(): ?int
     {
