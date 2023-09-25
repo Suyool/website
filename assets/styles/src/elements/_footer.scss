@@ -1,46 +1,88 @@
-footer{
-    padding-top: 55px;
-min-height: 505px;
+footer {
+  padding-top: 55px;
+  min-height: 505px;
   background-color: #373464; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to left, #373464 , #226D96);
+  background-image: linear-gradient(to left, #373464, #226D96);
   // position: relative;
 
-  
-  .content{
-    img{
-        max-width: 120px;
+
+  .content {
+    .title-desktop {
+      img {
+        max-width: 140px;
+      }
+
+      span {
+        font-size: 24px;
+      }
     }
-    .SmartTrans{
-        display: block;
-        padding-top: 23px;
-        color: #ffffff;
-        opacity: 0.5;
-        font-family: $Regular;
+
+    .SmartTrans {
+      display: block;
+      padding-top: 23px;
+      color: #ffffff;
+      opacity: 0.5;
+      font-family: $Regular;
     }
-    .title_A{
-        color:#D7D7E2 ;
-        font-family:$Medium ;
-        font-size: 25px!important;
-        line-height: 47px;
+
+    .title_A {
+      color: #D7D7E2;
+      font-family: $Medium;
+      font-size: 32px;
+      line-height: 80px;
+      margin-bottom: 40px;
     }
-    .desc_A{
-            color:#D7D7E2 ;
-            font-family:$Medium ;
-            font-size: 20px;
-            line-height: 60px;
-            display: block;
+
+    .desc_A {
+      color: #D7D7E2;
+      font-family: $Medium;
+      font-size: 24px;
+      line-height: 80px;
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      .title_A {
+        font-size: 20px ;
+        line-height: 40px ;
+      }
+
+      .desc_A {
+        font-size: 12px ;
+        line-height: 53px ;
+      }
+
+      .desktop {
+        display: none;
+      }
+
+      .title-mobile {
+        text-align: center;
+
+        span {
+          font-size: 24px;
+        }
+      }
+    }
+
+  }
+
+  @media (min-width: 769px) {
+    .title-mobile, .mobile {
+      display: none;
     }
   }
 }
-.subfooter{
+
+.subfooter {
   font-family: OpenSansRegular;
   width: 100%;
-  // position: absolute;
-  background-color:#373464 ;
+  background-color: #373464;
   height: 72px;
-  text-align:  center;
+  text-align: center;
   color: #fff;
-  // bottom: 0;
   font-size: 14px;
   padding: 25px;
 }
