@@ -549,7 +549,9 @@ $image-path: '../../../../images/alfa_employee/';
 
     .use-money {
         .use-money-row{
-            width: 100%;
+            img{
+                width: 100%;
+            }
         }
         .title{
             font-size: 30px;
@@ -582,6 +584,11 @@ $image-path: '../../../../images/alfa_employee/';
     }
     .alfa-mastercard{
         margin: 0;
+    }
+    .alfa-questions{
+        .contact{
+            margin-bottom: 60px;
+        }
     }
 
 }
