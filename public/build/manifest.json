@@ -15,6 +15,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.05681299.css",
 =======
   "build/styles.css": "/build/styles.a0e302fd.css",
@@ -43,6 +44,9 @@
 =======
   "build/styles.css": "/build/styles.f3143565.css",
 >>>>>>> f9bad7b (some changes in mastercard)
+=======
+  "build/styles.css": "/build/styles.c2c41f2c.css",
+>>>>>>> 2c32bc4 (alfa meta image)
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.84a99db3.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.e42db11a.css",
@@ -52,14 +56,16 @@
   "build/runtime.js": "/build/runtime.e40c1cca.js",
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
-  "build/images/alfa_employee/topImage.png": "/build/images/alfa_employee/topImage.png",
   "build/images/topImage.png": "/build/images/topImage.a8ccdc06.png",
+  "build/images/usj/topImage.png": "/build/images/usj/topImage.png",
+  "build/images/alfa_employee/topImage.png": "/build/images/alfa_employee/topImage.png",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
   "build/images/top-section-invitation-image.png": "/build/images/top-section-invitation-image.6823cd75.png",
   "build/images/corporate-section-bg.jpg": "/build/images/corporate-section-bg.98192b18.jpg",
   "build/images/homepage/corporate-section-bg.jpg": "/build/images/homepage/corporate-section-bg.jpg",
   "build/fonts/OpenSans-Regular.ttf": "/build/fonts/OpenSans-Regular.ceb05254.ttf",
   "build/images/commingSoon/mobile1.png": "/build/images/commingSoon/mobile1.png",
+  "build/images/alfa_employee/alfametaimage.png": "/build/images/alfa_employee/alfametaimage.png",
   "build/images/corporate-mobile.png": "/build/images/corporate-mobile.8b6f4997.png",
   "build/images/homepage/corporate-mobile.png": "/build/images/homepage/corporate-mobile.png",
   "build/images/alfa/Bundle13x2.png": "/build/images/alfa/Bundle13x2.png",
@@ -67,6 +73,8 @@
   "build/images/alfa/Bundle65x2.png": "/build/images/alfa/Bundle65x2.png",
   "build/images/alfa/Bundle4x2.png": "/build/images/alfa/Bundle4x2.png",
   "build/images/platinumMastercard/quatre.png": "/build/images/platinumMastercard/quatre.png",
+  "build/images/usj/usjMobile.png": "/build/images/usj/usjMobile.png",
+  "build/images/usjMobile.png": "/build/images/usjMobile.ca90b0d7.png",
   "build/images/alfa/Bundle35x2.png": "/build/images/alfa/Bundle35x2.png",
   "build/images/alfa/Bundle95x2.png": "/build/images/alfa/Bundle95x2.png",
   "build/images/homepage/top-img-desktop.png": "/build/images/homepage/top-img-desktop.png",

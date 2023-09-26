@@ -22,6 +22,8 @@ class MerchantsController extends AbstractController
     public function alfa(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
+        $parameters['metaimage']="build/images/alfa_employee/alfametaimage.png";
+        $parameters['descmeta']="Your Payroll is now on Suyool";
         return $this->render('merchants/alfa.html.twig',$parameters);
     }
 
