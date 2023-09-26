@@ -15,4 +15,13 @@ class lotonumbersRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function truncate()
+    {
+        return $this->createQueryBuilder('ln')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
 }

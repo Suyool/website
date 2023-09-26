@@ -212,4 +212,19 @@ class LotoServices
 
         return array($date, $nextdrawdetails);
     }
+
+    public function GetFullGridPriceMatrix()
+    {
+        $body = ['Token' => ''];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetFullGridPriceMatrix",  $body);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status == 500) {
+            return false;
+        }
+        $content = $response->toArray(false);
+
+
+        return $content;
+    }
 }

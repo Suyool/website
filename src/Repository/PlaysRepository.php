@@ -341,4 +341,6 @@ class PlaysRepository extends EntityRepository
         $listWinners = array_values($listWinners);
         return $listWinners;
     }
+
+    
 }

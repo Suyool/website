@@ -68,10 +68,10 @@ class DefaultController extends AbstractController
                 }
             }
         }
-//       return $this->render('homepage/CommingSoon.html.twig', [
-//           'message' => $message
-//       ]);
-        return $this->render('homepage/homepage.html.twig');
+      return $this->render('homepage/CommingSoon.html.twig', [
+          'message' => $message
+      ]);
+        // return $this->render('homepage/homepage.html.twig');
     }
 
     /**
