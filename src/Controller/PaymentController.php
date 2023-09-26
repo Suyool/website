@@ -39,11 +39,11 @@ class PaymentController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $parameters['lang']);
-
+        $parameters['payment_details_response']['allowCashOut']="true";
         if ($parameters['payment_details_response'] != null) {
-            if ($parameters['payment_details_response']['respCode'] == 2 || $parameters['payment_details_response']['respCode'] == -1 ||  $parameters['payment_details_response']['transactionID'] == 0) {
-                return $this->redirectToRoute("homepage");
-            }
+            // if ($parameters['payment_details_response']['respCode'] == 2 || $parameters['payment_details_response']['respCode'] == -1 ||  $parameters['payment_details_response']['transactionID'] == 0) {
+            //     return $this->redirectToRoute("homepage");
+            // }
             $this->session->set("pequest_details_response", $parameters['payment_details_response']);
             $this->session->set("code", $code);
             $this->session->set(
