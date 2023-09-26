@@ -49,14 +49,14 @@ class notificationresult extends Command
             'Fetch details send'
         ]);
 
-        $GetFullGridPriceMatrix=$this->lotoServices->GetFullGridPriceMatrix();
+        $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
-        $numbers=6;
-        $this->mr->getRepository(LOTO_numbers::class)->truncate();
-        foreach ($loto_numbers as $number_price) {
+        $numbers = 6;
+        if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J']])) {
+            $this->mr->getRepository(LOTO_numbers::class)->truncate();
+            foreach ($loto_numbers as $number_price) {
+
                 $LOTO_numbers = new LOTO_numbers;
-                $this->mr->remove($LOTO_numbers,'n');
-                $this->mr->flush();
                 $LOTO_numbers->setnumbers($numbers);
                 $LOTO_numbers->setprice($number_price['price0J']);
                 $LOTO_numbers->setzeed($GetFullGridPriceMatrix['d']['zeedprice']);
@@ -64,6 +64,7 @@ class notificationresult extends Command
                 $this->mr->flush();
                 $numbers++;
             }
+        }
         $results = $this->lotoServices->getDrawsResult();
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');

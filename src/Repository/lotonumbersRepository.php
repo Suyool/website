@@ -23,4 +23,5 @@ class lotonumbersRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
 }
