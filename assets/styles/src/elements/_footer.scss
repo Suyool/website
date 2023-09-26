@@ -3,8 +3,6 @@ footer {
   min-height: 505px;
   background-color: #373464; /* For browsers that do not support gradients */
   background-image: linear-gradient(to left, #373464, #226D96);
-  // position: relative;
-
 
   .content {
     .title-desktop {
@@ -53,6 +51,7 @@ footer {
   }
 
   @media (max-width: 768px) {
+    background-image: linear-gradient(to top, #373464, #226D96);
     .content {
       .title_A {
         font-size: 20px;
@@ -71,10 +70,33 @@ footer {
       .title-mobile {
         text-align: center;
 
+        img{
+          width: 108px;
+        }
+
+        .SmartTrans{
+          font-size: 20px;
+        }
         span {
           font-size: 24px;
         }
+
+        .social {
+          display: flex;
+          margin-top: 20px;
+          text-align: center;
+
+          a{
+            margin: 0 10px;
+            img{
+              width: 40px !important;
+            }
+          }
+        }
       }
+
+
+
     }
 
   }
