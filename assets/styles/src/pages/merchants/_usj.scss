@@ -1,6 +1,47 @@
 $image-path: '../../../../images/usj/';
 
 .usj {
+    position: relative;
+  .language_selection {
+    height: 120px;
+    z-index: 1000;
+    position: absolute;
+    width: 150px;
+    right: 0;
+    top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    .lang_sec {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+      font-family: $SemiBold;
+      color: #216D96;
+      border: 1px solid #216D96;
+      background-color: white;
+      text-align: center;
+      border-radius: 5px;
+    }
+    .lang_sec_selected {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+      font-family: $SemiBold;
+      color: white;
+      border: 1px solid #216D96;
+      background-color: #216D96;
+      text-align: center;
+      border-radius: 5px;
+    }
+  }
     .topSectionUsjEmp {
         // background-color: #e41e2c;
         background-image: url($image-path+"topImage.png");
@@ -605,4 +646,40 @@ $image-path: '../../../../images/usj/';
         }
 
     }
+
+}
+
+
+@media (max-width: 768px) {
+    .usj{
+
+    
+    .language_selection {
+      display: none;
+    }
+    .language-dropdown {
+      z-index: 1000;
+      position: absolute;
+      right: 0;
+      top: 100px;
+      width: 64px;
+      select {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 60px;
+        height: 30px;
+        padding-left: 7px;
+        color: white;
+        font-family: $Regular;
+        background-color: #226D96;
+        &:focus {
+          background-color: #fff;
+          color: #226D96;
+          border: 1px solid #226D96;
+        }
+      }
+    }
+  }
+
 }

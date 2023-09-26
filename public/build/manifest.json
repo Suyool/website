@@ -6,47 +6,7 @@
   "build/Alfa.js": "/build/Alfa.7fa6db85.js",
   "build/Touch.js": "/build/Touch.e1ee1abc.js",
   "build/Ogero.js": "/build/Ogero.f9787607.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.05681299.css",
-=======
-  "build/styles.css": "/build/styles.a0e302fd.css",
->>>>>>> 1ff1f99 (alfa employee top section)
-=======
-  "build/styles.css": "/build/styles.d1c5e6b5.css",
->>>>>>> 3829159 (faq section)
-=======
-  "build/styles.css": "/build/styles.f37f3a46.css",
->>>>>>> e2a46f7 (section use-money mastercard and steps)
-=======
-  "build/styles.css": "/build/styles.476d5128.css",
->>>>>>> 207fab4 (alfa employee page all sections)
-=======
-  "build/styles.css": "/build/styles.7495f9fe.css",
->>>>>>> 507469d (merchant section)
-=======
-  "build/styles.css": "/build/styles.f00820a4.css",
->>>>>>> 3dce7b8 (change all icons and fix designs)
-=======
-  "build/styles.css": "/build/styles.87fba37c.css",
->>>>>>> 15c78f6 (change size)
-=======
-  "build/styles.css": "/build/styles.7f157e78.css",
->>>>>>> a24f982 (chnage some image)
-=======
-  "build/styles.css": "/build/styles.f3143565.css",
->>>>>>> f9bad7b (some changes in mastercard)
-=======
-  "build/styles.css": "/build/styles.c2c41f2c.css",
->>>>>>> 2c32bc4 (alfa meta image)
+  "build/styles.css": "/build/styles.e00d1692.css",
   "build/admin.css": "/build/admin.d750f727.css",
   "build/Lotostyles.css": "/build/Lotostyles.84a99db3.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.e42db11a.css",
@@ -56,7 +16,7 @@
   "build/runtime.js": "/build/runtime.e40c1cca.js",
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
-  "build/images/topImage.png": "/build/images/topImage.a8ccdc06.png",
+  "build/images/topImage.png": "/build/images/topImage.174ec876.png",
   "build/images/usj/topImage.png": "/build/images/usj/topImage.png",
   "build/images/alfa_employee/topImage.png": "/build/images/alfa_employee/topImage.png",
   "build/images/invitation/top-section-invitation-image.png": "/build/images/invitation/top-section-invitation-image.png",
@@ -80,7 +40,7 @@
   "build/images/homepage/top-img-desktop.png": "/build/images/homepage/top-img-desktop.png",
   "build/images/alfa/Bundle1x3.png": "/build/images/alfa/Bundle1x3.png",
   "build/images/alfa_employee/alfamobile.png": "/build/images/alfa_employee/alfamobile.png",
-  "build/images/alfamobile.png": "/build/images/alfamobile.f5efd8b7.png",
+  "build/images/alfamobile.png": "/build/images/alfamobile.499c55c6.png",
   "build/images/platinumMastercard/cinq.png": "/build/images/platinumMastercard/cinq.png",
   "build/images/alfa/Bundle1x2.png": "/build/images/alfa/Bundle1x2.png",
   "build/images/platinumMastercard/un.png": "/build/images/platinumMastercard/un.png",
@@ -144,18 +104,20 @@
   "build/images/alfa/bundleImg35h.png": "/build/images/alfa/bundleImg35h.png",
   "build/images/homepage/top-img-mobile.png": "/build/images/homepage/top-img-mobile.png",
   "build/images/homepage/top-section-img.png": "/build/images/homepage/top-section-img.png",
+  "build/images/alfa_employee/qr.png": "/build/images/alfa_employee/qr.png",
   "build/images/alfa/bundleImg1h.png": "/build/images/alfa/bundleImg1h.png",
   "build/images/login.png": "/build/images/login.png",
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
   "build/images/Touch/bundleImg60h.png": "/build/images/Touch/bundleImg60h.png",
   "build/images/alfa_employee/worldMoney.png": "/build/images/alfa_employee/worldMoney.png",
-  "build/images/alfa_employee/qr.png": "/build/images/alfa_employee/qr.png",
   "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
   "build/images/alfa/bundleImg33h.png": "/build/images/alfa/bundleImg33h.png",
+  "build/images/alfa_employee/bobCashin.png": "/build/images/alfa_employee/bobCashin.png",
   "build/images/alfa_employee/exchange.png": "/build/images/alfa_employee/exchange.png",
   "build/images/supportLogo.png": "/build/images/supportLogo.png",
   "build/images/homepage/security-mobile.png": "/build/images/homepage/security-mobile.png",
   "build/images/alfa/bundleImg32h.png": "/build/images/alfa/bundleImg32h.png",
+  "build/images/alfa_employee/prepaid.png": "/build/images/alfa_employee/prepaid.png",
   "build/images/Touch/bundleImg1h.png": "/build/images/Touch/bundleImg1h.png",
   "build/images/Touch/bundleImg31h.png": "/build/images/Touch/bundleImg31h.png",
   "build/images/Touch/bundleImg90h.png": "/build/images/Touch/bundleImg90h.png",
@@ -163,10 +125,9 @@
   "build/images/notifications.png": "/build/images/notifications.png",
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
   "build/images/auth.png": "/build/images/auth.png",
+  "build/images/alfa_employee/worldMoney.svg": "/build/images/alfa_employee/worldMoney.svg",
   "build/images/5150931.png": "/build/images/5150931.png",
-  "build/images/alfa_employee/bobCashin.png": "/build/images/alfa_employee/bobCashin.png",
   "build/images/merchants/charcutier.png": "/build/images/merchants/charcutier.png",
-  "build/images/alfa_employee/prepaid.png": "/build/images/alfa_employee/prepaid.png",
   "build/images/alfa_employee/countries.png": "/build/images/alfa_employee/countries.png",
   "build/images/invitation/top-section-img1.jpg": "/build/images/invitation/top-section-img1.jpg",
   "build/images/alfa/bundleImg65x2.png": "/build/images/alfa/bundleImg65x2.png",
@@ -194,7 +155,10 @@
   "build/images/merchants/spinneys.png": "/build/images/merchants/spinneys.png",
   "build/images/safe&secure.png": "/build/images/safe&secure.png",
   "build/images/transaction-anywhere.png": "/build/images/transaction-anywhere.png",
+  "build/images/alfa_employee/receive.svg": "/build/images/alfa_employee/receive.svg",
   "build/images/login2.png": "/build/images/login2.png",
+  "build/images/alfa_employee/payQr.svg": "/build/images/alfa_employee/payQr.svg",
+  "build/images/alfa_employee/countries.svg": "/build/images/alfa_employee/countries.svg",
   "build/images/envelope.jpg": "/build/images/envelope.jpg",
   "build/images/merchants/alfa.png": "/build/images/merchants/alfa.png",
   "build/images/Loto/LibanaiseJeux.png": "/build/images/Loto/LibanaiseJeux.png",
@@ -207,6 +171,8 @@
   "build/images/alfa/bundleImg35.png": "/build/images/alfa/bundleImg35.png",
   "build/images/alfa/bundleImg95.png": "/build/images/alfa/bundleImg95.png",
   "build/images/Loto/LotoLogo.png": "/build/images/Loto/LotoLogo.png",
+  "build/images/alfa_employee/cashout.svg": "/build/images/alfa_employee/cashout.svg",
+  "build/images/alfa_employee/internationally.svg": "/build/images/alfa_employee/internationally.svg",
   "build/images/alfa/bundleImg4.png": "/build/images/alfa/bundleImg4.png",
   "build/images/homepage/pay-abroad.svg": "/build/images/homepage/pay-abroad.svg",
   "build/images/homepage/exchange.svg": "/build/images/homepage/exchange.svg",
@@ -246,12 +212,14 @@
   "build/images/homepage/leb-map.svg": "/build/images/homepage/leb-map.svg",
   "build/images/alfa_employee/convenience.png": "/build/images/alfa_employee/convenience.png",
   "build/images/Ogero/OgeroLogo.png": "/build/images/Ogero/OgeroLogo.png",
+  "build/images/alfa_employee/payroll.svg": "/build/images/alfa_employee/payroll.svg",
   "build/images/alfa_employee/world.png": "/build/images/alfa_employee/world.png",
   "build/images/platinumMastercard/lifestyle.png": "/build/images/platinumMastercard/lifestyle.png",
   "build/images/Loto/LLDJSlected.png": "/build/images/Loto/LLDJSlected.png",
   "build/images/commingSoon/love.png": "/build/images/commingSoon/love.png",
   "build/images/pay-at-real.png": "/build/images/pay-at-real.png",
   "build/images/alfa/alfaLogo.png": "/build/images/alfa/alfaLogo.png",
+  "build/images/alfa_employee/arrow.svg": "/build/images/alfa_employee/arrow.svg",
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/homepage/fresh-account.svg": "/build/images/homepage/fresh-account.svg",
   "build/images/platinumMastercard/relevance.png": "/build/images/platinumMastercard/relevance.png",
@@ -273,6 +241,7 @@
   "build/images/approved.png": "/build/images/approved.png",
   "build/images/platinumMastercard/convenience_control.png": "/build/images/platinumMastercard/convenience_control.png",
   "build/images/alfa_employee/payQr.png": "/build/images/alfa_employee/payQr.png",
+  "build/images/alfa_employee/card.svg": "/build/images/alfa_employee/card.svg",
   "build/images/alfa_employee/secure.png": "/build/images/alfa_employee/secure.png",
   "build/images/Loto/resultSelected.png": "/build/images/Loto/resultSelected.png",
   "build/images/instagram.svg": "/build/images/instagram.svg",

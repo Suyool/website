@@ -64,6 +64,16 @@ $image-path: '../../../../images/alfa_employee/';
         text-align: center;
         padding-top: 26px;
 
+        .easy_steps_top{
+            font-size: 22px;
+            font-family: $Bold;
+            color: #373464;
+            word-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .MasterCard {
             text-align: center;
             color: #373464;
@@ -72,12 +82,13 @@ $image-path: '../../../../images/alfa_employee/';
             margin-bottom: 24px;
 
             img {
-                max-height: 50px;
+                // max-height: 50px;
             }
 
             .desc {
                 font-family: $Regular;
                 font-size: 20px;
+                margin-top: 10px;
             }
 
             .sub-desc {
@@ -100,13 +111,14 @@ $image-path: '../../../../images/alfa_employee/';
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
+            padding: 70px 0;
 
             .how_suyool_work {
                 font-size: 22px;
                 font-family: $Bold;
                 color: #373464;
                 word-spacing: 1px;
+                letter-spacing: 3px;
             }
 
             .easy_steps {
@@ -124,15 +136,14 @@ $image-path: '../../../../images/alfa_employee/';
         }
 
         .image {
-            background-color: #F0F0F3;
+            // background-color: #F0F0F3;
             max-height: 100%;
             text-align: center;
             padding: 60px;
             border-radius: 17px;
 
             img {
-                max-height: 326px;
-                max-width: 64%;
+                max-height: 524px;
             }
         }
 
@@ -141,6 +152,7 @@ $image-path: '../../../../images/alfa_employee/';
             font-family: $Regular;
             font-size: 40px;
             margin-bottom: 20px;
+            padding-top: 100px;
         }
 
         .desc {
@@ -183,6 +195,7 @@ $image-path: '../../../../images/alfa_employee/';
                 font-size: 22px;
                 font-family: $Bold;
                 color: #373464;
+                letter-spacing: 2px;
             }
 
             .easy_steps {
@@ -358,6 +371,7 @@ $image-path: '../../../../images/alfa_employee/';
             color: #373464;
             font-family: $Bold;
             margin-bottom: 30px;
+            letter-spacing: 2px;
         }
 
         .sub-title {
@@ -387,7 +401,7 @@ $image-path: '../../../../images/alfa_employee/';
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    min-height: 240px;
+                    min-height: 217px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -410,7 +424,7 @@ $image-path: '../../../../images/alfa_employee/';
                         font-family: $Regular;
                         color: #6b6b6b;
                         letter-spacing: 0;
-                        text-align: justify;
+                        // text-align: justify;
                     }
                 }
             }
@@ -439,8 +453,9 @@ $image-path: '../../../../images/alfa_employee/';
                         }
 
                         .description {
-                            // padding-top: 20px;
+                            padding-top: 20px;
                             font-size: 16px;
+
                         }
                     }
                 }

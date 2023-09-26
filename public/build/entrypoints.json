@@ -47,47 +47,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.05681299.css"
-=======
-        "/build/styles.a0e302fd.css"
->>>>>>> 1ff1f99 (alfa employee top section)
-=======
-        "/build/styles.d1c5e6b5.css"
->>>>>>> 3829159 (faq section)
-=======
-        "/build/styles.f37f3a46.css"
->>>>>>> e2a46f7 (section use-money mastercard and steps)
-=======
-        "/build/styles.476d5128.css"
->>>>>>> 207fab4 (alfa employee page all sections)
-=======
-        "/build/styles.7495f9fe.css"
->>>>>>> 507469d (merchant section)
-=======
-        "/build/styles.f00820a4.css"
->>>>>>> 3dce7b8 (change all icons and fix designs)
-=======
-        "/build/styles.87fba37c.css"
->>>>>>> 15c78f6 (change size)
-=======
-        "/build/styles.7f157e78.css"
->>>>>>> a24f982 (chnage some image)
-=======
-        "/build/styles.f3143565.css"
->>>>>>> f9bad7b (some changes in mastercard)
-=======
-        "/build/styles.c2c41f2c.css"
->>>>>>> 2c32bc4 (alfa meta image)
+        "/build/styles.e00d1692.css"
       ]
     },
     "admin": {

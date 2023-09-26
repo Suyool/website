@@ -5,6 +5,18 @@
 
 {% block body %}
 <div class="usj">
+    <div class="language_selection">
+            <div class="lang_sec">En</div>
+            <div class="lang_sec_selected">Fr</div>
+            <div class="lang_sec">Ar</div>
+        </div>
+        <div class="language-dropdown  d-block d-lg-none">
+            <select>
+                <option value="en">En</option>
+                <option value="fr" selected>Fr</option>
+                <option value="ar">Ar</option>
+            </select>
+        </div>
     {% include 'elements/usj/topSection.html.twig' %}
     {% include 'elements/usj/usj_steps.html.twig' %}
     {% include 'elements/usj/usj_mastercard.html.twig' %}
