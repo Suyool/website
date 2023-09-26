@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="help-center container-fluid">
-        <div class="categories-cont row">
-            {% for category in categories %}
-                <div class="card category col-md-3">
-                    <div class="title">{{ category.name }}</div>
-                    {% for question in category.questions %}
-                        <span>{{ question.question }}</span>
-                    {% endfor %}
-                    <a href="#">View All</a>
+    <div class="help-center">
+        <div class=" container-fluid">
+            <div class="categories-cont row">
+                {% for category in categories %}
+                    <div class="card category col-lg-3 col-md-5">
+                        <img width="100px" style="border-radius: 50%" src="{{asset('build/images/rocket.png')}}" alt="">
+                        <div class="title">{{ category.name }}</div>
+                        {% for question in category.questions %}
+                            <span><span class="dot"></span>{{ question.question }}</span>
+                        {% endfor %}
+                        <a href="#">View All</a>
 
-                </div>
+                    </div>
 
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

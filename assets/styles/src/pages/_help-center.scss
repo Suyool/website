@@ -1,30 +1,52 @@
 .help-center {
-  .categories-cont{
+  background-color: #d7e5ec;
+
+  .categories-cont {
     justify-content: space-between;
-    .category{
-      border-radius: 20px;
+
+    .category {
+      border-radius: 45px;
       border: none;
       padding: 40px;
       margin: 20px 30px;
 
       .title {
-        font-size: 23px;
+        font-size: 20px;
         font-family: $SemiBold;
+        margin: 20px 0;
       }
 
-      span{
-        font-size: 16px;
+      span {
+        font-size: 14px;
+        margin-bottom: 10px;
         font-family: $Regular;
       }
 
-      a{
-        font-size: 16px;
+      .dot {
+        height: 8px;
+        width: 8px;
+        margin: 0 8px 0 0;
+        background-color: #004B71;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      a {
+        font-size: 12px;
         font-family: $SemiBold;
         text-decoration: underline;
         color: #004B71;
+        margin: 20px 0 0 20px;;
       }
     }
   }
 
-
+  @media (max-width: 768px) {
+    .categories-cont {
+      justify-content: center;
+      .category {
+        margin: 20px 3px ;
+      }
+    }
+  }
 }
