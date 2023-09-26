@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AlfaEmployeeController extends AbstractController
+class MerchantsController extends AbstractController
 {
 
     private $trans;
@@ -19,9 +19,16 @@ class AlfaEmployeeController extends AbstractController
         $this->trans = $trans;
     }
     #[Route('/alfa-employee', name: 'app_alfa_employee')]
-    public function index(Request $request,TranslatorInterface $translatorInterface): Response
+    public function alfa(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
-        return $this->render('alfa_employee/index.html.twig',$parameters);
+        return $this->render('merchants/alfa.html.twig',$parameters);
+    }
+
+    #[Route('/usj', name: 'app_usj')]
+    public function usj(Request $request,TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        return $this->render('merchants/usj.html.twig',$parameters);
     }
 }
