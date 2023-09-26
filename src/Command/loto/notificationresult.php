@@ -53,7 +53,6 @@ class notificationresult extends Command
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers=6;
         $this->mr->getRepository(LOTO_numbers::class)->truncate();
-        $this->mr->getRepository(LOTO_numbers::class)->Increment();
         foreach ($loto_numbers as $number_price) {
                 $LOTO_numbers = new LOTO_numbers;
                 $this->mr->remove($LOTO_numbers,'n');
