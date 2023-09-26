@@ -16,6 +16,7 @@
       color: #373464;
       font-family: $Bold;
       font-size: 21px;
+      letter-spacing: 2px;
     }
 
     h2 {
@@ -74,6 +75,10 @@
 
       p {
         font-size: 16px;
+      }
+
+      .blue-btn {
+        margin: auto;
       }
     }
 

@@ -15,6 +15,16 @@ footer {
       span {
         font-size: 24px;
       }
+
+      .social {
+        display: flex;
+        margin-top: 200px;
+        text-align: center;
+
+        a{
+          margin: 0 10px;
+        }
+      }
     }
 
     .SmartTrans {
@@ -45,13 +55,13 @@ footer {
   @media (max-width: 768px) {
     .content {
       .title_A {
-        font-size: 20px ;
-        line-height: 40px ;
+        font-size: 20px;
+        line-height: 40px;
       }
 
       .desc_A {
-        font-size: 12px ;
-        line-height: 53px ;
+        font-size: 12px;
+        line-height: 53px;
       }
 
       .desktop {

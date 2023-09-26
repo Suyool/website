@@ -69,11 +69,12 @@
         .button-primary {
           margin-right: 10px;
           font-size: 18px;
+          border: 2px solid #ffffff;
         }
 
         .button-primary:hover {
           background: #226D96;
-          opacity: 0.8;
+          border: 2px solid #ffffff;
         }
 
         .button-primary, .btn-outline-secondary {
@@ -137,6 +138,7 @@
     padding: 20px 0;
 
     .how_suyool_work {
+      letter-spacing: 2px;
       font-size: 22px;
       font-family: $Bold;
       color: #373464;
@@ -186,7 +188,7 @@
 
       .text {
         font-family: $Regular;
-        font-size: 17px;
+        font-size: 15px;
         color: #6B6B6B;
         margin-bottom: 30px;
       }
@@ -222,7 +224,7 @@
         color: #00000080;
 
         span {
-          font-family: $Bold;
+          font-family: $SemiBold;
           text-decoration: underline;
           color: #226D96;
         }
@@ -250,14 +252,14 @@
   }
 
   .blue-btn {
-    color: #FFFFFF;
-    background: #226D96;
-    font-family: $SemiBold;
-    font-size: 22px;
-    text-align: center;
+    background: #226d96;
     border-radius: 8px;
-    padding: 20px 0;
+    color: #fff;
     display: block;
+    font-family: PoppinsSemiBold;
+    font-size: 18px;
+    padding: 12px 0;
+    text-align: center;
     width: 200px;
   }
 
@@ -311,7 +313,7 @@
       margin-left: 15%;
 
       .title {
-        font-size: 52px;
+        font-size: 45px;
         margin: 40px 0;
       }
 
@@ -320,7 +322,7 @@
       }
 
       .blue-btn {
-        width: 350px;
+        width: 300px;
         margin-top: 50px;
       }
     }
@@ -512,6 +514,7 @@
           }
           .text {
             text-align: center;
+            padding: 0;
           }
         }
       }
@@ -542,7 +545,7 @@
     }
 
     .corporate-section {
-      background: #D7D7E2;
+      background-image: url("../../../images/homepage/corporate-mobile.png");
       height: unset;
       padding: 50px 0;
 
@@ -552,19 +555,19 @@
         margin: auto;
 
         .title {
-          font-size: 40px;
+          font-size: 30px;
           margin: 40px 0;
-          color: #374A5A;
+          color: #FFFFFF;
         }
 
         .top-title {
-          color: #373464 !important;
+          color: #FFFFFF !important;
           font-family: $Bold;
         }
 
         .text {
           font-size: 16px;
-          color: #00000080;
+          color: #FFFFFF;
         }
 
         .blue-btn {

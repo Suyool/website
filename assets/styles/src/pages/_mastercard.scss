@@ -124,7 +124,6 @@
       font-size: 17px;
       font-family: $Regular;
       color: #5a5a5a;
-      text-align: justify;
     }
   }
 }
@@ -166,7 +165,6 @@
         font-family: $Regular;
         color: #6b6b6b;
         letter-spacing: 0;
-        text-align: justify;
       }
     }
   }
@@ -189,7 +187,6 @@
     font-family: $Regular;
     font-size: 52px;
     color: #202020;
-    text-align: justify;
   }
 
   .cards {
@@ -271,7 +268,7 @@
 .home-mastercard {
   overflow: hidden;
   width: 100%;
-  margin: 100px 0;
+  margin: 150px 0 70px 0;
   .card-desc {
     width: 75%;
     margin: auto;
@@ -298,7 +295,6 @@
       font-family: $Regular;
       font-size: 22px;
       color: #00000080;
-      text-align: justify;
 
       span {
         font-family: $Bold;
