@@ -40,13 +40,50 @@
       }
     }
   }
+}
 
-  @media (max-width: 768px) {
-    .categories-cont {
-      justify-content: center;
-      .category {
-        margin: 20px 3px ;
+.infoSection {
+  margin-top: 100px;
+
+  .info-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+
+    .info-section {
+      margin-bottom: 30px;
+      h3 {
+        font-size: 20px;
+        font-family: $SemiBold;
+        color: #004B71;
+      }
+      p {
+        font-size: 14px;
+        font-family: $Regular;
       }
     }
   }
 }
+
+@media (max-width: 768px) {
+  .help-center {
+    .categories-cont {
+      justify-content: center;
+
+      .category {
+        margin: 20px 3px;
+      }
+    }
+  }
+  .infoSection {
+    margin-top: 50px;
+    .info-content {
+     .info-section {
+       margin-bottom: 15px;
+     }
+    }
+  }
+}
+
