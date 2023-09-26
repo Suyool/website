@@ -1,0 +1,115 @@
+.help-top-section {
+  height: 450px;
+  background-size: cover;
+  text-align: center;
+
+  .title {
+    color: #FFFFFF;
+    font-size: 72px;
+    padding-top: 80px;
+    font-family: $SemiBold;
+  }
+
+  form {
+    margin-top: 20px;
+
+    label {
+      width: 35%;
+      display: flex;
+      align-items: center;
+      margin: auto;
+
+      input {
+        width: 100%;
+        height: 75px;
+        border-radius: 40px;
+        border: none;
+        padding-left: 80px;
+      }
+
+      input::placeholder {
+        font-size: 16px;
+        font-family: $Regular;
+      }
+
+      i {
+        left: 55px;
+        top: 2px;
+        position: relative;
+        font-size: 23px;
+      }
+    }
+  }
+
+  .choice {
+    background: #fff;
+    display: flex;
+    height: 55px;
+    margin: 30px auto;
+    width: 300px;
+    border-radius: 8px;
+
+    a {
+      border-radius: 8px;
+      font-size: 17px;
+      margin: 5px;
+      text-align: center;
+      width: 45%;
+      padding-top: 8px;
+      font-family: $Regular;
+      color: #FFFFFF;
+    }
+
+    .active {
+      color: #FFFFFF;
+    }
+  }
+}
+
+.help-section1 {
+  background-image: url("../../../images/helpCenter/help-topSection.jpg");
+  form {
+    label {
+      input::placeholder {
+        color: #216D9690;
+      }
+
+      i {
+        color: #216D9690;
+      }
+    }
+  }
+
+  .choice {
+    .personal {
+      background: #216D96;
+    }
+    .corporate{
+      color: #216D96;
+    }
+  }
+}
+
+.help-section2 {
+  background-image: url("../../../images/helpCenter/help-topSection.jpg");
+  form {
+    label {
+      input::placeholder {
+        font-family: $Regular;
+      }
+      i {
+        color: #59388486;
+      }
+    }
+  }
+
+  .choice {
+    .personal{
+      color: #343A64;
+    }
+    .corporate {
+      background: #343A64;
+    }
+  }
+}
+

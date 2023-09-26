@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% include 'helpCenter/navbar.html.twig' %}
+    {% include 'helpCenter/top-section.html.twig' %}
     <div class="help-center container-fluid">
         <div class="categories-cont row">
             {% for category in categories %}
