@@ -1,0 +1,44 @@
+{# templates/helpCenter/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'helpCenter/navbar.html.twig' %}
+    {% include 'helpCenter/top-section.html.twig' %}
+
+    <div class="container-fluid categories-show-cont">
+        <div class="category-show">
+            <h1 class="page-subtitle">{{ category.name }}</h1>
+            <div class="row mt-5">
+                <div class="col-md-4 category-question-cont">
+                    <div class="category-questions">
+                        {% for question in questions %}
+                            <div class="question" data-answer="{{ question.id }}">{{ question.question }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="category-answers">
+                        {% for question in questions %}
+                            <div class="answer" id="answer-{{ question.id }}">{{ question.answer|raw }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="page-subtitle">What’s Next?</h1>
+        <div class="categories-cont row">
+            {% for nextCategory in nextCategories %}
+                <div class="card category col-lg-3 col-md-5">
+                    <img width="100px" style="border-radius: 50%" src="{{ asset('build/images/rocket.png') }}" alt="">
+                    <div class="title">{{ nextCategory.name }}</div>
+                    {% for question in questionsForNextCategories[nextCategory.id] %}
+                        <span><span class="dot"></span>{{ question.question }}</span>
+                    {% endfor %}
+                    <a href="{{ path('category_show', {'id': nextCategory.id}) }}">View All</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
