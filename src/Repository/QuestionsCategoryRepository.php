@@ -47,32 +47,58 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return QuestionsCategory[] Returns an array of QuestionsCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?QuestionsCategory
+//    public function findQuestionsByCategories( string $type=""){
+//        $data = $this->createQueryBuilder('q')
+//            ->select('q.id', 'q.question', 'q.answer', 'c.name')
+//            ->from('App\Entity\QuestionsCategory', 'c')
+//            ->leftJoin('c.questions', 'q')
+//            ->getQuery()
+//            ->getResult();
+//
+//        dd($data);
+//}
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function findQuestionsByCategories(string $type="")
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.questions', 'q') // Assuming the association is named 'questions'
+            ->addSelect('q') // Include the questions in the result
+            ->getQuery();
+        return $qb->getResult();
     }
-    */
+
+
+
+// /**
+//  * @return QuestionsCategory[] Returns an array of QuestionsCategory objects
+//  */
+/*
+public function findByExampleField($value)
+{
+    return $this->createQueryBuilder('q')
+        ->andWhere('q.exampleField = :val')
+        ->setParameter('val', $value)
+        ->orderBy('q.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+*/
+
+/*
+public function findOneBySomeField($value): ?QuestionsCategory
+{
+    return $this->createQueryBuilder('q')
+        ->andWhere('q.exampleField = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+}
+*/
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="help-center container-fluid">
+        <div class="categories-cont row">
+            {% for category in categories %}
+                <div class="card category col-md-3">
+                    <div class="title">{{ category.name }}</div>
+                    {% for question in category.questions %}
+                        <span>{{ question.question }}</span>
+                    {% endfor %}
+                    <a href="#">View All</a>
+
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
