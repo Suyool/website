@@ -15,4 +15,22 @@ class lotonumbersRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function truncate()
+    {
+        return $this->createQueryBuilder('ln')
+            ->delete()
+            ->getQuery()
+            ->execute();
+    }
+
+    public function Increment()
+    {
+     $conn=$this->getEntityManager()->getConnection();
+         $sql="ALTER TABLE prices AUTO_INCREMENT = 1";
+         $stmt=$conn->prepare($sql);
+         $res=$stmt->execute();
+         return $res->fetch();
+ 
+    }
 }
