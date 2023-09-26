@@ -320,10 +320,15 @@ class LotoController extends AbstractController
 
                 $this->mr->persist($order);
                 $this->mr->flush();
+
+                if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
+                    $drawnumber+=1;
+                }
                 foreach ($getPlayedBalls as $item) {
                     $numDraws = $item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
+                    
                     if ($withZeed == false) {
                         $withZeed = 0;
                     } else {
@@ -411,20 +416,7 @@ class LotoController extends AbstractController
                 }
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                 $sum = 0;
-                if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
-                    $nextThursday = $today->modify('+2 hour 30 minutes');
-                    $nextDate = $nextThursday->format('d/m/Y');
-                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these numbers for the next draw on: ' . $nextDate . ' at 20:00', 'Text' => 'Play', 'flag' => '?goto=Play'];
-                    $orderid->setstatus(order::$statusOrder['CANCELED']);
-                    $this->mr->persist($orderid);
-                    $this->mr->flush();
-
-                    return new JsonResponse([
-                        'status' => false,
-                        'message' => $warning,
-                        'flagCode' => 150
-                    ], 200);
-                }
+                
 
                 foreach ($lotoid as $lotoid) {
                     if (strpos($lotoid->getgridSelected(), 'B') !== 0) {
