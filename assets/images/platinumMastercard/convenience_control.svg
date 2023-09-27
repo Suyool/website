@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="43.101" height="42.318" viewBox="0 0 43.101 42.318">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_21200" data-name="Rectangle 21200" width="43.101" height="42.318" transform="translate(0 0)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_39126" data-name="Group 39126" transform="translate(0 0)" clip-path="url(#clip-path)">
+    <path id="Path_41447" data-name="Path 41447" d="M18.371,6.094A6.093,6.093,0,1,1,12.278,0a6.094,6.094,0,0,1,6.094,6.094" transform="translate(-0.303 0)" fill="#373464"/>
+    <path id="Path_41448" data-name="Path 41448" d="M2.256,8.546H40.845a2.255,2.255,0,1,0,0-4.51H2.256a2.255,2.255,0,1,0,0,4.51" transform="translate(0 -0.198)" fill="#373464"/>
+    <path id="Path_41449" data-name="Path 41449" d="M15.692,6.239a3.268,3.268,0,1,1-3.268-3.268,3.269,3.269,0,0,1,3.268,3.268" transform="translate(-0.449 -0.146)" fill="#d7d7e2"/>
+    <path id="Path_41450" data-name="Path 41450" d="M26.324,37.779a6.093,6.093,0,1,0,6.094-6.094,6.094,6.094,0,0,0-6.094,6.094" transform="translate(-1.291 -1.554)" fill="#373464"/>
+    <path id="Path_41451" data-name="Path 41451" d="M40.846,40.232H2.256a2.255,2.255,0,1,1,0-4.51h38.59a2.255,2.255,0,1,1,0,4.51" transform="translate(0 -1.752)" fill="#373464"/>
+    <path id="Path_41452" data-name="Path 41452" d="M29.3,37.924a3.268,3.268,0,1,0,3.268-3.268A3.269,3.269,0,0,0,29.3,37.924" transform="translate(-1.437 -1.7)" fill="#d7d7e2"/>
+    <path id="Path_41453" data-name="Path 41453" d="M31.187,21.936a6.094,6.094,0,1,1-6.095-6.094,6.095,6.095,0,0,1,6.095,6.094" transform="translate(-0.932 -0.777)" fill="#373464"/>
+    <path id="Path_41454" data-name="Path 41454" d="M2.256,24.389H40.845a2.255,2.255,0,1,0,0-4.51H2.256a2.255,2.255,0,1,0,0,4.51" transform="translate(0 -0.975)" fill="#373464"/>
+    <path id="Path_41455" data-name="Path 41455" d="M28.507,22.081a3.268,3.268,0,1,1-3.268-3.268,3.269,3.269,0,0,1,3.268,3.268" transform="translate(-1.078 -0.923)" fill="#d7d7e2"/>
+  </g>
+</svg>

@@ -1,6 +1,11 @@
 .top_section_mastercard {
   .navbar_v3 {
     font-family: $Regular;
+    .navbar-brand {
+      img {
+        width: 85%;
+      }
+    }
     .navbar-nav {
       li {
         margin-right: 50px;
@@ -74,6 +79,12 @@
       .button-primary {
         margin-right: 10px;
         font-size: 18px;
+        border: 2px solid #ffffff;
+      }
+
+      .button-primary:hover {
+        background: #226d96;
+        border: 2px solid #ffffff;
       }
 
       .button-primary,
@@ -82,16 +93,6 @@
         padding: 10px 30px;
         background: #ffffff;
         color: #226d96;
-      }
-
-      .btn-outline-secondary {
-        border-color: #226d96;
-        color: #226d96;
-
-        &:hover {
-          background-color: unset;
-          color: #226d96;
-        }
       }
     }
   }
@@ -136,10 +137,9 @@
   .step {
     width: 30%;
     .sub {
-
       background-color: #fff;
       border-radius: 3px;
-      box-shadow: 0 10px 60px rgba(0,0,0,.18);
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.18);
       margin: auto;
       min-height: 360px;
       padding: 20px 5%;
@@ -149,7 +149,7 @@
       flex-direction: column;
       justify-content: space-between;
 
-      img{
+      img {
         position: absolute;
         right: 20px;
         width: 17%;
@@ -177,6 +177,22 @@
   justify-content: center;
   margin-top: 100px;
   align-items: center;
+
+  .ligne {
+    width: 100%;
+    position: relative;
+    height: 200px;
+    .coat {
+      color: #373464;
+      font-family: PoppinsItalic;
+      font-size: 18px;
+      max-width: 500px;
+      position: absolute;
+      right: 80px;
+      top: 30px;
+    }
+  }
+
   .title {
     font-family: $Bold;
     font-size: 21px;
@@ -194,6 +210,29 @@
     display: flex;
     width: 90%;
     margin: 0;
+    .big_card_coat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      .card_coat {
+        width: 90%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        overflow: hidden;
+        margin: 20px 0;
+        height: -webkit-fill-available;
+        padding-bottom: 50px;
+        .coat {
+          font-size: 18px;
+          color: #373464;
+          font-family: $Italic;
+          position: absolute;
+          bottom: 15px;
+          text-align: justify;
+        }
+      }
+    }
     .big_card {
       display: flex;
       align-items: center;
@@ -206,6 +245,7 @@
         overflow: hidden;
         margin: 20px 0;
         height: -webkit-fill-available;
+        padding-bottom: 50px;
 
         img {
           width: 100%;
@@ -242,8 +282,9 @@
           }
         }
         .lear_more {
-          padding: 30px;
-          text-align: end;
+          position: absolute;
+          right: 30px;
+          bottom: 30px;
 
           a {
             display: flex;
@@ -323,8 +364,8 @@
     margin-left: 40px;
   }
 
-  .card-img-desk{
-    img{
+  .card-img-desk {
+    img {
       width: 80%;
     }
   }
@@ -341,10 +382,10 @@
   width: 200px;
 }
 
-@media screen and (max-width:1400px) {
+@media screen and (max-width: 1400px) {
   .four_steps {
     padding-top: 20px;
-    .step {  
+    .step {
       padding: 18px 5%;
       .title {
         font-size: 22px;
@@ -355,18 +396,17 @@
       }
     }
   }
-  
 }
 
-@media screen and (max-width:991px) {
+@media screen and (max-width: 991px) {
   .three_steps {
     margin-top: 70px;
     .step {
       .sub {
         min-height: 435px;
         width: 100%;
-  
-        img{
+
+        img {
           position: initial;
           width: fit-content;
         }
@@ -389,46 +429,44 @@
     .card-desc {
       padding-left: 10%;
       width: 95%;
-  
+
       .main_title {
         font-size: 22px;
       }
-  
+
       .title {
         color: #374a5a;
         font-size: 40px;
         margin-bottom: 25px;
       }
-  
+
       .sub-title {
         font-size: 18px;
         margin: 20px 0 70px 0 !important;
       }
-  
+
       .text {
         margin: 10px 0;
         font-size: 20px;
       }
     }
-  
+
     .blue-btn {
       margin-left: 10px;
     }
-  
-    .card-img-desk{
-      img{
+
+    .card-img-desk {
+      img {
         width: 100%;
       }
     }
   }
 }
 
-
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .top_section_mastercard {
-  
     padding-bottom: 80px;
-  
+
     .navbar {
       margin-bottom: 20px;
       .right {
@@ -440,18 +478,17 @@
         }
       }
     }
-  
+
     .top-info {
       h1 {
         font-size: 36px;
         padding-top: 55px;
       }
-  
+
       p {
         font-size: 18px;
         width: 80%;
       }
-  
     }
   }
 
@@ -460,7 +497,7 @@
       font-size: 20px;
       text-align: center;
     }
-  
+
     .descri {
       font-size: 35px;
       text-align: center;
@@ -471,14 +508,14 @@
         .card {
           width: 100%;
           margin: 20px 0;
-  
+
           .text {
             padding: 15px;
             .title {
               font-size: 20px;
               padding-bottom: 20px;
             }
-  
+
             .points {
               .dot {
                 margin-top: 5px;
@@ -501,7 +538,7 @@
       width: 100%;
       .sub {
         margin-top: 20px;
-        img{
+        img {
           position: initial;
           width: fit-content;
         }
@@ -516,10 +553,9 @@
     }
   }
   .home-mastercard {
-  
-    .card-img-desk{
+    .card-img-desk {
       text-align: center;
-      img{
+      img {
         width: 80%;
       }
     }
