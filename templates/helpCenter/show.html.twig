@@ -3,51 +3,60 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include 'helpCenter/navbar.html.twig' %}
-    {% include 'helpCenter/info-top-section.html.twig' %}
+    <div class="help-center-page">
+        {% include 'helpCenter/navbar.html.twig' %}
+        {% include 'helpCenter/info-top-section.html.twig' %}
 
-    <div class="container-fluid categories-show-cont">
-        <div class="category-show">
-            <div class="navigator">
-                <span>Suyool Help Center</span>
-                <i class="fa-solid fa-arrow-right"></i>
-                <span>{{ category.name }}</span>
-                <i class="fa-solid fa-arrow-right"></i>
-                <span id="navigator-question">{{ questions[0].question }}</span>
-            </div>
-            <h1 class="page-subtitle">{{ category.name }}</h1>
-            <div class="row mt-5">
-                <div class="col-md-4 category-question-cont">
-                    <div class="category-questions">
-                        {% for question in questions %}
-                            <div class="question" data-answer="{{ question.id }}">{{ question.question }}</div>
-                        {% endfor %}
+        <div class="container-fluid categories-show-cont">
+            <div class="category-show">
+                <div class="navigator">
+                    <span class="color{{type}}">Suyool Help Center</span>
+                    <i class="fa-solid fa-arrow-right color{{type}}"></i>
+                    <span class="color{{type}}">{{ category.name }}</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span id="navigator-question" class="light-color{{type}}">{{ questions[0].question }}</span>
+                </div>
+                <h1 class="page-subtitle color{{type}}">{{ category.name }}</h1>
+                <div class="row mt-5">
+                    <div class="col-md-4 category-question-cont">
+                        <div class="category-questions category-questions{{type}}">
+                            {% for question in questions %}
+                                <div class="question question{{type}}" data-answer="{{ question.id }}">{{ question.question }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="category-answers color{{type}}">
+                            <div class="question" id="answer-question">{{ questions[0].question }}</div>
+                            <div class="answer" id="answer-desc">{{ questions[0].question }}</div>
+                            {% for question in questions %}
+                                <div class="answer" id="answer-{{ question.id }}">{{ question.answer|raw }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="category-answers">
-                        <div class="question" id="answer-question">{{questions[0].question}}</div>
-                        <div class="answer" id="answer-desc">{{questions[0].question}}</div>
-                        {% for question in questions %}
-                            <div class="answer" id="answer-{{ question.id }}">{{ question.answer|raw }}</div>
-                        {% endfor %}
-                    </div>
-                </div>
             </div>
-        </div>
 
-        <h1 class="page-subtitle">What’s Next?</h1>
-        <div class="categories-cont row">
-            {% for nextCategory in nextCategories %}
-                <div class="card category col-lg-3 col-md-5">
-                    <img width="100px" style="border-radius: 50%" src="{{ asset('build/images/rocket.png') }}" alt="">
-                    <div class="title">{{ nextCategory.name }}</div>
-                    {% for question in questionsForNextCategories[nextCategory.id] %}
-                        <span><span class="dot"></span>{{ question.question }}</span>
-                    {% endfor %}
-                    <a href="{{ path('category_show', {'id': nextCategory.id}) }}">View All</a>
-                </div>
-            {% endfor %}
+            <h1 class="page-subtitle color{{type}}">What’s Next?</h1>
+            <div class="categories-cont row">
+                {% for nextCategory in nextCategories %}
+                    <div class="category-cont col-lg-4 col-md-6">
+                        <div class="card category">
+                            <a href="{{ path('category_show', {'id': nextCategory.id}) }}">
+                                <div class="category-icon">
+                                    <img width="100px" style="border-radius: 50%"
+                                         src="{{ asset('build/images/rocket.png') }}"
+                                         alt="">
+                                </div>
+                                <div class="title">{{ nextCategory.name }}</div>
+                                {% for question in questionsForNextCategories[nextCategory.id] %}
+                                    <p><span class="dot"></span>{{ question.question }}</span></p>
+                                    {% endfor %}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -25,7 +25,7 @@ class HelpCenterController extends AbstractController
         $type = $this->request->query->get('type-id', 1);
 
         //add the type later
-        $categories = $categoryRepository->findQuestionsByCategories();
+        $categories = $categoryRepository->findQuestionsByCategories($type);
         //dd($categories);
         return $this->render('helpCenter/index.html.twig', [
             'categories' => $categories,
@@ -36,10 +36,8 @@ class HelpCenterController extends AbstractController
     /**
      * @Route("/category/{id}", name="category_show")
      */
-    public function showCategory($id)
+    public function showCategory($id, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
     {
-        $type = $this->request->query->get('type-id', 1);
-
         // Fetch the category by ID
         $category = $this->getDoctrine()
             ->getRepository(QuestionsCategory::class)
@@ -52,26 +50,12 @@ class HelpCenterController extends AbstractController
         // Fetch the questions for the category
         $questions = $category->getQuestions();
 
-        // Fetch the three categories after the current one
-        $categoriesRepository = $this->getDoctrine()->getRepository(QuestionsCategory::class);
-        $nextCategories = $categoriesRepository->createQueryBuilder('c')
-            ->where('c.id > :categoryId') // Select categories with IDs greater than the current category's ID
-            ->setParameter('categoryId', $id)
-            ->orderBy('c.id', 'ASC') // Order by category ID in ascending order
-            ->setMaxResults(3) // Limit to 3 categories
-            ->getQuery()
-            ->getResult();
+        $nextCategories = $categoryRepository->getNextCategories($id);
 
-        // Fetch the first three questions for each of the three categories
-        $questionsRepository = $this->getDoctrine()->getRepository(Question::class);
+
         $questionsForNextCategories = [];
         foreach ($nextCategories as $nextCategory) {
-            $questionsForNextCategory = $questionsRepository->createQueryBuilder('q')
-                ->where('q.questionsCategory = :category')
-                ->setParameter('category', $nextCategory)
-                ->setMaxResults(3) // Limit to 3 questions
-                ->getQuery()
-                ->getResult();
+            $questionsForNextCategory = $questionsRepository->getQuestionsForNextCategory($nextCategory);
             $questionsForNextCategories[$nextCategory->getId()] = $questionsForNextCategory;
         }
 
@@ -80,7 +64,7 @@ class HelpCenterController extends AbstractController
             'questions' => $questions,
             'nextCategories' => $nextCategories,
             'questionsForNextCategories' => $questionsForNextCategories,
-            'type' => $type,
+            'type' => $category->getType(),
         ]);
     }
 

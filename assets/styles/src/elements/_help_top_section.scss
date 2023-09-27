@@ -118,11 +118,11 @@
 }
 
 .help-section2 {
-  background-image: url("../../../images/helpCenter/help-topSection.jpg");
+  background-image: url("../../../images/helpCenter/help-topSection-corporate.jpg");
   form {
     label {
       input::placeholder {
-        font-family: $Regular;
+        color: #59388486;
       }
       i {
         color: #59388486;
