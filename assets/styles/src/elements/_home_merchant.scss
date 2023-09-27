@@ -27,6 +27,10 @@
             padding: 20px 0 38px;
             filter: grayscale(100%);
             -webkit-filter: grayscale(100%);
+            &:hover{
+                filter:none;
+            -webkit-filter: none;
+            }
         }
     }
 
@@ -57,6 +61,14 @@
     }
 
     @media screen and (max-width:991px) {
+        .merchants{
+            .merchantsdisplay{
+                img{
+                    filter: none;
+                    -webkit-filter: none;
+                }
+            }
+        }
         .merchant1 {
             text-align: center;
         }
@@ -71,10 +83,10 @@
             flex-direction: column;
         }   
         .network{
-            font-size: 20px;
+            font-size: 14px;
         }
         .partner{
-            font-size: 31px;
+            font-size: 35px;
         }
     }
 }

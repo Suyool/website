@@ -118,7 +118,7 @@ $image-path: '../../../../images/alfa_employee/';
                 font-family: $Bold;
                 color: #373464;
                 word-spacing: 1px;
-                letter-spacing: 3px;
+                letter-spacing: 2px;
             }
 
             .easy_steps {
@@ -139,11 +139,12 @@ $image-path: '../../../../images/alfa_employee/';
             // background-color: #F0F0F3;
             max-height: 100%;
             // text-align: center;
-            padding: 60px;
+            // padding: 60px;
             border-radius: 17px;
 
             img {
-                max-height: 524px;
+                // height: 524px;
+                width: 87%;
             }
         }
 
@@ -153,6 +154,10 @@ $image-path: '../../../../images/alfa_employee/';
             font-size: 40px;
             margin-bottom: 20px;
             padding-top: 170px;
+            @media screen and (max-width:1440px) {
+                padding-top: 0px;
+            }
+
         }
 
         .desc {
@@ -160,7 +165,10 @@ $image-path: '../../../../images/alfa_employee/';
             color: #00000080;
             font-size: 22px;
             margin-bottom: 20px;
-            padding-top: 100px;
+            
+            &.exchange{
+                padding-top: 100px;
+            }
         }
 
         .list {
@@ -265,12 +273,12 @@ $image-path: '../../../../images/alfa_employee/';
                     }
 
                     .title {
-                        font-size: 24px;
+                        font-size: 20px;
                         margin-bottom: 15px;
                     }
 
                     .text {
-                        font-size: 16px;
+                        font-size: 14px;
                         margin-bottom: 20px;
                     }
                 }
@@ -292,7 +300,7 @@ $image-path: '../../../../images/alfa_employee/';
 
             .title {
                 color: #374A5A;
-                font-size: 52px;
+                font-size: 40px;
                 font-family: $Regular;
                 margin-bottom: 30px;
             }
@@ -304,7 +312,7 @@ $image-path: '../../../../images/alfa_employee/';
             .text {
                 margin: 30px 0;
                 font-family: $Regular;
-                font-size: 22px;
+                font-size: 20px;
                 color: #00000080;
 
                 span {
@@ -321,6 +329,9 @@ $image-path: '../../../../images/alfa_employee/';
                     margin-right: 20px;
                     height: 38px;
                 }
+                p{
+                    font-size: 14px;
+                }
             }
         }
 
@@ -329,8 +340,12 @@ $image-path: '../../../../images/alfa_employee/';
         }
 
         .card-img-desk {
+            @media screen and (max-width:998px) {
+                text-align: center;
+            }
             img {
-                max-width: 68%;
+                max-width: 450px;
+                width: 100%;
             }
         }
 
@@ -339,15 +354,24 @@ $image-path: '../../../../images/alfa_employee/';
                 width: 90%;
 
                 .title {
-                    font-size: 29px;
+                    font-size: 35px;
                 }
 
                 .sub-title {
-                    font-size: 15px;
+                    font-size: 14px;
                 }
 
                 p {
                     font-size: 14px;
+                }
+                .text{
+                    margin: 0px 0px;
+                }
+                .check{
+                    img{
+                        height: 30px;
+                        margin-right: 10px;
+                    }
                 }
             }
 
@@ -355,7 +379,7 @@ $image-path: '../../../../images/alfa_employee/';
                 text-align: center;
 
                 img {
-                    max-width: 100%;
+                    width: 100%;
                     margin-bottom: 95px;
                 }
             }
@@ -393,16 +417,19 @@ $image-path: '../../../../images/alfa_employee/';
 
                 // width: 30%;
                 .sub1 {
-                    margin-bottom: 60px;
+                    margin-bottom: 40px;
                 }
 
                 .sub {
+                    @media screen and (max-width:998px) {
+                        margin-top: 20px;
+                    }
                     padding: 21px;
                     background-color: #fff;
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    min-height: 217px;
+                    height: 217px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -430,8 +457,11 @@ $image-path: '../../../../images/alfa_employee/';
                 }
             }
         }
-
+        
         @media screen and (max-width:768px) {
+            .title-solution{
+                font-size: 14px;
+            }
 
             .three_steps2 {
                 .step {
@@ -455,7 +485,7 @@ $image-path: '../../../../images/alfa_employee/';
 
                         .description {
                             padding-top: 20px;
-                            font-size: 16px;
+                            font-size: 14px;
 
                         }
                     }
@@ -511,24 +541,27 @@ $image-path: '../../../../images/alfa_employee/';
             // background-image: none;
             background-image: url($image-path+"alfamobile.png");
             padding-top: 53px;
-            height: 738px;
+            height: 800px;
 
             .information {
                 margin-top: 63px;
 
                 .title {
-                    font-size: 33px;
+                    font-size: 40px;
                     text-align: left;
                 }
 
                 .desc {
-                    font-size: 12px;
+                    font-size: 15px;
                     line-height: 21px;
                     text-align: left;
                 }
 
                 .OpenSuyoolAccount {
                     margin-top: 215px;
+                    .OpenYourSuyoolAccount{
+                        font-size: 15px;
+                    }
                 }
             }
 
@@ -539,6 +572,7 @@ $image-path: '../../../../images/alfa_employee/';
             background-color: #F0F0F3;
 
             .MasterCard {
+                margin-bottom: 80px;
                 .sub-desc {
                     font-size: 17px;
                     text-align: left;
@@ -562,11 +596,11 @@ $image-path: '../../../../images/alfa_employee/';
                 }
 
                 .easy_steps {
-                    font-size: 27px;
+                    font-size: 35px;
                 }
 
                 .manage_spend {
-                    font-size: 15px;
+                    font-size: 14px;
                 }
             }
         }
@@ -577,24 +611,34 @@ $image-path: '../../../../images/alfa_employee/';
                     width: 100%;
                 }
             }
+            .image{
+                padding: 0px;
+            }
 
             .title {
-                font-size: 30px;
+                font-size: 35px;
+                padding-top: 0px;
+            }
+            .desc{
+                font-size: 14px;
+            }
+            p{
+                font-size: 14px;
             }
 
             .home_body_desktop {
                 .how_suyool_work {
-                    font-size: 18px;
+                    font-size: 14px;
                     text-align: center;
                 }
 
                 .easy_steps {
                     text-align: center;
-                    font-size: 34px;
+                    font-size: 35px;
                 }
 
                 .manage_spend {
-                    font-size: 18px;
+                    font-size: 14px;
                     text-align: center;
                 }
             }
@@ -615,8 +659,30 @@ $image-path: '../../../../images/alfa_employee/';
         }
 
         .alfa-questions {
+            .desc{
+                font-size: 14px;
+            }
+            .title{
+                font-size: 14px;
+            }
             .contact {
                 margin-bottom: 60px;
+            }
+        }
+        .alfa{
+            .use-money{
+                .desc{
+                    &.exchange{
+                        padding-top: 0px;
+                    }
+                }
+                .list{
+                    .check{
+                        p{
+                            font-size: 14px;
+                        }
+                    }
+                }
             }
         }
 

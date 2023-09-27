@@ -48,4 +48,21 @@
             padding-left: 25px;
         }
     }
+    @media screen and (max-width:768px) {
+        .subtitle{
+            font-size: 35px;
+        }
+        .title{
+            font-size: 14px;
+        }
+        .FAQaccordion{
+            .accordion-body{
+                font-size: 14px;
+            }
+            .accordion-button{
+                font-size: 16px;
+            }
+        }
+        
+    }
 }
