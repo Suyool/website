@@ -56,7 +56,7 @@ return [
     "SEND_MONEY_INTERNATIONALLY"=>"إرسال الأموال عالمياً",
     "PAY_BILLS"=>"دفع الفواتير",
     "PAY_WITH_SUYOOL_QR"=>"QR الدفع من خلال سيول ",
-    "HOW_DOES_SUYOOL_WORK?"=>"كيف يعمل تطبيق سيول؟",
+    "HOW_DOES_SUYOOL_WORK"=>"كيف يعمل تطبيق سيول؟",
     "3_EASY_STEPS_TO_GET_STARTED"=>"٣ خطوات سهلة للبدء",
     "MANAGE_SPEND_ACCRSS_YOUR_MONEY_IN_REAL_TIME"=>"إدارة، إنفاق والوصول فورًا إلى أموالك",
     "OPEN_AN_ACCOUNT_IN_MINUTES"=>"إفتح حسابك في دقائق قليلة",

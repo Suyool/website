@@ -4,29 +4,38 @@
 {% endblock %}
 
 {% block body %}
-<div class="usj">
-    <div class="language_selection">
-            <div class="lang_sec">En</div>
-            <div class="lang_sec_selected">Fr</div>
-            <div class="lang_sec">Ar</div>
-        </div>
-        <div class="language-dropdown  d-block d-lg-none">
-            <select>
-                <option value="en">En</option>
-                <option value="fr" selected>Fr</option>
-                <option value="ar">Ar</option>
-            </select>
-        </div>
-    {% include 'elements/usj/topSection.html.twig' %}
-    {% include 'elements/usj/usj_steps.html.twig' %}
-    {% include 'elements/usj/usj_mastercard.html.twig' %}
-    {% include 'elements/usj/use-money.html.twig' %}
-    {% include 'elements/usj/solution-suyool.html.twig' %}
-    {% include 'elements/usj/exchange.html.twig' %}
-    {% include 'elements/merchant.html.twig' %}
-    {% include 'elements/faq/faqSuyool.html.twig' %}
-    {% include 'elements/usj/questions.html.twig' %}
-</div>
+	<div class="usj">
+		<div id="language_selection">
+			<div {% if lang == "en" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
+				<a href="?lang=en">En</a>
+			</div>
+			<div {% if lang == "fr" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
+				<a href="?lang=fr">Fr</a>
+			</div>
+			<div {% if lang == "ar" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
+				<a href="?lang=ar">Ar</a>
+			</div>
+		</div>
+		<form action="#" method="get">
+			<div id="language-dropdown" class=" d-block d-lg-none" >
+				<select name="lang" onchange="this.form.submit()">
+					<option value="en" {% if lang == "en" %} selected {% endif %}>En</option>
+					<option value="fr" {% if lang == "fr" %} selected {% endif %}>Fr</option>
+					<option value="ar" {% if lang == "ar" %} selected {% endif %}>Ar</option>
+				</select>
+			</div>
+		</form>
 
-{% include 'elements/footer.html.twig' %}
+		{% include 'elements/usj/topSection.html.twig' %}
+		{% include 'elements/usj/usj_steps.html.twig' %}
+		{% include 'elements/usj/usj_mastercard.html.twig' %}
+		{% include 'elements/usj/use-money.html.twig' %}
+		{% include 'elements/usj/solution-suyool.html.twig' %}
+		{% include 'elements/usj/exchange.html.twig' %}
+		{% include 'elements/merchant.html.twig' %}
+		{% include 'elements/faq/faqSuyool.html.twig' %}
+		{% include 'elements/usj/questions.html.twig' %}
+	</div>
+
+	{% include 'elements/footer.html.twig' %}
 {% endblock %}

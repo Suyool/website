@@ -18,7 +18,10 @@ class MerchantsController extends AbstractController
     {
         $this->trans = $trans;
     }
-    #[Route('/alfa-employee', name: 'app_alfa_employee')]
+
+    /**
+     * @Route("/alfa-employee", name="app_alfa_employee")
+     */
     public function alfa(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
@@ -53,7 +56,9 @@ class MerchantsController extends AbstractController
         return $this->render('merchants/alfa.html.twig',$parameters);
     }
 
-    #[Route('/usj', name: 'app_usj')]
+    /**
+     * @Route("/usj", name="app_usj")
+     */
     public function usj(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
