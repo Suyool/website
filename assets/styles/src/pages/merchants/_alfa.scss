@@ -2,9 +2,10 @@ $image-path: '../../../../images/alfa_employee/';
 
 .alfa {
     .topSectionAlfaEmp {
-        img{
+        img {
             width: 100%;
         }
+
         // background-color: #e41e2c;
         // background-image: url($image-path+"topImagelarge.png");
         // @media screen and (max-width:1440px) {
@@ -50,13 +51,14 @@ $image-path: '../../../../images/alfa_employee/';
             text-align: center;
             padding-top: 9pc;
             text-align: center;
-            @media screen and (max-width:1200px) {
+
+            @media screen and (max-width:1200px) and (min-width:998px) {
                 padding-top: 5pc;
             }
 
             .title {
                 color: #fff;
-                font-size: 40px;
+                font-size: 45px;
                 font-family: $Regular;
             }
 
@@ -76,6 +78,12 @@ $image-path: '../../../../images/alfa_employee/';
                     border: none;
                     color: #226D96;
                     font-family: $SemiBold;
+
+                    &:hover {
+                        background: #226d96;
+                        border: 2px solid #fff;
+                        color: #ffffff;
+                    }
                 }
             }
         }
@@ -86,6 +94,7 @@ $image-path: '../../../../images/alfa_employee/';
         background-color: #F0F0F3;
         text-align: center;
         padding-top: 26px;
+        margin-bottom: 20px;
 
         .easy_steps_top {
             font-size: 22px;
@@ -179,7 +188,7 @@ $image-path: '../../../../images/alfa_employee/';
             padding-top: 170px;
 
             @media screen and (max-width:1440px) {
-                padding-top: 0px;
+                padding-top: 65px;
             }
 
         }
@@ -192,6 +201,9 @@ $image-path: '../../../../images/alfa_employee/';
 
             &.exchange {
                 padding-top: 100px;
+                @media screen and (max-width:768px) {
+                    padding-top: 0px;
+                }
             }
         }
 
@@ -361,7 +373,7 @@ $image-path: '../../../../images/alfa_employee/';
                 }
 
                 p {
-                    font-size: 14px;
+                    font-size: 18px;
                 }
             }
         }
@@ -376,7 +388,7 @@ $image-path: '../../../../images/alfa_employee/';
             }
 
             img {
-                max-width: 450px;
+                max-width: 600px;
                 width: 100%;
             }
         }
@@ -422,7 +434,8 @@ $image-path: '../../../../images/alfa_employee/';
     }
 
     .solution {
-        margin-bottom: 10pc;
+        margin-bottom: 5pc;
+        margin-top: 9pc;
 
         .title-solution {
             text-align: center;
@@ -464,7 +477,7 @@ $image-path: '../../../../images/alfa_employee/';
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    height: 217px;
+                    height: 230px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -472,7 +485,7 @@ $image-path: '../../../../images/alfa_employee/';
                     justify-content: space-between;
 
                     img {
-                        width: 11%;
+                        width: 13%;
                         float: right;
                     }
 
@@ -483,7 +496,7 @@ $image-path: '../../../../images/alfa_employee/';
                     }
 
                     .description {
-                        font-size: 13px;
+                        font-size: 16px;
                         font-family: $Regular;
                         color: #6b6b6b;
                         letter-spacing: 0;
@@ -533,10 +546,11 @@ $image-path: '../../../../images/alfa_employee/';
         .title {
             margin-top: 130px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             color: #226D96;
             font-family: $Medium;
             margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
         .sub-title {
@@ -699,6 +713,7 @@ $image-path: '../../../../images/alfa_employee/';
 
         .solution {
             margin-bottom: 2pc;
+            margin-top: 0px;
         }
 
         .alfa-mastercard {
@@ -716,6 +731,7 @@ $image-path: '../../../../images/alfa_employee/';
 
             .title {
                 font-size: 14px;
+                margin-top: 0px;
             }
 
             .contact {

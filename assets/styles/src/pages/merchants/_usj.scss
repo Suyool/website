@@ -2,9 +2,10 @@ $image-path: '../../../../images/usj/';
 
 .usj {
     .topSectionUsjEmp {
-        img{
+        img {
             width: 100%;
         }
+
         // background-color: #e41e2c;
         // background-image: url($image-path+"topImagelarge.png");
         // @media screen and (max-width:1440px) {
@@ -50,13 +51,14 @@ $image-path: '../../../../images/usj/';
             text-align: center;
             padding-top: 9pc;
             text-align: center;
-            @media screen and (max-width:1200px) {
+
+            @media screen and (max-width:1200px) and (min-width:998px) {
                 padding-top: 5pc;
             }
 
             .title {
                 color: #fff;
-                font-size: 40px;
+                font-size: 45px;
                 font-family: $Regular;
             }
 
@@ -76,6 +78,12 @@ $image-path: '../../../../images/usj/';
                     border: none;
                     color: #226D96;
                     font-family: $SemiBold;
+
+                    &:hover {
+                        background: #226d96;
+                        border: 2px solid #fff;
+                        color: #ffffff;
+                    }
                 }
             }
         }
@@ -86,6 +94,7 @@ $image-path: '../../../../images/usj/';
         background-color: #F0F0F3;
         text-align: center;
         padding-top: 26px;
+        margin-bottom: 20px;
 
         .easy_steps_top {
             font-size: 22px;
@@ -179,7 +188,7 @@ $image-path: '../../../../images/usj/';
             padding-top: 170px;
 
             @media screen and (max-width:1440px) {
-                padding-top: 0px;
+                padding-top: 65px;
             }
 
         }
@@ -192,6 +201,9 @@ $image-path: '../../../../images/usj/';
 
             &.exchange {
                 padding-top: 100px;
+                @media screen and (max-width:768px) {
+                    padding-top: 0px;
+                }
             }
         }
 
@@ -209,7 +221,7 @@ $image-path: '../../../../images/usj/';
                     color: #00000080;
                     font-size: 18px;
                     font-family: $Regular;
-                    margin: 0 10px;
+                    margin-left: 10px;
 
                 }
             }
@@ -361,8 +373,7 @@ $image-path: '../../../../images/usj/';
                 }
 
                 p {
-                    font-size: 14px;
-                    margin:  0 10px;
+                    font-size: 18px;
                 }
             }
         }
@@ -377,7 +388,7 @@ $image-path: '../../../../images/usj/';
             }
 
             img {
-                max-width: 450px;
+                max-width: 600px;
                 width: 100%;
             }
         }
@@ -423,7 +434,8 @@ $image-path: '../../../../images/usj/';
     }
 
     .solution {
-        margin-bottom: 10pc;
+        margin-bottom: 5pc;
+        margin-top: 9pc;
 
         .title-solution {
             text-align: center;
@@ -465,7 +477,7 @@ $image-path: '../../../../images/usj/';
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    height: 217px;
+                    height: 230px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -473,7 +485,7 @@ $image-path: '../../../../images/usj/';
                     justify-content: space-between;
 
                     img {
-                        width: 11%;
+                        width: 13%;
                         float: right;
                     }
 
@@ -484,7 +496,7 @@ $image-path: '../../../../images/usj/';
                     }
 
                     .description {
-                        font-size: 13px;
+                        font-size: 16px;
                         font-family: $Regular;
                         color: #6b6b6b;
                         letter-spacing: 0;
@@ -534,10 +546,11 @@ $image-path: '../../../../images/usj/';
         .title {
             margin-top: 130px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             color: #226D96;
             font-family: $Medium;
             margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
         .sub-title {
@@ -571,7 +584,7 @@ $image-path: '../../../../images/usj/';
     }
 
     @media screen and (max-width:768px) {
-        .topSectionAlfaEmp {
+        .topSectionUsjEmp {
             // padding: 0px;
             // // background-color: #E41E2C;
             // // background-image: none;
@@ -586,7 +599,7 @@ $image-path: '../../../../images/usj/';
             // height: 80vh;
 
             .information {
-                padding-top: 7pc;
+                padding-top: 11pc;
                 left: 16px;
 
                 .title {
@@ -699,6 +712,7 @@ $image-path: '../../../../images/usj/';
         }
 
         .solution {
+            margin-top: 0px;
             margin-bottom: 2pc;
         }
 
@@ -717,6 +731,7 @@ $image-path: '../../../../images/usj/';
 
             .title {
                 font-size: 14px;
+                margin-top: 0px;
             }
 
             .contact {

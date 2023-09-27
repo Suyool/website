@@ -6,14 +6,15 @@
     .network {
         color: #226D96;
         font-family: $Medium;
-        font-size: 24px;
+        font-size: 22px;
         line-height: 50px;
+        text-transform: uppercase;
     }
 
     .partner {
         color: #374A5A;
         font-family: $SemiBold;
-        font-size: 53px;
+        font-size: 52px;
         padding-bottom: 56px;
     }
 
@@ -50,6 +51,7 @@
     .viewAll {
         margin-top: 43px;
         margin-bottom: 140px;
+        margin-left: 25px;
 
         .btnviewall {
             color: #fff;
@@ -90,6 +92,10 @@
         }
         .partner{
             font-size: 35px;
+        }
+        .viewAll{
+            margin-left: unset;
+            margin-bottom: 25px;
         }
     }
 }

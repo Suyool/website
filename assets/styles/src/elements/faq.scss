@@ -1,3 +1,4 @@
+$image-path: '../../../images/';
 .faq{
     .title{
         text-align: center;
@@ -5,7 +6,8 @@
         color: #216D96;
         margin-top: 30px;
         font-family: $Medium;
-        font-size: 20px;
+        font-size: 22px;
+        text-transform: uppercase;
     }
     .subtitle{
         text-align: center;
@@ -34,7 +36,7 @@
             }
             &::after{
                 color: #226D96;
-                background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%230c63e4'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") ;
+                background-image:url($image-path+"arrowfaq.svg") ;
             }
         }
         .accordion-collapse{

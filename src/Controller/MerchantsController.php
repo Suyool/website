@@ -25,6 +25,7 @@ class MerchantsController extends AbstractController
     public function alfa(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
+        $parameters['lang']="en";
         $parameters['metaimage']="build/images/alfa_employee/alfametaimage.png";
         $parameters['descmeta']="Your Payroll is now on Suyool";
         $parameters['faq']=[

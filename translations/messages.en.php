@@ -54,7 +54,7 @@ return [
     "OPENYOURSUYOOLACCOUNT"=>"Open Your Suyool Account",
     //alfa-employee Faq
     "WHAT_IS_SUYOOL_ALFA"=>"What is Suyool?",
-    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA"=>"Suyool is a cashless ecosystem that incorporates users & corporate accounts, card payments, external transfers, and<br> secured payment systems.",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA"=>"Suyool is a cashless ecosystem that incorporates users & corporate accounts, card payments, external transfers, and secured payment systems.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Any Lebanese citizen can open a Suyool account with just their Lebanese mobile number & Lebanese identification. ",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALFA"=>"What are the benefits for Alfa employees?",
