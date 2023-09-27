@@ -1,8 +1,8 @@
 <?php
 return [
     //usj
-    "USJ_IS_BRINGING_YOUR_PAY"=>"USJ apporte votre salaire vers le compte numérique ultime!",
-    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons déplacé votre paie vers Suyool. Vous obtiendrez un compte numérique à double devise, une carte Platinum Mastercard et un outil de paiement aux meilleurs taux disponibles.",
+    "USJ_IS_BRINGING_YOUR_PAY"=>"USJ apporte votre salaire vers <br> le compte numérique ultime!",
+    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons déplacé votre paie <br> vers Suyool. Vous obtiendrez un compte numérique à double devise, une carte <br> Platinum Mastercard et un outil de paiement aux meilleurs taux disponibles.",
     "OPEN_YOUR_SUYOOL_ACCOUNT"=>"Ouvrez votre compte Suyool",
     "FREE_PLATINUM_MASTERCARF"=>"Platinum MasterCard gratuite",
     "FREE_PAYROLL_CASH_OUT"=>"Encaissement gratuit du salaire",
