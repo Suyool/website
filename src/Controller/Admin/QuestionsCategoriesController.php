@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\QuestionsCategoryRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class QuestionsCategoriesController extends AbstractController
@@ -40,7 +41,7 @@ class QuestionsCategoriesController extends AbstractController
      * @Route("dashadmin/categories/new", name="admin_categories_new")
      * @Route("dashadmin/categories/edit/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
-    public function create(Request $request, QuestionsCategory $category = null): Response
+    public function create(Request $request, QuestionsCategory $category = null, SluggerInterface $slugger): Response
     {
         $isNewCategory = ($category === null);
 
@@ -52,6 +53,28 @@ class QuestionsCategoriesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                // Handle file upload here (e.g., move the uploaded file to the desired location).
+                // You can use the $slugger to generate a unique filename.
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                // Move the uploaded file to the desired directory
+                try {
+                    $imageFile->move(
+                        $this->getParameter('kernel.project_dir') . '/public/images/questionsCategories',
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Handle the exception if necessary
+                }
+
+                // Set the image property to the new filename
+                $category->setImage($newFilename);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
@@ -65,4 +88,5 @@ class QuestionsCategoriesController extends AbstractController
             'isNewCategory' => $isNewCategory,
         ]);
     }
+
 }
