@@ -177,6 +177,20 @@
   }
 
   @media (max-width: 768px) {
+    .categories-show-cont {
+      .page-subtitle {
+        margin-top: 40px;
+      }
+      .category-show {
+        .category-answers {
+          margin: 40px 0;
+          .question {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+
     .categories-cont {
 
       .category {

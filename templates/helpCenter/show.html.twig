@@ -13,7 +13,7 @@
                     <span class="color{{type}}">Suyool Help Center</span>
                     <i class="fa-solid fa-arrow-right color{{type}}"></i>
                     <span class="color{{type}}">{{ category.name }}</span>
-                    <i class="fa-solid fa-arrow-right"></i>
+                    <i class="fa-solid fa-arrow-right color{{type}}"></i>
                     <span id="navigator-question" class="light-color{{type}}">{{ questions[0].question }}</span>
                 </div>
                 <h1 class="page-subtitle color{{type}}">{{ category.name }}</h1>
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="title">{{ nextCategory.name }}</div>
                                 {% for question in questionsForNextCategories[nextCategory.id] %}
-                                    <p><span class="dot"></span>{{ question.question }}</span></p>
+                                    <p><span class="dot background{{type}}"></span>{{ question.question }}</span></p>
                                     {% endfor %}
                             </a>
                         </div>
