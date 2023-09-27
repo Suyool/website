@@ -138,7 +138,7 @@ $image-path: '../../../../images/alfa_employee/';
         .image {
             // background-color: #F0F0F3;
             max-height: 100%;
-            text-align: center;
+            // text-align: center;
             padding: 60px;
             border-radius: 17px;
 
@@ -152,7 +152,7 @@ $image-path: '../../../../images/alfa_employee/';
             font-family: $Regular;
             font-size: 40px;
             margin-bottom: 20px;
-            padding-top: 100px;
+            padding-top: 170px;
         }
 
         .desc {
@@ -160,6 +160,7 @@ $image-path: '../../../../images/alfa_employee/';
             color: #00000080;
             font-size: 22px;
             margin-bottom: 20px;
+            padding-top: 100px;
         }
 
         .list {
