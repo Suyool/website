@@ -5,6 +5,7 @@
 .ar {
   text-align: right;
   direction: rtl;
+  letter-spacing: 0px!important;
 }
 
 body {
@@ -89,7 +90,7 @@ a:hover {
 .tabletMode{
   display: none;
 }
-@media screen and (max-width:992px) and (min-width:768px) {
+@media screen and (max-width:992px) and (min-width:767px) {
   .desktopMode{
     display:none;
   }
@@ -105,6 +106,9 @@ a:hover {
   .desktopMode {
     display: none;
   }
+  .tabletMode{
+    display: none;
+  }
 }
 
 #language_selection {
@@ -118,6 +122,7 @@ a:hover {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  direction: ltr;
   .lang_sec {
     display: flex;
     align-items: center;

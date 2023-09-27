@@ -10,7 +10,7 @@ return [
     "SEND_MONEY_INTERNATIONALLY"=>"Envoyer de l’argent à l’étranger",
     "PAY_BILLS"=>"Payer les factures",
     "PAY_WITH_SUYOOL_QR"=>"Payer avec Suyool QR",
-    "HOW_DOES_SUYOOL_WORK?"=>"COMMENT FONCTIONNE SUYOOL?",
+    "HOW_DOES_SUYOOL_WORK"=>"COMMENT FONCTIONNE SUYOOL?",
     "3_EASY_STEPS_TO_GET_STARTED"=>"3 Étapes Faciles Pour Commencer",
     "MANAGE_SPEND_ACCRSS_YOUR_MONEY_IN_REAL_TIME"=>"Gérez, dépensez et accédez à votre argent en temps réel",
     "OPEN_AN_ACCOUNT_IN_MINUTES"=>"Ouvrez un compte en quelques minutes",
