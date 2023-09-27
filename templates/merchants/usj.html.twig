@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<form action="#" method="get">
-			<div id="language-dropdown" class=" d-block d-lg-none" >
+			<div id="language-dropdown" class=" d-block d-lg-none">
 				<select name="lang" onchange="this.form.submit()">
 					<option value="en" {% if lang == "en" %} selected {% endif %}>En</option>
 					<option value="fr" {% if lang == "fr" %} selected {% endif %}>Fr</option>
@@ -25,17 +25,22 @@
 				</select>
 			</div>
 		</form>
-
 		{% include 'elements/usj/topSection.html.twig' %}
-		{% include 'elements/usj/usj_steps.html.twig' %}
-		{% include 'elements/usj/usj_mastercard.html.twig' %}
-		{% include 'elements/usj/use-money.html.twig' %}
-		{% include 'elements/usj/solution-suyool.html.twig' %}
-		{% include 'elements/usj/exchange.html.twig' %}
-		{% include 'elements/merchant.html.twig' %}
-		{% include 'elements/faq/faqSuyool.html.twig' %}
-		{% include 'elements/usj/questions.html.twig' %}
 	</div>
 
-	{% include 'elements/footer.html.twig' %}
-{% endblock %}
+
+	<div class="alfa">
+		
+		{% include 'elements/alfa_employee/alfa_steps.html.twig' %}
+		{% include 'elements/alfa_employee/alfa_mastercard.html.twig' %}
+		{% include 'elements/alfa_employee/use-money.html.twig' %}
+		{% include 'elements/alfa_employee/solution-suyool.html.twig' %}
+		{% include 'elements/alfa_employee/exchange.html.twig' %}
+		{% include 'elements/merchant.html.twig' %}
+		{% include 'elements/faq/faqSuyool.html.twig' %}
+		{% include 'elements/alfa_employee/questions.html.twig' %}
+	</div>
+
+
+		{% include 'elements/footer.html.twig' %}
+	{% endblock %}

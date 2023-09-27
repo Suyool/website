@@ -287,6 +287,11 @@ $image-path: '../../../../images/alfa_employee/';
     }
 
     .alfa-mastercard {
+        .main_title {
+            color: #373464;
+            font-size: 23px;
+            font-family: $Bold;
+          }
         margin: 100px 0;
         overflow-x: hidden;
 
@@ -655,6 +660,9 @@ $image-path: '../../../../images/alfa_employee/';
         }
 
         .alfa-mastercard {
+            .main_title {
+                font-size: 22px;
+              }
             margin: 0;
         }
 

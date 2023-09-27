@@ -64,8 +64,11 @@
         .merchants{
             .merchantsdisplay{
                 img{
-                    filter: none;
-                    -webkit-filter: none;
+                    &:hover{
+                        filter: grayscale(100%);
+                        -webkit-filter: grayscale(100%);
+                    }
+                  
                 }
             }
         }
