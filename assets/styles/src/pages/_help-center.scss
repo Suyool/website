@@ -11,6 +11,7 @@
     border: none;
     padding: 40px;
     margin: 20px 30px;
+    box-shadow: 0px 3px 6px #216D9690;
 
     .title {
       font-size: 20px;
@@ -72,11 +73,26 @@
 
 .categories-show-cont {
   .category-show {
+
+    .navigator {
+      color: #3d7fa3;
+      font-family: $Regular;
+      padding-top: 40px;
+
+      span {
+        font-size: 14px;
+      }
+
+      .navigator-question {
+        color: #216D9690;
+      }
+    }
+
     .category-question-cont {
-      border-right: 3px solid #3D7FA3;
       padding: 0;
 
       .category-questions {
+        border-right: 3px solid #3D7FA3;
         .question {
           margin-bottom: 15px;
           padding: 5px 20px;
@@ -94,9 +110,16 @@
     }
 
     .category-answers {
+      color: #004B71;
+
+      .question {
+        font-family: $SemiBold;
+        font-size: 27px;
+      }
+
       .answer {
-        color: #004B71;
         font-family: $Regular;
+        font-size: 18px;
       }
     }
   }

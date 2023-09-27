@@ -4,10 +4,17 @@
 
 {% block body %}
     {% include 'helpCenter/navbar.html.twig' %}
-    {% include 'helpCenter/top-section.html.twig' %}
+    {% include 'helpCenter/info-top-section.html.twig' %}
 
     <div class="container-fluid categories-show-cont">
         <div class="category-show">
+            <div class="navigator">
+                <span>Suyool Help Center</span>
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>{{ category.name }}</span>
+                <i class="fa-solid fa-arrow-right"></i>
+                <span id="navigator-question">{{ questions[0].question }}</span>
+            </div>
             <h1 class="page-subtitle">{{ category.name }}</h1>
             <div class="row mt-5">
                 <div class="col-md-4 category-question-cont">
@@ -19,6 +26,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="category-answers">
+                        <div class="question" id="answer-question">{{questions[0].question}}</div>
+                        <div class="answer" id="answer-desc">{{questions[0].question}}</div>
                         {% for question in questions %}
                             <div class="answer" id="answer-{{ question.id }}">{{ question.answer|raw }}</div>
                         {% endfor %}

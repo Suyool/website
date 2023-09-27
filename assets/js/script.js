@@ -201,8 +201,17 @@ $(document).ready(function() {
 
         // Add the 'active-question' class to the clicked question
         $(this).addClass('active-question');
+
+        // Get the text of the clicked question
+        var questionText = $(this).text();
+
+        // Put the question text in the span with id "navigator-question"
+        $('#navigator-question').text(questionText);
+        $('#answer-question').text(questionText);
     });
 });
+
+
 $(".submitTextDownloadAppBtn").on("click", function(e) {
   // console.log( $(this).attr('code'));
   e.preventDefault();

@@ -1,13 +1,40 @@
+.help-top-info{
+  height: 250px !important;
+}
+
 .help-top-section {
   height: 450px;
   background-size: cover;
   text-align: center;
 
-  .title {
+  .info{
+    max-width: 75%;
+    margin: auto;
+    text-align: left;
+    padding-top: 74px;
+
+    form {
+      label{
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  .title, .sub-title {
     color: #FFFFFF;
-    font-size: 72px;
+  }
+
+  .title {
+    font-size: 65px;
     padding-top: 80px;
     font-family: $SemiBold;
+  }
+
+  .sub-title {
+    font-size: 25px;
+    font-family: $Regular;
+    padding-top: 40px;
   }
 
   form {
@@ -109,6 +136,55 @@
     }
     .corporate {
       background: #343A64;
+    }
+  }
+}
+
+@media(max-width: 768px) {
+  .help-top-section{
+    height: 360px;
+    .title {
+      font-size: 30px;
+      padding-top: 60px;
+    }
+
+    form {
+      margin-top: 40px;
+      label {
+        width: 90%;
+
+        input {
+          width: 100%;
+          height: 50px;
+          border-radius: 40px;
+          border: none;
+          padding-left: 60px;
+        }
+
+        input::placeholder {
+          font-size: 12px;
+        }
+
+        i {
+          font-size: 23px;
+          left: 20px;
+          position: relative;
+          top: 0;
+          width: 0;
+        }
+      }
+    }
+
+    .choice {
+      height: 40px;
+      margin: 50px auto;
+      width: 250px;
+
+      a {
+        padding-top: 4px;
+        font-size: 14px;
+        border-radius: 5px;
+      }
     }
   }
 }
