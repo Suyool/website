@@ -6,16 +6,19 @@ $image-path: '../../../../images/alfa_employee/';
         background-image: url($image-path+"topImagelarge.png");
         @media screen and (max-width:1440px) {
             background-image: url($image-path+"topImageMed.png");
-            padding: 90px;
+            padding: 0px;
+            height: 70vh;
         }
         @media screen and (max-width:998px) {
             background-image: url($image-path+"topImageTablet.png");
-            padding: 90px;
+            padding: 0px;
+            height: 70vh;
         }
         background-size: 100% 100%;
         // background-position: center;
         background-repeat: no-repeat;
-        padding: 206px;
+        // padding: 206px;
+        height: 697px;
 
         .logos {
             padding-top: 30px;
@@ -37,6 +40,7 @@ $image-path: '../../../../images/alfa_employee/';
         }
 
         .information {
+            padding-top: 9pc;
             text-align: center;
 
             .title {
@@ -559,11 +563,11 @@ $image-path: '../../../../images/alfa_employee/';
             @media screen and (max-width:360px) {
                 background-image: url($image-path+"alfamobilesize375.png");
             }
-            padding-top: 53px;
-            height: 800px;
+            padding-top: 1px;
+            height: 80vh;
 
             .information {
-                margin-top: 7px;
+                padding-top: 7pc;
 
                 .title {
                     font-size: 40px;
@@ -577,7 +581,7 @@ $image-path: '../../../../images/alfa_employee/';
                 }
 
                 .OpenSuyoolAccount {
-                    margin-top: 215px;
+                    margin-top: 107px;
                     .OpenYourSuyoolAccount{
                         font-size: 15px;
                     }
