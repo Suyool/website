@@ -107,3 +107,19 @@ if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
     clickOne("https://suyoolapp.page.link/app", "", "/");
   });
 }
+
+// if (document.querySelector(".download .playstore")) {
+//   const open_suyool_account = document.querySelector(".download .playstore");
+
+//   open_suyool_account.addEventListener("click", function () {
+//     clickOne("https://suyoolapp.page.link/app", "", "/");
+//   });
+// }
+
+// if (document.querySelector(".download .appstore")) {
+//   const open_suyool_account = document.querySelector(".download .appstore");
+
+//   open_suyool_account.addEventListener("click", function () {
+//     clickOne("https://suyoolapp.page.link/app", "", "/");
+//   });
+// }

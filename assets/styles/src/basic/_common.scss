@@ -160,7 +160,7 @@ a:hover {
     font-family: PoppinsMedium;
     font-size: 22px;
     margin-bottom: 30px;
-    margin-top: 130px;
+    // margin-top: 130px;
     text-align: center;
     text-transform: uppercase;
   }
@@ -172,11 +172,23 @@ a:hover {
     text-align: center;
   }
   .qr{
-    padding-bottom: 70px;
+    padding-bottom: 32px;
     img{
       width: 11%;
     }
   }
+  // .download{
+  //   display: flex;
+  //   justify-content: center;
+  //   padding-bottom: 70px;
+  //   .playstore{
+  //     padding-right: 60px;
+  //     cursor: pointer;
+  //   }
+  //   .appstore{
+  //     cursor: pointer;
+  //   }
+  // }
 }
 
 @media (max-width: 768px) {
