@@ -5,7 +5,7 @@ const WarningModal = (props) => {
   const handleWarning = () => {
     props.setModalShow(false);
     props.setModalName("");
-    props.setActiveButton({ name: "Play" });
+    props.setActiveButton({ name: "Buy" });
   };
   return (
     <Modal

@@ -124,6 +124,8 @@ const App = ({ parameters }) => {
               setBallNumbersIndex={setBallNumbersIndex}
               getBallNumbersIndex={getBallNumbersIndex}
               setModalShow={setModalShow}
+              setModalName={setModalName}
+              setWarningModal={setWarningModal}
             />
           )}
           {activeButton.name === "Result" && (

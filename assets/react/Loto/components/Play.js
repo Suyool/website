@@ -11,11 +11,13 @@ const Play = ({
   setIsHide,
   setHeaderTitle,
   setBackLink,
+  setModalName,
+  setModalShow,
+  setWarningModal,
   setPlay,
   setTotalAmountLLDJ,
   setDataGetting,
   setBallNumbersIndex,
-  setModalShow,
 }) => {
   const [selectedOption, setSelectedOption] = useState(false);
   const [selectedSub, setSelectedSub] = useState(false);
@@ -132,8 +134,21 @@ const Play = ({
         selectedBallsToShow == null ||
           JSON.parse(selectedBallsToShow).length === 0
       );
-      setActiveButton({ name: "Buy" });
       setTotalAmount(totalPrice * selectedSub);
+      if (parameters.hasOwnProperty("tooLateDraw")) {
+        setModalName("WarningModal");
+        setWarningModal({
+          imgPath: "/build/images/Loto/warning.png",
+          title: parameters.tooLateDraw.message.Title,
+          desc: parameters.tooLateDraw.message.SubTitle,
+          path: parameters.tooLateDraw.message.flag,
+          btn: parameters.tooLateDraw.message.Text,
+        });
+        setModalShow(true);
+        return;
+      }
+      setActiveButton({ name: "Buy" });
+      
     }
   };
 

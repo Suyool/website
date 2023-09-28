@@ -280,6 +280,17 @@ class LotoController extends AbstractController
                 $parameters['prize_loto_result'] =  array_map("unserialize", array_unique(array_map("serialize", $prize_loto_result)));
                 $parameters['prize_loto_result'] = array_values($parameters['prize_loto_result']);
 
+                $today = new DateTime();
+                $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+                if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
+                    $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these numbers for the next draw.', 'Text' => 'Play', 'flag' => '?goto=Buy'];
+                    $parameters['tooLateDraw']=[
+                        'status'=>false,
+                        'message'=>$warning,
+                        'flagCode'=>150
+                    ];
+                }
+
                 return $this->render('loto/index.html.twig', [
                     'parameters' => $parameters
                 ]);
