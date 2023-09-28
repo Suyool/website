@@ -152,6 +152,14 @@ if (document.querySelector(".open-suyool-account")) {
   });
 }
 
+if (document.querySelector(".OpenYourSuyoolAccount")) {
+  const open_suyool_account = document.querySelector(".OpenYourSuyoolAccount");
+
+  open_suyool_account.addEventListener("click", function () {
+    clickOne("https://suyoolapp.page.link/app", "", "/");
+  });
+}
+
 if(document.querySelector(".close")){
 
   var button=document.querySelector(".close");

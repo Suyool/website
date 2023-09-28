@@ -75,7 +75,7 @@ $image-path: '../../../../images/usj/';
                 .OpenYourSuyoolAccount {
                     padding: 10px 30px;
                     @media screen and (max-width:768px) {
-                        padding: 10px 80px; 
+                        padding: 10px 50px; 
                     }
                     border-radius: 9px;
                     border: none;
@@ -325,6 +325,7 @@ $image-path: '../../../../images/usj/';
                     .text {
                         font-size: 14px;
                         margin-bottom: 20px;
+                        line-height: 30px;
                     }
                 }
             }
@@ -367,7 +368,7 @@ $image-path: '../../../../images/usj/';
                 color: #00000080;
 
                 span {
-                    font-family: $Bold;
+                    font-family: $SemiBold;
                     text-decoration: underline;
                     color: #226D96;
                 }
@@ -411,7 +412,7 @@ $image-path: '../../../../images/usj/';
                 }
 
                 .sub-title {
-                    font-size: 14px;
+                    font-size: 18px;
                 }
                 .check{
                     p {
@@ -488,7 +489,7 @@ $image-path: '../../../../images/usj/';
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    height: 260px;
+                    height: 280px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -545,6 +546,7 @@ $image-path: '../../../../images/usj/';
                         .description {
                             padding-top: 20px;
                             font-size: 14px;
+                            line-height: 30px;
 
                         }
                     }
@@ -611,7 +613,9 @@ $image-path: '../../../../images/usj/';
 
             .information {
                 padding-top: 8pc;
-                left: 16px;
+                // left: 16px;
+                left: 30px;
+                right: 30px;
 
                 .title {
                     font-size: 25px;
@@ -620,13 +624,13 @@ $image-path: '../../../../images/usj/';
 
                 .desc {
                     font-size: 14px;
-                    line-height: 25px;
+                    line-height: 30px;
                     text-align: left;
                 }
 
                 .OpenSuyoolAccount {
                     // margin-top: 283px;
-                    padding-top: 17pc;
+                    padding-top: 11pc;
 
                     .OpenYourSuyoolAccount {
                         font-size: 15px;
@@ -688,11 +692,11 @@ $image-path: '../../../../images/usj/';
 
             .title {
                 font-size: 25px;
-                padding-top: 0px;
+                padding-top: 33px;
             }
 
             .desc {
-                font-size: 14px;
+                font-size: 18px;
             }
             .check{
                 p {
@@ -751,11 +755,11 @@ $image-path: '../../../../images/usj/';
 
             .title {
                 font-size: 14px;
-                margin-top: 0px;
+                margin-top: 70px;
             }
 
             .contact {
-                margin-bottom: 60px;
+                margin-bottom: 70px;
             }
         }
 

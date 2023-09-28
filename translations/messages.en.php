@@ -134,7 +134,7 @@ return [
     "YOUR_SECURITY_IS_OUR_PRIORITY"=>"Your security is our priority. With two-factor authentication, data encryption, data in transite protection. We’ve got your back, ensuring your financial safety.",
     "CONVENIENT"=>"CONVENIENT",
     "AT_SUYOOL_CONVENIENCE_IS_OUR_HALLMARK"=>"At Suyool, convenience is our hallmark. Benefit from a variety of time-saving features, including an overview of your account with real-time notifications of your spending and requests.",
-    "EXCHANGE"=>"Exchange",
+    "EXCHANGE"=>"EXCHANGE",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"Exchange at Parallel Market Rate",
     "EXCHANGE_AT_THE_LIVE_PARALLEL_MARKET_RATE"=>"Exchange at parallel market rate in real time.",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE_ANY_TIME_OF_ANY_DAY"=>"Exchange USD to LBP or the reverse, at the best rate in real time.",
