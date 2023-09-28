@@ -164,4 +164,8 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"Where can I withdraw cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"In Lebanon, at over 700 BOB Finance offices.<br>Abroad, from any ATM compatible with Mastercard.",
     
+    //getTheAppQrSection
+    "SCAN_DOWNLOAD"=>"Get Suyool Now!",
+    "GET_SUYOOL_NOW"=>"Scan, Download & Open an Account",
+    
 ];

@@ -153,6 +153,32 @@ a:hover {
   }
 }
 
+.getTheApp{
+  text-align: center;
+  .title{
+    color: #226d96;
+    font-family: PoppinsMedium;
+    font-size: 22px;
+    margin-bottom: 30px;
+    margin-top: 130px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .desc{
+    color: #374a5a;
+    font-family: PoppinsSemiBold;
+    font-size: 35px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .qr{
+    padding-bottom: 70px;
+    img{
+      width: 11%;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #language_selection {
     display: none;
