@@ -64,6 +64,17 @@ class MerchantsController extends AbstractController
     public function usj(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
+
+        if($parameters['lang'] == "en"){
+            $parameters['metaimage']="build/images/usj/metaenglish.png";
+            $parameters['descmeta']="Your Payroll is now on Suyool";
+        }else if($parameters['lang'] == "fr"){
+            $parameters['metaimage']="build/images/usj/metafr.png";
+            $parameters['descmeta']="Votre salaire est désormais sur Suyool";
+        }else{
+            $parameters['metaimage']="build/images/usj/metaarabic.png";
+            $parameters['descmeta']="الأن راتبك على سيول!";
+        }
         $parameters['faq']=[
             "ONE"=>[
                 "Title"=>"WHAT_IS_SUYOOL",
