@@ -114,6 +114,7 @@ return [
     "YOUR_SECURITY_IS_OUR_PRIORITY"=>"أمنك هو أولويتنا. من خلال المصادقة الثنائية وتشفير البيانات ومنع الإحتيال، فإننا ندعمك ونضمن أمانك المالي",
     "CONVENIENT"=>"عملي",
     "AT_SUYOOL_CONVENIENCE_IS_OUR_HALLMARK"=>"في سيول، راحتك هي أولويتنا. أحصل على نظرة عامة على حسابك مع إشعارات في الوقت الفعلي لإنفاقك وطلباتك.",
+    "EXCHANGE"=>"Exchange",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"تبديل بحسب سعر السوق السوداء",
     "EXCHANGE_AT_THE_LIVE_PARALLEL_MARKET_RATE"=>"تبديل بحسب سعر السوق السوداء - في كل وقت",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE_ANY_TIME_OF_ANY_DAY"=>"تبديل بحسب سعر السوق السوداء في أي وقت من أي يوم",

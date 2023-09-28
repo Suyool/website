@@ -1,10 +1,10 @@
 <?php
 return [
     //usj
-    "USJ_IS_BRINGING_YOUR_PAY"=>"L’ USJ digitalise votre salaire avec le 1er compte <br> en ligne sécurisé et indépendant Libanais!",
+    "USJ_IS_BRINGING_YOUR_PAY"=>"Toujours a la pointe de la technologie,<br>l’ USJ digitalise votre salaire avec le 1er compte<br>en ligne sécurisé et indépendant Libanais!",
     "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons choisi d’adopter Suyool comme <br> solution de dépôt des salaires. Vous pourrez ouvrir votre compte digital en USD et LL incluant un outil <br> de paiement in-app ainsi qu’une carte de paiement Platinum Mastercard reliée à ce compte.",
     "OPEN_YOUR_SUYOOL_ACCOUNT"=>"Ouvrez votre compte Suyool",
-    "FREE_PLATINUM_MASTERCARD"=>"MasterCard Platinum",
+    "FREE_PLATINUM_MASTERCARD"=>"Mastercard Platinum",
     "FREE_PAYROLL_CASH_OUT"=>"Retrait en espèce du salaire sans frais",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"Transferts domestiques",
     "SEND_MONEY_INTERNATIONALLY"=>"Transferts vers l’étranger",
@@ -69,7 +69,8 @@ return [
     "YOUR_SECURITY_IS_OUR_PRIORITY"=>"Votre sécurité financière est notre priorité. Nous la garantissons grâce à nos procédures d’authentification à deux facteurs, de cryptage des données et de sécurisation de la data en transfert.",
     "CONVENIENT"=>"PRATIQUE",
     "AT_SUYOOL_CONVENIENCE_IS_OUR_HALLMARK"=>"Nous visons à simplifier la gestion de votre argent avec Suyool App: une vue complète de votre balance, un historique de dépenses, et des notifications en temps réel pour chaque transaction.",
-    "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"Convertissez entre devises aux taux du marché parallèle",
+    "EXCHANGE"=>"Échange",
+    "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"Convertissez entre devises aux <br> taux du marché parallèle",
     "EXCHANGE_AT_THE_LIVE_PARALLEL_MARKET_RATE"=>"Échangez au taux du marché parallèle en temps réel",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE_ANY_TIME_OF_ANY_DAY"=>"Changez vos livres en dollars ou l’inverse au taux du marché parallèle en temps réel.",
     "NO_WAIT_AT_THE_EXCHANGE_HOUSES"=>"Evitez les déplacement et l’attente dans les bureaux de change.",
