@@ -78,4 +78,5 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
 
         return $qb;
     }
+
 }

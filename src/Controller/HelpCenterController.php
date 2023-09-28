@@ -6,6 +6,8 @@ use App\Entity\Question;
 use App\Entity\QuestionsCategory;
 use App\Repository\QuestionRepository;
 use App\Repository\QuestionsCategoryRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -66,6 +68,27 @@ class HelpCenterController extends AbstractController
             'questionsForNextCategories' => $questionsForNextCategories,
             'type' => $category->getType(),
         ]);
+    }
+
+    /**
+     * @Route("/questions/search", name="category_search")
+     */
+    public function searchCategory(QuestionRepository $questionsRepository)
+    {
+        $searchString = $this->request->query->get('search', "");
+        try {
+            $categories = $questionsRepository->searchQuestions($searchString);
+            dd($categories);
+        } catch (OptimisticLockException $e) {
+        } catch (ORMException $e) {
+        }
+
+
+
+//        SELECT * FROM `question` WHERE MATCH (question) AGAINST ('bank account' IN BOOLEAN MODE) > 0;
+
+
+
     }
 
 }

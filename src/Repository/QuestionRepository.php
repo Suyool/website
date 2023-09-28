@@ -57,4 +57,20 @@ class QuestionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+//    /**
+//     * @throws ORMException
+//     * @throws OptimisticLockException
+//     */
+    public function searchQuestions(string $searchString)
+    {
+        $results = $this->createQueryBuilder('q')
+            ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0')
+            ->setParameter('searchTerm', $searchString)
+            ->getQuery()
+            ->getResult();
+
+        dd($results);
+        return $results;
+    }
+
 }
