@@ -177,18 +177,14 @@ a:hover {
       width: 11%;
     }
   }
-  // .download{
-  //   display: flex;
-  //   justify-content: center;
-  //   padding-bottom: 70px;
-  //   .playstore{
-  //     padding-right: 60px;
-  //     cursor: pointer;
-  //   }
-  //   .appstore{
-  //     cursor: pointer;
-  //   }
-  // }
+  .download{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 70px;
+    img{
+      width: 65%;
+    }
+  }
 }
 
 @media (max-width: 768px) {
