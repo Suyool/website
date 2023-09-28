@@ -2,6 +2,7 @@ $Bold: PoppinsBold;
 $Medium: PoppinsMedium;
 $Regular: PoppinsRegular;
 $SemiBold: PoppinsSemiBold;
+$Italic: PoppinsItalic;
 
 @font-face {
     font-family: PoppinsBold;
@@ -23,4 +24,9 @@ $SemiBold: PoppinsSemiBold;
 @font-face {
     font-family: OpenSansRegular;
     src: url('../../../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: PoppinsItalic;
+    src: url('../../../fonts/Poppins-Italic.ttf');
 }

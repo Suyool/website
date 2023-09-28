@@ -1,0 +1,70 @@
+$image-path: '../../../images/';
+.faq{
+    .title{
+        text-align: center;
+        margin-bottom: 30px;
+        color: #216D96;
+        margin-top: 70px;
+        font-family: $Medium;
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+    .subtitle{
+        text-align: center;
+        margin-bottom: 40px;
+        color: #364A59;
+        font-size: 27px;
+        font-family: $SemiBold;
+    }
+    .FAQaccordion{
+        .accordion-item{
+            margin-bottom: 20px;
+            border: none;
+        }
+        .accordion-button{
+            font-size: 23px;
+            color: #226D96;
+            font-family: $Regular;
+            background-color: #C4D9E495;
+            padding: 22px;
+            &:not(.collapsed){
+                box-shadow:none;
+            }
+            &:focus{
+                box-shadow:none;
+                background-color: #C4D9E495;
+            }
+            &::after{
+                color: #226D96;
+                background-image:url($image-path+"arrowfaq.svg") ;
+            }
+        }
+        .accordion-collapse{
+             background-color: #C4D9E495;
+        }
+        .accordion-body{
+           position: relative;
+           top: -20px;
+            color: #000;
+            font-family: $Regular;
+            padding-left: 25px;
+        }
+    }
+    @media screen and (max-width:768px) {
+        .subtitle{
+            font-size: 25px;
+        }
+        .title{
+            font-size: 14px;
+        }
+        .FAQaccordion{
+            .accordion-body{
+                font-size: 14px;
+            }
+            .accordion-button{
+                font-size: 16px;
+            }
+        }
+        
+    }
+}

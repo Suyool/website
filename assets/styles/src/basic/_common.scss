@@ -1,82 +1,209 @@
 * {
-    margin: 0;
+  margin: 0;
 }
 
 .ar {
-    text-align: right;
-    direction: rtl;
+  text-align: right;
+  direction: rtl;
+  letter-spacing: 0px!important;
 }
 
 body {
-    background-color: hsl(0deg 5.57% 71.65% / 9%);
+  background-color: hsl(0deg 5.57% 71.65% / 9%);
 }
 
 a {
-    text-decoration: none;
-    color: unset;
+  text-decoration: none;
+  color: unset;
 }
 
 a:hover {
-    text-decoration: none;
-    color: unset;
+  text-decoration: none;
+  color: unset;
 }
 
 .button-primary {
-    background-color: #226D96;
-    padding: 8px 80px;
-    color: unset;
-    color: white;
+  background-color: #226d96;
+  padding: 8px 80px;
+  color: unset;
+  color: white;
 
-    &:hover {
-        background-color: #226D96;
-    }
+  &:hover {
+    background-color: #226d96;
+  }
 }
 
 .displayNone {
-    display: none;
+  display: none;
 }
 
 .container-fluid {
-    padding-right: 5%;
-    padding-left: 5%;
+  padding-right: 5%;
+  padding-left: 5%;
 }
 
 .learnmore {
-    background: #226d96;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    display: inline-flex;
-    font-family: $Medium;
-    margin-top: 50px;
-    padding: 15px 30px;
+  background: #226d96;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  display: inline-flex;
+  font-family: $Medium;
+  margin-top: 50px;
+  padding: 15px 30px;
 
-    &:hover {
-        color: #fff;
-    }
+  &:hover {
+    color: #fff;
+  }
 }
 
 .right {
-    text-align: right;
+  text-align: right;
 }
 
-.logoTryagain{
-    text-align: center;
-    position: relative;
-    top: 100px;
+.logoTryagain {
+  text-align: center;
+  position: relative;
+  top: 100px;
 }
 .tryagain {
-    padding-top: 32vh;
+  padding-top: 32vh;
+  text-align: center;
+  h2 {
+    color: #3f6e98;
+  }
+  .close {
+    border: none;
+    padding: 13px 57px;
+    margin-top: 32px;
+    background-color: #246299;
+    color: #ffffff;
+    border-radius: 10px;
+  }
+}
+.mobileMode {
+  display: none;
+}
+.desktopMode {
+  display: block;
+}
+.tabletMode{
+  display: none;
+}
+@media screen and (max-width:992px) and (min-width:767px) {
+  .desktopMode{
+    display:none;
+  }
+  .tabletMode{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mobileMode {
+    display: block;
+  }
+  .desktopMode {
+    display: none;
+  }
+  .tabletMode{
+    display: none;
+  }
+}
+
+#language_selection {
+  height: 120px;
+  z-index: 1000;
+  position: absolute;
+  width: 150px;
+  right: 60px;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  direction: ltr;
+  .lang_sec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    font-family: $SemiBold;
+    color: #216d96;
+    border: 1px solid #216d96;
+    background-color: white;
     text-align: center;
-    h2{
-        color: #3f6e98;
+    border-radius: 5px;
+  }
+  .lang_sec_selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    font-family: $SemiBold;
+    color: white;
+    border: 1px solid #216d96;
+    background-color: #216d96;
+    text-align: center;
+    border-radius: 5px;
+  }
+}
+
+.getTheApp{
+  text-align: center;
+  .title{
+    color: #226d96;
+    font-family: PoppinsMedium;
+    font-size: 22px;
+    margin-bottom: 30px;
+    margin-top: 130px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .desc{
+    color: #374a5a;
+    font-family: PoppinsSemiBold;
+    font-size: 35px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .qr{
+    padding-bottom: 70px;
+    img{
+      width: 11%;
     }
-    .close {
-        border: none;
-        padding: 13px 57px;
-        margin-top: 32px;
-        background-color: #246299;
-        color: #ffffff;
-        border-radius: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  #language_selection {
+    display: none;
+  }
+  #language-dropdown {
+    z-index: 1000;
+    position: absolute;
+    right: 40px;
+    top: 45px;
+    width: 64px;
+    select {
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 70px;
+      height: 30px;
+      padding-left: 7px;
+      color: white;
+      font-family: $Regular;
+      background-color: #226d96;
+      &:focus {
+        background-color: #fff;
+        color: #226d96;
+        border: 1px solid #226d96;
+      }
     }
+  }
 }

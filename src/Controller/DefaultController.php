@@ -68,10 +68,10 @@ class DefaultController extends AbstractController
                 }
             }
         }
-    return $this->render('homepage/CommingSoon.html.twig', [
-        'message' => $message
-    ]);
-        //   return $this->render('homepage/homepage.html.twig');
+    // return $this->render('homepage/CommingSoon.html.twig', [
+        // 'message' => $message
+    // ]);
+          return $this->render('homepage/homepage.html.twig');
     }
 
     /**
@@ -101,9 +101,9 @@ class DefaultController extends AbstractController
         return $this->render('policies/termsConditions.html.twig');
     }
 
-    // /**
-    //  * @Route("/mastercard", name="app_mastercard")
-    //  */
+    /**
+     * @Route("/mastercard", name="app_mastercard")
+     */
     public function mastercard(Request $request)
     {
         $cardData = [

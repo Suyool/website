@@ -99,3 +99,11 @@ if (document.querySelector(".open-suyool-account")) {
     clickOne("https://suyoolapp.page.link/app", "", "/");
   });
 }
+
+if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
+  const open_suyool_account = document.querySelector(".mobileMode .OpenYourSuyoolAccount");
+
+  open_suyool_account.addEventListener("click", function () {
+    clickOne("https://suyoolapp.page.link/app", "", "/");
+  });
+}

@@ -1,0 +1,785 @@
+$image-path: '../../../../images/usj/';
+
+.usj {
+    .topSectionUsjEmp {
+        img {
+            width: 100%;
+        }
+
+        // background-color: #e41e2c;
+        // background-image: url($image-path+"topImagelarge.png");
+        // @media screen and (max-width:1440px) {
+        //     background-image: url($image-path+"topImageMed.png");
+        //     padding: 0px;
+        //     height: 70vh;
+        // }
+        // @media screen and (max-width:998px) {
+        //     background-image: url($image-path+"topImageTablet.png");
+        //     padding: 0px;
+        //     height: 70vh;
+        // }
+        // background-size: 100% 100%;
+        // // background-position: center;
+        // background-repeat: no-repeat;
+        // // padding: 206px;
+        // height: 697px;
+
+        .logos {
+            padding-top: 30px;
+            text-align: center;
+
+            span {
+                color: #fff;
+                font-size: 41px;
+                margin-left: 13px;
+                position: relative;
+                margin-right: 13px;
+                top: 8px;
+                font-weight: 300;
+            }
+
+            img {
+                width: 112px;
+            }
+        }
+
+        .information {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding-top: 9pc;
+            text-align: center;
+
+            @media screen and (max-width:1200px) and (min-width:998px) {
+                padding-top: 5pc;
+            }
+
+            .title {
+                color: #fff;
+                font-size: 40px;
+                font-family: $Regular;
+            }
+
+            .desc {
+                margin-top: 30px;
+                font-family: 'PoppinsRegular';
+                font-size: 17px;
+                color: #fff;
+            }
+
+            .OpenSuyoolAccount {
+                margin-top: 30px;
+
+                .OpenYourSuyoolAccount {
+                    padding: 10px 30px;
+                    @media screen and (max-width:768px) {
+                        padding: 10px 50px; 
+                    }
+                    border-radius: 9px;
+                    border: none;
+                    color: #226D96;
+                    font-family: $SemiBold;
+
+                    &:hover {
+                        background: #226d96;
+                        border: 2px solid #fff;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .InfoSection {
+        background-color: #F0F0F3;
+        text-align: center;
+        padding-top: 26px;
+        margin-bottom: 20px;
+
+        .easy_steps_top {
+            font-size: 22px;
+            font-family: $Bold;
+            color: #373464;
+            word-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .MasterCard {
+            text-align: center;
+            color: #373464;
+            font-family: $Regular ;
+            font-size: 18px;
+            margin-bottom: 24px;
+
+            img {
+                // max-height: 50px;
+            }
+
+            .desc {
+                font-family: $Regular;
+                font-size: 20px;
+                margin-top: 10px;
+            }
+
+            .sub-desc {
+                text-align: center;
+                font-family: $Regular;
+                font-size: 17px;
+                color: #5A5A5A;
+            }
+        }
+    }
+
+    .use-money {
+        .use-money-row {
+            margin-bottom: 60px;
+        }
+
+        .home_body_desktop,
+        .home_body_mobile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 70px 0;
+
+            .how_suyool_work {
+                font-size: 22px;
+                font-family: $Bold;
+                color: #373464;
+                word-spacing: 1px;
+                letter-spacing: 2px;
+            }
+
+            .easy_steps {
+                font-size: 52px;
+                font-family: $Regular;
+                color: #202020;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            .manage_spend {
+                font-size: 22px;
+                font-family: $Regular;
+                color: #6B6B6B;
+            }
+        }
+
+        .image {
+            // background-color: #F0F0F3;
+            max-height: 100%;
+            // text-align: center;
+            // padding: 60px;
+            border-radius: 17px;
+
+            img {
+                // height: 524px;
+                width: 87%;
+            }
+        }
+
+        .title {
+            color: #374A5A;
+            font-family: $Regular;
+            font-size: 40px;
+            margin-bottom: 20px;
+            padding-top: 170px;
+
+            // &.exchange{
+            //     padding-top: 0px;
+            // }
+
+            @media screen and (max-width:1440px) {
+                padding-top: 65px;
+            }
+
+        }
+
+        .desc {
+            font-family: $Regular;
+            color: #00000080;
+            font-size: 22px;
+            margin-bottom: 20px;
+
+            &.exchange {
+                padding-top: 100px;
+                @media screen and (max-width:768px) {
+                    padding-top: 0px;
+                }
+            }
+        }
+
+        .list {
+            .check {
+                display: flex;
+                margin-bottom: 10px;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                p {
+                    color: #00000080;
+                    font-size: 18px;
+                    font-family: $Regular;
+                    margin-left: 10px;
+
+                }
+            }
+        }
+    }
+
+    .alfa-steps {
+        .home_body_desktop {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+
+            .how_suyool_work {
+                font-size: 22px;
+                font-family: $Bold;
+                color: #373464;
+                letter-spacing: 2px;
+            }
+
+            .easy_steps {
+                font-size: 52px;
+                font-family: $Regular;
+                color: #202020;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            .manage_spend {
+                font-size: 22px;
+                font-family: $Regular;
+                color: #6B6B6B;
+            }
+        }
+
+        .home-steps {
+            margin: 30px 0;
+            justify-content: center;
+
+            .step {
+                padding: 19px 34px 0px;
+                margin: 0 10px 50px 10px;
+                border-radius: 10px;
+                border: none;
+
+                .head {
+                    display: flex;
+                    justify-content: space-between;
+                    font-family: $Bold;
+                    font-size: 52px;
+                    margin-bottom: 30px;
+
+                    img {
+                        max-height: 90px;
+                    }
+                }
+
+                .title {
+                    font-family: $SemiBold;
+                    font-size: 22px;
+                    margin-bottom: 20px;
+                }
+
+                .text {
+                    font-family: $Regular;
+                    font-size: 17px;
+                    color: #6B6B6B;
+                    margin-bottom: 30px;
+                }
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .home-steps {
+                .step {
+                    padding: 20px 40px;
+
+                    .head {
+                        font-size: 52px;
+                        margin-bottom: 30px;
+
+                        img {
+                            width: 100px;
+                        }
+                    }
+
+                    .title {
+                        font-size: 18px;
+                        margin-bottom: 15px;
+                    }
+
+                    .text {
+                        font-size: 14px;
+                        margin-bottom: 20px;
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .alfa-mastercard {
+        .main_title {
+            color: #373464;
+            font-size: 23px;
+            font-family: $Bold;
+        }
+
+        margin: 100px 0;
+        overflow-x: hidden;
+
+        .card-img-mobile {
+            display: none;
+        }
+
+        .card-desc {
+            width: 75%;
+            margin: auto;
+
+            .title {
+                color: #374A5A;
+                font-size: 40px;
+                font-family: $Regular;
+                margin-bottom: 30px;
+            }
+
+            .sub-title {
+                margin: 20px 0 70px 0 !important;
+            }
+
+            .text {
+                margin: 30px 0;
+                font-family: $Regular;
+                font-size: 20px;
+                color: #00000080;
+
+                span {
+                    font-family: $SemiBold;
+                    text-decoration: underline;
+                    color: #226D96;
+                }
+            }
+
+            .check {
+                display: flex;
+
+                img {
+                    margin-right: 20px;
+                    height: 38px;
+                }
+
+                p {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .blue-btn {
+            margin-left: 40px;
+        }
+
+        .card-img-desk {
+            @media screen and (max-width:998px) {
+                text-align: center;
+            }
+
+            img {
+                max-width: 600px;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .card-desc {
+                width: 90%;
+
+                .title {
+                    font-size: 25px;
+                }
+
+                .sub-title {
+                    font-size: 18px;
+                }
+                .check{
+                    p {
+                        font-size: 14px;
+                    }
+                }
+                
+
+                .text {
+                    margin: 0px 0px;
+                }
+
+                .check {
+                    img {
+                        height: 30px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            .card-img-desk {
+                text-align: center;
+
+                img {
+                    width: 100%;
+                    margin-bottom: 95px;
+                }
+            }
+
+        }
+    }
+
+    .solution {
+        margin-bottom: 5pc;
+        margin-top: 9pc;
+
+        .title-solution {
+            text-align: center;
+            font-size: 24px;
+            color: #373464;
+            font-family: $Bold;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .sub-title {
+            text-align: center;
+            font-size: 35px;
+            color: #202020;
+            font-family: $Regular;
+            margin-bottom: 30px;
+        }
+
+        .three_steps2 {
+            display: flex;
+            margin: 0;
+            justify-content: center;
+            margin-top: 70px;
+
+            .step {
+
+                // width: 30%;
+                .sub1 {
+                    margin-bottom: 40px;
+                }
+
+                .sub {
+                    @media screen and (max-width:998px) {
+                        margin-top: 20px;
+                    }
+
+                    padding: 21px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
+                    margin: auto;
+                    height: 280px;
+                    position: relative;
+                    // display: flex;
+                    width: 90%;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    img {
+                        width: 13%;
+                        float: right;
+                    }
+
+                    .title {
+                        font-size: 25px;
+                        font-family: $SemiBold;
+                        color: #000000;
+                    }
+
+                    .description {
+                        font-size: 16px;
+                        font-family: $Regular;
+                        color: #6b6b6b;
+                        letter-spacing: 0;
+                        // text-align: justify;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .title-solution {
+                font-size: 14px;
+            }
+
+            .three_steps2 {
+                .step {
+                    width: 100%;
+
+                    .sub {
+                        margin-top: 20px;
+
+                        .sub1 {
+                            margin-bottom: 0px;
+                        }
+
+                        img {
+                            position: initial;
+                            width: 15%;
+                        }
+
+                        .title {
+                            font-size: 25px;
+                        }
+
+                        .description {
+                            padding-top: 20px;
+                            font-size: 14px;
+                            line-height: 30px;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .alfa-questions {
+        .title {
+            margin-top: 130px;
+            text-align: center;
+            font-size: 22px;
+            color: #226D96;
+            font-family: $Medium;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .sub-title {
+            text-align: center;
+            font-size: 35px;
+            color: #374A5A;
+            font-family: $SemiBold;
+            margin-bottom: 30px;
+        }
+
+        .desc {
+            text-align: center;
+            color: #6B6B6B;
+            font-family: $Regular;
+            font-size: 20px;
+            margin-bottom: 60px;
+        }
+
+        .contact {
+            text-align: center;
+            margin-bottom: 180px;
+
+            .contact-us {
+                color: #FFFFFF;
+                font-family: $SemiBold;
+                background-color: #226D96;
+                padding: 16px 27px;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .topSectionUsjEmp {
+            // padding: 0px;
+            // // background-color: #E41E2C;
+            // // background-image: none;
+            // background-image: url($image-path+"alfamobilesize1.png");
+            // @media screen and (max-width:375px) {
+            //     background-image: url($image-path+"alfamobilesize375.png");
+            // }
+            // @media screen and (max-width:360px) {
+            //     background-image: url($image-path+"alfamobilesize375.png");
+            // }
+            // padding-top: 1px;
+            // height: 80vh;
+
+            .information {
+                padding-top: 8pc;
+                // left: 16px;
+                left: 30px;
+                right: 30px;
+
+                .title {
+                    font-size: 25px;
+                    text-align: left;
+                }
+
+                .desc {
+                    font-size: 14px;
+                    line-height: 30px;
+                    text-align: left;
+                }
+
+                .OpenSuyoolAccount {
+                    // margin-top: 283px;
+                    padding-top: 11pc;
+
+                    .OpenYourSuyoolAccount {
+                        font-size: 15px;
+                    }
+                }
+            }
+
+
+        }
+
+        .InfoSection {
+            background-color: #F0F0F3;
+
+            .MasterCard {
+                margin-bottom: 80px;
+
+                .sub-desc {
+                    font-size: 17px;
+                    text-align: left;
+                }
+
+                .desc {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .alfa-steps {
+
+            .home_body_desktop {
+                text-align: center;
+                padding-left: 40px;
+                padding-right: 40px;
+
+                .how_suyool_work {
+                    font-size: 14px;
+                }
+
+                .easy_steps {
+                    font-size: 25px;
+                }
+
+                .manage_spend {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .use-money {
+            .use-money-row {
+                img {
+                    width: 100%;
+                }
+            }
+
+            .image {
+                padding: 0px;
+            }
+
+            .title {
+                font-size: 25px;
+                padding-top: 33px;
+            }
+
+            .desc {
+                font-size: 18px;
+            }
+            .check{
+                p {
+                    font-size: 14px!important;
+                }
+            }
+           
+
+            .home_body_desktop {
+                .how_suyool_work {
+                    font-size: 14px;
+                    text-align: center;
+                }
+
+                .easy_steps {
+                    text-align: center;
+                    font-size: 25px;
+                }
+
+                .manage_spend {
+                    font-size: 14px;
+                    text-align: center;
+                }
+            }
+
+            .image {
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .solution {
+            margin-top: 0px;
+            margin-bottom: 2pc;
+            .sub-title{
+                text-align: 25px;
+            }
+        }
+
+        .alfa-mastercard {
+            .main_title {
+                font-size: 22px;
+            }
+
+            margin: 0;
+        }
+
+        .alfa-questions {
+            .desc {
+                font-size: 14px;
+            }
+            .sub-title{
+                font-size: 25px;
+            }
+
+            .title {
+                font-size: 14px;
+                margin-top: 70px;
+            }
+
+            .contact {
+                margin-bottom: 70px;
+            }
+        }
+
+        .alfa {
+            .use-money {
+                .desc {
+                    &.exchange {
+                        padding-top: 0px;
+                    }
+                }
+
+                .list {
+                    .check {
+                        p {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
