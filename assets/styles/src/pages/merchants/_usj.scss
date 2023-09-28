@@ -74,7 +74,10 @@ $image-path: '../../../../images/usj/';
 
                 .OpenYourSuyoolAccount {
                     padding: 10px 30px;
-                    border-radius: 12px;
+                    @media screen and (max-width:768px) {
+                        padding: 10px 80px; 
+                    }
+                    border-radius: 9px;
                     border: none;
                     color: #226D96;
                     font-family: $SemiBold;
@@ -315,7 +318,7 @@ $image-path: '../../../../images/usj/';
                     }
 
                     .title {
-                        font-size: 20px;
+                        font-size: 18px;
                         margin-bottom: 15px;
                     }
 
@@ -404,16 +407,18 @@ $image-path: '../../../../images/usj/';
                 width: 90%;
 
                 .title {
-                    font-size: 35px;
+                    font-size: 25px;
                 }
 
                 .sub-title {
                     font-size: 14px;
                 }
-
-                p {
-                    font-size: 14px;
+                .check{
+                    p {
+                        font-size: 14px;
+                    }
                 }
+                
 
                 .text {
                     margin: 0px 0px;
@@ -483,7 +488,7 @@ $image-path: '../../../../images/usj/';
                     border-radius: 5px;
                     box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
                     margin: auto;
-                    height: 230px;
+                    height: 260px;
                     position: relative;
                     // display: flex;
                     width: 90%;
@@ -605,22 +610,23 @@ $image-path: '../../../../images/usj/';
             // height: 80vh;
 
             .information {
-                padding-top: 11pc;
+                padding-top: 8pc;
                 left: 16px;
 
                 .title {
-                    font-size: 40px;
+                    font-size: 25px;
                     text-align: left;
                 }
 
                 .desc {
-                    font-size: 15px;
-                    line-height: 21px;
+                    font-size: 14px;
+                    line-height: 25px;
                     text-align: left;
                 }
 
                 .OpenSuyoolAccount {
-                    margin-top: 168px;
+                    // margin-top: 283px;
+                    padding-top: 17pc;
 
                     .OpenYourSuyoolAccount {
                         font-size: 15px;
@@ -643,7 +649,7 @@ $image-path: '../../../../images/usj/';
                 }
 
                 .desc {
-                    font-size: 20px;
+                    font-size: 18px;
                 }
             }
         }
@@ -660,7 +666,7 @@ $image-path: '../../../../images/usj/';
                 }
 
                 .easy_steps {
-                    font-size: 35px;
+                    font-size: 25px;
                 }
 
                 .manage_spend {
@@ -681,17 +687,19 @@ $image-path: '../../../../images/usj/';
             }
 
             .title {
-                font-size: 35px;
+                font-size: 25px;
                 padding-top: 0px;
             }
 
             .desc {
                 font-size: 14px;
             }
-
-            p {
-                font-size: 14px;
+            .check{
+                p {
+                    font-size: 14px!important;
+                }
             }
+           
 
             .home_body_desktop {
                 .how_suyool_work {
@@ -701,7 +709,7 @@ $image-path: '../../../../images/usj/';
 
                 .easy_steps {
                     text-align: center;
-                    font-size: 35px;
+                    font-size: 25px;
                 }
 
                 .manage_spend {
@@ -720,6 +728,9 @@ $image-path: '../../../../images/usj/';
         .solution {
             margin-top: 0px;
             margin-bottom: 2pc;
+            .sub-title{
+                text-align: 25px;
+            }
         }
 
         .alfa-mastercard {
@@ -733,6 +744,9 @@ $image-path: '../../../../images/usj/';
         .alfa-questions {
             .desc {
                 font-size: 14px;
+            }
+            .sub-title{
+                font-size: 25px;
             }
 
             .title {
