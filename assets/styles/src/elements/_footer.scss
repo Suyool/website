@@ -54,12 +54,12 @@ footer {
     background-image: linear-gradient(to top, #373464, #226D96);
     .content {
       .title_A {
-        font-size: 20px;
+        font-size: 22px;
         line-height: 40px;
       }
 
       .desc_A {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 53px;
       }
 
@@ -85,6 +85,7 @@ footer {
           display: flex;
           margin-top: 20px;
           text-align: center;
+          justify-content: center;
 
           a{
             margin: 0 10px;
