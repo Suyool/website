@@ -57,19 +57,17 @@ class QuestionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-//    /**
-//     * @throws ORMException
-//     * @throws OptimisticLockException
-//     */
-    public function searchQuestions(string $searchString)
+
+    public function searchQuestions(string $searchString, bool $limited)
     {
+        // SELECT * FROM `question` WHERE MATCH (question) AGAINST ('bank account' IN BOOLEAN MODE) > 0;
         $results = $this->createQueryBuilder('q')
             ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0')
             ->setParameter('searchTerm', $searchString)
+            ->setMaxResults($limited? 4 : 100)
             ->getQuery()
             ->getResult();
 
-        dd($results);
         return $results;
     }
 

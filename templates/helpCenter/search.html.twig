@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="help-center-page">
+        {% include 'helpCenter/navbar.html.twig' %}
+        {% include 'helpCenter/top-section.html.twig' %}
+
+        <div class="container-fluid search-page">
+            <div class="row color{{ type }}">
+                <div class="col-3">
+                    <div class="container categories-left-nav">
+                        <ul>
+                            {% for category in categories %}
+                                <li>
+                                    <a data-bs-toggle="collapse" class="category color{{type}}" href="#category{{ category.id }}">
+                                        {% if category.image is not empty %}
+                                            <img src="{{ asset('images/questionsCategories/' ~ category.image) }}" alt="Category Image" width="50">
+                                        {% endif %}
+                                        {{ category.name }}
+                                    </a>
+                                    <div id="category{{ category.id }}" class="collapse">
+                                        <!-- Category 1 content goes here -->
+                                        {% for question in category.questions %}
+                                            <p class="question">{{ question.question }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="title">Results for “{{ searchQuery }}”</div>
+
+                    {% for result in results %}
+                        <div class="result">
+                            <div class="question">{{ result.question }}</div>
+                            <div class="answer">{{ result.answer|raw }}</div>
+                            <a class="category"
+                               href="{{ path('category_show', {'id': result.questionsCategory.id}) }}">
+                                in
+                                {% if result.questionsCategory.image is not empty %}
+                                    <img src="{{ asset('images/questionsCategories/' ~ result.questionsCategory.image) }}" alt="Category Image" width="50">
+                                {% endif %}
+                                {{result.questionsCategory.name}}
+                            </a>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

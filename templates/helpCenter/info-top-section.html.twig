@@ -2,12 +2,18 @@
     <div class="info">
         <div class="row">
             <div class="sub-title col-lg-3 col-md-12">How can we help you?</div>
-            <form class="form col-lg-7 col-md-12" action="">
-                <label>
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="What are you looking for" >
-                </label>
-            </form>
+            <div class="search-results">
+                <form class="form col-lg-7 col-md-12" id="search-form" autocomplete="off" action="/questions/search" method="get">
+                    <label>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="search-input" name="query" placeholder="What are you looking for" >
+                    </label>
+                </form>
+
+                {#div to display the results using js#}
+                <div id="search-results"></div>
+            </div>
+
         </div>
     </div>
 </div>

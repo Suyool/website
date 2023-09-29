@@ -12,21 +12,25 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class HelpCenterController extends AbstractController
 {
     private $request;
-    public function __construct(ManagerRegistry $managerRegistry, RequestStack $request){
-        $this->request=$request->getCurrentRequest();
+
+    public function __construct(ManagerRegistry $managerRegistry, RequestStack $request)
+    {
+        $this->request = $request->getCurrentRequest();
     }
 
     /**
      * @Route("/help-center", name="help_center")
      */
-    public function index(QuestionsCategoryRepository $categoryRepository){
+    public function index(QuestionsCategoryRepository $categoryRepository)
+    {
         $type = $this->request->query->get('type-id', 1);
 
-        //add the type later
         $categories = $categoryRepository->findQuestionsByCategories($type);
         //dd($categories);
         return $this->render('helpCenter/index.html.twig', [
@@ -45,6 +49,7 @@ class HelpCenterController extends AbstractController
             ->getRepository(QuestionsCategory::class)
             ->find($id);
 
+
         if (!$category) {
             throw $this->createNotFoundException('Category not found');
         }
@@ -60,7 +65,6 @@ class HelpCenterController extends AbstractController
             $questionsForNextCategory = $questionsRepository->getQuestionsForNextCategory($nextCategory);
             $questionsForNextCategories[$nextCategory->getId()] = $questionsForNextCategory;
         }
-
         return $this->render('helpCenter/show.html.twig', [
             'category' => $category,
             'questions' => $questions,
@@ -71,24 +75,40 @@ class HelpCenterController extends AbstractController
     }
 
     /**
-     * @Route("/questions/search", name="category_search")
+     * @Route("/questions/search", name="category_search", methods={"post", "get"})
      */
-    public function searchCategory(QuestionRepository $questionsRepository)
+    public function searchCategory(QuestionRepository $questionsRepository, QuestionsCategoryRepository $categoryRepository, Request $request)
     {
-        $searchString = $this->request->query->get('search', "");
-        try {
-            $categories = $questionsRepository->searchQuestions($searchString);
-            dd($categories);
-        } catch (OptimisticLockException $e) {
-        } catch (ORMException $e) {
+//        $searchString = $this->request->query->get('search', "");
+        $query = $request->request->get('query');
+        if($query){
+            $results = $questionsRepository->searchQuestions($query, true);
+
+            return $this->render('helpCenter/search-results.html.twig', [
+                'results' => $results,
+                'type' => 1
+            ]);
+        }else{
+            $searchQuery = $this->request->query->get('query', "");
+            $results = $questionsRepository->searchQuestions($searchQuery, false);
+
+            $type = $this->request->query->get('type-id', 1);
+
+            $categories = $categoryRepository->findQuestionsByCategories($type);
+
+            return $this->render('helpCenter/search.html.twig', [
+                'results' => $results,
+                'type' => 1,
+                'searchQuery' => $searchQuery,
+                'categories' => $categories
+            ]);
+
         }
 
 
 
-//        SELECT * FROM `question` WHERE MATCH (question) AGAINST ('bank account' IN BOOLEAN MODE) > 0;
-
-
-
     }
+
+
 
 }

@@ -173,9 +173,17 @@ if(document.querySelector(".close")){
   });
 
 }
+
 $(document).ready(function() {
     // Hide all answers initially
     $('.category-answers .answer').hide();
+
+    // Get the question param
+    var currentURL = window.location.href;
+    var urlParams = new URLSearchParams(window.location.search);
+    var param1Value = urlParams.get('question');
+
+    console.log('param1Value: ' + param1Value);
 
     // Show the answer for the first question by default
     var firstQuestion = $('.category-questions .question:first');
@@ -184,6 +192,7 @@ $(document).ready(function() {
 
     // Add a class to the active question
     firstQuestion.addClass('active-question');
+
 
     // Attach click event to questions
     $('.category-questions .question').click(function() {
@@ -211,6 +220,25 @@ $(document).ready(function() {
     });
 });
 
+// //this is the live searching function
+$(document).ready(function () {
+    $("#search-input").on('input', function () {
+        var query = $(this).val();
+        if (query){
+            $.ajax({
+                type: "POST",
+                url: "/questions/search",
+                data: { query: query },
+                success: function (response) {
+                    $("#search-results").html(response);
+                },
+                error: function (error) {
+                    console.error(error);
+                },
+            });
+        }
+    });
+});
 
 $(".submitTextDownloadAppBtn").on("click", function(e) {
   // console.log( $(this).attr('code'));

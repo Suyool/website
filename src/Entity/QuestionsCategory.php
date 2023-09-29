@@ -15,7 +15,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity
  * @ORM\Table(name="questions_category")
- * @vich\Uploadable
  */
 class QuestionsCategory
 {
