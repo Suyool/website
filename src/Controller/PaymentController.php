@@ -173,13 +173,4 @@ class PaymentController extends AbstractController
 
         return $this->render('payment/visaCard.html.twig', $parameters);
     }
-
-    /**
-     * @Route("/test", name="test")
-     */
-    public function test()
-    {
-        $_SESSION["favcolor"] = "green";
-        $_SESSION["favanimal"] = "cat";
-    }
 }

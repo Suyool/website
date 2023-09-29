@@ -229,7 +229,7 @@ $image-path: '../../../../images/usj/';
                     color: #00000080;
                     font-size: 18px;
                     font-family: $Regular;
-                    margin-left: 10px;
+                    margin: 0 10px;
 
                 }
             }
@@ -378,7 +378,7 @@ $image-path: '../../../../images/usj/';
                 display: flex;
 
                 img {
-                    margin-right: 20px;
+                    margin:0 20px;
                     height: 38px;
                 }
 

@@ -578,4 +578,38 @@ class LotoController extends AbstractController
             ]);
         }
     }
+
+    // /**
+    //  * @Route("/test", name="test")
+    //  * 
+    //  */
+    // public function test()
+    // {
+    //     $order=[
+    //         [
+    //             'transId'=>"123"
+    //         ],
+    //         [
+    //             'transId'=>(int)1234
+    //         ]
+    //         ];
+    // dd($order);
+    // // $prices = new LOTO_numbers;
+    // foreach($order as $order)
+    // {
+    //     $prices = new LOTO_numbers;
+    //     $prices->setnumbers($order['transId'])
+    //     ->setzeed($order['transId'])
+    //     ->setprice($order['transId']);
+    //     $this->mr->persist($prices);
+    // }
+
+    // $this->mr->flush();
+
+    // return new JsonResponse([
+    //     'success'=>true
+    // ]);
+    //     }
+
+
 }

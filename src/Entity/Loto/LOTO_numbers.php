@@ -42,7 +42,7 @@ class LOTO_numbers
         return $this->numbers;
     }
 
-    public function setnumbers($numbers)
+    public function setnumbers(string $numbers)
     {
         $this->numbers = $numbers;
         return $this;
