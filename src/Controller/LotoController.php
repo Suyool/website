@@ -58,6 +58,7 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
+
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
@@ -160,6 +161,7 @@ class LotoController extends AbstractController
         // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
+            $draw = $request->query->get('draw');
             $string_to_decrypt = $_POST['infoString'];
             if ($_POST['infoString'] == "") {
                 return $this->render('ExceptionHandling.html.twig');
@@ -202,6 +204,9 @@ class LotoController extends AbstractController
                 $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
                 $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
                 $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
+                if (isset($draw)) {
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $draw);
+                }
                 if ($loto_draw) {
                     $parameters['next_draw_number'] = $loto_draw->getdrawid();
                     $parameters['next_loto_prize'] = $loto_draw->getlotoprize();
@@ -284,10 +289,10 @@ class LotoController extends AbstractController
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
                     $warning = ['Title' => 'Too Late for Today’s Draw!', 'SubTitle' => 'Play these numbers for the next draw.', 'Text' => 'Play', 'flag' => '?goto=Buy'];
-                    $parameters['tooLateDraw']=[
-                        'status'=>false,
-                        'message'=>$warning,
-                        'flagCode'=>150
+                    $parameters['tooLateDraw'] = [
+                        'status' => false,
+                        'message' => $warning,
+                        'flagCode' => 150
                     ];
                 }
 
@@ -333,13 +338,13 @@ class LotoController extends AbstractController
                 $this->mr->flush();
 
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
-                    $drawnumber+=1;
+                    $drawnumber += 1;
                 }
                 foreach ($getPlayedBalls as $item) {
                     $numDraws = $item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
-                    
+
                     if ($withZeed == false) {
                         $withZeed = 0;
                     } else {
@@ -427,7 +432,7 @@ class LotoController extends AbstractController
                 }
                 $lotoid = $this->mr->getRepository(loto::class)->findBy(['order' => $orderid]);
                 $sum = 0;
-                
+
 
                 foreach ($lotoid as $lotoid) {
                     if (strpos($lotoid->getgridSelected(), 'B') !== 0) {

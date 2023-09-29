@@ -103,7 +103,9 @@ class notificationresult extends Command
 
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
         $drawid = $lastdraw->getdrawid();
+        // dd($drawid);
         $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid);
+        // dd($notifyUser);
 
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
 
@@ -138,7 +140,7 @@ class notificationresult extends Command
                 $bulk = 1; //1 for broadcast
                 $content = $this->notificationServices->getContent('result if user has grid in this draw');
                 $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'L.L', 'amount' => number_format($lastresultprice->getlotoprize())], true);
-                $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto");
+                $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result&draw={$notify['drawNumber']}");
             }
         }
 
