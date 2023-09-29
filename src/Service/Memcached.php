@@ -34,41 +34,49 @@ class Memcached
                         $item['desc1'] = "$1.22 Alfa recharge card";
                         $item['desc2'] = "$1.37 Credit Only without validity";
                         $item['desc3'] = "Credit Only";
+                        $item['priceUSD']="1.22";
                         break;
                     case 13:
                         $item['desc1'] = "$3.02 Alfa recharge card";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "Credit and 13 Days Validity";
+                        $item['priceUSD']="3.02";
                         break;
                     case 4:
                         $item['desc1'] = "$4.50 Alfa recharge card";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "Credit and up to 35 Days";
+                        $item['priceUSD']="4.50";
                         break;
                     case 35:
                         $item['desc1'] = "$7.58 Alfa recharge card";
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "Credit and 35 Days Validity";
+                        $item['priceUSD']="7.58";
                         break;
                     case 65:
                         $item['desc1'] = "$15.15 Alfa recharge card";
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "Credit and 65 Days Validity";
+                        $item['priceUSD']="15.15";
                         break;
                     case 95:
                         $item['desc1'] = "$22.73 Alfa recharge card";
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "Credit and 95 Days Validity";
+                        $item['priceUSD']="22.73";
                         break;
                     case 32:
                         $item['desc1'] = "$7.50 Alfa recharge card";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
+                        $item['priceUSD']="7.50";
                         break;
                     case 33:
                         $item['desc1'] = "Waffer Credit and 30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
+                        $item['priceUSD']="13.50";
                         break;
                     default:
                         $item['desc1'] = "default";

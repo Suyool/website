@@ -34,7 +34,7 @@ console.log(getVoucherData)
     <div id="ReCharge">
       <div className="bundlesSection">
         <div className="mainTitle">Available Re-charge Packages</div>
-        <div className="mainDesc">*Excluding Taxes</div>
+        <div className="mainDesc">* Excluding Taxes</div>
         {getLoading ? (
           <ContentLoader
             speed={2}
