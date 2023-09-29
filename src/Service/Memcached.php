@@ -112,41 +112,49 @@ class Memcached
                         $item['desc1'] = "Credit Only";
                         $item['desc2'] = "$1.22 Touch recharge card";
                         $item['desc3'] = "$1.22 Touch recharge card";
+                        $item['priceUSD']="1.22";
                         break;
                     case 10:
                         $item['desc1'] = "10 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "$3.79 Touch recharge card";
+                        $item['priceUSD']="3.79";
                         break;
                     case 29:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "$4.50 Touch recharge card";
+                        $item['priceUSD']="4.50";
                         break;
                     case 30:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "$7.58 Touch recharge card";
+                        $item['priceUSD']="7.58";
                         break;
                     case 60:
                         $item['desc1'] = "60 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "$15.15 Touch recharge card";
+                        $item['priceUSD']="15.15";
                         break;
                     case 90:
                         $item['desc1'] = "90 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "$22.73 Touch recharge card";
+                        $item['priceUSD']="22.73";
                         break;
                     case 31:
                         $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "$4.50 Touch recharge card";
+                        $item['priceUSD']="4.50";
                         break;
                     default:
                         $item['desc1'] = "default";
                         $item['desc2'] = "default";
                         $item['desc3'] = "default";
+                        $item['priceUSD']="default";
                         break;
                 }
             }

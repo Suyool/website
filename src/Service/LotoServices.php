@@ -43,6 +43,7 @@ class LotoServices
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetAllVouchersType",  $body);
 
         $content = $response->toArray();
+        // dd($content);
         $filteredVouchers = array_filter($content["d"]["ppavouchertypes"], function ($voucher) use ($vcategory) {
             return $voucher["vouchercategory"] === $vcategory;
         });

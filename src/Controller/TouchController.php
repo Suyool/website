@@ -453,7 +453,7 @@ class TouchController extends AbstractController
                     ]);
                     $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*14*" . $PayResonse["voucherCode"] . "#");
+                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*200*" . $PayResonse["voucherCode"] . "#");
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities[0]) {
