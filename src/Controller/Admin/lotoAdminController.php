@@ -29,7 +29,7 @@ class lotoAdminController extends AbstractController
 
     public function __construct(ManagerRegistry $mr,PaginatorInterface $pagination,RequestStack $request)
     {
-        $this->mr=$mr;
+        $this->mr=$mr->getManager('loto');
         $this->pagination=$pagination;
         $this->request=$request->getCurrentRequest();
     }
