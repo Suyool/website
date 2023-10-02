@@ -32,7 +32,6 @@ class HelpCenterController extends AbstractController
         $type = $this->request->query->get('type-id', 1);
 
         $categories = $categoryRepository->findQuestionsByCategories($type);
-        //dd($categories);
         return $this->render('helpCenter/index.html.twig', [
             'categories' => $categories,
             'type' => $type
@@ -40,9 +39,9 @@ class HelpCenterController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}/{questionId}", name="category_show")
+     * @Route("/category/{id}/{questionId}/{question}", name="category_show")
      */
-    public function showCategory($id, $questionId, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
+    public function showCategory($id, $questionId,$question, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
     {
         // Fetch the category by ID
         $category = $this->getDoctrine()
