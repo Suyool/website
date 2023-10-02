@@ -18,6 +18,7 @@ footer {
         display: flex;
         margin-top: 200px;
         text-align: center;
+        flex-wrap: wrap;
 
         a{
           margin: 0 10px;
@@ -39,6 +40,9 @@ footer {
       font-size: 32px;
       line-height: 80px;
       margin-bottom: 40px;
+      @media screen and (max-width:992px) and (min-width:768px) {
+        font-size: 25px;
+      }
     }
 
     .desc_A {

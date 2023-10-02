@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use TypeError;
 
 class LotoController extends AbstractController
 {
@@ -263,7 +264,7 @@ class LotoController extends AbstractController
                 $next_date = new DateTime($parameters['next_date']);
                 $parameters['next_date'] = $next_date->format('l, M d Y H:i:s');
                 $parameters['gridprice'] = $parameters['unit_price'];
-                
+
 
                 $parameters['prize_loto_win'] = $loto_prize_array;
                 $prize_loto_perdays = [];
@@ -585,31 +586,53 @@ class LotoController extends AbstractController
     //  */
     // public function test()
     // {
-    //     $order=[
+    //     $object = [
     //         [
-    //             'transId'=>"123"
+    //             'suyoolUserId' => "71",
+    //             'status' => 'PENDING',
+    //             'subscription' => 1,
+    //             'amount' => "50000",
+    //             'transId' => 1023,
+    //             'errorInfo' => NULL,
+    //             'currency' => "LBP"
     //         ],
     //         [
-    //             'transId'=>(int)1234
+    //             'suyoolUserId' => "71",
+    //             'status' => 'CANCELED',
+    //             'subscription' => 1,
+    //             'amount' => 50000,
+    //             'transId' => 1024,
+    //             'errorInfo' => "An error occured",
+    //             'currency' => "LBP"
     //         ]
-    //         ];
-    // dd($order);
-    // // $prices = new LOTO_numbers;
-    // foreach($order as $order)
-    // {
-    //     $prices = new LOTO_numbers;
-    //     $prices->setnumbers($order['transId'])
-    //     ->setzeed($order['transId'])
-    //     ->setprice($order['transId']);
-    //     $this->mr->persist($prices);
-    // }
+    //     ];
+    //     // dd($order);
+    //     // $prices = new LOTO_numbers;
+    //     try {
+    //         foreach ($object as $object) {
+    //             $order = new order;
 
-    // $this->mr->flush();
 
-    // return new JsonResponse([
-    //     'success'=>true
-    // ]);
+    //             $order->setsuyoolUserId($object['suyoolUserId'])
+    //                 ->setstatus($object['status'])
+    //                 ->setsubscription($object['subscription'])
+    //                 ->setamount($object['amount'])
+    //                 ->setcurrency($object['currency'])
+    //                 ->seterror($object['errorInfo'])
+    //                 ->settransId($object['transId']);
+    //             $this->mr->persist($order);
+                
+    //         }
+    //     }catch (TypeError $e) {
+            
+    //     } 
+    //     catch (Exception $e) {
+            
     //     }
 
-
+    //     $this->mr->flush();
+    //     return new JsonResponse([
+    //         'success' => true
+    //     ]);
+    // }
 }

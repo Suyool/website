@@ -42,7 +42,7 @@ class order
     /**
      * @ORM\Column(type="integer")
      */
-    private $amount;
+    private int $amount;
 
     /**
      * @ORM\Column(type="string")
@@ -107,7 +107,7 @@ class order
         return $this->amount;
     }
 
-    public function setamount($amount)
+    public function setamount(int $amount)
     {
         $this->amount = $amount;
         return $this;
