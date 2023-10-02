@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container how_to_send_money">
         {% if request_details_response.image is defined and request_details_response.image is not null and request_details_response.image != "" %}
-        <img class="user_img" src="{{request_details_response.image}}">
+        <img class="user_img" src="{{request_details_response.image}}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
         {% endif %}
         <div class="user_name">{% if request_details_response.senderName is defined %}{{request_details_response.senderName}}{% else %}{{ 'FNAME_LNAME'|trans }}{% endif %}</div>
         <div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>

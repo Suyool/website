@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container how_to_send_money">
     {% if payment_details_response.image is defined and payment_details_response.image is not null %}
-        <img class="user_img" src="{{ payment_details_response.image  }}">
+        <img class="user_img" src="{{ payment_details_response.image  }}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
     {% endif %}
     {% if payment_details_response.senderName is defined and payment_details_response.senderName is not null %}
 <div class="user_name">{{ payment_details_response.senderName }}</div>
