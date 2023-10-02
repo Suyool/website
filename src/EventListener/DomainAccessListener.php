@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class DomainAccessListener
 {
-    private $allowedDomain = 'bk.suyool';
+    private $allowedDomain = 'cpanel.suyool.ls';
 
     public function onKernelRequest(RequestEvent $event)
     {
