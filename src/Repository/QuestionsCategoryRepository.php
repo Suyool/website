@@ -58,6 +58,7 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
             ->leftJoin('c.questions', 'q')
             ->addSelect('q')
             ->where('c.type = ' . $type)
+            ->setMaxResults(3) // Limit to 3 categories
             ->getQuery();
         return $qb->getResult();
     }
