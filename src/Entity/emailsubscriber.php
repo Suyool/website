@@ -18,13 +18,17 @@ class emailsubscriber
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     public $id;
-    
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=60, nullable=false)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="datetime", name="created",nullable=true)
+     */
+    private $created;
 
     public function getId()
     {
@@ -43,5 +47,13 @@ class emailsubscriber
     {
         $this->email = $email;
         return $this;
+    }
+
+    public function getCreateDateFormat()
+    {
+        if (isset($this->created)) {
+            return $this->created->format('h:i Y-m-d');
+        } else
+            return Null;
     }
 }
