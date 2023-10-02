@@ -40,15 +40,14 @@ class HelpCenterController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}", name="category_show")
+     * @Route("/category/{id}/{questionId}", name="category_show")
      */
-    public function showCategory($id, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
+    public function showCategory($id, $questionId, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
     {
         // Fetch the category by ID
         $category = $this->getDoctrine()
             ->getRepository(QuestionsCategory::class)
             ->find($id);
-
 
         if (!$category) {
             throw $this->createNotFoundException('Category not found');
@@ -56,17 +55,19 @@ class HelpCenterController extends AbstractController
 
         // Fetch the questions for the category
         $questions = $category->getQuestions();
-
         $nextCategories = $categoryRepository->getNextCategories($id);
 
+        $selectedQuestion = $questionsRepository->selectQuestionById($questionId);
 
         $questionsForNextCategories = [];
         foreach ($nextCategories as $nextCategory) {
             $questionsForNextCategory = $questionsRepository->getQuestionsForNextCategory($nextCategory);
             $questionsForNextCategories[$nextCategory->getId()] = $questionsForNextCategory;
         }
+
         return $this->render('helpCenter/show.html.twig', [
             'category' => $category,
+            'question' => $selectedQuestion,
             'questions' => $questions,
             'nextCategories' => $nextCategories,
             'questionsForNextCategories' => $questionsForNextCategories,
@@ -79,7 +80,6 @@ class HelpCenterController extends AbstractController
      */
     public function searchCategory(QuestionRepository $questionsRepository, QuestionsCategoryRepository $categoryRepository, Request $request)
     {
-//        $searchString = $this->request->query->get('search', "");
         $query = $request->request->get('query');
         if($query){
             $results = $questionsRepository->searchQuestions($query, true);
@@ -102,13 +102,7 @@ class HelpCenterController extends AbstractController
                 'searchQuery' => $searchQuery,
                 'categories' => $categories
             ]);
-
         }
-
-
-
     }
-
-
 
 }

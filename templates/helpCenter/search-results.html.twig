@@ -4,7 +4,7 @@
             <i class="fa-solid fa-rocket"></i>
             <div class="text">
                 {#                <a href="{{ path('category_show', {'id': result.questionsCategory.id, 'question': result.id}) }}" class="question">{{ result.question }}</a> #}
-                <a href="{{ path('category_show', {'id': result.questionsCategory.id}) }}?question={{ result.id }}"
+                <a href="{{ path('category_show', {'id': result.questionsCategory.id, 'questionId': result.id}) }}"
                    class="question">{{ result.question }}</a>
 
                 <div class="category">in {{ result.questionsCategory.name }}</div>

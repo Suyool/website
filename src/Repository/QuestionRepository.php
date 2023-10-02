@@ -47,6 +47,13 @@ class QuestionRepository extends ServiceEntityRepository
         }
     }
 
+    public function selectQuestionById($id){
+        return $this->createQueryBuilder('q')
+            ->where('q.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     public function getQuestionsForNextCategory($nextCategory){
         return $this->createQueryBuilder('q')

@@ -21,7 +21,7 @@
                                     <div id="category{{ category.id }}" class="collapse">
                                         <!-- Category 1 content goes here -->
                                         {% for question in category.questions %}
-                                            <p class="question">{{ question.question }}</p>
+                                            <p class="question"><a href="/category/{{category.id}}/{{question.id}}">{{ question.question }}</a></p>
                                         {% endfor %}
                                     </div>
                                 </li>
@@ -37,7 +37,7 @@
                             <div class="question">{{ result.question }}</div>
                             <div class="answer">{{ result.answer|raw }}</div>
                             <a class="category"
-                               href="{{ path('category_show', {'id': result.questionsCategory.id}) }}">
+                               href="{{ path('category_show', {'id': result.questionsCategory.id, 'questionId': result.id})}}">
                                 in
                                 {% if result.questionsCategory.image is not empty %}
                                     <img src="{{ asset('images/questionsCategories/' ~ result.questionsCategory.image) }}" alt="Category Image" width="50">
