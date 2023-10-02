@@ -18,8 +18,19 @@ class AppExtension extends AbstractExtension
             new TwigFilter('slice', [$this, 'sliceTextFilter']),
             new TwigFilter('substr', [$this, 'subString']),
             new TwigFilter('serverAddress', [$this, 'serverAddress']),
-            new TwigFilter('version', [$this, 'appendJsCssVersion'])
+            new TwigFilter('version', [$this, 'appendJsCssVersion']),
+            new TwigFilter('slugifyQuestion', [$this, 'slugifyQuestion']),
+
         ];
+    }
+
+    public function slugifyQuestion($question)
+    {
+        // Customize the slugification logic as needed
+        // Remove spaces, replace dashes, and remove question marks
+        $slug = str_replace([' ', '?'], ['-', ''], $question);
+
+        return $slug;
     }
 
     public function filesFilter($image, $packageName = 'original')

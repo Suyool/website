@@ -47,32 +47,36 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return QuestionsCategory[] Returns an array of QuestionsCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?QuestionsCategory
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function findQuestionsByCategories(int $type = 1)
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->createQueryBuilder('c')
+            ->leftJoin('c.questions', 'q')
+            ->addSelect('q')
+            ->where('c.type = ' . $type)
+            ->getQuery();
+        return $qb->getResult();
     }
-    */
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function getNextCategories($id)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.id > :categoryId') // Select categories with IDs greater than the current category's ID
+            ->setParameter('categoryId', $id)
+            ->orderBy('c.id', 'ASC') // Order by category ID in ascending order
+            ->setMaxResults(3) // Limit to 3 categories
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
 }

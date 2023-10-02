@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="help-center-page">
+        {% include 'helpCenter/navbar.html.twig' %}
+        {% include 'helpCenter/top-section.html.twig' %}
+        <div class="help-center light-background{{type}}">
+            <div class="container-fluid">
+                <div class="categories-cont row">
+                    {% for category in categories %}
+                        {% if category.questions | length > 0 %}
+                            <div class="category-cont col-lg-4 col-md-6">
+                            <div class="card category">
+                                    <a href="{{ path('category_show', {'id': category.id, 'questionId': category.questions[0].id, 'question': category.questions[0].question|slugifyQuestion }) }}">
+                                    <div class="category-icon">
+                                        {% if category.image is not empty %}
+                                            <img src="{{ asset('images/questionsCategories/' ~ category.image) }}" alt="Category Image" width="50">
+                                        {% endif %}
+                                    </div>
+                                    <div class="title">{{ category.name }}</div>
+                                    {% for question in category.questions %}
+                                        <p class="questions"><span class="dot background{{type}}"></span>{{ question.question }}</p>
+                                    {% endfor %}
+
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% include 'helpCenter/infoSection.html.twig' %}
+    </div>
+{% endblock %}

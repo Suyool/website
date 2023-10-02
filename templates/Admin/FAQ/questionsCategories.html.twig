@@ -16,6 +16,7 @@
             <th>{{ knp_pagination_sortable(categories, 'Category Name', 'c.name') }}</th>
             <th>{{ knp_pagination_sortable(categories, 'Category Status', 'c.status') }}</th>
             <th>{{ knp_pagination_sortable(categories, 'Category Type', 'c.type') }}</th>
+            <th>image</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -35,6 +36,11 @@
                         <span>Personal</span>
                     {% else %}
                         <span>Corporate</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if category.image is not empty %}
+                        <img src="{{ asset('images/questionsCategories/' ~ category.image) }}" alt="Category Image" width="50">
                     {% endif %}
                 </td>
                 <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('admin_categories_edit',{'id':category.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>

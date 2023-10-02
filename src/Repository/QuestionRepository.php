@@ -47,32 +47,35 @@ class QuestionRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Question[] Returns an array of Question objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
+    public function selectQuestionById($id){
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('q.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Question
-    {
+    public function getQuestionsForNextCategory($nextCategory){
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('q.questionsCategory = :category')
+            ->setParameter('category', $nextCategory)
+            ->setMaxResults(3) // Limit to 3 questions
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+
+    public function searchQuestions(string $searchString, bool $limited)
+    {
+        // SELECT * FROM `question` WHERE MATCH (question) AGAINST ('bank account' IN BOOLEAN MODE) > 0;
+        $results = $this->createQueryBuilder('q')
+            ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0')
+            ->setParameter('searchTerm', $searchString)
+            ->setMaxResults($limited? 4 : 100)
+            ->getQuery()
+            ->getResult();
+
+        return $results;
+    }
+
 }

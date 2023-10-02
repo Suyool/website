@@ -1,0 +1,19 @@
+<div class="result-listing">
+    {% for result in results %}
+        <div class="res color{{ type }}">
+            <i class="fa-solid fa-rocket"></i>
+            <div class="text">
+                {#                <a href="{{ path('category_show', {'id': result.questionsCategory.id, 'question': result.id}) }}" class="question">{{ result.question }}</a> #}
+                <a href="{{ path('category_show', {'id': result.questionsCategory.id, 'questionId': result.id, 'question':result.question|slugifyQuestion }) }}"
+                   class="question">{{ result.question }}</a>
+
+                <div class="category">in {{ result.questionsCategory.name }}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="show-results color{{ type }}">
+        Show all search results
+        <i class="fa-solid fa-greater-than"></i>
+    </div>
+</div>

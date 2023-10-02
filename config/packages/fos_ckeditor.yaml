@@ -24,17 +24,4 @@ fos_ck_editor:
             allowedContent: true
             colorButton_colors: "000000,249635,ae0004,01249f,582885,ffca0a,ffffff"
             fontSize_sizes: "8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px"
-            extraPlugins:
-                - "socialembed"
-                - "blockimagepaste"
-                - "videodetector"
-    plugins:
-        blockimagepaste:
-            path: "/js/ckeditorplugins/blockimagepaste/blockimagepaste.js"
-            filename: ""
-        socialembed:
-            path: "/js/ckeditorplugins/socialembed/socialembed.js"
-            filename: ""
-        videodetector:
-            path: "/js/ckeditorplugins/videodetector/plugin.js"
-            filename: ""
+

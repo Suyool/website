@@ -29,6 +29,11 @@ parameters:
     base_url: '%router.request_context.base_url%'
 
 services:
+    App\Twig\AppExtension:
+        arguments:
+            $requestStack: '@request_stack'
+        tags:
+            - { name: 'twig.extension' }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

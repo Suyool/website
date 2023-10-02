@@ -1,0 +1,255 @@
+.help-top-info{
+  height: 250px !important;
+}
+
+.help-top-section {
+  height: 450px;
+  background-size: cover;
+  text-align: center;
+
+  .info{
+    max-width: 75%;
+    margin: auto;
+    text-align: left;
+    padding-top: 74px;
+
+    form {
+      label{
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  .title, .sub-title {
+    color: #FFFFFF;
+  }
+
+  .title {
+    font-size: 65px;
+    padding-top: 80px;
+    font-family: $SemiBold;
+  }
+
+  .sub-title {
+    font-size: 25px;
+    font-family: $Regular;
+    padding-top: 40px;
+  }
+
+  .home {
+    margin: auto;
+    width: 35% !important;
+
+    form {
+      label {
+        input {
+          padding-left: 30px !important;
+          width: 90% !important;
+          margin-left: 10px;
+        }
+
+        i {
+          left: 30px !important;
+        }
+      }
+    }
+
+  }
+
+  .search-results{
+    width: 50%;
+    background: #fff;
+    z-index: 10;
+    border-radius: 40px;
+    margin-top: 28px;
+    position: relative;
+
+    form {
+      label {
+        display: flex;
+        align-items: center;
+        margin: auto;
+
+        input#search-input:focus {
+          outline: none;
+        }
+        input {
+          width: 100%;
+          height: 65px;
+          border: none;
+          padding-left: 80px;
+        }
+
+        input::placeholder {
+          font-size: 16px;
+          font-family: $Regular;
+        }
+
+        i {
+          left: 55px;
+          top: 2px;
+          position: relative;
+          font-size: 23px;
+        }
+      }
+    }
+
+    .result-listing {
+      .res{
+        display: flex;
+        padding: 20px 0;
+        border-bottom: 2px solid #3d7fa3;
+        margin-left: 40px;
+
+        img {
+          width: 40px;
+          padding: 6px 23px 0 0;
+        }
+        i{
+          font-size: 20px;
+          padding: 6px 23px 0 0;
+        }
+
+        .text{
+          font-family: $Regular;
+          text-align: left;
+          .question{
+            font-size: 20px;
+          }
+          .category{
+            font-size: 16px;
+          }
+        }
+      }
+
+      .show-results{
+        padding: 20px;
+        font-size: 20px;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .choice {
+    background: #fff;
+    display: flex;
+    height: 55px;
+    margin: 30px auto;
+    width: 300px;
+    border-radius: 8px;
+
+    a {
+      border-radius: 8px;
+      font-size: 17px;
+      margin: 5px;
+      text-align: center;
+      width: 45%;
+      padding-top: 8px;
+      font-family: $Regular;
+      color: #FFFFFF;
+    }
+
+    .active {
+      color: #FFFFFF;
+    }
+  }
+}
+
+.help-section1 {
+  background-image: url("../../../images/helpCenter/help-topSection.jpg");
+  form {
+    label {
+      input::placeholder {
+        color: #216D9690;
+      }
+
+      i {
+        color: #216D9690;
+      }
+    }
+  }
+
+  .choice {
+    .personal {
+      background: #216D96;
+    }
+    .corporate{
+      color: #216D96;
+    }
+  }
+}
+
+.help-section2 {
+  background-image: url("../../../images/helpCenter/help-topSection-corporate.jpg");
+  form {
+    label {
+      input::placeholder {
+        color: #59388486;
+      }
+      i {
+        color: #59388486;
+      }
+    }
+  }
+
+  .choice {
+    .personal{
+      color: #343A64;
+    }
+    .corporate {
+      background: #343A64;
+    }
+  }
+}
+
+@media(max-width: 768px) {
+  .help-top-section{
+    height: 360px;
+    .title {
+      font-size: 30px;
+      padding-top: 60px;
+    }
+    .info {
+      padding-top: 0;
+      form {
+        margin-top: 40px;
+        label {
+          input {
+            width: 100%;
+            height: 50px;
+            border-radius: 40px;
+            border: none;
+            padding-left: 60px;
+          }
+
+          input::placeholder {
+            font-size: 12px;
+          }
+
+          i {
+            font-size: 23px;
+            left: 20px;
+            position: relative;
+            top: 0;
+            width: 0;
+          }
+        }
+      }
+    }
+
+    .choice {
+      height: 40px;
+      margin: 50px auto;
+      width: 250px;
+
+      a {
+        padding-top: 4px;
+        font-size: 14px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+

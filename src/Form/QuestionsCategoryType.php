@@ -4,10 +4,14 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\QuestionsCategory;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class QuestionsCategoryType extends AbstractType
 {
@@ -33,7 +37,11 @@ class QuestionsCategoryType extends AbstractType
                     'Corporate' => 2,
                 ],
                 'required' => true,
-            ]);;
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'Category Image',
+                'required' => false, // Make it optional
+            ]);
 
     }
 

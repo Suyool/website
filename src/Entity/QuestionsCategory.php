@@ -7,6 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity
@@ -35,6 +39,12 @@ class QuestionsCategory
      * @ORM\Column(type="string", length=10)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $image;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="questionsCategory", orphanRemoval=true)
@@ -95,6 +105,25 @@ class QuestionsCategory
     public function getQuestions(): Collection
     {
         return $this->questions;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string|null $image
+     * @return $this
+     */
+    public function setImage(?string $image):self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
 }
