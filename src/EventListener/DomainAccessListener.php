@@ -29,11 +29,10 @@ class DomainAccessListener
     private function getAllowedDomain()
     {
         // Check the environment and get the appropriate ALLOWED_DOMAIN value
-        $environment = getenv('APP_ENV');
-        if ($environment === 'prod') {
-            return getenv('ALLOWED_DOMAIN_PROD');
+        if ($_ENV['APP_ENV'] === 'prod') {
+            return $_ENV['ALLOWED_DOMAIN_PROD'];
         } else {
-            return getenv('ALLOWED_DOMAIN_DEV');
+            return $_ENV['ALLOWED_DOMAIN_DEV'] ;
         }
     }
 }
