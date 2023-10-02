@@ -1,6 +1,5 @@
 <?php
 
-
 // src/EventListener/DomainAccessListener.php
 
 namespace App\EventListener;
@@ -10,23 +9,31 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class DomainAccessListener
 {
-    private $allowedDomain = 'cpanel.suyool.ls';
-
     public function onKernelRequest(RequestEvent $event)
     {
         $request = $event->getRequest();
         $host = $request->getHost();
+        $allowedDomain = $this->getAllowedDomain();
 
-        if ($this->isRestrictedPath($request) && $host !== $this->allowedDomain) {
-            $response = new RedirectResponse('/'); // Redirect to homepage or a different route
+        if ($this->isRestrictedPath($request) && $host !== $allowedDomain) {
+            $response = new RedirectResponse('/');
             $event->setResponse($response);
         }
     }
 
     private function isRestrictedPath($request)
     {
-        // Define your logic to check if the request should be restricted
-        // For example, check if the request path matches the admin route
         return strpos($request->getPathInfo(), '/admin_login') === 0;
+    }
+
+    private function getAllowedDomain()
+    {
+        // Check the environment and get the appropriate ALLOWED_DOMAIN value
+        $environment = getenv('APP_ENV');
+        if ($environment === 'prod') {
+            return getenv('ALLOWED_DOMAIN_PROD');
+        } else {
+            return getenv('ALLOWED_DOMAIN_DEV');
+        }
     }
 }
