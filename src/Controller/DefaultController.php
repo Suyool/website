@@ -9,7 +9,9 @@ use App\Translation\translation;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +33,10 @@ class DefaultController extends AbstractController
     }
     /**
      * @Route("/", name="homepage")
+     * @Cache(smaxage="120", public=true)
      *
      * @param Request $request
      * @param TranslatorInterface $translator
-     * @return Response
      * @throws \Psr\Cache\InvalidArgumentException
      */
     public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em, MailerInterface $mailer)
@@ -68,10 +70,16 @@ class DefaultController extends AbstractController
                 }
             }
         }
-    // return $this->render('homepage/CommingSoon.html.twig', [
+        // return $this->render('homepage/CommingSoon.html.twig', [
         // 'message' => $message
-    // ]);
-          return $this->render('homepage/homepage.html.twig');
+        // ]);
+
+        $content = $this->render('homepage/homepage.html.twig');
+        $response = new Response($content);
+
+        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
+
+        return $response;
     }
 
     /**
