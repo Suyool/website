@@ -37,18 +37,18 @@ footer {
     .title_A {
       color: #D7D7E2;
       font-family: $Medium;
-      font-size: 32px;
+      font-size: 22px;
       line-height: 80px;
       margin-bottom: 40px;
       @media screen and (max-width:992px) and (min-width:768px) {
-        font-size: 25px;
+        font-size: 22px;
       }
     }
 
     .desc_A {
       color: #D7D7E2;
       font-family: $Medium;
-      font-size: 24px;
+      font-size: 18px;
       line-height: 80px;
       display: block;
     }
@@ -58,12 +58,12 @@ footer {
     background-image: linear-gradient(to top, #373464, #226D96);
     .content {
       .title_A {
-        font-size: 24px;
+        font-size: 16px;
         line-height: 40px;
       }
 
       .desc_A {
-        font-size: 16px;
+        font-size: 12px;
         line-height: 53px;
       }
 
@@ -79,7 +79,7 @@ footer {
         }
 
         .SmartTrans{
-          font-size: 20px;
+          font-size: 24px;
         }
         span {
           font-size: 24px;

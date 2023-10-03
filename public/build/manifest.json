@@ -6,7 +6,7 @@
   "build/Alfa.js": "/build/Alfa.442847ef.js",
   "build/Touch.js": "/build/Touch.ea81e3bf.js",
   "build/Ogero.js": "/build/Ogero.f9787607.js",
-  "build/styles.css": "/build/styles.56cbc9cf.css",
+  "build/styles.css": "/build/styles.ce33196c.css",
   "build/admin.css": "/build/admin.de0ad822.css",
   "build/Lotostyles.css": "/build/Lotostyles.a155a69b.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
@@ -236,7 +236,10 @@
   "build/images/zeedLogo.png": "/build/images/zeedLogo.37ea31e5.png",
   "build/images/alfa_employee/card1.svg": "/build/images/alfa_employee/card1.svg",
   "build/images/Loto/play.png": "/build/images/Loto/play.png",
+<<<<<<< Updated upstream
   "build/images/alfa_employee/card2.svg": "/build/images/alfa_employee/card2.svg",
+=======
+>>>>>>> Stashed changes
   "build/images/alfa_employee/suyool.png": "/build/images/alfa_employee/suyool.png",
   "build/images/main-logo.png": "/build/images/main-logo.png",
   "build/images/suyool-title-white.png": "/build/images/suyool-title-white.png",
