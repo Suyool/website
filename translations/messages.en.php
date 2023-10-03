@@ -49,7 +49,7 @@ return [
     //alfa-employee
     "ALFABRINGINGYOURPAY"=>"Alfa is bringing your pay to <br> the ultimate digital account!",
     "FACINGTODAYFINANCIALCHALLENGES"=>"Facing today’s financial challenges, we moved our payroll to Suyool.<br>
-    You will get your own digital dual-currency account,a Platinum Mastercard<br>  & a payment tool
+    You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool
     with the best rates available.",
     "OPENYOURSUYOOLACCOUNT"=>"Open Your Suyool Account",
     //alfa-employee Faq
