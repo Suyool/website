@@ -26,7 +26,8 @@ class QuestionsController extends AbstractController
         $queryBuilder = $this->getDoctrine()
             ->getRepository(Question::class)
             ->createQueryBuilder('q')
-            ->leftJoin('q.questionsCategory', 'category') // Join the questionsCategory association and alias it as 'category'
+            ->select('q.id', 'q.question', 'SUBSTRING(q.answer, 1, 150) AS answer', 'category.name AS categoryName')
+            ->leftJoin('q.questionsCategory', 'category')
             ->orderBy('category.name', 'ASC')
             ->addOrderBy('q.id', 'ASC');
 
