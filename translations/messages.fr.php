@@ -99,4 +99,9 @@ return [
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"Vous pouvez utiliser votre Suyool Mastercard dans n’importe quel point de vente ou en ligne, au Liban et à l’étranger.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"Où puis-je retirer du cash ?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"Au Liban, dans plus de 700 bureaux BOB Finance.<br> A l’étranger, de n’importe quel distributeur de billets compatible avec Mastercard.",
-];
+
+    //getTheAppQrSection
+    "SCAN_DOWNLOAD"=>"Get Suyool Aujourd'hui!",
+    "GET_SUYOOL_NOW"=>"Scannez, Téléchargez et Ouvrez un Compte",
+
+    ];

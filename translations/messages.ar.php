@@ -146,6 +146,10 @@ return [
 
     //elnashra
     "ELNASHRABRINGINGYOURPAY"=>"موقع النشرة يتيح لك الفرصة لسحب راتبك عبر الحساب الرقمي الأفضل",
-    "FACINGTODAYFINANCIALCHALLENGES"=>"لمواجهة التحديات المالية التي نواجهها اليوم، قمنا بنقل راتبك إلى تطبيق سيول. سوف تحصل على حساب رقمي مزدوج العملة، بطاقة بلاتينوم ماستركارد، وأداة دفع بأفضل الأسعار المتاحة"
+    "FACINGTODAYFINANCIALCHALLENGES"=>"لمواجهة التحديات المالية التي نواجهها اليوم، قمنا بنقل راتبك إلى تطبيق سيول. سوف تحصل على حساب رقمي مزدوج العملة، بطاقة بلاتينوم ماستركارد، وأداة دفع بأفضل الأسعار المتاحة",
 
+
+    //getTheAppQrSection
+    "SCAN_DOWNLOAD"=>"Get Suyool Aujourd'hui!",
+    "GET_SUYOOL_NOW"=>"Scannez, Téléchargez et Ouvrez un Compte",
 ];

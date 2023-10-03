@@ -1,7 +1,7 @@
 <div class="topSectionAlfaEmp">
-    <div class="desktopMode"><img src="{{ asset('build/images/alfa_employee/topImagelarge2.png') }}" /></div>
-    <div class="tabletMode"><img src="{{ asset('build/images/alfa_employee/topImageTablet.png')  }}"></div>
-    <div class="mobileMode"><img src="{{ asset('build/images/alfa_employee/alfamobilesize375.png')  }}"></div>
+    <div class="desktopMode"><img src="{{ asset('build/images/alfa_employee/topImagelarge2.png') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/alfa_employee/topImageTablet.png') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/alfa_employee/alfamobilesize375.png') }}"></div>
     <div class="container">
         {# <div class="logos">
             <img src="{{ asset('build/images/alfa_employee/suyool.png') }}">
@@ -11,28 +11,28 @@
 
         <div class="information">
             <div class="title">
-                {{'ALFABRINGINGYOURPAY'|trans|raw}}
+                {{ 'ALFABRINGINGYOURPAY'|trans|raw }}
             </div>
             <div class="desc">
-                {{'FACINGTODAYFINANCIALCHALLENGES'|trans|raw}}
+                {{ 'FACINGTODAYFINANCIALCHALLENGES'|trans|raw }}
             </div>
             <div class="OpenSuyoolAccount">
-				<div class="desktopMode">
-				<button class="OpenYourSuyoolAccount" onclick="window.location.href='#qrGetTheApp'">
-					{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}
-				</button>
-				</div>
-				<div class="mobileMode">
-				<button class="OpenYourSuyoolAccount">
-					{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}
-				</button>
-				</div>
-				<div class="tabletMode">
-				<button class="OpenYourSuyoolAccount">
-					{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}
-				</button>
-				</div>
-			</div>
+                <div class="desktopMode">
+                    <button class="OpenYourSuyoolAccount" onclick="window.location.href='#qrGetTheApp'">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -53,11 +53,12 @@
                 <img src="{{ asset('build/images/alfa_employee/arrow.svg') }}" alt="">
                 <div class="desc">Send & Receive Money for Free</div>
             </div>
-        </div><div class="row">
+        </div>
+        <div class="row">
             <div class="col-md-4 MasterCard">
                 <img src="{{ asset('build/images/alfa_employee/internationally.svg') }}" alt="">
                 <div class="desc">Send Money Internationally</div>
-  
+
             </div>
             <div class="col-md-4 MasterCard">
                 <img src="{{ asset('build/images/alfa_employee/payroll.svg') }}" alt="">

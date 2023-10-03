@@ -165,8 +165,9 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"In Lebanon, at over 700 BOB Finance offices.<br>Abroad, from any ATM compatible with Mastercard.",
 
     //elnashra
-    "ELNASHRABRINGINGYOURPAY"=>"El Nashra is bringing your pay to <br> the ultimate digital account!",
-
+    "ELNASHRABRINGINGYOURPAY"=>"El Nashra is bringing your pay to the ultimate digital account!",
+    "WHAT_ARE_THE_BENEFITS_FOR_ELNASHRA_EMPLOYEES" => "What are the benefits for El Nashra employees?",
+    "INTERNATIONALLY_LOCALLY_ACCEPTED_NASHRA"=>"Free for El Nashra employees",
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
