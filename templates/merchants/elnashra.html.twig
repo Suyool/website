@@ -14,6 +14,14 @@
                 <a href="?lang=ar">Ar</a>
             </div>
         </div>
+        <form action="#" method="get" >
+            <div id="language-dropdown" class="d-block d-md-none">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {% if lang == "en" %} selected {% endif %}>En</option>
+                    <option value="ar" {% if lang == "ar" %} selected {% endif %}>Ar</option>
+                </select>
+            </div>
+        </form>
 
         {% include 'elements/elnashra/topSection.html.twig' %}
         {% include 'elements/usj/usj_steps.html.twig' %}
