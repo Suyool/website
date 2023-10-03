@@ -28,8 +28,7 @@ class QuestionsController extends AbstractController
             ->createQueryBuilder('q')
             ->select('q.id', 'q.question', 'SUBSTRING(q.answer, 1, 150) AS answer', 'category.name AS categoryName')
             ->leftJoin('q.questionsCategory', 'category')
-            ->orderBy('category.name', 'ASC')
-            ->addOrderBy('q.id', 'ASC');
+            ->OrderBy('q.id', 'ASC');
 
         // Get the category filter value from the form
         $categoryFilter = $filterForm->get('category')->getData();
