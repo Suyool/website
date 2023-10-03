@@ -6,6 +6,15 @@
 {% block body %}
 
     <div class="usj">
+        <div id="language_selection">
+            <div {% if lang == "en" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
+                <a href="?lang=en">En</a>
+            </div>
+            <div {% if lang == "ar" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
+                <a href="?lang=ar">Ar</a>
+            </div>
+        </div>
+
         {% include 'elements/elnashra/topSection.html.twig' %}
         {% include 'elements/usj/usj_steps.html.twig' %}
         {% include 'elements/usj/usj_mastercard.html.twig' %}

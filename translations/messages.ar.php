@@ -144,4 +144,8 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"أين يمكنني سحب راتبي نقدًا؟",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"BOB يمكنك سحب راتبك من أكثر من 700 فرع ل ",
 
+    //elnashra
+    "ELNASHRABRINGINGYOURPAY"=>"موقع النشرة يتيح لك الفرصة لسحب راتبك عبر الحساب الرقمي الأفضل",
+    "FACINGTODAYFINANCIALCHALLENGES"=>"لمواجهة التحديات المالية التي نواجهها اليوم، قمنا بنقل راتبك إلى تطبيق سيول. سوف تحصل على حساب رقمي مزدوج العملة، بطاقة بلاتينوم ماستركارد، وأداة دفع بأفضل الأسعار المتاحة"
+
 ];
