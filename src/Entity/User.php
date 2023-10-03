@@ -41,9 +41,9 @@ class User implements UserInterface, TwoFactorInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @ORM\Column(type="string", nullable=true,)
@@ -112,19 +112,21 @@ class User implements UserInterface, TwoFactorInterface
         return $this;
     }
 
-     /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        return array_unique($roles);
+        $roles = [];
+
+        $roles[] = $this->roles;
+
+        return $roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles)
     {
-        $this->roles = $roles;
-
+        foreach($roles as $roles){
+            $this->roles=$roles;
+            
+        }
         return $this;
     }
 
