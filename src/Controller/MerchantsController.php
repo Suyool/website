@@ -64,6 +64,7 @@ class MerchantsController extends AbstractController
     public function usj(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
+//        $translatorInterface->setLocale("en");
 
         if($parameters['lang'] == "en"){
             $parameters['metaimage']="build/images/usj/metaenglish.png";
@@ -111,6 +112,7 @@ class MerchantsController extends AbstractController
     {
 
         $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
 //        $parameters['lang']="ar";
 //        $translatorInterface->setLocale("ar");
         $parameters['faq']=[
@@ -123,7 +125,7 @@ class MerchantsController extends AbstractController
                 "Desc"=>"ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"
             ],
             "THREE"=>[
-                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES",
+                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_ELNASHRA_EMPLOYEES",
                 "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"
             ],
             "FOUR"=>[
