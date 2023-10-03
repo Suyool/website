@@ -75,11 +75,9 @@ class DefaultController extends AbstractController
         // ]);
 
         $content = $this->render('homepage/homepage.html.twig');
-        $response = new Response($content);
+        $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
 
-        $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-
-        return $response;
+        return $content;
     }
 
     /**
