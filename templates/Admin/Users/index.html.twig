@@ -28,7 +28,6 @@
             <th scope="col">{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
             <th scope="col">Role</th>
             <th scope="col">{{ knp_pagination_sortable(users, 'Created', 'u.created') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(users, 'Updated', 'u.updated') }}</th>
             <th scope="col">{{ 'EDIT'|trans({},'admin') }}</th>
 
         </tr>
@@ -41,7 +40,6 @@
                 <td>{{ user.email }}</td>
                 <td>{{ user.getRoles()|join(', ') }}</td>
                 <td>{{ user.getCreateDateFormat() }}</td>
-                <td>{{ user.getUpdatedDateFormat() }}</td>
                 <td><a class="btn btn-primary btn-xs" data-title="Edit" href="{{ path('edit_user',{'id':user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
             </tr>
         {% endfor %}

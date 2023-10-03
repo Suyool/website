@@ -61,11 +61,6 @@ class User implements UserInterface, TwoFactorInterface
      */
     private $created;
 
-    /**
-     * @ORM\Column(type="datetime", name="updated",nullable=true)
-     */
-    private $updated;
-
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -170,22 +165,11 @@ class User implements UserInterface, TwoFactorInterface
     {
         return $this->created;
     }
-    public function getUpdated(): ?\DateTimeInterface
-    {
-        return $this->updated;
-    }
 
     public function getCreateDateFormat()
     {
         if (isset($this->created)) {
             return $this->created->format('h:i Y-m-d');
-        } else
-            return Null;
-    }
-    public function getUpdatedDateFormat()
-    {
-        if (isset($this->updated)) {
-            return $this->updated->format('h:i Y-m-d');
         } else
             return Null;
     }
