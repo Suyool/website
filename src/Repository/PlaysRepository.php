@@ -301,9 +301,10 @@ class PlaysRepository extends EntityRepository
     public function CheckPurchasedStatus()
     {
         $qb = $this->createQueryBuilder('l')
-            ->select('o.id,l.ticketId,l.withZeed,l.bouquet,l.price,o.amount,o.transId')
+            ->select('o.id,l.ticketId,l.withZeed,l.bouquet,l.price,o.amount,o.transId,l.drawNumber,o.suyoolUserId,l.gridSelected,d.drawdate,l.zeednumbers')
             ->innerJoin(order::class, 'o')
-            ->where('o.id=l.order and o.status = :purchased')
+            ->innerJoin(LOTO_draw::class,'d')
+            ->where('o.id=l.order and o.status = :purchased and l.drawNumber = d.drawId')
             ->setParameter('purchased', 'purchased')
             ->getQuery()
             ->getResult();
@@ -319,11 +320,13 @@ class PlaysRepository extends EntityRepository
             }
             if (isset($listWinners[$userId])) {
                 $qb['withZeed'] ? $qb['withZeed'] = true : $qb['withZeed'] = false;
-                $qb['bouquet'] ? $qb['bouquet'] = true : $qb['withZeed'] = false;
+                $qb['bouquet'] ? $qb['bouquet'] = true : $qb['bouquet'] = false;
                 $additinalData[] = [
                     'ticketId' => $qb['ticketId'],
                     'withZeed' => $qb['withZeed'],
-                    'bouquet' => $qb['bouquet']
+                    'zeed'=>$qb['zeednumbers'],
+                    'bouquet' => $qb['bouquet'],
+                    'grids'=>$qb['gridSelected']
                 ];
                 $qb['ticketId'] == 0 ? $purchasedsum = $purchasedsum : $purchasedsum += $qb['price']; 
                 // $purchasedsum += $qb['price'];
@@ -331,6 +334,9 @@ class PlaysRepository extends EntityRepository
                 $listWinners[$userId] = [
                     'orderId'=>$userId,
                     'TotalPrice' => $purchasedsum,
+                    'drawNumber'=>$qb['drawNumber'],
+                    'userId'=>$qb['suyoolUserId'],
+                    'result'=>$qb['drawdate']->format('d/m/Y'),
                     'Currency' => "LBP",
                     'OrderAmount' => $qb['amount'],
                     'transId' => $qb['transId'],

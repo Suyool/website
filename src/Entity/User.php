@@ -41,9 +41,9 @@ class User implements UserInterface, TwoFactorInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", nullable=true,)
@@ -65,6 +65,7 @@ class User implements UserInterface, TwoFactorInterface
      * @ORM\Column(type="datetime", name="updated",nullable=true)
      */
     private $updated;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -111,12 +112,16 @@ class User implements UserInterface, TwoFactorInterface
         return $this;
     }
 
-    public function getRoles(): string
+     /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        return array_unique($roles);
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 

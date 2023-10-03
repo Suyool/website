@@ -39,8 +39,7 @@ class UserFormType extends AbstractType
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                     // Add more role options as needed
-                ],
-                'multiple' => false,
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => $options['is_edit'] ? 'Update' : 'Add',

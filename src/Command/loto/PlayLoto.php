@@ -73,9 +73,9 @@ class PlayLoto extends Command
         $bulk = 0; // 0 for unicast
         while ($play) {
             set_time_limit(0);
-            
             $purchaseOrder=[];
             $purchaseOrder = $this->mr->getRepository(loto::class)->CheckPurchasedStatus();
+            // dd($purchaseOrder);
             foreach ($purchaseOrder as $purchaseOrder) {
                 $this->mr->clear();
                 $additionalDataArray = [];
@@ -84,6 +84,32 @@ class PlayLoto extends Command
                 foreach ($purchaseOrder['additionalData'] as $addData) {
                     if($addData['ticketId']!=0){
                         $ticketDataArray[] = $addData;
+                        if ($addData['withZeed'] && $addData['bouquet']) {
+                            $gridsBouquetAsString=count(explode("|",$addData['grids']));
+                            $content = $this->notificationService->getContent('bouquet with zeed');
+                            $params = json_encode(['draw' =>  $purchaseOrder['drawNumber'], 'bouquetgrids' => $gridsBouquetAsString, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId'], 'zeed' => $addData['zeed']], true);
+                            $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                        } else if (!$addData['withZeed'] && $addData['bouquet']) {
+                            $gridsBouquetAsString=count(explode("|",$addData['grids']));
+                            $content = $this->notificationService->getContent('bouquet without zeed');
+                            $params = json_encode(['draw' => $purchaseOrder['drawNumber'], 'bouquetgrids' => $gridsBouquetAsString, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId']], true);
+                            $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                        } else if ($addData['withZeed'] && !$addData['bouquet']) {
+                            $gridsToBeMergedd[] = explode("|", $addData['grids']);
+
+                            $gridss = array_merge(...$gridsToBeMergedd);
+                            $gridsAsStrings = implode(" \n", $gridss);
+                            $content = $this->notificationService->getContent('with zeed & without bouquet');
+                            $params = json_encode(['draw' => $purchaseOrder['drawNumber'], 'grids' => $gridsAsStrings, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId'], 'zeed' => $addData['zeed']], true);
+                            $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                        } else if (!$addData['withZeed'] && !$addData['bouquet']) {
+                            $gridsToBeMergedd[] = explode("|", $addData['grids']);
+                            $gridss = array_merge(...$gridsToBeMergedd);
+                            $gridsAsStrings = implode(" \n", $gridss);
+                            $content = $this->notificationService->getContent('without zeed & without bouquet');
+                            $params = json_encode(['draw' => $purchaseOrder['drawNumber'], 'grids' => $gridsAsStrings, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId']], true);
+                            $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
+                        }
                     }
                 }
                 if($purchaseOrder['TotalPrice'] > 0){
@@ -97,11 +123,16 @@ class PlayLoto extends Command
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")
                         ->setstatus(order::$statusOrder['COMPLETED']);
+                    if ($purchaseOrder['TotalPrice'] != $purchaseOrder['OrderAmount']) {
+                        $diff = $purchaseOrder['OrderAmount'] - $purchaseOrder['TotalPrice'];
+                        $params = json_encode(['currency' => "L.L", 'amount' => $diff, 'draw' => $purchaseOrder['drawNumber']], true);
+                        $content = $this->notificationService->getContent('Payment reversed loto');
+                        $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk);
+                    }
                 } else {
                         $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
                         $GetPurchasedOrder->seterror($updateutility[1]);
                 }
-
                 $this->mr->persist($GetPurchasedOrder);
                 $this->mr->flush();
             }
