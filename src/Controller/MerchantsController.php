@@ -110,9 +110,9 @@ class MerchantsController extends AbstractController
     public function elnashra(Request $request,TranslatorInterface $translatorInterface): Response
     {
 
-//        $parameters = $this->trans->translation($request, $translatorInterface);
-        $parameters['lang']="ar";
-        $translatorInterface->setLocale("ar");
+        $parameters = $this->trans->translation($request, $translatorInterface);
+//        $parameters['lang']="ar";
+//        $translatorInterface->setLocale("ar");
         $parameters['faq']=[
             "ONE"=>[
                 "Title"=>"WHAT_IS_SUYOOL",

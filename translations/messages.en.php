@@ -163,7 +163,11 @@ return [
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"Where can I withdraw cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"In Lebanon, at over 700 BOB Finance offices.<br>Abroad, from any ATM compatible with Mastercard.",
-    
+
+    //elnashra
+    "ELNASHRABRINGINGYOURPAY"=>"El Nashra is bringing your pay to <br> the ultimate digital account!",
+
+
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
     "GET_SUYOOL_NOW"=>"Scan, Download & Open an Account",
