@@ -367,7 +367,7 @@ $image-path: '../../../../images/usj/';
                 font-size: 20px;
                 color: #00000080;
 
-                span {
+                span, a {
                     font-family: $SemiBold;
                     text-decoration: underline;
                     color: #226D96;

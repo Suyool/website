@@ -168,6 +168,8 @@ return [
     "ELNASHRABRINGINGYOURPAY"=>"El Nashra is bringing your pay to the ultimate digital account!",
     "WHAT_ARE_THE_BENEFITS_FOR_ELNASHRA_EMPLOYEES" => "What are the benefits for El Nashra employees?",
     "INTERNATIONALLY_LOCALLY_ACCEPTED_NASHRA"=>"Free for El Nashra employees",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_NASHRA"=>"You will benefit from a free Platinum Mastercard & free cash withdrawal of your monthly salary as long as you are an El Nashra employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_NASHRA"=>"Your Suyool Mastercard will be free-of-charge as long as you are an El Nashra employee.",
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
