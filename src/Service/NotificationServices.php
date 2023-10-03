@@ -33,11 +33,12 @@ class NotificationServices
     public function checkUser($userid, $lang)
     {
         try {
-            if ($userid == '71') return true;
+
             $singleUser = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
 
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
+                //dd($suyoolUser);
                 if (is_null($suyoolUser)) return false;
 
                 $user = new Users;
@@ -46,17 +47,17 @@ class NotificationServices
                     ->setfname($suyoolUser["FirstName"])
                     ->setlname($suyoolUser["LastName"])
                     ->setlang($suyoolUser["LanguageID"]);
-
                 $this->mr->persist($user);
                 $this->mr->flush();
+                $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
+            } else {
+                $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
             }
-            $this->logger->info("Success");
-            $this->logger->debug($userid . " " . $suyoolUser["FirstName"] . " " . $suyoolUser["LanguageID"]);
             return true;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             $this->logger->debug(json_encode($suyoolUser));
-            $this->logger->debug("ID FROM OUR DB: " . $singleUser->getsuyoolUserId());
+            $this->logger->debug("Check user $userid in db: " . $singleUser->getsuyoolUserId());
             return false;
         }
     }

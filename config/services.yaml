@@ -108,6 +108,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Play' }
 
+    App\Controller\LotoController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Users' }
+
         
 
     # App\Controller\LotoController:

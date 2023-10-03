@@ -17,6 +17,7 @@ use App\Service\SuyoolServices;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,8 +41,9 @@ class LotoController extends AbstractController
     private $CURRENCY_LBP;
     private $CURRENCY_USD;
     private $params;
+    private $loggerInterface;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params,LoggerInterface $loggerInterface)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
@@ -52,6 +54,7 @@ class LotoController extends AbstractController
         $this->CURRENCY_LBP = $params->get('CURRENCY_LBP');
         $this->CURRENCY_USD = $params->get('CURRENCY_USD');
         $this->params = $params;
+        $this->loggerInterface=$loggerInterface;
     }
 
     /**
@@ -169,6 +172,8 @@ class LotoController extends AbstractController
             }
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $this->loggerInterface->debug($_POST['infoString']);
+            $this->loggerInterface->debug($decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
 
