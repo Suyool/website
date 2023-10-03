@@ -52,6 +52,7 @@ const App = ({ parameters }) => {
     imgPath: "/build/images/Loto//build/images/Loto/success.png",
     title: "",
     desc: "",
+    deviceType:""
   });
   const [getErrorModal, setErrorModal] = useState({
     img: "/build/images/Loto//build/images/Loto/error.png",

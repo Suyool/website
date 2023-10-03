@@ -3,7 +3,11 @@ import Modal from "react-bootstrap/Modal";
 
 const SuccessModal = (props) => {
   const goToPlay = () => {
-    props.setActiveButton({ name: "Play" });
+    if(props.getSuccessModal.deviceType === "Android"){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else if(props.getSuccessModal.deviceType === "Iphone"){
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
     props.onHide();
   };
 

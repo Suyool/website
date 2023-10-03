@@ -98,6 +98,7 @@ const Buy = ({
                   Best of Luck!
                 </div>
               ),
+              deviceType:parameters?.deviceType
             });
             setModalShow(true);
             localStorage.removeItem("selectedBalls");
