@@ -58,17 +58,16 @@ class UserController extends AbstractController
      * )
      *
      * @Route(
-     *     "dashadmin/user/edit/{id}", name="edit_user",
+     *     "dashadmin/user/edit/{id?}", name="edit_user",
      *     requirements = {
      *           "id": "\d+"
      *     }
      * )
      */
-    public function create($id = null,UserPasswordEncoderInterface $passwordEncoder,Request $request): Response
+    public function create(UserPasswordEncoderInterface $passwordEncoder,Request $request,$id = null): Response
     {
-
         $user = new User();
-        if(isset($id)) {
+        if(isset($id) ) {
             $user = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->find($id);
@@ -82,8 +81,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+            if(!isset($id)) {
             $hashedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
