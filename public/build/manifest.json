@@ -229,17 +229,17 @@
   "build/images/platinumMastercard/acceptance.svg": "/build/images/platinumMastercard/acceptance.svg",
   "build/images/envelope.png": "/build/images/envelope.png",
   "build/images/alfa_employee/cashout.png": "/build/images/alfa_employee/cashout.png",
+  "build/images/homepage/leb-map1.svg": "/build/images/homepage/leb-map1.svg",
   "build/images/homepage/pay-bill.svg": "/build/images/homepage/pay-bill.svg",
   "build/images/Touch/TouchLogo.png": "/build/images/Touch/TouchLogo.png",
   "build/images/usd.svg": "/build/images/usd.svg",
+  "build/images/homepage/cash-out1.svg": "/build/images/homepage/cash-out1.svg",
   "build/images/Loto/zeedLogo.png": "/build/images/Loto/zeedLogo.png",
   "build/images/zeedLogo.png": "/build/images/zeedLogo.37ea31e5.png",
   "build/images/alfa_employee/card1.svg": "/build/images/alfa_employee/card1.svg",
   "build/images/Loto/play.png": "/build/images/Loto/play.png",
-<<<<<<< Updated upstream
   "build/images/alfa_employee/card2.svg": "/build/images/alfa_employee/card2.svg",
-=======
->>>>>>> Stashed changes
+  "build/images/homepage/matercard1.svg": "/build/images/homepage/matercard1.svg",
   "build/images/alfa_employee/suyool.png": "/build/images/alfa_employee/suyool.png",
   "build/images/main-logo.png": "/build/images/main-logo.png",
   "build/images/suyool-title-white.png": "/build/images/suyool-title-white.png",
@@ -263,6 +263,7 @@
   "build/images/pay-at-real.png": "/build/images/pay-at-real.png",
   "build/images/alfa/alfaLogo.png": "/build/images/alfa/alfaLogo.png",
   "build/images/alfa_employee/payQr1.svg": "/build/images/alfa_employee/payQr1.svg",
+  "build/images/homepage/qr-icon.svg": "/build/images/homepage/qr-icon.svg",
   "build/images/fresh-visa.png": "/build/images/fresh-visa.png",
   "build/images/homepage/fresh-account.svg": "/build/images/homepage/fresh-account.svg",
   "build/images/platinumMastercard/relevance.png": "/build/images/platinumMastercard/relevance.png",
