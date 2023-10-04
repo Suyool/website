@@ -62,6 +62,26 @@ nav {
   }
 }
 
+.white-navbar{
+  .navbar_v2{
+    .navbar-brand{
+      display: none;
+    }
+    .navbar-brand-blue{
+      display: block !important;
+    }
+    .navbar-nav {
+      li {
+        margin-right: 50px;
+
+        .nav-link {
+          color: #216D96 !important;
+        }
+      }
+    }
+  }
+}
+
 .navbar_help-center{
   font-family: $Regular;
   background: #FFFFFF;

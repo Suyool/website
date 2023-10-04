@@ -29,10 +29,10 @@ class SupportType extends AbstractType
                     new Email(['message' => 'Please enter a valid email address.']),
                 ],
             ])
-            ->add('subject', null, [
+            ->add('phoneNumber', null, [
                 'required' => true,
                 'constraints' => [
-                    new NotBlank(['message' => 'Please enter a subject.']),
+                    new NotBlank(['message' => 'Please enter your Phone Number.']),
                 ],
             ])
             ->add('message', TextareaType::class, [
