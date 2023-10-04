@@ -138,6 +138,14 @@ class DigitalCorporateController extends AbstractController
                 'description' => 'Once they are in your account,<br>The money is yours to use',
             ],
         ];
+        $infoPurpleSection = [
+            'topTitle' => 'INTEGRATED POS',
+            'title' => 'Suyool POS: The Optimal Choice for a Seamless Customer Experience',
+            'text' => 'Enhance your customers’ shopping journey! With Suyool POS, whether they’re shopping in-store, online, on desktop or mobile, they’ll enjoy a seamless omnichannel payment experience complete with dual currency options.',
+            'buttonText' => 'Learn More',
+            'buttonLink' => '/legal_enrollment', // Update the link accordingly
+        ];
+
         $parameters['topSectionTitle'] = "Digital Corporate Account For Cashless Transactions";
         $parameters['topSectionDesc']  = "Avoid cash flow problems & keep track of your business revenues, expenses & transactions directly from one place - your corporate Suyool dashboard. Whether you have a small business or a large corporation.";
         $parameters['topSectionBtn'] = "Apply as Corporate";
@@ -149,6 +157,7 @@ class DigitalCorporateController extends AbstractController
         $parameters['uniqueFeatures'] = $uniqueFeatures;
         $parameters['safeHands'] = $safeHands;
         $parameters['benefits'] = $benefits;
+        $parameters['infoPurpleSection'] = $infoPurpleSection;
         $parameters['merchantImages'] = $merchantImages;
 
         return $this->render('digitalCorporate/index.html.twig',$parameters);
