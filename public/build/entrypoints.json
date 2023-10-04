@@ -63,6 +63,7 @@
       "css": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.9b321ee5.css"
 =======
         "/build/styles.8ecb54ab.css"
@@ -70,6 +71,12 @@
 =======
         "/build/styles.99371143.css"
 >>>>>>> e892faef (iveri topup and RTL)
+=======
+        "/build/styles.99371143.css"
+=======
+        "/build/styles.199284c5.css"
+>>>>>>> 7de39a5d (iveri controller)
+>>>>>>> 9581ab6b (iveri controller)
       ]
     },
     "admin": {

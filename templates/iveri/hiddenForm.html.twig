@@ -1,6 +1,3 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
 	<form style="display: none" name="myFormTopUp" id="myFormTopUp" method="post" action="https://portal.cscacquiring.com/Lite/Authorise.aspx">
 		<input id="ECOM_CONSUMERORDERID" name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
 		<input id="ECOM_PAYMENT_CARD_PROTOCOLS" name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
@@ -18,4 +15,4 @@
 		{% if userid is defined and userid is not null %}<input id="UserId" name="userid" value="{{userid}}">
 		{% endif %}
 	</form>
-{% endblock %}
+
