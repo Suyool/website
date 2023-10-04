@@ -1,0 +1,19 @@
+<div class="alfa-mastercard">
+    <div class="row">
+        <div class="col-lg-7 col-12 order-lg-1 order-2">
+            <div class="card-desc">
+                <div class="title">{{ merchantDash.title|raw }}</div>
+                <div class="text sub-title">{{ merchantDash.subTitle }}</div>
+                {% for checkText in merchantDash.checks %}
+                    <div class="text check">
+                        <img src="{{ asset('build/images/check.svg') }}" alt="">
+                        <p class="desktop">{{ checkText }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-img-desk col-lg-5 order-lg-2 order-1">
+            <img src="{{ asset('/build/images/homepage/mastercard-security.svg') }}" alt="">
+        </div>
+    </div>
+</div>

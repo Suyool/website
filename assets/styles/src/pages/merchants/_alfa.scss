@@ -21,6 +21,7 @@ $image-path: '../../../../images/usj/';
         // background-size: 100% 100%;
         // // background-position: center;
         // background-repeat: no-repeat;
+        // background-repeat: no-repeat;
         // // padding: 206px;
         // height: 697px;
 
@@ -63,7 +64,8 @@ $image-path: '../../../../images/usj/';
             }
 
             .desc {
-                margin-top: 30px;
+                max-width: 600px;
+                margin: 40px auto;
                 font-family: 'PoppinsRegular';
                 font-size: 17px;
                 color: #fff;

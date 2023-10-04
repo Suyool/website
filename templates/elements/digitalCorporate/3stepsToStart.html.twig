@@ -1,0 +1,28 @@
+<div class="container-fluid should-to-know">
+    <div class="row">
+        <div class="col-lg-6 col-12">
+            <div class="info">
+                <h6>READY TO TRY SUYOOL?</h6>
+                <h2>3 Steps to Get Started</h2>
+                <p>And have more control over your business finances.</p>
+                <a href="#" class="blue-btn btn-custm">Try for Free</a>
+                <a href="#" class="secondary-btn btn-custm ">Talk with the sales team</a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
+            {% for feature in uniqueFeatures %}
+                <div class="col-12 box card">
+                    <div class="row">
+                        <div class="col-md-2 col-2 right">
+                            <img src="{{ asset(feature.image) }}" alt="{{ feature.title }}" title="{{ feature.title }}">
+                        </div>
+                        <div class="col-md-10 col-10">
+                            <span>{{ feature.title }}</span>
+                            <p>{{ feature.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,259 @@
+.digitalCorp {
+  .btn-custm {
+    font-size: 16px;
+    padding: 21px 13px;
+  }
+
+  .secondary-btn {
+    background-color: #ffffff;
+    color: #226D96;
+    border: 1px solid #226D96;;
+    border-radius: 8px;
+    font-family: PoppinsSemiBold;
+  }
+
+  .secondary-btn {
+    &:hover {
+      color: #ffffff;
+      background-color: #226D96;
+    }
+  }
+
+  .top-section {
+    background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+    color: #fff;
+    padding-bottom: 52px;
+    padding-top: 20px;
+
+    .navbar {
+      .right {
+        display: flex;
+        justify-content: space-around;
+        font-size: 18px;
+        font-family: $Regular;
+
+        .link {
+          padding-top: 6px;
+        }
+
+        .nav-button {
+          background: #48a6d9;
+          border-radius: 5px;
+          height: 40px;
+          text-align: center;
+          width: 170px;
+        }
+      }
+
+    }
+
+    .top-info {
+      padding-top: 65px;
+
+      .header-text {
+        font-size: 60px;
+        margin-bottom: 40px;
+        font-family: $Regular;
+        display: flex;
+
+        .part1 {
+          width: 45%;
+        }
+
+        .part2 {
+          width: 50%;
+          padding-top: 50px;
+        }
+      }
+
+      p {
+        font-size: 20px;
+        font-family: $Regular;
+        width: 80%;
+      }
+
+      .buttons-cont {
+        font-family: $SemiBold;
+        margin-top: 70px;
+
+
+        .btn {
+          &:hover {
+            color: #ffffff;
+          }
+        }
+
+        .button-primary {
+          margin-right: 10px;
+          font-size: 18px;
+          border: 2px solid #ffffff;
+        }
+
+        .button-primary:hover {
+          background: #226D96;
+          border: 2px solid #ffffff;
+        }
+
+        .button-primary, .btn-outline-secondary {
+          border-radius: 12px;
+          padding: 10px 30px;
+          background: #FFFFFF;
+          color: #226D96;
+        }
+
+        .btn-outline-secondary {
+          border-color: #226D96;
+          color: #226D96;
+
+          &:hover {
+            background-color: unset;
+            color: #226d96;
+          }
+        }
+      }
+    }
+
+    .right-section {
+      .img-cont {
+        position: relative;
+        max-width: 615px;
+        margin: auto;
+
+        img {
+          width: 100%;
+        }
+
+        .img-desc {
+          background-color: #fff;
+          border-radius: 70px;
+          bottom: 30px;
+          font-family: $SemiBold;
+          font-size: 20px;
+          padding: 20px 75px;
+          position: absolute;
+          right: 24px;
+          box-shadow: 0px 0 4px -2px #888;
+
+          i {
+            color: #858585;
+            display: block;
+            position: absolute;
+            top: 50px;
+            left: 30px;
+            font-size: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .solution {
+    background: #D7D7E2;
+    padding: 40px 0 70px 0;
+
+    .three_steps2 {
+      .step {
+        .sub {
+          .imgCont {
+            img {
+              float: none;
+            }
+          }
+
+          .title {
+            text-align: center;
+            padding-top: 40px;
+          }
+
+          .description {
+            text-align: center;
+            padding-top: 15px;
+          }
+        }
+
+        .sub-benefits {
+          background-color: unset !important;
+          box-shadow: none !important;
+        }
+      }
+    }
+  }
+
+  .benefits {
+    background: #fafaff !important;
+    padding: 40px 0 50px 0 !important;
+
+    .three_steps2 {
+      .step {
+        .sub {
+          height: 200px !important;
+        }
+      }
+    }
+
+  }
+
+  .info-purple-section {
+    display: flex;
+    align-items: center;
+    height: 70vh;
+    width: 100%;
+    background-color: #D7D7E2;
+
+    .info-content {
+      color: #fff;
+      font-family: PoppinsRegular;
+      margin-left: 15%;
+      width: 50%;
+
+      .text {
+        font-size: 18px;
+      }
+
+      .title {
+        font-size: 45px;
+        margin: 40px 0;
+      }
+
+      .blue-btn {
+        margin-top: 50px;
+        width: 280px;
+        display: block;
+        padding: 12px 0;
+        font-size: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .should-to-know {
+      margin-bottom: 50px;
+      margin-top: 60px;
+    }
+    .alfa-mastercard {
+      margin-bottom: 50px !important;
+    }
+    .mobile-position {
+      padding: 0;
+    }
+    .info-purple-section {
+      height: unset;
+      padding: 50px 0px;
+
+      .info-content {
+        width: 80%;
+        margin: auto;
+
+        .text {
+          font-size: 14px;
+        }
+        .title {
+          font-size: 30px;
+          margin: 40px 0px;
+        }
+      }
+    }
+  }
+}
+
+

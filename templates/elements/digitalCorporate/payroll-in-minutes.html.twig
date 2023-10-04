@@ -1,0 +1,22 @@
+<div class="alfa-mastercard">
+    <div class="container-fluid mobile-position">
+        <div class="card-desc row">
+            <div class="col-lg-6 use-money-row" align="center">
+                <!-- Left column content goes here -->
+            </div>
+            <div class="col-lg-6">
+                <div class="title exchange">{{ payrollContent.title }}</div>
+                <div class="text sub-title">{{ payrollContent.subTitle }}</div>
+
+                <div class="list">
+                    {% for checkText in payrollContent.checks %}
+                        <div class="text check">
+                            <img src="{{ asset('build/images/check.svg') }}" alt="">
+                            <p>{{ checkText }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

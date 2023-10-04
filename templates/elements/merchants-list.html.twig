@@ -1,0 +1,9 @@
+<div class="merchants">
+    <div class="row">
+        <div class="merchantsdisplay">
+            {% for merchantImage in merchantImages %}
+                <img src="{{ asset('build/images/' ~ merchantImage) }}" alt="">
+            {% endfor %}
+        </div>
+    </div>
+</div>

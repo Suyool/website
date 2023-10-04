@@ -1,0 +1,21 @@
+<div class="solution safe-hands">
+    <div class="container-fluid">
+        <div class="title-solution">IN SAFE HANDS</div>
+        <div class="sub-title">Your Money, Your Safety</div>
+        <div class="row three_steps2">
+            {% for safeHand in safeHands %}
+                <div class="col-lg-4">
+                    <div class="step">
+                        <div class="sub">
+                            <div>
+                                <div class="imgCont text-center"><img src="{{ asset(safeHand.image) }}" alt="Suyool"></div>
+                                <div class="title text-center">{{ safeHand.title }}</div>
+                            </div>
+                            <div class="description">{{ safeHand.description }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
