@@ -79,9 +79,10 @@ class IveriController extends AbstractController
                 $parameters['timestamp'] = time();
             return $this->render('iveri/index.html.twig', $parameters);
         }
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
+            echo $_POST['infoString'];
             $string_to_decrypt = $_POST['infoString'];
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
