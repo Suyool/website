@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-7 col-12 top-info order-2 order-md-1">
             <div class="header-text row">
-                <div>{{ topSectionTitle}}</div>
+                <span>{{ topSectionTitle}}</span>
             </div>
             <p>{{ topSectionDesc|raw }}</p>
             <div class="buttons-cont desktopMode">
@@ -15,8 +15,14 @@
             <div class="buttons-cont mobileMode">
                 <button class="btn button-primary mr-5 ">{{ topSectionBtn }}</button>
             </div>
-
+            {% if topSectionUnderBTnText is defined %}
+                <div class="topSectionUnderBTnText">{{ topSectionUnderBTnText }}</div>
+            {% endif %}
         </div>
     </div>
 </div>
-{% include 'elements/infoSection.html.twig' %}
+{% if infoUnderTopSection is defined %}
+    {% include 'elements/infoSection-v1.html.twig' %}
+{% else %}
+    {% include 'elements/infoSection.html.twig' %}
+{% endif %}
