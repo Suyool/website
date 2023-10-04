@@ -242,6 +242,9 @@
 
     .blue-btn {
       margin-left: 40px;
+      &:hover{
+        border: 2px solid #202020;
+      }
     }
 
     .card-img-desk {
@@ -261,6 +264,11 @@
     padding: 12px 0;
     text-align: center;
     width: 200px;
+    cursor: pointer;
+    &:hover{
+      background-color: #fff;
+      color: #226d96;
+    }
   }
 
   .use-money {

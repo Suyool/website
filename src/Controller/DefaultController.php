@@ -252,7 +252,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/terms", name="/terms_and_conditions")
+     * @Route("/terms", name="terms_and_conditions")
      */
     public function terms()
     {
