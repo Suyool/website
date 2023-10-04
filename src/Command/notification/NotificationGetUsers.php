@@ -36,18 +36,15 @@ class NotificationGetUsers extends Command
     {
         $ChannelID = 20;
         $suyoolUsers = $this->suyoolServices->GetAllUsers($ChannelID, $this->hash_algo, $this->certificate);
-
         $output->writeln([
             'Getting All suyool users'
         ]);
-
         if (is_array($suyoolUsers)) {
-            $this->mr->getRepository(Users::class)->truncate();
-
-            $output->writeln([
-                'Truncate users table'
-            ]);
-
+            $users=$this->mr->getRepository(Users::class)->findAll();
+            foreach($users as $users){
+                $this->mr->remove($users);
+            }
+            $this->mr->flush();
             foreach ($suyoolUsers as $item) {
                 $user = new Users;
                 $user

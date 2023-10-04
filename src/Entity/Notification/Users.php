@@ -12,7 +12,7 @@ class Users
 {
     /**
      * @ORM\Id
-     * @ORM\Column(name="suyoolUserId",type="integer")
+     * @ORM\Column(name="suyoolUserId",type="integer",unique=true)
      */
     private $suyoolUserId;
 
