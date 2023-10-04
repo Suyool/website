@@ -1,357 +1,138 @@
 .supportBody {
-    background-color: white;
-    min-height: calc(100vh - 72px);
+  background-color: #E8F0F3;
+  min-height: 110vh;
 
-    .supportleft {
-        align-items: flex-start;
-        display: flex;
-        flex-direction: column;
-        padding: 197px 5% 0 5%;
-        max-width: 50%;
 
-        .formMain {
-            .formText {
-                font-family: $SemiBold;
-                font-size: 18px;
-            }
+  .formMain {
+    background: #FFFFFF;
+    padding: 20px 15%;
+    font-family: $Regular;
+    color: #6B6B6B;
+    width: 90%;
+    margin: auto;
 
-            .form-card {
-                .form-group {
-                    label {
-                        font-family: $SemiBold;
-                        font-size: 18px;
-                        color: #004B71;
-                        padding: 20px 0 6px 0;
-                    }
-
-                    input {
-                        border: 1px solid #593884;
-                        font-size: 16px;
-                        font-family: $Regular;
-                        border-radius: 10px;
-                        padding: 13px;
-                    }
-
-                    textarea {
-                        border: 1px solid #593884;
-                        font-size: 16px;
-                        font-family: $Regular;
-                        border-radius: 10px;
-                        padding: 13px;
-                        min-height: 170px;
-                    }
-                }
-            }
-
-            .btn-wrap {
-                padding: 30px 0;
-
-                .crtAcc {
-                    border-radius: 20px;
-                    background-color: #593884 !important;
-                }
-            }
-        }
+    .formTitle {
+      font-size: 35px;
+      color: #202020;
     }
 
-    .supportNav {
-        background-color: white !important;
-        font-family: $Regular;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        height: 100px;
-        z-index: 10;
-
-
-
-        .navbar-nav {
-            li {
-                margin-right: 50px;
-
-                .nav-link {
-                    color: #004B71 !important;
-                }
-
-                .crtAcc {
-                    background-color: #593884 !important;
-                }
-
-                .button-primary {
-                    padding: 8px 30px;
-                    border-radius: 25px;
-
-                    &:hover {
-                        color: #fff;
-                    }
-                }
-            }
-        }
+    .formText {
+      font-size: 18px;
+      margin: 10px 0;
     }
 
-    .contactUsTopSection {
-        height: 260px;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        background-color: #216d96;
-        background-image: url('../../../images/supportLogo.png');
-        background-size: 50% auto;
-        background-position: left center;
-        background-repeat: no-repeat;
+    .form-card {
+      margin: 20px 0;
 
-        .contactTitle {
-            padding-top: 140px;
-            padding-left: 5%;
-            font-family: $Regular;
-            color: white;
-            font-size: 60px;
+      .form-group {
+        label {
+          font-size: 18px;
         }
+
+        textarea {
+          font-family: $Regular;
+          padding: 13px;
+          min-height: 170px;
+        }
+
+        input, textarea {
+          font-family: $Regular;
+          border: none;
+          border-radius: 8px;
+          background: #E8F0F3;
+          font-size: 16px;
+        }
+      }
     }
 
-    .leftContainer {
-        position: absolute;
-        right: 0;
-        top: 225px;
-        border: 1px solid #593884;
-        box-shadow: 0px 3px 6px #593884BA;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        padding: 80px 20px 90px 45px;
-        background-color: #fff;
-        z-index: 2;
-        max-width: 690px;
-
-        .desc {
-            font-family: $SemiBold;
-            font-size: 18px;
-            padding-left: 30px;
-        }
-
-        .whereToCall {
-            font-size: 30px;
-            font-family: $Medium;
-            width: 100%;
-            color: #593884;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 20px 0;
-            padding-left: 70px;
-
-            span {
-                padding-left: 20px;
-            }
-        }
+    .btn-wrap {
+      .crtAcc {
+        border-radius: 8px;
+        background-color: #216D96;
+        color: #FFFFFF;
+        padding: 8px 50px;
+      }
     }
-}
+  }
 
-@media screen and (max-width:1300px) {
-    .supportBody {
-        .leftContainer {
-            max-width: 480px;
-            padding: 60px 20px 60px 25px;
+  .contact-info{
+    padding: 10%;
+    font-family: $Regular;
+    font-size: 18px;
+    color: #202020;
 
-            .desc {
-                font-size: 17px;
-                padding-left: 25px;
-                text-align: justify;
-            }
-
-            .whereToCall {
-                font-size: 28px;
-                padding: 18px 0;
-                padding-left: 60px;
-
-                span {
-                    padding-left: 18px;
-                }
-            }
-        }
-
-        .supportleft {
-            padding: 200px 5% 0 5%;
-            max-width: 60%;
-        }
+    .title{
+      font-size: 35px;
     }
-}
 
-@media screen and (max-width:991px) {
-    .supportBody {
-        .supportleft {
-            padding: 500px 5% 0 5%;
-            max-width: 100%;
+    .info{
+      display: flex;
+      margin: 40px 0;
 
-            .formMain {
-                .formText {
-                    font-size: 20px;
-                }
-
-                .form-card {
-                    .form-group {
-                        label {
-                            font-size: 18px;
-                            padding: 20px 0 6px 0;
-                        }
-
-                        input {
-                            font-size: 16px;
-                            padding: 13px;
-                        }
-
-                        textarea {
-                            font-size: 16px;
-                            padding: 13px;
-                            min-height: 170px;
-                        }
-                    }
-                }
-
-                .btn-wrap {
-                    padding: 30px 0;
-
-                    .crtAcc {
-                        border-radius: 20px;
-                        background-color: #593884 !important;
-                    }
-                }
-            }
-        }
-
-        .supportNav {
-            .navbar-collapse {
-                background: white;
-                padding: 20px;
-                border: 1px solid gray;
-            }
-        }
-
-        .contactUsTopSection {
-            height: 230px;
-            background-size: 50% auto;
-
-            .contactTitle {
-                padding-top: 125px;
-                font-size: 50px;
-            }
-        }
-
-        .leftContainer {
-            right: 0;
-            left: 0;
-            top: 205px;
-            border-radius: 30px;
-            padding: 80px auto 90px auto;
-            max-width: 100%;
-
-            .desc {
-                font-family: $SemiBold;
-                font-size: 18px;
-                padding-left: 30px;
-            }
-
-            .whereToCall {
-                font-size: 30px;
-                font-family: $Medium;
-                width: 100%;
-                color: #593884;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                padding: 20px 0;
-                padding-left: 70px;
-
-                span {
-                    padding-left: 20px;
-                }
-            }
-        }
+      img{
+        padding-right: 10px;
+      }
+      a{
+        font-family: $SemiBold;
+        text-decoration: underline;
+        color: #387EA5;
+      }
     }
+  }
+
 }
 
 
-@media screen and (max-width:768px) {
-    .supportBody {
-        .supportleft {
-            padding: 430px 5% 0 5%;
+@media screen and (max-width: 768px) {
+  .supportBody {
+    .formMain {
+      padding: 20px 10%;
+      width: 100%;
+      .formTitle{
+        font-size: 25px;
+      }
+      .formText {
+        font-size: 16px;
+      }
 
-            .formMain {
-                .formText {
-                    font-size: 18px;
-                }
+      .form-card {
+        .form-group {
+          label {
+            font-size: 16px;
+            padding: 20px 0 6px 0;
+          }
 
-                .form-card {
-                    .form-group {
-                        label {
-                            font-size: 17px;
-                            padding: 20px 0 6px 0;
-                        }
+          input {
+            font-size: 14px;
+            padding: 12px;
+          }
 
-                        input {
-                            font-size: 15px;
-                            padding: 12px;
-                        }
-
-                        textarea {
-                            font-size: 16px;
-                            padding: 12px;
-                            min-height: 150px;
-                        }
-                    }
-                }
-
-                .btn-wrap {
-                    padding: 25px 0;
-                }
-            }
+          textarea {
+            font-size: 16px;
+            padding: 12px;
+            min-height: 150px;
+          }
         }
+      }
 
-        .contactUsTopSection {
-            .contactTitle {
-                font-size: 40px;
-            }
-        }
-
-        .leftContainer {
-            border-radius: 30px;
-            padding: 50px 25px 30px 5px;
-
-            .desc {
-                font-size: 17px;
-                padding-left: 5%;
-            }
-
-            .whereToCall {
-                font-size: 26px;
-                padding: 13px 0 11px 45px;
-
-                span {
-                    padding-left: 16px;
-                }
-            }
-        }
+      .btn-wrap {
+        padding: 25px 0;
+      }
     }
-}
 
-@media screen and (max-width:768px) {
-    .supportBody {
+    .contact-info{
+      padding: 10%;
+      font-family: $Regular;
+      font-size: 16px;
+      color: #202020;
 
-        .leftContainer {
-            border-radius: 30px;
-            padding: 45px 25px 25px 3px;
+      .title{
+        font-size: 25px;
+      }
 
-            .desc {
-                font-size: 16px;
-                padding-left: 5%;
-            }
-
-            .whereToCall {
-                font-size: 22px;
-                padding: 10px 0 10px 35px;
-
-                span {
-                    padding-left: 12px;
-                }
-            }
-        }
+      .info{
+        margin: 30px 0;
+      }
     }
+  }
 }

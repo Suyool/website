@@ -250,4 +250,29 @@ class DefaultController extends AbstractController
     {
         return $this->render('ExceptionHandling.html.twig');
     }
+
+    /**
+     * @Route("/terms", name="/terms_and_conditions")
+     */
+    public function terms()
+    {
+        return $this->render('TermsAndConditions/index.html.twig');
+    }
+
+    /**
+     * @Route("/download-pdf", name="download_pdf")
+     */
+    public function downloadPdf()
+    {
+        // Define the path to your PDF file
+        $pdfFilePath = $this->getParameter('kernel.project_dir') . '/public/pdf/example.pdf';
+
+        $response = new BinaryFileResponse($pdfFilePath);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'example.pdf'
+        );
+
+        return $response;
+    }
 }

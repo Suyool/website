@@ -35,6 +35,7 @@ class SupportController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($support);
                 $entityManager->flush();
+                return $this->redirectToRoute('homepage');
             }
         }
 
@@ -43,9 +44,9 @@ class SupportController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/support", name="app_support")
-     */
+//    /**
+//     * @Route("/support", name="app_support")
+//     */
     public function support(Request $request): Response
     {
         $support = new Support();

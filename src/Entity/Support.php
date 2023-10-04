@@ -28,9 +28,9 @@ class Support
     private $mail;
 
     /**
-     * @ORM\Column(name="subject")
+     * @ORM\Column(name="phone")
      */
-    private $subject;
+    private $phoneNumber;
 
     /**
      * @ORM\Column(name="message")
@@ -64,14 +64,14 @@ class Support
         return $this;
     }
 
-    public function getsubject()
+    public function getPhoneNumber()
     {
-        return $this->subject;
+        return $this->phoneNumber;
     }
 
-    public function setsubject($subject)
+    public function setPhoneNumber($phoneNumber)
     {
-        $this->subject = $subject;
+        $this->phoneNumber = $phoneNumber;
         return $this;
     }
 
