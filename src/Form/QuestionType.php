@@ -21,6 +21,7 @@ class QuestionType extends AbstractType
             ->add('answer', CKEditorType::class, [
                 'config' => [
                     'toolbar' => 'full',
+                    'allowedContent' => true, // Allow all HTML content
                 ],
             ])
             ->add('questionsCategory', EntityType::class, [
