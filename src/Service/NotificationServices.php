@@ -57,7 +57,6 @@ class NotificationServices
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             $this->logger->debug(json_encode($suyoolUser));
-            $this->logger->debug("Check user $userid in db: " . $singleUser->getsuyoolUserId());
             return false;
         }
     }
