@@ -269,34 +269,36 @@
     margin-top: 20px;
     font-family: $Italic;
   }
+  .infoUnderTopSectionContainer {
+    background-color: #fafaff;
+    .infoUnderTopSection {
+      padding: 20px 0;
 
-  .infoUnderTopSection {
-    padding: 20px 0;
+      .icon-text-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    .icon-text-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
+      .icon-text-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-    .icon-text-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+      .icon-text-item img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
 
-    .icon-text-item img {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .icon-text-item p {
-      margin: 0;
-      font-family: $SemiBold;
-      font-size: 21px;
-      max-width: 270px;
+      .icon-text-item p {
+        margin: 0;
+        font-family: $SemiBold;
+        font-size: 21px;
+        max-width: 270px;
+      }
     }
   }
 
@@ -304,11 +306,13 @@
     .merchants {
       padding-top: 0;
     }
-    .infoUnderTopSection {
-      padding: 35px 0;
+    .infoUnderTopSectionContainer {
+      .infoUnderTopSection {
+        padding: 35px 0;
 
-      .icon-text-row {
-        justify-content: center;
+        .icon-text-row {
+          justify-content: center;
+        }
       }
     }
   }
