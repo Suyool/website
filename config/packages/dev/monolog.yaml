@@ -4,6 +4,7 @@ monolog:
         - Users
         - Winning
         - Play
+        - BoB
     handlers:
         users:
             type: stream
@@ -20,6 +21,11 @@ monolog:
             path: "%kernel.logs_dir%/play.log"
             level: debug
             channels: ['Play']
+        alfa:
+            type: stream
+            path: "%kernel.logs_dir%/BoB.log"
+            level: debug
+            channels: ['BoB']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

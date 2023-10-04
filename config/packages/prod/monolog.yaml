@@ -29,3 +29,8 @@ monolog:
             path: "%kernel.logs_dir%/play.log"
             level: debug
             channels: ['Play']
+        alfa:
+            type: stream
+            path: "%kernel.logs_dir%/BoB.log"
+            level: debug
+            channels: ['BoB']

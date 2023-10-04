@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Utils\Helper;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -16,12 +17,14 @@ class BobServices
     private $helper;
     private $client;
     private $METHOD_POST;
+    private $logger;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper,LoggerInterface $logger)
     {
         $this->client = $client;
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
+        $this->logger=$logger;
 
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
@@ -139,9 +142,9 @@ class BobServices
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
 
         $content = $response->getContent();
-        $myfile = fopen("../var/cache/alfalogs.txt", "a");
+        
         $txt = json_encode(['response' => $response, 'content' => $content]);
-        fwrite($myfile, $txt);
+        $this->logger->info("Alfa postpaid Response: {$txt}");
         $ApiResponse = json_decode($content, true);
         $res = $ApiResponse['Response'];
         $ErrorDescription = $ApiResponse['ErrorDescription'];

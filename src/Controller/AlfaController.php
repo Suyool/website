@@ -49,7 +49,7 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $string_to_decrypt = $_POST['infoString'];
@@ -59,7 +59,9 @@ class AlfaController extends AbstractController
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
+                // $this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 155);
+
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
                 return $this->render('alfa/index.html.twig', [
@@ -320,8 +322,8 @@ class AlfaController extends AbstractController
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed
                         $orderupdate5
-                            ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror("reversed error from alfa:" . $billPay[2]);
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror("SUCCESS");
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 

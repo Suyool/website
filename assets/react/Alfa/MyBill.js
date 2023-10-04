@@ -43,7 +43,7 @@ const MyBill = ({
   };
 
   const handlePayNow = () => {
-    if (pinCode.length === 6) {
+    if (pinCode.length === 4) {
       setSpinnerLoader(true);
       axios
         .post("/alfa/bill/RetrieveResults", {
@@ -122,6 +122,7 @@ const MyBill = ({
               desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(
                 response.data?.data.amount
               ).toLocaleString()}.`,
+              deviceType:parameters?.deviceType
             });
             setModalShow(true);
           } else {
@@ -282,7 +283,7 @@ const MyBill = ({
         <div className="PinSection" onClick={handlePincodeClick}>
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
-            {Array.from({ length: 6 }, (_, index) => (
+            {Array.from({ length: 4 }, (_, index) => (
               <div className="code" key={index}>
                 {pinCode[index] !== undefined ? pinCode[index] : ""}
               </div>
@@ -309,7 +310,7 @@ const MyBill = ({
             id="ContinueBtn"
             className="btnCont"
             onClick={handlePayNow}
-            disabled={pinCode.length !== 6}
+            disabled={pinCode.length !== 4}
           >
             Continue
           </button>

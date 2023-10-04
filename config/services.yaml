@@ -111,6 +111,10 @@ services:
     App\Controller\LotoController:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Users' }
+    
+    App\Service\BobServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'BoB' }
 
         
 
