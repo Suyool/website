@@ -2,9 +2,14 @@
 
 {% block body %}
     <div class="terms-and-conditions-page">
-        {% include 'helpCenter/navbar.html.twig' %}
-        {% include 'helpCenter/top-section.html.twig' %}
+{#        {% include 'TermsAndConditions/navbar.html.twig' %}#}
+        <div class="container-fluid">
+            {% include 'elements/header-v2.html.twig'%}
+        </div>
+
+        {% include 'TermsAndConditions/top-section.html.twig' %}
         {% include 'TermsAndConditions/text.html.twig'%}
+    </div>
 
 
 {% endblock %}

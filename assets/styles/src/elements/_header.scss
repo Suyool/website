@@ -24,7 +24,7 @@ nav {
 .navbar_v2 {
   font-family: $Regular;
 
-  .navbar-brand{
+  .navbar-brand, .navbar-brand-blue{
       img{
         width: 85%;
       }
@@ -35,7 +35,6 @@ nav {
 
       .nav-link {
         color: #FFFFFF!important;
-
       }
       .button-primary {
         padding: 8px 30px;

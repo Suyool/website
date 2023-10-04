@@ -1,0 +1,71 @@
+.terms-top-section {
+  text-align: center;
+  padding-top: 40px;
+  color: #FFFFFF;
+  .title{
+    font-size: 40px;
+    font-family: $Regular;
+    padding: 20px 0;
+  }
+  .sub-title{
+    font-size: 18px;
+    font-family: $Bold;
+  }
+  .text {
+    font-size: 18px;
+    font-family: $Regular;
+  }
+}
+
+.terms-and-conditions-page{
+  .navbar_v2{
+    .navbar-brand{
+      display: none;
+    }
+    .navbar-brand-blue{
+      display: block !important;
+    }
+    .navbar-nav {
+      li {
+        margin-right: 50px;
+
+        .nav-link {
+          color: #216D96 !important;
+        }
+      }
+    }
+  }
+
+  .terms-and-conditions{
+    font-size: 18px;
+    .header{
+      display: flex;
+      margin-top: 40px;
+      justify-content: space-between;
+      .head-title{
+        font-family: $Bold;
+      }
+      button {
+        background-color: #226d96;
+        max-width: 250px;
+        color: #FFFFFF;
+        text-align: center;
+        border-radius: 8px;
+        font-family: $Regular;
+        border: none;
+      }
+    }
+
+    .title{
+      margin: 40px 0;
+      font-family: $Bold;
+    }
+    p{
+      font-family: $Regular;
+    }
+
+    @media(max-width: 768px){
+      font-size: 16px;
+    }
+  }
+}
