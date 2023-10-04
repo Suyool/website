@@ -138,6 +138,8 @@ class DigitalCorporateController extends AbstractController
                 'description' => 'Once they are in your account,<br>The money is yours to use',
             ],
         ];
+        $parameters['benefitsTitle'] = 'Benefits';
+        $parameters['benefitsSubTitle'] = 'Our benefits?';
         $infoPurpleSection = [
             'topTitle' => 'INTEGRATED POS',
             'title' => 'Suyool POS: The Optimal Choice for a Seamless Customer Experience',
@@ -161,5 +163,159 @@ class DigitalCorporateController extends AbstractController
         $parameters['merchantImages'] = $merchantImages;
 
         return $this->render('digitalCorporate/index.html.twig',$parameters);
+    }
+    /**
+     * @Route("/omnichannel", name="app_omnichannel")
+     */
+    public function omnichannel(Request $request,TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
+        $parameters['lang']="en";
+        $parameters['metaimage']="build/images/alfa_employee/alfametaimage.png";
+        $parameters['descmeta']="Your Payroll is now on Suyool";
+        $merchantImages = [
+            'merchants/alfa.png',
+            'merchants/spinneys.png',
+            'merchants/loto.png',
+            'merchants/medco.png',
+            'merchants/charcutier.png',
+        ];
+
+        $infoUnderTopSection = [
+            [
+                'icon' => 'build/images/alfa_employee/secure.png',
+                'text' => 'Accept Dual Currencies LBP/ USD',
+            ],
+            [
+                'icon' => 'build/images/alfa_employee/secure.png',
+                'text' => 'Omnichannel Payment In-Store, Mobile & Online',
+            ],
+            [
+                'icon' => 'build/images/alfa_employee/secure.png',
+                'text' => 'Instant Availability Funds Upon Payments',
+            ],
+        ];
+
+        $parameters['infoUnderTopSection'] = $infoUnderTopSection;
+
+        $financeContent = [
+            'title' => 'Integrated POS for an Omnichannel In-Store Experience',
+            'subTitle' => 'Gain new loyal customers with the best seamless shopping experience',
+            'checks' => [
+                'Dual Currency to give both options to customers',
+                'QR Payment is done by scanning specific users’ QR codes',
+                'Request to Pay (RTP) where merchants send an automatic RTP & users receive an instant notification with the amount due to pay',
+                'Transaction History for a full overview of transactions',
+                'Instant Reversal feature with secured access',
+            ],
+        ];
+
+        $payrollContent = [
+            'title' => 'Online Payment Gateway For Websites & Apps',
+            'subTitle' => '100% easy & secure',
+            'checks' => [
+                'Payment online with Suyool on desktop is done by scanning the QR code displayed at checkout.',
+                'Payment online with Suyool on mobile, is done by just taping on the received payment request on Suyool App. An One-step checkout process',
+            ],
+        ];
+
+        $bookKeeping = [
+            'title' => 'Live Overview of <br> Sales Transactions',
+            'subTitle' => 'All accessible from one place',
+            'checks' => [
+                'International transfers faster & at competitive fees',
+                'Free & instant transfers to any other Suyool account (Suppliers)',
+                '24/7 instant exchange (USD/LBP) at live parallel market rate',
+                'Cash out anytime with insured delivery',
+                'Real-time account overview in real-time',
+            ],
+        ];
+        $merchantDash = [
+            'title' => 'Digital Corporate Account <br> for all your financials',
+            'subTitle' => 'Break free from traditional banking. Dive into the new wave.',
+            'checks' => [
+                'International transfers faster & at competitive fees',
+                'Free & instant transfers to any other Suyool account (Suppliers)',
+                '24/7 instant exchange (USD/LBP) at live parallel market rate',
+                'Cash out anytime with insured delivery',
+                'Real-time account overview in real-time',
+            ],
+        ];
+        $uniqueFeatures = [
+            [
+                'title' => 'Apply to Suyool in Minutes',
+                'description' => 'Without having to go to a branch office, all the banking services you need are now at hand!',
+                'image' => 'build/images/homepage/fresh-account.svg',
+            ],
+            [
+                'title' => 'Application will be reviewed',
+                'description' => 'Our compliance officer will review your application within 4-5 Business days.',
+                'image' => 'build/images/homepage/exchange.svg',
+            ],
+            [
+                'title' => 'Your business account is open',
+                'description' => 'Start setting dashboard roles & get control over your business finances.',
+                'image' => 'build/images/homepage/fresh-mastercard.svg',
+            ],
+        ];
+        $safeHands = [
+            [
+                'title' => 'Your Funds Are Secure',
+                'image' => 'build/images/alfa_employee/secure.png',
+                'description' => 'Your funds are accessible anytime, anywhere.',
+            ],
+            [
+                'title' => 'Regulated by BDL',
+                'image' => 'build/images/alfa_employee/safe.png',
+                'description' => 'Suyool is a financial institution licensed by Banque Du Liban.',
+            ],
+            [
+                'title' => '24/7 Support',
+                'image' => 'build/images/alfa_employee/convenience.png',
+                'description' => 'A dedicated team is available 24/7 to answer your questions.',
+            ],
+        ];
+
+        $benefits = [
+            [
+                'title' => 'No Hidden Fees',
+                'description' => 'Full transparency of fees',
+            ],
+            [
+                'title' => 'Supplier & Client Payments',
+                'description' => 'Easily settle your business dues from your corporate dashboard',
+            ],
+            [
+                'title' => 'Expense & Spend Real-Time Overview',
+                'description' => 'Take full control over your business finances',
+            ],
+        ];
+        $parameters['benefitsTitle'] = 'Benefits';
+        $parameters['benefitsSubTitle'] = 'Your Money, Your Safety';
+
+        $infoPurpleSection = [
+            'topTitle' => 'CORPORATE ACCOUNT',
+            'title' => 'The Merchant Dashboard is Linked To The Corporate Digital Account',
+            'text' => 'Payment processed at your stores, online & offline will be available instantly In your corporate account.',
+            'buttonText' => 'Learn More',
+            'buttonLink' => '/legal_enrollment', // Update the link accordingly
+        ];
+
+        $parameters['topSectionTitle'] = "Omnichannel, Secure & Instant Payments";
+        $parameters['topSectionDesc']  = "Provide your customers with a seamless shopping experience across all channels, including in store, mobile, and online with a 360 degree real-time overview of your sales.";
+        $parameters['topSectionBtn'] = "Apply as Merchant";
+        $parameters['topSectionUnderBTnText'] ="From $20/month. Try it free for 30 days.";
+        $parameters['payrollContent'] = $payrollContent;
+        $parameters['financeContent'] = $financeContent;
+        $parameters['bookKeeping'] = $bookKeeping;
+        $parameters['merchantDash'] = $merchantDash;
+        $parameters['uniqueFeatures'] = $uniqueFeatures;
+        $parameters['safeHands'] = $safeHands;
+        $parameters['benefits'] = $benefits;
+        $parameters['infoPurpleSection'] = $infoPurpleSection;
+        $parameters['merchantImages'] = $merchantImages;
+
+        return $this->render('digitalCorporate/omnichannel.html.twig',$parameters);
     }
 }

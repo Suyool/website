@@ -226,6 +226,13 @@
   }
 
   @media (max-width: 768px) {
+    .top-section {
+      .top-info {
+        .header-text {
+          font-size: 40px;
+        }
+      }
+    }
     .should-to-know {
       margin-bottom: 50px;
       margin-top: 60px;
@@ -247,6 +254,7 @@
         .text {
           font-size: 14px;
         }
+
         .title {
           font-size: 30px;
           margin: 40px 0px;
@@ -255,5 +263,56 @@
     }
   }
 }
+
+.omnichannel {
+  .topSectionUnderBTnText {
+    margin-top: 20px;
+    font-family: $Italic;
+  }
+
+  .infoUnderTopSection {
+    padding: 20px 0;
+
+    .icon-text-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .icon-text-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .icon-text-item img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .icon-text-item p {
+      margin: 0;
+      font-family: $SemiBold;
+      font-size: 21px;
+      max-width: 270px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .merchants {
+      padding-top: 0;
+    }
+    .infoUnderTopSection {
+      padding: 35px 0;
+
+      .icon-text-row {
+        justify-content: center;
+      }
+    }
+  }
+}
+
 
 

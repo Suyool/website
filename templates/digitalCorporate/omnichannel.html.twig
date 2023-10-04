@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suyool{% endblock %}
+
+{% block body %}
+    <div class="alfa digitalCorp omnichannel">
+        {% include 'elements/digitalCorporate/topSection.html.twig' %}
+        {% include 'elements/merchants-list.html.twig' %}
+		{% include 'elements/digitalCorporate/manage-all-your-finance.html.twig' %}
+		{% include 'elements/digitalCorporate/payroll-in-minutes.html.twig' %}
+		{% include 'elements/digitalCorporate/in-safe-hands.html.twig' %}
+		{% include 'elements/digitalCorporate/bookkeeping.html.twig' %}
+		{% include 'elements/digitalCorporate/our-benefits.html.twig' %}
+		{% include 'elements/digitalCorporate/3stepsToStart.html.twig' %}
+		{% include 'elements/digitalCorporate/info-purple-section.html.twig' %}
+		{% include 'elements/digitalCorporate/merchantDash.html.twig' %}
+
+    </div>
+    {#    <div class="desktopMode" id="qrGetTheApp">#}
+    {#        {% include 'elements/gettheapp.html.twig' %}#}
+    {#    </div>#}
+    {% include 'elements/footer.html.twig' %}
+{% endblock %}

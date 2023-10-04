@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <div class="infoUnderTopSection">
+        <div class="icon-text-row">
+            {% for item in infoUnderTopSection %}
+                <div class="icon-text-item">
+                    <img src="{{ asset(item.icon) }}" alt="Icon">
+                    <p>{{ item.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
