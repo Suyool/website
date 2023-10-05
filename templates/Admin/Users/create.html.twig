@@ -8,26 +8,29 @@
         {{ form_row(form.username) }}
         {{ form_row(form.email) }}
         {{ form_row(form.phone) }}
+        {% if form.password is defined %}
         <div class="password-field">
             {{ form_row(form.password) }}
             <img src="{{asset('build/images/showIcon.png')}}" id="togglePassword"/>
         </div>
+        {% endif %}
         {{ form_end(form) }}
     </div>
 
     <script>
-        if(document.getElementById("togglePassword")){
-            document.getElementById("togglePassword").addEventListener("click",()=>{
-                var passwordField = document.getElementById('{{ form.password.vars.id }}');
-                if(passwordField){
-                    if (passwordField.type === 'password') {
-                        passwordField.type = 'text';
-                    } else {
-                        passwordField.type = 'password';
-                    }
+    var togglePassword = document.getElementById("togglePassword");
+    
+    if (togglePassword &&  document.getElementById('user_form_password')) {
+        togglePassword.addEventListener("click", () => {
+            var passwordField = document.getElementById('user_form_password');
+            if (passwordField) {
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
                 }
-               
-            })
-        }
-    </script>
+            }
+        });
+    }
+</script>
 {% endblock %}

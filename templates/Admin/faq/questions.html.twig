@@ -17,6 +17,11 @@
     </div>
     {{ form_end(filterForm) }}
 
+    
+    <div class="mb-3">
+        <a href="{{ path('admin_questions_new') }}" class="btn btn-primary">Create New Question</a>
+    </div>
+
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -47,7 +52,5 @@
         {{ knp_pagination_render(pagination) }}
     </div>
 
-    <div class="mb-3">
-        <a href="{{ path('admin_questions_new') }}" class="btn btn-primary">Create New Question</a>
-    </div>
+    
 {% endblock %}
