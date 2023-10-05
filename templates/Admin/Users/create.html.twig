@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="mb-4">Create User</h1>
+<h1 class="mb-4">{% if form.password is defined %}Create User{% else %}Update User{% endif %}</h1>
 
         {{ form_start(form) }}
         {{ form_row(form.username) }}
