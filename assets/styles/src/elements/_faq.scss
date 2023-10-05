@@ -82,7 +82,8 @@ $image-path: '../../../images/';
 .ans-bg{
     border-radius: 25px;
     display: inline-flex;
-    height: 50px;
+    min-height: 50px;
+    align-items: center;
     padding: 6px;
     p {
         padding-top: 7px;
@@ -97,6 +98,10 @@ $image-path: '../../../images/';
     background: #FFDCDB;
 }
 
+.bg-light-yellow{
+    background: #FFF1DB;
+}
+
 .quest-edit-icon{
     border-radius: 50%;
     margin-right: 10px;
@@ -108,4 +113,15 @@ $image-path: '../../../images/';
 
 .answers-steps{
     padding-left: 50px;
+}
+
+.center-div{
+    width: 100%;
+    text-align: center;
+}
+
+.ans-styled-button{
+    padding: 8px 20px;
+    color: #FFFFFF;
+    border-radius: 25px;
 }
