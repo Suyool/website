@@ -385,11 +385,11 @@ if(document.getElementById("submit")){
 }
 
 
-document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
-    // Redirect to the Symfony route that triggers the download
-    // window.location.href = "{{ path('download_pdf') }}";
-    window.location.href = "/download-pdf";
-});
+// document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
+//     // Redirect to the Symfony route that triggers the download
+//     // window.location.href = "{{ path('download_pdf') }}";
+//     window.location.href = "/download-pdf";
+// });
 $(document).ready(function() {
   $('#resubscribe').on('click', function() {
     var uniqueCode = $(this).data('code');
