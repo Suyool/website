@@ -5,7 +5,29 @@
         <h1 class="mb-4">Create User</h1>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.phone) }}
+        <div class="password-field">
+            {{ form_row(form.password) }}
+            <img src="{{asset('build/images/showIcon.png')}}" id="togglePassword"/>
+        </div>
         {{ form_end(form) }}
     </div>
+
+    <script>
+        if(document.getElementById("togglePassword")){
+            document.getElementById("togglePassword").addEventListener("click",()=>{
+                var passwordField = document.getElementById('{{ form.password.vars.id }}');
+                if(passwordField){
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                    } else {
+                        passwordField.type = 'password';
+                    }
+                }
+               
+            })
+        }
+    </script>
 {% endblock %}

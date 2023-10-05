@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserFormType extends AbstractType
@@ -25,6 +26,9 @@ class UserFormType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+            ])
+            ->add('phone', NumberType::class,[
+                'label'=>'Phone',
             ]);
 
         if (!$options['is_edit']) {
@@ -39,7 +43,6 @@ class UserFormType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'Roles',
                 'choices' => [
-                    'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
                     // Add more role options as needed
                 ]
