@@ -34,15 +34,15 @@
 
                     {% for result in results %}
                         <div class="result">
-                            <div class="question">{{ result.question }}</div>
+                            <div class="question"><a href="/category/{{result.categoryId}}/{{result.id}}/{{result.question|slugifyQuestion}}">{{ result.question }}</a></div>
                             <div class="answer">{{ result.answer|raw }}</div>
                             <a class="category"
-                               href="{{ path('category_show', {'id': result.questionsCategory.id, 'questionId': result.id, 'question': result.question|slugifyQuestion})}}">
-                                {% if result.questionsCategory.image is not empty %}
-                                    <img src="{{ asset('images/questionsCategories/' ~ result.questionsCategory.image) }}" alt="Category Image" width="50">
+                               href="{{ path('category_show', {'id': result.categoryId, 'questionId': result.id, 'question': result.question|slugifyQuestion})}}">
+                                {% if result.image is not empty %}
+                                    <img src="{{ asset('images/questionsCategories/' ~ result.image) }}" alt="Category Image" width="50">
                                 {% endif %}
                                 in
-                                {{result.questionsCategory.name}}
+                                {{result.categoryName}}
                             </a>
                         </div>
                     {% endfor %}
@@ -53,4 +53,17 @@
         </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log(123)
+            const searchInput = $("#search-input");
+            const showResultsLink = $(".show-results");
+
+            showResultsLink.click(function () {
+                console.log(searchInput.val());
+            });
+        });
+    </script>
+
 {% endblock %}

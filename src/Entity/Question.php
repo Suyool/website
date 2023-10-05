@@ -33,6 +33,10 @@ class Question
      */
     private $questionsCategory;
 
+    /**
+     * @ORM\Column(name="category_id")
+     */
+    private $categoryId;
 
     public function getId(): ?int
     {
@@ -71,6 +75,18 @@ class Question
     public function setQuestionsCategory(?QuestionsCategory $questionsCategory): self
     {
         $this->questionsCategory = $questionsCategory;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?QuestionsCategory
+    {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId(int $categoryId): self
+    {
+        $this->categoryId = $categoryId;
 
         return $this;
     }
