@@ -36,6 +36,7 @@ class IveriController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            // dd($_POST);
             $transaction = new Transaction;
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
                 $amount = $_POST['LITE_ORDER_AMOUNT'] / 100;
@@ -79,20 +80,24 @@ class IveriController extends AbstractController
                 $parameters['timestamp'] = time();
             return $this->render('iveri/index.html.twig', $parameters);
         }
-        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3!#!2!#!USD!#!1000";
 
         if (isset($_POST['infoString'])) {
-            echo $_POST['infoString'];
+            // dd($_POST['infoString']);
             $string_to_decrypt = $_POST['infoString'];
+            $suyoolUserInfoForTopUp = explode("!#!", $string_to_decrypt);
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
-            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            $decrypted_string = openssl_decrypt($suyoolUserInfoForTopUp[0], $this->cipher_algorithme, $this->key, 0, $this->iv);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            // dd($suyoolUserInfo);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                    $parameters['amount'] = "50";
-                    $parameters['currency'] = "USD";
+                    $parameters['amount'] = $suyoolUserInfoForTopUp[1];
+                    
+                    $parameters['currency'] = $suyoolUserInfoForTopUp[2];
                     $parameters['userid'] = $suyoolUserInfo[0];
                     $parameters['timestamp'] = time();
+                    $parameters['topup']=true;
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');
         } else return $this->render('ExceptionHandling.html.twig');

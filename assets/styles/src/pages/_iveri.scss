@@ -1,4 +1,25 @@
 .loaderTopUp {
+
+    .mobheader {
+        display: flex;
+        justify-content: space-between;
+        background-color: #226D96;
+        padding: 13px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        color: #ffffff;
+        font-weight: bolder;
+        .back{
+            // font-size: 30px;
+            img{
+                height: auto;
+            }
+        }
+        .topup{
+            // font-size: 30px;
+        }
+    }
+
     background-color: #767676;
     height: 125vh;
 

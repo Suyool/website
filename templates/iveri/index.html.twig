@@ -2,11 +2,19 @@
 
 {% block body %}
 {% if status is not defined %}
+
 <div class="loaderTopUp">
+	{% if topup is  defined %}
+	<div class="mobheader">
+		<div class="back"> <img src="{{ asset('/build/images/Loto/Back.png') }}" alt=""> </div>
+		<div class="topup">Top Up</div>
+		<div></div>
+	</div>
+	{% endif %}
 	<img src="{{ asset('/build/images/loaderSuyool.gif') }}" alt="">
-	<div id="submitTopUp" ><button class="continueBtn">Continue</button></div>
+	<div id="submitTopUp"><button class="continueBtn">Continue</button></div>
 </div>
- {% include 'iveri/hiddenForm.html.twig' %}
+{% include 'iveri/hiddenForm.html.twig' %}
 {% else %}
 <div class="entireBody">
 	<div class="popup">

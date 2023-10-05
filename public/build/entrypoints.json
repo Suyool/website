@@ -5,6 +5,7 @@
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/app1.f06e910c.js"
 =======
         "/build/app1.eeae84e0.js"
@@ -12,6 +13,9 @@
 =======
         "/build/app1.5c4cac0a.js"
 >>>>>>> e892faef (iveri topup and RTL)
+=======
+        "/build/app1.e2dd6074.js"
+>>>>>>> 3acd8162 (iveri post infoString from mobile)
       ]
     },
     "admin-app": {
@@ -64,6 +68,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.9b321ee5.css"
 =======
         "/build/styles.8ecb54ab.css"
@@ -77,6 +82,9 @@
         "/build/styles.199284c5.css"
 >>>>>>> 7de39a5d (iveri controller)
 >>>>>>> 9581ab6b (iveri controller)
+=======
+        "/build/styles.2b4a0371.css"
+>>>>>>> 3acd8162 (iveri post infoString from mobile)
       ]
     },
     "admin": {

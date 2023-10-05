@@ -350,6 +350,18 @@ if(document.querySelector(".loaderTopUp")){
   setInterval(function() {element.style.display = "block"}, 2000);
 }
 
+if(document.querySelector(".action")){
+  const action=document.querySelector(".action");
+  action.addEventListener("click", function () {
+    // Submit the form
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
+  });
+}
+
 if (document.querySelector(".copy-to-clipboard")) {
   // Get the element with the 'copy-to-clipboard' class
   const copyBtn = document.querySelector(".copy-to-clipboard");
