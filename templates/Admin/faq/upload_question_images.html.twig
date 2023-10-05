@@ -1,0 +1,13 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}Upload Questions Image{% endblock %}
+
+{% block content %}
+    <h1>Questions Image</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Upload</button>
+    {{ form_end(form) }}
+
+{% endblock %}

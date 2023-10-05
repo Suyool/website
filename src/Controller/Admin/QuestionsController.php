@@ -3,13 +3,17 @@ namespace App\Controller\Admin;
 
 // src/Controller/Admin/QuestionsController.php
 use App\Entity\Question;
+use App\Entity\QuestionsPhoto;
 use App\Form\QuestionFilterType;
+use App\Form\QuestionsPhotoType;
 use App\Form\QuestionType;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class QuestionsController extends AbstractController
@@ -84,4 +88,62 @@ class QuestionsController extends AbstractController
             'isNewQuestion' => $isNewQuestion,
         ]);
     }
+    /**
+     * @Route("/show_questions_photo", name="admin_show_questions_photo")
+     */
+    public function showQuestionPhoto(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $photos = $em->getRepository(QuestionsPhoto::class)->findAll();
+        return $this->render('Admin/faq/questionPhoto.html.twig', [
+            'photos' => $photos,
+        ]);
+    }
+    /**
+     * @Route("/upload_questions_photo", name="admin_upload_questions_photo")
+     */
+    public function uploadPhoto(Request $request, QuestionsPhoto $question = null,SluggerInterface $slugger): Response
+    {
+        $isNewQuestion = ($question === null);
+
+        if ($isNewQuestion) {
+            $question = new QuestionsPhoto();
+        }
+
+        $form = $this->createForm(QuestionsPhotoType::class, $question);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                // Handle file upload here (e.g., move the uploaded file to the desired location).
+                // You can use the $slugger to generate a unique filename.
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename.$imageFile->guessExtension());
+
+                // Move the uploaded file to the desired directory
+                try {
+                    $imageFile->move(
+                        $this->getParameter('kernel.project_dir') . '/public/images/questionsImages',
+                        $safeFilename
+                    );
+                } catch (FileException $e) {
+                    // Handle the exception if necessary
+                }
+
+                // Set the image property to the new filename
+                $question->setImage($safeFilename);
+            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_show_questions_photo');
+        }
+
+        return $this->render('Admin/faq/upload_question_images.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 }
