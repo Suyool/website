@@ -68,3 +68,60 @@ $image-path: '../../../images/';
         
     }
 }
+.quest-send-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #387ea5;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: #FFFFFF;
+}
+.ans-bg{
+    border-radius: 25px;
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    padding: 6px;
+    p {
+        padding-top: 7px;
+    }
+}
+
+.bg-light-blue{
+    background: #DBFCFF;
+}
+
+.bg-light-red{
+    background: #FFDCDB;
+}
+
+.bg-light-yellow{
+    background: #FFF1DB;
+}
+
+.quest-edit-icon{
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #004B71;
+    width: 40px;
+    height: 40px;
+    padding: 8px 12px;
+}
+
+.answers-steps{
+    padding-left: 50px;
+}
+
+.center-div{
+    width: 100%;
+    text-align: center;
+}
+
+.ans-styled-button{
+    padding: 8px 20px;
+    color: #FFFFFF;
+    border-radius: 25px;
+}

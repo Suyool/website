@@ -69,11 +69,15 @@ class QuestionRepository extends ServiceEntityRepository
     {
         // SELECT * FROM `question` WHERE MATCH (question) AGAINST ('bank account' IN BOOLEAN MODE) > 0;
         $results = $this->createQueryBuilder('q')
+            ->select('q.id', 'q.question', 'SUBSTRING(q.answer, 1, 150) AS answer', 'q.categoryId', 'c.image', 'c.name AS categoryName')
+            ->leftJoin('q.questionsCategory','c')
             ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0')
             ->setParameter('searchTerm', $searchString)
-            ->setMaxResults($limited? 4 : 100)
+            ->setMaxResults($limited ? 4 : 100)
             ->getQuery()
             ->getResult();
+
+//        dd($results);
 
         return $results;
     }

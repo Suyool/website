@@ -13,10 +13,18 @@
     text-align: left;
     padding-top: 74px;
 
+    .search-results{
+      position: relative;
+    }
+
     form {
       label{
         width: 100%;
         margin: 0;
+
+        input{
+          border-radius: 25px;
+        }
       }
     }
   }
@@ -41,12 +49,14 @@
     margin: auto;
     width: 35% !important;
 
+
     form {
       label {
         input {
           padding-left: 30px !important;
-          width: 90% !important;
+          width: 75% !important;
           margin-left: 10px;
+          border-radius: 25px;
         }
 
         i {
@@ -63,7 +73,10 @@
     z-index: 10;
     border-radius: 40px;
     margin-top: 28px;
-    position: relative;
+    position: absolute;
+    right: 0;
+    left: 0;
+
 
     form {
       label {
@@ -101,6 +114,7 @@
         padding: 20px 0;
         border-bottom: 2px solid #3d7fa3;
         margin-left: 40px;
+        width: 85%;
 
         img {
           width: 40px;
@@ -126,8 +140,8 @@
       .show-results{
         padding: 20px;
         font-size: 20px;
-        display: flex;
-        justify-content: space-between;
+        background: unset;
+        border: none;
       }
     }
   }
@@ -211,10 +225,22 @@
       font-size: 30px;
       padding-top: 60px;
     }
+    .home{
+      width: 80% !important;
+    }
     .info {
       padding-top: 0;
+
+      .sub-title{
+        text-align: center;
+      }
+
+      .search-results{
+        width: 80%;
+        margin: 15px auto;
+      }
+
       form {
-        margin-top: 40px;
         label {
           input {
             width: 100%;

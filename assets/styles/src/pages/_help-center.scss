@@ -225,6 +225,10 @@
   }
 
   @media (max-width: 768px) {
+    .desktop{
+      display: none;
+    }
+
     .categories-show-cont {
       .page-subtitle {
         margin-top: 40px;
@@ -262,6 +266,21 @@
       .info-content {
         .info-section {
           margin-bottom: 15px;
+        }
+      }
+    }
+
+    .search-page{
+      .title{
+        font-size: 25px;
+      }
+
+      .result{
+        .question{
+          font-size: 20px;
+        }
+        .answer, .category{
+          font-size: 16px;
         }
       }
     }
