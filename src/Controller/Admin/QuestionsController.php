@@ -8,6 +8,7 @@ use App\Form\QuestionFilterType;
 use App\Form\QuestionsPhotoType;
 use App\Form\QuestionType;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,6 +105,7 @@ class QuestionsController extends AbstractController
      */
     public function uploadPhoto(Request $request, QuestionsPhoto $question = null,SluggerInterface $slugger): Response
     {
+        
         $isNewQuestion = ($question === null);
 
         if ($isNewQuestion) {
@@ -119,15 +121,17 @@ class QuestionsController extends AbstractController
                 // Handle file upload here (e.g., move the uploaded file to the desired location).
                 // You can use the $slugger to generate a unique filename.
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename.$imageFile->guessExtension());
-
+                $safeFilename=strtolower($originalFilename).".".$imageFile->guessExtension();
+                // dd($safeFilename);
+                // $safeFilename = $slugger->slug($safeFilename);
+                    // dd($safeFilename);
                 // Move the uploaded file to the desired directory
                 try {
                     $imageFile->move(
                         $this->getParameter('kernel.project_dir') . '/public/images/questionsImages',
                         $safeFilename
                     );
-                } catch (FileException $e) {
+                } catch (Exception $e) {
                     // Handle the exception if necessary
                 }
 
