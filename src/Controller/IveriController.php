@@ -8,6 +8,7 @@ use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,11 +25,14 @@ class IveriController extends AbstractController
     private $mr;
     private $suyoolServices;
     private $notificationServices;
+    private $logger;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices,NotificationServices $notificationServices,LoggerInterface $loggerInterface)
     {
         $this->mr = $mr->getManager();
-        $this->notificationServices = $notificationServices;
+        $this->suyoolServices=$suyoolServices;
+        $this->notificationServices=$notificationServices;
+        $this->logger=$loggerInterface;
     }
 
     #[Route('/topup', name: 'app_topup')]
@@ -39,9 +43,23 @@ class IveriController extends AbstractController
             // dd($_POST);
             $transaction = new Transaction;
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                $amount = $_POST['LITE_ORDER_AMOUNT'] / 100;
-                $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
-
+                $topup=$this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'],3);
+                if($topup[0]){
+                    $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
+                    $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                    $parameters['status'] = true;
+                    $parameters['imgsrc'] = "build/images/Loto/success.png";
+                    $parameters['title'] = "Top Up Successful";
+                    $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                    $parameters['button'] = "Continue";
+                }
+                else{
+                    $parameters['status'] = false;
+                    $parameters['imgsrc'] = "build/images/Loto/error.png";
+                    $parameters['title'] = "Please Try Again";
+                    $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $parameters['button'] = "Try Again";
+                }     
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
                 $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
@@ -49,24 +67,33 @@ class IveriController extends AbstractController
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
                 if (isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['status'] = true;
-                $parameters['imgsrc'] = "build/images/Loto/success.png";
-                $parameters['title'] = "Top Up Successful";
-                $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
-                $parameters['button'] = "Continue";
+                $transaction->setflagCode($topup[2]);
+                $transaction->setError($topup[3]);
             } else {
+                $topup=$this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'],9);
+                if($topup[0]){
+                    $parameters['status'] = false;
+                    $parameters['imgsrc'] = "build/images/Loto/error.png";
+                    $parameters['title'] = "Top Up Failed";
+                    $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $parameters['button'] = "Try Again";
+                }
+                else{
+                    $parameters['status'] = false;
+                    $parameters['imgsrc'] = "build/images/Loto/error.png";
+                    $parameters['title'] = "Please Try Again";
+                    $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $parameters['button'] = "Try Again";
+                }
                 $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
                 $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
                 $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
-                $transaction->setDescription($_POST['LITE_RESULT_DESCRIPTION']);
+                $transaction->setDescription("Successfully payment for " . $_POST['LITE_ORDER_AMOUNT'] / 100 . " " . $_POST['LITE_CURRENCY_ALPHACODE']);
                 $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
                 if (isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
                 $transaction->setResponse(json_encode($_POST));
-                $parameters['status'] = false;
-                $parameters['imgsrc'] = "build/images/Loto/error.png";
-                $parameters['title'] = "Top Up Failed";
-                $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                $parameters['button'] = "Try Again";
+                $transaction->setflagCode($topup[2]);
+                $transaction->setError($topup[3]);
             }
             $this->mr->persist($transaction);
             $this->mr->flush();
@@ -80,9 +107,10 @@ class IveriController extends AbstractController
                 $parameters['timestamp'] = time();
             return $this->render('iveri/index.html.twig', $parameters);
         }
-        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3!#!2!#!USD!#!1000";
+        // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1B/VZbvSmMG/HFhNWN4KAr27gxgh6vEJCjTb6gwJJWxD!#!2!#!USD!#!15580";
 
         if (isset($_POST['infoString'])) {
+            // $this->logger->info($_POST['infoString']);
             // dd($_POST['infoString']);
             $string_to_decrypt = $_POST['infoString'];
             $suyoolUserInfoForTopUp = explode("!#!", $string_to_decrypt);
@@ -97,6 +125,7 @@ class IveriController extends AbstractController
                     $parameters['currency'] = $suyoolUserInfoForTopUp[2];
                     $parameters['userid'] = $suyoolUserInfo[0];
                     $parameters['timestamp'] = time();
+                    $parameters['transactionId']=$suyoolUserInfoForTopUp[3];
                     $parameters['topup']=true;
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');

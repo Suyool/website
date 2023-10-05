@@ -409,4 +409,32 @@ class SuyoolServices
             return array(false);
         }
     }
+
+    public function UpdateCardTopUpTransaction($transId,$statusId)
+    {
+        try {
+            // echo $transId . $statusId . $this->certificate;
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $this->certificate, true));
+
+            $body =[
+                'transactionId' => $transId,
+                "statusId" => $statusId,
+                'secureHash' => $Hash
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
+
+            $content = $response->toArray(false);
+            // var_dump($body);
+            // dd($content);
+
+            if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+                return array(true, $content['data'],$content['flagCode'],$content['message']);
+            } else {
+                return array(false, $content['data'],$content['flagCode'],$content['message']);
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return array(false);
+        }
+    }
 }

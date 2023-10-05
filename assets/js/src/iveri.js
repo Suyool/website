@@ -33,3 +33,15 @@ if(document.querySelector(".action")){
     }
   });
 }
+
+if(document.querySelector(".back")){
+  const action=document.querySelector(".back");
+  action.addEventListener("click", function () {
+    // Submit the form
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
+  });
+}

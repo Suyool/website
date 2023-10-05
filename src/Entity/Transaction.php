@@ -57,6 +57,16 @@ class Transaction
     private $respCode;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $flagCode;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $error;
+
+    /**
      * @ORM\Column(type="datetime",nullable=true)
      */
     private $created;
@@ -160,15 +170,32 @@ class Transaction
         return $this;
     }
 
+    public function getflagCode()
+    {
+        return $this->flagCode;
+    }
+
+    public function setflagCode($flagCode): self
+    {
+        $this->flagCode = $flagCode;
+
+        return $this;
+    }
+
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    public function setError($error): self
+    {
+        $this->error = $error;
+
+        return $this;
+    }
+
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;
-    }
-
-    public function setCreated(\DateTimeInterface $created): self
-    {
-        $this->created = $created;
-
-        return $this;
     }
 }
