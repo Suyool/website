@@ -7,7 +7,7 @@
 
         <div class="container-fluid search-page">
             <div class="row color{{ type }}">
-                <div class="col-3">
+                <div class="col-3 desktop">
                     <div class="container categories-left-nav">
                         <ul>
                             {% for category in categories %}
@@ -29,7 +29,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-sm-9">
                     <div class="title">Results for “{{ searchQuery }}”</div>
 
                     {% for result in results %}
@@ -53,17 +53,6 @@
         </div>
 
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            console.log(123)
-            const searchInput = $("#search-input");
-            const showResultsLink = $(".show-results");
 
-            showResultsLink.click(function () {
-                console.log(searchInput.val());
-            });
-        });
-    </script>
 
 {% endblock %}

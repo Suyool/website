@@ -266,8 +266,16 @@ $(document).ready(function () {
             });
         }
     });
+
+    $('.show-results').on('click', function () {
+        console.log("hello")
+    })
 });
 
+// document.getElementById("tst").addEventListener("click", function () {
+//     const searchInput = document.getElementById("search-input");
+//     console.log(searchInput.value);
+// });
 $(".submitTextDownloadAppBtn").on("click", function(e) {
   // console.log( $(this).attr('code'));
   e.preventDefault();
