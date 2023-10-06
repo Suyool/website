@@ -56,6 +56,7 @@ return [
     "FREE_PAYROLL_CASH_OUT"=>"سحب الرواتب مجاناً",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"إرسال وإستقبال الأموال مجاناً",
     "SEND_MONEY_INTERNATIONALLY"=>"إرسال الأموال عالمياً",
+    "REQUEST_MONEY" => "طلب المال",
     "PAY_BILLS"=>"دفع الفواتير",
     "PAY_WITH_SUYOOL_QR"=>"QR الدفع من خلال سيول ",
     "HOW_DOES_SUYOOL_WORK"=>"كيف يعمل تطبيق سيول؟",

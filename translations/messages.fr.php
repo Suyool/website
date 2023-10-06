@@ -8,6 +8,7 @@ return [
     "FREE_PAYROLL_CASH_OUT"=>"Retrait en espèce du salaire sans frais",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"Transferts domestiques",
     "SEND_MONEY_INTERNATIONALLY"=>"Transferts vers l’étranger",
+    "REQUEST_MONEY" => "Demande de l'argent",
     "PAY_BILLS"=>"Règlement de factures",
     "PAY_WITH_SUYOOL_QR"=>"Paiement via QR sécurisé",
     "HOW_DOES_SUYOOL_WORK"=>"DÉBUTER AVEC SUYOOL",

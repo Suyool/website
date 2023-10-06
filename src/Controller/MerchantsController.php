@@ -74,8 +74,8 @@ class MerchantsController extends AbstractController
                     'description' => 'Send & Receive Money for Free',
                 ],
                 [
-                    'image' => 'build/images/alfa_employee/internationally.svg',
-                    'description' => 'Send Money Internationally',
+                    'image' => 'build/images/alfa_employee/request-money.svg',
+                    'description' => 'Request Money',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/payroll.svg',
