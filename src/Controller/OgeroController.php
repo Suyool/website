@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\BobServices;
+use App\Service\DecryptService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -43,8 +44,7 @@ class OgeroController extends AbstractController
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
-            $string_to_decrypt = $_POST['infoString'];
-            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            $decrypted_string = DecryptService::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             if (!isset($suyoolUserInfo[1])) {
                 return $this->render('ExceptionHandling.html.twig');

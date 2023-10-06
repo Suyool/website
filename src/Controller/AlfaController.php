@@ -9,6 +9,7 @@ use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\PostpaidRequest;
 use App\Service\LotoServices;
 use App\Service\BobServices;
+use App\Service\DecryptService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -52,8 +53,7 @@ class AlfaController extends AbstractController
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
-            $string_to_decrypt = $_POST['infoString'];
-            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            $decrypted_string = DecryptService::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 

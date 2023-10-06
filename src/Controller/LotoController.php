@@ -11,6 +11,7 @@ use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
 use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
+use App\Service\DecryptService;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -165,12 +166,9 @@ class LotoController extends AbstractController
         // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
+            if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $draw = $request->query->get('draw');
-            $string_to_decrypt = $_POST['infoString'];
-            if ($_POST['infoString'] == "") {
-                return $this->render('ExceptionHandling.html.twig');
-            }
-            $decrypted_string = openssl_decrypt($string_to_decrypt, $this->cipher_algorithme, $this->key, 0, $this->iv);
+            $decrypted_string = DecryptService::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $this->loggerInterface->debug($_POST['infoString']);
             $this->loggerInterface->debug($decrypted_string);
