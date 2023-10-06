@@ -3,6 +3,7 @@ framework:
     error_controller: App\Controller\DefaultController::show
     secret: '%env(APP_SECRET)%'
     csrf_protection: ~
+    disallow_search_engine_index: false
     # trusted_proxies: '%env(TRUSTED_PROXIES)%'
     trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
     #http_method_override: true

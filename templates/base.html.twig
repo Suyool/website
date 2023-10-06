@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv = "content-language" content = "{% if lang is defined %}{{ lang }}{% else %}en{% endif %}">
+    <meta name="description" content="Suyool">
+    <meta name="title" content="Suyool">
 {% if app.request.server.get('APP_ENV') == "dev" %}<meta name="robots" content="noindex, nofollow" />{% endif %}
     {% if metaimage is defined %}
     <meta property="og:image" content="{{asset(metaimage)}}">
