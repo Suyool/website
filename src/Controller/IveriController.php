@@ -35,6 +35,7 @@ class IveriController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index()
     {
+        $parameters=array();
         $iveriServices=new IveriServices($this->suyoolServices,$this->logger);
             $ivericall=$iveriServices->iveriService();
             if($ivericall[0]){
@@ -43,10 +44,19 @@ class IveriController extends AbstractController
                 return $this->render('iveri/index.html.twig', $ivericall[2]);
             }     
         if (isset($_POST['Request'])) {
-                $parameters['amount'] = $_POST['ORDER_AMOUNT'];
-                $parameters['currency'] = $_POST['Currency_AlphaCode'];
-                $parameters['userid'] = NULL;
-                $parameters['timestamp'] = time();
+                $amount = $_POST['ORDER_AMOUNT'];
+                $currency = $_POST['Currency_AlphaCode'];
+                $transactionId=$_POST['transactionId'];
+                $userid = NULL;
+                $timestamp = time();
+                $parameters=[
+                    'amount'=>$amount,
+                    'currency'=>$currency,
+                    'transactionId'=>$transactionId,
+                    'userid'=>$userid,
+                    'timestamp'=>$timestamp,
+                    'topup'=> "false"
+                ];
             return $this->render('iveri/index.html.twig', $parameters);
         }
         // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1B/VZbvSmMG/HFhNWN4KAr27gxgh6vEJCjTb6gwJJWxD!#!2!#!USD!#!15580";
@@ -57,13 +67,19 @@ class IveriController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                    $parameters['amount'] = $suyoolUserInfoForTopUp[1];
-                    // dd($parameters['amount']);
-                    $parameters['currency'] = $suyoolUserInfoForTopUp[2];
-                    $parameters['userid'] = $suyoolUserInfo[0];
-                    $parameters['timestamp'] = time();
-                    $parameters['transactionId']=$suyoolUserInfoForTopUp[3];
-                    $parameters['topup']=true;
+                    $amount = $suyoolUserInfoForTopUp[1];
+                    $currency = $suyoolUserInfoForTopUp[2];
+                    $userid = $suyoolUserInfo[0];
+                    $timestamp = time();
+                    $transactionId=$suyoolUserInfoForTopUp[3];
+                    $parameters=[
+                        'amount'=>$amount,
+                        'currency'=>$currency,
+                        'userid'=>$userid,
+                        'timestamp'=>$timestamp,
+                        'transactionId'=>$transactionId,
+                        'topup'=>"true"
+                    ];
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');
         } else return $this->render('ExceptionHandling.html.twig');

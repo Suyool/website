@@ -55,6 +55,7 @@ class RequestController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
+        // dd($parameters['request_details_response']);
         $parameters['currency'] = "LBP";
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 

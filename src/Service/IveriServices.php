@@ -22,14 +22,17 @@ class IveriServices
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
-            $additionalInfo=[
-                'authCode'=>$_POST['LITE_ORDER_AUTHORISATIONCODE'],
-                'cardStatus'=>$_POST['LITE_PAYMENT_CARD_STATUS'],
-                'desc'=>$_POST['LITE_RESULT_DESCRIPTION']
+            $additionalInfo = [
+                'authCode' => $_POST['LITE_ORDER_AUTHORISATIONCODE'],
+                'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
+                'desc' => $_POST['LITE_RESULT_DESCRIPTION']
             ];
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3,$_POST['ECOM_CONSUMERORDERID'],json_encode($additionalInfo));
+                if ($_POST['TOPUP'] == "true") {
+                    $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
+                } else {
+                    $topup = $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['TRANSACTIONID']);
+                }
                 if ($topup[0]) {
                     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
                     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
@@ -46,7 +49,11 @@ class IveriServices
                     $button = "Try Again";
                 }
             } else {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9,$_POST['ECOM_CONSUMERORDERID'],json_encode($additionalInfo));
+                if ($_POST['TOPUP'] == "true") {
+                    $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
+                } else {
+                    $topup = $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['TRANSACTIONID']);
+                }
                 if ($topup[0]) {
                     $status = false;
                     $imgsrc = "build/images/Loto/error.png";
@@ -74,11 +81,11 @@ class IveriServices
             $transaction->setTransactionId($_POST['TRANSACTIONID']);
             $statusForIveri = true;
             $parameters = array(
-                'status'=>$status,
-                'imgsrc'=>$imgsrc,
-                'title'=>$title,
-                'description'=>$description,
-                'button'=>$button
+                'status' => $status,
+                'imgsrc' => $imgsrc,
+                'title' => $title,
+                'description' => $description,
+                'button' => $button
             );
         } else $statusForIveri = false;
 
