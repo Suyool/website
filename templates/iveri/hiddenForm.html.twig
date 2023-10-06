@@ -1,20 +1,19 @@
-	<form style="display: none" name="myFormTopUp" id="myFormTopUp" method="post" action="https://portal.cscacquiring.com/Lite/Authorise.aspx">
-		<input id="ECOM_CONSUMERORDERID" name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
-		<input id="ECOM_PAYMENT_CARD_PROTOCOLS" name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
-		<input id="LITE_CONSUMERORDERID_PREFIX" name="LITE_CONSUMERORDERID_PREFIX" value="LITE">
-		<input id="LITE_MERCHANT_APPLICATIONID" name="LITE_MERCHANT_APPLICATIONID" value="A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E">
-		<input type="hidden" id="LITE_ORDER_AMOUNT" name="LITE_ORDER_AMOUNT" value="{{ amount * 100 }}">
-		<input id="Lite_Currency_AlphaCode" name="Lite_Currency_AlphaCode" value="{{currency}}">
-		<input id="LITE_WEBSITE_SUCCESSFUL_URL" name="LITE_WEBSITE_SUCCESSFUL_URL" value="{{app.request.schemeAndHttpHost}}/topup">
-		<input id="LITE_WEBSITE_FAIL_URL" name="LITE_WEBSITE_FAIL_URL" value="{{app.request.schemeAndHttpHost}}/topup">
-		<input id="LITE_WEBSITE_TRYLATER_URL" name="LITE_WEBSITE_TRYLATER_URL" value="{{app.request.schemeAndHttpHost}}/topup">
-		<input id="LITE_WEBSITE_ERROR_URL" name="LITE_WEBSITE_ERROR_URL" value="{{app.request.schemeAndHttpHost}}/topup">
-		<input id="ECOM_BILLTO_ONLINE_EMAIL" name="ECOM_BILLTO_ONLINE_EMAIL" value="it@suyool.com">
-		<input id="TimeStamp" name="TimeStamp" value="{{ timestamp }}">
-		<input name="transactionId" value="{{ transactionId }}">
-		<input type="hidden" name="TOPUP" value="{{ topup }}">
-		<input id="LITE_TRANSACTION_TOKEN" name="LITE_TRANSACTION_TOKEN" value="1692312486:522f2d1e72381f893edd1fbbe28148b7baf8af3c8c5d86367d1b890ead095dc2">
-		{% if userid is defined and userid is not null %}<input id="UserId" name="userid" value="{{userid}}">
-		{% endif %}
-	</form>
-
+<form style="display: none" name="myFormTopUp" id="myFormTopUp" method="post" action="https://portal.cscacquiring.com/Lite/Authorise.aspx">
+	<input id="ECOM_CONSUMERORDERID" name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
+	<input id="ECOM_PAYMENT_CARD_PROTOCOLS" name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
+	<input id="LITE_CONSUMERORDERID_PREFIX" name="LITE_CONSUMERORDERID_PREFIX" value="LITE">
+	<input id="LITE_MERCHANT_APPLICATIONID" name="LITE_MERCHANT_APPLICATIONID" value="{% if app.request.server.get('APP_ENV') == "dev" %}A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E{% elseif app.request.server.get('APP_ENV') == "prod" %}67DCBA56-B893-44AD-AC90-DAE0DDB539BA{% endif %}">
+	<input type="hidden" id="LITE_ORDER_AMOUNT" name="LITE_ORDER_AMOUNT" value="{{ amount * 100 }}">
+	<input id="Lite_Currency_AlphaCode" name="Lite_Currency_AlphaCode" value="{{currency}}">
+	<input id="LITE_WEBSITE_SUCCESSFUL_URL" name="LITE_WEBSITE_SUCCESSFUL_URL" value="{{app.request.schemeAndHttpHost}}/topup">
+	<input id="LITE_WEBSITE_FAIL_URL" name="LITE_WEBSITE_FAIL_URL" value="{{app.request.schemeAndHttpHost}}/topup">
+	<input id="LITE_WEBSITE_TRYLATER_URL" name="LITE_WEBSITE_TRYLATER_URL" value="{{app.request.schemeAndHttpHost}}/topup">
+	<input id="LITE_WEBSITE_ERROR_URL" name="LITE_WEBSITE_ERROR_URL" value="{{app.request.schemeAndHttpHost}}/topup">
+	<input id="ECOM_BILLTO_ONLINE_EMAIL" name="ECOM_BILLTO_ONLINE_EMAIL" value="it@suyool.com">
+	<input id="TimeStamp" name="TimeStamp" value="{{ timestamp }}">
+	<input name="transactionId" value="{{ transactionId }}">
+	<input type="hidden" name="TOPUP" value="{{ topup }}">
+	<input id="LITE_TRANSACTION_TOKEN" name="LITE_TRANSACTION_TOKEN" value="1692312486:522f2d1e72381f893edd1fbbe28148b7baf8af3c8c5d86367d1b890ead095dc2">
+	{% if userid is defined and userid is not null %}<input id="UserId" name="userid" value="{{userid}}">
+	{% endif %}
+</form>
