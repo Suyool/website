@@ -148,6 +148,37 @@ class DigitalCorporateController extends AbstractController
             'buttonLink' => '/legal_enrollment', // Update the link accordingly
         ];
 
+        $infoSection = [
+            'title' => '',
+            'items' => [
+                [
+                    'image' => 'build/images/digital_corporate/card1.svg',
+                    'description' => 'Corporate Platinum MasterCard',
+                ],
+                [
+                    'image' => 'build/images/digital_corporate/payrollSolution.svg',
+                    'description' => 'Payroll Solution',
+                ],
+                [
+                    'image' => 'build/images/digital_corporate/localSuppliers.svg',
+                    'description' => 'Pay Local Suppliers',
+                ],
+                [
+                    'image' => 'build/images/digital_corporate/internationally.svg',
+                    'description' => 'Send Money Internationally',
+                ],
+                [
+                    'image' => 'build/images/digital_corporate/exchangeusdlbp.svg',
+                    'description' => 'Exchange USD/LBP',
+                ],
+                [
+                    'image' => 'build/images/digital_corporate/cashouticon.svg',
+                    'description' => 'Cash Out',
+                ],
+            ],
+        ];
+        $parameters['infoSection']= $infoSection;
+
         $parameters['topSectionTitle'] = "Digital Corporate Account For Cashless Transactions";
         $parameters['topSectionDesc']  = "Avoid cash flow problems & keep track of your business revenues, expenses & transactions directly from one place - your corporate Suyool dashboard. Whether you have a small business or a large corporation.";
         $parameters['topSectionBtn'] = "Apply as Corporate";

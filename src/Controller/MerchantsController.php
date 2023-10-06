@@ -58,6 +58,36 @@ class MerchantsController extends AbstractController
 
         $parameters['title']="Alfa Employee | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool with the best rates available.";
+        $infoSection = [
+            'title' => '6 Ways To Use Your Money',
+            'items' => [
+                [
+                    'image' => 'build/images/alfa_employee/card1.svg',
+                    'description' => 'Free Platinum MasterCard',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/cashout.svg',
+                    'description' => 'Free Payroll Cash Out',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/arrow1.svg',
+                    'description' => 'Send & Receive Money for Free',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/internationally.svg',
+                    'description' => 'Send Money Internationally',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payroll.svg',
+                    'description' => 'Pay Bills',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payQr1.svg',
+                    'description' => 'Pay with Suyool QR',
+                ],
+            ],
+        ];
+        $parameters['infoSection']= $infoSection;
 
         return $this->render('merchants/alfa.html.twig',$parameters);
     }
