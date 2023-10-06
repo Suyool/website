@@ -1,9 +1,22 @@
 .digitalCorp {
+  .business-underline {
+    border-bottom: 2px solid #fff;
+  }
   .btn-custm {
     font-size: 16px;
     padding: 21px 13px;
   }
-
+  .left-section-card {
+    width: 100% !important;
+    .card-img-desk {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        float: left;
+      }
+    }
+  }
   .secondary-btn {
     background-color: #ffffff;
     color: #226D96;
@@ -25,7 +38,7 @@
   }
   .top-section {
     color: #fff;
-    padding-bottom: 52px;
+    padding-bottom: 100px;
     padding-top: 20px;
 
     .navbar {
@@ -162,10 +175,9 @@
     .three_steps2 {
       .step {
         .sub {
-          .imgCont {
             img {
-              float: none;
-            }
+              float: none!important;
+              width: unset!important;
           }
 
           .title {
@@ -202,6 +214,7 @@
   }
 
   .info-purple-section {
+    background-image: url("../../../images/digital_corporate/integrated.png");
     display: flex;
     align-items: center;
     height: 70vh;
@@ -273,10 +286,17 @@
 }
 
 .omnichannel {
-  .topSectionUnderBTnText {
-    margin-top: 20px;
-    font-family: $Italic;
+  .info-purple-section {
+    background-image: url("../../../images/digital_corporate/integratedOmni.png")!important;
   }
+  .top-section-container {
+    background-image: url('../../../images/digital_corporate/omnichanel-top-section.png');
+
+  }
+  //.topSectionUnderBTnText {
+  //  margin-top: 20px;
+  //  font-family: $Italic;
+  //}
   .infoUnderTopSectionContainer {
     background-color: #fafaff;
     .infoUnderTopSection {
@@ -296,8 +316,6 @@
       }
 
       .icon-text-item img {
-        width: 40px;
-        height: 40px;
         margin-right: 10px;
       }
 

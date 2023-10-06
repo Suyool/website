@@ -3,16 +3,15 @@
 {% block body %}
     <div class="top_section_mastercard-container">
         <div class="top_section_mastercard container-fluid">
-            <div class="navbar_v3 navbar navbar-expand-lg navbar-light ">
-                <a class="navbar-brand" href="/"><img src="{{ asset('build/images/main-logo.png') }}" alt="Suyool"></a>
-            </div>
+            {% include 'elements/header-v2.html.twig' %}
+
             <div class="row">
                 <div class="col-md-8 col-12 top-info order-2 order-md-1">
                     <h1>Suyool Platinum Mastercard Privileges in Details</h1>
-                    <p>Start Enjoying Platinum Benefits Instantly, From Travel Discounts </br> to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.</p>
-                    <div class="buttons-cont">
-                        <button class="btn button-primary mr-5">Discover Benefits</button>
-                    </div>
+                    <p>Start enjoying Platinum Benefits instantly, from travel discounts </br> to shopping perks, and elevate your lifestyle beyond imagination.</p>
+{#                    <div class="buttons-cont">#}
+{#                        <button class="btn button-primary mr-5">Discover Benefits</button>#}
+{#                    </div>#}
                 </div>
 {#                <div class="col-md-4 col-12 right-section order-1 order-md-2">#}
 {#                    <div class="img-cont">#}
@@ -90,7 +89,7 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>
+{#                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>#}
                     </div>
                 </div>
             {% endfor %}
@@ -121,7 +120,7 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>
+{#                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>#}
                     </div>
                 </div>
             {% endfor %}
@@ -138,7 +137,7 @@
                     <div class="card-desc">
                         <div class="main_title">PEACE OF MIND</div>
                         <div class="title">Purchase Protection</div>
-                        <div class="text sub-title">Automatically protect your purchases from theft or accident for 180 days with Purchase Protection from your Platinum Mastercard®. Visit <a href="/">Purchase Protection</a>  to claim online.</div>
+                        <div class="text sub-title">Automatically protect your purchases from theft or accident for 180 days with Purchase Protection from your Platinum Mastercard®. Visit <a href="https://mcpeaceofmind.com">Purchase Protection</a>  to claim online.</div>
                         <div class="text check">
                             <img src="{{asset('build/images/check.svg')}}" alt="">
                             <p class="desktop">Purchase Protection for eligible Mastercard purchases.</p>
