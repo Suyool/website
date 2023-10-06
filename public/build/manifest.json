@@ -34,6 +34,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 88d11989 (iver currency amount modal success)
   "build/styles.css": "/build/styles.c3fa1f6a.css",
 >>>>>>> 1cbe1efd (modal iveri on success on fail)
@@ -50,11 +51,10 @@
 >>>>>>> fdb2b452 (iveri testing topup)
   "build/styles.css": "/build/styles.2b4a0371.css",
 >>>>>>> 3acd8162 (iveri post infoString from mobile)
-  "build/admin.css": "/build/admin.c5868b43.css",
 =======
-  "build/styles.css": "/build/styles.8d8f37f0.css",
-  "build/admin.css": "/build/admin.979f3d58.css",
->>>>>>> 17c846b5 (iveri testing topup)
+  "build/styles.css": "/build/styles.f41408e7.css",
+>>>>>>> 2955dee9 (iveri topup card)
+  "build/admin.css": "/build/admin.c5868b43.css",
   "build/Lotostyles.css": "/build/Lotostyles.a155a69b.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.0679ce88.css",

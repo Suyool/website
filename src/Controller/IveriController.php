@@ -58,6 +58,7 @@ class IveriController extends AbstractController
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters['amount'] = $suyoolUserInfoForTopUp[1];
+                    // dd($parameters['amount']);
                     $parameters['currency'] = $suyoolUserInfoForTopUp[2];
                     $parameters['userid'] = $suyoolUserInfo[0];
                     $parameters['timestamp'] = time();

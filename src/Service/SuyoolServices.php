@@ -410,17 +410,22 @@ class SuyoolServices
         }
     }
 
-    public function UpdateCardTopUpTransaction($transId,$statusId)
+    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$additionalInfo)
     {
         try {
             // echo $transId . $statusId . $this->certificate;
-            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $this->certificate, true));
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $additionalInfo . $this->certificate, true));
 
             $body =[
                 'transactionId' => $transId,
-                "statusId" => $statusId,
+                'statusId' => $statusId,
+                'referenceNo'=>$referenceNo,
+                'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
+            $this->logger->info(json_encode($body));
+
+            dd(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
 
             $content = $response->toArray(false);

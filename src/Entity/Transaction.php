@@ -57,6 +57,11 @@ class Transaction
     private $respCode;
 
     /**
+     * @ORM\Column(name="transactionId",type="integer")
+     */
+    private $transactionId;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $flagCode;
@@ -65,6 +70,11 @@ class Transaction
      * @ORM\Column(type="string")
      */
     private $error;
+
+    /**
+     *  @ORM\Column(name="authorisationCode",type="string")
+     */
+    private $authorisationCode;
 
     /**
      * @ORM\Column(type="datetime",nullable=true)
@@ -98,6 +108,18 @@ class Transaction
         return $this;
     }
 
+    public function getTransactionId()
+    {
+        return $this->transactionId;
+    }
+
+    public function setTransactionId(int $transactionId)
+    {
+        $this->transactionId = $transactionId;
+
+        return $this;
+    }
+
     public function getUsersId(): ?string
     {
         return $this->users;
@@ -118,6 +140,18 @@ class Transaction
     public function setAmount(string $amount): self
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getAuthCode()
+    {
+        return $this->authorisationCode;
+    }
+
+    public function setAuthCode(string $authorisationCode)
+    {
+        $this->authorisationCode = $authorisationCode;
 
         return $this;
     }
