@@ -28,11 +28,7 @@ class IveriServices
                 'desc' => $_POST['LITE_RESULT_DESCRIPTION']
             ];
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                if ($_POST['TOPUP'] == "true") {
                     $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
-                } else {
-                    $topup = $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['TRANSACTIONID']);
-                }
                 if ($topup[0]) {
                     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
                     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
@@ -49,11 +45,7 @@ class IveriServices
                     $button = "Try Again";
                 }
             } else {
-                if ($_POST['TOPUP'] == "true") {
                     $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
-                } else {
-                    $topup = $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['TRANSACTIONID']);
-                }
                 if ($topup[0]) {
                     $status = false;
                     $imgsrc = "build/images/Loto/error.png";

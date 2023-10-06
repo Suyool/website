@@ -44,19 +44,15 @@ class IveriController extends AbstractController
                 return $this->render('iveri/index.html.twig', $ivericall[2]);
             }     
         if (isset($_POST['Request'])) {
-                $amount = $_POST['ORDER_AMOUNT'];
-                $currency = $_POST['Currency_AlphaCode'];
-                $transactionId=$_POST['transactionId'];
-                $userid = NULL;
-                $timestamp = time();
                 $parameters=[
-                    'amount'=>$amount,
-                    'currency'=>$currency,
-                    'transactionId'=>$transactionId,
-                    'userid'=>$userid,
-                    'timestamp'=>$timestamp,
+                    'amount'=>$_POST['ORDER_AMOUNT'],
+                    'currency'=>$_POST['Currency_AlphaCode'],
+                    'transactionId'=>$_POST['transactionId'],
+                    'userid'=>NULL,
+                    'timestamp'=>time(),
                     'topup'=> "false"
                 ];
+                $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['transactionId']);
             return $this->render('iveri/index.html.twig', $parameters);
         }
         // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1B/VZbvSmMG/HFhNWN4KAr27gxgh6vEJCjTb6gwJJWxD!#!2!#!USD!#!15580";
