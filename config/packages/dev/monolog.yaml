@@ -5,6 +5,7 @@ monolog:
         - Winning
         - Play
         - BoB
+        - Iveri
     handlers:
         users:
             type: stream
@@ -26,6 +27,11 @@ monolog:
             path: "%kernel.logs_dir%/BoB.log"
             level: debug
             channels: ['BoB']
+        iveri:
+            type: stream
+            path: "%kernel.logs_dir%/iveri.log"
+            level: debug
+            channels: ['Iveri']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

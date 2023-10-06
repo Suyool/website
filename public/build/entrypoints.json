@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.f06e910c.js"
+        "/build/app1.51d28a37.js"
       ]
     },
     "admin-app": {
@@ -42,12 +42,18 @@
         "/build/Ogero.f9787607.js"
       ]
     },
+    "iveri": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/iveri.b3d0f74c.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.9b321ee5.css"
+        "/build/styles.69bb96b7.css"
       ]
     },
     "admin": {
@@ -96,6 +102,14 @@
       ],
       "css": [
         "/build/OgeroStyle.161ac4bd.css"
+      ]
+    },
+    "iveristyles": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/iveristyles.2de240eb.css"
       ]
     }
   }

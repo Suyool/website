@@ -49,6 +49,7 @@ public/elections/var/cache/
 !public/elections/var/cache/.gitkeep
 /.history
 /public/images/*
+/.vscode
 
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
@@ -61,4 +62,3 @@ public/elections/var/cache/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-.vscode/settings.json

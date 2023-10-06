@@ -409,4 +409,49 @@ class SuyoolServices
             return array(false);
         }
     }
+
+    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$additionalInfo)
+    {
+        try {
+            // echo $transId . $statusId . $this->certificate;
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $additionalInfo . $this->certificate, true));
+            $body =[
+                'transactionId' => $transId,
+                'statusId' => $statusId,
+                'referenceNo'=>$referenceNo,
+                'additionalInfo'=>$additionalInfo,
+                'secureHash' => $Hash
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
+            $content = $response->toArray(false);
+            if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+                return array(true, $content['data'],$content['flagCode'],$content['message']);
+            } else {
+                return array(false, $content['data'],$content['flagCode'],$content['message']);
+            }
+        } catch (Exception $e) {
+            return array(false);
+        }
+    }
+
+    public function NonSuyoolerTopUpTransaction($transId,$statusId=null,$referenceNo=null,$additionalInfo=null)
+    {
+        try {
+            // echo $transId . $statusId . $this->certificate;
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $this->certificate, true));
+            $body =[
+                'transactionId' => $transId,
+                'secureHash' => $Hash
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
+            $content = $response->toArray(false);
+            if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+                return array(true, $content['data'],$content['flagCode'],$content['message']);
+            } else {
+                return array(false, $content['data'],$content['flagCode'],$content['message']);
+            }
+        } catch (Exception $e) {
+            return array(false);
+        }
+    }
 }

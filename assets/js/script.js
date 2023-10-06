@@ -326,7 +326,63 @@ $(document).ready(function() {
     }
   });
 });
-if(document.querySelector(".copy-to-clipboard")){
+// if (document.getElementById("myFormTopUp")) {
+//   document.getElementById("myFormTopUp").submit();
+// }
+
+if(document.getElementById("topUpButton")){
+  document.getElementById("topUpButton").addEventListener("click", function () {
+    // Submit the form
+    document.getElementById("myFormRequest").submit();
+  });
+}
+
+if(document.getElementById("submitTopUp")){
+  document.getElementById("submitTopUp").addEventListener("click", function () {
+    // Submit the form
+    document.getElementById("myFormTopUp").submit();
+  });
+}
+
+
+if(document.querySelector(".loaderTopUp")){
+  const element = document.getElementById("submitTopUp");
+  setInterval(function() {element.style.display = "block"}, 2000);
+}
+
+if(document.querySelector(".actionApp")){
+  const actionApp=document.querySelector(".actionApp");
+  actionApp.addEventListener("click", function () {
+    // Submit the form
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
+  });
+}
+
+if(document.querySelector(".actionBrowser")){
+  const actionBrowser=document.querySelector(".actionBrowser");
+  actionBrowser.addEventListener("click", function () {
+    // Submit the form
+    window.location.href = "https://suyool.com/app-install";
+  });
+}
+
+if(document.querySelector(".back")){
+  const action=document.querySelector(".back");
+  action.addEventListener("click", function () {
+    // Submit the form
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
+  });
+}
+
+if (document.querySelector(".copy-to-clipboard")) {
   // Get the element with the 'copy-to-clipboard' class
   const copyBtn = document.querySelector(".copy-to-clipboard");
 
@@ -334,7 +390,7 @@ if(document.querySelector(".copy-to-clipboard")){
   const copyText = copyBtn.getAttribute("data-to-copy");
 
   // Add a click event listener to the button
-  copyBtn.addEventListener("click", function() {
+  copyBtn.addEventListener("click", function () {
     // Create a new textarea element to hold the copied text
     const textarea = document.createElement("textarea");
     textarea.value = copyText;
@@ -348,21 +404,24 @@ if(document.querySelector(".copy-to-clipboard")){
     document.body.removeChild(textarea);
 
     // Show a success message to the user
-  //   alert('Copied to clipboard: ' + copyText);
+    //   alert('Copied to clipboard: ' + copyText);
   });
 }
 
-if(document.querySelector(".generate-code")){
-  document.querySelector(".generate-code").addEventListener("click",function(){
-    const tag=document.querySelector(".generate-code");
-    if(tag.hasAttribute("data-code")){
-      window.location.href="/codeGenerated?codeATM="+tag.getAttribute("data-code");
-    }else{
-      if(document.querySelector(".error")){
-        document.querySelector(".error").style.display="block";
+if (document.querySelector(".generate-code")) {
+  document
+    .querySelector(".generate-code")
+    .addEventListener("click", function () {
+      const tag = document.querySelector(".generate-code");
+      if (tag.hasAttribute("data-code")) {
+        window.location.href =
+          "/codeGenerated?codeATM=" + tag.getAttribute("data-code");
+      } else {
+        if (document.querySelector(".error")) {
+          document.querySelector(".error").style.display = "block";
+        }
       }
-    }
-  });
+    });
 }
 
 // if(document.getElementById('formDetails')){
@@ -375,15 +434,14 @@ if(document.querySelector(".generate-code")){
 //   })
 
 // }
-if(document.getElementById("submit")){
+if (document.getElementById("submit")) {
   var submitButton = document.getElementById("submit");
-  submitButton.addEventListener("click", function() {
-    setTimeout(function() {
+  submitButton.addEventListener("click", function () {
+    setTimeout(function () {
       submitButton.disabled = true;
     }, 1); // Delay in milliseconds (adjust as needed)
   });
 }
-
 
 if(document.getElementById("termsPdfDownloadButton")){
     document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
