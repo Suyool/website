@@ -2,7 +2,16 @@
   .row {
     margin: 0;
   }
-
+  .button-primary {
+    border-radius: 8px;
+    font-family: PoppinsSemiBold;
+    padding: 10px 30px;
+  }
+  .button-primary:hover {
+    background-color: #fff;
+    color: #226d96;
+    border: 1px solid #226d96;
+  }
   .top-section {
     background: linear-gradient(90deg,#226d96 6%,#373464 76%);
     color: #fff;
@@ -50,9 +59,10 @@
       }
 
       p {
-        font-size: 20px;
+        font-size: 17px;
         font-family: $Regular;
         width: 80%;
+        line-height: 1.8;
       }
 
       .buttons-cont {
@@ -68,7 +78,7 @@
 
         .button-primary {
           margin-right: 10px;
-          font-size: 18px;
+          font-size: 16px;
           border: 2px solid #ffffff;
         }
 
@@ -152,7 +162,7 @@
     }
 
     .manage_spend {
-      font-size: 18px;
+      font-size: 20px;
       font-family: $Regular;
       color: #6B6B6B;
     }
@@ -182,13 +192,13 @@
 
       .title {
         font-family: $SemiBold;
-        font-size: 18px;
+        font-size: 22px;
         margin-bottom: 20px;
       }
 
       .text {
         font-family: $Regular;
-        font-size: 14px;
+        font-size: 17px;
         color: #6B6B6B;
         margin-bottom: 30px;
       }
@@ -208,7 +218,7 @@
 
       .title {
         color: #374A5A;
-        font-size: 45px;
+        font-size: 52px;
         font-family: $Regular;
         margin-bottom: 30px;
       }
@@ -220,7 +230,7 @@
       .text {
         margin: 30px 0;
         font-family: $Regular;
-        font-size: 18px;
+        font-size: 20px;
         color: #00000080;
 
         span {
@@ -260,7 +270,7 @@
     color: #fff;
     display: block;
     font-family: PoppinsSemiBold;
-    font-size: 18px;
+    font-size: 16px;
     padding: 12px 0;
     text-align: center;
     width: 200px;
@@ -272,7 +282,7 @@
   }
 
   .use-money {
-    margin-bottom: 200px;
+    margin-bottom: 50px;
 
     .use-row {
       display: flex;
@@ -296,7 +306,7 @@
         }
 
         .text {
-          font-size: 14px;
+          font-size: 17px;
           font-family: $Regular;
           color: #6B6B6B;
           padding-left: 72px;
@@ -310,23 +320,26 @@
     background-image: url("../../../images/homepage/corporate-section-bg.jpg");
     display: flex;
     align-items: center;
-    height: 103vh;
+    height: 75vh;
     width: 100%;
     background-size: cover;
+    margin-top: 90px;
 
     .content {
       color: #FFFFFF;
       font-family: $Regular;
-      width: 50%;
+      width: 52%;
       margin-left: 15%;
-
+      .top-title {
+        font-size: 22px!important;
+      }
       .title {
         font-size: 45px;
         margin: 40px 0;
       }
 
       .text {
-        font-size: 18px;
+        font-size: 17px;
       }
 
       .blue-btn {
@@ -379,9 +392,6 @@
           }
         }
 
-        p {
-          font-size: 16px;
-        }
       }
     }
 
@@ -526,7 +536,7 @@
           .text {
             text-align: center;
             padding: 0;
-            font-size: 14px;
+            font-size: 17px;
           }
         }
       }

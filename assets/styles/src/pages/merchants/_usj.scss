@@ -204,7 +204,7 @@ $image-path: '../../../../images/usj/';
         .desc {
             font-family: $Regular;
             color: #00000080;
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 20px;
 
             &.exchange {
@@ -218,7 +218,7 @@ $image-path: '../../../../images/usj/';
         .list {
             .check {
                 display: flex;
-                margin-bottom: 10px;
+                margin-bottom: 20px;
 
                 img {
                     width: 30px;
@@ -227,7 +227,7 @@ $image-path: '../../../../images/usj/';
 
                 p {
                     color: #00000080;
-                    font-size: 18px;
+                    font-size: 17px;
                     font-family: $Regular;
                     margin: 0 10px;
 
@@ -260,7 +260,7 @@ $image-path: '../../../../images/usj/';
             }
 
             .manage_spend {
-                font-size: 22px;
+                font-size: 20px;
                 font-family: $Regular;
                 color: #6B6B6B;
             }
@@ -451,7 +451,7 @@ $image-path: '../../../../images/usj/';
 
         .title-solution {
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             color: #373464;
             font-family: $Bold;
             margin-bottom: 30px;
@@ -460,7 +460,7 @@ $image-path: '../../../../images/usj/';
 
         .sub-title {
             text-align: center;
-            font-size: 35px;
+            font-size: 52px;
             color: #202020;
             font-family: $Regular;
             margin-bottom: 30px;
@@ -508,7 +508,7 @@ $image-path: '../../../../images/usj/';
                     }
 
                     .description {
-                        font-size: 16px;
+                        font-size: 17px;
                         font-family: $Regular;
                         color: #6b6b6b;
                         letter-spacing: 0;

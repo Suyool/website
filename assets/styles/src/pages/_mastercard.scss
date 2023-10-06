@@ -1,3 +1,7 @@
+.top_section_mastercard-container {
+  background-image: url("../../../images/platinumMastercard/top-section-mastercard.jpg");
+  background-size: cover;
+}
 .top_section_mastercard {
   .navbar_v3 {
     font-family: $Regular;
@@ -23,9 +27,9 @@
     }
   }
 
-  background: linear-gradient(119deg, #373464 6%, #005c8a 50%, #fff 88%);
+  //background: linear-gradient(119deg, #373464 6%, #005c8a 50%, #fff 88%);
   padding-top: 20px;
-  padding-bottom: 80px;
+  padding-bottom: 220px;
   color: #ffffff;
 
   .navbar {
@@ -55,12 +59,14 @@
       font-size: 62px;
       padding-top: 55px;
       font-family: $Regular;
+      color: #373464;
     }
 
     p {
       font-size: 20px;
       font-family: $Regular;
       width: 80%;
+      color: #373464;
     }
 
     .buttons-cont {
@@ -112,7 +118,6 @@
 .four_steps {
   background-color: #d7d7e2;
   margin: 0;
-  padding-top: 20px;
   .step {
     padding: 20px 5%;
     .title {
