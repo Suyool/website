@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.f06e910c.js",
 =======
   "build/app1.js": "/build/app1.eeae84e0.js",
@@ -16,6 +17,9 @@
 =======
   "build/app1.js": "/build/app1.8981d0c9.js",
 >>>>>>> fdb2b452 (iveri testing topup)
+=======
+  "build/app1.js": "/build/app1.4dc30739.js",
+>>>>>>> ae59129e (request iveri completed)
   "build/admin-app.js": "/build/admin-app.26567332.js",
   "build/Loto.js": "/build/Loto.888be6d3.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.da80b77e.js",
@@ -29,6 +33,7 @@
   "build/iveri.js": "/build/iveri.2047acea.js",
 =======
   "build/iveri.js": "/build/iveri.b3d0f74c.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -58,6 +63,9 @@
 =======
   "build/styles.css": "/build/styles.71305e72.css",
 >>>>>>> 9d6b50f1 (iveri working on nonsuyooler topup)
+=======
+  "build/styles.css": "/build/styles.e9835fb9.css",
+>>>>>>> ae59129e (request iveri completed)
   "build/admin.css": "/build/admin.c5868b43.css",
   "build/Lotostyles.css": "/build/Lotostyles.a155a69b.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",

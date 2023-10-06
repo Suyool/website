@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/app1.f06e910c.js"
 =======
         "/build/app1.eeae84e0.js"
@@ -20,6 +21,9 @@
 =======
         "/build/app1.8981d0c9.js"
 >>>>>>> fdb2b452 (iveri testing topup)
+=======
+        "/build/app1.4dc30739.js"
+>>>>>>> ae59129e (request iveri completed)
       ]
     },
     "admin-app": {
@@ -76,6 +80,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.9b321ee5.css"
 =======
         "/build/styles.8ecb54ab.css"
@@ -104,6 +109,9 @@
 =======
         "/build/styles.71305e72.css"
 >>>>>>> 9d6b50f1 (iveri working on nonsuyooler topup)
+=======
+        "/build/styles.e9835fb9.css"
+>>>>>>> ae59129e (request iveri completed)
       ]
     },
     "admin": {

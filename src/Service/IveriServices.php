@@ -22,6 +22,8 @@ class IveriServices
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            $topupforbutton=false;
+            if (isset($_POST['USERID'])) $topupforbutton = true;
             $additionalInfo = [
                 'authCode' => $_POST['LITE_ORDER_AUTHORISATIONCODE'],
                 'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
@@ -77,7 +79,8 @@ class IveriServices
                 'imgsrc' => $imgsrc,
                 'title' => $title,
                 'description' => $description,
-                'button' => $button
+                'button' => $button,
+                'info'=>$topupforbutton
             );
         } else $statusForIveri = false;
 
