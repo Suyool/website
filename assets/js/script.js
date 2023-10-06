@@ -266,16 +266,8 @@ $(document).ready(function () {
             });
         }
     });
-
-    $('.show-results').on('click', function () {
-        console.log("hello")
-    })
 });
 
-// document.getElementById("tst").addEventListener("click", function () {
-//     const searchInput = document.getElementById("search-input");
-//     console.log(searchInput.value);
-// });
 $(".submitTextDownloadAppBtn").on("click", function(e) {
   // console.log( $(this).attr('code'));
   e.preventDefault();
@@ -393,11 +385,14 @@ if(document.getElementById("submit")){
 }
 
 
-// document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
-//     // Redirect to the Symfony route that triggers the download
-//     // window.location.href = "{{ path('download_pdf') }}";
-//     window.location.href = "/download-pdf";
-// });
+if(document.getElementById("termsPdfDownloadButton")){
+    document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
+        // Redirect to the Symfony route that triggers the download
+        // window.location.href = "{{ path('download_pdf') }}";
+        window.location.href = "/download-pdf";
+    });
+}
+
 $(document).ready(function() {
   $('#resubscribe').on('click', function() {
     var uniqueCode = $(this).data('code');

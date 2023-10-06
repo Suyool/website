@@ -273,12 +273,12 @@ class DefaultController extends AbstractController
     public function downloadPdf()
     {
         // Define the path to your PDF file
-        $pdfFilePath = $this->getParameter('kernel.project_dir') . '/public/pdf/example.pdf';
+        $pdfFilePath = $this->getParameter('kernel.project_dir') . '/public/pdf/personal.pdf';
 
         $response = new BinaryFileResponse($pdfFilePath);
         $response->setContentDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            'example.pdf'
+            'personal.pdf'
         );
 
         return $response;
