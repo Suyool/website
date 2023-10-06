@@ -260,6 +260,14 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/personal-terms", name="terms_and_conditions_personal")
+     */
+    public function personalterms()
+    {
+        return $this->render('TermsAndConditions/personal.html.twig');
+    }
+
+    /**
      * @Route("/download-pdf", name="download_pdf")
      */
     public function downloadPdf()
