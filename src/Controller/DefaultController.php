@@ -275,4 +275,12 @@ class DefaultController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/personal-fees", name="presonal_fees")
+     */
+    public function fees()
+    {
+        return $this->render('personal-fees/index.html.twig');
+    }
 }
