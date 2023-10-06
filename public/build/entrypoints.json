@@ -3,27 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/app1.f06e910c.js"
-=======
-        "/build/app1.eeae84e0.js"
->>>>>>> df46e855 (iveri request amount currency)
-=======
-        "/build/app1.5c4cac0a.js"
->>>>>>> e892faef (iveri topup and RTL)
-=======
-        "/build/app1.e2dd6074.js"
->>>>>>> 3acd8162 (iveri post infoString from mobile)
-=======
-        "/build/app1.8981d0c9.js"
->>>>>>> fdb2b452 (iveri testing topup)
-=======
-        "/build/app1.4dc30739.js"
->>>>>>> ae59129e (request iveri completed)
+        "/build/app1.51d28a37.js"
       ]
     },
     "admin-app": {
@@ -73,45 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.9b321ee5.css"
-=======
-        "/build/styles.8ecb54ab.css"
->>>>>>> 53c9d449 (working on topup modals)
-=======
-        "/build/styles.99371143.css"
->>>>>>> e892faef (iveri topup and RTL)
-=======
-        "/build/styles.99371143.css"
-=======
-        "/build/styles.199284c5.css"
->>>>>>> 7de39a5d (iveri controller)
->>>>>>> 9581ab6b (iveri controller)
-=======
-        "/build/styles.2b4a0371.css"
->>>>>>> 3acd8162 (iveri post infoString from mobile)
-=======
-        "/build/styles.2b4a0371.css"
-=======
-        "/build/styles.8d8f37f0.css"
->>>>>>> 17c846b5 (iveri testing topup)
->>>>>>> fdb2b452 (iveri testing topup)
-=======
-        "/build/styles.f41408e7.css"
->>>>>>> 2955dee9 (iveri topup card)
-=======
-        "/build/styles.71305e72.css"
->>>>>>> 9d6b50f1 (iveri working on nonsuyooler topup)
-=======
-        "/build/styles.e9835fb9.css"
->>>>>>> ae59129e (request iveri completed)
+        "/build/styles.69bb96b7.css"
       ]
     },
     "admin": {

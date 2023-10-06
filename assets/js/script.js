@@ -443,8 +443,6 @@ if (document.getElementById("submit")) {
   });
 }
 
-<<<<<<< HEAD
-
 if(document.getElementById("termsPdfDownloadButton")){
     document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
         // Redirect to the Symfony route that triggers the download
@@ -453,13 +451,6 @@ if(document.getElementById("termsPdfDownloadButton")){
     });
 }
 
-=======
-// document.getElementById("termsPdfDownloadButton").addEventListener("click", function () {
-//     // Redirect to the Symfony route that triggers the download
-//     // window.location.href = "{{ path('download_pdf') }}";
-//     window.location.href = "/download-pdf";
-// });
->>>>>>> df46e855 (iveri request amount currency)
 $(document).ready(function() {
   $('#resubscribe').on('click', function() {
     var uniqueCode = $(this).data('code');
