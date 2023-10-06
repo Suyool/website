@@ -11,6 +11,7 @@
                             <i class="fas fa-home"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li>
                         <a href="{{ path('admin_users') }}" class="nav-link px-0 align-middle">
                             <i class="fas fa-user"></i> <span class="ms-1 d-none d-sm-inline">Users</span>
@@ -116,7 +117,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="#ogero" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Ogero</span> </a>
@@ -132,6 +132,8 @@
                             </li>
                         </ul>
                     </li>
+                    {% endif %}
+
                     <li>
                         <a href="#faq" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">FAQ</span>
@@ -142,6 +144,9 @@
                             </li>
                             <li class="w-100">
                                 <a href="{{ path('admin_questions_categories') }}" class="nav-link px-0"> <span class="d-none d-sm-inline">Questions Category</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="{{ path('admin_show_questions_photo') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Questions Image</span></a>
                             </li>
                         </ul>
                     </li>
