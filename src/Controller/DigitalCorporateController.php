@@ -20,7 +20,7 @@ class DigitalCorporateController extends AbstractController
         $this->trans = $trans;
     }
     /**
-     * @Route("/digital-corporate", name="app_digital_corporate")
+     * @Route("/digital-corporate-account", name="app_digital_corporate")
      */
     public function digitalCorporate(Request $request,TranslatorInterface $translatorInterface): Response
     {
@@ -362,7 +362,7 @@ class DigitalCorporateController extends AbstractController
             'title' => 'The Merchant Dashboard is Linked To The Corporate Digital Account',
             'text' => 'Payment processed at your stores, online & offline will be available instantly In your corporate account.',
             'buttonText' => 'Learn More',
-            'buttonLink' => '/digital-corporate', // Update the link accordingly
+            'buttonLink' => '/digital-corporate-account', // Update the link accordingly
         ];
 
         $parameters['topSectionTitle'] = "Omnichannel, Secure & Instant Payments";
