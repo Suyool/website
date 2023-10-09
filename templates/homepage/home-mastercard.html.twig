@@ -24,7 +24,10 @@
                     <p>Free safe delivery all over Lebanon</p>
                 </div>
 
+                {% if not hideLearnMore is defined %}
                 <a href="{{ path('app_mastercard') }}" class="blue-btn">Learn More</a>
+                {% endif %}
+
             </div>
         </div>
         <div class="card-img-desk col-5">

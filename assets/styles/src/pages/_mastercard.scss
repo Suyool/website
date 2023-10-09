@@ -2,6 +2,65 @@
   background-image: url("../../../images/platinumMastercard/top-section-mastercard.jpg");
   background-size: cover;
 }
+.home-mastercard {
+  margin: 100px 0;
+
+  .card-img-mobile {
+    display: none;
+  }
+
+  .card-desc {
+    width: 75%;
+    margin: auto;
+
+    .title {
+      color: #374A5A;
+      font-size: 52px;
+      font-family: $Regular;
+      margin-bottom: 30px;
+    }
+
+    .sub-title {
+      margin: 20px 0 70px 0 !important;
+    }
+
+    .text {
+      margin: 30px 0;
+      font-family: $Regular;
+      font-size: 20px;
+      color: #00000080;
+
+      span {
+        font-family: $SemiBold;
+        text-decoration: underline;
+        color: #226D96;
+      }
+    }
+
+    .check {
+      display: flex;
+
+      img {
+        margin-right: 20px;
+        height: 38px;
+      }
+    }
+  }
+
+  .blue-btn {
+    margin-left: 40px;
+    &:hover{
+      border: 2px solid #202020;
+    }
+  }
+
+  .card-img-desk {
+    img {
+      width: 80%;
+    }
+  }
+}
+
 .top_section_mastercard {
   .personal-underline {
     border-bottom: 2px solid #fff;
@@ -472,6 +531,49 @@
 }
 
 @media screen and (max-width: 768px) {
+  .home-mastercard {
+    .card-img-mobile {
+      display: block;
+      text-align: center;
+
+      .notification{
+        width: 100% !important;
+      }
+      img {
+        width: 90%;
+        margin-bottom: 50px;
+      }
+    }
+
+    .card-desc {
+      width: 80%;
+      padding: 0;
+
+
+      .title {
+        font-size: 33px;
+        margin-bottom: 20px;
+      }
+
+      .sub-title {
+        margin: 20px 0 40px 0 !important;
+      }
+
+      .text {
+        margin: 30px 0;
+        font-size: 14px;
+      }
+    }
+
+    .card-img-desk {
+      display: none;
+    }
+
+    .blue-btn {
+      margin: auto;
+    }
+  }
+
   .top_section_mastercard-container {
     background-image: url("../../../images/platinumMastercard/top-section-mastercard-mob.png");
   }
@@ -572,7 +674,52 @@
     }
   }
 }
+@media (min-width: 768px) and (max-width: 1450px) {
+  .home-mastercard {
+    .card-desc {
+      .title {
+        font-size: 35px;
+        font-family: $Regular;
+        margin-bottom: 15px;
+      }
 
+      .sub-title {
+        margin: 20px 0 40px 0 !important;
+      }
+
+      .text {
+        margin: 10px 0;
+        font-size: 17px;
+
+        span {
+          font-family: $Bold;
+          text-decoration: underline;
+          color: #226D96;
+        }
+      }
+
+      .check {
+        display: flex;
+
+        img {
+          margin-right: 20px;
+          height: 30px;
+        }
+      }
+    }
+
+    .blue-btn {
+      margin-left: 40px;
+    }
+
+    .card-img-desk {
+      img {
+        width: 80%;
+      }
+    }
+  }
+
+}
 // @media screen and (min-width: 2401px) {
 //   body {
 //     transform: scale(0.8);

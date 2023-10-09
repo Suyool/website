@@ -258,6 +258,7 @@ class DefaultController extends AbstractController
             'title'=>$title,
             'desc'=>$desc
         ];
+        $parameters['hideLearnMore'] ="";
 
         return $this->render('homepage/mastercard.html.twig', $parameters);
     }
