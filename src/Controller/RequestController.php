@@ -68,6 +68,10 @@ class RequestController extends AbstractController
         }
         $parameters['amount'] = $amount[1] ;
         $this->session->set("request_details_response", $parameters['request_details_response']);
+
+        $this->session->set('amount',$parameters['amount']);
+        $this->session->set('currency',$parameters['currency']);
+
         $this->session->set("Code", $code);
         $this->session->set(
             "image",

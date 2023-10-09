@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IveriController extends AbstractController
@@ -33,41 +34,31 @@ class IveriController extends AbstractController
     }
 
     #[Route('/topup', name: 'app_topup')]
-    public function index()
+    public function index(SessionInterface $sessionInterface)
     {
         $parameters=array();
         $iveriServices=new IveriServices($this->suyoolServices,$this->logger);
-        if($_ENV['APP_ENV']=="dev"){
-            $applicationId="A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E";
-        }
-        else{
-            $applicationId="67DCBA56-B893-44AD-AC90-DAE0DDB539BA";
-        }
-        // $token = $iveriServices->GenerateTransactionToken("AFcWxV2NG9W4","/Lite/Authorise.aspx","{c0f9f3e2-b75c-4864-b6c6-df1372fbedb0}","4130","jdoe@mail.com");
-        // dd($token);
-
-            $ivericall=$iveriServices->iveriService();
+           $ivericall=$iveriServices->iveriService();
             if($ivericall[0]){
                 $this->mr->persist($ivericall[1]);
                 $this->mr->flush();
                 return $this->render('iveri/index.html.twig', $ivericall[2]);
             }     
         if (isset($_POST['Request'])) {
-            $token = $iveriServices->GenerateTransactionToken("BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH","/Lite/Authorise.aspx",$applicationId,$_POST['ORDER_AMOUNT'] * 100,"it@suyool.com");
-    
+            $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx",$sessionInterface->get('amount') * 100,"it@suyool.com");
+            
                 $parameters=[
-                    'amount'=>$_POST['ORDER_AMOUNT'],
-                    'currency'=>$_POST['Currency_AlphaCode'],
-                    'transactionId'=>$_POST['transactionId'],
+                    'amount'=>$sessionInterface->get('amount'),
+                    'currency'=>$sessionInterface->get('currency'),
+                    'transactionId'=>$sessionInterface->get('TranSimID'),
                     'userid'=>NULL,
                     'timestamp'=>time(),
                     'topup'=> "false",
                     'token'=>$token
                 ];
-                $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['transactionId']);
+                $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             return $this->render('iveri/index.html.twig', $parameters);
         }
-        // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1B/VZbvSmMG/HFhNWN4KAr27gxgh6vEJCjTb6gwJJWxD!#!2!#!USD!#!15580";
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
@@ -75,6 +66,7 @@ class IveriController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx",$suyoolUserInfoForTopUp[1] * 100,"it@suyool.com");
                     $amount = $suyoolUserInfoForTopUp[1];
                     $currency = $suyoolUserInfoForTopUp[2];
                     $userid = $suyoolUserInfo[0];
@@ -86,7 +78,8 @@ class IveriController extends AbstractController
                         'userid'=>$userid,
                         'timestamp'=>$timestamp,
                         'transactionId'=>$transactionId,
-                        'topup'=>"true"
+                        'topup'=>"true",
+                        'token'=>$token
                     ];
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');

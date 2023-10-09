@@ -3,19 +3,31 @@
 namespace App\Service;
 
 use App\Entity\Transaction;
+use App\Utils\Helper;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class IveriServices
 {
     private $mr;
     private $suyoolServices;
     private $logger;
+    private static $applicationId;
+    private static $secretKey;
 
     public function __construct($suyoolServices, $loggerInterface)
     {
         $this->suyoolServices = $suyoolServices;
         $this->logger = $loggerInterface;
+        if($_ENV['APP_ENV']=="dev"){
+            self::$applicationId="{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}";
+            self::$secretKey="BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH";
+        }
+        else{
+            $this->applicationId="{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}";
+            $this->secretKey="42GJxBZOrrM9y0aSLzI3MbkrlA0jhdQx";    
+        }
     }
 
     public function iveriService()
@@ -24,11 +36,11 @@ class IveriServices
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
-            dd($_POST);
+            // dd($_POST);
             $topupforbutton = false;
             if (isset($_POST['USERID'])) $topupforbutton = true;
             $additionalInfo = [
-                'authCode' => $_POST['LITE_ORDER_AUTHORISATIONCODE'],
+                'authCode' => @$_POST['LITE_ORDER_AUTHORISATIONCODE'],
                 'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
                 'desc' => $_POST['LITE_RESULT_DESCRIPTION']
             ];
@@ -74,7 +86,7 @@ class IveriServices
             $transaction->setResponse(json_encode($_POST));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
-            $transaction->setAuthCode($_POST['LITE_ORDER_AUTHORISATIONCODE']);
+            $transaction->setAuthCode(@$_POST['LITE_ORDER_AUTHORISATIONCODE']);
             $transaction->setTransactionId($_POST['TRANSACTIONID']);
             $statusForIveri = true;
             $parameters = array(
@@ -90,20 +102,20 @@ class IveriServices
         return array($statusForIveri, $transaction, $parameters);
     }
 
-    public static function GenerateTransactionToken($secretKey, $resource,  $applicationId, $amount,  $emailAddress)
+    public static function GenerateTransactionToken($resource, $amount,  $emailAddress)
     {
-        $time = (string)self::UnixTimeStampUTC();
+        $time = self::UnixTimeStampUTC();
         // $time="1471358394";
 
-        $token = $secretKey . time() . $resource . $applicationId . $amount . $emailAddress;
-        echo $token;
 
-        return  time() . ":" . self::GetHashSha256($token);
+        $token = self::$secretKey . $time . $resource . self::$applicationId . $amount . $emailAddress;
+
+        return  $time . ":" . self::GetHashSha256($token);
     }
 
     public static function UnixTimeStampUTC()
     {
-        $currentTime = new DateTime();
+        $currentTime = new DateTime('now');
         $zuluTime = $currentTime->format('U');
         $unixEpoch = new DateTime("1970-01-01");
         $unixTimeStamp = (int) ($zuluTime - $unixEpoch->format('U'));
