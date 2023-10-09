@@ -205,6 +205,7 @@
     padding: 40px 0 50px 0 !important;
 
     .three_steps2 {
+      margin: 0!important;
       .step {
         .sub {
           height: 200px !important;
@@ -248,6 +249,15 @@
   }
 
   @media (max-width: 768px) {
+    .benefits {
+      .three_steps2 {
+        .step {
+          .sub {
+            height: unset!important;
+          }
+        }
+      }
+    }
     .top-section {
       .top-info {
         .header-text {

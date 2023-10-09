@@ -163,7 +163,7 @@ class DigitalCorporateController extends AbstractController
             'title' => 'Suyool POS: The Optimal Choice for a Seamless Customer Experience',
             'text' => 'Enhance your customers’ shopping journey! With Suyool POS, whether they’re shopping in-store, online, on desktop or mobile, they’ll enjoy a seamless omnichannel payment experience complete with dual currency options.',
             'buttonText' => 'Learn More',
-            'buttonLink' => '/legal_enrollment', // Update the link accordingly
+            'buttonLink' => '/omnichannel', // Update the link accordingly
         ];
 
         $infoSection = [

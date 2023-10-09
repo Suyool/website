@@ -1,1 +1,2 @@
-Sitemap: /sitemap.xml
+User-agent: *
+Sitemap: https://suyool.com/sitemap.xml

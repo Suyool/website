@@ -277,6 +277,8 @@ class DefaultController extends AbstractController
             'title'=>$title,
             'desc'=>$desc
         ];
+        $parameters['removeSection'] = "";
+
         return $this->render('TermsAndConditions/index.html.twig',$parameters);
     }
 
@@ -285,7 +287,8 @@ class DefaultController extends AbstractController
      */
     public function personalterms()
     {
-        return $this->render('TermsAndConditions/personal.html.twig');
+        $parameters['removeSection'] = "";
+        return $this->render('TermsAndConditions/personal.html.twig',$parameters);
     }
 
     /**
