@@ -40,11 +40,13 @@ class SupportController extends AbstractController
         }
         $title="Contact Us";
         $desc="Suyool team is available 24/7 ready to assist you.";
+        $removeSection ='';
 
         return $this->render('support/index.html.twig', [
             'form' => $form->createView(),
             'title'=>$title,
-            'desc'=>$desc
+            'desc'=>$desc,
+            'removeSection' => $removeSection
         ]);
     }
 

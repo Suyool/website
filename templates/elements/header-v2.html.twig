@@ -6,16 +6,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-5">
             <li class="nav-item">
-                <a class="nav-link" href="#">Personal</a>
+                <a class="nav-link personal-underline" href="{{ path('homepage') }}">Personal</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Business</a>
+            <li class="nav-item ">
+                <a class="nav-link business-underline" href="{{ path('app_digital_corporate') }}">Business</a>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
-            </li>
+            {% if not removeSection is defined %}
+                <li class="nav-item">
+                    {% if corporateBTn is defined and corporateBTn is not empty %}
+                        <button type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
+                    {% else %}
+                        <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
+                    {% endif %}
+                </li>
+            {% endif %}
         </ul>
     </div>
 
@@ -46,7 +52,7 @@
                                     <a class="nav-link" href="{{ path('app_mastercard') }}">Platinum Mastercard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('terms_and_conditions') }}">Terms & Conditions</a>
+                                    <a class="nav-link" href="{{ path('terms_and_conditions_personal') }}">Terms & Conditions</a>
                                 </li>
 
                                 <li class="nav-item head">
@@ -68,9 +74,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_contact_us') }}">Contact Us</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">About Us</a>
-                                </li>
+{#                                <li class="nav-item">#}
+{#                                    <a class="nav-link" href="#">About Us</a>#}
+{#                                </li>#}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_privacy') }}">Privacy & Policy</a>
                                 </li>
@@ -79,7 +85,10 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    {% if not removeSection is defined %}
                                     <button type="button" class="btn button-primary open-suyool-account">Open Suyool Account</button>
+                                    {% endif %}
+
                                 </li>
                             </ul>
                         </div>

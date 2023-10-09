@@ -1,4 +1,7 @@
 .homepage {
+  .personal-underline {
+    border-bottom: 2px solid #fff;
+  }
   .row {
     margin: 0;
   }
@@ -320,7 +323,7 @@
     background-image: url("../../../images/homepage/corporate-section-bg.jpg");
     display: flex;
     align-items: center;
-    height: 75vh;
+    padding: 60px 0px;
     width: 100%;
     background-size: cover;
     margin-top: 90px;
@@ -568,7 +571,6 @@
 
     .corporate-section {
       background-image: url("../../../images/homepage/corporate-mobile.png");
-      height: unset;
       padding: 50px 0;
 
       .content {

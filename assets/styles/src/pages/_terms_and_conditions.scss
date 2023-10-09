@@ -18,6 +18,18 @@
 }
 
 .terms-and-conditions-page{
+  .business-underline {
+    border-bottom: 2px solid #216d96;
+  }
+  .white-navbar{
+    .navbar_v2 {
+      .navbar-nav li {
+        .nav-link {
+          color: #216d96!important;
+        }
+      }
+    }
+  }
   .terms-and-conditions{
     margin-bottom: 100px;
     font-size: 18px;
@@ -50,5 +62,13 @@
     @media(max-width: 768px){
       font-size: 16px;
     }
+  }
+}
+.personal-terms {
+  .business-underline {
+    border-bottom: none!important;
+  }
+  .personal-underline {
+    border-bottom: 2px solid #216d96;
   }
 }

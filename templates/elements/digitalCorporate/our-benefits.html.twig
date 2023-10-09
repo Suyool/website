@@ -4,9 +4,10 @@
         <div class="sub-title">{{ benefitsSubTitle }}</div>
         <div class="row three_steps2">
             {% for benefit in benefits %}
-                <div class="col-lg-4">
+                <div class="col-lg-4 mt-5">
                     <div class="step">
                         <div class="sub sub-benefits">
+                            <div class="text-center"><img src="{{ asset(benefit.image) }}" alt="{{ benefit.title }}" title="{{ benefit.title }}"></div>
                             <div>
                                 <div class="title text-center">{{ benefit.title }}</div>
                             </div>

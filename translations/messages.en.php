@@ -76,6 +76,7 @@ return [
     "FREE_PAYROLL_CASH_OUT"=>"Cash Withdrawal",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"Send Money Locally",
     "SEND_MONEY_INTERNATIONALLY"=>"International Transfers",
+    "REQUEST_MONEY" => "Request Money",
     "PAY_BILLS"=>"Pay Bills",
     "PAY_WITH_SUYOOL_QR"=>"Pay with Suyool QR",
     "HOW_DOES_SUYOOL_WORK"=>"HOW TO GET STARTED",
