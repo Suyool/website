@@ -1,14 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if form is defined %}
-    Hello {{fname}} {{lname}}
-    {{form_start(form)}}
-    {{ form_row(form.amount) }}
-    {{ form_row(form.currency) }}
-    <div id="submit">{{ form_row(form.save) }}</div>
-    {{form_end(form)}}
-    {% else %}
-        {{message}}
-    {% endif %}
-{% endblock %}
+
+    <button id="topUpButton">Request To Pay</button>
+	<form style="display: none" name="myFormTopUp" id="myFormTopUp" method="post" action="https://portal.cscacquiring.com/Lite/Authorise.aspx">
+		<input id="ECOM_CONSUMERORDERID" name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
+		<input id="ECOM_PAYMENT_CARD_PROTOCOLS" name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
+		<input id="LITE_CONSUMERORDERID_PREFIX" name="LITE_CONSUMERORDERID_PREFIX" value="LITE">
+		<input id="LITE_MERCHANT_APPLICATIONID" name="LITE_MERCHANT_APPLICATIONID" value="{% if app.request.server.get('APP_ENV') == "dev" %}{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}{% elseif app.request.server.get('APP_ENV') == "prod" %}{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}{% endif %}">
+		<input type="hidden" id="LITE_ORDER_AMOUNT" name="LITE_ORDER_AMOUNT" value="{{ amount * 100 }}">
+		<input id="Lite_Currency_AlphaCode" name="Lite_Currency_AlphaCode" value="{{currency}}">
+		<input id="LITE_WEBSITE_SUCCESSFUL_URL" name="LITE_WEBSITE_SUCCESSFUL_URL" value="{{app.request.schemeAndHttpHost}}/requestToPay">
+		<input id="LITE_WEBSITE_FAIL_URL" name="LITE_WEBSITE_FAIL_URL" value="{{app.request.schemeAndHttpHost}}/requestToPay">
+		<input id="LITE_WEBSITE_TRYLATER_URL" name="LITE_WEBSITE_TRYLATER_URL" value="{{app.request.schemeAndHttpHost}}/requestToPay">
+		<input id="LITE_WEBSITE_ERROR_URL" name="LITE_WEBSITE_ERROR_URL" value="{{app.request.schemeAndHttpHost}}/requestToPay">
+		<input id="ECOM_BILLTO_ONLINE_EMAIL" name="ECOM_BILLTO_ONLINE_EMAIL" value="it@suyool.com">
+		<input id="TimeStamp" name="TimeStamp" value="{{ timestamp }}">
+		<input id="LITE_TRANSACTION_TOKEN" name="LITE_TRANSACTION_TOKEN" value="{{token}}">
+	</form>
+
+	<script>
+		document.getElementById("topUpButton").addEventListener("click", function () {
+            document.getElementById("myFormTopUp").submit();
+        });
+</script>
+	{% endblock %}
