@@ -15,7 +15,11 @@
         <ul class="navbar-nav ms-auto">
             {% if not removeSection is defined %}
                 <li class="nav-item">
-                    <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
+                    {% if corporateBTn is defined and corporateBTn is not empty %}
+                        <button type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
+                    {% else %}
+                        <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
+                    {% endif %}
                 </li>
             {% endif %}
         </ul>
