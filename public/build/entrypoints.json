@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.f1eb25cb.js"
+        "/build/app1.e03499fd.js"
       ]
     },
     "admin-app": {
@@ -27,7 +27,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.87c752aa.js"
+        "/build/Alfa.165dc64a.js"
       ]
     },
     "Touch": {

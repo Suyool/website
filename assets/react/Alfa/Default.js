@@ -20,13 +20,13 @@ const Default = ({
     <div id="Default">
       <div className="MainTitle">What do you want to do?</div>
 
-      <div className="Cards" onClick={() => { handleButtonClick("PayBill") }}>
+      {/* <div className="Cards" onClick={() => { handleButtonClick("PayBill") }}>
         <img className="logoImg" src="/build/images/alfa/alfaLogo.png" alt="alfaLogo" />
         <div className="Text">
           <div className="SubTitle">Pay Mobile Bills</div>
           <div className="description">Settle your Alfa bill quickly and securely</div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="Cards"
