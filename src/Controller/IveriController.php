@@ -37,6 +37,15 @@ class IveriController extends AbstractController
     {
         $parameters=array();
         $iveriServices=new IveriServices($this->suyoolServices,$this->logger);
+        if($_ENV['APP_ENV']=="dev"){
+            $applicationId="A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E";
+        }
+        else{
+            $applicationId="67DCBA56-B893-44AD-AC90-DAE0DDB539BA";
+        }
+        // $token = $iveriServices->GenerateTransactionToken("AFcWxV2NG9W4","/Lite/Authorise.aspx","{c0f9f3e2-b75c-4864-b6c6-df1372fbedb0}","4130","jdoe@mail.com");
+        // dd($token);
+
             $ivericall=$iveriServices->iveriService();
             if($ivericall[0]){
                 $this->mr->persist($ivericall[1]);
@@ -44,13 +53,16 @@ class IveriController extends AbstractController
                 return $this->render('iveri/index.html.twig', $ivericall[2]);
             }     
         if (isset($_POST['Request'])) {
+            $token = $iveriServices->GenerateTransactionToken("BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH","/Lite/Authorise.aspx",$applicationId,$_POST['ORDER_AMOUNT'] * 100,"it@suyool.com");
+    
                 $parameters=[
                     'amount'=>$_POST['ORDER_AMOUNT'],
                     'currency'=>$_POST['Currency_AlphaCode'],
                     'transactionId'=>$_POST['transactionId'],
                     'userid'=>NULL,
                     'timestamp'=>time(),
-                    'topup'=> "false"
+                    'topup'=> "false",
+                    'token'=>$token
                 ];
                 $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['transactionId']);
             return $this->render('iveri/index.html.twig', $parameters);
