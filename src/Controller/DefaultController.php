@@ -79,7 +79,8 @@ class DefaultController extends AbstractController
         Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Mastercard, Suyool empowers you with full control over your finances.";
             $parameters=[
                 'title'=>$title,
-                'desc'=>$desc
+                'desc'=>$desc,
+                'metaimage'=>'build/images/meta-image-website.png'
             ];
         $content = $this->render('homepage/homepage.html.twig',$parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
