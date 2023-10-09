@@ -3,49 +3,49 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.51d28a37.js"
+        "/build/app1.f7717146.js"
       ]
     },
     "admin-app": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/admin-app.26567332.js"
+        "/build/admin-app.e2ccc80d.js"
       ]
     },
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.888be6d3.js"
+        "/build/Loto.ef82b8b3.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.da80b77e.js"
+        "/build/LegalEnrollement.0f2833bd.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.665f0d75.js"
+        "/build/Alfa.87c752aa.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.ea81e3bf.js"
+        "/build/Touch.4ec6652f.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.f9787607.js"
+        "/build/Ogero.a69528ab.js"
       ]
     },
     "iveri": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/iveri.b3d0f74c.js"
+        "/build/iveri.429e5515.js"
       ]
     },
     "styles": {
@@ -53,7 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.721f12d5.css"
+        "/build/styles.628eede7.css"
       ]
     },
     "admin": {

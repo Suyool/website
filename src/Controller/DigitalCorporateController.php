@@ -43,7 +43,7 @@ class DigitalCorporateController extends AbstractController
                 'Avoid cash management problems.',
                 'Payroll is disbursed to accounts same day upon receipt of request.',
                 'Simplified enrollment process for employees.',
-                'Salary will be directly available into employees’ wallet accounts & is instantly accessible through Suyool app & card.',
+                'Salary will be directly available in employees’ wallet accounts & is instantly accessible through Suyool app & card.',
             ],
         ];
         $parameters['payrollImagePath'] = 'payrollGlance.png';
@@ -103,7 +103,7 @@ class DigitalCorporateController extends AbstractController
         $uniqueFeatures = [
             [
                 'title' => 'Apply to Suyool in Minutes',
-                'description' => 'Without having to go to a branch office, all the banking services you need are now at hand!',
+                'description' => 'Without having to go to a branch office, all the financial services you need are now at hand!',
                 'image' => 'build/images/digital_corporate/numb1.svg',
             ],
             [
@@ -302,7 +302,7 @@ class DigitalCorporateController extends AbstractController
         $uniqueFeatures = [
             [
                 'title' => 'Apply to Suyool',
-                'description' => 'Without having to go to a branch office, all the banking services you need are now at hand!',
+                'description' => 'Without having to go to a branch office, all the financial services you need are now at hand!',
                 'image' => 'build/images/digital_corporate/numb1.svg',
             ],
             [
@@ -361,7 +361,7 @@ class DigitalCorporateController extends AbstractController
             'title' => 'The Merchant Dashboard is Linked To The Corporate Digital Account',
             'text' => 'Payment processed at your stores, online & offline will be available instantly In your corporate account.',
             'buttonText' => 'Learn More',
-            'buttonLink' => '/legal_enrollment', // Update the link accordingly
+            'buttonLink' => '/digital-corporate', // Update the link accordingly
         ];
 
         $parameters['topSectionTitle'] = "Omnichannel, Secure & Instant Payments";

@@ -4,7 +4,7 @@
   }
   .btn-custm {
     font-size: 16px;
-    padding: 21px 13px;
+    padding: 10px 18px;
   }
   .left-section-card {
     width: 100% !important;
@@ -20,7 +20,7 @@
   .secondary-btn {
     background-color: #ffffff;
     color: #226D96;
-    border: 1px solid #226D96;;
+    border: 2px solid #226D96;;
     border-radius: 8px;
     font-family: PoppinsSemiBold;
   }
@@ -175,7 +175,8 @@
     .three_steps2 {
       .step {
         .sub {
-            img {
+          height: 320px!important;
+          img {
               float: none!important;
               width: unset!important;
           }
@@ -217,7 +218,6 @@
     background-image: url("../../../images/digital_corporate/integrated.png");
     display: flex;
     align-items: center;
-    height: 70vh;
     width: 100%;
     background-color: #D7D7E2;
 
@@ -226,6 +226,7 @@
       font-family: PoppinsRegular;
       margin-left: 15%;
       width: 50%;
+      padding: 56px 0;
 
       .text {
         font-size: 18px;
