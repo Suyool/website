@@ -9,6 +9,7 @@ use App\Translation\translation;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use metaService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
@@ -41,40 +42,46 @@ class DefaultController extends AbstractController
      */
     public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em, MailerInterface $mailer)
     {
-        $submittedToken = $request->request->get('token');
-
+        // $submittedToken = $request->request->get('token');
         $trans = $this->trans->translation($request, $translator);
-        $message = '';
-        if (isset($_POST['email'])) {
+        // $message = '';
+        // if (isset($_POST['email'])) {
 
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                $message = "email invalid";
-                return new JsonResponse(['success' => "Invalid Email", 'message' => $message]);
-            } else {
-                if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
-                    $emailSubcriber = new emailsubscriber;
-                    $emailSubcriber->setEmail($_POST['email']);
-                    $em->persist($emailSubcriber);
-                    $em->flush();
-                    $message = "Email Added";
-                    $email = (new TemplatedEmail())
-                        ->from('contact@suyool.com')
-                        ->to($_POST['email'])
-                        ->subject('You are on the list and we\'re so excited! ' . "\u{1F60D}")
-                        ->htmlTemplate('email/email.html.twig');
-                    $mailer->send($email);
-                    return new JsonResponse(['success' => true, 'message' => $message]);
-                } else {
-                    $message = "Email already exist";
-                    return new JsonResponse(['success' => false, 'message' => $message]);
-                }
-            }
-        }
+        //     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        //         $message = "email invalid";
+        //         return new JsonResponse(['success' => "Invalid Email", 'message' => $message]);
+        //     } else {
+        //         if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
+        //             $emailSubcriber = new emailsubscriber;
+        //             $emailSubcriber->setEmail($_POST['email']);
+        //             $em->persist($emailSubcriber);
+        //             $em->flush();
+        //             $message = "Email Added";
+        //             $email = (new TemplatedEmail())
+        //                 ->from('contact@suyool.com')
+        //                 ->to($_POST['email'])
+        //                 ->subject('You are on the list and we\'re so excited! ' . "\u{1F60D}")
+        //                 ->htmlTemplate('email/email.html.twig');
+        //             $mailer->send($email);
+        //             return new JsonResponse(['success' => true, 'message' => $message]);
+        //         } else {
+        //             $message = "Email already exist";
+        //             return new JsonResponse(['success' => false, 'message' => $message]);
+        //         }
+        //     }
+        // }
         // return $this->render('homepage/CommingSoon.html.twig', [
         // 'message' => $message
         // ]);
 
-        $content = $this->render('homepage/homepage.html.twig');
+        $title="Suyool";
+        $desc="Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
+        Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Mastercard, Suyool empowers you with full control over your finances.";
+            $parameters=[
+                'title'=>$title,
+                'desc'=>$desc
+            ];
+        $content = $this->render('homepage/homepage.html.twig',$parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
 
         return $content;
@@ -112,6 +119,9 @@ class DefaultController extends AbstractController
      */
     public function mastercard(Request $request)
     {
+        $title="Suyool Platinum Mastercard";
+        $desc="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
         $cardData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/one.png',
@@ -240,10 +250,14 @@ class DefaultController extends AbstractController
             ],
         ];
 
-        return $this->render('homepage/mastercard.html.twig', [
-            'cardData' => $cardData,
-            'lifeStyleData' => $lifeStyleData,
-        ]);
+        $parameters=[
+            'cardData'=>$cardData,
+            'lifeStyleData'=> $lifeStyleData,
+            'title'=>$title,
+            'desc'=>$desc
+        ];
+
+        return $this->render('homepage/mastercard.html.twig', $parameters);
     }
 
     public function show()
@@ -256,7 +270,14 @@ class DefaultController extends AbstractController
      */
     public function terms()
     {
-        return $this->render('TermsAndConditions/index.html.twig');
+        $title="Suyool Terms & Conditions";
+        $desc="Kindly read our terms and conditions carefully before using this site";
+
+        $parameters=[
+            'title'=>$title,
+            'desc'=>$desc
+        ];
+        return $this->render('TermsAndConditions/index.html.twig',$parameters);
     }
 
     /**

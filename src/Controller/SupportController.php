@@ -38,9 +38,13 @@ class SupportController extends AbstractController
                 return $this->redirectToRoute('homepage');
             }
         }
+        $title="Contact Us";
+        $desc="Suyool team is available 24/7 ready to assist you.";
 
         return $this->render('support/index.html.twig', [
             'form' => $form->createView(),
+            'title'=>$title,
+            'desc'=>$desc
         ]);
     }
 

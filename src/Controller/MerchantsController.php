@@ -55,6 +55,10 @@ class MerchantsController extends AbstractController
                 "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ALFA"
             ],
         ];
+
+        $parameters['title']="Alfa Employee";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool with the best rates available.";
+
         return $this->render('merchants/alfa.html.twig',$parameters);
     }
 
@@ -102,6 +106,11 @@ class MerchantsController extends AbstractController
                 "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"
             ],
         ];
+
+        $parameters['title']="USJ";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
+        You will get your own digital dual-currency account, a complete payment tool
+        with the best rates and a Platinum Mastercard linked to the account.";
         return $this->render('merchants/usj.html.twig',$parameters);
     }
 
@@ -113,8 +122,6 @@ class MerchantsController extends AbstractController
 
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
-//        $parameters['lang']="ar";
-//        $translatorInterface->setLocale("ar");
         $parameters['faq']=[
             "ONE"=>[
                 "Title"=>"WHAT_IS_SUYOOL",
@@ -141,6 +148,11 @@ class MerchantsController extends AbstractController
                 "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"
             ],
         ];
+
+        $parameters['title']="elnashra";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
+        You will get your own digital dual-currency account, a complete payment tool
+        with the best rates and a Platinum Mastercard linked to the account.";
         return $this->render('merchants/elnashra.html.twig',$parameters);
     }
 }

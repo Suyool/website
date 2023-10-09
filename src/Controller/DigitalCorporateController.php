@@ -162,6 +162,9 @@ class DigitalCorporateController extends AbstractController
         $parameters['infoPurpleSection'] = $infoPurpleSection;
         $parameters['merchantImages'] = $merchantImages;
 
+        $parameters['title']="Digital Corporate Account For Cashless Transactions";
+        $parameters['desc']="Avoid cash flow problems & keep track of your business revenues, expenses & transactions directly from one place - your corporate Suyool dashboard. Whether you have a small business or a large corporation.";
+
         return $this->render('digitalCorporate/index.html.twig',$parameters);
     }
     /**
@@ -315,6 +318,8 @@ class DigitalCorporateController extends AbstractController
         $parameters['benefits'] = $benefits;
         $parameters['infoPurpleSection'] = $infoPurpleSection;
         $parameters['merchantImages'] = $merchantImages;
+        $parameters['title']="Omnichannel, Secure & Instant Payments";
+        $parameters['desc']="Provide your customers with a seamless shopping experience across all channels, including in store, mobile, and online with a 360 degree real-time overview of your sales.";
 
         return $this->render('digitalCorporate/omnichannel.html.twig',$parameters);
     }

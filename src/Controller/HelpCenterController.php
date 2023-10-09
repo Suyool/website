@@ -30,11 +30,14 @@ class HelpCenterController extends AbstractController
     public function index(QuestionsCategoryRepository $categoryRepository)
     {
         $type = $this->request->query->get('type-id', 1);
-
+        $title="Help Center";
+        $desc="How can we help you?";
         $categories = $categoryRepository->findQuestionsByCategories($type);
         return $this->render('helpCenter/index.html.twig', [
             'categories' => $categories,
-            'type' => $type
+            'type' => $type,
+            'desc'=>$desc,
+            'title'=>$title
         ]);
     }
 
