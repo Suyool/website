@@ -19,7 +19,16 @@
 
 .terms-and-conditions-page{
   .business-underline {
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #216d96;
+  }
+  .white-navbar{
+    .navbar_v2 {
+      .navbar-nav li {
+        .nav-link {
+          color: #216d96!important;
+        }
+      }
+    }
   }
   .terms-and-conditions{
     margin-bottom: 100px;
