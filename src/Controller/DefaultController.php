@@ -119,7 +119,7 @@ class DefaultController extends AbstractController
      */
     public function mastercard(Request $request)
     {
-        $title="Suyool Platinum Mastercard";
+        $title="Suyool Platinum Mastercard | Suyool";
         $desc="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
         $cardData = [
@@ -270,7 +270,7 @@ class DefaultController extends AbstractController
      */
     public function terms()
     {
-        $title="Suyool Terms & Conditions";
+        $title="Suyool Terms & Conditions | Suyool";
         $desc="Kindly read our terms and conditions carefully before using this site";
 
         $parameters=[

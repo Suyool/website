@@ -56,7 +56,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title']="Alfa Employee";
+        $parameters['title']="Alfa Employee | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool with the best rates available.";
 
         return $this->render('merchants/alfa.html.twig',$parameters);
@@ -107,7 +107,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title']="USJ";
+        $parameters['title']="USJ | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
         You will get your own digital dual-currency account, a complete payment tool
         with the best rates and a Platinum Mastercard linked to the account.";
@@ -149,7 +149,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title']="elnashra";
+        $parameters['title']="elnashra | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
         You will get your own digital dual-currency account, a complete payment tool
         with the best rates and a Platinum Mastercard linked to the account.";
