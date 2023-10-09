@@ -80,7 +80,8 @@ class DefaultController extends AbstractController
             $parameters=[
                 'title'=>$title,
                 'desc'=>$desc,
-                'metaimage'=>'build/images/meta-image-website.png'
+                'metaimage'=>'build/images/meta-image-website.png',
+                'descmeta'=>$desc
             ];
         $content = $this->render('homepage/homepage.html.twig',$parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
