@@ -102,7 +102,7 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"Au Liban, dans plus de 700 bureaux BOB Finance.<br> A l’étranger, de n’importe quel distributeur de billets compatible avec Mastercard.",
 
     //getTheAppQrSection
-    "SCAN_DOWNLOAD"=>"Get Suyool Aujourd'hui!",
+    "SCAN_DOWNLOAD"=>"Obtenez Suyool Aujourd'hui!",
     "GET_SUYOOL_NOW"=>"Scannez, Téléchargez et Ouvrez un Compte",
 
     ];
