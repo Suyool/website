@@ -47,18 +47,23 @@ class IveriController extends AbstractController
         if (isset($_POST['Request'])) {
             $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $sessionInterface->get('amount') * 100, "it@suyool.com");
 
+            
+            $nonSuyooler=$this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+            $data=json_decode($nonSuyooler[1],true);
+
             $parameters = [
-                'amount' => $sessionInterface->get('amount'),
-                'currency' => $sessionInterface->get('currency'),
+                'amount' => $data['TotalAmount'],
+                'currency' => $data['Currency'],
                 'transactionId' => $sessionInterface->get('TranSimID'),
                 'userid' => NULL,
                 'timestamp' => time(),
                 'topup' => "false",
                 'token' => $token
             ];
-            $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             return $this->render('iveri/index.html.twig', $parameters);
         }
+
+        // $_POST['infoString']="fmh1M9oF9lrMsRTdmDc+OvfRjRPMWs1smgxX96GPEHMY56ga9HGaBr5k2STgz+5p!#!2.0!#!USD!#!15791";
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);

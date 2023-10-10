@@ -45,7 +45,7 @@ class IveriServices
                 'desc' => $_POST['LITE_RESULT_DESCRIPTION']
             ];
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] ,json_encode($additionalInfo));
                 if ($topup[0]) {
                     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
                     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
@@ -62,7 +62,7 @@ class IveriServices
                     $button = "Try Again";
                 }
             } else {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'], json_encode($additionalInfo));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] , json_encode($additionalInfo));
                 if ($topup[0]) {
                     $status = false;
                     $imgsrc = "build/images/Loto/error.png";

@@ -410,15 +410,17 @@ class SuyoolServices
         }
     }
 
-    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$additionalInfo)
+    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
     {
         try {
-            // echo $transId . $statusId . $this->certificate;
-            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $additionalInfo . $this->certificate, true));
+            $sum = number_format((float) $amount, 1, '.', '');
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate, true));
             $body =[
                 'transactionId' => $transId,
                 'statusId' => $statusId,
                 'referenceNo'=>$referenceNo,
+                'amount'=>$sum,
+                'currency'=>$currency,
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
@@ -445,6 +447,7 @@ class SuyoolServices
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
+            // dd($content);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {
