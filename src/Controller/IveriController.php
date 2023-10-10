@@ -64,14 +64,14 @@ class IveriController extends AbstractController
             return $this->render('iveri/index.html.twig', $parameters);
         }
 
-        // $_POST['infoString']="fmh1M9oF9lrMsRTdmDc+OvfRjRPMWs1smgxX96GPEHMY56ga9HGaBr5k2STgz+5p!#!2.0!#!USD!#!15791";
+        $_POST['infoString']="fmh1M9oF9lrMsRTdmDc+OvfRjRPMWs1smgxX96GPEHMY56ga9HGaBr5k2STgz+5p!#!2.0!#!USD!#!15791";
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
             $decrypted_string = DecryptService::decrypt($suyoolUserInfoForTopUp[0]);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $suyoolUserInfoForTopUp[1] * 100, "it@suyool.com");
                 $amount = $suyoolUserInfoForTopUp[1];
                 $currency = $suyoolUserInfoForTopUp[2];
