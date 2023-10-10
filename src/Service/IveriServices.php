@@ -25,8 +25,8 @@ class IveriServices
             self::$secretKey="BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH";
         }
         else{
-            $this->applicationId="{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}";
-            $this->secretKey="42GJxBZOrrM9y0aSLzI3MbkrlA0jhdQx";    
+            self::$applicationId="{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}";
+            self::$secretKey="42GJxBZOrrM9y0aSLzI3MbkrlA0jhdQx";    
         }
     }
 
