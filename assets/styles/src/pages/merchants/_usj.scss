@@ -4,6 +4,7 @@ $image-path: '../../../../images/usj/';
     .topSectionUsjEmp {
         img {
             width: 100%;
+            min-height: 550px;
         }
 
         // background-color: #e41e2c;
@@ -52,8 +53,8 @@ $image-path: '../../../../images/usj/';
             padding-top: 9pc;
             text-align: center;
 
-            @media screen and (max-width:1200px) and (min-width:998px) {
-                padding-top: 5pc;
+            @media screen and (max-width:1400px) and (min-width:998px) {
+                padding-top: 100px;
             }
 
             .title {
