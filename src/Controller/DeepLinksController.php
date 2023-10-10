@@ -49,6 +49,7 @@ class DeepLinksController extends AbstractController
     {
             return new RedirectResponse('https://suyoolapp.page.link/app');
     }
+
     /**
      * @Route("/update-app", name="updateApp")
      */
