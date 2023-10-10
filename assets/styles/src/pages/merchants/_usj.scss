@@ -82,6 +82,7 @@ $image-path: '../../../../images/usj/';
                     border: none;
                     color: #226D96;
                     font-family: $SemiBold;
+                    background: #ffffff;
 
                     &:hover {
                         background: #226d96;
@@ -630,10 +631,9 @@ $image-path: '../../../../images/usj/';
                 }
 
                 .OpenSuyoolAccount {
-                    // margin-top: 283px;
-                    padding-top: 11pc;
-
                     .OpenYourSuyoolAccount {
+                        width: 350px;
+                        margin: auto;
                         font-size: 15px;
                     }
                 }
