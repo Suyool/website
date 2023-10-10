@@ -1,8 +1,7 @@
 <script>
     function redirectToDeepLink() {
         // Define the deep link URL
-        const deepLink = '{{redirectUrl}}';
-
+        const deepLink = '{{ redirectUrl|raw }}';
         // Attempt to open the deep link
         window.location.href = deepLink;
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
