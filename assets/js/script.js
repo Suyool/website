@@ -175,6 +175,25 @@ if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
 //     clickOne("https://suyoolapp.page.link/app", "", "/");
 //   });
 // }
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Get a reference to the button element by its ID
+  var openSuyoolAccountButton = document.getElementById("openSuyoolAccount");
+
+  // Attach a click event listener to the button
+  openSuyoolAccountButton.addEventListener("click", function() {
+    // Check if the user is on a mobile device (window)
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      // If it's not a mobile device, call the clickOne function
+      clickOne('https://suyoolapp.page.link/app', '', '/');
+
+    } else {
+      // If it's a mobile device, set the window location
+      window.location.href = '#qrGetTheApp';
+
+    }
+  });
+});
 if(document.getElementById("chatwithteam")){
 // Check if the user is on a mobile device
 function isMobileDevice() {
