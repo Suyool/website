@@ -27,6 +27,9 @@ class DeepLinksController extends AbstractController
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
             $redirectUrl = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
+            $parameters['redirectUrl'] =$redirectUrl;
+
+            return $this->render('deeplink/index.html.twig',$parameters);
             return new RedirectResponse($redirectUrl);
         }
 
@@ -40,3 +43,5 @@ class DeepLinksController extends AbstractController
             return new RedirectResponse('https://suyoolapp.page.link/app');
     }
 }
+
+
