@@ -38,7 +38,7 @@ class SupportController extends AbstractController
                 return $this->redirectToRoute('homepage');
             }
         }
-        $title="Contact Us";
+        $title="Contact Us | Suyool";
         $desc="Suyool team is available 24/7 ready to assist you.";
         $removeSection ='';
 
