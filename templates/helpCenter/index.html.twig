@@ -9,7 +9,7 @@
                     <div class="categories-cont row">
                         {% for category in categories %}
                             {% if category.questions | length > 0 %}
-                                <div class="category-cont col-lg-4 col-md-6">
+                                <div class="category-cont col-xxl-4 col-xl-6 col-md-6">
                                     <div class="card category">
                                         <a href="{{ path('category_show', {'id': category.id, 'questionId': category.questions[0].id, 'question': category.questions[0].question|slugifyQuestion }) }}">
                                             <div class="category-icon">
