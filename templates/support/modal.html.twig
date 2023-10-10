@@ -2,10 +2,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-0 border-0">
             <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel">Message Sent Successfully</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center">
+            <div class="modal-body">
+                <div class="icon">
+                    <img src="{{asset('build/images/success.svg')}}" alt="">
+                </div>
+                <h5 class="modal-title" id="exampleModalLabel">Message Sent Successfully</h5>
+
                 <div class="display-4 text-success">
                     <i class="bi bi-check-circle"></i>
                 </div>
