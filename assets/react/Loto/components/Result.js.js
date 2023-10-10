@@ -330,7 +330,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                           grid.includes(winBall)
                         ).length == 3 && parseInt(prize5).toLocaleString()}
                         {}
-                      Won
+                     &nbsp;Won
                       </div>
                       <div className="img">
                         <img
@@ -409,10 +409,10 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                                     ? parseInt(prize3zeed).toLocaleString()
                                     : getZeedNumber[index].substring(3, 5) ===
                                 zeednumber4
-                                      ? parseInt(prize4zeed).toLocaleString()
+                                      ? parseInt(prize4zeed).toLocaleString() + ' '
                                       : " "
                               : " "}
-                          &nbsp; Won
+                           &nbsp;Won
                           </div>
                           <div className="img">
                             <img
