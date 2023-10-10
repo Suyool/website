@@ -1,0 +1,29 @@
+<script>
+    function redirectToDeepLink() {
+        // Define the deep link URL
+        const deepLink = '{{redirectUrl}}';
+
+        // Attempt to open the deep link
+        window.location.href = deepLink;
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        setTimeout(function () {
+            if (!document.hidden) {
+
+                if (/android/i.test(userAgent)) {
+                    // Redirect to the Play Store for Android
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.suyool.suyoolapp';
+                } else if (/iPad|iPhone|iPod/i.test(userAgent)) {
+                    // Redirect to the App Store for iOS
+                    window.location.href = 'https://apps.apple.com/lb/app/suyool/id6450320657';
+                } else {
+                    // Redirect to a default URL for other devices
+                    window.location.href = '//suyool.com';
+                }
+            }
+        }, 500);
+    }
+    // Call the function to attempt the deep link redirection
+    redirectToDeepLink();
+
+</script>
