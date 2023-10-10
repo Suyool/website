@@ -8,7 +8,7 @@
          {% if cashout.globalCode is defined and cashout.globalCode == 0 %}
             <div class="error">{{ message }}</div>
         {% endif %} 
-        <div class="title">Withdraw cash BOB Finance cashpoint:</div>
+        <div class="title">Withdraw cash BoB Finance cashpoint:</div>
         <form method="post">
             <input type="hidden" name="token" value="{{ csrf_token('payment') }}"/>
             <label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>
