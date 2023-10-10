@@ -1,6 +1,7 @@
 .topSectionElNashraEmp {
   img {
     width: 100%;
+    min-height: 500px;
   }
 
   .logos {
@@ -74,7 +75,7 @@
 
 }
 
-@media (min-width: 998px) and (max-width: 1200px) {
+@media (min-width: 998px) and (max-width: 1400px) {
   .topSectionElNashraEmp {
     .tabletMode {
       img {
@@ -87,6 +88,7 @@
     }
 
     .information {
+      padding-top: 100px;
       width: 75%;
     }
   }
