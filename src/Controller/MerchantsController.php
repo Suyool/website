@@ -198,28 +198,28 @@ class MerchantsController extends AbstractController
         $parameters['descmeta']="Your Payroll is now on Suyool";
         $parameters['faq']=[
             "ONE"=>[
-                "Title"=>"WHAT_IS_SUYOOL_ALFA",
-                "Desc"=>"SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA"
+                "Title"=>"WHAT_IS_SUYOOL_LLDJ",
+                "Desc"=>"SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_LLDJ"
             ],
             "TWO"=>[
-                "Title"=>"CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ALFA",
-                "Desc"=>"ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ALFA"
+                "Title"=>"CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_LLDJ",
+                "Desc"=>"ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_LLDJ"
             ],
             "THREE"=>[
-                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALFA",
-                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ALFA"
+                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_LLDJ",
+                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_LLDJ"
             ],
             "FOUR"=>[
-                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_ALFA",
-                "Desc"=>"YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ALFA"
+                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ",
+                "Desc"=>"YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_LLDJ"
             ],
             "FIVE"=>[
-                "Title"=>"WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_ALFA",
-                "Desc"=>"YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_ALFA"
+                "Title"=>"WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ",
+                "Desc"=>"YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_LLDJ"
             ],
             "SIX"=>[
-                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ALFA",
-                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ALFA"
+                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_LLDJ",
+                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_LLDJ"
             ],
         ];
 
