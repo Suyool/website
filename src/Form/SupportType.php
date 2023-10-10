@@ -4,12 +4,16 @@ namespace App\Form;
 
 use App\Entity\Support;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Positive;
 
 class SupportType extends AbstractType
 {
@@ -22,28 +26,13 @@ class SupportType extends AbstractType
                     new NotBlank(['message' => 'Please enter your name.']),
                 ],
             ])
-            ->add('mail', null, [
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Please enter your email.']),
-                    new Email(['message' => 'Please enter a valid email address.']),
-                ],
+            ->add('mail', EmailType::class, [
+                'required' => true
             ])
-            ->add('phoneNumber', null, [
-                'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Please enter your Phone Number.']),
-                ],
-            ])
+            ->add('phoneNumber', IntegerType::class)
             ->add('message', TextareaType::class, [
                 'required' => true,
-                'constraints' => [
-                    new NotBlank(['message' => 'Please enter a message.']),
-                    new Length([
-                        'min' => 10,
-                        'minMessage' => 'Your message should be at least {{ limit }} characters long.',
-                    ]),
-                ],
+                'attr'=>['minlength'=>10]
             ]);
     }
 
