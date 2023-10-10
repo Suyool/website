@@ -412,7 +412,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                                       ? parseInt(prize4zeed).toLocaleString()
                                       : " "
                               : " "}
-                          Won
+                          &nbsp; Won
                           </div>
                           <div className="img">
                             <img
