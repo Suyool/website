@@ -177,5 +177,21 @@ return [
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
     "GET_SUYOOL_NOW"=>"Scan, Download & Open an Account",
+
+    //LLDJ-employee
+    "LLDJBRINGINGYOURPAY"=>"LLDJ is bringing your pay to <br> the ultimate digital account!",
+    //lldj-employee Faq
+    "WHAT_IS_SUYOOL_LLDJ"=>"What is Suyool?",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_LLDJ"=>"Suyool is a cashless ecosystem that incorporates users & corporate accounts, card payments, external transfers, and secured payment systems.",
+    "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Can anyone open a Suyool account?",
+    "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Any Lebanese citizen can open a Suyool account with just their Lebanese mobile number & Lebanese identification. ",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_LLDJ"=>"What are the benefits for LLDJ employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_LLDJ"=>"LLDJ employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an LLDJ employee. ",
+    "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ"=>"Is there any fee to get my Suyool Platinum Mastercard?",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_LLDJ"=>"Your Suyool Mastercard will be free-of-charge as long as you are an LLDJ employee.",
+    "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ"=>"Where can I use my Suyool Platinum Mastercard?",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_LLDJ"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_LLDJ"=>"Where can I withdraw my salary in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_LLDJ"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
     
 ];
