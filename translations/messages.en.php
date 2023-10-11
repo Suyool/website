@@ -8,7 +8,7 @@ return [
     "DESCRIPTION"=>"Coffee :)",
     "CHOOSE_HOW_TO_PAY_THEM"=>"Choose how to pay them:",
     "PAY_WITH_SUYOOL"=>"Pay with Suyool",
-    "TOP_UP_ACCOUNT" => "Top Up your Account",
+    "TOP_UP_ACCOUNT" => "Pay with any card",
     "ENROLL_TO_SUYOOL_IN_3_MINUTES"=>"Enroll to Suyool in 3 minutes & easily pay with your phone",
     "TOP_UP_YOUR_ACCOUNT_DESC" => "Top up their wallet with any debit or credit card",
     "CASH_INPUT"=>"Cash input",

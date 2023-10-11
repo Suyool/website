@@ -61,22 +61,8 @@
 				</div>
 			</a>
 		{% endif %}
-		{% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
-			<a type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
-				<div class="row">
-					<div class="col-2 logo_container">
-						<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
-					</div>
-					<div class="col-10 text_container">
-						<div class="sub_title">Cash input</div>
-						<div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
-					</div>
-				</div>
-			</a>
-		{% endif %}
-
-		{% if request_details_response.allowCardTopup is defined  and request_details_response.allowCardTopup != "false" and request_details_response.allowCardTopup is not  null %}
-			<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+		{% if request_details_response.allowCardTopup is defined  and request_details_response.allowCardTopup != "false" and request_details_response.allowCardTopup is not null %}
+			<div class="container-fluid choose_way open-suyool-account">
 				<a id="topUpButton">
 					<div class="row">
 						<div class="col-2 logo_container">
@@ -94,6 +80,21 @@
 				</a>
 			</div>
 		{% endif %}
+		{% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
+			<a type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
+				<div class="row">
+					<div class="col-2 logo_container">
+						<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
+					</div>
+					<div class="col-10 text_container">
+						<div class="sub_title">Cash input</div>
+						<div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
+					</div>
+				</div>
+			</a>
+		{% endif %}
+
+		
 
 
 		<a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
