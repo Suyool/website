@@ -290,8 +290,9 @@ class SuyoolServices
         if ($status === 400) {
             $request_details_response = $response->toArray(false);
         } else {
-            $request_details_response = $response->toArray();
+            $request_details_response = $response->toArray(false);
         }
+        // dd($request_details_response);
 
         return $request_details_response;
     }

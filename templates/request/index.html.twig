@@ -1,82 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Payment{% endblock %}
+{% block title %}Payment
+{% endblock %}
 
 {% block body %}
-    <div class="container how_to_send_money">
-        
-        {% if request_details_response.image is defined and request_details_response.image is not null and request_details_response.image != "" %}
-        <img class="user_img" src="{{request_details_response.image}}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
-        {% endif %}
-        <div class="user_name">{% if request_details_response.senderName is defined %}{{request_details_response.senderName}}{% else %}{{ 'FNAME_LNAME'|trans }}{% endif %}</div>
-        <div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>
-        {# <div class="methode">{% if request_details_response.RespTitle is defined %}{{request_details_response.RespTitle}}{% else %}{{ 'IS_REQUESTING'|trans  }}{% endif %}</div> #}
-        <div class="amount">{% if request_details_response.amount is defined %}{{request_details_response.amount}}{% else %}{{'PRICE'|trans}}{% endif %}</div>
-        <div class="desc">{% if request_details_response.transferReason is defined %}{{request_details_response.transferReason}}{% else %}{{'DESCRIPTION'|trans}}{% endif %}</div>
-    </div>
+	<div class="container how_to_send_money">
 
-    <div class="container how_to_pay">
-        <div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
+		{% if request_details_response.image is defined and request_details_response.image is not null and request_details_response.image != "" %}
+			<img class="user_img" src="{{request_details_response.image}}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
+		{% endif %}
+		<div class="user_name">
+			{% if request_details_response.senderName is defined %}
+				{{request_details_response.senderName}}
+			{% else %}
+				{{ 'FNAME_LNAME'|trans }}
+			{% endif %}
+		</div>
+		<div class="methode">{{ 'IS_REQUESTING'|trans  }}</div>
+		{# <div class="methode">{% if request_details_response.RespTitle is defined %}{{request_details_response.RespTitle}}{% else %}{{ 'IS_REQUESTING'|trans  }}{% endif %}</div> #}
+		<div class="amount">
+			{% if request_details_response.amount is defined %}
+				{{request_details_response.amount}}
+			{% else %}
+				{{'PRICE'|trans}}
+			{% endif %}
+		</div>
+		<div class="desc">
+			{% if request_details_response.transferReason is defined %}
+				{{request_details_response.transferReason}}
+			{% else %}
+				{{'DESCRIPTION'|trans}}
+			{% endif %}
+		</div>
+	</div>
 
-        <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
-            <div class="row">
-                <div class="col-2 logo_container">
-                    <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}" >
-                </div>
-                <div class="col-10 text_container">
-                    <div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
-                    <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
-                </div>
-            </div>
-        </div>
-        {% if request_details_response.allowExternal is defined  and request_details_response.allowExternal != "false" and request_details_response.allowExternal is not null %}
-            <a class="container-fluid choose_way" href="/request/visaCard">
-                <div class="row">
-                    <div class="col-2 logo_container">
-                        <img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}" >
-                    </div>
-                    <div class="col-10 text_container">
-                        <div class="sub_title">{{'PAY_WITH_CARD'|trans}}</div>
-                        <div class="desc">{{'PAT_WITH_CARD_DESC'|trans}}</div>
-                    </div>
-                </div>
-            </a>
-        {% endif %}
-            {% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
-                <a  type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
-                    <div class="row">
-                        <div class="col-2 logo_container">
-                            <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}" >
-                        </div>
-                        <div class="col-10 text_container">
-                            <div class="sub_title">Cash input</div>
-                            <div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
-                        </div>
-                    </div>
-                </a>
-        {% endif %}
+	<div class="container how_to_pay">
+		<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
 
-        {% if request_details_response.allowCardTopup is defined  and request_details_response.allowCardTopup != "false" and request_details_response.allowCardTopup is not null %}
-            <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
-                <a id="topUpButton">
-                    <div class="row">
-                        <div class="col-2 logo_container">
-                            <img class="logo" src="{{ asset('build/images/payment/cash_input.jpg') }}">
-                        </div>
-                        <div class="col-10 text_container">
-                            <div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
-                            <div class="desc">{{ 'TOP_UP_YOUR_ACCOUNT_DESC'|trans }}</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {% endif %}
+		<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+			<div class="row">
+				<div class="col-2 logo_container">
+					<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}">
+				</div>
+				<div class="col-10 text_container">
+					<div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
+					<div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
+				</div>
+			</div>
+		</div>
+		{% if request_details_response.allowExternal is defined  and request_details_response.allowExternal != "false" and request_details_response.allowExternal is not null %}
+			<a class="container-fluid choose_way" href="/request/visaCard">
+				<div class="row">
+					<div class="col-2 logo_container">
+						<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
+					</div>
+					<div class="col-10 text_container">
+						<div class="sub_title">{{'PAY_WITH_CARD'|trans}}</div>
+						<div class="desc">{{'PAT_WITH_CARD_DESC'|trans}}</div>
+					</div>
+				</div>
+			</a>
+		{% endif %}
+		{% if request_details_response.allowCashin is defined and request_details_response.allowCashin != "false" and request_details_response.allowCashin != "False" and request_details_response.allowCashin is not null %}
+			<a type="button" class="container-fluid choose_way copy-to-clipboard" href="/request/generateCode">
+				<div class="row">
+					<div class="col-2 logo_container">
+						<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
+					</div>
+					<div class="col-10 text_container">
+						<div class="sub_title">Cash input</div>
+						<div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
+					</div>
+				</div>
+			</a>
+		{% endif %}
 
-        
-        <a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
+		{% if request_details_response.allowCardTopup is defined  and request_details_response.allowCardTopup != "false" and request_details_response.allowCardTopup is not  null %}
+			<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+				<a id="topUpButton">
+					<div class="row">
+						<div class="col-2 logo_container">
+							<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
+						</div>
+						<div class="col-10 text_container">
+							<div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
+							<div class="desc">{{ 'TOP_UP_YOUR_ACCOUNT_DESC'|trans }}</div>
+							<div class="sub-desc">
+								{{request_details_response.cardtopupadditionalData}}
+							</div>
 
-    </div>
-    <form style="display: none" name="myFormRequest" id="myFormRequest" method="post" action="{{app.request.schemeAndHttpHost}}/topup">
-        <input type="hidden" name="Request" value="true">
-    </form>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endif %}
+
+
+		<a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
+
+	</div>
+	<form style="display: none" name="myFormRequest" id="myFormRequest" method="post" action="{{app.request.schemeAndHttpHost}}/topup">
+		<input type="hidden" name="Request" value="true">
+	</form>
 {% endblock %}

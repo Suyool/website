@@ -175,8 +175,8 @@ class RequestController extends AbstractController
         if (isset($_POST['submit'])) {
             if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
                 $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['fname'], $_POST['lname']);
-
-                if ($parameters['cashin']['globalCode'] == 0) {
+                if ($parameters['cashin']['globalCode'] != 0) {
+                    
                     $parameters['message'] = $parameters['cashin']['message'];
                     return $this->render('request/generateCode.html.twig', $parameters);
                 } else {

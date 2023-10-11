@@ -4,9 +4,9 @@ text-align: center;
         display: flex;
         justify-content: space-between;
         background-color: #226D96;
-        padding: 13px;
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
+        padding: 19px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
         color: #ffffff;
         font-weight: bolder;
         .back{
@@ -20,7 +20,7 @@ text-align: center;
         }
     }
 
-    background-color: #767676;
+    // background-color: #767676;
     height: 125vh;
     overflow: hidden;
 
@@ -44,7 +44,7 @@ text-align: center;
         .continueBtn {
             background-color: #226d96;
             color: #fff;
-            padding: 12px;
+            padding: 17px;
             border-radius: 6px;
             width: 86%;
             font-family: $Medium;

@@ -123,7 +123,7 @@ if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
 //     clickOne("https://suyoolapp.page.link/app", "", "/");
 //   });
 // }
-
+if (document.getElementById("openSuyoolAccount")) {
 document.addEventListener("DOMContentLoaded", function() {
   // Get a reference to the button element by its ID
   var openSuyoolAccountButton = document.getElementById("openSuyoolAccount");
@@ -142,3 +142,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
+}

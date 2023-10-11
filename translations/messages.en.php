@@ -10,7 +10,7 @@ return [
     "PAY_WITH_SUYOOL"=>"Pay with Suyool",
     "TOP_UP_ACCOUNT" => "Top Up your Account",
     "ENROLL_TO_SUYOOL_IN_3_MINUTES"=>"Enroll to Suyool in 3 minutes & easily pay with your phone",
-    "TOP_UP_YOUR_ACCOUNT_DESC" => "Top Up your Account with Suyool",
+    "TOP_UP_YOUR_ACCOUNT_DESC" => "Top up their wallet with any debit or credit card",
     "CASH_INPUT"=>"Cash input",
     "VISIT_THE_NEAREST_ADD_MONEY"=>"Visit the nearest ….. & add money to their Suyool wallet",
     "LEARN_MORE_ABOUT_SUYOOL"=>"Learn more about Suyool",
