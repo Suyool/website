@@ -1,6 +1,7 @@
 .loaderTopUp {
 text-align: center;
     .mobheader {
+        opacity: .5;
         display: flex;
         justify-content: space-between;
         background-color: #226D96;
@@ -23,6 +24,7 @@ text-align: center;
     // background-color: #767676;
     height: 125vh;
     overflow: hidden;
+    background-color: #767676;
 
     img {
         width: 41%;
