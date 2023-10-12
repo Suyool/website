@@ -731,7 +731,7 @@
 //   }
 // }
 
-@supports (-webkit-touch-callout: none) {
+// @supports (-webkit-touch-callout: none) {
   @media 
 (-webkit-min-device-pixel-ratio: 2), 
 (min-resolution: 192dpi) { 
@@ -739,4 +739,4 @@
       zoom: 0.8;
     }
 } 
-}
+// }
