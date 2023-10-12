@@ -46,7 +46,7 @@
                             {# {{ path('category_show', {'id': nextCategory.id, 'categoryId':nextCategory.questions[0].id}) }} #}
                                 <a href="/category/{{ nextCategory.id }}/{{ nextCategory.questions[0].id }}/{{ nextCategory.questions[0].question|slugifyQuestion }}">
                                     <div class="category-icon">
-                                        <img width="100px" style="border-radius: 50%"
+                                        <img width="100px"
                                              src="{{ asset('images/questionsCategories/' ~ nextCategory.image) }}"
                                              alt="">
                                     </div>
