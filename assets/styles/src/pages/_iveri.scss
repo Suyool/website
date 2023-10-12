@@ -1,5 +1,8 @@
 .loaderTopUp {
 text-align: center;
+.topiveri{
+    width: 100%;
+}
     .mobheader {
         opacity: .7;
         display: flex;
@@ -31,8 +34,9 @@ text-align: center;
         width: 41%;
         @media screen and (max-width:768px) {
             width: 100%;
+            height: auto;
         }
-        // height: 45vh;
+        height: 60%;
     }
 
     #submitTopUp {
@@ -49,7 +53,7 @@ text-align: center;
             color: #fff;
             padding: 17px;
             border-radius: 6px;
-            width: 86%;
+            width: 330px;
             font-family: $Medium;
             border: none;
         }
@@ -71,6 +75,9 @@ text-align: center;
         padding: 27px;
         border-radius: 10px;
         width: fit-content;
+        @media screen and (min-width:998px) {
+            width: 450px;
+        }
 
         .desc {
             margin-bottom: 18px;
@@ -87,7 +94,7 @@ text-align: center;
         }
 
         .action {
-            width: 100%;
+            width: 330px;
             padding: 10px;
             color: #ffffff;
             border: none;

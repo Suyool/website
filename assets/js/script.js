@@ -367,8 +367,16 @@ $(document).ready(function() {
 //   document.getElementById("myFormTopUp").submit();
 // }
 
-if(document.getElementById("topUpButton")){
-  document.getElementById("topUpButton").addEventListener("click", function () {
+if(document.getElementById("topUpButtonMob")){
+  document.getElementById("topUpButtonMob").addEventListener("click", function () {
+    // Submit the form
+    document.getElementById("myFormRequest").submit();
+  });
+}
+
+
+if(document.getElementById("topUpButtonDesk")){
+  document.getElementById("topUpButtonDesk").addEventListener("click", function () {
     // Submit the form
     document.getElementById("myFormRequest").submit();
   });
@@ -403,7 +411,7 @@ if(document.querySelector(".actionBrowser")){
   const actionBrowser=document.querySelector(".actionBrowser");
   actionBrowser.addEventListener("click", function () {
     // Submit the form
-    window.location.href = "https://suyool.com/app-install";
+    window.location.href = "/";
   });
 }
 

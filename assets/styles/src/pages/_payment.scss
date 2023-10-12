@@ -448,13 +448,15 @@
     .modal {
         .modal-dialog {
             .modal-content {
+                border: none;
+                border-radius: 1.4rem;
                 .modal-container {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
 
                     .logo {
-                        margin: 45px 0 20px 0;
+                        margin: 0px 0 20px 0;
                     }
 
                     .title {
@@ -463,6 +465,7 @@
                         font-weight: bold;
                         width: unset;
                         margin: unset;
+                        color: #216D96;
                     }
 
                     .desc {
@@ -481,7 +484,7 @@
                         font-weight: bold;
                         font-size: 16px;
                         border-radius: 10px;
-                        margin: 45px 0 20px 0;
+                        margin: 0px 0 20px 0;
                     }
                 }
             }

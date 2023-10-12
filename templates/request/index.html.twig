@@ -66,8 +66,8 @@
 		{% endif %}
 		{% if request_details_response.allowCardTopup is defined and request_details_response.allowCardTopup != "false"
 		and request_details_response.allowCardTopup is not null %}
-		<div class="container-fluid choose_way open-suyool-account">
-			<a id="topUpButton">
+		<div class="container-fluid choose_way">
+			<a id="topUpButtonDesk">
 				<div class="row">
 					<div class="col-md-3 col-2 logo_container">
 						<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
@@ -161,8 +161,8 @@
 		{% endif %}
 		{% if request_details_response.allowCardTopup is defined and request_details_response.allowCardTopup != "false"
 		and request_details_response.allowCardTopup is not null %}
-		<div class="container-fluid choose_way open-suyool-account">
-			<a id="topUpButton">
+		<div class="container-fluid choose_way ">
+			<a id="topUpButtonMob">
 				<div class="row">
 					<div class="col-2 logo_container">
 						<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">

@@ -48,7 +48,7 @@ class IveriController extends AbstractController
             $nonSuyooler=$this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $data=json_decode($nonSuyooler[1],true);
             $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $data['TotalAmount'] * 100, "it@suyool.com");
-
+            $senderName=$sessionInterface->get('SenderInitials');
             
             
 
@@ -59,7 +59,8 @@ class IveriController extends AbstractController
                 'userid' => NULL,
                 'timestamp' => time(),
                 'topup' => "false",
-                'token' => $token
+                'token' => $token,
+                'senderName'=>$senderName
             ];
             return $this->render('iveri/index.html.twig', $parameters);
         }

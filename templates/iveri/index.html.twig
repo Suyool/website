@@ -4,6 +4,10 @@
 	{% if status is not defined %}
 
 		<div class="loaderTopUp">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri">
+				
+			</div>
 			{% if topup is  defined and topup == "true" %}
 				<div class="mobheader">
 					<div class="back">
@@ -21,7 +25,12 @@
 		</div>
 		{% include 'iveri/hiddenForm.html.twig' %}
 	{% else %}
+		<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri">
+				
+			</div>
 		<div class="entireBody">
+			
 			<div class="popup">
 				<div class="image">
 					<img src="{{ asset(imgsrc) }}" alt="">
