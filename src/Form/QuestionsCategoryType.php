@@ -41,6 +41,7 @@ class QuestionsCategoryType extends AbstractType
             ->add('image', FileType::class, [
                 'label' => 'Category Image',
                 'required' => false, // Make it optional
+                'data' => null
             ]);
 
     }

@@ -44,9 +44,13 @@ class QuestionsCategoriesController extends AbstractController
     public function create(Request $request, QuestionsCategory $category = null, SluggerInterface $slugger): Response
     {
         $isNewCategory = ($category === null);
+        $existingImage = null;
 
         if ($isNewCategory) {
             $category = new QuestionsCategory();
+        } else {
+            // If editing, store the existing image to set it back if no new image is uploaded
+            $existingImage = $category->getImage();
         }
 
         $form = $this->createForm(QuestionsCategoryType::class, $category);
@@ -73,6 +77,9 @@ class QuestionsCategoriesController extends AbstractController
 
                 // Set the image property to the new filename
                 $category->setImage($newFilename);
+            }elseif (!$isNewCategory && !$imageFile) {
+                // When editing, if no new image is uploaded, set the existing image back
+                $category->setImage($existingImage);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
