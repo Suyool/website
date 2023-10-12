@@ -1,6 +1,115 @@
 .payment_landingPage {
     background-color: #F1F3F5;
 
+    // .desktop-logo{
+    //     background-image: url("../../../images/payment/nonsuyooler-flow-suyool-cover-desktop.svg");
+    // }
+    .how_to_send_money {
+        // background-color: aqua;
+        align-items: center;
+        display: flex;
+        /* flex-direction: column; */
+        /* margin-top: 50px; */
+        justify-content: center;
+
+        .user_img {
+            padding: 36px;
+            width: 185px;
+            border-radius: 50%;
+            height: 175px;
+            // margin-left: 60px;
+        }
+
+        .user_name {
+            font-size: 40px;
+            font-family: $Bold;
+            font-weight: bold;
+        }
+
+        .methode {
+            font-size: 40px;
+            font-family: $Regular;
+            padding-top: 5px;
+        }
+
+        .amount {
+            font-size: 60px;
+            font-family: $Bold;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+    }
+    .descReason{
+        font-size: 40px;
+        font-family: $Regular;
+        text-align: center;
+        position: relative;
+        top: -60px;
+    }
+    .how_to_pay {
+        // margin-top: 60px;
+        // background-color: rgb(120, 179, 12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 515px;
+        margin-bottom: 50px;
+
+        .title {
+            font-size: 27px;
+            font-family: $Bold;
+            width: 90%;
+            padding-bottom: 10px;
+        }
+
+        .choose_way {
+            cursor: pointer;
+            padding: 15px;
+            border: 1px solid #DEDEDE;
+            margin-bottom: 25px;
+            background-color: white;
+
+            .logo_container {
+                display: flex;
+                align-items: center;
+
+                .logo {
+                    width: 100%;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+            .text_container {
+                .sub_title {
+                    font-size: 20px;
+                    font-family: $Bold;
+                    font-weight: bold;
+                }
+
+                .desc {
+                    font-size: 18px;
+                    font-family: $Regular;
+                    max-width: 100%;
+                }
+
+                .sub-desc {
+                    font-size: 16px;
+                    color: #9A9A9A;
+                }
+            }
+        }
+
+        .lear_abou_suyool {
+            color: #373464;
+            font-family: $Bold;
+            font-weight: bold;
+            font-size: 12px;
+            text-decoration: underline;
+        }
+    }
+ @media screen and (max-width:998px) {
     .how_to_send_money {
         // background-color: aqua;
         display: flex;
@@ -39,7 +148,6 @@
             font-family: $Regular;
         }
     }
-
     .how_to_pay {
         margin-top: 60px;
         // background-color: rgb(120, 179, 12);
@@ -103,6 +211,10 @@
             text-decoration: underline;
         }
     }
+ }
+    
+
+    
 
     .modal {
         .modal-dialog {
@@ -148,11 +260,21 @@
 
 .generate_Code {
     background-color: #F1F3F5;
-
+.needhelp{
+    color: #373464;
+    font-size: 16px;
+    padding-bottom: 45px;
+    font-family: $Regular;
+    a{
+        font-family: $SemiBold;
+        text-decoration: underline;
+    }
+}
     .generatecode {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-top: 20px;
 
         // .error{
         //     display: none;
@@ -161,6 +283,9 @@
             font-family: $Bold;
             font-weight: bold;
             font-size: 16px;
+            @media screen and (min-width:998px) {
+                font-size: 30px;
+            }
             margin: 30px 0 20px 0;
         }
 
@@ -170,7 +295,8 @@
 
             span {
                 display: block;
-                padding-top: 60px;
+                padding-top: 19px;
+                text-align: center;
             }
         }
 
@@ -181,7 +307,8 @@
             font-family: $Bold;
             font-size: 16px;
             border-radius: 10px;
-            margin: 65px 0 200px 0;
+            margin: 65px 0 56px 0;
+            width: 330px;
         }
     }
 
@@ -193,6 +320,9 @@
             font-size: 10px;
             color: #7588A0;
             font-family: $Regular ;
+            @media screen and (min-width:998px) {
+                font-size: 15px;
+            }
 
             span {
                 display: block;
@@ -212,6 +342,10 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+            @media screen and (min-width:998px) {
+                padding: 20px 20px;
+                font-size: 20px;
+            }
         }
 
         input[type=tel],
@@ -224,6 +358,10 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+            @media screen and (min-width:998px) {
+                padding: 20px 20px;
+                font-size: 20px;
+            }
         }
 
         .center {
@@ -244,6 +382,17 @@
 }
 
 .generatecode2 {
+    .needhelp{
+        color: #373464;
+        font-size: 16px;
+        padding-bottom: 45px;
+        font-family: $Regular;
+        a{
+            font-family: $SemiBold;
+            text-decoration: underline;
+        }
+    }
+    padding-top: 20px;
     .bobbranches {
         .bob {
             text-decoration: underline;
@@ -261,8 +410,12 @@
         font-family: $Bold;
         font-weight: bold;
         font-size: 16px;
-        margin: 30px 0 80px 0;
+        @media screen and (min-width:998px) {
+            font-size: 41px;
+        }
+        margin: 30px 0 30px 0;
         width: 80%;
+        text-align: center;
     }
 
     .code {
@@ -286,6 +439,9 @@
     .note {
         font-family: $Regular;
         font-size: 12px;
+        @media screen and (min-width:998px) {
+            font-size: 25px;
+        }
         margin: 0 0 51px 0;
     }
 

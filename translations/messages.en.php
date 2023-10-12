@@ -6,7 +6,7 @@ return [
     "IS_REQUESTING"=>"is requesting",
     "PRICE"=>"$200",
     "DESCRIPTION"=>"Coffee :)",
-    "CHOOSE_HOW_TO_PAY_THEM"=>"Choose how to pay them:",
+    "CHOOSE_HOW_TO_PAY_THEM"=>"Choose how to get your money:",
     "PAY_WITH_SUYOOL"=>"Pay with Suyool",
     "TOP_UP_ACCOUNT" => "Pay with any card",
     "ENROLL_TO_SUYOOL_IN_3_MINUTES"=>"Enroll to Suyool in 3 minutes & easily pay with your phone",

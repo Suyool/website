@@ -3,12 +3,18 @@
 {% block title %}Generated Code{% endblock %}
 
 {% block body %}
+  <div class="desktopMode desktop-logo">
+		<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
+        
+	</div>
 <div class="generatecode2 container">
+  <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
     <div class="title">{{'CODE'|trans}}</div>
     <div class="code">{{cashin.data}}</div>
     <button  type="button" class="btn copy-to-clipboard" data-to-copy={{cashin.data}} data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{'COPY_CODE'|trans}}</button>
     <div class="note">{{ 'VALID_24HRS'|trans }}</div>
     <div class="bobbranches"><a href="https://www.bob-finance.com/inside/subagents" class="bob" target="_blank">700+ cash points</a></div>
+    <div class="needhelp">Need help?<a href="">Contact us</a></div>
     <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

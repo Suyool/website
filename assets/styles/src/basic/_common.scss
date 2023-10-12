@@ -2,9 +2,9 @@
   margin: 0;
 }
 
-.offcanvas-body{
-  .nav-link{
-    color: #fff!important;
+.offcanvas-body {
+  .nav-link {
+    color: #fff !important;
 
   }
 }
@@ -12,7 +12,7 @@
 .ar {
   text-align: right;
   direction: rtl;
-  letter-spacing: 0px!important;
+  letter-spacing: 0px !important;
 }
 
 body {
@@ -73,12 +73,15 @@ a:hover {
   position: relative;
   top: 100px;
 }
+
 .tryagain {
   padding-top: 32vh;
   text-align: center;
+
   h2 {
     color: #3f6e98;
   }
+
   .close {
     border: none;
     padding: 13px 57px;
@@ -88,20 +91,32 @@ a:hover {
     border-radius: 10px;
   }
 }
+
 .mobileMode {
   display: none;
 }
+
 .desktopMode {
   display: block;
 }
-.tabletMode{
+
+.tabletMode {
   display: none;
 }
+
+.tabletmobileMode {
+  display: none;
+}
+
 @media screen and (max-width:992px) and (min-width:767px) {
-  .desktopMode{
-    display:none;
+  .desktopMode {
+    display: none;
   }
-  .tabletMode{
+
+  .tabletMode {
+    display: block;
+  }
+  .tabletmobileMode {
     display: block;
   }
 }
@@ -110,11 +125,16 @@ a:hover {
   .mobileMode {
     display: block;
   }
+
   .desktopMode {
     display: none;
   }
-  .tabletMode{
+
+  .tabletMode {
     display: none;
+  }
+  .tabletmobileMode {
+    display: block;
   }
 }
 
@@ -130,6 +150,7 @@ a:hover {
   justify-content: space-evenly;
   align-items: center;
   direction: ltr;
+
   .lang_sec {
     display: flex;
     align-items: center;
@@ -144,6 +165,7 @@ a:hover {
     text-align: center;
     border-radius: 5px;
   }
+
   .lang_sec_selected {
     display: flex;
     align-items: center;
@@ -160,9 +182,10 @@ a:hover {
   }
 }
 
-.getTheApp{
+.getTheApp {
   text-align: center;
-  .title{
+
+  .title {
     color: #226d96;
     font-family: PoppinsMedium;
     font-size: 22px;
@@ -171,24 +194,29 @@ a:hover {
     text-align: center;
     text-transform: uppercase;
   }
-  .desc{
+
+  .desc {
     color: #374a5a;
     font-family: PoppinsSemiBold;
     font-size: 35px;
     margin-bottom: 30px;
     text-align: center;
   }
-  .qr{
+
+  .qr {
     padding-bottom: 32px;
-    img{
+
+    img {
       width: 11%;
     }
   }
-  .download{
+
+  .download {
     display: flex;
     justify-content: center;
     padding-bottom: 70px;
-    img{
+
+    img {
       width: 90%;
       padding: 30px;
     }
@@ -199,12 +227,14 @@ a:hover {
   #language_selection {
     display: none;
   }
+
   #language-dropdown {
     z-index: 1000;
     position: absolute;
     right: 40px;
     top: 45px;
     width: 64px;
+
     select {
       border: none;
       border-radius: 5px;
@@ -215,6 +245,7 @@ a:hover {
       color: white;
       font-family: $Regular;
       background-color: #226d96;
+
       &:focus {
         background-color: #fff;
         color: #226d96;
