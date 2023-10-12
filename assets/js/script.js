@@ -145,11 +145,12 @@ function clickOne(downloadAppUrl, conversion_code, uri) {
 }
 
 if (document.querySelector(".open-suyool-account")) {
-  const open_suyool_account = document.querySelector(".open-suyool-account");
-
-  open_suyool_account.addEventListener("click", function () {
+  const open_suyool_account = document.querySelectorAll(".open-suyool-account");
+  open_suyool_account.forEach(function (element) {
+    element.addEventListener("click", function () {
     clickOne("https://suyoolapp.page.link/app", "", "/");
   });
+});
 }
 
 if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
