@@ -26,8 +26,8 @@ class DeepLinksController extends AbstractController
 
 
         if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-                $redirectUrlAndroid = 'suyoolpay://suyool.com/suyool?flag=' . $flag;
-                $redirectUrlIOS = 'suyoolpay://suyool.com/suyool=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
+            $redirectUrlAndroid = 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '"}';
+            $redirectUrlIOS = 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
 
                 $parameters['redirectUrlAndroid'] =$redirectUrlAndroid;
                 $parameters['redirectUrlIOS'] =$redirectUrlIOS;
