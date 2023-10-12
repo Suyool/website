@@ -1,7 +1,8 @@
 footer {
   padding-top: 55px;
   min-height: 505px;
-  background-color: #373464; /* For browsers that do not support gradients */
+  background-color: #373464;
+  /* For browsers that do not support gradients */
   background-image: linear-gradient(to left, #373464, #226D96);
 
   .content {
@@ -20,7 +21,7 @@ footer {
         text-align: center;
         flex-wrap: wrap;
 
-        a{
+        a {
           margin: 0 10px;
         }
       }
@@ -41,6 +42,7 @@ footer {
       line-height: 80px;
       margin-bottom: 40px;
       letter-spacing: 2px;
+
       @media screen and (max-width:992px) and (min-width:768px) {
         font-size: 22px;
       }
@@ -53,10 +55,24 @@ footer {
       line-height: 80px;
       display: block;
     }
+
+    .calluson {
+      position: relative;
+      color: #D7D7E2;
+      font-family: $Regular;
+      font-size: 18px;
+      display: block;
+
+      img {
+        position: absolute;
+        left: -50px;
+      }
+    }
   }
 
   @media (max-width: 768px) {
     background-image: linear-gradient(to top, #373464, #226D96);
+
     .content {
       .title_A {
         font-size: 16px;
@@ -75,13 +91,14 @@ footer {
       .title-mobile {
         text-align: center;
 
-        img{
+        img {
           width: 108px;
         }
 
-        .SmartTrans{
+        .SmartTrans {
           font-size: 24px;
         }
+
         span {
           font-size: 24px;
         }
@@ -92,9 +109,10 @@ footer {
           text-align: center;
           justify-content: center;
 
-          a{
+          a {
             margin: 0 10px;
-            img{
+
+            img {
               width: 40px !important;
             }
           }
@@ -108,7 +126,9 @@ footer {
   }
 
   @media (min-width: 769px) {
-    .title-mobile, .mobile {
+
+    .title-mobile,
+    .mobile {
       display: none;
     }
   }
