@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="title">{{ nextCategory.name }}</div>
                                     {% for question in questionsForNextCategories[nextCategory.id] %}
-                                        <a href="{{ path('category_show', {'id': category.id, 'questionId': question.id, 'question': question.question |slugifyQuestion }) }}"><p class="questions questions{{type}}"><span class="dot background{{type}}"></span>{{ question.question }}</p></a>
+                                        <a href="{{ path('category_show', {'id': nextCategory.id, 'questionId': question.id, 'question': question.question |slugifyQuestion }) }}"><p class="questions questions{{type}}"><span class="dot background{{type}}"></span>{{ question.question }}</p></a>
                                     {% endfor %}
 {#                                </a>#}
                         </div>
