@@ -45,3 +45,9 @@ app_request:
   controller: App\Controller\RequestController::index
   requirements:
     code: '^(?:(R|r)[A-Za-z0-9]*)$'
+  name: app_request
+
+app_requesttopay:
+  path: /requestToPay
+  controller: App\Controller\RequestToPayController::index
+  name: app_requesttopay
