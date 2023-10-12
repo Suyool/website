@@ -14,6 +14,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IveriController extends AbstractController
@@ -24,38 +25,46 @@ class IveriController extends AbstractController
     private $notificationServices;
     private $logger;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices,NotificationServices $notificationServices,LoggerInterface $loggerInterface)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface)
     {
         $this->mr = $mr->getManager();
-        $this->suyoolServices=$suyoolServices;
-        $this->notificationServices=$notificationServices;
-        $this->logger=$loggerInterface;
+        $this->suyoolServices = $suyoolServices;
+        $this->notificationServices = $notificationServices;
+        $this->logger = $loggerInterface;
     }
 
     #[Route('/topup', name: 'app_topup')]
-    public function index()
+    public function index(SessionInterface $sessionInterface)
     {
-        $parameters=array();
-        $iveriServices=new IveriServices($this->suyoolServices,$this->logger);
-            $ivericall=$iveriServices->iveriService();
-            if($ivericall[0]){
-                $this->mr->persist($ivericall[1]);
-                $this->mr->flush();
-                return $this->render('iveri/index.html.twig', $ivericall[2]);
-            }     
+        $parameters = array();
+        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
+        $ivericall = $iveriServices->iveriService();
+        if ($ivericall[0]) {
+            $this->mr->persist($ivericall[1]);
+            $this->mr->flush();
+            return $this->render('iveri/index.html.twig', $ivericall[2]);
+        }
         if (isset($_POST['Request'])) {
-                $parameters=[
-                    'amount'=>$_POST['ORDER_AMOUNT'],
-                    'currency'=>$_POST['Currency_AlphaCode'],
-                    'transactionId'=>$_POST['transactionId'],
-                    'userid'=>NULL,
-                    'timestamp'=>time(),
-                    'topup'=> "false"
-                ];
-                $this->suyoolServices->NonSuyoolerTopUpTransaction($_POST['transactionId']);
+            $nonSuyooler=$this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+            $data=json_decode($nonSuyooler[1],true);
+            $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $data['TotalAmount'] * 100, "it@suyool.com");
+
+            
+            
+
+            $parameters = [
+                'amount' => $data['TotalAmount'],
+                'currency' => $data['Currency'],
+                'transactionId' => $sessionInterface->get('TranSimID'),
+                'userid' => NULL,
+                'timestamp' => time(),
+                'topup' => "false",
+                'token' => $token
+            ];
             return $this->render('iveri/index.html.twig', $parameters);
         }
-        // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1B/VZbvSmMG/HFhNWN4KAr27gxgh6vEJCjTb6gwJJWxD!#!2!#!USD!#!15580";
+
+        // $_POST['infoString']="fmh1M9oF9lrMsRTdmDc+OvfRjRPMWs1smgxX96GPEHMY56ga9HGaBr5k2STgz+5p!#!2.0!#!USD!#!15791";
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
@@ -63,21 +72,76 @@ class IveriController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                    $amount = $suyoolUserInfoForTopUp[1];
-                    $currency = $suyoolUserInfoForTopUp[2];
-                    $userid = $suyoolUserInfo[0];
-                    $timestamp = time();
-                    $transactionId=$suyoolUserInfoForTopUp[3];
-                    $parameters=[
-                        'amount'=>$amount,
-                        'currency'=>$currency,
-                        'userid'=>$userid,
-                        'timestamp'=>$timestamp,
-                        'transactionId'=>$transactionId,
-                        'topup'=>"true"
-                    ];
+                $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $suyoolUserInfoForTopUp[1] * 100, "it@suyool.com");
+                $amount = $suyoolUserInfoForTopUp[1];
+                $currency = $suyoolUserInfoForTopUp[2];
+                $userid = $suyoolUserInfo[0];
+                $timestamp = time();
+                $transactionId = $suyoolUserInfoForTopUp[3];
+                $parameters = [
+                    'amount' => $amount,
+                    'currency' => $currency,
+                    'userid' => $userid,
+                    'timestamp' => $timestamp,
+                    'transactionId' => $transactionId,
+                    'topup' => "true",
+                    'token' => $token
+                ];
                 return $this->render('iveri/index.html.twig', $parameters);
             } else return $this->render('ExceptionHandling.html.twig');
         } else return $this->render('ExceptionHandling.html.twig');
+    }
+
+    #[Route('/requestToPay', name: 'app_requesttopay')]
+    public function requestToPay()
+    {
+        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
+
+        if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            $transaction = new Transaction;
+            if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
+                    $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
+                    $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                    $parameters['status'] = true;
+                    $parameters['imgsrc'] = "build/images/Loto/success.png";
+                    $parameters['title'] = "Top Up Successful";
+                    $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                    $parameters['button'] = "Continue";
+                }
+             else {
+                    $parameters['status'] = false;
+                    $parameters['imgsrc'] = "build/images/Loto/error.png";
+                    $parameters['title'] = "Top Up Failed";
+                    $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $parameters['button'] = "Try Again";
+            }
+            $parameters['info']=false;
+            $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
+            $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
+            $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
+            $transaction->setDescription($_POST['LITE_RESULT_DESCRIPTION']);
+            $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
+            $transaction->setResponse(json_encode($_POST));
+            $transaction->setflagCode("testing");
+            $transaction->setError("testing");
+            $transaction->setAuthCode("testing");
+            $transaction->setTransactionId(2);
+
+            $this->mr->persist($transaction);
+            $this->mr->flush();
+
+            return $this->render('iveri/index.html.twig', $parameters);
+        }
+
+        $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", 50 * 100, "it@suyool.com");
+
+        $parameters = [
+            'amount' => 50,
+            'currency' => "USD",
+            'timestamp' => time(),
+            'topup' => "false",
+            'token' => $token
+        ];
+        return $this->render('iveri/test.html.twig', $parameters);
     }
 }

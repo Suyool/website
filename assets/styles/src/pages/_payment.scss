@@ -1,40 +1,46 @@
-.payment_landingPage{
-    background-color: #F1F3F5 ;
-        .how_to_send_money{
+.payment_landingPage {
+    background-color: #F1F3F5;
+
+    .how_to_send_money {
         // background-color: aqua;
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 50px;
-        .user_img{
+
+        .user_img {
             padding: 20px;
             width: 185px;
             border-radius: 50%;
             height: 175px;
         }
-        .user_name{
+
+        .user_name {
             font-size: 21px;
             font-family: $Bold;
             font-weight: bold;
         }
-        .methode{
+
+        .methode {
             font-size: 21px;
             font-family: $Regular;
             padding-top: 5px;
         }
-        .amount{
+
+        .amount {
             font-size: 40px;
             font-family: $Bold;
             font-weight: bold;
             padding: 0 20px;
         }
-        .desc{
+
+        .desc {
             font-size: 18px;
             font-family: $Regular;
         }
     }
-    
-    .how_to_pay{
+
+    .how_to_pay {
         margin-top: 60px;
         // background-color: rgb(120, 179, 12);
         display: flex;
@@ -42,40 +48,54 @@
         align-items: center;
         max-width: 500px;
         margin-bottom: 50px;
-        .title{
+
+        .title {
             font-size: 12px;
             font-family: $Bold;
             width: 80%;
             padding-bottom: 10px;
         }
-        .choose_way{
+
+        .choose_way {
             cursor: pointer;
             padding: 15px;
             border: 1px solid #DEDEDE;
             margin-bottom: 25px;
             background-color: white;
-            .logo_container{
-                .logo{
+
+            .logo_container {
+                display: flex;
+                align-items: center;
+
+                .logo {
                     width: 46px;
                     display: block;
                     margin-left: auto;
                     margin-right: auto;
                 }
             }
-            .text_container{
-                .sub_title{
+
+            .text_container {
+                .sub_title {
                     font-size: 14px;
                     font-family: $Bold;
                     font-weight: bold;
                 }
-                .desc{
-                    font-size: 12px;
+
+                .desc {
+                    font-size: 11px;
                     font-family: $Regular;
-                    max-width: 70%;
+                    max-width: 100%;
+                }
+
+                .sub-desc {
+                    font-size: 13px;
+                    color: #9A9A9A;
                 }
             }
         }
-        .lear_abou_suyool{
+
+        .lear_abou_suyool {
             color: #373464;
             font-family: $Bold;
             font-weight: bold;
@@ -84,30 +104,34 @@
         }
     }
 
-    .modal{
-        .modal-dialog{
-            .modal-content{
-                .modal-container{
+    .modal {
+        .modal-dialog {
+            .modal-content {
+                .modal-container {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    .logo{
+
+                    .logo {
                         margin: 45px 0 20px 0;
                     }
-                    .title{
+
+                    .title {
                         font-size: 15px;
                         font-family: $Bold;
                         font-weight: bold;
                     }
-                    .desc{
+
+                    .desc {
                         font-size: 12px;
                         font-family: $Regular;
                         margin: 15px 0 20px 0;
                         text-align: center;
                     }
-                    .btnDone{
+
+                    .btnDone {
                         padding: 15px 120px;
-                        background-color: #F4F4F4 ;
+                        background-color: #F4F4F4;
                         color: black;
                         font-family: $Bold;
                         font-weight: bold;
@@ -122,32 +146,37 @@
     }
 }
 
-.generate_Code{
-    background-color: #F1F3F5 ;
-    .generatecode    {
+.generate_Code {
+    background-color: #F1F3F5;
+
+    .generatecode {
         display: flex;
         flex-direction: column;
         align-items: center;
+
         // .error{
         //     display: none;
         // }
-        .title{
+        .title {
             font-family: $Bold;
             font-weight: bold;
             font-size: 16px;
             margin: 30px 0 20px 0;
         }
-        .desc{
+
+        .desc {
             font-family: $Regular;
             font-size: 16px;
-            span{
+
+            span {
                 display: block;
                 padding-top: 60px;
             }
         }
-        .btn{
+
+        .btn {
             padding: 15px 80px;
-            background-color: #226D96 ;
+            background-color: #226D96;
             color: white;
             font-family: $Bold;
             font-size: 16px;
@@ -155,21 +184,25 @@
             margin: 65px 0 200px 0;
         }
     }
-    form{
+
+    form {
         .innerLabel {
             margin-top: 37px;
             position: absolute;
             margin-left: 21px;
             font-size: 10px;
             color: #7588A0;
-            font-family:$Regular ;
-            span{
+            font-family: $Regular ;
+
+            span {
                 display: block;
                 font-size: 14px;
                 color: #000000;
             }
-          }
-        input[type=text], select {
+        }
+
+        input[type=text],
+        select {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -179,8 +212,10 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-          }
-          input[type=tel], select {
+        }
+
+        input[type=tel],
+        select {
             width: 100%;
             padding: 12px 20px;
             line-height: 31px;
@@ -189,89 +224,101 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-          }
-          .center{
+        }
+
+        .center {
             text-align: center;
-          }
-          input[type=submit], select {
+        }
+
+        input[type=submit],
+        select {
             background-color: #226D96;
             color: #FFFFFF;
-            font-family:$SemiBold ;
+            font-family: $SemiBold ;
             padding: 18px;
             width: 100%;
             text-align: center;
-          }
+        }
     }
-    
+
 }
 
-.generatecode2{
-    .bobbranches{
-        .bob{
+.generatecode2 {
+    .bobbranches {
+        .bob {
             text-decoration: underline;
             font-family: PoppinsRegular;
             color: #373464;
             font-family: $Bold;
         }
     }
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        .title{
-            font-family: $Bold;
-            font-weight: bold;
-            font-size: 16px;
-            margin: 30px 0 80px 0;
-            width: 80%;
-        }
-        .code{
-            font-family: $Bold;
-            font-weight: bold;
-            font-size: 35px;
-        }
-        .btn{
-            padding: 15px 80px;
-            background-color: white ;
-            color: #226D96;
-            font-family: $Bold;
-            font-weight: bold;
-            border: 1px solid #226D96;
-            font-size: 16px;
-            border-radius: 10px;
-            margin: 45px 0 20px 0;
-        }
-        .note{
-            font-family: $Regular;
-            font-size: 12px;
-            margin: 0 0 51px 0;
-        }
-        
-    .modal{
-        .modal-dialog{
-            .modal-content{
-                .modal-container{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        font-family: $Bold;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 30px 0 80px 0;
+        width: 80%;
+    }
+
+    .code {
+        font-family: $Bold;
+        font-weight: bold;
+        font-size: 35px;
+    }
+
+    .btn {
+        padding: 15px 80px;
+        background-color: white;
+        color: #226D96;
+        font-family: $Bold;
+        font-weight: bold;
+        border: 1px solid #226D96;
+        font-size: 16px;
+        border-radius: 10px;
+        margin: 45px 0 20px 0;
+    }
+
+    .note {
+        font-family: $Regular;
+        font-size: 12px;
+        margin: 0 0 51px 0;
+    }
+
+    .modal {
+        .modal-dialog {
+            .modal-content {
+                .modal-container {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    .logo{
+
+                    .logo {
                         margin: 45px 0 20px 0;
                     }
-                    .title{
+
+                    .title {
                         font-size: 15px;
                         font-family: $Bold;
                         font-weight: bold;
                         width: unset;
                         margin: unset;
                     }
-                    .desc{
+
+                    .desc {
                         font-size: 12px;
                         font-family: $Regular;
                         margin: 15px 0 20px 0;
                         text-align: center;
                     }
-                    .btn{
+
+                    .btn {
                         padding: 15px 120px;
-                        background-color: #F4F4F4 ;
+                        background-color: #F4F4F4;
                         border: none;
                         color: black;
                         font-family: $Bold;
@@ -286,25 +333,29 @@
     }
 }
 
-.visaCard{
-    background-color: #F1F3F5 ;
-    .landingpage{
+.visaCard {
+    background-color: #F1F3F5;
+
+    .landingpage {
         display: flex;
         flex-direction: column;
         align-items: center;
-        .title{
+
+        .title {
             font-family: $Bold;
             font-weight: bold;
             font-size: 20px;
             margin: 100px 0;
-            color: #FF0000 ;
+            color: #FF0000;
         }
-        img{
+
+        img {
             width: auto;
         }
-        .btn{
+
+        .btn {
             padding: 15px 80px;
-            background-color: #226D96 ;
+            background-color: #226D96;
             color: white;
             font-family: $Bold;
             font-weight: bold;

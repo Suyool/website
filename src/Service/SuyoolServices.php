@@ -290,8 +290,9 @@ class SuyoolServices
         if ($status === 400) {
             $request_details_response = $response->toArray(false);
         } else {
-            $request_details_response = $response->toArray();
+            $request_details_response = $response->toArray(false);
         }
+        // dd($request_details_response);
 
         return $request_details_response;
     }
@@ -410,18 +411,23 @@ class SuyoolServices
         }
     }
 
-    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$additionalInfo)
+    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
     {
         try {
-            // echo $transId . $statusId . $this->certificate;
-            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $additionalInfo . $this->certificate, true));
+            $sum = (float) $amount;
+            // echo $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate;
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate, true));
+            // echo $Hash;
             $body =[
                 'transactionId' => $transId,
                 'statusId' => $statusId,
                 'referenceNo'=>$referenceNo,
+                'amount'=>$sum,
+                'currency'=>$currency,
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
+            // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
@@ -445,6 +451,7 @@ class SuyoolServices
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
+            // dd($content);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {

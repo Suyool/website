@@ -115,6 +115,10 @@ services:
     App\Service\BobServices:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'BoB' }
+    
+    App\Controller\IveriController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Iveri' }
 
 
 

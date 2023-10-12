@@ -25,7 +25,7 @@
     .navbar_v2 {
       .navbar-nav li {
         .nav-link {
-          color: #216d96!important;
+          color: #216d96;
         }
       }
     }
@@ -67,8 +67,10 @@
 .personal-terms {
   .business-underline {
     border-bottom: none!important;
+    color: #fff;
   }
   .personal-underline {
     border-bottom: 2px solid #216d96;
+    color: #fff;
   }
 }

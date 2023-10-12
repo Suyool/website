@@ -149,7 +149,7 @@ class Transaction
         return $this->authorisationCode;
     }
 
-    public function setAuthCode(string $authorisationCode)
+    public function setAuthCode($authorisationCode)
     {
         $this->authorisationCode = $authorisationCode;
 

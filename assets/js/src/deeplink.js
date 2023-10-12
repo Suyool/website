@@ -101,7 +101,9 @@ if (document.querySelector(".open-suyool-account")) {
 }
 
 if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
-  const open_suyool_account = document.querySelector(".mobileMode .OpenYourSuyoolAccount");
+  const open_suyool_account = document.querySelector(
+    ".mobileMode .OpenYourSuyoolAccount"
+  );
 
   open_suyool_account.addEventListener("click", function () {
     clickOne("https://suyoolapp.page.link/app", "", "/");
@@ -124,21 +126,15 @@ if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
 //   });
 // }
 
-document.addEventListener("DOMContentLoaded", function() {
-  // Get a reference to the button element by its ID
-  var openSuyoolAccountButton = document.getElementById("openSuyoolAccount");
-
-  // Attach a click event listener to the button
-  openSuyoolAccountButton.addEventListener("click", function() {
-    // Check if the user is on a mobile device (window)
+document.addEventListener("DOMContentLoaded", function () {
+  var openSuyoolAccountButton = document.querySelectorAll("#openSuyoolAccount");
+  openSuyoolAccountButton.forEach(function (element) {
+    element.addEventListener("click", function () {
     if (/Mobi|Android/i.test(navigator.userAgent)) {
-      // If it's not a mobile device, call the clickOne function
-      clickOne('https://suyoolapp.page.link/app', '', '/');
-
+      clickOne("https://suyoolapp.page.link/app", "", "/");
     } else {
-      // If it's a mobile device, set the window location
-      window.location.href = '#qrGetTheApp';
-
+      window.location.href = "#qrGetTheApp";
     }
+    });
   });
 });
