@@ -3,6 +3,62 @@
 {% block title %}Payment{% endblock %}
 
 {% block body %}
+
+<div class="desktopMode">
+    <div class="desktop-logo">
+        <img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
+    </div>
+    <div class="container how_to_send_money">
+    {% if payment_details_response.image is defined and payment_details_response.image is not null %}
+    <img class="user_img" src="{{ payment_details_response.image  }}"
+        onerror="this.src='{{asset('build/images/avatar.png')}}'">
+    {% endif %}
+    {% if payment_details_response.senderName is defined and payment_details_response.senderName is not null %}
+    <div class="user_name">{{ payment_details_response.senderName }}</div>
+    {% endif %}
+    <div class="methode">&nbsp;{{ 'SENT_YOU'|trans }}</div>
+    {% if payment_details_response.amount is defined and payment_details_response.amount is not null %}
+    <div class="amount">{{payment_details_response.amount}}</div>
+    {% endif %}
+    {% if payment_details_response.transferReason is defined and payment_details_response.transferReason is not null %}
+    <div class="desc">{{payment_details_response.transferReason}}</div>
+    {% endif %}
+</div>
+
+<div class="container how_to_pay">
+    <div class="title">{{'CHOOSE_HOW_TO_GET_YOUR_MONEY'|trans}}</div>
+
+    <div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+        <div class="row">
+            <div class="col-2 logo_container">
+                <img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}">
+            </div>
+            <div class="col-10 text_container">
+                <div class="sub_title">{{'OPEN_SYYOOL_ACCOUNT'|trans}}</div>
+                <div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
+            </div>
+        </div>
+    </div>
+    {% if payment_details_response.allowCashOut is defined and payment_details_response.allowCashOut != "False" and
+    payment_details_response.allowCashOut != "false" and payment_details_response.allowCashOut is not null %}
+    <a class="container-fluid choose_way" href="/payment/generateCode" title="generate code">
+        <div class="row">
+            <div class="col-2 logo_container">
+                <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
+            </div>
+            <div class="col-10 text_container">
+                <div class="sub_title">{{'WITHDRAW_CASH_FROM_ANY_CASHPOINT'|trans}}</div>
+                <div class="desc">{{'GENERATE_CODE_TO_WITHDRAW_CASH'|trans}}</div>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+
+    <a class="lear_abou_suyool" href="/" title="suyool">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
+
+</div>
+</div>
+<div class="tabletmobileMode">
     <div class="container how_to_send_money">
     {% if payment_details_response.image is defined and payment_details_response.image is not null %}
         <img class="user_img" src="{{ payment_details_response.image  }}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
@@ -50,16 +106,13 @@
         <a class="lear_abou_suyool" href="/" title="suyool">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 
     </div>
+</div>
+    
     <script>
-        {# window.location.assign(window.history.back()); #}
-        {# Self.opener.location.reload (); #}
-        // Check if the page is loaded from a cache or refreshed
-window.addEventListener('pageshow', function(event) {
+    window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
-      // Page was loaded from cache
       location.reload();
     }
   });
-
         </script>
 {% endblock %}

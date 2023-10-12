@@ -382,6 +382,12 @@
 }
 
 .generatecode2 {
+    @media screen and (max-width:768px) {
+        .logo{
+            width: 100px;
+        }
+        
+    }
     .needhelp{
         color: #373464;
         font-size: 16px;
