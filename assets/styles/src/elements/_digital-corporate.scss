@@ -1,3 +1,10 @@
+@media
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  body{
+    zoom: 0.8;
+  }
+}
 .digitalCorp {
   .personal-underline{
     color: #fff;
