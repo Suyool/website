@@ -9,13 +9,13 @@ import DatePicker from "react-datepicker";
 import LegalForm from "./LegalForm";
 
 const ApplyForCorporate = ({ steSent, env }) => {
-  const [ getInfoShowing, setInfoShowing ] = useState(false);
-  const [ modalShow, setModalShow ] = useState(false);
-  const [ getModalTitle, setModalTitle ] = useState("");
-  const [ getModalDes, setModalDes ] = useState("");
-  const [ getDropDown, setDropDown ] = useState([]);
-  const [ getDropDown1, setDropDown1 ] = useState([]);
-  const [ formData, setFormData ] = useState({
+  const [getInfoShowing, setInfoShowing] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [getModalTitle, setModalTitle] = useState("");
+  const [getModalDes, setModalDes] = useState("");
+  const [getDropDown, setDropDown] = useState([]);
+  const [getDropDown1, setDropDown1] = useState([]);
+  const [formData, setFormData] = useState({
     registeredName: "",
     legalForm: "",
     dateIncorporation: "",
@@ -30,14 +30,14 @@ const ApplyForCorporate = ({ steSent, env }) => {
     contactEmail: "",
     contactFullName: "",
     contactPhoneNumber: "",
-    ownerInfos: [ "" ],
+    ownerInfos: [""],
   });
 
-  const [ errors, setErrors ] = useState({
+  const [errors, setErrors] = useState({
     address: "",
   });
-  const [ data, setData ] = useState([ { Name: "" } ]);
-  const [ startDate, setStartDate ] = useState(new Date());
+  const [data, setData] = useState([{ Name: "" }]);
+  const [startDate, setStartDate] = useState(new Date());
   let baseUrl;
   if (env == "dev") {
     baseUrl = "http://10.20.80.62/CorporateAPI/api/";
@@ -81,6 +81,16 @@ const ApplyForCorporate = ({ steSent, env }) => {
       [name]: numericInput,
     }));
   };
+
+  useEffect(() => {
+    const errorContainer = document.querySelector(".error-container");
+    if (errorContainer) {
+      const errorElements = errorContainer.querySelectorAll(".error");
+      if (errorElements.length > 0) {
+        errorElements[0].scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [errors]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -155,6 +165,8 @@ const ApplyForCorporate = ({ steSent, env }) => {
       newErrors.ownerInfos = "At one of these field is empty";
     }
 
+    // console.log(newErrors);
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
@@ -218,7 +230,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
 
   return (
     <>
-      <div className="ApplyForCorporate">
+      <div className="ApplyForCorporate error-container">
         <div className="CorporateCont">
           <div className="TopSection">Apply for Corporate Account</div>
 
@@ -241,8 +253,8 @@ const ApplyForCorporate = ({ steSent, env }) => {
                     formData={formData}
                     handleInputChange={handleInputChange}
                   />
-                  {errors["businessType"] && (
-                    <div className="error">{errors["businessType"]}</div>
+                  {errors["legalForm"] && (
+                    <div className="error">{errors["legalForm"]}</div>
                   )}
                 </div>
               </div>
@@ -265,13 +277,12 @@ const ApplyForCorporate = ({ steSent, env }) => {
                       }
                       setFormData((prevFormData) => ({
                         ...prevFormData,
-                        dateIncorporation:
-                          date?.toLocaleDateString("en-US"),
+                        dateIncorporation: date?.toLocaleDateString("en-US"),
                       }));
                     }}
                   />
                   {errors.dateIncorporation && (
-                    <div className="error">{errors.authorizedPerson}</div>
+                    <div className="error">{errors.dateIncorporation}</div>
                   )}
                 </div>
               </div>
