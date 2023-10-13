@@ -25,12 +25,11 @@
 		</div>
 		{% include 'iveri/hiddenForm.html.twig' %}
 	{% else %}
-		<div class="desktopMode desktop-logo">
-				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri">
-				
-			</div>
+		
 		<div class="entireBody">
-			
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri" width="100%">
+			</div>
 			<div class="popup">
 				<div class="image">
 					<img src="{{ asset(imgsrc) }}" alt="">
@@ -42,7 +41,7 @@
 					{{description|raw}}
 				</div>
 				<div class="button">
-					<button class="action {% if info == true %}actionApp{% else %}actionBrowser{% endif %}">{{button}}</button>
+					<button class="action {% if info == true %}actionApp{% else %}actionBrowser{% endif %}" {% if redirect is defined and redirect is not null %}onclick="window.location.href='/{{redirect}}'"{% endif %}>{{button}}</button>
 				</div>
 			</div>
 		</div>

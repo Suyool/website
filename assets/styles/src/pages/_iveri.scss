@@ -1,8 +1,10 @@
 .loaderTopUp {
-text-align: center;
-.topiveri{
-    width: 100%;
-}
+    text-align: center;
+
+    .topiveri {
+        width: 100%;
+    }
+
     .mobheader {
         opacity: .7;
         display: flex;
@@ -13,13 +15,16 @@ text-align: center;
         border-bottom-right-radius: 16px;
         color: #ffffff;
         font-weight: bolder;
-        .back{
+
+        .back {
+
             // font-size: 30px;
-            img{
+            img {
                 height: auto;
             }
         }
-        .topup{
+
+        .topup {
             // font-size: 30px;
         }
     }
@@ -28,14 +33,16 @@ text-align: center;
     height: 125vh;
     overflow: hidden;
     background-color: #c7c7c7;
-    
+
 
     img {
         width: 41%;
+
         @media screen and (max-width:768px) {
             width: 100%;
             height: auto;
         }
+
         height: 60%;
     }
 
@@ -65,20 +72,17 @@ text-align: center;
     height: 125vh;
     @media screen and (max-width:998px) {
         padding-top: 180px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
-    
-
-    padding-left: 20px;
-    padding-right: 20px;
     text-align: -webkit-center;
-
-
     .popup {
         background-color: #ffffff;
         text-align: center;
         padding: 27px;
         border-radius: 10px;
         width: fit-content;
+
         @media screen and (min-width:998px) {
             width: 450px;
         }
