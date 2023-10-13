@@ -57,13 +57,13 @@ class MerchantsController extends AbstractController
         ];
 
         $parameters['title']="Alfa Employee | Suyool";
-        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool with the best rates available.";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
                     'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum MasterCard',
+                    'description' => 'Free Platinum Debit Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -140,7 +140,7 @@ class MerchantsController extends AbstractController
         $parameters['title']="USJ | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
         You will get your own digital dual-currency account, a complete payment tool
-        with the best rates and a Platinum Mastercard linked to the account.";
+        with the best rates and a Platinum Debit Card linked to the account.";
         return $this->render('merchants/usj.html.twig',$parameters);
     }
 
@@ -182,7 +182,7 @@ class MerchantsController extends AbstractController
         $parameters['title']="elnashra | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool.
         You will get your own digital dual-currency account, a complete payment tool
-        with the best rates and a Platinum Mastercard linked to the account.";
+        with the best rates and a Platinum Debit Card linked to the account.";
         return $this->render('merchants/elnashra.html.twig',$parameters);
     }
 
@@ -224,13 +224,13 @@ class MerchantsController extends AbstractController
         ];
 
         $parameters['title']="LLDJ Employee | Suyool";
-        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool with the best rates available.";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
                     'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum MasterCard',
+                    'description' => 'Free Platinum Debit Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',

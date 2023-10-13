@@ -26,7 +26,7 @@ return [
     "INTERNATIONALLY_LOCALLY_ACCEPTED"=>"Gratuite pour les salariés de l’USJ",
     "FULL_CONTROL_OF_YOUR_CARD"=>"Acceptée au Liban et à l’international",
     "PLATINUM_MASTERCARD_TRAVEL"=>"Acceptée en ligne et en magasin",
-    "FREE_SAFE_DELIVERY_ALL_OVER_LEBANON"=>"Avantages de la Platinum Mastercard pour vos voyages inclus l’accès au lounges dans les aéroports principaux, lifestyle et shopping.",
+    "FREE_SAFE_DELIVERY_ALL_OVER_LEBANON"=>"Avantages de la Platinum Debit Card pour vos voyages inclus l’accès au lounges dans les aéroports principaux, lifestyle et shopping.",
     "WHAT_CAN_I_DO_WITH_MY_MONEY"=>"COMMENT UTILISER MON ARGENT?",
     "6_WAYS_TO_USE_YOUR_MONEY"=>"6 Façons d’Utiliser Votre Argent",
     "ALL_YOUR_FINANCIAL_NEEDS_IS_ONE_APP"=>"Une app unique pour tous vos besoins financiers.",

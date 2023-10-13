@@ -51,12 +51,12 @@ return [
     //alfa-employee
     "ALFABRINGINGYOURPAY"=>"Alfa is bringing your pay to <br> the ultimate digital account!",
     "FACINGTODAYFINANCIALCHALLENGES"=>"Facing today’s financial challenges, we moved our payroll to Suyool.
-    You will get your own digital dual-currency account,a Platinum Mastercard & a payment tool
+    You will get your own digital dual-currency account, a Platinum Debit Card & a payment tool
     with the best rates available.",
     "OPENYOURSUYOOLACCOUNT"=>"Open Your Suyool Account",
     //alfa-employee Faq
     "WHAT_IS_SUYOOL_ALFA"=>"What is Suyool?",
-    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA"=>"Suyool is the first digital account with a Platinum Mastercard debit card in Lebanon.",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALFA"=>"What are the benefits for Alfa employees?",
@@ -70,9 +70,9 @@ return [
 
     //usj
     "USJ_IS_BRINGING_YOUR_PAY"=>"Always at the forefront of technology, USJ is bringing your<br class='desktopMode'> pay to the ultimate digital account: the first secure and <br class='desktopMode'> independent Lebanese online platform!",
-    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Facing today’s financial challenges, we moved our payroll to Suyool.<br class='desktopMode'> You will get your own digital dual-currency account, a complete payment tool <br class='desktopMode'>with the best rates and a Platinum Mastercard linked to the account.",
+    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Facing today’s financial challenges, we moved our payroll to Suyool.<br class='desktopMode'> You will get your own digital dual-currency account, a complete payment tool <br class='desktopMode'>with the best rates and a Platinum Debit Card linked to the account.",
     "OPEN_YOUR_SUYOOL_ACCOUNT"=>"Open Your Suyool Account",
-    "FREE_PLATINUM_MASTERCARD"=>"Mastercard Platinum",
+    "FREE_PLATINUM_MASTERCARD"=>"Platinum Debit Card",
     "FREE_PAYROLL_CASH_OUT"=>"Cash Withdrawal",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"Send Money Locally",
     "SEND_MONEY_INTERNATIONALLY"=>"International Transfers",
@@ -87,7 +87,7 @@ return [
     "RECEIVE_YOUR_PAYROLL_INSTANTY"=>"Receive Your Payroll Instantly",
     "NO_NEED_TO_WAIT_IN_LINE"=>"No need to wait in line, your payroll is instantly disbursed into your account & available ON PAY DAY!",
     "CHOOSE_HOW_TO_SPEND_IT"=>"Choose How To Spend It",
-    "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Pay to a Lebanese mobile number, withdraw cash, transfer abroad, pay at merchants, settle your bills, and use your Mastercard locally or internationally. It’s your money…your choice!",
+    "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Pay to a Lebanese mobile number, withdraw cash, transfer abroad, pay at merchants, settle your bills, and use your Debit Card locally or internationally. It’s your money…your choice!",
     "SUYOOL_PLATINUM_MASTERCARD"=>"Suyool Debit Card® With Exclusive Privileges",
     "A_DEBIT_CARD_THAT_YOU_CAN_CONTROL_FROM_YOUR_SUYOOL_APP"=>"A debit card that you can control from your Suyool app, in addition to all of the ",
     "MASTERCARD_PLATINUM_BENEFITS"=>"Mastercard Platinum Benefits.",
@@ -155,7 +155,7 @@ return [
     "FAQ"=>"FAQ",
     "FREQUENTLY_ASKED_QUESTIONS"=>"Frequently Asked Questions",
     "WHAT_IS_SUYOOL"=>"What is Suyool?",
-    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES"=>"Suyool is the first digital account with a Platinum Mastercard debit card in Lebanon.",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES"=>"What are the benefits for USJ employees?",
@@ -182,7 +182,7 @@ return [
     "LLDJBRINGINGYOURPAY"=>"LLDJ is bringing your pay to <br> the ultimate digital account!",
     //lldj-employee Faq
     "WHAT_IS_SUYOOL_LLDJ"=>"What is Suyool?",
-    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_LLDJ"=>"Suyool is the first digital account with a Platinum Mastercard debit card in Lebanon.",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_LLDJ"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_LLDJ"=>"What are the benefits for LLDJ employees?",

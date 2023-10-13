@@ -61,7 +61,7 @@ class DigitalCorporateController extends AbstractController
         $parameters['financeImagePath'] = 'manageDash.png';
 
         $platinumCard = [
-            'title' => 'Suyool Corporate Platinum Mastercard',
+            'title' => 'Suyool Corporate Platinum Debit Card',
             'subTitle' => 'The best way to enhance departments’ autonomy',
             'checks' => [
                 'Request as many cards as needed for your team.',
@@ -171,7 +171,7 @@ class DigitalCorporateController extends AbstractController
             'items' => [
                 [
                     'image' => 'build/images/digital_corporate/card1.svg',
-                    'description' => 'Corporate Platinum MasterCard',
+                    'description' => 'Corporate Platinum Debit Card',
                 ],
                 [
                     'image' => 'build/images/digital_corporate/payrollSolution.svg',

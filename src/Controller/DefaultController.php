@@ -77,7 +77,7 @@ class DefaultController extends AbstractController
         $title="Suyool";
         $desc="Suyool | Digital Wallet with a Debit Card
                 Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
-                Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Mastercard, Suyool empowers you with full control over your finances.";
+                Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, Suyool empowers you with full control over your finances.";
             $parameters=[
                 'title'=>$title,
                 'desc'=>$desc,
