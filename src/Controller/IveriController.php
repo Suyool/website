@@ -48,7 +48,7 @@ class IveriController extends AbstractController
             $nonSuyooler=$this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $data=json_decode($nonSuyooler[1],true);
             $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $data['TotalAmount'] * 100, "it@suyool.com");
-
+            $senderName=$sessionInterface->get('SenderInitials');
             
             
 
@@ -59,7 +59,8 @@ class IveriController extends AbstractController
                 'userid' => NULL,
                 'timestamp' => time(),
                 'topup' => "false",
-                'token' => $token
+                'token' => $token,
+                'senderName'=>$senderName
             ];
             return $this->render('iveri/index.html.twig', $parameters);
         }
@@ -95,11 +96,14 @@ class IveriController extends AbstractController
     #[Route('/requestToPay', name: 'app_requesttopay')]
     public function requestToPay()
     {
+        if($_ENV['APP_ENV']=="prod"){
+         return $this->render('ExceptionHandling.html.twig');
+        }
         $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
 
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
             $transaction = new Transaction;
-            if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
+            if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {//successful
                     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
                     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
                     $parameters['status'] = true;
@@ -108,7 +112,7 @@ class IveriController extends AbstractController
                     $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
                     $parameters['button'] = "Continue";
                 }
-             else {
+             else {//failed
                     $parameters['status'] = false;
                     $parameters['imgsrc'] = "build/images/Loto/error.png";
                     $parameters['title'] = "Top Up Failed";

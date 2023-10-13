@@ -53,6 +53,7 @@ class IveriServices
                     $imgsrc = "build/images/Loto/success.png";
                     $title = "Top Up Successful";
                     $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                    if(isset($_POST['SENDERNAME'])) $description = "{$_POST['SENDERNAME']}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
                     $button = "Continue";
                 } else {
                     $status = false;

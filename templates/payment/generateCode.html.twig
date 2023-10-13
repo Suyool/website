@@ -4,7 +4,12 @@
 
 {% block body %}
 <div class="generate_Code">
+    <div class="desktopMode desktop-logo">
+		<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
+        
+	</div>
     <div class="generatecode container ">
+        <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
          {% if cashout.globalCode is defined and cashout.globalCode == 0 %}
             <div class="error">{{ message }}</div>
         {% endif %} 
@@ -25,6 +30,7 @@
             <input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %}data-code="{{ cashout.data }}"{% endif %} class="generate-code btn" ></input>
         </div>
         </form>
+        <div class="needhelp">Need help?<a href="/contact-us">Contact us</a></div>
     </div>
 {# </div> #}
 {% endblock %}

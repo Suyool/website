@@ -3,7 +3,8 @@
 }
 
 .help-top-section {
-  height: 450px;
+  // height: 450px;
+  padding: 20px 0 ;
   background-size: cover;
   text-align: center;
 
@@ -35,7 +36,7 @@
 
   .title {
     font-size: 65px;
-    padding-top: 80px;
+    padding-top: 30px;
     font-family: $SemiBold;
   }
 
@@ -174,6 +175,8 @@
 
 .help-section1 {
   background-image: url("../../../images/helpCenter/help-topSection.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   form {
     label {
       input::placeholder {
