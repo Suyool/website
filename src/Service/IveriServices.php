@@ -36,7 +36,7 @@ class IveriServices
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
-            // dd($_POST);
+            $redirect=null;
             $topupforbutton = false;
             if (isset($_POST['USERID'])) $topupforbutton = true;
             $additionalInfo = [
@@ -61,6 +61,7 @@ class IveriServices
                     $title = "Please Try Again";
                     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
                     $button = "Try Again";
+                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
                 }
             } else {
                 $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] , json_encode($additionalInfo));
@@ -70,12 +71,14 @@ class IveriServices
                     $title = "Top Up Failed";
                     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
                     $button = "Try Again";
+                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
                 } else {
                     $status = false;
                     $imgsrc = "build/images/Loto/error.png";
                     $title = "Please Try Again";
                     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
                     $button = "Try Again";
+                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
                 }
             }
             $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
@@ -96,7 +99,8 @@ class IveriServices
                 'title' => $title,
                 'description' => $description,
                 'button' => $button,
-                'info' => $topupforbutton
+                'info' => $topupforbutton,
+                'redirect'=>$redirect
             );
         } else $statusForIveri = false;
 

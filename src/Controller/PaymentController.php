@@ -128,11 +128,11 @@ class PaymentController extends AbstractController
         if (isset($_POST['submit'])) {
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
                 $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname']);
-
-                if ($parameters['cashout']['globalCode'] != 0) {
+                // dd($parameters['cashout']);
+                if ($parameters['cashout']['globalCode'] == 0 ) {
                     $parameters['message'] = $parameters['cashout']['message'];
                     return $this->render('payment/generateCode.html.twig', $parameters);
-                } else {
+                } else if($parameters['cashout']['flagCode'] == 1){
                     $this->session->set(
                         "codeGenerated",
                         isset($parameters['cashout']['data'])
