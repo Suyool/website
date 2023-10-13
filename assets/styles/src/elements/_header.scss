@@ -35,16 +35,16 @@ nav {
 
   .navbar-nav {
     li {
-      @media screen and (min-width:992px) {
+      @media screen and (min-width: 992px) {
         margin-right: 50px;
       }
 
-.offcanvas-body{
-    .nav-link {
-        color: #FFFFFF;
+      .offcanvas-body {
+        .nav-link {
+          color: #FFFFFF;
+        }
       }
-}
-    
+
 
       .button-primary {
         padding: 10px 30px;
@@ -79,10 +79,11 @@ nav {
       background-color: #FFFFFF;
       color: #226d96;
       margin-top: 70px;
-      
+
 
     }
-    .btn-close{
+
+    .btn-close {
       background: transparent url("../../../images/close.svg");
       background-repeat: no-repeat;
       opacity: 1;
@@ -132,6 +133,39 @@ nav {
       font-family: $SemiBold;
       padding: 14px 55px;
       border-radius: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .white-navbar {
+    .navbar_v2 {
+      .navbar-nav {
+        li {
+          margin-right: 0;
+
+          .button-primary {
+            padding: 10px 8px
+          }
+        }
+      }
+    }
+  }
+  .burger-menu {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+    .bar {
+      width: 30px;
+      height: 2px;
+      margin: 4px 0;
+    }
+    .barWhite {
+      background-color: #ffffff;
+    }
+    .barBlue {
+      background-color: #216D96;
     }
   }
 }

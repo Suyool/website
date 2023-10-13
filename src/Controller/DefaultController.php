@@ -75,13 +75,15 @@ class DefaultController extends AbstractController
         // ]);
 
         $title="Suyool";
-        $desc="Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
-        Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Mastercard, Suyool empowers you with full control over your finances.";
+        $desc="Suyool | Digital Wallet with a Debit Card
+                Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
+                Whether it’s seamlessly cashing out, exchanging money, sending money to anyone in Lebanon, or making local and international payments with your Mastercard, Suyool empowers you with full control over your finances.";
             $parameters=[
                 'title'=>$title,
                 'desc'=>$desc,
                 'metaimage'=>'build/images/meta-image-website2.png',
-                'descmeta'=>$desc
+                'descmeta'=>$desc,
+                'barBgColor' => 'barWhite'
             ];
         $content = $this->render('homepage/homepage.html.twig',$parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
@@ -256,7 +258,9 @@ class DefaultController extends AbstractController
             'cardData'=>$cardData,
             'lifeStyleData'=> $lifeStyleData,
             'title'=>$title,
-            'desc'=>$desc
+            'desc'=>$desc,
+            'barBgColor' => 'barWhite'
+
         ];
         $parameters['hideLearnMore'] ="";
 
@@ -278,9 +282,10 @@ class DefaultController extends AbstractController
 
         $parameters=[
             'title'=>$title,
-            'desc'=>$desc
+            'desc'=>$desc,
+            'barBgColor' => 'barBlue'
+
         ];
-        $parameters['removeSection'] = "";
 
         return $this->render('TermsAndConditions/index.html.twig',$parameters);
     }
@@ -290,7 +295,9 @@ class DefaultController extends AbstractController
      */
     public function personalterms()
     {
-        $parameters['removeSection'] = "";
+        $parameters=[
+            'barBgColor' => 'barBlue'
+        ];
         return $this->render('TermsAndConditions/personal.html.twig',$parameters);
     }
 
@@ -316,6 +323,9 @@ class DefaultController extends AbstractController
      */
     public function fees()
     {
-        return $this->render('personal-fees/index.html.twig');
+        $parameters=[
+            'barBgColor' => 'barBlue'
+        ];
+        return $this->render('personal-fees/index.html.twig',$parameters);
     }
 }

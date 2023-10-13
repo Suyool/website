@@ -13,7 +13,6 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            {% if not removeSection is defined %}
                 <li class="nav-item">
                     {% if corporateBTn is defined and corporateBTn is not empty %}
                         <button type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
@@ -21,15 +20,17 @@
                         <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
                     {% endif %}
                 </li>
-            {% endif %}
         </ul>
     </div>
 
     <!-- Mobile Toggle Button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar"
-            aria-controls="mobileNavbar">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar" aria-controls="mobileNavbar">
         <span class="navbar-toggler-icon">
-            <img src="{{ asset('build/images/menu.png')}}" alt="">
+            <div class="burger-menu">
+                <div class="bar {{ barBgColor }}"></div>
+                <div class="bar {{ barBgColor }}"></div>
+                <div class="bar {{ barBgColor }}"></div>
+            </div>
         </span>
     </button>
 
@@ -84,11 +85,8 @@
                                     <a class="nav-link" href="{{ path('help_center') }}">Help Center</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    {% if not removeSection is defined %}
+                                <li class="nav-item nav-btn-cont">
                                     <button type="button" class="btn button-primary open-suyool-account">Open Suyool Account</button>
-                                    {% endif %}
-
                                 </li>
                             </ul>
                         </div>

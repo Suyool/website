@@ -27,8 +27,8 @@ class DigitalCorporateController extends AbstractController
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang']="en";
-        $parameters['metaimage']="build/images/alfa_employee/alfametaimage.png";
-        $parameters['descmeta']="Your Payroll is now on Suyool";
+        $parameters['metaimage']="build/images/digital_corporate/digitalCorp-meta.png";
+        $parameters['descmeta']="Conduct transactions, and oversee your business’s revenues, expenses, and activities directly from one place - your Suyool Corporate Dashboard. Ideal for businesses of all sizes, from small to large.";
         $merchantImages = [
             'merchants/alfa.png',
             'merchants/spinneys.png',
@@ -214,6 +214,7 @@ class DigitalCorporateController extends AbstractController
         $parameters['title']="Digital Corporate Account For Cashless Transactions | Suyool";
         $parameters['desc']="Avoid cash flow problems & keep track of your business revenues, expenses & transactions directly from one place - your corporate Suyool dashboard. Whether you have a small business or a large corporation.";
         $parameters['corporateBTn'] ='Apply as Corporate';
+        $parameters['barBgColor'] ='barWhite';
 
         return $this->render('digitalCorporate/index.html.twig',$parameters);
     }
@@ -381,6 +382,8 @@ class DigitalCorporateController extends AbstractController
         $parameters['title']="Omnichannel, Secure & Instant Payments | Suyool";
         $parameters['desc']="Provide your customers with a seamless shopping experience across all channels, including in store, mobile, and online with a 360 degree real-time overview of your sales.";
         $parameters['corporateBTn'] ='Apply as Corporate';
+        $parameters['barBgColor'] ='barWhite';
+
         return $this->render('digitalCorporate/omnichannel.html.twig',$parameters);
     }
 }
