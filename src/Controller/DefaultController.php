@@ -123,7 +123,7 @@ class DefaultController extends AbstractController
      */
     public function mastercard(Request $request)
     {
-        $title="Suyool Platinum Mastercard | Suyool";
+        $title="Suyool Debit Card | Suyool";
         $desc="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
         $cardData = [
@@ -176,7 +176,7 @@ class DefaultController extends AbstractController
                 'imagePath' => 'build/images/platinumMastercard/six.png',
                 'title' => 'Car Rental discount with Budget',
                 'points' => [
-                    'Enjoy 10% discount using your Suyool Platinum Mastercard with Budget.',
+                    'Enjoy 10% discount using your Suyool Debit Card with Budget.',
                 ],
                 'learnMoreLink' => '/',
             ],
@@ -184,7 +184,7 @@ class DefaultController extends AbstractController
                 'imagePath' => 'build/images/platinumMastercard/seven.png',
                 'title' => 'Car Rental discount with Rentalcars.com',
                 'points' => [
-                    'Get a 10% discount on your Rentalcars.com booking with your Suyool Platinum Mastercard.',
+                    'Get a 10% discount on your Rentalcars.com booking with your Suyool Debit Card.',
                 ],
                 'learnMoreLink' => '/',
             ],
@@ -213,7 +213,7 @@ class DefaultController extends AbstractController
                 'imagePath' => 'build/images/platinumMastercard/deux.png',
                 'title' => 'Shopping discount on Farfetch.com',
                 'points' => [
-                    'Save 10% on Farfetch fashion with Suyool Platinum Mastercard on $200+ purchases.',
+                    'Save 10% on Farfetch fashion with Suyool Debit Card on $200+ purchases.',
                 ],
                 'learnMoreLink' => '/',
             ],
@@ -239,7 +239,7 @@ class DefaultController extends AbstractController
                 'imagePath' => 'build/images/platinumMastercard/cinq.png',
                 'title' => 'Fitness discount through Fiit',
                 'points' => [
-                    'Get 25% off your initial Fiit subscription payment with Suyool Platinum Mastercard.',
+                    'Get 25% off your initial Fiit subscription payment with Suyool Debit Card.',
                 ],
                 'learnMoreLink' => '/',
             ],
