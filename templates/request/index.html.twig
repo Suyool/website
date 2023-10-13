@@ -32,7 +32,7 @@
 	</div>
 	<div class="descReason">
 			{% if request_details_response.transferReason is defined %}
-			{{request_details_response.transferReason}}
+			For:{{request_details_response.transferReason}}
 			{% else %}
 			{{'DESCRIPTION'|trans}}
 			{% endif %}
@@ -42,7 +42,7 @@
 		<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
 			<div class="row">
 				<div class="col-md-3 col-2 logo_container">
-					<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}">
+					<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.svg') }}">
 				</div>
 				<div class="col-md-9 col-10 text_container">
 					<div class="sub_title">{{'PAY_WITH_SUYOOL'|trans}}</div>
@@ -50,12 +50,12 @@
 				</div>
 			</div>
 		</div>
-		{% if request_details_response.allowExternal is defined and request_details_response.allowExternal != "false"
+		{# {% if request_details_response.allowExternal is defined and request_details_response.allowExternal != "false"
 		and request_details_response.allowExternal is not null %}
 		<a class="container-fluid choose_way" href="/request/visaCard">
 			<div class="row">
 				<div class="col-md-3 col-2 logo_container">
-					<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
+					<img class="logo" src="{{ asset('build/images/payment/pay_with_card.svg') }}">
 				</div>
 				<div class="col-md-9 col-10 text_container">
 					<div class="sub_title">{{'PAY_WITH_CARD'|trans}}</div>
@@ -63,14 +63,14 @@
 				</div>
 			</div>
 		</a>
-		{% endif %}
+		{% endif %} #}
 		{% if request_details_response.allowCardTopup is defined and request_details_response.allowCardTopup != "false"
 		and request_details_response.allowCardTopup is not null %}
 		<div class="container-fluid choose_way">
 			<a id="topUpButtonDesk">
 				<div class="row">
 					<div class="col-md-3 col-2 logo_container">
-						<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
+						<img class="logo" src="{{ asset('build/images/payment/pay_with_card.svg') }}">
 					</div>
 					<div class="col-md-9 col-10 text_container">
 						<div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
