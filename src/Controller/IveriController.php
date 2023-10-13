@@ -60,7 +60,8 @@ class IveriController extends AbstractController
                 'timestamp' => time(),
                 'topup' => "false",
                 'token' => $token,
-                'senderName'=>$senderName
+                'senderName'=>$senderName,
+                'codeReq'=>$sessionInterface->get('Code')
             ];
             return $this->render('iveri/index.html.twig', $parameters);
         }
