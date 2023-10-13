@@ -138,7 +138,6 @@ nav {
 }
 
 @media screen and (max-width: 768px) {
-  .white-navbar {
     .navbar_v2 {
       .navbar-nav {
         li {
@@ -150,7 +149,6 @@ nav {
         }
       }
     }
-  }
   .burger-menu {
     display: flex;
     flex-direction: column;
