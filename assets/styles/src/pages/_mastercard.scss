@@ -610,6 +610,16 @@
   }
 
   .mastercard_page {
+    margin-top: 50px;
+    .cards {
+      .big_card_coat {
+        .card_coat {
+          .coat {
+            position: initial;
+          }
+        }
+      }
+    }
     .title {
       font-size: 20px;
       text-align: center;
