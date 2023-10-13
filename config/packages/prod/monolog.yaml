@@ -34,3 +34,13 @@ monolog:
             path: "%kernel.logs_dir%/BoB.log"
             level: debug
             channels: ['BoB']
+        cashin:
+            type: stream
+            path: "%kernel.logs_dir%/cashin.log"
+            level: debug
+            channels: ['cashin']
+        cashout:
+            type: stream
+            path: "%kernel.logs_dir%/cashout.log"
+            level: debug
+            channels: ['cashout']

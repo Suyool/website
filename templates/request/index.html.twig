@@ -31,10 +31,10 @@
 		<br>
 	</div>
 	<div class="descReason">
-			{% if request_details_response.transferReason is defined %}
+			{% if request_details_response.transferReason is defined and request_details_response.transferReason is not empty %}
 			For:{{request_details_response.transferReason}}
 			{% else %}
-			{{'DESCRIPTION'|trans}}
+			{# {{'DESCRIPTION'|trans}} #}
 			{% endif %}
 		</div>
 	<div class="container how_to_pay">

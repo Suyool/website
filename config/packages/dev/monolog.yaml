@@ -6,6 +6,8 @@ monolog:
         - Play
         - BoB
         - Iveri
+        - cashout
+        - cashin
     handlers:
         users:
             type: stream
@@ -32,6 +34,16 @@ monolog:
             path: "%kernel.logs_dir%/iveri.log"
             level: debug
             channels: ['Iveri']
+        cashin:
+            type: stream
+            path: "%kernel.logs_dir%/cashin.log"
+            level: debug
+            channels: ['cashin']
+        cashout:
+            type: stream
+            path: "%kernel.logs_dir%/cashout.log"
+            level: debug
+            channels: ['cashout']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

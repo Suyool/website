@@ -85,8 +85,9 @@ services:
     App\Service\SuyoolServices:
         arguments:
             $merchantAccountID: ''
-        tags:
-            - { 'name': 'monolog.logger', 'channel': 'Winning' }
+            $cashin: '@monolog.logger.cashin'
+            $cashout: '@monolog.logger.cashout'
+            $winning: '@monolog.logger.Winning'
 
     App\EventListener\DomainAccessListener:
         tags:

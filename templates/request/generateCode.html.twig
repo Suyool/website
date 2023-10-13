@@ -1,36 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Generate Code{% endblock %}
+{% block title %}Generate Code
+{% endblock %}
 
 {% block body %}
-<div class="generate_Code">
-    <div class="desktopMode desktop-logo">
-		<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
-        
-	</div>
-    <div class="generatecode container ">
-        <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
-         {% if cashin.globalCode is defined and cashin.globalCode == 0 %}
-            <div class="error">{{ message }}</div>
-        {% endif %} 
-        <div class="title">Add cash to their wallet at BOB Finance</div>
-        <form method="post">
-            <input type="hidden" name="token" value="{{ csrf_token('request') }}"/>
-            <label for='fname' class='required innerLabel'>Your First Name</label><br>
-            <input type="text" name="fname" id="" required><br>
-            <label for='lname' class='required innerLabel'>Your Family Name</label><br>
-            <input type="text" name="lname" id="" required><br>
-            <label for='mobile' class='required innerLabel'>Mobile Number</label><br>
-            <input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
-        
-        <div class="desc">
-            Go to the nearest & show them the code to add money to their Suyool wallet.<br><span> This code is valid for 7 days.</span>
-        </div>
-        <div class="center">
-            <input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashin.data is defined and cashin.data != null %}data-code="{{ cashin.data }}"{% endif %} class="generate-code btn"></input>
-        </div>
-        </form>
-        <div class="needhelp">Need help?<a href="/contact-us">Contact us</a></div>
-    </div>
-{# </div> #}
+	{% if cashin.globalCode is defined and cashin.globalCode == 0 and cashin.flagCode != 1 %}
+		<div class="entireBody">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri" width="100%">
+			</div>
+			<div class="popup">
+				<div class="image">
+					<img src="{{ asset(imgsrc) }}" alt="">
+				</div>
+				<div class="title">
+					{{title}}
+				</div>
+				<div class="desc">
+					{{description|raw}}
+				</div>
+				<div class="button">
+					<button class="action " onclick="window.open('tel:81484000');">{{button}}</button>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="generate_Code">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
+
+			</div>
+			<div class="generatecode container ">
+				<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
+				<div class="title">Add cash to their wallet at any BOB Finance cashpoints</div>
+				<form method="post">
+					<input type="hidden" name="token" value="{{ csrf_token('request') }}"/>
+					<label for='fname' class='required innerLabel'>Your First Name</label><br>
+					<input type="text" name="fname" id="" required><br>
+					<label for='lname' class='required innerLabel'>Your Family Name</label><br>
+					<input type="text" name="lname" id="" required><br>
+					<label for='mobile' class='required innerLabel'>Mobile Number</label><br>
+					<input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
+
+					<div class="desc">
+						Go to the nearest & show them the code to add money to their Suyool wallet.<br><span>
+							This code is valid for 7 days.</span>
+					</div>
+					<div class="center">
+						<input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashin.data is defined and cashin.data != null %} data-code="{{ cashin.data }}" {% endif %} class="generate-code btn"></input>
+				</div>
+			</form>
+			<div class="needhelp">Need help?<a href="/contact-us">Contact us</a>
+			</div>
+		</div>
+		{# </div> #}
+	{% endif %}
 {% endblock %}

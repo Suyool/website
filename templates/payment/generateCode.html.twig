@@ -1,36 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Generate Code{% endblock %}
+{% block title %}Generate Code
+{% endblock %}
 
 {% block body %}
-<div class="generate_Code">
-    <div class="desktopMode desktop-logo">
-		<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
-        
-	</div>
-    <div class="generatecode container ">
-        <img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
-         {% if cashout.globalCode is defined and cashout.globalCode == 0 %}
-            <div class="error">{{ message }}</div>
-        {% endif %} 
-        <div class="title">Withdraw cash BoB Finance cashpoint:</div>
-        <form method="post">
-            <input type="hidden" name="token" value="{{ csrf_token('payment') }}"/>
-            <label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>
-            <input type="text" name="receiverfname" id="receiverfname" required><br>
-            <label for='receiverlname' class='required innerLabel'>Receiver Family Name</label><br>
-            <input type="text" name="receiverlname" id="" required><br>
-            <label for='mobile' class='required innerLabel'>Mobile Numer</label><br>
-            <input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
-        
-        <div class="desc">
-            Go to the nearest & show them the code to receive your money.<span> This code is valid for 7 days.</span>
-        </div>
-        <div class="center">
-            <input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %}data-code="{{ cashout.data }}"{% endif %} class="generate-code btn" ></input>
-        </div>
-        </form>
-        <div class="needhelp">Need help?<a href="/contact-us">Contact us</a></div>
-    </div>
-{# </div> #}
+	{% if cashout.globalCode is defined and cashout.globalCode == 0 %}
+		<div class="entireBody">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri" width="100%">
+			</div>
+			<div class="popup">
+				<div class="image">
+					<img src="{{ asset(imgsrc) }}" alt="">
+				</div>
+				<div class="title">
+					{{title}}
+				</div>
+				<div class="desc">
+					{{description|raw}}
+				</div>
+				<div class="button">
+					<button class="action" onclick="window.open('tel:81484000');">{{button}}</button>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="generate_Code">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
+
+			</div>
+			<div class="generatecode container ">
+				<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
+				<div class="title">Withdraw cash BoB Finance cashpoint:</div>
+				<form method="post">
+					<input type="hidden" name="token" value="{{ csrf_token('payment') }}"/>
+					<label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>
+					<input type="text" name="receiverfname" id="receiverfname" required><br>
+					<label for='receiverlname' class='required innerLabel'>Receiver Family Name</label><br>
+					<input type="text" name="receiverlname" id="" required><br>
+					<label for='mobile' class='required innerLabel'>Mobile Numer</label><br>
+					<input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
+
+					<div class="desc">
+						Go to the nearest & show them the code to receive your money.<span>
+							This code is valid for 7 days.</span>
+					</div>
+					<div class="center">
+						<input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %} data-code="{{ cashout.data }}" {% endif %} class="generate-code btn"></input>
+				</div>
+			</form>
+			<div class="needhelp">Need help?<a href="/contact-us">Contact us</a>
+			</div>
+		</div>
+	{% endif %}
+	{# </div> #}
 {% endblock %}

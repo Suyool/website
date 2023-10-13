@@ -18,14 +18,16 @@ class SuyoolServices
     private $merchantAccountID;
     private $certificate;
     private $hash_algo;
-    private $logger;
+    private $winning;
+    private $cashout;
+    private $cashin;
     private $METHOD_POST = "POST";
     private $METHOD_GET ="GET";
     private $helper;
 
 
 
-    public function __construct($merchantAccountID, LoggerInterface $logger = null)
+    public function __construct($merchantAccountID, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -39,7 +41,9 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
-        $this->logger = $logger;
+        $this->winning = $winning;
+        $this->cashin=$cashin;
+        $this->cashout=$cashout;
         $this->helper=new Helper($this->client);
 
     }
@@ -271,7 +275,7 @@ class SuyoolServices
         } else {
             $payment_details_response = $response->toArray();
         }
-
+        $this->cashout->info(json_encode($payment_details_response));
         return $payment_details_response;
     }
 
@@ -308,14 +312,14 @@ class SuyoolServices
             'hash' =>  $Hash
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn",  $body);
-
+        
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
             $request_details_response = $response->toArray(false);
         } else {
             $request_details_response = $response->toArray();
         }
-
+        $this->cashin->info(json_encode($request_details_response));
         return $request_details_response;
     }
 
@@ -384,7 +388,7 @@ class SuyoolServices
     {
         try {
             $Hash = base64_encode(hash($this->hash_algo,  json_encode($listWinners, JSON_PRESERVE_ZERO_FRACTION) . $this->certificate, true));
-            $this->logger->info(json_encode([
+            $this->winning->info(json_encode([
                 'listWinners' => $listWinners,
                 'secureHash' => $Hash
             ], JSON_PRESERVE_ZERO_FRACTION));
@@ -406,7 +410,7 @@ class SuyoolServices
                 return array(false);
             }
         } catch (Exception $e) {
-            $this->logger->error($e->getMessage());
+            $this->winning->error($e->getMessage());
             return array(false);
         }
     }

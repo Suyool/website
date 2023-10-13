@@ -103,6 +103,7 @@ class IveriController extends AbstractController
         $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
 
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            // dd($_SERVER);
             $transaction = new Transaction;
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {//successful
                     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);

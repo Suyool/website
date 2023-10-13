@@ -128,9 +128,12 @@ class PaymentController extends AbstractController
         if (isset($_POST['submit'])) {
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
                 $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname']);
-                // dd($parameters['cashout']);
-                if ($parameters['cashout']['globalCode'] == 0 ) {
-                    $parameters['message'] = $parameters['cashout']['message'];
+                if ($parameters['cashout']['globalCode'] == 0 && $parameters['cashin']['flagCode'] != 1 ) {
+                    $parameters['imgsrc']="build/images/Loto/error.png";
+                    $parameters['title']="Unable to create code";
+                    $parameters['description']="We are unable to create a cashout code.<br>
+                    Contact our call center at 81-484000 for further assistance.";
+                    $parameters['button']="Call Call Center";
                     return $this->render('payment/generateCode.html.twig', $parameters);
                 } else if($parameters['cashout']['flagCode'] == 1){
                     $this->session->set(

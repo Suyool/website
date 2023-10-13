@@ -175,10 +175,12 @@ class RequestController extends AbstractController
         if (isset($_POST['submit'])) {
             if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
                 $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['fname'], $_POST['lname']);
-                // dd($parameters['cashin']);
                 if ($parameters['cashin']['globalCode'] == 0 && $parameters['cashin']['flagCode'] != 1) {
-                    
-                    $parameters['message'] = $parameters['cashin']['message'];
+                    $parameters['imgsrc']="build/images/Loto/error.png";
+                    $parameters['title']="Unable to create code";
+                    $parameters['description']="We are unable to create a cashout code.<br>
+                    Contact our call center at 81-484000 for further assistance.";
+                    $parameters['button']="Call Call Center";
                     return $this->render('request/generateCode.html.twig', $parameters);
                 } else if($parameters['cashin']['flagCode'] == 1) {
                     $this->session->set(
@@ -191,6 +193,7 @@ class RequestController extends AbstractController
                 }
             } else {
                 $parameters['cashin']['globalCode'] = 0;
+                $parameters['cashin']['flagCode'] = 0;
                 $parameters['message'] = 'All input are required';
             }
         }
