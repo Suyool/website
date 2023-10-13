@@ -1,4 +1,13 @@
 monolog:
+    channels:
+        - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - Users
+        - Winning
+        - Play
+        - BoB
+        - Iveri
+        - cashout
+        - cashin
     handlers:
         main:
             type: fingers_crossed
