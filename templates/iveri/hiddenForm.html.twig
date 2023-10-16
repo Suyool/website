@@ -2,6 +2,7 @@
 	<input id="ECOM_CONSUMERORDERID" name="ECOM_CONSUMERORDERID" value="AUTOGENERATE">
 	<input id="ECOM_PAYMENT_CARD_PROTOCOLS" name="ECOM_PAYMENT_CARD_PROTOCOLS" value="iVeri">
 	<input id="LITE_CONSUMERORDERID_PREFIX" name="LITE_CONSUMERORDERID_PREFIX" value="LITE">
+	<input id="Lite_Merchant_Trace" name="LITE_MERCHANT_TRACE" value="LITE0000485">
 	<input id="LITE_MERCHANT_APPLICATIONID" name="LITE_MERCHANT_APPLICATIONID" value="{% if app.request.server.get('APP_ENV') == "dev" %}{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}{% elseif app.request.server.get('APP_ENV') == "prod" %}{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}{% endif %}">
 	<input type="hidden" id="LITE_ORDER_AMOUNT" name="LITE_ORDER_AMOUNT" value="{{ amount * 100 }}">
 	<input id="Lite_Currency_AlphaCode" name="Lite_Currency_AlphaCode" value="{{currency}}">

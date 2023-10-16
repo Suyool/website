@@ -252,7 +252,7 @@
   .ligne {
     width: 100%;
     position: relative;
-    height: 200px;
+    height: 300px;
     .coat {
       color: #373464;
       font-family: PoppinsItalic;
@@ -317,7 +317,7 @@
         overflow: hidden;
         margin: 20px 0;
         // height: -webkit-fill-available;
-        // padding-bottom: 50px;
+        padding-bottom: 50px;
 
         img {
           width: 100%;
