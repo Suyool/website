@@ -14,7 +14,7 @@
 {#                                        <a href="{{ path('category_show', {'id': category.id, 'questionId': category.questions[0].id, 'question': category.questions[0].question|slugifyQuestion }) }}">#}
                                             <div class="category-icon">
                                                 {% if category.image is not empty %}
-                                                    <img src="{{ asset('images/questionsCategories/' ~ category.image) }}" alt="Category Image" width="70">
+                                                <a href="{{ path('category_show', {'id': category.id, 'questionId': category.questions[0].id, 'question': category.questions[0].question|slugifyQuestion }) }}"><img src="{{ asset('images/questionsCategories/' ~ category.image) }}" alt="Category Image" width="70"></a>
                                                 {% endif %}
                                             </div>
                                             <div class="title">{{ category.name }}</div>
