@@ -86,7 +86,7 @@ return [
     "ALL_YOU_NEED_IS_A_LEBANESE_MOBILE_NUMBER"=>"All you need is your smartphone, a Lebanese number & a legal identification document (ID or Passport).",
     "RECEIVE_YOUR_PAYROLL_INSTANTY"=>"Receive Your Payroll Instantly",
     "NO_NEED_TO_WAIT_IN_LINE"=>"No need to wait in line, your payroll is instantly disbursed into your account & available ON PAY DAY!",
-    "CHOOSE_HOW_TO_SPEND_IT"=>"Choose How To Spend It",
+    "CHOOSE_HOW_TO_SPEND_IT"=>"Choose How To Spend Your Money",
     "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Pay to a Lebanese mobile number, withdraw cash, transfer abroad, pay at merchants, settle your bills, and use your Debit Card locally or internationally. It’s your money…your choice!",
     "SUYOOL_PLATINUM_MASTERCARD"=>"Suyool Debit Card® With Exclusive Privileges",
     "A_DEBIT_CARD_THAT_YOU_CAN_CONTROL_FROM_YOUR_SUYOOL_APP"=>"A debit card that you can control from your Suyool app, in addition to all of the ",
