@@ -2,12 +2,12 @@
     function redirectToDeepLink() {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-            window.location.href = '{{ redirectUrlAndroid|raw }}';
+            window.location.href = '{{ redirectUrl|raw }}';
             setTimeout(function () {
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.suyool.suyoolapp';
             }, 500);
         } else if (/iPad|iPhone|iPod/i.test(userAgent)) {
-            window.location.href = '{{ redirectUrlIOS|raw }}';
+            window.location.href = '{{ redirectUrl|raw }}';
             setTimeout(function () {
                 if (!document.hidden) {
                     window.location.href = 'https://apps.apple.com/lb/app/suyool/id6450320657';
