@@ -36,6 +36,7 @@ class IveriServices
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            // dd($_POST);
             $redirect=null;
             $topupforbutton = false;
             if (isset($_POST['USERID'])) $topupforbutton = true;
