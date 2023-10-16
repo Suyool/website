@@ -8,9 +8,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\Helper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use App\Service\DeepLinkService;
 
 class DeepLinksController extends AbstractController
 {
+    private $deepLinkService;
+
+    public function __construct(DeepLinkService $deepLinkService)
+    {
+        $this->deepLinkService = $deepLinkService;
+    }
+
     /**
      * @Route("/app", name="suyoolapp")
      */
@@ -24,17 +32,11 @@ class DeepLinksController extends AbstractController
 
         $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
 
-
-        if (stristr($_SERVER['HTTP_USER_AGENT'], 'mobi') !== FALSE) {
-            $redirectUrlAndroid = 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '"}';
-            $redirectUrlIOS = 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
-
-                $parameters['redirectUrlAndroid'] =$redirectUrlAndroid;
-                $parameters['redirectUrlIOS'] =$redirectUrlIOS;
-
-                return $this->render('deeplink/index.html.twig',$parameters);
-            }
-
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        if (stristr($userAgent, 'mobi') !== FALSE) {
+            $redirectUrl = $this->deepLinkService->generateDeepLink($userAgent, $flag, $currentUrl, $browser, $additionalInfo);
+            return $this->render('deeplink/index.html.twig',['redirectUrl'=>$redirectUrl]);
+        }
 
         return $this->redirectToRoute('homepage');
     }
@@ -68,6 +70,25 @@ class DeepLinksController extends AbstractController
         else {
             return new RedirectResponse('https://www.suyool.com');
         }
+    }
+
+    /**
+     * @Route("/deeplink", name="deeplink")
+     */
+    public function deepLinkURL(): Response
+    {
+        $request = Request::createFromGlobals();
+
+        $flag = $request->query->has('f') || $request->query->has('F') || $request->query->has('flag') || $request->query->has('Flag') ? $request->query->get('f') ?? $request->query->get('F') ?? $request->query->get('flag') ?? $request->query->get('Flag') : null;
+        $currentUrl = $request->query->has('currentUrl') ? $request->query->get('currentUrl') : $request->getSchemeAndHttpHost();
+        $browser = $request->query->get('browsertype', '');
+
+        $additionalInfo = $request->query->get('a') ?? $request->query->get('AdditionalInfo');
+        $userAgent = $request->headers->get('User-Agent');
+
+        $redirectUrl = $this->deepLinkService->generateDeepLink($userAgent, $flag, $currentUrl, $browser, $additionalInfo);
+        return new Response($redirectUrl);
+
     }
 }
 
