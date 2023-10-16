@@ -261,6 +261,7 @@
       position: absolute;
       right: 80px;
       top: 30px;
+      padding-left: 20px;
     }
   }
 
@@ -292,7 +293,7 @@
         border-top-right-radius: 20px;
         overflow: hidden;
         margin: 20px 0;
-        height: -webkit-fill-available;
+        // height: -webkit-fill-available;
         padding-bottom: 50px;
         .coat {
           font-size: 18px;
@@ -315,7 +316,7 @@
         box-shadow: 0px 10px 60px #0000002e;
         overflow: hidden;
         margin: 20px 0;
-        height: -webkit-fill-available;
+        // height: -webkit-fill-available;
         // padding-bottom: 50px;
 
         img {
