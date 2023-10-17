@@ -11,6 +11,7 @@ use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,9 +28,15 @@ class HelpCenterController extends AbstractController
     /**
      * @Route("/help-center", name="help_center")
      */
-    public function index(QuestionsCategoryRepository $categoryRepository)
+    public function index(QuestionsCategoryRepository $categoryRepository,SessionInterface $session)
     {
         $type = $this->request->query->get('type-id', 1);
+        if ($type == 1) {
+            $session->set('user_type', 1);
+        }elseif ($type == 2) {
+            $session->set('user_type', 2);
+        }
+
         $title="Help Center";
         $desc="How can we help you?";
         $categories = $categoryRepository->findQuestionsByCategories($type);
@@ -44,8 +51,9 @@ class HelpCenterController extends AbstractController
     /**
      * @Route("/category/{id}/{questionId}/{question}", name="category_show")
      */
-    public function showCategory($id, $questionId,$question, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository)
+    public function showCategory($id, $questionId,$question, QuestionsCategoryRepository $categoryRepository, QuestionRepository $questionsRepository,SessionInterface $session)
     {
+        $type = $session->get('user_type',1);
         // Fetch the category by ID
         $category = $this->getDoctrine()
             ->getRepository(QuestionsCategory::class)
@@ -54,7 +62,8 @@ class HelpCenterController extends AbstractController
         if (!$category) {
             throw $this->createNotFoundException('Category not found');
         }
-        $type = $this->request->query->get('type-id', 1);
+//        $type = $this->request->query->get('type-id', 1);
+        $type = $session->get('user_type',1);
 
         // Fetch the questions for the category
         $questions = $category->getQuestions();
@@ -81,7 +90,7 @@ class HelpCenterController extends AbstractController
     /**
      * @Route("/questions/search", name="category_search", methods={"post", "get"})
      */
-    public function searchCategory(QuestionRepository $questionsRepository, QuestionsCategoryRepository $categoryRepository, Request $request)
+    public function searchCategory(QuestionRepository $questionsRepository, QuestionsCategoryRepository $categoryRepository, Request $request,SessionInterface $session)
     {
         $query = $request->request->get('query');
         if($query){
@@ -95,7 +104,7 @@ class HelpCenterController extends AbstractController
             $searchQuery = $this->request->query->get('query', "");
             $results = $questionsRepository->searchQuestions($searchQuery, false);
 
-            $type = $this->request->query->get('type-id', 1);
+            $type = $session->get('user_type',1);
 
             $categories = $categoryRepository->findQuestionsByCategories($type);
 
