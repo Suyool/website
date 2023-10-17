@@ -68,11 +68,6 @@ class BobServices
                 ]
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
-            if ($response[0] == false) {
-                $this->logger->error($response[1]);
-                $decodedString = "not connected";
-                return $decodedString;
-            }
             $status = $response->getStatusCode(); // Get the status code
             if ($status == 500) {
                 $decodedString = "not connected";

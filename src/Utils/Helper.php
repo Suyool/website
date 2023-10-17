@@ -99,7 +99,6 @@ class Helper
 
     public function clientRequest($method, $url, $body)
     {
-        try{
             $response = $this->client->request($method, $url, [
                 'body' => json_encode($body),
                 'headers' => [
@@ -108,11 +107,6 @@ class Helper
             ]);
         
             return $response;
-        }catch(Exception $e)
-        {
-            return array(false,$e->getMessage());
-        }
-        
     }
     
 }
