@@ -105,7 +105,7 @@ class AlfaController extends AbstractController
                 $postpaidrequest
                     ->setSuyoolUserId($SuyoolUserId)
                     ->setGsmNumber($data["mobileNumber"])
-                    ->seterror($sendBillRes["ResponseText"]);
+                    ->seterror(@$sendBillRes["ResponseText"]);
 
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();

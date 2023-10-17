@@ -112,7 +112,10 @@ class BobServices
                 ]
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-
+            $status = $response->getStatusCode(); // Get the status code
+            if ($status == 500) {
+                return array(false, "error 500 timeout", 255, "error 500 timeout");
+            }
             $content = $response->getContent();
             $reponse = json_encode($content);
             $ApiResponse = json_decode($content, true);
@@ -159,7 +162,11 @@ class BobServices
             ];
 
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
+            $status = $response->getStatusCode(); // Get the status code
 
+            if ($status == 500) {
+                return array("", "211", "timeout");
+            }
             $content = $response->getContent();
 
             $txt = json_encode(['response' => $response, 'content' => $content]);
