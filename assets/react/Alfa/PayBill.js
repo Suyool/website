@@ -39,8 +39,7 @@ const PayBill = ({
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId });
         } else if (
-          response?.data?.message ==
-          "Maximum allowed number of PIN requests is reached"
+          response?.data?.message == "Maximum allowed number of PIN requests is reached"
         ) {
           setSpinnerLoader(false);
           setModalName("ErrorModal");

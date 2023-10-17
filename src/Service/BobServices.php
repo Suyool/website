@@ -21,12 +21,12 @@ class BobServices
     private $METHOD_POST;
     private $logger;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper,LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger)
     {
         $this->client = $client;
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
-        $this->logger=$logger;
+        $this->logger = $logger;
 
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
@@ -56,7 +56,7 @@ class BobServices
     //Alfa
     public function Bill($gsmMobileNb)
     {
-        try{
+        try {
             $body = [
                 "ChannelType" => "API",
                 "AlfaPinParam" => [
@@ -68,9 +68,13 @@ class BobServices
                 ]
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
-    
+            if ($response[0] == false) {
+                $this->logger->error($response[1]);
+                $decodedString = "not connected";
+                return $decodedString;
+            }
             $content = $response->getContent();
-    
+
             $ApiResponse = json_decode($content, true);
             if ($ApiResponse['Response'] == "") {
                 $decodedString = $ApiResponse['ErrorDescription'];
@@ -78,20 +82,18 @@ class BobServices
                 $res = $ApiResponse['Response'];
                 $decodedString = $this->_decodeGzipString(base64_decode($res));
             }
-    
+
             return $decodedString;
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             $decodedString = "not connected";
             return $decodedString;
         }
-
     }
 
     public function RetrieveResults($currency, $mobileNumber, $Pin)
     {
-        try{
+        try {
             $Pin = implode("", $Pin);
             $body = [
                 "ChannelType" => "API",
@@ -109,7 +111,7 @@ class BobServices
                 ]
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-    
+
             $content = $response->getContent();
             $reponse = json_encode($content);
             $ApiResponse = json_decode($content, true);
@@ -118,19 +120,17 @@ class BobServices
                 return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
             }
             $decodedString = $this->_decodeGzipString(base64_decode($res));
-    
+
             return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             $this->logger->error("Alfa postpaid error retrieve: {$e->getMessage()}");
             return array(false, $e->getMessage(), 255, $e->getMessage());
         }
-        
     }
 
     public function BillPay($Postpaid_With_id_Res)
     {
-        try{
+        try {
             $body = [
                 "ChannelType" => "API",
                 "ItemId" => "1",
@@ -156,11 +156,11 @@ class BobServices
                     "Password" => $this->PASSWORD
                 ]
             ];
-    
+
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
-    
+
             $content = $response->getContent();
-            
+
             $txt = json_encode(['response' => $response, 'content' => $content]);
             $this->logger->info("Alfa postpaid Response: {$txt}");
             $ApiResponse = json_decode($content, true);
@@ -168,14 +168,12 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
             $ErrorCode = $ApiResponse['ErrorCode'];
             $decodedString = $this->_decodeGzipString(base64_decode($res));
-    
+
             return array($decodedString, $ErrorCode, $ErrorDescription);
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             $this->logger->error("Alfa postpaid error: {$e->getMessage()}");
             return array("", "211", $e->getMessage());
         }
-        
     }
 
     //Touch
