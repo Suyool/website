@@ -40,40 +40,11 @@ class DefaultController extends AbstractController
      * @param TranslatorInterface $translator
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em, MailerInterface $mailer)
+    public function indexAction(Request $request, TranslatorInterface $translator, EntityManagerInterface $em, MailerInterface $mailer, TranslatorInterface $translatorInterface)
     {
-        // $submittedToken = $request->request->get('token');
         $trans = $this->trans->translation($request, $translator);
-        // $message = '';
-        // if (isset($_POST['email'])) {
-
-        //     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        //         $message = "email invalid";
-        //         return new JsonResponse(['success' => "Invalid Email", 'message' => $message]);
-        //     } else {
-        //         if ($_SERVER['REQUEST_METHOD'] == "POST" && $_POST['email'] != null && !$em->getRepository(emailsubscriber::class)->findOneBy(['email' => $_POST['email']])) {
-        //             $emailSubcriber = new emailsubscriber;
-        //             $emailSubcriber->setEmail($_POST['email']);
-        //             $em->persist($emailSubcriber);
-        //             $em->flush();
-        //             $message = "Email Added";
-        //             $email = (new TemplatedEmail())
-        //                 ->from('contact@suyool.com')
-        //                 ->to($_POST['email'])
-        //                 ->subject('You are on the list and we\'re so excited! ' . "\u{1F60D}")
-        //                 ->htmlTemplate('email/email.html.twig');
-        //             $mailer->send($email);
-        //             return new JsonResponse(['success' => true, 'message' => $message]);
-        //         } else {
-        //             $message = "Email already exist";
-        //             return new JsonResponse(['success' => false, 'message' => $message]);
-        //         }
-        //     }
-        // }
-        // return $this->render('homepage/CommingSoon.html.twig', [
-        // 'message' => $message
-        // ]);
-
+        $translatorInterface->setLocale("en");
+        
         $title="Suyool";
         $desc="Suyool | Digital Wallet with a Debit Card
                 Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
@@ -85,8 +56,11 @@ class DefaultController extends AbstractController
                 'descmeta'=>$desc,
                 'barBgColor' => 'barWhite'
             ];
+
         $content = $this->render('homepage/homepage.html.twig',$parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
+
+
 
         return $content;
     }
