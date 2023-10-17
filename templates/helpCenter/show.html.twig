@@ -11,9 +11,17 @@
             <div class="category-show">
                 <div class="navigator">
                     <a href="{{ path('help_center') }}"><span class="color{{ type }}">Suyool Help Center</span></a>
-                    <i class="fa-solid fa-arrow-right color{{ type }}"></i>
+                    {% if type == 1 %}
+                        <img src="{{ asset('build/images/helpCenter/BreadcrumbPersonal.svg') }}">
+                    {% elseif type == 2 %}
+                        <img src="{{ asset('build/images/helpCenter/BreadcrumbCorporate.svg') }}">
+                    {% endif %}
                     <span class="color{{ type }}">{{ category.name }}</span>
-                    <i class="fa-solid fa-arrow-right color{{ type }}"></i>
+                    {% if type == 1 %}
+                        <img src="{{ asset('build/images/helpCenter/BreadcrumbPersonal.svg') }}">
+                    {% elseif type == 2 %}
+                        <img src="{{ asset('build/images/helpCenter/BreadcrumbCorporate.svg') }}">
+                    {% endif %}
                     <span id="navigator-question" class="light-color{{ type }}">{{ questions[0].question }}</span>
                 </div>
                 <h1 class="page-subtitle color{{ type }}">{{ category.name }}</h1>

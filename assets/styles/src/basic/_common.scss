@@ -122,6 +122,9 @@ a:hover {
 }
 
 @media screen and (max-width: 767px) {
+  img {
+    max-width: 100%;
+  }
   .mobileMode {
     display: block;
   }
