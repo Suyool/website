@@ -56,29 +56,37 @@ class BobServices
     //Alfa
     public function Bill($gsmMobileNb)
     {
-        $body = [
-            "ChannelType" => "API",
-            "AlfaPinParam" => [
-                "GSMNumber" => $gsmMobileNb
-            ],
-            "Credentials" => [
-                "User" => $this->USERNAME,
-                "Password" => $this->PASSWORD
-            ]
-        ];
-        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
-
-        $content = $response->getContent();
-
-        $ApiResponse = json_decode($content, true);
-        if ($ApiResponse['Response'] == "") {
-            $decodedString = $ApiResponse['ErrorDescription'];
-        } else {
-            $res = $ApiResponse['Response'];
-            $decodedString = $this->_decodeGzipString(base64_decode($res));
+        try{
+            $body = [
+                "ChannelType" => "API",
+                "AlfaPinParam" => [
+                    "GSMNumber" => $gsmMobileNb
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
+    
+            $content = $response->getContent();
+    
+            $ApiResponse = json_decode($content, true);
+            if ($ApiResponse['Response'] == "") {
+                $decodedString = $ApiResponse['ErrorDescription'];
+            } else {
+                $res = $ApiResponse['Response'];
+                $decodedString = $this->_decodeGzipString(base64_decode($res));
+            }
+    
+            return $decodedString;
+        }
+        catch(Exception $e){
+            $this->logger->error($e->getMessage());
+            $decodedString = "not connected";
+            return $decodedString;
         }
 
-        return $decodedString;
     }
 
     public function RetrieveResults($currency, $mobileNumber, $Pin)
