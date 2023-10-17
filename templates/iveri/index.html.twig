@@ -41,7 +41,7 @@
 					{{description|raw}}
 				</div>
 				<div class="button">
-					<button class="action {% if info == true %}actionApp{% else %}actionBrowser{% endif %}" {% if redirect is defined and redirect is not null %}onclick="window.location.href='/{{redirect}}'"{% endif %}>{{button}}</button>
+					<button class="action {% if info == true %}actionApp{% else %}actionBrowser{% endif %}" >{% if redirect is defined and redirect is not null %}<a href="{{app.request.schemeAndHttpHost}}/{{redirect}}">{{button}}</a>{% else %}{{button}}{% endif %}</button>
 				</div>
 			</div>
 		</div>

@@ -440,7 +440,7 @@ class SuyoolServices
                 return array(false, $content['data'],$content['flagCode'],$content['message']);
             }
         } catch (Exception $e) {
-            return array(false);
+            return array(false,$e->getMessage());
         }
     }
 

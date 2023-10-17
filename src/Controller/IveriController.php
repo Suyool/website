@@ -28,13 +28,13 @@ class IveriController extends AbstractController
     private $logger;
     private $sessionInterface;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface,SessionInterface $sessionInterface)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface, SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager();
         $this->suyoolServices = $suyoolServices;
         $this->notificationServices = $notificationServices;
         $this->logger = $loggerInterface;
-        $this->sessionInterface=$sessionInterface;
+        $this->sessionInterface = $sessionInterface;
     }
 
     #[Route('/topup', name: 'app_topup')]
@@ -46,7 +46,27 @@ class IveriController extends AbstractController
         if ($ivericall[0]) {
             $this->mr->persist($ivericall[1]);
             $this->mr->flush();
-            return $this->redirectToRoute('app_data');
+            $html = $iveriServices->IveriAuthInfo($this->sessionInterface->get('MerchantTrace'));
+            $dom = new DOMDocument();
+            $dom->loadHTML($html);
+            $form = $dom->getElementsByTagName('form')->item(0);
+            $formData = [];
+            foreach ($form->getElementsByTagName('input') as $input) {
+                $name = $input->getAttribute('name');
+                $value = $input->getAttribute('value');
+                $formData[$name] = $value;
+            }
+            $_POST = $formData;
+            $code = $this->sessionInterface->get('Code');
+            $sender = $this->sessionInterface->get('SenderInitials');
+            $retrievedata = $iveriServices->retrievedata($this->mr, $code, $sender);
+            if ($retrievedata[0]) {
+                if (!is_null($retrievedata[1])) {
+                    $this->mr->persist($retrievedata[1]);
+                    $this->mr->flush();
+                }
+                return $this->render('iveri/index.html.twig', $retrievedata[2]);
+            }
         }
         if (isset($_POST['Request'])) {
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
@@ -64,6 +84,7 @@ class IveriController extends AbstractController
                 'timestamp' => time(),
                 'topup' => "false",
                 'token' => $token,
+                'merchanttrace' => time() . $sessionInterface->get('TranSimID'),
                 'senderName' => $senderName,
                 'codeReq' => $sessionInterface->get('Code')
             ];
@@ -90,6 +111,7 @@ class IveriController extends AbstractController
                     'userid' => $userid,
                     'timestamp' => $timestamp,
                     'transactionId' => $transactionId,
+                    'merchanttrace' => time() . $transactionId,
                     'topup' => "true",
                     'token' => $token
                 ];
@@ -159,7 +181,7 @@ class IveriController extends AbstractController
     {
         $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
 
-        $html=$iveriServices->IveriAuthInfo($this->sessionInterface->get('MerchantTrace'));
+        $html = $iveriServices->IveriAuthInfo($this->sessionInterface->get('MerchantTrace'));
         $dom = new DOMDocument();
         $dom->loadHTML($html);
         $form = $dom->getElementsByTagName('form')->item(0);
@@ -169,9 +191,17 @@ class IveriController extends AbstractController
             $value = $input->getAttribute('value');
             $formData[$name] = $value;
         }
-        dd($formData);
-        $_POST=$formData;
-        $iveriServices->retrievedata($this->mr,$this->sessionInterface);
-        return $this->render('iveri/hiddenForm2.html.twig');
+        // dd($formData);
+        $_POST = $formData;
+        $code = $this->sessionInterface->get('Code');
+        $sender = $this->sessionInterface->get('SenderInitials');
+        $retrievedata = $iveriServices->retrievedata($this->mr, $code, $sender);
+        if ($retrievedata[0]) {
+            if (!is_null($retrievedata[1])) {
+                $this->mr->persist($retrievedata[1]);
+                $this->mr->flush();
+            }
+            return $this->render('iveri/index.html.twig', $retrievedata[2]);
+        }
     }
 }

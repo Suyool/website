@@ -22,7 +22,7 @@ class Transaction
     private $id;
 
     /**
-     * @ORM\Column(type="string", name="users_id", length=50)
+     * @ORM\Column(type="string", name="usersId", length=50)
      */
     private $users;
 
