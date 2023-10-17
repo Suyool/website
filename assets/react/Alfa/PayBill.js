@@ -12,11 +12,11 @@ const PayBill = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [ mobileNumber, setMobileNumber ] = useState("");
-  const [ mobileNumberNoFormat, setMobileNumberNoFormat ] = useState("70102030");
-  const [ currency, setCurrency ] = useState("LBP");
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
+  const [currency, setCurrency] = useState("LBP");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
@@ -25,7 +25,6 @@ const PayBill = ({
 
   const handleContinue = () => {
     setIsButtonDisabled(true);
-
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
     setSpinnerLoader(true);
@@ -39,7 +38,46 @@ const PayBill = ({
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId });
-        } else {
+        } else if (
+          response?.data?.message ==
+          "Maximum allowed number of PIN requests is reached"
+        ) {
+          setSpinnerLoader(false);
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: " PIN Tries Exceeded",
+            desc: (
+              <div>
+                You have exceeded the allowed PIN requests.<br/> Kindly try again
+                later
+              </div>
+            ),
+            btn: "OK",
+          });
+          setModalShow(true);
+        }
+        else if (
+          response?.data?.message ==
+          "Not Enough Balance Amount to be paid"
+        ) {
+          setSpinnerLoader(false);
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: " No Pending Bill",
+            desc: (
+              <div>
+                There is no pending bill on the mobile number {localStorage.getItem("billMobileNumber")}
+                <br/>
+                Kindly try again later
+              </div>
+            ),
+            btn: "OK",
+          });
+          setModalShow(true);
+        }
+         else {
           setSpinnerLoader(false);
           setModalName("ErrorModal");
           setErrorModal({
@@ -79,7 +117,7 @@ const PayBill = ({
     return truncatedValue;
   };
 
-  const [ getBtnDesign, setBtnDesign ] = useState(false);
+  const [getBtnDesign, setBtnDesign] = useState(false);
 
   const handleInputFocus = () => {
     setBtnDesign(true);
@@ -87,7 +125,11 @@ const PayBill = ({
 
   return (
     <div id="PayBill" className={getSpinnerLoader ? "hideBack" : ""}>
-      {getSpinnerLoader && <div id="spinnerLoader"><Spinner className="spinner" animation="border" variant="secondary" /></div>}
+      {getSpinnerLoader && (
+        <div id="spinnerLoader">
+          <Spinner className="spinner" animation="border" variant="secondary" />
+        </div>
+      )}
       <div className="mainTitle">Enter your phone number to recharge</div>
 
       <div className="MobileNbContainer mt-3">

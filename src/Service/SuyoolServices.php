@@ -102,7 +102,7 @@ class SuyoolServices
     {
         $sum = number_format((float) $sum, 1, '.', '');
         $Hash = base64_encode(hash($this->hash_algo, $transId . $additionalData . $this->certificate, true));
-
+        dd($Hash);
         try {
             $body = [
                 'transactionID' => $transId,

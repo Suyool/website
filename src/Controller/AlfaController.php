@@ -111,7 +111,7 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
                 echo "error";
                 $invoicesId = -1;
-                $message = "not connected";
+                $message = $sendBillRes["ResponseText"];
             }
         } else {
             $message = "not connected";
