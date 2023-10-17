@@ -83,34 +83,41 @@ class BobServices
 
     public function RetrieveResults($currency, $mobileNumber, $Pin)
     {
-        $Pin = implode("", $Pin);
-        $body = [
-            "ChannelType" => "API",
-            "ItemId" => "1",
-            "VenId" => "1",
-            "ProductId" => "4",
-            "AlfaBillMeta" => [
-                "Currency" => $currency,
-                "GSMNumber" => $mobileNumber,
-                "PIN" => $Pin,
-            ],
-            "Credentials" => [
-                "User" => $this->USERNAME,
-                "Password" => $this->PASSWORD
-            ]
-        ];
-        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-
-        $content = $response->getContent();
-        $reponse = json_encode($content);
-        $ApiResponse = json_decode($content, true);
-        $res = $ApiResponse['Response'];
-        if ($res == "") {
-            return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+        try{
+            $Pin = implode("", $Pin);
+            $body = [
+                "ChannelType" => "API",
+                "ItemId" => "1",
+                "VenId" => "1",
+                "ProductId" => "4",
+                "AlfaBillMeta" => [
+                    "Currency" => $currency,
+                    "GSMNumber" => $mobileNumber,
+                    "PIN" => $Pin,
+                ],
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ];
+            $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
+    
+            $content = $response->getContent();
+            $reponse = json_encode($content);
+            $ApiResponse = json_decode($content, true);
+            $res = $ApiResponse['Response'];
+            if ($res == "") {
+                return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+            }
+            $decodedString = $this->_decodeGzipString(base64_decode($res));
+    
+            return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
         }
-        $decodedString = $this->_decodeGzipString(base64_decode($res));
-
-        return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+        catch(Exception $e){
+            $this->logger->error("Alfa postpaid error retrieve: {$e->getMessage()}");
+            return array(false, $e->getMessage(), 255, $e->getMessage());
+        }
+        
     }
 
     public function BillPay($Postpaid_With_id_Res)
