@@ -99,19 +99,19 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 $invoicesId = $invoices->getId();
-                $message = "connected";
+                $message = "Maximum allowed number of PIN requests is reached";
             } else {
                 $postpaidrequest = new PostpaidRequest;
                 $postpaidrequest
                     ->setSuyoolUserId($SuyoolUserId)
                     ->setGsmNumber($data["mobileNumber"])
-                    ->seterror($sendBillRes["ResponseText"]);
+                    ->seterror(@$sendBillRes["ResponseText"]);
 
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
-                echo "error";
+                // echo "error";
                 $invoicesId = -1;
-                $message = "not connected";
+                $message = $sendBillRes["ResponseText"];
             }
         } else {
             $message = "not connected";

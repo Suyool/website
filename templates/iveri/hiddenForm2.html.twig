@@ -1,0 +1,11 @@
+<form style="display: block" name="form2" method="post" action="https://portal.cscacquiring.com/Lite/AuthoriseInfo.aspx">
+	<input id="Lite_Merchant_ApplicationId" name="Lite_Merchant_ApplicationId" value="{% if app.request.server.get('APP_ENV') == "dev" %}{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}{% elseif app.request.server.get('APP_ENV') == "prod" %}{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}{% endif %}">
+	<input id="Lite_Merchant_Trace" name="Lite_Merchant_Trace" value="LITE0000490">
+	{# <input type="submit" value="submit"> #}
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Automatically submit the form when the page is loaded
+        document.form2.submit();
+    });
+</script>

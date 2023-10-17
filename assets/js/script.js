@@ -399,7 +399,6 @@ if(document.querySelector(".loaderTopUp")){
 if(document.querySelector(".actionApp")){
   const actionApp=document.querySelector(".actionApp");
   actionApp.addEventListener("click", function () {
-    // Submit the form
     if(navigator.userAgent.match(/Android/i)){
       window.AndroidInterface.callbackHandler("GoToApp");
     }else{
@@ -411,8 +410,11 @@ if(document.querySelector(".actionApp")){
 if(document.querySelector(".actionBrowser")){
   const actionBrowser=document.querySelector(".actionBrowser");
   actionBrowser.addEventListener("click", function () {
-    // Submit the form
-    window.location.href = "/";
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("GoToApp");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
   });
 }
 

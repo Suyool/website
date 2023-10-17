@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Exception;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Helper
@@ -98,14 +99,14 @@ class Helper
 
     public function clientRequest($method, $url, $body)
     {
-        $response = $this->client->request($method, $url, [
-            'body' => json_encode($body),
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-    
-        return $response;
+            $response = $this->client->request($method, $url, [
+                'body' => json_encode($body),
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ]
+            ]);
+        
+            return $response;
     }
     
 }
