@@ -10,6 +10,8 @@ use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+use DOMDocument;
+use PDO;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,13 +26,15 @@ class IveriController extends AbstractController
     private $suyoolServices;
     private $notificationServices;
     private $logger;
+    private $sessionInterface;
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface,SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager();
         $this->suyoolServices = $suyoolServices;
         $this->notificationServices = $notificationServices;
         $this->logger = $loggerInterface;
+        $this->sessionInterface=$sessionInterface;
     }
 
     #[Route('/topup', name: 'app_topup')]
@@ -38,19 +42,19 @@ class IveriController extends AbstractController
     {
         $parameters = array();
         $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
-        $ivericall = $iveriServices->iveriService();
+        $ivericall = $iveriServices->iveriService($sessionInterface);
         if ($ivericall[0]) {
             $this->mr->persist($ivericall[1]);
             $this->mr->flush();
-            return $this->render('iveri/index.html.twig', $ivericall[2]);
+            return $this->redirectToRoute('app_data');
         }
         if (isset($_POST['Request'])) {
-            $nonSuyooler=$this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
-            $data=json_decode($nonSuyooler[1],true);
+            $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+            $data = json_decode($nonSuyooler[1], true);
             $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $data['TotalAmount'] * 100, "it@suyool.com");
-            $senderName=$sessionInterface->get('SenderInitials');
-            
-            
+            $senderName = $sessionInterface->get('SenderInitials');
+
+
 
             $parameters = [
                 'amount' => $data['TotalAmount'],
@@ -60,8 +64,8 @@ class IveriController extends AbstractController
                 'timestamp' => time(),
                 'topup' => "false",
                 'token' => $token,
-                'senderName'=>$senderName,
-                'codeReq'=>$sessionInterface->get('Code')
+                'senderName' => $senderName,
+                'codeReq' => $sessionInterface->get('Code')
             ];
             return $this->render('iveri/index.html.twig', $parameters);
         }
@@ -97,31 +101,30 @@ class IveriController extends AbstractController
     #[Route('/requestToPay', name: 'app_requesttopay')]
     public function requestToPay()
     {
-        if($_ENV['APP_ENV']=="prod"){
-         return $this->render('ExceptionHandling.html.twig');
+        if ($_ENV['APP_ENV'] == "prod") {
+            return $this->render('ExceptionHandling.html.twig');
         }
         $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
 
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
             // dd($_SERVER);
             $transaction = new Transaction;
-            if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {//successful
-                    $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
-                    $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
-                    $parameters['status'] = true;
-                    $parameters['imgsrc'] = "build/images/Loto/success.png";
-                    $parameters['title'] = "Top Up Successful";
-                    $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
-                    $parameters['button'] = "Continue";
-                }
-             else {//failed
-                    $parameters['status'] = false;
-                    $parameters['imgsrc'] = "build/images/Loto/error.png";
-                    $parameters['title'] = "Top Up Failed";
-                    $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                    $parameters['button'] = "Try Again";
+            if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) { //successful
+                $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
+                $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                $parameters['status'] = true;
+                $parameters['imgsrc'] = "build/images/Loto/success.png";
+                $parameters['title'] = "Top Up Successful";
+                $parameters['description'] = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                $parameters['button'] = "Continue";
+            } else { //failed
+                $parameters['status'] = false;
+                $parameters['imgsrc'] = "build/images/Loto/error.png";
+                $parameters['title'] = "Top Up Failed";
+                $parameters['description'] = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $parameters['button'] = "Try Again";
             }
-            $parameters['info']=false;
+            $parameters['info'] = false;
             $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
             $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
             $transaction->setCurrency($_POST['LITE_CURRENCY_ALPHACODE']);
@@ -149,5 +152,26 @@ class IveriController extends AbstractController
             'token' => $token
         ];
         return $this->render('iveri/test.html.twig', $parameters);
+    }
+
+    #[Route('/data', name: 'app_data')]
+    public function testing()
+    {
+        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
+
+        $html=$iveriServices->IveriAuthInfo($this->sessionInterface->get('MerchantTrace'));
+        $dom = new DOMDocument();
+        $dom->loadHTML($html);
+        $form = $dom->getElementsByTagName('form')->item(0);
+        $formData = [];
+        foreach ($form->getElementsByTagName('input') as $input) {
+            $name = $input->getAttribute('name');
+            $value = $input->getAttribute('value');
+            $formData[$name] = $value;
+        }
+        dd($formData);
+        $_POST=$formData;
+        $iveriServices->retrievedata($this->mr,$this->sessionInterface);
+        return $this->render('iveri/hiddenForm2.html.twig');
     }
 }

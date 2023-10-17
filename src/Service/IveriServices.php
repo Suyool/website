@@ -6,6 +6,8 @@ use App\Entity\Transaction;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class IveriServices
@@ -20,67 +22,89 @@ class IveriServices
     {
         $this->suyoolServices = $suyoolServices;
         $this->logger = $loggerInterface;
-        if($_ENV['APP_ENV']=="dev"){
-            self::$applicationId="{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}";
-            self::$secretKey="BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH";
-        }
-        else{
-            self::$applicationId="{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}";
-            self::$secretKey="42GJxBZOrrM9y0aSLzI3MbkrlA0jhdQx";    
+        if ($_ENV['APP_ENV'] == "dev") {
+            self::$applicationId = "{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}";
+            self::$secretKey = "BsV6TrjgOV0Mw87vgJ7eQ9tPrjdAGYRH";
+        } else {
+            self::$applicationId = "{67DCBA56-B893-44AD-AC90-DAE0DDB539BA}";
+            self::$secretKey = "42GJxBZOrrM9y0aSLzI3MbkrlA0jhdQx";
         }
     }
 
-    public function iveriService()
-    {
 
+    public function IveriAuthInfo($merchanttrace)
+    {
+        try {
+            $formData = [
+                'Lite_Merchant_ApplicationId' => "{A7576A69-DAF9-4ED8-AD7E-8EBB9A13E44E}",
+                'Lite_Merchant_Trace' => $merchanttrace
+            ];
+            $client = HttpClient::create();
+            $response = $client->request('POST', 'https://portal.cscacquiring.com/Lite/AuthoriseInfo.aspx', [
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ],
+                'body' => http_build_query($formData),
+            ]);
+            $content = $response->getContent();
+            // dd($content);
+            return $content;
+        } catch (Exception $e) {
+            return $this->logger->error($e->getMessage());
+        }
+    }
+
+    public function iveriService($session)
+    {
         $transaction = new Transaction;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
+            $session->set('MerchantTrace',$_POST['LITE_MERCHANT_TRACE']);
             // dd($_POST);
-            $redirect=null;
-            $topupforbutton = false;
-            if (isset($_POST['USERID'])) $topupforbutton = true;
-            $additionalInfo = [
-                'authCode' => @$_POST['LITE_ORDER_AUTHORISATIONCODE'],
-                'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
-                'desc' => $_POST['LITE_RESULT_DESCRIPTION']
-            ];
+            // $redirect = null;
+            // $topupforbutton = false;
+            // if (isset($_POST['USERID'])) $topupforbutton = true;
+            // $additionalInfo = [
+            //     'authCode' => @$_POST['LITE_ORDER_AUTHORISATIONCODE'],
+            //     'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
+            //     'desc' => $_POST['LITE_RESULT_DESCRIPTION']
+            // ];
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] ,json_encode($additionalInfo));
-                if ($topup[0]) {
-                    $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
-                    $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
-                    $status = true;
-                    $imgsrc = "build/images/Loto/success.png";
-                    $title = "Top Up Successful";
-                    $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
-                    if(isset($_POST['SENDERNAME'])) $description = "{$_POST['SENDERNAME']}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
-                    $button = "Continue";
-                } else {
-                    $status = false;
-                    $imgsrc = "build/images/Loto/error.png";
-                    $title = "Please Try Again";
-                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                    $button = "Try Again";
-                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                }
+                // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] ,json_encode($additionalInfo));
+                // if ($topup[0]) {
+                //     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
+                //     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                //     $status = true;
+                //     $imgsrc = "build/images/Loto/success.png";
+                //     $title = "Top Up Successful";
+                //     $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                //     if(isset($_POST['SENDERNAME'])) $description = "{$_POST['SENDERNAME']}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
+                //     $button = "Continue";
+                // } else {
+                //     $status = false;
+                //     $imgsrc = "build/images/Loto/error.png";
+                //     $title = "Please Try Again";
+                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                //     $button = "Try Again";
+                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
+                // }
             } else {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] , json_encode($additionalInfo));
-                if ($topup[0]) {
-                    $status = false;
-                    $imgsrc = "build/images/Loto/error.png";
-                    $title = "Top Up Failed";
-                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                    $button = "Try Again";
-                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                } else {
-                    $status = false;
-                    $imgsrc = "build/images/Loto/error.png";
-                    $title = "Please Try Again";
-                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                    $button = "Try Again";
-                    if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                }
+                // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] , json_encode($additionalInfo));
+                // if ($topup[0]) {
+                //     $status = false;
+                //     $imgsrc = "build/images/Loto/error.png";
+                //     $title = "Top Up Failed";
+                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                //     $button = "Try Again";
+                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
+                // } else {
+                //     $status = false;
+                //     $imgsrc = "build/images/Loto/error.png";
+                //     $title = "Please Try Again";
+                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                //     $button = "Try Again";
+                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
+                // }
             }
             $transaction->setOrderId($_POST['ECOM_CONSUMERORDERID']);
             $transaction->setAmount($_POST['LITE_ORDER_AMOUNT'] / 100);
@@ -89,10 +113,81 @@ class IveriServices
             $transaction->setRespCode($_POST['LITE_PAYMENT_CARD_STATUS']);
             if (isset($_POST['USERID'])) $transaction->setUsersId($_POST['USERID']);
             $transaction->setResponse(json_encode($_POST));
-            $transaction->setflagCode($topup[2]);
-            $transaction->setError($topup[3]);
+            // $transaction->setflagCode($topup[2]);
+            // $transaction->setError($topup[3]);
             $transaction->setAuthCode(@$_POST['LITE_ORDER_AUTHORISATIONCODE']);
             $transaction->setTransactionId($_POST['TRANSACTIONID']);
+            $statusForIveri = true;
+            $parameters = array(
+                // 'status' => $status,
+                // 'imgsrc' => $imgsrc,
+                // 'title' => $title,
+                // 'description' => $description,
+                // 'button' => $button,
+                // 'info' => $topupforbutton,
+                // 'redirect' => $redirect
+            );
+        } else $statusForIveri = false;
+
+        return array($statusForIveri, $transaction, $parameters);
+    }
+
+    public function retrievedata($entity, $code)
+    {
+        $parameters = array();
+        // dd($_POST);
+        if (isset($_POST['Lite_Payment_Card_Status'])) {
+            $transaction = $entity->getRepository(Transaction::class)->findOneBy(['orderId' => $_POST['Lite_Merchant_Trace']]);
+            $redirect = null;
+            $topupforbutton = false;
+            if (!is_null($transaction->getUsersId())) $topupforbutton = true;
+            $additionalInfo = [
+                'authCode' => @$transaction->getAuthCode(),
+                'cardStatus' => $_POST['Lite_Payment_Card_Status'],
+                'desc' => $_POST['Lite_Result_Description']
+            ];
+            if (!is_null($transaction)) {
+                if($_POST['Lite_Payment_Card_Status']==0){
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($transaction->getAuthCode(), 3, $transaction->getOrderId(), (float)$transaction->getAmount(), $transaction->getCurrency(), json_encode($additionalInfo));
+                dd($topup);
+                if ($topup[0]) {
+                    $amount = number_format($transaction->getAmount());
+                    $transaction->getCurrency() == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                    $status = true;
+                    $imgsrc = "build/images/Loto/success.png";
+                    $title = "Top Up Successful";
+                    $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
+                    if (!is_null($transaction->getUsersId())) $description = "{$_POST['SENDERNAME']}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
+                    $button = "Continue";
+                } else {
+                    $status = false;
+                    $imgsrc = "build/images/Loto/error.png";
+                    $title = "Please Try Again";
+                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $button = "Try Again";
+                    if (!is_null($transaction->getUsersId())) $redirect = $code->get('Code');
+                }
+            } else {
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($transaction->getAuthCode(), 9,  $transaction->getOrderId(), (float)$transaction->getAmount(), $transaction->getCurrency(), json_encode($additionalInfo));
+                dd($topup);
+                if ($topup[0]) {
+                    $status = false;
+                    $imgsrc = "build/images/Loto/error.png";
+                    $title = "Top Up Failed";
+                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $button = "Try Again";
+                    if (!is_null($transaction->getUsersId())) $redirect = $code->get('Code');
+                } else {
+                    $status = false;
+                    $imgsrc = "build/images/Loto/error.png";
+                    $title = "Please Try Again";
+                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $button = "Try Again";
+                    if (!is_null($transaction->getUsersId())) $redirect = $code->get('Code');
+                }
+            }
+            $transaction->setflagCode($topup[2]);
+            $transaction->setError($topup[3]);
             $statusForIveri = true;
             $parameters = array(
                 'status' => $status,
@@ -101,9 +196,10 @@ class IveriServices
                 'description' => $description,
                 'button' => $button,
                 'info' => $topupforbutton,
-                'redirect'=>$redirect
+                'redirect' => $redirect
             );
-        } else $statusForIveri = false;
+        } 
+    }else $statusForIveri = false;
 
         return array($statusForIveri, $transaction, $parameters);
     }
