@@ -59,6 +59,7 @@ class IveriController extends AbstractController
             $_POST = $formData;
             $code = $this->sessionInterface->get('Code');
             $sender = $this->sessionInterface->get('SenderInitials');
+            // echo $code . $sender;
             $retrievedata = $iveriServices->retrievedata($this->mr, $code, $sender);
             if ($retrievedata[0]) {
                 if (!is_null($retrievedata[1])) {

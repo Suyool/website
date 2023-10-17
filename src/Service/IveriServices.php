@@ -151,7 +151,7 @@ class IveriServices
         // print_r($_POST);
         if (isset($_POST['Lite_Payment_Card_Status'])) {
             $transaction=null;
-            if($_POST['Lite_Payment_Card_Status'] == 0){
+            if(isset($_POST['MerchantReference'])){
             $transaction = $entity->getRepository(Transaction::class)->findOneBy(['orderId' => $_POST['MerchantReference'], 'flagCode' => NULL]);
             }
             $redirect = null;
