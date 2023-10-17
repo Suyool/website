@@ -193,5 +193,6 @@ return [
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_LLDJ"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_LLDJ"=>"Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_LLDJ"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
-    
+
+    "GET_THE_SUYOOL_APP"=>"GET THE SUYOOL APP",
 ];

@@ -17,7 +17,7 @@
                     {% if corporateBTn is defined and corporateBTn is not empty %}
                         <button type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
                     {% else %}
-                        <button type="button" class="btn button-primary" onclick="window.location.href='#qrGetTheApp'">Open Suyool Account</button>
+                        <button type="button" class="btn button-primary" data-bs-toggle="modal" data-bs-target="#DownloadApp">Open Suyool Account</button>
                     {% endif %}
                 </li>
         </ul>

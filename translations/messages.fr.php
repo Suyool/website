@@ -105,4 +105,6 @@ return [
     "SCAN_DOWNLOAD"=>"Obtenez Suyool Aujourd'hui!",
     "GET_SUYOOL_NOW"=>"Scannez, Téléchargez et Ouvrez un Compte",
 
+    "GET_THE_SUYOOL_APP"=>"OBTENEZ L'APPLICATION SUYOOL ",
+
     ];
