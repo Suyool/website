@@ -222,6 +222,7 @@ class IveriServices
                 $title = "Please Try Again";
                 $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
                 $button = "Try Again";
+                if ($code != "") $redirect =$code;
             }
             $parameters = array(
                 'status' => $status,
