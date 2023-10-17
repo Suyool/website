@@ -199,5 +199,24 @@ return [
     "OPEN_YOUR_SUYOOL_ACCOUNT_CAP"=> "OPEN YOUR SUYOOL ACCOUNT",
     "SCAN_AND_DOWNLOAD"=>"Scan & Download",
 
+    //ARAMEX
+    "ARAMEXBRINGINGYOURPAY"=>"Aramex is bringing your pay to <br> the ultimate digital account!",
+    //aramex Faq
+    "WHAT_IS_SUYOOL_ARAMEX"=>"What is Suyool?",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ARAMEX"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
+    "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ARAMEX"=>"Can anyone open a Suyool account?",
+    "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ARAMEX"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ARAMEX"=>"What are the benefits for ARAMEX employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ARAMEX"=>"ARAMEX employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an ARAMEX employee. ",
+    "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_ARAMEX"=>"Is there any fee to get my Suyool Debit Card?",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ARAMEX"=>"Your Suyool Mastercard will be free-of-charge as long as you are an ARAMEX employee.",
+    "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_ARAMEX"=>"Where can I use my Suyool Debit Card?",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_ARAMEX"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ARAMEX"=>"Where can I withdraw my salary in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ARAMEX"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
+
+    "GET_THE_SUYOOL_APP"=>"GET THE SUYOOL APP",
+    "WHAT_ARE_YOU_WAITING_FOR"=>"WHAT ARE YOU WAITING FOR?",
+
 
 ];
