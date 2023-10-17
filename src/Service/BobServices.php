@@ -73,7 +73,13 @@ class BobServices
                 $decodedString = "not connected";
                 return $decodedString;
             }
+            $status = $response->getStatusCode(); // Get the status code
+            if ($status == 500) {
+                $decodedString = "not connected";
+                return $decodedString;
+            }
             $content = $response->getContent();
+
 
             $ApiResponse = json_decode($content, true);
             if ($ApiResponse['Response'] == "") {
