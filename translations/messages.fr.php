@@ -103,8 +103,9 @@ return [
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Obtenez Suyool Aujourd'hui!",
-    "GET_SUYOOL_NOW"=>"Scannez, Téléchargez et Ouvrez un Compte",
+    "GET_SUYOOL_ACCOUNT"=>"Scannez, Téléchargez et Ouvrez un Compte",
 
     "GET_THE_SUYOOL_APP"=>"OBTENEZ L'APPLICATION SUYOOL ",
+    "WHAT_ARE_YOU_WAITING_FOR"=>"QU'ATTENDEZ-VOUS?",
 
     ];

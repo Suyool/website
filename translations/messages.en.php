@@ -176,7 +176,7 @@ return [
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
-    "GET_SUYOOL_NOW"=>"Scan, Download & Open an Account",
+    "GET_SUYOOL_ACCOUNT"=>"Scan, Download & Open an Account",
 
     //LLDJ-employee
     "LLDJBRINGINGYOURPAY"=>"LLDJ is bringing your pay to <br> the ultimate digital account!",
@@ -195,4 +195,7 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_LLDJ"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
 
     "GET_THE_SUYOOL_APP"=>"GET THE SUYOOL APP",
+    "WHAT_ARE_YOU_WAITING_FOR"=>"WHAT ARE YOU WAITING FOR?",
+
+
 ];

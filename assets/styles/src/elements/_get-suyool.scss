@@ -1,0 +1,23 @@
+.get-suyool{
+  text-align: center;
+  margin-bottom: 100px;
+
+  .waiting {
+    color: #226D96;
+    font-size: 18px;
+    font-family: $Medium;
+    margin-bottom: 30px;
+  }
+
+  .get-suyool{
+    color: #374A5A;
+    font-family: $SemiBold;
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+}
