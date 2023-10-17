@@ -54,10 +54,11 @@ class HelpCenterController extends AbstractController
         if (!$category) {
             throw $this->createNotFoundException('Category not found');
         }
+        $type = $this->request->query->get('type-id', 1);
 
         // Fetch the questions for the category
         $questions = $category->getQuestions();
-        $nextCategories = $categoryRepository->getNextCategories($id);
+        $nextCategories = $categoryRepository->getNextCategories($id,$type);
 
         $selectedQuestion = $questionsRepository->selectQuestionById($questionId);
 

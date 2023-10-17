@@ -66,11 +66,13 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function getNextCategories($id)
+    public function getNextCategories($id, $type)
     {
         $qb = $this->createQueryBuilder('c')
             ->where('c.id > :categoryId') // Select categories with IDs greater than the current category's ID
+            ->andWhere('c.type = :type') // Add the condition for type
             ->setParameter('categoryId', $id)
+            ->setParameter('type', $type) // Bind the type parameter
             ->orderBy('c.id', 'ASC') // Order by category ID in ascending order
             ->setMaxResults(3) // Limit to 3 categories
             ->getQuery()
@@ -78,5 +80,6 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
 
         return $qb;
     }
+
 
 }
