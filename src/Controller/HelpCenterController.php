@@ -33,18 +33,65 @@ class HelpCenterController extends AbstractController
         $type = $this->request->query->get('type-id', 1);
         if ($type == 1) {
             $session->set('user_type', 1);
+            $infoSections = [
+                [
+                    'image' => 'build/images/helpCenter/how-to-personal.svg',
+                    'title' => 'How-To Guides',
+                    'text' => 'Master your personal Suyool account with step-by-step how-to guides.',
+                ],
+                [
+                    'image' => 'build/images/helpCenter/what-if-personal.svg',
+                    'title' => 'What If’s',
+                    'text' => 'Find answers to common scenarios and questions in our "What If" section.',
+                ],
+                [
+                    'image' => 'build/images/helpCenter/policies-personal.svg',
+                    'title' => 'Policies',
+                    'text' => "Understand Suyool's policies for a secure and compliant experience.",
+                ],
+                [
+                    'image' => 'build/images/helpCenter/tables-of-fees-personal.svg',
+                    'title' => 'Table of Fees',
+                    'text' => "Get clear cost insights with Suyool's Table of Fees.",
+                ],
+            ];
         }elseif ($type == 2) {
             $session->set('user_type', 2);
+            $infoSections = [
+                [
+                    'image' => 'build/images/helpCenter/how-to-corporate.svg',
+                    'title' => 'How-To Guides',
+                    'text' => 'Streamline your corporate Suyool experience with our comprehensive how-to guides.',
+                ],
+                [
+                    'image' => 'build/images/helpCenter/what-if-corporate.svg',
+                    'title' => 'What If’s',
+                    'text' => 'Explore tailored solutions for corporate scenarios and questions in our "What If" section.',
+                ],
+                [
+                    'image' => 'build/images/helpCenter/policies-corporate.svg',
+                    'title' => 'Policies',
+                    'text' => "Gain insight into Suyool's corporate policies for a secure and compliant business environment.",
+                ],
+                [
+                    'image' => 'build/images/helpCenter/tables-of-fees-corporate.svg',
+                    'title' => 'Table of Fees',
+                    'text' => "Access a breakdown of corporate fees and costs with Suyool's Table of Fees.",
+                ],
+            ];
         }
 
         $title="Help Center";
         $desc="How can we help you?";
         $categories = $categoryRepository->findQuestionsByCategories($type);
+
         return $this->render('helpCenter/index.html.twig', [
             'categories' => $categories,
             'type' => $type,
             'desc'=>$desc,
-            'title'=>$title
+            'title'=>$title,
+            'infoSections' => $infoSections, // Pass the dynamic section data to the template
+
         ]);
     }
 
