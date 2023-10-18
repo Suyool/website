@@ -296,7 +296,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title']="ARAMEX Employee | Suyool";
+        $parameters['title']="Aramex | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',
@@ -442,7 +442,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title']="E-mood Employee | Suyool";
+        $parameters['title']="The Web Addicts | Suyool";
         $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',

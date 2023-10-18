@@ -60,11 +60,11 @@ return [
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ALFA"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALFA"=>"What are the benefits for Alfa employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ALFA"=>"Alfa employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an Alfa employee. ",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ALFA"=>"Alfa employees will benefit from a free Debit Mastercard & free cash withdrawal of their monthly salary as long as you are an Alfa employee. ",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_ALFA"=>"Is there any fee to get my Suyool Debit Card?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ALFA"=>"Your Suyool Mastercard will be free-of-charge as long as you are an Alfa employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ALFA"=>"Your Suyool Debit Card will be free-of-charge as long as you are an Alfa employee.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_ALFA"=>"Where can I use my Suyool Debit Card?",
-    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_ALFA"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_ALFA"=>"You can use your Suyool Debit Card at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ALFA"=>"Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ALFA"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
 
@@ -159,11 +159,11 @@ return [
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES"=>"What are the benefits for USJ employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"=>"You will benefit from a free Platinum Mastercard & free cash withdrawal of your monthly salary as long as you are an USJ employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"=>"You will benefit from a free Debit Card & free cash withdrawal of your monthly salary as long as you are an USJ employee.",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD"=>"Is there any fee to get my Suyool Debit Card?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"=>"Your Suyool Mastercard will be free-of-charge as long as you are an USJ employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"=>"Your Suyool Debit Card will be free-of-charge as long as you are an USJ employee.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD"=>"Where can I use my Suyool Debit Card?",
-    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"You can use your Suyool Debit Card at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"Where can I withdraw cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"In Lebanon, at over 700 BOB Finance offices.<br>Abroad, from any ATM compatible with Mastercard.",
 
@@ -171,26 +171,26 @@ return [
     "ELNASHRABRINGINGYOURPAY"=>"El Nashra is bringing your pay to the ultimate digital account!",
     "WHAT_ARE_THE_BENEFITS_FOR_ELNASHRA_EMPLOYEES" => "What are the benefits for El Nashra employees?",
     "INTERNATIONALLY_LOCALLY_ACCEPTED_NASHRA"=>"Free for El Nashra employees",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_NASHRA"=>"You will benefit from a free Platinum Mastercard & free cash withdrawal of your monthly salary as long as you are an El Nashra employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_NASHRA"=>"Your Suyool Mastercard will be free-of-charge as long as you are an El Nashra employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_NASHRA"=>"You will benefit from a free Debit Card & free cash withdrawal of your monthly salary as long as you are an El Nashra employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_NASHRA"=>"Your Suyool Debit Card will be free-of-charge as long as you are an El Nashra employee.",
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Get Suyool Now!",
     "GET_SUYOOL_ACCOUNT"=>"Scan, Download & Open an Account",
 
     //LLDJ-employee
-    "LLDJBRINGINGYOURPAY"=>"LLDJ is bringing your pay to <br> the ultimate digital account!",
+    "LLDJBRINGINGYOURPAY"=>"LLDJ is bringing your pay to the ultimate digital account!",
     //lldj-employee Faq
     "WHAT_IS_SUYOOL_LLDJ"=>"What is Suyool?",
     "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_LLDJ"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_LLDJ"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_LLDJ"=>"What are the benefits for LLDJ employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_LLDJ"=>"LLDJ employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an LLDJ employee. ",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_LLDJ"=>"LLDJ employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as you are an LLDJ employee. ",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ"=>"Is there any fee to get my Suyool Debit Card?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_LLDJ"=>"Your Suyool Mastercard will be free-of-charge as long as you are an LLDJ employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_LLDJ"=>"Your Suyool Debit Card will be free-of-charge as long as you are an LLDJ employee.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_LLDJ"=>"Where can I use my Suyool Debit Card?",
-    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_LLDJ"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_LLDJ"=>"You can use your Suyool Debit Card at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_LLDJ"=>"Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_LLDJ"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
 
@@ -200,16 +200,16 @@ return [
     "SCAN_AND_DOWNLOAD"=>"Scan & Download",
 
     //ARAMEX
-    "ARAMEXBRINGINGYOURPAY"=>"Aramex is bringing your pay to <br> the ultimate digital account!",
+    "ARAMEXBRINGINGYOURPAY"=>"Aramex is bringing your pay to the ultimate digital account!",
     //aramex Faq
     "WHAT_IS_SUYOOL_ARAMEX"=>"What is Suyool?",
     "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ARAMEX"=>"Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_ARAMEX"=>"Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_ARAMEX"=>"Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ARAMEX"=>"What are the benefits for ARAMEX employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ARAMEX"=>"ARAMEX employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an ARAMEX employee. ",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ARAMEX"=>"ARAMEX employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as you are an ARAMEX employee. ",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_ARAMEX"=>"Is there any fee to get my Suyool Debit Card?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ARAMEX"=>"Your Suyool Mastercard will be free-of-charge as long as you are an ARAMEX employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ARAMEX"=>"Your Suyool Debit Card will be free-of-charge as long as you are an ARAMEX employee.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_ARAMEX"=>"Where can I use my Suyool Debit Card?",
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_ARAMEX"=>"You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ARAMEX"=>"Where can I withdraw my salary in cash?",
@@ -217,14 +217,14 @@ return [
 
 
     //E-mood-employee Faq
-    "EMOODBRINGINGYOURPAY"=>"E-mood is bringing your pay to <br> the ultimate digital account!",
+    "EMOODBRINGINGYOURPAY"=>"E-mood is bringing your pay to the ultimate digital account!",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_EMOOD"=>"What are the benefits for E-mood employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_EMOOD"=>"E-mood employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an E-mood employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_EMOOD"=>"Your Suyool Mastercard will be free-of-charge as long as you are an E-mood employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_EMOOD"=>"E-mood employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as you are an E-mood employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_EMOOD"=>"Your Suyool Debit Card will be free-of-charge as long as you are an E-mood employee.",
 
     //Web-Addicts-employee Faq
-    "ADDICTSBRINGINGYOURPAY"=>"The Web Addicts is bringing your pay to <br> the ultimate digital account!",
+    "ADDICTSBRINGINGYOURPAY"=>"The Web Addicts is bringing your pay to the ultimate digital account!",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ADDICTS"=>"What are the benefits for The Web Addicts employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ADDICTS"=>"E-mood employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an The Web Addicts employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS"=>"Your Suyool Mastercard will be free-of-charge as long as you are an The Web Addicts employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ADDICTS"=>"E-mood employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as you are an The Web Addicts employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS"=>"Your Suyool Debit Card will be free-of-charge as long as you are an The Web Addicts employee.",
 ];

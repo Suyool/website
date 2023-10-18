@@ -61,6 +61,8 @@ $image-path: '../../../../images/usj/';
                 color: #fff;
                 font-size: 30px;
                 font-family: $Regular;
+                width: 35%;
+                margin: auto;
             }
 
             .desc {
@@ -622,6 +624,7 @@ $image-path: '../../../../images/usj/';
                 .title {
                     font-size: 25px;
                     text-align: left;
+                    width: unset;
                 }
 
                 .desc {
