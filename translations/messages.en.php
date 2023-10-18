@@ -215,8 +215,16 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ARAMEX"=>"Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ARAMEX"=>"You can withdraw your salary from more than 700 BOB finance cash points.",
 
-    "GET_THE_SUYOOL_APP"=>"GET THE SUYOOL APP",
-    "WHAT_ARE_YOU_WAITING_FOR"=>"WHAT ARE YOU WAITING FOR?",
 
+    //E-mood-employee Faq
+    "EMOODBRINGINGYOURPAY"=>"E-mood is bringing your pay to <br> the ultimate digital account!",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_EMOOD"=>"What are the benefits for E-mood employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_EMOOD"=>"E-mood employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an E-mood employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_EMOOD"=>"Your Suyool Mastercard will be free-of-charge as long as you are an E-mood employee.",
 
+    //Web-Addicts-employee Faq
+    "ADDICTSBRINGINGYOURPAY"=>"The Web Addicts is bringing your pay to <br> the ultimate digital account!",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ADDICTS"=>"What are the benefits for The Web Addicts employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ADDICTS"=>"E-mood employees will benefit from a free Platinum Mastercard & free cash withdrawal of their monthly salary as long as you are an The Web Addicts employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS"=>"Your Suyool Mastercard will be free-of-charge as long as you are an The Web Addicts employee.",
 ];
