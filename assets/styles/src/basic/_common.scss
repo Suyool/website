@@ -92,13 +92,6 @@ a:hover {
   }
 }
 
-.mobileMode {
-  display: none;
-}
-
-.desktopMode {
-  display: block;
-}
 
 .tabletMode {
   display: none;
@@ -106,6 +99,12 @@ a:hover {
 
 .tabletmobileMode {
   display: none;
+}
+
+@media (min-width: 769px) {
+  .mobileMode {
+    display: none;
+  }
 }
 
 @media screen and (max-width:992px) and (min-width:767px) {
@@ -125,9 +124,7 @@ a:hover {
   img {
     max-width: 100%;
   }
-  .mobileMode {
-    display: block;
-  }
+
 
   .desktopMode {
     display: none;

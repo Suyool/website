@@ -57,18 +57,15 @@ footer {
     }
 
     .calluson {
-      position: relative;
+      display: flex;
       color: #D7D7E2;
       font-family: $Regular;
       font-size: 13px;
-      display: block;
       padding-top: 48px;
-      margin-left: 50px;
       margin-bottom: 40px;
 
-      img {
-        position: absolute;
-        left: -50px;
+      img{
+        padding-right: 10px;
       }
     }
   }

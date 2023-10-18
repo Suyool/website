@@ -4,7 +4,7 @@
 
   .waiting {
     color: #226D96;
-    font-size: 18px;
+    font-size: 22px;
     font-family: $Medium;
     margin-bottom: 30px;
   }
@@ -12,12 +12,28 @@
   .get-suyool{
     color: #374A5A;
     font-family: $SemiBold;
-    font-size: 40px;
+    font-size: 35px;
     margin-bottom: 30px;
   }
 
   @media (max-width: 768px) {
-    display: none;
+    .waiting {
+      font-size: 14px;
+    }
+
+    .get-suyool{
+      font-size: 20px;
+    }
+
+    .desktop{
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .OpenYourSuyoolAccount{
+      display: none;
+    }
   }
 
 }
