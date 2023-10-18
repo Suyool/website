@@ -271,6 +271,7 @@ class LotoController extends AbstractController
 
                 $parameters['prize_loto_win'] = $loto_prize_array;
                 $prize_loto_perdays = [];
+                // dd($loto_prize_per_days);
                 foreach ($loto_prize_per_days as $days) {
                     foreach ($days['gridSelected'] as $gridselected) {
                         $grids[] = $gridselected;
@@ -318,7 +319,7 @@ class LotoController extends AbstractController
                         'flagCode' => 150
                     ];
                 }
-
+                // dd($parameters);
                 return $this->render('loto/index.html.twig', [
                     'parameters' => $parameters
                 ]);

@@ -66,6 +66,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
         }
       });
       setMyGridsZeed(parsedGridsZeed);
+      // console.log(parsedGrids);
 
       setMyGrids(parsedGrids);
     });

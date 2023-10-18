@@ -126,7 +126,7 @@ class PlaysRepository extends EntityRepository
             ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null and l.ticketId != 0')
             ->setParameter('session', $session)
             ->setParameter('drawNumber', $drawNumber)
-            ->groupBy('l.gridSelected')
+            ->groupBy('l.zeednumbers,l.gridSelected')
             ->getQuery()
             ->getResult();
 
@@ -160,9 +160,11 @@ class PlaysRepository extends EntityRepository
             ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = d.drawId and l.ticketId is not null and l.ticketId != 0')
             ->setParameter('session', $session)
             ->setParameter('drawNumber', $drawNumber)
-            ->groupBy('l.gridSelected')
+            ->groupBy('l.zeednumbers,l.gridSelected')
             ->getQuery()
             ->getResult();
+
+        // dd($rawResults);
 
         $groupedResults = [];
         foreach ($rawResults as $result) {
