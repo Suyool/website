@@ -4,27 +4,7 @@ $image-path: '../../../../images/usj/';
     .topSectionAlfaEmp {
         img {
             width: 100%;
-            // min-height: 500px;
         }
-
-        // background-color: #e41e2c;
-        // background-image: url($image-path+"topImagelarge.png");
-        // @media screen and (max-width:1440px) {
-        //     background-image: url($image-path+"topImageMed.png");
-        //     padding: 0px;
-        //     height: 70vh;
-        // }
-        // @media screen and (max-width:998px) {
-        //     background-image: url($image-path+"topImageTablet.png");
-        //     padding: 0px;
-        //     height: 70vh;
-        // }
-        // background-size: 100% 100%;
-        // // background-position: center;
-        // background-repeat: no-repeat;
-        // background-repeat: no-repeat;
-        // // padding: 206px;
-        // height: 697px;
 
         .logos {
             padding-top: 30px;
@@ -52,6 +32,16 @@ $image-path: '../../../../images/usj/';
 
             .desc {
                 color: #287094 !important;
+            }
+        }
+
+        .web-addicts{
+            .title {
+                color: #000 !important;
+            }
+
+            .desc {
+                color: #000 !important;
             }
         }
 
