@@ -78,7 +78,7 @@ class BobServices
 
 
             $ApiResponse = json_decode($content, true);
-            $this->logger->error("Alfa postpaid error: {$ApiResponse}");
+            // $this->logger->error("Alfa postpaid error: {$ApiResponse}");
             if ($ApiResponse['Response'] == "") {
                 $decodedString = $ApiResponse['ErrorDescription'];
             } else {
