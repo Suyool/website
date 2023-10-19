@@ -38,9 +38,9 @@
 			{% endif %}
 		</div>
 	<div class="container how_to_pay">
+		<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
 		{% if request_details_response.allowAppDownload  is defined and request_details_response.allowAppDownload  != "false"
 		and request_details_response.allowAppDownload  is not null %}
-		<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
 		<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
 			<div class="row">
 				<div class="col-md-3 col-2 logo_container">
