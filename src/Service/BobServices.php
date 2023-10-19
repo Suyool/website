@@ -69,6 +69,7 @@ class BobServices
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
             $status = $response->getStatusCode(); // Get the status code
+            $this->logger->error("Alfa postpaid status: {$status}");
             if ($status == 500) {
                 $decodedString = "not connected";
                 return $decodedString;
@@ -77,6 +78,7 @@ class BobServices
 
 
             $ApiResponse = json_decode($content, true);
+            $this->logger->error("Alfa postpaid error: {$ApiResponse}");
             if ($ApiResponse['Response'] == "") {
                 $decodedString = $ApiResponse['ErrorDescription'];
             } else {
