@@ -12,8 +12,8 @@
 		{% endif %}
 		{% if metaimage is defined %}
 			<meta property="og:image" content="{{asset(metaimage)}}">
-			<meta property="og:image:width" content="300">
-			<meta property="og:image:height" content="300">
+			{# <meta property="og:image:width" content="200"> #}
+			{# <meta property="og:image:height" content="200"> #}
 			<meta property="og:description" content="{{descmeta}}">
 		{% endif %}
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon/fav-transparent-bg.png') }}" sizes="128x128">

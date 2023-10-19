@@ -341,7 +341,7 @@ class MerchantsController extends AbstractController
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang']="en";
-        $parameters['metaimage']="build/images/emood/emood-meta.png";
+        $parameters['metaimage']="build/images/emood/emood-meta.jpg";
         $parameters['descmeta']="Your Payroll is now on Suyool";
         $parameters['faq']=[
             "ONE"=>[
@@ -414,7 +414,7 @@ class MerchantsController extends AbstractController
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang']="en";
-        $parameters['metaimage']="build/images/web-addicts/web-meta.png";
+        $parameters['metaimage']="build/images/web-addicts/web-meta.jpg";
         $parameters['descmeta']="Your Payroll is now on Suyool";
         $parameters['faq']=[
             "ONE"=>[
