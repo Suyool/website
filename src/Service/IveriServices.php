@@ -124,8 +124,10 @@ class IveriServices
                 // }
             }
             $order=$this->mr->getRepository(orders::class)->findOneBy(['status'=>orders::$statusOrder['PENDING'],'transId'=>$_POST['TRANSACTIONID']],['created'=>'DESC']);
+            $order->setstatus(orders::$statusOrder['HELD']);
             $trace->setOrders($order);
             $trace->setTrace(@$_POST['LITE_MERCHANT_TRACE']);
+            $this->mr->persist($order);
             $this->mr->persist($trace);
             $this->mr->flush();
             $trace=$this->mr->getRepository(trace::class)->findOneBy(['orders'=>$order->getId()]);
