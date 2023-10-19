@@ -18,6 +18,8 @@ doctrine:
                 url: '%env(resolve:ESTORE_DATABASE_URL)%'
             notification:
                 url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
+            iveri:
+                url: '%env(resolve:IVERI_DATABASE_URL)%'
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -114,4 +116,14 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Notification'
                         prefix: 'App\Entity\Notification'
                         alias: Notification
+            iveri:
+                connection: iveri
+                mappings:
+                    Notification:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Iveri'
+                        prefix: 'App\Entity\Iveri'
+                        alias: iveri
+            
 

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Iveri\orders;
+use App\Entity\Iveri\trace;
 use App\Entity\Transaction;
 use App\Form\iveriFormType;
 use App\Service\DecryptService;
@@ -30,7 +32,7 @@ class IveriController extends AbstractController
 
     public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface, SessionInterface $sessionInterface)
     {
-        $this->mr = $mr->getManager();
+        $this->mr = $mr->getManager('iveri');
         $this->suyoolServices = $suyoolServices;
         $this->notificationServices = $notificationServices;
         $this->logger = $loggerInterface;
@@ -41,7 +43,7 @@ class IveriController extends AbstractController
     public function index(SessionInterface $sessionInterface)
     {
         $parameters = array();
-        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
+        $iveriServices = new IveriServices($this->mr, $this->suyoolServices, $this->logger);
         $ivericall = $iveriServices->iveriService($sessionInterface);
         if ($ivericall[0]) {
             $this->mr->persist($ivericall[1]);
@@ -72,6 +74,13 @@ class IveriController extends AbstractController
         if (isset($_POST['Request'])) {
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $data = json_decode($nonSuyooler[1], true);
+            $order = new orders();
+            $order->settransId($sessionInterface->get('TranSimID'));
+            $order->setamount($data['TotalAmount']);
+            $order->setcurrency($data['Currency']);
+            $order->setstatus(orders::$statusOrder['PENDING']);
+            $this->mr->persist($order);
+            $this->mr->flush();
             $token = $iveriServices->GenerateTransactionToken("/Lite/Authorise.aspx", $data['TotalAmount'] * 100, "it@suyool.com");
             $senderName = $sessionInterface->get('SenderInitials');
 
@@ -106,6 +115,14 @@ class IveriController extends AbstractController
                 $userid = $suyoolUserInfo[0];
                 $timestamp = time();
                 $transactionId = $suyoolUserInfoForTopUp[3];
+                $order = new orders();
+                $order->settransId($transactionId);
+                $order->setsuyoolUserId($suyoolUserInfo[0]);
+                $order->setamount($suyoolUserInfoForTopUp[1]);
+                $order->setcurrency($suyoolUserInfoForTopUp[2]);
+                $order->setstatus(orders::$statusOrder['PENDING']);
+                $this->mr->persist($order);
+                $this->mr->flush();
                 $parameters = [
                     'amount' => $amount,
                     'currency' => $currency,
@@ -127,7 +144,7 @@ class IveriController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             return $this->render('ExceptionHandling.html.twig');
         }
-        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
+        $iveriServices = new IveriServices($this->mr, $this->suyoolServices, $this->logger);
 
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
             // dd($_SERVER);
@@ -175,34 +192,5 @@ class IveriController extends AbstractController
             'token' => $token
         ];
         return $this->render('iveri/test.html.twig', $parameters);
-    }
-
-    #[Route('/data', name: 'app_data')]
-    public function testing()
-    {
-        $iveriServices = new IveriServices($this->suyoolServices, $this->logger);
-
-        $html = $iveriServices->IveriAuthInfo($this->sessionInterface->get('MerchantTrace'));
-        $dom = new DOMDocument();
-        $dom->loadHTML($html);
-        $form = $dom->getElementsByTagName('form')->item(0);
-        $formData = [];
-        foreach ($form->getElementsByTagName('input') as $input) {
-            $name = $input->getAttribute('name');
-            $value = $input->getAttribute('value');
-            $formData[$name] = $value;
-        }
-        // dd($formData);
-        $_POST = $formData;
-        $code = $this->sessionInterface->get('Code');
-        $sender = $this->sessionInterface->get('SenderInitials');
-        $retrievedata = $iveriServices->retrievedata($this->mr, $code, $sender);
-        if ($retrievedata[0]) {
-            if (!is_null($retrievedata[1])) {
-                $this->mr->persist($retrievedata[1]);
-                $this->mr->flush();
-            }
-            return $this->render('iveri/index.html.twig', $retrievedata[2]);
-        }
     }
 }
