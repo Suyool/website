@@ -40,11 +40,19 @@
         }
     }
     .descReason{
-        font-size: 40px;
+        // font-size: 40px;
+        // font-family: $Regular;
+        // text-align: center;
+        // position: relative;
+        // top: -60px;
         font-family: $Regular;
-        text-align: center;
+        font-size: 40px;
         position: relative;
-        top: -60px;
+        text-align: center;
+        margin: 0 auto;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 580px;
     }
     .how_to_pay {
         // margin-top: 60px;
