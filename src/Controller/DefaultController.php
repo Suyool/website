@@ -28,10 +28,12 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class DefaultController extends AbstractController
 {
     private $trans;
+
     public function __construct(translation $trans)
     {
         $this->trans = $trans;
     }
+
     /**
      * @Route("/", name="homepage")
      * @Cache(smaxage="120", public=true)
@@ -44,22 +46,22 @@ class DefaultController extends AbstractController
     {
         $trans = $this->trans->translation($request, $translator);
         $translatorInterface->setLocale("en");
-        
-        $title="Suyool";
-        $desc="Suyool | Digital Wallet with a Debit Card
-                Suyool, the licensed financial app originating from Europe, is designed to address your cash-handling challenges.
-                Whether it’s seamlessly cashing out, sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, Suyool empowers you with full control over your finances.";
-            $parameters=[
-                'title'=>$title,
-                'desc'=>$desc,
-                'metaimage'=>'build/images/meta-image-website2.png',
-                'descmeta'=>$desc,
-                'barBgColor' => 'barWhite'
-            ];
 
-        $content = $this->render('homepage/homepage.html.twig',$parameters);
+        $title = "Suyool | First Digital Wallet with a Debit Card in Lebanon";
+        $desc = "Suyool, the licensed financial app originating from Europe, 
+        is designed to address your cash-handling challenges. Whether it’s seamlessly cashing out, 
+        sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, 
+        Suyool empowers you with full control over your finances.";
+        $parameters = [
+            'title' => $title,
+            'desc' => $desc,
+            'metaimage' => 'build/images/meta-image-website2.png',
+            'descmeta' => $desc,
+            'barBgColor' => 'barWhite'
+        ];
+
+        $content = $this->render('homepage/homepage.html.twig', $parameters);
         $content->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
-
 
 
         return $content;
@@ -97,8 +99,8 @@ class DefaultController extends AbstractController
      */
     public function mastercard(Request $request)
     {
-        $title="Suyool Debit Card | Suyool";
-        $desc="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        $title = "Suyool Debit Card | Suyool";
+        $desc = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
         $cardData = [
             [
@@ -228,15 +230,15 @@ class DefaultController extends AbstractController
             ],
         ];
 
-        $parameters=[
-            'cardData'=>$cardData,
-            'lifeStyleData'=> $lifeStyleData,
-            'title'=>$title,
-            'desc'=>$desc,
+        $parameters = [
+            'cardData' => $cardData,
+            'lifeStyleData' => $lifeStyleData,
+            'title' => $title,
+            'desc' => $desc,
             'barBgColor' => 'barWhite'
 
         ];
-        $parameters['hideLearnMore'] ="";
+        $parameters['hideLearnMore'] = "";
 
         return $this->render('homepage/mastercard.html.twig', $parameters);
     }
@@ -251,17 +253,17 @@ class DefaultController extends AbstractController
      */
     public function terms()
     {
-        $title="Suyool Terms & Conditions | Suyool";
-        $desc="Kindly read our terms and conditions carefully before using this site";
+        $title = "Suyool Terms & Conditions | Suyool";
+        $desc = "Kindly read our terms and conditions carefully before using this site";
 
-        $parameters=[
-            'title'=>$title,
-            'desc'=>$desc,
+        $parameters = [
+            'title' => $title,
+            'desc' => $desc,
             'barBgColor' => 'barBlue'
 
         ];
 
-        return $this->render('TermsAndConditions/index.html.twig',$parameters);
+        return $this->render('TermsAndConditions/index.html.twig', $parameters);
     }
 
     /**
@@ -269,10 +271,10 @@ class DefaultController extends AbstractController
      */
     public function personalterms()
     {
-        $parameters=[
+        $parameters = [
             'barBgColor' => 'barBlue'
         ];
-        return $this->render('TermsAndConditions/personal.html.twig',$parameters);
+        return $this->render('TermsAndConditions/personal.html.twig', $parameters);
     }
 
     /**
@@ -297,9 +299,9 @@ class DefaultController extends AbstractController
      */
     public function fees()
     {
-        $parameters=[
+        $parameters = [
             'barBgColor' => 'barBlue'
         ];
-        return $this->render('personal-fees/index.html.twig',$parameters);
+        return $this->render('personal-fees/index.html.twig', $parameters);
     }
 }
