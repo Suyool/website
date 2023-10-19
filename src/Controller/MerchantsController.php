@@ -24,6 +24,7 @@ class MerchantsController extends AbstractController
      */
     public function alfa(Request $request,TranslatorInterface $translatorInterface): Response
     {
+        return $this->redirectToRoute('homepage');
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang']="en";

@@ -12,8 +12,8 @@
 		{% endif %}
 		{% if metaimage is defined %}
 			<meta property="og:image" content="{{asset(metaimage)}}">
-			<meta property="og:image:width" content="1200">
-			<meta property="og:image:height" content="630">
+			<meta property="og:image:width" content="300">
+			<meta property="og:image:height" content="300">
 			<meta property="og:description" content="{{descmeta}}">
 		{% endif %}
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon/fav-transparent-bg.png') }}" sizes="128x128">
@@ -38,11 +38,11 @@
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-THTNTVC33Y"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
-				function gtag() {
-					dataLayer.push(arguments);
-				}
-				gtag('js', new Date());
-				gtag('config', 'G-THTNTVC33Y');
+function gtag() {
+dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'G-THTNTVC33Y');
 		</script>
 	</head>
 	<body
@@ -57,22 +57,21 @@
 			{% include 'elements/download-app-mdal.html.twig' %}
 			<!-- Facebook Pixel Code -->
 			{# <script>
-						    !function(f,b,e,v,n,t,s)
-						    {
-						        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-						        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-						        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-						        n.queue=[];t=b.createElement(e);t.async=!0;
-						        t.src=v;s=b.getElementsByTagName(e)[0];
-						        s.parentNode.insertBefore(t,s)}(window,document,'script',
-						        'https://connect.facebook.net/en_US/fbevents.js');
-						    fbq('init', 962722144246502);
-						
-						    fbq('track', 'PageView');
-						
-						</script> #}
-			{% for file in encore_entry_js_files('app1') %}
-				<script src="{{ asset(file|substr(1)) }}"></script>
+									    !function(f,b,e,v,n,t,s)
+									    {
+									        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+									        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+									        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+									        n.queue=[];t=b.createElement(e);t.async=!0;
+									        t.src=v;s=b.getElementsByTagName(e)[0];
+									        s.parentNode.insertBefore(t,s)}(window,document,'script',
+									        'https://connect.facebook.net/en_US/fbevents.js');
+									    fbq('init', 962722144246502);
+									
+									    fbq('track', 'PageView');
+									
+									</script> #}
+				{% for file in encore_entry_js_files('app1') %}<script src="{{ asset(file|substr(1)) }}"> </script>
 			{% endfor %}
 		{% endblock %}
 
