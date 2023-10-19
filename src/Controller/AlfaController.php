@@ -99,7 +99,7 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 $invoicesId = $invoices->getId();
-                $message = "Maximum allowed number of PIN requests is reached";
+                $message = "connected";
             } else {
                 $postpaidrequest = new PostpaidRequest;
                 $postpaidrequest
