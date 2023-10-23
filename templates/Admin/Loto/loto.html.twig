@@ -12,12 +12,13 @@
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>SuyoolUserId</th>
+				<th>SuyoolUser</th>
 				<th>Status</th>
-				<th>Subscription</th>
+				{# <th>Subscription</th> #}
 				<th>Amount</th>
 				<th>TransId</th>
 				<th>Currency</th>
+				<th>Error</th>
 				<th>Created</th>
 			</tr>
 		</thead>
@@ -27,12 +28,13 @@
 				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
 				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %} " onclick="window.location.href='{{path('admin_loto_tickets',{'id':order.id})}}'">
 					<td>{{ order.id }}</td>
-					<td>{{ order.suyoolUserId }}</td>
+					<td>{{ order.fname }} {{ order.lname }}</td>
 					<td>{{ order.status }}</td>
-					<td>{{ order.subscription }}</td>
+					{# <td>{{ order.subscription }}</td> #}
 					<td>{{ order.amount }}</td>
 					<td>{{ order.transId }}</td>
 					<td>{{ order.currency }}</td>
+					<td>{{order.error}}</td>
 					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
 				</tr>
 				{# </a> #}

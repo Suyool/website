@@ -3,41 +3,60 @@
 {% block currentPage %}homepage{% endblock %}
 
 {% block content %}
-        <div class="panel panel-default multi-panel">
-            <div class="panel-heading">
-            </div>
-            <div class="panel-body">
-                <div class="col-md-12 main-menu">
-                    <div class="row placeholders">
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <a class="col-xs-6 col-sm-2 placeholder text-center" href="{{ path('admin_users') }}">
-                            <i class="fa fa-edit"></i>
-                            <h4>Users</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_email_subscribers') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Email Subscribers</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_loto_orders') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Loto</h4>
-                        </a>
-
-                        {% endif %}
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_show_questions_photo') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions Image</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_questions_categories') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions Category</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_questions') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions</h4>
-                        </a>
+<div class="panel panel-default multi-panel">
+    <div class="panel-heading">
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12 main-menu">
+            <div class="row placeholders">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_users') }}">
+                    <div class="dashborder">
+                        <h4>Users</h4>
                     </div>
-                </div>
+                </a>
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_email_subscribers') }}">
+                    <div class="dashborder">
+                        <h4>Email Subscribers</h4>
+                    </div>
+
+                </a>
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_loto_orders') }}">
+                    <div class="dashborder">
+                        <h4>Loto</h4>
+                        <div class="TicketsCount">Grids: {{ loto.count }}</div>
+                        <div class="thismonth">This Month: {{ loto.thismonth }}</div>
+                        <div class="TicketsCount">
+                            {% for key,value in loto.resultArray %}
+                            {{key}}:{{value}}<br>
+                        {% endfor %}
+                        </div>
+                        <div class="TotalAmount">Amount: {{ loto.TotalAmount }}</div>
+                    </div>
+
+                </a>
+
+                {% endif %}
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_show_questions_photo') }}">
+                    <div class="dashborder">
+                        <h4>Questions Image</h4>
+                    </div>
+
+                </a>
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_questions_categories') }}">
+                    <div class="dashborder">
+                        <h4>Questions Category</h4>
+                    </div>
+
+                </a>
+                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_questions') }}">
+                    <div class="dashborder">
+                        <h4>Questions</h4>
+                    </div>
+
+                </a>
             </div>
         </div>
+    </div>
+</div>
 {% endblock %}

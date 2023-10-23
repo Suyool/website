@@ -35,7 +35,7 @@ class lotoAdminController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/orders",name="admin_loto_orders")
+     * @Route("admin/orders",name="admin_loto_orders")
      */
     public function index(): Response
     {
@@ -74,7 +74,7 @@ class lotoAdminController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/tickets", name="admin_loto_tickets")
+     * @Route("admin/tickets", name="admin_loto_tickets")
      */
     public function getTicketsPerOrders(){
 

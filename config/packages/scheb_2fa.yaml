@@ -17,6 +17,10 @@ scheb_two_factor:
   # set this option. Name of entity manager or null, which uses the default one.
   model_manager_name: ~
 
+  
+  ip_whitelist:
+    - 127.0.0.1
+
 
   # The security token classes, which trigger two-factor authentication.
   # By default the bundle only reacts to Symfony's username+password authentication. If you want to enable

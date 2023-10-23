@@ -4,3 +4,19 @@
 .admin-pages-content {
   margin-left: 16%;
 }
+.dashborder{
+  border: 1px solid beige;
+  height: 200px;
+  padding: 25px 0 0;
+  margin-bottom: 40px;
+  .TicketsCount{
+    font-family: $Regular;
+  }
+  .thismonth{
+    font-family: $Regular;
+  }
+  .TotalAmount{
+    font-family: $Bold;
+    
+  }
+}
