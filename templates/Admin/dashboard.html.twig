@@ -21,20 +21,23 @@
                     </div>
 
                 </a>
-                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_loto_orders') }}">
+                <div class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_loto_orders') }}">
                     <div class="dashborder">
                         <h4>Loto</h4>
                         <div class="TicketsCount">Purchased Grids: {{ loto.count }}</div>
                         <div class="thismonth">This Month(purchased): {{ loto.thismonth }}</div>
                         <div class="TicketsCount">
                             {% for key,value in loto.resultArray %}
-                            Orders {{key}}:{{value}}<br>
-                        {% endfor %}
+                                <a href="/admin/orders?search_loto_form%5Bstatus%5D={{key}}&search_loto_form%5Bamount%5D=&search_loto_form%5Bsave%5D=">
+                                Orders {{key}}:{{value}}
+                                </a>
+                                <br>
+                            {% endfor %}
                         </div>
                         <div class="TotalAmount">Amount: {{ loto.TotalAmount }}</div>
                     </div>
 
-                </a>
+                </div>
 
                 {% endif %}
                 <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_show_questions_photo') }}">
