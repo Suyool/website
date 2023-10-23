@@ -4,9 +4,13 @@
 .admin-pages-content {
   margin-left: 16%;
 }
+.placeholder{
+  margin-bottom: 20px;
+}
 .dashborder{
+  color: #000;
   border: 1px solid beige;
-  height: 200px;
+  height: 100%;
   padding: 25px 0 0;
   margin-bottom: 40px;
   .TicketsCount{
@@ -17,6 +21,6 @@
   }
   .TotalAmount{
     font-family: $Bold;
-    
+
   }
 }
