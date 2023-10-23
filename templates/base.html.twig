@@ -17,7 +17,11 @@
 			<meta property="og:description" content="{{descmeta}}">
 		{% endif %}
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon/fav-transparent-bg.png') }}" sizes="128x128">
-		<link rel="canonical" href="{{ app.request.uri }}">
+		{% if canonical_url is defined %}
+			<link rel="canonical" href="{{ canonical_url }}" />
+		{% else %}
+			<link rel="canonical" href="{{ app.request.uri }}" />
+		{% endif %}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">

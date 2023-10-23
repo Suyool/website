@@ -27,7 +27,7 @@ class AppExtension extends AbstractExtension
     public function slugifyQuestion($question)
     {
         // Replace question marks with spaces, remove other special characters, replace spaces with dashes, and make it lowercase
-        $slug = strtolower(preg_replace(['/[^a-zA-Z0-9?]+/', '/\?/'], ['-', ' '], $question));
+        $slug = strtolower(preg_replace(['/[^a-zA-Z0-9?]+/', '/\?/'], ['-',''], $question));
 
         return $slug;
     }

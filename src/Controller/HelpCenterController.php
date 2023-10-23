@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class HelpCenterController extends AbstractController
 {
@@ -123,6 +124,12 @@ class HelpCenterController extends AbstractController
             $questionsForNextCategory = $questionsRepository->getQuestionsForNextCategory($nextCategory);
             $questionsForNextCategories[$nextCategory->getId()] = $questionsForNextCategory;
         }
+        // Generate the canonical URL based on the current route and parameters
+        $canonicalUrl = $this->generateUrl('category_show', [
+            'id' => $id,
+            'questionId' => $questionId,
+            'question' => $question,
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return $this->render('helpCenter/show.html.twig', [
             'category' => $category,
@@ -131,6 +138,7 @@ class HelpCenterController extends AbstractController
             'nextCategories' => $nextCategories,
             'questionsForNextCategories' => $questionsForNextCategories,
             'type' => $category->getType(),
+            'canonical_url'=>$canonicalUrl,
         ]);
     }
 
