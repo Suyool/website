@@ -10,7 +10,7 @@
     margin: 0;
   }
   .button-primary {
-    border-radius: 8px;
+    border-radius: 12px;
     font-family: PoppinsSemiBold;
     padding: 10px 30px;
   }
@@ -276,7 +276,7 @@
 
   .blue-btn {
     background: #226d96;
-    border-radius: 8px;
+    border-radius: 12px;
     color: #fff;
     display: block;
     font-family: PoppinsSemiBold;
@@ -387,7 +387,7 @@
   @media (min-width: 768px) and (max-width: 1450px) {
     .blue-btn {
       padding: 10px 0;
-      font-size: 20px;
+      font-size: 16px;
     }
 
     .top-section {
