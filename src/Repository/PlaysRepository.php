@@ -361,11 +361,11 @@ class PlaysRepository extends EntityRepository
     }
 
     public function CompletedTicketsCountThisMonth(){
-        $current_time=date("Y-m-d");
+        $current_time=date("Y-m-d",strtotime("+1 day"));
         $onemonth = date("Y-m-d", strtotime("-1 months"));
         return $this->createQueryBuilder('l')
         ->select('count(l)')
-        ->where('l.ticketId != 0 and l.ticketId is not null and l.created <= :current_time and l.created >= :onemonth')
+        ->where('l.ticketId != 0 and l.ticketId is not null and l.created < :current_time and l.created > :onemonth')
         ->setParameter('current_time',$current_time)
         ->setParameter('onemonth',$onemonth)
         ->getQuery()
