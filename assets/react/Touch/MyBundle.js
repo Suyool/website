@@ -265,8 +265,9 @@ const MyBundle = ({
               <div className="smlDesc">
                 <img
                   className="question"
-                  src={`/build/images/touch/question.png`}
+                  src={`/build/images/alfa/attention.svg`}
                   alt="question"
+                  style={{"verticalAlign":"baseline"}}
                 />
                 Touch only accepts payments in L.L
               </div>

@@ -264,8 +264,9 @@ const MyBundle = ({
               <div className="smlDesc">
                 <img
                   className="question"
-                  src={`/build/images/alfa/question.png`}
+                  src={`/build/images/alfa/attention.svg`}
                   alt="question"
+                  style={{"verticalAlign":"baseline"}}
                 />
                 Alfa only accepts payments in L.L
               </div>
