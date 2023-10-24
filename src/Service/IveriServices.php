@@ -183,9 +183,9 @@ class IveriServices
                         $transaction->getCurrency() == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
                         $status = true;
                         $imgsrc = "build/images/Loto/success.png";
-                        $title = "Top Up Successful";
-                        $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
-                        if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $description = "{$sender}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
+                        $title = "Money Added Succesfully";
+                        $description = "You have succesfully added {$parameters['currency']} {$amount} to your Suyool wallet. <br>Check your new balance";
+                        if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $description = "you have succesfully added {$parameters['currency']} {$amount} to {$sender}' Suyool wallet.";
                         $button = "Continue";
                         $orderSts=orders::$statusOrder['COMPLETED'];
                     } else {
@@ -202,15 +202,16 @@ class IveriServices
                     if ($topup[0]) {
                         $status = false;
                         $imgsrc = "build/images/Loto/error.png";
-                        $title = "Top Up Failed";
-                        $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                        $title = "Unable to Add Money";
+                        $description = "An error has occurred while adding money. <br>Please try again later or use another method.";
+                        if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $description = "An error has occurred while adding money. <br>Please try again or use another card";
                         $button = "Try Again";
                         if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $redirect = $code;
                     } else {
                         $status = false;
                         $imgsrc = "build/images/Loto/error.png";
                         $title = "Please Try Again";
-                        $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                        $description = "An error has occurred while adding money. <br>Please try again later or use another method.";
                         $button = "Try Again";
                         if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $redirect =$code;
                     }
