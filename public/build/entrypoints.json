@@ -53,7 +53,11 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.c357703c.css"
+=======
+        "/build/styles.8abced77.css"
+>>>>>>> 5ee9fa03 (dash)
       ]
     },
     "admin": {
@@ -61,7 +65,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.9fee9ffd.css"
+        "/build/admin.0dcb7391.css"
       ]
     },
     "Lotostyles": {

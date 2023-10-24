@@ -10,11 +10,14 @@
         <div class="col-md-12 main-menu">
             <div class="row placeholders">
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_users') }}">
+                <div class="col-xs-6 col-sm-4 placeholder text-center">
                     <div class="dashborder">
-                        <h4>Users</h4>
+                        <h4>Alfa</h4>
+                        <a class="TicketsCount" href="{{ path('admin_alfa_postpaid') }}" >PostPaid</a>
+                        <br>
+                        <a class="TicketsCount" href="{{ path('admin_alfa_prepaid') }}">PrePaid</a>
                     </div>
-                </a>
+                </div>
                 <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_email_subscribers') }}">
                     <div class="dashborder">
                         <h4>Email Subscribers</h4>

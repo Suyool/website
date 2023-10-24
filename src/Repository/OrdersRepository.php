@@ -35,7 +35,7 @@ class OrdersRepository extends EntityRepository
 
         $connection = $this->getEntityManager()->getConnection();
         $sql = "select
-        l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.subscription,o.amount,o.currency,o.created,o.transId,o.errorInfo as error
+        l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.subscription,o.amount,o.currency,o.created,o.transId,o.errorInfo as error,l.winLoto,l.winZeed
         FROM suyool_loto.orders o LEFT JOIN suyool_loto.loto l ON o.id = l.order_id LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         WHERE o.id = l.order_id {$where}
         ORDER BY o.created DESC
@@ -63,9 +63,15 @@ class OrdersRepository extends EntityRepository
                 if ($row['ticketId'] == null || $row['ticketId'] == 0) {
                     $array[$row['id']]['redFlag'] = true;
                 }
+                if((!is_null($row['winLoto']) && $row['winLoto'] != 0) || (!is_null($row['winZeed']) && $row['winZeed'] != 0)){
+                    $array[$row['id']]['greenFlag'] = true;
+                }
             } else {
                 if ($row['ticketId'] == null || $row['ticketId'] == 0) {
                     $array[$row['id']]['redFlag'] = true;
+                }
+                if((!is_null($row['winLoto']) && $row['winLoto'] != 0) || (!is_null($row['winZeed']) && $row['winZeed'] != 0)){
+                    $array[$row['id']]['greenFlag'] = true;
                 }
             }
         }

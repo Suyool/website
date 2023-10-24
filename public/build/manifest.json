@@ -9,6 +9,7 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.c357703c.css",
   "build/admin.css": "/build/admin.c5868b43.css",
   "build/Lotostyles.css": "/build/Lotostyles.c4e01bc7.css",
@@ -18,6 +19,10 @@
 >>>>>>> b34b4db2 (yarn encore prod)
   "build/styles.css": "/build/styles.d0f5488b.css",
   "build/admin.css": "/build/admin.9fee9ffd.css",
+=======
+  "build/styles.css": "/build/styles.8abced77.css",
+  "build/admin.css": "/build/admin.0dcb7391.css",
+>>>>>>> 5ee9fa03 (dash)
   "build/Lotostyles.css": "/build/Lotostyles.a155a69b.css",
 >>>>>>> 5f7f9db2 (dashboard)
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
@@ -454,6 +459,10 @@
   "build/images/pin.png": "/build/images/pin.png",
   "build/images/info.png": "/build/images/info.png",
   "build/images/close.svg": "/build/images/close.svg",
+<<<<<<< HEAD
+=======
+  "build/images/plusadmin.svg": "/build/images/plusadmin.svg",
+>>>>>>> 5ee9fa03 (dash)
   "build/images/alfa/attention.svg": "/build/images/alfa/attention.svg",
   "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",

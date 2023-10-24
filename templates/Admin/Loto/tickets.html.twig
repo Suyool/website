@@ -17,6 +17,9 @@
                     <th>price</th>
                     <th>currency</th>
                     <th>bouquet</th>
+                    <th>WinLoto</th>
+                    <th>WinZeed</th>
+                    <th>WinningStatus</th>
                     <th>created</th>
                 </tr>
             </thead>
@@ -35,6 +38,9 @@
                         <td>{{ tickets.price }}</td>
                         <td>{{ tickets.currency }}</td>
                         <td>{{ tickets.bouquet }}</td>
+                        <td>{{ tickets.winLoto }}</td>
+                        <td>{{ tickets.winZeed }}</td>
+                        <td>{{ tickets.winningStatus }}</td>
                         <td>{{ tickets.created|date("Y-m-d H:i:s") }}</td>
                     </tr>
                     {# </a> #}
