@@ -20,7 +20,7 @@ const Default = ({
     <div id="Default">
       <div className="MainTitle">What do you want to do?</div>
 
-      <div
+      {/* <div
         className="Cards"
         onClick={() => {
           handleButtonClick("PayBill");
@@ -37,7 +37,7 @@ const Default = ({
             Settle your Alfa bill quickly and securely
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="Cards"
