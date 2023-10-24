@@ -20,7 +20,7 @@
 		{% if canonical_url is defined %}
 			<link rel="canonical" href="{{ canonical_url }}" />
 		{% else %}
-			<link rel="canonical" href="{{ app.request.uri }}" />
+			<link rel="canonical" href="{{ app.request.uri | split('?') |first }}" />
 		{% endif %}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
