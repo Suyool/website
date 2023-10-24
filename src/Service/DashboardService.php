@@ -30,8 +30,16 @@ class DashboardService
     public function AlfaDashboard($alfaRepository){
         $parameters = array();
        $resultArray=$alfaRepository->getRepository(AlfaOrder::class)->CountStatusOrders();
+       $postpaidcount=$alfaRepository->getRepository(AlfaOrder::class)->getMethodPaid('postpaid');
+       $prepaidcount=$alfaRepository->getRepository(AlfaOrder::class)->getMethodPaid('prepaid');
+       $postpaidsum=number_format($alfaRepository->getRepository(AlfaOrder::class)->getMethodPaidSum('postpaid'));
+       $prepaidsum=number_format($alfaRepository->getRepository(AlfaOrder::class)->getMethodPaidSum('prepaid'));
        $parameters=[
-        'resultArray'=>$resultArray
+        'postpaidcount'=>$postpaidcount,
+        'prepaidcount'=>$prepaidcount,
+        'resultArray'=>$resultArray,
+        'postpaidsum'=>$postpaidsum,
+        'prepaidsum'=>$prepaidsum
        ];
 
        return $parameters;

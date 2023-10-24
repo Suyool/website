@@ -21,9 +21,10 @@
                                 <br>
                             {% endfor %}
                         </div>
-                        <a class="TicketsCount" href="{{ path('admin_alfa_postpaid') }}" >PostPaid</a>
-                        <br>
-                        <a class="TicketsCount" href="{{ path('admin_alfa_prepaid') }}">PrePaid</a>
+                        <div class="TicketsCount" href="{{ path('admin_alfa_postpaid') }}" >PostPaid: {{alfa.postpaidcount}}</div>
+                        <div class="TicketsCount" href="{{ path('admin_alfa_prepaid') }}">PrePaid: {{alfa.prepaidcount}}</div>
+                        <div class="TotalAmount">Total Amount PostPaid: {{alfa.postpaidsum}}</div>
+                        <div class="TotalAmount">Total Amount PrePaid: {{alfa.prepaidsum}}</div>
                     </div>
                 </div>
                 <a class="col-xs-6 col-sm-4 placeholder text-center" href="{{ path('admin_email_subscribers') }}">

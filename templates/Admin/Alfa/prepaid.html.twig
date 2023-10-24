@@ -3,20 +3,14 @@
 {% block content %}
 
     <h1 class="mb-4">Prepaid</h1>
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
         <tr>
             <th scope="col">{{ knp_pagination_sortable(prepaids, 'ID', 'pr.id') }}</th>
             <th scope="col">{{ knp_pagination_sortable(prepaids, 'User ID', 'pr.suyoolUserId') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Voucher Serial', 'pr.voucherSerial') }}</th>
             <th scope="col">{{ knp_pagination_sortable(prepaids, 'Voucher Code', 'pr.voucherCode') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Voucher Expiry', 'pr.voucherExpiry') }}</th>
             <th scope="col">{{ knp_pagination_sortable(prepaids, 'Description', 'pr.description') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Display Message', 'pr.displayMessage') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Token', 'pr.token') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Balance', 'pr.balance') }}</th>
             <th scope="col">{{ knp_pagination_sortable(prepaids, 'errorMsg', 'pr.errorMsg') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'insertId', 'pr.insertId') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -24,15 +18,9 @@
             <tr>
                 <td>{{ prepaid.id }}</td>
                 <td>{{ prepaid.suyoolUserId }}</td>
-                <td>{{ prepaid.voucherSerial }}</td>
                 <td>{{ prepaid.voucherCode }}</td>
-                <td>{{ prepaid.voucherExpiry }}</td>
                 <td>{{ prepaid.description }}</td>
-                <td>{{ prepaid.displayMessage }}</td>
-                <td>{{ prepaid.token }}</td>
-                <td>{{ prepaid.balance }}</td>
                 <td>{{ prepaid.errorMsg }}</td>
-                <td>{{ prepaid.insertId }}</td>
             </tr>
         {% endfor %}
         </tbody>

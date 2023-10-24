@@ -89,14 +89,11 @@ class AlfaController extends AbstractController
      */
     public function getOrders(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Order::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('o')
-            ->getQuery();
-
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription();
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
+            $orders,
+            $request->get('page', 1),
+            15
         );
         return $this->render('Admin/Alfa/orders.html.twig', [
             'orders' => $pagination,
