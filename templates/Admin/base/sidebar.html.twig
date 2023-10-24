@@ -1,13 +1,3 @@
-<style>
-	/* Custom style */
-    .accordion-button::after {
-      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
-      transform: scale(.7) !important;
-    }
-    .accordion-button:not(.collapsed)::after {
-      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
-    }
-</style>
 <div class="col-md-2 sidebar">
     <div class="flex-nowrap">
         <div class="col-auto bg-dark">
@@ -31,111 +21,111 @@
                     </li>
                     <li>
                         <a href="#loto" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Loto</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/><span class="ms-1 d-none d-sm-inline text-white">Loto</span>
                         </a>
-                        <ul class="collapse nav flex-column ms-1" id="loto" data-bs-parent="#menu">
+                        <ul class="collapse nav flex-column ms-1" id="loto" data-bs-parent="#loto">
                             <li class="w-100">
-                                <a href="{{ path('admin_loto_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline text-white">Orders</span></a>
+                                <a href="{{ path('admin_loto_orders') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Orders</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#shopify" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Shopify</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Shopify</span>
                         </a>
-                        <ul class="collapse nav flex-column ms-1" id="shopify" data-bs-parent="#menu">
+                        <ul class="collapse nav flex-column ms-1" id="shopify" data-bs-parent="#shopify">
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_credentials') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline text-white">Credentials</span></a>
+                                <a href="{{ path('admin_shopify_credentials') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Credentials</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_orders') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline text-white">Orders</span></a>
+                                <a href="{{ path('admin_shopify_orders') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Orders</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_ordersTest') }}" class="nav-link px-0"> <i class="fas fa-shopping-basket"></i> <span class="d-none d-sm-inline text-white">Orders Test</span></a>
+                                <a href="{{ path('admin_shopify_ordersTest') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Orders Test</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_session') }}" class="nav-link px-0"> <i class="fa-solid fa-cloud"></i> <span class="d-none d-sm-inline text-white">Sessions</span></a>
+                                <a href="{{ path('admin_shopify_session') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Sessions</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_requestedData') }}" class="nav-link px-0"> <i class="fa-solid fa-server"></i> <span class="d-none d-sm-inline text-white">Requested Data</span></a>
+                                <a href="{{ path('admin_shopify_requestedData') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Requested Data</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_shopify_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-database"></i> <span class="d-none d-sm-inline text-white">Logs</span></a>
+                                <a href="{{ path('admin_shopify_logs') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Logs</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#estores" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">EStores</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">EStores</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="estores" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="{{ path('admin_estore_company') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline text-white">Companies</span></a>
+                                <a href="{{ path('admin_estore_company') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Companies</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_estore_price') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline text-white">Prices</span></a>
+                                <a href="{{ path('admin_estore_price') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Prices</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_estore_products') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Products</span></a>
+                                <a href="{{ path('admin_estore_products') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Products</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#alfa" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Alfa</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Alfa</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="alfa" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="{{ path('admin_alfa_prepaid') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline text-white">Prepaid</span></a>
+                                <a href="{{ path('admin_alfa_prepaid') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Prepaid</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_alfa_postpaidRequest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline text-white">Postpaid Request</span></a>
+                                <a href="{{ path('admin_alfa_postpaidRequest') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Postpaid Request</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_alfa_postpaid') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Postpaid</span></a>
+                                <a href="{{ path('admin_alfa_postpaid') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Postpaid</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_alfa_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Orders</span></a>
+                                <a href="{{ path('admin_alfa_orders') }}" class="nav-link px-0"> <span class="d-none d-sm-inline text-white">Orders</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_alfa_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Logs</span></a>
+                                <a href="{{ path('admin_alfa_logs') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Logs</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#touch" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Touch</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Touch</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="touch" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="{{ path('admin_touch_prepaid') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline text-white">Prepaid</span></a>
+                                <a href="{{ path('admin_touch_prepaid') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Prepaid</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_touch_postpaidRequest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline text-white">Postpaid Request</span></a>
+                                <a href="{{ path('admin_touch_postpaidRequest') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Postpaid Request</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_touch_postpaid') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Postpaid</span></a>
+                                <a href="{{ path('admin_touch_postpaid') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Postpaid</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_touch_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Orders</span></a>
+                                <a href="{{ path('admin_touch_orders') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Orders</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_touch_logs') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline text-white">Logs</span></a>
+                                <a href="{{ path('admin_touch_logs') }}" class="nav-link px-0"><span class="d-none d-sm-inline text-white">Logs</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#ogero" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">Ogero</span> </a>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Ogero</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="ogero" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="{{ path('admin_ogero_landLine') }}" class="nav-link px-0"> <i class="fa-solid fa-lock"></i> <span class="d-none d-sm-inline">LandLine</span></a>
+                                <a href="{{ path('admin_ogero_landLine') }}" class="nav-link px-0"><span class="d-none d-sm-inline">LandLine</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_ogero_landLineReqest') }}" class="nav-link px-0"> <i class="fa-solid fa-dollar-sign"></i> <span class="d-none d-sm-inline">LandLine Request</span></a>
+                                <a href="{{ path('admin_ogero_landLineReqest') }}" class="nav-link px-0"><span class="d-none d-sm-inline">LandLine Request</span></a>
                             </li>
                             <li class="w-100">
-                                <a href="{{ path('admin_ogero_orders') }}" class="nav-link px-0"> <i class="fa-solid fa-list"></i> <span class="d-none d-sm-inline">Orders</span></a>
+                                <a href="{{ path('admin_ogero_orders') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Orders</span></a>
                             </li>
                         </ul>
                     </li>
@@ -143,7 +133,7 @@
 
                     <li>
                         <a href="#faq" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white">FAQ</span>
+                            <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">FAQ</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="faq" data-bs-parent="#menu">
                             <li class="w-100">
@@ -162,7 +152,7 @@
                 <div class="dropdown pb-4">
                     {% if app.user %}
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            {# <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="hugenerd" width="30" height="30" class="rounded-circle"> #}
                             <span class="d-none d-sm-inline mx-1">{{ app.user.username }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

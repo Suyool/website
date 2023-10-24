@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\order;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,17 @@ class DashboardService
         'count'=>$count,
         'thismonth'=>$thismonth,
         'TotalAmount'=>$TotalAmount,
+        'resultArray'=>$resultArray
+       ];
+
+       return $parameters;
+
+    }
+
+    public function AlfaDashboard($alfaRepository){
+        $parameters = array();
+       $resultArray=$alfaRepository->getRepository(AlfaOrder::class)->CountStatusOrders();
+       $parameters=[
         'resultArray'=>$resultArray
        ];
 

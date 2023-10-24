@@ -13,10 +13,12 @@ class DashboardController extends AbstractController
 {
 
     private $LotoRepository;
+    private $alfaRepository;
 
     public function __construct(ManagerRegistry $mr)
     {
         $this->LotoRepository=$mr->getManager('loto');
+        $this->alfaRepository=$mr->getManager('alfa');
     }
 
     /**
@@ -26,8 +28,10 @@ class DashboardController extends AbstractController
     {
         $dashboard = new DashboardService();
         $loto=$dashboard->LotoDashboard($this->LotoRepository);
+        $alfa=$dashboard->AlfaDashboard($this->alfaRepository);
         return $this->render('Admin/dashboard.html.twig', array(
-            'loto'=>$loto
+            'loto'=>$loto,
+            'alfa'=>$alfa
         ));
     }
 }
