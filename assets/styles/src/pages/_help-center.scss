@@ -100,7 +100,24 @@
       }
     }
   }
-
+  .navbar_help-center {
+    .button-primary {
+      padding: 12px 35px;
+    }
+    .button-primary:hover {
+      background-color: #fff;
+      border: 1px solid #226d96;
+      color: #226d96;
+    }
+    .type2 {
+      background-color: #593884;
+    }
+    .type2:hover {
+      background-color: #fff;
+      border: 1px solid #593884;
+      color: #593884;
+    }
+  }
   .infoSection {
     margin: 100px 0;
 
@@ -120,8 +137,9 @@
         }
 
         p {
-          font-size: 14px;
+          font-size: 16px;
           font-family: $Regular;
+          width: 300px;
         }
       }
     }

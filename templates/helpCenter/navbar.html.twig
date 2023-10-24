@@ -5,7 +5,9 @@
             <div class="nav-item color{{type}}">
                 <a href="{{ path('help_center') }}">Suyool Help Center</a>
             </div>
-            <button type="button" class="btn button-primary background{{type}}">Get The App</button>
+            <div class="buttons-cont">
+                <button id="openSuyoolAccount" class="btn button-primary desktop type{{type}}" data-bs-toggle="modal" data-bs-target="#DownloadApp">{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}</button>
+            </div>
         </div>
     </div>
 </div>
