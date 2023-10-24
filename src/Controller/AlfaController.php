@@ -347,7 +347,7 @@ class AlfaController extends AbstractController
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
-                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->setstatus(Order::$statusOrder['CANCELED'])
                             ->seterror("reversed error from alfa:" . $billPay[2]);;
 
                         $this->mr->persist($orderupdate4);
