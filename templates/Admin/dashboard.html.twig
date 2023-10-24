@@ -15,14 +15,15 @@
                         <h4>Alfa</h4>
                         <div class="TicketsCount">
                             {% for key,value in alfa.resultArray %}
-                                <a href="{{path('admin_alfa_orders')}}">
+                                <a class="TicketsCount" href="{{ path('admin_alfa_orders') }}">
                                 Orders {{key}}:{{value}}
                                 </a>
                                 <br>
                             {% endfor %}
                         </div>
-                        <div class="TicketsCount" href="{{ path('admin_alfa_postpaid') }}" >PostPaid: {{alfa.postpaidcount}}</div>
-                        <div class="TicketsCount" href="{{ path('admin_alfa_prepaid') }}">PrePaid: {{alfa.prepaidcount}}</div>
+                        <a class="TicketsCount" href="{{ path('admin_alfa_ordersPost') }}" >PostPaid: {{alfa.postpaidcount}}</a>
+                        <br>
+                        <a class="TicketsCount" href="{{ path('admin_alfa_ordersPre') }}">PrePaid: {{alfa.prepaidcount}}</a>
                         <div class="TotalAmount">Total Amount PostPaid: {{alfa.postpaidsum}}</div>
                         <div class="TotalAmount">Total Amount PrePaid: {{alfa.prepaidsum}}</div>
                     </div>

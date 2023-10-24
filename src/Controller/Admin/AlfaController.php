@@ -85,7 +85,7 @@ class AlfaController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/alfa/orders", name="admin_alfa_orders")
+     * @Route("admin/alfa/orders", name="admin_alfa_orders")
      */
     public function getOrders(Request $request,PaginatorInterface $paginator): Response
     {
@@ -96,21 +96,51 @@ class AlfaController extends AbstractController
             15
         );
         return $this->render('Admin/Alfa/orders.html.twig', [
-            'orders' => $pagination,
+            'pagination' => $pagination,
         ]);
     }
 
     /**
-     * @Route("dashadmin/alfa/logs", name="admin_alfa_logs")
+     * @Route("admin/alfa/ordersPost", name="admin_alfa_ordersPost")
+     */
+    public function getOrdersPost(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('postpaid_id');
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/Alfa/ordersPost.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    }
+
+    /**
+     * @Route("admin/alfa/ordersPre", name="admin_alfa_ordersPre")
+     */
+    public function getOrdersPre(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('prepaid_id');
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/Alfa/ordersPre.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    }
+
+    /**
+     * @Route("admin/alfa/logs", name="admin_alfa_logs")
      */
     public function getLogs(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Logs::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('l')
-            ->getQuery();
-
+        $emailSubscribersRepository = $this->mr->getRepository(PostpaidRequest::class)->findBy(['suyoolUserId'=>$request->query->get('suyoolUserid')]);
+        // dd($emailSubscribersRepository);
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
+            $emailSubscribersRepository,  // Query to paginate
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
