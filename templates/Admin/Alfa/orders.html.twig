@@ -1,9 +1,22 @@
 {% extends 'Admin/base.html.twig' %}
 
-{% block currentPage %}Alfa{% endblock %}
+{% block currentPage %}Alfa
+{% endblock %}
 
 
 {% block content  %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-3">{{ form_row(form.status) }}
+		</div>
+		<div class="col-md-3">{{form_row(form.amount)}}
+		</div>
+		<div class="col-md-3">{{form_row(form.transId)}}
+		</div>
+        <div class="col-md-3">{{form_row(form.suyoolUserId)}}
+		</div>
+	</div>
+	{{ form_end(form) }}
 	<table class="table">
 		<thead>
 			<tr>
@@ -23,8 +36,12 @@
 			{% for order in pagination  %}
 				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
 				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}">
-                <td>{{ order.id }}{% if order.postpaid is not null %}(postpaid){% elseif (order.prepaid is not null) %}(prepaid){% endif %}</td>
-					<td>{{ order.fname }} {{ order.lname }}</td>
+					<td>{{ order.id }}
+						{% if order.postpaid is not null %}(postpaid){% elseif (order.prepaid is not null) %}(prepaid)
+						{% endif %}
+					</td>
+					<td>{{ order.fname }}
+						{{ order.lname }}</td>
 					<td>{{ order.status }}</td>
 					{# <td>{{ order.subscription }}</td> #}
 					<td>{{ order.amount }}</td>

@@ -20,6 +20,10 @@
 //   box-shadow: none;
 // }
 .dashborder{
+  .list{
+    padding: 0;
+    list-style: none;
+  }
   cursor: pointer;
   color: #000;
   border: 1px solid beige;

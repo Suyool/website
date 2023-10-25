@@ -6,28 +6,22 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'ID', 'pr.id') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'User ID', 'pr.suyoolUserId') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Voucher Code', 'pr.voucherCode') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'Description', 'pr.description') }}</th>
-            <th scope="col">{{ knp_pagination_sortable(prepaids, 'errorMsg', 'pr.errorMsg') }}</th>
+            <th scope="col">Id</th>
+            <th scope="col">suyoolUserId</th>
+            <th scope="col">voucherCode</th>
+            <th scope="col">description</th>
+            <th scope="col">errorMsg</th>
         </tr>
         </thead>
         <tbody>
-        {% for prepaid in prepaids %}
             <tr>
-                <td>{{ prepaid.id }}</td>
-                <td>{{ prepaid.suyoolUserId }}</td>
-                <td>{{ prepaid.voucherCode }}</td>
-                <td>{{ prepaid.description }}</td>
-                <td>{{ prepaid.errorMsg }}</td>
+                <td>{{ prepaids.id }}</td>
+                <td>{{ prepaids.suyoolUserId }}</td>
+                <td>{{ prepaids.voucherCode }}</td>
+                <td>{{ prepaids.description }}</td>
+                <td>{{ prepaids.errorMsg }}</td>
             </tr>
-        {% endfor %}
         </tbody>
     </table>
-
-    <div class="pagination justify-content-center">
-        {{ knp_pagination_render(prepaids) }}
-    </div>
 {% endblock %}
 

@@ -4,6 +4,18 @@
 
 
 {% block content  %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-3">{{ form_row(form.status) }}
+		</div>
+		<div class="col-md-3">{{form_row(form.amount)}}
+		</div>
+		<div class="col-md-3">{{form_row(form.transId)}}
+		</div>
+        <div class="col-md-3">{{form_row(form.suyoolUserId)}}
+		</div>
+	</div>
+	{{ form_end(form) }}
 	<table class="table">
 		<thead>
 			<tr>
@@ -22,8 +34,8 @@
 
 			{% for order in pagination  %}
 				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
-				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}"  onclick="window.location.href='{{path('admin_alfa_logs',{'suyoolUserid':order.suyoolUserId})}}'">
-                <td>{{ order.id }}{% if order.postpaid is not null %}(postpaid){% elseif (order.prepaid is not null) %}(prepaid){% endif %}</td>
+				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}"  onclick="window.location.href='{{path('admin_alfa_postpaid',{'postpaidId':order.postpaid})}}'">
+                <td>{{ order.id }}</td>
 					<td>{{ order.fname }} {{ order.lname }}</td>
 					<td>{{ order.status }}</td>
 					{# <td>{{ order.subscription }}</td> #}
