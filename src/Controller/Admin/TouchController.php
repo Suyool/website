@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SearchAlfaOrdersForm;
+
 
 class TouchController extends AbstractController
 {
@@ -30,7 +32,7 @@ class TouchController extends AbstractController
     public function getPrepaid(Request $request,PaginatorInterface $paginator): Response
     {
         $prepaid= $this->mr->getRepository(Prepaid::class)->findOneBy(['id'=>$request->query->get('prepaidId')]); 
-        return $this->render('Admin/Alfa/prepaid.html.twig', [
+        return $this->render('Admin/touch/prepaid.html.twig', [
             'prepaids' => $prepaid,
         ]);
     }
@@ -46,7 +48,7 @@ class TouchController extends AbstractController
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
-        return $this->render('Admin/Alfa/postpaidRequest.html.twig', [
+        return $this->render('Admin/touch/postpaidRequest.html.twig', [
             'postpaidRequests' => $pagination,
         ]);
     }
@@ -57,7 +59,7 @@ class TouchController extends AbstractController
     public function getPostpaid(Request $request,PaginatorInterface $paginator): Response
     {
         $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id'=>$request->query->get('postpaidId')]);
-        return $this->render('Admin/Alfa/postpaid.html.twig', [
+        return $this->render('Admin/touch/postpaid.html.twig', [
             'postpaids' => $postpaid,
         ]);
     }
@@ -88,7 +90,7 @@ class TouchController extends AbstractController
             $request->get('page', 1),
             15
         );
-        return $this->render('Admin/Alfa/orders.html.twig', [
+        return $this->render('Admin/Touch/orders.html.twig', [
             'pagination' => $pagination,
             'form'=>$AlfaSearchForm
         ]);
@@ -120,7 +122,7 @@ class TouchController extends AbstractController
             $request->get('page', 1),
             15
         );
-        return $this->render('Admin/Alfa/ordersPost.html.twig', [
+        return $this->render('Admin/touch/ordersPost.html.twig', [
             'pagination' => $pagination,
             'form'=>$AlfaSearchForm
         ]);
@@ -152,7 +154,7 @@ class TouchController extends AbstractController
             $request->get('page', 1),
             15
         );
-        return $this->render('Admin/Alfa/ordersPre.html.twig', [
+        return $this->render('Admin/touch/ordersPre.html.twig', [
             'pagination' => $pagination,
             'form'=>$AlfaSearchForm
         ]);
@@ -170,7 +172,7 @@ class TouchController extends AbstractController
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
-        return $this->render('Admin/Alfa/logs.html.twig', [
+        return $this->render('Admin/touch/logs.html.twig', [
             'logs' => $pagination,
         ]);
     }

@@ -53,11 +53,11 @@
 										<div class="TotalAmount">PostPaid</div>
 											<li>
 												<a class="TicketsCount" href="{{ path('admin_touch_ordersPost') }}">PostPaid:
-													{{alfa.postpaidcount}}</a>
+													{{touch.postpaidcount}}</a>
 											</li>
 											<li>
 												<div class="TotalAmount">Amount:
-													{{alfa.postpaidsum}}</div>
+													{{touch.postpaidsum}}</div>
 											</li>
 										</ul>
 									</div>
@@ -66,11 +66,11 @@
 										<div class="TotalAmount">Prepaid</div>
 											<li>
 												<a class="TicketsCount" href="{{ path('admin_touch_ordersPre') }}">PrePaid:
-													{{alfa.prepaidcount}}</a>
+													{{touch.prepaidcount}}</a>
 											</li>
 											<li>
 												<div class="TotalAmount">Amount:
-													{{alfa.prepaidsum}}</div>
+													{{touch.prepaidsum}}</div>
 											</li>
 
 										</ul>
@@ -98,6 +98,38 @@
 									{{ loto.TotalAmount }}</div>
 							</div>
 
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_alfa_orders')}}'">
+								<h4>Ogero</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">PostPaid</div>
+											<li>
+												<a class="TicketsCount" href="{{ path('admin_touch_ordersPost') }}">PostPaid:
+													{{touch.postpaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{touch.postpaidsum}}</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_alfa_orders')}}'">
+								<h4>Support</h4>
+								<div class="row">
+									<div class="col-md-12">
+												<div class="TicketsCount">Message/s:
+													{{support.messageCount}}</div>
+										</ul>
+									</div>
+								</div>
+							</div>
 						</div>
 
 					{% endif %}

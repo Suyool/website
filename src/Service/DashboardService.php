@@ -5,6 +5,8 @@ namespace App\Service;
 use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\order;
+use App\Entity\Support;
+use App\Entity\Touch\Order as TouchOrder;
 use Doctrine\Persistence\ManagerRegistry;
 
 class DashboardService 
@@ -40,6 +42,36 @@ class DashboardService
         'resultArray'=>$resultArray,
         'postpaidsum'=>$postpaidsum,
         'prepaidsum'=>$prepaidsum
+       ];
+
+       return $parameters;
+
+    }
+
+    public function TouchDashboard($touchRepository){
+        $parameters = array();
+       $resultArray=$touchRepository->getRepository(TouchOrder::class)->CountStatusOrders();
+       $postpaidcount=$touchRepository->getRepository(TouchOrder::class)->getMethodPaid('postpaid');
+       $prepaidcount=$touchRepository->getRepository(TouchOrder::class)->getMethodPaid('prepaid');
+       $postpaidsum=number_format($touchRepository->getRepository(TouchOrder::class)->getMethodPaidSum('postpaid'));
+       $prepaidsum=number_format($touchRepository->getRepository(TouchOrder::class)->getMethodPaidSum('prepaid'));
+       $parameters=[
+        'postpaidcount'=>$postpaidcount,
+        'prepaidcount'=>$prepaidcount,
+        'resultArray'=>$resultArray,
+        'postpaidsum'=>$postpaidsum,
+        'prepaidsum'=>$prepaidsum
+       ];
+
+       return $parameters;
+
+    }
+
+    public function SupportDashboard($supportRepository){
+        $parameters = array();
+        $countMessage=$supportRepository->getRepository(Support::class)->CountSupports();
+       $parameters=[
+        'messageCount'=>$countMessage
        ];
 
        return $parameters;

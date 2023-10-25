@@ -14,11 +14,15 @@ class DashboardController extends AbstractController
 
     private $LotoRepository;
     private $alfaRepository;
+    private $touchRepository;
+    private $supportRepository;
 
     public function __construct(ManagerRegistry $mr)
     {
         $this->LotoRepository=$mr->getManager('loto');
         $this->alfaRepository=$mr->getManager('alfa');
+        $this->touchRepository=$mr->getManager('touch');
+        $this->supportRepository=$mr->getManager('default');
     }
 
     /**
@@ -29,9 +33,13 @@ class DashboardController extends AbstractController
         $dashboard = new DashboardService();
         $loto=$dashboard->LotoDashboard($this->LotoRepository);
         $alfa=$dashboard->AlfaDashboard($this->alfaRepository);
+        $touch=$dashboard->TouchDashboard($this->touchRepository);
+        $support=$dashboard->SupportDashboard($this->supportRepository);
         return $this->render('Admin/dashboard.html.twig', array(
             'loto'=>$loto,
-            'alfa'=>$alfa
+            'alfa'=>$alfa,
+            'touch'=>$touch,
+            'support'=>$support
         ));
     }
 }
