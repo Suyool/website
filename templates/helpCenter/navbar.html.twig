@@ -6,7 +6,11 @@
                 <a href="{{ path('help_center') }}">Suyool Help Center</a>
             </div>
             <div class="buttons-cont">
-                <button id="openSuyoolAccount" class="btn button-primary desktop type{{type}}" data-bs-toggle="modal" data-bs-target="#DownloadApp">{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}</button>
+                {% if type == 2 %}
+                    <button type="button" class="btn button-primary btn-type-{{type}}" onclick="window.location.href='/legal_enrollment'">Apply as Corporate</button>
+                {% else %}
+                    <button id="openSuyoolAccount" class="btn button-primary desktop" data-bs-toggle="modal" data-bs-target="#DownloadApp">{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}</button>
+                {% endif %}
             </div>
         </div>
     </div>
