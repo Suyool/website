@@ -236,7 +236,7 @@ return [
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DrogueriePhenicia" => "What are the benefits for Droguerie Phenicia employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Droguerie Phenicia employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as you are an Droguerie Phenicia employee. ",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Droguerie Phenicia employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as they are a Droguerie Phenicia employee. ",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DrogueriePhenicia" => "Your Suyool Debit Card will be free-of-charge as long as you are a Droguerie Phenicia employee.",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Is there any fee to get my Suyool Debit Card?",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_DrogueriePhenicia" => "Your Suyool Debit Card will be free-of-charge as long as you are a Droguerie Phenicia employee.",
