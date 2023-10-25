@@ -8,17 +8,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Support;
 use App\Form\SupportType;
+use App\Service\sendEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 
 class SupportController extends AbstractController
 {
 
     private $mr;
+    private $mailerInterface;
 
-    public function __construct(ManagerRegistry $mr)
+    public function __construct(ManagerRegistry $mr,MailerInterface $mailerInterface)
     {
         $this->mr = $mr->getManager('default');
+        $this->mailerInterface=$mailerInterface;
     }
 
     /**
@@ -37,6 +41,8 @@ class SupportController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $sendEmail = new sendEmail($this->mailerInterface);
+                $sendEmail->sendEmail($support->getmail(),'contact@suyool.com','anthony.saliban@gmail.com',$support->getname() . " " . $support->getPhoneNumber(),$support->getmessage());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($support);
                 $entityManager->flush();
