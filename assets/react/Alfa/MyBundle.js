@@ -20,10 +20,10 @@ const MyBundle = ({
     setBackLink("ReCharge");
     setIsButtonDisabled(false);
   }, []);
-  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
-  const [ getSerialToClipboard, setSerialToClipboard ] = useState("");
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   const handleShare = (shareCode) => {
     let object = [
@@ -255,7 +255,7 @@ const MyBundle = ({
           <>
             <div className="MyBundleBody">
               <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
-              <div className="mainDesc">*All taxes excluded</div>
+              {/* <div className="mainDesc">*All taxes excluded</div> */}
               <img
                 className="BundleBigImg"
                 src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}
@@ -266,24 +266,39 @@ const MyBundle = ({
                   className="question"
                   src={`/build/images/alfa/attention.svg`}
                   alt="question"
-                  style={{"verticalAlign":"baseline"}}
+                  style={{ verticalAlign: "baseline" }}
                 />
                 Alfa only accepts payments in L.L
               </div>
-              <div className="relatedInfo">{getPrepaidVoucher.desc2}</div>
+              {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
               <div className="MoreInfo">
-                <div className="label">Amount in L.L (Including taxes)</div>
+                <div className="label">Total before taxes</div>
+                <div className="value">$ {getPrepaidVoucher.beforeTaxes}</div>
+              </div>
+              <div className="MoreInfo">
+                <div className="label">+V.A.T & Stamp Duty</div>
+                <div className="value">$ {getPrepaidVoucher.fees}</div>
+              </div>
+              <div className="br"></div>
+              <div className="MoreInfo">
+                <div className="label">Total after taxes</div>
+                <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+              </div>
+              <div className="MoreInfo">
+                <div className="label">Amount in L.L (Sayrafa rate)</div>
                 <div className="value">
                   L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
                 </div>
               </div>
-
               <div className="br"></div>
               <div className="MoreInfo">
-                <div className="label">Total (Sayrafa rate)</div>
+                <div className="label">Total amount to pay</div>
                 <div className="value1">
                   L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
                 </div>
+              </div>
+              <div className="smlDesc">
+                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L as per Sayrafa rate, subject to change on payment day.
               </div>
             </div>
 

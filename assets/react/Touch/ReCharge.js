@@ -10,7 +10,7 @@ const ReCharge = ({
 }) => {
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
-console.log(getVoucherData)
+// console.log(getVoucherData)
   useEffect(() => {
     setHeaderTitle("Re-charge Touch");
     setBackLink("");
@@ -28,7 +28,7 @@ console.log(getVoucherData)
     return order.indexOf(a.vouchertype) - order.indexOf(b.vouchertype);
   });
 
-  console.log(sortedData);
+  // console.log(sortedData);
 
   return (
     <div id="ReCharge">
@@ -73,6 +73,9 @@ console.log(getVoucherData)
                     desc1: record.desc1,
                     desc2: record.desc2,
                     desc3: record.desc3,
+                    beforeTaxes:record.beforeTaxes,
+                    fees:record.fees,
+                    sayrafa:record.sayrafa
                   });
                 }}
               >
@@ -84,9 +87,9 @@ console.log(getVoucherData)
                 <div className="gridDesc">
                   <div className="Price">
                     ${record.priceUSD}{" "}
-                    <span>
+                    {/* <span>
                       (LBP {parseInt(record.priceLBP).toLocaleString()})
-                    </span>
+                    </span> */}
                   </div>
                   <div className="bundleName">{record.desc1}</div>
                 </div>

@@ -23,7 +23,7 @@ const ReCharge = ({
       setLoading(false);
     }
   }, [ filteredData ]);
-  console.log(filteredData);
+  // console.log(filteredData);
 
   return (
     <div id="ReCharge">
@@ -67,6 +67,9 @@ const ReCharge = ({
                     isavailable: record.isavailable,
                     desc1: record.desc1,
                     desc2: record.desc2,
+                    beforeTaxes:record.beforeTaxes,
+                    fees:record.fees,
+                    sayrafa:record.sayrafa
                   });
                 }}
               >
@@ -78,9 +81,9 @@ const ReCharge = ({
                 <div className="gridDesc">
                   <div className="Price">
                     ${record.priceUSD}{" "}
-                    <span>
+                    {/* <span>
                       (LBP {parseInt(record.priceLBP).toLocaleString()})
-                    </span>
+                    </span> */}
                   </div>
                   <div className="bundleName">{record.desc3}</div>
                 </div>
