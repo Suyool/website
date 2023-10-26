@@ -3,10 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Support;
+use App\Service\sendEmail;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SupportController extends AbstractController
@@ -22,9 +25,17 @@ class SupportController extends AbstractController
     /**
      * @Route("admin/support", name="admin_support")
      */
-    public function index(Request $request,PaginatorInterface $paginator)
+    public function index(Request $request,PaginatorInterface $paginator,MailerInterface $mailerInterface)
     {
-        $support=$this->mr->getRepository(Support::class)->findAll();
+        $sendEmail=new sendEmail($mailerInterface);
+        if(isset($_POST['submit'])){
+            $support=$this->mr->getRepository(Support::class)->findOneBy(['id'=>$_POST['id']]);
+            $sendEmail->sendEmail('contact@suyool.com',$_POST['email'],'anthony.saliban@gmail.com','From Suyool',$_POST['answer']);
+            $support->setreplied(1);
+            $this->mr->persist($support);
+            $this->mr->flush();
+        }
+        $support=$this->mr->getRepository(Support::class)->findBy(['replied'=>0],['id'=>'DESC']);
 
         $pagination=$paginator->paginate(
             $support,

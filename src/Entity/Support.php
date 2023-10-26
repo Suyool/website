@@ -37,6 +37,11 @@ class Support
      */
     private $message;
 
+     /**
+     * @ORM\Column(name="replied")
+     */
+    private $replied = 0;
+
     public function getId()
     {
         return $this->id;
@@ -84,5 +89,16 @@ class Support
     public function getmessage()
     {
         return $this->message;
+    }
+
+    public function setreplied($replied)
+    {
+        $this->replied = $replied;
+        return $this;
+    }
+
+    public function getreplied()
+    {
+        return $this->replied;
     }
 }

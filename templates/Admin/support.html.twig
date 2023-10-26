@@ -13,6 +13,7 @@
                     <th>Email</th>
                     <th>Phone number</th>
                     <th>Message</th>
+                    <th>Answer</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,14 @@
                         <td>{{ info.getmail() }}</td>
                         <td>{{ info.getPhoneNumber() }}
                         <td>{{info.message()}}</td>
+                        <td>
+                            <form action="" method="post">
+                                <textarea name="answer"></textarea>
+                                <input type="hidden" name="email" value="{{ info.getmail() }}">
+                                <input type="hidden" name="id" value="{{ info.getId() }}">
+                                <input type="submit" name="submit" value="Send">
+                                </form>
+                        </td>
                         {# <td>{{ order.created|date("Y-m-d H:i:s") }}</td> #}
                     </tr>
                     {# </a> #}
