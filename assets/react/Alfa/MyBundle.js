@@ -268,6 +268,7 @@ const MyBundle = ({
                   alt="question"
                   style={{ verticalAlign: "baseline" }}
                 />
+                &nbsp;
                 Alfa only accepts payments in L.L
               </div>
               {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
@@ -297,8 +298,8 @@ const MyBundle = ({
                   L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
                 </div>
               </div>
-              <div className="smlDesc">
-                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L as per Sayrafa rate, subject to change on payment day.
+              <div className="smlDescSayrafa">
+                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Sayrafa rate, subject to change).
               </div>
             </div>
 

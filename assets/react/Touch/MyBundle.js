@@ -269,6 +269,7 @@ const MyBundle = ({
                   alt="question"
                   style={{ verticalAlign: "baseline" }}
                 />
+                &nbsp;
                 Touch only accepts payments in L.L
               </div>
               {/* <div className="relatedInfo">{getPrepaidVoucher.desc1}</div> */}
@@ -298,9 +299,9 @@ const MyBundle = ({
                   L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
                 </div>
               </div>
-              <div className="smlDesc">
+              <div className="smlDescSayrafa">
                 $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L
-                as per Sayrafa rate, subject to change on payment day.
+                (Sayrafa rate, subject to change).
               </div>
             </div>
 

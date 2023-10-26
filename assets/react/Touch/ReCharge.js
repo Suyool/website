@@ -86,7 +86,7 @@ const ReCharge = ({
                 />
                 <div className="gridDesc">
                   <div className="Price">
-                    ${record.priceUSD}{" "}
+                    ${record.beforeTaxes}{" "}
                     {/* <span>
                       (LBP {parseInt(record.priceLBP).toLocaleString()})
                     </span> */}
