@@ -20,7 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class QuestionsController extends AbstractController
 {
     /**
-     * @Route("dashadmin/questions", name="admin_questions")
+     * @Route("admin/questions", name="admin_questions")
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
@@ -60,8 +60,8 @@ class QuestionsController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/questions/new", name="admin_questions_new", methods={"GET","POST"})
-     * @Route("dashadmin/questions/edit/{id}", name="admin_questions_edit", requirements={"id"="\d+"}, defaults={"id"=null})
+     * @Route("admin/questions/new", name="admin_questions_new", methods={"GET","POST"})
+     * @Route("admin/questions/edit/{id}", name="admin_questions_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
     public function create(Request $request, Question $question = null): Response
     {
@@ -90,7 +90,7 @@ class QuestionsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/show_questions_photo", name="admin_show_questions_photo")
+     * @Route("admin/show_questions_photo", name="admin_show_questions_photo")
      */
     public function showQuestionPhoto(): Response
     {
@@ -101,7 +101,7 @@ class QuestionsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/upload_questions_photo", name="admin_upload_questions_photo")
+     * @Route("admin/upload_questions_photo", name="admin_upload_questions_photo")
      */
     public function uploadPhoto(Request $request, QuestionsPhoto $question = null,SluggerInterface $slugger): Response
     {

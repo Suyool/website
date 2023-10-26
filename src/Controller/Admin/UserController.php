@@ -25,7 +25,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/users", name="admin_users")
+     * @Route("admin/users", name="admin_users")
      */
     public function index(Request $request,PaginatorInterface $paginator): Response
     {
@@ -54,11 +54,11 @@ class UserController extends AbstractController
 
     /**
      * @Route(
-     *     "dashadmin/user/new", name="admin_users_new",
+     *     "admin/users/new", name="admin_users_new",
      * )
      *
      * @Route(
-     *     "dashadmin/user/edit/{id?}", name="edit_user",
+     *     "admin/users/edit/{id?}", name="edit_user",
      *     requirements = {
      *           "id": "\d+"
      *     }

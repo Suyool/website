@@ -100,14 +100,14 @@
 
 						</div>
 						<div class="col-xs-6 col-sm-4 placeholder text-center">
-							<div class="dashborder" onclick="window.location.href='{{path('admin_alfa_orders')}}'">
+							<div class="dashborder">
 								<h4>Ogero</h4>
 								<div class="row">
 									<div class="col-md-12">
 										<ul class="list">
 										<div class="TotalAmount">PostPaid</div>
 											<li>
-												<a class="TicketsCount" href="{{ path('admin_touch_ordersPost') }}">PostPaid:
+												<a class="TicketsCount">PostPaid:
 													{{touch.postpaidcount}}</a>
 											</li>
 											<li>
@@ -126,9 +126,13 @@
 									<div class="col-md-12">
 												<div class="TicketsCount">Message/s:
 													{{support.messageCount}}</div>
-										</ul>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_users')}}'">
+								<h4>Users</h4>
 							</div>
 						</div>
 

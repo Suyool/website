@@ -10,8 +10,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Phone number</th>
-                    {# <th>Subscription</th> #}
                     <th>Message</th>
                 </tr>
             </thead>
@@ -23,6 +23,7 @@
                         <td>{{ info.getId() }}</td>
                         <td>{{ info.getname() }}</td>
                         <td>{{ info.getmail() }}</td>
+                        <td>{{ info.getPhoneNumber() }}
                         <td>{{info.message()}}</td>
                         {# <td>{{ order.created|date("Y-m-d H:i:s") }}</td> #}
                     </tr>
