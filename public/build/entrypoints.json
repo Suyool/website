@@ -53,11 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-        "/build/styles.c357703c.css"
-=======
-        "/build/styles.8abced77.css"
->>>>>>> 5ee9fa03 (dash)
+        "/build/styles.bf229e2b.css"
       ]
     },
     "admin": {
