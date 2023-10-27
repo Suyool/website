@@ -180,8 +180,8 @@ class IveriServices
                     // dd($topup);
                     if ($topup[0]) {
                         if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonSuccess = true;
-                        $amount = number_format($transaction->getAmount());
-                        $transaction->getCurrency() == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
+                        $amount = number_format($transaction->getTrace()->getOrders()->getAmount());
+                        $transaction->getTrace()->getOrders()->getCurrency() == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
                         $status = true;
                         $imgsrc = "build/images/Loto/success.png";
                         $title = "Money Added Succesfully";
