@@ -47,6 +47,11 @@ class Order
     private $amount;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $fees;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $currency;
@@ -97,6 +102,17 @@ class Order
     public function setamount($amount)
     {
         $this->amount = $amount;
+        return $this;
+    }
+
+    public function getfees()
+    {
+        return $this->fees;
+    }
+
+    public function setfees($fees)
+    {
+        $this->fees = $fees;
         return $this;
     }
 

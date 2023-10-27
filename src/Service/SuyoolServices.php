@@ -51,19 +51,23 @@ class SuyoolServices
     /**
      * Push Utility Api
      */
-    public function PushUtilities($SuyoolUserId, $id, $sum, $currency)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency,$fees)
     {
         $sum = number_format((float) $sum, 1, '.', '');
-        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $currency . $this->certificate, true));
+        $fees = number_format((float) $fees, 1, '.', '');
+        echo $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate;
+        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
                 'userAccountID' => $SuyoolUserId,
                 "merchantAccountID" => $this->merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
+                'fees' => $fees,
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
+            echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
             // dd($response);
 
@@ -76,6 +80,7 @@ class SuyoolServices
             } else {
                 $push_utility_response = $response->toArray();
             }
+            dd($push_utility_response);
 
             $error = "";
             $globalCode = $push_utility_response['globalCode'];

@@ -161,7 +161,8 @@ class OgeroController extends AbstractController
                 ->settransId(null)
                 ->setlandlineId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Landline_With_id->gettotalamount())
+                ->setamount($Landline_With_id->getamount())
+                ->setfees($Landline_With_id->getfees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
@@ -267,7 +268,7 @@ class OgeroController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>$order->getfees()];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);

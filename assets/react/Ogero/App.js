@@ -48,14 +48,14 @@ const App = ({ parameters }) => {
       <div className="scrolableView">
         {getModalName === "" && (
           <>
-            {/* {activeButton.name === "" && (
+            {activeButton.name === "" && (
               <Default
                 activeButton={activeButton}
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
               />
-            )} */}
+            )}
 
             {activeButton.name === "PayBill" && (
               <PayBill

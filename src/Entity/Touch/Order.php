@@ -61,6 +61,11 @@ class Order
      */
     private $transId;
 
+    /**
+    * @ORM\Column(type="integer")
+    */
+    private $fees;
+
     public function getId()
     {
         return $this->id;
@@ -157,6 +162,17 @@ class Order
     public function settransId($transId)
     {
         $this->transId = $transId;
+        return $this;
+    }
+
+    public function getfees()
+    {
+        return $this->fees;
+    }
+
+    public function setfees($fees)
+    {
+        $this->fees = $fees;
         return $this;
     }
 }

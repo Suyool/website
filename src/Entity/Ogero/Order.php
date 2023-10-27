@@ -46,6 +46,11 @@ class Order
     private $amount;
 
     /**
+    * @ORM\Column(type="integer")
+    */
+    private $fees;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $currency;
@@ -138,5 +143,16 @@ class Order
     public function geterror()
     {
         return $this->error;
+    }
+
+    public function getfees()
+    {
+        return $this->fees;
+    }
+
+    public function setfees($fees)
+    {
+        $this->fees = $fees;
+        return $this;
     }
 }

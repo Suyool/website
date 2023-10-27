@@ -176,7 +176,8 @@ class TouchController extends AbstractController
             $order
                 ->setsuyoolUserId($SuyoolUserId)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Postpaid_With_id->gettotalamount())
+                ->setamount($Postpaid_With_id->getamount())
+                ->setfees($Postpaid_With_id->getfees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
@@ -254,7 +255,7 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>$order->getfees()];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);

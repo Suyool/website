@@ -229,15 +229,16 @@ class AlfaController extends AbstractController
                 ->setpostpaidId(null)
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Postpaid_With_id->gettotalamount())
+                ->setamount($Postpaid_With_id->getamount())
+                ->setfees($Postpaid_With_id->getdisplayedFees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
+            $order_id = $this->params->get('ALFA_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'));
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),$order->getfees());
 
             if ($response[0]) {
                 //set order status to held
@@ -256,7 +257,7 @@ class AlfaController extends AbstractController
                     $postpaid = new Postpaid;
                     $postpaid
                         ->settransactionDescription($billPayArray["TransactionDescription"])
-                        ->setstatus(Order::$statusOrder['PENDING'])
+                        ->setstatus(Order::$statusOrder['COMPLETED'])
                         ->setfees($Postpaid_With_id->getfees())
                         ->setfees1($Postpaid_With_id->getfees1())
                         ->setdisplayedFees($Postpaid_With_id->getdisplayedFees())
@@ -327,7 +328,7 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>$order->getfees()];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
