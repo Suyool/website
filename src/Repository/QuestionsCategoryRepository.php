@@ -57,7 +57,7 @@ class QuestionsCategoryRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('c')
             ->leftJoin('c.questions', 'q')
             ->addSelect('q')
-            ->where('c.type = ' . $type)
+            ->where('c.type = ' . $type . 'and q.status != 2')
             ->getQuery();
         return $qb->getResult();
     }
