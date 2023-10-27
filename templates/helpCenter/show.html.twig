@@ -29,9 +29,11 @@
                     <div class="col-md-4 category-question-cont">
                         <div class="category-questions category-questions{{ type }}">
                             {% for q in questions %}
-                                <a id="{{ q.id }}" href="/category/{{ category.id }}/{{ q.id }}/{{ q.question|slugifyQuestion  }}"
-                                   class="question question{{type}} {% if q.id == question.id %}active-question{% endif %}"
-                                   data-answer="{{ q.id }}">{{ q.question }}</a>
+                                {% if q.status != 0 %}
+                                    <a id="{{ q.id }}" href="/category/{{ category.id }}/{{ q.id }}/{{ q.question|slugifyQuestion  }}"
+                                       class="question question{{type}} {% if q.id == question.id %}active-question{% endif %}"
+                                       data-answer="{{ q.id }}">{{ q.question }}</a>
+                                {% endif %}
                             {% endfor %}
 
                         </div>
@@ -60,7 +62,9 @@
                                     </div>
                                     <div class="title">{{ nextCategory.name }}</div>
                                     {% for question in questionsForNextCategories[nextCategory.id] %}
+                                        {% if question.status != 0 %}
                                         <a href="{{ path('category_show', {'id': nextCategory.id, 'questionId': question.id, 'question': question.question |slugifyQuestion }) }}"><p class="questions questions{{type}}"><span class="dot background{{type}}"></span>{{ question.question }}</p></a>
+                                        {% endif %}
                                     {% endfor %}
 {#                                </a>#}
                         </div>
