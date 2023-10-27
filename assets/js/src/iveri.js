@@ -30,13 +30,24 @@ if(document.querySelector(".loaderTopUp")){
   setInterval(function() {element.style.display = "block"}, 2000);
 }
 
-if(document.querySelector(".actionApp")){
-  const actionApp=document.querySelector(".actionApp");
-  actionApp.addEventListener("click", function () {
+if(document.querySelector(".actionAppSuccess")){
+  const actionAppSuccess=document.querySelector(".actionAppSuccess");
+  actionAppSuccess.addEventListener("click", function () {
     if(navigator.userAgent.match(/Android/i)){
-      window.AndroidInterface.callbackHandler("GoToApp");
+      window.AndroidInterface.callbackHandler("topupSuccess");
     }else{
-      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+      window.webkit.messageHandlers.callbackHandler.postMessage("topupSuccess");
+    }
+  });
+}
+
+if(document.querySelector(".actionAppFailed")){
+  const actionAppFailed=document.querySelector(".actionAppFailed");
+  actionAppFailed.addEventListener("click", function () {
+    if(navigator.userAgent.match(/Android/i)){
+      window.AndroidInterface.callbackHandler("topupFailed");
+    }else{
+      window.webkit.messageHandlers.callbackHandler.postMessage("topupFailed");
     }
   });
 }

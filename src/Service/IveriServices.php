@@ -165,11 +165,11 @@ class IveriServices
             // dd($transaction->getTrace()->getOrders()->gettransId());
             // dd($transaction);
             $redirect = null;
-            $topupforbutton = false;
+            $topupforbuttonSuccess = false;
+            $topupforbuttonFailed = false;
 
             if (!is_null($transaction)) {
                 $orderSts=orders::$statusOrder['CANCELED'];
-                if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbutton = true;
                 $additionalInfo = [
                     'authCode' => @$transaction->getAuthCode(),
                     'cardStatus' => $_POST['Lite_Payment_Card_Status'],
@@ -179,6 +179,7 @@ class IveriServices
                     $topup = $this->suyoolServices->UpdateCardTopUpTransaction($transaction->getTrace()->getOrders()->gettransId(), 3, $transaction->getMerchantReference(), (float)$transaction->getTrace()->getOrders()->getamount(), $transaction->getTrace()->getOrders()->getcurrency(), json_encode($additionalInfo));
                     // dd($topup);
                     if ($topup[0]) {
+                        if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonSuccess = true;
                         $amount = number_format($transaction->getAmount());
                         $transaction->getCurrency() == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
                         $status = true;
@@ -189,6 +190,7 @@ class IveriServices
                         $button = "Continue";
                         $orderSts=orders::$statusOrder['COMPLETED'];
                     } else {
+                        if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonFailed = true;
                         $status = false;
                         $imgsrc = "build/images/Loto/error.png";
                         $title = "Please Try Again";
@@ -200,6 +202,7 @@ class IveriServices
                     $topup = $this->suyoolServices->UpdateCardTopUpTransaction($transaction->getTrace()->getOrders()->gettransId(), 9,  $transaction->getMerchantReference(), (float)$transaction->getTrace()->getOrders()->getamount(), $transaction->getTrace()->getOrders()->getcurrency(), json_encode($additionalInfo));
                     // dd($topup);
                     if ($topup[0]) {
+                        if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonFailed = true;
                         $status = false;
                         $imgsrc = "build/images/Loto/error.png";
                         $title = "Unable to Add Money";
@@ -208,6 +211,7 @@ class IveriServices
                         $button = "Try Again";
                         if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $redirect = $code;
                     } else {
+                        if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonFailed = true;
                         $status = false;
                         $imgsrc = "build/images/Loto/error.png";
                         $title = "Please Try Again";
@@ -228,7 +232,8 @@ class IveriServices
                     'title' => $title,
                     'description' => $description,
                     'button' => $button,
-                    'info' => $topupforbutton,
+                    'infoSuccess' => $topupforbuttonSuccess,
+                    'infoFailed' => $topupforbuttonFailed,
                     'redirect' => $redirect
                 );
             } else {
@@ -246,7 +251,8 @@ class IveriServices
                 'title' => $title,
                 'description' => $description,
                 'button' => $button,
-                'info' => $topupforbutton,
+                'infoSuccess' => $topupforbuttonSuccess,
+                'infoFailed' => $topupforbuttonFailed,
                 'redirect' => $redirect
             );
         } else $statusForIveri = false;
