@@ -35,7 +35,8 @@ class SupportController extends AbstractController
             $this->mr->persist($support);
             $this->mr->flush();
         }
-        $support=$this->mr->getRepository(Support::class)->findBy(['replied'=>0],['id'=>'DESC']);
+        $support=$this->mr->getRepository(Support::class)->findBy([],['replied'=>'desc','id'=>'desc']);
+
 
         $pagination=$paginator->paginate(
             $support,
