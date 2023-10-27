@@ -110,6 +110,13 @@ const PayBill = ({
   const formatMobileNumber = (value) => {
     const digitsOnly = value.replace(/\D/g, "");
     const truncatedValue = digitsOnly.slice(0, 8);
+    console.log(truncatedValue[0]);
+    if (digitsOnly.length === 0) {
+      return "";
+    }
+    if (truncatedValue[0] !== "undefined" && truncatedValue[0] !== "0" && truncatedValue[0] !== "7" && truncatedValue[0] !== "8") {
+      return "0" + truncatedValue;
+    }
     if (truncatedValue.length > 3) {
       return truncatedValue.replace(/(\d{2})(\d{3})(\d{3})/, "$1 $2 $3");
     }
