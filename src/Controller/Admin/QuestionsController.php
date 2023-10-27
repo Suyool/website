@@ -31,7 +31,7 @@ class QuestionsController extends AbstractController
         $queryBuilder = $this->getDoctrine()
             ->getRepository(Question::class)
             ->createQueryBuilder('q')
-            ->select('q.id', 'q.question', 'q.answer', 'category.name AS categoryName')
+            ->select('q.id', 'q.question', 'q.answer', 'category.name AS categoryName,q.status')
             ->leftJoin('q.questionsCategory', 'category')
             ->OrderBy('q.id', 'ASC');
 
@@ -46,7 +46,6 @@ class QuestionsController extends AbstractController
         }
 
         $query = $queryBuilder->getQuery();
-
         $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1), // Get the current page from the request
