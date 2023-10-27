@@ -38,7 +38,7 @@ class QuestionType extends AbstractType
                 'label' => 'Status',
                 'choices' => [
                     'Active' => 1,
-                    'Inactive' => 0,
+                    'Inactive' => 2,
                 ],
                 'required' => true,
             ]);
