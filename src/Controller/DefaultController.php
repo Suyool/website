@@ -104,7 +104,7 @@ class DefaultController extends AbstractController
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
         $cardData = [
             [
-                'imagePath' => 'build/images/platinumMastercard/one.png',
+                'imagePath' => 'build/images/platinumMastercard/travel-pass-mastercard-details-suyool.png',
                 'title' => 'Middle East & Levant Platinum Lounge Program',
                 'points' => [
                     'Free access to 25+ airport lounges in multiple countries.',
