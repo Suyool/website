@@ -304,4 +304,14 @@ class DefaultController extends AbstractController
         ];
         return $this->render('personal-fees/index.html.twig', $parameters);
     }
+
+    /**
+     * @Route("/middle-east", name="app_middle_east")
+     */
+    public function middleeast(Request $request)
+    {
+        $parameters=array();
+        return $this->render('platinum-mastercard/middleeast.html.twig', $parameters);
+    }
+
 }
