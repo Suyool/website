@@ -55,7 +55,6 @@ class SuyoolServices
     {
         $sum = number_format((float) $sum, 1, '.', '');
         $fees = number_format((float) $fees, 1, '.', '');
-        echo $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate;
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
@@ -67,9 +66,8 @@ class SuyoolServices
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
-            echo json_encode($body);
+            // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
-            // dd($response);
 
             $status = $response->getStatusCode(); // Get the status code
             if ($status == 500) {
@@ -80,7 +78,6 @@ class SuyoolServices
             } else {
                 $push_utility_response = $response->toArray();
             }
-            dd($push_utility_response);
 
             $error = "";
             $globalCode = $push_utility_response['globalCode'];
