@@ -1,7 +1,3 @@
-// if (document.getElementById("myFormTopUp")) {
-//   document.getElementById("myFormTopUp").submit();
-// }
-
 if (document.getElementById("topUpButtonMob")) {
   document
     .getElementById("topUpButtonMob")

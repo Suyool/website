@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="trace")
+ * @ORM\Table(name="iveri_trace")
  */
 class trace
 {

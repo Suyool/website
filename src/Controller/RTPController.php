@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RequestController extends AbstractController
+class RTPController extends AbstractController
 {
     private $trans;
     private $session;
@@ -47,7 +47,7 @@ class RequestController extends AbstractController
     }
 
     /**
-     * @Route("/request/{code}", name="app_request")
+     * @Route("/rtp/{code}", name="app_request")
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
@@ -154,18 +154,18 @@ class RequestController extends AbstractController
             );
         }
 
-        return $this->render('request/index.html.twig', $parameters);
+        return $this->render('rtp/index.html.twig', $parameters);
     }
 
     /**
-     * @Route("/request/generateCode", name="generateCode")
+     * @Route("/rtp/generateCode", name="generateCode")
      */
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
         $code = $this->session->get('requestGenerated');
         if (isset($code)) {
             $parameters['cashin']['data'] = $code;
-            return $this->render('request/codeGenerated.html.twig', $parameters);
+            return $this->render('rtp/codeGenerated.html.twig', $parameters);
         }
         $submittedToken = $request->request->get('token');
         $parameters = $this->trans->translation($request, $translator);
@@ -189,7 +189,7 @@ class RequestController extends AbstractController
                             ? $parameters['cashin']['data']
                             : ''
                     );
-                    return $this->render('request/codeGenerated.html.twig', $parameters);
+                    return $this->render('rtp/codeGenerated.html.twig', $parameters);
                 }
             } else {
                 $parameters['cashin']['globalCode'] = 0;
@@ -198,11 +198,11 @@ class RequestController extends AbstractController
             }
         }
 
-        return $this->render('request/generateCode.html.twig', $parameters);
+        return $this->render('rtp/generateCode.html.twig', $parameters);
     }
 
     /**
-     * @Route("/request/codeGenerated", name="codeGenerated")
+     * @Route("/rtp/codeGenerated", name="codeGenerated")
      */
     public function codeGenerated(Request $request, TranslatorInterface $translator): Response
     {
@@ -210,11 +210,11 @@ class RequestController extends AbstractController
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "GenerateCode2";
 
-        return $this->render('request/codeGenerated.html.twig', $parameters);
+        return $this->render('rtp/codeGenerated.html.twig', $parameters);
     }
 
     /**
-     * @Route("/request/visaCard", name="visaCard")
+     * @Route("/rtp/visaCard", name="visaCard")
      */
     public function visaCard(Request $request, TranslatorInterface $translator): Response
     {
@@ -222,7 +222,7 @@ class RequestController extends AbstractController
         $parameters['currency'] = "dollar";
         $parameters['currentPage'] = "visaCard";
 
-        return $this->render('request/visaCard.html.twig', $parameters);
+        return $this->render('rtp/visaCard.html.twig', $parameters);
     }
 
     // /**
