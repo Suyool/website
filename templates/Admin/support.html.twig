@@ -1,0 +1,55 @@
+{% extends 'Admin/base.html.twig' %}
+
+    {% block currentPage %}Support
+    {% endblock %}
+    
+    
+    {% block content  %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th>Message</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for info in pagination  %}
+                    {# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
+                    <tr class="pointer">
+                        <td>{{ info.getId() }}</td>
+                        <td>{{ info.getname() }}</td>
+                        <td>{{ info.getmail() }}</td>
+                        <td>{{ info.getPhoneNumber() }}
+                        <td>{{info.message()}}</td>
+                        <td>
+                            {% if info.getreplied() == 1 %}
+                                Replied
+                            {% else %}
+                                 <form action="" method="post">
+                                <textarea name="answer"></textarea>
+                                <input type="hidden" name="email" value="{{ info.getmail() }}">
+                                <input type="hidden" name="id" value="{{ info.getId() }}">
+                                <input type="submit" name="submit" value="Send">
+                                </form>
+                            {% endif %}
+                        </td>
+                        {# <td>{{ order.created|date("Y-m-d H:i:s") }}</td> #}
+                    </tr>
+                    {# </a> #}
+                {% endfor %}
+    
+            </tbody>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+        {% if pagination.getItems() == null %}
+            <div class="orderEmpty">Support empty</div>
+        {% endif %}
+    {% endblock %}
+    

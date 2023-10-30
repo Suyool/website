@@ -4,3 +4,40 @@
 .admin-pages-content {
   margin-left: 16%;
 }
+.placeholder{
+  margin-bottom: 20px;
+}
+// .accordion-button:not(.collapsed){
+//   background-color: transparent;
+// }
+// .accordion-button:not(.collapsed)::after{
+//   background-image: url('../../../images/plusadmin.svg');
+// }
+// .accordion-button::after{
+//   background-image: url('../../../images/plusadmin.svg');
+// }
+// .accordion-button:focus{
+//   box-shadow: none;
+// }
+.dashborder{
+  .list{
+    padding: 0;
+    list-style: none;
+  }
+  cursor: pointer;
+  color: #000;
+  border: 1px solid beige;
+  height: 100%;
+  padding: 25px 0 0;
+  margin-bottom: 40px;
+  .TicketsCount{
+    font-family: $Regular;
+  }
+  .thismonth{
+    font-family: $Regular;
+  }
+  .TotalAmount{
+    font-family: $Bold;
+
+  }
+}

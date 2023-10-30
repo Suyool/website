@@ -17,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class QuestionsCategoriesController extends AbstractController
 {
     /**
-     * @Route("dashadmin/Questionscategories", name="admin_questions_categories")
+     * @Route("admin/Questionscategories", name="admin_questions_categories")
      */
     public function index(QuestionsCategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -38,8 +38,8 @@ class QuestionsCategoriesController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/categories/new", name="admin_categories_new")
-     * @Route("dashadmin/categories/edit/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
+     * @Route("admin/categories/new", name="admin_categories_new")
+     * @Route("admin/categories/edit/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
     public function create(Request $request, QuestionsCategory $category = null, SluggerInterface $slugger): Response
     {

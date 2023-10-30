@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\SupportRepository")
  * @ORM\Table(name="support")
  */
 class Support
@@ -36,6 +36,11 @@ class Support
      * @ORM\Column(name="message")
      */
     private $message;
+
+     /**
+     * @ORM\Column(name="replied")
+     */
+    private $replied = 0;
 
     public function getId()
     {
@@ -84,5 +89,16 @@ class Support
     public function getmessage()
     {
         return $this->message;
+    }
+
+    public function setreplied($replied)
+    {
+        $this->replied = $replied;
+        return $this;
+    }
+
+    public function getreplied()
+    {
+        return $this->replied;
     }
 }

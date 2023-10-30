@@ -8,6 +8,7 @@ use App\Entity\Question;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -32,6 +33,14 @@ class QuestionType extends AbstractType
                 },
                 'choice_label' => 'name', // Display category names in the dropdown
                 'placeholder' => 'Select a Category', // Optional placeholder text
+            ])
+            ->add('status', ChoiceType::class, [
+                'label' => 'Status',
+                'choices' => [
+                    'Active' => 1,
+                    'Inactive' => 0,
+                ],
+                'required' => true,
             ]);
     }
 

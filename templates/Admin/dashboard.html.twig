@@ -1,43 +1,149 @@
 {% extends 'Admin/base.html.twig' %}
 
-{% block currentPage %}homepage{% endblock %}
+{% block currentPage %}homepage
+{% endblock %}
 
 {% block content %}
-        <div class="panel panel-default multi-panel">
-            <div class="panel-heading">
-            </div>
-            <div class="panel-body">
-                <div class="col-md-12 main-menu">
-                    <div class="row placeholders">
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <a class="col-xs-6 col-sm-2 placeholder text-center" href="{{ path('admin_users') }}">
-                            <i class="fa fa-edit"></i>
-                            <h4>Users</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_email_subscribers') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Email Subscribers</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_loto_orders') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Loto</h4>
-                        </a>
+	<div class="panel panel-default multi-panel">
+		<div class="panel-heading"></div>
+		<div class="panel-body">
+			<div class="col-md-12 main-menu">
+				<div class="row placeholders">
+					{% if is_granted('ROLE_SUPER_ADMIN') %}
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_alfa_orders')}}'">
+								<h4>Alfa</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">PostPaid</div>
+											<li>
+												<a class="TicketsCount" href="{{ path('admin_alfa_ordersPost') }}">PostPaid:
+													{{alfa.postpaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{alfa.postpaidsum}}</div>
+											</li>
+										</ul>
+									</div>
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">Prepaid</div>
+											<li>
+												<a class="TicketsCount" href="{{ path('admin_alfa_ordersPre') }}">PrePaid:
+													{{alfa.prepaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{alfa.prepaidsum}}</div>
+											</li>
 
-                        {% endif %}
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_show_questions_photo') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions Image</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_questions_categories') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions Category</h4>
-                        </a>
-                        <a class="col-xs-6 col-sm-2 placeholder text-center"  href="{{ path('admin_questions') }}">
-                            <i class="fa fa-file-alt"></i>
-                            <h4>Questions</h4>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_alfa_orders')}}'">
+								<h4>Touch</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">PostPaid</div>
+											<li>
+												<a class="TicketsCount" href="{{ path('admin_touch_ordersPost') }}">PostPaid:
+													{{touch.postpaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{touch.postpaidsum}}</div>
+											</li>
+										</ul>
+									</div>
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">Prepaid</div>
+											<li>
+												<a class="TicketsCount" href="{{ path('admin_touch_ordersPre') }}">PrePaid:
+													{{touch.prepaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{touch.prepaidsum}}</div>
+											</li>
+
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center" onclick="location.href='/admin/orders'">
+							<div class="dashborder">
+								<h4>Loto</h4>
+								<div class="TicketsCount">Purchased Grids:
+									{{ loto.count }}</div>
+								<div class="thismonth">This Month(purchased):
+									{{ loto.thismonth }}</div>
+								<div class="TicketsCount">
+									{% for key,value in loto.resultArray %}
+										<a href="/admin/orders?search_loto_form%5Bstatus%5D={{key}}&search_loto_form%5Bamount%5D=&search_loto_form%5Bsave%5D=">
+											Orders
+											{{key}}:{{value}}
+										</a>
+										<br>
+									{% endfor %}
+								</div>
+								<div class="TotalAmount">Amount:
+									{{ loto.TotalAmount }}</div>
+							</div>
+
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder">
+								<h4>Ogero</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="list">
+										<div class="TotalAmount">PostPaid</div>
+											<li>
+												<a class="TicketsCount">PostPaid:
+													{{touch.postpaidcount}}</a>
+											</li>
+											<li>
+												<div class="TotalAmount">Amount:
+													{{touch.postpaidsum}}</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_support')}}'">
+								<h4>Support</h4>
+								<div class="row">
+									<div class="col-md-12">
+												<div class="TicketsCount">Message/s:
+													{{support.messageCount}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_users')}}'">
+								<h4>Users</h4>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4 placeholder text-center">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_users')}}'">
+								<h4>Iveri</h4>
+							</div>
+						</div>
+
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

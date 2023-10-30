@@ -49,7 +49,7 @@ class QuestionRepository extends ServiceEntityRepository
 
     public function selectQuestionById($id){
         return $this->createQueryBuilder('q')
-            ->where('q.id = :id')
+            ->where('q.id = :id and q.status != 0')
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
@@ -57,7 +57,7 @@ class QuestionRepository extends ServiceEntityRepository
 
     public function getQuestionsForNextCategory($nextCategory){
         return $this->createQueryBuilder('q')
-            ->where('q.questionsCategory = :category')
+            ->where('q.questionsCategory = :category and q.status != 0')
             ->setParameter('category', $nextCategory)
             ->setMaxResults(3) // Limit to 3 questions
             ->getQuery()
@@ -71,7 +71,7 @@ class QuestionRepository extends ServiceEntityRepository
         $results = $this->createQueryBuilder('q')
             ->select('q.id', 'q.question', 'SUBSTRING(q.answer, 1, 150) AS answer', 'q.categoryId', 'c.image', 'c.name AS categoryName')
             ->leftJoin('q.questionsCategory','c')
-            ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0')
+            ->where('MATCH(q.question) AGAINST(:searchTerm IN BOOLEAN MODE) > 0 and q.status != 2')
             ->setParameter('searchTerm', $searchString)
             ->setMaxResults($limited ? 4 : 100)
             ->getQuery()

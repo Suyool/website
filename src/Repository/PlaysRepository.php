@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use PDO;
 
 /**
  * @extends ServiceEntityRepository<Plays>
@@ -348,6 +349,35 @@ class PlaysRepository extends EntityRepository
         }
         $listWinners = array_values($listWinners);
         return $listWinners;
+    }
+
+    public function CompletedTicketsCount(){
+        return $this->createQueryBuilder('l')
+        ->select('count(l)')
+        ->where('l.ticketId != 0 and l.ticketId is not null')
+        ->getQuery()
+        ->getSingleScalarResult();
+
+    }
+
+    public function CompletedTicketsCountThisMonth(){
+        $current_time=date("Y-m-d",strtotime("+1 day"));
+        $onemonth = date("Y-m-d", strtotime("-1 months"));
+        return $this->createQueryBuilder('l')
+        ->select('count(l)')
+        ->where('l.ticketId != 0 and l.ticketId is not null and l.created < :current_time and l.created > :onemonth')
+        ->setParameter('current_time',$current_time)
+        ->setParameter('onemonth',$onemonth)
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+
+    public function CompletedTicketsSumAmount(){
+        return $this->createQueryBuilder('l')
+        ->select('sum(l.price)')
+        ->where('l.ticketId != 0 and l.ticketId is not null')
+        ->getQuery()
+        ->getSingleScalarResult();
     }
 
     

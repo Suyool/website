@@ -5,7 +5,7 @@ namespace App\Entity\Touch;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TouchOrdersRepository")
  * @ORM\Table(name="orders")
  */
 class Order

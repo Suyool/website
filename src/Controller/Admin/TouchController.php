@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SearchAlfaOrdersForm;
+
 
 class TouchController extends AbstractController
 {
@@ -22,100 +24,155 @@ class TouchController extends AbstractController
     public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('touch');
-
     }
 
     /**
-     * @Route("dashadmin/touch/prepaid", name="admin_touch_prepaid")
+     * @Route("admin/touch/prepaid", name="admin_touch_prepaid")
      */
     public function getPrepaid(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Prepaid::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('pr')
-            ->getQuery();
-
-        $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
-        );
-        return $this->render('Admin/Touch/prepaid.html.twig', [
-            'prepaids' => $pagination,
+        $prepaid= $this->mr->getRepository(Prepaid::class)->findOneBy(['id'=>$request->query->get('prepaidId')]); 
+        return $this->render('Admin/touch/prepaid.html.twig', [
+            'prepaids' => $prepaid,
         ]);
     }
 
     /**
-     * @Route("dashadmin/touch/postpaidRequest", name="admin_touch_postpaidRequest")
+     * @Route("admin/touch/postpaidRequest", name="admin_touch_postpaidRequest")
      */
     public function getPostPaidRequest(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(PostpaidRequest::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('ppr')
-            ->getQuery();
-
+        $emailSubscribersRepository = $this->mr->getRepository(PostpaidRequest::class)->findAll();
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
+            $emailSubscribersRepository,  // Query to paginate
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
-        return $this->render('Admin/Touch/postpaidRequest.html.twig', [
+        return $this->render('Admin/touch/postpaidRequest.html.twig', [
             'postpaidRequests' => $pagination,
         ]);
     }
 
     /**
-     * @Route("dashadmin/touch/postpaid", name="admin_touch_postpaid")
+     * @Route("admin/touch/postpaid", name="admin_touch_postpaid")
      */
     public function getPostpaid(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Postpaid::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('pd')
-            ->getQuery();
-
-        $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
-        );
-        return $this->render('Admin/Touch/postpaid.html.twig', [
-            'postpaids' => $pagination,
+        $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id'=>$request->query->get('postpaidId')]);
+        return $this->render('Admin/touch/postpaid.html.twig', [
+            'postpaids' => $postpaid,
         ]);
     }
 
     /**
-     * @Route("dashadmin/touch/orders", name="admin_touch_orders")
+     * @Route("admin/touch/orders", name="admin_touch_orders")
      */
     public function getOrders(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Order::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('o')
-            ->getQuery();
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription();
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription(null,$searchQuery);
+
+        }
 
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
+            $orders,
+            $request->get('page', 1),
+            15
         );
         return $this->render('Admin/Touch/orders.html.twig', [
-            'orders' => $pagination,
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
         ]);
     }
 
     /**
-     * @Route("dashadmin/touch/logs", name="admin_touch_logs")
+     * @Route("admin/touch/ordersPost", name="admin_touch_ordersPost")
+     */
+    public function getOrdersPost(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('postpaid_id');
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription('postpaid_id',$searchQuery);
+
+        }
+
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/touch/ordersPost.html.twig', [
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
+        ]);
+    }
+
+    /**
+     * @Route("admin/touch/ordersPre", name="admin_touch_ordersPre")
+     */
+    public function getOrdersPre(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('prepaid_id');
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription('prepaid_id',$searchQuery);
+
+        }
+
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/touch/ordersPre.html.twig', [
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
+        ]);
+    }
+
+    /**
+     * @Route("admin/touch/logs", name="admin_touch_logs")
      */
     public function getLogs(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Logs::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('l')
-            ->getQuery();
-
+        $emailSubscribersRepository = $this->mr->getRepository(Logs::class)->findAll();
+        // dd($emailSubscribersRepository);
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
+            $emailSubscribersRepository,  // Query to paginate
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
-        return $this->render('Admin/Touch/logs.html.twig', [
+        return $this->render('Admin/touch/logs.html.twig', [
             'logs' => $pagination,
         ]);
     }

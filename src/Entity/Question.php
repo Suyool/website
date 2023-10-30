@@ -28,6 +28,11 @@ class Question
     private $answer;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
+    /**
      * @ORM\ManyToOne(targetEntity=QuestionsCategory::class, inversedBy="questions")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
@@ -87,6 +92,18 @@ class Question
     public function setCategoryId(int $categoryId): self
     {
         $this->categoryId = $categoryId;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

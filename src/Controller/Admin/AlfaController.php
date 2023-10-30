@@ -9,6 +9,7 @@ use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\PostpaidRequest;
 use App\Entity\Alfa\Prepaid;
+use App\Form\SearchAlfaOrdersForm;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,35 +29,24 @@ class AlfaController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/alfa/prepaid", name="admin_alfa_prepaid")
+     * @Route("admin/alfa/prepaid", name="admin_alfa_prepaid")
      */
     public function getPrepaid(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Prepaid::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('pr')
-            ->getQuery();
-
-        $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
-        );
+        $prepaid= $this->mr->getRepository(Prepaid::class)->findOneBy(['id'=>$request->query->get('prepaidId')]); 
         return $this->render('Admin/Alfa/prepaid.html.twig', [
-            'prepaids' => $pagination,
+            'prepaids' => $prepaid,
         ]);
     }
 
     /**
-     * @Route("dashadmin/alfa/postpaidRequest", name="admin_alfa_postpaidRequest")
+     * @Route("admin/alfa/postpaidRequest", name="admin_alfa_postpaidRequest")
      */
     public function getPostPaidRequest(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(PostpaidRequest::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('ppr')
-            ->getQuery();
-
+        $emailSubscribersRepository = $this->mr->getRepository(PostpaidRequest::class)->findAll();
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
+            $emailSubscribersRepository,  // Query to paginate
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
@@ -66,54 +56,121 @@ class AlfaController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/alfa/postpaid", name="admin_alfa_postpaid")
+     * @Route("admin/alfa/postpaid", name="admin_alfa_postpaid")
      */
     public function getPostpaid(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Postpaid::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('pd')
-            ->getQuery();
-
-        $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
-        );
+        $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id'=>$request->query->get('postpaidId')]);
         return $this->render('Admin/Alfa/postpaid.html.twig', [
-            'postpaids' => $pagination,
+            'postpaids' => $postpaid,
         ]);
     }
 
     /**
-     * @Route("dashadmin/alfa/orders", name="admin_alfa_orders")
+     * @Route("admin/alfa/orders", name="admin_alfa_orders")
      */
     public function getOrders(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Order::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('o')
-            ->getQuery();
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription();
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription(null,$searchQuery);
+
+        }
 
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
-            $request->get('page', 1),   // Current page number
-            15              // Records per page
+            $orders,
+            $request->get('page', 1),
+            15
         );
         return $this->render('Admin/Alfa/orders.html.twig', [
-            'orders' => $pagination,
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
         ]);
     }
 
     /**
-     * @Route("dashadmin/alfa/logs", name="admin_alfa_logs")
+     * @Route("admin/alfa/ordersPost", name="admin_alfa_ordersPost")
+     */
+    public function getOrdersPost(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('postpaid_id');
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription('postpaid_id',$searchQuery);
+
+        }
+
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/Alfa/ordersPost.html.twig', [
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
+        ]);
+    }
+
+    /**
+     * @Route("admin/alfa/ordersPre", name="admin_alfa_ordersPre")
+     */
+    public function getOrdersPre(Request $request,PaginatorInterface $paginator): Response
+    {
+        $orders=$this->mr->getRepository(Order::class)->OrderSubscription('prepaid_id');
+
+        $form=$this->createForm(SearchAlfaOrdersForm::class);
+
+        $AlfaSearchForm=$form->createView();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted()) {
+
+            $searchQuery=$request->get('search_alfa_orders_form');
+            $orders=$this->mr->getRepository(order::class)->OrderSubscription('prepaid_id',$searchQuery);
+
+        }
+
+        $pagination = $paginator->paginate(
+            $orders,
+            $request->get('page', 1),
+            15
+        );
+        return $this->render('Admin/Alfa/ordersPre.html.twig', [
+            'pagination' => $pagination,
+            'form'=>$AlfaSearchForm
+        ]);
+    }
+
+    /**
+     * @Route("admin/alfa/logs", name="admin_alfa_logs")
      */
     public function getLogs(Request $request,PaginatorInterface $paginator): Response
     {
-        $emailSubscribersRepository = $this->mr->getRepository(Logs::class);
-        $allSubscribersQuery = $emailSubscribersRepository->createQueryBuilder('l')
-            ->getQuery();
-
+        $emailSubscribersRepository = $this->mr->getRepository(Logs::class)->findAll();
+        // dd($emailSubscribersRepository);
         $pagination = $paginator->paginate(
-            $allSubscribersQuery,  // Query to paginate
+            $emailSubscribersRepository,  // Query to paginate
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
