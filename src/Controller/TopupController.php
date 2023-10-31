@@ -39,6 +39,8 @@ class TopupController extends AbstractController
     {
         $parameters = array();
         $bobpayment=$bobPaymentServices->paymentGateWay();
+        // echo "hi";
+        // $bobpayment=$bobPaymentServices->RetrievePaymentDetails(2);
         $parameters=[
             'session'=>$bobpayment[1]
         ];

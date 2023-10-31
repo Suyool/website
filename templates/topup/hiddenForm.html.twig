@@ -1,27 +1,43 @@
-<html> 
- <head> 
- <script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" 
-data-error="errorCallback" data-cancel="cancelCallback" > 
- </script> 
- <script type="text/javascript"> 
-function errorCallback(error) { 
-console.log(JSON.stringify(error)); 
- } 
- function cancelCallback() { 
- console.log('Payment cancelled'); 
- } 
- 
- Checkout.configure({ 
- session: { 
- id: "{{session}}"
- }, 
- }); 
- </script> 
- </head> 
- <body> 
- <div id="embed-target"> </div> 
- <input type="button" value="Pay with Embedded Page" onclick="Checkout.showEmbeddedPage('#embed-target');" 
-/> 
- <input type="button" value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" /> 
- </body> 
-</html> 
+{% extends 'base.html.twig' %}
+{% block body %}
+	<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+	<script type="text/javascript">
+		function errorCallback(error) {
+console.log(JSON.stringify(error));
+}
+function cancelCallback() {
+console.log('Payment cancelled');
+}
+
+Checkout.configure({
+session: {
+id: "{{ session }}"
+}
+});
+	</script>
+    
+	<div class="loaderTopUp">
+		<div class="desktopMode desktop-logo">
+			<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri">
+		</div>
+		{# {% if topup is  defined and topup == "true" %} #}
+		<div class="mobheader">
+			<div class="back">
+				<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
+			</div>
+			<div class="topup">Top Up</div>
+			<div></div>
+		</div>
+		{# {% endif %} #}
+		<img src="{{ asset('/build/images/loaderSuyool2.gif') }}" alt="">
+		<div
+			id="submitTopUp">
+			{# <button class="continueBtn">Continue</button> #}
+			<input type="button" value="Continue" onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn"/>
+			{# <input type="button" value="Continue" onclick="Checkout.showPaymentPage();" class="continueBtn"/> #}
+		</div>
+	</div>
+    <div id="embed-target" style="display:none"></div>
+
+		<div>
+		{% endblock %}

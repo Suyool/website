@@ -15,13 +15,14 @@ class BobPaymentServices
 {
     private $BOB_PAYMENT_GATEWAY;
     private $client;
+    private $BOB_RETRIEVE_PAYMENT;
 
     public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger)
     {
         $this->client = $client;
-        $this->helper = $helper;
-        $this->logger = $logger;
         $this->BOB_PAYMENT_GATEWAY="https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/session";
+        $this->BOB_RETRIEVE_PAYMENT="https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/order/";
+
     }
 
     public function paymentGateWay()
@@ -50,6 +51,20 @@ class BobPaymentServices
         ]);
 
         $content=$response->toArray(false);
+        return array(true,$content['session']['id']);
+    }
+
+    public function RetrievePaymentDetails($order)
+    {
+        $response = $this->client->request('GET', $this->BOB_RETRIEVE_PAYMENT . $order, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'auth_basic' => ['merchant.TESTSUYOOL', '002bcc643011b3cef6967ff40d140d71'],
+        ]);
+
+        $content=$response->toArray(false);
+        dd($content);
         return array(true,$content['session']['id']);
     }
 }
