@@ -42,7 +42,7 @@ invitation_card:
 
 app_request:
   path: /{code}
-  controller: App\Controller\RequestController::index
+  controller: App\Controller\RTPController::index
   requirements:
     code: '^(?:(R)[A-Za-z0-9]*)$'
 
