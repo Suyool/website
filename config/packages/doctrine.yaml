@@ -20,6 +20,9 @@ doctrine:
                 url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
             topup:
                 url: '%env(resolve:TOPUP_DATABASE_URL)%'
+            terranet:
+                url: '%env(resolve:TERRANET_DATABASE_URL)%'
+                
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -127,3 +130,12 @@ doctrine:
                         alias: topup
             
 
+            terranet:
+                connection: terranet
+                mappings:
+                    Terranet:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/TerraNet'
+                        prefix: 'App\Entity\TerraNet'
+                        alias: TerraNet
