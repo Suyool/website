@@ -25,7 +25,7 @@ function sendAuthCodeBySMS(){
     $.ajax({
       type: "post",
       dataType: "json",
-      url: "/admin/sendAuthCode",
+      url: "/sendAuthCode",
       success: function (data) {
         showAjaxMessage(data);
       }

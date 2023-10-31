@@ -26,7 +26,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route(
-     *     "admin/sendAuthCode", name="sms_auth_code",
+     *     "/sendAuthCode", name="sms_auth_code",
      * )
      */
     public function sendAuthCode(Sms $sms)
