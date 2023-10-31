@@ -15,46 +15,74 @@ class TerraNetService
 {
     private $helper;
     private $mr;
+    private $soapClient;
 
     public function __construct(Helper $helper, ManagerRegistry $mr)
     {
         $this->helper = $helper;
         $this->mr = $mr->getManager('terranet');
-
+        $this->soapClient = new \SoapClient('https://psp.terra.net.lb/TerraRefill.asmx?WSDL', [
+            'trace' => 1,
+        ]);
     }
-
-    public function getAccounts($username)
+    public function getAccounts(string $username)
     {
-        $url = 'https://psp.terra.net.lb/GetAccounts';
+        try {
+            $result = $this->soapClient->__soapCall("GetAccounts", [
+                'Uid' => 'SuyoolWS',
+                'Pid' => 'sd^$lKoihb61',
+                'Username' => $username,
+            ]);
+            $accounts = $result->GetAccountsResult;
+            $errorCode = $result->errorCode;
+            $errorMessage = $result->errorMessage;
 
-        $data = [
-            'Uid' => 'SuyoolWS',
-            'Pid' => 'sd^$lKoihb61',
-            'Username' => $username,
-        ];
-
-        $response = $this->helper->clientRequest('POST', $url, $data);
-        if ($response->getStatusCode() === 200) {
-            $responseBody = $response->getContent();
-            $responseData = json_decode($responseBody, true);
-            foreach ($responseData['Accounts'] as $accountData) {
-                $account = new Account();
-                $account->setCustomerid($accountData['customerid']);
-                $account->setPPPLoginName($accountData['PPPLoginName']);
-                $account->setFirstname($accountData['firstname']);
-                $account->setLastname($accountData['lastname']);
-                $this->mr->persist($account);
-            }
-            $this->mr->flush();
-
-            return $responseData;
-        } else {
             return [
-                'ErrorCode' => $response->getStatusCode(),
-                'ErrorMessage' => 'API request failed',
+                'Accounts' => $accounts,
+                'ErrorCode' => $errorCode,
+                'ErrorMessage' => $errorMessage,
+            ];
+        } catch (\SoapFault $e) {
+            return [
+                'Accounts' => null,
+                'ErrorCode' => -1,
+                'ErrorMessage' => $e->getMessage(),
             ];
         }
     }
+
+//    public function getAccounts($username)
+//    {
+//        $url = 'https://psp.terra.net.lb/GetAccounts';
+//
+//        $data = [
+//            'Uid' => 'SuyoolWS',
+//            'Pid' => 'sd^$lKoihb61',
+//            'Username' => $username,
+//        ];
+//
+//        $response = $this->helper->clientRequest('POST', $url, $data);
+//        if ($response->getStatusCode() === 200) {
+//            $responseBody = $response->getContent();
+//            $responseData = json_decode($responseBody, true);
+//            foreach ($responseData['Accounts'] as $accountData) {
+//                $account = new Account();
+//                $account->setCustomerid($accountData['customerid']);
+//                $account->setPPPLoginName($accountData['PPPLoginName']);
+//                $account->setFirstname($accountData['firstname']);
+//                $account->setLastname($accountData['lastname']);
+//                $this->mr->persist($account);
+//            }
+//            $this->mr->flush();
+//
+//            return $responseData;
+//        } else {
+//            return [
+//                'ErrorCode' => $response->getStatusCode(),
+//                'ErrorMessage' => 'API request failed',
+//            ];
+//        }
+//    }
 
     public function getProducts($PPPLoginName)
     {
