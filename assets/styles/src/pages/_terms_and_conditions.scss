@@ -59,6 +59,14 @@
     p{
       font-family: $Regular;
     }
+    span{
+      font-family: $Bold;
+    }
+
+    table, td {
+      border: 3px solid #216D96;
+      padding: 10px;
+    }
 
     @media(max-width: 768px){
       font-size: 16px;
