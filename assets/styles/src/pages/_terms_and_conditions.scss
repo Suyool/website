@@ -52,9 +52,14 @@
       }
     }
 
-    .title{
+    .title, .listing-title{
       margin: 40px 0;
       font-family: $Bold;
+    }
+    .listing-title{
+      border-top: 3px solid #216D96;
+      border-bottom: 3px solid #216D96;
+      padding: 20px 0;
     }
     p{
       font-family: $Regular;
@@ -68,8 +73,27 @@
       padding: 10px;
     }
 
+    .table-listing{
+      display: flex;
+      align-items: flex-start;
+
+      img {
+        padding-top: 6px;
+        padding-right: 10px;
+      }
+    }
+
     @media(max-width: 768px){
       font-size: 16px;
+
+      .desktopMode{
+        display: none;
+      }
+    }
+    @media(min-width: 769px){
+      .mobileMode {
+        display: none;
+      }
     }
   }
 }
