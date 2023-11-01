@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="iveri_trace")
+ * @ORM\Table(name="bob_session")
  */
-class trace
+class session
 {
     /**
      * @ORM\Id
@@ -18,15 +18,25 @@ class trace
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Iveri\orders",  fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="App\Entity\topup\orders",  fetch="EAGER")
      * @ORM\JoinColumn(name="orders_id", referencedColumnName="id")
      */
     private $orders;
 
     /**
-     * @ORM\Column(name="merchantTrace")
+     * @ORM\Column(name="session")
      */
-    private $merchantTrace;
+    private $session;
+
+    /**
+     * @ORM\Column(name="indicator")
+     */
+    private $indicator;
+
+    /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
 
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
@@ -54,14 +64,36 @@ class trace
         return $this;
     }
 
-    public function getTrace()
+    public function getSession()
     {
-        return $this->merchantTrace;
+        return $this->session;
     }
 
-    public function setTrace($merchantTrace)
+    public function setSession($session)
     {
-        $this->merchantTrace = $merchantTrace;
+        $this->session = $session;
+        return $this;
+    }
+
+    public function getIndicator()
+    {
+        return $this->indicator;
+    }
+
+    public function setIndicator($indicator)
+    {
+        $this->indicator = $indicator;
+        return $this;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function setResponse($response)
+    {
+        $this->response = $response;
         return $this;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Iveri;
+namespace App\Entity\topup;
 
 use Doctrine\ORM\Mapping as ORM;
 

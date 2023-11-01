@@ -389,7 +389,25 @@ $(document).ready(function() {
 //   });
 // }
 
+
+
+
+   
+
 if (document.querySelector(".loaderTopUp")) {
+  // setInterval(function() {
+  //   $.ajax({
+  //     type: "get",
+  //     dataType: "json",
+  //     url: "/ajaxcall",
+  //     success: function (data) {
+  //       console.log(data.data.result)
+  //       if(data.data.status === "CAPTURED"){
+  //         // window.location.href="/topup";
+  //       }
+  //     }
+  //   });
+  // },5000);
   const element = document.getElementById("submitTopUp");
   setInterval(function () {
     element.style.display = "block";
@@ -398,22 +416,23 @@ if (document.querySelector(".loaderTopUp")) {
 
 if (document.querySelector(".continueBtn")) {
   const element = document.querySelector(".continueBtn");
+  var loader = document.getElementsByClassName("loaderTopUp2")[0];
   element.addEventListener("click", function () {
-    document.getElementsByClassName("loaderTopUp").style.display="none";
+    loader.style.display="none";
     document.getElementById("embed-target").style.display="block";
   });
 }
 
-// if (document.querySelector(".actionAppSuccess")) {
-//   const actionAppSuccess = document.querySelector(".actionAppSuccess");
-//   actionAppSuccess.addEventListener("click", function () {
-//     if (navigator.userAgent.match(/Android/i)) {
-//       window.AndroidInterface.callbackHandler("topupSuccess");
-//     } else {
-//       window.webkit.messageHandlers.callbackHandler.postMessage("topupSuccess");
-//     }
-//   });
-// }
+if (document.querySelector(".actionAppSuccess")) {
+  const actionAppSuccess = document.querySelector(".actionAppSuccess");
+  actionAppSuccess.addEventListener("click", function () {
+    if (navigator.userAgent.match(/Android/i)) {
+      window.AndroidInterface.callbackHandler("topupSuccess");
+    } else {
+      window.webkit.messageHandlers.callbackHandler.postMessage("topupSuccess");
+    }
+  });
+}
 
 // if (document.querySelector(".actionAppFailed")) {
 //   const actionAppFailed = document.querySelector(".actionAppFailed");
@@ -437,17 +456,17 @@ if (document.querySelector(".continueBtn")) {
 //   });
 // }
 
-// if (document.querySelector(".back")) {
-//   const action = document.querySelector(".back");
-//   action.addEventListener("click", function () {
-//     // Submit the form
-//     if (navigator.userAgent.match(/Android/i)) {
-//       window.AndroidInterface.callbackHandler("GoToApp");
-//     } else {
-//       window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-//     }
-//   });
-// }
+if (document.querySelector(".back")) {
+  const action = document.querySelector(".back");
+  action.addEventListener("click", function () {
+    // Submit the form
+    if (navigator.userAgent.match(/Android/i)) {
+      window.AndroidInterface.callbackHandler("GoToApp");
+    } else {
+      window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    }
+  });
+}
 
 if (document.querySelector(".copy-to-clipboard")) {
   // Get the element with the 'copy-to-clipboard' class
