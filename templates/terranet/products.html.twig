@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        /* Add your custom CSS styles here */
+        .package-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .package-card:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Internet Packages</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="package-card" data-product-id="{{ product.ProductId }}">
+                        <h3>{{ product.Description }}</h3>
+                        <p>Price: ${{ product.Price }}</p>
+                        <p>Cost: ${{ product.Cost }}</p>
+                        <p>Original HT: ${{ product.OriginalHT }}</p>
+                        <p>Currency: {{ product.Currency }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

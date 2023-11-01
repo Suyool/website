@@ -33,15 +33,6 @@ class RefillTransaction
      */
     private $TransactionID;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $ErrorCode;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $ErrorMessage;
 
     public function getId(): ?int
     {
@@ -80,30 +71,6 @@ class RefillTransaction
     public function setTransactionID(string $TransactionID): self
     {
         $this->TransactionID = $TransactionID;
-
-        return $this;
-    }
-
-    public function getErrorCode(): ?int
-    {
-        return $this->ErrorCode;
-    }
-
-    public function setErrorCode(int $ErrorCode): self
-    {
-        $this->ErrorCode = $ErrorCode;
-
-        return $this;
-    }
-
-    public function getErrorMessage(): ?string
-    {
-        return $this->ErrorMessage;
-    }
-
-    public function setErrorMessage(string $ErrorMessage): self
-    {
-        $this->ErrorMessage = $ErrorMessage;
 
         return $this;
     }

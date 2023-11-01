@@ -16,216 +16,192 @@ class TerraNetService
     private $helper;
     private $mr;
     private $soapClient;
+    private $wsdl;
+    private $uid;
+    private $pid;
 
     public function __construct(Helper $helper, ManagerRegistry $mr)
     {
         $this->helper = $helper;
         $this->mr = $mr->getManager('terranet');
-        $this->soapClient = new \SoapClient('https://psp.terra.net.lb/TerraRefill.asmx?WSDL', [
+        $this->wsdl = 'https://psp.terra.net.lb/TerraRefill.asmx?WSDL';
+        $this->uid = 'SuyoolWS';
+        $this->pid = 'sd^$lKoihb61';
+
+        $options = [
             'trace' => 1,
-        ]);
-    }
-    public function getAccounts(string $username)
-    {
-        try {
-            $result = $this->soapClient->__soapCall("GetAccounts", [
-                'Uid' => 'SuyoolWS',
-                'Pid' => 'sd^$lKoihb61',
-                'Username' => $username,
-            ]);
-            $accounts = $result->GetAccountsResult;
-            $errorCode = $result->errorCode;
-            $errorMessage = $result->errorMessage;
-
-            return [
-                'Accounts' => $accounts,
-                'ErrorCode' => $errorCode,
-                'ErrorMessage' => $errorMessage,
-            ];
-        } catch (\SoapFault $e) {
-            return [
-                'Accounts' => null,
-                'ErrorCode' => -1,
-                'ErrorMessage' => $e->getMessage(),
-            ];
-        }
-    }
-
-//    public function getAccounts($username)
-//    {
-//        $url = 'https://psp.terra.net.lb/GetAccounts';
-//
-//        $data = [
-//            'Uid' => 'SuyoolWS',
-//            'Pid' => 'sd^$lKoihb61',
-//            'Username' => $username,
-//        ];
-//
-//        $response = $this->helper->clientRequest('POST', $url, $data);
-//        if ($response->getStatusCode() === 200) {
-//            $responseBody = $response->getContent();
-//            $responseData = json_decode($responseBody, true);
-//            foreach ($responseData['Accounts'] as $accountData) {
-//                $account = new Account();
-//                $account->setCustomerid($accountData['customerid']);
-//                $account->setPPPLoginName($accountData['PPPLoginName']);
-//                $account->setFirstname($accountData['firstname']);
-//                $account->setLastname($accountData['lastname']);
-//                $this->mr->persist($account);
-//            }
-//            $this->mr->flush();
-//
-//            return $responseData;
-//        } else {
-//            return [
-//                'ErrorCode' => $response->getStatusCode(),
-//                'ErrorMessage' => 'API request failed',
-//            ];
-//        }
-//    }
-
-    public function getProducts($PPPLoginName)
-    {
-        $url = 'https://psp.terra.net.lb/GetProducts';
-
-        // Prepare the request data
-        $data = [
-            'Uid' => 'SuyoolWS',
-            'Pid' => 'sd^$lKoihb61',
-            'PPPLoginName' => $PPPLoginName,
+            'encoding' => 'UTF-8',
         ];
 
-        $response = $this->helper->clientRequest('POST', $url, $data);
+        $this->soapClient = new \SoapClient($this->wsdl, $options);
+    }
+    public function getAccounts($username)
+    {
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'username' => $username,
+            'accounts' => '',
+            'errorCode' => '0',
+            'errorMessage' => '',
+        ];
 
-        if ($response->getStatusCode() === 200) {
-            $responseBody = $response->getContent();
-            $responseData = json_decode($responseBody, true);
+        try {
 
-            foreach ($responseData['Products'] as $productData) {
-                $product = new Product();
-                $product->setProductid($productData['productid']);
-                $product->setDescription($productData['description']);
-                $product->setPrice($productData['price']);
-                $product->setCost($productData['cost']);
-                $product->setOriginalHT($productData['originalHT']);
-                $product->setCurrency($productData['currency']);
+            $response = $this->soapClient->GetAccounts($params);
+            $anyData = $response->accounts->any;
+            $xml = new \SimpleXMLElement($anyData);
+            $accountData = [];
 
-                $this->mr->persist($product);
+            foreach ($xml->NewDataSet->Table1 as $table1) {
+                $accounts = [
+                    'PPPLoginName' => (string) $table1->PPPLoginName,
+                    'FirstName' => (string) $table1->FirstName,
+                    'LastName' => (string) $table1->LastName,
+                    'CustomerId' => (string) $table1->CustomerId,
+                ];
+
+                $accountData[] = $accounts;
+
+                $account = new Account();
+                $account->setCustomerid((string) $table1->CustomerId);
+                $account->setPPPLoginName((string) $table1->PPPLoginName);
+                $account->setFirstname((string) $table1->FirstName);
+                $account->setLastname((string) $table1->LastName);
+
+                $this->mr->persist($account);
             }
             $this->mr->flush();
 
-            return $responseData;
-        } else {
-            return [
-                'ErrorCode' => $response->getStatusCode(),
-                'ErrorMessage' => 'API request failed',
-            ];
+            return $accountData;
+        } catch (\SoapFault $fault) {
+            return $fault;
+        }
+
+    }
+
+
+    public function getProducts($PPPLoginName)
+    {
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'pppLoginName' => $PPPLoginName,
+            'products' => '',
+            'errorCode' => '0',
+            'errorMessage' => '',
+        ];
+        try {
+
+            $response = $this->soapClient->GetProducts($params);
+            $anyData = $response->products->any;
+            $xml = new \SimpleXMLElement($anyData);
+            $productsArray = [];
+
+            foreach ($xml->NewDataSet->Table as $productData) {
+                $products = [
+                    'ProductId' => (int) $productData->ProductId,
+                    'Description' => (string) $productData->Description,
+                    'Price' => (float) $productData->Price,
+                    'Cost' => (float) $productData->Cost,
+                    'OriginalHT' => (float) $productData->Original_HT,
+                    'Currency' => (string) $productData->Currency,
+                ];
+                $productsArray[] = $products;
+//                $product = new Product();
+//                $product->setProductId((int) $productData->ProductId);
+//                $product->setDescription((string) $productData->Description);
+//                $product->setPrice((float) $productData->Price);
+//                $product->setCost((float) $productData->Cost);
+//                $product->setOriginalHT((float) $productData->Original_HT);
+//                $product->setCurrency((string) $productData->Currency);
+//                $this->mr->persist($product);
+
+            }
+           // $this->mr->flush();
+
+            return $productsArray;
+        } catch (\SoapFault $fault) {
+            return $fault;
         }
     }
 
     public function refillCustomerTerranet($PPPLoginName, $ProductId, $TransactionID)
     {
-        $url = 'https://psp.terra.net.lb/RefillCustomerTerranet';
-
-        $data = [
-            'Uid' => 'SuyoolWS',
-            'Pid' => 'sd^$lKoihb61',
-            'PPPLoginName' => $PPPLoginName,
-            'ProductId' => $ProductId,
-            'TransactionID' => $TransactionID,
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'pppLoginName' => $PPPLoginName,
+            'productId' => $ProductId,
+            'transactionId'=> $TransactionID,
+            'errorCode' => '0',
+            'errorMessage' => '',
         ];
 
-        $response = $this->helper->clientRequest('POST', $url, $data);
+        try {
 
-        if ($response->getStatusCode() === 200) {
-            $responseBody = $response->getContent();
-            $responseData = json_decode($responseBody, true);
+            $response = $this->soapClient->RefillCustomerTerranet($params);
+            $RefillCustomerTerranetResult = $response->RefillCustomerTerranetResult;
 
-            $transaction = new RefillTransaction();
-            $transaction
-                ->setPPPLoginName($PPPLoginName)
-                ->setProductId($ProductId)
-                ->setTransactionID($TransactionID)
-                ->setErrorCode($responseData['ErrorCode'])
-                ->setErrorMessage($responseData['ErrorMessage']);
 
-            $this->mr->persist($transaction);
-
-            $this->mr->flush();
-
-            return $responseData;
-
-        } else {
-            return [
-                'ErrorCode' => $response->getStatusCode(),
-                'ErrorMessage' => 'API request failed',
-            ];
+            return $RefillCustomerTerranetResult;
+        } catch (\SoapFault $fault) {
+            return $fault;
         }
     }
 
     public function checkTransactionStatus($TransactionID)
     {
-        $url = 'https://psp.terra.net.lb/CheckTransactionStatus';
-
-        $data = [
-            'Uid' => 'SuyoolWS',
-            'Pid' => 'sd^$lKoihb61',
-            'TransactionID' => $TransactionID,
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'transactionId'=> $TransactionID,
+            'errorCode' => '0',
+            'errorMessage' => '',
         ];
 
-        $response = $this->helper->clientRequest('POST', $url, $data);
 
-        if ($response->getStatusCode() === 200) {
-            $responseBody = $response->getContent();
-            $responseData = json_decode($responseBody, true);
+        try {
+            $response = $this->soapClient->CheckTransactionStatus($params);
+            $checkTransactionStatusResult = $response->CheckTransactionStatusResult;
 
-            return $responseData;
-        } else {
-            return [
-                'ErrorCode' => $response->getStatusCode(),
-                'ErrorMessage' => 'API request failed',
-            ];
+            return $checkTransactionStatusResult;
+        } catch (\SoapFault $fault) {
+            return $fault;
         }
     }
 
     public function getTransactions($fromDate, $toDate)
     {
-        $url = 'https://psp.terra.net.lb/GetTransactions';
-
-        $data = [
-            'Uid' => 'SuyoolWS',
-            'Pid' => 'sd^$lKoihb61',
-            'fromDate' => $fromDate,
-            'toDate' => $toDate,
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'fromDate' => $fromDate->format('Y-m-d\TH:i:s'),
+            'toDate' => $toDate->format('Y-m-d\TH:i:s'),
+            'transactions'=> '',
+            'errorCode' => '0',
+            'errorMessage' => '',
         ];
+        try {
+            $response = $this->soapClient->GetTransactions($params);
+            $anyData = $response->transactions->any;
+            $xml = new \SimpleXMLElement($anyData);
+            $transactionsData = [];
+            foreach ($xml->NewDataSet->Table as $transactionData) {
+                $transactions = [
+                    'TransactionID' => (int) $transactionData->TransactionID,
+                    'TransactionDate' => (string) $transactionData->TransactionDate,
+                    'Username' => (float) $transactionData->Username,
+                    'PackageId' => (float) $transactionData->PackageId,
+                    'Cancelled' => (float) $transactionData->Cancelled,
+                    'PaidAmount' => (string) $transactionData->PaidAmount,
+                ];
+                $transactionsData[] = $transactions;
 
-        $response = $this->helper->clientRequest('POST', $url, $data);
-
-        if ($response->getStatusCode() === 200) {
-            $responseBody = $response->getContent();
-            $responseData = json_decode($responseBody, true);
-
-            foreach ($responseData['Transactions'] as $transactionData) {
-                $transaction = new Transaction();
-                $transaction->setTransactionID($transactionData['TransactionID']);
-                $transaction->setProductId($transactionData['ProductId']);
-                $transaction->setUsername($transactionData['Username']);
-                $transaction->setPaidAmount($transactionData['PaidAmount']);
-                $transaction->setCancelled($transactionData['Cancelled']);
-                $transaction->setDate(new \DateTime($transactionData['Date']));
-
-                $this->entityManager->persist($transaction);
             }
-
-            $this->entityManager->flush();
-
-
-            return $responseData;
-        } else {
-            return [
-                'ErrorCode' => $response->getStatusCode(),
-                'ErrorMessage' => 'API request failed',
-            ];
+            return $transactionsData;
+        } catch (\SoapFault $fault) {
+            return $fault;
         }
     }
 }

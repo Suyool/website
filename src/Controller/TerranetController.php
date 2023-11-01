@@ -26,17 +26,10 @@ class TerranetController extends AbstractController
     {
         $username = $request->request->get('username', 'L314240'); // Default to 'L314240' if not provided.
 
-
         $response = $this->apiService->getAccounts($username);
 
-        $accounts = $response['Accounts'];
-        $errorCode = $response['ErrorCode'];
-        $errorMessage = $response['ErrorMessage'];
-
         return new JsonResponse([
-            'accounts' => $accounts,
-            'errorCode' => $errorCode,
-            'errorMessage' => $errorMessage,
+            'accounts' => $response
         ]);
     }
 
@@ -45,17 +38,11 @@ class TerranetController extends AbstractController
      */
     public function getProducts(Request $request)
     {
-        $PPPLoginName = $request->query->get('PPPLoginName');
+        $PPPLoginName = $request->query->get('PPPLoginName','L314240');
         $response = $this->apiService->getProducts($PPPLoginName);
 
-        $products = $response['Products'];
-        $errorCode = $response['ErrorCode'];
-        $errorMessage = $response['ErrorMessage'];
-
-        return new JsonResponse([
-            'products' => $products,
-            'errorCode' => $errorCode,
-            'errorMessage' => $errorMessage,
+        return $this->render('terranet/products.html.twig', [
+            'products' => $response,
         ]);
     }
 
@@ -64,18 +51,14 @@ class TerranetController extends AbstractController
      */
     public function refillCustomerTerranet(Request $request)
     {
-        $PPPLoginName = $request->request->get('PPPLoginName');
-        $ProductId = $request->request->get('ProductId');
-        $TransactionID = $request->request->get('TransactionID');
+        $PPPLoginName = $request->request->get('PPPLoginName','L314240');
+        $ProductId = $request->request->get('ProductId','-851');
+        $TransactionID = $request->request->get('TransactionID','1');
 
         $response = $this->apiService->refillCustomerTerranet($PPPLoginName, $ProductId, $TransactionID);
 
-        $errorCode = $response['ErrorCode'];
-        $errorMessage = $response['ErrorMessage'];
-
         return new JsonResponse([
-            'errorCode' => $errorCode,
-            'errorMessage' => $errorMessage,
+            'refill' => $response
         ]);
     }
 
@@ -84,16 +67,12 @@ class TerranetController extends AbstractController
      */
     public function checkTransactionStatus(Request $request)
     {
-        $TransactionID = $request->request->get('TransactionID');
+        $TransactionID = $request->request->get('TransactionID','1');
 
         $response = $this->apiService->checkTransactionStatus($TransactionID);
 
-        $errorCode = $response['ErrorCode'];
-        $errorMessage = $response['ErrorMessage'];
-
         return new JsonResponse([
-            'errorCode' => $errorCode,
-            'errorMessage' => $errorMessage,
+            'status' => $response
         ]);
     }
 
@@ -102,11 +81,13 @@ class TerranetController extends AbstractController
      */
     public function getTransactions(Request $request)
     {
-        $fromDate = $request->request->get('fromDate');
-        $toDate = $request->request->get('toDate');
+        $fromDate = $request->request->get('fromDate','31-10-2023');
+        $toDate = $request->request->get('toDate','01-11-2023');
+        $fromDate = new \DateTime('2023-10-01');
+        $toDate = new \DateTime('2023-11-01');
 
         $response = $this->apiService->getTransactions($fromDate, $toDate);
-
+        dd($response);
         $transactions = $response['Transactions'];
         $errorCode = $response['ErrorCode'];
         $errorMessage = $response['ErrorMessage'];
