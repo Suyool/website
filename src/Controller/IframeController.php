@@ -41,30 +41,33 @@ class IframeController extends AbstractController
     private function processPayment(Request $request, string $env): Response
     {
         $data = $request->query->all();
-        $response = $this->windowProcess($data, $env);
-        $TranID = $data['TranID'] ?? '';
-        if ($env == 'live') {
-            $pictureUrl = $response['pictureURL'];
-            $returnText = $response['returnText'];
-        } else {
-            $pictureUrl = $response['PictureURL'];
-            $returnText = $response['ReturnText'];
+        if(!empty($data)){
+            $response = $this->windowProcess($data, $env);
+            $TranID = $data['TranID'] ?? '';
+            if ($env == 'live') {
+                $pictureUrl = $response['pictureURL'];
+                $returnText = $response['returnText'];
+            } else {
+                $pictureUrl = $response['PictureURL'];
+                $returnText = $response['ReturnText'];
+            }
+
+            $showQR = $pictureUrl ? 'displayBlock' : '';
+            $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+            return $this->render('iframe/pay-qr.html.twig', [
+                'pictureURL' => $pictureUrl,
+                'order_id' => $TranID,
+                'ReturnText' => $returnText,
+                'displayBlock' => $showQR,
+                'merchantId' => $data['MerchantID'],
+                'CallBackURL' => $data['CallBackURL'],
+                'env' => $env,
+                'main_url' => $main_url,
+
+            ]);
+        }else {
+            return new Response('No Data received');
         }
-
-        $showQR = $pictureUrl ? 'displayBlock' : '';
-        $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-
-        return $this->render('iframe/pay-qr.html.twig', [
-            'pictureURL' => $pictureUrl,
-            'order_id' => $TranID,
-            'ReturnText' => $returnText,
-            'displayBlock' => $showQR,
-            'merchantId' => $data['MerchantID'],
-            'CallBackURL' => $data['CallBackURL'],
-            'env' => $env,
-            'main_url' => $main_url,
-
-        ]);
     }
 
     public function windowProcess($data, $env)
