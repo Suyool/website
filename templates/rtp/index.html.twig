@@ -64,7 +64,7 @@
 					request_details_response.allowCardTopup is not null 
 			%}
 				<div class="container-fluid choose_way">
-					<a id="topUpButtonDesk">
+					<a id="topUpButtonDesk" href="{{path('app_rtptopup')}}">
 						<div class="row">
 							<div class="col-md-3 col-2 logo_container">
 								<img class="logo" src="{{ asset('build/images/payment/pay_with_card.svg') }}">
@@ -161,7 +161,7 @@
 			{% if request_details_response.allowCardTopup is defined and request_details_response.allowCardTopup != "false"
 		and request_details_response.allowCardTopup is not null %}
 				<div class="container-fluid choose_way ">
-					<a id="topUpButtonMob">
+					<a id="topUpButtonMob" href="{{path('app_rtptopup')}}">
 						<div class="row">
 							<div class="col-2 logo_container">
 								<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
@@ -195,7 +195,7 @@
 			<a class="lear_abou_suyool" href="/" title="sKash">{{'LEARN_MORE_ABOUT_SUYOOL'|trans}}</a>
 		</div>
 	</div>
-	<form style="display: none" name="myFormRequest" id="myFormRequest" method="post" action="{{app.request.schemeAndHttpHost}}/topup">
+	{# <form style="display: none" name="myFormRequest" id="myFormRequest" method="post" action="{{app.request.schemeAndHttpHost}}/topup">
 		<input type="hidden" name="Request" value="true">
-	</form>
+	</form> #}
 {% endblock %}

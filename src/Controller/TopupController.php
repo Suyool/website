@@ -99,4 +99,12 @@ class TopupController extends AbstractController
             } else return $this->render('ExceptionHandling.html.twig');
         } else return $this->render('ExceptionHandling.html.twig');
     }
+
+    #[Route('/topupRTP', name: 'app_rtptopup')]
+    public function rtpTopUp(Request $request,SessionInterface $sessionInterface)
+    {
+        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+        dd($nonSuyooler);
+    }
+
 }
