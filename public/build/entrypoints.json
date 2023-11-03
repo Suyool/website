@@ -2,118 +2,127 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/app1.50d975cb.js"
+        "/build/runtime.js",
+        "/build/app1.js"
       ]
     },
     "admin-app": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
         "/build/admin-app.fd697fc2.js"
+=======
+        "/build/runtime.js",
+        "/build/admin-app.js"
+>>>>>>> bf7e97a0 (working on new landing page)
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.b080bbea.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.c80b9b87.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.b8da81f6.js"
+        "/build/runtime.js",
+        "/build/Alfa.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.50783576.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.a69528ab.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "iveri": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/iveri.429e5515.js"
+        "/build/runtime.js",
+        "/build/iveri.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/styles.982bbcde.css"
 =======
         "/build/styles.7188ffc2.css"
 >>>>>>> 6ca035e5 (working on landingpage)
+=======
+        "/build/styles.css"
+>>>>>>> bf7e97a0 (working on new landing page)
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/admin.bb651dc3.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.c4e01bc7.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.99ef5dda.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/AlfaStyle.8151d074.css"
+        "/build/AlfaStyle.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.0a61bc4c.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.301fc34f.css"
+        "/build/OgeroStyle.css"
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/iveristyles.2de240eb.css"
+        "/build/iveristyles.css"
       ]
     }
   }

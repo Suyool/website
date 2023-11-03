@@ -1,12 +1,126 @@
-.middleeast{
+.middleeast {
+  width: 100%;
+  background-color: white;
+
+  .topSection {
+    background-image: url("../../../images/platinumMastercard/deskTopMiddleEast.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-top: 26px;
+    height: 65vh;
     width: 100%;
-    
-    .topSection{
-        background-image: url("../../../images/platinumMastercard/deskTopMiddleEast.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        padding-top: 26px;
-        height: 50vh;
-        width: 100%;
+
+    a {
+      img {
+        width: 140px;
+      }
     }
+  }
+
+  .coverDetails {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 0 5%;
+    position: relative;
+    .ledt{
+        width: 40%;
+    }
+    .left{
+        box-shadow: 0px 10px 60px #00000029;
+        padding: 40px 60px;
+        border-radius: 30px;
+        max-width: 40%;
+        position: absolute;
+        top: -50px;
+        z-index: 10;
+        background-color: white;
+        .title{
+            font-family: $Bold;
+            font-size: 25px;
+            color: #373464;
+        }
+        .description{
+            display: flex;
+            flex-direction: row;
+            padding-top: 20px;
+            .dot{
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #373464;
+                margin-top: 8px;
+            }
+            .desc{
+                width: calc(100% - 15px);
+                font-family: $Regular;
+                font-size: 20px;
+                color: #373464;
+                padding-left: 10px;
+            }
+        }
+
+    }
+    .rightt{
+        width: 55%;
+        .titles{
+            padding-top: 20px;
+            display: flex;
+            flex-direction: row;
+            img{
+                width: 30px;
+            }
+            .title{
+                font-family: $Bold;
+                font-size: 20px;
+                color: black;
+            }
+        }
+        .mainTitle{
+            padding-top: 15px;
+            font-size: 40px;
+            font-family: $Bold;
+            color: #373464;
+        }
+
+        .cards{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-top: 25px;
+            .cardo{
+             display: flex;
+             flex-direction: row;
+             width: 48%;
+             align-items: flex-start;
+             img{
+                width: 82px;
+             }   
+             .txtContainer{
+                display: flex;
+                flex-direction: column;
+                padding-left: 10px;
+                .tit{
+                    font-family: $Bold;
+                    font-size: 17px;
+                    color: #373464;
+                }
+                .desc{
+                    font-family: $Regular;
+                    font-size: 17px;
+                    color: #373464;
+                }
+             }
+            }
+        }
+    }
+  }
+
 }
+
+
+@media screen and (max-width: 1400px) {}
+@media screen and (max-width: 1200px) {}
+@media screen and (max-width: 992px) {}
+@media screen and (max-width: 768px) {}

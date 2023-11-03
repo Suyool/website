@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "build/app1.js": "/build/app1.50d975cb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.b080bbea.js",
@@ -20,6 +21,25 @@
   "build/OgeroStyle.css": "/build/OgeroStyle.301fc34f.css",
   "build/iveristyles.css": "/build/iveristyles.2de240eb.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
+=======
+  "build/app1.js": "/build/app1.js",
+  "build/admin-app.js": "/build/admin-app.js",
+  "build/Loto.js": "/build/Loto.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
+  "build/Alfa.js": "/build/Alfa.js",
+  "build/Touch.js": "/build/Touch.js",
+  "build/Ogero.js": "/build/Ogero.js",
+  "build/iveri.js": "/build/iveri.js",
+  "build/styles.css": "/build/styles.css",
+  "build/admin.css": "/build/admin.css",
+  "build/Lotostyles.css": "/build/Lotostyles.css",
+  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
+  "build/AlfaStyle.css": "/build/AlfaStyle.css",
+  "build/TouchStyle.css": "/build/TouchStyle.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.css",
+  "build/iveristyles.css": "/build/iveristyles.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> bf7e97a0 (working on new landing page)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/usj/topImage.png": "/build/images/usj/topImage.png",
@@ -477,5 +497,8 @@
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
   "build/images/touch/Back.png": "/build/images/touch/Back.png",
-  "build/images/menu.png": "/build/images/menu.png"
+  "build/images/menu.png": "/build/images/menu.png",
+  "build/images/middleEast/plane.png": "/build/images/middleEast/plane.png",
+  "build/images/middleEast/validity.svg": "/build/images/middleEast/validity.svg",
+  "build/images/middleEast/destination.svg": "/build/images/middleEast/destination.svg"
 }
