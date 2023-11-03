@@ -321,6 +321,7 @@
   "build/images/homepage/topup-account.png": "/build/images/homepage/topup-account.png",
   "build/images/digital_corporate/noHiddFees.svg": "/build/images/digital_corporate/noHiddFees.svg",
   "build/images/envelope.png": "/build/images/envelope.png",
+  "build/images/middleEast/validity.svg": "/build/images/middleEast/validity.svg",
   "build/images/alfa_employee/cashout.png": "/build/images/alfa_employee/cashout.png",
   "build/images/digital_corporate/cashouticon.svg": "/build/images/digital_corporate/cashouticon.svg",
   "build/images/homepage/leb-map1.svg": "/build/images/homepage/leb-map1.svg",
@@ -376,6 +377,7 @@
   "build/images/helpCenter/how-to-corporate.svg": "/build/images/helpCenter/how-to-corporate.svg",
   "build/images/helpCenter/how-to-personal.svg": "/build/images/helpCenter/how-to-personal.svg",
   "build/images/pay-at-real.png": "/build/images/pay-at-real.png",
+  "build/images/middleEast/destination.svg": "/build/images/middleEast/destination.svg",
   "build/images/alfa/alfaLogo.png": "/build/images/alfa/alfaLogo.png",
   "build/images/alfa_employee/payQr1.svg": "/build/images/alfa_employee/payQr1.svg",
   "build/images/homepage/top-up-visa.svg": "/build/images/homepage/top-up-visa.svg",
@@ -407,6 +409,7 @@
   "build/images/platinumMastercard/convenience_control.png": "/build/images/platinumMastercard/convenience_control.png",
   "build/images/payment/pay_with_card.svg": "/build/images/payment/pay_with_card.svg",
   "build/images/alfa_employee/payQr.png": "/build/images/alfa_employee/payQr.png",
+  "build/images/middleEast/plane.png": "/build/images/middleEast/plane.png",
   "build/images/alfa_employee/secure.png": "/build/images/alfa_employee/secure.png",
   "build/images/helpCenter/what-if-corporate.svg": "/build/images/helpCenter/what-if-corporate.svg",
   "build/images/helpCenter/what-if-personal.svg": "/build/images/helpCenter/what-if-personal.svg",
@@ -498,7 +501,7 @@
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
   "build/images/touch/Back.png": "/build/images/touch/Back.png",
   "build/images/menu.png": "/build/images/menu.png",
-  "build/images/middleEast/plane.png": "/build/images/middleEast/plane.png",
-  "build/images/middleEast/validity.svg": "/build/images/middleEast/validity.svg",
-  "build/images/middleEast/destination.svg": "/build/images/middleEast/destination.svg"
+  "build/images/middleEast/Mask Group 7277.png": "/build/images/middleEast/Mask Group 7277.png",
+  "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
+  "build/images/mobile_top_section.png": "/build/images/mobile_top_section.fff5ccd7.png"
 }
