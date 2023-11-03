@@ -27,7 +27,7 @@ class SuyoolServices
 
 
 
-    public function __construct($merchantAccountID, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -462,6 +462,50 @@ class SuyoolServices
                 return array(false, $content['data'],$content['flagCode'],$content['message']);
             }
         } catch (Exception $e) {
+            return array(false);
+        }
+    }
+
+    public function sendDotNetEmail($subject,$to,$plainTextContent,$attachmentName,$attachmentsBase64,$fromEmail,$fromName,$flag,$channelID)
+    {
+        try {
+            $Hash = "0e9Q6zJLdoKty9U6OuDZHVas9GisPCfGUFWpFrUq9sfLBgaaY6";
+            $emailMessage = [
+                'subject' => $subject,
+                'to' => $to,
+                'plainTextContent' => $plainTextContent,
+                'attachment' => [
+                    // [
+                        // 'name' => $attachmentName,
+                        // 'attachmentsBase64' => $attachmentsBase64
+                    // ]
+                ]
+            ];
+        
+            $body = [
+                'emailMsg' => [$emailMessage],
+                'fromEmail' => $fromEmail,
+                'fromName' => $fromName,
+                'flag' => $flag,
+                'channelID' => $channelID
+            ];
+            // dd($body);
+
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=".$Hash,  $body);
+            $content = $response->toArray(false);
+            if($content['statusCode'] == 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+            // if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+            //     return array(true, $content['data'],$content['flagCode'],$content['message']);
+            // } else {
+            //     return array(false, $content['data'],$content['flagCode'],$content['message']);
+            // }
+        } catch (Exception $e) {
+            echo $e->getMessage();
             return array(false);
         }
     }
