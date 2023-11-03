@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-    {% block body %}
-        <div class="middleeast">
-        {% include "elements/mastercard/topSectionMiddle.html.twig" %}
-            </div>
+{% block body %}
+	<div
+		class="middleeast">
+		{# {% include "elements/mastercard/topSectionMiddle.html.twig" %} #}
+		<div class="topSection">
+			<a href="/" class="container-fluid">
+				<img src="/build/images/suyool-title-white.png">
+			</a>
+		</div>
+	</div>
 
-    {% endblock %}
+{% endblock %}

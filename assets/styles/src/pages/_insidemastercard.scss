@@ -1,8 +1,12 @@
 .middleeast{
+    width: 100%;
+    
     .topSection{
         background-image: url("../../../images/platinumMastercard/deskTopMiddleEast.png");
-        background-size: 100% 100%;
-        height: 580px;
+        background-size: contain;
+        background-repeat: no-repeat;
         padding-top: 26px;
+        height: 50vh;
+        width: 100%;
     }
 }
