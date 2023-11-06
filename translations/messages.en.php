@@ -244,4 +244,38 @@ return [
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia" => "You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia" => "Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia" => "You can withdraw your salary from more than 700 BOB finance cash points.",
+
+    //medco
+    "MEDCOBRINGINGYOURPAY" => "Medco is bringing your pay to the ultimate digital account!",
+    //medco
+    "WHAT_IS_SUYOOL_DrogueriePhenicia" => "What is Suyool?",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia" => "Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
+    "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Can anyone open a Suyool account?",
+    "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MEDCO" => "What are the benefits for Medco employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCO" => "Medco employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as they are a Medco employee. ",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MEDCO" => "Your Suyool Debit Card will be free-of-charge as long as you are a Medco employee.",
+    "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Is there any fee to get my Suyool Debit Card?",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_MEDCO" => "Your Suyool Debit Card will be free-of-charge as long as you are a Medco employee.",
+    "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Where can I use my Suyool Debit Card?",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia" => "You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia" => "Where can I withdraw my salary in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia" => "You can withdraw your salary from more than 700 BOB finance cash points.",
+
+    //KALLASI
+    "KALLASIBRINGINGYOURPAY" => "Group Kallasi is bringing your pay to the ultimate digital account!",
+    //KALLASI
+    "WHAT_IS_SUYOOL_DrogueriePhenicia" => "What is Suyool?",
+    "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia" => "Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
+    "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Can anyone open a Suyool account?",
+    "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia" => "Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_KALLASI" => "What are the benefits for Group Kallasi employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_KALLASI" => "Group Kallasi employees will benefit from a free Debit Card & free cash withdrawal of their monthly salary as long as they are a Group Kallasi employee. ",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_KALLASI" => "Your Suyool Debit Card will be free-of-charge as long as you are a Group Kallasi employee.",
+    "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Is there any fee to get my Suyool Debit Card?",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_KALLASI" => "Your Suyool Debit Card will be free-of-charge as long as you are a Group Kallasi employee.",
+    "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia" => "Where can I use my Suyool Debit Card?",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia" => "You can use your Suyool Mastercard at any POS, online, in Lebanon & abroad.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia" => "Where can I withdraw my salary in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia" => "You can withdraw your salary from more than 700 BOB finance cash points.",
 ];
