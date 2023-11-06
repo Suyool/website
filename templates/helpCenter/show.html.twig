@@ -10,7 +10,7 @@
         <div class="container-fluid categories-show-cont">
             <div class="category-show">
                 <div class="navigator">
-                    <a href="{{ path('help_center') }}"><span class="color{{ type }}">Suyool Help Center</span></a>
+                    <a href="/help-center?type-id={{type}}"><span class="color{{ type }}">Suyool Help Center</span></a>
                     {% if type == 1 %}
                         <img src="{{ asset('build/images/helpCenter/BreadcrumbPersonal.svg') }}">
                     {% elseif type == 2 %}
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="category-answers color{{ type }}">
+                        <div class="category-answers">
                             <div class="question" id="answer-question">{{ question.question }}</div>
                             <div class="answer" id="answer-desc">{{ question.answer|raw }}</div>
                         </div>
