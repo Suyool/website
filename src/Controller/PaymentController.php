@@ -128,7 +128,7 @@ class PaymentController extends AbstractController
         if (isset($_POST['submit'])) {
             if (!empty($_POST['receiverfname']) && !empty($_POST['receiverlname'])) {
                 $parameters['cashout'] = $this->suyoolServices->PaymentCashout($this->session->get('TranSimID'), $_POST['receiverfname'], $_POST['receiverlname']);
-                if ($parameters['cashout']['globalCode'] == 0 && $parameters['cashin']['flagCode'] != 1 ) {
+                if ($parameters['cashout']['globalCode'] == 0 && $parameters['cashout']['flagCode'] == 1 ) {
                     $parameters['imgsrc']="build/images/Loto/error.png";
                     $parameters['title']="Unable to create code";
                     $parameters['description']="We are unable to create a cashout code.<br>
