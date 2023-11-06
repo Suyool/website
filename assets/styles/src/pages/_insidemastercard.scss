@@ -16,10 +16,10 @@
         width: 140px;
       }
     }
-    .mastercardLogo{
-        position: absolute;
-        bottom: 50px;
-        right: 50px;
+    .mastercardLogo {
+      position: absolute;
+      bottom: 50px;
+      right: 50px;
     }
   }
 
@@ -87,6 +87,7 @@
         font-size: 40px;
         font-family: $Bold;
         color: #373464;
+        max-width: 80%;
       }
 
       .cards {
@@ -129,20 +130,25 @@
     .textsection {
       .title {
         font-family: $Bold;
-        font-size: 23px;
+        font-size: 22px;
+        letter-spacing: 2px;
         color: #373464;
       }
       .subtitle {
         font-family: $Regular;
-        font-family: 50px;
-        color: #374a5a;
+        font-size: 50px;
+        color: black;
         padding-top: 20px;
       }
       .listofuse {
+        .soloimage {
+          display: none;
+        }
         .cont {
           display: flex;
           flex-direction: row;
           padding-top: 23px;
+
           .ol {
             width: 35px;
             height: 35px;
@@ -167,11 +173,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            .tst{
-                width: 25%;
-                height: 2px;
-                background-color: #226d96;
-                width: calc(100% - 550px);
+            .tst {
+              width: 25%;
+              height: 2px;
+              background-color: #226d96;
+              width: calc(100% - 550px);
             }
           }
         }
@@ -204,8 +210,8 @@
       object-fit: contain;
     }
     .imgright:hover {
-        cursor: pointer;
-      }
+      cursor: pointer;
+    }
   }
 
   .thingsToNote {
@@ -217,8 +223,9 @@
     align-items: center;
     .title {
       font-family: $Bold;
-      font-size: 21px;
+      font-size: 22px;
       color: #373464;
+      letter-spacing: 2px;
     }
     .subtitle {
       font-family: $Regular;
@@ -247,51 +254,52 @@
           color: #6b6b6b;
           font-family: $Regular;
           font-size: 21px;
-          width: calc(100% - 75px);
+          width: calc(100% - 90px);
         }
       }
     }
   }
 
-  .termsSection{
+  .termsSection {
     margin: 40px 0;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     padding-bottom: 100px;
-    .title{
-        font-size: 24px;
-        font-family: $Medium;
-        color: #226d96;
-        padding-bottom: 30px;
+    .title {
+      font-family: $Bold;
+      padding-bottom: 30px;
+      font-size: 22px;
+      letter-spacing: 2px;
+      color: #373464;
     }
-    .subtitle{
-        font-family: $SemiBold;
-        color: #364A59;
-        font-size: 50px;
-        padding-bottom: 20px;
+    .subtitle {
+      font-family: $Regular;
+      color: black;
+      font-size: 50px;
+      padding-bottom: 20px;
     }
-    .desc{
-        font-family: $Regular;
-        color: #5A5A5A;
-        font-size: 18px;
-        padding-bottom: 40px;
-        max-width: 850px;
-        text-align: center;
+    .desc {
+      font-family: $Regular;
+      color: #5a5a5a;
+      font-size: 18px;
+      padding-bottom: 40px;
+      max-width: 850px;
+      text-align: center;
     }
-    .read{
-        color: white;
-        font-size: 16px;
-        font-family: $SemiBold;
-        padding: 12px 40px;
-        background-color: #226d96;
-        border: 1px solid #226d96;
-        border-radius: 12px;
+    .read {
+      color: white;
+      font-size: 16px;
+      font-family: $SemiBold;
+      padding: 12px 40px;
+      background-color: #226d96;
+      border: 1px solid #226d96;
+      border-radius: 12px;
     }
-    .read:hover{
-        color: #226d96;
-        background-color: white;
+    .read:hover {
+      color: #226d96;
+      background-color: white;
     }
   }
 }
@@ -358,6 +366,46 @@
         }
       }
     }
+    .howtouse {
+      margin-top: 200px;
+
+      .textsection {
+        .title {
+          font-size: 22px;
+        }
+        .subtitle {
+          font-family: 50px;
+        }
+        .listofuse {
+          .cont {
+            .ol {
+              span {
+                font-size: 16px;
+              }
+            }
+            .tt {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+    .thingsToNote {
+      .title {
+        font-size: 22px;
+      }
+      .subtitle {
+        font-size: 35px;
+      }
+
+      .list {
+        .cardview {
+          .txt {
+            font-size: 16px;
+          }
+        }
+      }
+    }
   }
 }
 @media screen and (max-width: 1200px) {
@@ -386,7 +434,7 @@
           }
           .desc {
             width: calc(100% - 12px);
-            font-size: 15px;
+            font-size: 16px;
             padding-left: 7px;
           }
         }
@@ -443,8 +491,33 @@
             width: 60px;
           }
           .txt {
-            font-size: 18px;
-            width: calc(100% - 70px);
+            font-size: 16px;
+            width: calc(100% - 90px);
+          }
+        }
+      }
+    }
+
+    .howtouse {
+      margin-top: 200px;
+
+      .textsection {
+        .title {
+          font-size: 23px;
+        }
+        .subtitle {
+          font-family: 50px;
+        }
+        .listofuse {
+          .cont {
+            .ol {
+              span {
+                font-size: 16px;
+              }
+            }
+            .tt {
+              font-size: 16px;
+            }
           }
         }
       }
@@ -527,8 +600,20 @@
           padding-top: 15px;
         }
         .listofuse {
+          .soloimage {
+            display: block !important;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            img {
+              width: 60%;
+              max-width: 200px;
+              object-fit: contain;
+            }
+          }
           .cont {
             padding-top: 12px;
+
             .ol {
               width: 30px;
               height: 30px;
@@ -540,9 +625,9 @@
               padding-left: 8px;
               width: calc(100% - 32px);
               font-size: 21px;
-              .tst{
+              .tst {
                 display: none;
-            }
+              }
             }
           }
         }
@@ -557,8 +642,9 @@
           margin-top: 32px;
         }
       }
-      .imgright{
+      .imgright {
         width: 70%;
+        display: none;
       }
     }
   }
@@ -575,14 +661,14 @@
           width: 100px;
         }
       }
-      .mastercardLogo{
+      .mastercardLogo {
         position: absolute;
         top: 20px;
         right: 50px;
         width: 84px;
         height: 76px;
         object-fit: contain;
-    }
+      }
     }
     .coverDetails {
       flex-direction: column;
@@ -627,7 +713,9 @@
         }
         .mainTitle {
           padding-top: 15px;
+          padding-bottom: 15px;
           font-size: 24px;
+          max-width: 100%;
         }
 
         .cards {
@@ -653,6 +741,10 @@
       margin-top: 40px;
 
       .textsection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         .title {
           font-size: 18px;
         }
@@ -674,7 +766,7 @@
             .tt {
               padding-left: 7px;
               width: calc(100% - 30px);
-              font-size: 18px;
+              font-size: 17px;
             }
           }
         }
@@ -684,7 +776,8 @@
           max-width: 90%;
         }
         .downloadBtn {
-          font-size: 18px;
+          font-size: 16px;
+          font-family: $SemiBold;
           padding: 8px 20px;
           margin-top: 25px;
         }
@@ -705,41 +798,43 @@
 
       .list {
         .cardview {
-          margin-bottom: 20px;
+          margin-bottom: 30px;
           padding: 15px 18px;
           min-height: 120px;
+          
           .cardimg {
             width: 50px;
           }
           .txt {
-            font-size: 16px;
-            width: calc(100% - 60px);
+            font-size: 17px;
+            width: calc(100% - 65px);
           }
         }
       }
     }
 
-    .termsSection{
-        .title{
-            font-size: 22px;
-            padding-bottom: 22px;
-        }
-        .subtitle{
-            font-size: 30px;
-            padding-bottom: 15px;
-        }
-        .desc{
-            font-size: 16px;
-            padding-bottom: 30px;
-            max-width: unset;
-            padding-left: 5%;
-            padding-right: 5%;
-        }
-        .read{
-            font-size: 18px;
-            padding: 12px 40px;
-        }
+    .termsSection {
+      .title {
+        font-size: 22px;
+        padding-bottom: 22px;
       }
+      .subtitle {
+        font-size: 30px;
+        padding-bottom: 15px;
+      }
+      .desc {
+        font-size: 17px;
+        padding-bottom: 30px;
+        max-width: unset;
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+      .read {
+        font-size: 16px;
+        font-family: $SemiBold;
+        padding: 8px 20px;
+      }
+    }
   }
 }
 
@@ -783,6 +878,7 @@
           .cardo {
             flex-direction: row;
             width: 100%;
+            padding-bottom: 20px;
             .txtContainer {
               padding-left: 7px;
               .tit {
