@@ -68,16 +68,16 @@ if (document.querySelector(".actionAppSuccess")) {
   });
 }
 
-// if (document.querySelector(".actionAppFailed")) {
-//   const actionAppFailed = document.querySelector(".actionAppFailed");
-//   actionAppFailed.addEventListener("click", function () {
-//     if (navigator.userAgent.match(/Android/i)) {
-//       window.AndroidInterface.callbackHandler("topupFailed");
-//     } else {
-//       window.webkit.messageHandlers.callbackHandler.postMessage("topupFailed");
-//     }
-//   });
-// }
+if (document.querySelector(".actionAppFailed")) {
+  const actionAppFailed = document.querySelector(".actionAppFailed");
+  actionAppFailed.addEventListener("click", function () {
+    if (navigator.userAgent.match(/Android/i)) {
+      window.AndroidInterface.callbackHandler("topupFailed");
+    } else {
+      window.webkit.messageHandlers.callbackHandler.postMessage("topupFailed");
+    }
+  });
+}
 
 // if (document.querySelector(".actionBrowser")) {
 //   const actionBrowser = document.querySelector(".actionBrowser");

@@ -421,6 +421,7 @@ class SuyoolServices
         try {
             $sum = (float) $amount;
             // echo $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate;
+            // echo "<br>";
             $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate, true));
             // echo $Hash;
             $body =[
@@ -435,6 +436,7 @@ class SuyoolServices
             // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
+            // echo (json_encode($content));
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {
@@ -454,6 +456,7 @@ class SuyoolServices
                 'transactionId' => $transId,
                 'secureHash' => $Hash
             ];
+            // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
             // dd($content);

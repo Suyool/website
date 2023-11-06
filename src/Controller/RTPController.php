@@ -181,7 +181,7 @@ class RTPController extends AbstractController
                     $parameters['description']="We are unable to create a cashout code.<br>
                     Contact our call center at 81-484000 for further assistance.";
                     $parameters['button']="Call Call Center";
-                    return $this->render('request/generateCode.html.twig', $parameters);
+                    return $this->render('rtp/generateCode.html.twig', $parameters);
                 } else if($parameters['cashin']['flagCode'] == 1) {
                     $this->session->set(
                         "requestGenerated",

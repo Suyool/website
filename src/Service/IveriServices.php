@@ -5,6 +5,9 @@ namespace App\Service;
 use App\Entity\Iveri\orders;
 use App\Entity\Iveri\trace;
 use App\Entity\Iveri\transactions;
+use App\Entity\topup\orders as TopupOrders;
+use App\Entity\topup\trace as TopupTrace;
+use App\Entity\topup\transactions as TopupTransactions;
 use App\Entity\Transaction;
 use App\Utils\Helper;
 use DateTime;
@@ -60,8 +63,8 @@ class IveriServices
 
     public function iveriService($session)
     {
-        $trace = new trace;
-        $transaction = new transactions;
+        $trace = new TopupTrace;
+        $transaction = new TopupTransactions;
         $parameters = array();
         if (isset($_POST['ECOM_PAYMENT_CARD_PROTOCOLS'])) {
             $session->set('MerchantTrace', @$_POST['LITE_MERCHANT_TRACE']);
@@ -123,8 +126,8 @@ class IveriServices
                 //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
                 // }
             }
-            $order=$this->mr->getRepository(orders::class)->findOneBy(['status'=>orders::$statusOrder['PENDING'],'transId'=>$_POST['TRANSACTIONID']],['created'=>'DESC']);
-            $order->setstatus(orders::$statusOrder['HELD']);
+            $order=$this->mr->getRepository(orders::class)->findOneBy(['status'=>TopupOrders::$statusOrder['PENDING'],'transId'=>$_POST['TRANSACTIONID']],['created'=>'DESC']);
+            $order->setstatus(TopupOrders::$statusOrder['HELD']);
             $trace->setOrders($order);
             $trace->setTrace(@$_POST['LITE_MERCHANT_TRACE']);
             $this->mr->persist($order);
@@ -169,7 +172,7 @@ class IveriServices
             $topupforbuttonFailed = false;
 
             if (!is_null($transaction)) {
-                $orderSts=orders::$statusOrder['CANCELED'];
+                $orderSts=TopupOrders::$statusOrder['CANCELED'];
                 $additionalInfo = [
                     'authCode' => @$transaction->getAuthCode(),
                     'cardStatus' => $_POST['Lite_Payment_Card_Status'],
@@ -188,7 +191,7 @@ class IveriServices
                         $description = "You have succesfully added {$parameters['currency']} {$amount} to your Suyool wallet. <br>Check your new balance";
                         if (is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $description = "you have succesfully added {$parameters['currency']} {$amount} to {$sender}' Suyool wallet.";
                         $button = "Continue";
-                        $orderSts=orders::$statusOrder['COMPLETED'];
+                        $orderSts=TopupOrders::$statusOrder['COMPLETED'];
                     } else {
                         if (!is_null($transaction->getTrace()->getOrders()->getsuyoolUserId())) $topupforbuttonFailed = true;
                         $status = false;
