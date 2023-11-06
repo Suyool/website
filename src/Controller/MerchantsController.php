@@ -626,7 +626,7 @@ class MerchantsController extends AbstractController
     }
 
     /**
-     * @Route("/kallasi", name="kallasi")
+     * @Route("/group-kallasi", name="kallasi")
      */
     public function kallasi(Request $request,TranslatorInterface $translatorInterface): Response
     {
