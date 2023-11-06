@@ -71,7 +71,7 @@
   "build/images/homepage/corporate-desk.jpg": "/build/images/homepage/corporate-desk.jpg",
   "build/images/commingSoon/mobile1.png": "/build/images/commingSoon/mobile1.png",
   "build/images/digital_corporate/digitalCorp-meta.png": "/build/images/digital_corporate/digitalCorp-meta.png",
-  "build/images/deskTopMiddleEast.png": "/build/images/deskTopMiddleEast.6e8703d3.png",
+  "build/images/deskTopMiddleEast.png": "/build/images/deskTopMiddleEast.6ba4f807.png",
   "build/images/platinumMastercard/deskTopMiddleEast.png": "/build/images/platinumMastercard/deskTopMiddleEast.png",
   "build/images/lldj/lldjTablet.png": "/build/images/lldj/lldjTablet.png",
   "build/images/alfa_employee/topImageTablet.png": "/build/images/alfa_employee/topImageTablet.png",
@@ -165,7 +165,7 @@
   "build/images/alfa/Bundle1h.png": "/build/images/alfa/Bundle1h.png",
   "build/images/meta-image-website.png": "/build/images/meta-image-website.png",
   "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
-  "build/images/mobile_top_section.png": "/build/images/mobile_top_section.fff5ccd7.png",
+  "build/images/mobile_top_section.png": "/build/images/mobile_top_section.78de921e.png",
   "build/images/touch/Bundle90h.png": "/build/images/touch/Bundle90h.png",
   "build/images/touch/Bundle60h.png": "/build/images/touch/Bundle60h.png",
   "build/images/alfa/Bundle32h.png": "/build/images/alfa/Bundle32h.png",
@@ -509,5 +509,8 @@
   "build/images/middleEast/card.svg": "/build/images/middleEast/card.svg",
   "build/images/middleEast/travel.svg": "/build/images/middleEast/travel.svg",
   "build/images/middleEast/building.svg": "/build/images/middleEast/building.svg",
-  "build/images/middleEast/wifi.svg": "/build/images/middleEast/wifi.svg"
+  "build/images/middleEast/wifi.svg": "/build/images/middleEast/wifi.svg",
+  "build/images/middleEast/Mask Group 7281.png": "/build/images/middleEast/Mask Group 7281.png",
+  "build/images/middleEast/mastercardLogo.png": "/build/images/middleEast/mastercardLogo.png",
+  "build/images/middleEast/deskTopMiddleEast.png": "/build/images/middleEast/deskTopMiddleEast.png"
 }

@@ -3,17 +3,23 @@
   background-color: white;
 
   .topSection {
-    background-image: url("../../../images/platinumMastercard/deskTopMiddleEast.png");
-    background-size: 100% 100%;
+    background-image: url("../../../images/middleEast/deskTopMiddleEast.png");
+    background-size: cover;
     background-repeat: no-repeat;
     padding-top: 26px;
     height: 65vh;
     width: 100%;
+    position: relative;
 
     a {
       img {
         width: 140px;
       }
+    }
+    .mastercardLogo{
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
     }
   }
 
@@ -554,6 +560,14 @@
           width: 100px;
         }
       }
+      .mastercardLogo{
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        width: 84px;
+        height: 76px;
+        object-fit: contain;
+    }
     }
     .coverDetails {
       flex-direction: column;
@@ -567,7 +581,7 @@
         width: 100%;
         max-width: 100%;
         position: relative;
-        top: -150px;
+        top: -200px;
         z-index: 10;
         background-color: white;
         .title {
@@ -588,7 +602,7 @@
         }
       }
       .rightt {
-        margin-top: -150px;
+        margin-top: -170px;
         width: 100%;
         .titles {
           padding-top: 14px;

@@ -3,11 +3,11 @@
 {% block body %}
 	<div
 		class="middleeast">
-		{# {% include "elements/mastercard/topSectionMiddle.html.twig" %} #}
 		<div class="topSection">
 			<a href="/" class="container-fluid">
 				<img src="/build/images/suyool-title-white.png">
 			</a>
+			<img class="mastercardLogo" src="/build/images/middleEast/mastercardLogo.png">
 		</div>
 
 		<div class="coverDetails">
@@ -88,7 +88,7 @@
 							</div>
 						</div>
 						<div class="nb">*Complimentary access entitlement and fees for you or your guest will vary according to card tier. If applicable, fees will be charged immediately to the Mastercard on the app. **Access may also be validated by showing the Membership Number on your app.</div>
-						<button class="downloadBtn">Download Mastercard Travel Pass</button>
+						<button class="downloadBtn" id="downloadApp">Download Mastercard Travel Pass</button>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-12 order-lg-2 order-1"><img class="imgright" src="/build/images/middleEast/flightImg.png"></div>
@@ -145,10 +145,36 @@
 			<div class="title">T&C</div>
 			<div class="subtitle">Terms & Conditions</div>
 			<div class="desc">Please note that terms and conditions apply. </br> For detailed information, refer to the DragonPass International Ltd terms and conditions page.</div>
-			<div style="text-align: center;"> <button class="read">Read T&C</button></div>
+			<div style="text-align: center;"> <a class="read" href="https://mastercardtravelpass.dragonpass.com/terms-and-conditions">Read T&C</a></div>
 		</div>
 
 		{% include 'elements/footer.html.twig' %}
 	</div>
+
+<button class="downloadBtn" id="downloadApp">Download Mastercard Travel Pass</button>
+
+<script>
+document.getElementById("downloadApp").addEventListener("click", function() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+    // Check if the user is on an iOS device
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.location.href = "https://apps.apple.com/us/app/mastercard-travel-pass/id1493489553";
+    }
+    // Check if the user is on an Android device
+    else if (/android/i.test(userAgent)) {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.dragonpass.en.mcmea&hl=en&gl=US";
+    }
+    // Check if the user is on a Windows device
+    else if (/Windows/i.test(userAgent)) {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.dragonpass.en.mcmea&hl=en&gl=US";
+    }
+    // For other devices, provide a default link (you can modify this as needed)
+    else {
+        window.location.href = "https://suyool.com";
+    }
+});
+
+</script>
 
 {% endblock %}
