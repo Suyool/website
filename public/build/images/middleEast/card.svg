@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="67" height="67" viewBox="0 0 67 67">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_21873" data-name="Rectangle 21873" width="67" height="67" transform="translate(1050 2758)" fill="none" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_21504" data-name="Rectangle 21504" width="30.199" height="43.415" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_7274" data-name="Mask Group 7274" transform="translate(-1050 -2758)" clip-path="url(#clip-path)">
+    <g id="Group_39503" data-name="Group 39503">
+      <circle id="Ellipse_74" data-name="Ellipse 74" cx="33.5" cy="33.5" r="33.5" transform="translate(1050 2758)" fill="#216d96"/>
+      <g id="Group_39277" data-name="Group 39277" transform="translate(-5271.6 -356.708)">
+        <g id="Group_39276" data-name="Group 39276" transform="translate(6340 3126)">
+          <g id="Group_39275" data-name="Group 39275" transform="translate(0 0)" clip-path="url(#clip-path-2)">
+            <path id="Path_41970" data-name="Path 41970" d="M4.994,5.813A5.085,5.085,0,0,0,0,10.894V39.456a5.083,5.083,0,0,0,4.942,5.076V6.067a.7.7,0,0,1,.052-.254" transform="translate(0 -1.131)" fill="#fff"/>
+            <path id="Path_41971" data-name="Path 41971" d="M22.851,5.8H11.5a.684.684,0,0,1,.053.264V44.544h11.3a5.092,5.092,0,0,0,5.092-5.091V10.892A5.092,5.092,0,0,0,22.851,5.8" transform="translate(-2.237 -1.129)" fill="#fff"/>
+            <path id="Path_41972" data-name="Path 41972" d="M27.12,47.1a2.25,2.25,0,1,1-2.25-2.25,2.25,2.25,0,0,1,2.25,2.25" transform="translate(-4.402 -8.729)" fill="#216d96"/>
+            <path id="Path_41973" data-name="Path 41973" d="M22.789,47.234a2.25,2.25,0,1,1-2.25-2.25,2.25,2.25,0,0,1,2.25,2.25" transform="translate(-3.559 -8.754)" fill="#216d96"/>
+            <path id="Path_41974" data-name="Path 41974" d="M33.764,7.721A7.721,7.721,0,1,1,26.042,0a7.721,7.721,0,0,1,7.721,7.721" transform="translate(-3.565 0)" fill="#fff"/>
+            <path id="Line_5" data-name="Line 5" d="M5.492,6.1a.6.6,0,0,1-.427-.177L-.573.281a.6.6,0,0,1,0-.854.6.6,0,0,1,.854,0L5.919,5.065A.6.6,0,0,1,5.492,6.1Z" transform="translate(19.804 5.048)" fill="#216d96"/>
+            <path id="Line_6" data-name="Line 6" d="M-.146,6.429a.6.6,0,0,1-.415-.165A.6.6,0,0,1-.585,5.41L5.053-.561a.6.6,0,0,1,.854-.024.6.6,0,0,1,.024.854L.293,6.239A.6.6,0,0,1-.146,6.429Z" transform="translate(19.804 4.882)" fill="#216d96"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
