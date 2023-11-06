@@ -164,6 +164,8 @@
   "build/images/alfa/Bundle33h.png": "/build/images/alfa/Bundle33h.png",
   "build/images/alfa/Bundle1h.png": "/build/images/alfa/Bundle1h.png",
   "build/images/meta-image-website.png": "/build/images/meta-image-website.png",
+  "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
+  "build/images/mobile_top_section.png": "/build/images/mobile_top_section.fff5ccd7.png",
   "build/images/touch/Bundle90h.png": "/build/images/touch/Bundle90h.png",
   "build/images/touch/Bundle60h.png": "/build/images/touch/Bundle60h.png",
   "build/images/alfa/Bundle32h.png": "/build/images/alfa/Bundle32h.png",
@@ -201,6 +203,7 @@
   "build/images/homepage/top-section-img.png": "/build/images/homepage/top-section-img.png",
   "build/images/alfa_employee/countries.svg": "/build/images/alfa_employee/countries.svg",
   "build/images/alfa_employee/qr.png": "/build/images/alfa_employee/qr.png",
+  "build/images/middleEast/flightImg.png": "/build/images/middleEast/flightImg.png",
   "build/images/alfa/bundleImg1h.png": "/build/images/alfa/bundleImg1h.png",
   "build/images/login.png": "/build/images/login.png",
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
@@ -501,7 +504,10 @@
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
   "build/images/touch/Back.png": "/build/images/touch/Back.png",
   "build/images/menu.png": "/build/images/menu.png",
-  "build/images/middleEast/Mask Group 7277.png": "/build/images/middleEast/Mask Group 7277.png",
-  "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
-  "build/images/mobile_top_section.png": "/build/images/mobile_top_section.fff5ccd7.png"
+  "build/images/middleEast/program.svg": "/build/images/middleEast/program.svg",
+  "build/images/middleEast/qr.svg": "/build/images/middleEast/qr.svg",
+  "build/images/middleEast/card.svg": "/build/images/middleEast/card.svg",
+  "build/images/middleEast/travel.svg": "/build/images/middleEast/travel.svg",
+  "build/images/middleEast/building.svg": "/build/images/middleEast/building.svg",
+  "build/images/middleEast/wifi.svg": "/build/images/middleEast/wifi.svg"
 }
