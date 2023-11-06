@@ -108,7 +108,7 @@ class BobPaymentServices
         return array(false, "ERROR");
     }
 
-    public function retrievedataForTopUp($auth,$status, $indicator, $res, $transId, $suyooler)
+    public function retrievedataForTopUp($auth,$status, $indicator, $res, $transId, $suyooler,$cardnumber)
     {
         // echo $indicator;
         $parameters = array();
@@ -120,7 +120,7 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), "");
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), $cardnumber);
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -166,7 +166,7 @@ class BobPaymentServices
                 return array(true, $parameters);
             }
         } else {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), "");
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), $cardnumber);
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -299,7 +299,7 @@ class BobPaymentServices
         return array(true, $content['session']['id'], $order);
     }
 
-    public function retrievedataForTopUpRTP($auth,$status, $indicator, $res, $transId, $suyooler)
+    public function retrievedataForTopUpRTP($auth,$status, $indicator, $res, $transId, $suyooler,$cardnumber)
     {
         // echo $indicator;
         $parameters = array();
@@ -311,7 +311,7 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), "");
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), $cardnumber);
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -357,7 +357,7 @@ class BobPaymentServices
                 return array(true, $parameters);
             }
         } else {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(),"");
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(),$cardnumber);
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);

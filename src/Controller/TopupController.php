@@ -44,7 +44,7 @@ class TopupController extends AbstractController
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');
             // dd($bobRetrieveResultSession);
-            $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'],$bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'));
+            $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'],$bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'),$bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
             return $this->render('topup/topup.html.twig', $topUpData[1]);
         }
 
@@ -130,7 +130,7 @@ class TopupController extends AbstractController
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');
             // dd($bobRetrieveResultSession);
-            $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'],$bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'));
+            $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'],$bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'),$bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
             return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
         }
 
