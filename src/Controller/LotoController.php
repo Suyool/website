@@ -470,7 +470,7 @@ class LotoController extends AbstractController
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
                 $order_id = $merchantId . "-" . $id;
                 $sum = $sum * $numDraws;
-                $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP);
+                $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP,0);
 
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)

@@ -25,8 +25,6 @@ class SuyoolServices
     private $METHOD_GET ="GET";
     private $helper;
 
-
-
     public function __construct($merchantAccountID = null, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -66,7 +64,7 @@ class SuyoolServices
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
-            // echo json_encode($body);
+
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
@@ -132,12 +130,14 @@ class SuyoolServices
         }
     }
 
-    /*
-     * Gettin Suyool Users
+    /**
+     * Fetch Suyool Users
+     * @param $channelID: 
+     * @return users in array form
      */
-    public function GetAllUsers($ChannelID)
+    public function GetAllUsers($channelID)
     {
-        $Hash = base64_encode(hash($this->hash_algo, $ChannelID . $this->certificate, true));
+        $Hash = base64_encode(hash($this->hash_algo, $channelID . $this->certificate, true));
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
             'query' => ['Data' => $Hash],
             'headers' => [
@@ -147,12 +147,11 @@ class SuyoolServices
         $getAllUsers = $response->toArray(false);
         $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
-
         return $dataArray;
     }
 
     /*
-     * Gettin Suyool User
+     * Fetch Suyool User info by id
      */
     public function GetUser($userId)
     {

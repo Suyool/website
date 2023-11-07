@@ -169,7 +169,7 @@ class OgeroController extends AbstractController
 
             $orderTst = $this->params->get('OGERO_MERCHANT_ID') . "-" . $order->getId();
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'));
+            $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'),0);
 
             if ($response[0]) {
                 //set order status to held

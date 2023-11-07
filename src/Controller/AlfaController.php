@@ -25,9 +25,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class AlfaController extends AbstractController
 {
     private $mr;
-    private $hash_algo;
-    private $certificate;
-    private $notMr;
     private $params;
     public $cipher_algorithme = "AES128";
     public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
@@ -37,9 +34,6 @@ class AlfaController extends AbstractController
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('alfa');
-        $this->hash_algo = $hash_algo;
-        $this->certificate = $certificate;
-        $this->notMr = $mr->getManager('notification');
         $this->params = $params;
         $this->session = $sessionInterface;
     }
@@ -304,17 +298,10 @@ class AlfaController extends AbstractController
 
                     $updateUtilitiesAdditionalData = json_encode([
                         'Fees' => $Postpaid_With_id->getfees(),
-                        'Fees1' => $Postpaid_With_id->getfees1(),
-                        'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),
                         'TransactionId' => $Postpaid_With_id->getTransactionId(),
                         'Amount' => $Postpaid_With_id->getamount(),
-                        'Amount1' => $Postpaid_With_id->getamount1(),
-                        'ReferenceNumber' => $Postpaid_With_id->getreferenceNumber(),
-                        'Amount2' => $Postpaid_With_id->getamount2(),
-                        'InformativeOriginalWSAmount' => $Postpaid_With_id->getinformativeOriginalWSamount(),
                         'TotalAmount' => $Postpaid_With_id->gettotalamount(),
                         'Currency' => $Postpaid_With_id->getcurrency(),
-                        'Rounding' => $Postpaid_With_id->getrounding(),
                     ]);
 
                     //tell the .net that total amount is paid
@@ -441,7 +428,7 @@ class AlfaController extends AbstractController
             $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(),0);
 
             if ($response[0]) {
                 //set order status to held

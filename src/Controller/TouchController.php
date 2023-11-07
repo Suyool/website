@@ -185,7 +185,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'));
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),0);
 
             if ($response[0]) {
                 //set order status to held
@@ -369,7 +369,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(),0);
 
             if ($response[0]) {
                 //set order status to held
