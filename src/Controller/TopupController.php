@@ -87,11 +87,11 @@ class TopupController extends AbstractController
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');
             // dd($bobRetrieveResultSession);
-            $topUpData = $bobPaymentServices->retrievedataForTopUpTest($bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'));
-            return $this->render('topup/hiddenForm.html.twig', $topUpData[1]);
+            $topUpData = $bobPaymentServices->retrievedataForTopUpTest($bobRetrieveResultSession[1]['authenticationStatus'],$bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'));
+            return $this->render('topup/topup.html.twig', $topUpData[1]);
         }
 
-        $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
+        $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!1.0!#!USD!#!15791";
 
         if (isset($_POST['infoString'])) {
 
@@ -113,7 +113,7 @@ class TopupController extends AbstractController
                     'session' => $bobpayment[1]
                 ];
 
-                return $this->render('topup/hiddenForm.html.twig', $parameters);
+                return $this->render('topup/topup.html.twig', $parameters);
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
