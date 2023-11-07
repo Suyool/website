@@ -361,6 +361,7 @@ class TouchController extends AbstractController
                 ->setpostpaidId(null)
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
+                ->setfees(0)
                 ->setamount($data["amountLBP"])
                 ->setcurrency("LBP");
             $this->mr->persist($order);

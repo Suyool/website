@@ -421,6 +421,7 @@ class AlfaController extends AbstractController
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
                 ->setamount($data["amountLBP"])
+                ->setfees(0)
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
