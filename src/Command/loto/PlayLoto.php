@@ -24,24 +24,18 @@ class PlayLoto extends Command
     private $mr;
     private $lotoServices;
     private $suyoolServices;
-    private $certificate;
-    private $hash_algo;
     private $notificationService;
-    private $notifyMr;
     private $factory;
     private $logger;
 
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, $certificate, $hash_algo, NotificationServices $notificationService, LockFactory $lockFactory, LoggerInterface $logger)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, SuyoolServices $suyoolServices, NotificationServices $notificationService, LockFactory $lockFactory, LoggerInterface $logger)
     {
         parent::__construct();
 
         $this->mr = $mr->getManager('loto');
         $this->suyoolServices = $suyoolServices;
         $this->lotoServices = $lotoServices;
-        $this->certificate = $certificate;
-        $this->hash_algo = $hash_algo;
         $this->notificationService = $notificationService;
-        $this->notifyMr = $mr->getManager('notification');
         $this->factory = $lockFactory;
         $this->logger = $logger;
     }

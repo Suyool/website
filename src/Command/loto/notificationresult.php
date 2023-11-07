@@ -63,7 +63,7 @@ class notificationresult extends Command
                 $numbers++;
             }
         }
-        $results = $this->lotoServices->getDrawsResult();
+        $results = $this->lotoServices->getDrawsResult(); //get the last draw result
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');
         } else {
@@ -100,8 +100,8 @@ class notificationresult extends Command
         }
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
         $drawid = $lastdraw->getdrawid();
-        $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid);
-        $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
+        $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid); //find who played in the last draw to send notifiation
+        $detailsnextdraw = $this->lotoServices->fetchDrawDetails(); //fetch new draw details
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');
         } else {
