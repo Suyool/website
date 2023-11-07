@@ -5,7 +5,7 @@ namespace App\Entity\Sodetel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AlfaOrdersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SodetelOrdersRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -55,96 +55,69 @@ class Order
         return $this->id;
     }
 
-    public function getsuyoolUserId()
+    public function getSuyoolUserId()
     {
         return $this->suyoolUserId;
     }
 
-    public function setsuyoolUserId($suyoolUserId)
+    public function setSuyoolUserId($suyoolUserId)
     {
         $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
 
-    public function getstatus()
+    public function getStatus()
     {
         return $this->status;
     }
 
-    public function setstatus($status)
+    public function setStatus($status)
     {
         $this->status = $status;
         return $this;
     }
 
-    public function getamount()
+    public function getAmount()
     {
         return $this->amount;
     }
 
-    public function setamount($amount)
+    public function setAmount($amount)
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function setcurrency($currency)
+    public function setCurrency($currency)
     {
         $this->currency = $currency;
         return $this;
     }
 
-    public function getcurrency()
+    public function getCurrency()
     {
         return $this->currency;
     }
 
-    public function getpostpaidId()
-    {
-        if ($this->postpaid) {
-            return $this->postpaid->getId();
-        }
 
-        return null;
-    }
-    public function setpostpaidId(?Postpaid $postpaid_id): self
-    {
-        $this->postpaid = $postpaid_id;
-        return $this;
-    }
-
-    public function getprepaidId()
-    {
-        if ($this->prepaid) {
-            return $this->prepaid->getId();
-        }
-
-        return null;
-    }
-    public function setprepaidId(?Prepaid $prepaid_id): self
-    {
-        $this->prepaid = $prepaid_id;
-        return $this;
-    }
-
-    public function gettransId()
+    public function getTransId()
     {
         return $this->transId;
     }
 
-    public function settransId($transId)
+    public function setTransId($transId)
     {
         $this->transId = $transId;
         return $this;
     }
 
-    public function seterror($error)
+    public function setError($error)
     {
         $this->error = $error;
         return $this;
     }
 
-    public function geterror()
+    public function getError()
     {
         return $this->error;
     }

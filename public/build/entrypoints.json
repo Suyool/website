@@ -27,7 +27,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.65b5db2f.js"
+        "/build/Alfa.730f9e29.js"
       ]
     },
     "Touch": {
@@ -57,7 +57,7 @@
     "Sodetel": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Sodetel.8c2793f5.js"
+        "/build/Sodetel.ed1e48e5.js"
       ]
     },
     "styles": {

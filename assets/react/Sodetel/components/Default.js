@@ -22,13 +22,13 @@ const Default = ({setHeaderTitle, setBackLink, setActiveButton }) => {
             >
                 <img
                     className="logoImg"
-                    src="/build/images/alfa/alfaLogo.png"
-                    alt="alfaLogo"
+                    src="/build/images/sodetel/sodetel-logo.png"
+                    alt="suyool-sedetelLogo"
                 />
                 <div className="Text">
-                    <div className="SubTitle">Pay Mobile Bills</div>
+                    <div className="SubTitle">Pay Bills</div>
                     <div className="description">
-                        Settle your Alfa bill quickly and securely
+                        Settle your Sodetel bill quickly and securely
                     </div>
                 </div>
             </div>
@@ -50,12 +50,12 @@ const Default = ({setHeaderTitle, setBackLink, setActiveButton }) => {
             >
                 <img
                     className="logoImg"
-                    src="/build/images/alfa/alfaLogo.png"
-                    alt="alfaLogo"
+                    src="/build/images/sodetel/sodetel-logo.png"
+                    alt="suyool-sedetelLogo"
                 />
                 <div className="Text">
-                    <div className="SubTitle">Re-charge Alfa</div>
-                    <div className="description">Recharge your Alfa prepaid number</div>
+                    <div className="SubTitle">Re-charge Sodetel</div>
+                    <div className="description">Recharge your Sodetel Prepaid Plan</div>
                 </div>
             </div>
         </div>
