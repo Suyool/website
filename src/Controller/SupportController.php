@@ -37,7 +37,6 @@ class SupportController extends AbstractController
                 'id' => 'contactusForm'
             )
         ));
-
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
@@ -56,6 +55,7 @@ class SupportController extends AbstractController
                                     <div style="background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0px 2px 5px 0px #ccc;">
                                         <h2>Contact Us</h2>
                                         <p><strong>Email:</strong> <a href="mailto:{$support->getmail()}">{$support->getmail()}</a></p>
+                                        <p><strong>Name:</strong> {$support->getname()}</p>
                                         <p><strong>Phone Number:</strong> {$support->getPhoneNumber()}</p>
                                         <p><strong>Message:</strong> {$support->getmessage()}</p>
                                     </div>
