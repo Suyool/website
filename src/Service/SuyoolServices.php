@@ -45,6 +45,14 @@ class SuyoolServices
         $this->helper=new Helper($this->client);
 
     }
+    
+    /**
+     * Decrypt the webkey for bills security
+     */
+    public static function decrypt($stringToDecrypt){
+        $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
+        return $decrypted_string;
+    }
 
     public static function decrypt($stringToDecrypt){
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);

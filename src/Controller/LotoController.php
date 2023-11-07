@@ -7,10 +7,7 @@ use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
 use App\Entity\Loto\LOTO_results;
-use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
-use App\Entity\Notification\content;
-use App\Entity\Notification\Template;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -24,22 +21,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use TypeError;
 
 class LotoController extends AbstractController
 {
     private $mr;
     private $session;
-    private $LotoServices;
     private $suyoolServices;
     private $notificationServices;
-    private $notMr;
-    public $cipher_algorithme = "AES128";
-    public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
-    public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
     private $CURRENCY_LBP;
-    private $CURRENCY_USD;
     private $params;
     private $loggerInterface;
 
@@ -47,12 +36,9 @@ class LotoController extends AbstractController
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
-        $this->LotoServices = $LotoServices;
         $this->suyoolServices = new SuyoolServices($params->get('LOTO_MERCHANT_ID'));
         $this->notificationServices = $notificationServices;
-        $this->notMr = $mr->getManager('notification');
         $this->CURRENCY_LBP = $params->get('CURRENCY_LBP');
-        $this->CURRENCY_USD = $params->get('CURRENCY_USD');
         $this->params = $params;
         $this->loggerInterface=$loggerInterface;
     }
@@ -581,60 +567,4 @@ class LotoController extends AbstractController
             ]);
         }
     }
-
-    // /**
-    //  * @Route("/test", name="test")
-    //  * 
-    //  */
-    // public function test()
-    // {
-    //     $object = [
-    //         [
-    //             'suyoolUserId' => "71",
-    //             'status' => 'PENDING',
-    //             'subscription' => 1,
-    //             'amount' => "50000",
-    //             'transId' => 1023,
-    //             'errorInfo' => NULL,
-    //             'currency' => "LBP"
-    //         ],
-    //         [
-    //             'suyoolUserId' => "71",
-    //             'status' => 'CANCELED',
-    //             'subscription' => 1,
-    //             'amount' => 50000,
-    //             'transId' => 1024,
-    //             'errorInfo' => "An error occured",
-    //             'currency' => "LBP"
-    //         ]
-    //     ];
-    //     // dd($order);
-    //     // $prices = new LOTO_numbers;
-    //     try {
-    //         foreach ($object as $object) {
-    //             $order = new order;
-
-
-    //             $order->setsuyoolUserId($object['suyoolUserId'])
-    //                 ->setstatus($object['status'])
-    //                 ->setsubscription($object['subscription'])
-    //                 ->setamount($object['amount'])
-    //                 ->setcurrency($object['currency'])
-    //                 ->seterror($object['errorInfo'])
-    //                 ->settransId($object['transId']);
-    //             $this->mr->persist($order);
-                
-    //         }
-    //     }catch (TypeError $e) {
-            
-    //     } 
-    //     catch (Exception $e) {
-            
-    //     }
-
-    //     $this->mr->flush();
-    //     return new JsonResponse([
-    //         'success' => true
-    //     ]);
-    // }
 }
