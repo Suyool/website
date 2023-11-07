@@ -23,11 +23,20 @@ class BobPaymentServices
     private $session;
     private $mr;
     private $suyoolServices;
+    private $username;
+    private $password;
 
     public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices)
     {
         $this->client = $client;
         $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
+        if($_ENV['APP_ENV'] == "dev"){
+            $this->username="merchant.TESTSUYOOL";
+            $this->password="002bcc643011b3cef6967ff40d140d71";
+        }else{
+            $this->username="merchant.SUYOOL";
+            $this->password="652cdf87fd1c82530b7bfdd0c36662f3";
+        }
         $this->session = $session;
         $this->mr = $mr->getManager('topup');
         $this->suyoolServices = $suyoolServices;
@@ -73,7 +82,7 @@ class BobPaymentServices
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'auth_basic' => [$_ENV['MERCHANT_SUYOOL_BOB_PAYMENT_GATEWAY'], $_ENV['PASSWORD_BOB_GATEWAY']],
+            'auth_basic' => [$this->username, $this->password],
         ]);
 
         $content = $response->toArray(false);
@@ -97,7 +106,7 @@ class BobPaymentServices
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
-                'auth_basic' => [$_ENV['MERCHANT_SUYOOL_BOB_PAYMENT_GATEWAY'], $_ENV['PASSWORD_BOB_GATEWAY']],
+                'auth_basic' => [$this->username, $this->password],
             ]);
 
             $content = $response->toArray(false);
@@ -284,7 +293,7 @@ class BobPaymentServices
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'auth_basic' => [$_ENV['MERCHANT_SUYOOL_BOB_PAYMENT_GATEWAY'], $_ENV['PASSWORD_BOB_GATEWAY']],
+            'auth_basic' => [$this->username, $this->password],
         ]);
 
         $content = $response->toArray(false);
@@ -444,7 +453,7 @@ class BobPaymentServices
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
-            'auth_basic' => [$_ENV['MERCHANT_SUYOOL_BOB_PAYMENT_GATEWAY'], $_ENV['PASSWORD_BOB_GATEWAY']],
+            'auth_basic' => [$this->username, $this->password],
         ]);
 
         $content = $response->toArray(false);
