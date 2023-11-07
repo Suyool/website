@@ -48,14 +48,12 @@ class notificationresult extends Command
         $output->writeln([
             'Fetch details send'
         ]);
-
-        $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
+        $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix(); //Get the grid price
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
         if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J']])) {
-            $this->mr->getRepository(LOTO_numbers::class)->truncate();
+            $this->mr->getRepository(LOTO_numbers::class)->truncate(); // delete the old data if price has changed
             foreach ($loto_numbers as $number_price) {
-
                 $LOTO_numbers = new LOTO_numbers;
                 $LOTO_numbers->setnumbers($numbers);
                 $LOTO_numbers->setprice($number_price['price0J']);
@@ -100,15 +98,10 @@ class notificationresult extends Command
                 }
             }
         }
-
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
         $drawid = $lastdraw->getdrawid();
-        // dd($drawid);
         $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid);
-        // dd($notifyUser);
-
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
-
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');
         } else {
@@ -116,9 +109,7 @@ class notificationresult extends Command
             $next_date = new DateTime($detailsnextdraw[0]);
             $interval = new DateInterval('PT3H');
             $next_date->add($interval);
-
             $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $detailsnextdraw[1]['drawnumber']]);
-
             if ($detailsnextdraw[1] && !$loto_draw) {
                 $LOTO_draw->setdrawid($detailsnextdraw[1]['drawnumber']);
                 $LOTO_draw->setdrawdate($next_date);
@@ -128,11 +119,9 @@ class notificationresult extends Command
                 $this->mr->persist($LOTO_draw);
                 $this->mr->flush();
             }
-
             $lastresultprice = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
             $userid = array();
             if (!empty($notifyUser)) {
-
                 foreach ($notifyUser as $notify) {
                     $userid[] = $notify['suyoolUserId'];
                 }
@@ -143,7 +132,6 @@ class notificationresult extends Command
                 $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result&draw={$notify['drawNumber']}");
             }
         }
-
         return 1;
     }
 }

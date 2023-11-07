@@ -34,11 +34,11 @@ class LotoController extends AbstractController
 
     public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params,LoggerInterface $loggerInterface)
     {
-        $this->mr = $mr->getManager('loto');
+        $this->mr = $mr->getManager('loto'); //connect to loto database
         $this->session = $session;
         $this->suyoolServices = new SuyoolServices($params->get('LOTO_MERCHANT_ID'));
         $this->notificationServices = $notificationServices;
-        $this->CURRENCY_LBP = $params->get('CURRENCY_LBP');
+        $this->CURRENCY_LBP = $params->get('CURRENCY_LBP'); //get the currency LBP from services.yaml
         $this->params = $params;
         $this->loggerInterface=$loggerInterface;
     }
@@ -51,6 +51,7 @@ class LotoController extends AbstractController
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
+        //result page get the data regarding the draw number
         if (isset($data)) {
             $suyoolUserId = $this->session->get('suyoolUserId');
 
@@ -153,10 +154,12 @@ class LotoController extends AbstractController
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
             $draw = $request->query->get('draw');
+            //decrypt the web key to get the suyool user information
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $this->loggerInterface->debug($_POST['infoString']);
             $this->loggerInterface->debug($decrypted_string);
+            //check if the device type is true or false
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $parameters['deviceType'] = $suyoolUserInfo[1];
@@ -325,6 +328,7 @@ class LotoController extends AbstractController
         $grids = [];
 
         if (isset($suyoolUserId)) {
+            //get the data sending from the react api
             $data = json_decode($request->getContent(), true);
             $getPlayedBalls = $data['selectedBalls'];
             $getPlayedBalls = json_decode($getPlayedBalls, true);
@@ -467,6 +471,7 @@ class LotoController extends AbstractController
 
                     $content = $this->notificationServices->getContent('Payment taken loto');
                     $params = json_encode(['amount' => $sum, 'currency' => "L.L", 'numgrids' => $numGrids], true);
+                    //send notification
                     $this->notificationServices->addNotification($suyoolUserId, $content, $params, $bulk);
 
                     $status = true;
@@ -520,6 +525,7 @@ class LotoController extends AbstractController
      */
     public function winningPrizeUpdated(Request $request)
     {
+        // If winning prize is pending this api is called by the dotnet team to tell us that the user has increment his account and update the winning status to paid
         $lastdrawnumber = 0;
         $data = json_decode($request->getContent(), true);
         try {
