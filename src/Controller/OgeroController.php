@@ -161,7 +161,7 @@ class OgeroController extends AbstractController
                 ->settransId(null)
                 ->setlandlineId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Landline_With_id->getamount())
+                ->setamount($Landline_With_id->getamount() + $Landline_With_id->getfees())
                 ->setfees($Landline_With_id->getfees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
@@ -169,7 +169,7 @@ class OgeroController extends AbstractController
 
             $orderTst = $this->params->get('OGERO_MERCHANT_ID') . "-" . $order->getId();
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'),0);
+            $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'),$Landline_With_id->getfees());
 
             if ($response[0]) {
                 //set order status to held
@@ -268,7 +268,7 @@ class OgeroController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>$order->getfees()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);

@@ -223,7 +223,7 @@ class AlfaController extends AbstractController
                 ->setpostpaidId(null)
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Postpaid_With_id->getamount())
+                ->setamount($Postpaid_With_id->getamount() + $Postpaid_With_id->getdisplayedFees())
                 ->setfees($Postpaid_With_id->getdisplayedFees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
@@ -315,7 +315,7 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>$order->getfees()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
