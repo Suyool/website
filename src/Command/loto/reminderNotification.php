@@ -28,7 +28,6 @@ class reminderNotification extends Command
     public function __construct(ManagerRegistry $mr, NotificationServices $notificationServices)
     {
         parent::__construct();
-
         $this->mr = $mr->getManager('loto');
         $this->notifMr = $mr->getManager('notification');
         $this->notificationServices = $notificationServices;
@@ -49,7 +48,7 @@ class reminderNotification extends Command
         ]);
         $bulk = 1;
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
-        $notify = $this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek($lastdraw->getdrawid());
+        $notify = $this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek($lastdraw->getdrawid()); // get the players that have played loto once and don't play this week for the draw
 
         if ($notify != null) {
             foreach ($notify as $notify) {
@@ -61,13 +60,11 @@ class reminderNotification extends Command
             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
             $date = new DateTime();
             $day = $date->format('w');
-
             $params = json_encode(['currency' => 'L.L', 'amount' => number_format($draw->getlotoprize())]);
-            $template = $this->notifMr->getRepository(Template::class)->findOneBy(['identifier' => "reminder notification"]);
-            $index = $template->getIndex();
+            $template = $this->notifMr->getRepository(Template::class)->findOneBy(['identifier' => "reminder notification"]); // reminder notification
+            $index = $template->getIndex(); //get the index of the notification that have to be sent
             $content = $this->notifMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
             $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto");
-
             if ($day == 4) {
                 if ($index == 6) {
                     $index = 1;

@@ -3,17 +3,12 @@
 namespace App\Command\loto;
 
 use App\Entity\Loto\loto;
-use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
-use App\Entity\Loto\order;
-use App\Entity\Notification\content;
-use App\Entity\Notification\Template;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\sendEmail;
 use App\Service\SuyoolServices;
-use DateInterval;
-use DateTime;
+
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -32,7 +27,6 @@ class winningTickets extends Command
     public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices, SuyoolServices $suyoolServices, LoggerInterface $logger)
     {
         parent::__construct();
-
         $this->lotoServices = $lotoServices;
         $this->mr = $mr->getManager('loto');
         $this->sendEmail = $sendEmail;
@@ -55,9 +49,7 @@ class winningTickets extends Command
             'Winning details send'
         ]);
 
-        $listWinners = [];
-
-
+        $listWinners=[];
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
 
         $drawId = $getLastResults->getdrawid();
@@ -67,6 +59,7 @@ class winningTickets extends Command
         $winningBallsZeed['prize2'] = $getLastResults->getzeednumber2();
         $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
         $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
+        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]); //get the grids played in this draw
 
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);
         // dd($getGridsinThisDraw);
@@ -74,47 +67,6 @@ class winningTickets extends Command
             $loto=0;
             $zeed=0;
             $winning=$this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
-            // $winning=[
-            //     "d" => [
-            //       "grids" => [
-            //         [
-            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
-            //           "zeedNumber" => "000-1",
-            //           "zeedWinnings" => 0,
-            //           "lotoWinnings" => 200000,
-            //           "gridValidation" => "8000-4403073",
-            //           "gridId" => 3945246,
-            //           "gridBalls" => "9 16 32 33 35 37",
-            //           "drawNumber" => 2155,
-            //           "gridPrice" => 50000,
-            //           "isFavorite" => null
-            //         ],
-            //          [
-            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
-            //           "zeedNumber" => "000-1",
-            //           "zeedWinnings" => 20000,
-            //           "lotoWinnings" => 0,
-            //           "gridValidation" => "8000-4403074",
-            //           "gridId" => 3945247,
-            //           "gridBalls" => "2 22 30 31 35 37",
-            //           "drawNumber" => 2155,
-            //           "gridPrice" => 50000,
-            //           "isFavorite" => null,
-            //          ],
-            //         [
-            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
-            //           "zeedNumber" => "000-1",
-            //           "zeedWinnings" => 1150470,
-            //           "lotoWinnings" => 23500000,
-            //           "gridValidation" => "8000-4403075",
-            //           "gridId" => 3945248,
-            //           "gridBalls" => "10 25 26 28 39 41",
-            //           "drawNumber" => 2155,
-            //           "gridPrice" => 50000,
-            //           "isFavorite" => null,
-            //         ]
-            //     ]
-            //       ]];
             foreach($winning['d']['grids'] as $winning)
             {
                 $loto += $winning['lotoWinnings'];
