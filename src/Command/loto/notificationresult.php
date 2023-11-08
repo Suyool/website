@@ -24,23 +24,19 @@ class notificationresult extends Command
     private $lotoServices;
     private $sendEmail;
     private $notificationServices;
-    private $notifyMr;
 
     public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices)
     {
         parent::__construct();
-
         $this->lotoServices = $lotoServices;
         $this->mr = $mr->getManager('loto');
         $this->sendEmail = $sendEmail;
         $this->notificationServices = $notificationServices;
-        $this->notifyMr = $mr->getManager('notification');
     }
 
     protected function configure()
     {
-        $this
-            ->setName('app:loto');
+        $this->setName('app:loto');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -48,9 +44,11 @@ class notificationresult extends Command
         $output->writeln([
             'Fetch details send'
         ]);
+
         $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix(); //Get the grid price
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
+
         if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J']])) {
             $this->mr->getRepository(LOTO_numbers::class)->truncate(); // delete the old data if price has changed
             foreach ($loto_numbers as $number_price) {
@@ -63,6 +61,7 @@ class notificationresult extends Command
                 $numbers++;
             }
         }
+
         $results = $this->lotoServices->getDrawsResult(); //get the last draw result
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');
@@ -98,10 +97,12 @@ class notificationresult extends Command
                 }
             }
         }
+
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
         $drawid = $lastdraw->getdrawid();
         $notifyUser = $this->mr->getRepository(loto::class)->findPlayedUser($drawid); //find who played in the last draw to send notifiation
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails(); //fetch new draw details
+        
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');
         } else {
@@ -131,7 +132,9 @@ class notificationresult extends Command
                 $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'L.L', 'amount' => number_format($lastresultprice->getlotoprize())], true);
                 $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result&draw={$notify['drawNumber']}");
             }
+        
         }
+        
         return 1;
     }
 }
