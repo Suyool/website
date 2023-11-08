@@ -115,12 +115,13 @@ const MyBill = ({
           const jsonResponse = response?.data?.message;
           setSpinnerLoader(false);
           if (response.data?.IsSuccess) {
+           var TotalAmount = parseInt(response.data?.data.amount)+parseInt(response.data?.data.fees)
             setModalName("SuccessModal");
             setSuccessModal({
               imgPath: "/build/images/alfa/SuccessImg.png",
               title: "Alfa Bill Paid Successfully",
               desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(
-                response.data?.data.amount
+                TotalAmount
               ).toLocaleString()}.`,
               deviceType:parameters?.deviceType
             });

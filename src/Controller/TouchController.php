@@ -176,7 +176,8 @@ class TouchController extends AbstractController
             $order
                 ->setsuyoolUserId($SuyoolUserId)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($Postpaid_With_id->gettotalamount())
+                ->setamount($Postpaid_With_id->getamount() + $Postpaid_With_id->getfees())
+                ->setfees($Postpaid_With_id->getfees())
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
@@ -184,7 +185,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'));
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),0);
 
             if ($response[0]) {
                 //set order status to held
@@ -254,7 +255,7 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
@@ -360,6 +361,7 @@ class TouchController extends AbstractController
                 ->setpostpaidId(null)
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
+                ->setfees(0)
                 ->setamount($data["amountLBP"])
                 ->setcurrency("LBP");
             $this->mr->persist($order);
@@ -368,7 +370,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency());
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(),0);
 
             if ($response[0]) {
                 //set order status to held
