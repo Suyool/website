@@ -16,8 +16,9 @@
             padding: 36px;
             width: 185px;
             border-radius: 50%;
-            height: 175px;
+            height: 185px;
             // margin-left: 60px;
+            object-fit: cover;
         }
 
         .user_name {
@@ -129,7 +130,8 @@
             padding: 20px;
             width: 185px;
             border-radius: 50%;
-            height: 175px;
+            height: 185px;
+            object-fit: cover;
         }
 
         .user_name {
