@@ -100,11 +100,10 @@ class winningTickets extends Command
             if ($response[0]) {
                 $data = json_decode($response[1], true);
                 $this->logger->debug(json_encode($data));
-
                 foreach ($data as $data) {
                     $order = explode(",", $data['OrderID']);
                     if ($data['FlagCode'] == 136) {
-                        foreach ($order as $order) {
+                        foreach ($order as $order) { // if the user win > 3000$ and < 10000$
                             $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
                             foreach ($loto as $loto) {
                                 $loto->setwinningStatus('pending');
@@ -115,7 +114,7 @@ class winningTickets extends Command
                         $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
                         $content = $this->notificationServices->getContent('L1-ExceedMonthlyLimit');
                         $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0);
-                    } else if ($data['FlagCode'] == 135) {
+                    } else if ($data['FlagCode'] == 135) { // if the user win > 10000$
                         foreach ($order as $order) {
                             $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
                             foreach ($loto as $loto) {
@@ -127,7 +126,7 @@ class winningTickets extends Command
                         $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
                         $content = $this->notificationServices->getContent('ExceedLimitMoreThanTenThousandsUSD');
                         $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0);
-                    } else if ($data['FlagCode'] == 1) {
+                    } else if ($data['FlagCode'] == 1) { //if the user win < 3000$
                         foreach ($order as $order) {
                             $loto = $this->mr->getRepository(loto::class)->getWinTicketsWinStNull($order, $drawId);
                             foreach ($loto as $loto) {
@@ -143,7 +142,6 @@ class winningTickets extends Command
                 }
             }
         }
-
         return 1;
     }
 }
