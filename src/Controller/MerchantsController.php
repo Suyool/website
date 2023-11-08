@@ -600,7 +600,7 @@ class MerchantsController extends AbstractController
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
+                    'description' => 'blablablablablablablablablablablabla',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/arrow1.svg',
