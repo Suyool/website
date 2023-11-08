@@ -246,7 +246,8 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia" => "You can withdraw your salary from more than 700 BOB finance cash points.",
 
     //medco
-    "MEDCOBRINGINGYOURPAY" => "Medco is bringing your pay to the ultimate digital account!",
+    "MEDCOBRINGINGYOURPAY" => "Medco is switching to Suyool for your transportation allowance payments.",
+    "FACINGTODAYFINANCIALCHALLENGES_MEDCO" => "We decided to start paying your transportation allowance through Suyool. You will get your own digital dual-currency account, a Platinum Debit Card & a payment tool with the best rates available.",
     //medco
     "WHAT_IS_SUYOOL_DrogueriePhenicia" => "What is Suyool?",
     "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia" => "Suyool is the first digital account with a Platinum Debit Card in Lebanon.",
