@@ -584,8 +584,8 @@ class MerchantsController extends AbstractController
                 "Desc"=>"YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
             ],
             "SIX"=>[
-                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia",
-                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia"
+                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCO",
+                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCO"
             ],
         ];
 
@@ -599,8 +599,8 @@ class MerchantsController extends AbstractController
                     'description' => 'Free Platinum Debit Card',
                 ],
                 [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'blablablablablablablablablablablabla',
+                    'image' => 'build/images/alfa_employee/allowance1.svg',
+                    'description' => 'Free Allowance Withdraw',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/arrow1.svg',
