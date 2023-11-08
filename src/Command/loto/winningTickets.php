@@ -113,8 +113,8 @@ class winningTickets extends Command
                     $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
                     $count = count($commonElements);
                     if ($count >= 6) {
-                        if (in_array($winningBallsExplode[0][6], $commonElements) && !in_array($winningBallsExplode[0][5], $commonElements)) {
-                            $count=7;
+                        if (in_array($winningBallsExplode[0][6], $commonElements)) {
+                            $count=7; //for the second prize if we have the 6 number true but the last number is the idafe number
                         }else{
                             $count=6;
                         }
