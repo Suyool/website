@@ -26,6 +26,7 @@ class NotificationSend extends Command
         //php bin/console 
         $this
             ->setName('app:notificationSend');
+        //sending unotification
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

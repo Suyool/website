@@ -30,6 +30,7 @@ class NotificationGetUsers extends Command
         //php bin/console 
         $this
             ->setName('app:notificationUsers');
+        //get All the users in suyool 
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

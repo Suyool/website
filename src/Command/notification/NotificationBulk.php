@@ -26,6 +26,7 @@ class NotificationBulk extends Command
         //php bin/console 
         $this
             ->setName('app:notificationBulk');
+        //bulk notification as broadcast
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
