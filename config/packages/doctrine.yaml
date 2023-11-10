@@ -22,7 +22,7 @@ doctrine:
                 url: '%env(resolve:TOPUP_DATABASE_URL)%'
             terranet:
                 url: '%env(resolve:TERRANET_DATABASE_URL)%'
-                
+
         default_connection: default
         # charset: UTF8
         # logging: true

@@ -48,6 +48,12 @@
         "/build/iveri.429e5515.js"
       ]
     },
+    "TerraNet": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/TerraNet.945ba3c2.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
@@ -110,6 +116,14 @@
       ],
       "css": [
         "/build/iveristyles.2de240eb.css"
+      ]
+    },
+    "terraNetstyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/terraNetstyle.d885a4a8.css"
       ]
     }
   }

@@ -1,0 +1,209 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { Spinner } from "react-bootstrap";
+
+const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setModalShow,setErrorModal,setSuccessModal,setModalName }) => {
+
+    const [getPrepaidVoucher, setPrepaidVoucher] = useState({
+        Price: "",
+        Currency: "",
+        Description: "",
+        ProductId: ""
+    });
+    const [paymentSuccess, setPaymentSuccess] = useState(false);
+    const handleConfirmPay = () => {
+        setSpinnerLoader(true);
+        setIsButtonDisabled(true);
+        if (parameters?.deviceType === "Android") {
+            setTimeout(() => {
+                window.AndroidInterface.callbackHandler("message");
+            }, 2000);
+        } else if (parameters?.deviceType === "Iphone") {
+            setTimeout(() => {
+                window.webkit.messageHandlers.callbackHandler.postMessage(
+                    "fingerprint"
+                );
+            }, 2000);
+        }
+        window.handleCheckout = (message) => {
+            if (message == "success") {
+                axios
+                    .post("/terraNet/refill_customer_terranet", {
+                        productId: getPrepaidVoucher.ProductId,
+                        productPrice: getPrepaidVoucher.Price,
+                        productCurrency: getPrepaidVoucher.Currency,
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        if (response.data?.status) {
+                            setModalName("SuccessModal");
+                            setModalShow(true);
+                            setSuccessModal({
+                                imgPath: "/build/images/alfa/SuccessImg.png",
+                                title: response.data?.message,
+                                desc: `You have successfully paid your Terranet bill of ${getPrepaidVoucher.Currency} ${getPrepaidVoucher.Price}.`
+                            })
+                        } else {
+                            console.error("Payment error:", response.data);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Payment error:", error);
+                    });
+            }
+        };
+    };
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+
+    return (
+        <div id="MyBundle"
+        //   className={`${paymentSuccess ? "hideBackk" : ""}`}
+        >
+            {getSpinnerLoader && (
+                <div id="spinnerLoader">
+                    <Spinner className="spinner" animation="border" variant="secondary" />
+                </div>
+            )}
+            <div className="MyBundleBody">
+                <div className="mainTitle">The package related to your landline is:</div>
+                <div className="mainDesc">{selectedProduct?.Description}</div>
+
+                              <img
+                                      className="BundleBigImg"
+                                      src={`/build/images/alfa/Bundle1.png`}
+                                      alt="Bundle"
+                                    />
+                <div className="smlDesc">
+                    <img
+                        className="question"
+                        src={`/build/images/alfa/attention.svg`}
+                        alt="question"
+                        style={{ verticalAlign: "baseline" }}
+                    />
+                    &nbsp;
+                    Terranet only accepts payments in L.L
+                </div>
+  
+                <div className="MoreInfo">
+                    <div className="label">Total before taxes</div>
+                    <div className="value">L.L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}</div>
+                </div>
+                <div className="MoreInfo">
+                    <div className="label">+V.A.T & Stamp Duty</div>
+                    <div className="value">L.L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}</div>
+                </div>
+                <div className="br"></div>
+                <div className="MoreInfo">
+                    <div className="label">Total after taxes</div>
+                    <div className="value">L.L {parseInt(selectedProduct?.Price).toLocaleString()}</div>
+                </div>
+                <div className="br"></div>
+                <div className="MoreInfo">
+                    <div className="label">Total amount to pay</div>
+                    <div className="value1">
+                        L.L {parseInt(selectedProduct?.Price).toLocaleString()}
+                    </div>
+                </div>
+                
+            </div>
+            <button id="ContinueBtn" className="btnCont" onClick={() => {
+                    setPaymentSuccess(true);
+                    setPrepaidVoucher({
+                        Price: selectedProduct.Price,
+                        Currency: selectedProduct.Currency,
+                        Description: selectedProduct.Description,
+                        ProductId: selectedProduct.ProductId
+                    });
+                }}>Re-charge package
+                </button>
+            {paymentSuccess &&
+                <>
+                    <div id="PaymentConfirmationPrePaid">
+                        <div className="topSection">
+                            <div className="brBoucket"></div>
+                            <div className="titles">
+                                <div className="titleGrid">Payment Confirmation</div>
+                                <button
+                                    onClick={() => {
+                                        setPaymentSuccess(false)
+                                        // setPaymentConfirmation(false);
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bodySection">
+                            <img
+                                className="logoImg"
+                                src="/build/images/terraNet/terraNetLogo.png"
+                                alt="alfaLogo"
+                            />
+                            <div className="bigTitle">Terranet Bill Payment</div>
+                            <div className="descriptio">
+                                {selectedProduct.Description}
+                            </div>
+                            <div className="smlDesc">
+                                <img
+                                    className="question"
+                                    src={`/build/images/alfa/attention.svg`}
+                                    alt="question"
+                                    style={{ verticalAlign: "baseline" }}
+                                />
+                                &nbsp;
+                                Terranet only accepts payments in L.L
+                            </div>
+                            <div className="br"></div>
+
+                            <div id="MyBundle">
+
+                                <div className="MyBundleBody">
+                                    <div className="MoreInfo">
+                                        <div className="label">Total before taxes</div>
+                                        <div className="value">L
+                                            .
+                                            L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}</div>
+                                    </div>
+                                    <div className="MoreInfo">
+                                        <div className="label">+V.A.T & Stamp Duty</div>
+                                        <div className="value">L
+                                            .
+                                            L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}</div>
+                                    </div>
+                                    <div className="br"></div>
+                                    <div className="MoreInfo">
+                                        <div className="label">Total after taxes</div>
+                                        <div className="value">L
+                                            .
+                                            L {parseInt(selectedProduct?.Price).toLocaleString()}</div>
+                                    </div>
+                                    <div className="br"></div>
+                                    <div className="MoreInfo">
+                                        <div className="label">Total amount to pay</div>
+                                        <div className="value1">
+                                            L
+                                            .
+                                            L {parseInt(selectedProduct?.Price).toLocaleString()}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    id="ContinueBtn"
+                                    className="btnCont"
+                                    onClick={handleConfirmPay}
+                                    disabled={isButtonDisabled}
+                                >
+                                    Pay Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </>}
+
+        </div>
+    );
+};
+
+export default SelectedProductInfo;
