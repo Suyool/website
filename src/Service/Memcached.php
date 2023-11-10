@@ -14,11 +14,10 @@ class Memcached
     public function getVouchers($lotoServices)
     {
         if ($_ENV['APP_ENV'] == 'prod') {
-            $file = "../var/cache/prod/alfaVoucher.txt";
+            $file = "../var/cache/prod/alfaVoucher.txt"; //save the alfa voucher to this file if prod
         } else {
-            $file = "../var/cache/dev/alfaVoucher.txt";
+            $file = "../var/cache/dev/alfaVoucher.txt"; //save the alfa voucher to this file if dev
         }
-
         $clearingTime = time() - (60);
         $filter = null;
 
@@ -27,7 +26,6 @@ class Memcached
             return json_decode($operationsjson, true);
         } else {
             $filter = $lotoServices->VoucherFilter("ALFA");
-            // dd($filter);
 
             foreach ($filter as &$item) {
                 switch ($item['vouchertype']) {
@@ -35,9 +33,7 @@ class Memcached
                         $item['desc1'] = "$1.22 Alfa recharge card";
                         $item['desc2'] = "$1.37 Credit Only without validity";
                         $item['desc3'] = "Credit Only";
-                        // $item['priceUSD']="1.22";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -45,9 +41,7 @@ class Memcached
                         $item['desc1'] = "$3.02 Alfa recharge card";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "Credit and 13 Days Validity";
-                        // $item['priceUSD']="3.02";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -56,7 +50,6 @@ class Memcached
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "Credit and up to 35 Days";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -65,7 +58,6 @@ class Memcached
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "Credit and 35 Days Validity";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -74,7 +66,6 @@ class Memcached
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "Credit and 65 Days Validity";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -83,7 +74,6 @@ class Memcached
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "Credit and 95 Days Validity";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -92,7 +82,6 @@ class Memcached
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
                         $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -101,7 +90,6 @@ class Memcached
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
                         $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -112,6 +100,7 @@ class Memcached
                         break;
                 }
             }
+
             $jsonData = json_encode($filter);
             $myfile = fopen($file, "w") or die("Unable to open file!");
             fwrite($myfile, $jsonData);
@@ -127,9 +116,9 @@ class Memcached
     public function getVouchersTouch($lotoServices)
     {
         if ($_ENV['APP_ENV'] == 'prod') {
-            $file = "../var/cache/prod/touchVoucher.txt";
+            $file = "../var/cache/prod/touchVoucher.txt"; //save the alfa voucher to this file if prod
         } else {
-            $file = "../var/cache/dev/touchVoucher.txt";
+            $file = "../var/cache/dev/touchVoucher.txt"; //save the alfa voucher to this file if dev
         }
 
         $clearingTime = time() - (60);
@@ -140,16 +129,13 @@ class Memcached
             return json_decode($operationsjson, true);
         } else {
             $filter = $lotoServices->VoucherFilter("MTC");
-            // dd($filter);
             foreach ($filter as &$item) {
                 switch ($item['vouchertype']) {
                     case 1:
                         $item['desc1'] = "Credit Only";
                         $item['desc2'] = "$1.22 Touch recharge card";
                         $item['desc3'] = "$1.22 Touch recharge card";
-                        // $item['priceUSD']="1.22";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -157,9 +143,7 @@ class Memcached
                         $item['desc1'] = "10 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "$3.79 Touch recharge card";
-                        // $item['priceUSD']="3.79";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -167,9 +151,7 @@ class Memcached
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "$4.50 Touch recharge card";
-                        // $item['priceUSD']="4.50";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -177,9 +159,7 @@ class Memcached
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "$7.58 Touch recharge card";
-                        // $item['priceUSD']="7.58";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -187,9 +167,7 @@ class Memcached
                         $item['desc1'] = "60 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "$15.15 Touch recharge card";
-                        // $item['priceUSD']="15.15";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -197,9 +175,7 @@ class Memcached
                         $item['desc1'] = "90 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "$22.73 Touch recharge card";
-                        // $item['priceUSD']="22.73";
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
@@ -207,9 +183,7 @@ class Memcached
                         $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "$4.50 Touch recharge card";
-                        // $item['priceUSD']="4.50";
                         $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
-                        // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;

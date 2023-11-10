@@ -8,13 +8,9 @@ use App\Entity\Iveri\transactions;
 use App\Entity\topup\orders as TopupOrders;
 use App\Entity\topup\trace as TopupTrace;
 use App\Entity\topup\transactions as TopupTransactions;
-use App\Entity\Transaction;
-use App\Utils\Helper;
 use DateTime;
-use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class IveriServices
 {
@@ -54,7 +50,6 @@ class IveriServices
                 'body' => http_build_query($formData),
             ]);
             $content = $response->getContent();
-            // dd($content);
             return $content;
         } catch (Exception $e) {
             return $this->logger->error($e->getMessage());
@@ -80,51 +75,8 @@ class IveriServices
                     ? $_POST['SENDERNAME']
                     : ''
             );
-            // dd($_POST);
-            // $redirect = null;
-            // $topupforbutton = false;
-            // if (isset($_POST['USERID'])) $topupforbutton = true;
-            // $additionalInfo = [
-            //     'authCode' => @$_POST['LITE_ORDER_AUTHORISATIONCODE'],
-            //     'cardStatus' => $_POST['LITE_PAYMENT_CARD_STATUS'],
-            //     'desc' => $_POST['LITE_RESULT_DESCRIPTION']
-            // ];
             if ($_POST['LITE_PAYMENT_CARD_STATUS'] == 0) {
-                // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 3, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] ,json_encode($additionalInfo));
-                // if ($topup[0]) {
-                //     $amount = number_format($_POST['LITE_ORDER_AMOUNT'] / 100);
-                //     $_POST['LITE_CURRENCY_ALPHACODE'] == "USD" ? $parameters['currency'] = "$" : $parameters['currency'] = "LL";
-                //     $status = true;
-                //     $imgsrc = "build/images/Loto/success.png";
-                //     $title = "Top Up Successful";
-                //     $description = "Your wallet has been topped up with {$parameters['currency']} {$amount}. <br>Check your new balance";
-                //     if(isset($_POST['SENDERNAME'])) $description = "{$_POST['SENDERNAME']}'s wallet has been topped up with <br> {$parameters['currency']} {$amount}.";
-                //     $button = "Continue";
-                // } else {
-                //     $status = false;
-                //     $imgsrc = "build/images/Loto/error.png";
-                //     $title = "Please Try Again";
-                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                //     $button = "Try Again";
-                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                // }
             } else {
-                // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_POST['TRANSACTIONID'], 9, $_POST['ECOM_CONSUMERORDERID'],(float)$_POST['LITE_ORDER_AMOUNT'] / 100, $_POST['LITE_CURRENCY_ALPHACODE'] , json_encode($additionalInfo));
-                // if ($topup[0]) {
-                //     $status = false;
-                //     $imgsrc = "build/images/Loto/error.png";
-                //     $title = "Top Up Failed";
-                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                //     $button = "Try Again";
-                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                // } else {
-                //     $status = false;
-                //     $imgsrc = "build/images/Loto/error.png";
-                //     $title = "Please Try Again";
-                //     $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                //     $button = "Try Again";
-                //     if(isset($_POST['SENDERNAME'])) $redirect=$_POST['CODEREQ'];
-                // }
             }
             $order=$this->mr->getRepository(orders::class)->findOneBy(['status'=>TopupOrders::$statusOrder['PENDING'],'transId'=>$_POST['TRANSACTIONID']],['created'=>'DESC']);
             $order->setstatus(TopupOrders::$statusOrder['HELD']);
@@ -142,13 +94,6 @@ class IveriServices
             $transaction->setAuthCode(@$_POST['LITE_ORDER_AUTHORISATIONCODE']);
             $statusForIveri = true;
             $parameters = array(
-                // 'status' => $status,
-                // 'imgsrc' => $imgsrc,
-                // 'title' => $title,
-                // 'description' => $description,
-                // 'button' => $button,
-                // 'info' => $topupforbutton,
-                // 'redirect' => $redirect
             );
         } else $statusForIveri = false;
 
@@ -158,8 +103,6 @@ class IveriServices
     public function retrievedata($entity, $code,$sender)
     {
         $parameters = array();
-        // dd($_POST);
-        // print_r($_POST);
         if (isset($_POST['Lite_Payment_Card_Status'])) {
             $transaction=null;
             if(isset($_POST['MerchantReference'])){
@@ -266,11 +209,7 @@ class IveriServices
     public static function GenerateTransactionToken($resource, $amount,  $emailAddress)
     {
         $time = self::UnixTimeStampUTC();
-        // $time="1471358394";
-
-
         $token = self::$secretKey . $time . $resource . self::$applicationId . $amount . $emailAddress;
-
         return  $time . ":" . self::GetHashSha256($token);
     }
 

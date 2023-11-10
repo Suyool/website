@@ -15,6 +15,7 @@ class DashboardService
 
     public function LotoDashboard($LotoRepository,$drawId){
         $parameters = array();
+
        $count = $LotoRepository->getRepository(loto::class)->CompletedTicketsCount();
        $thismonth=$LotoRepository->getRepository(loto::class)->CompletedTicketsCountThisMonth();
        $TotalAmount=number_format($LotoRepository->getRepository(loto::class)->CompletedTicketsSumAmount());
@@ -27,13 +28,13 @@ class DashboardService
         'resultArray'=>$resultArray,
         'lastdraw'=>$lastdrawTickets
        ];
-
+       
        return $parameters;
-
     }
 
     public function AlfaDashboard($alfaRepository){
         $parameters = array();
+
        $resultArray=$alfaRepository->getRepository(AlfaOrder::class)->CountStatusOrders();
        $postpaidcount=$alfaRepository->getRepository(AlfaOrder::class)->getMethodPaid('postpaid');
        $prepaidcount=$alfaRepository->getRepository(AlfaOrder::class)->getMethodPaid('prepaid');
@@ -48,11 +49,11 @@ class DashboardService
        ];
 
        return $parameters;
-
     }
 
     public function TouchDashboard($touchRepository){
         $parameters = array();
+
        $resultArray=$touchRepository->getRepository(TouchOrder::class)->CountStatusOrders();
        $postpaidcount=$touchRepository->getRepository(TouchOrder::class)->getMethodPaid('postpaid');
        $prepaidcount=$touchRepository->getRepository(TouchOrder::class)->getMethodPaid('prepaid');
@@ -72,6 +73,7 @@ class DashboardService
 
     public function SupportDashboard($supportRepository){
         $parameters = array();
+        
         $countMessage=$supportRepository->getRepository(Support::class)->CountSupports();
        $parameters=[
         'messageCount'=>$countMessage
