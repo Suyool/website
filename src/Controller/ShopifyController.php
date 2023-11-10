@@ -25,7 +25,6 @@ class ShopifyController extends AbstractController
      */
     public function handleRequest(Request $request): Response
     {
-        dd($request);
         $orderID = $request->query->get('order_id');
         $totalPrice = $request->query->get('Merc_id');
         $totalPrice = base64_decode($totalPrice)/100;
