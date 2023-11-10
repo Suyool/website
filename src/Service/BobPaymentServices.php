@@ -133,6 +133,7 @@ class BobPaymentServices
         $transaction->setStatus($status);
         $this->mr->persist($transaction);
         $this->mr->flush();
+        $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
             $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(),$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
             $transaction->setflagCode($topup[2]);
@@ -143,7 +144,7 @@ class BobPaymentServices
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$session->getOrders()->getcurrency()} {$amount} to your Suyool wallet. <br>Check your new balance";
+                $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                 $button = "Continue";
 
                 $parameters = [
@@ -218,12 +219,13 @@ class BobPaymentServices
         $transaction->setStatus($status);
         $this->mr->persist($transaction);
         $this->mr->flush();
+        $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
                 $amount = number_format($session->getOrders()->getamount());
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$session->getOrders()->getcurrency()} {$amount} to your Suyool wallet. <br>Check your new balance";
+                $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                 $button = "Continue";
 
                 $parameters = [
@@ -332,12 +334,13 @@ class BobPaymentServices
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
+            $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($topup[0]) {
                 $amount = number_format($topup[1],2);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$session->getOrders()->getcurrency()} {$amount} to {$this->session->get('SenderInitials')}' Suyool wallet.";
+                $description = "You have succesfully added {$currency} {$amount} to {$this->session->get('SenderInitials')}' Suyool wallet.";
                 $button = "Continue";
 
                 $parameters = [
