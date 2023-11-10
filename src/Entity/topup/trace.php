@@ -18,7 +18,7 @@ class trace
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Iveri\orders",  fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="App\Entity\topup\orders",  fetch="EAGER")
      * @ORM\JoinColumn(name="orders_id", referencedColumnName="id")
      */
     private $orders;
