@@ -47,6 +47,7 @@ class BobPaymentServices
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
+        $amount = number_format($amount,2);
         $order = new orders;
         $order->setstatus(orders::$statusOrder['PENDING']);
         $order->setsuyoolUserId($suyooler);
@@ -78,7 +79,7 @@ class BobPaymentServices
                 "description" => "ordered goods"
             ]
         ];
-        // echo json_encode($body,true);
+        echo json_encode($body,true);
         // print_r($body);
         $response = $this->client->request('POST', $this->BASE_API . "session", [
             'body' => json_encode($body),
@@ -420,6 +421,7 @@ class BobPaymentServices
 
     public function SessionRTPFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
+        $amount = number_format($amount,2);
         $order = new orders;
         $order->setstatus(orders::$statusOrder['PENDING']);
         $order->setsuyoolUserId($suyooler);
