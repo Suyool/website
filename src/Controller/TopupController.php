@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Iveri\orders;
 use App\Service\BobPaymentServices;
 use App\Service\BobServices;
-use App\Service\DecryptService;
 use App\Service\IveriServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -98,7 +97,7 @@ class TopupController extends AbstractController
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
 
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
-            $decrypted_string = DecryptService::decrypt($suyoolUserInfoForTopUp[0]);
+            $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
 
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
