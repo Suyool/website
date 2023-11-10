@@ -47,7 +47,6 @@ class BobPaymentServices
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        $amount = number_format($amount,2);
         $order = new orders;
         $order->setstatus(orders::$statusOrder['PENDING']);
         $order->setsuyoolUserId($suyooler);
@@ -56,6 +55,7 @@ class BobPaymentServices
         $order->setcurrency($currency);
         $this->mr->persist($order);
         $this->mr->flush();
+        $amount = number_format($amount,2);
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         $this->session->remove('order');
         $this->session->set('order', $order->getId() . "-" . $transId);
@@ -134,7 +134,7 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(),$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -160,6 +160,7 @@ class BobPaymentServices
                 $this->mr->flush();
                 return array(true, $parameters);
             } else {
+                $this->logger->error(json_encode($topup));
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -181,6 +182,7 @@ class BobPaymentServices
             }
         } else {
             $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
+            $this->logger->error(json_encode($topup));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -352,6 +354,7 @@ class BobPaymentServices
                 $this->mr->flush();
                 return array(true, $parameters);
             } else {
+                $this->logger->error(json_encode($topup));
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -373,6 +376,7 @@ class BobPaymentServices
             }
         } else {
             $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(),substr($cardnumber,-4));
+            $this->logger->error(json_encode($topup));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -396,6 +400,7 @@ class BobPaymentServices
             $this->mr->flush();
             return array(true, $parameters);
             }else{
+                $this->logger->error(json_encode($topup));
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -421,7 +426,6 @@ class BobPaymentServices
 
     public function SessionRTPFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        $amount = number_format($amount,2);
         $order = new orders;
         $order->setstatus(orders::$statusOrder['PENDING']);
         $order->setsuyoolUserId($suyooler);
@@ -430,6 +434,7 @@ class BobPaymentServices
         $order->setcurrency($currency);
         $this->mr->persist($order);
         $this->mr->flush();
+        $amount = number_format($amount,2);
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         $this->session->remove('order');
         $this->session->set('order', $order->getId() . "-" . $transId);

@@ -48,7 +48,7 @@ class TopupController extends AbstractController
         }
 
         // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
-
+        // dd($_POST['infoString']);
         if (isset($_POST['infoString'])) {
 
             if ($_POST['infoString'] == "")
