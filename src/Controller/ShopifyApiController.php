@@ -48,7 +48,7 @@ class ShopifyApiController extends AbstractController
         $currency = $metadata['currency'];
         $timestamp = $createdAt * 1000;
         $additionalInfo = '';
-        $domain = $metadata['domain'];
+        $domain = $metadata['path'];
         $hostname = Helper::getHost($domain);
         $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
         $merchantId = $merchantCredentials['merchantId'];
@@ -161,7 +161,7 @@ class ShopifyApiController extends AbstractController
 
             $createdAt = $order->getCreated()->getTimestamp();
             $timestamp = $createdAt * 1000;
-            $domain = $metadata['domain'];
+            $domain = $metadata['path'];
             $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
             $merchantId = $merchantCredentials['merchantId'];
             $certificate = $merchantCredentials['certificate'];

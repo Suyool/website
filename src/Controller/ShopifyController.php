@@ -25,6 +25,7 @@ class ShopifyController extends AbstractController
      */
     public function handleRequest(Request $request): Response
     {
+        dd($request);
         $orderID = $request->query->get('order_id');
         $totalPrice = $request->query->get('Merc_id');
         $totalPrice = base64_decode($totalPrice)/100;
@@ -38,13 +39,13 @@ class ShopifyController extends AbstractController
             return new Response("Your order cannot be proccessed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
         }
 
-        $hostname = Helper::getHost($domain);
+        $hostname = $domain;
         $credentialsRepository = $this->mr->getRepository(ShopifyInstallation::class);
         $credentials = $credentialsRepository->findAll();
         foreach($credentials as $credential){
             if($credential->getDomain() == $hostname){
                 $merchantId = $credential->getMerchantId();
-                $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
+                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
                 $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
 
                 $order = new $orderClass();
