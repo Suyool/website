@@ -64,7 +64,7 @@ class QuestionsCategoriesController extends AbstractController
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-
+                $newFileurl="https://cpanel.suyool.com/images/questionsCategories/".$safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
                 // Move the uploaded file to the desired directory
                 try {
                     $imageFile->move(
@@ -76,7 +76,7 @@ class QuestionsCategoriesController extends AbstractController
                 }
 
                 // Set the image property to the new filename
-                $category->setImage($newFilename);
+                $category->setImage($newFileurl);
             }elseif (!$isNewCategory && !$imageFile) {
                 // When editing, if no new image is uploaded, set the existing image back
                 $category->setImage($existingImage);
