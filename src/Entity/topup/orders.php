@@ -77,7 +77,7 @@ class orders
         return $this->amount;
     }
 
-    public function setamount(int $amount)
+    public function setamount($amount)
     {
         $this->amount = $amount;
         return $this;

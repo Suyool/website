@@ -459,7 +459,6 @@ class SuyoolServices
             // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
-            // dd($content);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {

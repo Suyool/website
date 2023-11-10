@@ -138,7 +138,7 @@ class BobPaymentServices
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             if ($topup[0]) {
-                $amount = number_format($session->getOrders()->getamount());
+                $amount = number_format($topup[1],2);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
@@ -330,7 +330,7 @@ class BobPaymentServices
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             if ($topup[0]) {
-                $amount = number_format($session->getOrders()->getamount());
+                $amount = number_format($topup[1],2);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
