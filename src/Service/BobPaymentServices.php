@@ -79,7 +79,7 @@ class BobPaymentServices
                 "description" => "ordered goods"
             ]
         ];
-        echo json_encode($body,true);
+        // echo json_encode($body,true);
         // print_r($body);
         $response = $this->client->request('POST', $this->BASE_API . "session", [
             'body' => json_encode($body),
