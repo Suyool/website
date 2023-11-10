@@ -24,6 +24,9 @@ class LotoServices
         $this->loggerInterface=$loggerInterface;
     }
 
+    /**
+     * Login api request to loto
+     */
     public function Login()
     {
         $body = [
@@ -31,19 +34,21 @@ class LotoServices
             'Password' => 'ZvNud5qY3qmM3@h',
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}LoginUser",  $body);
-
         $content = $response->toArray();
         $token = $content['d']['token'];
         return $token;
     }
 
+    /**
+     * Get all vouchers Type as alfa and touch
+     * @param $vcategory
+     * @return array of filtered vouchers
+     */
     public function VoucherFilter($vcategory)
     {
         $body = ["Token" => "",];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetAllVouchersType",  $body);
-
         $content = $response->toArray();
-        // dd($content);
         $filteredVouchers = array_filter($content["d"]["ppavouchertypes"], function ($voucher) use ($vcategory) {
             return $voucher["vouchercategory"] === $vcategory;
         });
@@ -51,6 +56,11 @@ class LotoServices
         return $filteredVouchers;
     }
 
+    /**
+     * Buy Pre Paid utility
+     * @param Token,category,type
+     * @return array
+     */
     public function BuyPrePaid($Token, $category, $type)
     {
         $login = $this->Login();
@@ -62,10 +72,8 @@ class LotoServices
                 "type" => $type,
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST,  $this->LOTO_API_HOST . '/PurchaseVoucher',  $body);
-
             $content = $response->getContent();
             $content = $response->toArray();
-
             if ($content['d']['errorinfo']['errorcode'] == 0) {
                 $submit = 0;
             } else if ($retryattempt == 2) {
@@ -73,7 +81,6 @@ class LotoServices
             } else {
                 $submit = $content['d']['errorinfo']['errorcode'];
             }
-
             if ($submit == 0) {
                 return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
             } else {
@@ -81,10 +88,14 @@ class LotoServices
                 $retryattempt++;
             }
         }
-
         return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
     }
 
+    /**
+     * Get Bouquet Grids
+     * @param ticketId
+     * @return array
+     */
     public function BouquetGrids($ticketId)
     {
         $token = $this->Login();
@@ -94,7 +105,6 @@ class LotoServices
             'bouquetId' => 0
         ];
         $response1 = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail",  $body);
-
         $content1 = $response1->toArray();
         $grids = $content1['d']['grids'];
         foreach ($grids as $grids) {
@@ -106,7 +116,6 @@ class LotoServices
             'bouquetId' => $bouquetId
         ];
         $response2 = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserLotoTransactionHistoryDetail",  $body);
-
         $bouquetResponse = $response2->toArray();
         $bouquetId = $bouquetResponse['d']['grids'];
         foreach ($bouquetId as $bouquetId) {
@@ -116,6 +125,10 @@ class LotoServices
         return $selectedBallsBouquet;
     }
 
+    /**
+     * Get tickets Id
+     * @return historyId
+     */
     public function GetTicketId()
     {
         $retry = 1;
@@ -128,10 +141,8 @@ class LotoServices
                 'transactionType' => 0
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserTransactionHistory",  $body);
-
             $content = $response->toArray();
             $historyEntries = $content['d']['historyEntries'];
-
             if (empty($content) || $historyEntries == null) {
                 echo "History Entries Is Null in Loto server will retry in 10sec \n";
                 sleep(10);
@@ -141,12 +152,16 @@ class LotoServices
                     $historyId[] = $historyEntries['historyId'];
                 }
                 $historyId = $historyId[0];
-
                 return $historyId;
             }
         }
     }
 
+    /**
+     * Play loto
+     * @param draw,withZeed,gridselected,numdraws,mobileNo
+     * @return array
+     */
     public function playLoto($draw, $withZeed, $gridselected, $numdraws,$mobileNo)
     {
         $retryattempt = 1;
@@ -165,7 +180,6 @@ class LotoServices
 
             $content = $response->toArray();
             $submit = $content['d']['errorinfo']['errorcode'];
-
             if ($submit == 0) {
                 return array(true, $content['d']['insertId']);
             } else if ($submit == 4 || $submit == 6 || $submit == 9) {
@@ -182,6 +196,10 @@ class LotoServices
         return array(false, $submit, $error);
     }
 
+    /**
+     * Get draws Result
+     * @return array
+     */
     public function getDrawsResult()
     {
         $body = [
@@ -190,7 +208,6 @@ class LotoServices
             'to' => 0
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetDrawsInformation",  $body);
-
         $status = $response->getStatusCode(); // Get the status code
         if ($status == 500) {
             return false;
@@ -199,11 +216,14 @@ class LotoServices
         return $content['d']['draws'];
     }
 
+    /**
+     * Fetch Draw Details
+     * @return array
+     */
     public function fetchDrawDetails()
     {
         $body = ['Token' => ''];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetInPlayAndNextDrawInformation",  $body);
-
         $status = $response->getStatusCode(); // Get the status code
         if ($status == 500) {
             return false;
@@ -211,22 +231,22 @@ class LotoServices
         $content = $response->toArray(false);
         $date = $content['d']['draws'][0]['drawdate'];
         $nextdrawdetails = $content['d']['draws'][1];
-
         return array($date, $nextdrawdetails);
     }
 
+    /**
+     * Get Full Grid Price Matrix
+     * @return array
+     */
     public function GetFullGridPriceMatrix()
     {
         $body = ['Token' => ''];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetFullGridPriceMatrix",  $body);
-
         $status = $response->getStatusCode(); // Get the status code
         if ($status == 500) {
             return false;
         }
         $content = $response->toArray(false);
-
-
         return $content;
     }
 

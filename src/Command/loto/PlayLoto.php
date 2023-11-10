@@ -159,7 +159,7 @@ class PlayLoto extends Command
                         $gridsBouquetToBeMerged = [];
                         $ticketscount++;
                         $newElement = [];
-                        $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws()); //call the submit call api from the loto provider
+                        $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),$held->getMobileNo()); //call the submit call api from the loto provider
                         if ($lotoToBePlayed->getbouquet()) { //if the grids is a bouquet
                             if ($submit[0]) { // if the call api is true
                                 sleep(2);
