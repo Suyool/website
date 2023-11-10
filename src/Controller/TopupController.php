@@ -56,7 +56,7 @@ class TopupController extends AbstractController
                 return $this->render('ExceptionHandling.html.twig');
 
             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
-            $decrypted_string = DecryptService::decrypt($suyoolUserInfoForTopUp[0]);
+            $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
 
