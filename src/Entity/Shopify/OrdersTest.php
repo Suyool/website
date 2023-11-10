@@ -75,6 +75,23 @@ class OrdersTest
     private $updated;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, name="flag")
+     */
+    private $flag;
+
+    public function getFlag(): ?int
+    {
+        return $this->flag;
+    }
+
+    public function setFlag(?int $flag): self
+    {
+        $this->flag = $flag;
+
+        return $this;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function updatedTimestamps()

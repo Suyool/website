@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\Logs;
 use App\Entity\Shopify\MerchantCredentials;
+use App\Entity\Shopify\OrdersTest;
 use App\Entity\Shopify\Session;
 use App\Entity\Shopify\ShopifyInstallation;
 use App\Utils\Helper;
@@ -22,6 +23,7 @@ use ReCaptcha\ReCaptcha;
 class ShopifyApiController extends AbstractController
 {
     private $mr;
+
     public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('Shopify');
@@ -32,7 +34,11 @@ class ShopifyApiController extends AbstractController
      */
     public function paySkashQR(Request $request, ShopifyServices $shopifyServices): Response
     {
-        $ordersRepository = $this->mr->getRepository(Orders::class);
+        $metadata = json_decode($request->request->get('metadata'), true);
+        $env = $metadata['env'];
+        $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
+
+        $ordersRepository = $this->mr->getRepository($orderClass);
 
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
@@ -42,7 +48,6 @@ class ShopifyApiController extends AbstractController
 
         $createdAt = $order->getCreated()->getTimestamp();
 
-        $metadata = json_decode($request->request->get('metadata'), true);
         $totalPrice = trim($metadata['total_price']);
         $amount = number_format($totalPrice, 2, '.', '');
         $currency = $metadata['currency'];
@@ -59,40 +64,12 @@ class ShopifyApiController extends AbstractController
         $appPass = $merchantCredentials['appPass'];
         //$checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
 
-        $checkAmount = $shopifyServices->getShopifyOrder($orderId,$appKey, $appPass,$hostname);
+        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $appKey, $appPass, $hostname);
 
         $shopifyAmount = $checkAmount['transactions']['0']['amount'];
         $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
-        $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
-        $secureHash = base64_encode(hash('sha512', $secure, true));
 
-        if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
-            $transactionData = [
-                'TransactionID' => "$orderId",
-                'Amount' => $amount,
-                'Currency' => $currency,
-                'SecureHash' => $secureHash,
-                'TS' => "$timestamp",
-                'TranTS' => "$timestamp",
-                'MerchantAccountID' => $merchantId,
-                'AdditionalInfo' => $additionalInfo,
-            ];
-            $params = [
-                'data' => json_encode($transactionData),
-                'url' => 'api/OnlinePayment/PayQR',
-            ];
-            $response = $shopifyServices->getQr($params);
-
-
-            $logs = array('orderId' => $orderId, 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
-            $this->saveLog($logs);
-
-            if ($response['pictureURL'] != null)
-                $showQR = 'displayBlock';
-            else
-                $showQR = '';
-
-        if($resAmount == 0){
+        if ($resAmount == 0) {
             $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
             if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
@@ -106,9 +83,15 @@ class ShopifyApiController extends AbstractController
                     'MerchantAccountID' => $merchantId,
                     'AdditionalInfo' => $additionalInfo,
                 ];
+                if($env =='test') {
+                    $url ='SuyoolOnlinePayment/PayQR';
+                }else {
+                    $url ='api/OnlinePayment/PayQR';
+
+                }
                 $params = [
                     'data' => json_encode($transactionData),
-                    'url' => 'api/OnlinePayment/PayQR',
+                    'url' => $url,
                 ];
                 $response = $shopifyServices->getQr($params);
 
@@ -127,16 +110,8 @@ class ShopifyApiController extends AbstractController
                     'displayBlock' => $showQR,
                 ]);
             }
-        }else{
+        } else {
             return "Illegitimate  transaction";
-        }
-
-            return $this->render('shopify/pay-qr.html.twig', [
-                'pictureURL' => $response['pictureURL'],
-                'order_id' => $orderId,
-                'ReturnText' => $response['returnText'],
-                'displayBlock' => $showQR,
-            ]);
         }
     }
 
@@ -216,22 +191,12 @@ class ShopifyApiController extends AbstractController
                 $merchantCredentials = $this->getCredentials($domain);
                 $certificate = $merchantCredentials['certificate'];
                 $totalPrice = $order->getAmount();
-                $url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
-                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
-                $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
-                $sessionRepository = $this->mr->getRepository(Session::class);
-                $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
-                $accessToken = $sessionInfo->getAccessToken();
-                //$url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
                 $appKey = $merchantCredentials['appKey'];
                 $appPass = $merchantCredentials['appPass'];
-                $url = 'https://'.$appKey.':'.$appPass.'@'.$domain.'/admin/api/2020-04/orders/'.$order_id.'/transactions.json';
+                $url = 'https://' . $appKey . ':' . $appPass . '@' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
 
                 $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
-//                $sessionRepository = $this->mr->getRepository(Session::class);
-//                $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
-//                $accessToken = $sessionInfo->getAccessToken();
 
                 if ($secureHash == $data['SecureHash']) {
 
