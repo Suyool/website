@@ -2,7 +2,11 @@
 {% block body %}
 
 	{% if status is not defined %}
-		<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+		{% if app.request.server.get('APP_ENV') == "dev" %}
+			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+		{% else %}
+			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+		{% endif %}
 		<script type="text/javascript">
 			function errorCallback(error) {
 console.log(JSON.stringify(error));
