@@ -10,8 +10,11 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
         Description: "",
         ProductId: ""
     });
+    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const handleConfirmPay = () => {
+        setIsOverlayVisible(true);
         setSpinnerLoader(true);
         setIsButtonDisabled(true);
         if (parameters?.deviceType === "Android") {
@@ -34,17 +37,57 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                         productCurrency: getPrepaidVoucher.Currency,
                     })
                     .then((response) => {
-                        console.log(response)
-                        if (response.data?.status) {
+                        console.log(response);
+                        const jsonResponse = response?.data?.message;
+
+                        if (response.data?.IsSuccess) {
                             setModalName("SuccessModal");
-                            setModalShow(true);
                             setSuccessModal({
                                 imgPath: "/build/images/alfa/SuccessImg.png",
-                                title: response.data?.message,
-                                desc: `You have successfully paid your Terranet bill of ${getPrepaidVoucher.Currency} ${getPrepaidVoucher.Price}.`
-                            })
+                                title: "Alfa Bill Paid Successfullyy",
+                                desc: `You have successfully paid your Terranet bill of L.L ${getPrepaidVoucher.Currency} ${getPrepaidVoucher.Price}.`,
+                                deviceType:parameters?.deviceType
+                            });
+                            setModalShow(true);
                         } else {
-                            console.error("Payment error:", response.data);
+                            console.log(response.data.flagCode);
+                            if (
+                                response.data.IsSuccess == false &&
+                                response.data.flagCode == 10
+                            ) {
+                                setModalName("ErrorModal");
+                                setErrorModal({
+                                    img: "/build/images/alfa/error.png",
+                                    title: jsonResponse.Title,
+                                    desc: jsonResponse.SubTitle,
+                                    path: jsonResponse.ButtonOne.Flag,
+                                    btn: jsonResponse.ButtonOne.Text,
+                                });
+                                setModalShow(true);
+                            } else if (
+                                !response.data.IsSuccess &&
+                                response.data.flagCode == 11
+                            ) {
+                                setModalName("ErrorModal");
+                                setErrorModal({
+                                    img: "/build/images/alfa/error.png",
+                                    title: jsonResponse.Title,
+                                    desc: jsonResponse.SubTitle,
+                                    path: jsonResponse.ButtonOne.Flag,
+                                    btn: jsonResponse.ButtonOne.Text,
+                                });
+                                setModalShow(true);
+                            } else {
+                                setModalName("ErrorModal");
+                                setErrorModal({
+                                    img: "/build/images/alfa/error.png",
+                                    title: "Please Try again",
+                                    desc: `You cannot purchase now`,
+                                    // path: response.data.path,
+                                    btn: "OK",
+                                });
+                                setModalShow(true);
+                            }
                         }
                     })
                     .catch((error) => {
@@ -64,6 +107,9 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                 <div id="spinnerLoader">
                     <Spinner className="spinner" animation="border" variant="secondary" />
                 </div>
+            )}
+            {isOverlayVisible && (
+                <div className="modal-backdrop show" onClick={() => setIsOverlayVisible(false)}></div>
             )}
             <div className="MyBundleBody">
                 <div className="mainTitle">The package related to your landline is:</div>

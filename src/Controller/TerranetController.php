@@ -72,20 +72,22 @@ class TerranetController extends AbstractController
     {
 
         $requestData = $request->getContent();
-
         if (!empty($requestData)) {
             $data = json_decode($requestData, true);
             $username = $data['username'];
             $accounts = $this->apiService->getAccounts($username);
-            if (!empty($accounts)) {
+            if ($accounts) {
                 $PPPLoginName = $accounts[0]['PPPLoginName'];
                 $this->session->set('PPPLoginName', $PPPLoginName);
                 $response = $this->apiService->getProducts($PPPLoginName);
-
+                $flag = 1;
             } else {
                 $response = "Invalid Accounts";
+                $flag = 2;
+
             }
             return new JsonResponse([
+                'flag'=> $flag,
                 'return' => $response
             ], 200);
 
@@ -104,8 +106,9 @@ class TerranetController extends AbstractController
             $currency = $data['productCurrency'];
             $suyoolUserId = $this->session->get('suyoolUserId');
             $PPPLoginName = $this->session->get('PPPLoginName');
-            $PPPLoginName = 'L314240';
+            //$PPPLoginName = 'L314240';
             $ProductId = $data['productId'];
+            $flagCode = null;
 
             if ($suyoolUserId != null) {
                 $order = new Order();
@@ -116,108 +119,129 @@ class TerranetController extends AbstractController
 
                 $this->mr->persist($order);
                 $this->mr->flush();
-                //$checkBalance['status'] = true;
+
                 $checkBalance = $this->checkBalance($suyoolUserId, $order->getId(), $amount, $currency);
-                $checkBalance = json_decode($checkBalance, true);
-                //$transID = 3213;
+                $checkBalance = json_decode($checkBalance->getContent(), true);
+                $checkBalance = $checkBalance['response'];
 
-                if ($checkBalance['status'] == true) {
-                    $refillAccount = $this->refillAccount($PPPLoginName, $ProductId, $order->getId());
+                if ($checkBalance[0]) {
+                    $transID = $checkBalance[1];
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
+
+                    $orderupdate
+                        ->setstatus(Order::$statusOrder['HELD']);
+                    $this->mr->persist($orderupdate);
+                    $this->mr->flush();
+
+                    $refillAccount = $this->refillAccount($PPPLoginName, $ProductId, $order->getId(), $transID);
                     if ($refillAccount == true) {
-                        $status = true;
-                        $message = "Terranet Bill Paid Successfully";
-
+                        $IsSuccess = true;
                         $additionalDataArray[] = ['suyoolUserId' => $suyoolUserId];
                         $additionalData = json_encode($additionalDataArray, true);
 
-                        $updateutility = $this->suyoolServices->UpdateUtilities($amount, $additionalData,$transID );
-                        if ($updateutility) {
-                            $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                        $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transID);
+                        if ($updateUtility) {
+                            $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                             //update te status from purshased to completed
-                            $orderupdate
+                            $orderupdate3
                                 ->setstatus(Order::$statusOrder['COMPLETED'])
                                 ->seterror("SUCCESS");
-                            $this->mr->persist($orderupdate);
+                            $this->mr->persist($orderupdate3);
                             $this->mr->flush();
 
-                            //$dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency()];
                             $message = "Success";
                         } else {
-                            $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-                            $orderupdate
+                            $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                            $orderupdate3
                                 ->setstatus(Order::$statusOrder['CANCELED'])
-                                ->seterror($updateutility[1]);
-                            $this->mr->persist($orderupdate);
+                                ->seterror($updateUtility[1]);
+                            $this->mr->persist($orderupdate3);
                             $this->mr->flush();
                             $message = "something wrong while UpdateUtilities";
                         }
 
+                    } else {
+                        $IsSuccess = false;
+                        //if not purchase return money
+                        $responseUpdateUtilities = $this->suyoolServices->UpdateUtilities(0, "", $transID);
+                        if ($responseUpdateUtilities[0]) {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror("reversed error from terranet");;
+
+                            $this->mr->persist($orderupdate4);
+                            $this->mr->flush();
+                            $message = "Success return money!!";
+                        } else {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror($responseUpdateUtilities[1]);
+                            $this->mr->persist($orderupdate4);
+                            $this->mr->flush();
+                            $message = "Can not return money!!";
+                        }
+                    }
+                } else {
+                    //if can not take money from .net cancel the state of the order
+                    $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
+                    $orderupdate1
+                        ->setstatus(Order::$statusOrder['CANCELED'])
+                        ->seterror($checkBalance[1]);
+                    $this->mr->persist($orderupdate1);
+                    $this->mr->flush();
+                    $IsSuccess = false;
+                    $message = json_decode($checkBalance[1], true);
+                    if (isset($checkBalance[2])) {
+                        $flagCode = $checkBalance[2];
                     }
                 }
             } else {
-                $status = false;
+                $IsSuccess = false;
                 $message = "Don't have userId in session please contact the administrator or login";
             }
         } else {
-            $status = false;
+            $IsSuccess = false;
             $message = "You dont have a bundle available";
         }
 
         return new JsonResponse([
-            'status' => $status,
             'message' => $message,
+            'IsSuccess' => $IsSuccess,
+            'flagCode' => $flagCode,
         ], 200);
 
     }
 
     private function checkBalance($suyoolUserId, $orderId, $amount, $currency)
     {
-        $merchantId = $this->params->get('TERRANET_MERCHANT_ID'); // 1 for loto merchant
+        $merchantId = $this->params->get('TERRANET_MERCHANT_ID');
         $order_id = $merchantId . "-" . $orderId;
-        $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency);
-        $order = $this->mr->getRepository(Order::class)->find($orderId);
+        $fees = 0;
+        $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees);
 
-        if ($pushutility[0]) {
-            $order->settransId($pushutility[1]);
-            $order->setstatus(Order::$statusOrder['HELD']);
-            $order->setamount($amount);
-            $order->setcurrency($currency);
-            $status = true;
-            $message = "You have chose your bundle";
-            $transID = $pushutility[1];
-
-        } else {
-            $order->settransId($pushutility[3]);
-            $order->setstatus(Order::$statusOrder['CANCELED']);
-            $order->setamount($amount);
-            $order->setcurrency($currency);
-            $status = false;
-            $message = "You dont have enough Cash";
-            $transID = $pushutility[3];
-        }
-        $this->mr->persist($order);
-        $this->mr->flush();
         return new JsonResponse([
-            'status' => $status,
-            'message' => $message,
-            'transId'=>$transID,
+            'response' => $pushutility
         ], 200);
     }
 
-    private function refillAccount($PPPLoginName, $ProductId, $orderId)
+    private function refillAccount($PPPLoginName, $ProductId, $orderId, $transID)
     {
+        $suyoolUserId = $this->session->get('suyoolUserId');
 
-        $order = $this->mr->getRepository(Order::class)->find($orderId);
+        $orderupdate2 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $orderId, 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
 
-        if ($order) {
-            $response = $this->apiService->refillCustomerTerranet($PPPLoginName, $ProductId, $orderId);
-            if ($response == 'true') {
-                $order->setstatus(Order::$statusOrder['PURCHASED']);
-
-                $this->mr->persist($order);
+        if ($orderupdate2) {
+            $refillAccount = $this->apiService->refillCustomerTerranet($PPPLoginName, $ProductId, $transID);
+            $checkTransaction = json_decode($this->checkTransactionStatus($transID)->getContent(), true);
+            if ($checkTransaction['status'] == 'true') {
+                $orderupdate2
+                    ->setstatus(Order::$statusOrder['PURCHASED']);
+                $this->mr->persist($orderupdate2);
                 $this->mr->flush();
             }
-            return $response;
+            return $checkTransaction['status'];
 
         } else {
             return new JsonResponse(['error' => 'Order not found'], 404);
@@ -228,11 +252,10 @@ class TerranetController extends AbstractController
     /**
      * @Route("/check_transaction_status", name="terranet_check_transaction_status")
      */
-    public function checkTransactionStatus(Request $request)
+    public function checkTransactionStatus($tranID)
     {
-        $TransactionID = $request->request->get('TransactionID', '1');
 
-        $response = $this->apiService->checkTransactionStatus($TransactionID);
+        $response = $this->apiService->checkTransactionStatus($tranID);
 
         return new JsonResponse([
             'status' => $response
@@ -250,7 +273,6 @@ class TerranetController extends AbstractController
         $toDate = new \DateTime('2023-11-01');
 
         $response = $this->apiService->getTransactions($fromDate, $toDate);
-        dd($response);
         $transactions = $response['Transactions'];
         $errorCode = $response['ErrorCode'];
         $errorMessage = $response['ErrorMessage'];

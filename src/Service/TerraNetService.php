@@ -49,31 +49,28 @@ class TerraNetService
         try {
 
             $response = $this->soapClient->GetAccounts($params);
-            $anyData = $response->accounts->any;
-            $xml = new \SimpleXMLElement($anyData);
-            $accountData = [];
+            if($response->errorCode ==0) {
+                $anyData = $response->accounts->any;
+                $xml = new \SimpleXMLElement($anyData);
+                $accountData = [];
 
-            foreach ($xml->NewDataSet->Table1 as $table1) {
-                $accounts = [
-                    'PPPLoginName' => (string) $table1->PPPLoginName,
-                    'FirstName' => (string) $table1->FirstName,
-                    'LastName' => (string) $table1->LastName,
-                    'CustomerId' => (string) $table1->CustomerId,
-                ];
+                foreach ($xml->NewDataSet->Table1 as $table1) {
+                    $accounts = [
+                        'PPPLoginName' => (string) $table1->PPPLoginName,
+                        'FirstName' => (string) $table1->FirstName,
+                        'LastName' => (string) $table1->LastName,
+                        'CustomerId' => (string) $table1->CustomerId,
+                    ];
 
-                $accountData[] = $accounts;
+                    $accountData[] = $accounts;
+                }
 
-                $account = new Account();
-                $account->setCustomerid((string) $table1->CustomerId);
-                $account->setPPPLoginName((string) $table1->PPPLoginName);
-                $account->setFirstname((string) $table1->FirstName);
-                $account->setLastname((string) $table1->LastName);
-
-                $this->mr->persist($account);
+                return $accountData;
+            }else {
+                return false;
             }
-            $this->mr->flush();
 
-            return $accountData;
+
         } catch (\SoapFault $fault) {
             return $fault;
         }

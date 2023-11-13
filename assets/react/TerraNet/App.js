@@ -67,6 +67,10 @@ const App = ({ parameters }) => {
                             setProducts={setProducts}
                             setActiveButton={setActiveButton}
                             setBackLink={setBackLink}
+                            setModalShow={setModalShow}
+                            setErrorModal={setErrorModal}
+                            setModalName={setModalName}
+
                         />
                     )}
 
