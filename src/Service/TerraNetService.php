@@ -3,6 +3,7 @@
 
 namespace App\Service;
 
+use App\Entity\TerraNet\Logs;
 use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Client;
 use App\Utils\Helper;
@@ -45,6 +46,17 @@ class TerraNetService
         try {
 
             $response = $this->soapClient->GetAccounts($params);
+
+            $logs = new Logs();
+                $logs
+                    ->setidentifier("Bundle Purchase")
+                    ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccounts")
+                    ->setrequest(json_encode($params))
+                    ->setresponse(json_encode($response))
+                    ->seterror($response->errorMessage);
+                $this->mr->persist($logs);
+                $this->mr->flush();
+
             if($response->errorCode ==0) {
                 $anyData = $response->accounts->any;
                 $xml = new \SimpleXMLElement($anyData);
@@ -87,6 +99,15 @@ class TerraNetService
         try {
 
             $response = $this->soapClient->GetProducts($params);
+            $logs = new Logs();
+            $logs
+                ->setidentifier("Bundle Purchase")
+                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetProducts")
+                ->setrequest(json_encode($params))
+                ->setresponse(json_encode($response))
+                ->seterror($response->errorMessage);
+            $this->mr->persist($logs);
+            $this->mr->flush();
             $anyData = $response->products->any;
             $xml = new \SimpleXMLElement($anyData);
             $productsArray = [];
