@@ -38,7 +38,7 @@
     }
 
     // background-color: #767676;
-    height: 125vh;
+    height: 100vh;
     overflow: hidden;
     background-color: #c7c7c7;
 
@@ -51,7 +51,7 @@
             height: auto;
         }
 
-        height: 60%;
+        height: 53%;
     }
 
     #submitTopUp {
@@ -72,6 +72,16 @@
             font-family: $Medium;
             border: none;
         }
+    }
+}
+.loaderTopUp2{
+    .paymentsend{
+        font-family: $Bold;
+    }
+    .ensurethat{
+        padding-bottom: 36px;
+        padding-top:25px ;
+        font-family: $Regular;
     }
 }
 

@@ -47,6 +47,7 @@ class BobPaymentServices
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
+        // dd($amount);
         $order = new orders;
         $order->setstatus(orders::$statusOrder['PENDING']);
         $order->setsuyoolUserId($suyooler);
@@ -80,7 +81,6 @@ class BobPaymentServices
                 "description" => "ordered goods"
             ]
         ];
-        // echo json_encode($body,true);
         // print_r($body);
         $response = $this->client->request('POST', $this->BASE_API . "session", [
             'body' => json_encode($body),
@@ -141,7 +141,7 @@ class BobPaymentServices
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             if ($topup[0]) {
-                $amount = number_format($topup[1],2);
+                $currency == "$" ? $amount = number_format($topup[1],2) : number_format($topup[1]) ;
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
@@ -337,7 +337,7 @@ class BobPaymentServices
             $this->mr->persist($transaction);
             $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($topup[0]) {
-                $amount = number_format($topup[1],2);
+                $currency == "$" ? $amount = number_format($topup[1],2) : number_format($topup[1]) ;
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
