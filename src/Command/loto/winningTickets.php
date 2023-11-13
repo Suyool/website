@@ -59,6 +59,7 @@ class winningTickets extends Command
         
 
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
+        
         $drawId = $getLastResults->getdrawid();
         $winningBalls[] = $getLastResults->getnumbers();
         $winningBallsExplode[] = explode(",", $winningBalls[0]);
@@ -76,20 +77,20 @@ class winningTickets extends Command
             $won=null;
                 $gridSelected = $gridsTobeUpdated->getgridSelected();
                 $zeednumbers = $gridsTobeUpdated->getzeednumber();
-
-                for ($i = 0; $i < strlen($zeednumbers); $i++) {
+                // dd($zeednumbers);
+                for ($i = 0; $i < strlen($zeednumbers)-1; $i++) {
                     $result[] = substr($zeednumbers, $i);
                 }
+                // dd($result);
              
-
                 foreach($winningBallsZeed as $winningBallsZeeds){
                     if(in_array($winningBallsZeeds,$result)){
                         $keyInArray1 = array_search($winningBallsZeeds, $result,true);
                         break;
                     }
                 }
-        
-            if ($keyInArray1 == 0) {
+                // dd($keyInArray1);
+            if ($keyInArray1 == 0 ) {
                 $prizezeed = 1;
                 $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
             } else if ($keyInArray1 == 1) {
