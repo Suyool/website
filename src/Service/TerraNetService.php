@@ -3,10 +3,6 @@
 
 namespace App\Service;
 
-use App\Entity\TerraNet\Account;
-use App\Entity\TerraNet\Product;
-use App\Entity\TerraNet\RefillTransaction;
-use App\Entity\TerraNet\Transaction;
 use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Client;
 use App\Utils\Helper;
