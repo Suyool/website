@@ -199,6 +199,11 @@ class NotificationServices
         return 1;
     }
 
+    /**
+     * Add notification to pending to be send
+     * @param userId,content,params,bulk,additionalData
+     * @return 1
+     */
     public function addNotification($userId, $content, $params, $bulk, $additionalData = null)
     {
         $notification = new Notification;
@@ -217,6 +222,11 @@ class NotificationServices
         return 1;
     }
 
+    /**
+     * Update status from pending to processing
+     * @param notId
+     * @return 1
+     */
     public function PrcessingNot($notId)
     {
         $singleNotification = $this->mr->getRepository(Notification::class)->findOneBy(['id' => $notId]);
@@ -228,6 +238,11 @@ class NotificationServices
         return 1;
     }
 
+    /**
+     * Push Bulk Notification as broadcast
+     * @param notificationId,userId,content,params,additionalData
+     * @return 1
+     */
     public function PushBulkNotification($notificationId, $userId, $content, $params, $additionalData)
     {
         $paramsTextDecoded = json_decode($params, true);
@@ -278,11 +293,11 @@ class NotificationServices
             echo "No Template availble for this id!!";
         }
 
-        eval("\$title = \"$title\";");
-        eval("\$subject = \"$subject\";");
-        eval("\$body = \"$body\";");
-        eval("\$notification = \"$notification\";");
-        eval("\$proceedButton = \"$proceedButton\";");
+        eval("\$title = \"$title\";"); // to append in the notification field in the database
+        eval("\$subject = \"$subject\";"); // to append in the notification field in the database
+        eval("\$body = \"$body\";"); // to append in the notification field in the database
+        eval("\$notification = \"$notification\";"); // to append in the notification field in the database
+        eval("\$proceedButton = \"$proceedButton\";"); // to append in the notification field in the database
 
         $BroadCast = $this->suyoolServices->PushBulkNotification($userIds, $title, $subject, $body, $notification, $proceedButton, $notTemplate->getisInbox(), $notTemplate->getflag(), $notTemplate->getnotificationType(), $notTemplate->getisPayment(), $notTemplate->getisDebit(), $additionalData);
         if ($BroadCast["globalCode"] == 0) {
@@ -318,6 +333,11 @@ class NotificationServices
         return 1;
     }
 
+    /**
+     * Get content if we have multiple template
+     * @param template
+     * @return content
+     */
     public function getContent($template)
     {
         $templateId = $this->mr->getRepository(Template::class)->findOneBy(['identifier' => $template]);
