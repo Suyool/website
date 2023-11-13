@@ -38,9 +38,7 @@ class TopupController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        dd($_SESSION);
         $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-        $sessionInterface->remove('HostedCheckout_sessionId');
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');
 
@@ -84,7 +82,6 @@ class TopupController extends AbstractController
     {
         // $sessionInterface->set('test',1);
         $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-        $sessionInterface->remove('HostedCheckout_sessionId');
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');
 
