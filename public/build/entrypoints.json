@@ -42,6 +42,12 @@
         "/build/Ogero.5c85e96d.js"
       ]
     },
+    "Gift2Games": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Gift2Games.2fc92251.js"
+      ]
+    },
     "iveri": {
       "js": [
         "/build/runtime.e40c1cca.js",
@@ -114,6 +120,14 @@
       ],
       "css": [
         "/build/OgeroStyle.131ea645.css"
+      ]
+    },
+    "Gift2GamesStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/Gift2GamesStyle.42e882f1.css"
       ]
     },
     "iveristyles": {
