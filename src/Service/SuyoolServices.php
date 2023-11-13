@@ -424,7 +424,7 @@ class SuyoolServices
     public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
     {
         try {
-            // $sum = number_format($amount,3);
+            $amount = number_format($amount,3,'.','');
             $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $amount . $currency . $additionalInfo . $this->certificate, true));
             $body =[
                 'transactionId' => $transId,
@@ -435,6 +435,7 @@ class SuyoolServices
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
+            // dd(json_encode($body));
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);

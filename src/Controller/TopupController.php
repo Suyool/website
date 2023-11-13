@@ -38,6 +38,7 @@ class TopupController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
+        // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
         $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
         if ($bobRetrieveResultSession[0] == true) {
             $sessionInterface->remove('order');

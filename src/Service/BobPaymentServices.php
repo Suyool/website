@@ -141,7 +141,7 @@ class BobPaymentServices
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             if ($topup[0]) {
-                $currency == "$" ? $amount = number_format($topup[1],2) : number_format($topup[1]) ;
+                $currency == "$" ? $amount = number_format($topup[1],2) : $amount = number_format($topup[1]) ;
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
@@ -337,7 +337,7 @@ class BobPaymentServices
             $this->mr->persist($transaction);
             $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($topup[0]) {
-                $currency == "$" ? $amount = number_format($topup[1],2) : number_format($topup[1]) ;
+                $currency == "$" ? $amount = number_format($topup[1],2) : $amount = number_format($topup[1]) ;
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
