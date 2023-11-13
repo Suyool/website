@@ -424,16 +424,13 @@ class SuyoolServices
     public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
     {
         try {
-            $sum = number_format($amount,3);
-            // echo $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate;
-            // echo "<br>";
-            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate, true));
-            // echo $Hash;
+            // $sum = number_format($amount,3);
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $amount . $currency . $additionalInfo . $this->certificate, true));
             $body =[
                 'transactionId' => $transId,
                 'statusId' => $statusId,
                 'referenceNo'=>$referenceNo,
-                'amount'=>$sum,
+                'amount'=>$amount,
                 'currency'=>$currency,
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
@@ -441,14 +438,14 @@ class SuyoolServices
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
-            // echo (json_encode($content));
+            $this->cashin->info(json_encode($content));
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {
                 return array(false, $content['data'],$content['flagCode'],$content['message']);
             }
         } catch (Exception $e) {
-            return array(false,$e->getMessage());
+            return array(false,null,$e->getMessage(),$e->getMessage());
         }
     }
 

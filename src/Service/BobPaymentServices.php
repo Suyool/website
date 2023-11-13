@@ -55,7 +55,8 @@ class BobPaymentServices
         $order->setcurrency($currency);
         $this->mr->persist($order);
         $this->mr->flush();
-        $amount = number_format($amount,2);
+        
+        // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         $this->session->remove('order');
         $this->session->set('order', $order->getId() . "-" . $transId);
@@ -437,7 +438,6 @@ class BobPaymentServices
         $order->setcurrency($currency);
         $this->mr->persist($order);
         $this->mr->flush();
-        $amount = number_format($amount,2);
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         $this->session->remove('order');
         $this->session->set('order', $order->getId() . "-" . $transId);

@@ -8,6 +8,7 @@
 			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
 		{% endif %}
 		<script type="text/javascript">
+		sessionStorage.removeItem("HostedCheckout_sessionId");
 			function errorCallback(error) {
 console.log(JSON.stringify(error));
 }
