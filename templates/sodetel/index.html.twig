@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     {% block stylesheets %}
-        {% for file in encore_entry_css_files('AlfaStyle') %}
+        {% for file in encore_entry_css_files('SodetelStyle') %}
             <link rel="stylesheet" href="{{ asset(file|substr(1)) }}">
         {% endfor %}
     {% endblock %}
     <title>Alfa</title>
 </head>
 
-<body class="Alfa">
+<body class="Sodetel">
 <div id="sodetel" data-data="{{ parameters|json_encode }}"></div>
 </body>
 
