@@ -697,4 +697,77 @@ class MerchantsController extends AbstractController
 
         return $this->render('merchants/kallasi.html.twig',$parameters);
     }
+
+    /**
+     * @Route("/laser-vision", name="laservision")
+     */
+    public function laser(Request $request,TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
+        $parameters['lang']="en";
+        $parameters['metaimage']="build/images/laser/laserMeta.png";
+        $parameters['descmeta']="Your Payroll is now on Suyool";
+        $parameters['faq']=[
+            "ONE"=>[
+                "Title"=>"WHAT_IS_SUYOOL_DrogueriePhenicia",
+                "Desc"=>"SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+            ],
+            "TWO"=>[
+                "Title"=>"CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
+                "Desc"=>"ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+            ],
+            "THREE"=>[
+                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_LASER",
+                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_LASER"
+            ],
+            "FOUR"=>[
+                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc"=>"YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_LASER"
+            ],
+            "FIVE"=>[
+                "Title"=>"WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc"=>"YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
+            ],
+            "SIX"=>[
+                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia",
+                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia"
+            ],
+        ];
+
+        $parameters['title']="Laser vision | Suyool";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
+        $infoSection = [
+            'title' => '6 Ways To Use Your Money',
+            'items' => [
+                [
+                    'image' => 'build/images/alfa_employee/card1.svg',
+                    'description' => 'Free Platinum Debit Card',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/cashout.svg',
+                    'description' => 'Free Payroll Cash Out',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/arrow1.svg',
+                    'description' => 'Send & Receive Money for Free',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/request-money.svg',
+                    'description' => 'Request Money',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payroll.svg',
+                    'description' => 'Pay Bills',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payQr1.svg',
+                    'description' => 'Pay with Suyool QR',
+                ],
+            ],
+        ];
+        $parameters['infoSection']= $infoSection;
+
+        return $this->render('merchants/laser.html.twig',$parameters);
+    }
 }
