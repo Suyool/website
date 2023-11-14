@@ -107,4 +107,26 @@ class lotoAdminController extends AbstractController
         return $this->render('Admin/Loto/winningtickets.html.twig',$parameters);
     }
 
+     /**
+     * @Route("admin/export", name="admin_export_to_excel")
+     */
+    public function exportToExcel()
+    {
+        $file_name="winners_".date('Y-m-d').".xls";
+        $fields=array('OrderId','Suyooler','ticketId','winLoto','winZeed','winningStatus','Created');
+        $excelData = implode("\t",array_values($fields)) . "\n";
+
+        $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
+        foreach($winningTickets as $winningTickets)
+        {
+            $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
+            $excelData .= implode("\t",array_values($lineData)) . "\n";
+        }
+
+        header("Content-Type:application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"" .basename($file_name) ."\"");
+        echo $excelData;
+        exit();
+    }
+
 }

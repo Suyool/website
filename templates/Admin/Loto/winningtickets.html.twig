@@ -8,7 +8,7 @@
 	{{ form_row(form.status) }}
 	{{form_row(form.amount)}}
 	{{ form_end(form) }} #}
-	<button id="btnExport" onclick="exportToExcel()">Export To excel</button>
+	<a class="export" href="{{path('admin_export_to_excel')}}">Export To excel</a>
 	<table class="table">
 		<thead>
 			<tr>
@@ -30,7 +30,7 @@
 					<td>{{ winningTickets.id }}</td>
 					<td>{{ winningTickets.fname }} {{ winningTickets.lname }}</td>
 					<td>{{ winningTickets.ticketId }}</td>
-					<td>{{ winningTickets.gridSelected }}</td>
+					<td>{{ winningTickets.gridSelected|split('|')|join('<br>')|raw  }}</td>
 					<td>{{ winningTickets.zeednumbers }}</td>
 					<td>{{ winningTickets.winLoto }}</td>
 					<td>{{winningTickets.winZeed}}</td>
@@ -41,18 +41,4 @@
 
 		</tbody>
 	</table>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
-
-		<script type="text/javascript">
-		function exportToExcel() {
-			/* Get table element by id */
-			var table = document.querySelector(".table");
-	
-			/* Convert table to workbook */
-			var workbook = XLSX.utils.table_to_book(table);
-	
-			/* Save the workbook as an Excel file */
-			XLSX.writeFile(workbook, "winners.xlsx");
-		}
-</script>
 {% endblock %}
