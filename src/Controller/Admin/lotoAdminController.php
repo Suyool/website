@@ -100,10 +100,11 @@ class lotoAdminController extends AbstractController
      */
     public function getAllWinningTickets(){
 
-        $currentPage=$this->request->get('page',1);
         $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
 
-        return $this->render('Admin/Loto/tickets.html.twig',$winningTickets);
+        $parameters['winningTickets']=$winningTickets;
+
+        return $this->render('Admin/Loto/winningtickets.html.twig',$parameters);
     }
 
 }

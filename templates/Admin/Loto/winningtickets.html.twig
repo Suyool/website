@@ -15,38 +15,32 @@
 				<th>OrderId</th>
                 <th>Suyooler</th>
 				<th>ticketId</th>
-				{# <th>Subscription</th> #}
-				<th>Amount</th>
-				<th>TransId</th>
+				<th>gridSelected</th>
+				<th>zeednumbers</th>
+                <th>winLoto</th>
+                <th>winZeed</th>
+                <th>winningStatus</th>
 				<th>Created</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			{% for order in pagination  %}
-				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
-				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %} {% if order.greenFlag is defined and order.redFlag is not defined  %} greenFlag {% endif %} " onclick="window.location.href='{{path('admin_loto_tickets',{'id':order.id})}}'">
-					<td>{{ order.id }}</td>
-					<td>{{ order.fname }} {{ order.lname }}</td>
-					<td>{{ order.status }}</td>
-					{# <td>{{ order.subscription }}</td> #}
-					<td>{{ order.amount }}</td>
-					<td>{{ order.transId }}</td>
-					<td>{{ order.currency }}</td>
-					<td>{{order.error}}</td>
-					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+			{% for winningTickets in winningTickets  %}
+				<tr class="pointer">
+					<td>{{ winningTickets.id }}</td>
+					<td>{{ winningTickets.fname }} {{ winningTickets.lname }}</td>
+					<td>{{ winningTickets.ticketId }}</td>
+					<td>{{ winningTickets.gridSelected }}</td>
+					<td>{{ winningTickets.zeednumbers }}</td>
+					<td>{{ winningTickets.winLoto }}</td>
+					<td>{{winningTickets.winZeed}}</td>
+                    <td>{{winningTickets.winningStatus}}</td>
+					<td>{{ winningTickets.created|date("Y-m-d H:i:s") }}</td>
 				</tr>
-				{# </a> #}
 			{% endfor %}
 
 		</tbody>
 	</table>
-	<div class="navigation">
-		{{ knp_pagination_render(pagination) }}
-	</div>
-	{% if pagination.getItems() == null %}
-		<div class="orderEmpty">Order empty</div>
-	{% endif %}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
 
 		<script type="text/javascript">
@@ -58,7 +52,7 @@
 			var workbook = XLSX.utils.table_to_book(table);
 	
 			/* Save the workbook as an Excel file */
-			XLSX.writeFile(workbook, "exported_data.xlsx");
+			XLSX.writeFile(workbook, "winners.xlsx");
 		}
 </script>
 {% endblock %}

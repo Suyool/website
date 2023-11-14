@@ -385,7 +385,7 @@ class PlaysRepository extends EntityRepository
         $sql = "select
         l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.winLoto,l.winZeed,l.winningStatus,l.zeednumbers,l.gridSelected
         FROM suyool_loto.orders o LEFT JOIN suyool_loto.loto l ON o.id = l.order_id LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
-        WHERE l.ticketId != 0 and l.winningStatus is not null
+        WHERE l.ticketId != 0 and l.winningStatus is not null and (l.winLoto != 0 or l.winZeed != 0)
         ORDER BY o.created DESC
          ";
 
