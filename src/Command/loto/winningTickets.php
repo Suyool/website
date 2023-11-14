@@ -203,7 +203,7 @@ class winningTickets extends Command
                         }
                         $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
                         $content = $this->notificationServices->getContent('won loto added to suyool wallet');
-                        // $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0, "https://www.suyool.com/loto?goto=Result");
+                        $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0, "https://www.suyool.com/loto?goto=Result");
                     }
                 }
             }

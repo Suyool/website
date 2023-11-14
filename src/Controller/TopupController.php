@@ -83,33 +83,36 @@ class TopupController extends AbstractController
     #[Route('/topupRTP', name: 'app_rtptopup')]
     public function rtpTopUp(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        try{
+        try {
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
 
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
                 // dd($bobRetrieveResultSession);
-                $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('ReceiverPhone'), $sessionInterface->get('SenderId'));
                 return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
             }
-    
+
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $senderName = $sessionInterface->get('SenderInitials');
-            // dd($nonSuyooler);
+
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
             $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
             $parameters = [
                 // 'topup'=>true,
                 'session' => $bobpayment[1],
-                'sender'=>$senderName
+                'sender' => $senderName
             ];
-    
+
             return $this->render('topup/topuprtp.html.twig', $parameters);
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            if ($request->headers->get('referer') == null) {
+                return $this->redirectToRoute("homepage");
+            }else{
+                return new RedirectResponse($request->headers->get('referer'));
+            }
         }
-        catch(\Exception $e){
-            return new RedirectResponse($request->headers->get('referer'));
-        }
-       
     }
 }

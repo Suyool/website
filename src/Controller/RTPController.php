@@ -55,7 +55,6 @@ class RTPController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
-        // dd($parameters['request_details_response']);
         $parameters['currency'] = "LBP";
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
@@ -86,9 +85,9 @@ class RTPController extends AbstractController
                 : ''
         );
         $this->session->set(
-            "SenderInitials",
-            isset($parameters['request_details_response']['senderName'])
-                ? $parameters['request_details_response']['senderName']
+            "SenderId",
+            isset($parameters['request_details_response']['senderId'])
+                ? $parameters['request_details_response']['senderId']
                 : ''
         );
         $this->session->set(

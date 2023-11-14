@@ -26,23 +26,25 @@ class BobPaymentServices
     private $username;
     private $password;
     private $logger;
+    private $notificationServices;
 
-    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices)
+    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices,NotificationServices $notificationServices)
     {
         $this->client = $client;
-        if($_ENV['APP_ENV'] == "dev"){
+        if ($_ENV['APP_ENV'] == "dev") {
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
-            $this->username="merchant.TESTSUYOOL";
-            $this->password="002bcc643011b3cef6967ff40d140d71";
-        }else{
+            $this->username = "merchant.TESTSUYOOL";
+            $this->password = "002bcc643011b3cef6967ff40d140d71";
+        } else {
             $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/suyool/";
-            $this->username="merchant.SUYOOL";
-            $this->password="652cdf87fd1c82530b7bfdd0c36662f3";
+            $this->username = "merchant.SUYOOL";
+            $this->password = "652cdf87fd1c82530b7bfdd0c36662f3";
         }
         $this->session = $session;
         $this->mr = $mr->getManager('topup');
         $this->suyoolServices = $suyoolServices;
         $this->logger = $logger;
+        $this->notificationServices=$notificationServices;
     }
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
@@ -56,7 +58,7 @@ class BobPaymentServices
         $order->setcurrency($currency);
         $this->mr->persist($order);
         $this->mr->flush();
-        
+
         // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         $this->session->remove('order');
@@ -107,7 +109,7 @@ class BobPaymentServices
         $session = $this->session->get('order');
         // echo $session;
         if (isset($session)) {
-            $response = $this->client->request('GET', $this->BASE_API ."order/". $session, [
+            $response = $this->client->request('GET', $this->BASE_API . "order/" . $session, [
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
@@ -123,7 +125,7 @@ class BobPaymentServices
         return array(false, "ERROR");
     }
 
-    public function retrievedataForTopUp($auth,$status, $indicator, $res, $transId, $suyooler,$cardnumber)
+    public function retrievedataForTopUp($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber)
     {
         // echo $indicator;
         $parameters = array();
@@ -136,12 +138,12 @@ class BobPaymentServices
         $this->mr->flush();
         $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(),$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             if ($topup[0]) {
-                $currency == "$" ? $amount = number_format($topup[1],2) : $amount = number_format($topup[1]) ;
+                $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
@@ -160,6 +162,9 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['COMPLETED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
+                $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
+                $content = $this->notificationServices->getContent('CardTopUp');
+                $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 return array(true, $parameters);
             } else {
                 $this->logger->error(json_encode($topup));
@@ -183,7 +188,7 @@ class BobPaymentServices
                 return array(true, $parameters);
             }
         } else {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $this->logger->error(json_encode($topup));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
@@ -209,7 +214,7 @@ class BobPaymentServices
         }
     }
 
-    public function retrievedataForTopUpTest($auth,$status, $indicator, $res, $transId, $suyooler)
+    public function retrievedataForTopUpTest($auth, $status, $indicator, $res, $transId, $suyooler)
     {
         // echo $indicator;
         $parameters = array();
@@ -222,26 +227,26 @@ class BobPaymentServices
         $this->mr->flush();
         $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-                $amount = number_format($session->getOrders()->getamount());
-                $status = true;
-                $imgsrc = "build/images/Loto/success.png";
-                $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
-                $button = "Continue";
+            $amount = number_format($session->getOrders()->getamount());
+            $status = true;
+            $imgsrc = "build/images/Loto/success.png";
+            $title = "Money Added Succesfully";
+            $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
+            $button = "Continue";
 
-                $parameters = [
-                    'status' => $status,
-                    'title' => $title,
-                    'imgsrc' => $imgsrc,
-                    'description' => $description,
-                    'button' => $button,
-                    'infoSuccess' => true
-                ];
-                $order = $session->getOrders();
-                $order->setstatus(orders::$statusOrder['COMPLETED']);
-                $this->mr->persist($order);
-                $this->mr->flush();
-                return array(true, $parameters);
+            $parameters = [
+                'status' => $status,
+                'title' => $title,
+                'imgsrc' => $imgsrc,
+                'description' => $description,
+                'button' => $button,
+                'infoSuccess' => true
+            ];
+            $order = $session->getOrders();
+            $order->setstatus(orders::$statusOrder['COMPLETED']);
+            $this->mr->persist($order);
+            $this->mr->flush();
+            return array(true, $parameters);
         } else {
             $status = false;
             $imgsrc = "build/images/Loto/error.png";
@@ -319,7 +324,7 @@ class BobPaymentServices
         return array(true, $content['session']['id'], $order);
     }
 
-    public function retrievedataForTopUpRTP($auth,$status, $indicator, $res, $transId, $suyooler,$cardnumber)
+    public function retrievedataForTopUpRTP($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber,$phone,$senderId)
     {
         // echo $indicator;
         $parameters = array();
@@ -331,13 +336,13 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber,-4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
             $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($topup[0]) {
-                $currency == "$" ? $amount = number_format($topup[1],2) : $amount = number_format($topup[1]) ;
+                $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Succesfully";
@@ -356,6 +361,9 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['COMPLETED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
+                $params = json_encode(['currency' => $currency, 'amount' => $topup[1],'nonsuyooler'=>$phone]);
+                $content = $this->notificationServices->getContent('CardTopUpRtp');
+                $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
                 return array(true, $parameters);
             } else {
                 $this->logger->error(json_encode($topup));
@@ -379,31 +387,32 @@ class BobPaymentServices
                 return array(true, $parameters);
             }
         } else {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(),substr($cardnumber,-4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $this->logger->error(json_encode($topup));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
-            if($topup[0] == true){
+            if ($topup[0] == true) {
                 $status = false;
-            $imgsrc = "build/images/Loto/error.png";
-            $title = "Please Try Again";
-            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-            $button = "Try Again";
-            $parameters = [
-                'status' => $status,
-                'title' => $title,
-                'imgsrc' => $imgsrc,
-                'description' => $description,
-                'button' => $button,
-                'redirect' => $this->session->get('Code')
-            ];
-            $order = $session->getOrders();
-            $order->setstatus(orders::$statusOrder['CANCELED']);
-            $this->mr->persist($order);
-            $this->mr->flush();
-            return array(true, $parameters);
-            }else{
+                $imgsrc = "build/images/Loto/error.png";
+                $title = "Please Try Again";
+                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $button = "Try Again";
+                $parameters = [
+                    'status' => $status,
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'redirect' => $this->session->get('Code')
+                ];
+                $order = $session->getOrders();
+                $order->setstatus(orders::$statusOrder['CANCELED']);
+                $this->mr->persist($order);
+                $this->mr->flush();
+                
+                return array(true, $parameters);
+            } else {
                 $this->logger->error(json_encode($topup));
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
@@ -422,9 +431,8 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['CANCELED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                return array(true, $parameters);  
+                return array(true, $parameters);
             }
-            
         }
     }
 
