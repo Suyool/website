@@ -44,11 +44,6 @@ class Gift2GamesService
             $formData = [
                 "parentId" => $this->parentId,
             ];
-//            $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-//            $status = $response->getStatusCode(); // Get the status code
-//            if ($status == 500) {
-//                return array(false, "error 500 timeout", 255, "error 500 timeout");
-//            }
 
             $response = $this->helper->clientRequestWithHeaders('POST', $this->G2G_API_HOST . "categories",
                 [
@@ -60,21 +55,53 @@ class Gift2GamesService
                 ]
             );
 
-//            dd($response);
-            dd($response->getContent());
 
             $content = $response->getContent();
-            $reponse = json_encode($content);
-            $ApiResponse = json_decode($content, true);
-            $res = $ApiResponse['Response'];
-            if ($res == "") {
-                return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
-            }
-            $decodedString = $this->_decodeGzipString(base64_decode($res));
+            $data = json_decode($content, true);
 
-            return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+            if ($data['status'] == 1) {
+                return array(
+                    'status'=>true,
+                    'data'=>$content
+                );
+            }
+
+            return array(true, $content);
         } catch (Exception $e) {
-            $this->logger->error("Alfa postpaid error retrieve: {$e->getMessage()}");
+            $this->logger->error("Gift 2 Games categories error: {$e->getMessage()}");
+            return array(false, $e->getMessage(), 255, $e->getMessage());
+        }
+    }
+
+    public function getProducts($categoryId) {
+        try {
+            $formData = [
+                "categoryId" => $categoryId,
+            ];
+
+            $headers = [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Authorization' => $this->apiKey,
+            ];
+
+            $response = $this->helper->clientRequestWithHeaders('POST', $this->G2G_API_HOST . "products",
+                $formData,
+                $headers
+            );
+
+            $content = $response->getContent();
+            $data = json_decode($content, true);
+
+//            dd($data);
+            if ($data['status'] == 1) {
+                return array(
+                    'status'=>true,
+                    'data'=>$content
+                );
+            }
+
+        } catch (Exception $e) {
+            $this->logger->error("Gift 2 Games products error: {$e->getMessage()}");
             return array(false, $e->getMessage(), 255, $e->getMessage());
         }
     }

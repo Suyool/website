@@ -32,12 +32,29 @@ class Gift2GamesController extends AbstractController
 //        $SuyoolUserId = $this->session->get('suyoolUserId');
         $SuyoolUserId = 155;
 
-        $gamesService->getCategories();
+        $results = $gamesService->getCategories();
 
-        $result = [];
         return new JsonResponse([
-            'status' => true,
-            'data' => $result
+            'status' => $results['status'],
+            'Payload' => $results['data'],
         ], 200);
     }
+
+    /**
+     * @Route("/gift2games/products/{categoryId}", name="app_g2g_products")
+     */
+    public function getProducts($categoryId, Gift2GamesService $gamesService)
+    {
+//        $SuyoolUserId = $this->session->get('suyoolUserId');
+        $SuyoolUserId = 155;
+
+        $results = $gamesService->getProducts($categoryId);
+
+        return new JsonResponse([
+            'status' => $results['status'],
+            'Payload' => $results['data'],
+        ], 200);
+    }
+
+
 }

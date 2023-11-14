@@ -112,7 +112,7 @@ class Helper
     public function clientRequestWithHeaders($method, $url, $body, $headers)
     {
             $response = $this->client->request($method, $url, [
-                'body' => json_encode($body),
+                'body' => $body,
                 'headers' => $headers
             ]);
 

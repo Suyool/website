@@ -48,7 +48,7 @@ const App = ({ parameters }) => {
   });
 
   return (
-    <div id="AlfaBody">
+    <div id="G2GBody">
       <Header
         parameters={parameters}
         activeButton={activeButton}
@@ -81,7 +81,7 @@ const App = ({ parameters }) => {
                 setBackLink={setBackLink}
               />
             )}
-            {activeButton.name === "ReCharge" && (
+            {activeButton.name === "Products" && (
               <ReCharge
                 parameters={parameters}
                 setPrepaidVoucher={setPrepaidVoucher}
