@@ -40,7 +40,7 @@
     // background-color: #767676;
     height: 100vh;
     overflow: hidden;
-    background-color: #c7c7c7;
+    background-color: #F1F3F5;
 
 
     img {
@@ -73,6 +73,19 @@
             border: none;
         }
     }
+    .help{
+        color:#226d96 ;
+        font-family: $Bold;
+        font-size: 14px;
+        padding-top: 200px;
+        a{
+            text-decoration: underline;
+            color: #373464;
+            font-size: 14px;
+            font-family: $Regular;
+        }
+    }
+
 }
 .loaderTopUp2{
     .paymentsend{

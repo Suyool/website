@@ -1,5 +1,5 @@
 {
-  "build/app1.js": "/build/app1.c783c1d2.js",
+  "build/app1.js": "/build/app1.784e4941.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.b080bbea.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.c80b9b87.js",
@@ -7,7 +7,7 @@
   "build/Touch.js": "/build/Touch.b99ea282.js",
   "build/Ogero.js": "/build/Ogero.6cc9251a.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/styles.css": "/build/styles.a2375e7f.css",
+  "build/styles.css": "/build/styles.c86c16eb.css",
   "build/admin.css": "/build/admin.bb651dc3.css",
   "build/Lotostyles.css": "/build/Lotostyles.c4e01bc7.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
@@ -52,6 +52,7 @@
   "build/images/platinumMastercard/deskTopMiddleEast.png": "/build/images/platinumMastercard/deskTopMiddleEast.png",
   "build/images/deskTopMiddleEast.png": "/build/images/deskTopMiddleEast.6ba4f807.png",
   "build/images/middleEast/deskTopMiddleEast.png": "/build/images/middleEast/deskTopMiddleEast.png",
+  "build/images/loaderSuyool3.gif": "/build/images/loaderSuyool3.gif",
   "build/images/lldj/lldjTablet.png": "/build/images/lldj/lldjTablet.png",
   "build/images/alfa_employee/topImageTablet.png": "/build/images/alfa_employee/topImageTablet.png",
   "build/images/elnashra/nashra-top-desktop.jpg": "/build/images/elnashra/nashra-top-desktop.jpg",

@@ -1,47 +1,4 @@
-// if (document.getElementById("topUpButtonMob")) {
-//   document
-//     .getElementById("topUpButtonMob")
-//     .addEventListener("click", function () {
-//       // Submit the form
-//       document.getElementById("myFormRequest").submit();
-//     });
-// }
-
-// if (document.getElementById("topUpButtonDesk")) {
-//   document
-//     .getElementById("topUpButtonDesk")
-//     .addEventListener("click", function () {
-//       // Submit the form
-//       document.getElementById("myFormRequest").submit();
-//     });
-// }
-
-// if (document.getElementById("submitTopUp")) {
-//   document.getElementById("submitTopUp").addEventListener("click", function () {
-//     // Submit the form
-//     document.getElementById("myFormTopUp").submit();
-//   });
-// }
-
-
-
-
-   
-
 if (document.querySelector(".loaderTopUp")) {
-  // setInterval(function() {
-  //   $.ajax({
-  //     type: "get",
-  //     dataType: "json",
-  //     url: "/ajaxcall",
-  //     success: function (data) {
-  //       console.log(data.data.result)
-  //       if(data.data.status === "CAPTURED"){
-  //         // window.location.href="/topup";
-  //       }
-  //     }
-  //   });
-  // },5000);
   const element = document.getElementById("submitTopUp");
   setInterval(function () {
     element.style.display = "block";
@@ -79,16 +36,6 @@ if (document.querySelector(".actionAppFailed")) {
   });
 }
 
-// if (document.querySelector(".actionBrowser")) {
-//   const actionBrowser = document.querySelector(".actionBrowser");
-//   actionBrowser.addEventListener("click", function () {
-//     if (navigator.userAgent.match(/Android/i)) {
-//       window.AndroidInterface.callbackHandler("GoToApp");
-//     } else {
-//       window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-//     }
-//   });
-// }
 
 if (document.querySelector(".back")) {
   const action = document.querySelector(".back");
