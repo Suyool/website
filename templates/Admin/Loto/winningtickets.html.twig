@@ -1,25 +1,23 @@
 {% extends 'Admin/base.html.twig' %}
 
-{% block currentPage %}LOTO_order{% endblock %}
+{% block currentPage %}Winning tickets{% endblock %}
 
 
 {% block content  %}
-	{{ form_start(form) }}
+	{# {{ form_start(form) }}
 	{{ form_row(form.status) }}
 	{{form_row(form.amount)}}
-	{{ form_end(form) }}
-	<button id="btnExport" onclick="exportToExcel()">Export HTML Table</button>
+	{{ form_end(form) }} #}
+	<button id="btnExport" onclick="exportToExcel()">Export To excel</button>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>SuyoolUser</th>
-				<th>Status</th>
+				<th>OrderId</th>
+                <th>Suyooler</th>
+				<th>ticketId</th>
 				{# <th>Subscription</th> #}
 				<th>Amount</th>
 				<th>TransId</th>
-				<th>Currency</th>
-				<th>Error</th>
 				<th>Created</th>
 			</tr>
 		</thead>

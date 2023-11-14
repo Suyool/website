@@ -95,4 +95,15 @@ class lotoAdminController extends AbstractController
         return $this->render('Admin/Loto/tickets.html.twig',$parameters);
     }
 
+     /**
+     * @Route("admin/winningTickets", name="admin_loto_winningtickets")
+     */
+    public function getAllWinningTickets(){
+
+        $currentPage=$this->request->get('page',1);
+        $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
+
+        return $this->render('Admin/Loto/tickets.html.twig',$winningTickets);
+    }
+
 }
