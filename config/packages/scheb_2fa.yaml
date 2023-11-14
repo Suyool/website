@@ -18,8 +18,8 @@ scheb_two_factor:
   model_manager_name: ~
 
   
-  ip_whitelist:
-    - 127.0.0.1
+  # ip_whitelist:
+  #   - 127.0.0.1
 
 
   # The security token classes, which trigger two-factor authentication.

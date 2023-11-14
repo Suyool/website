@@ -121,6 +121,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Iveri' }
 
+    App\Service\BobPaymentServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'topup' }
+
 
 
         

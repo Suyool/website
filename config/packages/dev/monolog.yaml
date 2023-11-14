@@ -8,6 +8,7 @@ monolog:
         - Iveri
         - cashout
         - cashin
+        - topup
     handlers:
         users:
             type: stream
@@ -44,6 +45,11 @@ monolog:
             path: "%kernel.logs_dir%/cashout.log"
             level: debug
             channels: ['cashout']
+        topup:
+            type: stream
+            path: "%kernel.logs_dir%/topup.log"
+            level: debug
+            channels: ['topup']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
