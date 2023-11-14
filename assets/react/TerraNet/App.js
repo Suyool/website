@@ -6,6 +6,7 @@ import SuccessModal from "./Modal/SuccessModal";
 import UsernameForm from "./UsernameForm";
 import ProductList from "./ProductList";
 import SelectedProductInfo from "./SelectedProductInfo";
+import MyBill from "../Alfa/MyBill";
 
 const App = ({ parameters }) => {
     const [activeButton, setActiveButton] = useState({ name: "" });
@@ -94,6 +95,8 @@ const App = ({ parameters }) => {
                             setSuccessModal={setSuccessModal}
                             setModalName={setModalName}
                             activeButton={activeButton}
+                            parameters={parameters}
+                            setBackLink={setBackLink}
                         />
                     )}
                 </>

@@ -14,7 +14,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink,
 
     return (
         <div id="Default">
-            <div className="MainTitle">Re-charge your Terranet plan using your:</div>
+            <div className="MainTitle">Re-charge your TerraNet plan using your:</div>
             {/* <div
                 className="Cards"
                 onClick={() => {
@@ -47,7 +47,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink,
                 />
                 <div className="Text">
                     <div className="SubTitle">TERRANET USERNAME</div>
-                    <div className="description">Settle your Terranet bill quickly and securely using your username</div>
+                    <div className="description">Settle your TerraNet bill quickly and securely using your username</div>
                 </div>
             </div>
         </div>

@@ -78,7 +78,7 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                     </div>
                 )}
                 <input
-                    type="tel"
+                    type="text"
                     className={`nbInput${isInputLetter ? ' w-100' : ''}`}
                     placeholder="Username or Number"
                     value={inputValue}

@@ -27,7 +27,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.65b5db2f.js"
+        "/build/Alfa.bb9fa860.js"
       ]
     },
     "Touch": {
@@ -51,7 +51,7 @@
     "TerraNet": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/TerraNet.9a639f98.js"
+        "/build/TerraNet.8f09a412.js"
       ]
     },
     "styles": {
@@ -123,7 +123,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/terraNetstyle.d885a4a8.css"
+        "/build/terraNetstyle.b073d204.css"
       ]
     }
   }

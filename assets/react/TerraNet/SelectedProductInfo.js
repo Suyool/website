@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
-const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setModalShow,setErrorModal,setSuccessModal,setModalName }) => {
+const SelectedProductInfo = ({
+                                 selectedProduct,
+                                 setBackLink,
+                                 parameters,
+                                 setModalShow,
+                                 setErrorModal,
+                                 setSuccessModal,
+                                 setModalName,
+                             }) => {
+    useEffect(() => {
+        setBackLink("inputValue");
+    }, []);
 
     const [getPrepaidVoucher, setPrepaidVoucher] = useState({
         Price: "",
         Currency: "",
         Description: "",
-        ProductId: ""
+        ProductId: "",
     });
-    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
+    const [isOverlayVisible, setIsOverlayVisible] = useState(false);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+
     const handleConfirmPay = () => {
         setIsOverlayVisible(true);
         setSpinnerLoader(true);
         setIsButtonDisabled(true);
+
         if (parameters?.deviceType === "Android") {
             setTimeout(() => {
                 window.AndroidInterface.callbackHandler("message");
@@ -28,8 +43,9 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                 );
             }, 2000);
         }
+
         window.handleCheckout = (message) => {
-            if (message == "success") {
+            if (message === "success") {
                 axios
                     .post("/terraNet/refill_customer_terranet", {
                         productId: getPrepaidVoucher.ProductId,
@@ -44,16 +60,18 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                             setModalName("SuccessModal");
                             setSuccessModal({
                                 imgPath: "/build/images/alfa/SuccessImg.png",
-                                title: "Alfa Bill Paid Successfullyy",
-                                desc: `You have successfully paid your Terranet bill of L.L ${getPrepaidVoucher.Currency} ${getPrepaidVoucher.Price}.`,
-                                deviceType:parameters?.deviceType
+                                title: "TerraNet Bill Paid Successfully",
+                                desc: `You have successfully paid your TerraNet bill of L.L ${parseInt(
+                                    getPrepaidVoucher?.Price
+                                ).toLocaleString()}.`,
+                                deviceType: parameters?.deviceType,
                             });
                             setModalShow(true);
                         } else {
                             console.log(response.data.flagCode);
                             if (
-                                response.data.IsSuccess == false &&
-                                response.data.flagCode == 10
+                                response.data.IsSuccess === false &&
+                                response.data.flagCode === 10
                             ) {
                                 setModalName("ErrorModal");
                                 setErrorModal({
@@ -66,7 +84,7 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                                 setModalShow(true);
                             } else if (
                                 !response.data.IsSuccess &&
-                                response.data.flagCode == 11
+                                response.data.flagCode === 11
                             ) {
                                 setModalName("ErrorModal");
                                 setErrorModal({
@@ -96,83 +114,19 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
             }
         };
     };
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
     return (
-        <div id="MyBundle"
-        //   className={`${paymentSuccess ? "hideBackk" : ""}`}
-        >
-            {getSpinnerLoader && (
-                <div id="spinnerLoader">
-                    <Spinner className="spinner" animation="border" variant="secondary" />
-                </div>
-            )}
-            {isOverlayVisible && (
-                <div className="modal-backdrop show" onClick={() => setIsOverlayVisible(false)}></div>
-            )}
-            <div className="MyBundleBody">
-                <div className="mainTitle">The package related to your landline is:</div>
-                <div className="mainDesc">{selectedProduct?.Description}</div>
-
-                              <img
-                                      className="BundleBigImg"
-                                      src={`/build/images/alfa/Bundle1.png`}
-                                      alt="Bundle"
-                                    />
-                <div className="smlDesc">
-                    <img
-                        className="question"
-                        src={`/build/images/alfa/attention.svg`}
-                        alt="question"
-                        style={{ verticalAlign: "baseline" }}
-                    />
-                    &nbsp;
-                    Terranet only accepts payments in L.L
-                </div>
-  
-                <div className="MoreInfo">
-                    <div className="label">Total before taxes</div>
-                    <div className="value">L.L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}</div>
-                </div>
-                <div className="MoreInfo">
-                    <div className="label">+V.A.T & Stamp Duty</div>
-                    <div className="value">L.L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}</div>
-                </div>
-                <div className="br"></div>
-                <div className="MoreInfo">
-                    <div className="label">Total after taxes</div>
-                    <div className="value">L.L {parseInt(selectedProduct?.Price).toLocaleString()}</div>
-                </div>
-                <div className="br"></div>
-                <div className="MoreInfo">
-                    <div className="label">Total amount to pay</div>
-                    <div className="value1">
-                        L.L {parseInt(selectedProduct?.Price).toLocaleString()}
-                    </div>
-                </div>
-                
-            </div>
-            <button id="ContinueBtn" className="btnCont" onClick={() => {
-                    setPaymentSuccess(true);
-                    setPrepaidVoucher({
-                        Price: selectedProduct.Price,
-                        Currency: selectedProduct.Currency,
-                        Description: selectedProduct.Description,
-                        ProductId: selectedProduct.ProductId
-                    });
-                }}>Re-charge package
-                </button>
-            {paymentSuccess &&
+        <>
+            {paymentSuccess && (
                 <>
-                    <div id="PaymentConfirmationPrePaid">
+                    <div id="PaymentConfirmationPrePaid" className="overlay">
                         <div className="topSection">
                             <div className="brBoucket"></div>
                             <div className="titles">
                                 <div className="titleGrid">Payment Confirmation</div>
                                 <button
                                     onClick={() => {
-                                        setPaymentSuccess(false)
+                                        setPaymentSuccess(false);
                                         // setPaymentConfirmation(false);
                                     }}
                                 >
@@ -198,40 +152,36 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                                     alt="question"
                                     style={{ verticalAlign: "baseline" }}
                                 />
-                                &nbsp;
-                                Terranet only accepts payments in L.L
+                                &nbsp;Terranet only accepts payments in LBP
                             </div>
                             <div className="br"></div>
 
-                            <div id="MyBundle">
-
+                            <div className="paymentConfirmation">
                                 <div className="MyBundleBody">
                                     <div className="MoreInfo">
                                         <div className="label">Total before taxes</div>
-                                        <div className="value">L
-                                            .
-                                            L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}</div>
+                                        <div className="value">
+                                            L.L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}
+                                        </div>
                                     </div>
                                     <div className="MoreInfo">
                                         <div className="label">+V.A.T & Stamp Duty</div>
-                                        <div className="value">L
-                                            .
-                                            L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}</div>
+                                        <div className="value">
+                                            L.L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}
+                                        </div>
                                     </div>
                                     <div className="br"></div>
                                     <div className="MoreInfo">
                                         <div className="label">Total after taxes</div>
-                                        <div className="value">L
-                                            .
-                                            L {parseInt(selectedProduct?.Price).toLocaleString()}</div>
+                                        <div className="value">
+                                            L.L {parseInt(selectedProduct?.Price).toLocaleString()}
+                                        </div>
                                     </div>
                                     <div className="br"></div>
                                     <div className="MoreInfo">
                                         <div className="label">Total amount to pay</div>
                                         <div className="value1">
-                                            L
-                                            .
-                                            L {parseInt(selectedProduct?.Price).toLocaleString()}
+                                            L.L {parseInt(selectedProduct?.Price).toLocaleString()}
                                         </div>
                                     </div>
                                 </div>
@@ -246,9 +196,97 @@ const SelectedProductInfo = ({ selectedProduct, setActiveButton, parameters,setM
                             </div>
                         </div>
                     </div>
-                </>}
+                    {getSpinnerLoader && (
+                        <div id="spinnerLoader" className="overlay">
+                            <Spinner
+                                className="spinner"
+                                animation="border"
+                                variant="secondary"
+                            />
+                        </div>
+                    )}
+                </>
+            )}
+            <div
+                id="MyBundle"
+                className={`${paymentSuccess ? "hideBackk overlay" : ""}`}
+            >
+                {getSpinnerLoader && (
+                    <div id="spinnerLoader" className="overlay">
+                        <Spinner className="spinner" animation="border" variant="secondary" />
+                    </div>
+                )}
+                {isOverlayVisible && (
+                    <div
+                        className="modal-backdrop show"
+                        onClick={() => setIsOverlayVisible(false)}
+                    ></div>
+                )}
+                <div className="MyBundleBody">
+                    <div className="mainTitle">
+                        The package related to your landline is:
+                    </div>
+                    <div className="mainDesc">{selectedProduct?.Description}</div>
 
-        </div>
+                    <img
+                        className="BundleBigImg"
+                        src={`/build/images/alfa/Bundle1.png`}
+                        alt="Bundle"
+                    />
+                    <div className="smlDesc">
+                        <img
+                            className="question"
+                            src={`/build/images/alfa/attention.svg`}
+                            alt="question"
+                            style={{ verticalAlign: "baseline" }}
+                        />
+                        &nbsp;Terranet only accepts payments in LBP
+                    </div>
+
+                    <div className="MoreInfo">
+                        <div className="label">Total before taxes</div>
+                        <div className="value">
+                            L.L {parseInt(selectedProduct?.OriginalHT).toLocaleString()}
+                        </div>
+                    </div>
+                    <div className="MoreInfo">
+                        <div className="label">+V.A.T & Stamp Duty</div>
+                        <div className="value">
+                            L.L {parseInt(selectedProduct?.Price - selectedProduct?.OriginalHT).toLocaleString()}
+                        </div>
+                    </div>
+                    <div className="br"></div>
+                    <div className="MoreInfo">
+                        <div className="label">Total after taxes</div>
+                        <div className="value">
+                            L.L {parseInt(selectedProduct?.Price).toLocaleString()}
+                        </div>
+                    </div>
+                    <div className="br"></div>
+                    <div className="MoreInfo">
+                        <div className="label">Total amount to pay</div>
+                        <div className="value1">
+                            L.L {parseInt(selectedProduct?.Price).toLocaleString()}
+                        </div>
+                    </div>
+                </div>
+                <button
+                    id="ContinueBtn"
+                    className="btnCont"
+                    onClick={() => {
+                        setPaymentSuccess(true);
+                        setPrepaidVoucher({
+                            Price: selectedProduct.Price,
+                            Currency: selectedProduct.Currency,
+                            Description: selectedProduct.Description,
+                            ProductId: selectedProduct.ProductId,
+                        });
+                    }}
+                >
+                    Re-charge package
+                </button>
+            </div>
+        </>
     );
 };
 
