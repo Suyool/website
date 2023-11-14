@@ -1,0 +1,44 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block currentPage %}Winning tickets{% endblock %}
+
+
+{% block content  %}
+	{# {{ form_start(form) }}
+	{{ form_row(form.status) }}
+	{{form_row(form.amount)}}
+	{{ form_end(form) }} #}
+	<a class="export" href="{{path('admin_export_to_excel')}}">Export To excel</a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>OrderId</th>
+                <th>Suyooler</th>
+				<th>ticketId</th>
+				<th>gridSelected</th>
+				<th>zeednumbers</th>
+                <th>winLoto</th>
+                <th>winZeed</th>
+                <th>winningStatus</th>
+				<th>Created</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for winningTickets in winningTickets  %}
+				<tr class="pointer">
+					<td>{{ winningTickets.id }}</td>
+					<td>{{ winningTickets.fname }} {{ winningTickets.lname }}</td>
+					<td>{{ winningTickets.ticketId }}</td>
+					<td>{{ winningTickets.gridSelected|split('|')|join('<br>')|raw  }}</td>
+					<td>{{ winningTickets.zeednumbers }}</td>
+					<td>{{ winningTickets.winLoto }}</td>
+					<td>{{winningTickets.winZeed}}</td>
+                    <td>{{winningTickets.winningStatus}}</td>
+					<td>{{ winningTickets.created|date("Y-m-d H:i:s") }}</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}

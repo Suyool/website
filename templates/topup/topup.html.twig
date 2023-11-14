@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+	{% if status is not defined %}
+		{% if app.request.server.get('APP_ENV') == "dev" %}
+			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+		{% else %}
+			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+		{% endif %}
+		<script type="text/javascript">
+		sessionStorage.removeItem("HostedCheckout_sessionId");
+			function errorCallback(error) {
+console.log(JSON.stringify(error));
+}
+function cancelCallback() {
+console.log('Payment cancelled');
+}
+
+Checkout.configure({
+session: {
+id: "{{ session }}"
+}
+});
+		</script>
+		<div class="loaderTopUp">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" class="topiveri"/>
+			</div>
+			{% if topup is  defined and topup == "true" %}
+				<div class="mobheader">
+					<div class="back">
+						<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
+					</div>
+					<div class="topup">Top Up</div>
+					<div></div>
+				</div>
+			{% endif %}
+			<div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes"></div>
+			<span class="loaderTopUp2">
+				<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
+				<div
+					id="submitTopUp">
+					<button onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn">Continue</button>
+				</div>
+			</span>
+		</div>
+
+	{% else %}
+
+		<div class="entireBody">
+			<div class="desktopMode desktop-logo">
+				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri" width="100%">
+			</div>
+			<div class="popup">
+				<div class="image">
+					<img src="{{ asset(imgsrc) }}" alt="">
+				</div>
+				<div class="title">
+					{{title}}
+				</div>
+				<div class="desc">
+					{{description|raw}}
+				</div>
+				<div class="button">
+					<button class="action {% if infoSuccess is defined and infoSuccess == true %}actionAppSuccess{% elseif infoFailed is defined and infoFailed == true %}actionAppFailed{% else %}actionBrowser{% endif %}">
+						{{button}}
+					</button>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

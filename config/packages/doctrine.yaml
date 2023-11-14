@@ -18,6 +18,8 @@ doctrine:
                 url: '%env(resolve:ESTORE_DATABASE_URL)%'
             notification:
                 url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
+            topup:
+                url: '%env(resolve:TOPUP_DATABASE_URL)%'
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -114,4 +116,14 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Notification'
                         prefix: 'App\Entity\Notification'
                         alias: Notification
+            topup:
+                connection: topup
+                mappings:
+                    Notification:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/topup'
+                        prefix: 'App\Entity\topup'
+                        alias: topup
+            
 

@@ -46,6 +46,11 @@ class SuyoolServices
 
     }
 
+    public static function decrypt($stringToDecrypt){
+        $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
+        return $decrypted_string;
+    }
+
     /**
      * Push Utility Api
      */
@@ -419,29 +424,29 @@ class SuyoolServices
     public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
     {
         try {
-            $sum = (float) $amount;
-            // echo $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate;
-            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $sum . $currency . $additionalInfo . $this->certificate, true));
-            // echo $Hash;
+            $amount = number_format($amount,3,'.','');
+            $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $amount . $currency . $additionalInfo . $this->certificate, true));
             $body =[
                 'transactionId' => $transId,
                 'statusId' => $statusId,
                 'referenceNo'=>$referenceNo,
-                'amount'=>$sum,
+                'amount'=>$amount,
                 'currency'=>$currency,
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
-            // echo json_encode($body);
+            // dd(json_encode($body));
+            $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
+            $this->cashin->info(json_encode($content));
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {
                 return array(false, $content['data'],$content['flagCode'],$content['message']);
             }
         } catch (Exception $e) {
-            return array(false,$e->getMessage());
+            return array(false,null,$e->getMessage(),$e->getMessage());
         }
     }
 
@@ -454,9 +459,9 @@ class SuyoolServices
                 'transactionId' => $transId,
                 'secureHash' => $Hash
             ];
+            // echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
-            // dd($content);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
                 return array(true, $content['data'],$content['flagCode'],$content['message']);
             } else {

@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/app1.50d975cb.js"
+        "/build/app1.784e4941.js"
       ]
     },
     "admin-app": {
@@ -53,7 +53,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.a76a218c.css"
+        "/build/styles.c33d210d.css"
       ]
     },
     "admin": {
@@ -61,7 +61,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.bb651dc3.css"
+        "/build/admin.1ee767bc.css"
       ]
     },
     "Lotostyles": {

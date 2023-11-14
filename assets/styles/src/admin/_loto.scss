@@ -13,3 +13,14 @@
 .pointer{
     cursor: pointer;
 }
+.export{
+    background: #00ad10;
+    padding: 10px 10px;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    &:hover
+    {
+        color: #fff;
+    }
+}

@@ -131,6 +131,12 @@ return [
     "MORE_QUESTIONS"=>"المزيد من الأسئلة؟",
     "SUYOOL_TEAM_IS_AVAILABLE_24_7_READY"=>"فريق سيول متاح على إستعداد لمساعدتك عبر التطبيق، عبر واتس اب, و عبر المكالمات الهاتفية ورسائل البريد الإلكتروني.",
     "CONTACT_US"=>"إتصل بنا",
+
+    "REQUEST_MONEY_FROM_ANYONE_WITH_A_LEBANESE_NUMBER"=>"",
+    "ALL_YOU_NEED_IS_THEIRE_PHONE_NUMBER_TO_REQUEST_MENEY"=>"",
+    "IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"",
+    "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"",
+    
     //USJ Faq
     "FAQ"=>"اسئلة و اجوبة",
     "FREQUENTLY_ASKED_QUESTIONS"=>"الأسئلة الشائعة",
