@@ -10,9 +10,11 @@ use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use DOMDocument;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,27 +83,33 @@ class TopupController extends AbstractController
     #[Route('/topupRTP', name: 'app_rtptopup')]
     public function rtpTopUp(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+        try{
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
 
-        if ($bobRetrieveResultSession[0] == true) {
-            $sessionInterface->remove('order');
-            // dd($bobRetrieveResultSession);
-            $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
-            return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
+                // dd($bobRetrieveResultSession);
+                $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+            }
+    
+            $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+            $senderName = $sessionInterface->get('SenderInitials');
+            // dd($nonSuyooler);
+            $data = json_decode($nonSuyooler[1], true);
+            $parameters = array();
+            $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
+            $parameters = [
+                // 'topup'=>true,
+                'session' => $bobpayment[1],
+                'sender'=>$senderName
+            ];
+    
+            return $this->render('topup/topuprtp.html.twig', $parameters);
         }
-
-        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
-        $senderName = $sessionInterface->get('SenderInitials');
-        // dd($nonSuyooler);
-        $data = json_decode($nonSuyooler[1], true);
-        $parameters = array();
-        $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
-        $parameters = [
-            // 'topup'=>true,
-            'session' => $bobpayment[1],
-            'sender'=>$senderName
-        ];
-
-        return $this->render('topup/topuprtp.html.twig', $parameters);
+        catch(\Exception $e){
+            return new RedirectResponse($request->headers->get('referer'));
+        }
+       
     }
 }
