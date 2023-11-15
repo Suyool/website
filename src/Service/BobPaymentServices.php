@@ -68,7 +68,7 @@ class BobPaymentServices
             "interaction" => [
                 "operation" => "PURCHASE",
                 "merchant" => [
-                    "name" => "ARZ MURR"
+                    "name" => "SUYOOL"
                 ],
                 "returnUrl" => "$url/topup",
                 "cancelUrl" => "$url/topup",
@@ -454,7 +454,7 @@ class BobPaymentServices
             "interaction" => [
                 "operation" => "PURCHASE",
                 "merchant" => [
-                    "name" => "ARZ MURR"
+                    "name" => "SUYOOL"
                 ],
                 "returnUrl" => "$url/topupRTP",
                 "cancelUrl" => "$url/topupRTP",
