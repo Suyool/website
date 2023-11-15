@@ -125,4 +125,16 @@ class TopupController extends AbstractController
             }
         }
     }
+
+    #[Route('/ToTheAPP', name: 'app_ToTheAPP')]
+    public function ToTheAPP()
+    {
+        echo '<script type="text/javascript">',
+            ' if (navigator.userAgent.match(/Android/i)) {
+                window.AndroidInterface.callbackHandler("GoToApp");
+              } else {
+                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+              }',
+            '</script>';
+    }
 }
