@@ -56,6 +56,7 @@ class RTPController extends AbstractController
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
         $parameters['currency'] = "LBP";
+        // dd($parameters['request_details_response']);
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
         $amount = explode(" ", $parameters['request_details_response']['amount']);

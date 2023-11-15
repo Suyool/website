@@ -40,43 +40,53 @@ class TopupController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
-        $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-        if ($bobRetrieveResultSession[0] == true) {
-            $sessionInterface->remove('order');
+        try {
+            // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
 
-            $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
-            return $this->render('topup/topup.html.twig', $topUpData[1]);
-        }
+                $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                return $this->render('topup/topup.html.twig', $topUpData[1]);
+            }
 
-        // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
-        // dd($_POST['infoString']);
-        if (isset($_POST['infoString'])) {
+            // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
+            // dd($_POST['infoString']);
+            if (isset($_POST['infoString'])) {
 
-            if ($_POST['infoString'] == "")
-                return $this->render('ExceptionHandling.html.twig');
+                if ($_POST['infoString'] == "")
+                    return $this->render('ExceptionHandling.html.twig');
 
-            $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
-            $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
-            $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
+                $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
+                $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
+                $suyoolUserInfo = explode("!#!", $decrypted_string);
+                $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
 
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $parameters = array();
-                $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
-                $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
-                $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
-                $parameters = [
-                    'topup' => true,
-                    'session' => $bobpayment[1]
-                ];
+                if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                    $parameters = array();
+                    $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
+                    $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
+                    $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
+                    $parameters = [
+                        'topup' => true,
+                        'session' => $bobpayment[1]
+                    ];
 
-                return $this->render('topup/topup.html.twig', $parameters);
+                    return $this->render('topup/topup.html.twig', $parameters);
+                } else {
+                    return $this->render('ExceptionHandling.html.twig');
+                }
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
-        } else {
-            return $this->render('ExceptionHandling.html.twig');
+        } catch (Exception $e) {
+            echo '<script type="text/javascript">',
+            ' if (navigator.userAgent.match(/Android/i)) {
+                window.AndroidInterface.callbackHandler("GoToApp");
+              } else {
+                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+              }',
+            '</script>';
         }
     }
 
@@ -110,7 +120,7 @@ class TopupController extends AbstractController
             // dd($e->getMessage());
             if ($request->headers->get('referer') == null) {
                 return $this->redirectToRoute("homepage");
-            }else{
+            } else {
                 return new RedirectResponse($request->headers->get('referer'));
             }
         }
