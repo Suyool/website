@@ -3,10 +3,11 @@
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.7ce7343f.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.c80b9b87.js",
-  "build/Alfa.js": "/build/Alfa.bb9fa860.js",
+  "build/Alfa.js": "/build/Alfa.65b5db2f.js",
   "build/Touch.js": "/build/Touch.b99ea282.js",
   "build/Ogero.js": "/build/Ogero.6cc9251a.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   "build/TerraNet.js": "/build/TerraNet.945ba3c2.js",
@@ -16,6 +17,9 @@
 =======
   "build/TerraNet.js": "/build/TerraNet.8f09a412.js",
 >>>>>>> fb0e8f8d (fix redireciton back, overlay in pay now)
+=======
+  "build/TerraNet.js": "/build/TerraNet.8666bd66.js",
+>>>>>>> 9356720c (do the original flow)
   "build/styles.css": "/build/styles.e31a0c75.css",
 >>>>>>> 488aefa1 (fix flow)
   "build/admin.css": "/build/admin.1ee767bc.css",

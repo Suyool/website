@@ -80,7 +80,12 @@ class TerranetController extends AbstractController
                 $PPPLoginName = $accounts[0]['PPPLoginName'];
                 $this->session->set('PPPLoginName', $PPPLoginName);
                 $response = $this->apiService->getProducts($PPPLoginName);
-                $flag = 1;
+                if ($response){
+                    $flag = 1;
+                }else{
+                    $flag = 2;
+                    $response = "No Available Products";
+                }
             } else {
                 $response = "Invalid Accounts";
                 $flag = 2;

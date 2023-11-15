@@ -15,10 +15,11 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink,
     return (
         <div id="Default">
             <div className="MainTitle">Re-charge your TerraNet plan using your:</div>
-            {/* <div
+
+             <div
                 className="Cards"
                 onClick={() => {
-                    handleButtonClick("AccountForm");
+                    handleButtonClick("LandlineForm");
                 }}
             >
                 <img
@@ -32,7 +33,7 @@ const Default = ({ SetVoucherData, setActiveButton, setHeaderTitle, setBackLink,
                         Settle your Terranet bill quickly and securely using your landline
                     </div>
                 </div>
-            </div> */}
+            </div>
 
             <div
                 className="Cards"

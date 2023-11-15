@@ -6,7 +6,7 @@ import SuccessModal from "./Modal/SuccessModal";
 import UsernameForm from "./UsernameForm";
 import ProductList from "./ProductList";
 import SelectedProductInfo from "./SelectedProductInfo";
-import MyBill from "../Alfa/MyBill";
+import LandlineForm from "./LandlineForm";
 
 const App = ({ parameters }) => {
     const [activeButton, setActiveButton] = useState({ name: "" });
@@ -65,6 +65,17 @@ const App = ({ parameters }) => {
                     {/* TerraNet Usename */}
                     {activeButton.name === "UsernameForm" && (
                         <UsernameForm
+                            setProducts={setProducts}
+                            setActiveButton={setActiveButton}
+                            setBackLink={setBackLink}
+                            setModalShow={setModalShow}
+                            setErrorModal={setErrorModal}
+                            setModalName={setModalName}
+
+                        />
+                    )}
+                    {activeButton.name === "LandlineForm" && (
+                        <LandlineForm
                             setProducts={setProducts}
                             setActiveButton={setActiveButton}
                             setBackLink={setBackLink}

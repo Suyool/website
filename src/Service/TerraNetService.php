@@ -32,6 +32,7 @@ class TerraNetService
 
         $this->soapClient = new \SoapClient($this->wsdl, $options);
     }
+
     public function getAccounts($username)
     {
         $params = [
@@ -48,33 +49,33 @@ class TerraNetService
             $response = $this->soapClient->GetAccounts($params);
 
             $logs = new Logs();
-                $logs
-                    ->setidentifier("Bundle Purchase")
-                    ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccounts")
-                    ->setrequest(json_encode($params))
-                    ->setresponse(json_encode($response))
-                    ->seterror($response->errorMessage);
-                $this->mr->persist($logs);
-                $this->mr->flush();
+            $logs
+                ->setidentifier("Bundle Purchase")
+                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccounts")
+                ->setrequest(json_encode($params))
+                ->setresponse(json_encode($response))
+                ->seterror($response->errorMessage);
+            $this->mr->persist($logs);
+            $this->mr->flush();
 
-            if($response->errorCode ==0) {
+            if ($response->errorCode == 0) {
                 $anyData = $response->accounts->any;
                 $xml = new \SimpleXMLElement($anyData);
                 $accountData = [];
 
                 foreach ($xml->NewDataSet->Table1 as $table1) {
                     $accounts = [
-                        'PPPLoginName' => (string) $table1->PPPLoginName,
-                        'FirstName' => (string) $table1->FirstName,
-                        'LastName' => (string) $table1->LastName,
-                        'CustomerId' => (string) $table1->CustomerId,
+                        'PPPLoginName' => (string)$table1->PPPLoginName,
+                        'FirstName' => (string)$table1->FirstName,
+                        'LastName' => (string)$table1->LastName,
+                        'CustomerId' => (string)$table1->CustomerId,
                     ];
 
                     $accountData[] = $accounts;
                 }
 
                 return $accountData;
-            }else {
+            } else {
                 return false;
             }
 
@@ -108,20 +109,22 @@ class TerraNetService
                 ->seterror($response->errorMessage);
             $this->mr->persist($logs);
             $this->mr->flush();
-            $anyData = $response->products->any;
-            $xml = new \SimpleXMLElement($anyData);
-            $productsArray = [];
+            if ($response->errorCode == 0) {
 
-            foreach ($xml->NewDataSet->Table as $productData) {
-                $products = [
-                    'ProductId' => (int) $productData->ProductId,
-                    'Description' => (string) $productData->Description,
-                    'Price' => (float) $productData->Price,
-                    'Cost' => (float) $productData->Cost,
-                    'OriginalHT' => (float) $productData->Original_HT,
-                    'Currency' => (string) $productData->Currency,
-                ];
-                $productsArray[] = $products;
+                $anyData = $response->products->any;
+                $xml = new \SimpleXMLElement($anyData);
+                $productsArray = [];
+
+                foreach ($xml->NewDataSet->Table as $productData) {
+                    $products = [
+                        'ProductId' => (int)$productData->ProductId,
+                        'Description' => (string)$productData->Description,
+                        'Price' => (float)$productData->Price,
+                        'Cost' => (float)$productData->Cost,
+                        'OriginalHT' => (float)$productData->Original_HT,
+                        'Currency' => (string)$productData->Currency,
+                    ];
+                    $productsArray[] = $products;
 //                $product = new Product();
 //                $product->setProductId((int) $productData->ProductId);
 //                $product->setDescription((string) $productData->Description);
@@ -131,10 +134,13 @@ class TerraNetService
 //                $product->setCurrency((string) $productData->Currency);
 //                $this->mr->persist($product);
 
-            }
-           // $this->mr->flush();
+                }
+                // $this->mr->flush();
 
-            return $productsArray;
+                return $productsArray;
+            } else {
+                return false;
+            }
         } catch (\SoapFault $fault) {
             return $fault;
         }
@@ -147,7 +153,7 @@ class TerraNetService
             'pid' => $this->pid,
             'pppLoginName' => $PPPLoginName,
             'productId' => $ProductId,
-            'transactionId'=> $TransactionID,
+            'transactionId' => $TransactionID,
             'errorCode' => '0',
             'errorMessage' => '',
         ];
@@ -169,7 +175,7 @@ class TerraNetService
         $params = [
             'uid' => $this->uid,
             'pid' => $this->pid,
-            'transactionId'=> $TransactionID,
+            'transactionId' => $TransactionID,
             'errorCode' => '0',
             'errorMessage' => '',
         ];
@@ -192,7 +198,7 @@ class TerraNetService
             'pid' => $this->pid,
             'fromDate' => $fromDate->format('Y-m-d\TH:i:s'),
             'toDate' => $toDate->format('Y-m-d\TH:i:s'),
-            'transactions'=> '',
+            'transactions' => '',
             'errorCode' => '0',
             'errorMessage' => '',
         ];
@@ -203,12 +209,12 @@ class TerraNetService
             $transactionsData = [];
             foreach ($xml->NewDataSet->Table as $transactionData) {
                 $transactions = [
-                    'TransactionID' => (int) $transactionData->TransactionID,
-                    'TransactionDate' => (string) $transactionData->TransactionDate,
-                    'Username' => (float) $transactionData->Username,
-                    'PackageId' => (float) $transactionData->PackageId,
-                    'Cancelled' => (float) $transactionData->Cancelled,
-                    'PaidAmount' => (string) $transactionData->PaidAmount,
+                    'TransactionID' => (int)$transactionData->TransactionID,
+                    'TransactionDate' => (string)$transactionData->TransactionDate,
+                    'Username' => (float)$transactionData->Username,
+                    'PackageId' => (float)$transactionData->PackageId,
+                    'Cancelled' => (float)$transactionData->Cancelled,
+                    'PaidAmount' => (string)$transactionData->PaidAmount,
                 ];
                 $transactionsData[] = $transactions;
 
