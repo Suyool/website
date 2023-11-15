@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -65,6 +66,15 @@ class TopupController extends AbstractController
                 if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters = array();
                     $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
+                    if ($bobpayment[0] == false) {
+                        echo '<script type="text/javascript">',
+                        ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                        } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                        }',
+                        '</script>';
+                    }
                     $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
                     $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
                     $parameters = [
@@ -109,6 +119,9 @@ class TopupController extends AbstractController
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
             $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
+            if($bobpayment[0] == false){
+                $this->redirectToRoute("homepage");
+            }
             $parameters = [
                 // 'topup'=>true,
                 'session' => $bobpayment[1],
@@ -127,14 +140,14 @@ class TopupController extends AbstractController
     }
 
     #[Route('/ToTheAPP', name: 'app_ToTheAPP')]
-    public function ToTheAPP()
+    public function ToTheAPP(Request $request)
     {
         echo '<script type="text/javascript">',
-            ' if (navigator.userAgent.match(/Android/i)) {
+        ' if (navigator.userAgent.match(/Android/i)) {
                 window.AndroidInterface.callbackHandler("GoToApp");
               } else {
                 window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
               }',
-            '</script>';
+        '</script>';
     }
 }

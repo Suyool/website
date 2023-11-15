@@ -49,59 +49,64 @@ class BobPaymentServices
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        // dd($amount);
-        $order = new orders;
-        $order->setstatus(orders::$statusOrder['PENDING']);
-        $order->setsuyoolUserId($suyooler);
-        $order->settransId($transId);
-        $order->setamount($amount);
-        $order->setcurrency($currency);
-        $this->mr->persist($order);
-        $this->mr->flush();
-
-        // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
-        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
-        $this->session->remove('order');
-        $this->session->set('order', $order->getId() . "-" . $transId);
-        $body = [
-            "apiOperation" => "INITIATE_CHECKOUT",
-            "interaction" => [
-                "operation" => "PURCHASE",
-                "merchant" => [
-                    "name" => "SUYOOL"
+        try{
+            $order = new orders;
+            $order->setstatus(orders::$statusOrder['PENDING']);
+            $order->setsuyoolUserId($suyooler);
+            $order->settransId($transId);
+            $order->setamount($amount);
+            $order->setcurrency($currency);
+            $this->mr->persist($order);
+            $this->mr->flush();
+    
+            // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
+            $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+            $this->session->remove('order');
+            $this->session->set('order', $order->getId() . "-" . $transId);
+            $body = [
+                "apiOperation" => "INITIATE_CHECKOUT",
+                "interaction" => [
+                    "operation" => "PURCHASE",
+                    "merchant" => [
+                        "name" => "SUYOOL"
+                    ],
+                    "returnUrl" => "$url/topup",
+                    "cancelUrl" => "$url/ToTheAPP",
+                    "displayControl" => [
+                        "billingAddress" => "HIDE"
+                    ]
                 ],
-                "returnUrl" => "$url/topup",
-                "cancelUrl" => "$url/ToTheAPP",
-                "displayControl" => [
-                    "billingAddress" => "HIDE"
+                "order" => [
+                    "currency" => $currency,
+                    "id" => $order->getId() . "-" . $transId,
+                    "amount" => $amount,
+                    "description" => "ordered goods"
                 ]
-            ],
-            "order" => [
-                "currency" => $currency,
-                "id" => $order->getId() . "-" . $transId,
-                "amount" => $amount,
-                "description" => "ordered goods"
-            ]
-        ];
-        // print_r($body);
-        $response = $this->client->request('POST', $this->BASE_API . "session", [
-            'body' => json_encode($body),
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-            'auth_basic' => [$this->username, $this->password],
-        ]);
-
-        $content = $response->toArray(false);
-        // dd($content);
-        $session = new session;
-        $session->setOrders($order);
-        $session->setSession($content['session']['id']);
-        $session->setResponse(json_encode($content));
-        $session->setIndicator($content['successIndicator']);
-        $this->mr->persist($session);
-        $this->mr->flush();
-        return array(true, $content['session']['id'], $order);
+            ];
+            // print_r($body);
+            $response = $this->client->request('POST', $this->BASE_API . "session", [
+                'body' => json_encode($body),
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'auth_basic' => [$this->username, $this->password],
+            ]);
+    
+            $content = $response->toArray(false);
+            // dd($content);
+            $session = new session;
+            $session->setOrders($order);
+            $session->setSession($content['session']['id']);
+            $session->setResponse(json_encode($content));
+            $session->setIndicator($content['successIndicator']);
+            $this->mr->persist($session);
+            $this->mr->flush();
+            return array(true, $content['session']['id'], $order);
+        }catch(Exception $e)
+        {
+            return array(false);
+        }
+        
     }
 
     public function RetrievePaymentDetails()
@@ -438,57 +443,62 @@ class BobPaymentServices
 
     public function SessionRTPFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        $order = new orders;
-        $order->setstatus(orders::$statusOrder['PENDING']);
-        $order->setsuyoolUserId($suyooler);
-        $order->settransId($transId);
-        $order->setamount($amount);
-        $order->setcurrency($currency);
-        $this->mr->persist($order);
-        $this->mr->flush();
-        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
-        $this->session->remove('order');
-        $this->session->set('order', $order->getId() . "-" . $transId);
-        $body = [
-            "apiOperation" => "INITIATE_CHECKOUT",
-            "interaction" => [
-                "operation" => "PURCHASE",
-                "merchant" => [
-                    "name" => "SUYOOL"
+        try{
+            $order = new orders;
+            $order->setstatus(orders::$statusOrder['PENDING']);
+            $order->setsuyoolUserId($suyooler);
+            $order->settransId($transId);
+            $order->setamount($amount);
+            $order->setcurrency($currency);
+            $this->mr->persist($order);
+            $this->mr->flush();
+            $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+            $this->session->remove('order');
+            $this->session->set('order', $order->getId() . "-" . $transId);
+            $body = [
+                "apiOperation" => "INITIATE_CHECKOUT",
+                "interaction" => [
+                    "operation" => "PURCHASE",
+                    "merchant" => [
+                        "name" => "SUYOOL"
+                    ],
+                    "returnUrl" => "$url/topupRTP",
+                    // "cancelUrl" => "$url/topupRTP",
+                    "displayControl" => [
+                        "billingAddress" => "HIDE"
+                    ]
                 ],
-                "returnUrl" => "$url/topupRTP",
-                // "cancelUrl" => "$url/topupRTP",
-                "displayControl" => [
-                    "billingAddress" => "HIDE"
+                "order" => [
+                    "currency" => $currency,
+                    "id" => $order->getId() . "-" . $transId,
+                    "amount" => $amount,
+                    "description" => "ordered goods"
                 ]
-            ],
-            "order" => [
-                "currency" => $currency,
-                "id" => $order->getId() . "-" . $transId,
-                "amount" => $amount,
-                "description" => "ordered goods"
-            ]
-        ];
-        // echo json_encode($body,true);
-        // print_r($body);
-        $response = $this->client->request('POST', $this->BASE_API . "session", [
-            'body' => json_encode($body),
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-            'auth_basic' => [$this->username, $this->password],
-        ]);
-
-        $content = $response->toArray(false);
-        // dd($content);
-        // print_r($content);
-        $session = new session;
-        $session->setOrders($order);
-        $session->setSession($content['session']['id']);
-        $session->setResponse(json_encode($content));
-        $session->setIndicator($content['successIndicator']);
-        $this->mr->persist($session);
-        $this->mr->flush();
-        return array(true, $content['session']['id'], $order);
+            ];
+            // echo json_encode($body,true);
+            // print_r($body);
+            $response = $this->client->request('POST', $this->BASE_API . "session", [
+                'body' => json_encode($body),
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'auth_basic' => [$this->username, $this->password],
+            ]);
+    
+            $content = $response->toArray(false);
+            // dd($content);
+            // print_r($content);
+            $session = new session;
+            $session->setOrders($order);
+            $session->setSession($content['session']['id']);
+            $session->setResponse(json_encode($content));
+            $session->setIndicator($content['successIndicator']);
+            $this->mr->persist($session);
+            $this->mr->flush();
+            return array(true, $content['session']['id'], $order);
+        }catch(Exception $e){
+            return array(false);
+        }
+        
     }
 }
