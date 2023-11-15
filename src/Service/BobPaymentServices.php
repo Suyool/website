@@ -71,7 +71,7 @@ class BobPaymentServices
                     "name" => "SUYOOL"
                 ],
                 "returnUrl" => "$url/topup",
-                "cancelUrl" => "$url/topup",
+                // "cancelUrl" => "$url/topup",
                 "displayControl" => [
                     "billingAddress" => "HIDE"
                 ]
@@ -457,7 +457,7 @@ class BobPaymentServices
                     "name" => "SUYOOL"
                 ],
                 "returnUrl" => "$url/topupRTP",
-                "cancelUrl" => "$url/topupRTP",
+                // "cancelUrl" => "$url/topupRTP",
                 "displayControl" => [
                     "billingAddress" => "HIDE"
                 ]
