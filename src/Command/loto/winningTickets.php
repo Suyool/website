@@ -55,11 +55,11 @@ class winningTickets extends Command
             'Winning details send'
         ]);
 
-        $listWinners=[];
-        
+        $listWinners = [];
+
 
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
-        
+
         $drawId = $getLastResults->getdrawid();
         $winningBalls[] = $getLastResults->getnumbers();
         $winningBallsExplode[] = explode(",", $winningBalls[0]);
@@ -68,29 +68,30 @@ class winningTickets extends Command
         $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
         $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
 
-        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
+        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber' => $drawId]);
         // dd($getGridsinThisDraw);
-        foreach($getGridsinThisDraw as $gridsTobeUpdated){
-            $sum=0;
-            $keyInArray1=-1;
-            $result=[];
-            $won=null;
-                $gridSelected = $gridsTobeUpdated->getgridSelected();
-                $zeednumbers = $gridsTobeUpdated->getzeednumber();
-                // dd($zeednumbers);
-                for ($i = 0; $i < strlen($zeednumbers)-1; $i++) {
-                    $result[] = substr($zeednumbers, $i);
+        foreach ($getGridsinThisDraw as $gridsTobeUpdated) {
+            $sum = 0;
+            $keyInArray1 = -1;
+            $result = [];
+            $won = null;
+            $winner1=null;
+            $winner2=null;
+            $gridSelected = $gridsTobeUpdated->getgridSelected();
+            $zeednumbers = $gridsTobeUpdated->getzeednumber();
+            // dd($zeednumbers);
+            for ($i = 0; $i < strlen($zeednumbers) - 1; $i++) {
+                $result[] = substr($zeednumbers, $i);
+            }
+            // dd($result);
+
+            foreach ($winningBallsZeed as $winningBallsZeeds) {
+                if (in_array($winningBallsZeeds, $result)) {
+                    $keyInArray1 = array_search($winningBallsZeeds, $result, true);
+                    break;
                 }
-                // dd($result);
-             
-                foreach($winningBallsZeed as $winningBallsZeeds){
-                    if(in_array($winningBallsZeeds,$result)){
-                        $keyInArray1 = array_search($winningBallsZeeds, $result,true);
-                        break;
-                    }
-                }
-                // dd($keyInArray1);
-            if ($keyInArray1 == 0 ) {
+            }
+            if ($keyInArray1 == 0) {
                 $prizezeed = 1;
                 $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
             } else if ($keyInArray1 == 1) {
@@ -106,49 +107,59 @@ class winningTickets extends Command
                 $prizezeed = null;
             }
             $grids = explode("|", $gridSelected);
-                foreach ($grids as $Selectedgrids) {
-                    $count = 0;
-                    $SelectedgridsExplode = [];
-                    $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-
-                    $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                    $count = count($commonElements);
-                    if ($count >= 6) {
-                        if (in_array($winningBallsExplode[0][6], $commonElements)) {
-                            $count=7; //for the second prize if we have the 6 number true but the last number is the idafe number
-                        }else{
-                            $count=6;
-                        }
-                    }
-                    if($count==3){
-                        $won=5;
-                        $sum+=$getLastResults->getwinner5();
-                        // $gridsTobeUpdated->setwinloto($sum);
-                    }else if($count==4){
-                        $won=4;
-                        $sum+=$getLastResults->getwinner4();
-                    }else if($count==5){
-                        $won=3;
-                        $sum+=$getLastResults->getwinner3();
-                    }else if($count==7){
-                        $won=2;
-                        $sum+=$getLastResults->getwinner2();
-                    }else if($count==6){
-                        $won=1;
-                        $sum+=$getLastResults->getwinner1();
-                    }else{
-                        $won=null;
+            foreach ($grids as $Selectedgrids) {
+                $count = 0;
+                $SelectedgridsExplode = [];
+                $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
+                $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
+                // dd($winningBallsExplode[0]);
+                $count = count($commonElements);
+                if ($count >= 6) {
+                    if (in_array($winningBallsExplode[0][6], $commonElements)) {
+                        $winner2 = 7; //for the second prize if we have the 6 number true but the last number is the idafe number
+                    } else {
+                        $winner1 = 6;
                     }
                 }
+                if ($winner2 == 7) {
+                    $won = 2;
+                    $sum += $getLastResults->getwinner2();
+                } else if ($winner1 == 6) {
+                    $won = 1;
+                    $sum += $getLastResults->getwinner1();
+                }
+                if($winner2 == null && $winner1 == null){
+                    // Check if the last element is equal to a specific value
+                $excludeLastElement = end($commonElements) === $winningBallsExplode[0][6];
+
+                // Count the elements based on the condition
+                $count = $excludeLastElement ? count($commonElements) - 1 : count($commonElements);
+                if ($count == 3) {
+                    $won = 5;
+                    $sum += $getLastResults->getwinner5();
+                    // $gridsTobeUpdated->setwinloto($sum);
+                } else if ($count == 4) {
+                    $won = 4;
+                    $sum += $getLastResults->getwinner4();
+                } else if ($count == 5) {
+                    $won = 3;
+                    $sum += $getLastResults->getwinner3();
+                    // 5,7,11,20,38,42,17
+                } else {
+                    $won = null;
+                }
+                }
+                
+            }
             $gridsTobeUpdated->setwinloto($sum);
             $gridsTobeUpdated->setwonloto($won);
             $gridsTobeUpdated->setwonzeed($prizezeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
-    }
+        }
 
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
-        // dd($getUsersWhoWon);
+        dd($getUsersWhoWon);
         $this->logger->debug(json_encode($getUsersWhoWon));
         if (!empty($getUsersWhoWon)) {
             foreach ($getUsersWhoWon as $getUsersWhoWon) {

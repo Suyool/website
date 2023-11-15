@@ -212,7 +212,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
         <div className="ballSection mt-3">
           {getWinBallInitial.length > 0 &&
             getWinBallInitial.map((item, index) => (
-              <span key={index}>{item}</span>
+              <span key={index} style={index === 6 ? { backgroundColor: '#8D0500' } : {}}>{item}</span>
             ))}
         </div>
         <div className="ballSectionZeed mt-3">

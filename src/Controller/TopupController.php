@@ -46,11 +46,20 @@ class TopupController extends AbstractController
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
-
-                $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
-                return $this->render('topup/topup.html.twig', $topUpData[1]);
+                if($bobRetrieveResultSession[1]['status'] != "CAPTURED"){
+                    echo '<script type="text/javascript">',
+                    ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                          } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                          }',
+                    '</script>';
+                }else{
+                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                    return $this->render('topup/topup.html.twig', $topUpData[1]);
+                }
+             
             }
-
             // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
             // dd($_POST['infoString']);
             if (isset($_POST['infoString'])) {
@@ -108,9 +117,13 @@ class TopupController extends AbstractController
 
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
-                // dd($bobRetrieveResultSession);
-                $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('ReceiverPhone'), $sessionInterface->get('SenderId'));
-                return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+                if($bobRetrieveResultSession[1]['status'] != "CAPTURED"){
+                    return $this->redirectToRoute("app_rtptopup");
+                }else{
+                    $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'));
+                    return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+                }
+                
             }
 
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
@@ -119,8 +132,9 @@ class TopupController extends AbstractController
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
             $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
+            // dd($bobpayment);
             if($bobpayment[0] == false){
-                $this->redirectToRoute("homepage");
+                return $this->redirectToRoute("homepage");
             }
             $parameters = [
                 // 'topup'=>true,

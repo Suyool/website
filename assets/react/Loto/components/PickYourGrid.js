@@ -307,7 +307,14 @@ const PickYourGrid = ({
                     onClick={() => {
                       // handleRemoveBtn(number)
                     }}
-                    className={`${number !== null ? "active" : ""}`}
+                    className={
+                      index >= 6 && number !== null
+                        ? "activeAdditional"
+                        : index < 6 && number !== null
+                        ? "active"
+                        :
+                        ""
+                    }
                   >
                     {number}
                   </span>
@@ -328,7 +335,12 @@ const PickYourGrid = ({
                       onClick={() => {
                         // handleRemoveBtn(number)
                       }}
-                      className={`${number !== null ? "active" : ""}`}
+                      className={
+                        index >= 0 && number !== null
+                          ? "activeAdditional"
+                          :
+                          ""
+                      }
                     >
                       {number}
                     </span>

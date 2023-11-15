@@ -212,7 +212,7 @@ const Buy = ({
                 <div className="body">
                   <div className="ballSection">
                     {ballsSet.balls.map((ball, ballIndex) => (
-                      <span key={ballIndex} className="">
+                      <span key={ballIndex} className="" style={ballIndex >= 6 ? { backgroundColor: '#8D0500' } : {}}>
                         {ball}
                       </span>
                     ))}

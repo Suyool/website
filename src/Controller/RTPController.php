@@ -145,6 +145,12 @@ class RTPController extends AbstractController
                 ? $additionalData['ReceiverPhone']
                 : ''
         );
+        $this->session->set(
+            "SenderPhone",
+            isset($additionalData['Senderphone'])
+                ? $additionalData['Senderphone']
+                : ''
+        );
         if (isset($additionalData['AuthenticationCode']) || $parameters['request_details_response']['respCode'] == 1) {
             $this->session->set(
                 "requestGenerated",

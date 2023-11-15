@@ -291,7 +291,7 @@ const Play = ({
                 <div className="body">
                   <div className="ballSection mt-2">
                     {ballsSet.balls.map((ball, ballIndex) =>
-                      ball !== null ? <span key={ballIndex}>{ball}</span> : null
+                      ball !== null ? <span key={ballIndex} style={ballIndex >= 6 ? { backgroundColor: '#8D0500' } : {}}>{ball}</span> : null
                     )}
                   </div>
                   <div className="edit" onClick={() => handleEdit(index)}>

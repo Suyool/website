@@ -62,7 +62,7 @@ class BobPaymentServices
             // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
             $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
             $this->session->remove('order');
-            $this->session->set('order', $order->getId() . "-" . $transId);
+            $this->session->set('order', $transId);
             $body = [
                 "apiOperation" => "INITIATE_CHECKOUT",
                 "interaction" => [
@@ -78,12 +78,13 @@ class BobPaymentServices
                 ],
                 "order" => [
                     "currency" => $currency,
-                    "id" => $order->getId() . "-" . $transId,
+                    "id" => $transId,
                     "amount" => $amount,
                     "description" => "ordered goods"
                 ]
             ];
             // print_r($body);
+            $this->logger->error(json_encode($body));
             $response = $this->client->request('POST', $this->BASE_API . "session", [
                 'body' => json_encode($body),
                 'headers' => [
@@ -454,7 +455,7 @@ class BobPaymentServices
             $this->mr->flush();
             $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
             $this->session->remove('order');
-            $this->session->set('order', $order->getId() . "-" . $transId);
+            $this->session->set('order', $transId);
             $body = [
                 "apiOperation" => "INITIATE_CHECKOUT",
                 "interaction" => [
@@ -470,7 +471,7 @@ class BobPaymentServices
                 ],
                 "order" => [
                     "currency" => $currency,
-                    "id" => $order->getId() . "-" . $transId,
+                    "id" => $transId,
                     "amount" => $amount,
                     "description" => "ordered goods"
                 ]
