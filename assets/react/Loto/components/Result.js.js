@@ -212,7 +212,7 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
         <div className="ballSection mt-3">
           {getWinBallInitial.length > 0 &&
             getWinBallInitial.map((item, index) => (
-              <span key={index} style={index === 6 ? { backgroundColor: '#8D0500' } : {}}>{item}</span>
+              <span key={index} style={index === 6 ? { backgroundColor: '#8D0500',marginLeft:'15px' } : {}}>{item}</span>
             ))}
         </div>
         <div className="ballSectionZeed mt-3">
@@ -323,13 +323,19 @@ const Result = ({ parameters, setHeaderTitle, setBackLink ,getCheckBuy,setCheckB
                         parseInt(prize2).toLocaleString()}
                         {getWinBallInitial.filter((winBall) =>
                           grid.includes(winBall)
-                        ).length == 5 && parseInt(prize3).toLocaleString()}
+                        ).length == 5  && !grid.includes(getLastNumber) && parseInt(prize3).toLocaleString()}
                         {getWinBallInitial.filter((winBall) =>
                           grid.includes(winBall)
-                        ).length == 4 && parseInt(prize4).toLocaleString()}
+                        ).length == 5 && grid.includes(getLastNumber) &&  parseInt(prize4).toLocaleString()}
                         {getWinBallInitial.filter((winBall) =>
                           grid.includes(winBall)
-                        ).length == 3 && parseInt(prize5).toLocaleString()}
+                        ).length == 4 && !grid.includes(getLastNumber) &&  parseInt(prize4).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 4 && grid.includes(getLastNumber) && parseInt(prize5).toLocaleString()}
+                        {getWinBallInitial.filter((winBall) =>
+                          grid.includes(winBall)
+                        ).length == 3 && !grid.includes(getLastNumber) && parseInt(prize5).toLocaleString()}
                         {}
                      &nbsp;Won
                       </div>

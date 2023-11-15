@@ -75,8 +75,6 @@ class winningTickets extends Command
             $keyInArray1 = -1;
             $result = [];
             $won = null;
-            $winner1=null;
-            $winner2=null;
             $gridSelected = $gridsTobeUpdated->getgridSelected();
             $zeednumbers = $gridsTobeUpdated->getzeednumber();
             // dd($zeednumbers);
@@ -108,6 +106,8 @@ class winningTickets extends Command
             }
             $grids = explode("|", $gridSelected);
             foreach ($grids as $Selectedgrids) {
+                $winner1=null;
+                $winner2=null;
                 $count = 0;
                 $SelectedgridsExplode = [];
                 $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
@@ -159,7 +159,7 @@ class winningTickets extends Command
         }
 
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
-        dd($getUsersWhoWon);
+        // dd($getUsersWhoWon);
         $this->logger->debug(json_encode($getUsersWhoWon));
         if (!empty($getUsersWhoWon)) {
             foreach ($getUsersWhoWon as $getUsersWhoWon) {
