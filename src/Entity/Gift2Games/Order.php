@@ -35,11 +35,6 @@ class Order
     private $amount;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $fees;
-
-    /**
      * @ORM\Column(type="string")
      */
     private $currency;
@@ -49,11 +44,10 @@ class Order
      */
     private $transId;
 
-
-    /**
-     * @ORM\Column(name="errorInfo")
-     */
-    private $error;
+//    /**
+//     * @ORM\Column(name="errorInfo")
+//     */
+//    private $error;
 
     public function getId()
     {
@@ -90,17 +84,6 @@ class Order
     public function setAmount($amount)
     {
         $this->amount = $amount;
-        return $this;
-    }
-
-    public function getFees()
-    {
-        return $this->fees;
-    }
-
-    public function setFees($fees)
-    {
-        $this->fees = $fees;
         return $this;
     }
 

@@ -5,25 +5,40 @@ namespace App\Repository;
 use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
-use App\Entity\Loto\order;
-use App\Entity\Plays;
+use App\Entity\Gift2Games\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use PDO;
 
 /**
- * @extends ServiceEntityRepository<Plays>
+ * @extends ServiceEntityRepository<Order>
  *
- * @method Plays|null find($id, $lockMode = null, $lockVersion = null)
- * @method Plays|null findOneBy(array $criteria, array $orderBy = null)
- * @method Plays[]    findAll()
- * @method Plays[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Order|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Order|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Order[]    findAll()
+ * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class Gift2GamesOrdersRepository extends EntityRepository
+class Gift2GamesOrdersRepository extends ServiceEntityRepository
 {
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Order::class);
+    }
+
+
+    public function insertOrder($order)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($order);
+        $em->flush();
+    }
+
     public function CountStatusOrders()
     {
         $queryResult = $this->createQueryBuilder('o')
