@@ -129,4 +129,19 @@ class lotoAdminController extends AbstractController
         exit();
     }
 
+     /**
+     * @Route("admin/lastDrawTickets", name="admin_loto_lastdraw")
+     */
+    public function getAllLastDrawTickets(){
+
+        $LastTickets=$this->mr->getRepository(loto::class)->findAllLastTickets();
+        $parameters['count']=count($LastTickets);
+
+        $parameters['lastTickets']=$LastTickets;
+
+        dd($parameters);
+
+        return $this->render('Admin/Loto/lasttickets.html.twig',$parameters);
+    }
+
 }

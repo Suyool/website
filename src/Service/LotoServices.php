@@ -228,4 +228,20 @@ class LotoServices
 
         return $content;
     }
+
+    public function GetWinTicketsPrize($ticketId)
+    {
+        $token = $this->Login();
+        $body = ['Token' => $token,'historyId'=>$ticketId,'bouquetId'=>-1];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserTransactionHistoryDetail",  $body);
+
+        $status = $response->getStatusCode(); // Get the status code
+        if ($status == 500) {
+            return false;
+        }
+        $content = $response->toArray(false);
+
+
+        return $content;
+    }
 }

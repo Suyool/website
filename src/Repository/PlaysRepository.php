@@ -248,7 +248,7 @@ class PlaysRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
             ->select('o.suyoolUserId,COALESCE(SUM(COALESCE(l.winloto, 0) + COALESCE(l.winzeed, 0)), 0) as total,o.id,l.ticketId')
             ->innerJoin(order::class, 'o')
-            ->where('o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null) and (l.winloto !=0 and l.winloto is not null or l.winzeed is not null) and l.winningStatus is null')
+            ->where('o.id = l.order and l.drawNumber = :drawId and (l.ticketId != 0 and l.ticketId is not null) and (l.winloto != 0 and l.winloto is not null or l.winzeed is not null) and l.winningStatus is null')
             ->groupBy('o.id')
             ->setParameter('drawId', $drawId)
             ->getQuery()
@@ -295,7 +295,7 @@ class PlaysRepository extends EntityRepository
         }
 
         return $this->createQueryBuilder('l')
-            ->where("{$where} l.order = :orderid and l.ticketId is not null and (l.winzeed is not null or l.winloto is not null) and l.winningStatus is null")
+            ->where("{$where} l.order = :orderid and l.ticketId is not null and l.isWon = 1 and l.winningStatus is null")
             ->setParameter('orderid', $order)
             ->getQuery()
             ->getResult();
@@ -394,6 +394,29 @@ class PlaysRepository extends EntityRepository
         $qb = $result->fetchAll();
 
         return $qb;
+    }
+
+    public function findAllLastTickets(){
+        $connection = $this->getEntityManager()->getConnection();
+        $sql = "select
+        l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.zeednumbers,l.gridSelected
+        FROM suyool_loto.orders o LEFT JOIN suyool_loto.loto l ON o.id = l.order_id LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId LEFT JOIN suyool_loto.draws d ON l.drawNumber = d.drawId
+        WHERE l.ticketId != 0
+        ORDER BY o.created DESC
+         ";
+
+        $stmt = $connection->prepare($sql);
+        $result = $stmt->execute();
+        $qb = $result->fetchAll();
+
+        return $qb;
+    }
+
+    public function findgridsInThisDraw($drawId){
+        return $this->createQueryBuilder('l')
+        ->where("l.ticketId != 0 and l.isWon is null")
+        ->getQuery()
+        ->getResult();
     }
 
     
