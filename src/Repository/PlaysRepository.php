@@ -360,6 +360,15 @@ class PlaysRepository extends EntityRepository
 
     }
 
+    public function LastDrawTickets($drawId){
+        return $this->createQueryBuilder('l')
+        ->select('count(l)')
+        ->where("l.ticketId != 0 and l.ticketId is not null and l.drawNumber = {$drawId}")
+        ->getQuery()
+        ->getSingleScalarResult();
+
+    }
+
     public function CompletedTicketsCountThisMonth(){
         $current_time=date("Y-m-d",strtotime("+1 day"));
         $onemonth = date("Y-m-d", strtotime("-1 months"));
@@ -396,12 +405,12 @@ class PlaysRepository extends EntityRepository
         return $qb;
     }
 
-    public function findAllLastTickets(){
+    public function findAllLastTickets($drawId){
         $connection = $this->getEntityManager()->getConnection();
         $sql = "select
-        l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.zeednumbers,l.gridSelected
+        l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.zeednumbers,l.gridSelected,l.drawNumber
         FROM suyool_loto.orders o LEFT JOIN suyool_loto.loto l ON o.id = l.order_id LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId LEFT JOIN suyool_loto.draws d ON l.drawNumber = d.drawId
-        WHERE l.ticketId != 0
+        WHERE l.ticketId != 0 and l.drawNumber = {$drawId}
         ORDER BY o.created DESC
          ";
 

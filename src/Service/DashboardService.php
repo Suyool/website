@@ -12,17 +12,19 @@ use Doctrine\Persistence\ManagerRegistry;
 class DashboardService 
 {
 
-    public function LotoDashboard($LotoRepository){
+    public function LotoDashboard($LotoRepository,$drawId){
         $parameters = array();
        $count = $LotoRepository->getRepository(loto::class)->CompletedTicketsCount();
        $thismonth=$LotoRepository->getRepository(loto::class)->CompletedTicketsCountThisMonth();
        $TotalAmount=number_format($LotoRepository->getRepository(loto::class)->CompletedTicketsSumAmount());
        $resultArray=$LotoRepository->getRepository(order::class)->CountStatusTickets();
+       $lastdrawTickets = $LotoRepository->getRepository(loto::class)->LastDrawTickets($drawId);
        $parameters=[
         'count'=>$count,
         'thismonth'=>$thismonth,
         'TotalAmount'=>$TotalAmount,
-        'resultArray'=>$resultArray
+        'resultArray'=>$resultArray,
+        'lastdraw'=>$lastdrawTickets
        ];
 
        return $parameters;

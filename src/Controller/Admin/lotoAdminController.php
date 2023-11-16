@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\ConfigureMenuItems\ConfigureMenuItems;
 use App\Entity\Loto\loto;
+use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\order;
 use App\Form\SearchLotoFormType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -134,12 +135,15 @@ class lotoAdminController extends AbstractController
      */
     public function getAllLastDrawTickets(){
 
-        $LastTickets=$this->mr->getRepository(loto::class)->findAllLastTickets();
-        $parameters['count']=count($LastTickets);
-
-        $parameters['lastTickets']=$LastTickets;
-
-        dd($parameters);
+        $drawId=$this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+        $currentPage=$this->request->get('page',1);
+        $LastTickets=$this->mr->getRepository(loto::class)->findAllLastTickets($drawId->getdrawId());
+        $pagination=$this->pagination->paginate(
+            $LastTickets,
+            $currentPage,
+            20
+        );
+        $parameters['pagination']=$pagination;
 
         return $this->render('Admin/Loto/lasttickets.html.twig',$parameters);
     }

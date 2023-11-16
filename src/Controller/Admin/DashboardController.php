@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Admin;
+use App\Entity\Loto\LOTO_draw;
 use App\Service\DashboardService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,8 @@ class DashboardController extends AbstractController
     public function indexAction(Request $request)
     {
         $dashboard = new DashboardService();
-        $loto=$dashboard->LotoDashboard($this->LotoRepository);
+        $drawId=$this->LotoRepository->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+        $loto=$dashboard->LotoDashboard($this->LotoRepository,$drawId->getdrawId());
         $alfa=$dashboard->AlfaDashboard($this->alfaRepository);
         $touch=$dashboard->TouchDashboard($this->touchRepository);
         $support=$dashboard->SupportDashboard($this->supportRepository);

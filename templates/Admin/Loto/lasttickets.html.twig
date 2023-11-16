@@ -4,16 +4,13 @@
 
 
 {% block content  %}
-	{{ form_start(form) }}
-	{{ form_row(form.status) }}
-	{{form_row(form.amount)}}
-	{{ form_end(form) }}
 	<table class="table">
 		<thead>
 			<tr>
 				<th>OrderId</th>
 				<th>Suyooler</th>
 				<th>TicketId</th>
+                <th>Draw number</th>
 				<th>gridSelected</th>
                 <th>zeednumbers</th>
 				<th>Created</th>
@@ -21,18 +18,16 @@
 		</thead>
 		<tbody>
 
-			{% for order in pagination  %}
+			{% for tickets in pagination  %}
 				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
-				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %} {% if order.greenFlag is defined and order.redFlag is not defined  %} greenFlag {% endif %} " onclick="window.location.href='{{path('admin_loto_tickets',{'id':order.id})}}'">
-					<td>{{ order.id }}</td>
-					<td>{{ order.fname }} {{ order.lname }}</td>
-					<td>{{ order.status }}</td>
-					{# <td>{{ order.subscription }}</td> #}
-					<td>{{ order.amount }}</td>
-					<td>{{ order.transId }}</td>
-					<td>{{ order.currency }}</td>
-					<td>{{order.error}}</td>
-					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+				<tr class="pointer">
+					<td>{{ tickets.id }}</td>
+					<td>{{ tickets.fname }} {{ tickets.lname }}</td>
+					<td>{{ tickets.ticketId }}</td>
+                    <td>{{ tickets.drawNumber }}</td>
+					<td>{{ tickets.gridSelected|split('|')|join('<br>')|raw }}</td>
+					<td>{{tickets.zeednumbers}}</td>
+					<td>{{ tickets.created|date("Y-m-d H:i:s") }}</td>
 				</tr>
 				{# </a> #}
 			{% endfor %}
@@ -43,6 +38,6 @@
 		{{ knp_pagination_render(pagination) }}
 	</div>
 	{% if pagination.getItems() == null %}
-		<div class="orderEmpty">Order empty</div>
+		<div class="orderEmpty">Tickets empty</div>
 	{% endif %}
 {% endblock %}
