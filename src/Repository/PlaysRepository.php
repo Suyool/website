@@ -414,7 +414,7 @@ class PlaysRepository extends EntityRepository
 
     public function findgridsInThisDraw($drawId){
         return $this->createQueryBuilder('l')
-        ->where("l.ticketId != 0 and l.isWon is null")
+        ->where("l.drawNumber = {$drawId} and l.ticketId != 0 and l.isWon is null")
         ->getQuery()
         ->getResult();
     }

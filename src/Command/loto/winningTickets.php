@@ -144,8 +144,7 @@ class winningTickets extends Command
                 $listWinners[] = ['UserAccountID' => (int)$getUsersWhoWon['UserAccountID'], 'Amount' => (float)$Amount, 'Currency' => 'LBP', 'OrderID' => $orders, 'TicketID' => $tickets];
             }
 
-            // $response = $this->suyoolServices->PushUserPrize($listWinners);
-            $response = array(false);
+            $response = $this->suyoolServices->PushUserPrize($listWinners);
             if ($response[0]) {
                 $data = json_decode($response[1], true);
                 $this->logger->debug(json_encode($data));
