@@ -68,7 +68,7 @@ class RTPController extends AbstractController
         }
         $parameters['amount'] = $amount[1] ;
         $this->session->set("request_details_response", $parameters['request_details_response']);
-
+        $this->session->set('amountwcurrency',$parameters['request_details_response']['amount']);
         $this->session->set('amount',$parameters['amount']);
         $this->session->set('currency',$parameters['currency']);
 

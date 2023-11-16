@@ -24,8 +24,33 @@ id: "{{ session }}"
 		</script>
 		<div class="loaderTopUp">
 			<div class="desktopMode desktop-logo">
-				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" class="topiveri"/>
+				{# <img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" class="topiveri"/> #}
+				<div class="how_to_send_money">
+			{% if app.session.get('image') is defined and 
+			app.session.get('image') is not null and 
+			app.session.get('image') != "" 
+			%}
+				<img class="user_img" src="{{app.session.get('image')}}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
+			{% endif %}
+			<span class="user_name">
+				{% if app.session.get('SenderInitials') is defined %}
+					{{app.session.get('SenderInitials')}}
+				{% else %}
+					{{ 'FNAME_LNAME'|trans }}
+				{% endif %}
+			</span>
+			<span class="methode">&nbsp;{{ 'IS_REQUESTING'|trans }}</span>
+			<span class="amount">
+				{% if app.session.get('amountwcurrency') is defined %}
+					{{app.session.get('amountwcurrency')}}
+				{% else %}
+					{{'PRICE'|trans}}
+				{% endif %}
+			</span>
+			<br>
+		</div>
 			</div>
+			<div class="">
 			{% if topup is  defined and topup == "true" %}
 				<div class="mobheader">
 					<div class="back">

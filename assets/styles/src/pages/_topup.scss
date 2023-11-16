@@ -7,6 +7,44 @@
     }
 }
 .loaderTopUp {
+    .desktop-logo{
+        position: relative;
+        background-image: url('../../../images/payment/nonsuyooler-flow-suyool-cover-desktop.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        min-height: 181px;
+    }
+    .how_to_send_money{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+    .user_img {
+        padding: 36px;
+        width: 185px;
+        border-radius: 50%;
+        height: 185px;
+        // margin-left: 60px;
+        object-fit: cover;
+    }
+    .methode {
+        font-size: 40px;
+        font-family: $Regular;
+        padding-top: 5px;
+    }
+    .user_name {
+        font-size: 40px;
+        font-family: $Bold;
+        font-weight: bold;
+    }
+
+    .amount {
+        font-size: 60px;
+        font-family: $Bold;
+        font-weight: bold;
+        padding: 0 20px;
+    }
     text-align: center;
 
     .topiveri {
@@ -38,7 +76,7 @@
     }
 
     // background-color: #767676;
-    height: 100vh;
+    height: 125vh;
     overflow: hidden;
     background-color: #F1F3F5;
 
@@ -51,7 +89,7 @@
             height: auto;
         }
 
-        height: 53%;
+        height: 500px;
     }
 
     #submitTopUp {
