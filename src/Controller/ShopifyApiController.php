@@ -66,10 +66,10 @@ class ShopifyApiController extends AbstractController
 
         $checkAmount = $shopifyServices->getShopifyOrder($orderId, $appKey, $appPass, $hostname);
 
-        $shopifyAmount = $checkAmount['transactions']['0']['amount'];
-        $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
+//        $shopifyAmount = $checkAmount['transactions']['0']['amount'];
+//        $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
 
-        if ($resAmount == 0) {
+        if ($checkAmount) {
             $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
             if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {

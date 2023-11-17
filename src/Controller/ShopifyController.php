@@ -26,8 +26,8 @@ class ShopifyController extends AbstractController
     public function handleRequest(Request $request): Response
     {
         $orderID = $request->query->get('order_id');
-        $totalPrice = $request->query->get('Merc_id');
-        $totalPrice = base64_decode($totalPrice)/100;
+//        $totalPrice = $request->query->get('Merc_id');
+//        $totalPrice = base64_decode($totalPrice)/100;
         $url = $request->query->get('url');
         $domain = $request->query->get('domain');
         $errorUrl = $request->query->get('error_url');
@@ -44,13 +44,12 @@ class ShopifyController extends AbstractController
         foreach($credentials as $credential){
             if($credential->getDomain() == $hostname){
                 $merchantId = $credential->getMerchantId();
-                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
+                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'env' => $env, 'merchant_id' => $merchantId));
                 $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
 
                 $order = new $orderClass();
                 $order->setOrderId($orderID);
                 $order->setShopName($domain);
-                $order->setAmount($totalPrice);
                 $order->setCurrency($currency);
                 $order->setCallbackUrl($url);
                 $order->setErrorUrl($errorUrl);
@@ -63,7 +62,6 @@ class ShopifyController extends AbstractController
 
                 if ($existingOrder) {
                     // Update the existing order
-                    $existingOrder->setAmount($totalPrice);
                     $existingOrder->setCurrency($currency);
                     $existingOrder->setCallbackUrl($url);
                     $existingOrder->setErrorUrl($errorUrl);
