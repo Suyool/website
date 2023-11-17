@@ -114,13 +114,13 @@ class lotoAdminController extends AbstractController
     public function exportToExcel()
     {
         $file_name="winners_".date('Y-m-d').".xls";
-        $fields=array('OrderId','Suyooler','ticketId','Loto winning numbers','Zeed winning numbers','winLoto','winZeed','winningStatus','Created');
+        $fields=array('OrderId','Suyooler','ticketId','Draw Number','Loto winning numbers','Zeed winning numbers','winLoto','winZeed','winningStatus','Created');
         $excelData = implode("\t",array_values($fields)) . "\n";
 
         $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
         foreach($winningTickets as $winningTickets)
         {
-            $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['numbers'],$winningTickets['zeednumber1'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
+            $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['drawNumber'],$winningTickets['numbers'],$winningTickets['zeednumber1'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
             $excelData .= implode("\t",array_values($lineData)) . "\n";
         }
 
