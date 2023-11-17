@@ -6,6 +6,7 @@ use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\order;
 use App\Entity\Support;
+use App\Entity\topup\orders;
 use App\Entity\Touch\Order as TouchOrder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -74,6 +75,17 @@ class DashboardService
         $countMessage=$supportRepository->getRepository(Support::class)->CountSupports();
        $parameters=[
         'messageCount'=>$countMessage
+       ];
+
+       return $parameters;
+
+    }
+
+    public function PaymentDashboard($paymentRepository){
+        $parameters = array();
+        $resultArray=$paymentRepository->getRepository(orders::class)->CountStatus();
+       $parameters=[
+        'statusCount'=>$resultArray
        ];
 
        return $parameters;

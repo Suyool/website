@@ -141,8 +141,15 @@
 							</div>
 						</div>
 						<div class="col-xs-6 col-sm-4 placeholder text-center">
-							<div class="dashborder" onclick="window.location.href='{{path('admin_users')}}'">
-								<h4>Iveri</h4>
+							<div class="dashborder" onclick="window.location.href='{{path('admin_payment_orders')}}'">
+								<h4>Payment</h4>
+								{% for key,value in payment.statusCount %}
+									<a href="">
+										Orders
+										{{key}}:{{value}}
+									</a>
+									<br>
+								{% endfor %}
 							</div>
 						</div>
 

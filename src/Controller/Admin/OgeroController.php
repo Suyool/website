@@ -25,7 +25,7 @@ class OgeroController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/ogero/landLine", name="admin_ogero_landLine")
+     * @Route("admin/ogero/landLine", name="admin_ogero_landLine")
      */
     public function getLandLine(Request $request,PaginatorInterface $paginator): Response
     {
@@ -44,7 +44,7 @@ class OgeroController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/ogero/landLineRequest", name="admin_ogero_landLineReqest")
+     * @Route("admin/ogero/landLineRequest", name="admin_ogero_landLineReqest")
      */
     public function getLandLineRequest(Request $request,PaginatorInterface $paginator): Response
     {
@@ -63,7 +63,7 @@ class OgeroController extends AbstractController
     }
 
     /**
-     * @Route("dashadmin/ogero/orders", name="admin_ogero_orders")
+     * @Route("admin/ogero/orders", name="admin_ogero_orders")
      */
     public function getOrders(Request $request,PaginatorInterface $paginator): Response
     {
