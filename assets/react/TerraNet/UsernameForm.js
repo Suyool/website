@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow }) => {
+const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow,setHeaderTitle }) => {
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setHeaderTitle("Pay Landline Bill");
         setBackLink("");
     }, []);
 
@@ -13,7 +14,10 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
     const handleUsernameSubmit = () => {
         setLoading(true);
 
-
+        localStorage.setItem(
+            "UserAccount",
+            inputValue
+        );
         axios
             .post("/terraNet/get_accounts", { username: inputValue })
             .then((response) => {
@@ -22,8 +26,14 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                     setModalName("ErrorModal");
                     setErrorModal({
                         img: "/build/images/alfa/error.png",
-                        title: "Error",
-                        desc: response.data.return,
+                        title: "Account Not Found",
+                        desc: (
+                            <div>
+                                The Username you entered was not found in the system.
+                                <br />
+                                Kindly try another one.
+                            </div>
+                        ),
                         btn: "OK",
                     });
                     setModalShow(true);

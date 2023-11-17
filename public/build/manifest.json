@@ -10,6 +10,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/TerraNet.js": "/build/TerraNet.945ba3c2.js",
   "build/styles.css": "/build/styles.a18e2ce0.css",
 =======
@@ -20,6 +21,9 @@
 =======
   "build/TerraNet.js": "/build/TerraNet.8666bd66.js",
 >>>>>>> 9356720c (do the original flow)
+=======
+  "build/TerraNet.js": "/build/TerraNet.eb0445ee.js",
+>>>>>>> b64d868e (design and functionality changes with hassan)
   "build/styles.css": "/build/styles.e31a0c75.css",
 >>>>>>> 488aefa1 (fix flow)
   "build/admin.css": "/build/admin.1ee767bc.css",
@@ -29,7 +33,7 @@
   "build/TouchStyle.css": "/build/TouchStyle.0a61bc4c.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.301fc34f.css",
   "build/iveristyles.css": "/build/iveristyles.2de240eb.css",
-  "build/terraNetstyle.css": "/build/terraNetstyle.b073d204.css",
+  "build/terraNetstyle.css": "/build/terraNetstyle.045b70e4.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",

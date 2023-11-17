@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow }) => {
+const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow,setHeaderTitle }) => {
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setHeaderTitle("Pay Landline Bill");
         setBackLink("");
     }, []);
 
@@ -25,7 +26,10 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                 number = "0" + number;
             }
         }
-
+        localStorage.setItem(
+            "UserAccount",
+            number
+        );
         return number;
     };
 
@@ -44,7 +48,13 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                     setErrorModal({
                         img: "/build/images/alfa/error.png",
                         title: "Error",
-                        desc: response.data.return,
+                        desc: (
+                            <div>
+                                The number you entered was not found in the system.
+                                <br />
+                                Kindly try another number.
+                            </div>
+                        ),
                         btn: "OK",
                     });
                     setModalShow(true);
@@ -71,15 +81,13 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                 Enter your landline number to recharge
             </div>
             <div className="MobileNbContainer mt-3">
-                {isInputLetter ? null : (
                     <div className="place">
                         <img src="/build/images/alfa/flag.png" alt="flag" />
                         <div className="code">+961</div>
                     </div>
-                )}
                 <input
-                    type="text"
-                    className={`nbInput${isInputLetter ? ' w-100' : ''}`}
+                    type="tel"
+                    className={`nbInput`}
                     placeholder="Landline Number"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}

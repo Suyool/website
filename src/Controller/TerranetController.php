@@ -87,7 +87,11 @@ class TerranetController extends AbstractController
                     $response = "No Available Products";
                 }
             } else {
-                $response = "Invalid Accounts";
+                $response = "
+                The number you entered was not found in the system.
+                Kindly try another one.
+              ";
+
                 $flag = 2;
 
             }
@@ -102,13 +106,14 @@ class TerranetController extends AbstractController
     /**
      * @Route("/terraNet/refill_customer_terranet", name="terranet_refill_customer")
      */
-    public function refillCustomerTerranet(Request $request)
+    public function refillCustomerTerranet(Request $request,NotificationServices $notificationServices)
     {
         $requestData = $request->getContent();
         $data = json_decode($requestData, true);
         if (!empty($data)) {
             $amount = $data['productPrice'];
             $currency = $data['productCurrency'];
+            $description = $data['productDescription'];
             $suyoolUserId = $this->session->get('suyoolUserId');
             $PPPLoginName = $this->session->get('PPPLoginName');
             //$PPPLoginName = 'L314240';
@@ -143,6 +148,14 @@ class TerranetController extends AbstractController
                         $IsSuccess = true;
                         $additionalDataArray[] = ['suyoolUserId' => $suyoolUserId];
                         $additionalData = json_encode($additionalDataArray, true);
+                        $content = $notificationServices->getContent('terranetLandlineRecharged');
+                        $bulk = 0;
+                        $params = json_encode([
+                            'amount' => $amount,
+                            'userAccount' => $PPPLoginName,
+                            'type' => $description
+                        ]);
+                        $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
 
                         $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transID);
                         if ($updateUtility) {

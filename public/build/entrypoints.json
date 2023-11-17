@@ -51,7 +51,7 @@
     "TerraNet": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/TerraNet.8666bd66.js"
+        "/build/TerraNet.eb0445ee.js"
       ]
     },
     "styles": {
@@ -123,7 +123,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/terraNetstyle.b073d204.css"
+        "/build/terraNetstyle.045b70e4.css"
       ]
     }
   }

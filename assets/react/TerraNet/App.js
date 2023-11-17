@@ -71,6 +71,7 @@ const App = ({ parameters }) => {
                             setModalShow={setModalShow}
                             setErrorModal={setErrorModal}
                             setModalName={setModalName}
+                            setHeaderTitle={setHeaderTitle}
 
                         />
                     )}
@@ -82,6 +83,7 @@ const App = ({ parameters }) => {
                             setModalShow={setModalShow}
                             setErrorModal={setErrorModal}
                             setModalName={setModalName}
+                            setHeaderTitle={setHeaderTitle}
 
                         />
                     )}
@@ -93,6 +95,8 @@ const App = ({ parameters }) => {
                                 setSelectedProduct={setSelectedProduct}
                                 setActiveButton={setActiveButton}
                                 setBackLink={setBackLink}
+                                setHeaderTitle={setHeaderTitle}
+
                             />
                         </div>
                     )}
@@ -108,6 +112,7 @@ const App = ({ parameters }) => {
                             activeButton={activeButton}
                             parameters={parameters}
                             setBackLink={setBackLink}
+                            setHeaderTitle={setHeaderTitle}
                         />
                     )}
                 </>

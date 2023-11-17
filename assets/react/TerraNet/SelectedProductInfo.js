@@ -10,11 +10,13 @@ const SelectedProductInfo = ({
                                  setErrorModal,
                                  setSuccessModal,
                                  setModalName,
+                                 setHeaderTitle
                              }) => {
+
     useEffect(() => {
+        setHeaderTitle("Buy DSL Package");
         setBackLink("inputValue");
     }, []);
-
     const [getPrepaidVoucher, setPrepaidVoucher] = useState({
         Price: "",
         Currency: "",
@@ -51,6 +53,8 @@ const SelectedProductInfo = ({
                         productId: getPrepaidVoucher.ProductId,
                         productPrice: getPrepaidVoucher.Price,
                         productCurrency: getPrepaidVoucher.Currency,
+                        productDescription: getPrepaidVoucher.Description,
+
                     })
                     .then((response) => {
                         console.log(response);
@@ -111,6 +115,12 @@ const SelectedProductInfo = ({
                     .catch((error) => {
                         console.error("Payment error:", error);
                     });
+            }else if (message == "failed") {
+                setSpinnerLoader(false);
+                setIsButtonDisabled(false);
+                setPaymentSuccess(false);
+                setIsOverlayVisible(false);
+
             }
         };
     };
@@ -127,7 +137,7 @@ const SelectedProductInfo = ({
                                 <button
                                     onClick={() => {
                                         setPaymentSuccess(false);
-                                        // setPaymentConfirmation(false);
+                                        setIsOverlayVisible(false);
                                     }}
                                 >
                                     Cancel
@@ -136,28 +146,31 @@ const SelectedProductInfo = ({
                         </div>
 
                         <div className="bodySection">
-                            <img
-                                className="logoImg"
-                                src="/build/images/terraNet/terraNetLogo.png"
-                                alt="alfaLogo"
-                            />
-                            <div className="bigTitle">Terranet Bill Payment</div>
-                            <div className="descriptio">
-                                {selectedProduct.Description}
+                            <div className="row align-items-center w-100">
+                                <div className="col-auto p-0">
+                                    <img
+                                        className="logoImg pt-3"
+                                        src="/build/images/terraNet/terraNetLogo.png"
+                                        alt="alfaLogo"
+                                    />
+                                </div>
+                                <div className="col ps-0">
+                                    <div className="bigTitle">Terranet Bill Payment</div>
+                                    <div className="descriptio text-start pt-2">
+                                        {selectedProduct.Description}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="smlDesc">
-                                <img
-                                    className="question"
-                                    src={`/build/images/alfa/attention.svg`}
-                                    alt="question"
-                                    style={{ verticalAlign: "baseline" }}
-                                />
-                                &nbsp;Terranet only accepts payments in LBP
-                            </div>
-                            <div className="br"></div>
 
                             <div className="paymentConfirmation">
                                 <div className="MyBundleBody">
+                                    <div className="MoreInfo">
+                                        <div className="label">Account</div>
+                                        <div className="value">
+                                            {localStorage.getItem("UserAccount")}
+                                        </div>
+                                    </div>
+                                    <div className="br"></div>
                                     <div className="MoreInfo">
                                         <div className="label">Total before taxes</div>
                                         <div className="value">
@@ -187,11 +200,11 @@ const SelectedProductInfo = ({
                                 </div>
                                 <button
                                     id="ContinueBtn"
-                                    className="btnCont"
+                                    className="btnCont mt-4"
                                     onClick={handleConfirmPay}
                                     disabled={isButtonDisabled}
                                 >
-                                    Pay Now
+                                    Confirm & Pay
                                 </button>
                             </div>
                         </div>
@@ -226,7 +239,7 @@ const SelectedProductInfo = ({
                     <div className="mainTitle">
                         The package related to your landline is:
                     </div>
-                    <div className="mainDesc">{selectedProduct?.Description}</div>
+                    <div className="mainDesc text-center fw-bold my-3 fs-6">{selectedProduct?.Description}</div>
 
                     <img
                         className="BundleBigImg"
@@ -272,7 +285,7 @@ const SelectedProductInfo = ({
                 </div>
                 <button
                     id="ContinueBtn"
-                    className="btnCont"
+                    className="btnCont mt-5"
                     onClick={() => {
                         setPaymentSuccess(true);
                         setPrepaidVoucher({
