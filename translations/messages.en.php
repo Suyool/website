@@ -95,7 +95,7 @@ return [
     "SEND_MONEY_TO_ANYONE_IN_LEBANON" => "Pay to a Lebanese mobile number, withdraw cash, transfer abroad, pay at merchants, settle your bills, and use your Debit Card locally or internationally. It’s your money…your choice!",
     "SUYOOL_PLATINUM_MASTERCARD" => "Suyool Debit Card® With Exclusive Privileges",
     "A_DEBIT_CARD_THAT_YOU_CAN_CONTROL_FROM_YOUR_SUYOOL_APP" => "A debit card that you can control from your Suyool app, in addition to all of the ",
-    "MASTERCARD_PLATINUM_BENEFITS" => "Platinum Benefits.",
+    "MASTERCARD_PLATINUM_BENEFITS" => "Master Platinum Benefits.",
     "INTERNATIONALLY_LOCALLY_ACCEPTED" => "Free for USJ employees",
     "FULL_CONTROL_OF_YOUR_CARD" => "Internationally & locally accepted",
     "PLATINUM_MASTERCARD_TRAVEL" => "Accepted In-store & Online.",
