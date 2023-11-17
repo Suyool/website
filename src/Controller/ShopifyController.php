@@ -6,6 +6,7 @@ use App\Entity\Shopify\ShopifyInstallation;
 use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
+use App\Service\ShopifyServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,13 +24,18 @@ class ShopifyController extends AbstractController
     /**
      * @Route("/shopify/", name="app_shopify_handle_request")
      */
-    public function handleRequest(Request $request): Response
+    public function handleRequest(Request $request,ShopifyServices $shopifyServices): Response
     {
         $orderID = $request->query->get('order_id');
-//        $totalPrice = $request->query->get('Merc_id');
-//        $totalPrice = base64_decode($totalPrice)/100;
-        $url = $request->query->get('url');
         $domain = $request->query->get('domain');
+
+        $hostname = Helper::getHost($domain);
+        $merchantCredentials = $shopifyServices->getCredentials(Helper::getHost($domain));
+        $appKey = $merchantCredentials['appKey'];
+        $appPass = $merchantCredentials['appPass'];
+        $checkShopifyOrder = $shopifyServices->getShopifyOrder($orderID, $appKey, $appPass, $hostname);
+        $totalPrice = $checkShopifyOrder['transactions']['0']['amount'];
+        $url = $request->query->get('url');
         $errorUrl = $request->query->get('error_url');
         $currency = $request->query->get('currency');
         $env = $request->query->get('env');
@@ -44,12 +50,13 @@ class ShopifyController extends AbstractController
         foreach($credentials as $credential){
             if($credential->getDomain() == $hostname){
                 $merchantId = $credential->getMerchantId();
-                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'env' => $env, 'merchant_id' => $merchantId));
+                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
                 $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
 
                 $order = new $orderClass();
                 $order->setOrderId($orderID);
                 $order->setShopName($domain);
+                $order->setAmount($totalPrice);
                 $order->setCurrency($currency);
                 $order->setCallbackUrl($url);
                 $order->setErrorUrl($errorUrl);
@@ -62,6 +69,7 @@ class ShopifyController extends AbstractController
 
                 if ($existingOrder) {
                     // Update the existing order
+                    $existingOrder->setAmount($totalPrice);
                     $existingOrder->setCurrency($currency);
                     $existingOrder->setCallbackUrl($url);
                     $existingOrder->setErrorUrl($errorUrl);
