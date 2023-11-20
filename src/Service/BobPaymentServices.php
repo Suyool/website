@@ -143,7 +143,7 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
-        if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
+        if ($status == "CAPTURED") {
             $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
@@ -232,7 +232,7 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
-        if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
+        if ($status == "CAPTURED") {
             $amount = number_format($session->getOrders()->getamount());
             $status = true;
             $imgsrc = "build/images/Loto/success.png";
@@ -341,7 +341,7 @@ class BobPaymentServices
         $transaction->setStatus($status);
         $this->mr->persist($transaction);
         $this->mr->flush();
-        if ($status == "CAPTURED" && $auth == "AUTHENTICATION_SUCCESSFUL") {
+        if ($status == "CAPTURED") {
             $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
