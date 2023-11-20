@@ -67,10 +67,11 @@ class RTPController extends AbstractController
             return $this->redirectToRoute("homepage");
         }
         $parameters['amount'] = $amount[1] ;
+        $parameters['currencyInAbb'] = $amount[0] ;
         $this->session->set("request_details_response", $parameters['request_details_response']);
         $this->session->set('amountwcurrency',$parameters['request_details_response']['amount']);
         $this->session->set('amount',$parameters['amount']);
-        $this->session->set('currency',$parameters['currency']);
+        $this->session->set('currencyInAbb',$parameters['currencyInAbb']);
 
         $this->session->set("Code", $code);
         $this->session->set(
