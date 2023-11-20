@@ -7,33 +7,8 @@
   "build/Touch.js": "/build/Touch.b99ea282.js",
   "build/Ogero.js": "/build/Ogero.6cc9251a.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/TerraNet.js": "/build/TerraNet.945ba3c2.js",
-  "build/styles.css": "/build/styles.a18e2ce0.css",
-=======
-  "build/TerraNet.js": "/build/TerraNet.9a639f98.js",
-=======
-  "build/TerraNet.js": "/build/TerraNet.8f09a412.js",
->>>>>>> fb0e8f8d (fix redireciton back, overlay in pay now)
-=======
-  "build/TerraNet.js": "/build/TerraNet.8666bd66.js",
->>>>>>> 9356720c (do the original flow)
-=======
-  "build/TerraNet.js": "/build/TerraNet.eb0445ee.js",
->>>>>>> b64d868e (design and functionality changes with hassan)
-=======
-  "build/TerraNet.js": "/build/TerraNet.98e626c0.js",
->>>>>>> 3b4124ba (change currency format)
-=======
   "build/TerraNet.js": "/build/TerraNet.5b976578.js",
->>>>>>> 75571af0 (add product tabel and make join with orders,show orginal price)
-  "build/styles.css": "/build/styles.e31a0c75.css",
->>>>>>> 488aefa1 (fix flow)
+  "build/styles.css": "/build/styles.a18e2ce0.css",
   "build/admin.css": "/build/admin.1ee767bc.css",
   "build/Lotostyles.css": "/build/Lotostyles.d0fe5e72.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
