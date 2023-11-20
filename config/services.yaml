@@ -126,6 +126,9 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'topup' }
 
+    App\Service\TerraNetService:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'terraNet' }
 
 
         
