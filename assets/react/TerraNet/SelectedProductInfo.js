@@ -22,6 +22,9 @@ const SelectedProductInfo = ({
         Currency: "",
         Description: "",
         ProductId: "",
+        Cost: "",
+        OriginalHT: "",
+
     });
 
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -48,12 +51,15 @@ const SelectedProductInfo = ({
 
         window.handleCheckout = (message) => {
             if (message === "success") {
+                console.log(getPrepaidVoucher);
                 axios
                     .post("/terraNet/refill_customer_terranet", {
                         productId: getPrepaidVoucher.ProductId,
                         productPrice: getPrepaidVoucher.Price,
                         productCurrency: getPrepaidVoucher.Currency,
                         productDescription: getPrepaidVoucher.Description,
+                        productCost: selectedProduct?.Cost,
+                        productOriginalHT: selectedProduct?.OriginalHT,
 
                     })
                     .then((response) => {

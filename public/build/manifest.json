@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/TerraNet.js": "/build/TerraNet.945ba3c2.js",
   "build/styles.css": "/build/styles.a18e2ce0.css",
 =======
@@ -28,6 +29,9 @@
 =======
   "build/TerraNet.js": "/build/TerraNet.98e626c0.js",
 >>>>>>> 3b4124ba (change currency format)
+=======
+  "build/TerraNet.js": "/build/TerraNet.5b976578.js",
+>>>>>>> 75571af0 (add product tabel and make join with orders,show orginal price)
   "build/styles.css": "/build/styles.e31a0c75.css",
 >>>>>>> 488aefa1 (fix flow)
   "build/admin.css": "/build/admin.1ee767bc.css",

@@ -50,6 +50,25 @@ class Order
      */
     private $error;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\TerraNet\Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
     public function getId()
     {
         return $this->id;

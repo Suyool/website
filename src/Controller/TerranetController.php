@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\TerraNet\Order;
+use App\Entity\TerraNet\Product;
 use App\Service\DecryptService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -40,7 +41,7 @@ class TerranetController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        //$_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = DecryptService::decrypt($_POST['infoString']);
@@ -121,12 +122,26 @@ class TerranetController extends AbstractController
             $flagCode = null;
 
             if ($suyoolUserId != null) {
+
+                $product = new Product();
+                $product->setProductId((int) $ProductId);
+                $product->setDescription((string) $description);
+                $product->setPrice((float) $amount);
+                $product->setCost((float) $data['productCost']);
+                $product->setOriginalHT((float) $data['productOriginalHT']);
+                $product->setCurrency((string) $data['productCurrency']);
+
                 $order = new Order();
                 $order->setsuyoolUserId($suyoolUserId);
                 $order->setstatus("pending");
                 $order->setamount($amount);
                 $order->setcurrency($currency);
+                $order->setProduct($product);
 
+                $product->setOrder($order);
+                $product->setOrderId($order->getId());
+
+                $this->mr->persist($product);
                 $this->mr->persist($order);
                 $this->mr->flush();
 
