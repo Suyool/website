@@ -11,6 +11,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/TerraNet.js": "/build/TerraNet.945ba3c2.js",
   "build/styles.css": "/build/styles.a18e2ce0.css",
 =======
@@ -24,6 +25,9 @@
 =======
   "build/TerraNet.js": "/build/TerraNet.eb0445ee.js",
 >>>>>>> b64d868e (design and functionality changes with hassan)
+=======
+  "build/TerraNet.js": "/build/TerraNet.98e626c0.js",
+>>>>>>> 3b4124ba (change currency format)
   "build/styles.css": "/build/styles.e31a0c75.css",
 >>>>>>> 488aefa1 (fix flow)
   "build/admin.css": "/build/admin.1ee767bc.css",

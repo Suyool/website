@@ -30,7 +30,7 @@ const ProductList = ({ products, setActiveButton, setSelectedProduct,setHeaderTi
                         />
                         <div className="gridDesc">
                             <div className="Price">
-                               LBP {parseInt(product.Price).toLocaleString()}
+                               L.L {parseInt(product.Price).toLocaleString()}
                             </div>
                             <div className="bundleName">{product.Description}</div>
                         </div>
