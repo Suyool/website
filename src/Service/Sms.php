@@ -110,11 +110,8 @@ class Sms
     {
         try {
             $this->soapSmsObject->vbIdTime = time();
-//			echo "<pre>";print_r($this->soapSmsObject);
             $result = $this->client->unicast($this->soapSmsObject);
-
         } catch (SoapFault $fault) {
-//			echo "<pre>".$fault."</pre>";
             $this->logIt($fault->__toString());
             return false;
         }
@@ -128,11 +125,8 @@ class Sms
     private function sendBroadcast($text, $recipients)
     {
         try {
-//			echo "<pre>";print_r($this->soapSmsObject);
             $result = $this->client->broadcast($this->soapSmsObject);
-
         } catch (SoapFault $fault) {
-//			echo "<pre>".$fault."</pre>";
             $this->logIt($fault->__toString());
             return false;
         }
@@ -141,7 +135,6 @@ class Sms
         }
         $this->logIt($result);
         return false;
-
     }
 
     private function validateResponse($response)
@@ -150,8 +143,6 @@ class Sms
         if (strlen($response) > 0) {
             $response = substr($response, 0, 1);
             if ($response == 0) {
-//				echo "<br>Response:\n" . $this->client->__getLastResponse() . "<br>";
-//				echo "<pre>";print_r($this);echo "</pre>";
                 $return = true;
             }
         }
@@ -182,7 +173,6 @@ class Sms
 
     private function getUnicodeOfSpecialCharacters($text)
     {
-
         $replace = array(
             '\u' => '',
             '\n' => '000A',
@@ -215,55 +205,37 @@ class Sms
             '~' => '007E',
             '{' => '007B',
             '}' => '007D'
-
         );
-
         $message = strtr($text, $replace);
-
         return $message;
-
     }
 
     private function encodeSMS($title)
     {
-
         $title = str_replace("\"", "", $title);
         $title = str_replace("&quot;", "", $title);
         $title = str_replace("&#39;", "", $title);
-
         $title = str_replace(array(), array(), $title);
-
         $title = str_replace(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), array('#0,', '#1,', '#2,', '#3,', '#4,', '#5,', '#6,', '#7,', '#8,', '#9,'), $title);
-
         $title = str_replace(array('#0,', '#1,', '#2,', '#3,', '#4,', '#5,', '#6,', '#7,', '#8,', '#9,'), array('0030', '0031', '0032', '0033', '0034', '0035', '0036', '0037', '0038', '0039'), $title);
-
         foreach (range('a', 'z') as $i) {
             $char = ord($i);
             $char = dechex($char);
             $char = "00" . $char;
-
             $title = str_replace($i, $char, $title);
         }
-
         $title = str_replace(array("�", "�"), "e", $title);
-
         foreach (range('A', 'Z') as $i) {
             $char = ord($i);
             $char = dechex($char);
             $char = "00" . $char;
-
             $title = str_replace($i, $char, $title);
         }
-
         $title = iconv("windows-1256", "utf-8", $title);
-
         $title = json_encode($title);
-
         $title = str_replace(array('"', '\u', ' ', ':', '.', ',', '-'),
             array('', '', '0020', '003A', '002E', '002C', '002D',), $title);
-
         $title = $this->getUnicodeOfSpecialCharacters($title);
-
         return $title;
     }
 
@@ -271,13 +243,11 @@ class Sms
     {
         if (strlen($title) > 280) {
             $header = "050003c8";
-
             if (strlen($title) < 536) {
                 $part1 = substr($title, 0, 268);
                 $part1 = $header . "0201" . $part1;
                 $part2 = substr($title, 268, 268);
                 $part2 = $header . "0202" . $part2;
-
                 $title = $part1 . $part2;
             } elseif (strlen($title) > 536 && strlen($title) < 805) {
                 $part1 = substr($title, 0, 268);
@@ -286,7 +256,6 @@ class Sms
                 $part2 = $header . "0302" . $part2;
                 $part3 = substr($title, 536, 268);
                 $part3 = $header . "0303" . $part3;
-
                 $title = $part1 . $part2 . $part3;
             } else {
                 $this->logIt("Wrong title length : " . strlen($title) . " article (" . $this->soapSmsObject->vbIdTime . ") not sent.");

@@ -19,19 +19,15 @@ class winningTickets extends Command
 {
     private $mr;
     private $lotoServices;
-    private $sendEmail;
     private $notificationServices;
-    private $notifyMr;
     private $suyoolServices;
     private $logger;
-    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, sendEmail $sendEmail, NotificationServices $notificationServices, SuyoolServices $suyoolServices, LoggerInterface $logger)
+    public function __construct(ManagerRegistry $mr, LotoServices $lotoServices, NotificationServices $notificationServices, SuyoolServices $suyoolServices, LoggerInterface $logger)
     {
         parent::__construct();
         $this->lotoServices = $lotoServices;
         $this->mr = $mr->getManager('loto');
-        $this->sendEmail = $sendEmail;
         $this->notificationServices = $notificationServices;
-        $this->notifyMr = $mr->getManager('notification');
         $this->suyoolServices = $suyoolServices;
         $this->logger = $logger;
     }
@@ -59,18 +55,17 @@ class winningTickets extends Command
         $winningBallsZeed['prize2'] = $getLastResults->getzeednumber2();
         $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
         $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
-        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]); //get the grids played in this draw
-
-        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);
+        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);//get the grids played in this draw
         // dd($getGridsinThisDraw);
         foreach ($getGridsinThisDraw as $gridsTobeUpdated) {
             $loto=0;
             $zeed=0;
+            //call api history details of each ticketId to get if this ticket is won 
             $winning=$this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
             foreach($winning['d']['grids'] as $winning)
             {
-                $loto += $winning['lotoWinnings'];
-                $zeed += $winning['zeedWinnings'];
+                $loto += $winning['lotoWinnings']; // if the ticket have many grid add the loto sum
+                $zeed += $winning['zeedWinnings']; // if the ticket have many grid add the zeed sum
             }
             if($loto != 0 || $zeed != 0){
                 $gridsTobeUpdated->setisWon(true);
