@@ -169,9 +169,9 @@ class ShopifyApiController extends AbstractController
     }
 
     /**
-     * @Route("/update_status/{order_id}", name="app_update_status")
+     * @Route("/update_status/{order_id}/{merchant_id}", name="app_update_status")
      */
-    public function updateStatus(Request $request, $order_id, ShopifyServices $shopifyServices)
+    public function updateStatus(Request $request, $order_id,$merchant_id, ShopifyServices $shopifyServices)
     {
         $data = $request->request->all();
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
@@ -179,7 +179,8 @@ class ShopifyApiController extends AbstractController
         if ($flag !== null) {
 
             $ordersRepository = $this->mr->getRepository(Orders::class);
-            $orders = $ordersRepository->findBy(['orderId' => $order_id]);
+            $orders = $ordersRepository->findOneBy(['orderId' => $order_id, 'merchantId' => $merchant_id]);
+
             $order = $orders[0];
 
             if ($flag == '1') {
