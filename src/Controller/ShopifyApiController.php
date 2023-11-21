@@ -169,7 +169,7 @@ class ShopifyApiController extends AbstractController
     }
 
     /**
-     * @Route("/update_status/{order_id}/{merchant_id}", name="app_update_status")
+     * @Route("/update_status/{order_id}/{merchant_id}", name="app_update_status",methods="POST")
      */
     public function updateStatus(Request $request, $order_id,$merchant_id, ShopifyServices $shopifyServices)
     {
