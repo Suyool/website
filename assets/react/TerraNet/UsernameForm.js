@@ -18,6 +18,12 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
             "UserAccount",
             inputValue
         );
+
+        localStorage.setItem(
+            "Type",
+            "username"
+        );
+
         axios
             .post("/terraNet/get_accounts", { username: inputValue })
             .then((response) => {

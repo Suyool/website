@@ -30,6 +30,10 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
             "UserAccount",
             number
         );
+        localStorage.setItem(
+            "Type",
+            "Landline"
+        );
         return number;
     };
 

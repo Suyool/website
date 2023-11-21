@@ -52,6 +52,8 @@ const SelectedProductInfo = ({
         window.handleCheckout = (message) => {
             if (message === "success") {
                 console.log(getPrepaidVoucher);
+                var type = localStorage.getItem("Type")
+
                 axios
                     .post("/terraNet/refill_customer_terranet", {
                         productId: getPrepaidVoucher.ProductId,
@@ -60,6 +62,7 @@ const SelectedProductInfo = ({
                         productDescription: getPrepaidVoucher.Description,
                         productCost: selectedProduct?.Cost,
                         productOriginalHT: selectedProduct?.OriginalHT,
+                        accountType: type,
 
                     })
                     .then((response) => {
