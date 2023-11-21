@@ -28,7 +28,7 @@ class BobPaymentServices
     private $logger;
     private $notificationServices;
 
-    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices,NotificationServices $notificationServices)
+    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $this->client = $client;
         if ($_ENV['APP_ENV'] == "dev") {
@@ -44,12 +44,12 @@ class BobPaymentServices
         $this->mr = $mr->getManager('topup');
         $this->suyoolServices = $suyoolServices;
         $this->logger = $logger;
-        $this->notificationServices=$notificationServices;
+        $this->notificationServices = $notificationServices;
     }
 
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        try{
+        try {
             $order = new orders;
             $order->setstatus(orders::$statusOrder['PENDING']);
             $order->setsuyoolUserId($suyooler);
@@ -58,7 +58,7 @@ class BobPaymentServices
             $order->setcurrency($currency);
             $this->mr->persist($order);
             $this->mr->flush();
-    
+
             // $currency == "USD" ? $amount = number_format($amount,2) : $amount;
             $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
             $this->session->remove('order');
@@ -92,7 +92,7 @@ class BobPaymentServices
                 ],
                 'auth_basic' => [$this->username, $this->password],
             ]);
-    
+
             $content = $response->toArray(false);
             // dd($content);
             $session = new session;
@@ -103,11 +103,9 @@ class BobPaymentServices
             $this->mr->persist($session);
             $this->mr->flush();
             return array(true, $content['session']['id'], $order);
-        }catch(Exception $e)
-        {
+        } catch (Exception $e) {
             return array(false);
         }
-        
     }
 
     public function RetrievePaymentDetails()
@@ -144,7 +142,11 @@ class BobPaymentServices
         $this->mr->flush();
         $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
         if ($status == "CAPTURED") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+            $order = $session->getOrders();
+            $order->setstatus(orders::$statusOrder['PAID']);
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->gettransId(), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+            $this->mr->persist($order);
+            $this->mr->flush();
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -164,7 +166,7 @@ class BobPaymentServices
                     'button' => $button,
                     'infoSuccess' => true
                 ];
-                $order = $session->getOrders();
+                // $order = $session->getOrders();
                 $order->setstatus(orders::$statusOrder['COMPLETED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
@@ -187,10 +189,10 @@ class BobPaymentServices
                     'button' => $button,
                     'infoFailed' => true
                 ];
-                $order = $session->getOrders();
-                $order->setstatus(orders::$statusOrder['CANCELED']);
-                $this->mr->persist($order);
-                $this->mr->flush();
+                // $order = $session->getOrders();
+                // $order->setstatus(orders::$statusOrder['CANCELED']);
+                // $this->mr->persist($order);
+                // $this->mr->flush();
                 return array(true, $parameters);
             }
         } else {
@@ -239,7 +241,6 @@ class BobPaymentServices
             $title = "Money Added Succesfully";
             $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
             $button = "Continue";
-
             $parameters = [
                 'status' => $status,
                 'title' => $title,
@@ -330,7 +331,7 @@ class BobPaymentServices
         return array(true, $content['session']['id'], $order);
     }
 
-    public function retrievedataForTopUpRTP($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber,$phone,$senderId)
+    public function retrievedataForTopUpRTP($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber, $phone, $senderId)
     {
         // echo $indicator;
         $parameters = array();
@@ -342,7 +343,11 @@ class BobPaymentServices
         $this->mr->persist($transaction);
         $this->mr->flush();
         if ($status == "CAPTURED") {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+            $order = $session->getOrders();
+            $order->setstatus(orders::$statusOrder['PAID']);
+            $this->mr->persist($order);
+            $this->mr->flush();
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -367,7 +372,7 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['COMPLETED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $params = json_encode(['currency' => $currency, 'amount' => $topup[1],'nonsuyooler'=>$phone]);
+                $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $phone]);
                 $content = $this->notificationServices->getContent('CardTopUpRtp');
                 $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
                 return array(true, $parameters);
@@ -386,10 +391,10 @@ class BobPaymentServices
                     'button' => $button,
                     'redirect' => $this->session->get('Code')
                 ];
-                $order = $session->getOrders();
-                $order->setstatus(orders::$statusOrder['CANCELED']);
-                $this->mr->persist($order);
-                $this->mr->flush();
+                // $order = $session->getOrders();
+                // $order->setstatus(orders::$statusOrder['CANCELED']);
+                // $this->mr->persist($order);
+                // $this->mr->flush();
                 return array(true, $parameters);
             }
         } else {
@@ -416,7 +421,7 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['CANCELED']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                
+
                 return array(true, $parameters);
             } else {
                 $this->logger->error(json_encode($topup));
@@ -444,7 +449,7 @@ class BobPaymentServices
 
     public function SessionRTPFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        try{
+        try {
             $order = new orders;
             $order->setstatus(orders::$statusOrder['PENDING']);
             $order->setsuyoolUserId($suyooler);
@@ -485,7 +490,7 @@ class BobPaymentServices
                 ],
                 'auth_basic' => [$this->username, $this->password],
             ]);
-    
+
             $content = $response->toArray(false);
             // dd($content);
             // print_r($content);
@@ -497,9 +502,8 @@ class BobPaymentServices
             $this->mr->persist($session);
             $this->mr->flush();
             return array(true, $content['session']['id'], $order);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return array(false);
         }
-        
     }
 }

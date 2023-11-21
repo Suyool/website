@@ -114,7 +114,6 @@ class TopupController extends AbstractController
     {
         try {
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
                 if($bobRetrieveResultSession[1]['status'] != "CAPTURED"){
