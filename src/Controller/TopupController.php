@@ -42,7 +42,7 @@ class TopupController extends AbstractController
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
         try {
-            // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
+            $this->suyoolServices->UpdateCardTopUpTransaction(12764,3,"12764","3990000.00","LBP","8367");
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
