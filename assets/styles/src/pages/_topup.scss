@@ -189,12 +189,14 @@
 }
 
 .loaderTopUp2 {
+    position: relative;
+    top: -50px;
     .paymentsend {
         font-family: $Bold;
     }
 
     .ensurethat {
-        padding-bottom: 15px;
+        padding-bottom: 40px;
         padding-top: 25px;
         font-family: $Regular;
     }

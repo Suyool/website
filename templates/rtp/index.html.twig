@@ -42,7 +42,7 @@
 			{% endif %}
 		</div>
 		<div class="container how_to_pay">
-			<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName}}</div>
+			<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName  | split(' ', 2)[0] }}</div>
 			{% if request_details_response.allowAppDownload  is defined and 
 				request_details_response.allowAppDownload  != "false" and 
 				request_details_response.allowAppDownload  is not null 
@@ -133,7 +133,7 @@
 		<div class="container how_to_pay">
 			{% if request_details_response.allowAppDownload  is defined and request_details_response.allowAppDownload  != "false"
 		and request_details_response.allowAppDownload  is not null %}
-				<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName}}
+				<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName  | split(' ', 2)[0] }}
 					</div>
 				<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
 					<div class="row">

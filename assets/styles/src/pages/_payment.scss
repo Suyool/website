@@ -77,6 +77,7 @@
             border: 1px solid #DEDEDE;
             margin-bottom: 25px;
             background-color: white;
+            border-radius: 15px;
 
             .logo_container {
                 display: flex;
@@ -114,7 +115,7 @@
             color: #373464;
             font-family: $Bold;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 20px;
             text-decoration: underline;
         }
     }
