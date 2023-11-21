@@ -144,7 +144,7 @@ class BobPaymentServices
         if ($status == "CAPTURED") {
             $order = $session->getOrders();
             $order->setstatus(orders::$statusOrder['PAID']);
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->gettransId(), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $this->mr->persist($order);
             $this->mr->flush();
             $transaction->setflagCode($topup[2]);
@@ -347,7 +347,7 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
