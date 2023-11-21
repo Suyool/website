@@ -46,7 +46,7 @@ class TopupController extends AbstractController
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
-                if($bobRetrieveResultSession[1]['status'] != "CAPTURED"){
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                     echo '<script type="text/javascript">',
                     ' if (navigator.userAgent.match(/Android/i)) {
                             window.AndroidInterface.callbackHandler("GoToApp");
@@ -54,11 +54,10 @@ class TopupController extends AbstractController
                             window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
                           }',
                     '</script>';
-                }else{
+                } else {
                     $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
                     return $this->render('topup/topup.html.twig', $topUpData[1]);
                 }
-             
             }
             // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
             // dd($_POST['infoString']);
@@ -116,29 +115,27 @@ class TopupController extends AbstractController
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
-                if($bobRetrieveResultSession[1]['status'] != "CAPTURED"){
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                     return $this->redirectToRoute("app_rtptopup");
-                }else{
+                } else {
                     $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'));
                     return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
                 }
-                
             }
 
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $senderName = $sessionInterface->get('SenderInitials');
-
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
             $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
-            // dd($bobpayment);
-            if($bobpayment[0] == false){
+            if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }
             $parameters = [
                 // 'topup'=>true,
                 'session' => $bobpayment[1],
-                'sender' => $senderName
+                'sender' => $senderName,
+                'fees'=> $data['TotalAmount'] - $sessionInterface->get('amount')
             ];
 
             return $this->render('topup/topuprtp.html.twig', $parameters);
@@ -155,6 +152,9 @@ class TopupController extends AbstractController
     #[Route('/ToTheAPP', name: 'app_ToTheAPP')]
     public function ToTheAPP(Request $request)
     {
+
+        $response = new Response();
+
         echo '<script type="text/javascript">',
         ' if (navigator.userAgent.match(/Android/i)) {
                 window.AndroidInterface.callbackHandler("GoToApp");
@@ -162,5 +162,9 @@ class TopupController extends AbstractController
                 window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
               }',
         '</script>';
+
+        $response->setStatusCode(Response::HTTP_OK);
+
+        return $response;
     }
 }

@@ -80,7 +80,7 @@ class BobPaymentServices
                     "currency" => $currency,
                     "id" => $transId,
                     "amount" => $amount,
-                    "description" => "ordered goods"
+                    "description" => " "
                 ]
             ];
             // print_r($body);
