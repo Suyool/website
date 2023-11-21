@@ -48,6 +48,8 @@ Encore
     .addStyleEntry('TouchStyle', './assets/styles/src/react/Touch.scss')
     .addStyleEntry('OgeroStyle', './assets/styles/src/react/Ogero.scss')
     .addStyleEntry('iveristyles', './assets/styles/src/react/Iveri.scss')
+    .addStyleEntry('terraNetstyle', './assets/styles/src/react/TerraNet.scss')
+
     // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
     // .addEntry('app', './assets/app.js')
     // .addEntry('app', './assets/react/index.js')
@@ -59,6 +61,8 @@ Encore
     .addEntry('Touch', './assets/react/Touch/index.js')
     .addEntry('Ogero', './assets/react/Ogero/index.js')
     .addEntry('iveri','./assets/react/Iveri/index.js')
+    .addEntry('TerraNet','./assets/react/TerraNet/index.js')
+
     // .addEntry('admin', './assets/admin.js')
 //    .addEntry('app', ['./assets/js/common.js','./assets/js/breakingNews.js','./assets/js/adCounter.js'])
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

@@ -19,6 +19,7 @@ parameters:
     TOUCH_POSTPAID_MERCHANT_ID: '4'
     TOUCH_PREPAID_MERCHANT_ID: '5'
     OGERO_MERCHANT_ID: '6'
+    TERRANET_MERCHANT_ID: '7'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
     METHOD_POST: 'POST'
@@ -125,6 +126,9 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'topup' }
 
+    App\Service\TerraNetService:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'terraNet' }
 
 
         
