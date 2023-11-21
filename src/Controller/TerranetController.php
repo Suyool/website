@@ -154,7 +154,8 @@ class TerranetController extends AbstractController
                     $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
 
                     $orderupdate
-                        ->setstatus(Order::$statusOrder['HELD']);
+                        ->setstatus(Order::$statusOrder['HELD'])
+                        ->settransId($checkBalance[1]);
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
