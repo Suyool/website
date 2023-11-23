@@ -179,7 +179,7 @@ class ShopifyApiController extends AbstractController
         if ($flag !== null) {
 
             $ordersRepository = $this->mr->getRepository(Orders::class);
-            $order = $ordersRepository->findOneBy(['orderId' => $data['TransactionID'], 'merchantId' => $data['MerchantID']]);
+            $order = $ordersRepository->findOneBy(['orderId' => $data['TransactionID'], 'merchantId' => $data['MerchantAccountID']]);
 
             if ($flag == '1') {
                 $currency = $order->getCurrency();
