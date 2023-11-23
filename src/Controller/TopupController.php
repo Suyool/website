@@ -88,13 +88,22 @@ class TopupController extends AbstractController
                     ($suyoolUserInfoForTopUp[2] == "USD")?$currency="$":$currency="LL";
                     $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
                     $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
-                    $parameters = [
-                        'topup' => true,
-                        'session' => $bobpayment[1],
-                        'fee'=>$suyoolUserInfoForTopUp[4],
-                        'beforefee'=>$suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
-                        'currency'=>$currency
-                    ];
+                    if(isset($suyoolUserInfoForTopUp[4])){
+                        $parameters = [
+                            'topup' => true,
+                            'session' => $bobpayment[1],
+                            'fee'=>$suyoolUserInfoForTopUp[4],
+                            'beforefee'=>$suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
+                            'currency'=>$currency
+                        ];
+                    }else{
+                        $parameters = [
+                            'topup' => true,
+                            'session' => $bobpayment[1],
+                            'currency'=>$currency
+                        ];
+                    }
+                    
 
                     return $this->render('topup/topup.html.twig', $parameters);
                 } else {
