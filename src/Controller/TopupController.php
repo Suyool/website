@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -40,76 +41,130 @@ class TopupController extends AbstractController
     #[Route('/topup', name: 'app_topup')]
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
-        $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-        if ($bobRetrieveResultSession[0] == true) {
-            $sessionInterface->remove('order');
+        try {
+            // $this->suyoolServices->UpdateCardTopUpTransaction(10564,3,"70-10564","21000000.00","LBP","0149");
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+                    echo '<script type="text/javascript">',
+                    ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                          } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                          }',
+                    '</script>';
+                } else {
+                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                    return $this->render('topup/topup.html.twig', $topUpData[1]);
+                }
+            }
+            // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
+            // dd($_POST['infoString']);
+            if (isset($_POST['infoString'])) {
 
-            $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
-            return $this->render('topup/topup.html.twig', $topUpData[1]);
-        }
+                if ($_POST['infoString'] == "")
+                    return $this->render('ExceptionHandling.html.twig');
 
-        // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
-        // dd($_POST['infoString']);
-        if (isset($_POST['infoString'])) {
+                $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
+                $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
+                $suyoolUserInfo = explode("!#!", $decrypted_string);
+                $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
 
-            if ($_POST['infoString'] == "")
-                return $this->render('ExceptionHandling.html.twig');
+                if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                    $parameters = array();
+                    $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
+                    if ($bobpayment[0] == false) {
+                        echo '<script type="text/javascript">',
+                        ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                        } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                        }',
+                        '</script>';
+                    }
+                    $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
+                    $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
+                    $parameters = [
+                        'topup' => true,
+                        'session' => $bobpayment[1]
+                    ];
 
-            $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
-            $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
-            $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
-
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $parameters = array();
-                $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
-                $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
-                $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
-                $parameters = [
-                    'topup' => true,
-                    'session' => $bobpayment[1]
-                ];
-
-                return $this->render('topup/topup.html.twig', $parameters);
+                    return $this->render('topup/topup.html.twig', $parameters);
+                } else {
+                    return $this->render('ExceptionHandling.html.twig');
+                }
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
-        } else {
-            return $this->render('ExceptionHandling.html.twig');
+        } catch (Exception $e) {
+            echo '<script type="text/javascript">',
+            ' if (navigator.userAgent.match(/Android/i)) {
+                window.AndroidInterface.callbackHandler("GoToApp");
+              } else {
+                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+              }',
+            '</script>';
         }
     }
 
     #[Route('/topupRTP', name: 'app_rtptopup')]
     public function rtpTopUp(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
-        try{
+        try {
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
-                // dd($bobRetrieveResultSession);
-                $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
-                return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+                    return $this->redirectToRoute("app_rtptopup");
+                } else {
+                    $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'));
+                    return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
+                }
             }
-    
+
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
             $senderName = $sessionInterface->get('SenderInitials');
-            // dd($nonSuyooler);
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
             $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
+            if ($bobpayment[0] == false) {
+                return $this->redirectToRoute("homepage");
+            }
             $parameters = [
                 // 'topup'=>true,
                 'session' => $bobpayment[1],
-                'sender'=>$senderName
+                'sender' => $senderName,
+                'fees'=> $data['TotalAmount'] - $sessionInterface->get('amount')
             ];
-    
+
             return $this->render('topup/topuprtp.html.twig', $parameters);
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            if ($request->headers->get('referer') == null) {
+                return $this->redirectToRoute("homepage");
+            } else {
+                return new RedirectResponse($request->headers->get('referer'));
+            }
         }
-        catch(\Exception $e){
-            return new RedirectResponse($request->headers->get('referer'));
-        }
-       
+    }
+
+    #[Route('/ToTheAPP', name: 'app_ToTheAPP')]
+    public function ToTheAPP(Request $request)
+    {
+
+        $response = new Response();
+
+        echo '<script type="text/javascript">',
+        ' if (navigator.userAgent.match(/Android/i)) {
+                window.AndroidInterface.callbackHandler("GoToApp");
+              } else {
+                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+              }',
+        '</script>';
+
+        $response->setStatusCode(Response::HTTP_OK);
+
+        return $response;
     }
 }

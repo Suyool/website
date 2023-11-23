@@ -55,8 +55,8 @@ class RTPController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
-        // dd($parameters['request_details_response']);
         $parameters['currency'] = "LBP";
+        // dd($parameters['request_details_response']);
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
         $amount = explode(" ", $parameters['request_details_response']['amount']);
@@ -67,10 +67,11 @@ class RTPController extends AbstractController
             return $this->redirectToRoute("homepage");
         }
         $parameters['amount'] = $amount[1] ;
+        $parameters['currencyInAbb'] = $amount[0] ;
         $this->session->set("request_details_response", $parameters['request_details_response']);
-
+        $this->session->set('amountwcurrency',$parameters['request_details_response']['amount']);
         $this->session->set('amount',$parameters['amount']);
-        $this->session->set('currency',$parameters['currency']);
+        $this->session->set('currencyInAbb',$parameters['currencyInAbb']);
 
         $this->session->set("Code", $code);
         $this->session->set(
@@ -86,9 +87,9 @@ class RTPController extends AbstractController
                 : ''
         );
         $this->session->set(
-            "SenderInitials",
-            isset($parameters['request_details_response']['senderName'])
-                ? $parameters['request_details_response']['senderName']
+            "SenderId",
+            isset($parameters['request_details_response']['senderId'])
+                ? $parameters['request_details_response']['senderId']
                 : ''
         );
         $this->session->set(
@@ -143,6 +144,12 @@ class RTPController extends AbstractController
             "ReceiverPhone",
             isset($additionalData['ReceiverPhone'])
                 ? $additionalData['ReceiverPhone']
+                : ''
+        );
+        $this->session->set(
+            "SenderPhone",
+            isset($additionalData['Senderphone'])
+                ? $additionalData['Senderphone']
                 : ''
         );
         if (isset($additionalData['AuthenticationCode']) || $parameters['request_details_response']['respCode'] == 1) {

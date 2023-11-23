@@ -1,0 +1,10 @@
+<svg id="Component_2_7" data-name="Component 2 – 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="67" viewBox="0 0 375 67">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#226d96"/>
+      <stop offset="1" stop-color="#373464"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_19876" data-name="Rectangle 19876" width="375" height="67" fill="url(#linear-gradient)"/>
+  <path id="Path_10707" data-name="Path 10707" d="M144.689,98.1l9-9V84.166l-4.26,4.26q-.3-.5-.659-.974l4.919-4.919V77.6l-7.364,7.364a13.316,13.316,0,0,0-8.011-2.633,12.671,12.671,0,0,0-13,12.914,13.042,13.042,0,0,0,2.707,8.018l-6.31,6.31v4.934l8.841-8.841q.479.346.987.645l-9.829,9.829v4.934L126.5,116.3a12.967,12.967,0,0,0,10.6,5.28A12.95,12.95,0,0,0,144.689,98.1Zm-3.661,3.661a7.564,7.564,0,0,1,4.12,6.9,7.77,7.77,0,0,1-8.053,7.832,7.926,7.926,0,0,1-6.99-3.8Zm-6.829.263,10.984-10.984a7.543,7.543,0,0,1,.558,1.074L135.32,102.539A7.9,7.9,0,0,1,134.2,102.028Zm-2.592-2.342a7.876,7.876,0,0,1,6.711-12.271,8.422,8.422,0,0,1,4.376,1.185Z" transform="translate(50.281 -67.287)" fill="#fff"/>
+</svg>

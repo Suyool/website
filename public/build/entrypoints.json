@@ -15,7 +15,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.b080bbea.js"
+        "/build/Loto.7ce7343f.js"
       ]
     },
     "LegalEnrollement": {
@@ -48,12 +48,18 @@
         "/build/iveri.429e5515.js"
       ]
     },
+    "TerraNet": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/TerraNet.fa150b3d.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.c33d210d.css"
+        "/build/styles.cbfe5aad.css"
       ]
     },
     "admin": {
@@ -69,7 +75,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.c4e01bc7.css"
+        "/build/Lotostyles.d0fe5e72.css"
       ]
     },
     "LegalEnrollementStyle": {
@@ -110,6 +116,14 @@
       ],
       "css": [
         "/build/iveristyles.2de240eb.css"
+      ]
+    },
+    "terraNetstyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/terraNetstyle.045b70e4.css"
       ]
     }
   }

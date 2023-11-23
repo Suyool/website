@@ -22,7 +22,7 @@ return [
     "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Payez à un numéro mobile libanais, retirez des espèces, transférez à l’étranger, payez chez les marchands, réglez vos factures, et utilisez votre Mastercard localement ou à l’international. À vous de choisir !",
     "SUYOOL_PLATINUM_MASTERCARD"=>"Suyool Debit Card® Avec des Privilèges Exclusifs",
     "A_DEBIT_CARD_THAT_YOU_CAN_CONTROL_FROM_YOUR_SUYOOL_APP"=>"Gérez votre carte directement depuis Suyool App en temps réel et bénéficiez également de tous ",
-    "MASTERCARD_PLATINUM_BENEFITS"=>"les avantages de la carte Mastercard Platinum.",
+    "MASTERCARD_PLATINUM_BENEFITS"=>"les avantages de la carte Platinum.",
     "INTERNATIONALLY_LOCALLY_ACCEPTED"=>"Gratuite pour les salariés de l’USJ",
     "FULL_CONTROL_OF_YOUR_CARD"=>"Acceptée au Liban et à l’international",
     "PLATINUM_MASTERCARD_TRAVEL"=>"Acceptée en ligne et en magasin",

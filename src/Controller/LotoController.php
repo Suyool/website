@@ -156,6 +156,7 @@ class LotoController extends AbstractController
 
             $parameters['prize_loto_perdays'] = $prize_loto_perdays;
             $parameters['prize_loto_result'] = $prize_loto_result;
+          
 
             return new JsonResponse([
                 'parameters' => $parameters

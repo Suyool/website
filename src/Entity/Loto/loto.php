@@ -73,16 +73,6 @@ class loto
     private $errorInfo;
 
     /**
-     * @ORM\Column(name="prizeLoto")
-     */
-    private $wonloto;
-
-    /**
-     * @ORM\Column(name="prizeZeed")
-     */
-    private $wonzeed;
-
-    /**
      * @ORM\Column(name="winLoto")
      */
     private $winloto;
@@ -91,6 +81,11 @@ class loto
      * @ORM\Column(name="winZeed")
      */
     private $winzeed;
+
+     /**
+     * @ORM\Column(name="isWon")
+     */
+    private $isWon;
 
     /**
      * @ORM\Column(type="string")
@@ -242,28 +237,6 @@ class loto
         return $this;
     }
 
-    public function getwonloto()
-    {
-        return $this->wonloto;
-    }
-
-    public function setwonloto($wonloto)
-    {
-        $this->wonloto = $wonloto;
-        return $this;
-    }
-
-    public function getwonzeed()
-    {
-        return $this->wonzeed;
-    }
-
-    public function setwonzeed($wonzeed)
-    {
-        $this->wonzeed = $wonzeed;
-        return $this;
-    }
-
     public function getwinloto()
     {
         return $this->winloto;
@@ -295,6 +268,17 @@ class loto
     public function getwinningStatus()
     {
         return $this->winningStatus;
+    }
+
+    public function setisWon($isWon)
+    {
+        $this->isWon = $isWon;
+        return $this;
+    }
+
+    public function getisWon()
+    {
+        return $this->isWon;
     }
 
     public function getCreated()

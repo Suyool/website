@@ -1,0 +1,41 @@
+<div class="topSectionAlfaEmp">
+    <div class="desktopMode"><img src="{{ asset('build/images/editec/editecDesktop.png') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/editec/editecTablet.png') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/editec/editecMobile.png') }}"></div>
+    <div class="container">
+        {# <div class="logos">
+            <img src="{{ asset('build/images/alfa_employee/suyool.png') }}">
+            <span>x</span>
+            <img src="{{ asset('build/images/alfa_employee/suyool.png') }}">
+        </div> #}
+
+        <div class="information">
+            <div class="title">
+                {{ 'EDITECBRINGINGYOURPAY'|trans|raw }}
+            </div>
+            <div class="desc">
+                {{ 'FACINGTODAYFINANCIALCHALLENGES'|trans|raw }}
+            </div>
+            <div class="OpenSuyoolAccount">
+                <div class="desktopMode">
+                    <button class="OpenYourSuyoolAccount" data-bs-toggle="modal" data-bs-target="#DownloadApp">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'elements/infoSection.html.twig' %}

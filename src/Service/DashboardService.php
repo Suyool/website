@@ -6,23 +6,26 @@ use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\order;
 use App\Entity\Support;
+use App\Entity\topup\orders;
 use App\Entity\Touch\Order as TouchOrder;
 use Doctrine\Persistence\ManagerRegistry;
 
 class DashboardService 
 {
 
-    public function LotoDashboard($LotoRepository){
+    public function LotoDashboard($LotoRepository,$drawId){
         $parameters = array();
        $count = $LotoRepository->getRepository(loto::class)->CompletedTicketsCount();
        $thismonth=$LotoRepository->getRepository(loto::class)->CompletedTicketsCountThisMonth();
        $TotalAmount=number_format($LotoRepository->getRepository(loto::class)->CompletedTicketsSumAmount());
        $resultArray=$LotoRepository->getRepository(order::class)->CountStatusTickets();
+       $lastdrawTickets = $LotoRepository->getRepository(loto::class)->LastDrawTickets($drawId);
        $parameters=[
         'count'=>$count,
         'thismonth'=>$thismonth,
         'TotalAmount'=>$TotalAmount,
-        'resultArray'=>$resultArray
+        'resultArray'=>$resultArray,
+        'lastdraw'=>$lastdrawTickets
        ];
 
        return $parameters;
@@ -72,6 +75,17 @@ class DashboardService
         $countMessage=$supportRepository->getRepository(Support::class)->CountSupports();
        $parameters=[
         'messageCount'=>$countMessage
+       ];
+
+       return $parameters;
+
+    }
+
+    public function PaymentDashboard($paymentRepository){
+        $parameters = array();
+        $resultArray=$paymentRepository->getRepository(orders::class)->CountStatus();
+       $parameters=[
+        'statusCount'=>$resultArray
        ];
 
        return $parameters;

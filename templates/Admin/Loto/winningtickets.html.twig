@@ -15,8 +15,11 @@
 				<th>OrderId</th>
                 <th>Suyooler</th>
 				<th>ticketId</th>
+				<th>Draw number</th>
 				<th>gridSelected</th>
 				<th>zeednumbers</th>
+				<th>Loto winning numbers</th>
+				<th>zeed winning numbers</th>
                 <th>winLoto</th>
                 <th>winZeed</th>
                 <th>winningStatus</th>
@@ -30,8 +33,11 @@
 					<td>{{ winningTickets.id }}</td>
 					<td>{{ winningTickets.fname }} {{ winningTickets.lname }}</td>
 					<td>{{ winningTickets.ticketId }}</td>
+					<td>{{ winningTickets.drawNumber }}</td>
 					<td>{{ winningTickets.gridSelected|split('|')|join('<br>')|raw  }}</td>
 					<td>{{ winningTickets.zeednumbers }}</td>
+					<td>{{ winningTickets.numbers }}</td>
+					<td>{{ winningTickets.zeednumber1 }}</td>
 					<td>{{ winningTickets.winLoto }}</td>
 					<td>{{winningTickets.winZeed}}</td>
                     <td>{{winningTickets.winningStatus}}</td>

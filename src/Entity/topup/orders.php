@@ -5,13 +5,13 @@ namespace App\Entity\topup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\PaymentRepository")
  * @ORM\Table(name="orders")
  */
 class orders
 {
 
-    public static $statusOrder = array("COMPLETED" => "completed", "PENDING" => "pending", "CANCELED" => "canceled","HELD"=>"held");
+    public static $statusOrder = array("COMPLETED" => "completed", "PENDING" => "pending", "CANCELED" => "canceled","HELD"=>"held",'PAID'=>"paid");
 
 
     /**

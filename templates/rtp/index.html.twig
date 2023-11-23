@@ -42,7 +42,7 @@
 			{% endif %}
 		</div>
 		<div class="container how_to_pay">
-			<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
+			<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName  | split(' ', 2)[0] }}</div>
 			{% if request_details_response.allowAppDownload  is defined and 
 				request_details_response.allowAppDownload  != "false" and 
 				request_details_response.allowAppDownload  is not null 
@@ -67,15 +67,14 @@
 					<a id="topUpButtonDesk" href="{{path('app_rtptopup')}}">
 						<div class="row">
 							<div class="col-md-3 col-2 logo_container">
-								<img class="logo" src="{{ asset('build/images/payment/pay_with_card.svg') }}">
+								<img class="logo" src="{{ asset('build/images/payment/pay_with_card_rtp.svg') }}">
 							</div>
 							<div class="col-md-9 col-10 text_container">
 								<div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
 								<div class="desc">{{ 'TOP_UP_YOUR_ACCOUNT_DESC'|trans }}</div>
-								<div class="sub-desc">
+								{# <div class="sub-desc">
 									{{request_details_response.cardtopupadditionalData}}
-								</div>
-
+								</div> #}
 							</div>
 						</div>
 					</a>
@@ -89,8 +88,8 @@
 							<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
 						</div>
 						<div class="col-md-9 col-10 text_container">
-							<div class="sub_title">Cash input</div>
-							<div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
+							<div class="sub_title">Pay at BOB Finance in Cash</div>
+							<div class="desc">Visit the nearest BOB Finance outlet & pay in cash</div>
 						</div>
 					</div>
 				</a>
@@ -99,6 +98,9 @@
 		</div>
 	</div>
 	<div class="tabletmobileMode">
+		<div class="mobile-logo">
+			<img src="{{asset('build/images/payment/mobiletop.svg')}}" alt="" width="100%">
+		</div>
 		<div class="container how_to_send_money">
 			{% if request_details_response.image is defined and request_details_response.image is not null and
 		request_details_response.image != "" %}
@@ -131,7 +133,8 @@
 		<div class="container how_to_pay">
 			{% if request_details_response.allowAppDownload  is defined and request_details_response.allowAppDownload  != "false"
 		and request_details_response.allowAppDownload  is not null %}
-				<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM'|trans}}</div>
+				<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName  | split(' ', 2)[0] }}
+					</div>
 				<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
 					<div class="row">
 						<div class="col-2 logo_container">
@@ -164,15 +167,14 @@
 					<a id="topUpButtonMob" href="{{path('app_rtptopup')}}">
 						<div class="row">
 							<div class="col-2 logo_container">
-								<img class="logo" src="{{ asset('build/images/payment/pay_with_card.jpg') }}">
+								<img class="logo" src="{{ asset('build/images/payment/pay_with_card_rtp.svg') }}">
 							</div>
 							<div class="col-10 text_container">
 								<div class="sub_title">{{ 'TOP_UP_ACCOUNT'|trans }}</div>
 								<div class="desc">{{ 'TOP_UP_YOUR_ACCOUNT_DESC'|trans }}</div>
-								<div class="sub-desc">
+								{# <div class="sub-desc">
 									{{request_details_response.cardtopupadditionalData}}
-								</div>
-
+								</div> #}
 							</div>
 						</div>
 					</a>
@@ -186,8 +188,8 @@
 							<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
 						</div>
 						<div class="col-10 text_container">
-							<div class="sub_title">Cash input</div>
-							<div class="desc">Visit the nearest BOB Finance & add money to their Suyool wallet</div>
+							<div class="sub_title">Pay at BOB Finance in Cash</div>
+							<div class="desc">Visit the nearest BOB Finance outlet & pay in cash</div>
 						</div>
 					</div>
 				</a>

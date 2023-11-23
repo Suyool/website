@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\ConfigureMenuItems\ConfigureMenuItems;
 use App\Entity\Loto\loto;
+use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\order;
 use App\Form\SearchLotoFormType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -113,13 +114,13 @@ class lotoAdminController extends AbstractController
     public function exportToExcel()
     {
         $file_name="winners_".date('Y-m-d').".xls";
-        $fields=array('OrderId','Suyooler','ticketId','winLoto','winZeed','winningStatus','Created');
+        $fields=array('OrderId','Suyooler','ticketId','Draw Number','Loto winning numbers','Zeed winning numbers','winLoto','winZeed','winningStatus','Created');
         $excelData = implode("\t",array_values($fields)) . "\n";
 
         $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
         foreach($winningTickets as $winningTickets)
         {
-            $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
+            $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['drawNumber'],$winningTickets['numbers'],$winningTickets['zeednumber1'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
             $excelData .= implode("\t",array_values($lineData)) . "\n";
         }
 
@@ -127,6 +128,24 @@ class lotoAdminController extends AbstractController
         header("Content-Disposition: attachment; filename=\"" .basename($file_name) ."\"");
         echo $excelData;
         exit();
+    }
+
+     /**
+     * @Route("admin/lastDrawTickets", name="admin_loto_lastdraw")
+     */
+    public function getAllLastDrawTickets(){
+
+        $drawId=$this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+        $currentPage=$this->request->get('page',1);
+        $LastTickets=$this->mr->getRepository(loto::class)->findAllLastTickets($drawId->getdrawId());
+        $pagination=$this->pagination->paginate(
+            $LastTickets,
+            $currentPage,
+            20
+        );
+        $parameters['pagination']=$pagination;
+
+        return $this->render('Admin/Loto/lasttickets.html.twig',$parameters);
     }
 
 }

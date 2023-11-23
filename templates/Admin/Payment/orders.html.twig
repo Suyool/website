@@ -1,0 +1,49 @@
+{% extends 'Admin/base.html.twig' %}
+
+    {% block content %}
+        {{ form_start(form) }}
+        {{ form_row(form.status) }}
+        {{form_row(form.transId)}}
+        {{ form_end(form) }}
+        <h1 class="mb-4">Orders</h1>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">suyoolUserId</th>
+                <th scope="col">transId</th>
+                <th scope="col">status</th>
+                <th scope="col">amount</th>
+                <th scope="col">currency</th>
+                <th scope="col">session</th>
+                <th scope="col">transactionStatus</th>
+                <th scope="col">flagCode</th>
+                <th scope="col">error</th>
+                <th scope="col">created</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+            <tr {% if order.status == 'completed' %}style="background-color:#a7ffb3;"{% elseif order.status == 'canceled' %}style="background-color:rgba(255,0,0,.3);"{% endif %}>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.suyoolUserId }}</td>
+                    <td>{{ order.transId}}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.currency }}</td>
+                    <td>{{ order.session }}</td>
+                    <td>{{ order.transactionStatus }}</td>
+                    <td>{{ order.flagCode }}</td>
+                    <td>{{ order.error }}</td>
+                    <td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(orders) }}
+        </div>
+    {% endblock %}
+    
+    

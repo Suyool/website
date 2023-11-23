@@ -8,7 +8,6 @@
 	{{ form_row(form.status) }}
 	{{form_row(form.amount)}}
 	{{ form_end(form) }}
-	<button id="btnExport" onclick="exportToExcel()">Export HTML Table</button>
 	<table class="table">
 		<thead>
 			<tr>
@@ -49,18 +48,4 @@
 	{% if pagination.getItems() == null %}
 		<div class="orderEmpty">Order empty</div>
 	{% endif %}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
-
-		<script type="text/javascript">
-		function exportToExcel() {
-			/* Get table element by id */
-			var table = document.querySelector(".table");
-	
-			/* Convert table to workbook */
-			var workbook = XLSX.utils.table_to_book(table);
-	
-			/* Save the workbook as an Excel file */
-			XLSX.writeFile(workbook, "exported_data.xlsx");
-		}
-</script>
 {% endblock %}

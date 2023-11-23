@@ -34,10 +34,10 @@ class Sms
     //	------------ Config values and properties ------------
     private $wsdl = 'https://e-barid.com/elbarid.wsdl';//https://elbarid.me/elbarid.wsdl
     //	Credentials
-    private $username = 'elnashra';
-    private $password = 'elnashra.sms';
+    private $username = 'suyool';
+    private $password = 'suy00l321';
     //  SMS properties
-    private $senderId = 'ElnashraCom';
+    private $senderId = 'Suyool';
     private $notify = '0';
     private $priority = '1';
     private $vbapp = 'EMG';

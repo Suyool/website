@@ -55,11 +55,11 @@ class winningTickets extends Command
             'Winning details send'
         ]);
 
-        $listWinners=[];
-        
+        $listWinners = [];
+
 
         $getLastResults = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'DESC']);
-        
+
         $drawId = $getLastResults->getdrawid();
         $winningBalls[] = $getLastResults->getnumbers();
         $winningBallsExplode[] = explode(",", $winningBalls[0]);
@@ -68,85 +68,68 @@ class winningTickets extends Command
         $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
         $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
 
-        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findBy(['drawNumber'=>$drawId]);
+        $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);
         // dd($getGridsinThisDraw);
-        foreach($getGridsinThisDraw as $gridsTobeUpdated){
-            $sum=0;
-            $keyInArray1=-1;
-            $result=[];
-            $won=null;
-                $gridSelected = $gridsTobeUpdated->getgridSelected();
-                $zeednumbers = $gridsTobeUpdated->getzeednumber();
-                // dd($zeednumbers);
-                for ($i = 0; $i < strlen($zeednumbers)-1; $i++) {
-                    $result[] = substr($zeednumbers, $i);
-                }
-                // dd($result);
-             
-                foreach($winningBallsZeed as $winningBallsZeeds){
-                    if(in_array($winningBallsZeeds,$result)){
-                        $keyInArray1 = array_search($winningBallsZeeds, $result,true);
-                        break;
-                    }
-                }
-                // dd($keyInArray1);
-            if ($keyInArray1 == 0 ) {
-                $prizezeed = 1;
-                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner1zeed());
-            } else if ($keyInArray1 == 1) {
-                $prizezeed = 2;
-                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner2zeed());
-            } else if ($keyInArray1 == 2) {
-                $prizezeed = 3;
-                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner3zeed());
-            } else if ($keyInArray1 == 3) {
-                $prizezeed = 4;
-                $gridsTobeUpdated->setwinzeed($getLastResults->getwinner4zeed());
-            } else {
-                $prizezeed = null;
+        foreach ($getGridsinThisDraw as $gridsTobeUpdated) {
+            $loto=0;
+            $zeed=0;
+            $winning=$this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
+            // $winning=[
+            //     "d" => [
+            //       "grids" => [
+            //         [
+            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
+            //           "zeedNumber" => "000-1",
+            //           "zeedWinnings" => 0,
+            //           "lotoWinnings" => 200000,
+            //           "gridValidation" => "8000-4403073",
+            //           "gridId" => 3945246,
+            //           "gridBalls" => "9 16 32 33 35 37",
+            //           "drawNumber" => 2155,
+            //           "gridPrice" => 50000,
+            //           "isFavorite" => null
+            //         ],
+            //          [
+            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
+            //           "zeedNumber" => "000-1",
+            //           "zeedWinnings" => 20000,
+            //           "lotoWinnings" => 0,
+            //           "gridValidation" => "8000-4403074",
+            //           "gridId" => 3945247,
+            //           "gridBalls" => "2 22 30 31 35 37",
+            //           "drawNumber" => 2155,
+            //           "gridPrice" => 50000,
+            //           "isFavorite" => null,
+            //          ],
+            //         [
+            //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
+            //           "zeedNumber" => "000-1",
+            //           "zeedWinnings" => 1150470,
+            //           "lotoWinnings" => 23500000,
+            //           "gridValidation" => "8000-4403075",
+            //           "gridId" => 3945248,
+            //           "gridBalls" => "10 25 26 28 39 41",
+            //           "drawNumber" => 2155,
+            //           "gridPrice" => 50000,
+            //           "isFavorite" => null,
+            //         ]
+            //     ]
+            //       ]];
+            foreach($winning['d']['grids'] as $winning)
+            {
+                $loto += $winning['lotoWinnings'];
+                $zeed += $winning['zeedWinnings'];
             }
-            $grids = explode("|", $gridSelected);
-                foreach ($grids as $Selectedgrids) {
-                    $count = 0;
-                    $SelectedgridsExplode = [];
-                    $SelectedgridsExplode[] = explode(" ", $Selectedgrids);
-
-                    $commonElements = array_intersect($winningBallsExplode[0],  $SelectedgridsExplode[0]);
-                    $count = count($commonElements);
-                    if ($count >= 6) {
-                        if (in_array($winningBallsExplode[0][6], $commonElements)) {
-                            $count=7; //for the second prize if we have the 6 number true but the last number is the idafe number
-                        }else{
-                            $count=6;
-                        }
-                    }
-                    if($count==3){
-                        $won=5;
-                        $sum+=$getLastResults->getwinner5();
-                        // $gridsTobeUpdated->setwinloto($sum);
-                    }else if($count==4){
-                        $won=4;
-                        $sum+=$getLastResults->getwinner4();
-                    }else if($count==5){
-                        $won=3;
-                        $sum+=$getLastResults->getwinner3();
-                    }else if($count==7){
-                        $won=2;
-                        $sum+=$getLastResults->getwinner2();
-                    }else if($count==6){
-                        $won=1;
-                        $sum+=$getLastResults->getwinner1();
-                    }else{
-                        $won=null;
-                    }
-                }
-            $gridsTobeUpdated->setwinloto($sum);
-            $gridsTobeUpdated->setwonloto($won);
-            $gridsTobeUpdated->setwonzeed($prizezeed);
+            if($loto != 0 || $zeed != 0){
+                $gridsTobeUpdated->setisWon(true);
+            }elseif($loto == 0 && $zeed ==0){
+                $gridsTobeUpdated->setisWon(false);
+            }
+            $gridsTobeUpdated->setwinloto($loto);
+            $gridsTobeUpdated->setwinzeed($zeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
-    }
-
+        }
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         // dd($getUsersWhoWon);
         $this->logger->debug(json_encode($getUsersWhoWon));
@@ -203,7 +186,7 @@ class winningTickets extends Command
                         }
                         $params = json_encode(['currency' => 'L.L', 'amount' => $data['Amount'], 'number' => $drawId]);
                         $content = $this->notificationServices->getContent('won loto added to suyool wallet');
-                        // $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0, "https://www.suyool.com/loto?goto=Result");
+                        $this->notificationServices->addNotification($data['UserAccountID'], $content, $params, 0, "https://www.suyool.com/loto?goto=Result");
                     }
                 }
             }
