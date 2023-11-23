@@ -95,6 +95,30 @@ class DeepLinksController extends AbstractController
         return new Response($redirectUrl);
 
     }
+
+    /**
+     * @Route("/update-app-merchant", name="updateAppMerchant")
+     */
+    public function updateAppMerchant(Request $request)
+    {
+        // Get the User-Agent header from the request
+        $userAgent = $request->headers->get('User-Agent');
+
+        // Check if the user agent contains "Android" to detect Android devices
+        if (strpos($userAgent, 'Android') !== false) {
+            // Redirect to the Google Play Store for Android
+            return new RedirectResponse('https://play.google.com/store/apps/details?id=com.suyool.suyoolapp');
+        }
+        // Check if the user agent contains "iPhone" or "iPad" to detect iOS devices
+        elseif (strpos($userAgent, 'iPhone') !== false || strpos($userAgent, 'iPad') !== false) {
+            // Redirect to the App Store for iOS
+            return new RedirectResponse('https://apps.apple.com/lb/app/suyool/id6450320657');
+        }
+        // If it's not a mobile device, redirect to suyool.com
+        else {
+            return new RedirectResponse('https://www.suyool.com');
+        }
+    }
 }
 
 
