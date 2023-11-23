@@ -107,7 +107,7 @@ class DeepLinksController extends AbstractController
         // Check if the user agent contains "Android" to detect Android devices
         if (strpos($userAgent, 'Android') !== false) {
             // Redirect to the Google Play Store for Android
-            return new RedirectResponse('https://play.google.com/store/apps/details?id=com.suyool.suyoolapp');
+            return new RedirectResponse('https://play.google.com/store/apps/details?id=com.elbarid.suyoolmerchant');
         }
         // Check if the user agent contains "iPhone" or "iPad" to detect iOS devices
         elseif (strpos($userAgent, 'iPhone') !== false || strpos($userAgent, 'iPad') !== false) {
