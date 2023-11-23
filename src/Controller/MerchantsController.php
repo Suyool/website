@@ -625,9 +625,9 @@ class MerchantsController extends AbstractController
         return $this->render('merchants/medco.html.twig',$parameters);
     }
 
-    /**
-     * @Route("/group-kallasi", name="kallasi")
-     */
+    // /**
+    //  * @Route("/group-kallasi", name="kallasi")
+    //  */
     public function kallasi(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
