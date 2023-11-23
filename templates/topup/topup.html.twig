@@ -9,8 +9,8 @@
 			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
 		{% endif %}
 		<script type="text/javascript">
-		sessionStorage.removeItem("HostedCheckout_sessionId");
-			function errorCallback(error) {
+			sessionStorage.removeItem("HostedCheckout_sessionId");
+function errorCallback(error) {
 console.log(JSON.stringify(error));
 if (navigator.userAgent.match(/Android/i)) {
 	window.AndroidInterface.callbackHandler("GoToApp");
@@ -33,21 +33,49 @@ id: "{{ session }}"
 }
 });
 		</script>
-			<button onclick="Checkout.showPaymentPage();" class="continueBtn" style="display: none;">Continue</button>
-		<script type="text/javascript">
-		window.onload = function(){
-			var button = document.querySelector('.continueBtn');
-				button.click();
-		};
-		setInterval(function () {
-			if (navigator.userAgent.match(/Android/i)) {
-                window.AndroidInterface.callbackHandler("GoToApp");
-              } else {
-                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-              }
-		}, 5000);
-		</script>
+		 <div class="loaderTopUp">
+					{#<div class="desktopMode desktop-logo">
+						<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" class="topiveri"/>
+					</div> #}
+					{% if topup is  defined and topup == "true" %}
+						<div class="mobheader">
+							<div class="back">
+								<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
+							</div>
+							<div class="topup">Top Up</div>
+							<div></div>
+						</div>
+					{% endif %} 
+		{# <div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes"></div> #}
+		<div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes">
+			<div class="whopay">
+				<div class="paying">You are paying
+					{{app.session.get('SenderInitials')}}</div>
+				<div class="row">
+					<div class="col-md-5 col-8">
+						<div class="fee">Amount</div>
+						<div class="fee">Card Processing Fees</div>
+					</div>
+					<div class="col-md-7 col-4">
+						<div class="beforefee">{{currency}}{{beforefee}}</div>
+						<div class="beforefee">{{currency}}
+							{{fee}}</div>
+					</div>
+				</div>
+				<div style="border-top: 1px solid;margin-top: 15px;"></div>
+			</div>
 		</div>
+		 <span class="loaderTopUp2">
+						<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
+						<div
+							id="submitTopUp"> 
+		<button onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn">Continue</button>
+
+		{# <button onclick="Checkout.showPaymentPage();" class="continueBtn" style="display: none;">Continue</button> #}
+		</div>
+					</span>
+				</div> 
+
 	{% else %}
 		<div class="entireBody">
 			<div class="desktopMode desktop-logo">

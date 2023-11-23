@@ -130,6 +130,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'terraNet' }
 
+    App\Controller\TopupController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Iveri' }
+
 
         
 
