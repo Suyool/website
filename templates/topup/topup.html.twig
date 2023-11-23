@@ -45,6 +45,7 @@ id: "{{ session }}"
 						</div>
 					{% endif %} 
 		<div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes">
+			{% if fee is defined and beforefee is defined %}
 			<div class="whopay">
 				<div class="paying">You are paying
 					{{app.session.get('SenderInitials')}}</div>
@@ -54,13 +55,14 @@ id: "{{ session }}"
 						<div class="fee">Card Processing Fees</div>
 					</div>
 					<div class="col-md-7 col-4">
-						<div class="beforefee">{{currency}}{{beforefee}}</div>
+						<div class="beforefee">{{currency}} {{beforefee|number_format(2, '.', ',')}}</div>
 						<div class="beforefee">{{currency}}
-							{{fee}}</div>
+							{{fee|number_format(2, '.', ',')}}</div>
 					</div>
 				</div>
 				<div style="border-top: 1px solid;margin-top: 15px;"></div>
 			</div>
+			{% endif %}
 		</div>
 		 <span class="loaderTopUp2">
 						<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
