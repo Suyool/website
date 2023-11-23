@@ -94,7 +94,7 @@ class ShopifyApiController extends AbstractController
             ];
             $response = $shopifyServices->getQr($params);
 
-            $logs = array('orderId' => $orderId, 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
+            $logs = array('orderId' => $orderId, 'identifier' => 'PAYQR', 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
             $this->saveLog($logs);
 
             if ($response['pictureURL'] != null)
@@ -228,13 +228,13 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
-                $logs = array('orderId' => $data['TransactionID'], 'request' => $data, 'response' => $params, 'env' => $env);
+                $logs = array('orderId' => $data['TransactionID'], 'identifier' => 'UPDATE_STATUS.NET', 'request' => $data, 'response' => $params, 'env' => $env);
 
                 $this->saveLog($logs);
 
                 $response = $shopifyServices->updateStatusShopify($params);
 
-                $logs = array('orderId' => $data['TransactionID'], 'request' => $params, 'response' => $response, 'env' => $env);
+                $logs = array('orderId' => $data['TransactionID'],'identifier' => 'UPDATE_STATUS.SHOPIFY', 'request' => $params, 'response' => $response, 'env' => $env);
 
                 $this->saveLog($logs);
 
@@ -318,6 +318,7 @@ class ShopifyApiController extends AbstractController
     {
         $log = new Logs();
         $log->setOrderId($data['orderId']);
+        $log->setIdentifier($data['identifier']);
         $log->setRequest(json_encode($data['request']));
         $log->setResponse(json_encode($data['response']));
         $log->setEnv($data['env']);
