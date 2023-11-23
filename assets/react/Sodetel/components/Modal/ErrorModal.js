@@ -49,7 +49,7 @@ const ErrorModal = (props) => {
     >
       <Modal.Body>
         <div id="ErrorModal">
-          <img src={props.getErrorModal.img} alt="flag" />
+          <img src={props.getErrorModal.imgPath} alt="flag" />
           <div className="title">{props.getErrorModal.title}</div>
           <div className="desc">{props.getErrorModal.desc}</div>
           <div className="buttonsDesign">

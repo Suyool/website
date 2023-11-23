@@ -7,7 +7,7 @@ const Header = ({
   getHeaderTitle,
   getBackLink,
 }) => {
-  const handleButtonClick = (getBackLink) => {
+  const handleButtonClick = () => {
     if (activeButton.name == "") {
       if (parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler("GoToApp");
@@ -15,7 +15,7 @@ const Header = ({
         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
       }
     }
-    setActiveButton({ name: getBackLink });
+    setActiveButton({ ...activeButton, name: getBackLink });
   };
 
   return (
@@ -23,7 +23,7 @@ const Header = ({
       <div
         className="back"
         onClick={() => {
-          handleButtonClick(getBackLink);
+          handleButtonClick();
         }}
       >
         <img src="/build/images/alfa/Back.png" alt="Back" />

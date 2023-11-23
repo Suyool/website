@@ -5,7 +5,7 @@ namespace App\Entity\Sodetel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SodetelOrdersRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="orders")
  */
 class Order
@@ -40,9 +40,27 @@ class Order
     private $currency;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
+     *
      */
     private $transId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Sodetel\Product",fetch="EAGER")
+     * @ORM\JoinColumn(name="productId", referencedColumnName="id")
+     */
+    private $product;
+
+
+//    /**
+//     * @ORM\OneToOne(targetEntity="App\Entity\Sodetel\Product",fetch="EAGER")
+//     * @ORM\JoinColumn(name="products_id", referencedColumnName="id")
+//     */
+//    private $products;
+//    /**
+//     * @ORM\Column(type="integer", name="product_id", nullable=true)
+//     */
+//    private $productId;
 
 
     /**
@@ -108,6 +126,20 @@ class Order
     public function setTransId($transId)
     {
         $this->transId = $transId;
+        return $this;
+    }
+
+
+    public function getProduct()
+    {
+        if ($this->product) {
+            return $this->product;
+        }
+        return null;
+    }
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
         return $this;
     }
 

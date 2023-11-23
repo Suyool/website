@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
+import {capitalizeFirstLetters} from "../../functions";
 
 const ReCharge = ({
   parameters,
   setPrepaidVoucher,
-  getVoucherData,
+  getVoucherData, activeButton,
   setActiveButton,
   setHeaderTitle,
   setBackLink,
 }) => {
+  console.log("getVoucherData", getVoucherData)
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
 
   useEffect(() => {
-    setHeaderTitle("Re-charge Alfa");
-    setBackLink("");
+    setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
+    setBackLink("BundleCredentials");
     setFilteredData(Object.values(getVoucherData));
+    // console.log("values",Object.values(getVoucherData));
+    // console.log("voucherData", getVoucherData);
+
+    const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
+    setFilteredData(values);
+
   }, [ getVoucherData ]);
 
   useEffect(() => {
@@ -51,41 +59,26 @@ const ReCharge = ({
               <div
                 className="bundleGrid"
                 key={index}
-                style={
-                  record.isinstock == 0
-                    ? { display: "none" }
-                    : { display: "flex" }
-                }
+                // style={
+                //   record.isinstock == 0
+                //     ? { display: "none" }
+                //     : { display: "flex" }
+                // }
                 onClick={() => {
-                  setActiveButton({ name: "MyBundle" });
-                  setPrepaidVoucher({
-                    vouchercategory: record.vouchercategory,
-                    vouchertype: record.vouchertype,
-                    priceLBP: record.priceLBP,
-                    priceUSD: record.priceUSD,
-                    desc: record.desc,
-                    isavailable: record.isavailable,
-                    desc1: record.desc1,
-                    desc2: record.desc2,
-                    beforeTaxes:record.beforeTaxes,
-                    fees:record.fees,
-                    sayrafa:record.sayrafa
-                  });
+                  setActiveButton({ ...activeButton, name: "MyBundle" });
+                  setPrepaidVoucher(record);
                 }}
               >
                 <img
                   className="GridImg"
-                  src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`}
+                  src={`/build/images/sodetel/sodetel-bundle.png`}
                   alt="bundleImg"
                 />
                 <div className="gridDesc">
                   <div className="Price">
-                    ${record.beforeTaxes}{" "}
-                    {/* <span>
-                      (LBP {parseInt(record.priceLBP).toLocaleString()})
-                    </span> */}
+                    ${record?.priceht}{" "}
                   </div>
-                  <div className="bundleName">{record.desc3}</div>
+                  <div className="bundleName">{record?.plandescription}</div>
                 </div>
               </div>
             ))}

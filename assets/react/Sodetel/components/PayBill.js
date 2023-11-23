@@ -7,24 +7,22 @@ const PayBill = ({
                      setActiveButton,
                      setHeaderTitle,
                      setBackLink,
-                     setModalDesc
+                     setModalDesc,
                  }) => {
     const [mobileNumber, setMobileNumber] = useState("");
     const [currency, setCurrency] = useState("LBP");
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
-
-
     useEffect(() => {
-        setHeaderTitle("Pay Mobile Bill");
+        setHeaderTitle("Pay DSL Bill");
         setBackLink("");
     }, []);
 
     const handleContinue = () => {
         setIsButtonDisabled(true);
-        localStorage.setItem("billMobileNumber", mobileNumber);
-        localStorage.setItem("billcurrency", currency);
+        localStorage.setItem("billLandlineNumber", mobileNumber);
+        localStorage.setItem("billCurrency", currency);
         setSpinnerLoader(true);
         axios
             .post("/alfa/bill", {

@@ -1,13 +1,25 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Default from "./components/Default";
-import PayBill from "../Alfa/PayBill";
+import Header from "./components/Header";
+import BundleCredentials from "./components/BundleCredentials";
+import ReCharge from "./components/ReCharge";
+import MyBundle from "./components/MyBundle";
+import ErrorModal from "./components/Modal/ErrorModal";
+import SuccessModal from "./components/Modal/SuccessModal";
 
 function App({parameters}) {
-    const [activeButton, setActiveButton] = useState({name: ""});
+    const [activeButton, setActiveButton] = useState({name: "Default"});
     const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Sodetel");
+    const [getDataGetting, setDataGetting] = useState({id: ""});
+    const [planData, setPlanData] = useState({});
 
-    const [getPostpaidData, setPostpaidData] = useState({ id: "" });
+    const [bundleData, setBundleData] = useState({id: ""});
+    const [credential, setCredential] = useState({
+        name: "",
+        type: "",
+    });
+    const [credentialsArray, setCredentialsArray] = useState([]);
 
     //Modal Variable
     const [modalShow, setModalShow] = useState(false);
@@ -18,26 +30,116 @@ function App({parameters}) {
         desc: "Success Modal",
     });
 
-    console.log(parameters)
+    useEffect(() => {
+        setDataGetting("");
+        window.handleCheckout = (message) => {
+            setDataGetting(message);
+        };
+    });
+
+    console.log("bundleData", bundleData)
+    console.log("activeButton", activeButton)
 
     return (
         <div>
-            {activeButton.name === "" &&
-                <Default setActiveButton={setActiveButton} setBackLink={setBackLink} setHeaderTitle={setHeaderTitle}/>
+            <Header
+                parameters={parameters}
+                activeButton={activeButton}
+                setActiveButton={setActiveButton}
+                getHeaderTitle={getHeaderTitle}
+                getBackLink={getBackLink}
+            />
+            {activeButton.name === "Default" &&
+                <Default
+                    setActiveButton={setActiveButton}
+                    setBackLink={setBackLink}
+                    setHeaderTitle={setHeaderTitle}
+                    setCredential={setCredential}
+                    setCredentialsArray={setCredentialsArray}
+                />
             }
 
-            {activeButton.name === "PayBill" && (
-                <PayBill
-                    setPostpaidData={setPostpaidData}
-                    setModalShow={setModalShow}
+            {/*{activeButton.name === "PayBill" && (*/}
+            {/*    <PayBill*/}
+            {/*        setPostpaidData={setPostpaidData}*/}
+            {/*        setModalShow={setModalShow}*/}
+            {/*        setModalDesc={setModalDesc}*/}
+            {/*        activeButton={activeButton}*/}
+            {/*        setActiveButton={setActiveButton}*/}
+            {/*        setHeaderTitle={setHeaderTitle}*/}
+            {/*        setBackLink={setBackLink}*/}
+            {/*    />*/}
+            {/*)}*/}
+
+            {activeButton.name === "BundleCredentials" && (
+                <BundleCredentials
+                    credential={credential} setCredential={setCredential}
+                    activeButton={activeButton} setActiveButton={setActiveButton}
+                    setBundleData={setBundleData}
                     setModalDesc={setModalDesc}
+                    bundle={activeButton.bundle}
+                    setBackLink={setBackLink}
+                    setHeaderTitle={setHeaderTitle}
+                    credentialsArray={credentialsArray}
+                />
+            )}
+
+            {activeButton.name === "Services" && (
+                <ReCharge
+                parameters={parameters}
+                setPrepaidVoucher={setPlanData}
+                getVoucherData={bundleData}
+                activeButton={activeButton}
+                setActiveButton={setActiveButton}
+                setHeaderTitle={setHeaderTitle}
+                setBackLink={setBackLink}
+                />
+            )}
+
+            {activeButton.name === "MyBundle" && (
+                <MyBundle
+                    setDataGetting={setDataGetting}
+                    parameters={parameters}
+                    credential={credential}
+                    getDataGetting={getDataGetting}
+                    getPrepaidVoucher={planData}
                     activeButton={activeButton}
                     setActiveButton={setActiveButton}
                     setHeaderTitle={setHeaderTitle}
                     setBackLink={setBackLink}
+                    setModalDesc={setModalDesc}
                 />
             )}
 
+            {/* Modal */}
+            {modalDesc.name === "SuccessModal" && (
+                <SuccessModal
+                    getSuccessModal={modalDesc}
+                    show={modalDesc.show}
+                    onHide={() => {
+                        setModalDesc({
+                            ...modalDesc,
+                            name: ""
+                        });
+                        setActiveButton({ name: "" });
+                    }}
+                />
+            )}
+            {modalDesc.name === "ErrorModal" && (
+                <ErrorModal
+                    parameters={parameters}
+                    getErrorModal={modalDesc}
+                    show={modalDesc.show}
+                    onHide={() => {
+                        setModalDesc({
+                            ...modalDesc,
+                            name: "",
+                            show: false
+                        });
+                        setActiveButton({ name: "" });
+                    }}
+                />
+            )}
 
         </div>
     );

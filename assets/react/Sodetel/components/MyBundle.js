@@ -1,23 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import {capitalizeFirstLetters} from "../../functions";
 
 const MyBundle = ({
   setDataGetting,
   parameters,
   getDataGetting,
   getPrepaidVoucher,
-  setModalShow,
-  setModalName,
-  setSuccessModal,
-  setErrorModal,
+  activeButton,
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  setModalDesc,
+  credential
 }) => {
   useEffect(() => {
-    setHeaderTitle("Re-charge Alfa");
-    setBackLink("ReCharge");
+    setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
+    setBackLink("Services");
     setIsButtonDisabled(false);
   }, []);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
@@ -34,7 +34,6 @@ const MyBundle = ({
         },
       },
     ];
-    console.log(JSON.stringify(object));
     if (parameters?.deviceType === "Android") {
       window.AndroidInterface.callbackHandler(JSON.stringify(object));
     } else if (parameters?.deviceType === "Iphone") {
@@ -60,82 +59,78 @@ const MyBundle = ({
 
   useEffect(() => {
     if (getDataGetting == "success") {
+      console.log("prepaid",getPrepaidVoucher);
       axios
-        .post("/alfa/BuyPrePaid", {
-          Token: "",
-          category: "ALFA",
+        .post("/sodetel/refill", {
+          // category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
-          desc: getPrepaidVoucher.desc,
-          type: getPrepaidVoucher.vouchertype,
-          amountLBP: getPrepaidVoucher.priceLBP,
-          amountUSD: getPrepaidVoucher.priceUSD,
+          // desc: getPrepaidVoucher.desc,
+          // type: getPrepaidVoucher.vouchertype,
+          // amountLBP: getPrepaidVoucher.priceLBP,
+          // amountUSD: getPrepaidVoucher.priceUSD,
+          refillData: getPrepaidVoucher,
+          bundle: activeButton?.bundle,
+          identifier: credential[credential.name]
         })
         .then((response) => {
           setSpinnerLoader(false);
           const jsonResponse = response?.data?.message;
-          console.log(jsonResponse);
-          // console.log()
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
             setSerialToClipboard(
               "*14*" + response?.data?.data?.voucherCode + "#"
             );
           } else {
-            console.log(response.data.flagCode);
             if (
               response.data.IsSuccess == false &&
               response.data.flagCode == 10
             ) {
-              setModalName("ErrorModal");
-              setErrorModal({
-                img: "/build/images/alfa/error.png",
+              setModalDesc({
+                name : "ErrorModal",
+                imgPath: "/build/images/alfa/error.png",
                 title: jsonResponse.Title,
-                desc: jsonResponse.SubTitle,
-                path: jsonResponse.ButtonOne.Flag,
+                description: jsonResponse.SubTitle,
+                show: true,
                 btn: jsonResponse.ButtonOne.Text,
-              });
-              setModalShow(true);
+                path: jsonResponse.ButtonOne.Flag,
+              })
             } else if (
               !response.data.IsSuccess &&
               response.data.flagCode == 11
             ) {
-              setModalName("ErrorModal");
-              setErrorModal({
-                img: "/build/images/alfa/error.png",
+              setModalDesc({
+                name : "ErrorModal",
+                imgPath: "/build/images/alfa/error.png",
                 title: jsonResponse.Title,
-                desc: jsonResponse.SubTitle,
-                path: jsonResponse.ButtonOne.Flag,
+                description: jsonResponse.SubTitle,
+                show: true,
                 btn: jsonResponse.ButtonOne.Text,
+                path: jsonResponse.ButtonOne.Flag,
               });
-              setModalShow(true);
             } else if (jsonResponse == "19") {
-              setModalName("ErrorModal");
-              setErrorModal({
-                img: "/build/images/alfa/error.png",
+              setModalDesc({
+                name : "ErrorModal",
+                imgPath: "/build/images/alfa/error.png",
                 title: "Recharge Card Unavailable ",
-                desc: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable. 
-              Kindly choose another one.`,
-                // path: response.data.path,
+                description: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable.
+                Kindly choose another one.`,
+                show: true,
                 btn: "OK",
               });
-              setModalShow(true);
             } else {
-              setModalName("ErrorModal");
-              setErrorModal({
-                img: "/build/images/alfa/error.png",
+              setModalDesc({
+                name: "ErrorModal",
+                imgPath: "/build/images/alfa/error.png",
                 title: "Please Try again",
-                desc: "You cannot purchase now",
-                // path: response.data.path,
+                description: "You cannot purchase now",
+                show: true,
                 btn: "OK",
               });
-              setModalShow(true);
             }
           }
-          // console.log(response);
         })
         .catch((error) => {
           setSpinnerLoader(false);
-          console.log(error);
         });
     } else if (getDataGetting == "failed") {
       setSpinnerLoader(false);
@@ -143,6 +138,8 @@ const MyBundle = ({
       setDataGetting("");
     }
   });
+
+  console.log(credential)
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -164,7 +161,7 @@ const MyBundle = ({
                 <div className="titleGrid"></div>
                 <button
                   onClick={() => {
-                    setActiveButton({ name: "MyBundle" });
+                    setActiveButton({...activeButton, name: "MyBundle" });
                     setPaymentConfirmation(false);
                   }}
                 >
@@ -181,8 +178,7 @@ const MyBundle = ({
               />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
-                You have successfully purchased the $
-                {getPrepaidVoucher.priceUSD} Alfa recharge card.
+                You have successfully purchased the {activeButton.bundle} {getPrepaidVoucher.plandescription} service.
               </div>
 
               <div className="br"></div>
@@ -256,46 +252,45 @@ const MyBundle = ({
             <div className="MyBundleBody">
               <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
               {/* <div className="mainDesc">*All taxes excluded</div> */}
-              <img
-                className="BundleBigImg"
-                src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}
-                alt="Bundle"
-              />
+              {/*<img*/}
+              {/*  className="BundleBigImg"*/}
+              {/*  src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}*/}
+              {/*  alt="Bundle"*/}
+              {/*/>*/}
+
+              <div className="relatedInfo">{getPrepaidVoucher?.plandescription}</div>
               <div className="smlDesc">
                 <img
-                  className="question"
-                  src={`/build/images/alfa/attention.svg`}
-                  alt="question"
-                  style={{ verticalAlign: "baseline" }}
+                    className="question"
+                    src={`/build/images/alfa/attention.svg`}
+                    alt="question"
+                    style={{ verticalAlign: "baseline" }}
                 />
-                &nbsp;
-                Alfa only accepts payments in L.L
+                Sodetel only accepts payments in L.L
               </div>
-              {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
+
               <div className="MoreInfo">
                 <div className="label">Total before taxes</div>
-                <div className="value">$ {getPrepaidVoucher.beforeTaxes}</div>
+                <div className="value">L.L {getPrepaidVoucher?.priceht}</div>
               </div>
-              <div className="MoreInfo">
-                <div className="label">+V.A.T & Stamp Duty</div>
-                <div className="value">$ {getPrepaidVoucher.fees}</div>
-              </div>
+              {/*<div className="MoreInfo">*/}
+              {/*  <div className="label">+V.A.T & Stamp Duty</div>*/}
+              {/*  <div className="value">$ { getPrepaidVoucher.pricettc - getPrepaidVoucher.priceht}</div>*/}
+              {/*</div>*/}
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total after taxes</div>
-                <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+                <div className="value">L.L {getPrepaidVoucher?.pricettc}</div>
               </div>
               <div className="MoreInfo">
-                <div className="label">Amount in L.L (Sayrafa rate)</div>
-                <div className="value">
-                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
-                </div>
+                <div className="label">+V.A.T & Stamp Duty</div>
+                <div className="value">L.L {getPrepaidVoucher?.pricettc - getPrepaidVoucher?.priceht}</div>
               </div>
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total amount to pay</div>
                 <div className="value1">
-                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
+                  L.L {parseInt(getPrepaidVoucher.pricettc).toLocaleString()}
                 </div>
               </div>
               <div className="smlDescSayrafa">
