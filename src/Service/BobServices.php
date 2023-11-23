@@ -28,7 +28,6 @@ class BobServices
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
         $this->logger = $logger;
-        $this->BOB_PAYMENT_GATEWAY="https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/session";
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
             $this->USERNAME = "suyool";
@@ -386,34 +385,5 @@ class BobServices
         }
 
         return array($isSuccess, $decodedString, $ErrorDescription);
-    }
-
-    public function paymentGateWay()
-    {
-        $body = [
-            "apiOperation" => "INITIATE_CHECKOUT",
-            "interaction" => [
-                "operation" => "PURCHASE",
-                "merchant"=>[
-                    "name"=>"ARZ MURR"
-                ]
-            ],
-            "order" => [
-                "currency" => "USD",
-                "id" => "1",
-                "amount"=>5,
-                "description"=>"ordered goods"
-            ]
-        ];
-        $response = $this->client->request('POST', $this->BOB_PAYMENT_GATEWAY, [
-            'body' => json_encode($body),
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization'=> 'Basic 002bcc643011b3cef6967ff40d140d71'
-            ]
-        ]);
-
-        $content=$response->toArray(false);
-        dd($content);
     }
 }
