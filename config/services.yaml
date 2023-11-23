@@ -89,6 +89,7 @@ services:
             $cashin: '@monolog.logger.cashin'
             $cashout: '@monolog.logger.cashout'
             $winning: '@monolog.logger.Winning'
+            $userlog: '@monolog.logger.Users'
 
     App\EventListener\DomainAccessListener:
         tags:

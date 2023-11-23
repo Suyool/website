@@ -62,14 +62,16 @@ class TopupController extends AbstractController
             // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
             // dd($_POST['infoString']);
             if (isset($_POST['infoString'])) {
-                $this->logger->debug($_POST['infoString']);
+                
                 if ($_POST['infoString'] == "")
                     return $this->render('ExceptionHandling.html.twig');
 
                 $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
                 $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
+                $this->logger->debug($decrypted_string);
                 $suyoolUserInfo = explode("!#!", $decrypted_string);
                 $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
+                // dd($_SERVER['HTTP_USER_AGENT']);
 
                 if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters = array();
@@ -102,6 +104,7 @@ class TopupController extends AbstractController
                 return $this->render('ExceptionHandling.html.twig');
             }
         } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
             echo '<script type="text/javascript">',
             ' if (navigator.userAgent.match(/Android/i)) {
                 window.AndroidInterface.callbackHandler("GoToApp");

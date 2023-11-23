@@ -162,7 +162,7 @@ class LotoController extends AbstractController
             ]);
         }
 
-        // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString'] = "cyrXds6XF7nCwks/slUCERJ8krqP+bpT+AhmsMF7MRI=";
 
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
