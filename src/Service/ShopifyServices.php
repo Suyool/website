@@ -95,8 +95,7 @@ class ShopifyServices
     public function getCredentials($domain)
     {
         $credentialsRepository = $this->mr->getRepository(ShopifyInstallation::class);
-        $credentials = $credentialsRepository->findBy(['domain' => $domain]);
-        $credential = $credentials[0];
+        $credential = $credentialsRepository->findOneBy(['domain' => $domain]);
 
         $response = [];
         $response['certificate'] = $credential->getCertificateKey();
@@ -104,6 +103,7 @@ class ShopifyServices
         $response['appKey'] = $credential->getAppKey();
         $response['appSecret'] = $credential->getAppSecret();
         $response['appPass'] = $credential->getAppPass();
+        $response['integrationType'] = $credential->getIntegrationType();
 
         return $response;
     }

@@ -169,19 +169,17 @@ class ShopifyApiController extends AbstractController
     }
 
     /**
-     * @Route("/update_status/{order_id}/{merchant_id}", name="app_update_status",methods="POST")
+     * @Route("/update_status/", name="app_update_status",methods={"POST"})
      */
-    public function updateStatus(Request $request, $order_id,$merchant_id, ShopifyServices $shopifyServices)
+    public function updateStatus(Request $request, ShopifyServices $shopifyServices)
     {
-        $data = $request->request->all();
+        $data = json_decode($request->getContent(), true);
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if ($flag !== null) {
 
             $ordersRepository = $this->mr->getRepository(Orders::class);
-            $orders = $ordersRepository->findOneBy(['orderId' => $order_id, 'merchantId' => $merchant_id]);
-
-            $order = $orders[0];
+            $order = $ordersRepository->findOneBy(['orderId' => $data['TransactionID'], 'merchantId' => $data['MerchantID']]);
 
             if ($flag == '1') {
                 $currency = $order->getCurrency();
@@ -191,13 +189,14 @@ class ShopifyApiController extends AbstractController
                 $totalPrice = $order->getAmount();
                 $appKey = $merchantCredentials['appKey'];
                 $appPass = $merchantCredentials['appPass'];
-                $url = 'https://' . $appKey . ':' . $appPass . '@' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
+                $env = $merchantCredentials['integrationType'];
+                $url = 'https://' . $appKey . ':' . $appPass . '@' . $domain . '/admin/api/2020-04/orders/' . $data['TransactionID'] . '/transactions.json';
 
-                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
+                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $data['TransactionID'] . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
+                $secureHash = str_replace(' ', '+', $secureHash);
 
                 if ($secureHash == $data['SecureHash']) {
-
                     if ($order) {
                         $order->setStatus(1);
                     }
@@ -229,9 +228,13 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
+                $logs = array('orderId' => $data['TransactionID'], 'request' => $data, 'response' => $params, 'env' => $env);
+
+                $this->saveLog($logs);
+
                 $response = $shopifyServices->updateStatusShopify($params);
 
-                $logs = array('orderId' => $order_id, 'request' => $params, 'response' => $response, 'env' => "");
+                $logs = array('orderId' => $data['TransactionID'], 'request' => $params, 'response' => $response, 'env' => $env);
 
                 $this->saveLog($logs);
 
@@ -245,6 +248,7 @@ class ShopifyApiController extends AbstractController
             ];
             return new JsonResponse($response);
         }
+        return new JsonResponse("no data sent");
     }
 
     /**
