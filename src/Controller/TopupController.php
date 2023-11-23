@@ -42,7 +42,7 @@ class TopupController extends AbstractController
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
         try {
-            $this->suyoolServices->UpdateCardTopUpTransaction(12764,3,"12764","3990000.00","LBP","8367");
+            // $this->suyoolServices->UpdateCardTopUpTransaction(12764,3,"12764","3990000.00","LBP","8367");
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
@@ -62,7 +62,7 @@ class TopupController extends AbstractController
             // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
             // dd($_POST['infoString']);
             if (isset($_POST['infoString'])) {
-
+                $this->logger->debug($_POST['infoString']);
                 if ($_POST['infoString'] == "")
                     return $this->render('ExceptionHandling.html.twig');
 
@@ -83,11 +83,15 @@ class TopupController extends AbstractController
                         }',
                         '</script>';
                     }
+                    ($suyoolUserInfoForTopUp[2] == "USD")?$currency="$":$currency="LL";
                     $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
                     $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
                     $parameters = [
                         'topup' => true,
-                        'session' => $bobpayment[1]
+                        'session' => $bobpayment[1],
+                        'fee'=>$suyoolUserInfoForTopUp[4],
+                        'beforefee'=>$suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
+                        'currency'=>$currency
                     ];
 
                     return $this->render('topup/topup.html.twig', $parameters);
