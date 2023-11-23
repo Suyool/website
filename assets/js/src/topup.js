@@ -16,7 +16,7 @@ if (document.querySelector(".continueBtn")) {
   const element = document.querySelector(".continueBtn");
   var loader = document.getElementsByClassName("loaderTopUp2")[0];
   element.addEventListener("click", function () {
-    // loader.style.display="none";
+    loader.style.display="none";
     document.getElementById("embed-target").style.display="block";
   });
 }
