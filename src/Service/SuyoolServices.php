@@ -24,8 +24,9 @@ class SuyoolServices
     private $METHOD_POST = "POST";
     private $METHOD_GET ="GET";
     private $helper;
+    private $userlog;
 
-    public function __construct($merchantAccountID = null, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null,LoggerInterface $userlog=null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -43,6 +44,7 @@ class SuyoolServices
         $this->cashin=$cashin;
         $this->cashout=$cashout;
         $this->helper=new Helper($this->client);
+        $this->userlog=$userlog;
 
     }
 

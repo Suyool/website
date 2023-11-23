@@ -1,222 +1,8 @@
-    #embed-target {
-        max-height: none !important;
-        overflow: hidden!important;
-        border: none!important;
-        /* max-height: 432px; */
-        transition: max-height 0.5s ease-out 0s!important;
-        background-color: rgb(255, 255, 255)!important;
-        border-radius: 17px!important;
-        height: unset!important;
-        // left: 50%!important;
-        margin-top: 30px!important;
-        padding: 35px!important;
-        margin: 0 auto;
-        // position: absolute!important;
-        // top: 50%!important;
-        // transform: translate(-50%, -50%)!important;
-        width: 50%!important;
-        @media screen and (max-width:768px) {
-            width: 100%!important;
-            // top: 45%;
-        }
-        iframe {
-            // height: 100vh !important;
-            background-color: #fff !important;
-            // padding: 20px !important;
-            min-height: 440px !important;
-            // @media screen and (max-width:768px) {
-                height: 70vh !important;
-            // }
-            @media screen and (max-width:768px) {
-                height: auto !important;
-                min-height: 100vh !important;
-            }
-        }
-
-        .paying {
-            font-family: 'PoppinsBold';
-            font-size: 27px;
-            padding-bottom: 40px;
-            @media screen and (max-width:768px) {
-                font-size: 17px;
-            }
-        }
-
-        .fee {
-            text-align: left;
-            font-family: 'PoppinsRegular';
-            font-size: 14px;
-        }
-
-        .beforefee {
-            text-align: left;
-            font-family: 'PoppinsBold';
-            font-size: 14px;
-
-        }
-    }
-
-    .mobile-logo{
-        z-index: 1;
-        position: relative;
-        background-image: url('../../../images/payment/mobiletop.svg');
-        background-repeat: no-repeat;
-        background-size: 100%;
-        min-height: 100px;
-    }
-
-.loaderTopUp {
-    position: relative;
-
-    .desktop-logo {
-        z-index: 1;
-        position: relative;
-        background-image: url('../../../images/payment/nonsuyooler-flow-suyool-cover-desktop.svg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        min-height: 100px;
-    }
-
-    .how_to_send_money {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-    }
-
-    .user_img {
-        padding: 36px;
-        width: 185px;
-        border-radius: 50%;
-        height: 185px;
-        // margin-left: 60px;
-        object-fit: cover;
-    }
-
-    .methode {
-        font-size: 40px;
-        font-family: $Regular;
-        padding-top: 5px;
-    }
-
-    .user_name {
-        font-size: 40px;
-        font-family: $Bold;
-        font-weight: bold;
-    }
-
-    .amount {
-        font-size: 60px;
-        font-family: $Bold;
-        font-weight: bold;
-        padding: 0 20px;
-    }
-
-    text-align: center;
-
-    .topiveri {
-        width: 100%;
-    }
-
-    .mobheader {
-        opacity: 1;
-        display: flex;
-        justify-content: space-between;
-        background-color: #226D96;
-        padding: 19px;
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
-        color: #ffffff;
-        font-weight: bolder;
-
-        .back {
-
-            // font-size: 30px;
-            img {
-                height: auto;
-            }
-        }
-
-        .topup {
-            // font-size: 30px;
-        }
-    }
-
-    // background-color: #767676;
-    min-height: 100vh;
-    overflow: hidden;
-    background-color: #f0f1f3;
-
-
-    img {
-        // width: 41%;
-
-        @media screen and (max-width:768px) {
-            width: 100%;
-            height: auto;
-        }
-
-        height: 450px;
-    }
-
-    #submitTopUp {
-        display: none;
-        top: 33pc;
-        left: auto;
-        text-align: center;
-        // position: absolute;
-        left: 0;
-        right: 0;
-
-        .continueBtn {
-            background-color: #226d96;
-            color: #fff;
-            padding: 17px;
-            border-radius: 6px;
-            width: 330px;
-            font-family: $Medium;
-            border: none;
-        }
-    }
-
-    .help {
-        color: #226d96;
-        font-family: $Bold;
-        font-size: 14px;
-
-        a {
-            text-decoration: underline;
-            color: #373464;
-            font-size: 14px;
-            font-family: $Regular;
-        }
-
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 10px;
-    }
-
-}
-
-.loaderTopUp2 {
-    position: relative;
-    top: -50px;
-    .paymentsend {
-        font-family: $Bold;
-    }
-
-    .ensurethat {
-        padding-bottom: 40px;
-        padding-top: 25px;
-        font-family: $Regular;
-    }
-}
-
 .entireBody {
-    .desktop-logo{
+    .desktop-logo {
         opacity: 0.6;
     }
+
     background: #f0f1f3;
     height: 125vh;
 
@@ -247,6 +33,7 @@
             margin-top: 16px;
             font-family: $Medium;
             font-size: 18px;
+
             @media screen and (max-width:768px) {
                 font-size: 13px;
             }
@@ -266,6 +53,447 @@
             background-color: #226d96;
             font-family: $Regular;
             border-radius: 7px;
+        }
+    }
+}
+//
+    /////
+    .topup {
+        #embed-target {
+            max-height: none !important;
+            overflow: hidden !important;
+            border: none !important;
+            /* max-height: 432px; */
+            transition: max-height 0.5s ease-out 0s !important;
+            background-color: rgb(255, 255, 255) !important;
+            border-radius: 17px !important;
+            height: unset !important;
+            // left: 50%!important;
+            // margin-top: 30px!important;
+            padding: 35px !important;
+            margin: 0 auto;
+            // position: absolute!important;
+            // top: 50%!important;
+            // transform: translate(-50%, -50%)!important;
+            width: 50% !important;
+
+            @media screen and (max-width:768px) {
+                width: 100% !important;
+                // top: 45%;
+            }
+
+            iframe {
+                // height: 100vh !important;
+                background-color: #fff !important;
+                // padding: 20px !important;
+                min-height: 440px !important;
+                // @media screen and (max-width:768px) {
+                height: 70vh !important;
+
+                // }
+                @media screen and (max-width:768px) {
+                    height: auto !important;
+                    min-height: 100vh !important;
+                }
+            }
+
+            .paying {
+                font-family: 'PoppinsBold';
+                font-size: 27px;
+                padding-bottom: 40px;
+
+                @media screen and (max-width:768px) {
+                    font-size: 17px;
+                }
+            }
+
+            .fee {
+                text-align: left;
+                font-family: 'PoppinsRegular';
+                font-size: 14px;
+            }
+
+            .beforefee {
+                text-align: left;
+                font-family: 'PoppinsBold';
+                font-size: 14px;
+
+            }
+        }
+
+        .mobile-logo {
+            z-index: 1;
+            position: relative;
+            background-image: url('../../../images/payment/mobiletop.svg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+            min-height: 100px;
+        }
+
+        .loaderTopUp {
+            position: relative;
+
+            .desktop-logo {
+                z-index: 1;
+                position: relative;
+                background-image: url('../../../images/payment/nonsuyooler-flow-suyool-cover-desktop.svg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                min-height: 100px;
+            }
+
+            .how_to_send_money {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+            }
+
+            .user_img {
+                padding: 36px;
+                width: 185px;
+                border-radius: 50%;
+                height: 185px;
+                // margin-left: 60px;
+                object-fit: cover;
+            }
+
+            .methode {
+                font-size: 40px;
+                font-family: $Regular;
+                padding-top: 5px;
+            }
+
+            .user_name {
+                font-size: 40px;
+                font-family: $Bold;
+                font-weight: bold;
+            }
+
+            .amount {
+                font-size: 60px;
+                font-family: $Bold;
+                font-weight: bold;
+                padding: 0 20px;
+            }
+
+            text-align: center;
+
+            .topiveri {
+                width: 100%;
+            }
+
+            .mobheader {
+                opacity: 1;
+                display: flex;
+                justify-content: space-between;
+                background-color: #226D96;
+                padding: 19px;
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+                color: #ffffff;
+                font-weight: bolder;
+
+                .back {
+
+                    // font-size: 30px;
+                    img {
+                        height: auto;
+                    }
+                }
+
+                .topup {
+                    // font-size: 30px;
+                }
+            }
+
+            // background-color: #767676;
+            min-height: 100vh;
+            overflow: hidden;
+            background-color: #f0f1f3;
+
+
+            img {
+                // width: 41%;
+
+                @media screen and (max-width:768px) {
+                    width: 100%;
+                    height: auto;
+                }
+
+                height: 450px;
+            }
+
+            #submitTopUp {
+                display: none;
+                top: 33pc;
+                left: auto;
+                text-align: center;
+                // position: absolute;
+                left: 0;
+                right: 0;
+
+                .continueBtn {
+                    background-color: #226d96;
+                    color: #fff;
+                    padding: 17px;
+                    border-radius: 6px;
+                    width: 330px;
+                    font-family: $Medium;
+                    border: none;
+                }
+            }
+
+            .help {
+                color: #226d96;
+                font-family: $Bold;
+                font-size: 14px;
+
+                a {
+                    text-decoration: underline;
+                    color: #373464;
+                    font-size: 14px;
+                    font-family: $Regular;
+                }
+
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 10px;
+            }
+            .loaderTopUp2 {
+
+                // position: relative;
+                // top: -50px;
+                .paymentsend {
+                    font-family: $Bold;
+                }
+    
+                .ensurethat {
+                    padding-bottom: 40px;
+                    padding-top: 25px;
+                    font-family: $Regular;
+                }
+            }
+        }
+    }
+
+.rtptopup{
+#embed-target {
+        max-height: none !important;
+        overflow: hidden !important;
+        border: none !important;
+        /* max-height: 432px; */
+        transition: max-height 0.5s ease-out 0s !important;
+        background-color: rgb(255, 255, 255) !important;
+        border-radius: 17px !important;
+        height: unset !important;
+        // left: 50%!important;
+        margin-top: 30px !important;
+        padding: 35px !important;
+        margin: 0 auto;
+        // position: absolute!important;
+        // top: 50%!important;
+        // transform: translate(-50%, -50%)!important;
+        width: 50% !important;
+
+        @media screen and (max-width:768px) {
+            width: 100% !important;
+            // top: 45%;
+        }
+
+        iframe {
+            // height: 100vh !important;
+            background-color: #fff !important;
+            // padding: 20px !important;
+            min-height: 440px !important;
+            // @media screen and (max-width:768px) {
+            height: 70vh !important;
+
+            // }
+            @media screen and (max-width:768px) {
+                height: auto !important;
+                min-height: 100vh !important;
+            }
+        }
+
+        .paying {
+            font-family: 'PoppinsBold';
+            font-size: 27px;
+            padding-bottom: 40px;
+
+            @media screen and (max-width:768px) {
+                font-size: 17px;
+            }
+        }
+
+        .fee {
+            text-align: left;
+            font-family: 'PoppinsRegular';
+            font-size: 14px;
+        }
+
+        .beforefee {
+            text-align: left;
+            font-family: 'PoppinsBold';
+            font-size: 14px;
+
+        }
+    }
+
+    .mobile-logo {
+        z-index: 1;
+        position: relative;
+        background-image: url('../../../images/payment/mobiletop.svg');
+        background-repeat: no-repeat;
+        background-size: 100%;
+        min-height: 100px;
+    }
+
+    .loaderTopUp {
+        position: relative;
+
+        .desktop-logo {
+            z-index: 1;
+            position: relative;
+            background-image: url('../../../images/payment/nonsuyooler-flow-suyool-cover-desktop.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100px;
+        }
+
+        .how_to_send_money {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        .user_img {
+            padding: 36px;
+            width: 185px;
+            border-radius: 50%;
+            height: 185px;
+            // margin-left: 60px;
+            object-fit: cover;
+        }
+
+        .methode {
+            font-size: 40px;
+            font-family: $Regular;
+            padding-top: 5px;
+        }
+
+        .user_name {
+            font-size: 40px;
+            font-family: $Bold;
+            font-weight: bold;
+        }
+
+        .amount {
+            font-size: 60px;
+            font-family: $Bold;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        text-align: center;
+
+        .topiveri {
+            width: 100%;
+        }
+
+        .mobheader {
+            opacity: 1;
+            display: flex;
+            justify-content: space-between;
+            background-color: #226D96;
+            padding: 19px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            color: #ffffff;
+            font-weight: bolder;
+
+            .back {
+
+                // font-size: 30px;
+                img {
+                    height: auto;
+                }
+            }
+
+            .topup {
+                // font-size: 30px;
+            }
+        }
+
+        // background-color: #767676;
+        min-height: 100vh;
+        overflow: hidden;
+        background-color: #f0f1f3;
+
+
+        img {
+            // width: 41%;
+
+            @media screen and (max-width:768px) {
+                width: 100%;
+                height: auto;
+            }
+
+            height: 450px;
+        }
+
+        #submitTopUp {
+            display: none;
+            top: 33pc;
+            left: auto;
+            text-align: center;
+            // position: absolute;
+            left: 0;
+            right: 0;
+
+            .continueBtn {
+                background-color: #226d96;
+                color: #fff;
+                padding: 17px;
+                border-radius: 6px;
+                width: 330px;
+                font-family: $Medium;
+                border: none;
+            }
+        }
+
+        .help {
+            color: #226d96;
+            font-family: $Bold;
+            font-size: 14px;
+
+            a {
+                text-decoration: underline;
+                color: #373464;
+                font-size: 14px;
+                font-family: $Regular;
+            }
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+        }
+        .loaderTopUp2 {
+            position: relative;
+            top: -50px;
+    
+            .paymentsend {
+                font-family: $Bold;
+            }
+    
+            .ensurethat {
+                padding-bottom: 40px;
+                padding-top: 25px;
+                font-family: $Regular;
+            }
         }
     }
 }
