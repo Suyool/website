@@ -314,4 +314,72 @@ class DefaultController extends AbstractController
         return $this->render('platinum-mastercard/middleeast.html.twig', $parameters);
     }
 
+    /**
+     * @Route("/send-receive-money", name="app_middle_east")
+     */
+    public function sendReceiveMoney(Request $request)
+    {
+        $parameters=array();
+        $title = "Send money instantly to any Lebanese number";
+        $desc = "Experience the ease and speed of sending money with Suyool. Simply enter a recipient’s Lebanese phone number, and transfer funds instantly.";
+        $parameters = [
+            'title' => $title,
+            'desc' => $desc,
+            'metaimage' => 'build/images/sendReceiveMETA.png',
+            'descmeta' => $desc,
+        ];
+        $infoSection = [
+            'title' => 'BENEFITS OF SENDING MONEY WITH SUYOOL',
+            'items' => [
+                [
+                    'image' => 'build/images/sendReceiveMoney/24logo.svg',
+                    'title' => 'Convenience',
+                    'description' => 'Anytime in just a few taps',
+                ],
+                [
+                    'image' => 'build/images/sendReceiveMoney/lbpdollars.svg',
+                    'title' => 'Multi-Currency',
+                    'description' => 'Both LBP or USD',
+                ],
+                [
+                    'image' => 'build/images/sendReceiveMoney/instantPayments.svg',
+                    'title' => 'Instant Payments',
+                    'description' => 'Faster than any other',
+                ],
+                [
+                    'image' => 'build/images/sendReceiveMoney/cost-effective.svg',
+                    'title' => 'Cost-Effective',
+                    'description' => 'Only 1.5% if non-Suyool',
+                ],
+            ],
+        ];
+        $parameters['infoSection']= $infoSection;
+
+        $parameters['faq']=[
+            "ONE"=>[
+                "Title"=>"HOW_CAN_I_SEND_MONEY_WITH_SUYOOL",
+                "Desc"=>"SUYOOL_USER_CAN_TRANSFER"
+            ],
+            "TWO"=>[
+                "Title"=>"CAN_I_SEND_MONEY_TO_A_NON",
+                "Desc"=>"YOU_CAN_SEND_MONEU_TO_ANY"
+            ],
+            "THREE"=>[
+                "Title"=>"IS_THERE_A_FEE_FOR_TRANSFERRING",
+                "Desc"=>"TRANSFERRING_MONEY_THROUGH_SUYOOL"
+            ],
+            "FOUR"=>[
+                "Title"=>"CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT",
+                "Desc"=>"YES_YOU_CAN_SEND_MONEY"
+            ],
+            "FIVE"=>[
+                "Title"=>"WHAT_DO_ID_DO_IF_I",
+                "Desc"=>"WEVE_ADDED_EXTRA_SECURITY"
+            ],
+        ];
+
+
+        return $this->render('sendReceiveMoney/index.html.twig', $parameters);
+    }
+
 }

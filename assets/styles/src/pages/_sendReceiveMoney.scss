@@ -1,0 +1,198 @@
+.sendReceiveMoney {
+  .info-v3 {
+    .easy_steps_top {
+      margin-bottom: 40px!important;
+      word-spacing: 0!important;
+    }
+    .desc,.title {
+      text-align: left;
+    }
+    .title {
+      font-family: $Bold;
+    }
+    .desc {
+      font-size: 16px!important;
+    }
+  }
+  .video-section {
+    margin-top: 70px;
+    text-align: center;
+
+    iframe {
+      border-radius: 20px;
+    }
+    h3 {
+      color: #373464;
+      font-size: 16px;
+      font-family: $Bold;
+    }
+
+    h1 {
+      color: #202020;
+      font-size: 32px;
+      font-family: $Regular;
+      margin: 25px 0;
+    }
+
+    p {
+      color: #6B6B6B;
+      font-size: 16px;
+      font-family: $Regular;
+      margin-bottom: 50px;
+    }
+  }
+
+  .easy_steps_top {
+    margin-bottom: 30px;
+  }
+
+  .MasterCard {
+    margin-bottom: 40px;
+  }
+
+  .use-money {
+    p {
+      font-family: $Regular;
+      font-size: 16px;
+    }
+
+    .step {
+      margin-bottom: 120px;
+      .stepTitle {
+        position: absolute;
+        left: -44px;
+      }
+    }
+    .stepTitle {
+      text-align: center;
+      h1 {
+        color: #297094;
+        font-family: $Bold;
+        font-size: 35px;
+      }
+    }
+
+
+    .step-text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      p {
+        padding-top: 109px;
+      }
+    }
+
+    .step2 {
+      .step-text1 {
+        padding-top: 127px;
+      }
+
+      .step-text2 {
+        padding-top: 40px;
+      }
+
+      .step-text3 {
+        padding-top: 44px;
+      }
+
+      .step-text4 {
+        padding-top: 98px;
+      }
+    }
+
+    .step3 {
+      .stepTitle {
+        bottom: 85px;
+      }
+      .step-text {
+        p {
+          padding-top: 215px;
+        }
+      }
+    }
+
+    .step4 {
+      .stepTitle {
+        top: 52px;
+      }
+      .step-text {
+        p {
+          padding-top: 10px;
+        }
+      }
+    }
+
+  }
+  @media screen and (max-width:1400px) and (min-width:1200px) {
+    .use-money {
+      .step2 {
+
+        .step-text2 {
+          padding-top: 15px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width:1200px) and (min-width:992px) {
+    .use-money {
+      .step2 {
+
+        .step-text2 {
+          padding-top: 0;
+        }
+        .step-text3 {
+          padding-top: 26px;
+        }
+        .step-text4 {
+          padding-top: 80px;
+        }
+      }
+    }
+  }
+
+    @media screen and (max-width: 991px) {
+      .info-v3 {
+        .desc,.title {
+          text-align: center;
+        }
+      }
+    .use-money {
+      .mobileMode {
+        display: block;
+      }
+      p {
+        padding-top: 10px !important;
+      }
+
+      .mobImgCont {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .step {
+        margin-bottom: 80px;
+
+        .step-text {
+          p {
+            padding-left: 7px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .video-section {
+      padding: 0 10px;
+
+      h1 {
+        font-size: 24px;
+      }
+      iframe {
+        width: 95%;
+        height: 300px;
+      }
+    }
+  }
+}
