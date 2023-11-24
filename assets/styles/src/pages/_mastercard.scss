@@ -751,7 +751,11 @@
     }
   }
 }
-
+@media (min-width: 767px) and (max-width: 992px) {
+.top_section_mastercard-container {
+  background-image: url("../../../images/platinumMastercard/visaIpad.png");
+}
+}
 @media (min-width: 768px) and (max-width: 1450px) {
   .home-mastercard {
     .card-desc {
