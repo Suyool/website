@@ -154,8 +154,8 @@ class BobPaymentServices
                 $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
-                $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
+                $title = "Money Added Successfully";
+                $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                 $button = "Continue";
 
                 $parameters = [
@@ -356,8 +356,8 @@ class BobPaymentServices
                 $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
                 $status = true;
                 $imgsrc = "build/images/Loto/success.png";
-                $title = "Money Added Succesfully";
-                $description = "You have succesfully added {$currency} {$amount} to {$this->session->get('SenderInitials')}' Suyool wallet.";
+                $title = "Money Added Successfully";
+                $description = "You have successfully added {$currency} {$amount} to {$this->session->get('SenderInitials')}' Suyool wallet.";
                 $button = "Continue";
 
                 $parameters = [
