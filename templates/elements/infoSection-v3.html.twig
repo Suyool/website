@@ -1,0 +1,20 @@
+<div class="InfoSection info-v3">
+    <div class="container-fluid">
+                <div class="easy_steps_top">{{ infoSection.title }}</div>
+        <div class="row">
+            {% for item in infoSection.items %}
+                <div class="col-md-3 MasterCard">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ asset(item.image) }}" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="title">{{ item.title }}</div>
+                            <div class="desc">{{ item.description }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

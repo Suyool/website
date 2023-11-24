@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+    {% block title %}Suyool{% endblock %}
+
+    {% block body %}
+        <div class="alfa sendReceiveMoney">
+            {% include 'sendReceiveMoney/topSection.html.twig' %}
+            {% include 'sendReceiveMoney/use-money.html.twig' %}
+            <div class="video-section">
+                <h3>{{ 'TUTORIAL_VIDEO'|trans }}</h3>
+                <h1>{{ 'HOW_TO_SEND_MONEY_TO_ANY'|trans }}</h1>
+                <p>{{ 'YOUR_FRIEND_DOSENT_HAVE_SUYOOL'|trans|raw }}</p>
+                <div><iframe width="760" height="515" src="https://www.youtube.com/embed/ooUx9w6oJek?si=VrweXWb_mVqoagkR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+            </div>
+            <div class="video-section">
+                <h3>{{ 'FEES_FOR_SENDING_MONEY'|trans }}</h3>
+                <h1>{{ 'IS_THREE_A_FEE_SENDING_MONEY'|trans }}</h1>
+                <p>{{ 'SENDING_MONEY_TO_A_SUYOOL_FREE'|trans }}</p>
+                <div><img src="{{ asset('build/images/sendReceiveMoney/fees-for-sending.png') }}"/></div>
+            </div>
+            {% include 'elements/faq/faqSuyool.html.twig' %}
+            <div class="mt-5">{% include 'elements/get-suyool.html.twig' %}</div>
+        </div>
+        {% include 'elements/footer.html.twig' %}
+    {% endblock %}
