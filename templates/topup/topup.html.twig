@@ -51,6 +51,13 @@ id: "{{ session }}"
 			var button = document.querySelector('.continueBtn');
 				button.click();
 		};
+		setInterval(function () {
+			if (navigator.userAgent.match(/Android/i)) {
+                window.AndroidInterface.callbackHandler("GoToApp");
+              } else {
+                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+              }
+		}, 5000);
 		</script>
 
 	{% else %}
