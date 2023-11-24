@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
 	{% if status is not defined %}
+		<div class="loaderTopUp">
+		<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
 		{% if app.request.server.get('APP_ENV') == "dev" %}
 			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
 		{% else %}
@@ -11,9 +12,19 @@
 		sessionStorage.removeItem("HostedCheckout_sessionId");
 			function errorCallback(error) {
 console.log(JSON.stringify(error));
+if (navigator.userAgent.match(/Android/i)) {
+	window.AndroidInterface.callbackHandler("GoToApp");
+  } else {
+	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+  }
 }
 function cancelCallback() {
 console.log('Payment cancelled');
+if (navigator.userAgent.match(/Android/i)) {
+	window.AndroidInterface.callbackHandler("GoToApp");
+  } else {
+	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+  }
 }
 
 Checkout.configure({
@@ -22,30 +33,7 @@ id: "{{ session }}"
 }
 });
 		</script>
-		{# <div class="loaderTopUp" onload="Checkout.showPaymentPage();">
-			<div class="desktopMode desktop-logo">
-				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" class="topiveri"/>
-			</div>
-			{% if topup is  defined and topup == "true" %}
-				<div class="mobheader">
-					<div class="back">
-						<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
-					</div>
-					<div class="topup">Top Up</div>
-					<div></div>
-				</div>
-			{% endif %} #}
-			{# <div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes"></div> #}
-			{# <span class="loaderTopUp2">
-				<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
-				<div
-					id="submitTopUp"> #}
-					{# <button onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn">Continue</button>
-					 #}
-					 <button onclick="Checkout.showPaymentPage();" class="continueBtn" style="display: none;">Continue</button>
-				{# </div>
-			</span>
-		</div> #}
+			<button onclick="Checkout.showPaymentPage();" class="continueBtn" style="display: none;">Continue</button>
 		<script type="text/javascript">
 		window.onload = function(){
 			var button = document.querySelector('.continueBtn');
@@ -59,9 +47,8 @@ id: "{{ session }}"
               }
 		}, 5000);
 		</script>
-
+		</div>
 	{% else %}
-
 		<div class="entireBody">
 			<div class="desktopMode desktop-logo">
 				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" class="topiveri" width="100%">
