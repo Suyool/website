@@ -392,126 +392,179 @@ class DefaultController extends AbstractController
         $cardData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/travel-pass-mastercard-details-suyool.png',
-                'title' => 'Middle East & Levant Platinum Lounge Program',
+                'title' => 'Airport lounge access with Lounge KEY',
                 'points' => [
-                    'Free access to 25+ airport lounges in multiple countries.',
-                    'Business amenities like email, internet, phones, and more.*',
-                    'Complimentary refreshments and snacks.',
+                    'Free access to 25+ airport lounges in multiple countries',
+                    '6 Cardholder visits per calendar year',
+                    'No registration required to activate the lounge benefit on the Visa Platinum card',
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/two.png',
-                'title' => 'Airline and Travel discount with Cleartrip.com',
+                'title' => 'Airport Dining Offers with DragonPass',
                 'points' => [
-                    'Get 8% off when you book your flight or hotel on Cleartrip using your Platinum Mastercard card.',
+                    '200+ restaurants globally, made up of key locations in both MENA home markets and travel corridors',
+                    'Discounts vary by merchant, and are visible in the mobile app'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/three.png',
-                'title' => 'Hotel discount and cashback with IHG',
+                'title' => 'Meet & Assist service partners with YQ',
                 'points' => [
-                    '15% discount on ‘Best Available Rate’',
-                    'Free welcome drink upon arrival*',
-                    'Complimentary late checkout (by 4:00 PM)*',
+                    'Global network for airport assistance partners',
+                    'Discount of up to 15% off retail rates for Visa Platinum cards at over 450 destinations globally',
+                    'Cardholders can book services like limo transfers, visas on arrival, and baggage porters too.',
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/foor.png',
-                'title' => 'Hotel discount and cashback with booking.com',
+                'title' => 'Hotel & vacation rentals offers with Agoda',
                 'points' => [
-                    'Book your next holiday on booking.com with Mastercard for up to 10% money back.',
+                    'Access hotels and vacation rentals globally through Agoda',
+                    'Use Platinum Visa card for a 12% discount',
+                    'Applicable to `Promotion Eligible` properties; offer valid until June 14, 2024'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/five.png',
-                'title' => 'Car Rental discount with Avis',
+                'title' => 'Hotel discount and cashback with IHG Hotels & Resorts',
                 'points' => [
-                    'Up to 20% off your next car rental.',
-                    'A complimentary upgrade with every rental.',
+                    'Visa cardholders get 15% off at 100+ IHG Hotels & Resorts from October 5, 2022',
+                    'Bookings until March 31, 2024, for stays until April 3, 2024',
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/six.png',
-                'title' => 'Car Rental discount with Budget',
+                'title' => 'Visa Luxury Hotel Collection',
                 'points' => [
-                    'Enjoy 10% discount using your Suyool Debit Card with Budget.',
+                    'Best available rate guarantee',
+                    'Automatic room upgrade, and VIP guest status',
+                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/seven.png',
-                'title' => 'Car Rental discount with Rentalcars.com',
+                'title' => 'Car Rental offers with SIXT',
                 'points' => [
-                    'Get a 10% discount on your Rentalcars.com booking with your Suyool Debit Card.',
+                    'Visa Platinum Cardholders receive up to 10% off car rentals worldwide with SIXT Gold Membership',
+                    'Offer valid until October 25, 2025; subject to SIXT\'s rental terms and conditions'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/eight.png',
-                'title' => 'Priceless cities for experiences in the cities you live & travel',
+                'title' => 'Car Rental discount with Avis',
                 'points' => [
-                    'Experience worldwide dining, travel, and entertainment exclusives with Mastercard’s Priceless Cities offers.',
+                    'Up to 20% discount on Standard Rates',
+                    'Up to 10% off on Retail Rates',
+                    'Avis Preferred Plus Membership free of charge & enjoy additional services including free drivers'
                 ],
                 'learnMoreLink' => '/',
             ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/eight.png',
+                'title' => 'Car Rental discount with Budget',
+                'points'=>[
+                    'Avis Budget Group offers renowned car rentals globally',
+                    'Visa Platinum cardholders receive a 10% discount on Budget rentals worldwide'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/eight.png',
+                'title' => 'Medical & travel assistance',
+                'points'=>[
+                    'Visa Platinum Cardholders have access to comprehensive global assistance services',
+                    'Services include medical advice, referrals, and essential medicine delivery',
+                    'Also provides legal referrals and interpreter services'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/eight.png',
+                'title' => 'Global Customer Assistance Services',
+                'points'=>[
+                    'GCAS provides essential support to Platinum Cardholders during travel',
+                    'Core services include inquiry assistance, lost/stolen card reporting, and emergency replacements',
+                    'Cash disbursement, file updates, and pre-enrollment via banks for Visa BINs'
+                ],
+                'learnMoreLink' => '/',
+            ]
         ];
 
         $lifeStyleData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/un.png',
-                'title' => 'Shopping discount at Bicester Village Shopping Collection',
+                'title' => 'Dining with Jumeirah F&B offers',
                 'points' => [
-                    'VIP invitation with additional 10% discount.*',
-                    '15% discount on shopping packages, chauffeur drive experiences & Shopping Express.',
-                    'Access to VIP lounges.*',
+                    'Visa offers up to 25% off dining at select Jumeirah Hotels & Resorts',
+                    'Valid until September 30, 2024, subject to availability',
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/deux.png',
-                'title' => 'Shopping discount on Farfetch.com',
+                'title' => 'Hotel discount and cashback with booking.com',
                 'points' => [
-                    'Save 10% on Farfetch fashion with Suyool Debit Card on $200+ purchases.',
+                    'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/trois.png',
-                'title' => 'MyUS shipping premium membership',
+                'title' => 'Shopping with Global Blue',
                 'points' => [
-                    'Shop over 100,000 MyUS retailers with Free Premium Membership',
-                    '30% off shipping to anywhere first month.',
-                    '20% off shipping for remainder of 2-year membership.',
+                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024',
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/quatre.png',
-                'title' => 'Dining discounts through Priceless specials',
+                'title' => 'Shopping with Global Blue',
                 'points' => [
-                    'Book your next holiday on booking.com with Mastercard for up to 10% money back.',
+                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+                    'Available in select markets: France, Germany, Italy, and Spain starting November 15, 2021',
+                    'Offer valid until December 31, 2023'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/cinq.png',
-                'title' => 'Fitness discount through Fiit',
+                'title' => 'Shopping with Global & Local merchant offers',
                 'points' => [
-                    'Get 25% off your initial Fiit subscription payment with Suyool Debit Card.',
+                    'Visa Platinum offers exclusive deals worldwide in fashion, homeware, and electronics',
+                    'Cardholders get discounts on jewelry, fashion, and more in the region and abroad'
                 ],
                 'learnMoreLink' => '/',
             ],
             [
                 'imagePath' => 'build/images/platinumMastercard/sise.png',
-                'title' => 'Learning discount on LingoKids',
+                'title' => 'Experience with Visa Golf Access',
                 'points' => [
-                    '2 months of Lingokids for free for new users.',
-                    '30% off monthly subscriptions for new & existing users',
+                    'Visa Golf Access offers discounts on golf green fees for Visa Platinum Cardholders worldwide',
+                    'Book in advance by calling or using the SpikesOn app for bookings and payments',
+                    'Participating courses include Jebel Sifah, Yas Links, Royal Golf Club, and more; offer valid until September 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/seven.png',
+                'title' => 'Experience with Jumeirah Spa Offers',
+                'points' => [
+                    'Visa cardholders enjoy exclusive spa offers at various Jumeirah Hotels’ Talise Spas',
+                    'Discounts range from 10% to 20% on treatments at different locations',
+                    'Offers valid until September 30, 2024'
+
                 ],
                 'learnMoreLink' => '/',
             ],
