@@ -320,6 +320,14 @@ class DefaultController extends AbstractController
     public function sendReceiveMoney(Request $request)
     {
         $parameters=array();
+        $title = "Send money instantly to any Lebanese number";
+        $desc = "Experience the ease and speed of sending money with Suyool. Simply enter a recipient’s Lebanese phone number, and transfer funds instantly.";
+        $parameters = [
+            'title' => $title,
+            'desc' => $desc,
+            'metaimage' => 'build/images/sendReceiveMETA.png',
+            'descmeta' => $desc,
+        ];
         $infoSection = [
             'title' => 'BENEFITS OF SENDING MONEY WITH SUYOOL',
             'items' => [
@@ -369,6 +377,8 @@ class DefaultController extends AbstractController
                 "Desc"=>"WEVE_ADDED_EXTRA_SECURITY"
             ],
         ];
+
+
         return $this->render('sendReceiveMoney/index.html.twig', $parameters);
     }
 
