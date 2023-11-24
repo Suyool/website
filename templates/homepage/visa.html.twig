@@ -121,43 +121,9 @@
        
     </div>
 
-    <div class="alfa">
-        <div class="alfa-mastercard">
-            <div class="row">
-                <div class="col-lg-7 col-12 order-lg-1 order-2">
-                    <div class="card-desc">
-                        <div class="main_title">PEACE OF MIND</div>
-                        <div class="title">Purchase Protection</div>
-                        <div class="text sub-title">Automatically protect your purchases from theft or accident for 180 days with Purchase Protection from your Platinum Mastercard®. Visit <a href="https://mcpeaceofmind.com">Purchase Protection</a>  to claim online.</div>
-                        <div class="text check">
-                            <img src="{{asset('build/images/check.svg')}}" alt="suyool check">
-                            <p class="desktop">Purchase Protection for eligible Mastercard purchases.</p>
-                        </div>
-                        <div class="text check">
-                            <img src="{{asset('build/images/check.svg')}}" alt="suyool check">
-                            <p class="desktop">Coverage for theft or accidental damage up to 180 days from purchase.</p>
-                        </div>
-                        <div class="text check">
-                            <img src="{{asset('build/images/check.svg')}}" alt="suyool check">
-                            <p class="desktop">Coverage for theft or accidental damage up to 180 days from purchase.</p>
-                        </div>
-                        <div class="text check">
-                            <img src="{{asset('build/images/check.svg')}}" alt="suyool check">
-                            <p class="desktop">Up to $2,000 per claim, with a maximum of $5,000 annually.s</p>
-                        </div>
-                        <div class="text check">
-                        <img src="{{asset('build/images/check.png')}}" alt="suyool check">
-                        <p class="desktop">Replacement or compensation based on store receipt for damaged items.</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-img-desk col-lg-5 order-lg-2 order-1">
-                    <img src="{{ asset('/build/images/platinumMastercard/platinumCard.png') }}" alt="suyool Platinum card">
-                </div>
-            </div>
-        </div>
-    </div>
-    {% include 'elements/gettheapp.html.twig' %}
+    {% include 'elements/protection.html.twig' %}
+    
+    {% include 'elements/get-suyool.html.twig' %}
 
     {% include 'elements/footer.html.twig' %} 
 {% endblock %}

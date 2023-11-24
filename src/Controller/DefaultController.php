@@ -517,9 +517,41 @@ class DefaultController extends AbstractController
             ],
         ];
 
+        $protection = [
+            [
+                'imagePath' => 'build/images/platinumMastercard/buyers.png',
+                'title' => 'Buyers Protection',
+                'points' => [
+                    'Visa Platinum offers Buyers Protection Insurance for eligible purchases, covering theft, accidental damage, or non-delivery.',
+                    'Valid for items fully paid with the Visa Platinum card, new item purchases only, and lasts up to 365 days from purchase.',
+                    'Cardholders can access insurance details and claim instructions on website',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/visainsurance.png',
+                'title' => 'Extended Warranty',
+                'points' => [
+                    'Visa Platinum offers Extended Warranty, doubling the repair period of the original manufacturer’s warranty for up to 1 year',
+                    'Applicable to full payment with Visa Platinum card on new item purchases'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/warrancty.png',
+                'title' => 'Visa Insurances',
+                'points' => [
+                    'Visa introduced an online portal and claim tracker in 2016 for cardholders',
+                    'Additionally, a bank portal launched in 2017 for bank staff to assist cardholders without a valid PAN',
+                ],
+                'learnMoreLink' => '/',
+            ],
+        ];
+
         $parameters = [
             'cardData' => $cardData,
             'lifeStyleData' => $lifeStyleData,
+            'protection'=>$protection,
             'title' => $title,
             'desc' => $desc,
             'barBgColor' => 'barWhite'
