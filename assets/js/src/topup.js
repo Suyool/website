@@ -1,7 +1,8 @@
 if (document.querySelector(".loaderTopUp")) {
   const element = document.getElementById("submitTopUp");
   setInterval(function () {
-    element.style.display = "block";
+    var button = document.querySelector('.continueBtn');
+    button.click();
   }, 2000);
 }
 
