@@ -1,5 +1,5 @@
 .top_section_mastercard-container {
-  background-image: url("../../../images/platinumMastercard/top-section-mastercard.jpg");
+  background-image: url("../../../images/platinumMastercard/top-section-visa.png");
   background-size: cover;
 }
 
@@ -135,14 +135,14 @@
       font-size: 62px;
       padding-top: 55px;
       font-family: $Regular;
-      color: #373464;
+      color: #fff;
     }
 
     p {
       font-size: 20px;
       font-family: $Regular;
       width: 80%;
-      color: #373464;
+      color: #fff;
     }
 
     .buttons-cont {
@@ -627,7 +627,7 @@
   }
 
   .top_section_mastercard-container {
-    background-image: url("../../../images/platinumMastercard/top-section-mastercard-mob.png");
+    background-image: url("../../../images/platinumMastercard/top-section-visa-mob.png");
   }
 
   .top_section_mastercard {
