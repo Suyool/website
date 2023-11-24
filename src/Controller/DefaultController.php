@@ -502,37 +502,37 @@ class DefaultController extends AbstractController
         ];
 
         $lifeStyleData = [
+            [
+                'imagePath' => 'build/images/platinumMastercard/JumairaVisa.png',
+                'title' => 'Dining with Jumeirah F&B offers',
+                'points' => [
+                    'Visa offers up to 25% off dining at select Jumeirah Hotels & Resorts',
+                    'Valid until September 30, 2024, subject to availability',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/BookingVisa.png',
+                'title' => 'Hotel discount and cashback with booking.com',
+                'points' => [
+                    'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+                'title' => 'Shopping with Global Blue',
+                'points' => [
+                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024',
+                ],
+                'learnMoreLink' => '/',
+            ],
             // [
-            //     'imagePath' => 'build/images/platinumMastercard/un.png',
-            //     'title' => 'Dining with Jumeirah F&B offers',
-            //     'points' => [
-            //         'Visa offers up to 25% off dining at select Jumeirah Hotels & Resorts',
-            //         'Valid until September 30, 2024, subject to availability',
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/deux.png',
-            //     'title' => 'Hotel discount and cashback with booking.com',
-            //     'points' => [
-            //         'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
-            //         'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-            //         'Offer valid until December 31, 2024'
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/trois.png',
-            //     'title' => 'Shopping with Global Blue',
-            //     'points' => [
-            //         'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
-            //         'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-            //         'Offer valid until December 31, 2024',
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/quatre.png',
+            //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
             //     'title' => 'Shopping with Global Blue',
             //     'points' => [
             //         'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
@@ -541,36 +541,36 @@ class DefaultController extends AbstractController
             //     ],
             //     'learnMoreLink' => '/',
             // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/cinq.png',
-            //     'title' => 'Shopping with Global & Local merchant offers',
-            //     'points' => [
-            //         'Visa Platinum offers exclusive deals worldwide in fashion, homeware, and electronics',
-            //         'Cardholders get discounts on jewelry, fashion, and more in the region and abroad'
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/sise.png',
-            //     'title' => 'Experience with Visa Golf Access',
-            //     'points' => [
-            //         'Visa Golf Access offers discounts on golf green fees for Visa Platinum Cardholders worldwide',
-            //         'Book in advance by calling or using the SpikesOn app for bookings and payments',
-            //         'Participating courses include Jebel Sifah, Yas Links, Royal Golf Club, and more; offer valid until September 2024'
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
-            // [
-            //     'imagePath' => 'build/images/platinumMastercard/seven.png',
-            //     'title' => 'Experience with Jumeirah Spa Offers',
-            //     'points' => [
-            //         'Visa cardholders enjoy exclusive spa offers at various Jumeirah Hotels’ Talise Spas',
-            //         'Discounts range from 10% to 20% on treatments at different locations',
-            //         'Offers valid until September 30, 2024'
+            [
+                'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
+                'title' => 'Shopping with Global & Local merchant offers',
+                'points' => [
+                    'Visa Platinum offers exclusive deals worldwide in fashion, homeware, and electronics',
+                    'Cardholders get discounts on jewelry, fashion, and more in the region and abroad'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/SpikesOnVisa.png',
+                'title' => 'Experience with Visa Golf Access',
+                'points' => [
+                    'Visa Golf Access offers discounts on golf green fees for Visa Platinum Cardholders worldwide',
+                    'Book in advance by calling or using the SpikesOn app for bookings and payments',
+                    'Participating courses include Jebel Sifah, Yas Links, Royal Golf Club, and more; offer valid until September 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/spaVisa.png',
+                'title' => 'Experience with Jumeirah Spa Offers',
+                'points' => [
+                    'Visa cardholders enjoy exclusive spa offers at various Jumeirah Hotels’ Talise Spas',
+                    'Discounts range from 10% to 20% on treatments at different locations',
+                    'Offers valid until September 30, 2024'
 
-            //     ],
-            //     'learnMoreLink' => '/',
-            // ],
+                ],
+                'learnMoreLink' => '/',
+            ],
         ];
 
         $protection = [
