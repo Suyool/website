@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	{% if status is not defined %}
-		<div class="loaderTopUp">
-		<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
 		{% if app.request.server.get('APP_ENV') == "dev" %}
 			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
 		{% else %}
