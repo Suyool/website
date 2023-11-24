@@ -325,7 +325,7 @@ class DefaultController extends AbstractController
         $parameters = [
             'title' => $title,
             'desc' => $desc,
-            'metaimage' => 'build/images/sendReceiveMETA.png',
+            'metaimage' => 'build/images/sendmeta.png',
             'descmeta' => $desc,
         ];
         $infoSection = [
