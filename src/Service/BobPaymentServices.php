@@ -480,7 +480,7 @@ class BobPaymentServices
                     "currency" => $currency,
                     "id" => $transId,
                     "amount" => $amount,
-                    "description" => "ordered goods"
+                    "description" => "rtp"
                 ]
             ];
             // echo json_encode($body,true);

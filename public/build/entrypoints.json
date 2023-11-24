@@ -60,10 +60,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.0ff1ace6.css"
 =======
         "/build/styles.692f54a8.css"
 >>>>>>> ca14b3ac (topup)
+=======
+        "/build/styles.05128390.css"
+>>>>>>> 556d8d81 (fix something)
       ]
     },
     "admin": {

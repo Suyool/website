@@ -16,6 +16,15 @@ if (document.querySelector(".continueBtn")) {
   });
 }
 
+if (document.querySelector(".continueBtnrtp")) {
+  const element = document.querySelector(".continueBtnrtp");
+  var loader = document.getElementsByClassName("loaderTopUp2")[0];
+  element.addEventListener("click", function () {
+    loader.style.display="none";
+    document.getElementById("embed-target").style.display="block";
+  });
+}
+
 if (document.querySelector(".actionAppSuccess")) {
   const actionAppSuccess = document.querySelector(".actionAppSuccess");
   actionAppSuccess.addEventListener("click", function () {
