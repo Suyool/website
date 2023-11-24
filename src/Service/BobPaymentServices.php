@@ -56,6 +56,7 @@ class BobPaymentServices
             $order->settransId($transId);
             $order->setamount($amount);
             $order->setcurrency($currency);
+            $order->settype("topup");
             $this->mr->persist($order);
             $this->mr->flush();
 
@@ -456,6 +457,7 @@ class BobPaymentServices
             $order->settransId($transId);
             $order->setamount($amount);
             $order->setcurrency($currency);
+            $order->settype("rtp");
             $this->mr->persist($order);
             $this->mr->flush();
             $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];

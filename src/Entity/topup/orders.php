@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PaymentRepository")
- * @ORM\Table(name="orders")
+ * @ORM\Table(name="transactions")
  */
 class orders
 {
@@ -40,6 +40,11 @@ class orders
      * @ORM\Column(type="string")
      */
     private $currency;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $type;
 
     /**
      * @ORM\Column(name="status")
@@ -114,6 +119,17 @@ class orders
     {
         $this->transId = $transId;
         return $this;
+    }
+
+    public function settype($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function gettype()
+    {
+        return $this->type;
     }
 
     public function getCreated()
