@@ -49,7 +49,7 @@ Encore
     .addStyleEntry('OgeroStyle', './assets/styles/src/react/Ogero.scss')
     .addStyleEntry('iveristyles', './assets/styles/src/react/Iveri.scss')
     .addStyleEntry('terraNetstyle', './assets/styles/src/react/TerraNet.scss')
-    .addStyleEntry('SodetelStyles', './assets/styles/src/react/Sodetel.scss')
+    .addStyleEntry('SodetelStyle', './assets/styles/src/react/Sodetel.scss')
     // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
     // .addEntry('app', './assets/app.js')
     // .addEntry('app', './assets/react/index.js')

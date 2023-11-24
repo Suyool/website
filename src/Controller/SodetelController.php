@@ -35,13 +35,35 @@ class SodetelController extends AbstractController
     /**
      * @Route("/sodetel", name="sodetel")
      */
-    public function index(): Response
+    public function index(NotificationServices $notificationServices): Response
     {
-        $parameters['deviceType'] = "Android";
-        return $this->render('sodetel/index.html.twig', [
-            'controller_name' => 'SodetelController',
-            'parameters' => $parameters,
-        ]);
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
+
+        if (isset($_POST['infoString'])) {
+            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $SuyoolUserId = $suyoolUserInfo[0];
+//            $SuyoolUserId = 218;
+            $this->session->set('suyoolUserId', $SuyoolUserId);
+            // $this->session->set('suyoolUserId', 155);
+
+            $parameters['deviceType'] = $suyoolUserInfo[1];
+
+
+            return $this->render('sodetel/index.html.twig', [
+                'controller_name' => 'SodetelController',
+                'parameters' => $parameters,
+            ]);
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
     }
 
     /**
@@ -86,8 +108,8 @@ class SodetelController extends AbstractController
 
         $suyoolServices = new SuyoolServices($this->params->get('SODETEL_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-//        $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 218;
+        $SuyoolUserId = $this->session->get('suyoolUserId');
+//        $SuyoolUserId = 218;
         $flagCode = null;
 
         if ($data != null) {
@@ -113,97 +135,89 @@ class SodetelController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
 
-//                dd($order->getStatus());
-
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
-//                dd($rechargeInfo);
 
                 if ($rechargeInfo[0]) {
-//                if ($rechargeInfo[0]  ) {
-//                    dd("rechargeInfo", $rechargeInfo);
-                    $product = new Product;
+                    $sodetelData = json_decode($rechargeInfo[0], true);
+                    if ($sodetelData['result']) {
+                        $product = new Product;
+                        $product
+                            ->setType($data['bundle'])
+                            ->setPlanCode($data['refillData']['plancode'])
+                            ->setPlanDescription($data['refillData']['plandescription'])
+                            ->setPricettc($data['refillData']['pricettc'])
+                            ->setPriceHt($data['refillData']['priceht'])
+                            ->setPrice($data['refillData']['price'])
+                            ->setCurrency($data['refillData']['currency'])
+                            ->setSayrafa($data['refillData']['sayrafa']);
 
-//                    dd($data);
+                        $this->mr->persist($product);
+                        $this->mr->flush();
 
-                    $product
-                        ->setType($data['bundle'])
-                        ->setPlanCode($data['refillData']['plancode'])
-                        ->setPlanDescription($data['refillData']['plandescription'])
-                        ->setPricettc($data['refillData']['pricettc'])
-                        ->setPriceHt($data['refillData']['priceht'])
-                        ->setPrice($data['refillData']['price'])
-                        ->setCurrency($data['refillData']['currency'])
-                        ->setSayrafa($data['refillData']['sayrafa']);
+                        $order->setStatus(Order::$statusOrder['PURCHASED'])
+                            ->setProduct($product)
+                            ->setTransId($utilityResponse[1]);
 
-                    $this->mr->persist($product);
-                    $this->mr->flush();
-
-                    $order->setStatus(Order::$statusOrder['PURCHASED'])
-                        ->setProduct($product)
-                        ->setTransId($utilityResponse[1]);
-
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-
-                    //notification body
-                    $params = json_encode([
-                        'amount' => $order->getAmount(),
-                        'currency' => $order->getCurrency(),
-                        // number to be calculated later
-                    ]);
-                    $additionalData = '';
-
-                    $content = $notificationServices->getContent('AcceptedAlfaPayment');
-                    $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-
-                    $updateUtilitiesAdditionalData = json_encode([
-                        'Fees' => 0,
-                        'TransactionId' => $product->getId(),
-                        'Amount' => $order->getAmount(),
-                        'TotalAmount' => $order->getAmount(),
-                        'Currency' => $order->getCurrency(),
-                    ]);
-
-                    //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getAmount(), $updateUtilitiesAdditionalData, $order->gettransId());
-                    if ($responseUpdateUtilities) {
-//                        $ordersRepository->updateOrderStatus($order->getId(), $SuyoolUserId, Order::$statusOrder['PURCHASED'], Order::$statusOrder['COMPLETED']);
-                        //setError: SUCCESS
-                        $order->setStatus(Order::$statusOrder['COMPLETED'])
-                            ->setError("SUCCESS");
                         $this->mr->persist($order);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getAmount(), 'currency' => $order->getCurrency(), 'fees' => 0];
-                        $message = "Success";
-                        $IsSuccess = true;
-                    } else {
-//                        $ordersRepository->updateOrderStatus($order->getId(), $SuyoolUserId, Order::$statusOrder['PURCHASED'], Order::$statusOrder['CANCELED']);
-//                                ->seterror($responseUpdateUtilities[1]);
-                        $order->setStatus(Order::$statusOrder['CANCELED'])
-                            ->setError($responseUpdateUtilities[1]);
+                        //notification body
+                        $params = json_encode([
+                            'amount' => $order->getAmount(),
+                            'currency' => $order->getCurrency(),
+                            // number to be calculated later
+                        ]);
 
-                        $message = "something wrong while UpdateUtilities";
+                        $additionalData = '';
+
+                        $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                        $bulk = 0; //1 for broadcast 0 for unicast
+                        $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+
+                        $updateUtilitiesAdditionalData = json_encode([
+                            'Fees' => 0,
+                            'TransactionId' => $product->getId(),
+                            'Amount' => $order->getAmount(),
+                            'TotalAmount' => $order->getAmount(),
+                            'Currency' => $order->getCurrency(),
+                        ]);
+
+                        //tell the .net that total amount is paid
+                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getAmount(), $updateUtilitiesAdditionalData, $order->gettransId());
+                        if ($responseUpdateUtilities[0]) {
+                            $order->setStatus(Order::$statusOrder['COMPLETED'])
+                                ->setError("SUCCESS");
+                            $this->mr->persist($order);
+                            $this->mr->flush();
+
+                            $dataPayResponse = ['amount' => $order->getAmount(), 'currency' => $order->getCurrency(), 'fees' => 0, 'id' => $sodetelData['id'], 'password' => $sodetelData['password']];
+                            $message = "Success";
+                            $IsSuccess = true;
+                        } else {
+                            $order->setStatus(Order::$statusOrder['CANCELED'])
+                                ->setError($responseUpdateUtilities[1]);
+
+                            $message = "something wrong while UpdateUtilities";
+                            $dataPayResponse = -1;
+                        }
+
+                    } else {
+                        $order->setStatus(Order::$statusOrder['CANCELED'])
+                            ->setError($sodetelData['message']);
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+
+                        $IsSuccess = false;
+                        $message = $sodetelData['message'];
                         $dataPayResponse = -1;
                     }
-                } else {
-//                    $ordersRepository->updateOrderStatus($order->getId(), $SuyoolUserId, Order::$statusOrder['PENDING'], Order::$statusOrder['CANCELED']);
-//                            ->seterror($response[1]);
-
-                    $order->setStatus(Order::$statusOrder['CANCELED'])
-                        ->setError($rechargeInfo[1]);
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-
-                    $IsSuccess = false;
-                    $message = json_decode($utilityResponse[1], true);
-                    if (isset($utilityResponse[2])) {
-                        $flagCode = $utilityResponse[2];
-                    }
-                    $dataPayResponse = -1;
                 }
             } else {
+                $order->setstatus(Order::$statusOrder['CANCELED'])
+                    ->seterror($utilityResponse[1]);
+                $this->mr->persist($order);
+                $this->mr->flush();
+
                 return new JsonResponse([
                     'status' => false,
                     'message' => $utilityResponse[1],
@@ -212,18 +226,21 @@ class SodetelController extends AbstractController
                     'data' => '',
                 ], 200);
             }
-
+        } else {
             return new JsonResponse([
-                'status' => true,
-                'message' => $message,
-                'IsSuccess' => $IsSuccess,
-                'flagCode' => $flagCode,
-                'data' => $dataPayResponse,
-            ], 200);
-
-            dd($utilityResponse);
-
-
+                'status' => false,
+                'message' => 'bad request',
+                'IsSuccess' => false,
+                'flagCode' => '',
+                'data' => '',
+            ], 400);
         }
+        return new JsonResponse([
+            'status' => true,
+            'message' => $message,
+            'IsSuccess' => $IsSuccess,
+            'flagCode' => $flagCode,
+            'data' => $dataPayResponse,
+        ], 200);
     }
 }

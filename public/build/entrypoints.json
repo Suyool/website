@@ -132,12 +132,16 @@
         "/build/terraNetstyle.045b70e4.css"
       ]
     },
-    "SodetelStyles": {
+    "SodetelStyle": {
       "js": [
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/SodetelStyles.e2135ca2.css"
+=======
+        "/build/SodetelStyle.css"
+>>>>>>> 614ce80f (create the sodetel flow)
       ]
     }
   }

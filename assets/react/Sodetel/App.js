@@ -37,8 +37,7 @@ function App({parameters}) {
         };
     });
 
-    console.log("bundleData", bundleData)
-    console.log("activeButton", activeButton)
+    console.log("modalDesc", modalDesc);
 
     return (
         <div>
@@ -121,7 +120,7 @@ function App({parameters}) {
                             ...modalDesc,
                             name: ""
                         });
-                        setActiveButton({ name: "" });
+                        setActiveButton({...activeButton, name: "" });
                     }}
                 />
             )}
@@ -136,7 +135,7 @@ function App({parameters}) {
                             name: "",
                             show: false
                         });
-                        setActiveButton({ name: "" });
+                        setActiveButton({...activeButton, name: "" });
                     }}
                 />
             )}

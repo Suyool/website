@@ -22,6 +22,7 @@ const MyBundle = ({
   }, []);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
+  const [sodetelPassword, setSodetelPassword] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
@@ -74,17 +75,18 @@ const MyBundle = ({
         })
         .then((response) => {
           setSpinnerLoader(false);
-          const jsonResponse = response?.data?.message;
+          // const jsonResponse = JSON.parse(response?.data?.message);
+          console.log("jsonResponse", response);
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
-            setSerialToClipboard(
-              "*14*" + response?.data?.data?.voucherCode + "#"
-            );
+            setSerialToClipboard(response?.data?.data?.id);
+            setSodetelPassword(response?.data?.data?.password);
           } else {
             if (
-              response.data.IsSuccess == false &&
-              response.data.flagCode == 10
+              response.data?.IsSuccess == false &&
+              response.data?.flagCode == 10
             ) {
+              console.log("exchange", jsonResponse);
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
@@ -130,6 +132,7 @@ const MyBundle = ({
           }
         })
         .catch((error) => {
+            console.log("err", error);
           setSpinnerLoader(false);
         });
     } else if (getDataGetting == "failed") {
@@ -153,7 +156,6 @@ const MyBundle = ({
   return (
     <>
       {getPaymentConfirmation && (
-        <>
           <div id="PaymentConfirmationPrePaid">
             <div className="topSection">
               <div className="brBoucket"></div>
@@ -183,14 +185,13 @@ const MyBundle = ({
 
               <div className="br"></div>
 
-              <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">
-                Copy the 14-digit secret code below
-              </div>
+              <div className="copyTitle">The Credentials of your bundle </div>
+              <div className="copyDesc">Copy the Id and the Password below</div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
                 <div></div>
                 <div className="serial">{getSerialToClipboard}</div>
+                <div className="serial">{sodetelPassword}</div>
                 <img
                   className="copySerial"
                   src="/build/images/alfa/copySerial.png"
@@ -230,7 +231,6 @@ const MyBundle = ({
               </div>
             </div>
           </div>
-        </>
       )}
       <div
         id="MyBundle"
