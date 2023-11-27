@@ -10,6 +10,7 @@ use App\Service\NotificationServices;
 use App\Service\SodetelService;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\DashboardDto;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,8 @@ class SodetelController extends AbstractController
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+//            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+//        $devicetype = "Android";
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
 //            $SuyoolUserId = 218;
@@ -108,12 +110,18 @@ class SodetelController extends AbstractController
 
         $suyoolServices = new SuyoolServices($this->params->get('SODETEL_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
+
         $SuyoolUserId = $this->session->get('suyoolUserId');
 //        $SuyoolUserId = 218;
+
+
         $flagCode = null;
+        $IsSuccess = false;
+        $dataPayResponse = [];
+        $status = 200;
+        $message = "";
 
         if ($data != null) {
-//            dd($this->mr->getRepository(Order::class)->findAll());
             $order = new Order;
             $order->setSuyoolUserId($SuyoolUserId)
                 ->setAmount($data['refillData']['pricettc'])
@@ -128,7 +136,6 @@ class SodetelController extends AbstractController
             $order_id = $this->params->get('SODETEL_POSTPAID_MERCHANT_ID') . $order->getId();
 
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0);
-            $message = "";
             if ($utilityResponse[0]) {
                 $order->setStatus(Order::$statusOrder['HELD']);
 
@@ -136,9 +143,10 @@ class SodetelController extends AbstractController
                 $this->mr->flush();
 
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
-
-                if ($rechargeInfo[0]) {
-                    $sodetelData = json_decode($rechargeInfo[0], true);
+                if ($rechargeInfo) {
+                    $sodetelArr = json_decode($rechargeInfo, true);
+                    $sodetelData = $sodetelArr[0];
+//                    dd($sodetelData);
                     if ($sodetelData['result']) {
                         $product = new Product;
                         $product
@@ -164,8 +172,11 @@ class SodetelController extends AbstractController
                         //notification body
                         $params = json_encode([
                             'amount' => $order->getAmount(),
-                            'currency' => $order->getCurrency(),
+//                            'currency' => $order->getCurrency(),
                             // number to be calculated later
+
+                            'userAccount' => $data['identifier'],
+                            'type' => "$data[bundle]"
                         ]);
 
                         $additionalData = '';
@@ -218,22 +229,15 @@ class SodetelController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
 
-                return new JsonResponse([
-                    'status' => false,
-                    'message' => $utilityResponse[1],
-                    'IsSuccess' => false,
-                    'flagCode' => $utilityResponse[2],
-                    'data' => '',
-                ], 200);
+                $message = $utilityResponse[1];
+                $flagCode = $utilityResponse[2];
+
+                $status = 200;
             }
         } else {
-            return new JsonResponse([
-                'status' => false,
-                'message' => 'bad request',
-                'IsSuccess' => false,
-                'flagCode' => '',
-                'data' => '',
-            ], 400);
+            $message = "bad request";
+            $flagCode = "";
+            $status = 400;
         }
         return new JsonResponse([
             'status' => true,
@@ -241,6 +245,6 @@ class SodetelController extends AbstractController
             'IsSuccess' => $IsSuccess,
             'flagCode' => $flagCode,
             'data' => $dataPayResponse,
-        ], 200);
+        ], $status);
     }
 }

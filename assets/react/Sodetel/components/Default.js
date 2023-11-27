@@ -3,18 +3,26 @@ import axios from "axios";
 
 const Default = ({setHeaderTitle, setBackLink, setActiveButton, setCredential, setCredentialsArray}) => {
 
-    const dslCredentials = [{
-        name: "landlineNumber",
-        label: "Landline Number",
-        // type: "phone",
-        type: "text",
-    }];
+    const dslCredentials = [
+        {
+            name: "landlineNumber",
+            label: "Landline Number",
+            type: "phone",
+        },
+        {
+            name: "ldNumber",
+            label: "L/D Number",
+            type: "text",
+        }
+    ];
 
-    const fiberCredentials = [{
-        name: "hfNumber",
-        label: "H/F Number",
-        type: "phone",
-    }];
+    const fiberCredentials = [
+        {
+            name: "hfNumber",
+            label: "H/F Number",
+            type: "text",
+        }
+    ];
 
     const fourGCredentials = [
         {
