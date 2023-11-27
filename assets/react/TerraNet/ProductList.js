@@ -23,7 +23,7 @@ const ProductList = ({
             <div className="mainDesc">* Excluding Taxes</div>
             <div className="bundlesSection mb-5">
                 {products.map((product, index) => {
-                    const imagePath = `/build/images/terraNet/circle_product_${product.ProductId}.svg`;
+                    const imagePath = `/build/images/terraNet/circle_product_${product.ProductId}.png`;
 
                     return (
                         <div
