@@ -75,7 +75,7 @@ return [
     "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"If they don't have an account, they will have 3 options to pay you: Open a Suyool account, deposit the amount at BOB Finance using a code generated, or settle the amount via card payment",
 
     //usj
-    "USJ_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, USJ is bringing your<br class='desktopMode'> pay to the ultimate digital account: the first secure and <br class='desktopMode'> independent Lebanese online platform!",
+    "USJ_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, USJ is bringing your pay to the ultimate digital account: the first secure and independent Lebanese online platform!",
     "FACING_TODAY_FINANCIAL_CHALLENGES" => "Facing today’s financial challenges, we moved our payroll to Suyool.<br class='desktopMode'> You will get your own digital dual-currency account, a complete payment tool <br class='desktopMode'>with the best rates and a Platinum Debit Card linked to the account.",
     "OPEN_YOUR_SUYOOL_ACCOUNT" => "Open Your Suyool Account",
     "FREE_PLATINUM_MASTERCARD" => "Platinum Debit Card",
@@ -336,6 +336,27 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia" => "Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia" => "You can withdraw your salary from more than 700 BOB finance cash points.",
 
+    //Send Receive Money
+    "SEND_RECEIVE_MOENY_TITLE" => "Send money instantly <br> to any Lebanese number",
+    "ONE_OF_THE_MOST_PROMINENT" => "Experience the ease and speed of sending money with Suyool. Simply enter a recipient’s Lebanese phone number, and transfer funds instantly.",
+    "TUTORIAL_VIDEO" => "TUTORIAL VIDEO",
+    "HOW_TO_SEND_MONEY_TO_ANY" => "How to Send Money to any Lebanese number?",
+    "YOUR_FRIEND_DOSENT_HAVE_SUYOOL" => "Your friend doesn’t have Suyool? No problem! You can send money to anyone in <br> Lebanon as long as they have a Lebanese number.",
+    "FEES_FOR_SENDING_MONEY" => "FEES FOR SENDING MONEY",
+    "IS_THREE_A_FEE_SENDING_MONEY" => "Is there a fee for sending money through Suyool?",
+    "SENDING_MONEY_TO_A_SUYOOL_FREE" => "Sending money to a Suyool user is FREE! If not, fees apply.",
+
+    "HOW_CAN_I_SEND_MONEY_WITH_SUYOOL" => "How can I send money with Suyool?",
+    "SUYOOL_USER_CAN_TRANSFER"=>"Suyool users can transfer money to any Lebanese mobile number. All they need to do is :<br> Tap on “Use My Money”.<br>  Tap on “Send Money”. <br> Insert the name of the contact they are sending the money to, or their phone number.<br>  Choose the currency (USD or LBP).<br>  Add the amount.<br>  Tap on “Confirm & Pay”. <br> Their money is sent successfully!",
+    "CAN_I_SEND_MONEY_TO_A_NON"=> "Can I send money to a non Suyool user?",
+    "YOU_CAN_SEND_MONEU_TO_ANY"=>"You can send money to any Lebanese mobile number.<br>  If they’re a Suyool user, they’ll receive the amount instantly on the app.<br>  If they’re not, they’ll receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash.",
+    "IS_THERE_A_FEE_FOR_TRANSFERRING"=>"Is there a fee for transferring money in Suyool?",
+    "TRANSFERRING_MONEY_THROUGH_SUYOOL"=>"Transferring money through Suyool to any Lebanese number is free of charge.",
+    "CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT"=>"Can I send money to a person without exchanging my personal details with them?",
+    "YES_YOU_CAN_SEND_MONEY"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
+    "WHAT_DO_ID_DO_IF_I"=>"What do I do if I sent money to the wrong number?",
+    "WEVE_ADDED_EXTRA_SECURITY"=> "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
+    //visa
     //Send Receive Money
     "SEND_RECEIVE_MOENY_TITLE" => "Send money instantly <br> to any Lebanese number",
     "ONE_OF_THE_MOST_PROMINENT" => "Experience the ease and speed of sending money with Suyool. Simply enter a recipient’s Lebanese phone number, and transfer funds instantly.",

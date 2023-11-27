@@ -1,0 +1,24 @@
+<div class="mastercard_page">
+        <div class="title">PROTECTION</div>
+        <div class="descri">Card Protection Services</div>
+
+        <div class="cards row">
+            {% for card in protection %}
+                <div class="col-lg-4 col-md-6 col-sm-12 big_card">
+                    <div class="card">
+                        <img src="{{ asset(card.imagePath) }}" alt="Suyool">
+                        <div class="text">
+                            <div class="title">{{ card.title }}</div>
+                            {% for point in card.points %}
+                                <div class="points">
+                                    <div class="dot"></div>
+                                    <div class="desc">{{ point }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+{#                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>#}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>

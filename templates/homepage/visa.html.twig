@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="top_section_visa-container">
+		<div class="top_section_mastercard container-fluid">
+			{% include 'elements/header-v2.html.twig' %}
+
+			<div class="row">
+				<div class="col-md-7 col-12 top-info">
+					<h1>The Suyool Visa Platinum
+						<br>
+						For All Your Purchases</h1>
+					<p>Experience the next level of financial freedom with the Suyool Visa Platinum card. Order yours from the comfort of home and get it delivered directly to you.</p>
+					<button class="desktopMode getthecard open-suyool-account" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
+					<button class="tabletmobileMode getthecard get-the-card">Get The Card</button>
+				</div>
+				<div class="col-md-5 col-12">
+					<img src="{{asset('build/images/platinumMastercard/phone-with-shadows-visa.png')}}" width="100%"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row four_steps">
+		<div class="col-lg-3 col-md-6 col-sm-12 step">
+			<img src="{{ asset('build/images/platinumMastercard/acceptance.svg') }}" alt="Suyool">
+			<div class="title">Acceptance</div>
+			<div class="description">Millions of Acceptance points in Lebanon and all over the world</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 step">
+			<img src="{{ asset('build/images/platinumMastercard/safety_security.svg') }}" alt="Suyool">
+			<div class="title">Safety & Security</div>
+			<div class="description">Secure transactions no matter where you’re spending!</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 step">
+			<img src="{{ asset('build/images/platinumMastercard/convenience_control.svg') }}" alt="Suyool">
+			<div class="title">Convenience & Control</div>
+			<div class="description">Controlling and managing your cost and spending the way you want to!</div>
+		</div>
+		<div class="col-lg-3 col-md-6 col-sm-12 step">
+			<img src="{{ asset('build/images/platinumMastercard/relevance.svg') }}" alt="Suyool">
+			<div class="title">Relevance</div>
+			<div class="description">Having access to unique & relevant benefits catering to your needs!</div>
+		</div>
+	</div>
+	{% include 'homepage/home-visa.html.twig' %}
+
+	<div class="row three_steps">
+		<div class="step">
+			<div class="sub">
+				<img src="{{ asset('build/images/platinumMastercard/travel.svg') }}" alt="Suyool">
+				<div class="title">TRAVEL</div>
+				<div class="description">Elevate your travel experience with the Suyool Visa Platinum card. Enjoy exclusive lounge access, airline and travel discounts, hotel and car rental savings, and unique city experiences. Explore the world hassle-free.</div>
+			</div>
+		</div>
+		<div class="step">
+			<div class="sub">
+				<img src="{{ asset('build/images/platinumMastercard/lifestyle.svg') }}" alt="Suyool">
+				<div class="title">LIFESTYLE</div>
+				<div class="description">Enhance your lifestyle with the Suyool Visa Platinum card. Shop smart with discounts at select retailers, access a premium shipping membership, dine out for less, and enjoy various lifestyle perks.</div>
+			</div>
+		</div>
+		<div class="step">
+			<div class="sub">
+				<img src="{{ asset('build/images/platinumMastercard/peace_of_mind.svg') }}" alt="Suyool">
+				<div class="title">PEACE OF MIND</div>
+				<div class="description">Experience peace of mind with the Suyool Visa Platinum card. Our Purchase Protection safeguards your eligible purchases, ensuring worry-free shopping. Trust in our card’s security and protection for your peace of mind.</div>
+			</div>
+		</div>
+	</div>
+	<div class="buttons-cont-visa text-center">
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+	</div>
+	<div class="mastercard_page">
+		<div class="title">TRAVEL</div>
+		<div class="descri">Elevate your Travel Experience</div>
+
+		<div class="cards row">
+			{% for card in cardData %}
+				<div class="col-lg-4 col-md-6 col-sm-12 big_card">
+					<div class="card">
+						<img src="{{ asset(card.imagePath) }}" alt="Suyool">
+						<div class="text">
+							<div class="title">{{ card.title }}</div>
+							{% for point in card.points %}
+								<div class="points">
+									<div class="dot"></div>
+									<div class="desc">{{ point }}</div>
+								</div>
+							{% endfor %}
+						</div>
+						{#                        <div class="lear_more"><a href="{{ card.learnMoreLink }}"><span>Learn More</span><i class="fa-solid fa-arrow-right"></i></a></div>#}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+	<div class="buttons-cont-visa text-center">
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+	</div>
+	<div class="mastercard_page">
+		<div class="title">LIFESTYLE</div>
+		<div class="descri">Enhance your Lifestyle</div>
+
+		<div class="cards row">
+			{% for card in lifeStyleData %}
+				<div class="col-lg-4 col-md-6 col-sm-12 big_card">
+					<div class="card">
+						<img src="{{ asset(card.imagePath) }}" alt="Suyool">
+						<div class="text">
+							<div class="title">{{ card.title }}</div>
+							{% for point in card.points %}
+								<div class="points">
+									<div class="dot"></div>
+									<div class="desc">{{ point }}</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="buttons-cont-visa text-center">
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+	</div>
+	{% include 'elements/protection.html.twig' %}
+	{% include 'elements/faq/faqSuyool.html.twig' %}
+	{% include 'elements/get-suyool-visa.html.twig' %}
+
+	{% include 'elements/footer.html.twig' %}
+{% endblock %}

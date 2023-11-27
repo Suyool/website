@@ -1,6 +1,15 @@
 .top_section_mastercard-container {
   background-image: url("../../../images/platinumMastercard/top-section-mastercard.jpg");
   background-size: cover;
+  padding-bottom: 396px;
+}
+.top_section_visa-container {
+  // background-image: url("../../../images/platinumMastercard/top-section-visa.png");
+  // background-size: 100% 100%;
+  background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+  color: #fff;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .home-mastercard {
@@ -103,8 +112,8 @@
   }
 
   //background: linear-gradient(119deg, #373464 6%, #005c8a 50%, #fff 88%);
-  padding-top: 20px;
-  padding-bottom: 220px;
+  // padding-top: 20px;
+  // padding-bottom: 220px;
   color: #ffffff;
 
   .navbar {
@@ -132,17 +141,48 @@
 
   .top-info {
     h1 {
-      font-size: 62px;
+      &.mastercard{
+        color: #373464;
+        font-family: PoppinsRegular;
+        font-size: 62px;
+        padding-top: 55px;
+      }
+      font-size: 40px;
       padding-top: 55px;
       font-family: $Regular;
-      color: #373464;
+      color: #fff;
+      line-height: 60px;
+      
     }
 
     p {
-      font-size: 20px;
+      &.mastercard-2{
+        color: #373464;
+        font-family: PoppinsRegular;
+        font-size: 20px;
+        width: 80%;
+      }
+      font-size: 17px;
       font-family: $Regular;
       width: 80%;
-      color: #373464;
+      color: #fff;
+      
+    }
+
+    .getthecard {
+      padding: 13px 59px;
+      border: none;
+      background-color: #fff;
+      color: #4886a8;
+      font-family: 'PoppinsSemiBold';
+      border-radius: 10px;
+      margin-top: 50px;
+      margin-bottom: 20px;
+      &:hover{
+        color: #fff;
+        background-color: #226d96;
+        border: 1px solid #fff;
+      }
     }
 
     .buttons-cont {
@@ -344,10 +384,12 @@
         box-shadow: 0px 10px 60px #0000002e;
         overflow: hidden;
         margin: 20px 0;
+
         @media screen and (min-width:998px) {
           height: -webkit-fill-available;
 
         }
+
         padding-bottom: 50px;
 
         img {
@@ -383,8 +425,9 @@
               font-family: $Regular;
               font-size: 18px;
               color: #373464;
-              height: calc(100% - var(20px));
+              // height: calc(100% - var(20px));
               padding-left: 15px;
+              padding-bottom: 10px;
             }
           }
         }
@@ -631,7 +674,7 @@
   }
 
   .top_section_mastercard {
-    padding-bottom: 360px;
+    // padding-bottom: 360px;
 
     .navbar {
       margin-bottom: 20px;
@@ -648,14 +691,16 @@
     }
 
     .top-info {
+      text-align: -webkit-center;
       h1 {
-        font-size: 36px;
-        padding-top: 55px;
+        font-size: 27px;
+        // padding-top: 55px;
+        padding-top: 0px;
       }
 
       p {
-        font-size: 18px;
-        width: 80%;
+        font-size: 17px;
+        width: 100%;
       }
     }
   }
@@ -736,6 +781,7 @@
         .description {
           padding-top: 20px;
           font-size: 16px;
+          text-align: unset;
         }
       }
     }
@@ -751,6 +797,12 @@
     }
   }
 }
+
+// @media (min-width: 767px) and (max-width: 992px) {
+//   .top_section_mastercard-container {
+//     background-image: url("../../../images/platinumMastercard/visaIpad.png");
+//   }
+// }
 
 @media (min-width: 768px) and (max-width: 1450px) {
   .home-mastercard {
@@ -797,6 +849,20 @@
     }
   }
 
+}
+
+.buttons-cont-visa{
+  font-family: $SemiBold;
+  margin-top: 85px;
+  text-align: -webkit-center!important;
+  button{
+    &:hover{
+      background-color: #fff!important;
+      color:#4886a8!important ;
+      border: 1px solid #005c8a;
+    }
+  }
+  
 }
 
 // @media screen and (min-width: 2401px) {

@@ -1,0 +1,41 @@
+<div class="home-mastercard">
+    <div class="card-img-mobile">
+        <img src="{{ asset('/build/images/platinumMastercard/platinum-visa.png') }}" alt="suyool platinum mastercard">
+    </div>
+    <div class="row">
+        <div class="col-md-7 col-12">
+            <div class="card-desc">
+                <h2 class="title">Suyool Visa Platinum With Exclusive Benefits</h2>
+                <div class="text sub-title">A debit card that you can control from your Suyool app, in addition to all of the Platinum Visa Benefits</div>
+                <div class="text check">
+                    <img src="{{asset('build/images/check.svg')}}" alt="suyool debit card">
+                    <p>Internationally & locally accepted - In-store & Online.</p>
+                </div>
+                <div class="text check">
+                    <img src="{{asset('build/images/check.svg')}}" alt="suyool debit card">
+                    <p>Lock/unlock your card in seconds.</p>
+                </div>
+                <div class="text check">
+                    <img src="{{asset('build/images/check.svg')}}" alt="suyool debit card">
+                    <p>Free in-person delivery all over Lebanon.</p>
+                </div>
+                <div class="text check">
+                    <img src="{{asset('build/images/check.svg')}}" alt="suyool debit card">
+                    <p>Manage your card’s security on the go, as you like.</p>
+                </div>
+                <div class="text check">
+                    <img src="{{asset('build/images/check.svg')}}" alt="suyool debit card">
+                    <p>Change your card PIN directly from the app.</p>
+                </div>
+
+                {% if not hideLearnMore is defined %}
+                <a href="{{ path('app_visa') }}" class="blue-btn">Learn More</a>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="card-img-desk col-5">
+            <img src="{{ asset('/build/images/platinumMastercard/platinum-visa.png') }}" alt="suyool platinum mastercard">
+        </div>
+    </div>
+</div>

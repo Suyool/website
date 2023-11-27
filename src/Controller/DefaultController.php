@@ -325,8 +325,9 @@ class DefaultController extends AbstractController
         $parameters = [
             'title' => $title,
             'desc' => $desc,
-            'metaimage' => 'build/images/sendReceiveMETA.png',
+            'metaimage' => 'build/images/sendReceiveMoney/send-money-meta.png',
             'descmeta' => $desc,
+            'barBgColor' => 'barWhite'
         ];
         $infoSection = [
             'title' => 'BENEFITS OF SENDING MONEY WITH SUYOOL',
@@ -357,29 +358,296 @@ class DefaultController extends AbstractController
 
         $parameters['faq']=[
             "ONE"=>[
-                "Title"=>"HOW_CAN_I_SEND_MONEY_WITH_SUYOOL",
-                "Desc"=>"SUYOOL_USER_CAN_TRANSFER"
+                "Title"=>"Can I send money to any phone number?",
+                "Desc"=>"Suyool users can transfer money instantly to any Lebanese mobile number from the comfort of their own home."
             ],
             "TWO"=>[
-                "Title"=>"CAN_I_SEND_MONEY_TO_A_NON",
-                "Desc"=>"YOU_CAN_SEND_MONEU_TO_ANY"
+                "Title"=>"How long does it take for the money sent to arrive to the recipient?",
+                "Desc"=>"The recipient will receive the money instantly once the amount has been sent."
             ],
             "THREE"=>[
-                "Title"=>"IS_THERE_A_FEE_FOR_TRANSFERRING",
-                "Desc"=>"TRANSFERRING_MONEY_THROUGH_SUYOOL"
+                "Title"=>"Can I send money to a non Suyool user?",
+                "Desc"=>"Yes, you can send money to a non Suyool user. They will receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash (1.5% fees apply in this case)"
             ],
             "FOUR"=>[
-                "Title"=>"CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT",
-                "Desc"=>"YES_YOU_CAN_SEND_MONEY"
+                "Title"=>"Is there a fee for transferring money in Suyool?",
+                "Desc"=>"Transferring money through Suyool to any Lebanese number is free of charge. However if they are not a Suyool user 1.5% fees be applied."
             ],
             "FIVE"=>[
-                "Title"=>"WHAT_DO_ID_DO_IF_I",
-                "Desc"=>"WEVE_ADDED_EXTRA_SECURITY"
+                "Title"=>"Can I send money to a person without exchanging my personal details with them?",
+                "Desc"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details."
             ],
         ];
 
 
         return $this->render('sendReceiveMoney/index.html.twig', $parameters);
+    }
+    /** 
+     * @Route("/visa", name="app_visa")
+     */
+    public function visa(Request $request)
+    {
+        $title = "Suyool Visa Card | Suyool";
+        $desc = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
+        $metaimage="build/images/platinumMastercard/metavisa.png";
+        $descmeta="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
+        $visa=true;
+        $cardData = [
+            [
+                'imagePath' => 'build/images/platinumMastercard/lounge.png',
+                'title' => 'Airport lounge access with Lounge KEY',
+                'points' => [
+                    'Free access to 25+ airport lounges in multiple countries',
+                    '6 Cardholder visits per calendar year',
+                    'No registration required to activate the lounge benefit on the Visa Platinum card',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/pass.png',
+                'title' => 'Airport Dining Offers with DragonPass',
+                'points' => [
+                    '200+ restaurants globally, made up of key locations in both MENA home markets and travel corridors',
+                    'Discounts vary by merchant, and are visible in the mobile app'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/vq.png',
+                'title' => 'Meet & Assist service partners with YQ',
+                'points' => [
+                    'Global network for airport assistance partners',
+                    'Discount of up to 15% off retail rates for Visa Platinum cards at over 450 destinations globally',
+                    'Cardholders can book services like limo transfers, visas on arrival, and baggage porters too.',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/agoda.png',
+                'title' => 'Hotel & vacation rentals offers with Agoda',
+                'points' => [
+                    'Access hotels and vacation rentals globally through Agoda',
+                    'Use Platinum Visa card for a 12% discount',
+                    'Applicable to `Promotion Eligible` properties; offer valid until June 14, 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/three.png',
+                'title' => 'Hotel discount and cashback with IHG Hotels & Resorts',
+                'points' => [
+                    'Visa cardholders get 15% off at 100+ IHG Hotels & Resorts from October 5, 2022',
+                    'Bookings until March 31, 2024, for stays until April 3, 2024',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/visa.png',
+                'title' => 'Visa Luxury Hotel Collection',
+                'points' => [
+                    'Best available rate guarantee',
+                    'Automatic room upgrade, and VIP guest status',
+                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/sixt.png',
+                'title' => 'Car Rental offers with SIXT',
+                'points' => [
+                    'Visa Platinum Cardholders receive up to 10% off car rentals worldwide with SIXT Gold Membership',
+                    'Offer valid until October 25, 2025; subject to SIXT\'s rental terms and conditions'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/five.png',
+                'title' => 'Car Rental discount with Avis',
+                'points' => [
+                    'Up to 20% discount on Standard Rates',
+                    'Up to 10% off on Retail Rates',
+                    'Avis Preferred Plus Membership free of charge & enjoy additional services including free drivers'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/six.png',
+                'title' => 'Car Rental discount with Budget',
+                'points'=>[
+                    'Avis Budget Group offers renowned car rentals globally',
+                    'Visa Platinum cardholders receive a 10% discount on Budget rentals worldwide'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/medical.png',
+                'title' => 'Medical & travel assistance',
+                'points'=>[
+                    'Visa Platinum Cardholders have access to comprehensive global assistance services',
+                    'Services include medical advice, referrals, and essential medicine delivery',
+                    'Also provides legal referrals and interpreter services'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/cart.png',
+                'title' => 'Global Customer Assistance Services',
+                'points'=>[
+                    'GCAS provides essential support to Platinum Cardholders during travel',
+                    'Core services include inquiry assistance, lost/stolen card reporting, and emergency replacements',
+                    'Cash disbursement, file updates, and pre-enrollment via banks for Visa BINs'
+                ],
+                'learnMoreLink' => '/',
+            ]
+        ];
+
+        $lifeStyleData = [
+            [
+                'imagePath' => 'build/images/platinumMastercard/JumairaVisa.png',
+                'title' => 'Dining with Jumeirah F&B offers',
+                'points' => [
+                    'Visa offers up to 25% off dining at select Jumeirah Hotels & Resorts',
+                    'Valid until September 30, 2024, subject to availability',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/BookingVisa.png',
+                'title' => 'Hotel discount and cashback with booking.com',
+                'points' => [
+                    'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+                'title' => 'Shopping with Global Blue',
+                'points' => [
+                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Offer valid until December 31, 2024',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            // [
+            //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
+            //     'title' => 'Shopping with Global Blue',
+            //     'points' => [
+            //         'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+            //         'Available in select markets: France, Germany, Italy, and Spain starting November 15, 2021',
+            //         'Offer valid until December 31, 2023'
+            //     ],
+            //     'learnMoreLink' => '/',
+            // ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
+                'title' => 'Shopping with Global & Local merchant offers',
+                'points' => [
+                    'Visa Platinum offers exclusive deals worldwide in fashion, homeware, and electronics',
+                    'Cardholders get discounts on jewelry, fashion, and more in the region and abroad'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/SpikesOnVisa.png',
+                'title' => 'Experience with Visa Golf Access',
+                'points' => [
+                    'Visa Golf Access offers discounts on golf green fees for Visa Platinum Cardholders worldwide',
+                    'Book in advance by calling or using the SpikesOn app for bookings and payments',
+                    'Participating courses include Jebel Sifah, Yas Links, Royal Golf Club, and more; offer valid until September 2024'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/spaVisa.png',
+                'title' => 'Experience with Jumeirah Spa Offers',
+                'points' => [
+                    'Visa cardholders enjoy exclusive spa offers at various Jumeirah Hotels’ Talise Spas',
+                    'Discounts range from 10% to 20% on treatments at different locations',
+                    'Offers valid until September 30, 2024'
+
+                ],
+                'learnMoreLink' => '/',
+            ],
+        ];
+
+        $protection = [
+            [
+                'imagePath' => 'build/images/platinumMastercard/buyers.png',
+                'title' => 'Buyers Protection',
+                'points' => [
+                    'Visa Platinum offers Buyers Protection Insurance for eligible purchases, covering theft, accidental damage, or non-delivery.',
+                    'Valid for items fully paid with the Visa Platinum card, new item purchases only, and lasts up to 365 days from purchase.',
+                    'Cardholders can access insurance details and claim instructions on website',
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/visainsurance.png',
+                'title' => 'Extended Warranty',
+                'points' => [
+                    'Visa Platinum offers Extended Warranty, doubling the repair period of the original manufacturer’s warranty for up to 1 year',
+                    'Applicable to full payment with Visa Platinum card on new item purchases'
+                ],
+                'learnMoreLink' => '/',
+            ],
+            [
+                'imagePath' => 'build/images/platinumMastercard/warrancty.png',
+                'title' => 'Visa Insurances',
+                'points' => [
+                    'Visa introduced an online portal and claim tracker in 2016 for cardholders',
+                    'Additionally, a bank portal launched in 2017 for bank staff to assist cardholders without a valid PAN',
+                ],
+                'learnMoreLink' => '/',
+            ],
+        ];
+
+        $faq=[
+            "ONE"=>[
+                "Title"=>"How do I request my Suyool Visa Platinum card?",
+                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+            ],
+            "TWO"=>[
+                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            ],
+            "THREE"=>[
+                "Title"=>"Can I use the card online?",
+                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            ],
+            "FOUR"=>[
+                "Title"=>"Can I use the card internationally",
+                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            ],
+            "FIVE"=>[
+                "Title"=>"Is the Suyool Visa Platinum card an international card?",
+                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            ],
+            "SIX"=>[
+                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
+                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            ],
+        ];
+
+        $parameters = [
+            'cardData' => $cardData,
+            'lifeStyleData' => $lifeStyleData,
+            'protection'=>$protection,
+            'title' => $title,
+            'desc' => $desc,
+            'barBgColor' => 'barWhite',
+            'metaimage'=>$metaimage,
+            'descmeta'=>$descmeta,
+            'visa'=>$visa,
+            'faq'=>$faq
+        ];
+        $parameters['hideLearnMore'] = "";
+
+        return $this->render('homepage/visa.html.twig', $parameters);
     }
 
 }
