@@ -425,8 +425,9 @@
               font-family: $Regular;
               font-size: 18px;
               color: #373464;
-              height: calc(100% - var(20px));
+              // height: calc(100% - var(20px));
               padding-left: 15px;
+              padding-bottom: 10px;
             }
           }
         }
