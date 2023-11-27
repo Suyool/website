@@ -41,6 +41,7 @@ class TerranetController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
+
 //        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
@@ -80,7 +81,7 @@ class TerranetController extends AbstractController
             if ($accounts) {
                 $PPPLoginName = $accounts[0]['PPPLoginName'];
                 $this->session->set('PPPLoginName', $PPPLoginName);
-                $response = $this->apiService->getProducts($PPPLoginName);
+                $response = $this->apiService->getAccountProduct($PPPLoginName);
                 if ($response){
                     $flag = 1;
                 }else{
