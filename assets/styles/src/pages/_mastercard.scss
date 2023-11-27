@@ -8,7 +8,7 @@
   // background-size: 100% 100%;
   background: linear-gradient(90deg, #226d96 6%, #373464 76%);
   color: #fff;
-  padding-bottom: 52px;
+  padding-bottom: 20px;
   padding-top: 20px;
 }
 
@@ -147,10 +147,11 @@
         font-size: 62px;
         padding-top: 55px;
       }
-      font-size: 50px;
+      font-size: 40px;
       padding-top: 55px;
       font-family: $Regular;
       color: #fff;
+      line-height: 60px;
       
     }
 
@@ -161,7 +162,7 @@
         font-size: 20px;
         width: 80%;
       }
-      font-size: 20px;
+      font-size: 17px;
       font-family: $Regular;
       width: 80%;
       color: #fff;
@@ -176,6 +177,12 @@
       font-family: 'PoppinsSemiBold';
       border-radius: 10px;
       margin-top: 50px;
+      margin-bottom: 20px;
+      &:hover{
+        color: #fff;
+        background-color: #226d96;
+        border: 1px solid #fff;
+      }
     }
 
     .buttons-cont {
@@ -683,14 +690,16 @@
     }
 
     .top-info {
+      text-align: -webkit-center;
       h1 {
-        font-size: 36px;
-        padding-top: 55px;
+        font-size: 27px;
+        // padding-top: 55px;
+        padding-top: 0px;
       }
 
       p {
-        font-size: 18px;
-        width: 80%;
+        font-size: 17px;
+        width: 100%;
       }
     }
   }
@@ -771,6 +780,7 @@
         .description {
           padding-top: 20px;
           font-size: 16px;
+          text-align: unset;
         }
       }
     }
@@ -838,6 +848,20 @@
     }
   }
 
+}
+
+.buttons-cont-visa{
+  font-family: $SemiBold;
+  margin-top: 85px;
+  text-align: -webkit-center!important;
+  button{
+    &:hover{
+      background-color: #fff!important;
+      color:#4886a8!important ;
+      border: 1px solid #005c8a;
+    }
+  }
+  
 }
 
 // @media screen and (min-width: 2401px) {

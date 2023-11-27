@@ -153,14 +153,36 @@ if (document.querySelector(".open-suyool-account")) {
 });
 }
 
-if (document.querySelector(".mobileMode .OpenYourSuyoolAccount")) {
-  const open_suyool_account = document.querySelector(
-    ".mobileMode .OpenYourSuyoolAccount"
-  );
+if (document.querySelector(".get-the-card")) {
 
-  open_suyool_account.addEventListener("click", function () {
+  const open_suyool_account = document.querySelectorAll(".get-the-card");
+  open_suyool_account.forEach(function (element) {
+    element.addEventListener("click", function () {
+      console.log("requestcard")
+    clickOne("https://suyoolapp.page.link/requestcard", "", "/");
+  });
+});
+}
+
+
+if (document.querySelector(".OpenYourSuyoolAccountCard")) {
+  const open_suyool_account = document.querySelectorAll(".OpenYourSuyoolAccountCard");
+  open_suyool_account.forEach(function (element) {
+    element.addEventListener("click", function () {
+      console.log("requestcard")
+    clickOne("https://suyoolapp.page.link/requestcard", "", "/");
+  });
+});
+}
+
+if (document.querySelector(".OpenYourSuyoolAccount")) {
+  const open_suyool_account = document.querySelectorAll(".OpenYourSuyoolAccount");
+  open_suyool_account.forEach(function (element) {
+    element.addEventListener("click", function () {
+      console.log("requestcard")
     clickOne("https://suyoolapp.page.link/app", "", "/");
   });
+});
 }
 
 // if (document.querySelector(".download .playstore")) {

@@ -7,12 +7,13 @@
 
             <div class="row">
                 <div class="col-md-7 col-12 top-info">
-                    <h1>The Suyool Platinum Visa For All Your Purchases</h1>
+                    <h1>The Suyool Visa Platinum <br> For All Your Purchases</h1>
                     <p>Experience the next level of financial freedom with the Suyool Visa Platinum card. Order yours from the comfort of home and get it delivered directly to you.</p>
-                    <button class="getthecard">Get The Card</button>
+                    <button class="desktopMode getthecard open-suyool-account" data-bs-toggle="modal" data-bs-target="#DownloadApp">Get The Card</button>
+                    <button class="tabletmobileMode getthecard get-the-card">Get The Card</button>
                     </div>
                 <div class="col-md-5 col-12">
-                    <img src="https://suyool.com/build/images/homepage/top-img-desktop.png" width="100%"/>
+                    <img src="{{asset('build/images/platinumMastercard/phone-with-shadows-visa.png')}}" width="100%"/>
                     </div>
             </div>
         </div>
@@ -64,8 +65,10 @@
             </div>
         </div>
     </div>
-
-
+    <div class="buttons-cont-visa text-center">
+        <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Get The Card</button>
+        <button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+    </div>
     <div class="mastercard_page">
         <div class="title">TRAVEL</div>
         <div class="descri">Elevate your Travel Experience</div>
@@ -91,7 +94,10 @@
         </div>
        
     </div>
-
+    <div class="buttons-cont-visa text-center">
+        <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Get The Card</button>
+        <button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+    </div>
     <div class="mastercard_page">
         <div class="title">LIFESTYLE</div>
         <div class="descri">Enhance your Lifestyle</div>
@@ -116,10 +122,13 @@
             {% endfor %}
         </div>        
     </div>
-
+    <div class="buttons-cont-visa text-center">
+        <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Get The Card</button>
+        <button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+    </div>
     {% include 'elements/protection.html.twig' %}
     
-    {% include 'elements/get-suyool.html.twig' %}
+    {% include 'elements/get-suyool-visa.html.twig' %}
 
     {% include 'elements/footer.html.twig' %} 
 {% endblock %}
