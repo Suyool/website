@@ -392,6 +392,7 @@ class DefaultController extends AbstractController
         $metaimage="build/images/platinumMastercard/metavisa.png";
         $descmeta="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
+        $visa=true;
         $cardData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/lounge.png',
@@ -612,7 +613,8 @@ class DefaultController extends AbstractController
             'desc' => $desc,
             'barBgColor' => 'barWhite',
             'metaimage'=>$metaimage,
-            'descmeta'=>$descmeta
+            'descmeta'=>$descmeta,
+            'visa'=>$visa
 
         ];
         $parameters['hideLearnMore'] = "";
