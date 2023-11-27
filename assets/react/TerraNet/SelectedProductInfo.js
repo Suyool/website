@@ -133,6 +133,7 @@ const SelectedProductInfo = ({
             }
         };
     };
+    const imagePath = `/build/images/terraNet/product_${selectedProduct.ProductId}.svg`;
 
     return (
         <>
@@ -252,7 +253,7 @@ const SelectedProductInfo = ({
 
                     <img
                         className="BundleBigImg"
-                        src={`/build/images/alfa/Bundle1.png`}
+                        src={imagePath} alt={selectedProduct.Description}
                         alt="Bundle"
                     />
                     <div className="smlDesc">
