@@ -59,11 +59,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-        "/build/styles.57fefce2.css"
-=======
-        "/build/styles.e982c117.css"
->>>>>>> 4750ec8f (send money top section and buttons)
+        "/build/styles.34ec889d.css"
       ]
     },
     "admin": {
