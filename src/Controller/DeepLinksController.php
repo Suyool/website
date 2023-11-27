@@ -116,7 +116,7 @@ class DeepLinksController extends AbstractController
         }
         // If it's not a mobile device, redirect to suyool.com
         else {
-            return new RedirectResponse('https://www.suyool.com');
+            return new RedirectResponse('https://suyool.com/Suyool_Merchant_Installer.exe');
         }
     }
 }

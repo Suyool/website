@@ -14,6 +14,7 @@
             </li>
         </ul>
         {% endif %}
+        {% if visa is not defined %}
         <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     {% if corporateBTn is defined and corporateBTn is not empty %}
@@ -23,8 +24,9 @@
                     {% endif %}
                 </li>
         </ul>
+                {% endif %}
     </div>
-
+    {% if visa is not defined %}
     <!-- Mobile Toggle Button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar" aria-controls="mobileNavbar">
         <span class="navbar-toggler-icon">
@@ -35,6 +37,7 @@
             </div>
         </span>
     </button>
+{% endif %}
 
     <!-- Mobile Navigation Drawer -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavbar" aria-labelledby="mobileNavbarLabel">

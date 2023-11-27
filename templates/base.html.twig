@@ -14,13 +14,12 @@
 			<meta property="og:image" content="{{asset(metaimage)}}">
 			{# <meta property="og:image:width" content="200"> #}
 			{# <meta property="og:image:height" content="200"> #}
-			<meta property="og:description" content="{{descmeta}}">
-		{% endif %}
+		<meta property="og:description" content="{{descmeta}}"> {% endif %}
 		<link rel="icon" type="image/png" href="{{ asset('build/images/favicon/fav-transparent-bg.png') }}" sizes="128x128">
 		{% if canonical_url is defined %}
-			<link rel="canonical" href="{{ canonical_url }}" />
+			<link rel="canonical" href="{{ canonical_url }}"/>
 		{% else %}
-			<link rel="canonical" href="{{ app.request.uri | split('?') |first }}" />
+			<link rel="canonical" href="{{ app.request.uri | split('?') |first }}"/>
 		{% endif %}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +37,23 @@
 				<link rel="stylesheet" href="{{ asset(file|substr(1)) }}">
 			{% endfor %}
 		{% endblock %}
+		<!-- Meta Pixel Code -->
+		<!-- Meta Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];
+		s.parentNode.insertBefore(t,s)}(window, document,'script',
+		'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '1024034838817303');
+		fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=1024034838817303&ev=PageView&noscript=1"/></noscript>
+	<!-- End Meta Pixel Code -->
+		<!-- End Meta Pixel Code -->
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-THTNTVC33Y"></script>
 		<script>
@@ -58,42 +74,36 @@ gtag('config', 'G-THTNTVC33Y');
 		{% block javascripts %}
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			{% if visa is defined %}
+				<div class="download-app-modal">
+					<div class="modal fade modal-design" id="DownloadAppCARD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content p-0 border-0">
+								<div class="modal-header border-0">
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body modal-cont pb-3">
+									<div class="row">
+										<div class="mod-title-card col-12">GET THE CARD NOW</div>
+									</div>
 
-			{% include 'elements/download-app-mdal.html.twig' %}
-			<!-- Facebook Pixel Code -->
-			{# <script>
-									    !function(f,b,e,v,n,t,s)
-									    {
-									        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-									        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-									        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-									        n.queue=[];t=b.createElement(e);t.async=!0;
-									        t.src=v;s=b.getElementsByTagName(e)[0];
-									        s.parentNode.insertBefore(t,s)}(window,document,'script',
-									        'https://connect.facebook.net/en_US/fbevents.js');
-									    fbq('init', 962722144246502);
-									
-									    fbq('track', 'PageView');
-									
-									</script> #}
-			<!-- Meta Pixel Code -->
-			<script>
-				!function(f,b,e,v,n,t,s)
-				{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-						n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-					if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-					n.queue=[];t=b.createElement(e);t.async=!0;
-					t.src=v;s=b.getElementsByTagName(e)[0];
-					s.parentNode.insertBefore(t,s)}(window, document,'script',
-						'https://connect.facebook.net/en_US/fbevents.js');
-				fbq('init', '1024034838817303');
-				fbq('track', 'PageView');
-			</script>
-			<noscript><img height="1" width="1" style="display:none"
-						   src="https://www.facebook.com/tr?id=1024034838817303&ev=PageView&noscript=1"
-				/></noscript>
-			<!-- End Meta Pixel Code -->
-				{% for file in encore_entry_js_files('app1') %}<script src="{{ asset(file|substr(1)) }}"> </script>
+									<h5 class="download-text-card">Scan & Request the Suyool Visa Platinum Card</h5>
+
+									<div class="row pb-5">
+										<div class="col-12" style="text-align: center;">
+											<img class="qr-image" src="{{ asset('build/images/platinumMastercard/qr-card-request.png') }}" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				{% include 'elements/download-app-mdal.html.twig' %}
+			{% endif %}
+			{% for file in encore_entry_js_files('app1') %}
+				<script src="{{ asset(file|substr(1)) }}"></script>
 			{% endfor %}
 		{% endblock %}
 

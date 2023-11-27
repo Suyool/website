@@ -27,9 +27,23 @@
         padding-top: 10px;
 
       }
+      .mod-title-card{
+        color: #216d96;
+        font-family: PoppinsBold;
+        font-size: 30px;
+        line-height: 1.4;
+        padding-top: 10px;
+        text-align: center;
+      }
 
       .download-text{
         font-size: 22px;
+        font-family: $Medium;
+        margin: 30px 0;
+      }
+
+      .download-text-card{
+        font-size: 19px;
         font-family: $Medium;
         margin: 30px 0;
       }

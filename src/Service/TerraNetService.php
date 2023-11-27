@@ -7,6 +7,7 @@ use App\Entity\TerraNet\Logs;
 use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Client;
 use App\Utils\Helper;
+use Symfony\Component\HttpClient\HttpClient;
 
 class TerraNetService
 {
@@ -86,7 +87,78 @@ class TerraNetService
 
     }
 
+    public function getAccountProduct($PPPLoginName)
+    {
+        $params = [
+            'uid' => $this->uid,
+            'pid' => $this->pid,
+            'pppLoginName' => $PPPLoginName,
+            'products' => '',
+            'errorCode' => '0',
+            'errorMessage' => '',
+        ];
 
+        try {
+            $client = HttpClient::create();
+
+            $response = $client->request('POST', 'https://psp.terra.net.lb/TerraRefill.asmx', [
+                'headers' => [
+                    'Content-Type' => 'text/xml; charset=utf-8',
+                    'SOAPAction' => 'http://terra.net.lb/GetAccountProduct',
+                ],
+                'body' => '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:terr="http://terra.net.lb/">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <terr:GetAccountProduct>
+                            <terr:uid>SuyoolWS</terr:uid>
+                            <terr:pid>sd^$lKoihb61</terr:pid>
+                            <terr:pppLoginName>L314240</terr:pppLoginName>
+                            <terr:products></terr:products>
+                            <terr:errorCode>0</terr:errorCode>
+                            <terr:errorMessage></terr:errorMessage>
+                        </terr:GetAccountProduct>
+                    </soapenv:Body>
+                </soapenv:Envelope>',
+            ]);
+            $content = $response->getContent();
+
+            $xml = new \SimpleXMLElement($content);
+            $xml->registerXPathNamespace('ns', 'http://terra.net.lb/');
+            $products = $xml->xpath('//ns:GetAccountProductResponse/ns:products/*/*/Table');
+            foreach ($products as $product) {
+                // Get the Original_HT value
+                $originalHTValue = (float) $product->Original_HT;
+
+                // Create a new property OriginalHT with the same value as Original_HT
+                $product->addChild('OriginalHT', $originalHTValue);
+
+                // Unset the original Original_HT property
+                unset($product->Original_HT);
+            }
+
+            $errorCode = (int) $xml->xpath('//errorCode');
+            $errorMessage = (int) $xml->xpath('//errorMessage');
+
+            $logs = new Logs();
+            $logs
+                ->setidentifier("Bundle Purchase")
+                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccountProduct")
+                ->setrequest(json_encode($params))
+                ->setresponse(json_encode($response))
+                ->seterror($errorMessage);
+
+            $this->mr->persist($logs);
+            $this->mr->flush();
+
+            if ($errorCode == 0) {
+                return $products;
+            } else {
+                return false;
+            }
+        } catch (\SoapFault $fault) {
+            return $fault;
+        }
+    }
     public function getProducts($PPPLoginName)
     {
         $params = [

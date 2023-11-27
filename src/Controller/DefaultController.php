@@ -325,8 +325,9 @@ class DefaultController extends AbstractController
         $parameters = [
             'title' => $title,
             'desc' => $desc,
-            'metaimage' => 'build/images/sendmeta.png',
+            'metaimage' => 'build/images/sendReceiveMoney/send-money-meta.png',
             'descmeta' => $desc,
+            'barBgColor' => 'barWhite'
         ];
         $infoSection = [
             'title' => 'BENEFITS OF SENDING MONEY WITH SUYOOL',
@@ -357,24 +358,24 @@ class DefaultController extends AbstractController
 
         $parameters['faq']=[
             "ONE"=>[
-                "Title"=>"HOW_CAN_I_SEND_MONEY_WITH_SUYOOL",
-                "Desc"=>"SUYOOL_USER_CAN_TRANSFER"
+                "Title"=>"Can I send money to any phone number?",
+                "Desc"=>"Suyool users can transfer money instantly to any Lebanese mobile number from the comfort of their own home."
             ],
             "TWO"=>[
-                "Title"=>"CAN_I_SEND_MONEY_TO_A_NON",
-                "Desc"=>"YOU_CAN_SEND_MONEU_TO_ANY"
+                "Title"=>"How long does it take for the money sent to arrive to the recipient?",
+                "Desc"=>"The recipient will receive the money instantly once the amount has been sent."
             ],
             "THREE"=>[
-                "Title"=>"IS_THERE_A_FEE_FOR_TRANSFERRING",
-                "Desc"=>"TRANSFERRING_MONEY_THROUGH_SUYOOL"
+                "Title"=>"Can I send money to a non Suyool user?",
+                "Desc"=>"Yes, you can send money to a non Suyool user. They will receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash (1.5% fees apply in this case)"
             ],
             "FOUR"=>[
-                "Title"=>"CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT",
-                "Desc"=>"YES_YOU_CAN_SEND_MONEY"
+                "Title"=>"Is there a fee for transferring money in Suyool?",
+                "Desc"=>"Transferring money through Suyool to any Lebanese number is free of charge. However if they are not a Suyool user 1.5% fees be applied."
             ],
             "FIVE"=>[
-                "Title"=>"WHAT_DO_ID_DO_IF_I",
-                "Desc"=>"WEVE_ADDED_EXTRA_SECURITY"
+                "Title"=>"Can I send money to a person without exchanging my personal details with them?",
+                "Desc"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details."
             ],
         ];
 
@@ -605,6 +606,33 @@ class DefaultController extends AbstractController
             ],
         ];
 
+        $faq=[
+            "ONE"=>[
+                "Title"=>"How do I request my Suyool Visa Platinum card?",
+                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+            ],
+            "TWO"=>[
+                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            ],
+            "THREE"=>[
+                "Title"=>"Can I use the card online?",
+                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            ],
+            "FOUR"=>[
+                "Title"=>"Can I use the card internationally",
+                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            ],
+            "FIVE"=>[
+                "Title"=>"Is the Suyool Visa Platinum card an international card?",
+                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            ],
+            "SIX"=>[
+                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
+                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            ],
+        ];
+
         $parameters = [
             'cardData' => $cardData,
             'lifeStyleData' => $lifeStyleData,
@@ -614,8 +642,8 @@ class DefaultController extends AbstractController
             'barBgColor' => 'barWhite',
             'metaimage'=>$metaimage,
             'descmeta'=>$descmeta,
-            'visa'=>$visa
-
+            'visa'=>$visa,
+            'faq'=>$faq
         ];
         $parameters['hideLearnMore'] = "";
 

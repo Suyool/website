@@ -1,19 +1,23 @@
 .sendReceiveMoney {
   .info-v3 {
     .easy_steps_top {
-      margin-bottom: 40px!important;
-      word-spacing: 0!important;
+      margin-bottom: 40px !important;
+      word-spacing: 0 !important;
     }
-    .desc,.title {
+
+    .desc, .title {
       text-align: left;
     }
+
     .title {
       font-family: $Bold;
     }
+
     .desc {
-      font-size: 16px!important;
+      font-size: 16px !important;
     }
   }
+
   .video-section {
     margin-top: 70px;
     text-align: center;
@@ -21,6 +25,7 @@
     iframe {
       border-radius: 20px;
     }
+
     h3 {
       color: #373464;
       font-size: 16px;
@@ -58,13 +63,16 @@
 
     .step {
       margin-bottom: 120px;
+
       .stepTitle {
         position: absolute;
         left: -44px;
       }
     }
+
     .stepTitle {
       text-align: center;
+
       h1 {
         color: #297094;
         font-family: $Bold;
@@ -78,6 +86,7 @@
       flex-direction: row;
       align-items: center;
       position: relative;
+
       p {
         padding-top: 109px;
       }
@@ -105,6 +114,7 @@
       .stepTitle {
         bottom: 85px;
       }
+
       .step-text {
         p {
           padding-top: 215px;
@@ -116,6 +126,7 @@
       .stepTitle {
         top: 52px;
       }
+
       .step-text {
         p {
           padding-top: 10px;
@@ -124,7 +135,91 @@
     }
 
   }
-  @media screen and (max-width:1400px) and (min-width:1200px) {
+
+  .topSectionSendReceive {
+    img {
+      width: 100%;
+    }
+
+    .logo-cont{
+      width: 100%;
+      text-align: left;
+
+      .logo{
+        width: 130px;
+      }
+    }
+
+
+    .logos {
+      padding-top: 30px;
+      text-align: center;
+
+      span {
+        color: #fff;
+        font-size: 41px;
+        margin-left: 13px;
+        position: relative;
+        margin-right: 13px;
+        top: 8px;
+        font-weight: 300;
+      }
+
+      img {
+        width: 112px;
+      }
+    }
+
+    .information {
+      position: absolute;
+      top: 0;
+      text-align: left;
+      padding-top: 3pc;
+
+      @media screen and (max-width: 1400px) and (min-width: 993px) {
+        padding-top: 50px;
+      }
+
+      .title {
+        color: #fff;
+        font-size: 40px;
+        font-family: $Regular;
+      }
+
+      .desc {
+        max-width: 600px;
+        margin: 40px auto;
+        font-family: 'PoppinsRegular';
+        font-size: 17px;
+        color: #fff;
+      }
+
+      .OpenSuyoolAccount {
+        margin-top: 30px;
+
+        .OpenYourSuyoolAccount {
+          padding: 10px 30px;
+          @media screen and (max-width: 768px) {
+            padding: 10px 50px;
+          }
+          border-radius: 9px;
+          border: none;
+          color: #226D96;
+          font-family: $SemiBold;
+          background: #ffffff;
+
+          &:hover {
+            background: #226d96;
+            border: 2px solid #fff;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 1400px) and (min-width: 1200px) {
     .use-money {
       .step2 {
 
@@ -133,34 +228,64 @@
         }
       }
     }
+
+    .topSectionSendReceive {
+      .logo{
+
+      }
+      .information {
+        .title {
+          font-size: 35px;
+        }
+
+        .desc {
+          font-size: 15px;
+        }
+      }
+    }
   }
-  @media screen and (max-width:1200px) and (min-width:992px) {
+  @media screen and (max-width: 1200px) and (min-width: 992px) {
     .use-money {
       .step2 {
 
         .step-text2 {
           padding-top: 0;
         }
+
         .step-text3 {
           padding-top: 26px;
         }
+
         .step-text4 {
           padding-top: 80px;
         }
       }
     }
-  }
 
-    @media screen and (max-width: 991px) {
-      .info-v3 {
-        .desc,.title {
-          text-align: center;
+    .topSectionSendReceive {
+      .information {
+        .title {
+          font-size: 30px;
+        }
+
+        .desc {
+          font-size: 13px;
         }
       }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .info-v3 {
+      .desc, .title {
+        text-align: center;
+      }
+    }
     .use-money {
       .mobileMode {
         display: block;
       }
+
       p {
         padding-top: 10px !important;
       }
@@ -180,6 +305,30 @@
         }
       }
     }
+    .topSectionSendReceive {
+      .logo-cont{
+        padding-top: 10%;
+      }
+      .information {
+        text-align: center;
+        padding: 0 10px;
+
+        .title {
+          font-size: 30px;
+
+        }
+
+        .desc {
+          font-size: 14px;
+        }
+      }
+
+      .OpenSuyoolAccount {
+        .OpenYourSuyoolAccount {
+          padding: 10px 20px !important;
+        }
+      }
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -189,6 +338,7 @@
       h1 {
         font-size: 24px;
       }
+
       iframe {
         width: 95%;
         height: 300px;
