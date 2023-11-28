@@ -57,18 +57,33 @@ footer {
     }
 
     .calluson {
-      display: flex;
       color: #D7D7E2;
       font-family: $Regular;
       font-size: 16px;
       padding-top: 48px;
       margin-bottom: 40px;
-
+      padding: 0px;
+      position: absolute;
+      right: 0;
+      @media screen and (max-width:768px) {
+        position: unset;
+      }
       img{
         padding-right: 10px;
       }
       span{
-        text-decoration: underline;
+        display: block;
+        a{
+          background-color: #fff;
+          color: #216d96;
+          padding: 2px 18px;
+          margin-right: 7px;
+          @media screen and (max-width:768px) {
+            margin-right: 0px;
+
+          }
+          border-radius: 37px;
+        }
       }
     }
   }
