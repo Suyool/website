@@ -926,7 +926,29 @@ class DefaultController extends AbstractController
      */
     public function spinneysPromotion()
     {
-        return $this->render('spinneys/index.html.twig');
+        $faq=[
+            "ONE"=>[
+                "Title"=>"How can I pay with Suyool?",
+                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+            ],
+            "TWO"=>[
+                "Title"=>"What is Suyool QR?",
+                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            ],
+            "THREE"=>[
+                "Title"=>"How to find merchants that have Suyool as a payment method?",
+                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            ],
+            "FOUR"=>[
+                "Title"=>"What is the auto-conversion feature?",
+                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            ]
+        ];
+
+        $parameters=[
+            'faq'=>$faq
+        ];
+        return $this->render('spinneys/index.html.twig',$parameters);
     }
 
 }
