@@ -11,6 +11,7 @@
       margin-bottom: 20px;
       font-family: $Regular;
       line-height: 1.5;
+
       span {
         font-family: $SemiBold;
       }
@@ -31,339 +32,364 @@
       padding: 10px 30px;
       font-family: $SemiBold;
     }
+
     .button-primary:hover {
       background: #226d96;
       border: 2px solid #fff;
       color: #fff;
     }
   }
+
+  .three_steps {
+    margin-top: -70px;
+    margin-bottom: 60px;
+
+    .step {
+      width: 25%;
+      .sub {
+        min-height: 250px;
+      }
+    }
+  }
+
   @media (max-width: 768px) {
     .top-section {
       padding: 50px 0 200px 0;
     }
+    .three_steps {
+      .step {
+        width: 100%;
+      }
+    }
   }
+
   .alfa-questions {
     .title {
-        margin-top: 130px;
-        text-align: center;
-        font-size: 22px;
-        color: #226D96;
-        font-family: $Medium;
-        margin-bottom: 30px;
-        text-transform: uppercase;
+      margin-top: 130px;
+      text-align: center;
+      font-size: 22px;
+      color: #226D96;
+      font-family: $Medium;
+      margin-bottom: 30px;
+      text-transform: uppercase;
     }
 
     .sub-title {
-        text-align: center;
-        font-size: 35px;
-        color: #374A5A;
-        font-family: $SemiBold;
-        margin-bottom: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: #374A5A;
+      font-family: $SemiBold;
+      margin-bottom: 30px;
     }
 
     .desc {
-        text-align: center;
-        color: #6B6B6B;
-        font-family: $Regular;
-        font-size: 20px;
-        margin-bottom: 60px;
+      text-align: center;
+      color: #6B6B6B;
+      font-family: $Regular;
+      font-size: 20px;
+      margin-bottom: 60px;
     }
 
     .contact {
-        text-align: center;
-        margin-bottom: 100px;
+      text-align: center;
+      margin-bottom: 100px;
 
-        .contact-us {
-            color: #FFFFFF;
-            font-family: $SemiBold;
-            background-color: #226D96;
-            padding: 16px 27px;
-            border-radius: 10px;
-        }
+      .contact-us {
+        color: #FFFFFF;
+        font-family: $SemiBold;
+        background-color: #226D96;
+        padding: 16px 27px;
+        border-radius: 10px;
+      }
     }
-}
-@media screen and (max-width:768px) {
+  }
+
+  @media screen and (max-width: 768px) {
     .alfa-questions {
-    .desc {
+      .desc {
         font-size: 14px;
-    }
-    .sub-title{
-        font-size: 25px;
-    }
+      }
 
-    .title {
+      .sub-title {
+        font-size: 25px;
+      }
+
+      .title {
         font-size: 14px;
         margin-top: 70px;
-    }
+      }
 
-    .contact {
+      .contact {
         margin-bottom: 70px;
+      }
     }
-}
-.use-money {
-    .use-money-row {
+    .use-money {
+      .use-money-row {
         img {
-            width: 100%;
+          width: 100%;
         }
-    }
+      }
 
-    .image {
+      .image {
         padding: 0px;
-    }
+      }
 
-    .title {
+      .title {
         font-size: 25px;
         padding-top: 33px;
-    }
+      }
 
-    .desc {
+      .desc {
         font-size: 18px;
-    }
-    .check{
-        p {
-            font-size: 14px!important;
-        }
-    }
-   
+      }
 
-    .home_body_desktop {
+      .check {
+        p {
+          font-size: 14px !important;
+        }
+      }
+
+
+      .home_body_desktop {
         .how_suyool_work {
-            font-size: 14px;
-            text-align: center;
+          font-size: 14px;
+          text-align: center;
         }
 
         .easy_steps {
-            text-align: center;
-            font-size: 25px;
+          text-align: center;
+          font-size: 25px;
         }
 
         .manage_spend {
-            font-size: 14px;
-            text-align: center;
+          font-size: 14px;
+          text-align: center;
         }
-    }
+      }
 
-    .image {
+      .image {
         img {
-            max-width: 100%;
+          max-width: 100%;
         }
+      }
     }
-}
-.alfa-steps {
+    .alfa-steps {
 
-    .home_body_desktop {
+      .home_body_desktop {
         text-align: center;
         padding-left: 40px;
         padding-right: 40px;
 
         .how_suyool_work {
-            font-size: 14px;
+          font-size: 14px;
         }
 
         .easy_steps {
-            font-size: 25px;
+          font-size: 25px;
         }
 
         .manage_spend {
-            font-size: 14px;
+          font-size: 14px;
         }
+      }
     }
-}
-}
-.use-money {
+  }
+
+  .use-money {
     .use-money-row {
-        margin-bottom: 60px;
+      margin-bottom: 60px;
     }
 
     .home_body_desktop,
     .home_body_mobile {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 70px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 70px 0;
 
-        .how_suyool_work {
-            font-size: 22px;
-            font-family: $Bold;
-            color: #373464;
-            word-spacing: 1px;
-            letter-spacing: 2px;
-        }
+      .how_suyool_work {
+        font-size: 22px;
+        font-family: $Bold;
+        color: #373464;
+        word-spacing: 1px;
+        letter-spacing: 2px;
+      }
 
-        .easy_steps {
-            font-size: 52px;
-            font-family: $Regular;
-            color: #202020;
-            padding: 20px 0;
-            text-align: center;
-        }
+      .easy_steps {
+        font-size: 52px;
+        font-family: $Regular;
+        color: #202020;
+        padding: 20px 0;
+        text-align: center;
+      }
 
-        .manage_spend {
-            font-size: 22px;
-            font-family: $Regular;
-            color: #6B6B6B;
-        }
+      .manage_spend {
+        font-size: 22px;
+        font-family: $Regular;
+        color: #6B6B6B;
+      }
     }
 
     .image {
-        // background-color: #F0F0F3;
-        max-height: 100%;
-        // text-align: center;
-        // padding: 60px;
-        border-radius: 17px;
+      // background-color: #F0F0F3;
+      max-height: 100%;
+      // text-align: center;
+      // padding: 60px;
+      border-radius: 17px;
 
-        img {
-            // height: 524px;
-            width: 87%;
-        }
+      img {
+        // height: 524px;
+        width: 87%;
+      }
     }
 
     .title {
-        color: #374A5A;
-        font-family: $Regular;
-        font-size: 40px;
-        margin-bottom: 20px;
-        padding-top: 100px;
+      color: #374A5A;
+      font-family: $Regular;
+      font-size: 40px;
+      margin-bottom: 20px;
+      padding-top: 100px;
 
-        // &.exchange{
-        //     padding-top: 0px;
-        // }
+      // &.exchange{
+      //     padding-top: 0px;
+      // }
 
-        @media screen and (max-width:1440px) {
-            padding-top: 65px;
-        }
+      @media screen and (max-width: 1440px) {
+        padding-top: 65px;
+      }
 
     }
 
     .desc {
-        font-family: $Regular;
-        color: #00000080;
-        font-size: 20px;
-        margin-bottom: 20px;
+      font-family: $Regular;
+      color: #00000080;
+      font-size: 20px;
+      margin-bottom: 20px;
 
-        &.exchange {
-            padding-top: 100px;
-            @media screen and (max-width:768px) {
-                padding-top: 0px;
-            }
+      &.exchange {
+        padding-top: 100px;
+        @media screen and (max-width: 768px) {
+          padding-top: 0px;
         }
+      }
     }
 
     .list {
-        .check {
-            display: flex;
-            margin-bottom: 20px;
-
-            img {
-                width: 30px;
-                height: 30px;
-            }
-
-            p {
-                color: #00000080;
-                font-size: 17px;
-                font-family: $Regular;
-                margin: 0 10px;
-
-            }
-        }
-    }
-}
-.alfa-steps {
-    .home_body_desktop {
+      .check {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        margin-bottom: 20px;
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+
+        p {
+          color: #00000080;
+          font-size: 17px;
+          font-family: $Regular;
+          margin: 0 10px;
+
+        }
+      }
+    }
+  }
+
+  .alfa-steps {
+    .home_body_desktop {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+
+      .how_suyool_work {
+        font-size: 22px;
+        font-family: $Bold;
+        color: #373464;
+        letter-spacing: 2px;
+      }
+
+      .easy_steps {
+        font-size: 52px;
+        font-family: $Regular;
+        color: #202020;
         padding: 20px 0;
+        text-align: center;
+      }
 
-        .how_suyool_work {
-            font-size: 22px;
-            font-family: $Bold;
-            color: #373464;
-            letter-spacing: 2px;
-        }
-
-        .easy_steps {
-            font-size: 52px;
-            font-family: $Regular;
-            color: #202020;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .manage_spend {
-            font-size: 20px;
-            font-family: $Regular;
-            color: #6B6B6B;
-        }
+      .manage_spend {
+        font-size: 20px;
+        font-family: $Regular;
+        color: #6B6B6B;
+      }
     }
 
     .home-steps {
-        margin: 30px 0;
-        justify-content: center;
+      margin: 30px 0;
+      justify-content: center;
 
+      .step {
+        padding: 19px 34px 0px;
+        margin: 0 10px 50px 10px;
+        border-radius: 10px;
+        border: none;
+
+        .head {
+          display: flex;
+          justify-content: space-between;
+          font-family: $Bold;
+          font-size: 52px;
+          margin-bottom: 30px;
+
+          img {
+            max-height: 90px;
+          }
+        }
+
+        .title {
+          font-family: $SemiBold;
+          font-size: 22px;
+          margin-bottom: 20px;
+        }
+
+        .text {
+          font-family: $Regular;
+          font-size: 17px;
+          color: #6B6B6B;
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .home-steps {
         .step {
-            padding: 19px 34px 0px;
-            margin: 0 10px 50px 10px;
-            border-radius: 10px;
-            border: none;
+          padding: 20px 40px;
 
-            .head {
-                display: flex;
-                justify-content: space-between;
-                font-family: $Bold;
-                font-size: 52px;
-                margin-bottom: 30px;
+          .head {
+            font-size: 52px;
+            margin-bottom: 30px;
 
-                img {
-                    max-height: 90px;
-                }
+            img {
+              width: 100px;
             }
+          }
 
-            .title {
-                font-family: $SemiBold;
-                font-size: 22px;
-                margin-bottom: 20px;
-            }
+          .title {
+            font-size: 18px;
+            margin-bottom: 15px;
+          }
 
-            .text {
-                font-family: $Regular;
-                font-size: 17px;
-                color: #6B6B6B;
-                margin-bottom: 30px;
-            }
+          .text {
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 30px;
+          }
         }
+      }
     }
-
-    @media screen and (max-width:768px) {
-        .home-steps {
-            .step {
-                padding: 20px 40px;
-
-                .head {
-                    font-size: 52px;
-                    margin-bottom: 30px;
-
-                    img {
-                        width: 100px;
-                    }
-                }
-
-                .title {
-                    font-size: 18px;
-                    margin-bottom: 15px;
-                }
-
-                .text {
-                    font-size: 14px;
-                    margin-bottom: 20px;
-                    line-height: 30px;
-                }
-            }
-        }
-    }
-}
+  }
 
 }
