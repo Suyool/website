@@ -64,6 +64,8 @@ dataLayer.push(arguments);
 gtag('js', new Date());
 gtag('config', 'G-THTNTVC33Y');
 		</script>
+
+
 	</head>
 	<body
 		class="{% if currentPage is defined %}{{ currentPage }}{% endif %} {% if lang is defined %}{{ lang }}{% endif %}">
@@ -74,6 +76,7 @@ gtag('config', 'G-THTNTVC33Y');
 		{% block javascripts %}
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src={{asset('js/scripts/script.js')}}></script>
 			{% if visa is defined %}
 				<div class="download-app-modal">
 					<div class="modal fade modal-design" id="DownloadAppCARD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,9 +105,9 @@ gtag('config', 'G-THTNTVC33Y');
 			{% else %}
 				{% include 'elements/download-app-mdal.html.twig' %}
 			{% endif %}
-			{% for file in encore_entry_js_files('app1') %}
-				<script src="{{ asset(file|substr(1)) }}"></script>
-			{% endfor %}
+{#			{% for file in encore_entry_js_files('app1') %}#}
+{#				<script src="{{ asset(file|substr(1)) }}"></script>#}
+{#			{% endfor %}#}
 		{% endblock %}
 
 	</body>

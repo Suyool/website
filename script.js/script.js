@@ -1,3 +1,4 @@
+
 if(document.getElementById("emailForm")){
 // Get the form element
   const form = document.getElementById("emailForm");
@@ -256,6 +257,16 @@ if(document.querySelector(".close")){
   });
 
 }
+//Execute Google Analytics and Facebook Pixel events
+function googleFacebookEvents(eventName, eventCategory, position){
+
+    //Google Analytics
+    gtag('event', eventName, {'event_category': eventCategory, 'event_label': position});
+    //Facebook Pixel
+    // fbq('trackCustom', eventCategory, {eventNameKey: eventName});
+    console.log('Google Analytics and Facebook Pixel events executed');
+}
+
 
 // $(document).ready(function() {
 //     // Hide all answers initially

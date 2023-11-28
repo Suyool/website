@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{#	<script src="{{ asset('js/analytics.js') }}"></script>#}
 	<div class="top_section_visa-container">
 		<div class="top_section_mastercard container-fluid">
 			{% include 'elements/header-v2.html.twig' %}
@@ -11,8 +12,8 @@
 						<br>
 						For All Your Purchases</h1>
 					<p>Experience the next level of financial freedom with the Suyool Visa Platinum card. Order yours from the comfort of home and get it delivered directly to you.</p>
-					<button class="desktopMode getthecard open-suyool-account" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
-					<button class="tabletmobileMode getthecard get-the-card">Get The Card</button>
+					<button class="desktopMode getthecard open-suyool-account" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD" onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card</button>
+					<button class="tabletmobileMode getthecard get-the-card" onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card</button>
 				</div>
 				<div class="col-md-5 col-12">
 					<img src="{{asset('build/images/platinumMastercard/phone-with-shadows-visa.png')}}" width="100%"/>
@@ -68,8 +69,8 @@
 		</div>
 	</div>
 	<div class="buttons-cont-visa text-center">
-		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
-		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD" onclick='googleFacebookEvents("visaCard", "Get The Card", "Before Travel Section")'>Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard" onclick='googleFacebookEvents("visaCard", "Get The Card", "Before Travel Section")'>Get The Card</button>
 	</div>
 	<div class="mastercard_page">
 		<div class="title">TRAVEL</div>
@@ -97,8 +98,8 @@
 
 	</div>
 	<div class="buttons-cont-visa text-center">
-		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
-		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD" onclick='googleFacebookEvents("visaCard", "Get The Card", "After Travel Section")'>Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard" onclick='googleFacebookEvents("visaCard", "Get The Card", "After Travel Section")'>Get The Card</button>
 	</div>
 	<div class="mastercard_page">
 		<div class="title">LIFESTYLE</div>
@@ -124,8 +125,8 @@
 		</div>
 	</div>
 	<div class="buttons-cont-visa text-center">
-		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD">Get The Card</button>
-		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard">Get The Card</button>
+		<button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD" onclick='googleFacebookEvents("visaCard", "Get The Card", "After Lifestyle Section")'>Get The Card</button>
+		<button class="btn button-primary mr-5 tabletmobileMode OpenYourSuyoolAccountCard" onclick='googleFacebookEvents("visaCard", "Get The Card", "After Lifestyle Section")'>Get The Card</button>
 	</div>
 	{% include 'elements/protection.html.twig' %}
 	{% include 'elements/faq/faqSuyool.html.twig' %}
