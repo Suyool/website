@@ -28,14 +28,19 @@ id: "{{ session }}"
 			<div class="mobileMode mobile-logo">
 					<img src="{{asset('build/images/payment/mobiletop.svg')}}" alt="" width="100%">
 				</div>
-			<div class="">	
-					<div id="embed-target" style="display:none;overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes">
+					<div id="embed-target" style="overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes">
 					</div>
-				</div>
 				<div id="submitTopUp">
-						<button onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn">Continue</button>
+						<button onclick="Checkout.showEmbeddedPage('#embed-target');" class="btn">Continue</button>
 					</div>
 			</div>
+		<script type="text/javascript">
+		window.onload = function(){
+			var button = document.querySelector('.btn');
+				button.click();
+				button.style.display='none'
+		};
+			</script>
 
 		{% else %}
 

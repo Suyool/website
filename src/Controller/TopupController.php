@@ -197,15 +197,17 @@ class TopupController extends AbstractController
                     return $this->redirectToRoute("app_payWithBob");
                 } else {
                     $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$sessionInterface->get('invoiceId'));
-                    return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
+                    if($topUpData[0]){
+                        return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
+                    }
                 }
             }
             $parameters = array();
             $amount=1;
             $currency="USD";
             $invoices=$invoicesServices->PostInvoices("ihjoz","123456789",$amount,$currency,null,1,"debit card");
-            $invoiceid=$sessionInterface->set('invoiceId',$invoices);
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$invoiceid);
+            $sessionInterface->set('invoiceId',$invoices);
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$sessionInterface->get('invoiceId'));
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }
