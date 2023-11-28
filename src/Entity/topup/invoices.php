@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class invoices
 {
 
-    public static $statusOrder = array("COMPLETED" => "completed", "PENDING" => "pending", "CANCELED" => "canceled","HELD"=>"held",'PAID'=>"paid");
+    public static $statusOrder = array("COMPLETED" => "completed", "PENDING" => "pending", "CANCELED" => "canceled","HELD"=>"held");
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -35,32 +35,32 @@ class invoices
     private $merchantOrderId;
 
     /**
-     * @ORM\Column(type="amount")
+     * @ORM\Column(name="amount")
      */
     private $amount;
 
     /**
-     * @ORM\Column(type="currency")
+     * @ORM\Column(name="currency")
      */
     private $currency;
 
     /**
-     * @ORM\Column(type="merchantOrderDesc")
+     * @ORM\Column(name="merchantOrderDesc")
      */
     private $merchantOrderDesc;
 
     /**
-     * @ORM\Column(type="transId")
+     * @ORM\Column(name="transId")
      */
     private $transId;
 
     /**
-     * @ORM\Column(type="status")
+     * @ORM\Column(name="status")
      */
     private $status;
 
     /**
-     * @ORM\Column(type="paymentMethod")
+     * @ORM\Column(name="paymentMethod")
      */
     private $paymentMethod;
 

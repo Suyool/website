@@ -57,6 +57,11 @@ class orders
     private $attempt = 1;
 
     /**
+     * @ORM\Column(name="type")
+     */
+    private $type;
+
+    /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -118,6 +123,17 @@ class orders
     public function getstatus()
     {
         return $this->status;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function settransId($transId)
