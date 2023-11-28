@@ -921,5 +921,12 @@ class DefaultController extends AbstractController
         return $this->render('homepage/visa.html.twig', $parameters);
     }
 
+    /** 
+     * @Route("/spinneys-promotions", name="app_spinneys")
+     */
+    public function spinneysPromotion()
+    {
+        return $this->render('spinneys/index.html.twig');
+    }
 
 }
