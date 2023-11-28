@@ -159,10 +159,14 @@ class IframeController extends AbstractController
     /**
      * @Route("/paysuyoolmobile/", name="app_pay_suyool_mobile")
      */
-    public function paySuyoolMobile(Request $request): Response
+    public function paySuyoolMobile(Request $request,SessionInterface $session): Response
     {
+        if(!empty($session->get('payment_data'))){
+            $data = $session->get('payment_data');
+        }else {
+            $data = $request->query->all();
+        }
         $env = "live";
-        $data = $request->query->all();
         $TranID = isset($data['TranID']) ? $data['TranID'] : "";
         $amount = isset($data['Amount']) ? $data['Amount'] : "";
         $currency = isset($data['Currency']) ? $data['Currency'] : "";
@@ -184,7 +188,7 @@ class IframeController extends AbstractController
         $invoice->setAmount($amount);
         $invoice->setCurrency($currency);
         $invoice->setMerchantOrderDesc($additionalInfo);
-        $invoice->setPaymentMethod('QR Payment Gateway');
+        $invoice->setPaymentMethod('Mobile Payment Gateway');
         $invoice->setStatus('Pending');
 
         $this->mr->persist($invoice);
@@ -213,7 +217,8 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'env' => $env,
                 'main_url' => $main_url,
-
+                'merchantID'=>$merchantId,
+                'callBackURL' =>$CallBackURL
             ]);
         }
     }
@@ -228,11 +233,11 @@ class IframeController extends AbstractController
         $merchantId = $data['merchant_id'];
         $callBackURL = $data['callBack_URL'];
         $env = $data['env'];
-
+        dd($merchantId);
         if ($transactionId != '' && $merchantId != '') {
             $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-
+            dd($merchant);
             $certificate = $merchant->getCertificate();
             $secure = $timestamp . $transactionId . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
