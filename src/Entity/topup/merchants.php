@@ -33,7 +33,7 @@ class merchants
     private $domain;
 
     /**
-     * @ORM\Column(type="certificate")
+     * @ORM\Column(name="certificate")
      */
     private $certificate;
 

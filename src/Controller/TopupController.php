@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Iveri\orders;
 use App\Service\BobPaymentServices;
 use App\Service\BobServices;
+use App\Service\InvoiceServices;
+use App\Service\InvoicesServices;
 use App\Service\IveriServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -182,5 +184,44 @@ class TopupController extends AbstractController
         $response->setStatusCode(Response::HTTP_OK);
 
         return $response;
+    }
+
+    #[Route('/payment_bob', name: 'app_payWithBob')]
+    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices,InvoiceServices $invoicesServices)
+    {
+        try {
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+                    return $this->redirectToRoute("app_payWithBob");
+                } else {
+                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$sessionInterface->get('invoiceId'));
+                    return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
+                }
+            }
+            $parameters = array();
+            $amount=1;
+            $currency="USD";
+            $invoices=$invoicesServices->PostInvoices("ihjoz","123456789",$amount,$currency,null,1,"debit card");
+            $invoiceid=$sessionInterface->set('invoiceId',$invoices);
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$invoiceid);
+            if ($bobpayment[0] == false) {
+                return $this->redirectToRoute("homepage");
+            }
+            $parameters = [
+                // 'topup'=>true,
+                'session' => $bobpayment[1]
+            ];
+
+            return $this->render('topup/topupinvoice.html.twig', $parameters);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            if ($request->headers->get('referer') == null) {
+                return $this->redirectToRoute("homepage");
+            } else {
+                return new RedirectResponse($request->headers->get('referer'));
+            }
+        }
     }
 }
