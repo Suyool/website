@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Choose Payment Method</h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="{{ path('payment_gateway_qr') }}" class="btn btn-primary btn-block">Pay with QR</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ path('payment_gateway_bob') }}" class="btn btn-success btn-block">Pay with BoB</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
