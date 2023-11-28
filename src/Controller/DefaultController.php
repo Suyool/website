@@ -315,7 +315,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/send-receive-money", name="app_middle_east")
+     * @Route("/send-receive-money", name="app_send_receive")
      */
     public function sendReceiveMoney(Request $request)
     {
