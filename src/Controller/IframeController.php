@@ -4,29 +4,42 @@
 namespace App\Controller;
 
 
+use App\Entity\topup\invoices;
+use App\Entity\topup\merchants;
 use App\Service\ShopifyServices;
 use App\Utils\Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class IframeController extends AbstractController
 {
     private $client;
+    private $mr;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client,ManagerRegistry $mr)
     {
         $this->client = $client;
+        $this->mr = $mr->getManager('topup');
+
     }
 
     /**
      * @Route("/paysuyoolqr/", name="app_pay_suyool_qr")
      */
-    public function paySuyoolQR(Request $request): Response
+    public function paySuyoolQR(Request $request,SessionInterface $session): Response
     {
-        return $this->processPayment($request, 'live');
+
+        if(!empty($session->get('payment_data'))){
+            $data = $session->get('payment_data');
+        }else {
+            $data = $request->query->all();
+        }
+        return $this->processPayment($data, 'live');
 
     }
 
@@ -38,9 +51,8 @@ class IframeController extends AbstractController
         return $this->processPayment($request, 'test');
     }
 
-    private function processPayment(Request $request, string $env): Response
+    private function processPayment($data, string $env): Response
     {
-        $data = $request->query->all();
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
@@ -81,6 +93,20 @@ class IframeController extends AbstractController
         $TranTS = $data['TranTS'] ?? '';
         $merchantId = $data['MerchantID'] ?? '';
         $additionalInfo = $data['AdditionalInfo'] ?? '';
+
+        $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+        $invoice = new invoices();
+        $invoice->setMerchantsId($merchant);
+        $invoice->setMerchantOrderId($TranID);
+        $invoice->setAmount($amount);
+        $invoice->setCurrency($currency);
+        $invoice->setMerchantOrderDesc($additionalInfo);
+        $invoice->setPaymentMethod('QR Payment Gateway');
+        $invoice->setStatus('Pending');
+
+        $this->mr->persist($invoice);
+        $this->mr->flush();
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
             $transactionData = [
@@ -150,6 +176,20 @@ class IframeController extends AbstractController
         $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : "";
         $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
 
+        $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+        $invoice = new invoices();
+        $invoice->setMerchantsId($merchant);
+        $invoice->setMerchantOrderId($TranID);
+        $invoice->setAmount($amount);
+        $invoice->setCurrency($currency);
+        $invoice->setMerchantOrderDesc($additionalInfo);
+        $invoice->setPaymentMethod('QR Payment Gateway');
+        $invoice->setStatus('Pending');
+
+        $this->mr->persist($invoice);
+        $this->mr->flush();
+
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
             $transactionData = [
                 'TransactionID' => "$TranID",
@@ -189,9 +229,11 @@ class IframeController extends AbstractController
         $callBackURL = $data['callBack_URL'];
         $env = $data['env'];
 
-        if ($transactionId != '' && $merchantId != '' && $callBackURL != '') {
+        if ($transactionId != '' && $merchantId != '') {
             $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
-            $certificate = "kEjHyTPHkKUWdumFmTL64DfqjitQcit1ZxdDTNuljscarcNXEy8zmhaTiTlr0a0YkTnAQjfAP6dOZZcMfouVneaqrLlGZUUj55i3";
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+            $certificate = $merchant->getCertificate();
             $secure = $timestamp . $transactionId . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
             $json = [
@@ -224,6 +266,20 @@ class IframeController extends AbstractController
                 'SecureHash' => $result['secureHash'],
                 'AdditionalInfo' => $result['additionalInfo'],
             ]);
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+            $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
+
+            if($invoice) {
+                if ($result['flag'] == 1){
+                    $invoice->setStatus('completed');
+                }elseif ($result['flag'] == 3){
+                    $invoice->setStatus('canceled');
+                }
+                $this->mr->persist($invoice);
+                $this->mr->flush();
+            }
+
             $http_origin = $_SERVER['HTTP_ORIGIN'];
 
             $response = new Response($responseContent);

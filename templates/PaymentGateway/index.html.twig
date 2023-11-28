@@ -8,7 +8,11 @@
     <h1>Choose Payment Method</h1>
     <div class="row mt-4">
         <div class="col-md-6">
-            <a href="{{ path('payment_gateway_qr') }}" class="btn btn-primary btn-block">Pay with QR</a>
+            {% if is_mobile %}
+                <a href="{{ path('app_pay_suyool_mobile') }}" class="btn btn-primary btn-block">Pay with Mobile</a>
+            {% else %}
+                <a href="{{ path('app_pay_suyool_qr') }}" class="btn btn-primary btn-block">Pay with QR</a>
+            {% endif %}
         </div>
         <div class="col-md-6">
             <a href="{{ path('app_payWithBob') }}" class="btn btn-success btn-block">Pay with BoB</a>
