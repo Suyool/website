@@ -655,6 +655,8 @@ class DefaultController extends AbstractController
      */
     public function visaCard(Request $request)
     {
+        $canonical_url = 'https://suyool.com/visa';
+
         $title = "Suyool Visa Card | Suyool";
         $desc = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
@@ -911,7 +913,8 @@ class DefaultController extends AbstractController
             'metaimage'=>$metaimage,
             'descmeta'=>$descmeta,
             'visa'=>$visa,
-            'faq'=>$faq
+            'faq'=>$faq,
+            'canonical_url' => $canonical_url
         ];
         $parameters['hideLearnMore'] = "";
 
