@@ -20,7 +20,7 @@ class PaymentGatewayController extends AbstractController
     /**
      * @Route("/payment_gateway_QR", name="payment_gateway_qr")
      */
-    public function payWithQR(): Response
+    public function payWithQR()
     {
         return $this->render('payment/qr.html.twig');
     }
@@ -28,7 +28,7 @@ class PaymentGatewayController extends AbstractController
     /**
      * @Route("/payment_gateway_BOB", name="payment_gateway_bob")
      */
-    public function payWithBoB(): Response
+    public function payWithBoB()
     {
 
         return $this->render('payment/bob.html.twig');
