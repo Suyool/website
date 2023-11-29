@@ -14,14 +14,15 @@
       margin-bottom: 5px;
     }
     span {
-      display: block;
+      // display: block;
+      margin-left: 10px;
       padding-top: 8px;
       padding-bottom: 10px;
       a {
         border-radius: 37px;
         color: #fff;
         margin-right: 7px;
-        padding: 4px;
+        padding: 4px 16px;
       }
     }
   }
