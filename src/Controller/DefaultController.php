@@ -932,20 +932,24 @@ class DefaultController extends AbstractController
     {
         $faq=[
             "ONE"=>[
-                "Title"=>"How can I pay with Suyool?",
-                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+                "Title"=>"How can I pay with Suyool at Spinneys?",
+                "Desc"=>"There are three ways to pay at Spinneys with Suyool: Use your Suyool Visa Platinum Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
             ],
             "TWO"=>[
-                "Title"=>"What is Suyool QR?",
-                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+                "Title"=>"How do I double my Spinneys points with Suyool?",
+                "Desc"=>"To double your Spinneys points, use the Suyool QR payment tool. This offer is valid from December 1 to January 6."
             ],
             "THREE"=>[
-                "Title"=>"How to find merchants that have Suyool as a payment method?",
-                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+                "Title"=>"What is Suyool QR?",
+                "Desc"=>"Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
             ],
             "FOUR"=>[
+                "Title"=>"How to find merchants that have Suyool as a payment method?",
+                "Desc"=>"Discover merchants, like Spinneys, accepting Suyool QR directly on the app’s Discovery tab."
+            ],
+            "FIVE"=>[
                 "Title"=>"What is the auto-conversion feature?",
-                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+                "Desc"=>"The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
             ]
         ];
 

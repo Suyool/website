@@ -63,6 +63,7 @@ footer {
       padding-top: 48px;
       margin-bottom: 40px;
       padding: 0px;
+      margin-top: 50px;
       // position: absolute;
       // right: 0;
       @media screen and (max-width:768px) {
@@ -74,12 +75,14 @@ footer {
       }
       span{
         display: block;
+        margin-top: 15px;
         a{
           background-color: #fff;
           color: #216d96;
-          padding: 2px 2px;
+          padding: 2px 13px;
           margin-right: 7px;
           border-radius: 37px;
+          white-space: nowrap;
         }
       }
     }
