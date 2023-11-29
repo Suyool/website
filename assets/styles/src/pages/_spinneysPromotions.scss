@@ -6,7 +6,8 @@
     background-image: url("../../../images/spinneys/spinneys-top.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    padding: 150px 0 400px 0;
+    padding: 100px 0 0 0;
+    height: 800px;
 
     h1 {
       color: #226D96;
@@ -72,6 +73,7 @@
       background-image: unset;
       padding: unset;
       background-size: unset;
+      height: unset;
       .imgtop {
         //height: 560px;
         //width: 100%;
