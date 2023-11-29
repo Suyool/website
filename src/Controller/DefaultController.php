@@ -643,7 +643,9 @@ class DefaultController extends AbstractController
             'metaimage'=>$metaimage,
             'descmeta'=>$descmeta,
             'visa'=>$visa,
-            'faq'=>$faq
+            'faq'=>$faq,
+            'bgColor'=> 'bg-white',
+            'btnBgColor'=> 'bg-blue'
         ];
         $parameters['hideLearnMore'] = "";
 
@@ -914,7 +916,9 @@ class DefaultController extends AbstractController
             'descmeta'=>$descmeta,
             'visa'=>$visa,
             'faq'=>$faq,
-            'canonical_url' => $canonical_url
+            'canonical_url' => $canonical_url,
+            'bgColor'=> 'bg-white',
+            'btnBgColor'=> 'bg-blue'
         ];
         $parameters['hideLearnMore'] = "";
 
@@ -948,7 +952,9 @@ class DefaultController extends AbstractController
         $parameters=[
             'faq'=>$faq,
             'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue'
+            'btnBgColor'=> 'bg-blue',
+            'metaimage'=>'build/images/spinneys/meta-imagespinneys-min.png',
+            'descmeta'=>'Double your Spinneys points when you pay with Suyool app'
         ];
         return $this->render('spinneys/index.html.twig',$parameters);
     }

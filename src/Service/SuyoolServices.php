@@ -52,8 +52,16 @@ class SuyoolServices
     }
 
     public static function aesDecryptString($base64StringToDecrypt) {
-            $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
-            return $decryptedData;
+            // $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
+            // return $decryptedData;
+            try {
+                $passphraseBytes = utf8_encode("hdjs812k389dksd5");
+                $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', $passphraseBytes, 0, $_ENV['INITIALLIZATION_VECTOR']);
+        
+                return $decryptedData;
+            } catch (Exception $e) {
+                return $base64StringToDecrypt;
+            }
     }
 
     /**

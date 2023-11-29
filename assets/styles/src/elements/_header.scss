@@ -23,6 +23,19 @@ nav {
 }
 
 .navbar_v2 {
+  .calluson {
+    color: #fff;
+    font-family: $Regular;
+
+    span {
+      background: #fff;
+      color: #287094;
+      padding: 4px;
+      border-radius: 37px;
+      margin-left: 10px;
+    }
+  }
+
   font-family: $Regular;
   color: #287094;
 
@@ -138,17 +151,18 @@ nav {
 }
 
 @media screen and (max-width: 768px) {
-    .navbar_v2 {
-      .navbar-nav {
-        li {
-          margin-right: 0;
+  .navbar_v2 {
+    .navbar-nav {
+      li {
+        margin-right: 0;
 
-          .button-primary {
-            padding: 10px 8px
-          }
+        .button-primary {
+          padding: 10px 8px
         }
       }
     }
+  }
+
   .burger-menu {
     display: flex;
     flex-direction: column;
@@ -159,9 +173,11 @@ nav {
       height: 2px;
       margin: 4px 0;
     }
+
     .barWhite {
       background-color: #ffffff;
     }
+
     .barBlue {
       background-color: #216D96;
     }
