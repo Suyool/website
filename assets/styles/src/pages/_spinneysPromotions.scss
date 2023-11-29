@@ -308,6 +308,12 @@
 
   .use-money {
     .use-money-row {
+      iframe{
+        border-radius: 20px;
+        @media screen and (max-width:768px) {
+          width: 100%;
+        }
+      }
       margin-bottom: 60px;
     }
 
