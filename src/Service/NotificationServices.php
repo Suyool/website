@@ -9,6 +9,7 @@ use App\Entity\Notification\Users;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Safe\json_encode;
@@ -20,14 +21,16 @@ class NotificationServices
     private $certificate;
     private $suyoolServices;
     private $logger;
+    private $session;
 
-    public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo)
+    public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo,SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('notification');
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
         $this->logger = $logger;
+        $this->session=$sessionInterface;
     }
 
     public function GetuserDetails($userid)
@@ -56,12 +59,15 @@ class NotificationServices
                     ->setsuyoolUserId($userid)
                     ->setfname($suyoolUser["FirstName"])
                     ->setlname($suyoolUser["LastName"])
-                    ->setlang($suyoolUser["LanguageID"]);
+                    ->setlang($suyoolUser["LanguageID"])
+                    ->setMobileNo(SuyoolServices::aesDecryptString($suyoolUser['MobileNo']));
                 $this->mr->persist($user);
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
+                $this->session->set('mobileNo',$suyoolUser['MobileNo']);
             } else {
                 $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
+                $this->session->set('mobileNo',$singleUser->getMobileNo());
             }
             return true;
         } catch (Exception $e) {

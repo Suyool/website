@@ -31,6 +31,11 @@ class Users
      */
     private $lang;
 
+    /**
+     * @ORM\Column(name="mobileNo",type="string")
+     */
+    private $mobileNo;
+
     public function getsuyoolUserId()
     {
         return $this->suyoolUserId;
@@ -72,6 +77,17 @@ class Users
     public function setlang($lang)
     {
         $this->lang = $lang;
+        return $this;
+    }
+
+    public function getMobileNo()
+    {
+        return $this->mobileNo;
+    }
+
+    public function setMobileNo($mobileNo)
+    {
+        $this->mobileNo = $mobileNo;
         return $this;
     }
 }

@@ -51,6 +51,11 @@ class SuyoolServices
         return $decrypted_string;
     }
 
+    public static function aesDecryptString($base64StringToDecrypt) {
+            $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
+            return $decryptedData;
+    }
+
     /**
      * Push Utility Api
      */

@@ -62,7 +62,6 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
@@ -174,7 +173,6 @@ class LotoController extends AbstractController
             $this->loggerInterface->debug($decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
                 $date = date('w');
@@ -356,7 +354,8 @@ class LotoController extends AbstractController
 
                 $order = new order;
                 $order->setsuyoolUserId($suyoolUserId)
-                    ->setstatus(order::$statusOrder['PENDING']);
+                    ->setstatus(order::$statusOrder['PENDING'])
+                    ->setMobileNo($this->session->get('mobileNo'));
 
                 $this->mr->persist($order);
                 $this->mr->flush();
@@ -471,7 +470,6 @@ class LotoController extends AbstractController
                 $order_id = $merchantId . "-" . $id;
                 $sum = $sum * $numDraws;
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP,0);
-
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())

@@ -160,7 +160,7 @@ class PlayLoto extends Command
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
                     $newElement = [];
-                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws());
+                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),$held->getMobileNo());
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
@@ -328,7 +328,6 @@ class PlayLoto extends Command
 
                     $this->mr->persist($held);
                     $this->mr->flush();
-
                     if ($newsum != $sum) {
                         $diff = $sum - $newsum;
                         $params = json_encode(['currency' => "L.L", 'amount' => $diff, 'draw' => $drawNumber], true);

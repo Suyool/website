@@ -51,6 +51,7 @@ class NotificationGetUsers extends Command
                     ->setsuyoolUserId($item["UserAccountID"])
                     ->setfname($item["FirstName"])
                     ->setlname($item["LastName"])
+                    ->setMobileNo(SuyoolServices::aesDecryptString($item['MobileNo']))
                     ->setlang($item["LanguageID"]);
 
                 $this->mr->persist($user);
