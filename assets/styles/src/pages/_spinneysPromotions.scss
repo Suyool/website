@@ -1,4 +1,11 @@
 .spinneys {
+
+  .top-section-spineneys{
+    background-color: #373464;
+  }
+
+
+
   .smallsize {
     display: none;
   }
@@ -27,10 +34,11 @@
     }
   }
   .top-section {
+    width: 100%;
     background-image: url("../../../images/spinneys/spinneys-top.png");
-    background-size: 100% 100%;
+    background-size:contain;
     background-repeat: no-repeat;
-    height: 800px;
+    // height: 800px;
 
 
     h1 {
@@ -84,7 +92,7 @@
 
   @media (max-width: 1024px) {
     .top-section {
-      background-image: url("../../../images/spinneys/spinneys-top-tablet.png");
+      // background-image: url("../../../images/spinneys/spinneys-top-tablet.png");
       padding: 465px 0 50px 0;
 
       h1 {
@@ -518,6 +526,118 @@
     .top-section {
       .top-details {
         bottom: 105px;
+      }
+    }
+  }
+}
+
+
+.top-details-spines{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 70vh;
+  background-color: white;
+
+  .left{
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    top:100px;
+    max-width: 50%;
+    .Text{
+      .buttons-cont{
+        text-align: left;
+        .mobileMode ,.desktopMode{
+          font-family:$SemiBold ;
+          color: #FFFFFF;
+          background-color: #226D96;
+          padding: 16px 37px;
+          border-radius: 10px;
+        }
+      }
+      padding-left: 10%;
+      h1 {
+        color: #226D96;
+        font-size: 45px;
+        margin-bottom: 20px;
+        font-family: $Regular;
+        line-height: 1.5;
+  
+        span {
+          font-family: $SemiBold;
+        }
+      }
+  
+      p {
+        color: #226D96;
+        font-family: $Regular;
+        font-size: 16px;
+        margin-bottom: 20px;
+        max-width: 70%;
+  
+      }
+    }
+  }
+
+  .right{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    .rightImg1{
+      display: none;
+    }
+    .rightImg{
+      width: 100%;
+      object-fit: cover;
+      height: 70vh;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .top-details-spines{
+    flex-direction: column-reverse;
+    position: relative;
+    height: unset;
+  
+    .left{
+      position: relative;
+      max-width: 100%;
+      padding-bottom: 50px;
+      top: 0px;
+      .Text{
+        padding: 0 5%;
+        .buttons-cont{
+          text-align: center;
+          padding-top: 20px;
+        }
+        h1 {
+          font-size: 30px;
+          margin-bottom: 14px;
+          font-family: $Regular;
+          line-height: 1.2;
+        }
+    
+        p {
+          color: #226D96;
+          font-family: $Regular;
+          font-size: 16px;
+          margin-bottom: 10px;
+          max-width: unset;
+        }
+      }
+    }
+  
+    .right{
+      position: relative;
+      .rightImg{
+        display: none;
+      }
+      .rightImg1{
+        display: block;
+        width: 100%;
+        object-fit: cover;
       }
     }
   }
