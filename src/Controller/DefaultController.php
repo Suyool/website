@@ -946,7 +946,9 @@ class DefaultController extends AbstractController
         ];
 
         $parameters=[
-            'faq'=>$faq
+            'faq'=>$faq,
+            'bgColor'=> 'bg-white',
+            'btnBgColor'=> 'bg-blue'
         ];
         return $this->render('spinneys/index.html.twig',$parameters);
     }

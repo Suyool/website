@@ -2,12 +2,35 @@
   .smallsize {
     display: none;
   }
+  nav {
+    .navbar-nav {
+      li {
+        margin-right: 0px;
+      }
+    }
+  }
+  .calluson {
+    p {
+      margin-bottom: 5px;
+    }
+    span {
+      display: block;
+      padding-top: 8px;
+      padding-bottom: 10px;
+      a {
+        border-radius: 37px;
+        color: #fff;
+        margin-right: 7px;
+        padding: 4px;
+      }
+    }
+  }
   .top-section {
     background-image: url("../../../images/spinneys/spinneys-top.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    padding: 100px 0 0 0;
     height: 800px;
+
 
     h1 {
       color: #226D96;
@@ -50,6 +73,7 @@
 
     .step {
       width: 25%;
+
       .sub {
         border-radius: 10px;
         min-height: 300px;
@@ -61,27 +85,45 @@
     .top-section {
       background-image: url("../../../images/spinneys/spinneys-top-tablet.png");
       padding: 465px 0 50px 0;
+
       h1 {
         font-size: 26px;
         line-height: 1.3;
       }
     }
   }
+  @media (max-width: 991px) {
+    #navbarNav {
+      text-align: right;
+    }
+  }
   @media (max-width: 768px) {
+
+    .calluson {
+      span {
+        a {
+          font-size: 14px;
+        }
+      }
+    }
+
     .top-section {
       position: relative;
       background-image: unset;
       padding: unset;
       background-size: unset;
       height: unset;
+
       .imgtop {
         //height: 560px;
         //width: 100%;
       }
+
       .top-details {
         position: absolute;
         bottom: 11px;
       }
+
       h1 {
         text-align: center;
         font-size: 18px;
@@ -93,9 +135,11 @@
         font-size: 12px;
 
       }
+
       .buttons-cont {
         text-align: center;
       }
+
       .button-primary {
         background: #226D96;
         color: #fff;
@@ -112,6 +156,7 @@
     .three_steps {
       .step {
         width: 100%;
+
         .sub {
           display: block;
           min-height: 280px;
@@ -311,7 +356,12 @@
       // &.exchange{
       //     padding-top: 0px;
       // }
-
+      @media screen and (min-width: 992px)
+      {
+        .top-details {
+          padding-top: 50px;
+        }
+      }
       @media screen and (max-width: 1440px) {
         padding-top: 65px;
       }
@@ -448,7 +498,8 @@
       }
     }
   }
-  @media screen and (max-width:767px) and (min-width:575px) {
+
+  @media screen and (max-width: 767px) and (min-width: 575px) {
     .top-section {
       .top-details {
         bottom: 120px;
@@ -456,11 +507,11 @@
     }
   }
 
-    @media (max-width: 375px) {
+  @media (max-width: 375px) {
     .smallsize {
       display: block;
     }
-    .imgtop{
+    .imgtop {
       display: none;
     }
     .top-section {
