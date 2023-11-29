@@ -147,7 +147,7 @@ class LotoServices
         }
     }
 
-    public function playLoto($draw, $withZeed, $gridselected, $numdraws)
+    public function playLoto($draw, $withZeed, $gridselected, $numdraws,$mobileNo)
     {
         $retryattempt = 1;
         while ($retryattempt <= 2) {
@@ -158,9 +158,10 @@ class LotoServices
                 'numDraws' => $numdraws,
                 'withZeed' => $withZeed,
                 'saveToFavorite' => 1,
-                'GridsSelected' => $gridselected
+                'GridsSelected' => $gridselected,
+                'PhoneNumber'=>$mobileNo
             ];
-            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}SubmitLotoPlayOrder",  $body);
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",  $body);
 
             $content = $response->toArray();
             $submit = $content['d']['errorinfo']['errorcode'];

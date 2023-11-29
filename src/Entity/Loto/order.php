@@ -55,6 +55,11 @@ class order
     private $transId;
 
     /**
+     * @ORM\Column(name="mobileNo",type="string")
+     */
+    private $mobileNo;
+
+    /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -149,5 +154,16 @@ class order
     public function getCreated()
     {
         return $this->created;
+    }
+
+    public function getMobileNo()
+    {
+        return $this->mobileNo;
+    }
+
+    public function setMobileNo($mobileNo)
+    {
+        $this->mobileNo = $mobileNo;
+        return $this;
     }
 }
