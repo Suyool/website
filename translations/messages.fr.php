@@ -4,7 +4,7 @@ return [
     "USJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>l’ USJ digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
     "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons choisi d’adopter Suyool comme <br class='desktopMode'>solution de dépôt des salaires. Vous pourrez ouvrir votre compte digital en USD et en LL qui inclue un outil <br class='desktopMode'> de paiement in-app ainsi qu’une carte de paiement Platinum Mastercard reliée à ce compte.",
     "OPEN_YOUR_SUYOOL_ACCOUNT"=>"Ouvrez votre compte Suyool",
-    "FREE_PLATINUM_MASTERCARD"=>"Mastercard Platinum",
+    "FREE_PLATINUM_MASTERCARD"=>"Visa Platinum Card",
     "FREE_PAYROLL_CASH_OUT"=>"Retirez votre salaire en espèces sans frais",
     "SEND_RECEIVE_MONEY_FOR_FREE"=>"Effectuez des transferts domestiques",
     "SEND_MONEY_INTERNATIONALLY"=>"Transferts vers l’étranger",
