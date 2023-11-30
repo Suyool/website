@@ -230,11 +230,11 @@ const MyBundle = ({
             <div className="MyBundleBody">
               <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
               {/* <div className="mainDesc">*All taxes excluded</div> */}
-              {/*<img*/}
-              {/*  className="BundleBigImg"*/}
-              {/*  src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}*/}
-              {/*  alt="Bundle"*/}
-              {/*/>*/}
+              <img
+                className="BundleBigImg"
+                src={`/build/images/sodetel/${getPrepaidVoucher.plancode}.svg`}
+                alt="Bundle"
+              />
 
               <div className="relatedInfo">{getPrepaidVoucher?.plandescription}</div>
               <div className="smlDesc">

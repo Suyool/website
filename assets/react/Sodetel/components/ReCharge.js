@@ -71,8 +71,8 @@ const ReCharge = ({
               >
                 <img
                   className="GridImg"
-                  src={`/build/images/sodetel/sodetel-bundle.png`}
-                  alt="bundleImg"
+                  src={record?.plancode ? `/build/images/sodetel/${record.plancode}-cir.svg` : "/build/images/sodetel/sodetel-bundle.png"}
+                  alt="bundle"
                 />
                 <div className="gridDesc">
                   <div className="Price">

@@ -39,14 +39,14 @@ class SodetelController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
 
-//        if (isset($_POST['infoString'])) {
+        if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            $devicetype = "Android";
+//            $devicetype = "Android";
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
 //            $SuyoolUserId = 218;
@@ -60,9 +60,9 @@ class SodetelController extends AbstractController
                 'controller_name' => 'SodetelController',
                 'parameters' => $parameters,
             ]);
-//            } else {
-//                return $this->render('ExceptionHandling.html.twig');
-//            }
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
         } else {
             return $this->render('ExceptionHandling.html.twig');
         }
@@ -112,7 +112,7 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 218;
+//        $SuyoolUserId = 218;
 
 
         $flagCode = null;
