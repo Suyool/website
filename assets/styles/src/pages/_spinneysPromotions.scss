@@ -304,17 +304,26 @@
         }
       }
     }
+
+    .use-money {
+      .home_body_desktop,
+      .home_body_mobile {
+        text-align: center;
+      }
+    }
   }
 
   .use-money {
     .use-money-row {
+      margin-top: 100px;
+      margin-bottom: 60px;
       iframe{
         border-radius: 20px;
         @media screen and (max-width:768px) {
           width: 100%;
         }
       }
-      margin-bottom: 60px;
+
     }
 
     .home_body_desktop,
