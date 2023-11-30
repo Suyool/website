@@ -336,7 +336,6 @@ class NotificationServices
     /**
      * Get content if we have multiple template
      * @param template
-     * @return content
      */
     public function getContent($template)
     {

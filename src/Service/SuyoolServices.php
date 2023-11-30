@@ -70,7 +70,6 @@ class SuyoolServices
     /**
      * Push Utility Api
      * @param $suyoolUserId , $id , $sum, $currency, $fees
-     * @return array
      */
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees)
     {
@@ -152,7 +151,6 @@ class SuyoolServices
     /**
      * Fetch Suyool Users
      * @param $channelID: 
-     * @return users in array form
      */
     public function GetAllUsers($channelID)
     {
@@ -192,8 +190,10 @@ class SuyoolServices
         return $data;
     }
 
-    /*
+    /** 
      * Push Single Notification
+     * @param userId,title,subject,body,notification,proceedButton,isInbox,flag,notificationType,isPayment,isDebit,additionalData
+     * @return array
      */
     public function PushSingleNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
     {
@@ -222,8 +222,10 @@ class SuyoolServices
         return $push_single_response;
     }
 
-    /*
+    /** 
      * Push Bulk Notification
+     * @param userId,title,subject,body,notification,proceedButton,isInbox,flag,notificationType,isPayment,isDebit,additionalData
+     * @return array
      */
     public function PushBulkNotification($userId, $title, $subject, $body, $notification, $proceedButton, $isInbox, $flag, $notificationType, $isPayment, $isDebit, $additionalData)
     {
@@ -254,6 +256,8 @@ class SuyoolServices
 
     /**
      * PaymentDetails using in payment RTP 
+     * @param code,lang
+     * @return array
      */
     public function PaymentDetails($code, $lang)
     {
@@ -276,6 +280,8 @@ class SuyoolServices
 
     /**
      * PaymentCashout using in payment 
+     * @param TransSimId,fname,lname
+     * @return array
      */
     public function PaymentCashout($TranSimId, $fname, $lname)
     {
@@ -299,6 +305,8 @@ class SuyoolServices
 
     /**
      * RequestDetails using in RTP 
+     * @param code,lang
+     * @return array
      */
     public function RequestDetails($code, $lang)
     {
@@ -321,6 +329,8 @@ class SuyoolServices
 
     /**
      * Cashin using in RTP 
+     * @param TransSimId,fname,lname
+     * @return array
      */
     public function PaymentCashin($TranSimId, $fname, $lname)
     {
@@ -345,6 +355,8 @@ class SuyoolServices
 
     /**
      * Email validation 
+     * @param code
+     * @return array
      */
     public function ValidateEmail($code)
     {
@@ -365,7 +377,6 @@ class SuyoolServices
     /**
      * Unsubscribe marketing
      * @param $code , $flag , $key
-     * @return array
      */
     public function UnsubscribeMarketing($code, $flag, $key)
     {
@@ -514,7 +525,6 @@ class SuyoolServices
     /**
      * sendDotNetEmail 
      * @param $subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID
-     * @return array
      */
     public function sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID)
     {

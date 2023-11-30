@@ -94,7 +94,7 @@ class LotoServices
     /**
      * Get Bouquet Grids
      * @param ticketId
-     * @return array
+     * @return string
      */
     public function BouquetGrids($ticketId)
     {
@@ -250,6 +250,10 @@ class LotoServices
         return $content;
     }
 
+    /**
+     * Get win ticket prize
+     * @param ticketId
+     */
     public function GetWinTicketsPrize($ticketId)
     {
         $token = $this->Login();

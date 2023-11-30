@@ -56,7 +56,7 @@ class BobServices
     /**
      * Get Alfa Pin Request
      * @param gsmMobileNb
-     * @return decodedString
+     * @return string
      */
     public function Bill($gsmMobileNb)
     {
