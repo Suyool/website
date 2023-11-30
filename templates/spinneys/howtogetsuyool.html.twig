@@ -1,31 +1,19 @@
 <div class="alfa-steps">
     <div class="home_body_desktop">
-        <div class="how_suyool_work">HOW TO GET SUYOOL?</div>
-        <div class="easy_steps">3 Easy Steps To Pay at Spinneys with Suyool QR</div>
-        <div class="manage_spend">Double your Spinneys points when paying with Suyool QR from December 1st to January 6th</div>
+        <div class="how_suyool_work">{{howToGetTitle}}</div>
+        <div class="easy_steps">{{howToGetDesc}}</div>
+        <div class="manage_spend">{{howToGetText}}</div>
     </div>
 
     <div class="home-steps row">
-        <div class="card step col-md-3 col-11">
-            <div class="head">
-                01
+        {% for step in howToGet %}
+            <div class="card step col-md-3 col-11">
+                <div class="head">
+                    {{loop.index}}
+                </div>
+                <div class="title">{{step.title}}</div>
+                <div class="text">{{step.description}}</div>
             </div>
-            <div class="title">Shop At Spinneys</div>
-            <div class="text">Indulge in your Spinneys shopping experience and fill your cart with all your favorite items.</div>
-        </div>
-        <div class="card step col-md-3 col-11">
-            <div class="head">
-                02
-            </div>
-            <div class="title">Scan Suyool QR At Checkout</div>
-            <div class="text">VIn the ’S tab,’ slide the slider from the top, then tap to activate your QR Code with your biometrics. Present this code to the cashier to complete payment.</div>
-        </div>
-        <div class="card step col-md-3 col-11">
-            <div class="head">
-                03
-            </div>
-            <div class="title">Double Your Spinneys Points Effortlessly</div>
-            <div class="text">Scan your Suyool QR at Spinneys between December 1st and January 6th to double your Spinneys Points with every purchase.</div>
-        </div>
+        {% endfor %}
     </div>
 </div>
