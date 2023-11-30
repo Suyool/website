@@ -11,20 +11,36 @@
                         <div class="icon col-4">
                             <img src="{{ asset('build/images/suyool-icon.svg') }}" alt="">
                         </div>
-                        <div class="mod-title col-8">{{'OPEN_YOUR_SUYOOL_ACCOUNT_CAP'|trans}}</div>
+{#                        if isset the param suyoolerPopup then make the title suyoolerPopup['title']#}
+                        {% if suyoolerPopup is defined %}
+                            <div class="mod-title col-8">{{ suyoolerPopup['title'] }}</div>
+                        {% else %}
+                            <div class="mod-title col-8">{{'OPEN_YOUR_SUYOOL_ACCOUNT_CAP'|trans}}</div>
+                        {% endif %}
                     </div>
 
-                    <h5 class="download-text">{{'SCAN_AND_DOWNLOAD'|trans}}</h5>
+                    {% if suyoolerPopup is defined %}
+                        <h5 class="download-text text-center">{{ suyoolerPopup['description'] }}</h5>
+                    {% else %}
+                        <h5 class="download-text">{{'SCAN_AND_DOWNLOAD'|trans}}</h5>
+                    {% endif %}
 
                     <div class="row pb-5">
-                        <div class="col-6">
-                            <img class="qr-image" src="{{ asset('build/images/qr-blue.svg') }}" alt="">
-                        </div>
-                        <div class="col-6 download-links">
-                            <img src="{{ asset('build/images/download-playstore.png') }}" alt="">
-                            <img src="{{ asset('build/images/download-appstore.png') }}" alt="">
-                            <img src="{{ asset('build/images/download-appgallery.png') }}" alt="">
-                        </div>
+                        {% if suyoolerPopup is defined %}
+                            <div class="col-4"></div>
+                            <div class="col-6">
+                                <img class="qr-image" src="{{ asset('build/images/qr-blue.svg') }}" alt="">
+                            </div>
+                        {% else %}
+                            <div class="col-6">
+                                <img class="qr-image" src="{{ asset('build/images/qr-blue.svg') }}" alt="">
+                            </div>
+                            <div class="col-6 download-links">
+                                <img src="{{ asset('build/images/download-playstore.png') }}" alt="">
+                                <img src="{{ asset('build/images/download-appstore.png') }}" alt="">
+                                <img src="{{ asset('build/images/download-appgallery.png') }}" alt="">
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

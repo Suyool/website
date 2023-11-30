@@ -1035,6 +1035,11 @@ class DefaultController extends AbstractController
 
         $topButton = "Pay With Suyool App";
 
+        $suyoolerPopup = [
+            'title' => 'Pay With Suyool App',
+            'description' => 'Scan to open the app & pay with Suyool QR at partner merchants!',
+        ];
+
         $parameters=[
             'faq'=>$faq,
             'bgColor'=> 'bg-white',
@@ -1046,6 +1051,7 @@ class DefaultController extends AbstractController
             'howToGetText' => $howToGetText,
             'howToGet' => $howToGet,
             'topButton' => $topButton,
+            'suyoolerPopup' => $suyoolerPopup,
         ];
         return $this->render('spinneys/index.html.twig',$parameters);
     }
