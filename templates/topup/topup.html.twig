@@ -1,13 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	{% if status is not defined %}
+		
 		{% if app.request.server.get('APP_ENV') == "dev" %}
-			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+			<script>
+        function handleScriptError() {
+          console.log('error');
+		  if (navigator.userAgent.match(/Android/i)) {
+	window.AndroidInterface.callbackHandler("GoToApp");
+  } else {
+	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+  }
+        }
+      </script>
+			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback" onerror="handleScriptError()"></script>
 		{% else %}
+			<script>
+        function handleScriptError() {
+          console.log('error');
+		  if (navigator.userAgent.match(/Android/i)) {
+	window.AndroidInterface.callbackHandler("GoToApp");
+  } else {
+	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+  }
+        }
+      </script>
 			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
 		{% endif %}
 		<script type="text/javascript">
 			sessionStorage.removeItem("HostedCheckout_sessionId");
+		
 function errorCallback(error) {
 console.log(JSON.stringify(error));
 if (navigator.userAgent.match(/Android/i)) {
