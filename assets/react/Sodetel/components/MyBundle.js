@@ -144,9 +144,9 @@ const MyBundle = ({
 
   console.log(credential)
 
-  const copyToClipboard = () => {
+  const copyToClipboard = (value) => {
     const tempInput = document.createElement("input");
-    tempInput.value = getSerialToClipboard;
+    tempInput.value = value;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
@@ -180,18 +180,17 @@ const MyBundle = ({
               />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
-                You have successfully purchased the {activeButton.bundle} {getPrepaidVoucher.plandescription} service.
+                You have successfully purchased the {activeButton.bundle} {getPrepaidVoucher.plandescription} package.
               </div>
 
               <div className="br"></div>
 
-              <div className="copyTitle">The Credentials of your bundle </div>
-              <div className="copyDesc">Copy the Id and the Password below</div>
+              <div className="copyTitle">To recharge your package:</div>
+              <div className="copyDesc">Use the credentials below</div>
 
-              <button className="copySerialBtn" onClick={copyToClipboard}>
-                <div></div>
+              <div className="copyDesc mt-3">ID</div>
+              <button className="copySerialBtn" onClick={()=>copyToClipboard(getSerialToClipboard)}>
                 <div className="serial">{getSerialToClipboard}</div>
-                <div className="serial">{sodetelPassword}</div>
                 <img
                   className="copySerial"
                   src="/build/images/alfa/copySerial.png"
@@ -199,36 +198,15 @@ const MyBundle = ({
                 />
               </button>
 
-              <button
-                id="ContinueBtn"
-                className="mt-3"
-                onClick={() => {
-                  handleShare(getSerialToClipboard);
-                }}
-              >
-                Share Code
+              <div className="copyDesc">Password</div>
+              <button className="copySerialBtn" onClick={()=>copyToClipboard(sodetelPassword)}>
+                <div className="serial">{sodetelPassword}</div>
+                <img
+                    className="copySerial"
+                    src="/build/images/alfa/copySerial.png"
+                    alt="copySerial"
+                />
               </button>
-
-              <div className="stepsToRecharge">
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Go to your phone tab</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Paste the code</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Tap Call</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">
-                    Your mobile prepaid line is now recharged
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
       )}
@@ -271,7 +249,7 @@ const MyBundle = ({
 
               <div className="MoreInfo">
                 <div className="label">Total before taxes</div>
-                <div className="value">L.L {getPrepaidVoucher?.priceht}</div>
+                <div className="value">L.L {parseInt(getPrepaidVoucher.priceht).toLocaleString()}</div>
               </div>
               {/*<div className="MoreInfo">*/}
               {/*  <div className="label">+V.A.T & Stamp Duty</div>*/}
@@ -280,17 +258,17 @@ const MyBundle = ({
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total after taxes</div>
-                <div className="value">L.L {getPrepaidVoucher?.pricettc}</div>
+                <div className="value">L.L {parseInt(getPrepaidVoucher.price).toLocaleString()}</div>
               </div>
               <div className="MoreInfo">
                 <div className="label">+V.A.T & Stamp Duty</div>
-                <div className="value">L.L {getPrepaidVoucher?.pricettc - getPrepaidVoucher?.priceht}</div>
+                <div className="value">L.L {parseInt(getPrepaidVoucher?.price - getPrepaidVoucher?.priceht).toLocaleString()}</div>
               </div>
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total amount to pay</div>
                 <div className="value1">
-                  L.L {parseInt(getPrepaidVoucher.pricettc).toLocaleString()}
+                  L.L {parseInt(getPrepaidVoucher.price).toLocaleString()}
                 </div>
               </div>
               <div className="smlDescSayrafa">

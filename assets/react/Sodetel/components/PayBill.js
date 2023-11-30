@@ -62,8 +62,8 @@ const PayBill = ({
                         title: "Not Enough Balance Amount to be paid",
                         description: (
                             <div>
-                                You have exceeded the allowed PIN requests.<br/> Kindly try again
-                                later
+                                You have exceeded the allowed PIN requests.<br/>
+                                Kindly try again later
                             </div>
                         ),
                     });

@@ -76,7 +76,7 @@ const ReCharge = ({
                 />
                 <div className="gridDesc">
                   <div className="Price">
-                    ${record?.priceht}{" "}
+                    L.L {parseInt(record?.price).toLocaleString()}
                   </div>
                   <div className="bundleName">{record?.plandescription}</div>
                 </div>

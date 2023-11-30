@@ -120,7 +120,7 @@ function App({parameters}) {
                             ...modalDesc,
                             name: ""
                         });
-                        setActiveButton({...activeButton, name: "" });
+                        setActiveButton({...activeButton, name: "Default" });
                     }}
                 />
             )}
@@ -135,7 +135,7 @@ function App({parameters}) {
                             name: "",
                             show: false
                         });
-                        setActiveButton({...activeButton, name: "" });
+                        setActiveButton({...activeButton, name: "Default" });
                     }}
                 />
             )}

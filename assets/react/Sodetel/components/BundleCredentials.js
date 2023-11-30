@@ -94,10 +94,10 @@ function BundleCredentials({
                         show: true,
                         name: "ErrorModal",
                         imgPath: "/build/images/alfa/error.png",
-                        title: "Number Not Found ",
+                        title: credential.label+" Not Found ",
                         description: (
                             <div>
-                                The number you entered was not found in the system.
+                                The {credential.label} you entered was not found in the system.
                                 <br/>
                                 Kindly try another number.
                             </div>
