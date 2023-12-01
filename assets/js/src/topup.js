@@ -1,8 +1,8 @@
-if (document.querySelector(".loaderTopUp")) {
-  setInterval(function () {
-    document.getElementById("submitTopUp").style.display = "block";
-  }, 2000);
-}
+// if (document.querySelector(".loaderTopUp")) {
+//   setInterval(function () {
+//     document.getElementById("submitTopUp").style.display = "block";
+//   }, 2000);
+// }
 // if (document.querySelector(".loaderTopUp")) {
 //   const element = document.getElementById("submitTopUp");
 //   setInterval(function () {
