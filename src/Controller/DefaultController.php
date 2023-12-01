@@ -245,7 +245,7 @@ class DefaultController extends AbstractController
 
     public function show()
     {
-        return $this->render('ExceptionHandling.html.twig');
+        return $this->render('ExceptionHandling404.html.twig');
     }
 
     /**
