@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow,setHeaderTitle }) => {
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
+    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
     useEffect(() => {
         setHeaderTitle("Pay Landline Bill");
@@ -13,6 +15,7 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
 
     const handleUsernameSubmit = () => {
         setLoading(true);
+        setSpinnerLoader(true);
 
         localStorage.setItem(
             "UserAccount",
@@ -27,6 +30,7 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
         axios
             .post("/terraNet/get_accounts", { username: inputValue })
             .then((response) => {
+                setSpinnerLoader(false);
                 if (response.data.flag === 2) {
                     // Show the ErrorModal with the response message
                     setModalName("ErrorModal");
@@ -50,37 +54,50 @@ const UsernameForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                 }
             })
             .catch((error) => {
+                setSpinnerLoader(false);
                 console.error("Error:", error);
             })
             .finally(() => {
+                setSpinnerLoader(false);
                 setLoading(false);
             });
     };
 
     return (
-        <div id="PayBill" className="username-form">
-            <div className="mainTitle">
-                Enter your Terranet username to recharge
-            </div>
-            <div className="MobileNbContainer mt-3">
+        <>
+            {getSpinnerLoader && (
+                <div id="spinnerLoader" className="overlay">
+                    <Spinner
+                        className="spinner"
+                        animation="border"
+                        variant="secondary"
+                    />
+                </div>
+            )}
+            <div id="PayBill" className="username-form">
+                <div className="mainTitle">
+                    Enter your Terranet username to recharge
+                </div>
+                <div className="MobileNbContainer mt-3">
 
-                <input
-                    type="text"
-                    className={`nbInput w-100`}
-                    placeholder="Username"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                />
+                    <input
+                        type="text"
+                        className={`nbInput w-100`}
+                        placeholder="Username"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                    />
+                </div>
+                <button
+                    id="ContinueBtn"
+                    className={"btnContFocus"}
+                    disabled={inputValue === ""}
+                    onClick={handleUsernameSubmit}
+                >
+                    Continue
+                </button>
             </div>
-            <button
-                id="ContinueBtn"
-                className={"btnContFocus"}
-                disabled={inputValue === ""}
-                onClick={handleUsernameSubmit}
-            >
-                Continue
-            </button>
-        </div>
+        </>
     );
 };
 

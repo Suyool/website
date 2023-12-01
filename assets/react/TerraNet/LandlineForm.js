@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
 
 const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal, setModalName, setModalShow,setHeaderTitle }) => {
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
+    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
     useEffect(() => {
         setHeaderTitle("Pay Landline Bill");
@@ -39,6 +41,7 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
 
     const handleUsernameSubmit = () => {
         setLoading(true);
+        setSpinnerLoader(true);
 
         // Format the phone number before sending the request
         const formattedNumber = formatPhoneNumber(inputValue);
@@ -46,6 +49,7 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
         axios
             .post("/terraNet/get_accounts", { username: formattedNumber })
             .then((response) => {
+                setSpinnerLoader(false);
                 if (response.data.flag === 2) {
                     // Show the ErrorModal with the response message
                     setModalName("ErrorModal");
@@ -69,10 +73,12 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
                 }
             })
             .catch((error) => {
+                setSpinnerLoader(false);
                 console.error("Error:", error);
             })
             .finally(() => {
                 setLoading(false);
+                setSpinnerLoader(false);
             });
     };
 
@@ -80,32 +86,44 @@ const LandlineForm = ({ setProducts, setActiveButton, setBackLink, setErrorModal
     const isInputLetter = /^[a-zA-Z]/.test(inputValue);
 
     return (
-        <div id="PayBill" className="username-form">
-            <div className="mainTitle">
-                Enter your landline number to recharge
-            </div>
-            <div className="MobileNbContainer mt-3">
+        <>
+            {getSpinnerLoader && (
+                <div id="spinnerLoader" className="overlay">
+                    <Spinner
+                        className="spinner"
+                        animation="border"
+                        variant="secondary"
+                    />
+                </div>
+            )}
+            <div id="PayBill" className="username-form">
+                <div className="mainTitle">
+                    Enter your landline number to recharge
+                </div>
+                <div className="MobileNbContainer mt-3">
                     <div className="place">
                         <img src="/build/images/alfa/flag.png" alt="flag" />
                         <div className="code">+961</div>
                     </div>
-                <input
-                    type="tel"
-                    className={`nbInput`}
-                    placeholder="Landline Number"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                />
+                    <input
+                        type="tel"
+                        className={`nbInput`}
+                        placeholder="Landline Number"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                    />
+                </div>
+                <button
+                    id="ContinueBtn"
+                    className={"btnContFocus"}
+                    disabled={inputValue === ""}
+                    onClick={handleUsernameSubmit}
+                >
+                    Continue
+                </button>
             </div>
-            <button
-                id="ContinueBtn"
-                className={"btnContFocus"}
-                disabled={inputValue === ""}
-                onClick={handleUsernameSubmit}
-            >
-                Continue
-            </button>
-        </div>
+
+        </>
     );
 };
 

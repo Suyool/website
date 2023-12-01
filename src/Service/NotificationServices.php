@@ -72,7 +72,7 @@ class NotificationServices
             return true;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            $this->logger->debug(json_encode($suyoolUser));
+            $this->logger->debug(json_encode(@$suyoolUser));
             return false;
         }
     }
