@@ -81,7 +81,7 @@ class TerranetController extends AbstractController
             if ($accounts) {
                 $PPPLoginName = $accounts[0]['PPPLoginName'];
                 $this->session->set('PPPLoginName', $PPPLoginName);
-                $response = $this->apiService->getAccountProduct($PPPLoginName);
+                $response = $this->apiService->getProducts($PPPLoginName);
                 if ($response){
                     $flag = 1;
                 }else{

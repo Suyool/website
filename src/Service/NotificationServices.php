@@ -60,7 +60,7 @@ class NotificationServices
                     ->setfname($suyoolUser["FirstName"])
                     ->setlname($suyoolUser["LastName"])
                     ->setlang($suyoolUser["LanguageID"])
-                    ->setMobileNo(SuyoolServices::aesDecryptString($suyoolUser['MobileNo']));
+                    ->setMobileNo($suyoolUser['MobileNo']);
                 $this->mr->persist($user);
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
@@ -72,7 +72,7 @@ class NotificationServices
             return true;
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            $this->logger->debug(json_encode($suyoolUser));
+            $this->logger->debug(json_encode(@$suyoolUser));
             return false;
         }
     }

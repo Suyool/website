@@ -63,8 +63,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -230,8 +230,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -303,8 +303,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -376,8 +376,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -449,8 +449,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -522,8 +522,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -595,8 +595,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/allowance1.svg',
@@ -668,8 +668,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -741,8 +741,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -814,8 +814,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
@@ -887,8 +887,8 @@ class MerchantsController extends AbstractController
             'title' => '6 Ways To Use Your Money',
             'items' => [
                 [
-                    'image' => 'build/images/alfa_employee/card1.svg',
-                    'description' => 'Free Platinum Debit Card',
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
                 ],
                 [
                     'image' => 'build/images/alfa_employee/cashout.svg',
