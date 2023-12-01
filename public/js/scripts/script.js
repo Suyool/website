@@ -500,14 +500,14 @@ if(document.getElementById("termsPdfDownloadButton")){
     });
 }
 
-// if (document.querySelector(".loaderTopUp")) {
-//   const element = document.getElementById("submitTopUp");
-//   setInterval(function () {
-//     var button = document.querySelector('.continueBtn');
-//     element.style.display = "block";
-//     // button.click();
-//   }, 2000);
-// }
+if (document.querySelector(".loaderTopUp")) {
+  const element = document.getElementById("submitTopUp");
+  setInterval(function () {
+    var button = document.querySelector('.continueBtn');
+    element.style.display = "block";
+    // button.click();
+  }, 2000);
+}
 
 if (document.querySelector(".continueBtn")) {
   const element = document.querySelector(".continueBtn");
