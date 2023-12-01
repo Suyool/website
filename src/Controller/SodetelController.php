@@ -39,7 +39,7 @@ class SodetelController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
 
         if (isset($_POST['infoString'])) {
@@ -48,8 +48,8 @@ class SodetelController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 //            $devicetype = "Android";
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $SuyoolUserId = $suyoolUserInfo[0];
-//            $SuyoolUserId = 218;
+//                $SuyoolUserId = $suyoolUserInfo[0];
+            $SuyoolUserId = 218;
             $this->session->set('suyoolUserId', $SuyoolUserId);
             // $this->session->set('suyoolUserId', 155);
 
@@ -112,7 +112,7 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
-//        $SuyoolUserId = 218;
+        $SuyoolUserId = 218;
 
 
         $flagCode = null;
@@ -224,6 +224,7 @@ class SodetelController extends AbstractController
                     }
                 }
             } else {
+//                dd($utilityResponse);
                 $order->setstatus(Order::$statusOrder['CANCELED'])
                     ->seterror($utilityResponse[1]);
                 $this->mr->persist($order);

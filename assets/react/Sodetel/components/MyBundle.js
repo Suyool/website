@@ -83,33 +83,36 @@ const MyBundle = ({
             setSodetelPassword(response?.data?.data?.password);
           } else {
             if (
-              response.data?.IsSuccess == false &&
-              response.data?.flagCode == 10
+              response.data?.IsSuccess === false &&
+              response.data?.flagCode === 10
             ) {
-              console.log("exchange", jsonResponse);
+              const message = JSON.parse(response.data?.ButtonOne);
+              console.log("message", message);
+              console.log("exchange", response);
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
-                title: jsonResponse.Title,
-                description: jsonResponse.SubTitle,
+                title: response.Title,
+                description: response.SubTitle,
                 show: true,
-                btn: jsonResponse.ButtonOne.Text,
-                path: jsonResponse.ButtonOne.Flag,
+                btn: message?.Text,
+                path: message?.Flag,
               })
             } else if (
               !response.data.IsSuccess &&
-              response.data.flagCode == 11
+              response.data.flagCode === 11
             ) {
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
-                title: jsonResponse.Title,
-                description: jsonResponse.SubTitle,
+                title: response.Title,
+                description: response.SubTitle,
                 show: true,
-                btn: jsonResponse.ButtonOne.Text,
-                path: jsonResponse.ButtonOne.Flag,
+                btn: response.ButtonOne.Text,
+                path: response.ButtonOne.Flag,
               });
-            } else if (jsonResponse == "19") {
+            } else if (!response.data.IsSuccess &&
+                response.data.data === -1) {
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
@@ -124,7 +127,7 @@ const MyBundle = ({
                 name: "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
                 title: "Please Try again",
-                description: "You cannot purchase now",
+                description: "You cannot purchase this product now",
                 show: true,
                 btn: "OK",
               });
