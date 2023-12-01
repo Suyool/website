@@ -28,6 +28,13 @@
 			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback" onerror="handleScriptError()"></script>
 		{% endif %}
 		<script type="text/javascript">
+		window.onerror = function () {
+	if (navigator.userAgent.match(/Android/i)) {
+		window.AndroidInterface.callbackHandler("GoToApp");
+	  } else {
+		window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+	  }
+};
 			sessionStorage.removeItem("HostedCheckout_sessionId");
 		
 function errorCallback(error) {
@@ -52,6 +59,7 @@ session: {
 id: "{{ session }}"
 }
 });
+
 		</script>
 	<div class="topup">
 		 <div class="loaderTopUp">
