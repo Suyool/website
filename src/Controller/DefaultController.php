@@ -1056,4 +1056,12 @@ class DefaultController extends AbstractController
         return $this->render('spinneys/index.html.twig',$parameters);
     }
 
+    /**
+     * @Route("/2xPoints", name="app_doubleyourpoints")
+     */
+    public function doublePoints(){
+        return $this->redirectToRoute("app_spinneys");
+    }
+    
+
 }
