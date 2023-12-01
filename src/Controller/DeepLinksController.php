@@ -26,7 +26,7 @@ class DeepLinksController extends AbstractController
 
     /**
      * @Route("/app", name="suyoolapp")
-     * @Route("/App", name="suyoolapplication")
+     * @Route("/App", name="suyoolapp_2")
      */
     public function deepLinks(): Response
     {
