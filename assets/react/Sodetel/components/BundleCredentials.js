@@ -121,7 +121,7 @@ function BundleCredentials({
             {
                 (credentialsArray.length > 1 && showCredentials) ? (
                     <div id="Default_Sodetel" className="py-0">
-                        <div className="MainTitle">Re-charge your {activeButton.bundle} Package using your:</div>
+                        <div className="MainTitle">Re-charge your {capitalizeFirstLetters(activeButton.bundle)} Package using your:</div>
 
                         {credentialsArray.map((credential, index) => (
                             <div
@@ -175,6 +175,20 @@ function BundleCredentials({
                                 </div>
                             )
                         }
+
+                        { (!showCredentials && credentialsArray.length > 1) &&  credentialsArray.map((credentialObj, index) => {
+                            if(credentialObj.name !== credential.name){
+                                return (
+                                    <button className="credential-link my-1" onClick={()=>{
+                                        setCredential(credentialObj);
+                                        setShowCredentials(false);
+                                    }}>
+                                        Login with {credentialObj.label}
+                                    </button>
+                                )
+                            }
+                        })}
+
                         <button
                             id="ContinueBtn"
                             className={`${!getBtnDesign ? "btnCont" : "btnContFocus"}`}
@@ -185,19 +199,6 @@ function BundleCredentials({
                         >
                             Continue
                         </button>
-
-                        { (!showCredentials && credentialsArray.length > 1) &&  credentialsArray.map((credentialObj, index) => {
-                            if(credentialObj.name !== credential.name){
-                                return (
-                                    <button className="credential-link my-5" onClick={()=>{
-                                        setCredential(credentialObj);
-                                        setShowCredentials(false);
-                                    }}>
-                                        Login with {credentialObj.label}
-                                    </button>
-                                )
-                            }
-                        })}
                     </>
                 )}
         </div>

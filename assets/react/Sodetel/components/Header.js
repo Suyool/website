@@ -8,7 +8,7 @@ const Header = ({
   getBackLink,
 }) => {
   const handleButtonClick = () => {
-    if (activeButton.name == "") {
+    if (activeButton.name === "Default") {
       if (parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler("GoToApp");
       } else if (parameters?.deviceType === "Iphone") {

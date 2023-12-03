@@ -9,7 +9,7 @@ import SuccessModal from "./components/Modal/SuccessModal";
 
 function App({parameters}) {
     const [activeButton, setActiveButton] = useState({name: "Default"});
-    const [getBackLink, setBackLink] = useState({name: ""});
+    const [getBackLink, setBackLink] = useState({name: "Default"});
     const [getHeaderTitle, setHeaderTitle] = useState("Sodetel");
     const [getDataGetting, setDataGetting] = useState({id: ""});
     const [planData, setPlanData] = useState({});
@@ -21,8 +21,6 @@ function App({parameters}) {
     });
     const [credentialsArray, setCredentialsArray] = useState([]);
 
-    //Modal Variable
-    const [modalShow, setModalShow] = useState(false);
     const [modalDesc, setModalDesc] = useState({
         name: "",
         imgPath: "/build/images/alfa/SuccessImg.png",
@@ -36,8 +34,6 @@ function App({parameters}) {
             setDataGetting(message);
         };
     });
-
-    console.log("modalDesc", modalDesc);
 
     return (
         <div>
@@ -57,18 +53,6 @@ function App({parameters}) {
                     setCredentialsArray={setCredentialsArray}
                 />
             }
-
-            {/*{activeButton.name === "PayBill" && (*/}
-            {/*    <PayBill*/}
-            {/*        setPostpaidData={setPostpaidData}*/}
-            {/*        setModalShow={setModalShow}*/}
-            {/*        setModalDesc={setModalDesc}*/}
-            {/*        activeButton={activeButton}*/}
-            {/*        setActiveButton={setActiveButton}*/}
-            {/*        setHeaderTitle={setHeaderTitle}*/}
-            {/*        setBackLink={setBackLink}*/}
-            {/*    />*/}
-            {/*)}*/}
 
             {activeButton.name === "BundleCredentials" && (
                 <BundleCredentials

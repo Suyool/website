@@ -10,7 +10,6 @@ const ReCharge = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  console.log("getVoucherData", getVoucherData)
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
 
@@ -36,7 +35,7 @@ const ReCharge = ({
   return (
     <div id="ReCharge">
       <div className="bundlesSection">
-        <div className="mainTitle">Available Re-charge Packages</div>
+        <div className="mainTitle">Available ${capitalizeFirstLetters(activeButton?.bundle)} Re-charge Packages</div>
         <div className="mainDesc">* Excluding Taxes</div>
         {getLoading ? (
           <ContentLoader

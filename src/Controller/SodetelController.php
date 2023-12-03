@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Sodetel\Logs;
 use App\Entity\Sodetel\Order;
 use App\Entity\Sodetel\Product;
 use App\Repository\SodetelOrdersRepository;
@@ -39,7 +40,7 @@ class SodetelController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
 
         if (isset($_POST['infoString'])) {
@@ -48,8 +49,8 @@ class SodetelController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 //            $devicetype = "Android";
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-//                $SuyoolUserId = $suyoolUserInfo[0];
-            $SuyoolUserId = 218;
+                $SuyoolUserId = $suyoolUserInfo[0];
+//            $SuyoolUserId = 218;
             $this->session->set('suyoolUserId', $SuyoolUserId);
             // $this->session->set('suyoolUserId', 155);
 
@@ -112,7 +113,7 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 218;
+//        $SuyoolUserId = 71;
 
 
         $flagCode = null;
@@ -144,9 +145,9 @@ class SodetelController extends AbstractController
 
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
                 if ($rechargeInfo) {
+//                    dd($rechargeInfo);
                     $sodetelArr = json_decode($rechargeInfo, true);
                     $sodetelData = $sodetelArr[0];
-//                    dd($sodetelData);
                     if ($sodetelData['result']) {
                         $product = new Product;
                         $product
@@ -213,6 +214,16 @@ class SodetelController extends AbstractController
                         }
 
                     } else {
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("Sodetel Request")
+                            ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                            ->setrequest(json_encode(array($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId())))
+                            ->setresponse(json_encode($sodetelData))
+                            ->seterror($sodetelData['message']);
+                        $this->mr->persist($logs);
+                        $this->mr->flush();
+
                         $order->setStatus(Order::$statusOrder['CANCELED'])
                             ->setError($sodetelData['message']);
                         $this->mr->persist($order);
@@ -224,7 +235,6 @@ class SodetelController extends AbstractController
                     }
                 }
             } else {
-//                dd($utilityResponse);
                 $order->setstatus(Order::$statusOrder['CANCELED'])
                     ->seterror($utilityResponse[1]);
                 $this->mr->persist($order);

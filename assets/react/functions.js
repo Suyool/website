@@ -15,6 +15,7 @@ export const formatMobileNumber = (value) => {
 };
 
 export const capitalizeFirstLetters = (inputString) => {
+    if(["dsl", "4d"].includes(inputString)) return inputString.toUpperCase();
     let words;
     if (inputString) {
         words = inputString.split(' ');

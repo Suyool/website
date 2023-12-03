@@ -11,6 +11,7 @@
     padding: 20px 15px;
 
     .MyBundleBody {
+        margin-top: 50px;
         // height: 100vh;
         width: 100%;
         overflow-x: hidden;
@@ -21,9 +22,18 @@
 
         .mainTitle {
             font-family: $Medium;
+            font-size: 14px;
+            color: black;
+            width: 100%;
+        }
+
+        .bundleTitle {
+            font-family: $Medium;
             font-size: 16px;
             color: black;
             width: 100%;
+            padding-top: 20px;
+            text-align: center;
         }
 
         .mainDesc {

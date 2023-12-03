@@ -98,8 +98,8 @@ class SodetelService
             ]);
             return $response->getContent();
         } catch (Exception $e) {
-            $this->logger->error("Gift 2 Games categories error: {$e->getMessage()}");
-            return array(false, $e->getMessage(), 255, $e->getMessage());
+            $this->logger->error("Sodetel error: {$e->getMessage()}");
+            return json_encode(array(array('result'=>false, 'message'=>$e->getMessage()), 255, $e->getMessage()));
         }
     }
 }

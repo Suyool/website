@@ -38,7 +38,7 @@ const Default = ({setHeaderTitle, setBackLink, setActiveButton, setCredential, s
     ];
 
     setHeaderTitle("Sodetel");
-    setBackLink("default");
+    setBackLink("Default");
 
     const handleButtonClick = (name, bundle) => {
         setActiveButton({name: name, bundle: bundle});

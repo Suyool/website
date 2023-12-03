@@ -84,19 +84,20 @@ const MyBundle = ({
           } else {
             if (
               response.data?.IsSuccess === false &&
-              response.data?.flagCode === 10
+              (response.data?.flagCode === 10 || response.data.flagCode === 11)
             ) {
-              const message = JSON.parse(response.data?.ButtonOne);
+              const message = JSON.parse(response.data?.message);
               console.log("message", message);
+              console.log("mess", response.data?.message);
               console.log("exchange", response);
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
-                title: response.Title,
-                description: response.SubTitle,
+                title: message.Title,
+                description: message.SubTitle,
                 show: true,
-                btn: message?.Text,
-                path: message?.Flag,
+                btn: message?.ButtonOne?.Text,
+                path: message?.ButtonOne.Flag,
               })
             } else if (
               !response.data.IsSuccess &&
@@ -144,8 +145,6 @@ const MyBundle = ({
       setDataGetting("");
     }
   });
-
-  console.log(credential)
 
   const copyToClipboard = (value) => {
     const tempInput = document.createElement("input");
@@ -231,15 +230,15 @@ const MyBundle = ({
         {!getPaymentConfirmation && (
           <>
             <div className="MyBundleBody">
-              <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+              <div className="mainTitle">The package related to your {credential.label} is:</div>
+              <div className="bundleTitle">{getPrepaidVoucher?.plandescription}</div>
+
               {/* <div className="mainDesc">*All taxes excluded</div> */}
               <img
                 className="BundleBigImg"
                 src={`/build/images/sodetel/${getPrepaidVoucher.plancode}.svg`}
                 alt="Bundle"
               />
-
-              <div className="relatedInfo">{getPrepaidVoucher?.plandescription}</div>
               <div className="smlDesc">
                 <img
                     className="question"
@@ -247,26 +246,23 @@ const MyBundle = ({
                     alt="question"
                     style={{ verticalAlign: "baseline" }}
                 />
-                Sodetel only accepts payments in L.L
+               &nbsp; Sodetel only accepts payments in L.L
               </div>
 
               <div className="MoreInfo">
                 <div className="label">Total before taxes</div>
                 <div className="value">L.L {parseInt(getPrepaidVoucher.priceht).toLocaleString()}</div>
               </div>
-              {/*<div className="MoreInfo">*/}
-              {/*  <div className="label">+V.A.T & Stamp Duty</div>*/}
-              {/*  <div className="value">$ { getPrepaidVoucher.pricettc - getPrepaidVoucher.priceht}</div>*/}
-              {/*</div>*/}
+              <div className="MoreInfo">
+                <div className="label">+V.A.T & Stamp Duty</div>
+                <div className="value">L.L {parseInt(getPrepaidVoucher?.price - getPrepaidVoucher?.priceht).toLocaleString()}</div>
+              </div>
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total after taxes</div>
                 <div className="value">L.L {parseInt(getPrepaidVoucher.price).toLocaleString()}</div>
               </div>
-              <div className="MoreInfo">
-                <div className="label">+V.A.T & Stamp Duty</div>
-                <div className="value">L.L {parseInt(getPrepaidVoucher?.price - getPrepaidVoucher?.priceht).toLocaleString()}</div>
-              </div>
+
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total amount to pay</div>
@@ -285,7 +281,7 @@ const MyBundle = ({
               onClick={handleConfirmPay}
               disabled={isButtonDisabled}
             >
-              Pay Now
+              Re-charge Package
             </button>
           </>
         )}
