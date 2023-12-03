@@ -236,6 +236,11 @@
       }
     }
     .use-money {
+
+      .home_body_desktop{
+        padding: 0 !important;
+      }
+
       .use-money-row {
         img {
           width: 100%;
@@ -315,6 +320,7 @@
   }
 
   .use-money {
+
     .use-money-row {
       margin-top: 100px;
       margin-bottom: 60px;
@@ -607,6 +613,21 @@
       width: 100%;
       object-fit: cover;
       height: 70vh;
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .top-details-spines {
+    .left {
+      .Text {
+        h1{
+          font-size: 30px;
+        }
+      }
+    }
+    #openSuyoolAccount{
+      padding: 10px 30px;
     }
   }
 }
