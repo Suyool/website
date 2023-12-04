@@ -938,7 +938,7 @@ class MerchantsController extends AbstractController
             ],
             "THREE"=>[
                 "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MEDCO",
-                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCO"
+                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL"
             ],
             "FOUR"=>[
                 "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
@@ -949,8 +949,8 @@ class MerchantsController extends AbstractController
                 "Desc"=>"YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
             ],
             "SIX"=>[
-                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCO",
-                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCO"
+                "Title"=>"WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
+                "Desc"=>"USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
             ],
         ];
 

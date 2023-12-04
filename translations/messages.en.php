@@ -377,4 +377,9 @@ return [
     "YES_YOU_CAN_SEND_MONEY"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
     "WHAT_DO_ID_DO_IF_I"=>"What do I do if I sent money to the wrong number?",
     "WEVE_ADDED_EXTRA_SECURITY"=> "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
+
+    //medco-payroll
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Medco employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
 ];
