@@ -1057,7 +1057,8 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/2xPoints", name="app_doubleyourpoints")
+     * @Route("/2xPoints", name="app_doubleyourpoints", requirements={"_lowercase_path"=true})
+     * @Route("/2xpoints", name="app_doubleyourpoints_case_insensitive", requirements={"_lowercase_path"=true})
      */
     public function doublePoints(){
         return $this->redirectToRoute("app_spinneys");

@@ -252,7 +252,7 @@
       }
 
       .title {
-        font-size: 25px;
+        font-size: 30px!important;
         padding-top: 33px;
       }
 
@@ -269,13 +269,13 @@
 
       .home_body_desktop {
         .how_suyool_work {
-          font-size: 14px;
+          font-size: 16px !important;
           text-align: center;
         }
 
         .easy_steps {
           text-align: center;
-          font-size: 25px;
+          font-size: 25px!important;
         }
 
         .manage_spend {
@@ -291,18 +291,18 @@
       }
     }
     .alfa-steps {
-
+      margin-top: 60px;
       .home_body_desktop {
         text-align: center;
         padding-left: 40px;
         padding-right: 40px;
 
         .how_suyool_work {
-          font-size: 14px;
+          font-size: 16px !important;
         }
 
         .easy_steps {
-          font-size: 25px;
+          font-size: 30px !important;
         }
 
         .manage_spend {
@@ -332,7 +332,12 @@
       }
 
     }
-
+    @media screen and (max-width: 768px) {
+      .use-money-row {
+        margin-top: 40px;
+        text-align: center;
+      }
+    }
     .home_body_desktop,
     .home_body_mobile {
       display: flex;
