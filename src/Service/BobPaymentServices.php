@@ -351,6 +351,7 @@ class BobPaymentServices
             $this->mr->persist($transaction);
             $this->mr->flush();
             if ($status == "CAPTURED") {
+                $this->session->remove('sessionBobId');
                 $order = $session->getOrders();
                 $order->setstatus(orders::$statusOrder['PAID']);
                 $this->mr->persist($order);
