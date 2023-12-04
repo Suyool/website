@@ -1,12 +1,28 @@
-if (document.querySelector(".loaderTopUp")) {
-  const element = document.getElementById("submitTopUp");
-  setInterval(function () {
-    element.style.display = "block";
-  }, 2000);
-}
+// if (document.querySelector(".loaderTopUp")) {
+//   setInterval(function () {
+//     document.getElementById("submitTopUp").style.display = "block";
+//   }, 2000);
+// }
+// if (document.querySelector(".loaderTopUp")) {
+//   const element = document.getElementById("submitTopUp");
+//   setInterval(function () {
+//     var button = document.querySelector('.continueBtn');
+//     element.style.display = "block";
+//     // button.click();
+//   }, 2000);
+// }
 
 if (document.querySelector(".continueBtn")) {
   const element = document.querySelector(".continueBtn");
+  var loader = document.getElementsByClassName("loaderTopUp2")[0];
+  element.addEventListener("click", function () {
+    loader.style.display="none";
+    document.getElementById("embed-target").style.display="block";
+  });
+}
+
+if (document.querySelector(".continueBtnrtp")) {
+  const element = document.querySelector(".continueBtnrtp");
   var loader = document.getElementsByClassName("loaderTopUp2")[0];
   element.addEventListener("click", function () {
     loader.style.display="none";

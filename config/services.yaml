@@ -89,6 +89,7 @@ services:
             $cashin: '@monolog.logger.cashin'
             $cashout: '@monolog.logger.cashout'
             $winning: '@monolog.logger.Winning'
+            $userlog: '@monolog.logger.Users'
 
     App\EventListener\DomainAccessListener:
         tags:
@@ -129,6 +130,10 @@ services:
     App\Service\TerraNetService:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'terraNet' }
+
+    App\Controller\TopupController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Iveri' }
 
 
         

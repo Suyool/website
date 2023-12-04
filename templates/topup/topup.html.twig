@@ -1,53 +1,99 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-	{% if status is not defined %}
-		<div class="loaderTopUp">
-		<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="">
-		{% if app.request.server.get('APP_ENV') == "dev" %}
-			<script src="https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
-		{% else %}
-			<script src="https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
-		{% endif %}
-		<script type="text/javascript">
-		sessionStorage.removeItem("HostedCheckout_sessionId");
-			function errorCallback(error) {
-console.log(JSON.stringify(error));
-if (navigator.userAgent.match(/Android/i)) {
-	window.AndroidInterface.callbackHandler("GoToApp");
-  } else {
-	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-  }
-}
-function cancelCallback() {
-console.log('Payment cancelled');
-if (navigator.userAgent.match(/Android/i)) {
-	window.AndroidInterface.callbackHandler("GoToApp");
-  } else {
-	window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-  }
-}
 
-Checkout.configure({
-session: {
-id: "{{ session }}"
-}
-});
+{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
+? 'https://test-bobsal.gateway.mastercard.com/static/checkout/checkout.min.js'
+: 'https://bobsal.gateway.mastercard.com/static/checkout/checkout.min.js' %}
+
+{% block body %}
+
+	{% if status is not defined %}
+		<script>
+			sessionStorage.removeItem("HostedCheckout_sessionId");
+			function handleScriptError() {
+				console.log('error');
+				if (navigator.userAgent.match(/Android/i)) {
+					window.AndroidInterface.callbackHandler("GoToApp");
+				} else {
+					window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+				}
+			}
+			function errorCallback(error) {
+				console.log(JSON.stringify(error));
+				if (navigator.userAgent.match(/Android/i)) {
+					window.AndroidInterface.callbackHandler("GoToApp");
+				} else {
+					window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+				}
+			}
+
+			function cancelCallback() {
+				console.log('Payment cancelled');
+				if (navigator.userAgent.match(/Android/i)) {
+					window.AndroidInterface.callbackHandler("GoToApp");
+				} else {
+					window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+				}
+			}
+			
+			window.onerror = function () {
+				if (navigator.userAgent.match(/Android/i)) {
+					window.AndroidInterface.callbackHandler("GoToApp");
+				} else {
+					window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+				}
+			};
+
+			//window.addEventListener('online', () => console.log('Became online'));
+			//window.addEventListener('offline', () => console.log('Became offline'));
 		</script>
-			<button onclick="Checkout.showPaymentPage();" class="continueBtn" style="display: none;">Continue</button>
-		<script type="text/javascript">
-		window.onload = function(){
-			var button = document.querySelector('.continueBtn');
-				button.click();
-		};
-		setInterval(function () {
-			if (navigator.userAgent.match(/Android/i)) {
-                window.AndroidInterface.callbackHandler("GoToApp");
-              } else {
-                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-              }
-		}, 5000);
-		</script>
+	  	<script src="{{ checkoutScriptUrl }}" data-error="errorCallback" data-cancel="cancelCallback" onerror="handleScriptError()"></script>
+		<div class="topup">
+			<div class="loaderTopUp">
+				{% if topup is  defined and topup == "true" %}
+					<div class="mobheader">
+						<div class="back">
+							<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
+						</div>
+						<div class="topup">Top Up</div>
+						<div></div>
+					</div>
+				{% endif %}
+				<div id="embed-target" style="overflow: auto; -webkit-overflow-scrolling: touch; border: none;" scrolling="yes">
+					{% if fee is defined and beforefee is defined %}
+						<div class="whopay">
+							<div class="paying">You are paying</div>
+							<div class="row">
+								<div class="col-md-5 col-8">
+									<div class="fee">Amount</div>
+									<div class="fee">Card Processing Fees</div>
+								</div>
+								<div class="col-md-7 col-4">
+									<div class="beforefee">{{currency}} {{beforefee|number_format(2, '.', ',')}}</div>
+									<div class="beforefee">{{currency}}	{{fee|number_format(2, '.', ',')}}</div>
+								</div>
+							</div>
+							<div style="border-top: 1px solid;margin-top: 15px;"></div>
+						</div>
+					{% endif %}
+				</div>
+				<span class="loaderTopUp2">
+					<img src="{{ asset('/build/images/loaderSuyool3.gif') }}" alt="loading...">
+					<div id="submitTopUp" style="display: none;">
+						<button onclick="Checkout.showEmbeddedPage('#embed-target');" class="continueBtn">Continue</button>
+					</div>
+				</span>
+			</div>
 		</div>
+		<script type="text/javascript">
+		Checkout.configure({
+			session: {
+				id: "{{ session }}"
+			}
+		});
+		Checkout.showEmbeddedPage('#embed-target');
+		document.getElementsByClassName("loaderTopUp2")[0].style.display="none"
+		setInterval(function () { document.getElementById("submitTopUp").style.display = "block";}, 2000);
+	</script>
 	{% else %}
 		<div class="entireBody">
 			<div class="desktopMode desktop-logo">
@@ -71,4 +117,5 @@ id: "{{ session }}"
 			</div>
 		</div>
 	{% endif %}
+
 {% endblock %}

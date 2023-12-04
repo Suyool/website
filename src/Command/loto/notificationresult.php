@@ -114,7 +114,7 @@ class notificationresult extends Command
         } else {
             $LOTO_draw = new LOTO_draw;
             $next_date = new DateTime($detailsnextdraw[0]);
-            $interval = new DateInterval('PT3H');
+            $interval = new DateInterval('PT2H');
             $next_date->add($interval);
 
             $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $detailsnextdraw[1]['drawnumber']]);
