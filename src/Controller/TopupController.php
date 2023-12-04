@@ -140,6 +140,7 @@ class TopupController extends AbstractController
             }
 
             $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+            dd($nonSuyooler);
             $senderName = $sessionInterface->get('SenderInitials');
             $data = json_decode($nonSuyooler[1], true);
             $parameters = array();
@@ -156,7 +157,7 @@ class TopupController extends AbstractController
 
             return $this->render('topup/topuprtp.html.twig', $parameters);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            dd($e->getMessage());
             if ($request->headers->get('referer') == null) {
                 return $this->redirectToRoute("homepage");
             } else {
