@@ -474,7 +474,6 @@ class SuyoolServices
                 'transactionId' => $transId,
                 'secureHash' => $Hash
             ];
-            echo json_encode($body);
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
