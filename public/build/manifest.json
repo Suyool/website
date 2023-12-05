@@ -36,6 +36,7 @@
   "build/images/medco/medco-payroll-desktop.png": "/build/images/medco/medco-payroll-desktop.png",
   "build/images/platinumMastercard/top-section-mastercard.jpg": "/build/images/platinumMastercard/top-section-mastercard.jpg",
   "build/images/top-section-mastercard.jpg": "/build/images/top-section-mastercard.97dde94b.jpg",
+  "build/images/payroll/payrollDesktop.png": "/build/images/payroll/payrollDesktop.png",
   "build/images/sendmeta.png": "/build/images/sendmeta.png",
   "build/images/alfa_employee/topImage.png": "/build/images/alfa_employee/topImage.png",
   "build/images/alfa_employee/topImagelarge.png": "/build/images/alfa_employee/topImagelarge.png",
@@ -89,6 +90,11 @@
   "build/images/web-addicts/web-tablet.png": "/build/images/web-addicts/web-tablet.png",
   "build/images/digital-corporate.jpg": "/build/images/digital-corporate.8ac02e09.jpg",
   "build/images/digital_corporate/digital-corporate.jpg": "/build/images/digital_corporate/digital-corporate.jpg",
+<<<<<<< HEAD
+=======
+  "build/images/payroll/payrollTablet.png": "/build/images/payroll/payrollTablet.png",
+  "build/images/medco/medco-payroll-meta.png": "/build/images/medco/medco-payroll-meta.png",
+>>>>>>> 7fe47be2 (payroll page)
   "build/images/medco/medcoMeta.png": "/build/images/medco/medcoMeta.png",
   "build/images/aramex/aramexTablet.png": "/build/images/aramex/aramexTablet.png",
   "build/images/fahed/fahedTablet.png": "/build/images/fahed/fahedTablet.png",
@@ -142,6 +148,7 @@
   "build/images/platinumMastercard/buyers.png": "/build/images/platinumMastercard/buyers.png",
   "build/images/digital_corporate/digital-corp-account.png": "/build/images/digital_corporate/digital-corp-account.png",
   "build/images/alfa/Bundle1x3.png": "/build/images/alfa/Bundle1x3.png",
+  "build/images/payroll/payrollMobile.png": "/build/images/payroll/payrollMobile.png",
   "build/images/digital_corporate/live-overw-tran.png": "/build/images/digital_corporate/live-overw-tran.png",
   "build/images/platinumMastercard/medical.png": "/build/images/platinumMastercard/medical.png",
   "build/images/lldj/lldjMobile.png": "/build/images/lldj/lldjMobile.png",

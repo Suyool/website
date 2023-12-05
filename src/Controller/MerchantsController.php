@@ -963,31 +963,31 @@ class MerchantsController extends AbstractController
     }
 
     /**
-     * @Route("/medco-payroll", name="medco_payroll")
+     * @Route("/payroll", name="payroll")
      */
-    public function medcoPayroll(Request $request, TranslatorInterface $translatorInterface): Response
+    public function payroll(Request $request,TranslatorInterface $translatorInterface): Response
     {
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
-        $parameters['lang'] = "en";
-        $parameters['metaimage'] = "build/images/medco/medco-payroll-meta.png";
-        $parameters['descmeta']="Why is Suyool the best option for your payroll?";
-        $parameters['faq'] = [
-            "ONE" => [
-                "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
-                "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+        $parameters['lang']="en";
+        $parameters['metaimage']="build/images/payroll/payroll-meta.png";
+        $parameters['descmeta']="Your Payroll is now on Suyool";
+        $parameters['faq']=[
+            "ONE"=>[
+                "Title"=>"WHAT_IS_SUYOOL_DrogueriePhenicia",
+                "Desc"=>"SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
             ],
             "TWO" => [
                 "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
                 "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
             ],
-            "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MEDCO",
-                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL"
+            "THREE"=>[
+                "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PAYROLL",
+                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL"
             ],
-            "FOUR" => [
-                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MEDCO"
+            "FOUR"=>[
+                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc"=>"YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PAYROLL"
             ],
             "FIVE" => [
                 "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
@@ -999,8 +999,8 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title'] = "Medco | Suyool";
-        $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
+        $parameters['title']="Payroll | Suyool";
+        $parameters['desc']="Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',
             'items' => [
@@ -1032,6 +1032,6 @@ class MerchantsController extends AbstractController
         ];
         $parameters['infoSection'] = $infoSection;
 
-        return $this->render('medco-payroll/index.html.twig', $parameters);
+        return $this->render('payroll/index.html.twig',$parameters);
     }
 }
