@@ -983,10 +983,10 @@ class MerchantsController extends AbstractController
             ],
             "THREE"=>[
                 "Title"=>"WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PAYROLL",
-                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL"
+                "Desc"=>"YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PAYROLL"
             ],
             "FOUR"=>[
-                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Title"=>"IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_PAYROLL",
                 "Desc"=>"YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PAYROLL"
             ],
             "FIVE" => [

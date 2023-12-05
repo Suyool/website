@@ -386,6 +386,7 @@ return [
     //payRoll
 
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PAYROLL" => "What are the benefits of receiving my payroll on Suyool?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PAYROLL" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a employee.",
-
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PAYROLL" => "No, the Suyool Visa Platinum debit card is provided free of charge when your employer opts to process payroll through Suyool",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PAYROLL" => "Suyool provides instant payroll access, enabling full or partial cash-outs, and offers a complimentary Visa Platinum card with exclusive benefits. Suyool wallet allows for diverse transactions, money transfers, bill payments, and QR code purchases, all through a secure and user-friendly platform.",
+    "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_PAYROLL" => "Is there a fee for obtaining the Suyool Visa Platinum debit card?",
 ];
