@@ -266,6 +266,7 @@ $image-path: '../../../../images/usj/';
 }
 
 .alfa-steps {
+    margin-top: 80px;
     .home_body_desktop {
         display: flex;
         flex-direction: column;
@@ -281,7 +282,7 @@ $image-path: '../../../../images/usj/';
         }
 
         .easy_steps {
-            font-size: 35px;
+            font-size: 25px;
             font-family: $Regular;
             color: #202020;
             padding: 20px 0;
@@ -709,7 +710,7 @@ $image-path: '../../../../images/usj/';
             padding-right: 40px;
 
             .how_suyool_work {
-                font-size: 14px;
+                font-size: 16px!important;
             }
 
             .easy_steps {
@@ -727,6 +728,9 @@ $image-path: '../../../../images/usj/';
             img {
                 width: 100%;
             }
+        .title {
+            font-size: 25px;
+        }
         }
 
         .image {
@@ -751,13 +755,13 @@ $image-path: '../../../../images/usj/';
 
         .home_body_desktop {
             .how_suyool_work {
-                font-size: 14px;
+                font-size: 16px!important;
                 text-align: center;
             }
 
             .easy_steps {
                 text-align: center;
-                font-size: 25px;
+                font-size: 25px!important;
             }
 
             .manage_spend {
