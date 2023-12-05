@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\topup\attempts;
 use App\Entity\topup\bob_transactions;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
@@ -124,12 +125,26 @@ class BobPaymentServices
                     'auth_basic' => [$this->username, $this->password],
                 ]);
 
-                $content = $response->toArray(false);
-                // dd($content);
-                $this->logger->error(json_encode($content));
-                if ($content['result'] == "SUCCESS") return array(true, $content);
-                return array(false, "ERROR");
+            $content = $response->toArray(false);
+            // dd(end($content['transaction']));
+            $this->logger->error(json_encode($content));
+            if($content['result'] != 'ERROR'){
+                $attempts=new attempts();
+                $attempts->setResponse(json_encode($content))
+                ->setTransactionId($content['id'])
+                ->setAmount($content['amount'])
+                ->setCurrency($content['currency'])
+                ->setStatus($content['status'])
+                ->setResult($content['result'])
+                ->setAuthStatus($content['authenticationStatus'])
+                ->setCard(end($content['transaction'])['sourceOfFunds']['provided']['card']['number'])
+                ->setName(end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
+
+                $this->mr->persist($attempts);
+                $this->mr->flush();
             }
+            if ($content['result'] == "SUCCESS") return array(true, $content);
+        }
             return array(false, "ERROR");
         } catch (Exception $e) {
             return array(false, $e->getMessage());
