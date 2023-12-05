@@ -117,7 +117,7 @@
                 text-align: left;
                 font-family: 'PoppinsBold';
                 font-size: 14px;
-
+                white-space: nowrap;
             }
         }
 
@@ -309,7 +309,9 @@
             min-height: 440px !important;
             // @media screen and (max-width:768px) {
             height: 70vh !important;
-
+            @media screen and (min-width:992px) {
+                height: 100vh!important;
+            }
             // }
             @media screen and (max-width:768px) {
                 height: auto !important;

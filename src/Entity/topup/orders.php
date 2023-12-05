@@ -51,6 +51,11 @@ class orders
      */
     private $status;
 
+     /**
+     * @ORM\Column(name="attempt")
+     */
+    private $attempt = 1;
+
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
@@ -124,6 +129,17 @@ class orders
     public function settype($type)
     {
         $this->type = $type;
+        return $this;
+    }
+
+    public function getAttempt()
+    {
+        return $this->attempt;
+    }
+
+    public function setAttempt($attempt)
+    {
+        $this->attempt = $attempt;
         return $this;
     }
 
