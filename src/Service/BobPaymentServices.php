@@ -462,7 +462,7 @@ class BobPaymentServices
     public function SessionRTPFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
         try {
-            $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $transId, 'status' => 'PENDING'],['created'=>'DESC']);
+            $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $transId, 'status' => 'PENDING'], ['created' => 'DESC']);
             // dd($order);
             if (is_null($order)) {
                 $this->session->remove('sessionBobId');
@@ -492,15 +492,19 @@ class BobPaymentServices
                     $order->settype("rtp");
                     $this->mr->persist($order);
                     $this->mr->flush();
+                } else {
+                    $order->setAttempt($order->getAttempt() + 1);
+                    $this->mr->persist($order);
+                    $this->mr->flush();
                 }
             }
             $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
             $this->session->remove('order');
             $this->session->set('order', $transId);
-            $session=$this->session->get('sessionBobId');
+            $session = $this->session->get('sessionBobId');
             if (is_null($session)) {
-            $sessionfromDB = $this->mr->getRepository(session::class)->findOneBy(['orders' => $order->getId()]);
-                if(is_null($sessionfromDB)){
+                $sessionfromDB = $this->mr->getRepository(session::class)->findOneBy(['orders' => $order->getId()]);
+                if (is_null($sessionfromDB)) {
                     $body = [
                         "apiOperation" => "INITIATE_CHECKOUT",
                         "interaction" => [
@@ -530,7 +534,7 @@ class BobPaymentServices
                         ],
                         'auth_basic' => [$this->username, $this->password],
                     ]);
-    
+
                     $content = $response->toArray(false);
                     // dd($content);
                     // print_r($content);
@@ -541,16 +545,16 @@ class BobPaymentServices
                     $session->setIndicator($content['successIndicator']);
                     $this->mr->persist($session);
                     $this->mr->flush();
-    
-                    $this->session->set('sessionBobId',$content['session']['id']);
-    
+
+                    $this->session->set('sessionBobId', $content['session']['id']);
+
                     $sessionToBeSet = $content['session']['id'];
                 } else {
-                    $sessionToBeSet=$sessionfromDB->getSession();
+                    $sessionToBeSet = $sessionfromDB->getSession();
                 }
-                }else{
-                    $sessionToBeSet = $this->session->get('sessionBobId');
-                }
+            } else {
+                $sessionToBeSet = $this->session->get('sessionBobId');
+            }
             return array(true, $sessionToBeSet, $order);
         } catch (Exception $e) {
             return array(false);
