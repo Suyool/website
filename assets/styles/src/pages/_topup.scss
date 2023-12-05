@@ -88,7 +88,7 @@
                 // padding: 20px !important;
                 min-height: 440px !important;
                 // @media screen and (max-width:768px) {
-                height: 70vh !important;
+                height: 160vh!important;
 
                 // }
                 @media screen and (max-width:768px) {
@@ -309,8 +309,12 @@
             min-height: 440px !important;
             // @media screen and (max-width:768px) {
             height: 70vh !important;
+            @supports (-webkit-touch-callout: none) {
+                /* CSS specific to iOS devices */ 
+              }
+              
             @media screen and (min-width:992px) {
-                height: 100vh!important;
+                height: 160vh!important;
             }
             // }
             @media screen and (max-width:768px) {
