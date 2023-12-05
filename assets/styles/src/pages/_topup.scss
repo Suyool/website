@@ -60,22 +60,22 @@
     /////
     .topup {
         #embed-target {
-            // max-height: none !important;
-            // overflow: hidden !important;
-            // border: none !important;
-            // /* max-height: 432px; */
-            // transition: max-height 0.5s ease-out 0s !important;
-            // background-color: rgb(255, 255, 255) !important;
-            // border-radius: 17px !important;
-            // height: unset !important;
-            // // left: 50%!important;
-            // // margin-top: 30px!important;
-            // padding: 35px !important;
-            // margin: 0 auto;
-            // // position: absolute!important;
-            // // top: 50%!important;
-            // // transform: translate(-50%, -50%)!important;
-            // width: 50% !important;
+            max-height: none !important;
+            overflow: hidden !important;
+            border: none !important;
+            /* max-height: 432px; */
+            transition: max-height 0.5s ease-out 0s !important;
+            background-color: rgb(255, 255, 255) !important;
+            border-radius: 17px !important;
+            height: unset !important;
+            // left: 50%!important;
+            // margin-top: 30px!important;
+            padding: 35px !important;
+            margin: 0 auto;
+            // position: absolute!important;
+            // top: 50%!important;
+            // transform: translate(-50%, -50%)!important;
+            width: 50% !important;
 
             @media screen and (max-width:768px) {
                 width: 100% !important;
@@ -306,16 +306,16 @@
             // height: 100vh !important;
             background-color: #fff !important;
             // padding: 20px !important;
-            min-height: 440px !important;
+            // min-height: 440px !important;
             // @media screen and (max-width:768px) {
-            height: 70vh !important;
+            // height: 70vh !important;
             @media screen and (min-width:992px) {
-                height: 100vh!important;
+                // height: 100vh!important;
             }
             // }
             @media screen and (max-width:768px) {
-                height: auto !important;
-                min-height: 100vh !important;
+                // height: auto !important;
+                // min-height: 100vh !important;
             }
         }
 
