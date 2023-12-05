@@ -647,15 +647,17 @@ $image-path: '../../../../images/usj/';
             right: 30px;
 
             .title {
-                font-size: 25px;
-                text-align: left;
-                width: unset;
+                font-size: 25px!important;
+                text-align: left!important;
+                width: unset!important;
+                padding-left: 10px;
             }
 
             .desc {
                 font-size: 14px;
                 line-height: 30px;
                 text-align: left;
+                padding-left: 10px;
             }
 
             .OpenSuyoolAccount {
