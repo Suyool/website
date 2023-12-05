@@ -22,7 +22,7 @@ $image-path: '../../../images/';
             border: none;
         }
         .accordion-button{
-            font-size: 23px;
+            font-size: 20px;
             color: #226D96;
             font-family: $Regular;
             background-color: #C4D9E495;
@@ -46,8 +46,9 @@ $image-path: '../../../images/';
            position: relative;
            top: -20px;
             color: #000;
-            font-family: $Regular;
+            font-family: OpenSansRegular;
             padding-left: 25px;
+            font-size: 15px;
         }
     }
     @media screen and (max-width:768px) {
