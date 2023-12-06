@@ -66,7 +66,7 @@
     .desc {
       max-width: 600px;
       margin: 28px auto;
-      font-family: 'OpenSansRegular';
+      font-family: "OpenSansRegular";
       font-size: 17px;
       color: #fff;
     }
@@ -83,7 +83,7 @@
 
         border-radius: 9px;
         border: none;
-        color: #226D96;
+        color: #226d96;
         font-family: $SemiBold;
         background: #ffffff;
 
@@ -95,7 +95,6 @@
       }
     }
   }
-
 }
 
 .medcoPayrollWhyChooseSuyool {
@@ -143,7 +142,7 @@
       padding-top: 10px;
 
       .infotitle {
-        font-family: 'PoppinsSemiBold';
+        font-family: "PoppinsSemiBold";
         font-size: 17px;
         padding-bottom: 10px;
         @media screen and (max-width: 768px) {
@@ -152,8 +151,8 @@
       }
 
       .infodesc {
-        font-family: 'OpenSansRegular';
-        color: #6B6B6B;
+        font-family: "OpenSansRegular";
+        color: #6b6b6b;
         font-size: 15px;
         @media screen and (max-width: 768px) {
           font-size: 15px;
@@ -163,6 +162,21 @@
   }
 }
 
+.use-money {
+  .seeWatchVideo {
+    .watchvideo {
+      border-radius: 7px;
+      border: 2px solid #376d93;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      img {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+  }
+}
 @media (min-width: 998px) and (max-width: 1400px) {
   .topSectionMedcoPayrollEmp {
     .tabletMode {
@@ -212,14 +226,23 @@
         .OpenYourSuyoolAccount {
           margin: auto;
           font-size: 15px;
-          padding: 8px 10px;
+          width: 90%;
+          // box-shadow: 1px 1px 10px rgb(53, 52, 52);
+          padding: 8px unset;
         }
       }
     }
   }
   .medcoPayrollWhyChooseSuyool {
-      .title {
-          font-size: 16px;
-      }
+    .title {
+      font-size: 16px;
+    }
+  }
+
+  .use-money {
+    .seeWatchVideo {
+      justify-content: center;
+      // padding-left: 30%;
+    }
   }
 }
