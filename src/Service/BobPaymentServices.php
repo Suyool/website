@@ -53,6 +53,8 @@ class BobPaymentServices
     public function SessionFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
         try {
+            $this->session->remove('indicator');
+
             $order = new orders;
             $order->setstatus(orders::$statusOrder['PENDING']);
             $order->setsuyoolUserId($suyooler);
@@ -104,6 +106,9 @@ class BobPaymentServices
             $session->setSession($content['session']['id']);
             $session->setResponse(json_encode($content));
             $session->setIndicator($content['successIndicator']);
+
+            $this->session->set('indicator',$content['successIndicator']);
+
             $this->mr->persist($session);
             $this->mr->flush();
             return array(true, $content['session']['id'], $order);
@@ -358,7 +363,7 @@ class BobPaymentServices
         // echo $indicator;
         try {
             $parameters = array();
-            $session = $this->mr->getRepository(session::class)->findOneBy(['indicator' => $indicator]);
+            $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $this->session->get('sessionBobId')]);
             $transaction = new bob_transactions;
             $transaction->setSession($session);
             $transaction->setResponse(json_encode($res));
@@ -470,7 +475,7 @@ class BobPaymentServices
                 }
             }
         } catch (Exception $e) {
-            return new Response($e->getMessage(), 500);
+            return new Response('', 500);
         }
     }
 
@@ -480,6 +485,7 @@ class BobPaymentServices
             $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $transId, 'status' => 'PENDING'], ['created' => 'DESC']);
             // dd($order);
             if (is_null($order)) {
+                $this->session->remove('indicator');
                 $this->session->remove('sessionBobId');
                 $order = new orders;
                 $order->setstatus(orders::$statusOrder['PENDING']);
@@ -561,6 +567,7 @@ class BobPaymentServices
                     $this->mr->persist($session);
                     $this->mr->flush();
 
+                    $this->session->set('indicator',$content['successIndicator']);
                     $this->session->set('sessionBobId', $content['session']['id']);
 
                     $sessionToBeSet = $content['session']['id'];

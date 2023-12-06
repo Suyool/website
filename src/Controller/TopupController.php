@@ -55,7 +55,7 @@ class TopupController extends AbstractController
                           }',
                     '</script>';
                 } else {
-                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
+                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number']);
                     return $this->render('topup/topup.html.twig', $topUpData[1]);
                 }
             }
@@ -113,7 +113,7 @@ class TopupController extends AbstractController
                 return $this->render('ExceptionHandling.html.twig');
             }
         } catch (Exception $e) {
-            $this->logger->error($e->getMessage());
+            // $this->logger->error($e->getMessage());
             echo '<script type="text/javascript">',
             ' if (navigator.userAgent.match(/Android/i)) {
                 window.AndroidInterface.callbackHandler("GoToApp");
@@ -134,7 +134,7 @@ class TopupController extends AbstractController
                 if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                     return $this->redirectToRoute("app_rtptopup");
                 } else {
-                    $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'));
+                    $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'));
                     return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
                 }
             }
