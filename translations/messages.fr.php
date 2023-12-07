@@ -11,12 +11,12 @@ return [
 
     "NDJ_REQUEST_MONEY_FROM_ANYONE_WITH_A_LEBANESE_NUMBER"=>"Recevez de l’argent de n’importe qui",
     "NDJ_ALL_YOU_NEED_IS_THEIRE_PHONE_NUMBER_TO_REQUEST_MENEY"=>"Tout ce dont vous avez besoin est un numéro de téléphone",
-    "NDJ_IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"Si la personne qui vous paye a un compte Suyool, elle recoi une notification instantanée. Le payment se fai via la app en 1 click",
+    "NDJ_IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"Si la personne qui vous paie a un compte Suyool, elle reçoit une notification instantanée. Le paiement se fait via l’appli en un clic.",
     "NDJ_IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"Si la personne n’est pas utilisateur de Suyool, elle a 3 choix pour payer :<br><br> - Ouvrir un compte Suyool.<br> - Déposer le montant en espèces (au Liban) dans les plus de 700 bureaux de BOB Finance. <br>- Payer en ligne par carte de débit ou credit local ou international",
    
     "NDJ_CASH_OUT_YOUR_PAYROLL"=>"Retirez des espèces",
     "NDJ_FROM_ANY_BOB_BRANCHES"=>"À travers l’application ou en utilisant la carte Visa Platinum",
-    "NDJ_CASH_YOUR_PAYROLL_INSTANTLY_WITHOUT_LIMITS"=>"Retirez vos besoins en espèces à n’importe quel moment sans frais jusqu’à concurrence de votre salaire.",
+    "NDJ_CASH_YOUR_PAYROLL_INSTANTLY_WITHOUT_LIMITS"=>"Retirez vos besoins en espèces à n’importe quel moment",
     "NDJ_FIND_YOUR_NEAREST_BRANCH_FROM_MOR_THAN_700"=>"Retirez le montant désiré en espèces à tout moment, sans frais et dans la limite de votre salaire, dans plus de 700 établissements BoB Finance.",
     "NDJ_YOU_CAN_SEND_SOMEONE_TO_CASH_OUT_ON_YOUR_BEHALF"=>"Retirez des espèces de n’importe quel distributeur compatible Visa partout au monde.",
 
@@ -93,7 +93,7 @@ return [
     "CONVENIENT"=>"PRATIQUE",
     "AT_SUYOOL_CONVENIENCE_IS_OUR_HALLMARK"=>"Nous visons à simplifier la gestion de votre argent avec Suyool App : un aperçu complet de votre solde, un historique de dépenses et des notifications en temps réel pour chaque transaction.",
     "EXCHANGE"=>"ÉCHANGE",
-    "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"Convertissez entre devises aux <br> taux du marché parallèle",
+    "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE"=>"Convertissez vos L.L. en $ <br> et Vis Versa",
     "EXCHANGE_AT_THE_LIVE_PARALLEL_MARKET_RATE"=>"Échangez au taux du marché parallèle en temps réel",
     "EXCHANGE_AT_THE_PARALLEL_MARKET_RATE_ANY_TIME_OF_ANY_DAY"=>"Changez vos livres en dollars ou vice-versa au taux du marché parallèle en temps réel",
     "NO_WAIT_AT_THE_EXCHANGE_HOUSES"=>"Évitez les déplacements et l’attente dans les bureaux de change",
