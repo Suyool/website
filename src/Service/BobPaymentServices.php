@@ -179,7 +179,7 @@ class BobPaymentServices
             $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
             $this->logger->info('Send email');
         }
-        if ($attemptsPerCardSum > 5000.000) {
+        if ($attemptsPerCardSum[0] > 5000.000) {
             $emailMessageUpTo5Thousands = "The card with the number {$cardnumber} has processed transactions totaling up to $5000. <br>";
 
             foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
@@ -398,7 +398,8 @@ class BobPaymentServices
         try {
             $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($cardnumber);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($cardnumber);
-            if ($attemptsPerCardSum > 5000.000) {
+            $this->logger->info(json_encode($attemptsPerCardSum));
+            if ($attemptsPerCardSum[0] > 5000.000) {
                 $emailMessageUpTo5Thousands = "The card with the number {$cardnumber} has processed transactions totaling up to $5000. <br>";
 
                 foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
@@ -409,6 +410,7 @@ class BobPaymentServices
                     $emailMessageUpTo5Thousands .= "Amount: " . $attemptsPerCardSumHolder->getAmount() . "<br>";
                     $emailMessageUpTo5Thousands .= "Currency: " . $attemptsPerCardSumHolder->getCurrency() . "<br>";
                 }
+                // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->logger->info('Send email 2');
             }
@@ -424,6 +426,7 @@ class BobPaymentServices
                     $emailMessageUpTo2Times .= "Amount: " . $attemptsPerCardHolder->getAmount() . "<br>";
                     $emailMessageUpTo2Times .= "Currency: " . $attemptsPerCardHolder->getCurrency() . "<br>";
                 }
+                // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->logger->info('Send email');
             }
