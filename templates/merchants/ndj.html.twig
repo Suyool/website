@@ -4,25 +4,6 @@
 {% endblock %}
 
 {% block body %}
-	{# <div class="ndj">
-		<div id="language_selection">
-			<div {% if lang == "en" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
-				<a href="?lang=en">En</a>
-			</div>
-			<div {% if lang == "fr" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>
-				<a href="?lang=fr">Fr</a>
-			</div>
-		</div>
-		<form action="#" method="get" >
-			<div id="language-dropdown" class="d-block d-md-none">
-				<select name="lang" onchange="this.form.submit()">
-					<option value="en" {% if lang == "en" %} selected {% endif %}>En</option>
-					<option value="fr" {% if lang == "fr" %} selected {% endif %}>Fr</option>
-				</select>
-			</div>
-		</form>
-	</div> #}
-
 
 	<div class="ndj">
 		{% include 'elements/ndj/topSection.html.twig' %}

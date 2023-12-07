@@ -971,7 +971,7 @@ class MerchantsController extends AbstractController
         $translatorInterface->setLocale("en");
         $parameters['lang'] = "en";
         $parameters['metaimage'] = "build/images/medco/medco-payroll-meta.png";
-        $parameters['descmeta'] = "Your Payroll is now on Suyool";
+        $parameters['descmeta']="Why is Suyool the best option for your payroll?";
         $parameters['faq'] = [
             "ONE" => [
                 "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",

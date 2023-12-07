@@ -120,6 +120,19 @@
     }
 
     .use-money {
+        .seeWatchVideo {
+            .watchvideo {
+                span{
+                    padding-left: 10px;
+                    color: #004c79;
+                    font-family: $SemiBold;
+                    padding-right: 10px;
+                }
+            }
+          }
+          .seeWatchVideo:hover{
+            opacity: 0.5;
+          }
         .use-money-row {
             margin-bottom: 60px;
         }
@@ -697,6 +710,9 @@
                 img {
                     max-width: 100%;
                 }
+            }
+            .seeWatchVideo {
+                justify-content: center;
             }
         }
 
