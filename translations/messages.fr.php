@@ -3,6 +3,24 @@ return [
     //ndj
     "NDJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>Collège Notre Dame de Jamhour digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
     "NDJ_INTERNATIONALLY_LOCALLY_ACCEPTED"=>"Gratuite pour les salariés du Collège Notre Dame de Jamhour",
+    "NDJ_HOW_DOES_SUYOOL_WORK"=>"CRÉER UN COMPTE SUYOOL",
+    "NDJ_SUYOOL_PLATINUM_MASTERCARD"=>"Suyool Platinum Visa® Card Avec des Privilèges Exclusifs",
+    "NDJ_MASTERCARD_PLATINUM_BENEFITS"=>" les avantages de la carte Visa Platinum.",
+    "NDJ_ALL_YOUR_FINANCIAL_NEEDS_IS_ONE_APP"=>"Une app unique pour tous vos payments",
+    "NDJ_SEND_RECEIVE_MONEY_FREE_OF_CHARGE"=>"Payez à n’importe qui au Liban",
+
+    "NDJ_REQUEST_MONEY_FROM_ANYONE_WITH_A_LEBANESE_NUMBER"=>"Recevez de l’argent de n’importe qui",
+    "NDJ_ALL_YOU_NEED_IS_THEIRE_PHONE_NUMBER_TO_REQUEST_MENEY"=>"Tout ce dont vous avez besoin est un numéro de téléphone",
+    "NDJ_IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"Si la personne qui vous paye a un compte Suyool, elle recoi une notification instantanée. Le payment se fai via la app en 1 click",
+    "NDJ_IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"Si la personne n’est pas utilisateur de Suyool, elle a 3 choix pour payer :<br><br> - Ouvrir un compte Suyool.<br> - Déposer le montant en espèces (au Liban) dans les plus de 700 bureaux de BOB Finance. <br>- Payer en ligne par carte de débit ou credit local ou international",
+   
+    "NDJ_CASH_OUT_YOUR_PAYROLL"=>"Retirez des espèces",
+    "NDJ_FROM_ANY_BOB_BRANCHES"=>"À travers l’application ou en utilisant la carte Visa Platinum",
+    "NDJ_CASH_YOUR_PAYROLL_INSTANTLY_WITHOUT_LIMITS"=>"Retirez vos besoins en espèces à n’importe quel moment sans frais jusqu’à concurrence de votre salaire.",
+    "NDJ_FIND_YOUR_NEAREST_BRANCH_FROM_MOR_THAN_700"=>"Retirez le montant désiré en espèces à tout moment, sans frais et dans la limite de votre salaire, dans plus de 700 établissements BoB Finance.",
+    "NDJ_YOU_CAN_SEND_SOMEONE_TO_CASH_OUT_ON_YOUR_BEHALF"=>"Retirez des espèces de n’importe quel distributeur compatible Visa partout au monde.",
+
+    "NDJ_DOUBLE_YOUR_POINTS_WITH_SPINNEYS"=>"Doublez vos points chez Spinneys en payant simplement avec le QR Suyool. Offre valable jusqu’au 6 janvier.",
 
     //usj
     "USJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>l’ USJ digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
