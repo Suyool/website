@@ -130,6 +130,7 @@ class SuyoolServices
                 "additionalData" => $additionalData,
                 'secureHash' =>  $Hash,
             ];
+            $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
@@ -450,7 +451,7 @@ class SuyoolServices
                 'additionalInfo'=>$additionalInfo,
                 'secureHash' => $Hash
             ];
-            // dd(json_encode($body));
+            // $this->cashin->info(json_encode($body));
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);

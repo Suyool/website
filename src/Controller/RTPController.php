@@ -118,9 +118,9 @@ class RTPController extends AbstractController
                 : ''
         );
         $this->session->set(
-            "IBAN",
-            isset($parameters['request_details_response']['iban'])
-                ? $parameters['request_details_response']['iban']
+            "allowCardTopup",
+            isset($parameters['request_details_response']['allowCardTopup'])
+                ? $parameters['request_details_response']['allowCardTopup']
                 : ''
         );
         if (isset($parameters['request_details_response']['additionalData'])) {

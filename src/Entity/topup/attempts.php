@@ -5,7 +5,7 @@ namespace App\Entity\topup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\AttemptsRepository")
  * @ORM\Table(name="attempts")
  */
 class attempts
@@ -21,6 +21,21 @@ class attempts
      * @ORM\Column(name="response")
      */
     private $response;
+
+     /**
+     * @ORM\Column(name="suyoolUserId")
+     */
+    private $suyoolUserId;
+
+     /**
+     * @ORM\Column(name="receiverPhone")
+     */
+    private $receiverPhone;
+
+     /**
+     * @ORM\Column(name="senderPhone")
+     */
+    private $senderPhone;
 
     /**
      * @ORM\Column(name="transactionId")
@@ -85,6 +100,39 @@ class attempts
     public function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
+        return $this;
+    }
+
+    public function getSuyoolUserId()
+    {
+        return $this->suyoolUserId;
+    }
+
+    public function setSuyoolUserId($suyoolUserId)
+    {
+        $this->suyoolUserId = $suyoolUserId;
+        return $this;
+    }
+
+    public function getReceiverPhone()
+    {
+        return $this->receiverPhone;
+    }
+
+    public function setReceiverPhone($receiverPhone)
+    {
+        $this->receiverPhone = $receiverPhone;
+        return $this;
+    }
+
+    public function getSenderPhone()
+    {
+        return $this->senderPhone;
+    }
+
+    public function setSenderPhone($senderPhone)
+    {
+        $this->senderPhone = $senderPhone;
         return $this;
     }
 
