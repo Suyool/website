@@ -1,0 +1,50 @@
+{% include 'elements/hotline-header.html.twig' %}
+<div class="top-section-medco">
+    <img class="desktopMode" src="{{asset('build/images/medco-payment/medco-top.png')}}" alt="">
+    <img class="tabletMode" src="{{asset('build/images/medco-payment/medco-top.png')}}" alt="">
+    <img class="mobileMode" src="{{ asset('build/images/medco-payment/medco-top-mobile.png') }}" alt="">
+    <div class=" container-fluid top-section-details">
+        <div class="col-xl-6 col-lg-8">
+            <h1>MEDCO introduces Suyool Payments; a quick & easy payment method</h1>
+            <p>Simply pay by scanning your Suyool QR at checkout and don’t worry about the change or currency you are using!</p>
+            <div class="buttons-cont">
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">{{topButton}}</button>
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">{{topButton}}</button>
+                <button class="btn button-primary mr-5 tabletMode OpenYourSuyoolAccount">{{topButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row three_steps">
+        <div class="step">
+            <div class="sub">
+                <img src="{{ asset('build/images/spinneys/clock.svg') }}" alt="Suyool">
+                <div class="title">QUICK</div>
+                <div class="description">Experience swift transactions at Spinneys and partner merchants, saving you time.</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="sub">
+                <img src="{{ asset('build/images/spinneys/check.svg') }}" alt="Suyool">
+                <div class="title">SAFE</div>
+                <div class="description">Enjoy peace of mind as Suyool offers a reliable and trusted payment environment, minimizing risks associated with cash transactions.</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="sub">
+                <img src="{{ asset('build/images/spinneys/secure.svg') }}" alt="Suyool">
+                <div class="title">SECURE</div>
+                <div class="description">Safeguard your transactions with Suyool’s robust security measures, ensuring your financial information stays protected.</div>
+            </div>
+        </div>
+        <div class="step">
+            <div class="sub">
+                <img src="{{ asset('build/images/spinneys/convenient.svg') }}" alt="Suyool">
+                <div class="title">CONVENIENT</div>
+                <div class="description">Embrace hassle-free payments at Suyool and our partner merchants, making your transactions seamless and effortless.</div>
+            </div>
+        </div>
+    </div>
+</div>

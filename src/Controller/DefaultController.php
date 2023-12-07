@@ -1063,6 +1063,72 @@ class DefaultController extends AbstractController
     public function doublePoints(){
         return $this->redirectToRoute("app_spinneys");
     }
-    
 
+    /**
+     * @Route("/medco-suyoolpayment", name="app_medco_suyoolpayment")
+     */
+    public function medcoSuyoolPayment()
+    {
+        $faq=[
+            "ONE"=>[
+                "Title"=>"How can I pay with Suyool at Medco?",
+                "Desc"=>"There are three ways to pay at Medco with Suyool: Use your Suyool Visa Platinum International Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
+            ],
+            "TWO"=>[
+                "Title"=>"What is Suyool QR?",
+                "Desc"=>"Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
+            ],
+            "THREE"=>[
+                "Title"=>"How to find merchants that have Suyool as a payment method?",
+                "Desc"=>"Discover merchants, like Medco, accepting Suyool QR directly on the app’s Discovery tab."
+            ],
+            "FOUR"=>[
+                "Title"=>"What is the auto-conversion feature?",
+                "Desc"=>"The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
+            ],
+        ];
+
+        $howToGetTitle = "HOW TO GET SUYOOL?";
+        $howToGetDesc = "3 Easy Steps";
+        $howToGetText = "";
+        $howToGet = [
+            [
+                'title' => 'Open an account in minutes from the comfort of your home',
+                'description' => 'All you need is your smartphone, a Lebanese number & a legal identification document (ID or Passport).',
+            ],
+            [
+                'title' => 'Add Money To Your Account',
+                'description' => 'Via cash deposit at more than 700+ BOB Finance outlets or online with any debit or credit card (USD/LBP).',
+            ],
+            [
+                'title' => 'Double Your Points When Paying at Spinneys',
+                'description' => 'Pay by scanning your Suyool QR at checkout & instantly Double your Spinneys Points.',
+            ],
+        ];
+        $topButton = "Open Suyool Account";
+
+        $remoteTitle = "REMOTE PAYMENTS POSSIBLE";
+        $remoteSubTitle = "How to Make Remote Payments Using Request To Pay (RTP)?";
+        $remoteDesc = "If you’re short on funds to pay at merchants, request payment by providing your friend’s number for them to cover the expense.";
+        $remoteImg = "build/images/medco-payment/remote-payment.jpg";
+
+        $parameters=[
+            'faq'=>$faq,
+            'bgColor'=> 'bg-white',
+            'btnBgColor'=> 'bg-blue',
+            'metaimage'=>'build/images/spinneys/meta-imagespinneys-min.png',
+            'descmeta'=>'Double your Spinneys points when you pay with Suyool app',
+            'howToGetTitle' => $howToGetTitle,
+            'howToGetDesc' => $howToGetDesc,
+            'howToGetText' => $howToGetText,
+            'howToGet' => $howToGet,
+            'topButton' => $topButton,
+            'remoteTitle' => $remoteTitle,
+            'remoteSubTitle' => $remoteSubTitle,
+            'remoteDesc' => $remoteDesc,
+            'remoteImg' => $remoteImg,
+
+        ];
+        return $this->render('medco-payment/index.html.twig',$parameters);
+    }
 }

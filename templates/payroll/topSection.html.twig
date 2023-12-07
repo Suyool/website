@@ -1,0 +1,35 @@
+<div class="topSectionAlfaEmp">
+    <div class="desktopMode"><img src="{{ asset('build/images/payroll/payrollDesktop.png') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/payroll/payrollTablet.png') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/payroll/payrollMobile.png') }}"></div>
+    <div class="container">
+        <div class="information pt-4">
+            <div class="title">
+                Why Is Suyool The Best Option For Your Payroll?
+            </div>
+            <div class="desc">
+                You now have the option to receive your payroll on Suyool! Suyool’s payroll system isn’t just about receiving your pay—it’s a gateway to your own digital dual-currency account, a Visa Platinum debit card, and the best rates for your financial transactions.
+            </div>
+            <div class="OpenSuyoolAccount">
+                <div class="desktopMode">
+                    <button class="OpenYourSuyoolAccount" data-bs-toggle="modal" data-bs-target="#DownloadApp">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% include 'medco-payroll/infoSection.html.twig' %}
