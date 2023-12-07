@@ -166,12 +166,12 @@ class MerchantsController extends AbstractController
                 "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"
             ],
             "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES",
+                "Title" => "NDJ_WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES",
                 "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"
             ],
             "FOUR" => [
                 "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"
+                "Desc" => "NDJ_YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"
             ],
             "FIVE" => [
                 "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD",

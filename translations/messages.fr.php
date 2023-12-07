@@ -1,8 +1,12 @@
 <?php
 return [
+    //ndj
+    "NDJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>Collège Notre Dame de Jamhour digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
+    "NDJ_INTERNATIONALLY_LOCALLY_ACCEPTED"=>"Gratuite pour les salariés du Collège Notre Dame de Jamhour",
+
     //usj
     "USJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>l’ USJ digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
-    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons choisi d’adopter Suyool comme <br class='desktopMode'>solution de dépôt des salaires. Vous pourrez ouvrir votre compte digital en USD et en LL qui inclue un outil <br class='desktopMode'> de paiement in-app ainsi qu’une carte de paiement Platinum Mastercard reliée à ce compte.",
+    "FACING_TODAY_FINANCIAL_CHALLENGES"=>"Pour faire face aux défis financiers d’aujourd’hui, nous avons choisi d’adopter Suyool comme <br class='desktopMode'>solution de dépôt des salaires. Vous pourrez ouvrir votre compte digital en USD et en LL qui inclue un outil <br class='desktopMode'> de paiement in-app ainsi qu’une carte de paiement Visa Platinum reliée à ce compte.",
     "OPEN_YOUR_SUYOOL_ACCOUNT"=>"Ouvrez votre compte Suyool",
     "FREE_PLATINUM_MASTERCARD"=>"Visa Platinum Card",
     "FREE_PAYROLL_CASH_OUT"=>"Retirez votre salaire en espèces sans frais",
@@ -19,7 +23,7 @@ return [
     "RECEIVE_YOUR_PAYROLL_INSTANTY"=>"Recevez votre salaire instantanément",
     "NO_NEED_TO_WAIT_IN_LINE"=>"Plus besoin d’attendre, votre salaire est versé sur votre compte et disponible INSTANTANÉMENT.",
     "CHOOSE_HOW_TO_SPEND_IT"=>"Dépensez votre argent à votre guise",
-    "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Payez à un numéro mobile libanais, retirez des espèces, transférez à l’étranger, payez chez les marchands, réglez vos factures, et utilisez votre Mastercard localement ou à l’international. À vous de choisir !",
+    "SEND_MONEY_TO_ANYONE_IN_LEBANON"=>"Payez à un numéro mobile libanais, retirez des espèces, transférez à l’étranger, payez chez les marchands, réglez vos factures, et utilisez votre Visa Platinum localement ou à l’international. À vous de choisir !",
     "SUYOOL_PLATINUM_MASTERCARD"=>"Suyool Debit Card® Avec des Privilèges Exclusifs",
     "A_DEBIT_CARD_THAT_YOU_CAN_CONTROL_FROM_YOUR_SUYOOL_APP"=>"Gérez votre carte directement depuis Suyool App en temps réel et bénéficiez également de tous ",
     "MASTERCARD_PLATINUM_BENEFITS"=>"les avantages de la carte Platinum.",
@@ -55,7 +59,7 @@ return [
     "USE_CARD_EVERYWHERE"=>"Utilisez votre carte au Liban et à l’international.",
     "LOCALLY_ONLINE_INTERNATIONALLY"=>"Tout en gardant le contrôle depuis Suyool App.",
     "AT_NON_SUYOOL_MERCHANTS"=>"Effectuez des paiements en ligne ou en magasin et recevez des notifications instantanées pour chaque transaction effectuée avec votre carte.",
-    "ONLINE_ON_ALL_THE_WEBSITES"=>"Retirez des espèces de n’importe quel distributeur compatible Mastercard partout au monde.",
+    "ONLINE_ON_ALL_THE_WEBSITES"=>"Retirez des espèces de n’importe quel distributeur compatible Visa partout au monde.",
     "ANYWHERE_IN_THE_WORLD_WHILE_BENEFITING_FROM_"=>"N’oubliez pas de bénéficier des avantages exclusifs tels que l’accès au lounge à l’aéroport et bien plus.",
     "PAY_WITH_SUYOOL_QR"=>"Réglez via Suyool QR : plus simple, plus sûr.",
     "AT_SUYOOL_MERCHANTS_OFFLINE_ONLINE"=>"Chez les marchands du réseau Suyool, en magasin ou en ligne.",
@@ -90,6 +94,10 @@ return [
     "IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"Si elle n’utilise pas  Suyool, elle sera avertie instantanément via une notification",
     "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"Si elle n'a pas de compte Suyool, elle aura 3 options pour vous payer : ouvrir un compte Suyool, déposer le montant chez BOB Finance à l'aide d'un code généré ou régler le montant en payant par carte",
 
+    //NDJ Faq
+    "NDJ_WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES"=>"Quels sont les avantages de Suyool pour les salariés du Collège Notre Dame de Jamhour ?",
+    "NDJ_YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"=>"Votre Suyool Visa reste gratuite tant que vous êtes employé(e) du Collège Notre Dame de Jamhour.",
+
     //USJ Faq
     "FAQ"=>"FAQ",
     "FREQUENTLY_ASKED_QUESTIONS"=>"Foire Aux Questions",
@@ -98,13 +106,13 @@ return [
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT"=>"Qui peut ouvrir un compte Suyool ?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"=>"Toute personne majeure peut ouvrir un compte Suyool gratuitement. Il suffit d’avoir un numéro de téléphone libanais et de fournir une pièce d’identité. (Certaines restrictions réglementaires s’appliquent.)",
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES"=>"Quels sont les avantages de Suyool pour les salariés de l’USJ ?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"=>"Au-delà de la simplicité et de la sécurité offertes par Suyool App, la carte Mastercard Platinum est fournie gratuitement. De plus, les salariés peuvent retirer de l’argent en espèces en USD ou en LL sans frais et dans la limite de leur salaire.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"=>"Au-delà de la simplicité et de la sécurité offertes par Suyool App, la carte Visa Platinum est fournie gratuitement. De plus, les salariés peuvent retirer de l’argent en espèces en USD ou en LL sans frais et dans la limite de leur salaire.",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD"=>"Y a-t-il des frais pour obtenir ma Suyool Debit Card ?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"=>"Votre Suyool Mastercard reste gratuite tant que vous êtes employé(e) de l’USJ.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"=>"Votre Suyool Visa reste gratuite tant que vous êtes employé(e) de l’USJ.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD"=>"Où puis-je utiliser ma Suyool Debit Card ?",
-    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"Vous pouvez utiliser votre Suyool Mastercard dans n’importe quel point de vente ou en ligne, au Liban et à l’étranger.",
+    "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"=>"Vous pouvez utiliser votre Suyool Visa dans n’importe quel point de vente ou en ligne, au Liban et à l’étranger.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH"=>"Où puis-je retirer du cash ?",
-    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"Au Liban, auprès de plus de 700 bureaux BOB Finance.<br>À l’étranger, de n’importe quel distributeur de billets compatible avec Mastercard.",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"=>"Au Liban, auprès de plus de 700 bureaux BOB Finance.À l’étranger, de n’importe quel distributeur de billets compatible avec Visa.",
 
     //getTheAppQrSection
     "SCAN_DOWNLOAD"=>"Obtenez Suyool Dès Aujourd'hui !",
