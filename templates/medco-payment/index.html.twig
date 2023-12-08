@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="spinneys medcoPayment">
+        {% include 'medco-payment/topSection.html.twig' %}
+		{% include 'spinneys/hasslefree.html.twig' %}
+		{% include 'medco-payment/remote-payment-possible.html.twig' %}
+		{% include 'medco-payment/liters-plus-card.html.twig' %}
+		{% include 'spinneys/howtogetsuyool.html.twig' %}
+		{% include 'spinneys/pay_enable.html.twig' %}
+		{% include 'elements/faq/faqSuyool.html.twig' %}
+		{% include 'elements/usj/questions.html.twig' %}
+    </div>
+    {% include 'elements/footer.html.twig' %}
+{% endblock %}
