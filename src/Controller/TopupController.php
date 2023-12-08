@@ -133,7 +133,7 @@ class TopupController extends AbstractController
         // dd($attemptsPerCard);
         // dd($sessionInterface->get('allowCardTopup'));
         try {
-            if ($sessionInterface->get('allowCardTopup')) {
+            if ($sessionInterface->get('allowCardTopup') == "true") {
                 $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails($sessionInterface->get('SenderId'), $sessionInterface->get('SenderPhone'), $sessionInterface->get('ReceiverPhone'));
                 // dd($bobRetrieveResultSession);
                 if ($bobRetrieveResultSession[0] == true) {

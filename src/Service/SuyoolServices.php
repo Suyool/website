@@ -310,6 +310,7 @@ class SuyoolServices
             'hash' => $Hash,
             'lang' => $lang
         ];
+        $this->cashin->info(json_encode($body));
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/RequestDetails",  $body);
 
         $status = $response->getStatusCode(); // Get the status code
