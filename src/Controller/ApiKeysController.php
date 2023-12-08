@@ -11,10 +11,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiKeysController extends AbstractController
 {
     private $mr;
+    private $env;
 
     public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('merchant-keys');
+        $this->env = $_ENV['APP_ENV'] == 'prod';
+    }
+
+    public function generateStringKey($merchantId): string
+    {
+        return bin2hex(random_bytes(32) . $merchantId);
     }
 
     /**
@@ -24,9 +31,18 @@ class ApiKeysController extends AbstractController
         $merchantId = $request->request->get('merchant_id');
         $whiteListedIps = $request->request->get('whitelisted_ips');
 
-        $generatedKey = $this->generateKey();
+        $generatedKey = $this->generateStringKey($merchantId);
 
-        $key = new ApiKey();
+        $apiKey = new ApiKey();
+        $apiKey
+            ->setApiKey($generatedKey)
+            ->setMerchantId($merchantId)
+            ->setEnv($this->env)
+            ->setWhitelistedIps($whiteListedIps);
+
+        dd($apiKey);
+
+
 
     }
 }
