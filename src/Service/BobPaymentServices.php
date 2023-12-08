@@ -163,89 +163,122 @@ class BobPaymentServices
     public function retrievedataForTopUp($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber)
     {
         // echo $indicator;
-        $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($cardnumber);
-        $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($cardnumber);
-        $this->logger->info(json_encode($attemptsPerCard));
-        if ($attemptsPerCard[0] >= 2) {
+        try{
+            $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($cardnumber);
+            $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($cardnumber);
             $blacklistcards = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
-            $emailMessageUpTo2Times = "Dear,<br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br>";
-            if (is_null($blacklistcards)) {
-                $blacklistcards = new blackListCards;
-                $blacklistcards->setCard($cardnumber);
-                $this->mr->persist($blacklistcards);
-                $this->mr->flush();
+            if (!is_null($blacklistcards)) {
+                $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+    
+                $emailMessageBlacklistedCard .= "We have identified that the card with the number {$cardnumber} has been blacklisted. <br><br>";
+    
+                $emailMessageBlacklistedCard .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->logger->info('Send email');
             }
-            $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$cardnumber}, which has been flagged and placed on the blacklist. <br>";
-
-            foreach ($attemptsPerCard[1] as $index => $attemptsPerCardHolder) {
-                $emailMessageUpTo2Times .= "<li>Transaction ID: " . $attemptsPerCardHolder->getTransactionId() . "</li>";
-                $emailMessageUpTo2Times .= "<li>BIN Card: " . $attemptsPerCardHolder->getCard() . "</li>";
-                $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
+            $this->logger->info(json_encode($attemptsPerCard));
+            if ($attemptsPerCard[0] >= 2) {
+                $emailMessageUpTo2Times = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+    
+                $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$cardnumber}: <br><br>";
+    
+                foreach ($attemptsPerCard[1] as $index => $attemptsPerCardHolder) {
+                    $emailMessageUpTo2Times .= "<li>Transaction ID: " . $attemptsPerCardHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>BIN Card: " . $attemptsPerCardHolder->getCard() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Suyooler ID: " . $attemptsPerCardHolder->getSuyoolUserId() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li>&nbsp;<br/>";
+                }
+                $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->logger->info('Send email');
             }
-            $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-            // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $this->logger->info('Send email');
-        }
-        if ($attemptsPerCardSum[0] > 5000.000) {
-            $emailMessageUpTo5Thousands = "Dear,<br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br>";
-            $emailMessageUpTo5Thousands .= "The card with the number {$cardnumber} has processed transactions totaling up to $5000. <br>";
-            $emailMessageUpTo5Thousands .= "<ul>";
-
-            foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
-                $emailMessageUpTo5Thousands .= "<li>Transaction ID: " . $attemptsPerCardSumHolder->getTransactionId() . "</li>";
-                $emailMessageUpTo5Thousands .= "<li>BIN Card: " . $attemptsPerCardSumHolder->getCard() . "</li>";
-                $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li><br>";
+            if ($attemptsPerCardSum[0] > 1500.000) {
+                $emailMessageUpTo5Thousands = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo5Thousands .= "The card with the number {$cardnumber} has processed transactions totaling up to $1500. <br><br>";
+                $emailMessageUpTo5Thousands .= "<ul>";
+    
+                foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
+                    $emailMessageUpTo5Thousands .= "<li>Transaction ID: " . $attemptsPerCardSumHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>BIN Card: " . $attemptsPerCardSumHolder->getCard() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Suyooler ID: " . $attemptsPerCardSumHolder->getSuyoolUserId() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li><br>";
+                }
+                $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->logger->info('Send email 2');
             }
-            $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-            // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $this->logger->info('Send email 2');
-        }
-        $parameters = array();
-        $session = $this->mr->getRepository(session::class)->findOneBy(['indicator' => $indicator]);
-        $transaction = new bob_transactions;
-        $transaction->setSession($session);
-        $transaction->setResponse(json_encode($res));
-        $transaction->setStatus($status);
-        $this->mr->persist($transaction);
-        $this->mr->flush();
-        $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
-        if ($status == "CAPTURED") {
-            $order = $session->getOrders();
-            $order->setstatus(orders::$statusOrder['PAID']);
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
-            $this->mr->persist($order);
-            $this->mr->flush();
-            $transaction->setflagCode($topup[2]);
-            $transaction->setError($topup[3]);
+            $parameters = array();
+            $session = $this->mr->getRepository(session::class)->findOneBy(['indicator' => $indicator]);
+            $transaction = new bob_transactions;
+            $transaction->setSession($session);
+            $transaction->setResponse(json_encode($res));
+            $transaction->setStatus($status);
             $this->mr->persist($transaction);
-            if ($topup[0]) {
-                $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
-                $status = true;
-                $imgsrc = "build/images/Loto/success.png";
-                $title = "Money Added Successfully";
-                $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
-                $button = "Continue";
-
-                $parameters = [
-                    'status' => $status,
-                    'title' => $title,
-                    'imgsrc' => $imgsrc,
-                    'description' => $description,
-                    'button' => $button,
-                    'infoSuccess' => true
-                ];
-                // $order = $session->getOrders();
-                $order->setstatus(orders::$statusOrder['COMPLETED']);
+            $this->mr->flush();
+            $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
+            if ($status == "CAPTURED") {
+                $order = $session->getOrders();
+                $order->setstatus(orders::$statusOrder['PAID']);
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
-                $content = $this->notificationServices->getContent('CardTopUp');
-                $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
-                return array(true, $parameters);
+                $transaction->setflagCode($topup[2]);
+                $transaction->setError($topup[3]);
+                $this->mr->persist($transaction);
+                if ($topup[0]) {
+                    $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
+                    $status = true;
+                    $imgsrc = "build/images/Loto/success.png";
+                    $title = "Money Added Successfully";
+                    $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
+                    $button = "Continue";
+    
+                    $parameters = [
+                        'status' => $status,
+                        'title' => $title,
+                        'imgsrc' => $imgsrc,
+                        'description' => $description,
+                        'button' => $button,
+                        'infoSuccess' => true
+                    ];
+                    // $order = $session->getOrders();
+                    $order->setstatus(orders::$statusOrder['COMPLETED']);
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
+                    $content = $this->notificationServices->getContent('CardTopUp');
+                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                    return array(true, $parameters);
+                } else {
+                    $this->logger->error(json_encode($topup));
+                    $status = false;
+                    $imgsrc = "build/images/Loto/error.png";
+                    $title = "Please Try Again";
+                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $button = "Try Again";
+                    $parameters = [
+                        'status' => $status,
+                        'title' => $title,
+                        'imgsrc' => $imgsrc,
+                        'description' => $description,
+                        'button' => $button,
+                        'infoFailed' => true
+                    ];
+                    // $order = $session->getOrders();
+                    // $order->setstatus(orders::$statusOrder['CANCELED']);
+                    // $this->mr->persist($order);
+                    // $this->mr->flush();
+                    return array(true, $parameters);
+                }
             } else {
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
                 $this->logger->error(json_encode($topup));
+                $transaction->setflagCode($topup[2]);
+                $transaction->setError($topup[3]);
+                $this->mr->persist($transaction);
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -259,37 +292,16 @@ class BobPaymentServices
                     'button' => $button,
                     'infoFailed' => true
                 ];
-                // $order = $session->getOrders();
-                // $order->setstatus(orders::$statusOrder['CANCELED']);
-                // $this->mr->persist($order);
-                // $this->mr->flush();
+                $order = $session->getOrders();
+                $order->setstatus(orders::$statusOrder['CANCELED']);
+                $this->mr->persist($order);
+                $this->mr->flush();
                 return array(true, $parameters);
             }
-        } else {
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
-            $this->logger->error(json_encode($topup));
-            $transaction->setflagCode($topup[2]);
-            $transaction->setError($topup[3]);
-            $this->mr->persist($transaction);
-            $status = false;
-            $imgsrc = "build/images/Loto/error.png";
-            $title = "Please Try Again";
-            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-            $button = "Try Again";
-            $parameters = [
-                'status' => $status,
-                'title' => $title,
-                'imgsrc' => $imgsrc,
-                'description' => $description,
-                'button' => $button,
-                'infoFailed' => true
-            ];
-            $order = $session->getOrders();
-            $order->setstatus(orders::$statusOrder['CANCELED']);
-            $this->mr->persist($order);
-            $this->mr->flush();
-            return array(true, $parameters);
+        }catch(Exception $e){
+            $this->logger->error($e->getMessage());
         }
+        
     }
 
     public function retrievedataForTopUpTest($auth, $status, $indicator, $res, $transId, $suyooler)
@@ -407,43 +419,50 @@ class BobPaymentServices
         try {
             $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($cardnumber);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($cardnumber);
+            $blacklistcards = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
+            if (!is_null($blacklistcards)) {
+                $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+
+                $emailMessageBlacklistedCard .= "We have identified that the card with the number {$cardnumber} has been blacklisted. <br><br>";
+
+                $emailMessageBlacklistedCard .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->logger->info('Send email');
+            }
             $this->logger->info(json_encode($attemptsPerCardSum));
-            if ($attemptsPerCardSum[0] > 5000.000) {
-                $emailMessageUpTo5Thousands = "Dear,<br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br>";
-                $emailMessageUpTo5Thousands .= "The card with the number {$cardnumber} has processed transactions totaling up to $5000. <br>";
+            if ($attemptsPerCardSum[0] > 1500.000) {
+                $emailMessageUpTo5Thousands = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo5Thousands .= "The card with the number {$cardnumber} has processed transactions totaling up to $1500. <br><br>";
                 $emailMessageUpTo5Thousands .= "<ul>";
 
                 foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
                     $emailMessageUpTo5Thousands .= "<li>Transaction ID: " . $attemptsPerCardSumHolder->getTransactionId() . "</li>";
                     $emailMessageUpTo5Thousands .= "<li>BIN Card: " . $attemptsPerCardSumHolder->getCard() . "</li>";
-                    $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li><br>";
+                    $emailMessageUpTo5Thousands .= "<li>Sender Phone: " . $attemptsPerCardSumHolder->getSenderPhone() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li>&nbsp;<br/>";
                 }
                 $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-                $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->logger->info('Send email 2');
             }
+            $blacklistcards = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
+
             $this->logger->info(json_encode($attemptsPerCard));
             if ($attemptsPerCard[0] >= 2) {
-                $emailMessageUpTo2Times = "Dear,<br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br>";
-                $blacklistcards = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
-                $emailMessageUpTo2Times = "Dear,<br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br>";
-                if (is_null($blacklistcards)) {
-                    $blacklistcards = new blackListCards;
-                    $blacklistcards->setCard($cardnumber);
-                    $this->mr->persist($blacklistcards);
-                    $this->mr->flush();
-                }
-                $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$cardnumber}, which has been flagged and placed on the blacklist. <br>";
+                $emailMessageUpTo2Times = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$cardnumber}: <br><br>";
 
                 foreach ($attemptsPerCard[1] as $index => $attemptsPerCardHolder) {
                     $emailMessageUpTo2Times .= "<li>Transaction ID: " . $attemptsPerCardHolder->getTransactionId() . "</li>";
                     $emailMessageUpTo2Times .= "<li>BIN Card: " . $attemptsPerCardHolder->getCard() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Sender Phone: " . $attemptsPerCardHolder->getSenderPhone() . "</li>";
                     $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
                 }
                 $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                // $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-                $this->suyoolServices->sendDotNetEmail('Suyool Alert-Topup', 'web@suyool.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@support.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 $this->logger->info('Send email');
             }
             $parameters = array();

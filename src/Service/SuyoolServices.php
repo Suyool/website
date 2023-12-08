@@ -22,11 +22,11 @@ class SuyoolServices
     private $cashout;
     private $cashin;
     private $METHOD_POST = "POST";
-    private $METHOD_GET ="GET";
+    private $METHOD_GET = "GET";
     private $helper;
     private $userlog;
 
-    public function __construct($merchantAccountID = null, LoggerInterface $winning = null,LoggerInterface $cashout=null,LoggerInterface $cashin=null,LoggerInterface $userlog=null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
@@ -41,35 +41,36 @@ class SuyoolServices
         }
         $this->client = HttpClient::create();
         $this->winning = $winning;
-        $this->cashin=$cashin;
-        $this->cashout=$cashout;
-        $this->helper=new Helper($this->client);
-        $this->userlog=$userlog;
-
+        $this->cashin = $cashin;
+        $this->cashout = $cashout;
+        $this->helper = new Helper($this->client);
+        $this->userlog = $userlog;
     }
 
-    public static function decrypt($stringToDecrypt){
+    public static function decrypt($stringToDecrypt)
+    {
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
         return $decrypted_string;
     }
 
-    public static function aesDecryptString($base64StringToDecrypt) {
-            // $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
-            // return $decryptedData;
-            try {
-                $passphraseBytes = utf8_encode("hdjs812k389dksd5");
-                $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', $passphraseBytes, 0, $_ENV['INITIALLIZATION_VECTOR']);
-        
-                return $decryptedData;
-            } catch (Exception $e) {
-                return $base64StringToDecrypt;
-            }
+    public static function aesDecryptString($base64StringToDecrypt)
+    {
+        // $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
+        // return $decryptedData;
+        try {
+            $passphraseBytes = utf8_encode("hdjs812k389dksd5");
+            $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', $passphraseBytes, 0, $_ENV['INITIALLIZATION_VECTOR']);
+
+            return $decryptedData;
+        } catch (Exception $e) {
+            return $base64StringToDecrypt;
+        }
     }
 
     /**
      * Push Utility Api
      */
-    public function PushUtilities($SuyoolUserId, $id, $sum, $currency,$fees)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees)
     {
         $sum = number_format((float) $sum, 1, '.', '');
         $fees = number_format((float) $fees, 1, '.', '');
@@ -335,7 +336,7 @@ class SuyoolServices
             'hash' =>  $Hash
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashIn",  $body);
-        
+
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
             $request_details_response = $response->toArray(false);
@@ -364,12 +365,12 @@ class SuyoolServices
         return $content;
     }
 
-    public function UnsubscribeMarketing($code,$flag,$key)
+    public function UnsubscribeMarketing($code, $flag, $key)
     {
         $Hash = base64_encode(hash($this->hash_algo, $code . $flag . $this->certificate, true));
         $replacement_string = str_replace(' ', '+', $key);
 
-        if($Hash == $replacement_string) {
+        if ($Hash == $replacement_string) {
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MarketingException/UnsubscribeMarketing", [
                 'body' => json_encode([
                     'uniqueCode' => $code,
@@ -383,12 +384,11 @@ class SuyoolServices
 
             $content = $response->toArray(false);
             return $content;
-        }else
+        } else
             return false;
-
     }
 
-    public function resubscribeMarketing($code,$flag)
+    public function resubscribeMarketing($code, $flag)
     {
         $Hash = base64_encode(hash($this->hash_algo, $code . $flag . $this->certificate, true));
 
@@ -438,18 +438,18 @@ class SuyoolServices
         }
     }
 
-    public function UpdateCardTopUpTransaction($transId,$statusId,$referenceNo,$amount,$currency,$additionalInfo)
+    public function UpdateCardTopUpTransaction($transId, $statusId, $referenceNo, $amount, $currency, $additionalInfo)
     {
         try {
-            $amount = number_format($amount,3,'.','');
+            $amount = number_format($amount, 3, '.', '');
             $Hash = base64_encode(hash($this->hash_algo,  $transId . $statusId . $referenceNo . $amount . $currency . $additionalInfo . $this->certificate, true));
-            $body =[
+            $body = [
                 'transactionId' => $transId,
                 'statusId' => $statusId,
-                'referenceNo'=>$referenceNo,
-                'amount'=>$amount,
-                'currency'=>$currency,
-                'additionalInfo'=>$additionalInfo,
+                'referenceNo' => $referenceNo,
+                'amount' => $amount,
+                'currency' => $currency,
+                'additionalInfo' => $additionalInfo,
                 'secureHash' => $Hash
             ];
             // $this->cashin->info(json_encode($body));
@@ -458,67 +458,81 @@ class SuyoolServices
             $content = $response->toArray(false);
             $this->cashin->info(json_encode($content));
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
-                return array(true, $content['data'],$content['flagCode'],$content['message']);
+                return array(true, $content['data'], $content['flagCode'], $content['message']);
             } else {
-                return array(false, $content['data'],$content['flagCode'],$content['message']);
+                return array(false, $content['data'], $content['flagCode'], $content['message']);
             }
         } catch (Exception $e) {
-            return array(false,null,$e->getMessage(),$e->getMessage());
+            return array(false, null, $e->getMessage(), $e->getMessage());
         }
     }
 
-    public function NonSuyoolerTopUpTransaction($transId,$statusId=null,$referenceNo=null,$additionalInfo=null)
+    public function NonSuyoolerTopUpTransaction($transId, $statusId = null, $referenceNo = null, $additionalInfo = null)
     {
         try {
             // echo $transId . $statusId . $this->certificate;
             $Hash = base64_encode(hash($this->hash_algo,  $transId . $this->certificate, true));
-            $body =[
+            $body = [
                 'transactionId' => $transId,
                 'secureHash' => $Hash
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCardTopUp",  $body);
             $content = $response->toArray(false);
             if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
-                return array(true, $content['data'],$content['flagCode'],$content['message']);
+                return array(true, $content['data'], $content['flagCode'], $content['message']);
             } else {
-                return array(false, $content['data'],$content['flagCode'],$content['message']);
+                return array(false, $content['data'], $content['flagCode'], $content['message']);
             }
         } catch (Exception $e) {
             return array(false);
         }
     }
 
-    public function sendDotNetEmail($subject,$to,$plainTextContent,$attachmentName,$attachmentsBase64,$fromEmail,$fromName,$flag,$channelID)
+    public function sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID)
     {
         try {
             $Hash = "0e9Q6zJLdoKty9U6OuDZHVas9GisPCfGUFWpFrUq9sfLBgaaY6";
-            $emailMessage = [
-                'subject' => $subject,
-                'to' => $to,
-                'plainTextContent' => $plainTextContent,
-                'attachment' => [
-                    // [
+            $to = explode(',', $to);
+            foreach ($to as $to) {
+                $emailMessage[] = [
+                    'subject' => $subject,
+                    'to' => $to,
+                    'plainTextContent' => $plainTextContent,
+                    'attachment' => [
+                        // [
                         // 'name' => $attachmentName,
                         // 'attachmentsBase64' => $attachmentsBase64
-                    // ]
-                ]
-            ];
-        
+                        // ]
+                    ]
+                ];
+            }
+            // dd($emailMessage);
+            // $emailMessage = [
+            //     'subject' => $subject,
+            //     'to' => $to,
+            //     'plainTextContent' => $plainTextContent,
+            //     'attachment' => [
+            //         // [
+            //         // 'name' => $attachmentName,
+            //         // 'attachmentsBase64' => $attachmentsBase64
+            //         // ]
+            //     ]
+            // ];
+
             $body = [
-                'emailMsg' => [$emailMessage],
+                'emailMsg' => $emailMessage,
                 'fromEmail' => $fromEmail,
                 'fromName' => $fromName,
                 'flag' => $flag,
                 'channelID' => $channelID
             ];
-            // dd($body);
+            // dd(json_encode($body));
 
-            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=".$Hash,  $body);
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=" . $Hash,  $body);
             $content = $response->toArray(false);
-            if($content['statusCode'] == 0){
+            if ($content['statusCode'] == 0) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
             // if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
@@ -527,9 +541,8 @@ class SuyoolServices
             //     return array(false, $content['data'],$content['flagCode'],$content['message']);
             // }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            // echo $e->getMessage();
             return array(false);
         }
     }
-
 }
