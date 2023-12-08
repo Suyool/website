@@ -36,7 +36,7 @@ function App({parameters}) {
     });
 
     return (
-        <div>
+        <div id="SodetelBody">
             <Header
                 parameters={parameters}
                 activeButton={activeButton}

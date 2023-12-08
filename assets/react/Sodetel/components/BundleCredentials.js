@@ -179,7 +179,7 @@ function BundleCredentials({
                         { (!showCredentials && credentialsArray.length > 1) &&  credentialsArray.map((credentialObj, index) => {
                             if(credentialObj.name !== credential.name){
                                 return (
-                                    <button className="credential-link my-1" onClick={()=>{
+                                    <button className="credential-link my-3" onClick={()=>{
                                         setCredential(credentialObj);
                                         setShowCredentials(false);
                                     }}>

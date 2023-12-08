@@ -165,7 +165,7 @@ const MyBundle = ({
                 <div className="titleGrid"></div>
                 <button
                   onClick={() => {
-                    setActiveButton({...activeButton, name: "MyBundle" });
+                    setActiveButton({...activeButton, name: "Default" });
                     setPaymentConfirmation(false);
                   }}
                 >
@@ -182,7 +182,7 @@ const MyBundle = ({
               />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
-                You have successfully purchased the {activeButton.bundle} {getPrepaidVoucher.plandescription} package.
+                You have successfully purchased the {capitalizeFirstLetters(activeButton.bundle)} {getPrepaidVoucher.plandescription} package.
               </div>
 
               <div className="br"></div>
@@ -246,7 +246,7 @@ const MyBundle = ({
                     alt="question"
                     style={{ verticalAlign: "baseline" }}
                 />
-               &nbsp; Sodetel only accepts payments in L.L
+               &nbsp; Sodetel only accepts payments in LBP
               </div>
 
               <div className="MoreInfo">
