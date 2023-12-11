@@ -1,0 +1,37 @@
+<div class="topSectionMedcoPayrollEmp">
+    <div class="desktopMode"><img src="{{ asset('build/images/debbas-payroll/desktopMode.png') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/debbas-payroll/tabletMode.png') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/debbas-payroll/mobileMode.png') }}"></div>
+    <div class="container">
+        <div class="information">
+            <div class="title">
+                Why is Suyool the best option for your payroll?
+            </div>
+            <div class="desc">
+                {# You now have the option to  receive your payroll on Suyool! Suyool’s payroll system isn't just about receiving your pay—it's a gateway to your own digital dual-currency account, a Visa Platinum debit card, and the best rates for your financial transactions.  #}
+                Debbas is now offering the option to receive your payroll on Suyool! Suyool isn't just a regular bank account—it's your own digital dual-currency account linked to your free Visa Platinum debit card, offering the best rates for your financial transactions.
+            </div>
+            <div class="OpenSuyoolAccount">
+                <div class="desktopMode">
+                    <button class="OpenYourSuyoolAccount" data-bs-toggle="modal" data-bs-target="#DownloadApp">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{# {% include 'medco-payroll/infoSection.html.twig' %} #}
+    {% include 'medco-payroll/whyChooseSuyool.html.twig' %}

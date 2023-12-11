@@ -389,4 +389,11 @@ return [
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PAYROLL" => "No, the Suyool Visa Platinum debit card is provided free of charge when your employer opts to process payroll through Suyool",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PAYROLL" => "Suyool provides instant payroll access, enabling full or partial cash-outs, and offers a complimentary Visa Platinum card with exclusive benefits. Suyool wallet allows for diverse transactions, money transfers, bill payments, and QR code purchases, all through a secure and user-friendly platform.",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_PAYROLL" => "Is there a fee for obtaining the Suyool Visa Platinum debit card?",
-];
+
+    //debbas
+     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBAS"=>"What are the benefits for Debbas employees?",
+     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DEBBAS" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Debbas employee.",
+     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_DEBBAS" => "Where can I withdraw my payroll in cash?",
+     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_DEBBAS" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+      "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBAS"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbas employee."
+    ];
