@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
-use App\Entity\ApiKeys\ApiKey;
+use App\Entity\topup\ApiKey;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiKeysController extends AbstractController
@@ -15,19 +16,19 @@ class ApiKeysController extends AbstractController
 
     public function __construct(ManagerRegistry $mr)
     {
-        $this->mr = $mr->getManager('merchant-keys');
+        $this->mr = $mr->getManager('topup');
         $this->env = $_ENV['APP_ENV'] == 'prod';
     }
 
-    public function generateStringKey($merchantId): string
+    private function generateStringKey($merchantId): string
     {
         return bin2hex(random_bytes(32) . $merchantId);
     }
 
     /**
-     * @Route("/api/keys/generate", name="api_generate",methods="POST")
+     * @Route("/admin/api/keys/generate", name="api_generate",methods="POST")
      */
-    private function generateKey(Request $request){
+    public function generateKey(Request $request){
         $merchantId = $request->request->get('merchant_id');
         $whiteListedIps = $request->request->get('whitelisted_ips');
 
@@ -40,9 +41,15 @@ class ApiKeysController extends AbstractController
             ->setEnv($this->env)
             ->setWhitelistedIps($whiteListedIps);
 
-        dd($apiKey);
+        $this->mr->persist($apiKey);
+        $this->mr->flush();
 
+        $response = new Response();
+        $response->setContent(json_encode([
+            'api_key' => $generatedKey
+        ]));
 
+        return $response;
 
     }
 }

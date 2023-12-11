@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity\ApiKeys;
+namespace App\Entity\topup;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="")
- * @ORM\Table(name="orders")
+ * @ORM\Entity()
+ * @ORM\Table(name="api_keys")
  */
 class ApiKey
 {
@@ -18,7 +18,7 @@ class ApiKey
     private $id;
 
     /**
-     * @ORM\Column(type="API_key")
+     * @ORM\Column(name="API_key", type="string")
      */
     private $apiKey;
 
