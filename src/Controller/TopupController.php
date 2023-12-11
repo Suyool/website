@@ -150,7 +150,7 @@ class TopupController extends AbstractController
                 $senderName = $sessionInterface->get('SenderInitials');
                 $data = json_decode($nonSuyooler[1], true);
                 $parameters = array();
-                $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'));
+                $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'),$sessionInterface->get('SenderId'));
                 if ($bobpayment[0] == false) {
                     return $this->redirectToRoute("homepage");
                 }

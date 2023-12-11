@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\topup\bob_transactions;
 use App\Entity\topup\session;
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 class PaymentRepository extends EntityRepository
@@ -49,6 +50,21 @@ class PaymentRepository extends EntityRepository
 
         return $queryBuilder
             ->orderBy('o.created', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPendingTransactionsAfter10Minutes()
+    {
+        $tenMinutesAgo = new DateTime();
+        $tenMinutesAgo->modify('-10 minutes');
+        $tenMinutesAgo = $tenMinutesAgo->format('Y-m-d H:i:s');
+
+        return $this->createQueryBuilder('o')
+            ->select('s')
+            ->leftJoin(session::class,'s','WITH','s.orders = o.id')
+            ->where("o.status = 'pending' and o.created > '2023-12-11 00:00:00' and o.created < :tenMinutesAgo")
+            ->setParameter('tenMinutesAgo', $tenMinutesAgo)
             ->getQuery()
             ->getResult();
     }
