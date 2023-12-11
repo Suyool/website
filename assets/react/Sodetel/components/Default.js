@@ -27,7 +27,7 @@ const Default = ({setHeaderTitle, setBackLink, setActiveButton, setCredential, s
     const fourGCredentials = [
         {
             name: "simNumber",
-            label: "SimCard Number",
+            label: "Sim Card Number",
             type: "phone",
         },
         {
