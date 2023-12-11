@@ -86,7 +86,7 @@ const Play = ({
     setBallPlayed(getPlayedBalls[index].balls);
     setBallNumbers(getPlayedBalls[index].balls.length);
     if (getPlayedBalls[index].withZeed) {
-      setTotalAmountLLDJ(getPlayedBalls[index].price - 5000);
+      setTotalAmountLLDJ(getPlayedBalls[index].price - 10000);
     } else {
       setTotalAmountLLDJ(getPlayedBalls[index].price);
     }
@@ -100,9 +100,9 @@ const Play = ({
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
-        updatedBalls[index].price = updatedBalls[index].price + 5000;
+        updatedBalls[index].price = updatedBalls[index].price + 10000;
       } else {
-        updatedBalls[index].price = updatedBalls[index].price - 5000;
+        updatedBalls[index].price = updatedBalls[index].price - 10000;
       }
       localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
       const newTotalPrice = calculateTotalPrice(updatedBalls);
@@ -268,7 +268,7 @@ const Play = ({
                     GRID {index + 1}
                   </span>
                   <span className="right">
-                    <span>PLAY ZEED (+ L.L 5,000)</span>
+                    <span>PLAY ZEED (+ L.L 10,000)</span>
 
                     <div className="toggle">
                       <div className="toggle-switch">

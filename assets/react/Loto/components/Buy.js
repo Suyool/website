@@ -242,7 +242,7 @@ const Buy = ({
           is also 2 draws per week.
         </div>
         <div className="playZeed">
-          <span>PLAY ZEED (+ 5,000 LBP)</span>
+          <span>PLAY ZEED (+ 10,000 LBP)</span>
         </div>
         <div className="zeedImage">
           <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />
