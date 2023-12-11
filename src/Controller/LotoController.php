@@ -162,7 +162,7 @@ class LotoController extends AbstractController
             ]);
         }
 
-        // $_POST['infoString'] = "cyrXds6XF7nCwks/slUCERJ8krqP+bpT+AhmsMF7MRI=";
+        $_POST['infoString'] = "cyrXds6XF7nCwks/slUCERJ8krqP+bpT+AhmsMF7MRI=";
 
         if (isset($_POST['infoString'])) {
             if ($_POST['infoString'] == "") return $this->render('ExceptionHandling.html.twig');
@@ -172,7 +172,7 @@ class LotoController extends AbstractController
             $this->loggerInterface->debug($_POST['infoString']);
             $this->loggerInterface->debug($decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
                 $date = date('w');
