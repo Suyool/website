@@ -1072,7 +1072,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title'] = "Medco | Suyool";
+        $parameters['title'] = "Debbas | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
         $infoSection = [
             'title' => '6 Ways To Use Your Money',
