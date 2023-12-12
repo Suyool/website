@@ -40,27 +40,24 @@ class SodetelController extends AbstractController
     public function index(NotificationServices $notificationServices): Response
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            $devicetype = "Android";
+//            $devicetype = "Android";
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-//            $SuyoolUserId = 218;
-            $this->session->set('suyoolUserId', $SuyoolUserId);
-            // $this->session->set('suyoolUserId', 155);
+                $this->session->set('suyoolUserId', $SuyoolUserId);
 
-            $parameters['deviceType'] = $suyoolUserInfo[1];
+                $parameters['deviceType'] = $suyoolUserInfo[1];
 
-
-            return $this->render('sodetel/index.html.twig', [
-                'controller_name' => 'SodetelController',
-                'parameters' => $parameters,
-            ]);
+                return $this->render('sodetel/index.html.twig', [
+                    'controller_name' => 'SodetelController',
+                    'parameters' => $parameters,
+                ]);
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
@@ -113,7 +110,7 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 218;
+//        $SuyoolUserId = 218;
 
 
         $flagCode = null;
@@ -144,9 +141,7 @@ class SodetelController extends AbstractController
                 $this->mr->flush();
 
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
-//                dd($rechargeInfo);
                 if ($rechargeInfo) {
-//                    dd($rechargeInfo);
                     $sodetelArr = json_decode($rechargeInfo, true);
                     $sodetelData = $sodetelArr[0];
                     if ($sodetelData['result']) {
@@ -175,7 +170,6 @@ class SodetelController extends AbstractController
                         $params = json_encode([
                             'amount' => $order->getAmount(),
 //                            'currency' => $order->getCurrency(),
-                            // number to be calculated later
 
                             'userAccount' => $data['identifier'],
                             'type' => "$data[bundle]"
