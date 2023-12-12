@@ -68,4 +68,20 @@ class PaymentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findPendingTransactionsAfter10MinutesOrder()
+    {
+        $tenMinutesAgo = new DateTime();
+        $tenMinutesAgo->modify('-10 minutes');
+        $tenMinutesAgo = $tenMinutesAgo->format('Y-m-d H:i:s');
+
+        return $this->createQueryBuilder('o')
+            ->select('o')
+            ->leftJoin(session::class,'s','WITH','s.orders = o.id')
+            ->where("o.status = 'pending' and o.created > '2023-12-11 00:00:00' and o.created < :tenMinutesAgo")
+            ->andWhere('s.id IS NULL')
+            ->setParameter('tenMinutesAgo', $tenMinutesAgo)
+            ->getQuery()
+            ->getResult();
+    }
 }

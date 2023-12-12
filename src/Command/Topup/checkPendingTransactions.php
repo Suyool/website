@@ -39,6 +39,7 @@ class checkPendingTransactions extends Command
         $topupPendingAfter10minutes = $this->mr->getRepository(orders::class)->findPendingTransactionsAfter10Minutes();
         // dd($topupPendingAfter10minutes);
         foreach ($topupPendingAfter10minutes as $topupPendingAfter10minutes) {
+            if($topupPendingAfter10minutes != null){
             if (is_null($this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $topupPendingAfter10minutes->getOrders()->getTransId()]))) {
                 $changestatus = $this->bobPaymentServices->RetrievePaymentDetailsOnCheck($topupPendingAfter10minutes->getOrders()->getTransId(), $topupPendingAfter10minutes->getOrders()->getSuyoolUserId());
                 $topupPendingAfter10minutes->getOrders()->setStatus(orders::$statusOrder["{$changestatus[1]}"]);
@@ -55,6 +56,16 @@ class checkPendingTransactions extends Command
                 $attempt = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $topupPendingAfter10minutes->getOrders()->getTransId()]);
                 $changestatusWithoutPutOnDb = $this->bobPaymentServices->retrievedataForTopUpAfterCheck($attempt->getStatus(), $attempt->getResponse(), $attempt->getCard(),$topupPendingAfter10minutes->getSession());
             }
+        }else{
+            $topupPendingAfter10minutesOrder =  $this->mr->getRepository(orders::class)->findPendingTransactionsAfter10MinutesOrder();
+            // dd($topupPendingAfter10minutesOrder);
+            foreach($topupPendingAfter10minutesOrder as $topupPendingAfter10minutesOrder)
+            {
+                $topupPendingAfter10minutesOrder->setStatus(orders::$statusOrder['CANCELED']);
+                $this->mr->persist($topupPendingAfter10minutesOrder);
+                $this->mr->flush();
+            }
+        }
         }
         $output->writeln('Checked');
 
