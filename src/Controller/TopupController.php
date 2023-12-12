@@ -73,8 +73,8 @@ class TopupController extends AbstractController
                 $suyoolUserInfo = explode("!#!", $decrypted_string);
                 $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
                 // dd($_SERVER['HTTP_USER_AGENT']);
-
-                if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $suyoolUserInfoForTopUp[1] = number_format($suyoolUserInfoForTopUp[1], 2);
+                if ($this->notificationServices->checkUser($suyoolUserInfoForTopUp[1], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters = array();
                     $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
                     if ($bobpayment[0] == false) {
