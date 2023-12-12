@@ -100,9 +100,9 @@ const Play = ({
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
-        updatedBalls[index].price = updatedBalls[index].price + 10000;
+        updatedBalls[index].price = updatedBalls[index].price + parameters.gridpricematrix[0].zeed;
       } else {
-        updatedBalls[index].price = updatedBalls[index].price - 10000;
+        updatedBalls[index].price = updatedBalls[index].price - parameters.gridpricematrix[0].zeed;
       }
       localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
       const newTotalPrice = calculateTotalPrice(updatedBalls);
@@ -224,7 +224,7 @@ const Play = ({
                     Bouquet
                   </span>
                   <span className="right">
-                    <span>PLAY ZEED (+ L.L 5,000)</span>
+                    <span>PLAY ZEED (+ L.L {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()})</span>
 
                     <div className="toggle">
                       <div className="toggle-switch">
@@ -268,7 +268,7 @@ const Play = ({
                     GRID {index + 1}
                   </span>
                   <span className="right">
-                    <span>PLAY ZEED (+ L.L 10,000)</span>
+                    <span>PLAY ZEED (+ L.L {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()})</span>
 
                     <div className="toggle">
                       <div className="toggle-switch">

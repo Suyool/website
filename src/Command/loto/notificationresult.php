@@ -52,7 +52,7 @@ class notificationresult extends Command
         $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
-        if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J']])) {
+        if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J'],'zeed'=>$GetFullGridPriceMatrix['d']['zeedprice']])) {
             $this->mr->getRepository(LOTO_numbers::class)->truncate();
             foreach ($loto_numbers as $number_price) {
 
