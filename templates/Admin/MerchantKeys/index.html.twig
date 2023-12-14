@@ -1,0 +1,33 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+                <h1>Merchant Keys</h1>
+            </div>
+            <div class="col-2">
+                <a href="{{ path('admin_merchantKey_create') }}" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+
+        {% for apiKey in apiKeys %}
+            <div class="card m-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">{{ apiKey.id }}</div>
+                        <div class="col">{{ apiKey.description }}</div>
+                        <div class="col">{{ apiKey.expiryDate|date('Y-m-d H:i:s') }}</div>
+                        <div class="col">{{ apiKey.status }}</div>
+
+                        <div class="col">
+                            <a href="{{ path('admin_merchantKey_delete', {'id': apiKey.id}) }}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

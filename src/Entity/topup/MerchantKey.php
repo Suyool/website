@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="api_keys")
  */
-class ApiKey
+class MerchantKey
 {
     /**
      * @ORM\Id

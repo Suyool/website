@@ -2,14 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\topup\ApiKey;
+use App\Entity\topup\MerchantKey;
+use App\Entity\topup\merchants;
+use App\Form\MerchantKeyForm;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiKeysController extends AbstractController
+class MerchantKeysController extends AbstractController
 {
     private $mr;
     private $env;
@@ -30,14 +32,13 @@ class ApiKeysController extends AbstractController
      */
     public function index(Request $request)
     {
-
         //optional filters
         $merchantId = $request->query->get('merchant_id');
 
         if ($merchantId) {
-            $apiKeys = $this->mr->getRepository(ApiKey::class)->findBy(['merchantId' => $merchantId]);
+            $apiKeys = $this->mr->getRepository(MerchantKey::class)->findBy(['merchantId' => $merchantId]);
         } else {
-            $apiKeys = $this->mr->getRepository(ApiKey::class)->findAll();
+            $apiKeys = $this->mr->getRepository(MerchantKey::class)->findAll();
         }
 
         return $this->render('admin/MerchantKeys/index.html.twig', [
@@ -50,7 +51,7 @@ class ApiKeysController extends AbstractController
      */
     public function delete($id)
     {
-        $apiKey = $this->mr->getRepository(ApiKey::class)->find($id);
+        $apiKey = $this->mr->getRepository(MerchantKey::class)->find($id);
         $apiKey->setStatus('DELETED');
         $this->mr->persist($apiKey);
         $this->mr->flush();
@@ -63,7 +64,11 @@ class ApiKeysController extends AbstractController
      */
     public function create()
     {
-        return $this->render('admin/MerchantKeys/create.html.twig');
+        $merchants = $this->mr->getRepository(merchants::class)->findAll();
+
+        return $this->render('admin/MerchantKeys/create.html.twig', [
+            'merchants' => $merchants
+        ]);
     }
 
     /**
@@ -74,29 +79,34 @@ class ApiKeysController extends AbstractController
         $description = $request->request->get('description');
         $merchantId = $request->request->get('merchant_id');
         $whiteListedIps = $request->request->get('whitelisted_ips');
-        $expiryDate = $request->request->get('expiry_date');
+        $expiryDateStr = $request->request->get('expiry_date');
+        $expiryDate = new \DateTime($expiryDateStr);
 
         $generatedKey = $this->generateStringKey($merchantId);
         //sha256
         $hashedKey = hash('sha256', $generatedKey);
 
-        $apiKey = new ApiKey();
-        $apiKey
+        $merchantKey = new MerchantKey();
+        $merchantKey
             ->setDescription($description)
             ->setApiKey($hashedKey)
             ->setMerchantId($merchantId)
             ->setEnv($this->env)
             ->setWhitelistedIps($whiteListedIps)
+            ->setStatus('ACTIVE')
             ->setExpiryDate($expiryDate);
 
-        $this->mr->persist($apiKey);
+        $this->mr->persist($merchantKey);
         $this->mr->flush();
 
-        $response = new Response();
-        $response->setContent(json_encode([
-            'api_key' => $generatedKey
-        ]));
+        $merchantName = $this->mr->getRepository(merchants::class)->find($merchantId)->getName();
 
-        return $response;
+        return $this->render(
+            'admin/MerchantKeys/key_generated.html.twig',
+            [
+                'merchant_key' => $merchantKey->getApiKey(),
+                'merchant_name' => $merchantName
+            ]
+        );
     }
 }
