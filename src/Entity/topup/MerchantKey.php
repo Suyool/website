@@ -28,10 +28,10 @@ class MerchantKey
     private $apiKey;
 
     /**
-     * @ORM\Column(name="merchant_id")
+     * @ORM\ManyToOne(targetEntity="merchants",fetch="EAGER")
+     * @ORM\JoinColumn(name="merchant_id", referencedColumnName="id")
      */
-    private $merchantId;
-
+    private $merchant;
 
     /**
      * @ORM\Column(type="boolean")
@@ -109,17 +109,17 @@ class MerchantKey
     /**
      * @return mixed
      */
-    public function getMerchantId()
+    public function getMerchant()
     {
-        return $this->merchantId;
+        return $this->merchant;
     }
 
     /**
-     * @param mixed $merchantId
+     * @param mixed
      */
-    public function setMerchantId($merchantId)
+    public function setMerchant($merchantId)
     {
-        $this->merchantId = $merchantId;
+        $this->merchant = $merchantId;
         return $this;
     }
 

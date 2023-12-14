@@ -4,11 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\topup\MerchantKey;
 use App\Entity\topup\merchants;
-use App\Form\MerchantKeyForm;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MerchantKeysController extends AbstractController
@@ -32,17 +30,21 @@ class MerchantKeysController extends AbstractController
      */
     public function index(Request $request)
     {
+        $merchants = $this->mr->getRepository(merchants::class)->findAll();
+
         //optional filters
         $merchantId = $request->query->get('merchant_id');
 
         if ($merchantId) {
-            $apiKeys = $this->mr->getRepository(MerchantKey::class)->findBy(['merchantId' => $merchantId]);
+            $merchantKeys = $this->mr->getRepository(MerchantKey::class)->findBy(['merchant' => $merchantId]);
         } else {
-            $apiKeys = $this->mr->getRepository(MerchantKey::class)->findAll();
+            $merchantKeys = $this->mr->getRepository(MerchantKey::class)->findAll();
         }
 
         return $this->render('admin/MerchantKeys/index.html.twig', [
-            'apiKeys' => $apiKeys
+            'apiKeys' => $merchantKeys,
+            'merchants' => $merchants,
+            'merchantId' => $merchantId
         ]);
     }
 
@@ -81,6 +83,7 @@ class MerchantKeysController extends AbstractController
         $whiteListedIps = $request->request->get('whitelisted_ips');
         $expiryDateStr = $request->request->get('expiry_date');
         $expiryDate = new \DateTime($expiryDateStr);
+        $merchant = $this->mr->getRepository(merchants::class)->find($merchantId);
 
         $generatedKey = $this->generateStringKey($merchantId);
         //sha256
@@ -90,7 +93,7 @@ class MerchantKeysController extends AbstractController
         $merchantKey
             ->setDescription($description)
             ->setApiKey($hashedKey)
-            ->setMerchantId($merchantId)
+            ->setMerchant($merchant)
             ->setEnv($this->env)
             ->setWhitelistedIps($whiteListedIps)
             ->setStatus('ACTIVE')
