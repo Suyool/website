@@ -241,9 +241,9 @@ class TopupController extends AbstractController
     {
        $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card'=>$_POST['card']]);
        if(is_null($checkIfTheCardInTheBlackList)){
-        $bobPaymentServices->updatedTransactionInHostedSessionToPay();
+        $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay();
         $status = true;
-        $response = 'pay';
+        $response = $data;
        }else{
         $status = false;
         $response = 'The Card Number is blacklisted';
