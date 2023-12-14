@@ -18,6 +18,11 @@ class ApiKey
     private $id;
 
     /**
+     * @ORM\Column(name="description", type="string")
+     */
+    private $description;
+
+    /**
      * @ORM\Column(name="API_key", type="string")
      */
     private $apiKey;
@@ -40,6 +45,17 @@ class ApiKey
     private $whitelistedIps;
 
     /**
+     * @ORM\Column (type="string")
+     */
+    private $status;
+
+
+    /**
+     * @ORM\Column(type="datetime", name="expiry_date")
+     */
+    private $expiryDate;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -53,6 +69,23 @@ class ApiKey
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
         return $this;
     }
 
@@ -121,6 +154,40 @@ class ApiKey
     public function setWhitelistedIps($whitelistedIps)
     {
         $this->whitelistedIps = $whitelistedIps;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
+
+    /**
+     * @param mixed $expiryDate
+     */
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
         return $this;
     }
 }
