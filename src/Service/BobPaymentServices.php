@@ -36,7 +36,7 @@ class BobPaymentServices
     {
         $this->client = $client;
         if ($_ENV['APP_ENV'] == "dev") {
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
         } else {

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Iveri\orders;
 use App\Entity\topup\attempts;
+use App\Entity\topup\blackListCards;
 use App\Service\BobPaymentServices;
 use App\Service\BobServices;
 use App\Service\IveriServices;
@@ -73,7 +74,7 @@ class TopupController extends AbstractController
                 $suyoolUserInfo = explode("!#!", $decrypted_string);
                 $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
                 // dd($_SERVER['HTTP_USER_AGENT']);
-                $suyoolUserInfoForTopUp[1] = number_format($suyoolUserInfoForTopUp[1], 2,'.','');
+                $suyoolUserInfoForTopUp[1] = number_format($suyoolUserInfoForTopUp[1], 2, '.', '');
                 if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters = array();
                     $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
@@ -150,7 +151,7 @@ class TopupController extends AbstractController
                 $senderName = $sessionInterface->get('SenderInitials');
                 $data = json_decode($nonSuyooler[1], true);
                 $parameters = array();
-                $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'),$sessionInterface->get('SenderId'));
+                $bobpayment = $bobPaymentServices->SessionRTPFromBobPayment($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
                 if ($bobpayment[0] == false) {
                     return $this->redirectToRoute("homepage");
                 }
@@ -218,4 +219,39 @@ class TopupController extends AbstractController
     //     }
 
     // }
+
+    #[Route('/topup2', name: 'app_topup_hostedsession')]
+    public function hostedsession(BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    {
+        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+        $senderName = $sessionInterface->get('SenderInitials');
+        $data = json_decode($nonSuyooler[1], true);
+        $parameters = array();
+        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
+
+        $parameters = [
+            'session' => $bobpayment
+        ];
+
+        return $this->render('topup/hostedsession.html.twig', $parameters);
+    }
+
+    #[Route('/pay', name: 'app_topup_blacklist',methods:['POST'])]
+    public function checkblacklist(Request $request,BobPaymentServices $bobPaymentServices)
+    {
+       $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card'=>$_POST['card']]);
+       if(is_null($checkIfTheCardInTheBlackList)){
+        $bobPaymentServices->updatedTransactionInHostedSessionToPay();
+        $status = true;
+        $response = 'pay';
+       }else{
+        $status = false;
+        $response = 'The Card Number is blacklisted';
+       }
+        return new JsonResponse([
+            'status'=>$status,
+            'response'=>$response
+        ]);
+    }
+
 }
