@@ -1251,4 +1251,17 @@ class BobPaymentServices
         }
         return true;
     }
+    public function checkCardNumber()
+    {
+        $response = $this->client->request('GET', $this->BASE_API . "session/". $this->session->get('hostedSessionId'), [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'auth_basic' => [$this->username, $this->password],
+        ]);
+        $content = $response->toArray(false);
+        $this->logger->info(json_encode($content));
+        return $content['sourceOfFunds']['provided']['card']['number'];
+    }
+   
 }

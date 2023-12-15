@@ -264,6 +264,7 @@ class TopupController extends AbstractController
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
     {
+        $cardnumber = $bobPaymentServices->checkCardNumber();
         $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $_POST['card']]);
         if (is_null($checkIfTheCardInTheBlackList)) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('SenderId'),$sessionInterface->get('ReceiverPhone'),$sessionInterface->get('SenderPhone'));
@@ -293,6 +294,12 @@ class TopupController extends AbstractController
         $checkIfTheCardInTheBlackList = NULL;
         if (is_null($checkIfTheCardInTheBlackList)) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'],$_COOKIE['ReceiverPhone'],$_COOKIE['SenderPhone']);
+            unset($_COOKIE['SenderId']);
+            unset($_COOKIE['ReceiverPhone']);
+            unset($_COOKIE['SenderPhone']);
+            unset($_COOKIE['hostedSessionId']);
+            unset($_COOKIE['orderidhostedsession']);
+            unset($_COOKIE['transactionidhostedsession']);
             $status = true;
             $response = $data;
         } else {
