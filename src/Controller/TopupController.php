@@ -221,7 +221,7 @@ class TopupController extends AbstractController
     // }
 
     #[Route('/topup2', name: 'app_topup_hostedsession')]
-    public function hostedsession(BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         $senderName = $sessionInterface->get('SenderInitials');
@@ -230,27 +230,85 @@ class TopupController extends AbstractController
         $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
 
         $parameters = [
-            'session' => $bobpayment
+            'session' => $bobpayment[0],
+            'orderId' => $bobpayment[1],
+            'transactionId' => $bobpayment[2]
         ];
 
         return $this->render('topup/hostedsession.html.twig', $parameters);
     }
 
-    #[Route('/pay', name: 'app_topup_blacklist',methods:['POST'])]
-    public function checkblacklist(Request $request,BobPaymentServices $bobPaymentServices)
+    #[Route('/3dsreceipt', name: 'app_topup_edsecure')]
+    public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-       $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card'=>$_POST['card']]);
-       if(is_null($checkIfTheCardInTheBlackList)){
-        $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay();
-        $status = true;
-        $response = $data;
-       }else{
-        $status = false;
-        $response = 'The Card Number is blacklisted';
-       }
+        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (86400 * 30)); 
+        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (86400 * 30)); 
+        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (86400 * 30)); 
+        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (86400 * 30)); 
+        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (86400 * 30)); 
+        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (86400 * 30)); 
+        // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+        // $senderName = $sessionInterface->get('SenderInitials');
+        // $data = json_decode($nonSuyooler[1], true);
+        // $parameters = array();
+        // $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
+        $parameters = [
+            'session' => $sessionInterface->get('hostedSessionId'),
+            'orderId' => $sessionInterface->get('orderidhostedsession'),
+            'transactionId' => $sessionInterface->get('transactionidhostedsession')
+        ];
+
+        return $this->render('topup/3dsecure.html.twig', $parameters);
+    }
+
+    #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
+    public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    {
+        $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $_POST['card']]);
+        if (is_null($checkIfTheCardInTheBlackList)) {
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('SenderId'),$sessionInterface->get('ReceiverPhone'),$sessionInterface->get('SenderPhone'));
+            $status = true;
+            $response = $data;
+        } else {
+            $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+
+            $emailMessageBlacklistedCard .= "We have identified that the card with the number {$_POST['card']} has been blacklisted. <br><br>";
+
+            $emailMessageBlacklistedCard .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+            // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+            $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+            $status = false;
+            $response = 'The Card Number is blacklisted';
+        }
         return new JsonResponse([
-            'status'=>$status,
-            'response'=>$response
+            'status' => $status,
+            'response' => $response
+        ]);
+    }
+
+    #[Route('/pay2', name: 'app_topup_blacklist2')]
+    public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    {
+        // dd($_COOKIE['senderId']);
+        $checkIfTheCardInTheBlackList = NULL;
+        if (is_null($checkIfTheCardInTheBlackList)) {
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'],$_COOKIE['ReceiverPhone'],$_COOKIE['SenderPhone']);
+            $status = true;
+            $response = $data;
+        } else {
+            $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+
+            $emailMessageBlacklistedCard .= "We have identified that the card with the number {$_POST['card']} has been blacklisted. <br><br>";
+
+            $emailMessageBlacklistedCard .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+            // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+            $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+            $status = false;
+            $response = 'The Card Number is blacklisted';
+        }
+        return new JsonResponse([
+            'status' => $status,
+            'response' => $response
         ]);
     }
 

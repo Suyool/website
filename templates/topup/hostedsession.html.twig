@@ -2,15 +2,15 @@
 
 {% block body %}
 	{# <style id="antiClickjack">
-		body {
-			display: none !important;
-		}
-	</style> #}
+			body {
+				display: none !important;
+			}
+		</style> #}
 	<script src="https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js"></script>
 	<div>Please enter your payment details:</div>
 	<h3>Credit Card</h3>
 	<div>Card Number:
-	<input type="text" id="card-number" class="input-field" title="card number" readonly/></div>
+		<input type="text" id="card-number" class="input-field" title="card number" readonly/></div>
 	<div>Expiry Month:<input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" readonly></div>
 	<div>Expiry Year:<input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" readonly></div>
 	<div>Security Code:<input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" readonly></div>
@@ -18,24 +18,23 @@
 	<div>
 		<button id="payButton" onclick="pay('card');" disabled>Pay Now</button>
 	</div>
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel"></h5>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-          <a type="button" class="btn btn-primary" id="action"></a>
-        </div>
-      </div>
-    </div>
-  </div>
+	<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel"></h5>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<a type="button" class="btn btn-primary" id="action"></a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 
-PaymentSession.configure({
+		PaymentSession.configure({
 session: "{{ session }}",
 fields: { // ATTACH HOSTED FIELDS TO YOUR PAYMENT PAGE FOR A CREDIT CARD
 card: {
@@ -56,22 +55,26 @@ console.log(response)
 if (response.status) {
 if ("ok" == response.status) {
 console.log("Session updated with data: " + response.session.id);
-$.ajax({
-url: "/pay", method: "POST",
- data: { card: response.sourceOfFunds.provided.card.number },
-success: function (response) {
-    if(response.status){
-        document.getElementById("staticBackdropLabel").innerText = response.response.title
-        document.querySelector(".modal-body").innerText = response.response.description
-        document.getElementById("action").innerText=response.response.button
-        document.getElementById("action").setAttribute("href","/"+response.response.code) 
-    $('#staticBackdrop').modal('show');
-    }
-    },
-error: function (xhr, status, error) { // Show an error message in the console
-console.error(error);
-}
-});
+window.location.href = "/3dsreceipt";
+//$.ajax({
+//url: "/pay",
+//method: "POST",
+//data: {
+//card: response.sourceOfFunds.provided.card.number
+//},
+//success: function (response) {
+//if (response.status) {
+//document.getElementById("staticBackdropLabel").innerText = response.response.title
+//document.querySelector(".modal-body").innerText = response.response.description
+//document.getElementById("action").innerText = response.response.button
+//document.getElementById("action").setAttribute("href", "/" + response.response.code)
+//$('#staticBackdrop').modal('show');
+//}
+//},
+//error: function (xhr, status, error) { // Show an error message in the console
+//console.error(error);
+//}
+//});
 // check if the security code was provided by the user
 if (response.sourceOfFunds.provided.card.securityCode) {
 console.log("Security code was provided.");
@@ -115,24 +118,24 @@ invalidFieldCharacters: "REJECT"
 });
 
 PaymentSession.onValidityChange([
-    "card.number",
-    "card.nameOnCard",
-    "card.securityCode",
-    "card.expiryYear",
-    "card.expiryMonth"
-    ], function (selector, result) { // Get the value of the input using jQuery
-    
-    if (result.isValid) {
-    document.getElementById("payButton").disabled = false;
-    document.querySelector(selector).style.borderColor = "green";
-    } else if (result.isIncomplete) {
-        document.getElementById("payButton").disabled = true;
-    document.querySelector(selector).style.borderColor = "grey";
-    } else {
-        document.getElementById("payButton").disabled = true;
-    document.querySelector(selector).style.borderColor = "red";
-    }
-    });
+"card.number",
+"card.nameOnCard",
+"card.securityCode",
+"card.expiryYear",
+"card.expiryMonth"
+], function (selector, result) { // Get the value of the input using jQuery
+
+if (result.isValid) {
+document.getElementById("payButton").disabled = false;
+document.querySelector(selector).style.borderColor = "green";
+} else if (result.isIncomplete) {
+document.getElementById("payButton").disabled = true;
+document.querySelector(selector).style.borderColor = "grey";
+} else {
+document.getElementById("payButton").disabled = true;
+document.querySelector(selector).style.borderColor = "red";
+}
+});
 
 
 function pay() { // UPDATE THE SESSION WITH THE INPUT FROM HOSTED FIELDS
