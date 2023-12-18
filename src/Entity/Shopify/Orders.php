@@ -30,7 +30,7 @@ class Orders
     private $shopName;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0, name="amount")
+     * @ORM\Column(type="decimal", precision=10, scale=2, name="amount")
      */
     private $amount;
 
