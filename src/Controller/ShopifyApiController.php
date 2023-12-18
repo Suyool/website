@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\Logs;
 use App\Entity\Shopify\MerchantCredentials;
+use App\Entity\Shopify\OrdersTest;
 use App\Entity\Shopify\Session;
+use App\Entity\Shopify\ShopifyInstallation;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +23,7 @@ use ReCaptcha\ReCaptcha;
 class ShopifyApiController extends AbstractController
 {
     private $mr;
+
     public function __construct(ManagerRegistry $mr)
     {
         $this->mr = $mr->getManager('Shopify');
@@ -31,7 +34,11 @@ class ShopifyApiController extends AbstractController
      */
     public function paySkashQR(Request $request, ShopifyServices $shopifyServices): Response
     {
-        $ordersRepository = $this->mr->getRepository(Orders::class);
+        $metadata = json_decode($request->request->get('metadata'), true);
+        $env = $metadata['env'];
+        $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
+
+        $ordersRepository = $this->mr->getRepository($orderClass);
 
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
@@ -41,26 +48,29 @@ class ShopifyApiController extends AbstractController
 
         $createdAt = $order->getCreated()->getTimestamp();
 
-        $metadata = json_decode($request->request->get('metadata'), true);
-        $totalPrice = trim($metadata['total_price']) / 100;
-        $amount = number_format($totalPrice, 2, '.', '');
+
+        $amount = $metadata['total_price'];
         $currency = $metadata['currency'];
         $timestamp = $createdAt * 1000;
         $additionalInfo = '';
-        $domain = $metadata['domain'];
-        $hostname = Helper::getHost($domain);
-        $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+        $domain = $metadata['path'];
+       // $hostname = Helper::getHost($domain);
+        $merchantCredentials = $shopifyServices->getCredentials(Helper::getHost($domain));
         $merchantId = $merchantCredentials['merchantId'];
         $certificate = $merchantCredentials['certificate'];
-        $sessionRepository = $this->mr->getRepository(Session::class);
-        $sessionInfo = $sessionRepository->findOneBy(['shop' => $hostname]);
-        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
+//        $sessionRepository = $this->mr->getRepository(Session::class);
+//        $sessionInfo = $sessionRepository->findOneBy(['shop' => $hostname]);
+       // $appKey = $merchantCredentials['appKey'];
+        //$appPass = $merchantCredentials['appPass'];
+        //$checkAmount = $shopifyServices->getShopifyOrder($orderId, $sessionInfo->getAccessToken(), $hostname);
 
-        $shopifyAmount = $checkAmount['transactions']['0']['amount'];
-        $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
+//        $checkAmount = $shopifyServices->getShopifyOrder($orderId, $appKey, $appPass, $hostname);
+
+//        $shopifyAmount = $checkAmount['transactions']['0']['amount'];
+//        $resAmount = bccomp($shopifyAmount, $totalPrice, 2);
+
         $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
         $secureHash = base64_encode(hash('sha512', $secure, true));
-
         if ($orderId !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $timestamp !== '' && $merchantId !== '') {
             $transactionData = [
                 'TransactionID' => "$orderId",
@@ -72,14 +82,19 @@ class ShopifyApiController extends AbstractController
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
+            if ($env == 'test') {
+                $url = 'SuyoolOnlinePayment/PayQR';
+            } else {
+                $url = 'api/OnlinePayment/PayQR';
+
+            }
             $params = [
                 'data' => json_encode($transactionData),
-                'url' => 'api/OnlinePayment/PayQR',
+                'url' => $url,
             ];
             $response = $shopifyServices->getQr($params);
 
-
-            $logs = array('orderId' => $orderId, 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
+            $logs = array('orderId' => $orderId, 'identifier' => 'PAYQR', 'request' => $params, 'response' => $response, 'env' => $metadata['env']);
             $this->saveLog($logs);
 
             if ($response['pictureURL'] != null)
@@ -94,12 +109,13 @@ class ShopifyApiController extends AbstractController
                 'displayBlock' => $showQR,
             ]);
         }
+
     }
 
     /**
      * @Route("/payMobile/", name="app_pay_mobile")
      */
-    public function payMobile(Request $request): Response
+    public function payMobile(Request $request,ShopifyServices $shopifyServices): Response
     {
         if ($request->request->get('order_id') != null) {
 
@@ -117,8 +133,8 @@ class ShopifyApiController extends AbstractController
 
             $createdAt = $order->getCreated()->getTimestamp();
             $timestamp = $createdAt * 1000;
-            $domain = $metadata['domain'];
-            $merchantCredentials = $this->getCredentials(Helper::getHost($domain));
+            $domain = $metadata['path'];
+            $merchantCredentials = $shopifyServices->getCredentials(Helper::getHost($domain));
             $merchantId = $merchantCredentials['merchantId'];
             $certificate = $merchantCredentials['certificate'];
             $additionalInfo = '';
@@ -153,30 +169,32 @@ class ShopifyApiController extends AbstractController
     }
 
     /**
-     * @Route("/update_status/{order_id}", name="app_update_status")
+     * @Route("/update-status/", name="app_update_status",methods={"POST"})
      */
-    public function updateStatus(Request $request, $order_id, ShopifyServices $shopifyServices)
+    public function updateStatus(Request $request, ShopifyServices $shopifyServices)
     {
-        $data = $request->request->all();
+        $data = json_decode($request->getContent(), true);
         $flag = isset($data['Flag']) ? $data['Flag'] : null;
 
         if ($flag !== null) {
+
             $ordersRepository = $this->mr->getRepository(Orders::class);
-            $orders = $ordersRepository->findBy(['orderId' => $order_id]);
-            $order = $orders[0];
+            $order = $ordersRepository->findOneBy(['orderId' => $data['TransactionID'], 'merchantId' => $data['MerchantAccountID']]);
 
             if ($flag == '1') {
                 $currency = $order->getCurrency();
                 $domain = Helper::getHost($order->getShopName());
-                $merchantCredentials = $this->getCredentials($domain);
+                $merchantCredentials = $shopifyServices->getCredentials($domain);
                 $certificate = $merchantCredentials['certificate'];
                 $totalPrice = $order->getAmount();
-                $url = 'https://' . $domain . '/admin/api/2020-04/orders/' . $order_id . '/transactions.json';
-                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $order_id . $data['ReturnText'] . $certificate;
+                $appKey = $merchantCredentials['appKey'];
+                $appPass = $merchantCredentials['appPass'];
+                $env = $merchantCredentials['integrationType'];
+                $url = 'https://' . $appKey . ':' . $appPass . '@' . $domain . '/admin/api/2020-04/orders/' . $data['TransactionID'] . '/transactions.json';
+
+                $matchSecure = $data['Flag'] . $data['ReferenceNo'] . $data['TransactionID'] . $data['ReturnText'] . $certificate;
                 $secureHash = urldecode(base64_encode(hash('sha512', $matchSecure, true)));
-                $sessionRepository = $this->mr->getRepository(Session::class);
-                $sessionInfo = $sessionRepository->findOneBy(['shop' => $domain]);
-                $accessToken = $sessionInfo->getAccessToken();
+                $secureHash = str_replace(' ', '+', $secureHash);
 
                 if ($secureHash == $data['SecureHash']) {
                     if ($order) {
@@ -210,9 +228,13 @@ class ShopifyApiController extends AbstractController
                     'data' => json_encode($json),
                     'url' => $url
                 ];
-                $response = $shopifyServices->updateStatusShopify($params, $accessToken);
+                $logs = array('orderId' => $data['TransactionID'], 'identifier' => 'UPDATE_STATUS.NET', 'request' => $data, 'response' => $params, 'env' => $env);
 
-                $logs = array('orderId' => $order_id, 'request' => $params, 'response' => $response, 'env' => "");
+                $this->saveLog($logs);
+
+                $response = $shopifyServices->updateStatusShopify($params);
+
+                $logs = array('orderId' => $data['TransactionID'],'identifier' => 'UPDATE_STATUS.SHOPIFY', 'request' => $params, 'response' => $response, 'env' => $env);
 
                 $this->saveLog($logs);
 
@@ -226,6 +248,7 @@ class ShopifyApiController extends AbstractController
             ];
             return new JsonResponse($response);
         }
+        return new JsonResponse("no data sent");
     }
 
     /**
@@ -260,25 +283,26 @@ class ShopifyApiController extends AbstractController
         return $this->json($response);
     }
 
-    private function getCredentials($domain)
-    {
-        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
-        $credentials = $credentialsRepository->findBy(['shop' => $domain]);
-        $credential = $credentials[0];
+//    private function getCredentials($domain)
+//    {
+//        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
+//        $credentials = $credentialsRepository->findBy(['shop' => $domain]);
+//        $credential = $credentials[0];
+//
+//        $response = [];
+//        if ($credential->getTestChecked()) {
+//            $certificate = $credential->getTestCertificateKey();
+//            $merchantId = $credential->getTestMerchantId();
+//        } else {
+//            $certificate = $credential->getLiveCertificateKey();
+//            $merchantId = $credential->getLiveMerchantId();
+//        }
+//        $response['certificate'] = $certificate;
+//        $response['merchantId'] = $merchantId;
+//
+//        return $response;
+//    }
 
-        $response = [];
-        if ($credential->getTestChecked()) {
-            $certificate = $credential->getTestCertificateKey();
-            $merchantId = $credential->getTestMerchantId();
-        } else {
-            $certificate = $credential->getLiveCertificateKey();
-            $merchantId = $credential->getLiveMerchantId();
-        }
-        $response['certificate'] = $certificate;
-        $response['merchantId'] = $merchantId;
-
-        return $response;
-    }
 
     /**
      * @Route("/result-page/{orderId}", name="app_result_page")
@@ -294,6 +318,7 @@ class ShopifyApiController extends AbstractController
     {
         $log = new Logs();
         $log->setOrderId($data['orderId']);
+        $log->setIdentifier($data['identifier']);
         $log->setRequest(json_encode($data['request']));
         $log->setResponse(json_encode($data['response']));
         $log->setEnv($data['env']);

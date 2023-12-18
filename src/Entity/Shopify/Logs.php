@@ -24,6 +24,11 @@ class Logs
     private $orderId;
 
     /**
+     * @ORM\Column(type="string",name="identifier")
+     */
+    private $identifier;
+
+    /**
      * @ORM\Column(type="string", length=250,name="request")
      */
     private $request;
@@ -65,6 +70,17 @@ class Logs
     {
         $this->orderId = $orderId;
 
+        return $this;
+    }
+
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
         return $this;
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Shopify\ShopifyInstallation;
+use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
-use App\Entity\Shopify\MerchantCredentials;
+use App\Service\ShopifyServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,13 +24,18 @@ class ShopifyController extends AbstractController
     /**
      * @Route("/shopify/", name="app_shopify_handle_request")
      */
-    public function handleRequest(Request $request): Response
+    public function handleRequest(Request $request,ShopifyServices $shopifyServices): Response
     {
         $orderID = $request->query->get('order_id');
-        $totalPrice = $request->query->get('Merc_id');
-        $totalPrice = base64_decode($totalPrice)/ 100;
-        $url = $request->query->get('url');
         $domain = $request->query->get('domain');
+
+        $hostname = Helper::getHost($domain);
+        $merchantCredentials = $shopifyServices->getCredentials(Helper::getHost($domain));
+        $appKey = $merchantCredentials['appKey'];
+        $appPass = $merchantCredentials['appPass'];
+        $checkShopifyOrder = $shopifyServices->getShopifyOrder($orderID, $appKey, $appPass, $hostname);
+        $totalPrice = $checkShopifyOrder['transactions']['0']['amount'];
+        $url = $request->query->get('url');
         $errorUrl = $request->query->get('error_url');
         $currency = $request->query->get('currency');
         $env = $request->query->get('env');
@@ -37,21 +44,16 @@ class ShopifyController extends AbstractController
             return new Response("Your order cannot be proccessed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
         }
 
-        $hostname = Helper::getHost($domain);
-        $credentialsRepository = $this->mr->getRepository(MerchantCredentials::class);
+        $hostname = $domain;
+        $credentialsRepository = $this->mr->getRepository(ShopifyInstallation::class);
         $credentials = $credentialsRepository->findAll();
-
         foreach($credentials as $credential){
-            if($credential->getShop() == $hostname){
-                if ($credential->getLiveChecked())
-                    $merchantId = $credential->getLiveMerchantId();
-                else
-                    $merchantId = $credential->getTestMerchantId();
-
-                $metadata = json_encode(array('url' => $url, 'domain' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
+            if($credential->getDomain() == $hostname){
+                $merchantId = $credential->getMerchantId();
+                $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
                 $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
-                $order = new $orderClass();
 
+                $order = new $orderClass();
                 $order->setOrderId($orderID);
                 $order->setShopName($domain);
                 $order->setAmount($totalPrice);
@@ -61,9 +63,10 @@ class ShopifyController extends AbstractController
                 $order->setEnv($env);
                 $order->setMerchantId($merchantId);
                 $order->setStatus(0);
+                $order->setFlag(0);
 
-                // Check if the order already exists in the database
                 $existingOrder = $this->mr->getRepository($orderClass)->findOneBy(['orderId' => $orderID]);
+
                 if ($existingOrder) {
                     // Update the existing order
                     $existingOrder->setAmount($totalPrice);
@@ -84,6 +87,7 @@ class ShopifyController extends AbstractController
                 ]);
             }
         }
+
         return new Response("false");
     }
 }
