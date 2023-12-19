@@ -14,7 +14,7 @@ class DeepLinksController extends AbstractController
     private function generateDeepLink($userAgent, $flag, $currentUrl = null, $browser = null, $additionalInfo = null)
     {
         if (stristr($userAgent, 'Android') !== false || stristr($userAgent, 'Linux; Android') !== false) {
-            return 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '"}';
+            return 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
         } elseif (stristr($userAgent, 'iPhone') !== false || stristr($userAgent, 'iPad') !== false || stristr($userAgent, 'iPod') !== false) {
             // Use the provided parameters for iOS
             return 'suyoolpay://suyool.com/sms=?{"flag":"' . $flag . '","browsertype":"' . $browser . '","AdditionalInfo":"' . $additionalInfo . '","currentUrl":"' . $currentUrl . '"}';
