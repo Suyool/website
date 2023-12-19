@@ -143,14 +143,13 @@ class ShopifyApiController extends AbstractController
             $current_page = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]" . "/result-page/" . $orderId;
 
             $json = [
-                'TransactionID' => $orderId,
+                'strTranID' => $orderId,
+                'MerchantID' => $merchantId,
                 'Amount' => $amount,
                 'Currency' => $currency,
-                'SecureHash' => $secureHash,
-                'TS' => $timestamp,
-                'TranTS' => $timestamp,
-                'MerchantAccountID' => $merchantId,
                 'CallBackURL' => '',
+                'TS' => $timestamp,
+                'SecureHash' => $secureHash,
                 'currentUrl' => $current_page,
                 'browsertype' => Helper::getBrowserType(),
                 'AdditionalInfo' => $additionalInfo
