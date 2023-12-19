@@ -56,6 +56,11 @@ class orders
      */
     private $attempt = 1;
 
+     /**
+     * @ORM\Column(name="code")
+     */
+    private $code;
+
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
@@ -140,6 +145,17 @@ class orders
     public function setAttempt($attempt)
     {
         $this->attempt = $attempt;
+        return $this;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    public function setCode($code)
+    {
+        $this->code = $code;
         return $this;
     }
 

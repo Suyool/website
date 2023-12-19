@@ -227,7 +227,7 @@ class TopupController extends AbstractController
         $senderName = $sessionInterface->get('SenderInitials');
         $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
+        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'),$sessionInterface->get('Code'));
 
         $parameters = [
             'session' => $bobpayment[0],
@@ -294,12 +294,6 @@ class TopupController extends AbstractController
         $checkIfTheCardInTheBlackList = NULL;
         if (is_null($checkIfTheCardInTheBlackList)) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'],$_COOKIE['ReceiverPhone'],$_COOKIE['SenderPhone']);
-            unset($_COOKIE['SenderId']);
-            unset($_COOKIE['ReceiverPhone']);
-            unset($_COOKIE['SenderPhone']);
-            unset($_COOKIE['hostedSessionId']);
-            unset($_COOKIE['orderidhostedsession']);
-            unset($_COOKIE['transactionidhostedsession']);
             $status = true;
             $response = $data;
         } else {

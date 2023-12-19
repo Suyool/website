@@ -51,6 +51,18 @@ class RTPController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
+        setcookie('SenderId', '', -1, '/'); 
+        setcookie('ReceiverPhone', '', -1, '/'); 
+        setcookie('SenderPhone', '', -1, '/'); 
+        setcookie('hostedSessionId', '', -1, '/'); 
+        setcookie('orderidhostedsession', '', -1, '/'); 
+        setcookie('transactionidhostedsession', '', -1, '/'); 
+        unset($_COOKIE['SenderId']);
+        unset($_COOKIE['ReceiverPhone']);
+        unset($_COOKIE['SenderPhone']);
+        unset($_COOKIE['hostedSessionId']);
+        unset($_COOKIE['orderidhostedsession']);
+        unset($_COOKIE['transactionidhostedsession']);
         $this->session->remove('requestGenerated');
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
@@ -58,7 +70,7 @@ class RTPController extends AbstractController
         $parameters['currency'] = "LBP";
         // $parameters['request_details_response']['allowCardTopup']=null;
         // dd($parameters['request_details_response']);
-        
+
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
         $amount = explode(" ", $parameters['request_details_response']['amount']);
@@ -68,12 +80,12 @@ class RTPController extends AbstractController
         if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
             return $this->redirectToRoute("homepage");
         }
-        $parameters['amount'] = $amount[1] ;
-        $parameters['currencyInAbb'] = $amount[0] ;
+        $parameters['amount'] = $amount[1];
+        $parameters['currencyInAbb'] = $amount[0];
         $this->session->set("request_details_response", $parameters['request_details_response']);
-        $this->session->set('amountwcurrency',$parameters['request_details_response']['amount']);
-        $this->session->set('amount',$parameters['amount']);
-        $this->session->set('currencyInAbb',$parameters['currencyInAbb']);
+        $this->session->set('amountwcurrency', $parameters['request_details_response']['amount']);
+        $this->session->set('amount', $parameters['amount']);
+        $this->session->set('currencyInAbb', $parameters['currencyInAbb']);
 
         $this->session->set("Code", $code);
         $this->session->set(
@@ -185,13 +197,13 @@ class RTPController extends AbstractController
             if (!empty($_POST['fname']) && !empty($_POST['lname'])) {
                 $parameters['cashin'] = $this->suyoolServices->PaymentCashin($this->session->get('TranSimID'), $_POST['fname'], $_POST['lname']);
                 if ($parameters['cashin']['globalCode'] == 0 && $parameters['cashin']['flagCode'] != 1) {
-                    $parameters['imgsrc']="build/images/Loto/error.png";
-                    $parameters['title']="Unable to create code";
-                    $parameters['description']="We are unable to create a cashout code.<br>
+                    $parameters['imgsrc'] = "build/images/Loto/error.png";
+                    $parameters['title'] = "Unable to create code";
+                    $parameters['description'] = "We are unable to create a cashout code.<br>
                     Contact our call center at 81-484000 for further assistance.";
-                    $parameters['button']="Call Call Center";
+                    $parameters['button'] = "Call Call Center";
                     return $this->render('rtp/generateCode.html.twig', $parameters);
-                } else if($parameters['cashin']['flagCode'] == 1) {
+                } else if ($parameters['cashin']['flagCode'] == 1) {
                     $this->session->set(
                         "requestGenerated",
                         isset($parameters['cashin']['data'])
