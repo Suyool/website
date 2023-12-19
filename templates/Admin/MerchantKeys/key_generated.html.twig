@@ -1,0 +1,40 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8">
+                <h1>Merchant Key</h1>
+            </div>
+            <div class="col-4 text-right">
+                <a href="{{ path('admin_merchant_keys') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+        </div>
+
+        <p>
+            Save this key for the merchant: <strong>{{ merchant_name }}</strong>
+        </p>
+
+
+        <h3>{{ merchant_key }}</h3><br>
+
+        <script>
+            function copyToClipboard(text) {
+                var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+            }
+        </script>
+        <button class="btn btn-primary mb-3" onclick="copyToClipboard('{{ merchant_key }}')">Copy to clipboard</button>
+
+        <p class="mt-5">
+            Note that this key will be displayed only this time. If you lose it, you will have to generate a new one.
+        </p>
+    </div>
+
+
+
+{% endblock %}
