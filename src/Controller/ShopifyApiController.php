@@ -121,8 +121,7 @@ class ShopifyApiController extends AbstractController
 
             $orderId = $request->request->get('order_id');
             $metadata = json_decode($request->request->get('metadata'), true);
-            $totalPrice = trim($metadata['total_price']) / 100;
-            $amount = number_format($totalPrice, 2, '.', '');
+            $amount = $metadata['total_price'];
             $currency = $metadata['currency'];
             $ordersRepository = $this->mr->getRepository(Orders::class);
             $order = $ordersRepository->findOneBy(['orderId' => $orderId]);
