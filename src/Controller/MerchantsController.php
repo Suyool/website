@@ -1180,4 +1180,77 @@ class MerchantsController extends AbstractController
 
         return $this->render('payroll/index.html.twig', $parameters);
     }
+
+     /**
+     * @Route("/indevco", name="indevco")
+     */
+    public function indevco(Request $request, TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
+        $parameters['lang'] = "en";
+        $parameters['metaimage'] = "build/images/payroll/payroll-metaImg.png";
+        $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
+        $parameters['faq'] = [
+            "ONE" => [
+                "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
+                "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+            ],
+            "TWO" => [
+                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
+                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+            ],
+            "THREE" => [
+                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INDEVCO",
+                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INDEVCO"
+            ],
+            "FOUR" => [
+                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INDEVCO"
+            ],
+            "FIVE" => [
+                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
+            ],
+            "SIX" => [
+                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
+                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+            ],
+        ];
+
+        $parameters['title'] = "Indevco | Suyool";
+        $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
+        $infoSection = [
+            'title' => '6 Ways To Use Your Money',
+            'items' => [
+                [
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/cashout1.svg',
+                    'description' => 'Cash Withdrawal',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/arrow1.svg',
+                    'description' => 'Send & Receive Money for Free',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/request-money.svg',
+                    'description' => 'Request Money',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payroll.svg',
+                    'description' => 'Pay Bills',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payQr1.svg',
+                    'description' => 'Pay with Suyool QR',
+                ],
+            ],
+        ];
+        $parameters['infoSection'] = $infoSection;
+
+        return $this->render('indevco/index.html.twig', $parameters);
+    }
 }

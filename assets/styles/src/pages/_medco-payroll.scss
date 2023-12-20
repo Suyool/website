@@ -1,3 +1,58 @@
+.topSectionIndevcoPayrollEmp{
+  text-align: center;
+  .information {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 9pc;
+    text-align: center;
+
+    @media screen and (max-width: 1400px) and (min-width: 993px) {
+      padding-top: 80px;
+    }
+
+    .title {
+      color: #000;
+      font-size: 40px;
+      font-family: $Regular;
+      text-transform: capitalize;
+    }
+
+    .desc {
+      max-width: 600px;
+      margin: 28px auto;
+      font-family: "OpenSansRegular";
+      font-size: 17px;
+      color: #000;
+    }
+
+    .OpenSuyoolAccount {
+      margin-top: 75px;
+
+      .OpenYourSuyoolAccount {
+        padding: 10px 30px;
+
+        @media screen and (max-width: 768px) {
+          padding: 10px 50px;
+        }
+
+        border-radius: 9px;
+        border: none;
+        color: #fff;
+        font-family: $SemiBold;
+        background: #226d96;
+
+        &:hover {
+          background: #226d96;
+          border: 2px solid #fff;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
 .topSectionMedcoPayrollEmp {
   img {
     width: 100%;
