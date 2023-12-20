@@ -227,12 +227,14 @@ class TopupController extends AbstractController
         $senderName = $sessionInterface->get('SenderInitials');
         $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'),$sessionInterface->get('Code'));
+        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'));
 
         $parameters = [
             'session' => $bobpayment[0],
             'orderId' => $bobpayment[1],
-            'transactionId' => $bobpayment[2]
+            'transactionId' => $bobpayment[2],
+            'sender' => $senderName,
+            'fees' => $data['TotalAmount'] - $sessionInterface->get('amount')
         ];
 
         return $this->render('topup/hostedsession.html.twig', $parameters);
@@ -241,12 +243,12 @@ class TopupController extends AbstractController
     #[Route('/3dsreceipt', name: 'app_topup_edsecure')]
     public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60*10)); 
-        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60*10)); 
-        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60*10)); 
-        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60*10)); 
-        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60*10)); 
-        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60*10)); 
+        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
+        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
+        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
+        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
+        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
+        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
         // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         // $senderName = $sessionInterface->get('SenderInitials');
         // $data = json_decode($nonSuyooler[1], true);
@@ -262,12 +264,12 @@ class TopupController extends AbstractController
     }
 
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
-    public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         $cardnumber = $bobPaymentServices->checkCardNumber();
         $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $_POST['card']]);
         if (is_null($checkIfTheCardInTheBlackList)) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('SenderId'),$sessionInterface->get('ReceiverPhone'),$sessionInterface->get('SenderPhone'));
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('SenderId'), $sessionInterface->get('ReceiverPhone'), $sessionInterface->get('SenderPhone'));
             $status = true;
             $response = $data;
         } else {
@@ -288,12 +290,12 @@ class TopupController extends AbstractController
     }
 
     #[Route('/pay2', name: 'app_topup_blacklist2')]
-    public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices,SessionInterface $sessionInterface)
+    public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         // dd($_COOKIE);
         $checkIfTheCardInTheBlackList = NULL;
         if (is_null($checkIfTheCardInTheBlackList)) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'],$_COOKIE['ReceiverPhone'],$_COOKIE['SenderPhone']);
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone']);
             $status = true;
             $response = $data;
         } else {
@@ -312,5 +314,4 @@ class TopupController extends AbstractController
             'response' => $response
         ]);
     }
-
 }
