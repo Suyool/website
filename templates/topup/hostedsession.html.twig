@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
+? 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js'
+: 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyool/session.js' %}
+
 {% block body %}
-	{# <style id="antiClickjack">
-				body {
-					display: none !important;
-				}
-			</style> #}
-	<script src="https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js"></script>
+	<script src="{{ checkoutScriptUrl }}"></script>
 	<div class="rtptopup rtptopup2">
 		<div class="loaderTopUp">
 			<div class="desktopMode desktop-logo"></div>
@@ -28,15 +27,23 @@
 					</div>
 				</div>
 				<div style="border-top: 1px solid;margin-top: 15px;"></div>
-			</div>
-			<div>Card Number:
-				<input type="text" id="card-number" class="input-field" title="card number" readonly/></div>
-			<div>Expiry Month:<input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" readonly></div>
-			<div>Expiry Year:<input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" readonly></div>
-			<div>Security Code:<input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" readonly></div>
-			<div>Cardholder Name:<input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" readonly></div>
-			<div>
-				<button id="payButton" onclick="pay('card');" disabled>Pay Now</button>
+				<div class="form">
+
+					<div>
+						<div>Card Number:</div>
+						<input type="text" id="card-number" class="input-field" title="card number" placeholder="Card number" readonly/></div>
+					<div>
+						<div>Expiry Month:</div><input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" placeholder="02" readonly></div>
+					<div>
+						<div>Expiry Year:</div><input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" placeholder="24" readonly></div>
+					<div>
+						<div>Security Code:</div><input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" placeholder="000" readonly></div>
+					<div>
+						<div>Cardholder Name:</div><input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" placeholder="Card holder name" readonly></div>
+					<div style="text-align: center;">
+						<button id="payButton" onclick="pay('card');" disabled>Pay Now</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -44,7 +51,7 @@
 
 		PaymentSession.configure({
 session: "{{ session }}",
-fields: { // ATTACH HOSTED FIELDS TO YOUR PAYMENT PAGE FOR A CREDIT CARD
+fields: {
 card: {
 number: "#card-number",
 securityCode: "#security-code",
@@ -56,39 +63,38 @@ nameOnCard: "#cardholder-name"
 // SPECIFY YOUR MITIGATION OPTION HERE
 frameEmbeddingMitigation: ["javascript"],
 callbacks: {
-initialized: function (response) { // HANDLE INITIALIZATION RESPONSE
+initialized: function (response) {
 },
-formSessionUpdate: function (response) { // HANDLE RESPONSE FOR UPDATE SESSION
+formSessionUpdate: function (response) {
 console.log(response)
 if (response.status) {
 if ("ok" == response.status) {
 console.log("Session updated with data: " + response.session.id);
-window.location.href = "/3dsreceipt";
-// $.ajax({
-// url: "/pay",
-// method: "POST",
-// data: {
-// card: response.sourceOfFunds.provided.card.number
-// },
-// success: function (response) {
-// if (response.status) {
+$.ajax({
+url: "/pay",
+method: "POST",
+data: {
+card: response.sourceOfFunds.provided.card.number
+},
+success: function (response) {
+if (response.status) {
 // document.getElementById("staticBackdropLabel").innerText = response.response.title
 // document.querySelector(".modal-body").innerText = response.response.description
 // document.getElementById("action").innerText = response.response.button
 // document.getElementById("action").setAttribute("href", "/" + response.response.code)
 // $('#staticBackdrop').modal('show');
-// }
-// },
-// error: function (xhr, status, error) { // Show an error message in the console
-// console.error(error);
-// }
-// });
-// check if the security code was provided by the user
+window.location.href = "/3dsreceipt";
+}
+},
+error: function (xhr, status, error) {
+console.error(error);
+}
+});
+
 if (response.sourceOfFunds.provided.card.securityCode) {
 console.log("Security code was provided.");
 }
 
-// check if the user entered a Mastercard credit card
 if (response.sourceOfFunds.provided.card.scheme == 'MASTERCARD') {
 console.log("The user entered a Mastercard credit card.")
 }
@@ -125,7 +131,7 @@ invalidFieldCharacters: "REJECT"
 }
 });
 
-PaymentSession.onValidityChange(["card.number"], function (selector, result) { // Get the value of the input using jQuery
+PaymentSession.onValidityChange(["card.number"], function (selector, result) {
 
 if (result.isValid) {
 document.getElementById("payButton").disabled = false;
@@ -141,21 +147,19 @@ document.querySelector(selector).style.borderColor = "red";
 
 PaymentSession.onValidityChange([
 "card.nameOnCard", "card.securityCode", "card.expiryYear", "card.expiryMonth"
-], function (selector, result) { // Get the value of the input using jQuery
+], function (selector, result) {
 
 if (result.isValid) {
 document.querySelector(selector).style.borderColor = "green";
 } else if (result.isIncomplete) {
-document.getElementById("payButton").disabled = true;
 document.querySelector(selector).style.borderColor = "grey";
 } else {
-document.getElementById("payButton").disabled = true;
 document.querySelector(selector).style.borderColor = "red";
 }
 });
 
 
-function pay() { // UPDATE THE SESSION WITH THE INPUT FROM HOSTED FIELDS
+function pay() {
 document.getElementById("payButton").disabled = true;
 PaymentSession.updateSessionFromForm('card');
 }

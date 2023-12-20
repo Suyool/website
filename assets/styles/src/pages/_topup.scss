@@ -512,6 +512,60 @@
 }
 
 .rtptopup2 {
+    .whopay {
+        margin: 0 auto;
+        width: 50%;
+        border-radius: 10px;
+
+        @media screen and (max-width:768px) {
+            width: 100%;
+
+            span {
+                display: block;
+            }
+        }
+
+        background: #fff;
+        padding: 30px;
+        min-height: 100vh;
+
+        .form {
+            margin-top: 30px;
+            font-family: 'PoppinsBold';
+            text-align: left;
+
+            iframe {
+                width: 100% !important;
+            }
+
+            input[type=tel] {
+                width: 100% !important;
+                font-family: $Regular;
+            }
+
+            input[type=text] {
+                width: 100% !important;
+                font-family: $Regular;
+            }
+        }
+
+        #payButton {
+            border: none;
+            background: #226d96;
+            color: #fff;
+            font-family: 'PoppinsRegular';
+            padding: 10px 70px;
+            border-radius: 10px;
+            margin-top: 30px;
+
+            &:disabled {
+                border: 1px solid #999999;
+                background-color: #cccccc;
+                color: #666666;
+            }
+        }
+    }
+
     .paying {
         font-family: 'PoppinsBold';
         font-size: 27px;

@@ -267,11 +267,10 @@ class TopupController extends AbstractController
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         $cardnumber = $bobPaymentServices->checkCardNumber();
-        $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $_POST['card']]);
+        $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
         if (is_null($checkIfTheCardInTheBlackList)) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('SenderId'), $sessionInterface->get('ReceiverPhone'), $sessionInterface->get('SenderPhone'));
             $status = true;
-            $response = $data;
+            $response = "Go to Receipt3d";
         } else {
             $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
 
@@ -309,9 +308,7 @@ class TopupController extends AbstractController
             $status = false;
             $response = 'The Card Number is blacklisted';
         }
-        return new JsonResponse([
-            'status' => $status,
-            'response' => $response
-        ]);
+
+        return $this->render('topup/popup.html.twig', $response);
     }
 }
