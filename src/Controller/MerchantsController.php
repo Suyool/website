@@ -1189,7 +1189,7 @@ class MerchantsController extends AbstractController
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang'] = "en";
-        $parameters['metaimage'] = "build/images/payroll/payroll-metaImg.png";
+        $parameters['metaimage'] = "build/images/payroll/indevcoMeta.png";
         $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
         $parameters['faq'] = [
             "ONE" => [
