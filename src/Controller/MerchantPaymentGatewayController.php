@@ -105,7 +105,7 @@ class MerchantPaymentGatewayController extends AbstractController
     /**
      * @Route("/payment-gateway/{refnumber}", name="payment_gateway_main")
      */
-    public function index(Request $request,SessionInterface $session,$refnumber)
+    public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
         $order = $this->mr->getRepository(invoices::class)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
             ->where('i.reference = :refnumber')->setParameter('refnumber', $refnumber)->getQuery()->getOneOrNullResult();
