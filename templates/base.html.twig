@@ -77,7 +77,7 @@ dataLayer.push(arguments);
 gtag('js', new Date());
 gtag('config', 'G-THTNTVC33Y');
 		</script>
-		{% if app.request.server.get('APP_ENV') == "prod" %}
+		{% if chatbot is defined and chatbot == true %}
 		<script>
 			var chatbox = document.getElementById('fb-customer-chat');
 chatbox.setAttribute("page_id", "100433706321629");

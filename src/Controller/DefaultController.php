@@ -57,7 +57,8 @@ class DefaultController extends AbstractController
             'desc' => $desc,
             'metaimage' => 'build/images/meta-image-website2.png',
             'descmeta' => $desc,
-            'barBgColor' => 'barWhite'
+            'barBgColor' => 'barWhite',
+            'chatbot'=>true
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
