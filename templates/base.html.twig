@@ -39,23 +39,36 @@
 		{% endblock %}
 		<!-- Meta Pixel Code -->
 		<!-- Meta Pixel Code -->
-	<script>
-		!function(f,b,e,v,n,t,s)
-		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-		n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];
-		s.parentNode.insertBefore(t,s)}(window, document,'script',
-		'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '1024034838817303');
-		fbq('track', 'PageView');
-	</script>
-	<noscript><img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=1024034838817303&ev=PageView&noscript=1"/></noscript>
-	<!-- End Meta Pixel Code -->
+		<script>
+			!function (f, b, e, v, n, t, s) {
+if (f.fbq) 
+return;
+
+
+n = f.fbq = function () {
+n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+};
+if (! f._fbq) 
+f._fbq = n;
+
+
+n.push = n;
+n.loaded = !0;
+n.version = '2.0';
+n.queue = [];
+t = b.createElement(e);
+t.async = !0;
+t.src = v;
+s = b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t, s)
+}(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1024034838817303');
+fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1024034838817303&ev=PageView&noscript=1"/></noscript>
 		<!-- End Meta Pixel Code -->
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-THTNTVC33Y"></script>
+		<!-- End Meta Pixel Code -->
+		<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-THTNTVC33Y"> </script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 function gtag() {
@@ -64,11 +77,40 @@ dataLayer.push(arguments);
 gtag('js', new Date());
 gtag('config', 'G-THTNTVC33Y');
 		</script>
+		{% if app.request.server.get('APP_ENV') == "prod" %}
+		<script>
+			var chatbox = document.getElementById('fb-customer-chat');
+chatbox.setAttribute("page_id", "100433706321629");
+chatbox.setAttribute("attribution", "biz_inbox");
+		</script>
 
+		<!-- Your SDK code -->
+		<script>
+			window.fbAsyncInit = function () {
+FB.init({xfbml: true, version: 'v18.0'});
+};
 
+(function (d, s, id) {
+var js,
+fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) 
+return;
+
+js = d.createElement(s);
+js.id = id;
+js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+		</script>
+		{% endif %}
 	</head>
 	<body
 		class="{% if currentPage is defined %}{{ currentPage }}{% endif %} {% if lang is defined %}{{ lang }}{% endif %}">
+		<!-- Messenger Chat Plugin Code -->
+		<div id="fb-root"></div>
+
+		<!-- Your Chat Plugin code -->
+		<div id="fb-customer-chat" class="fb-customerchat"></div>
 		{# {% include 'elements/header.html.twig' %} #}
 		{% block body %}{% endblock %}
 		{# {% include 'elements/footer.html.twig' %} #}
@@ -105,9 +147,9 @@ gtag('config', 'G-THTNTVC33Y');
 			{% else %}
 				{% include 'elements/download-app-mdal.html.twig' %}
 			{% endif %}
-{#			{% for file in encore_entry_js_files('app1') %}#}
-{#				<script src="{{ asset(file|substr(1)) }}"></script>#}
-{#			{% endfor %}#}
+			{#			{% for file in encore_entry_js_files('app1') %}#}
+		{#				<script src="{{ asset(file|substr(1)) }}"></script>#}
+			{#			{% endfor %}#}
 		{% endblock %}
 
 	</body>
