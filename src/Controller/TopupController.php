@@ -198,24 +198,35 @@ class TopupController extends AbstractController
         return $response;
     }
 
-    // #[Route('/updateTopupMoney', name: 'app_rtptopupupdate')]
-    // public function updateTopupMoney(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
-    // {
-    //     try{
-    //         $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetailsUpdate();
-    //         if ($bobRetrieveResultSession[0] == true) {
-    //             $sessionInterface->remove('order');
-    //             if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
-    //                 return $this->redirectToRoute("app_rtptopup");
-    //             } else {
-    //                 $topUpData = $bobPaymentServices->retrievedataForTopUpRTPUpdate($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], "ae2b7cc62ad4455c", $bobRetrieveResultSession[1]);
-    //                 // dd($topUpData);
-    //                 return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
-    //             }
-    //         }
-    //     }catch(Exception $e){
-    //         dd($e->getMessage());
-    //     }
+    #[Route('/payment_bob', name: 'app_payWithBob')]
+    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices,InvoiceServices $invoicesServices)
+    {
+        try {
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+                    return $this->redirectToRoute("app_payWithBob");
+                } else {
+                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$sessionInterface->get('invoiceId'));
+                    if($topUpData[0]){
+                        return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
+                    }
+                }
+            }
+            $parameters = array();
+            $amount=1;
+            $currency="USD";
+            $invoices=$invoicesServices->PostInvoices("ihjoz","123456789",$amount,$currency,null,1,"debit card");
+            $sessionInterface->set('invoiceId',$invoices);
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$sessionInterface->get('invoiceId'));
+            if ($bobpayment[0] == false) {
+                return $this->redirectToRoute("homepage");
+            }
+            $parameters = [
+                // 'topup'=>true,
+                'session' => $bobpayment[1]
+            ];
 
     // }
 
