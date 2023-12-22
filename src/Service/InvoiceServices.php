@@ -15,10 +15,10 @@ class InvoiceServices
         $this->mr=$mr->getManager('topup');
     }
 
-    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod)
+    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null)
     {
+
         $invoices=new invoices();
-        $merchant=$this->mr->getRepository(merchants::class)->findOneBy(['name'=>$merchant]);
         $invoices->setMerchantsId($merchant);
         $invoices->setMerchantOrderId($merchantOrderId);
         $invoices->setAmount($amount);
@@ -27,6 +27,8 @@ class InvoiceServices
         $invoices->setTransId($transId);
         $invoices->setStatus(invoices::$statusOrder['PENDING']);
         $invoices->setPaymentMethod($paymentMethod);
+        $invoices->setReference($ref);
+        $invoices->setCallBackURL($callBackUrl);
 
         $this->mr->persist($invoices);
         $this->mr->flush();

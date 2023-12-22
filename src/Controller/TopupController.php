@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Iveri\orders;
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
+use App\Entity\topup\invoices;
+use App\Entity\topup\merchants;
 use App\Service\BobPaymentServices;
 use App\Service\BobServices;
+use App\Service\InvoiceServices;
 use App\Service\IveriServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -201,25 +204,45 @@ class TopupController extends AbstractController
     #[Route('/payment_bob', name: 'app_payWithBob')]
     public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices,InvoiceServices $invoicesServices)
     {
+
         try {
+            if(!empty($sessionInterface->get('payment_data'))){
+                $data = $sessionInterface->get('payment_data');
+            }else {
+                $data = $request->query->all();
+            }
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
             if ($bobRetrieveResultSession[0] == true) {
                 $sessionInterface->remove('order');
                 if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                     return $this->redirectToRoute("app_payWithBob");
                 } else {
-                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$sessionInterface->get('invoiceId'));
+                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$data['refNumber']);
                     if($topUpData[0]){
                         return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
                     }
                 }
             }
+
+
             $parameters = array();
-            $amount=1;
-            $currency="USD";
-            $invoices=$invoicesServices->PostInvoices("ihjoz","123456789",$amount,$currency,null,1,"debit card");
-            $sessionInterface->set('invoiceId',$invoices);
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$sessionInterface->get('invoiceId'));
+            $amount= $data['Amount'];
+            $currency= $data['Currency'];
+            $mechantOrderId = $data['TranID'];
+
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
+            $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
+                'merchants' => $merchant,
+                'merchantOrderId' => $mechantOrderId
+            ]);
+            if ($existingInvoice) {
+                $existingInvoice->setPaymentMethod('debit card');
+                // Update other fields as needed
+                $this->mr->persist($existingInvoice);
+                $this->mr->flush();
+            }
+
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$data['refNumber']);
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }

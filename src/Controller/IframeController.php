@@ -4,8 +4,11 @@
 namespace App\Controller;
 
 
+use App\Entity\topup\invoices;
+use App\Entity\topup\merchants;
 use App\Service\ShopifyServices;
 use App\Utils\Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +20,11 @@ class IframeController extends AbstractController
 {
     private $client;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client,ManagerRegistry $mr)
     {
         $this->client = $client;
+        $this->mr = $mr->getManager('topup');
+
     }
 
     /**
@@ -47,10 +52,10 @@ class IframeController extends AbstractController
         }else {
             $data = $request->query->all();
         }
-        return $this->processPayment($request, 'test');
+        return $this->processPayment($data, 'test');
     }
 
-    private function processPayment(Request $request, string $env): Response
+    private function processPayment(array $data, string $env): Response
     {
         $data = $request->query->all();
         $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
@@ -76,8 +81,10 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'ReturnText' => $returnText,
                 'displayBlock' => $showQR,
-                'merchantId' => $merchantID,
-                'CallBackURL' => $callbackUrl,
+                'merchantId' => $data['MerchantID'],
+                'Amount' => $data['Amount'],
+                'Currency' => $data['Currency'],
+                'CallBackURL' => $data['CallBackURL'],
                 'env' => $env,
                 'main_url' => $main_url,
 
@@ -132,9 +139,8 @@ class IframeController extends AbstractController
                 'Amount' => $amount,
                 'Currency' => $currency,
                 'SecureHash' => $secureHash,
-                'TS' => $TS,
-                'callBackURL' => $CallBackURL,
-                'TranTS' => $TranTS,
+                'TS' => "$TS",
+                'TranTS' => "$TranTS",
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];

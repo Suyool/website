@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
 use App\Entity\topup\bob_transactions;
+use App\Entity\topup\invoices;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
 use App\Utils\Helper;
@@ -121,7 +122,7 @@ class BobPaymentServices
         }
     }
 
-    public function RetrievePaymentDetails($suyoolUserId, $senderPhone = null, $receiverPhone = null)
+    public function RetrievePaymentDetails($suyoolUserId = null, $senderPhone = null, $receiverPhone = null)
     {
         try {
             $session = $this->session->get('order');

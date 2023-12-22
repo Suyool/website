@@ -34,8 +34,18 @@
         display: none;
         margin: 50px 0;
     }
+    .info {
+        margin-top: 20px;
+        margin-left: 20px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 </style>
 <div class="pay">
+    <div class="info">
+        <p><b>OrderId:</b> {{ order_id }}</p>
+        <p><b>Amount:</b> {{ Amount }}</p>
+        <p><b>Currency:</b> {{ Currency }}</p>
+    </div>
     <div class="pay-qr" style="text-align: center">
         <p class="message" id="text-message">{{ ReturnText }}</p>
         <div class="icon-image">

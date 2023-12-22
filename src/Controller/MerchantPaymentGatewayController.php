@@ -6,10 +6,12 @@ namespace App\Controller;
 
 use App\Entity\topup\invoices;
 use App\Entity\topup\MerchantKey;
+use App\Service\InvoiceServices;
 use App\Service\RateLimiter;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\topup\merchants;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +28,11 @@ class MerchantPaymentGatewayController extends AbstractController
         $this->rateLimiter = $rateLimiter;
     }
 
+
     /**
      * @Route("/merchant/v1/invoices", name="payment_api_invoice")
      */
-    public function api(Request $request,SessionInterface $session)
+    public function api(Request $request,SessionInterface $session,InvoiceServices $invoicesServices)
     {
         // Get IP address of the requester
         $ipAddress = $request->getClientIp();
@@ -61,28 +64,16 @@ class MerchantPaymentGatewayController extends AbstractController
         $referenceNumber = $this->generateRandomString(6);
 
         if($apiKeydata == $apiKey){
-            $invoice = new invoices();
-            $invoice->setMerchantsId($merchant);
-            $invoice->setMerchantOrderId($order_id);
-            $invoice->setAmount($amount);
-            $invoice->setCurrency($currency);
-            $invoice->setMerchantOrderDesc($order_desc);
-            $invoice->setStatus('Pending');
-            $invoice->setReference($referenceNumber);
-            $invoice->setCallBackURL($callBackUrl);
+            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber);
 
-            $this->mr->persist($invoice);
-            $this->mr->flush();
-
-            $url = "http://suyool.ls/payment-gateway/".$referenceNumber;
+            $url = "http://suyool.ls/F".$referenceNumber;
 
             $array = [
                 "url" => $url,
                 "success" => true
             ];
-            $res = json_encode($array,true);
 
-            return new Response($res);
+            return new JsonResponse($array);
 
         }else {
             return new Response("your are not eligible to continue");
@@ -103,29 +94,33 @@ class MerchantPaymentGatewayController extends AbstractController
     }
 
     /**
-     * @Route("/payment-gateway/{refnumber}", name="payment_gateway_main")
+     * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="F[a-zA-Z0-9]+"})
      */
     public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
+        $firstFPosition = strpos($refnumber, 'F');
+
+        $refnumber = substr($refnumber, $firstFPosition + 1);
+
         $order = $this->mr->getRepository(invoices::class)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
             ->where('i.reference = :refnumber')->setParameter('refnumber', $refnumber)->getQuery()->getOneOrNullResult();
 
         $merchant = $order->getMerchantsId();
         $merchantId = $merchant->getMerchantMid();
         $certificate = $merchant->getCertificate();
-        $orderId = $order->getTransId();
+        $orderId = $order->getMerchantOrderId();
         $timestamp = $order->getCreated()->getTimestamp();
         $amount = $order->getAmount();
         $currency = $order->getCurrency();
 
         $userAgent = $request->headers->get('User-Agent');
+        $isMobile = false;
         // Perform some basic checks to determine if it's a mobile user agent
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
             $secure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
-            $returnRoute = 'app_pay_suyool_mobile';
+            $isMobile = true;
         }else {
             $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
-            $returnRoute = 'app_pay_suyool_qr';
         }
 
         $secureHash = base64_encode(hash('sha512', $secure, true));
@@ -140,13 +135,16 @@ class MerchantPaymentGatewayController extends AbstractController
             'AdditionalInfo' => $order->getMerchantOrderDesc(),
             'CallBackURL' => $order->getCallBackURL(),
             'TS' => $timestamp,
-            'TranTS' => $timestamp
+            'TranTS' => $timestamp,
+            'refNumber' => $refnumber
         ];
 
         // Store data in the session
         $session->set('payment_data', $paymentData);
 
 
-        return $this->redirectToRoute($returnRoute);
+        return $this->render('MerchantPaymentGateway/index.html.twig',[
+            'is_mobile' => $isMobile,
+        ]);
     }
 }
