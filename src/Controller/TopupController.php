@@ -331,6 +331,8 @@ class TopupController extends AbstractController
     {
         // dd($_COOKIE);
         $checkIfTheCardInTheBlackList = NULL;
+        // $cardnumber = $bobPaymentServices->checkCardNumber();
+        // $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
         if (is_null($checkIfTheCardInTheBlackList)) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone']);
             $status = true;
