@@ -278,9 +278,9 @@ class TopupController extends AbstractController
     #[Route('/3dsreceipt', name: 'app_topup_edsecure')]
     public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $sessionInterface->set('SenderId',155);
-        $sessionInterface->set('ReceiverPhone',76123456);
-        $sessionInterface->set('SenderPhone',76197840);
+        // $sessionInterface->set('SenderId',155);
+        // $sessionInterface->set('ReceiverPhone',76123456);
+        // $sessionInterface->set('SenderPhone',76197840);
         setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
         setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
         setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
