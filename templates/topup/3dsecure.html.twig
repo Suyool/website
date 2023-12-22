@@ -1,91 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
-? 'https://test-bobsal.gateway.mastercard.com/static/threeDS/1.3.0/three-ds.min.js'
-: 'https://bobsal.gateway.mastercard.com/static/threeDS/1.3.0/three-ds.min.js' %}
+	{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
+	? 'https://test-bobsal.gateway.mastercard.com/static/threeDS/1.3.0/three-ds.min.js'
+	: 'https://bobsal.gateway.mastercard.com/static/threeDS/1.3.0/three-ds.min.js' %}
 
-{% set merchantId = app.request.server.get('APP_ENV') == "dev"
-? 'testsuyool'
-: 'suyool' %}
+	{% set merchantId = app.request.server.get('APP_ENV') == "dev"
+	? 'testsuyool'
+	: 'suyool' %}
 
-{% block body %}
+	{% block body %}
 	<script src="{{checkoutScriptUrl}}" data-error="errorCallback" data-cancel="cancelCallback"></script>
 	<script type="text/javascript">
-console.log(ThreeDS.isConfigured());
-ThreeDS.configure({
-merchantId: "{{ merchantId }}",
-sessionId: '{{ session }}',
-containerId: "3DSUI",
-callback: function () {
-if (ThreeDS.isConfigured()) 
-console.log("Done with configure");
-},
-configuration: {
-userLanguage: "en-AU",
-wsVersion: 72
-}
-});
-console.log(ThreeDS.isConfigured());
-console.log("ThreeDS JS API Version : " + ThreeDS.version);
-var optionalParams = {
-sourceOfFunds: {
-type: "CARD"
-},
-order: {
-walletProvider: "MASTERPASS_ONLINE"
-}
-};
+		console.log(ThreeDS.isConfigured());
+		ThreeDS.configure({
+		merchantId: "{{ merchantId }}",
+		sessionId: '{{ session }}',
+		containerId: "3DSUI",
+		callback: function () {
+			if (ThreeDS.isConfigured()) 
+			console.log("Done with configure");
+		},
+		configuration: {
+			userLanguage: "en-AU",
+			wsVersion: 72
+		}
+		});
+		console.log(ThreeDS.isConfigured());
+		console.log("ThreeDS JS API Version : " + ThreeDS.version);
+		var optionalParams = {
+			sourceOfFunds: {
+			type: "CARD"
+		},
+		order: {
+			walletProvider: "MASTERPASS_ONLINE"
+		}
+		};
 
-ThreeDS.initiateAuthentication('{{ orderId }}', "{{ transactionId }}", function (data) {
-if (data && data.error) {
-var error = data.error;
-console.error("error.code : ", error.code);
-console.error("error.msg : ", error.msg);
-console.error("error.result : ", error.result);
-console.error("error.status : ", error.status);
-} else {
-console.log("After Initiate 3DS ", data);
-console.log("REST API raw response ", data.restApiResponse);
-console.log("Correlation Id", data.correlationId);
-console.log("Gateway Recommendation", data.gatewayRecommendation);
-console.log("HTML Redirect Code", data.htmlRedirectCode);
-console.log("Authentication Version", data.authenticationVersion);
+		ThreeDS.initiateAuthentication('{{ orderId }}', "{{ transactionId }}", function (data) {
+		if (data && data.error) {
+			var error = data.error;
+			console.error("error.code : ", error.code);
+			console.error("error.msg : ", error.msg);
+			console.error("error.result : ", error.result);
+			console.error("error.status : ", error.status);
+		} else {
+			console.log("After Initiate 3DS ", data);
+			console.log("REST API raw response ", data.restApiResponse);
+			console.log("Correlation Id", data.correlationId);
+			console.log("Gateway Recommendation", data.gatewayRecommendation);
+			console.log("HTML Redirect Code", data.htmlRedirectCode);
+			console.log("Authentication Version", data.authenticationVersion);
+			switch (data.gatewayRecommendation) {
+			case "PROCEED":
+				authenticatePayer();
+				break;
+			case "DO_NOT_PROCEED": displayReceipt(data);
+				break;
+			}
+		}
+		}, optionalParams);
 
-switch (data.gatewayRecommendation) {
-case "PROCEED":
-authenticatePayer();
-break;
-case "DO_NOT_PROCEED": displayReceipt(data);
-break;
-}
-}
-}, optionalParams);
+		var optionalParams = {
+			fullScreenRedirect: true
+		};
 
-var optionalParams = {
-fullScreenRedirect: true
-};
-
-ThreeDS.authenticatePayer('{{ orderId }}', "{{ transactionId }}", function (data) {
-if (! data.error) {
-console.log("REST API response ", JSON.stringify(data.restApiResponse));
-console.log("HTML redirect code", data.htmlRedirectCode);
-displayReceipt(data);
-}
-}, optionalParams);
-function displayReceipt(apiResponse) {
-var responseBody = {
-"apiResponse": apiResponse
-};
-var xhr = new XMLHttpRequest();
-xhr.open('PUT', '3dsreceipt', true);
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.onreadystatechange = function () {
-if (xhr.readyState == XMLHttpRequest.DONE) {
-document.documentElement.innerHTML = this.response;
-}
-}
-xhr.send(JSON.stringify(responseBody));
-}
+		ThreeDS.authenticatePayer('{{ orderId }}', "{{ transactionId }}", function (data) {
+			if (! data.error) {
+			console.log("REST API response ", JSON.stringify(data.restApiResponse));
+			console.log("HTML redirect code", data.htmlRedirectCode);
+			//displayReceipt(data);
+			}
+		}, optionalParams);
+		function displayReceipt(apiResponse) {
+			//var responseBody = {
+			//"apiResponse": apiResponse
+			//};
+			//var xhr = new XMLHttpRequest();
+			//xhr.open('PUT', '3dsreceipt', true);
+			//xhr.setRequestHeader('Content-Type', 'application/json');
+			//xhr.onreadystatechange = function () {
+			//if (xhr.readyState == XMLHttpRequest.DONE) {
+			//document.documentElement.innerHTML = this.response;
+			//}
+			//}
+			//xhr.send(JSON.stringify(responseBody));
+		}
 	</script>
 	<div id="3DSUI"></div>
 {% endblock %}

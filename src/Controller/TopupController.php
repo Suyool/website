@@ -261,7 +261,7 @@ class TopupController extends AbstractController
         $sessionInterface->set('amountwcurrency', "$ 1.00");
         $sessionInterface->set('currencyInAbb', "$");
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsessionTest(2, "USD", "999", "anthony", "test");
+        $bobpayment = $bobPaymentServices->hostedsessionTest(2, "USD", "996", "anthony", "test");
 
         $parameters = [
             'session' => $bobpayment[0],
