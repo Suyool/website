@@ -31,18 +31,21 @@ class BobPaymentServices
     private $password;
     private $logger;
     private $notificationServices;
+    private $BASE_API_HOSTED_SESSION;
 
     public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $this->client = $client;
         if ($_ENV['APP_ENV'] == "dev") {
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
+            $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
         } else {
             $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/suyool/";
             $this->username = "merchant.SUYOOL";
             $this->password = "652cdf87fd1c82530b7bfdd0c36662f3";
+            $this->BASE_API_HOSTED_SESSION = "https://bobsal.gateway.mastercard.com/api/rest/version/72/merchant/suyool/";
         }
         $this->session = $session;
         $this->mr = $mr->getManager('topup');
@@ -230,13 +233,13 @@ class BobPaymentServices
             $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($status == "CAPTURED") {
                 $order = $session->getOrders();
-                $additionalData = [
-                    'cardEnding'=>substr($cardnumber, -4),
-                    'cardNumber'=>$cardnumber,
-                    'cardHolderName'=>$cardholdername
-                ];
+                // $additionalData = [
+                //     'cardEnding'=>substr($cardnumber, -4),
+                //     'cardNumber'=>$cardnumber,
+                //     'cardHolderName'=>$cardholdername
+                // ];
                 $order->setstatus(orders::$statusOrder['PAID']);
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
                 $this->mr->persist($order);
                 $this->mr->flush();
                 $transaction->setflagCode($topup[2]);
@@ -496,17 +499,17 @@ class BobPaymentServices
             $this->mr->persist($transaction);
             $this->mr->flush();
             if ($status == "CAPTURED") {
-                $additionalData = [
-                    'cardEnding'=>substr($cardnumber, -4),
-                    'cardNumber'=>$cardnumber,
-                    'cardHolderName'=>$cardholdername
-                ];
+                // $additionalData = [
+                //     'cardEnding'=>substr($cardnumber, -4),
+                //     'cardNumber'=>$cardnumber,
+                //     'cardHolderName'=>$cardholdername
+                // ];
                 $this->session->remove('sessionBobId');
                 $order = $session->getOrders();
                 $order->setstatus(orders::$statusOrder['PAID']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -892,7 +895,7 @@ class BobPaymentServices
             ];
             // print_r($body);
             $this->logger->error(json_encode($body));
-            $response = $this->client->request('POST', $this->BASE_API . "session", [
+            $response = $this->client->request('POST', $this->BASE_API_HOSTED_SESSION . "session", [
                 'body' => json_encode($body),
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -928,7 +931,7 @@ class BobPaymentServices
             ]
         ];
         $this->logger->error(json_encode($body));
-        $response = $this->client->request('PUT', $this->BASE_API . "session/" . $session, [
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "session/" . $session, [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -954,7 +957,7 @@ class BobPaymentServices
             ]
         ];
         $transIdNew = explode("trans-", $_COOKIE['transactionidhostedsession']);
-        $response = $this->client->request('PUT', $this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -984,11 +987,11 @@ class BobPaymentServices
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
-            $additionalData = [
-                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
-                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
-                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
-            ];
+            // $additionalData = [
+            //     'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+            //     'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
+            //     'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+            // ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
             $transaction->setResponse(json_encode($content));
@@ -999,7 +1002,7 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], substr($content['sourceOfFunds']['provided']['card']['number'], -4));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -1111,7 +1114,7 @@ class BobPaymentServices
             ];
             // print_r($body);
             $this->logger->error(json_encode($body));
-            $response = $this->client->request('POST', $this->BASE_API . "session", [
+            $response = $this->client->request('POST', $this->BASE_API_HOSTED_SESSION . "session", [
                 'body' => json_encode($body),
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -1147,7 +1150,7 @@ class BobPaymentServices
             ]
         ];
         $this->logger->error(json_encode($body));
-        $response = $this->client->request('PUT', $this->BASE_API . "session/" . $session, [
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "session/" . $session, [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -1173,7 +1176,7 @@ class BobPaymentServices
             ]
         ];
         $transIdNew = explode("trans-", $_COOKIE['transactionidhostedsession']);
-        $response = $this->client->request('PUT', $this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -1183,7 +1186,7 @@ class BobPaymentServices
         $content = $response->toArray(false);
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
-        $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
+        $this->logger->info(json_encode($this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
         // dd($content);
         $attempts = new attempts();
         $attempts->setSuyoolUserId($suyooler)

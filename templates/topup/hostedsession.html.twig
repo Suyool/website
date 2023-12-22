@@ -30,16 +30,16 @@
 				<div class="info">Credit or Debit card</div>
 				<div class="form">
 					<div>
-						<div>Cardholder name(exactly as shown on card) <span>*</span></div><input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" placeholder="Card holder name" readonly></div>
+						<div>Cardholder name <span>*</span></div><input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" readonly></div>
 					<div>
 						<div>Card number <span>*</span></div>
-						<input type="text" id="card-number" class="input-field" title="card number" placeholder="Card number" readonly/></div>
+						<input type="text" id="card-number" class="input-field" title="card number" readonly/></div>
 					<div class="expires">
-						<div>Expiry Month <span>*</span><input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" placeholder="02" readonly></div>
-						<div>Expiry Year <span>*</span><input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" placeholder="24" readonly></div>
+						<div>Expiry Month <span>*</span><input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" readonly></div>
+						<div>Expiry Year <span>*</span><input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3"  readonly></div>
 					</div>
 					<div>
-						<div>Security code <span>*</span></div><input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" placeholder="000" readonly></div>
+						<div>Security code <span>*</span></div><input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" readonly></div>
 					
 					<div style="text-align: center;">
 						<button id="payButton" onclick="pay('card');" disabled>Pay {{app.session.get('currencyInAbb')}}{{amount|number_format(2, '.', ',')}}</button>

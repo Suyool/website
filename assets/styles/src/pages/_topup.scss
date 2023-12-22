@@ -543,14 +543,15 @@
                     display: block;
                 }
             }
-            div{
-
-            }
+            // div{
+            //     padding-top: 10px;
+            //     padding-bottom: 10px;
+            // }
             span{
                 color: #db292e;
             }
             margin-top: 30px;
-            font-family: 'PoppinsBold';
+            font-family: $Regular;
             text-align: left;
 
             iframe {
@@ -558,17 +559,21 @@
 
                 input {
                     width: 100% !important;
+                    border: 1px solid #000;
+                    height: 40px;
                 }
             }
 
             input[type=tel] {
                 width: 100% !important;
                 font-family: $Regular;
+                border: 1px solid #000;
             }
 
             input[type=text] {
                 width: 100% !important;
                 font-family: $Regular;
+                border: 1px solid #000;
             }
         }
 
