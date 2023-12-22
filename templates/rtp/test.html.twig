@@ -64,7 +64,7 @@
 					request_details_response.allowCardTopup is not null 
 			%}
 				<div class="container-fluid choose_way">
-					<a id="topUpButtonDesk" href="{{path('app_rtptopup')}}">
+					<a id="topUpButtonDesk" href="{{path('app_topup_hostedsession')}}">
 						<div class="row">
 							<div class="col-md-3 col-2 logo_container">
 								<img class="logo" src="{{ asset('build/images/payment/pay_with_card_rtp.svg') }}">
@@ -164,7 +164,7 @@
 			{% if request_details_response.allowCardTopup is defined and request_details_response.allowCardTopup != "false"
 		and request_details_response.allowCardTopup is not null %}
 				<div class="container-fluid choose_way ">
-					<a id="topUpButtonMob" href="{{path('app_rtptopup')}}">
+					<a id="topUpButtonMob" href="{{path('app_topup_hostedsession')}}">
 						<div class="row">
 							<div class="col-2 logo_container">
 								<img class="logo" src="{{ asset('build/images/payment/pay_with_card_rtp.svg') }}">

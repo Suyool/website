@@ -984,6 +984,11 @@ class BobPaymentServices
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $additionalData = [
+                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
+                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+            ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
             $transaction->setResponse(json_encode($content));
@@ -994,7 +999,7 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], substr($content['sourceOfFunds']['provided']['card']['number'], -4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -1030,7 +1035,7 @@ class BobPaymentServices
                 'imgsrc' => $imgsrc,
                 'description' => $description,
                 'button' => $button,
-                'redirect' => $session->getOrders()->getCode()
+                'redirect' => "test/".$session->getOrders()->getCode()
             ];
             return $parameters;
         }

@@ -234,7 +234,8 @@ class TopupController extends AbstractController
             'orderId' => $bobpayment[1],
             'transactionId' => $bobpayment[2],
             'sender' => $senderName,
-            'fees' => $data['TotalAmount'] - $sessionInterface->get('amount')
+            'fees' => $data['TotalAmount'] - $sessionInterface->get('amount'),
+            'amount'=>$data['TotalAmount']
         ];
 
         return $this->render('topup/hostedsession.html.twig', $parameters);

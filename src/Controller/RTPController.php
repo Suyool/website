@@ -246,50 +246,135 @@ class RTPController extends AbstractController
         return $this->render('rtp/visaCard.html.twig', $parameters);
     }
 
-    // /**
-    //  * @Route("/RequestResult", name="RequestResult")
-    //  */
-    // public function RequestResult(Request $request, TranslatorInterface $translator): Response
-    // {
-    //     // dd($request);
-    //     $parameters = $this->trans->translation($request, $translator);
-    //     $data = $request->request;
-    //     $request->request->set('LITE_ORDER_AMOUNT', $data->get('LITE_ORDER_AMOUNT')/100);
-    //     $request->request->set('LITE_ORDER_LINEITEMS_AMOUNT_1', $data->get('LITE_ORDER_LINEITEMS_AMOUNT_1')/100);
+    /**
+     * @Route("/test/{code}", name="app_request_test")
+     */
+    public function testHostedSession(Request $request, TranslatorInterface $translator, $code): Response
+    {
+        setcookie('SenderId', '', -1, '/'); 
+        setcookie('ReceiverPhone', '', -1, '/'); 
+        setcookie('SenderPhone', '', -1, '/'); 
+        setcookie('hostedSessionId', '', -1, '/'); 
+        setcookie('orderidhostedsession', '', -1, '/'); 
+        setcookie('transactionidhostedsession', '', -1, '/'); 
+        unset($_COOKIE['SenderId']);
+        unset($_COOKIE['ReceiverPhone']);
+        unset($_COOKIE['SenderPhone']);
+        unset($_COOKIE['hostedSessionId']);
+        unset($_COOKIE['orderidhostedsession']);
+        unset($_COOKIE['transactionidhostedsession']);
+        $this->session->remove('requestGenerated');
+        $parameters = $this->trans->translation($request, $translator);
+        $parameters['currentPage'] = "payment_landingPage";
+        $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
+        $parameters['currency'] = "LBP";
+        // $parameters['request_details_response']['allowCardTopup']=null;
+        // dd($parameters['request_details_response']);
 
-    //     $currency = $data->get('LITE_CURRENCY_ALPHACODE');
-    //     $amount = $data->get('LITE_ORDER_AMOUNT');
-    //     $paymentCardStatus = $data->get('LITE_PAYMENT_CARD_STATUS');
-    //     $resultDescription = $data->get('LITE_RESULT_DESCRIPTION');
+        if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
-    //     if ($paymentCardStatus == 0) {
-    //         $tranDescription = 'Your payment was successful with the amount of '.$amount.' '.$currency;
-    //     } else {
-    //         $tranDescription = $resultDescription;
-    //     }
+        $amount = explode(" ", $parameters['request_details_response']['amount']);
+        $amount = str_replace(",", "", $amount);
 
-    //     $this->saveTransactionData($amount, $currency, $tranDescription, $data,$_POST['LITE_PAYMENT_CARD_STATUS']);
 
-    //     $parameters['currency'] = $currency;
-    //     $parameters['amount'] = $amount;
-    //     $parameters['tranDescription'] = $tranDescription;
+        if ($parameters['request_details_response']['respCode'] == 2 || $parameters['request_details_response']['respCode'] == -1 || $parameters['request_details_response']['transactionID'] == 0) {
+            return $this->redirectToRoute("homepage");
+        }
+        $parameters['amount'] = $amount[1];
+        $parameters['currencyInAbb'] = $amount[0];
+        $this->session->set("request_details_response", $parameters['request_details_response']);
+        $this->session->set('amountwcurrency', $parameters['request_details_response']['amount']);
+        $this->session->set('amount', $parameters['amount']);
+        $this->session->set('currencyInAbb', $parameters['currencyInAbb']);
 
-    //     return $this->render('request/requestResult.html.twig', $parameters);
-    // }
+        $this->session->set("Code", $code);
+        $this->session->set(
+            "image",
+            isset($parameters['request_details_response']['image'])
+                ? $parameters['request_details_response']['image']
+                : ''
+        );
+        $this->session->set(
+            "SenderInitials",
+            isset($parameters['request_details_response']['senderName'])
+                ? $parameters['request_details_response']['senderName']
+                : ''
+        );
+        $this->session->set(
+            "SenderId",
+            isset($parameters['request_details_response']['senderId'])
+                ? $parameters['request_details_response']['senderId']
+                : ''
+        );
+        $this->session->set(
+            "TranSimID",
+            isset($parameters['request_details_response']['transactionID'])
+                ? $parameters['request_details_response']['transactionID']
+                : ''
+        );
 
-    // private function saveTransactionData($amount, $currency, $tranDescription, $response,$respCode)
-    // {
-    //     $transaction = new Transaction();
-    //     $transaction->setAmount($amount);
-    //     $transaction->setCurrency($currency);
-    //     $transaction->setDescription($tranDescription);
-    //     $transaction->setOrderId($response->get("ECOM_CONSUMERORDERID"));
-    //     $transaction->setRespCode($respCode);
+        $this->session->set(
+            "IBAN",
+            isset($parameters['request_details_response']['iban'])
+                ? $parameters['request_details_response']['iban']
+                : ''
+        );
+        $this->session->set(
+            "allowCashin",
+            isset($parameters['request_details_response']['allowCashin'])
+                ? $parameters['request_details_response']['allowCashin']
+                : ''
+        );
+        $this->session->set(
+            "allowExternal",
+            isset($parameters['request_details_response']['allowExternal'])
+                ? $parameters['request_details_response']['allowExternal']
+                : ''
+        );
+        $this->session->set(
+            "allowCardTopup",
+            isset($parameters['request_details_response']['allowCardTopup'])
+                ? $parameters['request_details_response']['allowCardTopup']
+                : ''
+        );
+        if (isset($parameters['request_details_response']['additionalData'])) {
+            $additionalData = $parameters['request_details_response']['additionalData'];
+            $additionalData = json_decode($additionalData, true);
+        }
 
-    //     $transaction->setResponse(json_encode($response->all()));
+        $this->session->set(
+            "receiverFname",
+            isset($additionalData['receiverFname'])
+                ? $additionalData['receiverFname']
+                : ''
+        );
+        $this->session->set(
+            "receiverLname",
+            isset($additionalData['receiverLname'])
+                ? $additionalData['receiverLname']
+                : ''
+        );
+        $this->session->set(
+            "ReceiverPhone",
+            isset($additionalData['ReceiverPhone'])
+                ? $additionalData['ReceiverPhone']
+                : ''
+        );
+        $this->session->set(
+            "SenderPhone",
+            isset($additionalData['Senderphone'])
+                ? $additionalData['Senderphone']
+                : ''
+        );
+        if (isset($additionalData['AuthenticationCode']) || $parameters['request_details_response']['respCode'] == 1) {
+            $this->session->set(
+                "requestGenerated",
+                isset($additionalData['AuthenticationCode'])
+                    ? $additionalData['AuthenticationCode']
+                    : ''
+            );
+        }
 
-    //     // Persist the entity to the database
-    //     $this->mr->persist($transaction);
-    //     $this->mr->flush();
-    // }
+        return $this->render('rtp/test.html.twig', $parameters);
+    }
 }

@@ -513,6 +513,13 @@
 
 .rtptopup2 {
     .whopay {
+        .info {
+            font-family: $Regular;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
         margin: 0 auto;
         width: 50%;
         border-radius: 10px;
@@ -520,9 +527,9 @@
         @media screen and (max-width:768px) {
             width: 100%;
 
-            span {
-                display: block;
-            }
+            // span {
+            //     display: block;
+            // }
         }
 
         background: #fff;
@@ -530,12 +537,28 @@
         min-height: 100vh;
 
         .form {
+            .expires{
+                display: flex;
+                @media screen and (max-width:768px) {
+                    display: block;
+                }
+            }
+            div{
+
+            }
+            span{
+                color: #db292e;
+            }
             margin-top: 30px;
             font-family: 'PoppinsBold';
             text-align: left;
 
             iframe {
                 width: 100% !important;
+
+                input {
+                    width: 100% !important;
+                }
             }
 
             input[type=tel] {
@@ -551,17 +574,17 @@
 
         #payButton {
             border: none;
-            background: #226d96;
+            background: #db292e;
             color: #fff;
             font-family: 'PoppinsRegular';
             padding: 10px 70px;
-            border-radius: 10px;
             margin-top: 30px;
-
+            width: 100%;
             &:disabled {
-                border: 1px solid #999999;
-                background-color: #cccccc;
-                color: #666666;
+                background-color: #e6e6e6;
+                /* border: 1px solid #999; */
+                color: #a1a1a1;
+                width: 100%;
             }
         }
     }
