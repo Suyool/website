@@ -81,10 +81,10 @@ gtag('config', 'G-THTNTVC33Y');
 	<body
 		class="{% if currentPage is defined %}{{ currentPage }}{% endif %} {% if lang is defined %}{{ lang }}{% endif %}">
 		<!-- Messenger Chat Plugin Code -->
-		<div id="fb-root"></div>
+		{# <div id="fb-root"></div> #}
 
 		<!-- Your Chat Plugin code -->
-		<div id="fb-customer-chat" class="fb-customerchat"></div>
+		{# <div id="fb-customer-chat" class="fb-customerchat"></div> #}
 		{# {% include 'elements/header.html.twig' %} #}
 		{% block body %}{% endblock %}
 		{# {% include 'elements/footer.html.twig' %} #}
@@ -125,7 +125,7 @@ gtag('config', 'G-THTNTVC33Y');
 		{#				<script src="{{ asset(file|substr(1)) }}"></script>#}
 			{#			{% endfor %}#}
 		{% endblock %}
-		{% if chatbot is defined and chatbot == true %}
+		{# {% if chatbot is defined and chatbot == true %}
 			<script>
 				var chatbox = document.getElementById('fb-customer-chat');
 	chatbox.setAttribute("page_id", "100433706321629");
@@ -150,6 +150,6 @@ gtag('config', 'G-THTNTVC33Y');
 	fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 			</script>
-			{% endif %}
+			{% endif %} #}
 	</body>
 </html>
