@@ -310,6 +310,7 @@ class SuyoolServices
             'hash' => $Hash,
             'lang' => $lang
         ];
+        // dd(json_encode($body));
         $this->cashin->info(json_encode($body));
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/RequestDetails",  $body);
 
@@ -456,7 +457,7 @@ class SuyoolServices
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
             $this->cashin->info(json_encode($content));
-            if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+            if ($content['globalCode'] == 1) {
                 return array(true, $content['data'], $content['flagCode'], $content['message']);
             } else {
                 return array(false, $content['data'], $content['flagCode'], $content['message']);

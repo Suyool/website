@@ -150,7 +150,7 @@ class BobPaymentServices
                         ->setResult($content['result'])
                         ->setAuthStatus($content['authenticationStatus'])
                         ->setCard(end($content['transaction'])['sourceOfFunds']['provided']['card']['number'])
-                        ->setName(end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
+                        ->setName(@end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
 
                     $this->mr->persist($attempts);
                     $this->mr->flush();
@@ -163,7 +163,7 @@ class BobPaymentServices
         }
     }
 
-    public function retrievedataForTopUp($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber,$cardholdername)
+    public function retrievedataForTopUp($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber, $cardholdername)
     {
         // echo $indicator;
         try {
@@ -233,13 +233,13 @@ class BobPaymentServices
             $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
             if ($status == "CAPTURED") {
                 $order = $session->getOrders();
-                // $additionalData = [
-                //     'cardEnding'=>substr($cardnumber, -4),
-                //     'cardNumber'=>$cardnumber,
-                //     'cardHolderName'=>$cardholdername
-                // ];
+                $additionalData = [
+                    'cardEnding' => substr($cardnumber, -4),
+                    'cardNumber' => $cardnumber,
+                    'cardHolderName' => $cardholdername
+                ];
                 $order->setstatus(orders::$statusOrder['PAID']);
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), $session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
                 $this->mr->persist($order);
                 $this->mr->flush();
                 $transaction->setflagCode($topup[2]);
@@ -253,6 +253,21 @@ class BobPaymentServices
                     $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                     $button = "Continue";
 
+                    
+                    // $order = $session->getOrders();
+                    $order->setstatus(orders::$statusOrder['COMPLETED']);
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+                    if ($topup[2] == 1) {
+                        $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
+                        $content = $this->notificationServices->getContent('CardTopUp');
+                        $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                    }else{
+                        $imgsrc = "build/images/Loto/warning.png";
+                        $title="Compliance Check";
+                        $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
+                        $button="OK";
+                    }
                     $parameters = [
                         'status' => $status,
                         'title' => $title,
@@ -261,13 +276,6 @@ class BobPaymentServices
                         'button' => $button,
                         'infoSuccess' => true
                     ];
-                    // $order = $session->getOrders();
-                    $order->setstatus(orders::$statusOrder['COMPLETED']);
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
-                    $content = $this->notificationServices->getContent('CardTopUp');
-                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                     return array(true, $parameters);
                 } else {
                     $this->logger->error(json_encode($topup));
@@ -429,7 +437,7 @@ class BobPaymentServices
         return array(true, $content['session']['id'], $order);
     }
 
-    public function retrievedataForTopUpRTP($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber, $phone, $senderId,$cardholdername)
+    public function retrievedataForTopUpRTP($auth, $status, $indicator, $res, $transId, $suyooler, $cardnumber, $phone, $senderId, $cardholdername)
     {
         // echo $indicator;
         try {
@@ -499,17 +507,17 @@ class BobPaymentServices
             $this->mr->persist($transaction);
             $this->mr->flush();
             if ($status == "CAPTURED") {
-                // $additionalData = [
-                //     'cardEnding'=>substr($cardnumber, -4),
-                //     'cardNumber'=>$cardnumber,
-                //     'cardHolderName'=>$cardholdername
-                // ];
+                $additionalData = [
+                    'cardEnding' => substr($cardnumber, -4),
+                    'cardNumber' => $cardnumber,
+                    'cardHolderName' => $cardholdername
+                ];
                 $this->session->remove('sessionBobId');
                 $order = $session->getOrders();
                 $order->setstatus(orders::$statusOrder['PAID']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -522,6 +530,22 @@ class BobPaymentServices
                     $description = "You have successfully added {$currency} {$amount} to {$this->session->get('SenderInitials')}' Suyool wallet.";
                     $button = "Continue";
 
+                    $order = $session->getOrders();
+                    $order->setstatus(orders::$statusOrder['COMPLETED']);
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+
+                    if ($topup[2] == 1) {
+                        $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $phone]);
+                        $content = $this->notificationServices->getContent('CardTopUpRtp');
+                        $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
+                    }else{
+                        $imgsrc = "build/images/Loto/warning.png";
+                        $title="Compliance Check";
+                        $description = "This transaction is subject to a compliance check.<br>{$this->session->get('SenderInitials')} will receive a notification of its status within 24 hours.";
+                        $button="OK";
+                    }
+
                     $parameters = [
                         'status' => $status,
                         'title' => $title,
@@ -530,13 +554,6 @@ class BobPaymentServices
                         'button' => $button,
                         'redirect' => $this->session->get('Code')
                     ];
-                    $order = $session->getOrders();
-                    $order->setstatus(orders::$statusOrder['COMPLETED']);
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $phone]);
-                    $content = $this->notificationServices->getContent('CardTopUpRtp');
-                    $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
                     return array(true, $parameters);
                 } else {
                     $this->logger->error(json_encode($topup));
@@ -556,7 +573,7 @@ class BobPaymentServices
                     // $order = $session->getOrders();
                     // $order->setstatus(orders::$statusOrder['CANCELED']);
                     // $this->mr->persist($order);
-                    // $this->mr->flush();
+                    $this->mr->flush();
                     return array(true, $parameters);
                 }
             } else {
@@ -740,7 +757,7 @@ class BobPaymentServices
                     ->setResult($content['result'])
                     ->setAuthStatus($content['authenticationStatus'])
                     ->setCard(end($content['transaction'])['sourceOfFunds']['provided']['card']['number'])
-                    ->setName(end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
+                    ->setName(@end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
 
                 $this->mr->persist($attempts);
                 $this->mr->flush();
@@ -1018,6 +1035,16 @@ class BobPaymentServices
                 $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                 $button = "Continue";
 
+                if ($topup[2] == 1) {
+                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $receiverPhone]);
+                    $content = $this->notificationServices->getContent('CardTopUpRtp');
+                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                }else{
+                    $title="Compliance Check";
+                    $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
+                    $button="OK";
+                }
+
                 $parameters = [
                     'title' => $title,
                     'imgsrc' => $imgsrc,
@@ -1038,7 +1065,7 @@ class BobPaymentServices
                 'imgsrc' => $imgsrc,
                 'description' => $description,
                 'button' => $button,
-                'redirect' => "test/".$session->getOrders()->getCode()
+                'redirect' => "test/" . $session->getOrders()->getCode()
             ];
             return $parameters;
         }
@@ -1217,7 +1244,7 @@ class BobPaymentServices
             $this->mr->persist($order);
             $this->mr->flush();
             // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], substr($content['sourceOfFunds']['provided']['card']['number'], -4));
-            $topup=array(true,1);
+            $topup = array(true, 1);
             $transaction->setflagCode(0);
             $transaction->setError("test");
             $this->mr->persist($transaction);
