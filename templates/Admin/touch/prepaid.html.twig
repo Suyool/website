@@ -1,0 +1,27 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Prepaid</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">suyoolUserId</th>
+            <th scope="col">voucherCode</th>
+            <th scope="col">description</th>
+            <th scope="col">errorMsg</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ prepaids.id }}</td>
+                <td>{{ prepaids.suyoolUserId }}</td>
+                <td>{{ prepaids.voucherCode }}</td>
+                <td>{{ prepaids.description }}</td>
+                <td>{{ prepaids.errorMsg }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+

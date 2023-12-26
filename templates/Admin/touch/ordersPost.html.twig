@@ -1,0 +1,55 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block currentPage %}Touch{% endblock %}
+
+
+{% block content  %}
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-3">{{ form_row(form.status) }}
+		</div>
+		<div class="col-md-3">{{form_row(form.amount)}}
+		</div>
+		<div class="col-md-3">{{form_row(form.transId)}}
+		</div>
+        <div class="col-md-3">{{form_row(form.suyoolUserId)}}
+		</div>
+	</div>
+	{{ form_end(form) }}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>SuyoolUser</th>
+				<th>Status</th>
+				<th>Amount</th>
+				<th>TransId</th>
+				<th>Currency</th>
+				<th>Error</th>
+				<th>Created</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for order in pagination  %}
+				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}"  onclick="window.location.href='{{path('admin_touch_postpaid',{'postpaidId':order.postpaid})}}'">
+                <td>{{ order.id }}</td>
+					<td>{{ order.fname }} {{ order.lname }}</td>
+					<td>{{ order.status }}</td>
+					<td>{{ order.amount }}</td>
+					<td>{{ order.transId }}</td>
+					<td>{{ order.currency }}</td>
+					<td>{{order.error}}</td>
+					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+	{% if pagination.getItems() == null %}
+		<div class="orderEmpty">Order empty</div>
+	{% endif %}
+{% endblock %}

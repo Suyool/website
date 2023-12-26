@@ -1,0 +1,41 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Postpaid</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">suyoolUserId</th>
+            <th scope="col">gsmNumber</th>
+            <th scope="col">currency</th>
+            <th scope="col">transactionDescription</th>
+            <th scope="col">status</th>
+            <th scope="col">fees</th>
+            <th scope="col">amount</th>
+            <th scope="col">referenceNumber</th>
+            <th scope="col">informativeOriginalWSamount</th>
+            <th scope="col">totalamount</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ postpaids.id }}</td>
+                <td>{{ postpaids.suyoolUserId }}</td>
+                <td>{{ postpaids.gsmNumber }}</td>
+                <td>{{ postpaids.currency }}</td>
+                <td>{{ postpaids.transactionDescription }}</td>
+                <td>{{ postpaids.status }}</td>
+                <td>{{ postpaids.fees }}</td>
+                <td>{{ postpaids.amount }}</td>
+                <td>{{ postpaids.referenceNumber }}</td>
+                <td>{{ postpaids.informativeOriginalWSamount }}</td>
+                <td>{{ postpaids.totalamount }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}
+

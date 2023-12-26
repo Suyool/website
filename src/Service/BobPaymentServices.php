@@ -133,8 +133,12 @@ class BobPaymentServices
                     ],
                     'auth_basic' => [$this->username, $this->password],
                 ]);
+if($response->getStatusCode()=== 400){
+return array(false, "ERROR");
+}
+$content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
 
-                $content = $response->toArray(false);
+                //$content = $response->toArray(false);
                 // dd(end($content['transaction']));
                 $this->logger->error(json_encode($content));
                 if ($content['result'] != 'ERROR') {
@@ -159,6 +163,7 @@ class BobPaymentServices
             }
             return array(false, "ERROR");
         } catch (Exception $e) {
+$this->logger->error($e->getMessage());
             return array(false, $e->getMessage());
         }
     }
@@ -742,8 +747,13 @@ class BobPaymentServices
                 ],
                 'auth_basic' => [$this->username, $this->password],
             ]);
+//$response = json_encode($response->getContent(), JSON_INVALID_UTF8_IGNORE);
+           //$content = $;
+if($response->getStatusCode()=== 400){
+return array(true, 'CANCELED');
 
-            $content = $response->toArray(false);
+}
+$content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
             // dd($content);
             // $this->logger->error(json_encode($content));
             if ($content['result'] != 'ERROR') {
@@ -768,7 +778,9 @@ class BobPaymentServices
             }
             return array(true, 'CANCELED');
         } catch (Exception $e) {
-            return array(false, $e->getMessage());
+            $this->logger->error($e->getMessage());
+          
+  return array(false, $e->getMessage());
         }
     }
 
@@ -853,7 +865,8 @@ class BobPaymentServices
             }
             return true;
         } catch (Exception $e) {
-            return new Response('', 500);
+$this->logger->error($e->getMessage());            
+return new Response('', 500);
         }
     }
 
