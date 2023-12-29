@@ -19,25 +19,27 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class IframeController extends AbstractController
 {
     private $client;
+    private $session;
 
-    public function __construct(HttpClientInterface $client,ManagerRegistry $mr)
+    public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session)
     {
         $this->client = $client;
         $this->mr = $mr->getManager('topup');
-
+        $this->session = $session;
     }
 
     /**
      * @Route("/paysuyoolqr/", name="app_pay_suyool_qr")
      */
-    public function paySuyoolQR(Request $request,SessionInterface $session): Response
+    public function paySuyoolQR(Request $request): Response
     {
 
-        if(!empty($session->get('payment_data'))){
-            $data = $session->get('payment_data');
+        if(!empty($this->session->get('payment_data'))){
+            $data = $this->session->get('payment_data');
         }else {
             $data = $request->query->all();
         }
+
         return $this->processPayment($data, 'live');
 
     }
@@ -45,10 +47,10 @@ class IframeController extends AbstractController
     /**
      * @Route("/paysuyoolqrtest/", name="app_pay_suyool_qr_test")
      */
-    public function paySuyoolQRTest(Request $request,SessionInterface $session): Response
+    public function paySuyoolQRTest(Request $request): Response
     {
-        if(!empty($session->get('payment_data'))){
-            $data = $session->get('payment_data');
+        if(!empty($this->session->get('payment_data'))){
+            $data = $this->session->get('payment_data');
         }else {
             $data = $request->query->all();
         }
@@ -62,6 +64,7 @@ class IframeController extends AbstractController
 
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
+
             $TranID = $data['TranID'] ?? '';
             $callbackUrl = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
             $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
@@ -176,6 +179,7 @@ class IframeController extends AbstractController
 
         $content = $response->getContent();
         $response = json_decode($content, true);
+        $this->session->remove('payment_data');
 
         return $response;
     }
