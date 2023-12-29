@@ -63,10 +63,11 @@ class MerchantPaymentGatewayController extends AbstractController
         $apiKeydata = $merchantApiKey->getApiKey();
         $referenceNumber = $this->generateRandomString(6);
 
-        if($apiKeydata == $apiKey){
-            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber);
 
-            $url = "http://suyool.ls/F".$referenceNumber;
+        if($apiKeydata == $apiKey){
+            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl);
+
+            $url = "http://suyool.ls/G".$referenceNumber;
 
             $array = [
                 "url" => $url,
@@ -94,7 +95,7 @@ class MerchantPaymentGatewayController extends AbstractController
     }
 
     /**
-     * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="F[a-zA-Z0-9]+"})
+     * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      */
     public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
@@ -125,6 +126,9 @@ class MerchantPaymentGatewayController extends AbstractController
 
         $secureHash = base64_encode(hash('sha512', $secure, true));
 
+        $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+        $merchantSettings = $merchant->getSettings();
+
         // Store data in the session
         $paymentData = [
             'MerchantID' => $merchantId,
@@ -141,8 +145,18 @@ class MerchantPaymentGatewayController extends AbstractController
 
         // Store data in the session
         $session->set('payment_data', $paymentData);
-
-
+        if(isset($merchantSettings) && $merchantSettings == 1 ) {
+            if($isMobile) {
+                return $this->redirectToRoute('app_pay_suyool_mobile');
+            }
+            else{
+                return $this->redirectToRoute('app_pay_suyool_qr');
+            }
+        }else {
+            return $this->render('MerchantPaymentGateway/index.html.twig',[
+                'is_mobile' => $isMobile,
+            ]);
+        }
         return $this->render('MerchantPaymentGateway/index.html.twig',[
             'is_mobile' => $isMobile,
         ]);

@@ -38,6 +38,11 @@ class merchants
     private $certificate;
 
     /**
+     * @ORM\Column(name="settings")
+     */
+    private $settings;
+
+    /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -82,6 +87,14 @@ class merchants
 
     public function setCertificate($certificate){
         $this->certificate = $certificate;
+    }
+
+    public function getSettings(){
+        return $this->settings;
+    }
+
+    public function setSettings($settings){
+        $this->settings = $settings;
     }
 
     public function getCreated(){
