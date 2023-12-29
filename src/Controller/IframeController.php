@@ -38,6 +38,7 @@ class IframeController extends AbstractController
             $data = $this->session->get('payment_data');
         }else {
             $data = $request->query->all();
+            $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
         }
 
         return $this->processPayment($data, 'live');
