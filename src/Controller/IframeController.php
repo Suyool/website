@@ -216,14 +216,23 @@ class IframeController extends AbstractController
                 ]
             ]);
             $result = json_decode($response->getContent(), true);
+
+            $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
+            $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceno']) ? $result['referenceno'] : null);
+            $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
+            $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returntext']) ? $result['returntext'] : null);
+            $secureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
+            $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
+
             $responseContent = json_encode([
-                'Flag' => $result['flag'],
-                'ReferenceNo' => $result['referenceNo'],
-                'TranID' => $result['tranID'],
-                'ReturnText' => $result['returnText'],
-                'SecureHash' => $result['secureHash'],
-                'AdditionalInfo' => $result['additionalInfo'],
+                'Flag' => $flag,
+                'ReferenceNo' => $referenceNo,
+                'TranID' => $tranID,
+                'ReturnText' => $returnText,
+                'SecureHash' => $secureHash,
+                'AdditionalInfo' => $additionalInfo,
             ]);
+
             $http_origin = $_SERVER['HTTP_ORIGIN'];
 
             $response = new Response($responseContent);
