@@ -44,6 +44,9 @@ class IframeController extends AbstractController
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
+            $callbackUrl = $data['CallBackURL'] ?? '';
+            $merchantID = $data['MerchantID'] ?? '';
+
             if ($env == 'live') {
                 $pictureUrl = $response['pictureURL'];
                 $returnText = $response['returnText'];
@@ -59,8 +62,8 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'ReturnText' => $returnText,
                 'displayBlock' => $showQR,
-                'merchantId' => $data['MerchantID'],
-                'CallBackURL' => $data['CallBackURL'],
+                'merchantId' => $merchantID,
+                'CallBackURL' => $callbackUrl,
                 'env' => $env,
                 'main_url' => $main_url,
 
