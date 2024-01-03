@@ -47,7 +47,7 @@ class IframeController extends AbstractController
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
             $callbackUrl = $data['CallBackURL'] ?? '';
-            $merchantID = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
+            $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
 
             if ($env == 'live') {
                 $pictureUrl = $response['pictureURL'];
@@ -84,7 +84,7 @@ class IframeController extends AbstractController
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
         $TranTS = $data['TranTS'] ?? '';
-        $merchantId = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
+        $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
         $additionalInfo = $data['AdditionalInfo'] ?? '';
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
@@ -149,7 +149,7 @@ class IframeController extends AbstractController
         $secureHash = isset($data['SecureHash']) ? rawurldecode($data['SecureHash']) : "";
         $TS = isset($data['TS']) ? $data['TS'] : "";
         $TranTS = isset($data['TranTS']) ? $data['TranTS'] : "";
-        $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : "";
+        $merchantId = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
         $CurrentUrlClient = isset($data['currentUrl']) ? rawurldecode($data['currentUrl']) : "";
         $Browsertype = isset($data['browsertype']) ? $data['browsertype'] : Helper::getBrowserType();
         $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : "";
