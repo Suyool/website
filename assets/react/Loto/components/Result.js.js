@@ -55,27 +55,36 @@ const Result = ({
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
     data.forEach((item) => {
-      const parsedGrids =
-          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-            (item, index) => {
-              return {
-                index: index,
-                grid: item["gridSelected"].split(" ").map(Number),
-                winloto: item["winLoto"],
-              };
-            }
-          );
+      const parsedGrids = item.gridSelected.map((item, index) => {
+        return {
+          index: index,
+          grid: item["gridSelected"].split(" ").map(Number),
+          winloto: item["winLoto"],
+        };
+      });
 
       const zeedSelectedArray = item.gridSelected
         .map((item) => item["zeedSelected"])
         .filter((zeedSelected) => zeedSelected !== null);
       setZeedNumber(zeedSelectedArray);
-      const parsedGridsZeed = item.gridSelected.map((item) => {
+      // const parsedGridsZeed = item.gridSelected.map((item) => {
+      //   const zeedSelected = item["zeedSelected"];
+      //   if (zeedSelected === null) {
+      //     return null;
+      //   } else {
+      //     return zeedSelected.split("").map(Number);
+      //   }
+      // });
+      const parsedGridsZeed = item.gridSelected.map((item, index) => {
         const zeedSelected = item["zeedSelected"];
         if (zeedSelected === null) {
           return null;
         } else {
-          return zeedSelected.split("").map(Number);
+          return {
+            gridzeed: item["zeedSelected"].split("").map(Number),
+            winzeed: item["winZeed"],
+            index: index,
+          };
         }
       });
       setMyGridsZeed(parsedGridsZeed);
@@ -188,10 +197,11 @@ const Result = ({
         setLastNumber(lastNumber);
 
         const zeedSelectedArray =
-          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
-            ?.map((item) => item["zeedSelected"]);
-            // .filter((zeedSelected) => zeedSelected !== null);
-            console.log(zeedSelectedArray)
+          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
+            (item) => item["zeedSelected"]
+          );
+        // .filter((zeedSelected) => zeedSelected !== null);
+        console.log(zeedSelectedArray);
         setZeedNumber(zeedSelectedArray);
         const parsedGridsZeed =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
@@ -344,8 +354,8 @@ const Result = ({
                         } ${
                           ball ===
                           getWinBallInitial[getWinBallInitial.length - 1]
-                            ? "lastBall"
-                            : ""
+                            ? grid.length > 6 ? "lastBall"
+                            : "lastBallNone" : ""
                         }`}
                       >
                         {ball}
@@ -431,48 +441,50 @@ const Result = ({
                     <div className="winnweBody">
                       <div className="ballSectionZeed mt-2">
                         {getMyGridsZeed[index] != null &&
-                          getMyGridsZeed[index].gridzeed.map((Zeed, ZeedIndex) => {
-                            const zeedNumber = getZeedNumber[index];
-                            // console.log(getZeedNumber[index])
-                            const zeedChar = zeedNumber?.charAt(ZeedIndex);
-                            const isWin =
-                              getWinBallInitialZeed.includes(Zeed) &&
-                              ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
-                              ZeedIndex < 5) || // First 5 balls
-                                (zeedChar ===
-                                  zeednumber2.charAt(ZeedIndex - 1) &&
-                                  ZeedIndex >= 1) ||
-                                (zeedChar ===
-                                  zeednumber3.charAt(ZeedIndex - 2) &&
-                                  ZeedIndex>= 2) ||
-                                (zeedChar ===
-                                  zeednumber4.charAt(ZeedIndex - 3) &&
-                                  ZeedIndex >= 3)); // Second ball to last
+                          getMyGridsZeed[index].gridzeed.map(
+                            (Zeed, ZeedIndex) => {
+                              const zeedNumber = getZeedNumber[index];
+                              // console.log(getZeedNumber[index])
+                              const zeedChar = zeedNumber?.charAt(ZeedIndex);
+                              const isWin =
+                                getWinBallInitialZeed.includes(Zeed) &&
+                                ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
+                                  ZeedIndex < 5) || // First 5 balls
+                                  (zeedChar ===
+                                    zeednumber2.charAt(ZeedIndex - 1) &&
+                                    ZeedIndex >= 1) ||
+                                  (zeedChar ===
+                                    zeednumber3.charAt(ZeedIndex - 2) &&
+                                    ZeedIndex >= 2) ||
+                                  (zeedChar ===
+                                    zeednumber4.charAt(ZeedIndex - 3) &&
+                                    ZeedIndex >= 3)); // Second ball to last
 
-                            return (
-                              <span
-                                key={ZeedIndex}
-                                className={`${isWin ? "win" : ""}`}
-                              >
-                                {Zeed}
-                              </span>
-                            );
-                          })}
+                              return (
+                                <span
+                                  key={ZeedIndex}
+                                  className={`${isWin ? "win" : ""}`}
+                                >
+                                  {Zeed}
+                                </span>
+                              );
+                            }
+                          )}
                       </div>
                     </div>
                     {getMyGridsZeed[index] &&
-                    getWinBallInitialZeed.length > 0 && getMyGridsZeed[index].winzeed > 0
-                    // (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
-                    //   getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
-                    //   getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
-                    //   getZeedNumber[index]?.substring(3, 5) === zeednumber4) 
-                      ? (
+                    getWinBallInitialZeed.length > 0 &&
+                    getMyGridsZeed[index].winzeed > 0 ? (
+                      // (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
+                      //   getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
+                      //   getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
+                      //   getZeedNumber[index]?.substring(3, 5) === zeednumber4)
                       <div className="winnweFooterZeed">
                         <div className="price">
                           <span>L.L </span>
-                          {
-                               parseInt(getMyGridsZeed[index].winzeed).toLocaleString() + " "
-                              }
+                          {parseInt(
+                            getMyGridsZeed[index].winzeed
+                          ).toLocaleString() + " "}
                           &nbsp;Won
                         </div>
                         <div className="img">

@@ -227,7 +227,8 @@ class LotoController extends AbstractController
                 ];
                 if (isset($draw)) {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $draw]);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $draw);
+                    // $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $draw);
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $draw,$this->LotoServices);
                     $loto_prize_array = [
                         'numbers' => $loto_prize->getnumbers(),
                         'prize1' => $loto_prize->getwinner1(),
