@@ -36,6 +36,7 @@ class SuyoolServices
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         } else {
+            $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
@@ -544,6 +545,33 @@ class SuyoolServices
         } catch (Exception $e) {
             // echo $e->getMessage();
             return array(false);
+        }
+    }
+    public function PushCardToMerchantTransaction($transId, $statusId, $referenceNo, $amount, $currency, $additionalInfo,$merchantId)
+    {
+        try {
+            $amount = number_format($amount, 3, '.', '');
+            $Hash = base64_encode(hash($this->hash_algo,   $merchantId . $statusId  . $amount . $currency . $additionalInfo . $this->certificate, true));
+            $body = [
+                'merchantAccountID' => $merchantId,
+                'statusID' => $statusId,
+                'amount' => $amount,
+                'currency' => $currency,
+                'additionalInfo' => $additionalInfo,
+                'secureHash' => $Hash
+            ];
+            // $this->cashin->info(json_encode($body));
+            $this->cashin->info(json_encode($body));
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST_PUSH_CARD}Payment/PushCardToMerchantTransaction",  $body);
+            $content = $response->toArray(false);
+            $this->cashin->info(json_encode($content));
+            if ($content['globalCode'] == 1 && $content['flagCode'] == 1) {
+                return array(true, $content['data'], $content['flagCode'], $content['message']);
+            } else {
+                return array(false, $content['data'], $content['flagCode'], $content['message']);
+            }
+        } catch (Exception $e) {
+            return array(false, null, $e->getMessage(), $e->getMessage());
         }
     }
 }

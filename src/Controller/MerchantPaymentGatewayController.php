@@ -59,7 +59,7 @@ class MerchantPaymentGatewayController extends AbstractController
         $callBackUrl = $data['callBackUrl'];
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-        $merchantApiKey = $this->mr->getRepository(MerchantKey::class)->findOneBy(['merchant' => $merchantId]);
+        $merchantApiKey = $this->mr->getRepository(MerchantKey::class)->findOneBy(['merchant' => $merchant->getId()]);
         $apiKeydata = $merchantApiKey->getApiKey();
         $referenceNumber = $this->generateRandomString(6);
 
@@ -99,7 +99,7 @@ class MerchantPaymentGatewayController extends AbstractController
      */
     public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
-        $firstFPosition = strpos($refnumber, 'F');
+        $firstFPosition = strpos($refnumber, 'G');
 
         $refnumber = substr($refnumber, $firstFPosition + 1);
 

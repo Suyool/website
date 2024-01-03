@@ -208,6 +208,7 @@ class TopupController extends AbstractController
         try {
             if(!empty($sessionInterface->get('payment_data'))){
                 $data = $sessionInterface->get('payment_data');
+
             }else {
                 $data = $request->query->all();
             }
@@ -226,9 +227,11 @@ class TopupController extends AbstractController
 
 
             $parameters = array();
-            $amount= $data['Amount'];
-            $currency= $data['Currency'];
-            $mechantOrderId = $data['TranID'];
+            $amount= $data['Amount'] ?? '';
+            $currency= $data['Currency'] ?? '';
+            $mechantOrderId = $data['TranID'] ?? '';
+            $merchantId = $data['MerchantID'] ?? '';
+            $transactionId = $data['TranID'] ?? '';
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
             $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
@@ -242,7 +245,10 @@ class TopupController extends AbstractController
                 $this->mr->flush();
             }
 
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($amount, $currency,1,null,$data['refNumber']);
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($transactionId, 3, $transactionId, (float)$amount, $currency, 'asd',$merchantId);
+            $transactionDetails = json_decode($pushCard[1]);
+
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($transactionDetails->TransactionAmount, $transactionDetails->Currency,1,null,$data['refNumber']);
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }
