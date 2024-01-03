@@ -270,11 +270,11 @@ class TopupController extends AbstractController
     #[Route('/topup2', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
-        $senderName = $sessionInterface->get('SenderInitials');
-        $data = json_decode($nonSuyooler[1], true);
+//        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+//        $senderName = $sessionInterface->get('SenderInitials');
+//        $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'));
+        $bobpayment = $bobPaymentServices->hostedsession(1, 1, 1, 1, 1);
 
         $parameters = [
             'session' => $bobpayment[0],
