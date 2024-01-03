@@ -84,7 +84,7 @@ class IframeController extends AbstractController
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
         $TranTS = $data['TranTS'] ?? '';
-        $merchantId = $data['MerchantID'] ?? '';
+        $merchantId = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
         $additionalInfo = $data['AdditionalInfo'] ?? '';
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
