@@ -245,7 +245,7 @@ class TopupController extends AbstractController
                 $this->mr->flush();
             }
 
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($transactionId, 3, $transactionId, (float)$amount, $currency, 'asd',$merchantId);
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($transactionId, 3, $transactionId, (float)$amount, $currency, '',$merchantId);
             $transactionDetails = json_decode($pushCard[1]);
 
             $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($transactionDetails->TransactionAmount, $transactionDetails->Currency,1,null,$data['refNumber']);
