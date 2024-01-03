@@ -15,7 +15,7 @@
     "Loto": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Loto.e5485f6c.js"
+        "/build/Loto.c0e9ab8a.js"
       ]
     },
     "LegalEnrollement": {
@@ -75,7 +75,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.d0fe5e72.css"
+        "/build/Lotostyles.e5edb62c.css"
       ]
     },
     "LegalEnrollementStyle": {

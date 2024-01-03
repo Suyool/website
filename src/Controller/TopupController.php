@@ -105,13 +105,12 @@ class TopupController extends AbstractController
                             'currency' => $currency
                         ];
                     }
-
-
                     return $this->render('topup/topup.html.twig', $parameters);
                 } else {
                     return $this->render('ExceptionHandling.html.twig');
                 }
             } else {
+                $this->logger->error($bobRetrieveResultSession[0]);
                 return $this->render('ExceptionHandling.html.twig');
             }
         } catch (Exception $e) {

@@ -6,6 +6,8 @@ use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\order;
 use App\Entity\Plays;
+use App\Service\LotoServices;
+use App\Service\SuyoolServices;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -23,6 +25,7 @@ use PDO;
  */
 class PlaysRepository extends EntityRepository
 {
+
     public function getData($transId, $order)
     {
         return $this->createQueryBuilder('l')
@@ -118,10 +121,10 @@ class PlaysRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getResultsPerUser($session, $drawNumber)
+    public function getResultsPerUser($session, $drawNumber,$lotoServices)
     {
         $rawResults = $this->createQueryBuilder('l')
-            ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers')
+            ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers,l.ticketId')
             ->innerJoin(order::class, 'o')
             ->innerJoin(LOTO_results::class, 'r')
             ->where('o.suyoolUserId = :session and l.order = o.id and l.drawNumber = :drawNumber and l.drawNumber = r.drawId and l.ticketId is not null and l.ticketId != 0')
@@ -133,6 +136,9 @@ class PlaysRepository extends EntityRepository
 
         $groupedResults = [];
         foreach ($rawResults as $result) {
+            $win=$lotoServices->GetWinTicketsPrize($result['ticketId']);
+            $result[]=$win;
+            // dd($result);
             $drawdate = $result['drawdate']->format('Y-m-d');
             if (!isset($groupedResults[$drawdate])) {
                 $groupedResults[$drawdate] = [
@@ -142,10 +148,11 @@ class PlaysRepository extends EntityRepository
                 ];
             }
             $gridSelectedArrays = explode("|", $result['gridSelected']);
-            foreach ($gridSelectedArrays as $gridSelectedArray) {
-                $numbers = explode(" ", $gridSelectedArray);
+            foreach ($result[0]['d']['grids'] as $gridSelectedArray) {
+                $cleanedGridSelected = preg_replace('/\s+$/', '', $gridSelectedArray['gridBalls']);
+                $numbers = explode(" ", $cleanedGridSelected);
                 $gridSelectedString = implode(" ", $numbers);
-                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers']];
+                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'winLoto'=>$gridSelectedArray['lotoWinnings'],'winZeed'=>$gridSelectedArray['zeedWinnings']];
             }
         }
 

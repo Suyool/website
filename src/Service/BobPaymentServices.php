@@ -133,10 +133,11 @@ class BobPaymentServices
                     ],
                     'auth_basic' => [$this->username, $this->password],
                 ]);
-if($response->getStatusCode()=== 400){
-return array(false, "ERROR");
-}
-$content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
+                if ($response->getStatusCode() === 400) {
+                    $this->logger->error("400");
+                    return array(false, "ERROR");
+                }
+                $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
 
                 //$content = $response->toArray(false);
                 // dd(end($content['transaction']));
@@ -163,7 +164,7 @@ $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGN
             }
             return array(false, "ERROR");
         } catch (Exception $e) {
-$this->logger->error($e->getMessage());
+            $this->logger->error($e->getMessage());
             return array(false, $e->getMessage());
         }
     }
@@ -258,7 +259,7 @@ $this->logger->error($e->getMessage());
                     $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
                     $button = "Continue";
 
-                    
+
                     // $order = $session->getOrders();
                     $order->setstatus(orders::$statusOrder['COMPLETED']);
                     $this->mr->persist($order);
@@ -267,11 +268,11 @@ $this->logger->error($e->getMessage());
                         $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
                         $content = $this->notificationServices->getContent('CardTopUp');
                         $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
-                    }else{
+                    } else {
                         $imgsrc = "build/images/Loto/warning.png";
-                        $title="Compliance Check";
+                        $title = "Compliance Check";
                         $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
-                        $button="OK";
+                        $button = "OK";
                     }
                     $parameters = [
                         'status' => $status,
@@ -283,7 +284,7 @@ $this->logger->error($e->getMessage());
                     ];
                     return array(true, $parameters);
                 } else {
-                    $this->logger->error(json_encode($topup));
+                    // $this->logger->error(json_encode($topup));
                     $status = false;
                     $imgsrc = "build/images/Loto/error.png";
                     $title = "Please Try Again";
@@ -304,11 +305,11 @@ $this->logger->error($e->getMessage());
                     return array(true, $parameters);
                 }
             } else {
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
-                $this->logger->error(json_encode($topup));
-                $transaction->setflagCode($topup[2]);
-                $transaction->setError($topup[3]);
-                $this->mr->persist($transaction);
+                // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9,  $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+                // $this->logger->error(json_encode($topup));
+                // $transaction->setflagCode($topup[2]);
+                // $transaction->setError($topup[3]);
+                // $this->mr->persist($transaction);
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -544,11 +545,11 @@ $this->logger->error($e->getMessage());
                         $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $phone]);
                         $content = $this->notificationServices->getContent('CardTopUpRtp');
                         $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
-                    }else{
+                    } else {
                         $imgsrc = "build/images/Loto/warning.png";
-                        $title="Compliance Check";
+                        $title = "Compliance Check";
                         $description = "This transaction is subject to a compliance check.<br>{$this->session->get('SenderInitials')} will receive a notification of its status within 24 hours.";
-                        $button="OK";
+                        $button = "OK";
                     }
 
                     $parameters = [
@@ -747,13 +748,12 @@ $this->logger->error($e->getMessage());
                 ],
                 'auth_basic' => [$this->username, $this->password],
             ]);
-//$response = json_encode($response->getContent(), JSON_INVALID_UTF8_IGNORE);
-           //$content = $;
-if($response->getStatusCode()=== 400){
-return array(true, 'CANCELED');
-
-}
-$content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
+            //$response = json_encode($response->getContent(), JSON_INVALID_UTF8_IGNORE);
+            //$content = $;
+            if ($response->getStatusCode() === 400) {
+                return array(true, 'CANCELED');
+            }
+            $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
             // dd($content);
             // $this->logger->error(json_encode($content));
             if ($content['result'] != 'ERROR') {
@@ -779,8 +779,8 @@ $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGN
             return array(true, 'CANCELED');
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-          
-  return array(false, $e->getMessage());
+
+            return array(false, $e->getMessage());
         }
     }
 
@@ -865,8 +865,8 @@ $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGN
             }
             return true;
         } catch (Exception $e) {
-$this->logger->error($e->getMessage());            
-return new Response('', 500);
+            $this->logger->error($e->getMessage());
+            return new Response('', 500);
         }
     }
 
@@ -1052,10 +1052,10 @@ return new Response('', 500);
                     $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $receiverPhone]);
                     $content = $this->notificationServices->getContent('CardTopUpRtp');
                     $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
-                }else{
-                    $title="Compliance Check";
+                } else {
+                    $title = "Compliance Check";
                     $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
-                    $button="OK";
+                    $button = "OK";
                 }
 
                 $parameters = [
