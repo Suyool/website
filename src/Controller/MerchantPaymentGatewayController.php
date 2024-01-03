@@ -113,15 +113,15 @@ class MerchantPaymentGatewayController extends AbstractController
         $timestamp = $order->getCreated()->getTimestamp();
         $amount = $order->getAmount();
         $currency = $order->getCurrency();
-
+        $callbackURL = $order->getCallBackURL();
         $userAgent = $request->headers->get('User-Agent');
         $isMobile = false;
         // Perform some basic checks to determine if it's a mobile user agent
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
-            $secure = $orderId . $merchantId . $amount . $currency . $timestamp . $certificate;
+            $secure = $orderId . $merchantId . $amount . $currency . $callbackURL . $timestamp . $certificate;
             $isMobile = true;
         }else {
-            $secure = $orderId . $timestamp . $amount . $currency . $timestamp . $certificate;
+            $secure = $orderId . $timestamp . $amount . $currency . $callbackURL . $timestamp . $certificate;
         }
 
         $secureHash = base64_encode(hash('sha512', $secure, true));
@@ -137,7 +137,7 @@ class MerchantPaymentGatewayController extends AbstractController
             'SecureHash' => $secureHash,
             'TranID' => $orderId,
             'AdditionalInfo' => $order->getMerchantOrderDesc(),
-            'CallBackURL' => $order->getCallBackURL(),
+            'CallBackURL' => $callbackURL,
             'TS' => $timestamp,
             'TranTS' => $timestamp,
             'refNumber' => $refnumber
