@@ -87,7 +87,7 @@ class IframeController extends AbstractController
         $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
         $additionalInfo = $data['AdditionalInfo'] ?? '';
 
-        if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
+        if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantID !== '') {
             $transactionData = [
                 'TransactionID' => $TranID,
                 'Amount' => $amount,
