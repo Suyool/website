@@ -24,9 +24,10 @@ const Buy = ({
     setHeaderTitle("Checkout");
   }, []);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
-  const [ getDisable, setDisable ] = useState(false);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
-  const [ getPlayedBalls, setPlayedBalls ] = useState(
+  const [getDisable, setDisable] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
   useEffect(() => {
@@ -38,10 +39,10 @@ const Buy = ({
         setDisable(false);
       }
     }
-  }, [ selectedBallsToShow ]);
+  }, [selectedBallsToShow]);
 
   const handleDelete = (index) => {
-    const updatedBalls = [ ...getPlayedBalls ];
+    const updatedBalls = [...getPlayedBalls];
     updatedBalls.splice(index, 1);
     setPlayedBalls(updatedBalls);
     localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
@@ -54,23 +55,32 @@ const Buy = ({
     setTotalAmount(totalAmount);
   };
   const handleBuy = () => {
-    setDataGetting("");
-    setSpinnerLoader(true);
     setDisable(true);
-    if (parameters?.deviceType === "Android") {
-      setTimeout(() => {
-        window.AndroidInterface.callbackHandler("message");
-      }, 2000);
-    } else if (parameters?.deviceType === "Iphone") {
-      setTimeout(() => {
-        window.webkit.messageHandlers.callbackHandler.postMessage(
-          "fingerprint"
-        );
-      }, 2000);
+    setSpinnerLoader(true);
+    setIsClicked(true);
+
+    if (isClicked) {
+      return;
     }
-    window.handleCheckout = (message) => {
-      setDataGetting(message);
-    };
+    setTimeout(() => {
+      console.log("clicked");
+      setIsClicked(true);
+      setDataGetting("");
+      if (parameters?.deviceType === "Android") {
+        setTimeout(() => {
+          window.AndroidInterface.callbackHandler("message");
+        }, 2000);
+      } else if (parameters?.deviceType === "Iphone") {
+        setTimeout(() => {
+          window.webkit.messageHandlers.callbackHandler.postMessage(
+            "fingerprint"
+          );
+        }, 2000);
+      }
+      window.handleCheckout = (message) => {
+        setDataGetting(message);
+      };
+    }, 1000);
   };
 
   useEffect(() => {
@@ -98,7 +108,7 @@ const Buy = ({
                   Best of Luck!
                 </div>
               ),
-              deviceType:parameters?.deviceType
+              deviceType: parameters?.deviceType,
             });
             setModalShow(true);
             localStorage.removeItem("selectedBalls");
@@ -160,7 +170,7 @@ const Buy = ({
       setSpinnerLoader(false);
       setDisable(false);
     }
-  }, [ getDataGetting ]);
+  }, [getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
@@ -212,7 +222,13 @@ const Buy = ({
                 <div className="body">
                   <div className="ballSection">
                     {ballsSet.balls.map((ball, ballIndex) => (
-                      <span key={ballIndex} className="" style={ballIndex >= 6 ? { backgroundColor: '#8D0500' } : {}}>
+                      <span
+                        key={ballIndex}
+                        className=""
+                        style={
+                          ballIndex >= 6 ? { backgroundColor: "#8D0500" } : {}
+                        }
+                      >
                         {ball}
                       </span>
                     ))}
@@ -242,7 +258,10 @@ const Buy = ({
           is also 2 draws per week.
         </div>
         <div className="playZeed">
-          <span>PLAY ZEED (+ {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()} LBP)</span>
+          <span>
+            PLAY ZEED (+{" "}
+            {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()} LBP)
+          </span>
         </div>
         <div className="zeedImage">
           <img src="/build/images/Loto/zeedLogo.png" alt="SmileLOGO" />

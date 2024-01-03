@@ -59,3 +59,8 @@ monolog:
             path: "%kernel.logs_dir%/topup.log"
             level: debug
             channels: ['topup']
+        iveri:
+            type: stream
+            path: "%kernel.logs_dir%/iveri.log"
+            level: debug
+            channels: ['Iveri']

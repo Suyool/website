@@ -132,7 +132,7 @@ class PaymentController extends AbstractController
                     $parameters['imgsrc']="build/images/Loto/error.png";
                     $parameters['title']="Unable to create code";
                     $parameters['description']="We are unable to create a cashout code.<br>
-                    Contact our call center at 81-484000 for further assistance.";
+                    Contact our call center at 01-290900 for further assistance.";
                     $parameters['button']="Call Call Center";
                     return $this->render('payment/generateCode.html.twig', $parameters);
                 } else if($parameters['cashout']['flagCode'] == 1){
