@@ -46,7 +46,7 @@ class IframeController extends AbstractController
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
-            $callbackUrl = $data['CallBackURL'] ?? '';
+            $callbackUrl = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
             $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
 
             if ($env == 'live') {
@@ -80,7 +80,8 @@ class IframeController extends AbstractController
         $TranID = $data['TranID'] ?? '';
         $amount = $data['Amount'] ?? '';
         $currency = $data['Currency'] ?? '';
-        $CallBackURL = rawurldecode($data['CallBackURL'] ?? '');
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
         $TranTS = $data['TranTS'] ?? '';
@@ -145,7 +146,7 @@ class IframeController extends AbstractController
         $TranID = isset($data['TranID']) ? $data['TranID'] : "";
         $amount = isset($data['Amount']) ? $data['Amount'] : "";
         $currency = isset($data['Currency']) ? $data['Currency'] : "";
-        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL']) : "";
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
         $secureHash = isset($data['SecureHash']) ? rawurldecode($data['SecureHash']) : "";
         $TS = isset($data['TS']) ? $data['TS'] : "";
         $TranTS = isset($data['TranTS']) ? $data['TranTS'] : "";
