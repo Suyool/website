@@ -47,7 +47,7 @@ class IframeController extends AbstractController
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
             $callbackUrl = $data['CallBackURL'] ?? '';
-            $merchantID = $data['MerchantID'] ?? '';
+            $merchantID = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
 
             if ($env == 'live') {
                 $pictureUrl = $response['pictureURL'];
