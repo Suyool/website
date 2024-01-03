@@ -41,6 +41,8 @@ class IframeController extends AbstractController
     private function processPayment(Request $request, string $env): Response
     {
         $data = $request->query->all();
+        $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
+
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
