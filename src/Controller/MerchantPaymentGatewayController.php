@@ -30,7 +30,7 @@ class MerchantPaymentGatewayController extends AbstractController
 
 
     /**
-     * @Route("/merchant/v1/invoices", name="payment_api_invoice")
+     * @Route("/merchant/v1/invoices", name="payment_api_invoice",methods="POST")
      */
     public function api(Request $request,SessionInterface $session,InvoiceServices $invoicesServices)
     {
