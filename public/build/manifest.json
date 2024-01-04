@@ -8,7 +8,11 @@
   "build/Ogero.js": "/build/Ogero.6cc9251a.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.65c21a2a.js",
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.a10e8fa3.css",
+=======
+  "build/styles.css": "/build/styles.410ed59d.css",
+>>>>>>> c3889e15 (created design)
   "build/admin.css": "/build/admin.1ee767bc.css",
   "build/Lotostyles.css": "/build/Lotostyles.36eb6308.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",

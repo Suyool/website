@@ -29,36 +29,50 @@
                 <div style="border-top: 1px solid;margin-top: 15px;"></div>
 
                 <div class="form-container">
-                    <div class="info">Credit or Debit card</div>
+                    <div class="info">Credit or Debit card
+
+                    </div>
                     <div class="form">
                         <div class="form-row">
-                            <div><span class="label-text">Cardholder name </span>(exactly as shown on card) <span class="star">*</span></div>
+                            <div><span class="label-text">Cardholder </span>(exactly as shown on card) <span
+                                        class="star">*</span></div>
                             <input type="text" id="cardholder-name" class="input-field" title="cardholder name"
-                                   aria-label="enter name on card" value="" tabindex="5" readonly>
+                                   aria-label="enter name on card" value="" tabindex="5" readonly
+                                   style=" border-radius: 5px; border: 1px solid #ccc !important;">
                         </div>
                         <div class="form-row">
                             <div><span class="label-text">Card number </span><span class="star">*</span></div>
-                            <input type="text" id="card-number" class="input-field" title="card number" readonly/>
+                            <div class="iframe-container">
+                                <input type="text" id="card-number" class="input-field" title="card number" readonly/>
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+
                         </div>
                         <div class="expires form-row">
-                            <div><span class="label-text">Expiry Month </span><span class="star">*</span><input type="text" id="expiry-month" class="input-field"
-                                                                   title="expiry month"
-                                                                   aria-label="two digit expiry month" value=""
-                                                                   tabindex="2" readonly></div>
-                            <div><span class="label-text">Expiry Year </span><span class="star">*</span><input type="text" id="expiry-year" class="input-field"
-                                                                  title="expiry year" aria-label="two digit expiry year"
-                                                                  value="" tabindex="3" readonly></div>
+                            <div><span class="label-text">Expiry Month </span><span class="star">*</span><input
+                                        type="text" id="expiry-month" class="input-field"
+                                        title="expiry month"
+                                        aria-label="two digit expiry month" value=""
+                                        tabindex="2" readonly></div>
+                            <div><span class="label-text">Expiry Year </span><span class="star">*</span><input
+                                        type="text" id="expiry-year" class="input-field"
+                                        title="expiry year" aria-label="two digit expiry year"
+                                        value="" tabindex="3" readonly></div>
                         </div>
                         <div class="form-row">
                             <div><span class="label-text">Security code </span><span class="star">*</span></div>
-                            <input type="text" id="security-code" class="input-field" title="security code"
-                                   aria-label="three digit CCV security code" value="" tabindex="4" readonly>
+                            <div class="iframe-container">
+                                <input type="text" id="security-code" class="input-field" title="security code"
+                                       aria-label="three digit CCV security code" value="" tabindex="4" readonly>
+                                <i class="fa-regular fa-credit-card"></i>
+                            </div>
+
                         </div>
 
                         <div style="text-align: center;">
                             <button id="payButton" onclick="pay('card');" disabled>
                                 Pay {{ app.session.get('currencyInAbb') }}{{ amount|number_format(2, '.', ',') }}
-                                </button>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -183,4 +197,5 @@
             PaymentSession.updateSessionFromForm('card');
         }
     </script>
+
 {% endblock %}

@@ -559,9 +559,19 @@
       .label-text{
         font-family: $Bold;
       }
+      i{
+        width: 0;
+        position: relative;
+        right: 40px;
+        top: 7px;
+      }
+      .iframe-container{
+        display: flex;
+      }
 
       iframe {
-        width: 100% !important;
+        width: 112% !important;
+        height: 35px !important;
 
         input {
           width: 100% !important;
@@ -571,15 +581,17 @@
       }
 
       input[type=tel] {
-        width: 100% !important;
+        width: 90% !important;
         font-family: $Regular;
-        border: 1px solid #000;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
       }
 
       input[type=text] {
-        width: 100% !important;
+        width: 90% !important;
         font-family: $Regular;
-        border: 1px solid #000;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
       }
 
       #nameOnCard {

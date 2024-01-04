@@ -59,7 +59,11 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.a10e8fa3.css"
+=======
+        "/build/styles.410ed59d.css"
+>>>>>>> c3889e15 (created design)
       ]
     },
     "admin": {
