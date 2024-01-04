@@ -441,7 +441,7 @@ class PlaysRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
         ->select('l.ticketId')
         ->leftJoin(order::class,'o','WITH','o.id = l.order')
-        ->where("o.suyoolUserId = $suyoolUserId and l.drawNumber = $drawnumber and l.gridSelected = '$balls' and l.ticketId != 0")
+        ->where("o.suyoolUserId = $suyoolUserId and l.drawNumber = $drawnumber and l.gridSelected like '%$balls%' and l.ticketId != 0")
         ->getQuery()
         ->getResult();
 
