@@ -456,7 +456,7 @@ class SuyoolServices
             ];
             // $this->cashin->info(json_encode($body));
             $this->cashin->info(json_encode($body));
-            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/UpdateCardTopUpTransaction",  $body);
+            $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST_PUSH_CARD}Payment/UpdateCardTopUpTransaction",  $body);
             $content = $response->toArray(false);
             $this->cashin->info(json_encode($content));
             if ($content['globalCode'] == 1) {
