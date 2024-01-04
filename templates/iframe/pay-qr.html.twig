@@ -30,10 +30,16 @@
     .displayBlock {
         display: inline-block!important;
     }
+    .icon-image {
+        display: none;
+    }
 </style>
 <div class="pay">
     <div class="pay-qr" style="text-align: center">
         <p class="message">{{ ReturnText }}</p>
+        <div class="icon-image">
+            <img src="" alt="" >
+        </div>
         <div class="QR-cont">
             <div class="logo">
                 <img src="http://dev.suyool.com/build/images/suyool-Logo.png">
@@ -101,14 +107,25 @@
                         // Inform the user with the payment status
                         $('#text-message').html(paymentInfo['ReturnText']);
                         $('.QR-cont').hide();
-                        setTimeout(function() {
-                            if (window.opener) {
-                                window.opener.location.href = callbackUrl;
-                                window.self.close();
+
+                        if (callbackUrl === "") {
+                            if(paymentInfo['Flag'] === 1) {
+                                $('.icon-image img').attr('src', '{{ asset('build/images/email-verified.png') }}');
                             } else {
-                                window.top.location.href = callbackUrl;
+                                $('.icon-image img').attr('src', '{{ asset('build/images/unverified-msg.png') }}');
                             }
-                        }, 3000);
+                            $('.icon-image').show();
+
+                        }else {
+                            setTimeout(function () {
+                                if (window.opener) {
+                                    window.opener.location.href = callbackUrl;
+                                    window.self.close();
+                                } else {
+                                    window.top.location.href = callbackUrl;
+                                }
+                            }, 3000);
+                        }
                     }
                 },
             });
