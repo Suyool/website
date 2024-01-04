@@ -84,4 +84,15 @@ class PaymentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findTransactionsThatIsNotCompleted($transId)
+    {
+        return $this->createQueryBuilder('o')
+        ->select('o')
+        ->where("o.status != 'completed' and o.transId = {$transId}")
+        ->orderBy('o.created','DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }

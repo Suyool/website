@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
+? 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js'
+: 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyool/session.js' %}
+
+{% block body %}
+	<script src="{{ checkoutScriptUrl }}"></script>
+	<div class="rtptopup rtptopup2">
+		<div class="loaderTopUp">
+			<div class="desktopMode desktop-logo"></div>
+			<div class="mobileMode mobile-logo">
+				<img src="{{asset('build/images/payment/mobiletop.svg')}}" alt="" width="100%">
+			</div>
+			<div class="whopay">
+				<div class="paying">You are paying
+					{{app.session.get('SenderInitials')}}</div>
+				<div class="row">
+					<div class="col-md-5 col-8">
+						<div class="fee">Amount</div>
+						<div class="fee">Card Processing Fees</div>
+					</div>
+					<div class="col-md-7 col-4">
+						<div class="beforefee">{{app.session.get('amountwcurrency')}}</div>
+						<div class="beforefee">{{app.session.get('currencyInAbb')}}
+							{{fees|number_format(2, '.', ',')}}</div>
+					</div>
+				</div>
+				<div style="border-top: 1px solid;margin-top: 15px;"></div>
+				<div class="form">
+
+					<div>
+						<div>Card Number:</div>
+						<input type="text" id="card-number" class="input-field" title="card number" placeholder="Card number" readonly/></div>
+					<div>
+						<div>Expiry Month:</div><input type="text" id="expiry-month" class="input-field" title="expiry month" aria-label="two digit expiry month" value="" tabindex="2" placeholder="02" readonly></div>
+					<div>
+						<div>Expiry Year:</div><input type="text" id="expiry-year" class="input-field" title="expiry year" aria-label="two digit expiry year" value="" tabindex="3" placeholder="24" readonly></div>
+					<div>
+						<div>Security Code:</div><input type="text" id="security-code" class="input-field" title="security code" aria-label="three digit CCV security code" value="" tabindex="4" placeholder="000" readonly></div>
+					<div>
+						<div>Cardholder Name:</div><input type="text" id="cardholder-name" class="input-field" title="cardholder name" aria-label="enter name on card" value="" tabindex="5" placeholder="Card holder name" readonly></div>
+					<div style="text-align: center;">
+						<button id="payButton" onclick="pay('card');" disabled>Pay Now</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		PaymentSession.configure({
+session: "{{ session }}",
+fields: {
+card: {
+number: "#card-number",
+securityCode: "#security-code",
+expiryMonth: "#expiry-month",
+expiryYear: "#expiry-year",
+nameOnCard: "#cardholder-name"
+}
+},
+// SPECIFY YOUR MITIGATION OPTION HERE
+frameEmbeddingMitigation: ["javascript"],
+callbacks: {
+initialized: function (response) {
+},
+formSessionUpdate: function (response) {
+console.log(response)
+if (response.status) {
+if ("ok" == response.status) {
+console.log("Session updated with data: " + response.session.id);
+$.ajax({
+url: "/pay",
+method: "POST",
+data: {
+card: response.sourceOfFunds.provided.card.number
+},
+success: function (response) {
+if (response.status) {
+// document.getElementById("staticBackdropLabel").innerText = response.response.title
+// document.querySelector(".modal-body").innerText = response.response.description
+// document.getElementById("action").innerText = response.response.button
+// document.getElementById("action").setAttribute("href", "/" + response.response.code)
+// $('#staticBackdrop').modal('show');
+window.location.href = "/3dsreceipt";
+}
+},
+error: function (xhr, status, error) {
+console.error(error);
+}
+});
+
+if (response.sourceOfFunds.provided.card.securityCode) {
+console.log("Security code was provided.");
+}
+
+if (response.sourceOfFunds.provided.card.scheme == 'MASTERCARD') {
+console.log("The user entered a Mastercard credit card.")
+}
+} else if ("fields_in_error" == response.status) {
+
+console.log("Session update failed with field errors.");
+if (response.errors.cardNumber) {
+console.log("Card number invalid or missing.");
+}
+if (response.errors.expiryYear) {
+console.log("Expiry year invalid or missing.");
+}
+if (response.errors.expiryMonth) {
+console.log("Expiry month invalid or missing.");
+}
+if (response.errors.securityCode) {
+console.log("Security code invalid.");
+}
+} else if ("request_timeout" == response.status) {
+console.log("Session update failed with request timeout: " + response.errors.message);
+} else if ("system_error" == response.status) {
+console.log("Session update failed with system error: " + response.errors.message);
+}
+} else {
+console.log("Session update failed: " + response);
+}
+}
+},
+interaction: {
+displayControl: {
+formatCard: "EMBOSSED",
+invalidFieldCharacters: "REJECT"
+}
+}
+});
+
+PaymentSession.onValidityChange(["card.number"], function (selector, result) {
+
+if (result.isValid) {
+document.getElementById("payButton").disabled = false;
+document.querySelector(selector).style.borderColor = "green";
+} else if (result.isIncomplete) {
+document.getElementById("payButton").disabled = true;
+document.querySelector(selector).style.borderColor = "grey";
+} else {
+document.getElementById("payButton").disabled = true;
+document.querySelector(selector).style.borderColor = "red";
+}
+});
+
+PaymentSession.onValidityChange([
+"card.nameOnCard", "card.securityCode", "card.expiryYear", "card.expiryMonth"
+], function (selector, result) {
+
+if (result.isValid) {
+document.querySelector(selector).style.borderColor = "green";
+} else if (result.isIncomplete) {
+document.querySelector(selector).style.borderColor = "grey";
+} else {
+document.querySelector(selector).style.borderColor = "red";
+}
+});
+
+
+function pay() {
+document.getElementById("payButton").disabled = true;
+PaymentSession.updateSessionFromForm('card');
+}
+	</script>
+{% endblock %}

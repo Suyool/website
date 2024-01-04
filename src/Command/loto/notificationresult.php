@@ -52,7 +52,7 @@ class notificationresult extends Command
         $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
-        if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J'],'zeed'=>$GetFullGridPriceMatrix['d']['zeedprice']])) {
+        if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J'], 'zeed' => $GetFullGridPriceMatrix['d']['zeedprice']])) {
             $this->mr->getRepository(LOTO_numbers::class)->truncate();
             foreach ($loto_numbers as $number_price) {
 
@@ -136,10 +136,15 @@ class notificationresult extends Command
                 foreach ($notifyUser as $notify) {
                     $userid[] = $notify['suyoolUserId'];
                 }
+                $grid = explode(",", $notify['numbers']);
+                $formattedNumbers = "";
+                foreach ($grid as $key => $ball) {
+                    $formattedNumbers .= ($key === 0 ? '' : ' ') . $ball . ($key === count($grid) - 2 ? ' - ' : '');
+                }
                 $userIds = implode(",", $userid);
                 $bulk = 1; //1 for broadcast
                 $content = $this->notificationServices->getContent('result if user has grid in this draw');
-                $params = json_encode(['balls' => $notify['numbers'], 'draw' => $notify['drawNumber'], 'currency' => 'L.L', 'amount' => number_format($lastresultprice->getlotoprize())], true);
+                $params = json_encode(['balls' => $formattedNumbers, 'draw' => $notify['drawNumber'], 'currency' => 'L.L', 'amount' => number_format($lastresultprice->getlotoprize())], true);
                 $this->notificationServices->addNotification($userIds, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result&draw={$notify['drawNumber']}");
             }
         }

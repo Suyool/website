@@ -55,20 +55,36 @@ const Result = ({
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
     data.forEach((item) => {
-      const parsedGrids = item.gridSelected.map((item) =>
-        item["gridSelected"].split(" ").map(Number)
-      );
+      const parsedGrids = item.gridSelected.map((item, index) => {
+        return {
+          index: index,
+          grid: item["gridSelected"].split(" ").map(Number),
+          winloto: item["winLoto"],
+        };
+      });
 
       const zeedSelectedArray = item.gridSelected
         .map((item) => item["zeedSelected"])
         .filter((zeedSelected) => zeedSelected !== null);
       setZeedNumber(zeedSelectedArray);
-      const parsedGridsZeed = item.gridSelected.map((item) => {
+      // const parsedGridsZeed = item.gridSelected.map((item) => {
+      //   const zeedSelected = item["zeedSelected"];
+      //   if (zeedSelected === null) {
+      //     return null;
+      //   } else {
+      //     return zeedSelected.split("").map(Number);
+      //   }
+      // });
+      const parsedGridsZeed = item.gridSelected.map((item, index) => {
         const zeedSelected = item["zeedSelected"];
         if (zeedSelected === null) {
           return null;
         } else {
-          return zeedSelected.split("").map(Number);
+          return {
+            gridzeed: item["zeedSelected"].split("").map(Number),
+            winzeed: item["winZeed"],
+            index: index,
+          };
         }
       });
       setMyGridsZeed(parsedGridsZeed);
@@ -153,9 +169,24 @@ const Result = ({
           setWinBallInitial([]);
           setWinBallInitialZeed([]);
         }
+        // const parsedGrids =
+        //   response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
+        //     (item) =>
+        //     return {
+        //       grid: item["gridSelected"].split(" ").map(Number),
+        //       winloto: item["winLoto"],
+        //     };
+        //     // (item) => item["gridSelected"].split(" ").map(Number)
+        //   );
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-            (item) => item["gridSelected"].split(" ").map(Number)
+            (item, index) => {
+              return {
+                index: index,
+                grid: item["gridSelected"].split(" ").map(Number),
+                winloto: item["winLoto"],
+              };
+            }
           );
         const resultsnumbers = response.data.parameters.prize_loto_win.numbers
           .split(",")
@@ -166,21 +197,28 @@ const Result = ({
         setLastNumber(lastNumber);
 
         const zeedSelectedArray =
-          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected
-            ?.map((item) => item["zeedSelected"])
-            .filter((zeedSelected) => zeedSelected !== null);
+          response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
+            (item) => item["zeedSelected"]
+          );
+        // .filter((zeedSelected) => zeedSelected !== null);
+        console.log(zeedSelectedArray);
         setZeedNumber(zeedSelectedArray);
         const parsedGridsZeed =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
-            (item) => {
+            (item, index) => {
               const zeedSelected = item["zeedSelected"];
               if (zeedSelected === null) {
                 return null;
               } else {
-                return zeedSelected.split("").map(Number);
+                return {
+                  gridzeed: item["zeedSelected"].split("").map(Number),
+                  winzeed: item["winZeed"],
+                  index: index,
+                };
               }
             }
           );
+        console.log(parsedGridsZeed);
         setMyGridsZeed(parsedGridsZeed);
         console.log(response.data.parameters.prize_loto_win.prize2);
 
@@ -281,7 +319,11 @@ const Result = ({
 
         {getMyGrids &&
           getMyGrids
-            .map((grid, index) => ({ grid, index }))
+            .map((gridItem, index) => ({
+              grid: gridItem.grid,
+              winLoto: gridItem.winloto,
+              index: gridItem.index,
+            }))
             .sort((a, b) => {
               const aHasWin =
                 getWinBallInitial.filter((winBall) => a.grid.includes(winBall))
@@ -291,7 +333,7 @@ const Result = ({
                   .length >= 3;
               return bHasWin - aHasWin || a.index - b.index;
             })
-            .map(({ grid, index }) => (
+            .map(({ grid, winLoto, index }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
                   <div>
@@ -309,6 +351,11 @@ const Result = ({
                         key={ballIndex}
                         className={`${
                           getWinBallInitial.includes(ball) ? "win" : ""
+                        } ${
+                          ball ===
+                          getWinBallInitial[getWinBallInitial.length - 1]
+                            ? grid.length > 6 ? "lastBall"
+                            : "lastBallNone" : ""
                         }`}
                       >
                         {ball}
@@ -318,54 +365,53 @@ const Result = ({
                 </div>
                 {getWinBallInitial.filter((winBall) => grid.includes(winBall))
                   .length == 3 && grid.includes(getLastNumber) ? (
-                    <div className="NoWinnweFooter">
-                      <div>No Wins </div>
-                    </div>
-                  )
-                  :
-                getWinBallInitial.filter((winBall) => grid.includes(winBall))
-                  .length >= 3 ? (
+                  <div className="NoWinnweFooter">
+                    <div>No Wins </div>
+                  </div>
+                ) : getWinBallInitial.filter((winBall) =>
+                    grid.includes(winBall)
+                  ).length >= 3 && winLoto > 0 ? (
                   <div className="winnweFooter">
                     <div className="price">
                       <span>L.L </span>
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
-                      ).length == 7 && parseInt(prize1).toLocaleString()}
+                      ).length == 7 && parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 6 &&
                         !grid.includes(getLastNumber) &&
-                        parseInt(prize1).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 6 &&
                         grid.includes(getLastNumber) &&
-                        parseInt(prize2).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 5 &&
                         !grid.includes(getLastNumber) &&
-                        parseInt(prize3).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 5 &&
                         grid.includes(getLastNumber) &&
-                        parseInt(prize4).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 4 &&
                         !grid.includes(getLastNumber) &&
-                        parseInt(prize4).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 4 &&
                         grid.includes(getLastNumber) &&
-                        parseInt(prize5).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {getWinBallInitial.filter((winBall) =>
                         grid.includes(winBall)
                       ).length == 3 &&
                         !grid.includes(getLastNumber) &&
-                        parseInt(prize5).toLocaleString()}
+                        parseInt(winLoto).toLocaleString()}
                       {}
                       &nbsp;Won
                     </div>
@@ -395,60 +441,50 @@ const Result = ({
                     <div className="winnweBody">
                       <div className="ballSectionZeed mt-2">
                         {getMyGridsZeed[index] != null &&
-                          getMyGridsZeed[index].map((Zeed, ZeedIndex) => {
-                            const zeedNumber = getZeedNumber[index];
-                            const zeedChar = zeedNumber?.charAt(ZeedIndex);
-                            const isWin =
-                              getWinBallInitialZeed.includes(Zeed) &&
-                              ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
-                                ZeedIndex < 5) || // First 5 balls
-                                (zeedChar ===
-                                  zeednumber2.charAt(ZeedIndex - 1) &&
-                                  ZeedIndex >= 1) ||
-                                (zeedChar ===
-                                  zeednumber3.charAt(ZeedIndex - 2) &&
-                                  ZeedIndex >= 2) ||
-                                (zeedChar ===
-                                  zeednumber4.charAt(ZeedIndex - 3) &&
-                                  ZeedIndex >= 3)); // Second ball to last
+                          getMyGridsZeed[index].gridzeed.map(
+                            (Zeed, ZeedIndex) => {
+                              const zeedNumber = getZeedNumber[index];
+                              // console.log(getZeedNumber[index])
+                              const zeedChar = zeedNumber?.charAt(ZeedIndex);
+                              const isWin =
+                                getWinBallInitialZeed.includes(Zeed) &&
+                                ((zeedChar === zeednumber1.charAt(ZeedIndex) &&
+                                  ZeedIndex < 5) || // First 5 balls
+                                  (zeedChar ===
+                                    zeednumber2.charAt(ZeedIndex - 1) &&
+                                    ZeedIndex >= 1) ||
+                                  (zeedChar ===
+                                    zeednumber3.charAt(ZeedIndex - 2) &&
+                                    ZeedIndex >= 2) ||
+                                  (zeedChar ===
+                                    zeednumber4.charAt(ZeedIndex - 3) &&
+                                    ZeedIndex >= 3)); // Second ball to last
 
-                            return (
-                              <span
-                                key={ZeedIndex}
-                                className={`${isWin ? "win" : ""}`}
-                              >
-                                {Zeed}
-                              </span>
-                            );
-                          })}
+                              return (
+                                <span
+                                  key={ZeedIndex}
+                                  className={`${isWin ? "win" : ""}`}
+                                >
+                                  {Zeed}
+                                </span>
+                              );
+                            }
+                          )}
                       </div>
                     </div>
                     {getMyGridsZeed[index] &&
                     getWinBallInitialZeed.length > 0 &&
-                    (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
-                      getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
-                      getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
-                      getZeedNumber[index]?.substring(3, 5) === zeednumber4) ? (
+                    getMyGridsZeed[index].winzeed > 0 ? (
+                      // (getZeedNumber[index]?.substring(0, 5) === zeednumber1 ||
+                      //   getZeedNumber[index]?.substring(1, 5) === zeednumber2 ||
+                      //   getZeedNumber[index]?.substring(2, 5) === zeednumber3 ||
+                      //   getZeedNumber[index]?.substring(3, 5) === zeednumber4)
                       <div className="winnweFooterZeed">
                         <div className="price">
                           <span>L.L </span>
-                          {getWinBallInitialZeed.filter((winBallZeed) =>
-                            getMyGridsZeed[index].includes(winBallZeed)
-                          ).length > 0
-                            ? getZeedNumber[index].substring(0, 5) ===
-                              zeednumber1
-                              ? parseInt(prize1zeed).toLocaleString()
-                              : getZeedNumber[index].substring(1, 5) ===
-                                zeednumber2
-                              ? parseInt(prize2zeed).toLocaleString()
-                              : getZeedNumber[index].substring(2, 5) ===
-                                zeednumber3
-                              ? parseInt(prize3zeed).toLocaleString()
-                              : getZeedNumber[index].substring(3, 5) ===
-                                zeednumber4
-                              ? parseInt(prize4zeed).toLocaleString() + " "
-                              : " "
-                            : " "}
+                          {parseInt(
+                            getMyGridsZeed[index].winzeed
+                          ).toLocaleString() + " "}
                           &nbsp;Won
                         </div>
                         <div className="img">

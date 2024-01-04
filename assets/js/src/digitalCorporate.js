@@ -8,7 +8,7 @@ function isMobileDevice() {
 var salesLink = document.getElementById("chatwithteam");
 
 // Define the mobile and desktop URLs
-var mobileUrl = "tel:96181484000"; // Replace with your phone number
+var mobileUrl = "tel:9611290900"; // Replace with your phone number
 var desktopUrl = "/contact-us"; // Replace with your desktop URL
 
 // Update the link's href based on the device

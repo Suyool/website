@@ -41,9 +41,14 @@ class IframeController extends AbstractController
     private function processPayment(Request $request, string $env): Response
     {
         $data = $request->query->all();
+        $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
+
         if(!empty($data)){
             $response = $this->windowProcess($data, $env);
             $TranID = $data['TranID'] ?? '';
+            $callbackUrl = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+            $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
+
             if ($env == 'live') {
                 $pictureUrl = $response['pictureURL'];
                 $returnText = $response['returnText'];
@@ -59,8 +64,8 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'ReturnText' => $returnText,
                 'displayBlock' => $showQR,
-                'merchantId' => $data['MerchantID'],
-                'CallBackURL' => $data['CallBackURL'],
+                'merchantId' => $merchantID,
+                'CallBackURL' => $callbackUrl,
                 'env' => $env,
                 'main_url' => $main_url,
 
@@ -75,11 +80,12 @@ class IframeController extends AbstractController
         $TranID = $data['TranID'] ?? '';
         $amount = $data['Amount'] ?? '';
         $currency = $data['Currency'] ?? '';
-        $CallBackURL = rawurldecode($data['CallBackURL'] ?? '');
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
         $TranTS = $data['TranTS'] ?? '';
-        $merchantId = $data['MerchantID'] ?? '';
+        $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
         $additionalInfo = $data['AdditionalInfo'] ?? '';
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
@@ -140,11 +146,11 @@ class IframeController extends AbstractController
         $TranID = isset($data['TranID']) ? $data['TranID'] : "";
         $amount = isset($data['Amount']) ? $data['Amount'] : "";
         $currency = isset($data['Currency']) ? $data['Currency'] : "";
-        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL']) : "";
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
         $secureHash = isset($data['SecureHash']) ? rawurldecode($data['SecureHash']) : "";
         $TS = isset($data['TS']) ? $data['TS'] : "";
         $TranTS = isset($data['TranTS']) ? $data['TranTS'] : "";
-        $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : "";
+        $merchantId = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
         $CurrentUrlClient = isset($data['currentUrl']) ? rawurldecode($data['currentUrl']) : "";
         $Browsertype = isset($data['browsertype']) ? $data['browsertype'] : Helper::getBrowserType();
         $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : "";
@@ -216,14 +222,23 @@ class IframeController extends AbstractController
                 ]
             ]);
             $result = json_decode($response->getContent(), true);
+
+            $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
+            $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceno']) ? $result['referenceno'] : null);
+            $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
+            $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returntext']) ? $result['returntext'] : null);
+            $secureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
+            $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
+
             $responseContent = json_encode([
-                'Flag' => $result['flag'],
-                'ReferenceNo' => $result['referenceNo'],
-                'TranID' => $result['tranID'],
-                'ReturnText' => $result['returnText'],
-                'SecureHash' => $result['secureHash'],
-                'AdditionalInfo' => $result['additionalInfo'],
+                'Flag' => $flag,
+                'ReferenceNo' => $referenceNo,
+                'TranID' => $tranID,
+                'ReturnText' => $returnText,
+                'SecureHash' => $secureHash,
+                'AdditionalInfo' => $additionalInfo,
             ]);
+
             $http_origin = $_SERVER['HTTP_ORIGIN'];
 
             $response = new Response($responseContent);
