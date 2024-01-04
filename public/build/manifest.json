@@ -9,10 +9,14 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.65c21a2a.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.a10e8fa3.css",
 =======
   "build/styles.css": "/build/styles.410ed59d.css",
 >>>>>>> c3889e15 (created design)
+=======
+  "build/styles.css": "/build/styles.5ebeadd2.css",
+>>>>>>> a892945d (icon and alignment)
   "build/admin.css": "/build/admin.1ee767bc.css",
   "build/Lotostyles.css": "/build/Lotostyles.36eb6308.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
@@ -421,6 +425,7 @@
   "build/images/homepage/cash-out.svg": "/build/images/homepage/cash-out.svg",
   "build/images/alfa/bundleImg1.png": "/build/images/alfa/bundleImg1.png",
   "build/images/logo.svg": "/build/images/logo.svg",
+  "build/images/hosted-session/visa.png": "/build/images/hosted-session/visa.png",
   "build/images/terraNet/product_-802.svg": "/build/images/terraNet/product_-802.svg",
   "build/images/digital_corporate/payrollSolution.svg": "/build/images/digital_corporate/payrollSolution.svg",
   "build/images/digital_corporate/acceptDual.svg": "/build/images/digital_corporate/acceptDual.svg",
@@ -442,6 +447,7 @@
   "build/images/s-logo-blue.png": "/build/images/s-logo-blue.png",
   "build/images/platinumMastercard/acceptance.svg": "/build/images/platinumMastercard/acceptance.svg",
   "build/images/terraNet/circle_product_-851.png": "/build/images/terraNet/circle_product_-851.png",
+  "build/images/hosted-session/mastercard.png": "/build/images/hosted-session/mastercard.png",
   "build/images/homepage/topup-account.png": "/build/images/homepage/topup-account.png",
   "build/images/cardPaymentLogo.svg": "/build/images/cardPaymentLogo.svg",
   "build/images/payment/pay_with_card_rtp.svg": "/build/images/payment/pay_with_card_rtp.svg",

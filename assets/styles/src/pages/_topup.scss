@@ -518,10 +518,29 @@
     border-radius: 10px;
 
     .info {
-      font-family: $Regular;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      span{
+        font-family: $Regular;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .prov-icons{
+        display: flex;
+        align-items: center;
+
+        .visa{
+          width: 25px;
+          height: 8px;
+        }
+
+        .master{
+          width: 35px;
+          height: 23px;
+        }
+      }
     }
 
     @media screen and (max-width: 768px) {
@@ -562,7 +581,7 @@
       i{
         width: 0;
         position: relative;
-        right: 40px;
+        right: 30px;
         top: 7px;
       }
       .iframe-container{
@@ -570,25 +589,23 @@
       }
 
       iframe {
-        width: 112% !important;
+        width: 100% !important;
         height: 35px !important;
+      }
 
-        input {
-          width: 100% !important;
-          border: 1px solid #000;
-          height: 40px;
-        }
+      input:focus {
+        border-color: #be3232;
       }
 
       input[type=tel] {
-        width: 90% !important;
+        width: 99% !important;
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
       }
 
       input[type=text] {
-        width: 90% !important;
+        width: 99% !important;
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
