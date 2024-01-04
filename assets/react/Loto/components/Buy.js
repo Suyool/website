@@ -146,6 +146,14 @@ const Buy = ({
               btn: jsonResponse.Text,
             });
             setModalShow(true);
+          } else if (!response.data.status && response.data.flagCode == 210) {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/Loto/error.png",
+              title: "Please Try again",
+              desc: `You Have a grid with same number in this draw`,
+            });
+            setModalShow(true);
           } else {
             setModalName("ErrorModal");
             setErrorModal({

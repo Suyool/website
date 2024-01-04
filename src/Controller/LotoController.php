@@ -43,7 +43,7 @@ class LotoController extends AbstractController
     private $params;
     private $loggerInterface;
 
-    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params,LoggerInterface $loggerInterface)
+    public function __construct(ManagerRegistry $mr, SessionInterface $session, LotoServices $LotoServices, NotificationServices $notificationServices, ParameterBagInterface $params, LoggerInterface $loggerInterface)
     {
         $this->mr = $mr->getManager('loto');
         $this->session = $session;
@@ -54,7 +54,7 @@ class LotoController extends AbstractController
         $this->CURRENCY_LBP = $params->get('CURRENCY_LBP');
         $this->CURRENCY_USD = $params->get('CURRENCY_USD');
         $this->params = $params;
-        $this->loggerInterface=$loggerInterface;
+        $this->loggerInterface = $loggerInterface;
     }
 
     /**
@@ -62,7 +62,7 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-        $this->suyoolServices->UpdateUtilities(0,json_encode(["ticketId"=>"5421440"]),36489);
+        $this->suyoolServices->UpdateUtilities(0, json_encode(["ticketId" => "5421440"]), 36489);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
@@ -76,7 +76,7 @@ class LotoController extends AbstractController
             $drawId = $data['drawNumber'];
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
             if ($loto_prize != null) {
-                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId(),$this->LotoServices);
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId(), $this->LotoServices);
                 // dd($loto_prize_per_days);
             } else {
                 $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $drawId);
@@ -157,7 +157,7 @@ class LotoController extends AbstractController
 
             $parameters['prize_loto_perdays'] = $prize_loto_perdays;
             $parameters['prize_loto_result'] = $prize_loto_result;
-          
+
 
             return new JsonResponse([
                 'parameters' => $parameters
@@ -228,7 +228,7 @@ class LotoController extends AbstractController
                 if (isset($draw)) {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $draw]);
                     // $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $draw);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $draw,$this->LotoServices);
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $draw, $this->LotoServices);
                     $loto_prize_array = [
                         'numbers' => $loto_prize->getnumbers(),
                         'prize1' => $loto_prize->getwinner1(),
@@ -355,6 +355,19 @@ class LotoController extends AbstractController
                 $amounttotalBouquet = 0;
                 $selected = [];
 
+                foreach ($getPlayedBalls as $item) {
+                    sort($item['balls']);
+                    $checkIfTheUserHasSameGridInTheDraw = $this->mr->getRepository(loto::class)->checkIfTheUserHasSameGridInTheDraw($suyoolUserId, $drawnumber, $item['balls']);
+                    // dd($checkIfTheUserHasSameGridInTheDraw);
+                    if ($checkIfTheUserHasSameGridInTheDraw != null) {
+                        return new JsonResponse([
+                            'status' => false,
+                            'flagCode' => 210,
+                            'message' => 'You have a grid with the same number in this draw'
+                        ], 200);
+                    }
+                }
+
                 $order = new order;
                 $order->setsuyoolUserId($suyoolUserId)
                     ->setstatus(order::$statusOrder['PENDING'])
@@ -366,7 +379,10 @@ class LotoController extends AbstractController
                 if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
                     $drawnumber += 1;
                 }
+
+
                 foreach ($getPlayedBalls as $item) {
+                    sort($item['balls']);
                     $numDraws = $item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
@@ -472,7 +488,7 @@ class LotoController extends AbstractController
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
                 $order_id = $merchantId . "-" . $id;
                 $sum = $sum * $numDraws;
-                $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP,0);
+                $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP, 0);
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
@@ -626,13 +642,13 @@ class LotoController extends AbstractController
     //                 ->seterror($object['errorInfo'])
     //                 ->settransId($object['transId']);
     //             $this->mr->persist($order);
-                
+
     //         }
     //     }catch (TypeError $e) {
-            
+
     //     } 
     //     catch (Exception $e) {
-            
+
     //     }
 
     //     $this->mr->flush();
