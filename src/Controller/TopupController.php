@@ -60,7 +60,7 @@ class TopupController extends AbstractController
                           }',
                     '</script>';
                 } else {
-                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
+                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
                     return $this->render('topup/topup.html.twig', $topUpData[1]);
                 }
             }
@@ -144,7 +144,7 @@ class TopupController extends AbstractController
                     if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                         return $this->redirectToRoute("app_rtptopup");
                     } else {
-                        $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'),$bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
+                        $topUpData = $bobPaymentServices->retrievedataForTopUpRTP($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $sessionInterface->get('SenderPhone'), $sessionInterface->get('SenderId'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
                         return $this->render('topup/topuprtp.html.twig', $topUpData[1]);
                     }
                 }
@@ -202,14 +202,13 @@ class TopupController extends AbstractController
     }
 
     #[Route('/payment_bob', name: 'app_payWithBob')]
-    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices,InvoiceServices $invoicesServices)
+    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices)
     {
 
         try {
-            if(!empty($sessionInterface->get('payment_data'))){
+            if (!empty($sessionInterface->get('payment_data'))) {
                 $data = $sessionInterface->get('payment_data');
-
-            }else {
+            } else {
                 $data = $request->query->all();
             }
             $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
@@ -218,8 +217,8 @@ class TopupController extends AbstractController
                 if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
                     return $this->redirectToRoute("app_payWithBob");
                 } else {
-                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$data['refNumber']);
-                    if($topUpData[0]){
+                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $data['refNumber']);
+                    if ($topUpData[0]) {
                         return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
                     }
                 }
@@ -227,11 +226,13 @@ class TopupController extends AbstractController
 
 
             $parameters = array();
-            $amount= $data['Amount'] ?? '';
-            $currency= $data['Currency'] ?? '';
+            $amount = $data['Amount'] ?? '';
+            $currency = $data['Currency'] ?? '';
             $mechantOrderId = $data['TranID'] ?? '';
             $merchantId = $data['MerchantID'] ?? '';
-            $transactionId = $data['TranID'] ?? '';
+
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction((float)$amount, $currency, '', $merchantId);
+            $transactionDetails = json_decode($pushCard[1]);
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
             $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
@@ -240,15 +241,13 @@ class TopupController extends AbstractController
             ]);
             if ($existingInvoice) {
                 $existingInvoice->setPaymentMethod('debit card');
+                $existingInvoice->setTransId($transactionDetails->TransactionId);
                 // Update other fields as needed
                 $this->mr->persist($existingInvoice);
                 $this->mr->flush();
             }
 
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($transactionId, 3, $transactionId, (float)$amount, $currency, '',$merchantId);
-            $transactionDetails = json_decode($pushCard[1]);
-
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($transactionDetails->TransactionAmount, $transactionDetails->Currency,$transactionDetails->TransactionId,null,$data['refNumber']);
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($transactionDetails->TransactionAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null, $data['refNumber']);
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }
@@ -257,7 +256,16 @@ class TopupController extends AbstractController
                 'session' => $bobpayment[1]
             ];
 
-    // }
+            return $this->render('topup/topupinvoice.html.twig', $parameters);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            if ($request->headers->get('referer') == null) {
+                return $this->redirectToRoute("homepage");
+            } else {
+                return new RedirectResponse($request->headers->get('referer'));
+            }
+        }
+    }
 
     #[Route('/topup2', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
@@ -274,7 +282,7 @@ class TopupController extends AbstractController
             'transactionId' => $bobpayment[2],
             'sender' => $senderName,
             'fees' => $data['TotalAmount'] - $sessionInterface->get('amount'),
-            'amount'=>$data['TotalAmount']
+            'amount' => $data['TotalAmount']
         ];
 
         return $this->render('topup/hostedsession.html.twig', $parameters);
@@ -283,12 +291,12 @@ class TopupController extends AbstractController
     #[Route('/topup2test', name: 'app_topup_hostedsession_TEST')]
     public function hostedsessiontest(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        setcookie('SenderId', '', -1, '/'); 
-        setcookie('ReceiverPhone', '', -1, '/'); 
-        setcookie('SenderPhone', '', -1, '/'); 
-        setcookie('hostedSessionId', '', -1, '/'); 
-        setcookie('orderidhostedsession', '', -1, '/'); 
-        setcookie('transactionidhostedsession', '', -1, '/'); 
+        setcookie('SenderId', '', -1, '/');
+        setcookie('ReceiverPhone', '', -1, '/');
+        setcookie('SenderPhone', '', -1, '/');
+        setcookie('hostedSessionId', '', -1, '/');
+        setcookie('orderidhostedsession', '', -1, '/');
+        setcookie('transactionidhostedsession', '', -1, '/');
         unset($_COOKIE['SenderId']);
         unset($_COOKIE['ReceiverPhone']);
         unset($_COOKIE['SenderPhone']);

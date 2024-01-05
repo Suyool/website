@@ -20,7 +20,7 @@ class IframeController extends AbstractController
 {
     private $client;
     private $session;
-
+    private $mr;
     public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session)
     {
         $this->client = $client;
@@ -60,7 +60,6 @@ class IframeController extends AbstractController
 
     private function processPayment(array $data, string $env): Response
     {
-        $data = $request->query->all();
         $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
 
         if(!empty($data)){
