@@ -1078,7 +1078,7 @@ class BobPaymentServices
                     'imgsrc' => $imgsrc,
                     'description' => $description,
                     'button' => $button,
-                    'redirect' => "test/" . $session->getOrders()->getCode()
+                    'redirect' => $session->getOrders()->getCode()
                 ];
                 return $parameters;
             }
