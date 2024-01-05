@@ -226,7 +226,7 @@ class IframeController extends AbstractController
             $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
             $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceno']) ? $result['referenceno'] : null);
             $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
-            $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returntext']) ? $result['returntext'] : null);
+            $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returnText']) ? $result['returnText'] : null);
             $secureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
 
