@@ -991,7 +991,7 @@ class BobPaymentServices
             $order->setamount($amount);
             $order->setcurrency($currency);
             $order->setAttempt($attempts);
-            $order->settype("rtp");
+            $order->settype("topup");
             $order->setCode($code);
             $this->mr->persist($order);
             $this->mr->flush();
@@ -1083,7 +1083,7 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($suyooler, $receiverPhone, $senderPhone,$senderInitials)
+    public function updatedTransactionInHostedSessionToPay($suyooler, $receiverPhone, $senderPhone, $senderInitials)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1122,7 +1122,9 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
+        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+        if ($content['order']['status'] == 'CAPTURED') {
+            $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
             $this->logger->info(json_encode($attemptsPerCardSum));
             if ($attemptsPerCardSum[0] > 1500.000) {
@@ -1163,13 +1165,11 @@ class BobPaymentServices
                 }
                 $this->logger->info('Send email');
             }
-        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
-        if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
             $additionalData = [
-                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
-                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
-                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+                'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+                'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
+                'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
             ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
@@ -1247,7 +1247,7 @@ class BobPaymentServices
         return true;
     }
     //
-    public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone=null, $senderPhone=null)
+    public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone = null, $senderPhone = null)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1286,7 +1286,9 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
+        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+        if ($content['order']['status'] == 'CAPTURED') {
+            $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
             $this->logger->info(json_encode($attemptsPerCardSum));
             if ($attemptsPerCardSum[0] > 1500.000) {
@@ -1327,13 +1329,11 @@ class BobPaymentServices
                 }
                 $this->logger->info('Send email');
             }
-        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
-        if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
             $additionalData = [
-                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
-                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
-                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+                'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+                'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
+                'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
             ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
@@ -1377,7 +1377,7 @@ class BobPaymentServices
                     'description' => $description,
                     'button' => $button,
                     'infoSuccess' => true,
-                    'redirect' => $session->getOrders()->getCode()
+                    'topup' => true
                 ];
                 return $parameters;
             } else {
@@ -1390,7 +1390,8 @@ class BobPaymentServices
                     'imgsrc' => $imgsrc,
                     'description' => $description,
                     'button' => $button,
-                    'redirect' => $session->getOrders()->getCode()
+                    'topup' => true,
+                    'infoFailed' => true
                 ];
                 return $parameters;
             }
@@ -1404,7 +1405,7 @@ class BobPaymentServices
                 'imgsrc' => $imgsrc,
                 'description' => $description,
                 'button' => $button,
-                'redirect' => $session->getOrders()->getCode()
+                'infoFailed' => true
             ];
             return $parameters;
         }

@@ -394,7 +394,7 @@ class TopupController extends AbstractController
         ]);
     }
 
-    #[Route('/pay2', name: 'app_topup_blacklist2')]
+    #[Route('/pay2', name: 'app_topup_blacklist2_rtp')]
     public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         // dd($_COOKIE);
