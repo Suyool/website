@@ -81,7 +81,18 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
@@ -123,7 +134,11 @@
                                         // $('#staticBackdrop').modal('show');
                                         window.location.href = "/3dsreceipt";
                                     }else{
-										alert("blacklisted")
+										 document.getElementById("staticBackdropLabel").innerText = response.response.title
+                                         document.querySelector(".modal-body").innerText = response.response.description
+                                         //document.getElementById("action").innerText = response.response.button
+                                        // document.getElementById("action").setAttribute("href", "/" + response.response.code)
+                                         $('#staticBackdrop').modal('show');
 									}
                                 },
                                 error: function (xhr, status, error) {

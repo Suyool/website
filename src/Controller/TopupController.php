@@ -459,11 +459,21 @@ class TopupController extends AbstractController
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         $cardnumber = $bobPaymentServices->checkCardNumber();
+        if(substr($cardnumber, 0, 6) == 423265 || substr($cardnumber, 0, 6) == 552009 || substr($cardnumber, 0, 6) == 557618){
+            $response = [
+                'title'=>'Using Suyooler Card',
+                'description'=>'Use your Suyool app for a seamless payment instead of Suyool Visa Card.'
+            ];
+            return new JsonResponse([
+                'status' => false,
+                'response' => $response
+            ]);
+        }
         $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
         if (is_null($checkIfTheCardInTheBlackList)) {
             $status = true;
             $response = "Go to Receipt3d";
-        } else {
+        }else {
             $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
 
             $emailMessageBlacklistedCard .= "We have identified that the card with the number {$_POST['card']} has been blacklisted. <br><br>";
@@ -472,7 +482,11 @@ class TopupController extends AbstractController
             // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
             $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
             $status = false;
-            $response = 'The Card Number is blacklisted';
+            $response = [
+                'title'=>'Fraudulent Card',
+                'description'=>'The card you are using is flagged as fraudulent.
+                Kindly contact your issuer bank.'
+            ];
         }
         return new JsonResponse([
             'status' => $status,
