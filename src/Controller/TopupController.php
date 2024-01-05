@@ -246,8 +246,8 @@ class TopupController extends AbstractController
                 $this->mr->persist($existingInvoice);
                 $this->mr->flush();
             }
-
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($transactionDetails->TransactionAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null, $data['refNumber']);
+            $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
+            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null, $data['refNumber']);
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }

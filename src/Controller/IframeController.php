@@ -84,10 +84,10 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'ReturnText' => $returnText,
                 'displayBlock' => $showQR,
-                'merchantId' => $data['MerchantID'],
+                'merchantId' => $merchantID,
                 'Amount' => $data['Amount'],
                 'Currency' => $data['Currency'],
-                'CallBackURL' => $data['CallBackURL'],
+                'CallBackURL' => $callbackUrl,
                 'env' => $env,
                 'main_url' => $main_url,
 
@@ -102,7 +102,7 @@ class IframeController extends AbstractController
         $TranID = $data['TranID'] ?? '';
         $amount = $data['Amount'] ?? '';
         $currency = $data['Currency'] ?? '';
-        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+//        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
 
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';

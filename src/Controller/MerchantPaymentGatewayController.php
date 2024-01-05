@@ -99,6 +99,7 @@ class MerchantPaymentGatewayController extends AbstractController
      */
     public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
+        $session->clear();
         $firstFPosition = strpos($refnumber, 'G');
 
         $refnumber = substr($refnumber, $firstFPosition + 1);
