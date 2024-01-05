@@ -520,23 +520,24 @@
     .info {
       display: flex;
       justify-content: space-between;
-      span{
+
+      span {
         font-family: $Regular;
         margin-top: 10px;
         margin-bottom: 10px;
         text-align: left;
       }
 
-      .prov-icons{
+      .prov-icons {
         display: flex;
         align-items: center;
 
-        .visa{
+        .visa {
           width: 25px;
           height: 8px;
         }
 
-        .master{
+        .master {
           width: 35px;
           height: 23px;
         }
@@ -551,7 +552,7 @@
     padding: 30px;
     min-height: 100vh;
 
-    .form-container{
+    .form-container {
       width: 80%;
       margin: 50px auto;
     }
@@ -567,6 +568,7 @@
 
       .expires {
         display: flex;
+
         @media screen and (max-width: 768px) {
           display: block;
         }
@@ -575,22 +577,32 @@
       .star {
         color: #db292e;
       }
-      .label-text{
+
+      .label-text {
         font-family: $Bold;
       }
-      i{
+
+      i {
         width: 0;
         position: relative;
         right: 30px;
         top: 7px;
       }
-      .iframe-container{
+
+      .iframe-container {
         display: flex;
       }
 
       iframe {
         width: 100% !important;
-        height: 35px !important;
+
+        @supports (-webkit-touch-callout: none) {
+          height: 55px !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          height: 35px !important;
+        }
       }
 
       input:focus {
@@ -598,14 +610,26 @@
       }
 
       input[type=tel] {
-        width: 99% !important;
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
       }
 
       input[type=text] {
-        width: 99% !important;
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;

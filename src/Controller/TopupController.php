@@ -270,11 +270,11 @@ class TopupController extends AbstractController
     #[Route('/topup2', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-//        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
-//        $senderName = $sessionInterface->get('SenderInitials');
-//        $data = json_decode($nonSuyooler[1], true);
+        $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+        $senderName = $sessionInterface->get('SenderInitials');
+        $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsession(1, 1, 1, 1, 1);
+        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'));
 
         $parameters = [
             'session' => $bobpayment[0],
@@ -334,6 +334,7 @@ class TopupController extends AbstractController
         setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
         setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
         setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
+        setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
         // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         // $senderName = $sessionInterface->get('SenderInitials');
         // $data = json_decode($nonSuyooler[1], true);
@@ -381,7 +382,7 @@ class TopupController extends AbstractController
         // $cardnumber = $bobPaymentServices->checkCardNumber();
         // $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
         if (is_null($checkIfTheCardInTheBlackList)) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone']);
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'],$_COOKIE['SenderInitials']);
             $status = true;
             $response = $data;
         } else {

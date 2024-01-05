@@ -976,7 +976,7 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
-    public function updatedTransactionInHostedSessionToPay($suyooler, $receiverPhone, $senderPhone)
+    public function updatedTransactionInHostedSessionToPay($suyooler, $receiverPhone, $senderPhone,$senderInitials)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1018,11 +1018,11 @@ class BobPaymentServices
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
-            // $additionalData = [
-            //     'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
-            //     'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
-            //     'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
-            // ];
+            $additionalData = [
+                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
+                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+            ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
             $transaction->setResponse(json_encode($content));
@@ -1033,7 +1033,7 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], substr($content['sourceOfFunds']['provided']['card']['number'], -4));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
@@ -1046,7 +1046,7 @@ class BobPaymentServices
                 $this->mr->flush();
                 $imgsrc = "build/images/Loto/success.png";
                 $title = "Money Added Successfully";
-                $description = "You have successfully added {$currency} {$amount} to your Suyool wallet. <br>Check your new balance";
+                $description = "You have successfully added {$currency} {$amount} to {$senderInitials}' Suyool wallet.";
                 $button = "Continue";
 
                 if ($topup[2] == 1) {
@@ -1066,6 +1066,19 @@ class BobPaymentServices
                     'button' => $button,
                     'infoSuccess' => true,
                     'redirect' => $session->getOrders()->getCode()
+                ];
+                return $parameters;
+            } else {
+                $imgsrc = "build/images/Loto/error.png";
+                $title = "Please Try Again";
+                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $button = "Try Again";
+                $parameters = [
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'redirect' => "test/" . $session->getOrders()->getCode()
                 ];
                 return $parameters;
             }
