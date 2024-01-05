@@ -78,7 +78,7 @@ class IframeController extends AbstractController
             $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
             $pictureUrl = $response['pictureURL'];
             $returnText = $response['returnText'];
-            
+
             $showQR = $pictureUrl ? 'displayBlock' : '';
             $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
             return $this->render('iframe/pay-qr.html.twig', [
@@ -103,8 +103,8 @@ class IframeController extends AbstractController
     {
         $TranID = $data['TranID'] ?? '';
         $amount = $data['Amount'] ?? '';
-      $currency = $data['Currency'] ?? '';
-       $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+        $currency = $data['Currency'] ?? '';
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
 
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
@@ -147,6 +147,7 @@ class IframeController extends AbstractController
                 'TranTS' => "$TranTS",
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
+                'CallBackUrl' => $CallBackURL
             ];
             $url = "api/OnlinePayment/PayQR";
 
