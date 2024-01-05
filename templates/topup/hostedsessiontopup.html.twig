@@ -128,7 +128,12 @@
                                         // $('#staticBackdrop').modal('show');
                                         window.location.href = "/3dsreceipt";
                                     }else{
-										alert("blacklisted")
+										if ($bobpayment[0] == false) {
+                                            if (navigator.userAgent.match(/Android/i)) {
+                                                window.AndroidInterface.callbackHandler("GoToApp");
+                                            } else {
+                                                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                                            }
 									}
                                 },
                                 error: function (xhr, status, error) {
