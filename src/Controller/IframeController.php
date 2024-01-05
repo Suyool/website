@@ -180,7 +180,7 @@ class IframeController extends AbstractController
         if ($data['env'] == 'live') {
             $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
         }
-        if ($data['env'] == 'uat') {
+        else if ($data['env'] == 'uat') {
             $apiHost = 'https://externalservices.suyool.money/';
         } 
         else {
