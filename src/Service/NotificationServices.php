@@ -83,8 +83,8 @@ class NotificationServices
         foreach ($paramsTextDecoded as $field => $value) {
             $$field = $value;
         }
-        if (isset($amount)) {
-            $amount = number_format($amount);
+        if (isset($amount) && isset($currency)) {
+            $currency == "$" ? $amount = number_format($amount,2) : $amount = number_format($amount);
         }
         if (isset($numgrids)) {
             if ($numgrids > 1) {

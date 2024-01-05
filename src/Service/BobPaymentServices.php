@@ -793,7 +793,7 @@ class BobPaymentServices
                 $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($cardnumber);
                 $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($cardnumber);
                 $blacklistcards = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
-                if (!is_null($blacklistcards)) {
+                /*if (!is_null($blacklistcards)) {
                     $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
 
                     $emailMessageBlacklistedCard .= "We have identified that the card with the number {$cardnumber} has been blacklisted. <br><br>";
@@ -839,7 +839,7 @@ class BobPaymentServices
                     // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                     $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                     $this->logger->info('Send email');
-                }
+                }*/
                 $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $session]);
                 $transaction = new bob_transactions;
                 $transaction->setSession($session);
@@ -852,7 +852,11 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['PAID']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
+                $additionalData = [
+                    'cardEnding' => substr($cardnumber, -4),
+                    'cardNumber' => $cardnumber,
+                ];
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -1198,7 +1202,7 @@ class BobPaymentServices
                 $button = "Continue";
 
                 if ($topup[2] == 1) {
-                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $receiverPhone]);
+                    $params = json_encode(['currency' => $currency, 'amount' => $amount, 'nonsuyooler' => $receiverPhone]);
                     $content = $this->notificationServices->getContent('CardTopUpRtp');
                     $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 } else {

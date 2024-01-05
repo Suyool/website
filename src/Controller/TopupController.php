@@ -47,35 +47,23 @@ class TopupController extends AbstractController
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
         try {
-            setcookie('SenderId', '', -1, '/');
-            setcookie('ReceiverPhone', '', -1, '/');
-            setcookie('SenderPhone', '', -1, '/');
-            setcookie('hostedSessionId', '', -1, '/');
-            setcookie('orderidhostedsession', '', -1, '/');
-            setcookie('transactionidhostedsession', '', -1, '/');
-            unset($_COOKIE['SenderId']);
-            unset($_COOKIE['ReceiverPhone']);
-            unset($_COOKIE['SenderPhone']);
-            unset($_COOKIE['hostedSessionId']);
-            unset($_COOKIE['orderidhostedsession']);
-            unset($_COOKIE['transactionidhostedsession']);
             // $this->suyoolServices->UpdateCardTopUpTransaction(12764,3,"12764","3990000.00","LBP","8367");
-            // $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails($sessionInterface->get('suyooler'));
-            // if ($bobRetrieveResultSession[0] == true) {
-            //     $sessionInterface->remove('order');
-            //     if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
-            //         echo '<script type="text/javascript">',
-            //         ' if (navigator.userAgent.match(/Android/i)) {
-            //                 window.AndroidInterface.callbackHandler("GoToApp");
-            //               } else {
-            //                 window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-            //               }',
-            //         '</script>';
-            //     } else {
-            //         $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
-            //         return $this->render('topup/topup.html.twig', $topUpData[1]);
-            //     }
-            // }
+            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails($sessionInterface->get('suyooler'));
+            if ($bobRetrieveResultSession[0] == true) {
+                $sessionInterface->remove('order');
+                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+                    echo '<script type="text/javascript">',
+                    ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                          } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                          }',
+                    '</script>';
+                } else {
+                    $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'],$bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
+                    return $this->render('topup/topup.html.twig', $topUpData[1]);
+                }
+            }
             // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
             // dd($_POST['infoString']);
             if (isset($_POST['infoString'])) {
@@ -92,48 +80,40 @@ class TopupController extends AbstractController
                 $suyoolUserInfoForTopUp[1] = number_format($suyoolUserInfoForTopUp[1], 2, '.', '');
                 if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                     $parameters = array();
-                    // $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
-                    $bobpayment = $bobPaymentServices->hostedsessiontopup($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0], null);
-                    // if ($bobpayment[0] == false) {
-                    //     echo '<script type="text/javascript">',
-                    //     ' if (navigator.userAgent.match(/Android/i)) {
-                    //         window.AndroidInterface.callbackHandler("GoToApp");
-                    //     } else {
-                    //         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-                    //     }',
-                    //     '</script>';
-                    // }
+                    $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
+                    if ($bobpayment[0] == false) {
+                        echo '<script type="text/javascript">',
+                        ' if (navigator.userAgent.match(/Android/i)) {
+                            window.AndroidInterface.callbackHandler("GoToApp");
+                        } else {
+                            window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+                        }',
+                        '</script>';
+                    }
                     ($suyoolUserInfoForTopUp[2] == "USD") ? $currency = "$" : $currency = "LL";
-                    $sessionInterface->set('SenderId', $suyoolUserInfo[0]);
-                    // $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
+                    $sessionInterface->set('suyooler', $suyoolUserInfo[0]);
+                    $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
                     if (isset($suyoolUserInfoForTopUp[4])) {
                         $parameters = [
                             'topup' => true,
-                            'session' => $bobpayment[0],
-                            'orderId' => $bobpayment[1],
-                            'transactionId' => $bobpayment[2],
-                            'fees' => $suyoolUserInfoForTopUp[4],
-                            'amount' => $suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
-                            'totalAmount' => $suyoolUserInfoForTopUp[1],
+                            'session' => $bobpayment[1],
+                            'fee' => $suyoolUserInfoForTopUp[4],
+                            'beforefee' => $suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
                             'currency' => $currency
                         ];
                     } else {
                         $parameters = [
                             'topup' => true,
-                            'session' => $bobpayment[0],
-                            'orderId' => $bobpayment[1],
-                            'transactionId' => $bobpayment[2],
                             'session' => $bobpayment[1],
-                            'totalAmount' => $suyoolUserInfoForTopUp[1],
                             'currency' => $currency
                         ];
                     }
-                    return $this->render('topup/hostedsessiontopup.html.twig', $parameters);
+                    return $this->render('topup/topup.html.twig', $parameters);
                 } else {
                     return $this->render('ExceptionHandling.html.twig');
                 }
             } else {
-                // $this->logger->error($bobRetrieveResultSession[0]);
+                $this->logger->error($bobRetrieveResultSession[0]);
                 return $this->render('ExceptionHandling.html.twig');
             }
         } catch (Exception $e) {
@@ -148,6 +128,112 @@ class TopupController extends AbstractController
             return $this->redirectToRoute("app_ToTheAPP");
         }
     }
+
+    // #[Route('/topup', name: 'app_topup')]
+    // public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
+    // {
+    //     try {
+    //         setcookie('SenderId', '', -1, '/');
+    //         setcookie('ReceiverPhone', '', -1, '/');
+    //         setcookie('SenderPhone', '', -1, '/');
+    //         setcookie('hostedSessionId', '', -1, '/');
+    //         setcookie('orderidhostedsession', '', -1, '/');
+    //         setcookie('transactionidhostedsession', '', -1, '/');
+    //         unset($_COOKIE['SenderId']);
+    //         unset($_COOKIE['ReceiverPhone']);
+    //         unset($_COOKIE['SenderPhone']);
+    //         unset($_COOKIE['hostedSessionId']);
+    //         unset($_COOKIE['orderidhostedsession']);
+    //         unset($_COOKIE['transactionidhostedsession']);
+    //         // $this->suyoolServices->UpdateCardTopUpTransaction(12764,3,"12764","3990000.00","LBP","8367");
+    //         // $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails($sessionInterface->get('suyooler'));
+    //         // if ($bobRetrieveResultSession[0] == true) {
+    //         //     $sessionInterface->remove('order');
+    //         //     if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+    //         //         echo '<script type="text/javascript">',
+    //         //         ' if (navigator.userAgent.match(/Android/i)) {
+    //         //                 window.AndroidInterface.callbackHandler("GoToApp");
+    //         //               } else {
+    //         //                 window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    //         //               }',
+    //         //         '</script>';
+    //         //     } else {
+    //         //         $topUpData = $bobPaymentServices->retrievedataForTopUp($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $sessionInterface->get('indicator'), $bobRetrieveResultSession[1], $sessionInterface->get('transId'), $sessionInterface->get('suyooler'), $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['nameOnCard']);
+    //         //         return $this->render('topup/topup.html.twig', $topUpData[1]);
+    //         //     }
+    //         // }
+    //         // $_POST['infoString'] = "fmh1M9oF9lrMsRTdmDc+Om1P0JiMZYj4DuzE6A2MdABCy55LM4VsTfqafInpV8DY!#!2.0!#!USD!#!15791";
+    //         // dd($_POST['infoString']);
+    //         if (isset($_POST['infoString'])) {
+
+    //             if ($_POST['infoString'] == "")
+    //                 return $this->render('ExceptionHandling.html.twig');
+
+    //             $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
+    //             $decrypted_string = SuyoolServices::decrypt($suyoolUserInfoForTopUp[0]);
+    //             $this->logger->debug($_POST['infoString']);
+    //             $suyoolUserInfo = explode("!#!", $decrypted_string);
+    //             $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
+    //             // dd($_SERVER['HTTP_USER_AGENT']);
+    //             $suyoolUserInfoForTopUp[1] = number_format($suyoolUserInfoForTopUp[1], 2, '.', '');
+    //             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+    //                 $parameters = array();
+    //                 // $bobpayment = $bobPaymentServices->SessionFromBobPayment($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0]);
+    //                 $bobpayment = $bobPaymentServices->hostedsessiontopup($suyoolUserInfoForTopUp[1], $suyoolUserInfoForTopUp[2], $suyoolUserInfoForTopUp[3], $suyoolUserInfo[0], null);
+    //                 // if ($bobpayment[0] == false) {
+    //                 //     echo '<script type="text/javascript">',
+    //                 //     ' if (navigator.userAgent.match(/Android/i)) {
+    //                 //         window.AndroidInterface.callbackHandler("GoToApp");
+    //                 //     } else {
+    //                 //         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    //                 //     }',
+    //                 //     '</script>';
+    //                 // }
+    //                 ($suyoolUserInfoForTopUp[2] == "USD") ? $currency = "$" : $currency = "LL";
+    //                 $sessionInterface->set('SenderId', $suyoolUserInfo[0]);
+    //                 // $sessionInterface->set('transId', $suyoolUserInfoForTopUp[3]);
+    //                 if (isset($suyoolUserInfoForTopUp[4])) {
+    //                     $parameters = [
+    //                         'topup' => true,
+    //                         'session' => $bobpayment[0],
+    //                         'orderId' => $bobpayment[1],
+    //                         'transactionId' => $bobpayment[2],
+    //                         'fees' => $suyoolUserInfoForTopUp[4],
+    //                         'amount' => $suyoolUserInfoForTopUp[1] - $suyoolUserInfoForTopUp[4],
+    //                         'totalAmount' => $suyoolUserInfoForTopUp[1],
+    //                         'currency' => $currency
+    //                     ];
+    //                 } else {
+    //                     $parameters = [
+    //                         'topup' => true,
+    //                         'session' => $bobpayment[0],
+    //                         'orderId' => $bobpayment[1],
+    //                         'transactionId' => $bobpayment[2],
+    //                         'session' => $bobpayment[1],
+    //                         'totalAmount' => $suyoolUserInfoForTopUp[1],
+    //                         'currency' => $currency
+    //                     ];
+    //                 }
+    //                 return $this->render('topup/hostedsessiontopup.html.twig', $parameters);
+    //             } else {
+    //                 return $this->render('ExceptionHandling.html.twig');
+    //             }
+    //         } else {
+    //             // $this->logger->error($bobRetrieveResultSession[0]);
+    //             return $this->render('ExceptionHandling.html.twig');
+    //         }
+    //     } catch (Exception $e) {
+    //         $this->logger->error($e->getMessage());
+    //         // echo '<script type="text/javascript">',
+    //         // ' if (navigator.userAgent.match(/Android/i)) {
+    //         //     window.AndroidInterface.callbackHandler("GoToApp");
+    //         //   } else {
+    //         //     window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+    //         //   }',
+    //         // '</script>';
+    //         return $this->redirectToRoute("app_ToTheAPP");
+    //     }
+    // }
 
     #[Route('/topupRTP', name: 'app_rtptopup')]
     public function rtpTopUp(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
