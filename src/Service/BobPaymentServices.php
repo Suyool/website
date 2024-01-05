@@ -1015,6 +1015,47 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
+        $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
+            $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
+            $this->logger->info(json_encode($attemptsPerCardSum));
+            if ($attemptsPerCardSum[0] > 1500.000) {
+                $emailMessageUpTo5Thousands = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo5Thousands .= "The card with the number {$content['sourceOfFunds']['provided']['card']['number']} has processed transactions totaling up to $1500. <br><br>";
+                $emailMessageUpTo5Thousands .= "<ul>";
+
+                foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
+                    $emailMessageUpTo5Thousands .= "<li>Transaction ID: " . $attemptsPerCardSumHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>BIN Card: " . $attemptsPerCardSumHolder->getCard() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Sender Phone: " . $attemptsPerCardSumHolder->getSenderPhone() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li>&nbsp;<br/>";
+                }
+                $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                if ($_ENV['APP_ENV'] == 'dev') {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                } else {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                }
+                $this->logger->info('Send email 2');
+            }
+            $this->logger->info(json_encode($attemptsPerCard));
+            if ($attemptsPerCard[0] >= 2) {
+                $emailMessageUpTo2Times = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$content['sourceOfFunds']['provided']['card']['number']}: <br><br>";
+
+                foreach ($attemptsPerCard[1] as $index => $attemptsPerCardHolder) {
+                    $emailMessageUpTo2Times .= "<li>Transaction ID: " . $attemptsPerCardHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>BIN Card: " . $attemptsPerCardHolder->getCard() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Sender Phone: " . $attemptsPerCardHolder->getSenderPhone() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
+                }
+                $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                if ($_ENV['APP_ENV'] == 'dev') {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                } else {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                }
+                $this->logger->info('Send email');
+            }
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
             // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
