@@ -169,7 +169,7 @@
             }
         });
 
-        PaymentSession.onValidityChange(["card.number"], function (selector, result) {
+        {# PaymentSession.onValidityChange(["card.number"], function (selector, result) {
 
             if (result.isValid) {
                 document.getElementById("payButton").disabled = false;
@@ -182,20 +182,47 @@
                 document.getElementById("payButton").disabled = true;
                 document.querySelector(selector).style.borderColor = "red";
             }
-        });
+        }); #}
 
-        PaymentSession.onValidityChange([
-            "card.nameOnCard", "card.securityCode", "card.expiryYear", "card.expiryMonth"
+        {# PaymentSession.onValidityChange([
+            "card.number","card.securityCode", "card.expiryYear", "card.expiryMonth"
         ], function (selector, result) {
 
             if (result.isValid) {
+				document.getElementById("payButton").disabled = false;
                 document.querySelector(selector).style.borderColor = "green";
             } else if (result.isIncomplete) {
+				document.getElementById("payButton").disabled = true;
                 document.querySelector(selector).style.borderColor = "grey";
             } else {
+				document.getElementById("payButton").disabled = true;
                 document.querySelector(selector).style.borderColor = "red";
             }
-        });
+        }); #}
+
+		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth"],
+
+			function (selector, role)
+
+			{ PaymentSession.validate('card', function (allresult) {
+				console.log(role)
+			if (allresult.card["expiryMonth"].isValid && allresult.card["expiryYear"].isValid && allresult.card["securityCode"].isValid && allresult.card["number"].isValid) {
+				document.getElementById("payButton").disabled = false;
+			console.log("The field is valid");
+			document.querySelector(selector).style.borderColor = "green";
+
+			} else {
+				document.getElementById("payButton").disabled = true;
+
+			console.log("The field is invalid");
+
+			document.querySelector(selector).style.borderColor = "red";
+
+			}
+
+			});
+
+			});
 
 
         function pay() {
