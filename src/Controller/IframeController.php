@@ -76,15 +76,9 @@ class IframeController extends AbstractController
             $TranID = $data['TranID'] ?? '';
             $callbackUrl = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
             $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
-
-            if ($env == 'live') {
-                $pictureUrl = $response['pictureURL'];
-                $returnText = $response['returnText'];
-            } else {
-                $pictureUrl = $response['PictureURL'];
-                $returnText = $response['ReturnText'];
-            }
-
+            $pictureUrl = $response['pictureURL'];
+            $returnText = $response['returnText'];
+            
             $showQR = $pictureUrl ? 'displayBlock' : '';
             $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
             return $this->render('iframe/pay-qr.html.twig', [
@@ -154,16 +148,7 @@ class IframeController extends AbstractController
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
-            if ($env == 'live') {
-                $url = "api/OnlinePayment/PayQR";
-            } 
-            else if ($env == 'uat') {
-                $url = "api/OnlinePayment/PayQR";
-            } 
-            else {
-                $url = "PayQR";
-            }
-
+            $url = "api/OnlinePayment/PayQR";
 
             $params = [
                 'data' => json_encode($transactionData),
@@ -180,11 +165,8 @@ class IframeController extends AbstractController
         if ($data['env'] == 'live') {
             $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
         }
-        else if ($data['env'] == 'uat') {
-            $apiHost = 'https://externalservices.suyool.money/';
-        } 
         else {
-            $apiHost = 'https://online.suyool.money/';
+            $apiHost = 'https://externalservices.suyool.money/';
         }
 
 
@@ -301,18 +283,15 @@ class IframeController extends AbstractController
                 "secureHash" => $secureHash
             ];
             $params['data'] = json_encode($json);
+            $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
+
             if ($env == 'live') {
                 $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-                $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
             }
-            else if($env == 'uat') {
-                $apiHost = 'https://externalservices.suyool.money/';
-                $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
-            } 
             else {
-                $apiHost = 'https://online.suyool.money/';
-                $params['url'] = 'CheckQRPaymentStatus';
+                $apiHost = 'https://externalservices.suyool.money/';
             }
+
             $response = $this->client->request('POST', $apiHost . $params['url'], [
                 'body' => $params['data'],
                 'headers' => [
