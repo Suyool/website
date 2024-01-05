@@ -976,6 +976,113 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
+    //
+    public function hostedsessiontopup($amount, $currency, $transId, $suyoolUserId, $code)
+    {
+        $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        // dd($order);
+        if (is_null($order)) {
+            $this->session->remove('hostedSessionId');
+            $attempts = 1;
+            $order = new orders;
+            $order->setstatus(orders::$statusOrder['PENDING']);
+            $order->setsuyoolUserId($suyoolUserId);
+            $order->settransId($transId);
+            $order->setamount($amount);
+            $order->setcurrency($currency);
+            $order->setAttempt($attempts);
+            $order->settype("rtp");
+            $order->setCode($code);
+            $this->mr->persist($order);
+            $this->mr->flush();
+        } else {
+            $now = new DateTime();
+            $now = $now->format('Y-m-d H:i:s');
+            $date = $order->getCreated();
+            $date->modify('+9 minutes');
+            $dateAfter09Minutes = $date->format('Y-m-d H:i:s');
+            if ($now > $dateAfter09Minutes) {
+                // dd($order->getAttempt());
+                $this->session->remove('hostedSessionId');
+                $attempts = $order->getAttempt() + 1;
+                $order = new orders;
+                $order->setstatus(orders::$statusOrder['PENDING']);
+                $order->setsuyoolUserId($suyoolUserId);
+                $order->settransId($transId);
+                $order->setamount($amount);
+                $order->setcurrency($currency);
+                $order->setAttempt($attempts);
+                $order->settype("rtp");
+                $order->setCode($code);
+                $this->mr->persist($order);
+                $this->mr->flush();
+            } else {
+                $attempts = $order->getAttempt() + 1;
+                $order->setAttempt($order->getAttempt() + 1);
+                $this->mr->persist($order);
+                $this->mr->flush();
+            }
+        }
+        $session = $this->session->get('hostedSessionId');
+        if (is_null($session)) {
+            $body = [
+                "session" => [
+                    "authenticationLimit" => 25
+                ]
+            ];
+            // print_r($body);
+            $this->logger->error(json_encode($body));
+            $response = $this->client->request('POST', $this->BASE_API_HOSTED_SESSION . "session", [
+                'body' => json_encode($body),
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'auth_basic' => [$this->username, $this->password],
+            ]);
+
+            $content = $response->toArray(false);
+            $session = $content['session']['id'];
+            $session = new session;
+            $session->setOrders($order);
+            $session->setSession($content['session']['id']);
+            $session->setResponse(json_encode($content));
+            $session->setIndicator($content['session']['version']);
+            $this->mr->persist($session);
+            $this->mr->flush();
+            $session = $content['session']['id'];
+            $this->session->set('hostedSessionId', $session);
+        }
+        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+        $body = [
+            "authentication" => [
+                "channel" => "PAYER_BROWSER",
+                "redirectResponseUrl" => $url . "/pay2topup"
+            ],
+            "order" => [
+                "id" => $transId,
+                "amount" => $amount,
+                "currency" => $currency
+            ],
+            "transaction" => [
+                "id" => "trans-" . $attempts
+            ]
+        ];
+        $this->logger->error(json_encode($body));
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "session/" . $session, [
+            'body' => json_encode($body),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'auth_basic' => [$this->username, $this->password],
+        ]);
+        $this->session->set('orderidhostedsession', $transId);
+        $this->session->set('transactionidhostedsession', "trans-" . $attempts);
+        $content = $response->toArray(false);
+        $this->logger->error(json_encode($content));
+        return array($session, $transId, $attempts);
+    }
+    //
+
     public function updatedTransactionInHostedSessionToPay($suyooler, $receiverPhone, $senderPhone,$senderInitials)
     {
         $body = [
@@ -1139,6 +1246,171 @@ class BobPaymentServices
         }
         return true;
     }
+    //
+    public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone=null, $senderPhone=null)
+    {
+        $body = [
+            "apiOperation" => "PAY",
+            "authentication" => [
+                "transactionId" => $_COOKIE['transactionidhostedsession']
+            ],
+            "session" => [
+                "id" => "{$_COOKIE['hostedSessionId']}"
+            ]
+        ];
+        $transIdNew = explode("trans-", $_COOKIE['transactionidhostedsession']);
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
+            'body' => json_encode($body),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'auth_basic' => [$this->username, $this->password],
+        ]);
+        $content = $response->toArray(false);
+        $this->logger->info(json_encode($body));
+        $this->logger->info(json_encode($content));
+        $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
+        // dd($content);
+        $attempts = new attempts();
+        $attempts->setSuyoolUserId($suyooler)
+            ->setReceiverPhone($receiverPhone)
+            ->setSenderPhone($senderPhone)
+            ->setResponse(json_encode($content))
+            ->setTransactionId($_COOKIE['orderidhostedsession'])
+            ->setAmount($content['order']['amount'])
+            ->setCurrency($content['order']['currency'])
+            ->setStatus($content['order']['status'])
+            ->setResult($content['result'])
+            ->setAuthStatus($content['order']['authenticationStatus'])
+            ->setCard($content['sourceOfFunds']['provided']['card']['number'])
+            ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
+        $this->mr->persist($attempts);
+        $this->mr->flush();
+        $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
+            $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
+            $this->logger->info(json_encode($attemptsPerCardSum));
+            if ($attemptsPerCardSum[0] > 1500.000) {
+                $emailMessageUpTo5Thousands = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo5Thousands .= "The card with the number {$content['sourceOfFunds']['provided']['card']['number']} has processed transactions totaling up to $1500. <br><br>";
+                $emailMessageUpTo5Thousands .= "<ul>";
+
+                foreach ($attemptsPerCardSum[1] as $index => $attemptsPerCardSumHolder) {
+                    $emailMessageUpTo5Thousands .= "<li>Transaction ID: " . $attemptsPerCardSumHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>BIN Card: " . $attemptsPerCardSumHolder->getCard() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Sender Phone: " . $attemptsPerCardSumHolder->getSenderPhone() . "</li>";
+                    $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li>&nbsp;<br/>";
+                }
+                $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                if ($_ENV['APP_ENV'] == 'dev') {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                } else {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                }
+                $this->logger->info('Send email 2');
+            }
+            $this->logger->info(json_encode($attemptsPerCard));
+            if ($attemptsPerCard[0] >= 2) {
+                $emailMessageUpTo2Times = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
+                $emailMessageUpTo2Times .= "We have identified more than two transactions associated with the card number {$content['sourceOfFunds']['provided']['card']['number']}: <br><br>";
+
+                foreach ($attemptsPerCard[1] as $index => $attemptsPerCardHolder) {
+                    $emailMessageUpTo2Times .= "<li>Transaction ID: " . $attemptsPerCardHolder->getTransactionId() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>BIN Card: " . $attemptsPerCardHolder->getCard() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Sender Phone: " . $attemptsPerCardHolder->getSenderPhone() . "</li>";
+                    $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
+                }
+                $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
+                if ($_ENV['APP_ENV'] == 'dev') {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                } else {
+                    $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+                }
+                $this->logger->info('Send email');
+            }
+        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+        if ($content['order']['status'] == 'CAPTURED') {
+            // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $additionalData = [
+                'cardEnding'=>substr($content['sourceOfFunds']['provided']['card']['number'], -4),
+                'cardNumber'=>$content['sourceOfFunds']['provided']['card']['number'],
+                'cardHolderName'=>$content['sourceOfFunds']['provided']['card']['nameOnCard']
+            ];
+            $transaction = new bob_transactions;
+            $transaction->setSession($session);
+            $transaction->setResponse(json_encode($content));
+            $transaction->setStatus($content['order']['status']);
+            $this->mr->persist($transaction);
+            $this->mr->flush();
+            $order = $session->getOrders();
+            $order->setstatus(orders::$statusOrder['PAID']);
+            $this->mr->persist($order);
+            $this->mr->flush();
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
+            $transaction->setflagCode($topup[2]);
+            $transaction->setError($topup[3]);
+            $this->mr->persist($transaction);
+            if ($topup[0]) {
+                $content['order']['currency'] == 'USD' ? $currency = "$" : $currency = "LL";
+                $currency == "$" ? $amount = number_format($topup[1], 2) : $amount = number_format($topup[1]);
+                $order = $session->getOrders();
+                $order->setstatus(orders::$statusOrder['COMPLETED']);
+                $this->mr->persist($order);
+                $this->mr->flush();
+                $imgsrc = "build/images/Loto/success.png";
+                $title = "Money Added Successfully";
+                $description = "You have successfully added {$currency} {$amount} to your Suyool wallet.";
+                $button = "Continue";
+
+                if ($topup[2] == 1) {
+                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $receiverPhone]);
+                    $content = $this->notificationServices->getContent('CardTopUpRtp');
+                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                } else {
+                    $title = "Compliance Check";
+                    $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
+                    $button = "OK";
+                }
+
+                $parameters = [
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'infoSuccess' => true,
+                    'redirect' => $session->getOrders()->getCode()
+                ];
+                return $parameters;
+            } else {
+                $imgsrc = "build/images/Loto/error.png";
+                $title = "Please Try Again";
+                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $button = "Try Again";
+                $parameters = [
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'redirect' => $session->getOrders()->getCode()
+                ];
+                return $parameters;
+            }
+        } else {
+            $imgsrc = "build/images/Loto/error.png";
+            $title = "Please Try Again";
+            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            $button = "Try Again";
+            $parameters = [
+                'title' => $title,
+                'imgsrc' => $imgsrc,
+                'description' => $description,
+                'button' => $button,
+                'redirect' => $session->getOrders()->getCode()
+            ];
+            return $parameters;
+        }
+        return true;
+    }
+    //
     public function checkCardNumber()
     {
         $response = $this->client->request('GET', $this->BASE_API . "session/" . $this->session->get('hostedSessionId'), [

@@ -682,3 +682,198 @@
     white-space: nowrap;
   }
 }
+
+.topup2 {
+  .mobheader {
+    opacity: 1;
+    display: flex;
+    justify-content: space-between;
+    background-color: #226D96;
+    padding: 19px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    color: #ffffff;
+    font-weight: bolder;
+
+    .back {
+
+      // font-size: 30px;
+      img {
+        height: auto;
+      }
+    }
+
+    .topup {
+      // font-size: 30px;
+    }
+  }
+  .whopay {
+    margin: 50px auto;
+    width: 50%;
+    border-radius: 10px;
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        font-family: $Regular;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .prov-icons {
+        display: flex;
+        align-items: center;
+
+        .visa {
+          width: 25px;
+          height: 8px;
+        }
+
+        .master {
+          width: 35px;
+          height: 23px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
+
+    background: #fff;
+    padding: 30px;
+    min-height: 100vh;
+
+    .form-container {
+      width: 80%;
+      margin: 50px auto;
+    }
+
+    .form {
+      margin-top: 20px;
+      font-family: $Regular;
+      text-align: left;
+
+      .form-row {
+        margin-bottom: 10px;
+      }
+
+      .expires {
+        display: flex;
+
+        @media screen and (max-width: 768px) {
+          display: block;
+        }
+      }
+
+      .star {
+        color: #db292e;
+      }
+
+      .label-text {
+        font-family: $Bold;
+      }
+
+      i {
+        width: 0;
+        position: relative;
+        right: 30px;
+        top: 7px;
+      }
+
+      .iframe-container {
+        display: flex;
+      }
+
+      iframe {
+        width: 100% !important;
+
+        @supports (-webkit-touch-callout: none) {
+          height: 55px !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          height: 35px !important;
+        }
+      }
+
+      input:focus {
+        border-color: #be3232;
+      }
+
+      input[type=tel] {
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
+        font-family: $Regular;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
+      }
+
+      input[type=text] {
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
+        font-family: $Regular;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
+      }
+
+      #nameOnCard {
+        border-radius: 5px !important;
+      }
+    }
+
+    #payButton {
+      border: none;
+      background: #db292e;
+      color: #fff;
+      font-family: 'PoppinsRegular';
+      padding: 10px 70px;
+      margin-top: 30px;
+      width: 100%;
+
+      &:disabled {
+        background-color: #e6e6e6;
+        /* border: 1px solid #999; */
+        color: #a1a1a1;
+        width: 100%;
+      }
+    }
+  }
+
+  .paying {
+    font-family: 'PoppinsBold';
+    font-size: 27px;
+    padding-bottom: 40px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 17px;
+    }
+  }
+
+  .fee {
+    text-align: left;
+    font-family: 'PoppinsRegular';
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .beforefee {
+    text-align: left;
+    font-family: 'PoppinsBold';
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}
