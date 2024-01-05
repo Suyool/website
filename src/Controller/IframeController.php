@@ -157,9 +157,9 @@ class IframeController extends AbstractController
             if ($env == 'live') {
                 $url = "api/OnlinePayment/PayQR";
             } 
-            // else if ($env == 'uat') {
-            //     $url = "api/OnlinePayment/PayQR";
-            // } 
+            else if ($env == 'uat') {
+                $url = "api/OnlinePayment/PayQR";
+            } 
             else {
                 $url = "PayQR";
             }
@@ -180,9 +180,9 @@ class IframeController extends AbstractController
         if ($data['env'] == 'live') {
             $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
         }
-        // if ($data['env'] == 'uat') {
-        //     $apiHost = 'https://externalservices.suyool.money/';
-        // } 
+        if ($data['env'] == 'uat') {
+            $apiHost = 'https://externalservices.suyool.money/';
+        } 
         else {
             $apiHost = 'https://online.suyool.money/';
         }
@@ -305,10 +305,10 @@ class IframeController extends AbstractController
                 $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
                 $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
             }
-            // else if($env == 'uat') {
-            //     $apiHost = 'https://externalservices.suyool.money/';
-            //     $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
-            // } 
+            else if($env == 'uat') {
+                $apiHost = 'https://externalservices.suyool.money/';
+                $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
+            } 
             else {
                 $apiHost = 'https://online.suyool.money/';
                 $params['url'] = 'CheckQRPaymentStatus';
