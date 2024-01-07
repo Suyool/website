@@ -356,7 +356,9 @@ class LotoController extends AbstractController
                 $selected = [];
 
                 foreach ($getPlayedBalls as $item) {
-                    sort($item['balls']);
+                    if(isset($item['balls'])){
+                        sort($item['balls']);
+                    }
                     $checkIfTheUserHasSameGridInTheDraw = $this->mr->getRepository(loto::class)->checkIfTheUserHasSameGridInTheDraw($suyoolUserId, $drawnumber, $item['balls']);
                     // dd($checkIfTheUserHasSameGridInTheDraw);
                     if ($checkIfTheUserHasSameGridInTheDraw != null) {
@@ -382,7 +384,9 @@ class LotoController extends AbstractController
 
 
                 foreach ($getPlayedBalls as $item) {
-                    sort($item['balls']);
+                    if(isset($item['balls'])){
+                        sort($item['balls']);
+                    }
                     $numDraws = $item['subscription'];
                     $currency = $item['currency'];
                     $withZeed = $item['withZeed'];
