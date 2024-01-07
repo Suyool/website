@@ -356,17 +356,18 @@ class LotoController extends AbstractController
                 $selected = [];
 
                 foreach ($getPlayedBalls as $item) {
-                    if(isset($item['balls'])){
+                    if (isset($item['balls'])) {
                         sort($item['balls']);
-                    }
-                    $checkIfTheUserHasSameGridInTheDraw = $this->mr->getRepository(loto::class)->checkIfTheUserHasSameGridInTheDraw($suyoolUserId, $drawnumber, $item['balls']);
-                    // dd($checkIfTheUserHasSameGridInTheDraw);
-                    if ($checkIfTheUserHasSameGridInTheDraw != null) {
-                        return new JsonResponse([
-                            'status' => false,
-                            'flagCode' => 210,
-                            'message' => 'You have a grid with the same number in this draw'
-                        ], 200);
+
+                        $checkIfTheUserHasSameGridInTheDraw = $this->mr->getRepository(loto::class)->checkIfTheUserHasSameGridInTheDraw($suyoolUserId, $drawnumber, $item['balls']);
+                        // dd($checkIfTheUserHasSameGridInTheDraw);
+                        if ($checkIfTheUserHasSameGridInTheDraw != null) {
+                            return new JsonResponse([
+                                'status' => false,
+                                'flagCode' => 210,
+                                'message' => 'You have a grid with the same number in this draw'
+                            ], 200);
+                        }
                     }
                 }
 
@@ -384,7 +385,7 @@ class LotoController extends AbstractController
 
 
                 foreach ($getPlayedBalls as $item) {
-                    if(isset($item['balls'])){
+                    if (isset($item['balls'])) {
                         sort($item['balls']);
                     }
                     $numDraws = $item['subscription'];
