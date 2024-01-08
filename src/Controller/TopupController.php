@@ -307,28 +307,43 @@ class TopupController extends AbstractController
         return $response;
     }
 
-    #[Route('/payment_bob', name: 'app_payWithBob')]
+    #[Route('/payment_gateway', name: 'app_paymentGateway')]
     public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices)
     {
-
+                 setcookie('SenderId', '', -1, '/');
+                 setcookie('ReceiverPhone', '', -1, '/');
+                 setcookie('SenderPhone', '', -1, '/');
+                 setcookie('hostedSessionId', '', -1, '/');
+                 setcookie('orderidhostedsession', '', -1, '/');
+                 setcookie('transactionidhostedsession', '', -1, '/');
+                 unset($_COOKIE['SenderId']);
+                 unset($_COOKIE['ReceiverPhone']);
+                 unset($_COOKIE['SenderPhone']);
+                 unset($_COOKIE['hostedSessionId']);
+                 unset($_COOKIE['orderidhostedsession']);
+                 unset($_COOKIE['transactionidhostedsession']);
         try {
             if (!empty($sessionInterface->get('payment_data'))) {
                 $data = $sessionInterface->get('payment_data');
             } else {
                 $data = $request->query->all();
+                $additionalInfo = $data['AdditionalInfo'] ?? '';
+                $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
+                $invoicesServices->PostInvoices($merchant,$data['TranID'],$data['Amount'],$data['Currency'],$additionalInfo,null,'card','','');
+
             }
-            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-            if ($bobRetrieveResultSession[0] == true) {
-                $sessionInterface->remove('order');
-                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
-                    return $this->redirectToRoute("app_payWithBob");
-                } else {
-                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $data['refNumber']);
-                    if ($topUpData[0]) {
-                        return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
-                    }
-                }
-            }
+//            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
+//            if ($bobRetrieveResultSession[0] == true) {
+//                $sessionInterface->remove('order');
+//                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
+//                    return $this->redirectToRoute("app_payWithBob");
+//                } else {
+//                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $data['refNumber']);
+//                    if ($topUpData[0]) {
+//                        return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
+//                    }
+//                }
+//            }
 
 
             $parameters = array();
@@ -336,11 +351,15 @@ class TopupController extends AbstractController
             $currency = $data['Currency'] ?? '';
             $mechantOrderId = $data['TranID'] ?? '';
             $merchantId = $data['MerchantID'] ?? '';
+            $callBackUrl = $data['CallBackURL'] ?? '';
 
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction((float)$amount, $currency, '', $merchantId);
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($mechantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl);
+
             $transactionDetails = json_decode($pushCard[1]);
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
+            $sessionInterface->set('merchant_name', $merchant->getName());
+
             $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
                 'merchants' => $merchant,
                 'merchantOrderId' => $mechantOrderId
@@ -353,14 +372,25 @@ class TopupController extends AbstractController
                 $this->mr->flush();
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
-            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null, $data['refNumber']);
+//            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null);
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,null);
+
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
             }
+            ($transactionDetails->Currency == "USD") ? $currency = "$" : $currency = "LL";
+
             $parameters = [
-                // 'topup'=>true,
-                'session' => $bobpayment[1]
+                'session' => $bobpayment[0],
+                'orderId' => $bobpayment[1],
+                'transactionId' => $bobpayment[2],
+                'fees' => $transactionDetails->FeesAmount,
+                'amount' => $finalAmount,
+                'currency' => $currency,
+                'merchantName' => $sessionInterface->get('merchant_name')
             ];
+            $sessionInterface->remove('payment_data');
+            $sessionInterface->remove('merchant_name');
 
             return $this->render('topup/topupinvoice.html.twig', $parameters);
         } catch (\Exception $e) {
@@ -441,6 +471,7 @@ class TopupController extends AbstractController
         setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
         setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
         setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
+
         // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         // $senderName = $sessionInterface->get('SenderInitials');
         // $data = json_decode($nonSuyooler[1], true);
@@ -454,6 +485,7 @@ class TopupController extends AbstractController
 
         return $this->render('topup/3dsecure.html.twig', $parameters);
     }
+
 
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
@@ -497,27 +529,15 @@ class TopupController extends AbstractController
     #[Route('/pay2', name: 'app_topup_blacklist2_rtp')]
     public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        // dd($_COOKIE);
-        $checkIfTheCardInTheBlackList = NULL;
-        // $cardnumber = $bobPaymentServices->checkCardNumber();
-        // $checkIfTheCardInTheBlackList = $this->mr->getRepository(blackListCards::class)->findOneBy(['card' => $cardnumber]);
-        if (is_null($checkIfTheCardInTheBlackList)) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
-            $status = true;
-            $response = $data;
+
+        if (isset($_COOKIE['SenderId']) && isset($_COOKIE['ReceiverPhone']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,$_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
+
         } else {
-            $emailMessageBlacklistedCard = "Dear,<br><br>Our automated system has detected a potential fraudulent transaction requiring your attention:<br><br>";
-
-            $emailMessageBlacklistedCard .= "We have identified that the card with the number {$_POST['card']} has been blacklisted. <br><br>";
-
-            $emailMessageBlacklistedCard .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-            // $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent RTP Transaction', 'anthony.saliba@elbarid.com', $emailMessageBlacklistedCard, "", "", "suyool@noreply.com", "Suyool", 1, 0);
-            $status = false;
-            $response = 'The Card Number is blacklisted';
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('merchant_name'));
         }
 
-        return $this->render('topup/popup.html.twig', $response);
+        return $this->render('topup/popup.html.twig', $data);
     }
 
     #[Route('/pay2topup', name: 'app_topup_blacklist2')]
@@ -568,5 +588,19 @@ class TopupController extends AbstractController
         }
 
         return $this->render('topup/popup.html.twig', $response);
+    }
+    #[Route('/callbackURl', name: 'app_callbackURl')]
+    public function generateJSON(Request $request): JsonResponse
+    {
+        $urlParams = $request->query->all();
+
+
+        if (!empty($urlParams)) {
+
+            return $this->json($urlParams);
+        } else {
+
+            return $this->json(['message' => 'No parameters received']);
+        }
     }
 }
