@@ -7,6 +7,7 @@ const Result = ({
   setBackLink,
   getCheckBuy,
   setCheckBuy,
+  getBallNumbersIndex,
 }) => {
   const results = parameters.prize_loto_result;
   const data = parameters.prize_loto_perdays;
@@ -31,6 +32,7 @@ const Result = ({
   const [prize2zeed, setprize2zeed] = useState([]);
   const [prize3zeed, setprize3zeed] = useState([]);
   const [prize4zeed, setprize4zeed] = useState([]);
+  const [getBallReplay, setBallReplay] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
@@ -55,11 +57,32 @@ const Result = ({
     const lastNumber = resultsnumbers[resultsnumbers.length - 1];
     setLastNumber(lastNumber);
     data.forEach((item) => {
+      const data = parameters.gridpricematrix;
       const parsedGrids = item.gridSelected.map((item, index) => {
+        var price = 0;
+        switch (item["gridSelected"].split(" ").length) {
+          case 6:
+            price = data[0].price;
+            break;
+          case 7:
+            price = data[1].price;
+            break;
+          case 8:
+            price = data[2].price;
+            break;
+          case 9:
+            price = data[3].price;
+            break;
+          case 10:
+            price = data[4].price;
+            break;
+        }
         return {
           index: index,
           grid: item["gridSelected"].split(" ").map(Number),
           winloto: item["winLoto"],
+          replay: item["gridSelected"].split(" ").map(Number),
+          price: price,
         };
       });
 
@@ -181,10 +204,31 @@ const Result = ({
         const parsedGrids =
           response?.data?.parameters?.prize_loto_perdays[0]?.gridSelected?.map(
             (item, index) => {
+              const data = parameters.gridpricematrix;
+              var price2 = 0;
+              switch (item["gridSelected"].split(" ").length) {
+                case 6:
+                  price2 = data[0].price;
+                  break;
+                case 7:
+                  price2 = data[1].price;
+                  break;
+                case 8:
+                  price2 = data[2].price;
+                  break;
+                case 9:
+                  price2 = data[3].price;
+                  break;
+                case 10:
+                  price2 = data[4].price;
+                  break;
+              }
               return {
                 index: index,
                 grid: item["gridSelected"].split(" ").map(Number),
                 winloto: item["winLoto"],
+                replay: item["gridSelected"].split(" ").map(Number),
+                price: price2
               };
             }
           );
@@ -248,6 +292,54 @@ const Result = ({
   useEffect(() => {
     setSelectedMonthYear(uniqueFilters[0]);
   }, []);
+
+  const replay = () => {
+    const updatedBalls = Object.values(getMyGrids).map((index) => {
+      let numberArray = [];
+      length = index.replay.length;
+      for (let i = 0; i < length; i++)
+        numberArray.push(parseInt(index.replay[i]));
+      console.log(numberArray);
+      return {
+        balls: numberArray,
+        price: index.price,
+        withZeed: false,
+        currency: "LBP",
+        isbouquet: false,
+      };
+    });
+
+    const existingData = localStorage.getItem("selectedBalls");
+    const existingBalls = existingData ? JSON.parse(existingData) : [];
+
+    updatedBalls.forEach((ballSet, index) => {
+      const isDuplicate = existingBalls.some((existingBallSet) =>
+        arraysAreEqual(existingBallSet.balls, ballSet.balls)
+      );
+      if(!isDuplicate){
+        if (
+          getBallNumbersIndex >= 0 &&
+          getBallNumbersIndex < existingBalls.length
+        ) {
+          existingBalls[getBallNumbersIndex + index] = ballSet;
+        } else {
+          existingBalls.push(ballSet);
+        }
+      }
+    });
+
+    localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+
+    console.log(getBallReplay);
+  };
+
+  const arraysAreEqual = (array1, array2) => {
+    return (
+      array1.length === array2.length &&
+      array1.every((value, index) => value === array2[index])
+    );
+  };
+
   return (
     <div id="Result">
       <div className="resultTopSection mt-4">
@@ -316,6 +408,7 @@ const Result = ({
             <img src="/build/images/Loto/goNext.png" alt="goNext" />
           </div>
         </div>
+        <button onClick={() => replay()}>Play same grids to this draw</button>
 
         {getMyGrids &&
           getMyGrids
@@ -354,8 +447,10 @@ const Result = ({
                         } ${
                           ball ===
                           getWinBallInitial[getWinBallInitial.length - 1]
-                            ? grid.length > 6 ? "lastBall"
-                            : "lastBallNone" : ""
+                            ? grid.length > 6
+                              ? "lastBall"
+                              : "lastBallNone"
+                            : ""
                         }`}
                       >
                         {ball}

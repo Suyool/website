@@ -136,6 +136,7 @@ const App = ({ parameters }) => {
               parameters={parameters}
               getCheckBuy={getCheckBuy}
               setCheckBuy={setCheckBuy}
+              getBallNumbersIndex={getBallNumbersIndex}
             />
           )}
 
