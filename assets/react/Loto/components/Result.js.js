@@ -228,7 +228,7 @@ const Result = ({
                 grid: item["gridSelected"].split(" ").map(Number),
                 winloto: item["winLoto"],
                 replay: item["gridSelected"].split(" ").map(Number),
-                price: price2
+                price: price2,
               };
             }
           );
@@ -316,7 +316,7 @@ const Result = ({
       const isDuplicate = existingBalls.some((existingBallSet) =>
         arraysAreEqual(existingBallSet.balls, ballSet.balls)
       );
-      if(!isDuplicate){
+      if (!isDuplicate) {
         if (
           getBallNumbersIndex >= 0 &&
           getBallNumbersIndex < existingBalls.length
@@ -330,7 +330,48 @@ const Result = ({
 
     localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
 
-    console.log(getBallReplay);
+  };
+
+  const replayOneGrid = (grid, price) => {
+    console.log(grid);
+    console.log(price);
+    let numberArray = [];
+    length = grid.length;
+    for (let i = 0; i < length; i++)
+      numberArray.push(parseInt(grid[i]));
+    const updatedBalls = {
+      balls: numberArray,
+      price: price,
+      withZeed: false,
+      currency: "LBP",
+      isbouquet: false,
+    };
+  
+    console.log(updatedBalls);
+  
+    const existingData = localStorage.getItem("selectedBalls");
+    const existingBalls = existingData ? JSON.parse(existingData) : [];
+  
+    const isDuplicate = existingBalls.some(
+      (existingBallSet) =>
+        existingBallSet.balls &&
+        arraysAreEqual(existingBallSet.balls, updatedBalls.balls)
+    );
+  
+    if (!isDuplicate) {
+      if (
+        getBallNumbersIndex >= 0 &&
+        getBallNumbersIndex < existingBalls.length
+      ) {
+        existingBalls[getBallNumbersIndex] = updatedBalls;
+      } else {
+        existingBalls.push(updatedBalls);
+      }
+    // }
+  
+    localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+    }
+  
   };
 
   const arraysAreEqual = (array1, array2) => {
@@ -416,6 +457,7 @@ const Result = ({
               grid: gridItem.grid,
               winLoto: gridItem.winloto,
               index: gridItem.index,
+              price: gridItem.price,
             }))
             .sort((a, b) => {
               const aHasWin =
@@ -426,9 +468,12 @@ const Result = ({
                   .length >= 3;
               return bHasWin - aHasWin || a.index - b.index;
             })
-            .map(({ grid, winLoto, index }) => (
+            .map(({ grid, winLoto, index, price }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
+                  <button onClick={() => replayOneGrid(grid, price)}>
+                    Play same grids to this draw
+                  </button>
                   <div>
                     <img
                       src="/build/images/Loto/LotoLogo.png"

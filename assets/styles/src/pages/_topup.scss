@@ -513,16 +513,49 @@
 }
 
 .rtptopup2 {
-  .modal-header{
-    display: block!important;
-    img{
-      height: unset!important;
-      width: unset!important;
+  .modal{
+    top: 250px!important;
+  }
+  .modal-header {
+    display: block !important;
+    color: #000000;
+    margin-top: 23px;
+    font-family: $SemiBold;
+    text-align: center;
+    border-bottom: none!important;
+    img {
+      height: unset !important;
+      width: unset !important;
     }
   }
-  .modal-footer{
-    justify-content: space-around!important;
+
+  .modal-footer {
+    .action{
+      min-width: 35%;
+      padding: 10px;
+      color: #ffffff;
+      border: none;
+      background-color: #226d96;
+      font-family: $Regular;
+      border-radius: 7px;
+    }
+    justify-content: space-around !important;
+    border-top: none!important;
   }
+
+  .modal-body {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #767676;
+    margin-top: 16px;
+    font-family: $Medium;
+    font-size: 18px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
   .whopay {
     margin: 50px auto;
     width: 50%;
@@ -628,6 +661,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
@@ -641,6 +675,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
@@ -695,6 +730,49 @@
 }
 
 .topup2 {
+  .modal{
+    top: 250px!important;
+  }
+  .modal-header {
+    display: block !important;
+    color: #000000;
+    margin-top: 23px;
+    font-family: $SemiBold;
+    border-bottom: none!important;
+    text-align: center;
+    img {
+      height: unset !important;
+      width: unset !important;
+    }
+  }
+
+  .modal-footer {
+    border-top: none!important;
+    .action{
+      min-width: 35%;
+      padding: 10px;
+      color: #ffffff;
+      border: none;
+      background-color: #226d96;
+      font-family: $Regular;
+      border-radius: 7px;
+    }
+    justify-content: space-around !important;
+  }
+
+  .modal-body {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #767676;
+    margin-top: 16px;
+    font-family: $Medium;
+    font-size: 18px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
   .mobheader {
     opacity: 1;
     display: flex;
@@ -718,6 +796,7 @@
       // font-size: 30px;
     }
   }
+
   .whopay {
     margin: 50px auto;
     width: 50%;
@@ -823,6 +902,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
@@ -836,6 +916,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
