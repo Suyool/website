@@ -37,7 +37,7 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         } else {
             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPI/api/';
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
