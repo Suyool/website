@@ -308,8 +308,14 @@ class TopupController extends AbstractController
     }
 
     #[Route('/payment_gateway', name: 'app_paymentGateway')]
+    #[Route('/payment_gateway/{test}', name: 'app_paymentGateway_test', requirements: ['test' => 'test'])]
     public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices)
     {
+        // Check if the 'test' parameter exists in the URL change the environment to 'dev'
+        if ($test === 'test') {
+            putenv('APP_ENV=dev');
+            dd($_ENV['APP_ENV']);
+        }
         setcookie('SenderId', '', -1, '/');
         setcookie('ReceiverPhone', '', -1, '/');
         setcookie('SenderPhone', '', -1, '/');
@@ -338,19 +344,6 @@ class TopupController extends AbstractController
                 $invoicesServices->PostInvoices($merchant,$data['TranID'],$data['Amount'],$data['Currency'],$additionalInfo,null,'card','','');
                 $sessionInterface->set('card_payment_url',$_SERVER['REQUEST_URI']);
             }
-//            $bobRetrieveResultSession = $bobPaymentServices->RetrievePaymentDetails();
-//            if ($bobRetrieveResultSession[0] == true) {
-//                $sessionInterface->remove('order');
-//                if ($bobRetrieveResultSession[1]['status'] != "CAPTURED") {
-//                    return $this->redirectToRoute("app_payWithBob");
-//                } else {
-//                    $topUpData = $bobPaymentServices->retrievedataForInvoices($bobRetrieveResultSession[1]['authenticationStatus'], $bobRetrieveResultSession[1]['status'], $request->query->get('resultIndicator'), $bobRetrieveResultSession[1], $bobRetrieveResultSession[1]['sourceOfFunds']['provided']['card']['number'], $data['refNumber']);
-//                    if ($topUpData[0]) {
-//                        return $this->render('topup/topupinvoice.html.twig', $topUpData[1]);
-//                    }
-//                }
-//            }
-
 
             $parameters = array();
             $amount = $data['Amount'] ?? '';
@@ -501,7 +494,6 @@ class TopupController extends AbstractController
         return $this->render('topup/3dsecure.html.twig', $parameters);
     }
 
-
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
@@ -604,6 +596,7 @@ class TopupController extends AbstractController
 
         return $this->render('topup/popup.html.twig', $response);
     }
+
     #[Route('/callbackURl', name: 'app_callbackURl')]
     public function generateJSON(Request $request): JsonResponse
     {
