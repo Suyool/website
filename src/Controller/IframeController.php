@@ -308,6 +308,9 @@ class IframeController extends AbstractController
             $secureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
 
+            $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $tranID . "&SecureHash=" . rawurlencode($secureHash);
+            $callBackURL = str_replace("&amp;","&",$callBackURL);
+
             $responseContent = json_encode([
                 'Flag' => $flag,
                 'ReferenceNo' => $referenceNo,
@@ -315,6 +318,7 @@ class IframeController extends AbstractController
                 'ReturnText' => $returnText,
                 'SecureHash' => $secureHash,
                 'AdditionalInfo' => $additionalInfo,
+                'CallBackURL' => $callBackURL
             ]);
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
 

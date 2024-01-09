@@ -130,10 +130,10 @@
                         }else {
                             setTimeout(function () {
                                 if (window.opener) {
-                                    window.opener.location.href = callbackUrl;
+                                    window.opener.location.href = paymentInfo['CallBackURL'];
                                     window.self.close();
                                 } else {
-                                    window.top.location.href = callbackUrl;
+                                    window.top.location.href = paymentInfo['CallBackURL'];
                                 }
                             }, 3000);
                         }
