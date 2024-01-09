@@ -358,7 +358,7 @@ class TopupController extends AbstractController
             $transactionDetails = json_decode($pushCard[1]);
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
-            $sessionInterface->set('merchant_name', $merchant->getName());
+            setcookie('merchant_name',$merchant->getName() , time() + (60 * 10));
 
             $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
                 'merchants' => $merchant,
@@ -387,7 +387,7 @@ class TopupController extends AbstractController
                 'fees' => $transactionDetails->FeesAmount,
                 'amount' => $finalAmount,
                 'currency' => $currency,
-                'merchantName' => $sessionInterface->get('merchant_name')
+                'merchantName' => $_COOKIE['merchant_name']
             ];
             $sessionInterface->remove('payment_data');
             $sessionInterface->remove('merchant_name');
@@ -531,10 +531,10 @@ class TopupController extends AbstractController
     {
 
         if (isset($_COOKIE['SenderId']) && isset($_COOKIE['ReceiverPhone']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,$_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
 
         } else {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($sessionInterface->get('merchant_name'));
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay();
         }
 
         return $this->render('topup/popup.html.twig', $data);

@@ -1087,7 +1087,7 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($merchantName = null, $suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null)
+    public function updatedTransactionInHostedSessionToPay($suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1148,12 +1148,12 @@ class BobPaymentServices
                 $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
                 $price = $content['order']['amount'];
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
-
+                $merchantName = 'test1';
                 if ($topup[0]) {
                     $status = true;
                     $imgsrc = "build/images/Loto/success.png";
                     $title = "Payment Successful";
-                    $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at ";
+                    $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
 
                     $parameters = [
