@@ -316,7 +316,6 @@ class IframeController extends AbstractController
                 'ReferenceNo' => $referenceNo,
                 'TranID' => $tranID,
                 'ReturnText' => $returnText,
-                'SecureHash' => $secureHash,
                 'AdditionalInfo' => $additionalInfo,
                 'CallBackURL' => $callBackURL
             ]);
