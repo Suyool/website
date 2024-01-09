@@ -355,6 +355,7 @@ class TopupController extends AbstractController
             $mechantOrderId = $data['TranID'] ?? '';
             $merchantId = $data['MerchantID'] ?? '';
             $callBackUrl = $data['CallBackURL'] ?? '';
+            $refNumber = $data['refNumber'] ?? '';
 
             $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($mechantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl);
 
@@ -376,7 +377,7 @@ class TopupController extends AbstractController
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
 //            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null);
-            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,null);
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,"G".$refNumber);
 
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");

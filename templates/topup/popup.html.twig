@@ -16,7 +16,11 @@
 				{{description|raw}}
 			</div>
 			<div class="button">
-				{% if redirect is defined and redirect is not null %}
+				{% if redirectCallBack is defined and redirectCallBack == true  %}
+					<button class="action">
+						<a href="{{redirect}}">{{button}}</a>
+					</button>
+				{% elseif redirect is defined and redirect is not null %}
 					<button class="action">
 						<a href="{{app.request.schemeAndHttpHost}}/{{redirect}}">{{button}}</a>
 					</button>

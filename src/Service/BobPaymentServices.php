@@ -1308,12 +1308,13 @@ class BobPaymentServices
                 $price = $content['order']['amount'];
                 $currency = $content['order']['currency'];
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
-                $description = "your transaction of {$currency} {$amount} at {$merchantName} has been declined";
+                $description = "Your transaction of {$currency} {$amount} at {$merchantName} has been declined";
+                $title = "Payment Failed";
             }else {
+                $title = "Please Try Again";
                 $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
             }
             $imgsrc = "build/images/Loto/error.png";
-            $title = "Please Try Again";
             $button = "Try Again";
             $parameters = [
                 'title' => $title,
