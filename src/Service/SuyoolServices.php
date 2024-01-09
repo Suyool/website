@@ -110,11 +110,8 @@ class SuyoolServices
             if ($status == 500) {
                 return array(false, 'Internal Server Error');
             }
-            if ($status === 400) {
-                $push_utility_response = $response->toArray(false);
-            } else {
-                $push_utility_response = $response->toArray();
-            }
+
+            $push_utility_response = $response->toArray(false);
 
             $error = "";
             $globalCode = $push_utility_response['globalCode'];

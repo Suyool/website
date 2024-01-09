@@ -8,6 +8,7 @@ const Result = ({
   getCheckBuy,
   setCheckBuy,
   getBallNumbersIndex,
+  setActiveButton
 }) => {
   const results = parameters.prize_loto_result;
   const data = parameters.prize_loto_perdays;
@@ -333,8 +334,6 @@ const Result = ({
   };
 
   const replayOneGrid = (grid, price) => {
-    console.log(grid);
-    console.log(price);
     let numberArray = [];
     length = grid.length;
     for (let i = 0; i < length; i++)
@@ -346,9 +345,7 @@ const Result = ({
       currency: "LBP",
       isbouquet: false,
     };
-  
-    console.log(updatedBalls);
-  
+    
     const existingData = localStorage.getItem("selectedBalls");
     const existingBalls = existingData ? JSON.parse(existingData) : [];
   
@@ -367,9 +364,9 @@ const Result = ({
       } else {
         existingBalls.push(updatedBalls);
       }
-    // }
   
     localStorage.setItem("selectedBalls", JSON.stringify(existingBalls));
+    setActiveButton({ name: "Play" });
     }
   
   };
@@ -449,8 +446,6 @@ const Result = ({
             <img src="/build/images/Loto/goNext.png" alt="goNext" />
           </div>
         </div>
-        <button onClick={() => replay()}>Play same grids to this draw</button>
-
         {getMyGrids &&
           getMyGrids
             .map((gridItem, index) => ({
@@ -471,15 +466,16 @@ const Result = ({
             .map(({ grid, winLoto, index, price }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
-                  <button onClick={() => replayOneGrid(grid, price)}>
-                    Play same grids to this draw
-                  </button>
+                  
                   <div>
                     <img
                       src="/build/images/Loto/LotoLogo.png"
                       alt="SmileLOGO"
                     />
                     <span>BASIC</span>
+                    <button onClick={() => replayOneGrid(grid, price)}>
+                    Replay
+                  </button>
                   </div>
                 </div>
                 <div className="winnweBody">

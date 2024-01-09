@@ -355,6 +355,10 @@ class LotoController extends AbstractController
                 $amounttotalBouquet = 0;
                 $selected = [];
 
+                if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
+                    $drawnumber += 1;
+                }
+
                 foreach ($getPlayedBalls as $item) {
                     if (isset($item['balls'])) {
                         sort($item['balls']);
@@ -379,9 +383,7 @@ class LotoController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
 
-                if ($today >= $loto_draw->getdrawdate()->modify('-15 minutes')) {
-                    $drawnumber += 1;
-                }
+               
 
 
                 foreach ($getPlayedBalls as $item) {

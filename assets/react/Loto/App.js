@@ -137,6 +137,7 @@ const App = ({ parameters }) => {
               getCheckBuy={getCheckBuy}
               setCheckBuy={setCheckBuy}
               getBallNumbersIndex={getBallNumbersIndex}
+              setActiveButton={setActiveButton}
             />
           )}
 
