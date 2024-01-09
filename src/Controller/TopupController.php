@@ -316,12 +316,15 @@ class TopupController extends AbstractController
                  setcookie('hostedSessionId', '', -1, '/');
                  setcookie('orderidhostedsession', '', -1, '/');
                  setcookie('transactionidhostedsession', '', -1, '/');
+                 setcookie('merchant_name', '', -1, '/');
                  unset($_COOKIE['SenderId']);
                  unset($_COOKIE['ReceiverPhone']);
                  unset($_COOKIE['SenderPhone']);
                  unset($_COOKIE['hostedSessionId']);
                  unset($_COOKIE['orderidhostedsession']);
                  unset($_COOKIE['transactionidhostedsession']);
+                 unset($_COOKIE['merchant_name']);
+
         try {
             if (!empty($sessionInterface->get('payment_data'))) {
                 $data = $sessionInterface->get('payment_data');
@@ -358,7 +361,7 @@ class TopupController extends AbstractController
             $transactionDetails = json_decode($pushCard[1]);
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
-            setcookie('merchant_name',$merchant->getName() , time() + (60 * 10));
+            $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
 
             $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
                 'merchants' => $merchant,
@@ -387,10 +390,9 @@ class TopupController extends AbstractController
                 'fees' => $transactionDetails->FeesAmount,
                 'amount' => $finalAmount,
                 'currency' => $currency,
-                'merchantName' => $_COOKIE['merchant_name']
+                'merchantName' => $merchantName
             ];
             $sessionInterface->remove('payment_data');
-            $sessionInterface->remove('merchant_name');
 
             return $this->render('topup/topupinvoice.html.twig', $parameters);
         } catch (\Exception $e) {
@@ -471,6 +473,7 @@ class TopupController extends AbstractController
         setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
         setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
         setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
+        setcookie('merchant_name',$sessionInterface->get('merchant_name') , time() + (60 * 10));
 
         // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         // $senderName = $sessionInterface->get('SenderInitials');
@@ -534,7 +537,7 @@ class TopupController extends AbstractController
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
 
         } else {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay();
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,null,null,null,$_COOKIE['merchant_name']);
         }
 
         return $this->render('topup/popup.html.twig', $data);

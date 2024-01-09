@@ -1087,7 +1087,7 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null)
+    public function updatedTransactionInHostedSessionToPay($suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1148,7 +1148,7 @@ class BobPaymentServices
                 $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "LL";
                 $price = $content['order']['amount'];
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
-                $merchantName = 'test1';
+//                $merchantName = 'test1';
                 if ($topup[0]) {
                     $status = true;
                     $imgsrc = "build/images/Loto/success.png";
@@ -1304,9 +1304,16 @@ class BobPaymentServices
             }
 
         } else {
+            if(is_null($suyooler)) {
+                $price = $content['order']['amount'];
+                $currency = $content['order']['currency'];
+                $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
+                $description = "your transaction of {$currency} {$amount} at {$merchantName} has been declined";
+            }else {
+                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            }
             $imgsrc = "build/images/Loto/error.png";
             $title = "Please Try Again";
-            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
             $button = "Try Again";
             $parameters = [
                 'title' => $title,
