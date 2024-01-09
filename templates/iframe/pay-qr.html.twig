@@ -119,7 +119,7 @@
                         $('#text-message').html(paymentInfo['ReturnText']);
                         $('.QR-cont').hide();
 
-                        if (callbackUrl === "") {
+                        if (paymentInfo['CallBackURL'] === "") {
                             if(paymentInfo['Flag'] === 1) {
                                 $('.icon-image img').attr('src', '{{ asset('build/images/approved.png') }}');
                             } else {
