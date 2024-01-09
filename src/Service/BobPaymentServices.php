@@ -1451,6 +1451,7 @@ class BobPaymentServices
                         $content = $this->notificationServices->getContent('CardTopUpRtp');
                         $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                     } else {
+                        $imgsrc = "build/images/Loto/warning.png";
                         $title = "Compliance Check";
                         $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
                         $button = "OK";
@@ -1625,6 +1626,7 @@ class BobPaymentServices
                     $content = $this->notificationServices->getContent('CardTopUpRtp');
                     $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 } else {
+                    $imgsrc = "build/images/Loto/warning.png";
                     $title = "Compliance Check";
                     $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
                     $button = "OK";

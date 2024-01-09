@@ -28,7 +28,7 @@
                         <div class="fee">Card Processing Fees</div>
                     </div>
                     <div class="col-md-7 col-4">
-                        <div class="beforefee">{{ currency }}{{ amount }}</div>
+                        <div class="beforefee">{{ currency }} {{ amount|number_format(2, '.', ',')  }}</div>
                         <div class="beforefee">{{ currency }}
                             {{ fees|number_format(2, '.', ',') }}</div>
                     </div>
@@ -45,69 +45,67 @@
                     </div>
                     <div class="form">
                         <div class="form-row">
-                            <div><span class="label-text">Cardholder </span>(exactly as shown on card) <span
+                            <div><span class="label-text">Cardholder</span>(exactly as shown on card) <span
                                         class="star">*</span></div>
                             <input type="text" id="cardholder-name" class="input-field" title="cardholder name"
-                                   aria-label="enter name on card" value="" tabindex="5" readonly
+                                   aria-label="enter name on card" value="" tabindex="5" placeholder="Cardholder name" readonly
 
                             >
                         </div>
                         <div class="form-row">
                             <div><span class="label-text">Card number </span><span class="star">*</span></div>
                             <div class="iframe-container">
-                                <input type="text" id="card-number" class="input-field" title="card number" readonly/>
+                                <input type="text" id="card-number" class="input-field" title="card number" placeholder="**** **** **** ****" readonly/>
                                 <i class="fa-solid fa-lock"></i>
                             </div>
 
                         </div>
-                        <div class="expires form-row">
-                            <div><span class="label-text">Expiry Month </span><span class="star">*</span>
-                                <select id="expiry-month" class="form-control input-md" required="" readonly>
-                                    <option value="">Select Month</option>
-                                    <option value="01">January</option>
-                                    <option value="02">February</option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
-                                </div>
-                                <div><span class="label-text">Expiry Year </span><span class="star">*</span>
-                                    <select id="expiry-year" class="form-control input-md" required="" readonly>
-                                        <option value="">Select Year</option>
-                                        <option>21</option>
-                                        <option>22</option>
-                                        <option>23</option>
-                                        <option>24</option>
-                                        <option>25</option>
-                                        <option>26</option>
-                                        <option>27</option>
-                                        <option>28</option>
-                                        <option>29</option>
-                                        <option>30</option>
-                                        <option>31</option>
-                                        <option>32</option>
-                                        <option>33</option>
-                                        <option>34</option>
-                                        <option>35</option>
-                                        <option>36</option>
-                                        <option>37</option>
-                                        <option>38</option>
-                                        <option>39</option>
+                        <div><span class="label-text">Expiry Date</span><span class="star">*</span></div>
+                            <div class="expires form-row">
+                                <div>
+                                    <select id="expiry-month" class="form-control input-md" required="" readonly>
+                                        <option value="">MM</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
                                     </select>
                                     </div>
-                        </div>
+                                    <div>
+                                        <select id="expiry-year" class="form-control input-md" required="" readonly>
+                                            <option value="">YY</option>
+                                            <option>24</option>
+                                            <option>25</option>
+                                            <option>26</option>
+                                            <option>27</option>
+                                            <option>28</option>
+                                            <option>29</option>
+                                            <option>30</option>
+                                            <option>31</option>
+                                            <option>32</option>
+                                            <option>33</option>
+                                            <option>34</option>
+                                            <option>35</option>
+                                            <option>36</option>
+                                            <option>37</option>
+                                            <option>38</option>
+                                            <option>39</option>
+                                        </select>
+                                        </div>
+                            </div>
                         <div class="form-row">
                             <div><span class="label-text">Security code </span><span class="star">*</span></div>
                             <div class="iframe-container">
                                 <input type="text" id="security-code" class="input-field" title="security code"
-                                       aria-label="three digit CCV security code" value="" tabindex="4" readonly>
+                                       aria-label="three digit CCV security code" value="" tabindex="4" placeholder="***" readonly>
                                 <i class="fa-regular fa-credit-card"></i>
                             </div>
 
@@ -115,7 +113,11 @@
 
                         <div style="text-align: center;white-space:nowrap;">
                             <button id="payButton" onclick="pay('card');" disabled>
-                                Pay {{ currency }}{{ totalAmount|number_format(2, '.', ',') }}
+                                {% if currency == 'LL' %}
+                                    Pay LL {{ totalAmount|number_format() }}
+                                {% else %}
+                                    Pay {{ currency }} {{ totalAmount|number_format(2, '.', ',') }}
+                                {% endif %}
                             </button>
                         </div>
                     </div>
@@ -124,9 +126,11 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <img src="{{asset('build/images/Loto/warning.png')}}">
-                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
                             </div>
-                            <div class="modal-body"></div>
+                            <div class="modal-body">
+                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                                <div class="desc"></div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="action" data-bs-dismiss="modal">Close</button>
                                 </div>
@@ -179,7 +183,7 @@
                                             //    window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
                                             //}
                                             document.getElementById("staticBackdropLabel").innerText = response.response.title
-                                            document.querySelector(".modal-body").innerText = response.response.description
+                                            document.querySelector(".desc").innerText = response.response.description
                                             //document.getElementById("action").innerText = response.response.button
                                            // document.getElementById("action").setAttribute("href", "/" + response.response.code)
                                             $('#staticBackdrop').modal('show');
@@ -230,36 +234,11 @@
             }
         });
 
-        {# PaymentSession.onValidityChange(["card.number"], function (selector, result) {
-
-            if (result.isValid) {
-                document.getElementById("payButton").disabled = false;
-                document.querySelector(selector).style.borderColor = "green";
-                document.querySelector(".gw-proxy-number").style.borderColor = "green";
-            } else if (result.isIncomplete) {
-                document.getElementById("payButton").disabled = true;
-                document.querySelector(selector).style.borderColor = "grey";
-            } else {
-                document.getElementById("payButton").disabled = true;
-                document.querySelector(selector).style.borderColor = "red";
-            }
-        }); #}
-
-        {# PaymentSession.onValidityChange([
-            "card.number","card.securityCode", "card.expiryYear", "card.expiryMonth"
-        ], function (selector, result) {
-
-            if (result.isValid) {
-				document.getElementById("payButton").disabled = false;
-                document.querySelector(selector).style.borderColor = "green";
-            } else if (result.isIncomplete) {
-				document.getElementById("payButton").disabled = true;
-                document.querySelector(selector).style.borderColor = "grey";
-            } else {
-				document.getElementById("payButton").disabled = true;
-                document.querySelector(selector).style.borderColor = "red";
-            }
-        }); #}
+        PaymentSession.setFocusStyle(["card.number","card.securityCode","card.nameOnCard"], {
+            borderColor: 'red',
+            borderWidth: '2px',
+            fontFamily: 'PoppinsRegular',
+        });
 
 		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth"],
 
@@ -274,11 +253,7 @@
 
 			} else {
 				document.getElementById("payButton").disabled = true;
-
-			console.log("The field is invalid");
-
-			document.querySelector(selector).style.borderColor = "red";
-
+                console.log("The field is invalid");
 			}
 
 			});
