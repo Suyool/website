@@ -641,11 +641,11 @@
         width: 100% !important;
 
         @supports (-webkit-touch-callout: none) {
-          height: 55px !important;
+          height: 65px !important;
         }
 
         @supports not (-webkit-touch-callout: none) {
-          height: 35px !important;
+          height: 45px !important;
         }
       }
 
@@ -668,6 +668,20 @@
       }
 
       input[type=text] {
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
+
+        font-family: $Regular;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
+      }
+
+      select{
         @supports (-webkit-touch-callout: none) {
           width: 80% !important;
         }
@@ -882,11 +896,11 @@
         width: 100% !important;
 
         @supports (-webkit-touch-callout: none) {
-          height: 55px !important;
+          height: 65px !important;
         }
 
         @supports not (-webkit-touch-callout: none) {
-          height: 35px !important;
+          height: 41px !important;
         }
       }
 
@@ -909,6 +923,20 @@
       }
 
       input[type=text] {
+        @supports (-webkit-touch-callout: none) {
+          width: 80% !important;
+        }
+
+        @supports not (-webkit-touch-callout: none) {
+          width: 99% !important;
+        }
+
+        font-family: $Regular;
+        border-radius: 5px;
+        border: 1px solid #ccc !important;
+      }
+
+      select{
         @supports (-webkit-touch-callout: none) {
           width: 80% !important;
         }
