@@ -21,11 +21,13 @@ class MerchantPaymentGatewayController extends AbstractController
 {
 
     private $rateLimiter;
+    private $certificate;
 
     public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter)
     {
         $this->mr = $mr->getManager('topup');
         $this->rateLimiter = $rateLimiter;
+        $this->certificate = $_ENV['CERTIFICATE'];
     }
 
 
@@ -129,7 +131,8 @@ class MerchantPaymentGatewayController extends AbstractController
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
         $merchantSettings = $merchant->getSettings();
-
+        $amount = number_format($amount, 3, '.', '');
+        $Hash = base64_encode(hash($this->hash_algo,   $orderId .$merchantId . $amount . $currency . $order->getMerchantOrderDesc() . $this->certificate, true));
         // Store data in the session
         $paymentData = [
             'MerchantID' => $merchantId,

@@ -37,7 +37,7 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         } else {
             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
@@ -547,11 +547,12 @@ class SuyoolServices
             return array(false);
         }
     }
-    public function PushCardToMerchantTransaction($mechantOrderId,$amount, $currency, $additionalInfo,$merchantId,$callbackURL = null)
+    public function PushCardToMerchantTransaction($mechantOrderId,$amount, $currency, $additionalInfo,$merchantId,$callbackURL = null,$Hash)
     {
         try {
             $amount = number_format($amount, 3, '.', '');
-            $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+//            $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+//            dd($Hash);
             $body = [
                 'TransactionId' => $mechantOrderId,
                 'merchantAccountID' => $merchantId,
@@ -561,7 +562,6 @@ class SuyoolServices
                 'secureHash' => $Hash,
                 'callbackURL' => $callbackURL
             ];
-
             // $this->cashin->info(json_encode($body));
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/PushCardToMerchantTransaction",  $body);

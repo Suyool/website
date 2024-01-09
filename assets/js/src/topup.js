@@ -64,3 +64,35 @@ if (document.querySelector(".back")) {
     }
   });
 }
+if (document.querySelector(".actionBrowser")) {
+  const action = document.querySelector(".actionBrowser");
+  action.addEventListener("click", function () {
+    // Submit the form
+    const myCookieValue = getCookie('card_payment_url');
+
+    window.location.href = decodeURIComponent(myCookieValue)
+  });
+}
+// Function to get a specific cookie value by name
+function getCookie(cookieName) {
+  // Split all cookies into an array
+  const cookies = document.cookie.split(';');
+
+  // Loop through each cookie to find the one with the provided name
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i].trim();
+
+    // Check if this is the cookie you're looking for
+    if (cookie.startsWith(cookieName + '=')) {
+      // Extract and return the cookie value
+      return cookie.substring(cookieName.length + 1);
+    }
+  }
+
+  // Return null if the cookie is not found
+  return null;
+}
+
+// Usage example
+
+
