@@ -330,7 +330,9 @@ class TouchController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-        $filter =  $Memcached->getVouchersTouch($lotoServices);
+        if($_ENV['APP_ENV']=="prod"){
+            $filter =  $Memcached->getVouchersTouch($lotoServices);
+        }
 
         return new JsonResponse([
             'status' => true,

@@ -389,7 +389,9 @@ class AlfaController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-        $filter =  $Memcached->getVouchers($lotoServices);
+        if($_ENV['APP_ENV']=="prod"){
+            $filter =  $Memcached->getVouchers($lotoServices);
+        }
 
         return new JsonResponse([
             'status' => true,
