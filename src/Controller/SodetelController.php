@@ -118,7 +118,6 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
-//        $SuyoolUserId = 218;
 
         $flagCode = null;
         $IsSuccess = false;

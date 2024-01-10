@@ -28,8 +28,8 @@ class SodetelService
 
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SODETEL_API_HOST = 'https://ws.sodetel.net.lb/';
-            $this->customerNumber = "T00004";
-            $this->customerKey = "F6D29C012B90G";
+            $this->customerNumber = "C063814";
+            $this->customerKey = "9981373D9AC51";
         } else {
             $this->SODETEL_API_HOST = 'https://ws.sodetel.net.lb/';
             $this->customerNumber = "T00004";
