@@ -18,7 +18,9 @@
 			<div class="button">
 				{% if redirectCallBack is defined and redirectCallBack == true  %}
 					<button class="action">
+						{% if redirect is defined and redirect is not null %}
 						<a href="{{redirect}}">{{button}}</a>
+						{% endif %}
 					</button>
 				{% elseif redirect is defined and redirect is not null %}
 					<button class="action">
@@ -29,7 +31,6 @@
 						{{button}}
 					</button>
 				{% endif %}
-
 			</div>
 		</div>
 	</div>

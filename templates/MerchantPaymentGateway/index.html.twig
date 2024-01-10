@@ -26,7 +26,12 @@
                     </a>
                 </div>
                 <div class="col-md-12">
-                    <a href="{{ path('app_paymentGateway') }}">
+                    {% if app.session.get('APP_ENV_test') is defined and app.session.get('APP_ENV_test') == 'preProd' %}
+                        {% set path = path('app_paymentGateway_test', {'test': 'test'}) %}
+                    {% else %}
+                        {% set path = path('app_paymentGateway') %}
+                    {% endif %}
+                    <a href="{{ path }}">
                         <div class="card text-center mb-4">
                             <div class="card-body d-flex align-items-center">
                                 <img src="{{ asset('build/images/cardPaymentLogo.svg') }}" alt="Card Payment" width="60" class="mr-3">

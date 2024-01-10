@@ -623,7 +623,7 @@ class TopupController extends AbstractController
     }
 
     /**
-     * @Route("/callbackURL", name="admin_homepage")
+     * @Route("/callbackURL", name="callbackUrl")
      */
     public function generateJSON(Request $request): JsonResponse
     {

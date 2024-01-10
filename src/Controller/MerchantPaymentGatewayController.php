@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\topup\invoices;
 use App\Entity\topup\MerchantKey;
+use App\Entity\topup\test_invoices;
 use App\Service\InvoiceServices;
 use App\Service\RateLimiter;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,10 +33,15 @@ class MerchantPaymentGatewayController extends AbstractController
 
 
     /**
-     * @Route("/merchant/v1/invoices", name="payment_api_invoice",methods="POST")
+     * @Route("/merchant/v1/invoices/{test?}", name="payment_api_invoice_test", requirements={"test"="test"},methods="POST")
+     * @Route("/merchant/v1/invoices/", name="payment_api_invoice",methods="POST")
      */
-    public function api(Request $request,SessionInterface $session,InvoiceServices $invoicesServices)
+    public function api(Request $request,SessionInterface $session,InvoiceServices $invoicesServices, $test=null)
     {
+        if ($test === 'test') {
+            $_ENV['APP_ENV'] = 'preProd';
+            $session->set('APP_ENV_test','preProd');
+        }
         // Get IP address of the requester
         $ipAddress = $request->getClientIp();
 
@@ -68,8 +74,11 @@ class MerchantPaymentGatewayController extends AbstractController
 
         if($apiKeydata == $apiKey){
             $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl);
-
-            $url = "http://suyool.ls/G".$referenceNumber;
+            if ($test === 'test') {
+                $url = "http://suyool.ls/test/G".$referenceNumber;
+            }else {
+                $url = "http://suyool.ls/G".$referenceNumber;
+            }
 
             $array = [
                 "url" => $url,
@@ -97,16 +106,26 @@ class MerchantPaymentGatewayController extends AbstractController
     }
 
     /**
+     * @Route("/test/{refnumber}", name="payment_gateway_test", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      */
     public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
     {
-        $session->clear();
+
+        $session->remove('payment_data');
         $firstFPosition = strpos($refnumber, 'G');
 
         $refnumber = substr($refnumber, $firstFPosition + 1);
 
-        $order = $this->mr->getRepository(invoices::class)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
+        $isTestRequest = strpos($request->getPathInfo(), '/test/') === 0;
+
+        $invoiceClass = invoices::class;
+        if ($isTestRequest){
+            $invoiceClass = test_invoices::class;
+            $session->set('APP_ENV_test','preProd');
+        }
+
+        $order = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
             ->where('i.reference = :refnumber')->setParameter('refnumber', $refnumber)->getQuery()->getOneOrNullResult();
 
         $merchant = $order->getMerchantsId();
@@ -132,7 +151,6 @@ class MerchantPaymentGatewayController extends AbstractController
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
         $merchantSettings = $merchant->getSettings();
         $amount = number_format($amount, 3, '.', '');
-        $Hash = base64_encode(hash($this->hash_algo,   $orderId .$merchantId . $amount . $currency . $order->getMerchantOrderDesc() . $this->certificate, true));
         // Store data in the session
         $paymentData = [
             'MerchantID' => $merchantId,
