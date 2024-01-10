@@ -1195,7 +1195,7 @@ class BobPaymentServices
                     $title = "Payment Successful";
                     $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
-                    if (isset($topup[1]) && !is_null($topup[1])){
+                    if (isset($topup[1]) && $topup[1] !='') {
                         $redirectCallBack = true;
                     }else{
                         $redirectCallBack = false;
