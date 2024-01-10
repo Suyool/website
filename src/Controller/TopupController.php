@@ -317,6 +317,8 @@ class TopupController extends AbstractController
             //putenv('APP_ENV=dev1');
             $_ENV['APP_ENV'] = 'preProd';
             $sessionInterface->set('APP_ENV_test','preProd');
+        }else{
+            $sessionInterface->set('APP_ENV_test',$_ENV['APP_ENV']);
         }
 //        $this->suyoolServices->test();
 //        die();
