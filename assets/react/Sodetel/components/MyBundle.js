@@ -118,7 +118,7 @@ const MyBundle = ({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
                 title: "Recharge Card Unavailable ",
-                description: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable.
+                description: `The ${getPrepaidVoucher.priceUSD}$ Sodetel Recharge Service is unavailable.
                 Kindly choose another one.`,
                 show: true,
                 btn: "OK",

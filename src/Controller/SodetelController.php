@@ -5,13 +5,10 @@ namespace App\Controller;
 use App\Entity\Sodetel\Logs;
 use App\Entity\Sodetel\Order;
 use App\Entity\Sodetel\Product;
-use App\Repository\SodetelOrdersRepository;
-use App\Repository\SodetelProductsRepository;
 use App\Service\NotificationServices;
 use App\Service\SodetelService;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\DashboardDto;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,13 +38,14 @@ class SodetelController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 //        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-
+//        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
 
         if (isset($_POST['infoString'])) {
-            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
+            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 //            $devicetype = "Android";
+
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
@@ -61,7 +59,7 @@ class SodetelController extends AbstractController
             } else {
                 return $this->render('ExceptionHandling.html.twig');
             }
-        } else {
+        } else  {
             return $this->render('ExceptionHandling.html.twig');
         }
     }
@@ -78,6 +76,18 @@ class SodetelController extends AbstractController
         $identifier = $parameters['identifier'];
         $cards = $sodetelService->getAvailableCards($service, $identifier);
 
+        if (isset($cards[0]) && !$cards[0]) {
+            $logs = new Logs;
+            $logs
+                ->setidentifier("Sodetel Request")
+                ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
+                ->setrequest(json_encode(array($service, $identifier)))
+                ->setresponse(null)
+                ->seterror(json_encode($cards[1]));
+            $this->mr->persist($logs);
+            $this->mr->flush();
+        }
+
         $response = new Response();
         $response->setContent(json_encode($cards));
         $response->headers->set('Content-Type', 'application/json');
@@ -92,7 +102,7 @@ class SodetelController extends AbstractController
     public function refill(Request $request, SodetelService $sodetelService, NotificationServices $notificationServices)
     {
 //        request: {
-//            "bundle": "bundle",
+//            "bundle": "dsl",
 //             "identifier": "96170000000",
 //             "refillData": {
 //                "plancode": "vs1",
@@ -105,13 +115,10 @@ class SodetelController extends AbstractController
 //             }
 //        }
 
-
-        $suyoolServices = new SuyoolServices($this->params->get('SODETEL_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
 //        $SuyoolUserId = 218;
-
 
         $flagCode = null;
         $IsSuccess = false;
@@ -120,8 +127,15 @@ class SodetelController extends AbstractController
         $message = "";
 
         if ($data != null) {
+            // request.bundle == "dsl" || request.bundle == "fiber" => SODETEL_POSTPAID_MERCHANT_ID
+            // request.bundle == "4g" => SODETEL_4G_MERCHANT_ID
+
+            $sodetelMerchantId = $data['bundle'] == "4g" ? $this->params->get('SODETEL_4G_MERCHANT_ID') : $this->params->get('SODETEL_POSTPAID_MERCHANT_ID');
+            $suyoolServices = new SuyoolServices($sodetelMerchantId);
+
             $order = new Order;
             $order->setSuyoolUserId($SuyoolUserId)
+                ->setUtilityMerchantId($sodetelMerchantId)
                 ->setAmount($data['refillData']['pricettc'])
                 ->setCurrency($data['refillData']['currency'])
                 ->setTransId(null)
@@ -131,9 +145,10 @@ class SodetelController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $order_id = $this->params->get('SODETEL_POSTPAID_MERCHANT_ID') . $order->getId();
+            $order_id = $this->params->get('SODETEL_POSTPAID_MERCHANT_ID') ."-". $order->getId();
 
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0);
+
             if ($utilityResponse[0]) {
                 $order->setStatus(Order::$statusOrder['HELD']);
 
@@ -212,7 +227,7 @@ class SodetelController extends AbstractController
                         $logs = new Logs;
                         $logs
                             ->setidentifier("Sodetel Request")
-                            ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                            ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
                             ->setrequest(json_encode(array($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId())))
                             ->setresponse(json_encode($sodetelData))
                             ->seterror($sodetelData['message']);
@@ -234,6 +249,14 @@ class SodetelController extends AbstractController
                     ->seterror($utilityResponse[1]);
                 $this->mr->persist($order);
                 $this->mr->flush();
+
+                $logs = new Logs;
+                $logs
+                    ->setidentifier("Sodetel Request")
+                    ->seturl("Utilities/PushUtilityPayment")
+                    ->setrequest(json_encode(array($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0)))
+                    ->setresponse(null)
+                    ->seterror($utilityResponse[1]);
 
                 $message = $utilityResponse[1];
                 $flagCode = $utilityResponse[2];

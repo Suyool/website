@@ -27,6 +27,11 @@ class Order
     /**
      * @ORM\Column(type="string")
      */
+    private $UtilityMerchantId;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $status;
 
     /**
@@ -81,6 +86,17 @@ class Order
     public function setSuyoolUserId($suyoolUserId)
     {
         $this->suyoolUserId = $suyoolUserId;
+        return $this;
+    }
+
+    public function getUtilityMerchantId()
+    {
+        return $this->UtilityMerchantId;
+    }
+
+    public function setUtilityMerchantId($UtilityMerchantId)
+    {
+        $this->UtilityMerchantId = $UtilityMerchantId;
         return $this;
     }
 

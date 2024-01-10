@@ -60,7 +60,6 @@ class SodetelService
 
             $content = $response->getContent();
             $data = json_decode($content, true);
-
             if (!empty($data) && $data['customerid'] == $identifier) {
                 return array(
                     'status'=>true,
@@ -70,7 +69,7 @@ class SodetelService
 
             return array(true, $content);
         } catch (Exception $e) {
-            $this->logger->error("Gift 2 Games categories error: {$e->getMessage()}");
+            $this->logger->error("Sodetel Error: {$e->getMessage()}");
             return array(false, $e->getMessage(), 255, $e->getMessage());
         }
     }
@@ -96,7 +95,9 @@ class SodetelService
                     'Content-Type' => 'application/x-www-form-urlencoded',
                 ],
             ]);
+
             return $response->getContent();
+
         } catch (Exception $e) {
             $this->logger->error("Sodetel error: {$e->getMessage()}");
             return json_encode(array(array('result'=>false, 'message'=>$e->getMessage()), 255, $e->getMessage()));
