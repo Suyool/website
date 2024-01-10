@@ -559,7 +559,7 @@ class TopupController extends AbstractController
     public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
 
-        if($_COOKIE['APP_ENV_test'] == 'preProd'){
+        if(isset($_COOKIE['APP_ENV_test']) && $_COOKIE['APP_ENV_test'] == 'preProd'){
             $_ENV['APP_ENV']='preProd';
         }
         if (isset($_COOKIE['SenderId']) && isset($_COOKIE['ReceiverPhone']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
