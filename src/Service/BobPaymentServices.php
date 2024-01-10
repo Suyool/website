@@ -1195,6 +1195,7 @@ class BobPaymentServices
                     $title = "Payment Successful";
                     $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
+                    $redirectUrl = isset($topup[1]) ? $topup[1] : null;
 
                     $parameters = [
                         'status' => $status,
@@ -1202,7 +1203,7 @@ class BobPaymentServices
                         'imgsrc' => $imgsrc,
                         'description' => $description,
                         'button' => $button,
-                        'redirect' => $topup[1],
+                        'redirect' => $redirectUrl,
                         'redirectCallBack' => true
                     ];
                     $order = $session->getOrders();
