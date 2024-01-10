@@ -1195,16 +1195,19 @@ class BobPaymentServices
                     $title = "Payment Successful";
                     $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
-                    $redirectUrl = isset($topup[1]) ? $topup[1] : null;
-
+                    if (isset($topup[1]) && !is_null($topup[1])){
+                        $redirectCallBack = true;
+                    }else{
+                        $redirectCallBack = false;
+                    }
                     $parameters = [
                         'status' => $status,
                         'title' => $title,
                         'imgsrc' => $imgsrc,
                         'description' => $description,
                         'button' => $button,
-                        'redirect' => $redirectUrl,
-                        'redirectCallBack' => true
+                        'redirect' => $topup[1],
+                        'redirectCallBack' => $redirectCallBack
                     ];
                     $order = $session->getOrders();
                     $order->setstatus(orders::$statusOrder['COMPLETED']);
