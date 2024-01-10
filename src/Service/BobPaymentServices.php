@@ -8,6 +8,10 @@ use App\Entity\topup\bob_transactions;
 use App\Entity\topup\invoices;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
+use App\Entity\topup\test_attempts;
+use App\Entity\topup\test_bob_transactions;
+use App\Entity\topup\test_orders;
+use App\Entity\topup\test_session;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -877,13 +881,18 @@ class BobPaymentServices
 
     public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code)
     {
-        $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        if($_ENV['APP_ENV'] == 'preProd'){
+            $order = $this->mr->getRepository(test_orders::class)->findTestTransactionsThatIsNotCompleted($transId);
+        }else{
+            $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        }
         // dd($order);
         if (is_null($order)) {
             $this->session->remove('hostedSessionId');
             $attempts = 1;
             $order = ($_ENV['APP_ENV'] == 'preProd') ? new test_orders() : new orders();
-            $order->setstatus(orders::$statusOrder['PENDING']);
+            $status = ($order instanceof test_orders) ? test_orders::$statusOrder['PENDING'] : orders::$statusOrder['PENDING'];
+            $order->setstatus($status);
             $order->setsuyoolUserId($suyoolUserId);
             $order->settransId($transId);
             $order->setamount($amount);
@@ -952,20 +961,41 @@ class BobPaymentServices
             $this->session->set('hostedSessionId', $session);
         }
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
-        $body = [
-            "authentication" => [
-                "channel" => "PAYER_BROWSER",
-                "redirectResponseUrl" => $url . "/pay2"
-            ],
-            "order" => [
-                "id" => $transId,
-                "amount" => $amount,
-                "currency" => $currency
-            ],
-            "transaction" => [
-                "id" => "trans-" . $attempts
-            ]
-        ];
+        if($_ENV['APP_ENV'] == 'preProd'){
+            $body = [
+                "authentication" => [
+                    "channel" => "PAYER_BROWSER",
+                    "redirectResponseUrl" => $url . "/pay2"
+                ],
+                "order" => [
+                    "id" => "test_".$transId,
+                    "amount" => $amount,
+                    "currency" => $currency
+                ],
+                "transaction" => [
+                    "id" => "trans-" . $attempts
+                ]
+            ];
+            $this->session->set('orderidhostedsession', "test_".$transId);
+        }else{
+            $body = [
+                "authentication" => [
+                    "channel" => "PAYER_BROWSER",
+                    "redirectResponseUrl" => $url . "/pay2"
+                ],
+                "order" => [
+                    "id" => $transId,
+                    "amount" => $amount,
+                    "currency" => $currency
+                ],
+                "transaction" => [
+                    "id" => "trans-" . $attempts
+                ]
+            ];
+            $this->session->set('orderidhostedsession', $transId);
+
+        }
+
         $this->logger->error(json_encode($body));
         $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "session/" . $session, [
             'body' => json_encode($body),
@@ -974,7 +1004,6 @@ class BobPaymentServices
             ],
             'auth_basic' => [$this->username, $this->password],
         ]);
-        $this->session->set('orderidhostedsession', $transId);
         $this->session->set('transactionidhostedsession', "trans-" . $attempts);
         $content = $response->toArray(false);
         $this->logger->error(json_encode($content));
@@ -1088,7 +1117,7 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null)
+    public function updatedTransactionInHostedSessionToPay($suyooler= null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $env = null)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1112,7 +1141,7 @@ class BobPaymentServices
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
         // dd($content);
-        $attempts = ($_ENV['APP_ENV'] == 'preProd') ? new test_attempts() : new attempts();
+        $attempts = ($env == 'preProd') ? new test_attempts() : new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1127,10 +1156,16 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+        if($env == 'preProd'){
+            $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+
+        }else{
+            $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+
+        }
         if ($content['order']['status'] == 'CAPTURED') {
             if(is_null($suyooler)) {
-                $transaction = ($_ENV['APP_ENV'] == 'preProd') ? new test_bob_transactions() : new bob_transactions();
+                $transaction = ($env == 'preProd') ? new test_bob_transactions() : new bob_transactions();
                 $transaction->setSession($session);
                 $transaction->setResponse(json_encode($content));
                 $transaction->setStatus($content['order']['status']);

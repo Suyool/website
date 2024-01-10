@@ -21,7 +21,7 @@ class test_bob_transactions
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\topup\session", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="App\Entity\topup\test_session", fetch="EAGER")
      * @ORM\JoinColumn(name="session_id", referencedColumnName="id")
      */
     private $session;
@@ -68,7 +68,7 @@ class test_bob_transactions
         return $this->session;
     }
 
-    public function setSession(session $session): self
+    public function setSession(test_session $session): self
     {
         $this->session = $session;
         return $this;

@@ -37,7 +37,7 @@ class SuyoolServices
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         }
         elseif ($_ENV['APP_ENV'] == 'preProd'){
-            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/SuyoolGlobalAPIs/api/';
+            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
         }
         else {
@@ -574,6 +574,7 @@ class SuyoolServices
                 'secureHash' => $Hash,
                 'callbackURL' => $callbackURL
             ];
+
             // $this->cashin->info(json_encode($body));
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/PushCardToMerchantTransaction",  $body);

@@ -5,7 +5,7 @@ namespace App\Entity\topup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PaymentRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TestPaymentRepository")
  * @ORM\Table(name="test_transactions")
  */
 class test_orders
