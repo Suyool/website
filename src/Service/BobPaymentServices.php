@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
+use App\Entity\topup\test_invoices;
 use App\Entity\topup\testbob_transactions;
 use App\Entity\topup\bob_transactions1;
 use App\Entity\topup\bob_transactions;
@@ -1209,7 +1210,12 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-                    $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                    if ($env == 'preProd') {
+                        $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                    } else {
+                        $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                    }
+                    
                     $invoice->setStatus(invoices::$statusOrder['COMPLETED']);
                     $this->mr->persist($invoice);
                     $this->mr->flush();
