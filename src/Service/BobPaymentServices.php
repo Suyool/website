@@ -1185,10 +1185,9 @@ class BobPaymentServices
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
-                $currency = $session->getOrders()->getcurrency();
-
+                $session->getOrders()->getcurrency() == "USD" ? $currency = "$" : $currency = "L.L";
                 $price = $content['order']['amount'];
-                $currency == "USD" ? $amount = number_format($price, 2) : $amount = number_format($price);
+                $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
                 //                $merchantName = 'test1';
                 if ($topup[0]) {
                     $status = true;
@@ -1355,7 +1354,8 @@ class BobPaymentServices
             if (is_null($suyooler)) {
                 $price = $content['order']['amount'];
                 $currency = $content['order']['currency'];
-                $currency == "USD" ? $amount = number_format($price, 2) : $amount = number_format($price);
+                $currency == "USD" ? $currency = "$" : $currency = "L.L";
+                $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
                 $description = "Your transaction of {$currency} {$amount} at {$merchantName} has been declined";
                 $title = "Payment Failed";
             } else {
