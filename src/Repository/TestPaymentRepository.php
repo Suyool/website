@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\topup\test_bob_transactions;
+use App\Entity\topup\testbob_transactions;
 use App\Entity\topup\session;
 use DateTime;
 use Doctrine\ORM\EntityRepository;

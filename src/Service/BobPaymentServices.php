@@ -4,12 +4,13 @@ namespace App\Service;
 
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
+use App\Entity\topup\testbob_transactions;
+use App\Entity\topup\bob_transactions1;
 use App\Entity\topup\bob_transactions;
 use App\Entity\topup\invoices;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
 use App\Entity\topup\test_attempts;
-use App\Entity\topup\test_bob_transactions;
 use App\Entity\topup\test_orders;
 use App\Entity\topup\test_session;
 use App\Utils\Helper;
@@ -1165,7 +1166,7 @@ class BobPaymentServices
         }
         if ($content['order']['status'] == 'CAPTURED') {
             if(is_null($suyooler)) {
-                $transaction = ($env == 'preProd') ? new test_bob_transactions() : new bob_transactions();
+                $transaction = ($env == 'preProd') ? new bob_transactions1() : new bob_transactions();
                 $transaction->setSession($session);
                 $transaction->setResponse(json_encode($content));
                 $transaction->setStatus($content['order']['status']);

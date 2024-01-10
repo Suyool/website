@@ -53,7 +53,7 @@ class test_session
         return $this->id;
     }
 
-    public function getOrders(): ?orders
+    public function getOrders(): ?test_orders
     {
         return $this->orders;
     }
