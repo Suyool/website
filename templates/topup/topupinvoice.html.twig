@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "prod"
+{% set checkoutScriptUrl = env == "prod"
     ? 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyool/session.js'
     : 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js' %}
 

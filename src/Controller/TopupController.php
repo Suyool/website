@@ -410,7 +410,8 @@ class TopupController extends AbstractController
                 'fees' => $transactionDetails->FeesAmount,
                 'amount' => $finalAmount,
                 'currency' => $currency,
-                'merchantName' => $merchantName
+                'merchantName' => $merchantName,
+                'env'=>$_ENV['APP_ENV']
             ];
             $sessionInterface->remove('payment_data');
 
