@@ -17,8 +17,8 @@ class InvoiceServices
 
     public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null)
     {
+        $invoices = ($_ENV['APP_ENV'] == 'preProd') ? new test_invoices() : new invoices();
 
-        $invoices=new invoices();
         $invoices->setMerchantsId($merchant);
         $invoices->setMerchantOrderId($merchantOrderId);
         $invoices->setAmount($amount);

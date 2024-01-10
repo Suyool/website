@@ -875,14 +875,14 @@ class BobPaymentServices
         }
     }
 
-    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code,$callbackURL= null)
+    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code)
     {
         $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
         // dd($order);
         if (is_null($order)) {
             $this->session->remove('hostedSessionId');
             $attempts = 1;
-            $order = new orders;
+            $order = ($_ENV['APP_ENV'] == 'preProd') ? new test_orders() : new orders();
             $order->setstatus(orders::$statusOrder['PENDING']);
             $order->setsuyoolUserId($suyoolUserId);
             $order->settransId($transId);
@@ -903,7 +903,7 @@ class BobPaymentServices
                 // dd($order->getAttempt());
                 $this->session->remove('hostedSessionId');
                 $attempts = $order->getAttempt() + 1;
-                $order = new orders;
+                $order = ($_ENV['APP_ENV'] == 'preProd') ? new test_orders() : new orders();
                 $order->setstatus(orders::$statusOrder['PENDING']);
                 $order->setsuyoolUserId($suyoolUserId);
                 $order->settransId($transId);
@@ -940,7 +940,8 @@ class BobPaymentServices
 
             $content = $response->toArray(false);
             $session = $content['session']['id'];
-            $session = new session;
+            $session = ($_ENV['APP_ENV'] == 'preProd') ? new test_session() : new session();
+
             $session->setOrders($order);
             $session->setSession($content['session']['id']);
             $session->setResponse(json_encode($content));
@@ -1111,7 +1112,7 @@ class BobPaymentServices
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
         // dd($content);
-        $attempts = new attempts();
+        $attempts = ($_ENV['APP_ENV'] == 'preProd') ? new test_attempts() : new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1129,7 +1130,7 @@ class BobPaymentServices
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
             if(is_null($suyooler)) {
-                $transaction = new bob_transactions;
+                $transaction = ($_ENV['APP_ENV'] == 'preProd') ? new test_bob_transactions() : new bob_transactions();
                 $transaction->setSession($session);
                 $transaction->setResponse(json_encode($content));
                 $transaction->setStatus($content['order']['status']);

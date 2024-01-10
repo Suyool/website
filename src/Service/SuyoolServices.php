@@ -53,13 +53,13 @@ class SuyoolServices
         $this->userlog = $userlog;
     }
 
-    public function test(){
-        echo "SUYOOL_API_HOST: ";
-        echo $this->SUYOOL_API_HOST;
-        echo "<br />";
-        echo "APP_ENV in suyool service is:";
-        dd($_ENV['APP_ENV']);
-    }
+//    public function test(){
+//        echo "SUYOOL_API_HOST: ";
+//        echo $this->SUYOOL_API_HOST;
+//        echo "<br />";
+//        echo "APP_ENV in suyool service is:";
+//        dd($_ENV['APP_ENV']);
+//    }
     public static function decrypt($stringToDecrypt)
     {
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
