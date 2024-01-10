@@ -150,10 +150,9 @@
             frameEmbeddingMitigation: ["javascript"],
             callbacks: {
                 initialized: function (response) {
-                    PaymentSession.setFocusStyle(["card.expiryMonth","card.expiryYear"], {
-                        textAlign: 'center',
-                        fontFamily: 'PoppinsRegular',
-                    });
+                    const style = document.createElement("style")
+                    style.textContent = "select{padding: 0px!important;width:38px!important;text-align: center!important;}"
+                    document.head.appendChild(style)
                 },
                 formSessionUpdate: function (response) {
                     console.log(response)

@@ -652,12 +652,30 @@
         @supports not (-webkit-touch-callout: none) {
           height: 45px !important;
         }
+
+        #expiryMonth{
+          padding: 0px!important;
+          text-align: center!important;
+          width: 55px!important;
+        }
+        
       }
       .gw-proxy-expiryMonth{
         width: 100px!important;
       }
       .gw-proxy-expiryYear{
         width:80px!important;
+        #expiryYear{
+          padding: 0px!important;
+          text-align: center!important;
+          width: 55px!important;
+        }
+      }
+
+      select#expiryYear{
+        padding: 0px!important;
+        text-align: center!important;
+        width: 55px!important;
       }
 
       input:focus {
@@ -692,16 +710,7 @@
         border: 1px solid #ccc !important;
       }
 
-      #expiryMonth{
-        padding: 0px!important;
-        text-align: center!important;
-        width: 55px!important;
-      }
-      #expiryYear{
-          padding: 0px!important;
-          text-align: center!important;
-          width: 55px!important;
-      }
+     
 
       #nameOnCard {
         border-radius: 5px !important;
