@@ -35,7 +35,12 @@ class SuyoolServices
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
-        } else {
+        }
+        elseif ($_ENV['APP_ENV'] == 'preProd'){
+            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/SuyoolGlobalAPIs/api/';
+            $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
+        }
+        else {
             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
@@ -48,6 +53,13 @@ class SuyoolServices
         $this->userlog = $userlog;
     }
 
+    public function test(){
+        echo "SUYOOL_API_HOST: ";
+        echo $this->SUYOOL_API_HOST;
+        echo "<br />";
+        echo "APP_ENV in suyool service is:";
+        dd($_ENV['APP_ENV']);
+    }
     public static function decrypt($stringToDecrypt)
     {
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);

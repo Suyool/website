@@ -309,13 +309,15 @@ class TopupController extends AbstractController
 
     #[Route('/payment_gateway', name: 'app_paymentGateway')]
     #[Route('/payment_gateway/{test}', name: 'app_paymentGateway_test', requirements: ['test' => 'test'])]
-    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices)
+    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices, $test = null)
     {
         // Check if the 'test' parameter exists in the URL change the environment to 'dev'
         if ($test === 'test') {
-            putenv('APP_ENV=dev');
-            dd($_ENV['APP_ENV']);
+            //putenv('APP_ENV=dev1');
+            $_ENV['APP_ENV'] = 'preProd';
         }
+        $this->suyoolServices->test();
+        die();
         setcookie('SenderId', '', -1, '/');
         setcookie('ReceiverPhone', '', -1, '/');
         setcookie('SenderPhone', '', -1, '/');

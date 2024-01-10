@@ -84,6 +84,7 @@ services:
     #         $logger: '@monolog.logger.requestApi'
 
     App\Service\SuyoolServices:
+        lazy: true
         arguments:
             $merchantAccountID: ''
             $cashin: '@monolog.logger.cashin'
