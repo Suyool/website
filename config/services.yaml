@@ -125,6 +125,7 @@ services:
             - { 'name': 'monolog.logger', 'channel': 'Iveri' }
 
     App\Service\BobPaymentServices:
+        lazy: true
         tags:
             - { 'name': 'monolog.logger', 'channel': 'topup' }
 

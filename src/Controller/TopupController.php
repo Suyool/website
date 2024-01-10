@@ -515,7 +515,11 @@ class TopupController extends AbstractController
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
+        if($sessionInterface->get('APP_ENV_test') == 'preProd'){
+            $_ENV['APP_ENV']= 'preProd';
+        }
         $cardnumber = $bobPaymentServices->checkCardNumber();
+
         if(substr($cardnumber, 0, 6) == 423265 || substr($cardnumber, 0, 6) == 552009 || substr($cardnumber, 0, 6) == 557618){
             $response = [
                 'title'=>'Using Suyooler Card',
@@ -555,6 +559,9 @@ class TopupController extends AbstractController
     public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
 
+        if($sessionInterface->get('APP_ENV_test') == 'preProd'){
+            $_ENV['APP_ENV']='preProd';
+        }
         if (isset($_COOKIE['SenderId']) && isset($_COOKIE['ReceiverPhone']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
 
