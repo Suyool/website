@@ -3,6 +3,7 @@
   background-size: cover;
   padding-bottom: 396px;
 }
+
 .top_section_visa-container {
   // background-image: url("../../../images/platinumMastercard/top-section-visa.png");
   // background-size: 100% 100%;
@@ -141,32 +142,34 @@
 
   .top-info {
     h1 {
-      &.mastercard{
+      &.mastercard {
         color: #373464;
         font-family: PoppinsRegular;
         font-size: 62px;
         padding-top: 55px;
       }
+
       font-size: 40px;
       padding-top: 55px;
       font-family: $Regular;
       color: #fff;
       line-height: 60px;
-      
+
     }
 
     p {
-      &.mastercard-2{
+      &.mastercard-2 {
         color: #373464;
         font-family: PoppinsRegular;
         font-size: 20px;
         width: 80%;
       }
+
       font-size: 17px;
       font-family: $Regular;
       width: 80%;
       color: #fff;
-      
+
     }
 
     .getthecard {
@@ -178,7 +181,8 @@
       border-radius: 10px;
       margin-top: 50px;
       margin-bottom: 20px;
-      &:hover{
+
+      &:hover {
         color: #fff;
         background-color: #226d96;
         border: 1px solid #fff;
@@ -235,19 +239,57 @@
   background-color: #d7d7e2;
   margin: 0;
 
+  .stp-top {
+    text-align: center;
+    margin-top: 20px;
+
+    .stp-top-title {
+      color: #373464;
+      font-size: 20px;
+      font-family: $Bold;
+      margin-bottom: 10px;
+    }
+
+    .stp-title {
+      font-size: 35px;
+      font-family: $Regular;
+    }
+  }
+
+  .dis-flex {
+    display: flex;
+  }
+
+  .stp-num {
+    color: #373464;
+    font-size: 50px;
+    font-family: $SemiBold;
+    padding-right: 15px;
+  }
+
+  .stp-desc {
+    padding-top: 26px;
+    margin-bottom: 20px;
+
+    .title {
+      font-family: $SemiBold !Important;
+    }
+  }
+
   .step {
     padding: 20px 5%;
 
     .title {
-      font-size: 24px;
+      font-size: 17px;
       font-family: $Regular;
       color: #373464;
       padding: 10px 0;
     }
 
     .description {
-      font-size: 17px;
-      font-family: $Regular;
+      font-size: 15px;
+      font-family: OpenSansRegular;
+      //font-family: $Regular;
       color: #5a5a5a;
     }
   }
@@ -354,7 +396,7 @@
         overflow: hidden;
         margin: 20px 0;
 
-        @media screen and (min-width:998px) {
+        @media screen and (min-width: 998px) {
           height: -webkit-fill-available;
 
         }
@@ -385,7 +427,7 @@
         overflow: hidden;
         margin: 20px 0;
 
-        @media screen and (min-width:998px) {
+        @media screen and (min-width: 998px) {
           height: -webkit-fill-available;
 
         }
@@ -412,6 +454,11 @@
 
           .points {
             display: flex;
+
+            a{
+                color: #226d96 !important;
+                font-family: $SemiBold;
+            }
 
             .dot {
               margin-top: 5px;
@@ -692,6 +739,7 @@
 
     .top-info {
       text-align: -webkit-center;
+
       h1 {
         font-size: 27px;
         // padding-top: 55px;
@@ -851,18 +899,19 @@
 
 }
 
-.buttons-cont-visa{
+.buttons-cont-visa {
   font-family: $SemiBold;
   margin-top: 85px;
-  text-align: -webkit-center!important;
-  button{
-    &:hover{
-      background-color: #fff!important;
-      color:#4886a8!important ;
+  text-align: -webkit-center !important;
+
+  button {
+    &:hover {
+      background-color: #fff !important;
+      color: #4886a8 !important;
       border: 1px solid #005c8a;
     }
   }
-  
+
 }
 
 // @media screen and (min-width: 2401px) {
@@ -873,13 +922,13 @@
 // }
 
 // @supports (-webkit-touch-callout: none) {
-//   @media 
-// (-webkit-min-device-pixel-ratio: 2), 
-// (min-resolution: 192dpi) { 
+//   @media
+// (-webkit-min-device-pixel-ratio: 2),
+// (min-resolution: 192dpi) {
 //     body{
 //       zoom: 0.8;
 //     }
-// } 
+// }
 // }
 
 @supports (-webkit-hyphens:none) {

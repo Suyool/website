@@ -2,128 +2,128 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/app1.1dfb62eb.js"
+        "/build/runtime.js",
+        "/build/app1.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/admin-app.fd697fc2.js"
+        "/build/runtime.js",
+        "/build/admin-app.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.0aed9d6b.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.c80b9b87.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.65b5db2f.js"
+        "/build/runtime.js",
+        "/build/Alfa.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.b99ea282.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.6cc9251a.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "iveri": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/iveri.429e5515.js"
+        "/build/runtime.js",
+        "/build/iveri.js"
       ]
     },
     "TerraNet": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/TerraNet.65c21a2a.js"
+        "/build/runtime.js",
+        "/build/TerraNet.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.29f4e9a1.css"
+        "/build/styles.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/admin.1ee767bc.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.36eb6308.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.99ef5dda.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/AlfaStyle.8151d074.css"
+        "/build/AlfaStyle.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.0a61bc4c.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.301fc34f.css"
+        "/build/OgeroStyle.css"
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/iveristyles.2de240eb.css"
+        "/build/iveristyles.css"
       ]
     },
     "terraNetstyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/terraNetstyle.045b70e4.css"
+        "/build/terraNetstyle.css"
       ]
     }
   }

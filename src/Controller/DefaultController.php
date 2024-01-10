@@ -519,7 +519,7 @@ class DefaultController extends AbstractController
                 'title' => 'Hotel discount and cashback with booking.com',
                 'points' => [
                     'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
-                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%<br>Use this exclusive Link:<br> <a href="https://www.booking.com/8visacemea">www.booking.com/8visacemea</a>',
                     'Offer valid until December 31, 2024'
                 ],
                 'learnMoreLink' => '/',
@@ -791,7 +791,7 @@ class DefaultController extends AbstractController
                 'title' => 'Hotel discount and cashback with booking.com',
                 'points' => [
                     'Visa Cardholders get up to 8% instant cashback on Booking.com in selected CEMEA markets',
-                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%<br>Use this exclusive Link:<br> <a href="https://www.booking.com/8visacemea">www.booking.com/8visacemea</a>',
                     'Offer valid until December 31, 2024'
                 ],
                 'learnMoreLink' => '/',

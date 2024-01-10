@@ -21,25 +21,31 @@
 		</div>
 	</div>
 	<div class="row four_steps">
-		<div class="col-lg-3 col-md-6 col-sm-12 step">
-			<img src="{{ asset('build/images/platinumMastercard/acceptance.svg') }}" alt="Suyool">
-			<div class="title">Acceptance</div>
-			<div class="description">Millions of Acceptance points in Lebanon and all over the world</div>
+		<div class="stp-top">
+			<div class="stp-top-title">3 EASY STEPS TO GET STARTED</div>
+			<div class="stp-title">How to Get Your Suyool Visa card?</div>
 		</div>
-		<div class="col-lg-3 col-md-6 col-sm-12 step">
-			<img src="{{ asset('build/images/platinumMastercard/safety_security.svg') }}" alt="Suyool">
-			<div class="title">Safety & Security</div>
-			<div class="description">Secure transactions no matter where you’re spending!</div>
+
+		<div class="col-lg-4 col-md-6 col-sm-12 step dis-flex">
+			<div class="stp-num">1</div>
+			<div class="stp-desc">
+				<div class="title">Request Your Card</div>
+				<div class="description">In minutes from your Suyool App. Make sure you have a minimum of 12$</div>
+			</div>
 		</div>
-		<div class="col-lg-3 col-md-6 col-sm-12 step">
-			<img src="{{ asset('build/images/platinumMastercard/convenience_control.svg') }}" alt="Suyool">
-			<div class="title">Convenience & Control</div>
-			<div class="description">Controlling and managing your cost and spending the way you want to!</div>
+		<div class="col-lg-4 col-md-6 col-sm-12 step dis-flex">
+			<div class="stp-num">2</div>
+			<div class="stp-desc">
+				<div class="title">Get it Delivered For Free</div>
+				<div class="description">Get it delivered to your doorstep within 2-3 working days, free of charge</div>
+			</div>
 		</div>
-		<div class="col-lg-3 col-md-6 col-sm-12 step">
-			<img src="{{ asset('build/images/platinumMastercard/relevance.svg') }}" alt="Suyool">
-			<div class="title">Relevance</div>
-			<div class="description">Having access to unique & relevant benefits catering to your needs!</div>
+		<div class="col-lg-4 col-md-6 col-sm-12 step dis-flex">
+			<div class="stp-num">3</div>
+			<div class="stp-desc">
+				<div class="title">Use it Anywhere, Anytime</div>
+				<div class="description">In stores, online, locally & internationally at more than millions of POS globally</div>
+			</div>
 		</div>
 	</div>
 	{% include 'homepage/home-visa.html.twig' %}
@@ -117,7 +123,7 @@
 							{% for point in card.points %}
 								<div class="points">
 									<div class="dot"></div>
-									<div class="desc">{{ point }}</div>
+									<div class="desc">{{ point|raw }}</div>
 								</div>
 							{% endfor %}
 						</div>
