@@ -71,6 +71,7 @@ function BundleCredentials({
                                 later
                             </div>
                         ),
+                        btn: "OK"
                     });
                 } else if (
                     response?.data?.message === "Not Enough Balance Amount to be paid"
@@ -87,6 +88,7 @@ function BundleCredentials({
                                 later
                             </div>
                         ),
+                        btn: "OK"
                     });
                 } else {
                     setSpinnerLoader(false);
@@ -102,11 +104,9 @@ function BundleCredentials({
                                 Kindly try another number.
                             </div>
                         ),
+                        btn: "OK"
                     });
                 }
-            })
-            .catch((error) => {
-                console.log(error);
             });
         setBtnDesign(false);
     };

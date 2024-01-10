@@ -3,7 +3,6 @@ import ContentLoader from "react-content-loader";
 import {capitalizeFirstLetters} from "../../functions";
 
 const ReCharge = ({
-  parameters,
   setPrepaidVoucher,
   getVoucherData, activeButton,
   setActiveButton,
@@ -17,8 +16,6 @@ const ReCharge = ({
     setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
     setBackLink("BundleCredentials");
     setFilteredData(Object.values(getVoucherData));
-    // console.log("values",Object.values(getVoucherData));
-    // console.log("voucherData", getVoucherData);
 
     const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
     setFilteredData(values);
@@ -30,7 +27,6 @@ const ReCharge = ({
       setLoading(false);
     }
   }, [ filteredData ]);
-  // console.log(filteredData);
 
   return (
     <div id="ReCharge">
@@ -58,11 +54,6 @@ const ReCharge = ({
               <div
                 className="bundleGrid"
                 key={index}
-                // style={
-                //   record.isinstock == 0
-                //     ? { display: "none" }
-                //     : { display: "flex" }
-                // }
                 onClick={() => {
                   setActiveButton({ ...activeButton, name: "MyBundle" });
                   setPrepaidVoucher(record);
