@@ -412,6 +412,7 @@ class TopupController extends AbstractController
     #[Route('/topup2test', name: 'app_topup_hostedsession_TEST')]
     public function hostedsessiontest(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
+        $sessionInterface->remove('APP_ENV_test');
         setcookie('SenderId', '', -1, '/');
         setcookie('ReceiverPhone', '', -1, '/');
         setcookie('SenderPhone', '', -1, '/');

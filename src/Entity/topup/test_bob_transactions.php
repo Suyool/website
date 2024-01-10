@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="test_bob_transactions")
  */
-class bob_transactions1
+class test_bob_transactions
 {
     /**
      * @ORM\Id
@@ -63,7 +63,7 @@ class bob_transactions1
         return $this->id;
     }
 
-    public function getSession(): ?session
+    public function getSession(): ?test_session
     {
         return $this->session;
     }

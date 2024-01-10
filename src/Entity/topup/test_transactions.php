@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="testbob_transactions")
+ * @ORM\Table(name="test_transactions12")
  */
-class testbob_transactions
+class test_transactions
 {
     /**
      * @ORM\Id
