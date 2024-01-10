@@ -615,7 +615,9 @@ class TopupController extends AbstractController
         return $this->render('topup/popup.html.twig', $response);
     }
 
-    #[Route('/callbackURl', name: 'app_callbackURl')]
+    /**
+     * @Route("/callbackURL", name="admin_homepage")
+     */
     public function generateJSON(Request $request): JsonResponse
     {
         $urlParams = $request->query->all();
