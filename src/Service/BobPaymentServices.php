@@ -46,7 +46,7 @@ class BobPaymentServices
         $simulation = $session->get('simulation');
         if ($_ENV['APP_ENV'] == "test") {
             // dd("here1");
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
