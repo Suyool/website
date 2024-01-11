@@ -32,7 +32,7 @@ class SuyoolServices
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
-        if ($sessionInterface->has('simulation')) {
+        if ($sessionInterface!=null && $sessionInterface->has('simulation')) {
             $simulation = $sessionInterface->get('simulation');
         }
 

@@ -1019,6 +1019,133 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
+    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code,$type)
+    {
+            $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        // dd($order);
+        if (is_null($order)) {
+            $this->session->remove('hostedSessionId');
+            $attempts = 1;
+            $order = ($this->session->get('simulation') == 'true') ? new test_orders() : new orders();
+            $status = ($order instanceof test_orders) ? test_orders::$statusOrder['PENDING'] : orders::$statusOrder['PENDING'];
+            $order->setstatus($status);
+            $order->setsuyoolUserId($suyoolUserId);
+            $order->settransId($transId);
+            $order->setamount($amount);
+            $order->setcurrency($currency);
+            $order->setAttempt($attempts);
+            $order->settype($type);
+            $order->setCode($code);
+            $this->mr->persist($order);
+            $this->mr->flush();
+        } else {
+            $now = new DateTime();
+            $now = $now->format('Y-m-d H:i:s');
+            $date = $order->getCreated();
+            $date->modify('+9 minutes');
+            $dateAfter09Minutes = $date->format('Y-m-d H:i:s');
+            if ($now > $dateAfter09Minutes) {
+                // dd($order->getAttempt());
+                $this->session->remove('hostedSessionId');
+                $attempts = $order->getAttempt() + 1;
+                $order = ($this->session->get('simulation')) ? new test_orders() : new orders();
+                $order->setstatus(orders::$statusOrder['PENDING']);
+                $order->setsuyoolUserId($suyoolUserId);
+                $order->settransId($transId);
+                $order->setamount($amount);
+                $order->setcurrency($currency);
+                $order->setAttempt($attempts);
+                $order->settype($type);
+                $order->setCode($code);
+                $this->mr->persist($order);
+                $this->mr->flush();
+            } else {
+                $attempts = $order->getAttempt() + 1;
+                $order->setAttempt($order->getAttempt() + 1);
+                $this->mr->persist($order);
+                $this->mr->flush();
+            }
+        }
+        $session = $this->session->get('hostedSessionId');
+        if (is_null($session)) {
+            $body = [
+                "session" => [
+                    "authenticationLimit" => 25
+                ]
+            ];
+            // print_r($body);
+            $this->logger->error(json_encode($body));
+            $response = $this->client->request('POST', $this->BASE_API_HOSTED_SESSION . "session", [
+                'body' => json_encode($body),
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'auth_basic' => [$this->username, $this->password],
+            ]);
+
+            $content = $response->toArray(false);
+            $session = $content['session']['id'];
+            $session = ($this->session->get('simulation') == 'true') ? new test_session() : new session();
+
+            $session->setOrders($order);
+            $session->setSession($content['session']['id']);
+            $session->setResponse(json_encode($content));
+            $session->setIndicator($content['session']['version']);
+            $this->mr->persist($session);
+            $this->mr->flush();
+            $session = $content['session']['id'];
+            $this->session->set('hostedSessionId', $session);
+        }
+        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+        if ($this->session->get('simulation') == 'true') {
+            $body = [
+                "authentication" => [
+                    "channel" => "PAYER_BROWSER",
+                    "redirectResponseUrl" => $url . "/pay2"
+                ],
+                "order" => [
+                    "id" => "test_" . $transId,
+                    "amount" => $amount,
+                    "currency" => $currency
+                ],
+                "transaction" => [
+                    "id" => "trans-" . $attempts
+                ]
+            ];
+            $this->session->set('orderidhostedsession', "test_" . $transId);
+        } else {
+            $body = [
+                "authentication" => [
+                    "channel" => "PAYER_BROWSER",
+                    "redirectResponseUrl" => $url . "/pay2"
+                ],
+                "order" => [
+                    "id" => $transId,
+                    "amount" => $amount,
+                    "currency" => $currency
+                ],
+                "transaction" => [
+                    "id" => "trans-" . $attempts
+                ]
+            ];
+            $this->session->set('orderidhostedsession', $transId);
+        }
+
+        $this->logger->error(json_encode($body));
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "session/" . $session, [
+            'body' => json_encode($body),
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'auth_basic' => [$this->username, $this->password],
+        ]);
+        $this->session->set('transactionidhostedsession', "trans-" . $attempts);
+        $content = $response->toArray(false);
+        $this->logger->error(json_encode($content));
+        return array($session, $transId, $attempts);
+    }
+
+
     //
     public function hostedsessiontopup($amount, $currency, $transId, $suyoolUserId, $code)
     {
