@@ -428,7 +428,7 @@ class TopupController extends AbstractController
     #[Route('/topup2', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $sessionInterface->set('simulation',false);
+        $sessionInterface->set('simulation',"false");
         $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         $senderName = $sessionInterface->get('SenderInitials');
         $data = json_decode($nonSuyooler[1], true);
@@ -561,7 +561,15 @@ class TopupController extends AbstractController
         } else {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,null,null,null,$_COOKIE['merchant_name'],$_COOKIE['simulation']);
         }
-
+        setcookie('SenderId', '', -1, '/');
+        setcookie('ReceiverPhone', '', -1, '/');
+        setcookie('SenderPhone', '', -1, '/');
+        setcookie('hostedSessionId', '', -1, '/');
+        setcookie('orderidhostedsession', '', -1, '/');
+        setcookie('transactionidhostedsession', '', -1, '/');
+        setcookie('merchant_name', '', -1, '/');
+        setcookie('card_payment_url', '', -1, '/');
+        setcookie('simulation', '', -1, '/');
         return $this->render('topup/popup.html.twig', $data);
     }
 
