@@ -1261,7 +1261,7 @@ class BobPaymentServices
                         $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li>&nbsp;<br/>";
                     }
                     $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                    if ($_ENV['APP_ENV'] == 'dev') {
+                    if ($_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == 'test') {
                         $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                     } else {
                         $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
@@ -1280,7 +1280,7 @@ class BobPaymentServices
                         $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
                     }
                     $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                    if ($_ENV['APP_ENV'] == 'dev') {
+                    if ($_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == 'test') {
                         $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                     } else {
                         $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
@@ -1435,7 +1435,7 @@ class BobPaymentServices
                     $emailMessageUpTo5Thousands .= "<li>Holder Name: " . $attemptsPerCardSumHolder->getName() . "</li>&nbsp;<br/>";
                 }
                 $emailMessageUpTo5Thousands .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                if ($_ENV['APP_ENV'] == 'dev') {
+                if ($_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == 'test') {
                     $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 } else {
                     $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo5Thousands, "", "", "suyool@noreply.com", "Suyool", 1, 0);
@@ -1454,7 +1454,7 @@ class BobPaymentServices
                     $emailMessageUpTo2Times .= "<li>Holder Name: " . $attemptsPerCardHolder->getName() . "</li><br>";
                 }
                 $emailMessageUpTo2Times .= "</ul><br><br>Please initiate the necessary protocol for further investigation and action.<br><a href='https://suyool.com'>Suyool.com</a>";
-                if ($_ENV['APP_ENV'] == 'dev') {
+                if ($_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == 'test') {
                     $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'anthony.saliba@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
                 } else {
                     $this->suyoolServices->sendDotNetEmail('[Alert] Suspected Fraudulent Topup Transaction', 'web@suyool.com,it@suyool.com,arz@elbarid.com', $emailMessageUpTo2Times, "", "", "suyool@noreply.com", "Suyool", 1, 0);
