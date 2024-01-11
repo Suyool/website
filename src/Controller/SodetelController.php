@@ -144,7 +144,7 @@ class SodetelController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $order_id = $this->params->get('SODETEL_POSTPAID_MERCHANT_ID') ."-". $order->getId();
+            $order_id = $sodetelMerchantId ."-". $order->getId();
 
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0);
 
@@ -233,15 +233,44 @@ class SodetelController extends AbstractController
                         $this->mr->persist($logs);
                         $this->mr->flush();
 
-                        $order->setStatus(Order::$statusOrder['CANCELED'])
-                            ->setError($sodetelData['message']);
+                        //return the money to the user
+                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $order->gettransId());
+                        if ($responseUpdateUtilities[0]) {
+                            $order->setStatus(Order::$statusOrder['CANCELED'])
+                                ->setError($sodetelData['message']);
+
+                            $message = "Money returned to the user";
+                        }else if (isset($responseUpdateUtilities[1])){
+                            $order->setStatus(Order::$statusOrder['CANCELED'])
+                                ->setError($responseUpdateUtilities[1]);
+
+                            $message = "something wrong while UpdateUtilities";
+                        }
+
                         $this->mr->persist($order);
                         $this->mr->flush();
 
                         $IsSuccess = false;
-                        $message = $sodetelData['message'];
                         $dataPayResponse = -1;
                     }
+                }else{
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $order->gettransId());
+                    if ($responseUpdateUtilities[0]) {
+                        $order->setStatus(Order::$statusOrder['CANCELED'])
+                            ->setError("something wrong while refill");
+
+                        $message = "Money returned to the user";
+                    }else if (isset($responseUpdateUtilities[1])){
+                        $order->setStatus(Order::$statusOrder['CANCELED'])
+                            ->setError($responseUpdateUtilities[1]);
+
+                        $message = "something wrong while UpdateUtilities";
+                    }
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+
+                    $IsSuccess = false;
+                    $dataPayResponse = -1;
                 }
             } else {
                 $order->setstatus(Order::$statusOrder['CANCELED'])
