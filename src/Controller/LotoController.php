@@ -68,6 +68,8 @@ class LotoController extends AbstractController
 
         if (isset($data)) {
             $suyoolUserId = $this->session->get('suyoolUserId');
+            $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
+
 
             $loto_prize_result = $this->mr->getRepository(LOTO_results::class)->findBy([], ['drawdate' => 'desc']);
 
@@ -76,7 +78,7 @@ class LotoController extends AbstractController
             $drawId = $data['drawNumber'];
             $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $drawId]);
             if ($loto_prize != null) {
-                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId(), $this->LotoServices);
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId(), $this->LotoServices,$loto_draw->getdrawid());
                 // dd($loto_prize_per_days);
             } else {
                 $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $drawId);
@@ -207,7 +209,7 @@ class LotoController extends AbstractController
                 $data = json_decode($request->getContent(), true);
                 $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy([], ['drawdate' => 'desc']);
                 $lotohistory = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'desc']);
-                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId());
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $lotohistory->getDrawId(),$loto_draw->getdrawid());
                 $loto_prize_array = [
                     'numbers' => '',
                     'prize1' => '',
@@ -228,7 +230,7 @@ class LotoController extends AbstractController
                 if (isset($draw)) {
                     $loto_prize = $this->mr->getRepository(LOTO_results::class)->findOneBy(['drawId' => $draw]);
                     // $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $draw);
-                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $draw, $this->LotoServices);
+                    $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $draw, $this->LotoServices,$loto_draw->getdrawid());
                     $loto_prize_array = [
                         'numbers' => $loto_prize->getnumbers(),
                         'prize1' => $loto_prize->getwinner1(),

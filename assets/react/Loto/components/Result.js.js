@@ -84,6 +84,7 @@ const Result = ({
           winloto: item["winLoto"],
           replay: item["gridSelected"].split(" ").map(Number),
           price: price,
+          flag: item["flag"]
         };
       });
 
@@ -230,6 +231,7 @@ const Result = ({
                 winloto: item["winLoto"],
                 replay: item["gridSelected"].split(" ").map(Number),
                 price: price2,
+                flag:item["flag"]
               };
             }
           );
@@ -453,6 +455,7 @@ const Result = ({
               winLoto: gridItem.winloto,
               index: gridItem.index,
               price: gridItem.price,
+              flag: gridItem.flag
             }))
             .sort((a, b) => {
               const aHasWin =
@@ -463,7 +466,7 @@ const Result = ({
                   .length >= 3;
               return bHasWin - aHasWin || a.index - b.index;
             })
-            .map(({ grid, winLoto, index, price }) => (
+            .map(({ grid, winLoto, index, price,flag }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
                   
@@ -473,9 +476,9 @@ const Result = ({
                       alt="SmileLOGO"
                     />
                     <span>BASIC</span>
-                    <button onClick={() => replayOneGrid(grid, price)}>
+                    {flag && <button onClick={() => replayOneGrid(grid, price)}>
                     Replay
-                  </button>
+                  </button>}
                   </div>
                 </div>
                 <div className="winnweBody">

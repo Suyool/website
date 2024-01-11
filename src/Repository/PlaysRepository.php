@@ -121,7 +121,7 @@ class PlaysRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getResultsPerUser($session, $drawNumber,$lotoServices)
+    public function getResultsPerUser($session, $drawNumber, $lotoServices,$currentDraw)
     {
         $rawResults = $this->createQueryBuilder('l')
             ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers,l.ticketId')
@@ -136,8 +136,8 @@ class PlaysRepository extends EntityRepository
 
         $groupedResults = [];
         foreach ($rawResults as $result) {
-            $win=$lotoServices->GetWinTicketsPrize($result['ticketId']);
-            $result[]=$win;
+            $win = $lotoServices->GetWinTicketsPrize($result['ticketId']);
+            $result[] = $win;
             // dd($result);
             $drawdate = $result['drawdate']->format('Y-m-d');
             if (!isset($groupedResults[$drawdate])) {
@@ -152,14 +152,25 @@ class PlaysRepository extends EntityRepository
                 $cleanedGridSelected = preg_replace('/\s+$/', '', $gridSelectedArray['gridBalls']);
                 $numbers = explode(" ", $cleanedGridSelected);
                 $gridSelectedString = implode(" ", $numbers);
-                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'winLoto'=>$gridSelectedArray['lotoWinnings'],'winZeed'=>$gridSelectedArray['zeedWinnings']];
+                $grids = $this->createQueryBuilder('l')
+                    ->select('l.ticketId')
+                    ->where("l.gridSelected like '%{$gridSelectedString}%' and l.ticketId != 0 and l.drawNumber = {$currentDraw}")
+                    ->getQuery()
+                    ->getResult();
+                    if(empty($grids)){
+                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'],'flag'=>true];
+
+                    }else{
+                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'],'flag'=>false];
+
+                    }
             }
         }
 
         return array_values($groupedResults); // Return the grouped results as indexed array
     }
 
-    public function getfetchhistory($session, $drawNumber)
+    public function getfetchhistory($session, $drawNumber,$currentDraw)
     {
         $rawResults = $this->createQueryBuilder('l')
             ->select('l.gridSelected, d.drawdate, d.drawId,l.zeednumbers')
@@ -188,7 +199,16 @@ class PlaysRepository extends EntityRepository
             foreach ($gridSelectedArrays as $gridSelectedArray) {
                 $numbers = explode(" ", $gridSelectedArray);
                 $gridSelectedString = implode(" ", $numbers);
-                $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers']];
+                $grids = $this->createQueryBuilder('l')
+                    ->select('l.ticketId')
+                    ->where("l.gridSelected like '%{$gridSelectedString}%' and l.ticketId != 0 and l.drawNumber = {$currentDraw}")
+                    ->getQuery()
+                    ->getResult();
+                    if(empty($grids)){
+                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'flag'=>true];
+                    }else{
+                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'flag'=>false];
+                    }
             }
         }
         return array_values($groupedResults); // Return the grouped results as indexed array
@@ -313,7 +333,7 @@ class PlaysRepository extends EntityRepository
         $qb = $this->createQueryBuilder('l')
             ->select('o.id,l.ticketId,l.withZeed,l.bouquet,l.price,o.amount,o.transId,l.drawNumber,o.suyoolUserId,l.gridSelected,d.drawdate,l.zeednumbers')
             ->innerJoin(order::class, 'o')
-            ->innerJoin(LOTO_draw::class,'d')
+            ->innerJoin(LOTO_draw::class, 'd')
             ->where('o.id=l.order and o.status = :purchased and l.drawNumber = d.drawId')
             ->setParameter('purchased', 'purchased')
             ->getQuery()
@@ -334,19 +354,19 @@ class PlaysRepository extends EntityRepository
                 $additinalData[] = [
                     'ticketId' => $qb['ticketId'],
                     'withZeed' => $qb['withZeed'],
-                    'zeed'=>$qb['zeednumbers'],
+                    'zeed' => $qb['zeednumbers'],
                     'bouquet' => $qb['bouquet'],
-                    'grids'=>$qb['gridSelected']
+                    'grids' => $qb['gridSelected']
                 ];
-                $qb['ticketId'] == 0 ? $purchasedsum = $purchasedsum : $purchasedsum += $qb['price']; 
+                $qb['ticketId'] == 0 ? $purchasedsum = $purchasedsum : $purchasedsum += $qb['price'];
                 // $purchasedsum += $qb['price'];
 
                 $listWinners[$userId] = [
-                    'orderId'=>$userId,
+                    'orderId' => $userId,
                     'TotalPrice' => $purchasedsum,
-                    'drawNumber'=>$qb['drawNumber'],
-                    'userId'=>$qb['suyoolUserId'],
-                    'result'=>$qb['drawdate']->format('d/m/Y'),
+                    'drawNumber' => $qb['drawNumber'],
+                    'userId' => $qb['suyoolUserId'],
+                    'result' => $qb['drawdate']->format('d/m/Y'),
                     'Currency' => "LBP",
                     'OrderAmount' => $qb['amount'],
                     'transId' => $qb['transId'],
@@ -358,45 +378,48 @@ class PlaysRepository extends EntityRepository
         return $listWinners;
     }
 
-    public function CompletedTicketsCount(){
+    public function CompletedTicketsCount()
+    {
         return $this->createQueryBuilder('l')
-        ->select('count(l)')
-        ->where('l.ticketId != 0 and l.ticketId is not null')
-        ->getQuery()
-        ->getSingleScalarResult();
-
+            ->select('count(l)')
+            ->where('l.ticketId != 0 and l.ticketId is not null')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
-    public function LastDrawTickets($drawId){
+    public function LastDrawTickets($drawId)
+    {
         return $this->createQueryBuilder('l')
-        ->select('count(l)')
-        ->where("l.ticketId != 0 and l.ticketId is not null and l.drawNumber = {$drawId}")
-        ->getQuery()
-        ->getSingleScalarResult();
-
+            ->select('count(l)')
+            ->where("l.ticketId != 0 and l.ticketId is not null and l.drawNumber = {$drawId}")
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
-    public function CompletedTicketsCountThisMonth(){
-        $current_time=date("Y-m-d",strtotime("+1 day"));
+    public function CompletedTicketsCountThisMonth()
+    {
+        $current_time = date("Y-m-d", strtotime("+1 day"));
         $onemonth = date("Y-m-d", strtotime("-1 months"));
         return $this->createQueryBuilder('l')
-        ->select('count(l)')
-        ->where('l.ticketId != 0 and l.ticketId is not null and l.created < :current_time and l.created > :onemonth')
-        ->setParameter('current_time',$current_time)
-        ->setParameter('onemonth',$onemonth)
-        ->getQuery()
-        ->getSingleScalarResult();
+            ->select('count(l)')
+            ->where('l.ticketId != 0 and l.ticketId is not null and l.created < :current_time and l.created > :onemonth')
+            ->setParameter('current_time', $current_time)
+            ->setParameter('onemonth', $onemonth)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
-    public function CompletedTicketsSumAmount(){
+    public function CompletedTicketsSumAmount()
+    {
         return $this->createQueryBuilder('l')
-        ->select('sum(l.price)')
-        ->where('l.ticketId != 0 and l.ticketId is not null')
-        ->getQuery()
-        ->getSingleScalarResult();
+            ->select('sum(l.price)')
+            ->where('l.ticketId != 0 and l.ticketId is not null')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
-    public function findAllWinningTickets(){
+    public function findAllWinningTickets()
+    {
         $connection = $this->getEntityManager()->getConnection();
         $sql = "select
         l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.winLoto,l.winZeed,l.winningStatus,l.zeednumbers,l.gridSelected,r.numbers,r.zeednumber1,l.drawNumber
@@ -412,7 +435,8 @@ class PlaysRepository extends EntityRepository
         return $qb;
     }
 
-    public function findAllLastTickets($drawId){
+    public function findAllLastTickets($drawId)
+    {
         $connection = $this->getEntityManager()->getConnection();
         $sql = "select
         l.ticketId,o.id,o.suyoolUserId,u.fname,u.lname,o.created,l.zeednumbers,l.gridSelected,l.drawNumber
@@ -428,26 +452,24 @@ class PlaysRepository extends EntityRepository
         return $qb;
     }
 
-    public function findgridsInThisDraw($drawId){
+    public function findgridsInThisDraw($drawId)
+    {
         return $this->createQueryBuilder('l')
-        ->where("l.drawNumber = {$drawId} and l.ticketId != 0 and l.isWon is null")
-        ->getQuery()
-        ->getResult();
+            ->where("l.drawNumber = {$drawId} and l.ticketId != 0 and l.isWon is null")
+            ->getQuery()
+            ->getResult();
     }
 
-    public function checkIfTheUserHasSameGridInTheDraw($suyoolUserId,$drawnumber,$balls)
+    public function checkIfTheUserHasSameGridInTheDraw($suyoolUserId, $drawnumber, $balls)
     {
-        $balls = implode(' ',$balls);
+        $balls = implode(' ', $balls);
         $qb = $this->createQueryBuilder('l')
-        ->select('l.ticketId')
-        ->leftJoin(order::class,'o','WITH','o.id = l.order')
-        ->where("o.suyoolUserId = $suyoolUserId and l.drawNumber = $drawnumber and l.gridSelected like '%$balls%' and l.ticketId != 0")
-        ->getQuery()
-        ->getResult();
+            ->select('l.ticketId')
+            ->leftJoin(order::class, 'o', 'WITH', 'o.id = l.order')
+            ->where("o.suyoolUserId = $suyoolUserId and l.drawNumber = $drawnumber and l.gridSelected like '%$balls%' and l.ticketId != 0")
+            ->getQuery()
+            ->getResult();
 
         return $qb;
-
     }
-
-    
 }
