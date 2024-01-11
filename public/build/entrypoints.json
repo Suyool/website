@@ -57,26 +57,7 @@
     "Sodetel": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Sodetel.6c5dcd1e.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Sodetel.ed1e48e5.js"
-=======
-        "/build/Sodetel.6c5dcd1e.js"
->>>>>>> 08273f55 (encore prod)
-=======
-        "/build/Sodetel.c41f67d8.js"
->>>>>>> 59a7a05b (credential remove spaces)
-<<<<<<< HEAD
->>>>>>> 8ff9a13f (credential remove spaces)
-=======
-=======
-        "/build/Sodetel.484d60b2.js"
->>>>>>> 2f32f2a1 (json data fixed)
->>>>>>> d8b19125 (json data fixed)
+        "/build/Sodetel.ea331ca6.js"
       ]
     },
     "styles": {

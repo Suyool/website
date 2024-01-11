@@ -63,15 +63,9 @@ const MyBundle = ({
       console.log("prepaid",getPrepaidVoucher);
       axios
         .post("/sodetel/refill", {
-          // category: "ALFA",
-          // category: getPrepaidVoucher.vouchercategory,
-          // desc: getPrepaidVoucher.desc,
-          // type: getPrepaidVoucher.vouchertype,
-          // amountLBP: getPrepaidVoucher.priceLBP,
-          // amountUSD: getPrepaidVoucher.priceUSD,
           refillData: getPrepaidVoucher,
           bundle: activeButton?.bundle,
-          identifier: credential[credential.name]
+          identifier: credential[credential.name]?.replace(/\s/g, '')
         })
         .then((response) => {
           setSpinnerLoader(false);
@@ -118,8 +112,7 @@ const MyBundle = ({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
                 title: "Recharge Card Unavailable ",
-                description: `The ${getPrepaidVoucher.priceUSD}$ Sodetel Recharge Service is unavailable.
-                Kindly choose another one.`,
+                description: `The ${getPrepaidVoucher?.plandescription} Sodetel Recharge Service is unavailable.`,
                 show: true,
                 btn: "OK",
               });

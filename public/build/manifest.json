@@ -8,32 +8,10 @@
   "build/Ogero.js": "/build/Ogero.6cc9251a.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.65c21a2a.js",
-<<<<<<< HEAD
-  "build/Sodetel.js": "/build/Sodetel.6c5dcd1e.js",
+  "build/Sodetel.js": "/build/Sodetel.ea331ca6.js",
   "build/styles.css": "/build/styles.88f2f374.css",
   "build/admin.css": "/build/admin.1ee767bc.css",
   "build/Lotostyles.css": "/build/Lotostyles.bc220b4c.css",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Sodetel.js": "/build/Sodetel.ed1e48e5.js",
-  "build/styles.css": "/build/styles.88f2f374.css",
-  "build/admin.css": "/build/admin.1ee767bc.css",
-  "build/Lotostyles.css": "/build/Lotostyles.bc220b4c.css",
-=======
-  "build/Sodetel.js": "/build/Sodetel.6c5dcd1e.js",
-=======
-  "build/Sodetel.js": "/build/Sodetel.c41f67d8.js",
->>>>>>> 59a7a05b (credential remove spaces)
-=======
-  "build/Sodetel.js": "/build/Sodetel.484d60b2.js",
->>>>>>> 2f32f2a1 (json data fixed)
-  "build/styles.css": "/build/styles.8117a562.css",
-  "build/admin.css": "/build/admin.1ee767bc.css",
-  "build/Lotostyles.css": "/build/Lotostyles.36eb6308.css",
->>>>>>> 08273f55 (encore prod)
->>>>>>> 8ff9a13f (credential remove spaces)
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8151d074.css",
   "build/TouchStyle.css": "/build/TouchStyle.0a61bc4c.css",
