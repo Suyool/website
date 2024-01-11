@@ -17,7 +17,8 @@ const ReCharge = ({
     setBackLink("BundleCredentials");
     setFilteredData(Object.values(getVoucherData));
 
-    const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
+    // const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
+    const values = getVoucherData?.id? Object.values(JSON.parse(getVoucherData.id))?.filter(item => typeof item !== 'string') : [];
     setFilteredData(values);
 
   }, [ getVoucherData ]);
