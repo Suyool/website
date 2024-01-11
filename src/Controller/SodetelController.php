@@ -38,13 +38,13 @@ class SodetelController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 //        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-//        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
+        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-//            $devicetype = "Android";
+            $devicetype = "Android";
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
@@ -75,8 +75,9 @@ class SodetelController extends AbstractController
         $service = $parameters['service'];
         $identifier = $parameters['identifier'];
         $cards = $sodetelService->getAvailableCards($service, $identifier);
+//        dd($cards);
 
-        if (isset($cards[0]) && !$cards[0]) {
+        if (isset($cards[0])) {
             $logs = new Logs;
             $logs
                 ->setidentifier("Sodetel Request")
@@ -86,6 +87,14 @@ class SodetelController extends AbstractController
                 ->seterror(json_encode($cards[1]));
             $this->mr->persist($logs);
             $this->mr->flush();
+        }
+        if(isset($cards['status']) && $cards['status']){
+            $response = new Response();
+            $arr[0] = true;
+            $arr[1] = json_encode($cards['data']);
+            $response->setContent(json_encode($arr));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
         }
 
         $response = new Response();
@@ -118,6 +127,7 @@ class SodetelController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $SuyoolUserId = $this->session->get('suyoolUserId');
+        $SuyoolUserId = 218;
 
         $flagCode = null;
         $IsSuccess = false;
