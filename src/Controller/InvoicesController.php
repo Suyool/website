@@ -4,13 +4,13 @@
 namespace App\Controller;
 
 
-use App\Entity\topup\invoices;
-use App\Entity\topup\MerchantKey;
-use App\Entity\topup\test_invoices;
+use App\Entity\Invoices\invoices;
+use App\Entity\Invoices\MerchantKey;
+use App\Entity\Invoices\merchants;
+use App\Entity\Invoices\test_invoices;
 use App\Service\InvoiceServices;
 use App\Service\RateLimiter;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\topup\merchants;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class MerchantPaymentGatewayController extends AbstractController
+class InvoicesController extends AbstractController
 {
 
     private $rateLimiter;
@@ -27,7 +27,7 @@ class MerchantPaymentGatewayController extends AbstractController
 
     public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter, RequestStack $requestStack)
     {
-        $this->mr = $mr->getManager('topup');
+        $this->mr = $mr->getManager('invoices');
         $this->rateLimiter = $rateLimiter;
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->requestStack = $requestStack;
@@ -130,17 +130,17 @@ class MerchantPaymentGatewayController extends AbstractController
             $session->set('APP_ENV_test','preProd');
         }
 
-        $order = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
+        $invoice = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
             ->where('i.reference = :refnumber')->setParameter('refnumber', $refnumber)->getQuery()->getOneOrNullResult();
 
-        $merchant = $order->getMerchantsId();
+        $merchant = $invoice->getMerchantsId();
         $merchantId = $merchant->getMerchantMid();
         $certificate = $merchant->getCertificate();
-        $orderId = $order->getMerchantOrderId();
-        $timestamp = $order->getCreated()->getTimestamp();
-        $amount = $order->getAmount();
-        $currency = $order->getCurrency();
-        $callbackURL = $order->getCallBackURL();
+        $orderId = $invoice->getMerchantOrderId();
+        $timestamp = $invoice->getCreated()->getTimestamp();
+        $amount = $invoice->getAmount();
+        $currency = $invoice->getCurrency();
+        $callbackURL = $invoice->getCallBackURL();
         $userAgent = $request->headers->get('User-Agent');
         $isMobile = false;
         // Perform some basic checks to determine if it's a mobile user agent
@@ -163,7 +163,7 @@ class MerchantPaymentGatewayController extends AbstractController
             'Currency' => $currency,
             'SecureHash' => $secureHash,
             'TranID' => $orderId,
-            'AdditionalInfo' => $order->getMerchantOrderDesc(),
+            'AdditionalInfo' => $invoice->getMerchantOrderDesc(),
             'CallBackURL' => $callbackURL,
             'TS' => $timestamp,
             'TranTS' => $timestamp,
@@ -180,11 +180,11 @@ class MerchantPaymentGatewayController extends AbstractController
                 return $this->redirectToRoute('app_pay_suyool_qr');
             }
         }else {
-            return $this->render('MerchantPaymentGateway/index.html.twig',[
+            return $this->render('Invoices/index.html.twig',[
                 'is_mobile' => $isMobile,
             ]);
         }
-        return $this->render('MerchantPaymentGateway/index.html.twig',[
+        return $this->render('Invoices/index.html.twig',[
             'is_mobile' => $isMobile,
         ]);
     }

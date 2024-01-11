@@ -4,9 +4,8 @@
 namespace App\Controller;
 
 
-use App\Entity\topup\invoices;
-use App\Entity\topup\merchants;
-use App\Service\ShopifyServices;
+use App\Entity\Invoices\invoices;
+use App\Entity\Invoices\merchants;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +23,7 @@ class IframeController extends AbstractController
     public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session)
     {
         $this->client = $client;
-        $this->mr = $mr->getManager('topup');
+        $this->mr = $mr->getManager('invoices');
         $this->session = $session;
     }
 
@@ -33,15 +32,6 @@ class IframeController extends AbstractController
      */
     public function paySuyoolQR(Request $request): Response
     {
-
-        if(!empty($this->session->get('payment_data'))){
-            $data = $this->session->get('payment_data');
-        }else {
-            $data = $request->query->all();
-            $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
-        }
-
-        return $this->processPayment($data, 'live');
 
         if (!empty($this->session->get('payment_data'))) {
             $data = $this->session->get('payment_data');
@@ -113,29 +103,18 @@ class IframeController extends AbstractController
         $additionalInfo = $data['AdditionalInfo'] ?? '';
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+        //For G gateway only(ex: Ihjoz)
         $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
             'merchants' => $merchant,
             'merchantOrderId' => $TranID
         ]);
         if ($existingInvoice) {
-            $existingInvoice->setPaymentMethod('QR Payment Gateway');
+            $existingInvoice->setPaymentMethod('QRPaymentGateway');
             // Update other fields as needed
             $this->mr->persist($existingInvoice);
             $this->mr->flush();
-        } else {
-            $invoice = new invoices();
-            $invoice->setMerchantsId($merchant);
-            $invoice->setMerchantOrderId($TranID);
-            $invoice->setAmount($amount);
-            $invoice->setCurrency($currency);
-            $invoice->setMerchantOrderDesc($additionalInfo);
-            $invoice->setPaymentMethod('QR Payment Gateway');
-            $invoice->setStatus('Pending');
-
-            $this->mr->persist($invoice);
-            $this->mr->flush();
         }
-
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
             $transactionData = [
@@ -327,6 +306,8 @@ class IframeController extends AbstractController
                 if ($result['flag'] == 1){
                     $invoice->setStatus('completed');
                 }elseif ($result['flag'] == 3){
+                    $invoice->setStatus('TimedOut');
+                }elseif ($result['flag'] == 7){
                     $invoice->setStatus('canceled');
                 }
                 $this->mr->persist($invoice);

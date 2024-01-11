@@ -2,9 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\topup\invoices;
-use App\Entity\topup\merchants;
-use App\Entity\topup\test_invoices;
+use App\Entity\Invoices\invoices;
+use App\Entity\Invoices\test_invoices;
 use Doctrine\Persistence\ManagerRegistry;
 
 class InvoiceServices
@@ -13,7 +12,7 @@ class InvoiceServices
 
     public function __construct(ManagerRegistry $mr)
     {
-        $this->mr=$mr->getManager('topup');
+        $this->mr=$mr->getManager('invoices');
     }
 
     public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null,$simulation = null)
