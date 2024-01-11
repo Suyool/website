@@ -512,6 +512,37 @@ class TopupController extends AbstractController
         return $this->render('topup/3dsecure.html.twig', $parameters);
     }
 
+    #[Route('/3dsreceipt2', name: 'app_topup_edsecure2')]
+    public function secure2(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface,$test = null)
+    {
+        // $sessionInterface->set('SenderId',155);
+        // $sessionInterface->set('ReceiverPhone',76123456);
+        // $sessionInterface->set('SenderPhone',76197840);
+        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
+        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
+        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
+        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
+        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
+        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
+        setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
+        setcookie('merchant_name',$sessionInterface->get('merchant_name') , time() + (60 * 10));
+        setcookie('card_payment_url',$sessionInterface->get('card_payment_url') , time() + (60 * 10));
+        setcookie('simulation',$sessionInterface->get('simulation') , time() + (60 * 10));
+
+        // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
+        // $senderName = $sessionInterface->get('SenderInitials');
+        // $data = json_decode($nonSuyooler[1], true);
+        // $parameters = array();
+        // $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'));
+        $parameters = [
+            'session' => $sessionInterface->get('hostedSessionId'),
+            'orderId' => $sessionInterface->get('orderidhostedsession'),
+            'transactionId' => $sessionInterface->get('transactionidhostedsession')
+        ];
+
+        return $this->render('topup/3dsecure2.html.twig', $parameters);
+    }
+
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
