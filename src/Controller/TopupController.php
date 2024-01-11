@@ -315,10 +315,10 @@ class TopupController extends AbstractController
         // Check if the 'test' parameter exists in the URL change the environment to 'dev'
         if ($test === 'test') {
             //putenv('APP_ENV=dev1');
-            $_ENV['APP_ENV'] = 'preProd';
-            $sessionInterface->set('APP_ENV_test','preProd');
+            // $_ENV['APP_ENV'] = 'preProd';
+            $sessionInterface->set('simulation','true');
         }else{
-            $sessionInterface->set('APP_ENV_test',$_ENV['APP_ENV']);
+            $sessionInterface->set('simulation','false');
         }
 //        $this->suyoolServices->test();
 //        die();
@@ -330,8 +330,7 @@ class TopupController extends AbstractController
         setcookie('transactionidhostedsession', '', -1, '/');
         setcookie('merchant_name', '', -1, '/');
         setcookie('card_payment_url', '', -1, '/');
-        setcookie('APP_ENV_test', '', -1, '/');
-
+        setcookie('simulation', '', -1, '/');
 
         unset($_COOKIE['SenderId']);
         unset($_COOKIE['ReceiverPhone']);
@@ -341,7 +340,7 @@ class TopupController extends AbstractController
         unset($_COOKIE['transactionidhostedsession']);
         unset($_COOKIE['merchant_name']);
         unset($_COOKIE['card_payment_url']);
-        unset($_COOKIE['APP_ENV_test']);
+        unset($_COOKIE['simulation']);
 
         try {
             if (!empty($sessionInterface->get('payment_data'))) {
@@ -350,7 +349,7 @@ class TopupController extends AbstractController
                 $data = $request->query->all();
                 $additionalInfo = $data['AdditionalInfo'] ?? '';
                 $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
-                $invoicesServices->PostInvoices($merchant,$data['TranID'],$data['Amount'],$data['Currency'],$additionalInfo,null,'card','','');
+                $invoicesServices->PostInvoices($merchant,$data['TranID'],$data['Amount'],$data['Currency'],$additionalInfo,null,'card','','',$sessionInterface->get('simulation'));
                 $sessionInterface->set('card_payment_url',$_SERVER['REQUEST_URI']);
             }
 
@@ -375,7 +374,7 @@ class TopupController extends AbstractController
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
             $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
-            if($_ENV['APP_ENV'] == 'preProd'){
+            if($sessionInterface->get('simulation') == 'true' && $test == 'test'){
                 $existingInvoice = $this->mr->getRepository(test_invoices::class)->findOneBy([
                     'merchants' => $merchant,
                     'merchantOrderId' => $mechantOrderId
@@ -396,7 +395,7 @@ class TopupController extends AbstractController
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
 //            $bobpayment = $bobPaymentServices->SessionInvoicesFromBobPayment($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null);
-            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber);
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,'invoices');
 
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
@@ -411,7 +410,7 @@ class TopupController extends AbstractController
                 'amount' => $finalAmount,
                 'currency' => $currency,
                 'merchantName' => $merchantName,
-                'env'=>$_ENV['APP_ENV']
+                'simulation'=>$sessionInterface->get('simulation')
             ];
             $sessionInterface->remove('payment_data');
 
@@ -429,12 +428,12 @@ class TopupController extends AbstractController
     #[Route('/topup2', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $sessionInterface->set('APP_ENV_test',$_ENV['APP_ENV']);
+        $sessionInterface->set('simulation',false);
         $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         $senderName = $sessionInterface->get('SenderInitials');
         $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'));
+        $bobpayment = $bobPaymentServices->hostedsession($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'),'rtp');
 
         $parameters = [
             'session' => $bobpayment[0],
@@ -483,7 +482,7 @@ class TopupController extends AbstractController
     }
 
     #[Route('/3dsreceipt', name: 'app_topup_edsecure')]
-    public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
+    public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface,$test = null)
     {
         // $sessionInterface->set('SenderId',155);
         // $sessionInterface->set('ReceiverPhone',76123456);
@@ -497,7 +496,7 @@ class TopupController extends AbstractController
         setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
         setcookie('merchant_name',$sessionInterface->get('merchant_name') , time() + (60 * 10));
         setcookie('card_payment_url',$sessionInterface->get('card_payment_url') , time() + (60 * 10));
-        setcookie('APP_ENV_test',$sessionInterface->get('APP_ENV_test') , time() + (60 * 10));
+        setcookie('simulation',$sessionInterface->get('simulation') , time() + (60 * 10));
 
         // $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         // $senderName = $sessionInterface->get('SenderInitials');
@@ -516,9 +515,6 @@ class TopupController extends AbstractController
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        if($sessionInterface->get('APP_ENV_test') == 'preProd'){
-            $_ENV['APP_ENV']= 'preProd';
-        }
         $cardnumber = $bobPaymentServices->checkCardNumber();
 
         if(substr($cardnumber, 0, 6) == 423265 || substr($cardnumber, 0, 6) == 552009 || substr($cardnumber, 0, 6) == 557618){
@@ -559,15 +555,11 @@ class TopupController extends AbstractController
     #[Route('/pay2', name: 'app_topup_blacklist2_rtp')]
     public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-
-        if(isset($_COOKIE['APP_ENV_test']) && $_COOKIE['APP_ENV_test'] == 'preProd'){
-            $_ENV['APP_ENV']='preProd';
-        }
         if (isset($_COOKIE['SenderId']) && isset($_COOKIE['ReceiverPhone']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], $_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
 
         } else {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,null,null,null,$_COOKIE['merchant_name'],$_COOKIE['APP_ENV_test']);
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null,null,null,null,$_COOKIE['merchant_name'],$_COOKIE['simulation']);
         }
 
         return $this->render('topup/popup.html.twig', $data);

@@ -16,9 +16,9 @@ class InvoiceServices
         $this->mr=$mr->getManager('topup');
     }
 
-    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null)
+    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null,$simulation = null)
     {
-        $invoices = ($_ENV['APP_ENV'] == 'preProd') ? new test_invoices() : new invoices();
+        $invoices = ($simulation == 'true') ? new test_invoices() : new invoices();
 
         $invoices->setMerchantsId($merchant);
         $invoices->setMerchantOrderId($merchantOrderId);

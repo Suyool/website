@@ -58,6 +58,8 @@ class RTPController extends AbstractController
         setcookie('orderidhostedsession', '', -1, '/'); 
         setcookie('transactionidhostedsession', '', -1, '/'); 
         setcookie('SenderInitials', '', -1, '/'); 
+        setcookie('simulation', '', -1, '/'); 
+
         unset($_COOKIE['SenderId']);
         unset($_COOKIE['ReceiverPhone']);
         unset($_COOKIE['SenderPhone']);
@@ -65,6 +67,8 @@ class RTPController extends AbstractController
         unset($_COOKIE['orderidhostedsession']);
         unset($_COOKIE['transactionidhostedsession']);
         unset($_COOKIE['SenderInitials']);
+        unset($_COOKIE['simulation']);
+
         $this->session->remove('requestGenerated');
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";

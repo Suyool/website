@@ -43,13 +43,16 @@ class BobPaymentServices
     public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         $this->client = $client;
-        if ($_ENV['APP_ENV'] == "dev") {
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
+        $simulation = $session->get('simulation');
+        if ($_ENV['APP_ENV'] == "test") {
+            // dd("here1");
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
-        } else if ($_ENV['APP_ENV'] == "preProd") {
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
+        } else if ($_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")) {
+            // dd("here");
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
@@ -886,9 +889,9 @@ class BobPaymentServices
         }
     }
 
-    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code)
+    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code,$type)
     {
-        if ($_ENV['APP_ENV'] == 'preProd') {
+        if ($this->session->get('simulation') == 'true') {
             $order = $this->mr->getRepository(test_orders::class)->findTestTransactionsThatIsNotCompleted($transId);
         } else {
             $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
@@ -897,7 +900,7 @@ class BobPaymentServices
         if (is_null($order)) {
             $this->session->remove('hostedSessionId');
             $attempts = 1;
-            $order = ($_ENV['APP_ENV'] == 'preProd') ? new test_orders() : new orders();
+            $order = ($this->session->get('simulation') == 'true') ? new test_orders() : new orders();
             $status = ($order instanceof test_orders) ? test_orders::$statusOrder['PENDING'] : orders::$statusOrder['PENDING'];
             $order->setstatus($status);
             $order->setsuyoolUserId($suyoolUserId);
@@ -905,7 +908,7 @@ class BobPaymentServices
             $order->setamount($amount);
             $order->setcurrency($currency);
             $order->setAttempt($attempts);
-            $order->settype("rtp");
+            $order->settype($type);
             $order->setCode($code);
             $this->mr->persist($order);
             $this->mr->flush();
@@ -919,14 +922,14 @@ class BobPaymentServices
                 // dd($order->getAttempt());
                 $this->session->remove('hostedSessionId');
                 $attempts = $order->getAttempt() + 1;
-                $order = ($_ENV['APP_ENV'] == 'preProd') ? new test_orders() : new orders();
+                $order = ($this->session->get('simulation')) ? new test_orders() : new orders();
                 $order->setstatus(orders::$statusOrder['PENDING']);
                 $order->setsuyoolUserId($suyoolUserId);
                 $order->settransId($transId);
                 $order->setamount($amount);
                 $order->setcurrency($currency);
                 $order->setAttempt($attempts);
-                $order->settype("rtp");
+                $order->settype($type);
                 $order->setCode($code);
                 $this->mr->persist($order);
                 $this->mr->flush();
@@ -956,7 +959,7 @@ class BobPaymentServices
 
             $content = $response->toArray(false);
             $session = $content['session']['id'];
-            $session = ($_ENV['APP_ENV'] == 'preProd') ? new test_session() : new session();
+            $session = ($this->session->get('simulation') == 'true') ? new test_session() : new session();
 
             $session->setOrders($order);
             $session->setSession($content['session']['id']);
@@ -968,7 +971,7 @@ class BobPaymentServices
             $this->session->set('hostedSessionId', $session);
         }
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
-        if ($_ENV['APP_ENV'] == 'preProd') {
+        if ($this->session->get('simulation') == 'true') {
             $body = [
                 "authentication" => [
                     "channel" => "PAYER_BROWSER",
@@ -1123,7 +1126,7 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $env = null)
+    public function updatedTransactionInHostedSessionToPay($suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $simulation = null)
     {
         $body = [
             "apiOperation" => "PAY",
@@ -1147,7 +1150,7 @@ class BobPaymentServices
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
         // dd($content);
-        $attempts = ($env == 'preProd') ? new test_attempts() : new attempts();
+        $attempts = ($simulation == 'true') ? new test_attempts() : new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1162,14 +1165,14 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        if ($env == 'preProd') {
+        if ($simulation == 'true') {
             $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         } else {
             $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         }
         if ($content['order']['status'] == 'CAPTURED') {
             if (is_null($suyooler)) {
-                $transaction = ($env == 'preProd') ? new bob_transactions1() : new bob_transactions();
+                $transaction = ($simulation == 'true') ? new bob_transactions1() : new bob_transactions();
                 $transaction->setSession($session);
                 $transaction->setResponse(json_encode($content));
                 $transaction->setStatus($content['order']['status']);
@@ -1214,7 +1217,7 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-                    if ($env == 'preProd') {
+                    if ($simulation == 'true') {
                         $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
                     } else {
                         $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
@@ -1543,12 +1546,14 @@ class BobPaymentServices
     //
     public function checkCardNumber()
     {
+        // dd($this->session->get('hostedSessionId'));
         $response = $this->client->request('GET', $this->BASE_API . "session/" . $this->session->get('hostedSessionId'), [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
             'auth_basic' => [$this->username, $this->password],
         ]);
+        $this->logger->info($this->BASE_API . "session/" . $this->session->get('hostedSessionId'));
         $content = $response->toArray(false);
         $this->logger->info(json_encode($content));
         return $content['sourceOfFunds']['provided']['card']['number'];

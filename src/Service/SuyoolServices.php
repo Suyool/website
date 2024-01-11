@@ -7,6 +7,7 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SuyoolServices
@@ -26,24 +27,26 @@ class SuyoolServices
     private $helper;
     private $userlog;
 
-    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null,SessionInterface $sessionInterface = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
+        $simulation = $sessionInterface->get('simulation');
 
-        if ($_ENV['APP_ENV'] == 'prod') {
-            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
-            $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
+        if ($_ENV['APP_ENV'] == 'test') {
+             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
-        elseif ($_ENV['APP_ENV'] == 'preProd'){
+        else if ($_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
             $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
         }
         else {
-            // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
-            $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
+            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+            $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         }
         $this->client = HttpClient::create();
         $this->winning = $winning;
