@@ -49,7 +49,7 @@ function BundleCredentials({
         axios
             .post("/sodetel/bundles", {
                 service: bundle,
-                identifier: credential[credential.name],
+                identifier: credential[credential.name]?.replace(/\s/g, ''),
             })
             .then((response) => {
                 console.log(response);
