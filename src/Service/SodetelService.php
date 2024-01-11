@@ -32,8 +32,10 @@ class SodetelService
             $this->customerKey = "9981373D9AC51";
         } else {
             $this->SODETEL_API_HOST = 'https://ws.sodetel.net.lb/';
-            $this->customerNumber = "T00004";
-            $this->customerKey = "F6D29C012B90G";
+//            $this->customerNumber = "T00004";
+            $this->customerNumber = "C063814";
+//            $this->customerKey = "F6D29C012B90G";
+            $this->customerKey = "9981373D9AC51";
         }
     }
 
