@@ -12,6 +12,7 @@ use App\Entity\topup\invoices;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
 use App\Entity\topup\test_attempts;
+use App\Entity\topup\test_bob_transactions;
 use App\Entity\topup\test_orders;
 use App\Entity\topup\test_session;
 use App\Utils\Helper;
@@ -1299,7 +1300,7 @@ class BobPaymentServices
         }
         if ($content['order']['status'] == 'CAPTURED') {
             if (is_null($suyooler)) {
-                $transaction = ($simulation == 'true') ? new bob_transactions1() : new bob_transactions();
+                $transaction = ($simulation == 'true') ? new test_bob_transactions() : new bob_transactions();
                 $transaction->setSession($session);
                 $transaction->setResponse(json_encode($content));
                 $transaction->setStatus($content['order']['status']);
@@ -1418,7 +1419,7 @@ class BobPaymentServices
                 $additionalData = [
                     'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
                     'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
-                    'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
+                    'cardHolderName' => @$content['sourceOfFunds']['provided']['card']['nameOnCard']
                 ];
                 $transaction = new bob_transactions;
                 $transaction->setSession($session);
@@ -1451,6 +1452,7 @@ class BobPaymentServices
                         $content = $this->notificationServices->getContent('CardTopUpRtp');
                         $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                     } else {
+                        $imgsrc = "build/images/Loto/warning.png";
                         $title = "Compliance Check";
                         $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
                         $button = "OK";
@@ -1505,6 +1507,7 @@ class BobPaymentServices
         }
         return true;
     }
+    
     //
     public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone = null, $senderPhone = null)
     {
@@ -1529,7 +1532,6 @@ class BobPaymentServices
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
-        // dd($content);
         $attempts = new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
@@ -1588,11 +1590,10 @@ class BobPaymentServices
                 }
                 $this->logger->info('Send email');
             }
-            // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
             $additionalData = [
                 'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
                 'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
-                'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
+                'cardHolderName' => @$content['sourceOfFunds']['provided']['card']['nameOnCard']
             ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);
@@ -1625,6 +1626,7 @@ class BobPaymentServices
                     $content = $this->notificationServices->getContent('CardTopUpRtp');
                     $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 } else {
+                    $imgsrc = "build/images/Loto/warning.png";
                     $title = "Compliance Check";
                     $description = "This transaction is subject to a compliance check.<br>You will receive a notification of its status within 24 hours.";
                     $button = "OK";
@@ -1670,10 +1672,10 @@ class BobPaymentServices
         }
         return true;
     }
+
     //
     public function checkCardNumber()
     {
-        // dd($this->session->get('hostedSessionId'));
         $response = $this->client->request('GET', $this->BASE_API . "session/" . $this->session->get('hostedSessionId'), [
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -1691,7 +1693,6 @@ class BobPaymentServices
     public function hostedsessionTest($amount, $currency, $transId, $suyoolUserId, $code)
     {
         $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
-        // dd($order);
         if (is_null($order)) {
             $this->session->remove('hostedSessionId');
             $attempts = 1;
@@ -1713,7 +1714,6 @@ class BobPaymentServices
             $date->modify('+9 minutes');
             $dateAfter09Minutes = $date->format('Y-m-d H:i:s');
             if ($now > $dateAfter09Minutes) {
-                // dd($order->getAttempt());
                 $this->session->remove('hostedSessionId');
                 $attempts = $order->getAttempt() + 1;
                 $order = new orders;
@@ -1741,7 +1741,6 @@ class BobPaymentServices
                     "authenticationLimit" => 25
                 ]
             ];
-            // print_r($body);
             $this->logger->error(json_encode($body));
             $response = $this->client->request('POST', $this->BASE_API_HOSTED_SESSION . "session", [
                 'body' => json_encode($body),
@@ -1816,7 +1815,6 @@ class BobPaymentServices
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
-        // dd($content);
         $attempts = new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
@@ -1834,7 +1832,6 @@ class BobPaymentServices
         $this->mr->flush();
         $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
         if ($content['order']['status'] == 'CAPTURED') {
-            // $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
             $transaction = new bob_transactions;
             $transaction->setSession($session);
             $transaction->setResponse(json_encode($content));
@@ -1845,7 +1842,6 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            // $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], substr($content['sourceOfFunds']['provided']['card']['number'], -4));
             $topup = array(true, 1);
             $transaction->setflagCode(0);
             $transaction->setError("test");
@@ -1890,8 +1886,6 @@ class BobPaymentServices
     }
     public function SessionInvoicesFromBobPayment($amount, $currency, $transId, $suyooler = null)
     {
-        // dd(invoices::$statusOrder['HELD']);
-        // dd($invoiceid);
         try {
             $order = new orders;
             $order->setstatus(orders::$statusOrder['PENDING']);
@@ -1913,7 +1907,6 @@ class BobPaymentServices
                         "name" => "SUYOOL"
                     ],
                     "returnUrl" => "$url/payment_bob",
-                    // "cancelUrl" => "$url/topupRTP",
                     "displayControl" => [
                         "billingAddress" => "HIDE"
                     ]
@@ -1925,8 +1918,6 @@ class BobPaymentServices
                     "description" => "Payment Gateway"
                 ]
             ];
-            // echo json_encode($body,true);
-            // print_r($body);
             $response = $this->client->request('POST', $this->BASE_API . "session", [
                 'body' => json_encode($body),
                 'headers' => [
@@ -1936,8 +1927,6 @@ class BobPaymentServices
             ]);
 
             $content = $response->toArray(false);
-            //             dd($content);
-            // print_r($content);
             $session = new session;
             $session->setOrders($order);
             $session->setSession($content['session']['id']);
@@ -1948,14 +1937,12 @@ class BobPaymentServices
 
             return array(true, $content['session']['id'], $order);
         } catch (Exception $e) {
-            //            dd($e->getMessage());
             return array(false);
         }
     }
 
     public function retrievedataForInvoices($auth, $status, $indicator, $res, $cardnumber, $invoiceid)
     {
-        // echo $indicator;
         try {
             $parameters = array();
             $session = $this->mr->getRepository(session::class)->findOneBy(['indicator' => $indicator]);
@@ -1972,7 +1959,6 @@ class BobPaymentServices
                 $this->mr->flush();
                 $cardnumber = array("cardEnding" => substr($cardnumber, -4));
                 $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($cardnumber));
-                //$topup = array(true, 1, 1, "SUCESS");
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -1991,15 +1977,11 @@ class BobPaymentServices
                         'imgsrc' => $imgsrc,
                         'description' => $description,
                         'button' => $button,
-                        // 'redirect' => $this->session->get('Code')
                     ];
                     $order = $session->getOrders();
                     $order->setstatus(orders::$statusOrder['COMPLETED']);
                     $this->mr->persist($order);
                     $this->mr->flush();
-                    // $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $phone]);
-                    // $content = $this->notificationServices->getContent('CardTopUpRtp');
-                    // $this->notificationServices->addNotification($senderId, $content, $params, 0, "");
                     $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['reference' => $invoiceid]);
                     $invoice->setStatus(invoices::$statusOrder['COMPLETED']);
                     $this->mr->persist($invoice);
@@ -2020,19 +2002,9 @@ class BobPaymentServices
                         'button' => $button,
                         'redirect' => $this->session->get('Code')
                     ];
-                    // $order = $session->getOrders();
-                    // $order->setstatus(orders::$statusOrder['CANCELED']);
-                    // $this->mr->persist($order);
-                    // $this->mr->flush();
                     return array(true, $parameters);
                 }
             } else {
-                //                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 9, $session->getOrders()->getId() . "-" . $session->getOrders()->gettransId(), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), substr($cardnumber, -4));
-                //                $this->logger->error(json_encode($topup));
-                //                $transaction->setflagCode($topup[2]);
-                //                $transaction->setError($topup[3]);
-                //                $this->mr->persist($transaction);
-                //                if ($topup[0] == true) {
                 $status = false;
                 $imgsrc = "build/images/Loto/error.png";
                 $title = "Please Try Again";
@@ -2052,27 +2024,6 @@ class BobPaymentServices
                 $this->mr->flush();
 
                 return array(true, $parameters);
-                //                } else {
-                //                    $this->logger->error(json_encode($topup));
-                //                    $status = false;
-                //                    $imgsrc = "build/images/Loto/error.png";
-                //                    $title = "Please Try Again";
-                //                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-                //                    $button = "Try Again";
-                //                    $parameters = [
-                //                        'status' => $status,
-                //                        'title' => $title,
-                //                        'imgsrc' => $imgsrc,
-                //                        'description' => $description,
-                //                        'button' => $button,
-                //                        'redirect' => $this->session->get('Code')
-                //                    ];
-                //                    $order = $session->getOrders();
-                //                    $order->setstatus(orders::$statusOrder['CANCELED']);
-                //                    $this->mr->persist($order);
-                //                    $this->mr->flush();
-                //                    return array(true, $parameters);
-                //                }
             }
         } catch (Exception $e) {
             return array(false);

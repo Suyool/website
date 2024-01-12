@@ -33,6 +33,7 @@
 
             }
         }
+
         .ballSectionZeed {
             display: flex;
             flex-direction: row;
@@ -51,7 +52,7 @@
                 align-items: center;
                 justify-content: center;
 
-                &.nouse{
+                &.nouse {
                     background-color: unset;
                 }
 
@@ -100,9 +101,9 @@
                     padding: 10px 0;
                     cursor: pointer;
 
-                    &.clicked{
+                    &.clicked {
                         background-color: #C82F2A;
-                        color: #ffffff!important;
+                        color: #ffffff !important;
                     }
 
                     .time {
@@ -138,7 +139,7 @@
         overflow: hidden;
 
         .winnweHeader {
-            display: flex;
+            // display: flex;
             flex-direction: row;
             padding: 8px 25px;
             justify-content: space-between;
@@ -153,6 +154,17 @@
                 font-family: $Bold;
                 font-size: 11px;
                 padding-left: 15px;
+            }
+
+            button {
+                background: #C82F2A;
+                border: none;
+                float: right;
+                padding: 8px 23px;
+                border-radius: 5px;
+                color: #fff;
+                font-family: $Regular;
+                font-size: 12px;
             }
         }
 
@@ -189,12 +201,14 @@
                     border: 1px solid #C82F2A;
                     color: white;
                 }
-                .lastBall{
+
+                .lastBall {
                     background-color: #8D0500;
                     border: 1px solid #8D0500;
                     color: white;
                 }
-                .lastBallNone{
+
+                .lastBallNone {
                     background-color: white;
                     border: 1px solid #676767;
                     color: #676767;
@@ -224,7 +238,7 @@
                 }
 
                 .win {
-                    background-color: #FFB800 ;
+                    background-color: #FFB800;
                     border: 1px solid #FFB800;
                     color: #FFFFFF;
                 }
@@ -242,7 +256,8 @@
                 font-size: $SemiBold;
                 font-size: 20px;
                 color: white;
-                span{
+
+                span {
                     font-size: 14px;
                 }
             }
@@ -261,7 +276,8 @@
                 font-size: $SemiBold;
                 font-size: 20px;
                 color: white;
-                span{
+
+                span {
                     font-size: 14px;
                 }
             }

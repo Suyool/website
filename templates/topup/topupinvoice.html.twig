@@ -48,27 +48,57 @@
                         <div><span class="label-text">Card Number </span><span class="star">*</span></div>
                         <div class="iframe-container">
                             <input type="text" id="card-number" class="input-field" title="card number" readonly/>
-                            <i class="fa-solid fa-lock"></i>
+                            <i class="fa-regular fa-credit-card"></i>
                         </div>
 
                     </div>
+                    <div><span class="label-text">Expiry Date</span><span class="star">*</span></div>
                     <div class="expires form-row">
-                        <div><span class="label-text">Expiry Month </span><span class="star">*</span><input
-                                    type="text" id="expiry-month" class="input-field"
-                                    title="expiry month"
-                                    aria-label="two digit expiry month" value=""
-                                    tabindex="2" readonly></div>
-                        <div><span class="label-text">Expiry Year </span><span class="star">*</span><input
-                                    type="text" id="expiry-year" class="input-field"
-                                    title="expiry year" aria-label="two digit expiry year"
-                                    value="" tabindex="3" readonly></div>
+                        <div>
+                            <select id="expiry-month" class="form-control input-md" required="" readonly>
+                                <option value="">MM</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            </div>
+                            <div>
+                                <select id="expiry-year" class="form-control input-md" required="" readonly>
+                                    <option value="">YY</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>26</option>
+                                    <option>27</option>
+                                    <option>28</option>
+                                    <option>29</option>
+                                    {# <option>30</option>
+                                    <option>31</option>
+                                    <option>32</option>
+                                    <option>33</option>
+                                    <option>34</option>
+                                    <option>35</option>
+                                    <option>36</option>
+                                    <option>37</option>
+                                    <option>38</option>
+                                    <option>39</option> #}
+                                </select>
+                                </div>
                     </div>
                     <div class="form-row">
                         <div><span class="label-text">Security Code </span><span class="star">*</span></div>
                         <div class="iframe-container">
                             <input type="text" id="security-code" class="input-field" title="security code"
                                    aria-label="three digit CCV security code" value="" tabindex="4" readonly>
-                            <i class="fa-regular fa-credit-card"></i>
+                             <i class="fa-solid fa-lock"></i>
                         </div>
 
                     </div>
@@ -81,19 +111,20 @@
                 </div>
             </div>
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <img src="{{asset('build/images/Loto/warning.png')}}">
-                            <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <img src="{{asset('build/images/Loto/warning.png')}}">
+                            </div>
+                            <div class="modal-body">
+                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                                <div class="desc"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="action" data-bs-dismiss="modal">Close</button>
+                                </div>
                         </div>
-                        <div class="modal-body"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
                 </div>
-            </div>
         </div>
     </div>
     <script type="text/javascript">
@@ -113,9 +144,18 @@
             frameEmbeddingMitigation: ["javascript"],
             callbacks: {
                 initialized: function (response) {
+                    const style = document.createElement("style")
+                    style.textContent = "select{padding: 0px!important;width:38px!important;text-align: center!important;}"
+                    document.head.appendChild(style)
                 },
                 formSessionUpdate: function (response) {
                     console.log(response)
+                    if(response.sourceOfFunds.provided.card.nameOnCard === undefined || response.sourceOfFunds.provided.card.nameOnCard == null){
+                        document.getElementById("staticBackdropLabel").innerText = "Cardholder name is required"
+                        document.querySelector(".desc").innerText = "Cardholder name is required to proceed your transaction"
+                         $('#staticBackdrop').modal('show');
+                         return;
+                    }
                     if (response.status) {
                         if ("ok" == response.status) {
                             console.log("Session updated with data: " + response.session.id);
@@ -216,6 +256,11 @@
                 document.querySelector(selector).style.borderColor = "red";
             }
         }); #}
+        PaymentSession.setFocusStyle(["card.number","card.securityCode","card.nameOnCard"], {
+            borderColor: 'red',
+            borderWidth: '2px',
+            fontFamily: 'PoppinsRegular',
+        });
 
         PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth"],
 

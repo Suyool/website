@@ -513,16 +513,51 @@
 }
 
 .rtptopup2 {
-  .modal-header{
-    display: block!important;
-    img{
-      height: unset!important;
-      width: unset!important;
+  .modal{
+    top: 250px!important;
+    padding: 15px;
+  }
+  .modal-header {
+    display: block !important;
+    color: #000000;
+    // margin-top: 23px;
+    font-family: $SemiBold;
+    text-align: center;
+    border-bottom: none!important;
+    img {
+      height: unset !important;
+      width: unset !important;
     }
   }
-  .modal-footer{
-    justify-content: space-around!important;
+
+  .modal-footer {
+    .action{
+      // min-width: 35%;
+      padding: 10px;
+      color: #ffffff;
+      border: none;
+      background-color: #226d96;
+      font-family: $Regular;
+      border-radius: 7px;
+      width: 100%;
+    }
+    justify-content: space-around !important;
+    border-top: none!important;
   }
+
+  .modal-body {
+    text-align: center;
+    // margin-bottom: 18px;
+    color: #767676;
+    // margin-top: 16px;
+    font-family: $Medium;
+    font-size: 18px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
   .whopay {
     margin: 50px auto;
     width: 50%;
@@ -564,8 +599,8 @@
     min-height: 100vh;
 
     .form-container {
-      width: 80%;
-      margin: 50px auto;
+      // width: 80%;
+      margin: 20px 0px;
     }
 
     .form {
@@ -580,9 +615,9 @@
       .expires {
         display: flex;
 
-        @media screen and (max-width: 768px) {
-          display: block;
-        }
+        // @media screen and (max-width: 768px) {
+        //   display: block;
+        // }
       }
 
       .star {
@@ -596,8 +631,11 @@
       i {
         width: 0;
         position: relative;
-        right: 30px;
+        right: 40px;
         top: 7px;
+        @supports (-webkit-touch-callout: none) {
+          top: 15px!important;
+        }
       }
 
       .iframe-container {
@@ -608,12 +646,36 @@
         width: 100% !important;
 
         @supports (-webkit-touch-callout: none) {
-          height: 55px !important;
+          height: 65px !important;
         }
 
         @supports not (-webkit-touch-callout: none) {
-          height: 35px !important;
+          height: 45px !important;
         }
+
+        #expiryMonth{
+          padding: 0px!important;
+          text-align: center!important;
+          width: 55px!important;
+        }
+        
+      }
+      .gw-proxy-expiryMonth{
+        width: 100px!important;
+      }
+      .gw-proxy-expiryYear{
+        width:80px!important;
+        #expiryYear{
+          padding: 0px!important;
+          text-align: center!important;
+          width: 55px!important;
+        }
+      }
+
+      select#expiryYear{
+        padding: 0px!important;
+        text-align: center!important;
+        width: 55px!important;
       }
 
       input:focus {
@@ -628,6 +690,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
@@ -641,10 +704,13 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
       }
+
+     
 
       #nameOnCard {
         border-radius: 5px !important;
@@ -695,6 +761,51 @@
 }
 
 .topup2 {
+  .modal{
+    top: 250px!important;
+    padding: 15px;
+  }
+  .modal-header {
+    display: block !important;
+    color: #000000;
+    // margin-top: 23px;
+    font-family: $SemiBold;
+    border-bottom: none!important;
+    text-align: center;
+    img {
+      height: unset !important;
+      width: unset !important;
+    }
+  }
+
+  .modal-footer {
+    border-top: none!important;
+    .action{
+      // min-width: 35%;
+      padding: 10px;
+      color: #ffffff;
+      border: none;
+      background-color: #226d96;
+      font-family: $Regular;
+      border-radius: 7px;
+      width: 100%;
+    }
+    justify-content: space-around !important;
+  }
+
+  .modal-body {
+    text-align: center;
+    // margin-bottom: 18px;
+    color: #767676;
+    // margin-top: 16px;
+    font-family: $Medium;
+    font-size: 18px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
   .mobheader {
     opacity: 1;
     display: flex;
@@ -718,6 +829,7 @@
       // font-size: 30px;
     }
   }
+
   .whopay {
     margin: 50px auto;
     width: 50%;
@@ -759,8 +871,8 @@
     min-height: 100vh;
 
     .form-container {
-      width: 80%;
-      margin: 50px auto;
+      // width: 80%;
+      margin: 20px 0px;
     }
 
     .form {
@@ -775,9 +887,9 @@
       .expires {
         display: flex;
 
-        @media screen and (max-width: 768px) {
-          display: block;
-        }
+        // @media screen and (max-width: 768px) {
+        //   display: block;
+        // }
       }
 
       .star {
@@ -793,6 +905,9 @@
         position: relative;
         right: 30px;
         top: 7px;
+        @supports (-webkit-touch-callout: none) {
+          top: 15px!important;
+        }
       }
 
       .iframe-container {
@@ -803,12 +918,19 @@
         width: 100% !important;
 
         @supports (-webkit-touch-callout: none) {
-          height: 55px !important;
+          height: 65px !important;
         }
 
         @supports not (-webkit-touch-callout: none) {
-          height: 35px !important;
+          height: 45px !important;
         }
+      }
+
+      .gw-proxy-expiryMonth{
+        width: 100px!important;
+      }
+      .gw-proxy-expiryYear{
+        width:80px!important;
       }
 
       input:focus {
@@ -823,6 +945,7 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
@@ -836,9 +959,21 @@
         @supports not (-webkit-touch-callout: none) {
           width: 99% !important;
         }
+
         font-family: $Regular;
         border-radius: 5px;
         border: 1px solid #ccc !important;
+      }
+
+      #expiryMonth{
+        padding: 0px!important;
+        text-align: center!important;
+        width: 45px!important;
+      }
+      #expiryYear{
+          padding: 0px!important;
+          text-align: center!important;
+          width: 45px!important;
       }
 
       #nameOnCard {
