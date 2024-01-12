@@ -502,6 +502,7 @@ const Result = ({
               index: gridItem.index,
               price: gridItem.price,
               flag: gridItem.flag,
+              btn: gridItem.btn
             }))
             .sort((a, b) => {
               const aHasWin =
@@ -512,7 +513,7 @@ const Result = ({
                   .length >= 3;
               return bHasWin - aHasWin || a.index - b.index;
             })
-            .map(({ grid, winLoto, index, price, flag }) => (
+            .map(({ grid, winLoto, index, price, flag, btn }) => (
               <div className="winnweSection" key={index}>
                 <div className="winnweHeader">
                   <div>
@@ -521,7 +522,7 @@ const Result = ({
                       alt="SmileLOGO"
                     />
                     <span>BASIC</span>
-                    {getDisplayButnRept && flag && (
+                    {btn && flag && (
                       <button onClick={() => replayOneGrid(grid, price)}>
                         Replay
                       </button>
