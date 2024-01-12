@@ -15,6 +15,7 @@ use App\Entity\topup\test_attempts;
 use App\Entity\topup\test_bob_transactions;
 use App\Entity\topup\test_orders;
 use App\Entity\topup\test_session;
+use App\Entity\topup\transactions;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -1514,7 +1515,17 @@ class BobPaymentServices
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
                 $description = "Your transaction of {$currency} {$amount} at {$merchantName} has been declined";
                 $title = "Payment Failed";
-
+                if ($entity == 'test') {
+                    $order = $this->mr->getRepository(test_orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                    $order->setstatus('Canceled');
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+                }else{
+                    $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                    $order->setstatus('Canceled');
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+                }
             } else {
                 $title = "Please Try Again";
                 $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
@@ -1524,6 +1535,7 @@ class BobPaymentServices
             if($invoice){
                 $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
             }
+
             $imgsrc = "build/images/Loto/error.png";
             $button = "Try Again";
             $parameters = [
