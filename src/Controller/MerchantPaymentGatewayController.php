@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\topup\merchants;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +25,12 @@ class MerchantPaymentGatewayController extends AbstractController
     private $rateLimiter;
     private $certificate;
 
-    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter)
+    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter, RequestStack $requestStack)
     {
         $this->mr = $mr->getManager('topup');
         $this->rateLimiter = $rateLimiter;
         $this->certificate = $_ENV['CERTIFICATE'];
+        $this->requestStack = $requestStack;
     }
 
 
@@ -71,13 +73,16 @@ class MerchantPaymentGatewayController extends AbstractController
         $apiKeydata = $merchantApiKey->getApiKey();
         $referenceNumber = $this->generateRandomString(6);
 
+        $request = $this->requestStack->getCurrentRequest();
 
+        // Get the base URL
+        $baseUrl = $request->getSchemeAndHttpHost();
         if($apiKeydata == $apiKey){
             $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl);
             if ($test === 'test') {
-                $url = "http://suyool.ls/test/G".$referenceNumber;
+                $url = $baseUrl."/test/G".$referenceNumber;
             }else {
-                $url = "http://suyool.ls/G".$referenceNumber;
+                $url = $baseUrl."/G".$referenceNumber;
             }
 
             $array = [
