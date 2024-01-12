@@ -262,7 +262,7 @@ class TopupController extends AbstractController
     #[Route('/cardpayment/{test}', name: 'app_paymentGateway_test', requirements: ['test' => 'test'])]
     public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices, $test = null)
     {
-        $sessionInterface->clear();
+        // $sessionInterface->clear();
         // Check if the 'test' parameter exists in the URL change the environment to 'dev'
         if ($test === 'test') {
             $sessionInterface->set('simulation', 'true');
