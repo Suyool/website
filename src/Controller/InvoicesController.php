@@ -25,7 +25,8 @@ class InvoicesController extends AbstractController
     private $rateLimiter;
     private $certificate;
 
-    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter, RequestStack $requestStack)
+
+    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter,RequestStack $requestStack)
     {
         $this->mr = $mr->getManager('invoices');
         $this->rateLimiter = $rateLimiter;
@@ -73,17 +74,20 @@ class InvoicesController extends AbstractController
         $apiKeydata = $merchantApiKey->getApiKey();
         $referenceNumber = $this->generateRandomString(6);
 
+
+        // Get the current request
         $request = $this->requestStack->getCurrentRequest();
 
         // Get the base URL
         $baseUrl = $request->getSchemeAndHttpHost();
+
+        // Get the base URL
         if($apiKeydata == $apiKey){
             if ($test === 'test') {
-                $url = $baseUrl."/test/G".$referenceNumber;
+                $url = $baseUrl . "/test/G".$referenceNumber;
                 $simulation = true;
-
             }else {
-                $url = $baseUrl."/G".$referenceNumber;
+                $url = $baseUrl . "/G".$referenceNumber;
                 $simulation = false;
             }
 
