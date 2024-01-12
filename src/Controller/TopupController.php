@@ -261,7 +261,6 @@ class TopupController extends AbstractController
     #[Route('/cardpayment/{test}', name: 'app_paymentGateway_test', requirements: ['test' => 'test'])]
     public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, $test = null,InvoiceServices $invoicesServices)
     {
-        // $sessionInterface->clear();
         // Check if the 'test' parameter exists in the URL change the environment to 'dev'
         if ($test === 'test') {
             $sessionInterface->set('simulation', 'true');
@@ -294,7 +293,7 @@ class TopupController extends AbstractController
             $callBackUrl = $data['CallBackURL'] ?? '';
             $refNumber = $data['refNumber'] ?? '';
 
-            $Hash = $data['SecureHash'];
+            $Hash = $data['SecureHash'] ?? '';
             $merchant = $invoicesServices->findMerchantByMerchId($data['MerchantID']);
 
             if ($refNumber != null) {
