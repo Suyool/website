@@ -400,5 +400,12 @@ return [
      //INDEVCO
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INDEVCO"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Indevco employee.",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INDEVCO"=>"You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Indevco employee.",
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INDEVCO"=>"What are the benefits for Indevco employees?"
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INDEVCO"=>"What are the benefits for Indevco employees?",
+
+    //debbane
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBANE"=>"What are the benefits for Debbane employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DEBBANE" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Debbane employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_DEBBANE" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_DEBBANE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBANE"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbane employee.",
     ];

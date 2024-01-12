@@ -81,7 +81,7 @@ class LotoController extends AbstractController
                 $loto_prize_per_days = $this->mr->getRepository(loto::class)->getResultsPerUser($suyoolUserId, $loto_prize->getDrawId(), $this->LotoServices,$loto_draw->getdrawid());
                 // dd($loto_prize_per_days);
             } else {
-                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $drawId);
+                $loto_prize_per_days = $this->mr->getRepository(loto::class)->getfetchhistory($suyoolUserId, $drawId,$loto_draw->getdrawid());
             }
 
             if ($loto_prize != null) {
