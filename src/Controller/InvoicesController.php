@@ -78,12 +78,16 @@ class InvoicesController extends AbstractController
         // Get the base URL
         $baseUrl = $request->getSchemeAndHttpHost();
         if($apiKeydata == $apiKey){
-            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl);
             if ($test === 'test') {
                 $url = $baseUrl."/test/G".$referenceNumber;
+                $simulation = true;
+
             }else {
                 $url = $baseUrl."/G".$referenceNumber;
+                $simulation = false;
             }
+
+            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl,$simulation);
 
             $array = [
                 "url" => $url,
@@ -118,16 +122,17 @@ class InvoicesController extends AbstractController
     {
 
         $session->remove('payment_data');
+        $session->remove('simulation');
+
         $firstFPosition = strpos($refnumber, 'G');
 
         $refnumber = substr($refnumber, $firstFPosition + 1);
 
         $isTestRequest = strpos($request->getPathInfo(), '/test/') === 0;
-
         $invoiceClass = invoices::class;
         if ($isTestRequest){
             $invoiceClass = test_invoices::class;
-            $session->set('APP_ENV_test','preProd');
+            $session->set('simulation',true);
         }
 
         $invoice = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')

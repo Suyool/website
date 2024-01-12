@@ -5,9 +5,6 @@ namespace App\Controller;
 use App\Entity\Iveri\orders;
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
-use App\Entity\topup\invoices;
-use App\Entity\topup\merchants;
-use App\Entity\topup\test_invoices;
 use App\Service\BobPaymentServices;
 use App\Service\BobServices;
 use App\Service\InvoiceServices;
@@ -34,6 +31,7 @@ class TopupController extends AbstractController
     private $notificationServices;
     private $logger;
     private $sessionInterface;
+    private $hash_algo;
 
     public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, LoggerInterface $loggerInterface, SessionInterface $sessionInterface)
     {
@@ -42,6 +40,7 @@ class TopupController extends AbstractController
         $this->notificationServices = $notificationServices;
         $this->logger = $loggerInterface;
         $this->sessionInterface = $sessionInterface;
+        $this->hash_algo = $_ENV['ALGO'];
     }
 
     // #[Route('/topup', name: 'app_topup')]
@@ -260,7 +259,7 @@ class TopupController extends AbstractController
 
     #[Route('/cardpayment', name: 'app_paymentGateway')]
     #[Route('/cardpayment/{test}', name: 'app_paymentGateway_test', requirements: ['test' => 'test'])]
-    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, InvoiceServices $invoicesServices, $test = null)
+    public function payWithBob(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices, $test = null,InvoiceServices $invoicesServices)
     {
         // $sessionInterface->clear();
         // Check if the 'test' parameter exists in the URL change the environment to 'dev'
@@ -284,9 +283,7 @@ class TopupController extends AbstractController
             } else {
                 $data = $request->query->all();
                 $additionalInfo = $data['AdditionalInfo'] ?? '';
-                $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
-                $invoicesServices->PostInvoices($merchant, $data['TranID'], $data['Amount'], $data['Currency'], $additionalInfo, null, 'card', '', '', $sessionInterface->get('simulation'));
-                $sessionInterface->set('card_payment_url', $_SERVER['REQUEST_URI']);
+                $sessionInterface->set('card_payment_url',$_SERVER['REQUEST_URI']);
             }
 
             $parameters = array();
@@ -297,35 +294,38 @@ class TopupController extends AbstractController
             $callBackUrl = $data['CallBackURL'] ?? '';
             $refNumber = $data['refNumber'] ?? '';
 
+            $Hash = $data['SecureHash'];
+            $merchant = $invoicesServices->findMerchantByMerchId($data['MerchantID']);
+
             if ($refNumber != null) {
                 $refNumber = "G" . $refNumber;
+                $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $data['AdditionalInfo'] . $merchant->getCertificate(), true));
             } else {
                 $refNumber = null;
             }
-            $Hash = $data['SecureHash'];
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($mechantOrderId, (float)$amount, $currency, '', $merchantId, $callBackUrl, $Hash);
+
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($mechantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl,$Hash);
+            $sessionInterface->remove('payment_data');
+            //dd($pushCard);
             $transactionDetails = json_decode($pushCard[1]);
-            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $data['MerchantID']]);
-            $merchantName = $sessionInterface->set('merchant_name', $merchant->getName());
-            if ($sessionInterface->get('simulation') == 'true' && $test == 'test') {
-                $existingInvoice = $this->mr->getRepository(test_invoices::class)->findOneBy([
-                    'merchants' => $merchant,
-                    'merchantOrderId' => $mechantOrderId
-                ]);
-            } else {
-                $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
-                    'merchants' => $merchant,
-                    'merchantOrderId' => $mechantOrderId
-                ]);
+
+            $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
+
+            if($sessionInterface->get('simulation') == 'true' && $test == 'test'){
+                $entity = 'test';
+            }else{
+                $entity = 'live';
             }
+            $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$mechantOrderId,$entity);
+
+            $paymentType = 'Gateway';
             if ($existingInvoice) {
-                $existingInvoice->setPaymentMethod('debit card');
-                $existingInvoice->setTransId($transactionDetails->TransactionId);
-                $this->mr->persist($existingInvoice);
-                $this->mr->flush();
+                $invoicesServices->UpdateInvoiceDetails($transactionDetails->TransactionId,'Card',$entity,$merchant,$mechantOrderId);
+                $paymentType = 'Invoice';
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
-            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null, $refNumber, 'invoices');
+
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,$paymentType);
 
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");

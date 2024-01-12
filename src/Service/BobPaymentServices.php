@@ -4,11 +4,11 @@ namespace App\Service;
 
 use App\Entity\topup\attempts;
 use App\Entity\topup\blackListCards;
-use App\Entity\topup\test_invoices;
+use App\Entity\Invoices\test_invoices;
 use App\Entity\topup\testbob_transactions;
 use App\Entity\topup\bob_transactions1;
 use App\Entity\topup\bob_transactions;
-use App\Entity\topup\invoices;
+use App\Entity\Invoices\invoices;
 use App\Entity\topup\orders;
 use App\Entity\topup\session;
 use App\Entity\topup\test_attempts;
@@ -41,10 +41,13 @@ class BobPaymentServices
     private $notificationServices;
     private $BASE_API_HOSTED_SESSION;
 
-    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
+
+    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices,InvoiceServices $invoicesServices)
     {
         $this->client = $client;
         $simulation = $session->get('simulation');
+        $this->invoicesServices = $invoicesServices;
+
         if ($_ENV['APP_ENV'] == "test") {
             // dd("here1");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
@@ -1310,9 +1313,12 @@ class BobPaymentServices
         $this->mr->flush();
         if ($simulation == 'true') {
             $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $entity = 'test';
         } else {
             $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $entity = 'live';
         }
+
         if ($content['order']['status'] == 'CAPTURED') {
             if (is_null($suyooler)) {
                 $transaction = ($simulation == 'true') ? new test_bob_transactions() : new bob_transactions();
@@ -1335,6 +1341,7 @@ class BobPaymentServices
                 $price = $content['order']['amount'];
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
                 //                $merchantName = 'test1';
+
                 if ($topup[0]) {
                     $status = true;
                     $imgsrc = "build/images/Loto/success.png";
@@ -1360,15 +1367,13 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-                    if ($simulation == 'true') {
-                        $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
-                    } else {
-                        $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
-                    }
 
-                    $invoice->setStatus(invoices::$statusOrder['COMPLETED']);
-                    $this->mr->persist($invoice);
-                    $this->mr->flush();
+                    $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
+
+                    if($invoice){
+                        $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'Completed');
+                    }
+                    
                     return $parameters;
                 } else {
                     $this->logger->error(json_encode($topup));
@@ -1385,7 +1390,11 @@ class BobPaymentServices
                         'button' => $button,
                         'redirect' => $this->session->get('Code')
                     ];
+                    $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
 
+                    if($invoice){
+                        $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
+                    }
                     return  $parameters;
                 }
             } else {
@@ -1505,9 +1514,15 @@ class BobPaymentServices
                 $currency == "$" ? $amount = number_format($price, 2) : $amount = number_format($price);
                 $description = "Your transaction of {$currency} {$amount} at {$merchantName} has been declined";
                 $title = "Payment Failed";
+
             } else {
                 $title = "Please Try Again";
                 $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            }
+            $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
+
+            if($invoice){
+                $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
             }
             $imgsrc = "build/images/Loto/error.png";
             $button = "Try Again";

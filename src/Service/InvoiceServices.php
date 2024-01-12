@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Invoices\invoices;
+use App\Entity\Invoices\merchants;
 use App\Entity\Invoices\test_invoices;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -34,5 +35,48 @@ class InvoiceServices
         $this->mr->flush();
 
         return $invoices->getId();
+    }
+    public function findExistingInvoice($merchant,$mechantOrderId,$entity) {
+        if ($entity == 'test'){
+            $class = test_invoices::class;
+        }else{
+            $class = invoices::class;
+        }
+        $existingInvoice = $this->mr->getRepository($class)->findOneBy([
+            'merchants' => $merchant,
+            'merchantOrderId' => $mechantOrderId
+        ]);
+
+        return $existingInvoice;
+    }
+    public function findInvoiceByTranId($tranId,$entity) {
+        if ($entity == 'test'){
+            $class = test_invoices::class;
+        }else{
+            $class = invoices::class;
+        }
+        $invoice = $this->mr->getRepository($class)->findOneBy(['transId' => $tranId]);
+
+        return $invoice;
+    }
+    public function findMerchantByMerchId($merchantId) {
+        $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+
+        return $merchant;
+    }
+    public function UpdateInvoiceDetails($tranId,$paymentMethod,$entity,$merchant,$mechantOrderId) {
+        $invoice = $this->findExistingInvoice($merchant,$mechantOrderId,$entity);
+
+        $invoice->setTransId($tranId);
+        $invoice->setPaymentMethod($paymentMethod);
+        $this->mr->persist($invoice);
+        $this->mr->flush();
+    }
+    public function updateOrderStatus($tranId,$entity, $status) {
+        $invoice = $this->findInvoiceByTranId($tranId,$entity);
+
+        $invoice->setStatus($status);
+        $this->mr->persist($invoice);
+        $this->mr->flush();
     }
 }
