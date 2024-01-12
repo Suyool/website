@@ -209,7 +209,7 @@ class SodetelController extends AbstractController
                         //notification body
                         $params = json_encode([
                             'amount' => $order->getAmount(),
-//                            'currency' => $order->getCurrency(),
+                            'currency' => 'L.L',
                             'username'=>$data['identifier'],
                             'type' => $data['bundle']
                         ]);
