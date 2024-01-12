@@ -88,16 +88,27 @@ const Result = ({
             arraysAreEqual(existingBallSet.balls, item["gridSelected"].split(" ").map(Number))
         );
         if (isDuplicate) {
-          setDisplayButnRept(false);
+          return {
+            index: index,
+            grid: item["gridSelected"].split(" ").map(Number),
+            winloto: item["winLoto"],
+            replay: item["gridSelected"].split(" ").map(Number),
+            price: price,
+            flag: item["flag"],
+            btn:false
+          };
+        }else{
+          return {
+            index: index,
+            grid: item["gridSelected"].split(" ").map(Number),
+            winloto: item["winLoto"],
+            replay: item["gridSelected"].split(" ").map(Number),
+            price: price,
+            flag: item["flag"],
+            btn:true
+          };
         }
-        return {
-          index: index,
-          grid: item["gridSelected"].split(" ").map(Number),
-          winloto: item["winLoto"],
-          replay: item["gridSelected"].split(" ").map(Number),
-          price: price,
-          flag: item["flag"],
-        };
+       
       });
 
       const zeedSelectedArray = item.gridSelected
@@ -251,16 +262,26 @@ const Result = ({
                   )
               );
               if (isDuplicate) {
-                setDisplayButnRept(false);
+                return {
+                  index: index,
+                  grid: item["gridSelected"].split(" ").map(Number),
+                  winloto: item["winLoto"],
+                  replay: item["gridSelected"].split(" ").map(Number),
+                  price: price2,
+                  flag: item["flag"],
+                  btn:false
+                };
+              }else{
+                return {
+                  index: index,
+                  grid: item["gridSelected"].split(" ").map(Number),
+                  winloto: item["winLoto"],
+                  replay: item["gridSelected"].split(" ").map(Number),
+                  price: price2,
+                  flag: item["flag"],
+                  btn:true
+                };
               }
-              return {
-                index: index,
-                grid: item["gridSelected"].split(" ").map(Number),
-                winloto: item["winLoto"],
-                replay: item["gridSelected"].split(" ").map(Number),
-                price: price2,
-                flag: item["flag"],
-              };
             }
           );
         const resultsnumbers = response.data.parameters.prize_loto_win.numbers
