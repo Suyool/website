@@ -13,7 +13,8 @@ const MyBundle = ({
   setHeaderTitle,
   setBackLink,
   setModalDesc,
-  credential
+  credential,
+  identifier
 }) => {
   useEffect(() => {
     setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
@@ -57,15 +58,16 @@ const MyBundle = ({
       }, 2000);
     }
   };
+  console.log("identifier", identifier);
 
   useEffect(() => {
     if (getDataGetting == "success") {
-      console.log("prepaid",getPrepaidVoucher);
       axios
         .post("/sodetel/refill", {
           refillData: getPrepaidVoucher,
           bundle: activeButton?.bundle,
-          identifier: credential[credential.name]?.replace(/\s/g, '')
+          // identifier: credential[credential.name]?.replace(/\s/g, '')
+          identifier: identifier
         })
         .then((response) => {
           setSpinnerLoader(false);

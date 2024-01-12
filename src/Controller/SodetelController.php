@@ -175,6 +175,10 @@ class SodetelController extends AbstractController
 
                 $transId = $utilityResponse[1];
 
+                $order->setTransId($transId);
+                $this->mr->persist($order);
+                $this->mr->flush();
+
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
 //                $rechargeInfo = $sodetelService->refill('fake', $data['refillData']['plancode'], $data['identifier'], $order->getId());
                 if ($rechargeInfo) {

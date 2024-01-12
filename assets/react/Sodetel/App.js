@@ -13,6 +13,7 @@ function App({parameters}) {
     const [getHeaderTitle, setHeaderTitle] = useState("Sodetel");
     const [getDataGetting, setDataGetting] = useState({id: ""});
     const [planData, setPlanData] = useState({});
+    const [identifier, setIdentifier] = useState(null);
 
     const [bundleData, setBundleData] = useState({id: ""});
     const [credential, setCredential] = useState({
@@ -76,6 +77,7 @@ function App({parameters}) {
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                setIdentifier={setIdentifier}
                 />
             )}
 
@@ -91,6 +93,7 @@ function App({parameters}) {
                     setHeaderTitle={setHeaderTitle}
                     setBackLink={setBackLink}
                     setModalDesc={setModalDesc}
+                    identifier={identifier}
                 />
             )}
 

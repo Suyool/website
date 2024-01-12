@@ -8,6 +8,7 @@ const ReCharge = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  setIdentifier
 }) => {
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
@@ -18,6 +19,11 @@ const ReCharge = ({
     setFilteredData(Object.values(getVoucherData));
 
     // const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
+
+    if (getVoucherData?.id) {
+      const dataObj = JSON.parse(getVoucherData.id);
+      setIdentifier(dataObj?.customerid);
+    }
     const values = getVoucherData?.id? Object.values(JSON.parse(getVoucherData.id))?.filter(item => typeof item !== 'string') : [];
     setFilteredData(values);
 
@@ -28,6 +34,7 @@ const ReCharge = ({
       setLoading(false);
     }
   }, [ filteredData ]);
+  console.log("getVoucherData", getVoucherData);
 
   return (
     <div id="ReCharge">
