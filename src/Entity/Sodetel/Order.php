@@ -46,7 +46,6 @@ class Order
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     *
      */
     private $transId;
 
@@ -55,6 +54,11 @@ class Order
      * @ORM\JoinColumn(name="productId", referencedColumnName="id")
      */
     private $product;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $identifier;
 
 
 //    /**
@@ -156,6 +160,17 @@ class Order
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+        return $this;
+    }
+
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
         return $this;
     }
 

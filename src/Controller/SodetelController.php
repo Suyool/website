@@ -97,6 +97,14 @@ class SodetelController extends AbstractController
             return $response;
         }
 
+        $logs = new Logs;
+        $logs
+            ->setidentifier("Sodetel Request")
+            ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
+            ->setrequest(json_encode(array($service, $identifier)))
+            ->setresponse(json_encode($cards))
+            ->seterror(null);
+
         $response = new Response();
         $response->setContent(json_encode($cards));
         $response->headers->set('Content-Type', 'application/json');
@@ -149,6 +157,7 @@ class SodetelController extends AbstractController
                 ->setCurrency($data['refillData']['currency'])
                 ->setTransId(null)
                 ->setStatus(Order::$statusOrder['PENDING'])
+                ->setIdentifier($data['identifier'])
                 ->setProduct(null);
 
             $this->mr->persist($order);
@@ -234,6 +243,14 @@ class SodetelController extends AbstractController
                             $message = "something wrong while UpdateUtilities";
                             $dataPayResponse = -1;
                         }
+
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("Sodetel Request")
+                            ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
+                            ->setrequest(json_encode(array($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId())))
+                            ->setresponse(json_encode($sodetelData))
+                            ->seterror(null);
 
                     } else {
                         $logs = new Logs;
