@@ -210,14 +210,15 @@ class SodetelController extends AbstractController
                         $params = json_encode([
                             'amount' => $order->getAmount(),
 //                            'currency' => $order->getCurrency(),
-
-                            'userAccount' => $data['identifier'],
-                            'type' => "$data[bundle]"
+                            'username'=>$data['identifier'],
+                            'type' => $data['bundle']
                         ]);
 
                         $additionalData = '';
 
-                        $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                        $notificationType = $data['bundle'] == "4g" ? 'AcceptedSodetel4GPayment' : 'AcceptedSodetelDSLPayment';
+
+                        $content = $notificationServices->getContent($notificationType);
                         $bulk = 0; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
