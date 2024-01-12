@@ -1391,6 +1391,17 @@ class BobPaymentServices
                         'button' => $button,
                         'redirect' => $this->session->get('Code')
                     ];
+                    if ($entity == 'test') {
+                        $order = $this->mr->getRepository(test_orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                        $order->setstatus('Canceled');
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+                    }else{
+                        $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
+                        $order->setstatus('Canceled');
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+                    }
                     $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
 
                     if($invoice){
@@ -1526,15 +1537,16 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
                 }
+                $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
+
+                if($invoice){
+                    $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
+                }
             } else {
                 $title = "Please Try Again";
                 $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
             }
-            $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
 
-            if($invoice){
-                $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
-            }
 
             $imgsrc = "build/images/Loto/error.png";
             $button = "Try Again";
