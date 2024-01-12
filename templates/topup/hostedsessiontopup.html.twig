@@ -173,22 +173,10 @@
                                 },
                                 success: function (response) {
                                     if (response.status) {
-                                        // document.getElementById("staticBackdropLabel").innerText = response.response.title
-                                        // document.querySelector(".modal-body").innerText = response.response.description
-                                        // document.getElementById("action").innerText = response.response.button
-                                        // document.getElementById("action").setAttribute("href", "/" + response.response.code)
-                                        // $('#staticBackdrop').modal('show');
-                                        window.location.href = "/3dsreceipt";
+                                        window.location.href = "/3dsreceipt2";
                                     }else{
-                                            //if (navigator.userAgent.match(/Android/i)) {
-                                            //    window.AndroidInterface.callbackHandler("GoToApp");
-                                            //} else {
-                                            //    window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-                                            //}
                                             document.getElementById("staticBackdropLabel").innerText = response.response.title
                                             document.querySelector(".desc").innerText = response.response.description
-                                            //document.getElementById("action").innerText = response.response.button
-                                           // document.getElementById("action").setAttribute("href", "/" + response.response.code)
                                             $('#staticBackdrop').modal('show');
 									}
                                 },
