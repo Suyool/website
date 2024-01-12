@@ -164,7 +164,10 @@ class SodetelController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
 
+                $transId = $utilityResponse[1];
+
                 $rechargeInfo = $sodetelService->refill($data['bundle'], $data['refillData']['plancode'], $data['identifier'], $order->getId());
+//                $rechargeInfo = $sodetelService->refill('fake', $data['refillData']['plancode'], $data['identifier'], $order->getId());
                 if ($rechargeInfo) {
                     $sodetelArr = json_decode($rechargeInfo, true);
                     $sodetelData = $sodetelArr[0];
@@ -244,7 +247,7 @@ class SodetelController extends AbstractController
                         $this->mr->flush();
 
                         //return the money to the user
-                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $order->gettransId());
+                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
                         if ($responseUpdateUtilities[0]) {
                             $order->setStatus(Order::$statusOrder['CANCELED'])
                                 ->setError($sodetelData['message']);
@@ -264,7 +267,7 @@ class SodetelController extends AbstractController
                         $dataPayResponse = -1;
                     }
                 }else{
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $order->gettransId());
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
                     if ($responseUpdateUtilities[0]) {
                         $order->setStatus(Order::$statusOrder['CANCELED'])
                             ->setError("something wrong while refill");
