@@ -28,9 +28,16 @@
                         <div class="fee">Card Processing Fees</div>
                     </div>
                     <div class="col-md-7 col-4">
-                        <div class="beforefee">{{ currency }} {{ amount|number_format(2, '.', ',')  }}</div>
-                        <div class="beforefee">{{ currency }}
-                            {{ fees|number_format(2, '.', ',') }}</div>
+                        <div class="beforefee">{% if currency == 'LL' %}
+                            LL {{ amount|number_format() }}
+                        {% else %}
+                             {{ currency }} {{ amount|number_format(2, '.', ',') }}
+                        {% endif %}</div>
+                        <div class="beforefee">{% if currency == 'LL' %}
+                             LL {{ fees|number_format() }}
+                        {% else %}
+                             {{ currency }} {{ fees|number_format(2, '.', ',') }}
+                        {% endif %}</div>
                     </div>
                 </div>
                 <div style="border-top: 1px solid;margin-top: 15px;"></div>
@@ -48,7 +55,7 @@
                             <div><span class="label-text">Cardholder</span>(exactly as shown on card) <span
                                         class="star">*</span></div>
                             <input type="text" id="cardholder-name" class="input-field" title="cardholder name"
-                                   aria-label="enter name on card" value="" tabindex="5" placeholder="Cardholder name" readonly
+                                   aria-label="enter name on card" value="" tabindex="5" placeholder="Cardholder name" required readonly
 
                             >
                         </div>
@@ -162,6 +169,13 @@
                 },
                 formSessionUpdate: function (response) {
                     console.log(response)
+                    if(response.sourceOfFunds.provided.card.nameOnCard === undefined || response.sourceOfFunds.provided.card.nameOnCard == null){
+                        document.getElementById("staticBackdropLabel").innerText = "Cardholder name is required"
+                        document.querySelector(".desc").innerText = "Cardholder name is required to proceed your transaction"
+                         $('#staticBackdrop').modal('show');
+                         document.getElementById("payButton").disabled = false;
+                         return;
+                    }
                     if (response.status) {
                         if ("ok" == response.status) {
                             console.log("Session updated with data: " + response.session.id);
@@ -231,13 +245,13 @@
             fontFamily: 'PoppinsRegular',
         });
 
-		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth"],
+		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth,card.nameOnCard"],
 
 			function (selector, role)
 
 			{ PaymentSession.validate('card', function (allresult) {
-				console.log(role)
-			if (allresult.card["expiryMonth"].isValid && allresult.card["expiryYear"].isValid && allresult.card["securityCode"].isValid && allresult.card["number"].isValid) {
+				console.log(allresult)
+			if (allresult.card["expiryMonth"].isValid && allresult.card["expiryYear"].isValid && allresult.card["securityCode"].isValid && allresult.card["number"].isValid && allresult.card["nameOnCard"].isValid) {
 				document.getElementById("payButton").disabled = false;
 			console.log("The field is valid");
 			document.querySelector(selector).style.borderColor = "green";

@@ -155,7 +155,13 @@
                     document.head.appendChild(style)
                 },
                 formSessionUpdate: function (response) {
-                    console.log(response)
+                    console.log(response.sourceOfFunds.provided.card.nameOnCard)
+                    if(response.sourceOfFunds.provided.card.nameOnCard === undefined || response.sourceOfFunds.provided.card.nameOnCard == null){
+                        document.getElementById("staticBackdropLabel").innerText = "Cardholder name is required"
+                        document.querySelector(".desc").innerText = "Cardholder name is required to proceed your transaction"
+                         $('#staticBackdrop').modal('show');
+                         return;
+                    }
                     if (response.status) {
                         if ("ok" == response.status) {
                             console.log("Session updated with data: " + response.session.id);
@@ -167,17 +173,10 @@
                                 },
                                 success: function (response) {
                                     if (response.status) {
-                                        // document.getElementById("staticBackdropLabel").innerText = response.response.title
-                                        // document.querySelector(".modal-body").innerText = response.response.description
-                                        // document.getElementById("action").innerText = response.response.button
-                                        // document.getElementById("action").setAttribute("href", "/" + response.response.code)
-                                        // $('#staticBackdrop').modal('show');
                                         window.location.href = "/3dsreceipt2";
                                     }else{
 										 document.getElementById("staticBackdropLabel").innerText = response.response.title
                                          document.querySelector(".desc").innerText = response.response.description
-                                         //document.getElementById("action").innerText = response.response.button
-                                        // document.getElementById("action").setAttribute("href", "/" + response.response.code)
                                          $('#staticBackdrop').modal('show');
 									}
                                 },
@@ -232,12 +231,12 @@
             fontFamily: 'PoppinsRegular',
         });
 
-		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth"],
+		PaymentSession.onValidityChange( ["card.number", "card.securityCode", "card.expiryYear", "card.expiryMonth","card.nameOnCard"],
 
 			function (selector, role)
 
 			{ PaymentSession.validate('card', function (allresult) {
-				console.log(role)
+				console.log(allresult.card["nameOnCard"])
 			if (allresult.card["expiryMonth"].isValid && allresult.card["expiryYear"].isValid && allresult.card["securityCode"].isValid && allresult.card["number"].isValid) {
 				document.getElementById("payButton").disabled = false;
 			console.log("The field is valid");

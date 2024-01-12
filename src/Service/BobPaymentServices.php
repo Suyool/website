@@ -1419,7 +1419,7 @@ class BobPaymentServices
                 $additionalData = [
                     'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
                     'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
-                    'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
+                    'cardHolderName' => @$content['sourceOfFunds']['provided']['card']['nameOnCard']
                 ];
                 $transaction = new bob_transactions;
                 $transaction->setSession($session);
@@ -1593,7 +1593,7 @@ class BobPaymentServices
             $additionalData = [
                 'cardEnding' => substr($content['sourceOfFunds']['provided']['card']['number'], -4),
                 'cardNumber' => $content['sourceOfFunds']['provided']['card']['number'],
-                'cardHolderName' => $content['sourceOfFunds']['provided']['card']['nameOnCard']
+                'cardHolderName' => @$content['sourceOfFunds']['provided']['card']['nameOnCard']
             ];
             $transaction = new bob_transactions;
             $transaction->setSession($session);

@@ -150,6 +150,12 @@
                 },
                 formSessionUpdate: function (response) {
                     console.log(response)
+                    if(response.sourceOfFunds.provided.card.nameOnCard === undefined || response.sourceOfFunds.provided.card.nameOnCard == null){
+                        document.getElementById("staticBackdropLabel").innerText = "Cardholder name is required"
+                        document.querySelector(".desc").innerText = "Cardholder name is required to proceed your transaction"
+                         $('#staticBackdrop').modal('show');
+                         return;
+                    }
                     if (response.status) {
                         if ("ok" == response.status) {
                             console.log("Session updated with data: " + response.session.id);
