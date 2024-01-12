@@ -51,6 +51,7 @@ class RTPController extends AbstractController
      */
     public function index(Request $request, TranslatorInterface $translator, $code): Response
     {
+        $this->session->clear();
         setcookie('SenderId', '', -1, '/'); 
         setcookie('ReceiverPhone', '', -1, '/'); 
         setcookie('SenderPhone', '', -1, '/'); 
