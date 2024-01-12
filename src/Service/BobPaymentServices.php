@@ -1622,9 +1622,9 @@ class BobPaymentServices
                 $button = "Continue";
 
                 if ($topup[2] == 1) {
-                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1], 'nonsuyooler' => $receiverPhone]);
-                    $content = $this->notificationServices->getContent('CardTopUpRtp');
-                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                    $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
+                        $content = $this->notificationServices->getContent('CardTopUp');
+                        $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 } else {
                     $imgsrc = "build/images/Loto/warning.png";
                     $title = "Compliance Check";
