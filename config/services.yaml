@@ -84,6 +84,7 @@ services:
     #         $logger: '@monolog.logger.requestApi'
 
     App\Service\SuyoolServices:
+        lazy: true
         arguments:
             $merchantAccountID: ''
             $cashin: '@monolog.logger.cashin'
@@ -124,6 +125,7 @@ services:
             - { 'name': 'monolog.logger', 'channel': 'Iveri' }
 
     App\Service\BobPaymentServices:
+        lazy: true
         tags:
             - { 'name': 'monolog.logger', 'channel': 'topup' }
 

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\topup\invoices;
 use App\Entity\topup\merchants;
+use App\Entity\topup\test_invoices;
 use Doctrine\Persistence\ManagerRegistry;
 
 class InvoiceServices
@@ -15,10 +16,10 @@ class InvoiceServices
         $this->mr=$mr->getManager('topup');
     }
 
-    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null)
+    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null,$simulation = null)
     {
+        $invoices = ($simulation == 'true') ? new test_invoices() : new invoices();
 
-        $invoices=new invoices();
         $invoices->setMerchantsId($merchant);
         $invoices->setMerchantOrderId($merchantOrderId);
         $invoices->setAmount($amount);

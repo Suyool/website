@@ -43,6 +43,14 @@ class IframeController extends AbstractController
 
         return $this->processPayment($data, 'live');
 
+        if (!empty($this->session->get('payment_data'))) {
+            $data = $this->session->get('payment_data');
+        } else {
+            $data = $request->query->all();
+            $data['SecureHash'] = str_replace(' ', '+', $data['SecureHash']);
+        }
+
+        return $this->processPayment($data, 'live');
     }
 
     /**
@@ -50,9 +58,9 @@ class IframeController extends AbstractController
      */
     public function paySuyoolQRTest(Request $request): Response
     {
-        if(!empty($this->session->get('payment_data'))){
+        if (!empty($this->session->get('payment_data'))) {
             $data = $this->session->get('payment_data');
-        }else {
+        } else {
             $data = $request->query->all();
         }
         return $this->processPayment($data, 'test');
@@ -60,22 +68,16 @@ class IframeController extends AbstractController
 
     private function processPayment(array $data, string $env): Response
     {
-        $data['SecureHash'] =str_replace(' ', '+', $data['SecureHash']);
+        $data['SecureHash'] = str_replace(' ', '+', $data['SecureHash']);
 
-        if(!empty($data)){
+        if (!empty($data)) {
             $response = $this->windowProcess($data, $env);
 
             $TranID = $data['TranID'] ?? '';
             $callbackUrl = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
             $merchantID = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
-
-            if ($env == 'live') {
-                $pictureUrl = $response['pictureURL'];
-                $returnText = $response['returnText'];
-            } else {
-                $pictureUrl = $response['PictureURL'];
-                $returnText = $response['ReturnText'];
-            }
+            $pictureUrl = $response['pictureURL'];
+            $returnText = $response['returnText'];
 
             $showQR = $pictureUrl ? 'displayBlock' : '';
             $main_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
@@ -92,7 +94,7 @@ class IframeController extends AbstractController
                 'main_url' => $main_url,
 
             ]);
-        }else {
+        } else {
             return new Response('No Data received');
         }
     }
@@ -102,7 +104,7 @@ class IframeController extends AbstractController
         $TranID = $data['TranID'] ?? '';
         $amount = $data['Amount'] ?? '';
         $currency = $data['Currency'] ?? '';
-//        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
+        $CallBackURL = isset($data['CallBackURL']) ? rawurldecode($data['CallBackURL'] ?? '') : (isset($data['CallbackURL']) ? rawurldecode($data['CallbackURL'] ?? '') : null);
 
         $secureHash = rawurldecode($data['SecureHash'] ?? '');
         $TS = $data['TS'] ?? '';
@@ -120,7 +122,6 @@ class IframeController extends AbstractController
             // Update other fields as needed
             $this->mr->persist($existingInvoice);
             $this->mr->flush();
-
         } else {
             $invoice = new invoices();
             $invoice->setMerchantsId($merchant);
@@ -146,12 +147,9 @@ class IframeController extends AbstractController
                 'TranTS' => "$TranTS",
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
+                'CallBackUrl' => $CallBackURL
             ];
-            if ($env == 'live')
-                $url = "api/OnlinePayment/PayQR";
-            else
-                $url = "PayQR";
-
+            $url = "api/OnlinePayment/PayQR";
 
             $params = [
                 'data' => json_encode($transactionData),
@@ -167,9 +165,12 @@ class IframeController extends AbstractController
     {
         if ($data['env'] == 'live') {
             $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-        } else {
-            $apiHost = 'https://online.suyool.money/';
         }
+        else {
+            $apiHost = 'https://externalservices.suyool.money/';
+        }
+
+
         $response = $this->client->request('POST', $apiHost . $data['url'], [
             'body' => $data['data'],
             'headers' => [
@@ -214,7 +215,6 @@ class IframeController extends AbstractController
             // Update other fields as needed
             $this->mr->persist($existingInvoice);
             $this->mr->flush();
-
         } else {
             $invoice = new invoices();
             $invoice->setMerchantsId($merchant);
@@ -284,14 +284,15 @@ class IframeController extends AbstractController
                 "secureHash" => $secureHash
             ];
             $params['data'] = json_encode($json);
+            $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
+
             if ($env == 'live') {
                 $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-                $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
-
-            } else {
-                $apiHost = 'https://online.suyool.money/';
-                $params['url'] = 'CheckQRPaymentStatus';
             }
+            else {
+                $apiHost = 'https://externalservices.suyool.money/';
+            }
+
             $response = $this->client->request('POST', $apiHost . $params['url'], [
                 'body' => $params['data'],
                 'headers' => [
@@ -304,16 +305,19 @@ class IframeController extends AbstractController
             $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceno']) ? $result['referenceno'] : null);
             $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
             $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returnText']) ? $result['returnText'] : null);
-            $secureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
+            $SecureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
+
+            $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $transactionId . "&SecureHash=" . rawurlencode($secureHash);
+            $callBackURL = str_replace("&amp;","&",$callBackURL);
 
             $responseContent = json_encode([
                 'Flag' => $flag,
                 'ReferenceNo' => $referenceNo,
                 'TranID' => $tranID,
                 'ReturnText' => $returnText,
-                'SecureHash' => $secureHash,
                 'AdditionalInfo' => $additionalInfo,
+                'CallBackURL' => $callBackURL
             ]);
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
 

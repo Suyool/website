@@ -7,6 +7,7 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SuyoolServices
@@ -26,19 +27,28 @@ class SuyoolServices
     private $helper;
     private $userlog;
 
-    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null,SessionInterface $sessionInterface = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
+        if ($sessionInterface!=null && $sessionInterface->has('simulation')) {
+            $simulation = $sessionInterface->get('simulation');
+        }
 
-        if ($_ENV['APP_ENV'] == 'prod') {
+        if ($_ENV['APP_ENV'] == 'test') {
+             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
+        }
+        else if ($_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
+            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/GlobalAPIs/';
+            $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
+        }
+        else {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
-        } else {
-            // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         $this->client = HttpClient::create();
         $this->winning = $winning;
@@ -48,6 +58,13 @@ class SuyoolServices
         $this->userlog = $userlog;
     }
 
+//    public function test(){
+//        echo "SUYOOL_API_HOST: ";
+//        echo $this->SUYOOL_API_HOST;
+//        echo "<br />";
+//        echo "APP_ENV in suyool service is:";
+//        dd($_ENV['APP_ENV']);
+//    }
     public static function decrypt($stringToDecrypt)
     {
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
@@ -547,18 +564,22 @@ class SuyoolServices
             return array(false);
         }
     }
-    public function PushCardToMerchantTransaction($amount, $currency, $additionalInfo,$merchantId)
+    public function PushCardToMerchantTransaction($mechantOrderId,$amount, $currency, $additionalInfo,$merchantId,$callbackURL = null,$Hash)
     {
         try {
             $amount = number_format($amount, 3, '.', '');
-            $Hash = base64_encode(hash($this->hash_algo,   $merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+//            $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+//            dd($Hash);
             $body = [
+                'TransactionId' => $mechantOrderId,
                 'merchantAccountID' => $merchantId,
                 'amount' => $amount,
                 'currency' => $currency,
                 'additionalInfo' => $additionalInfo,
-                'secureHash' => $Hash
+                'secureHash' => $Hash,
+                'callbackURL' => $callbackURL
             ];
+
             // $this->cashin->info(json_encode($body));
             $this->cashin->info(json_encode($body));
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Payment/PushCardToMerchantTransaction",  $body);

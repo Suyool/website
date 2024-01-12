@@ -25,14 +25,22 @@
         max-width: 45%;
     }
     .message{
-        color: green;
+        color: #216D96;
     }
     .displayBlock {
         display: inline-block!important;
     }
+    .icon-image-cont {
+        border: 1px solid #216D96;
+        width: 220px;
+        margin: auto;
+        padding: 45px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+    }
     .icon-image {
         display: none;
-        margin: 50px 0;
+        margin: 10px 0;
     }
     .info {
         margin-top: 20px;
@@ -41,15 +49,15 @@
     }
 </style>
 <div class="pay">
-    <div class="info">
-        <p><b>OrderId:</b> {{ order_id }}</p>
-        <p><b>Amount:</b> {{ Amount }}</p>
-        <p><b>Currency:</b> {{ Currency }}</p>
-    </div>
+{#    <div class="info">#}
+{#        <p><b>OrderId:</b> {{ order_id }}</p>#}
+{#        <p><b>Amount:</b> {{ Amount }}</p>#}
+{#        <p><b>Currency:</b> {{ Currency }}</p>#}
+{#    </div>#}
     <div class="pay-qr" style="text-align: center">
-        <p class="message" id="text-message">{{ ReturnText }}</p>
-        <div class="icon-image">
-            <img src="" alt="" >
+        <div class="icon-image-cont">
+            <img class="icon-image" src="" alt="" >
+            <p class="message" id="text-message">{{ ReturnText }}</p>
         </div>
         <div class="QR-cont">
             <div class="logo">
@@ -65,7 +73,7 @@
         <div class="IframeCont" align="center">
             <h5>HOW TO PAY?</h5>
             <div class="stepsImageCont">
-                <img src="https://skash.com/new/public/img/Steps-to-scan-QR-syoul.png"/>
+                <img src="{{ asset('build/images/scan-qr-steps.png') }}"/>
             </div>
         </div>
         <div>
@@ -84,7 +92,7 @@
 
     $(document).ready(function() {
         // Initial call to checkPaymentStatus
-        checkPaymentStatus({{ order_id }});
+        checkPaymentStatus();
     });
 
     function checkPaymentStatus() {
@@ -118,22 +126,30 @@
                         // Inform the user with the payment status
                         $('#text-message').html(paymentInfo['ReturnText']);
                         $('.QR-cont').hide();
+                        if (paymentInfo['Flag'] === 1) {
+                            $('.icon-image-cont').css({'color': '#1ED66C', 'border': '1px solid #1ED66C'});
+                            $('.icon-image-cont .message').css({'color': '#1ED66C'});
 
+                        } else {
+                            $('.icon-image-cont').css({'color': '#F0021A', 'border': '1px solid #F0021A'});
+                            $('.icon-image-cont .message').css({'color': '#F0021A'});
+
+                        }
                         if (callbackUrl === "") {
                             if(paymentInfo['Flag'] === 1) {
-                                $('.icon-image img').attr('src', '{{ asset('build/images/approved.png') }}');
+                                $('.icon-image').attr('src', '{{ asset('build/images/approved.png') }}');
                             } else {
-                                $('.icon-image img').attr('src', '{{ asset('build/images/decline.png') }}');
+                                $('.icon-image').attr('src', '{{ asset('build/images/decline.png') }}');
                             }
                             $('.icon-image').show();
 
                         }else {
                             setTimeout(function () {
                                 if (window.opener) {
-                                    window.opener.location.href = callbackUrl;
+                                    window.opener.location.href = paymentInfo['CallBackURL'];
                                     window.self.close();
                                 } else {
-                                    window.top.location.href = callbackUrl;
+                                    window.top.location.href = paymentInfo['CallBackURL'];
                                 }
                             }, 3000);
                         }
