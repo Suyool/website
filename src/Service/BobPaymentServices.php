@@ -51,7 +51,7 @@ class BobPaymentServices
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
-        } else if ($_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")) {
+        } else if ($_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
             // dd("here");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
@@ -890,7 +890,7 @@ class BobPaymentServices
         }
     }
 
-    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code,$type)
+    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code, $type)
     {
         if ($this->session->get('simulation') == 'true') {
             $order = $this->mr->getRepository(test_orders::class)->findTestTransactionsThatIsNotCompleted($transId);
@@ -1020,9 +1020,9 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
-    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code,$type)
+    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code, $type)
     {
-            $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
         // dd($order);
         if (is_null($order)) {
             $this->session->remove('hostedSessionId');
@@ -1278,6 +1278,21 @@ class BobPaymentServices
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
         // dd($content);
+        if (isset($content['error'])) {
+            $this->logger->info("enter to the error field popup");
+            $title = "Please Try Again";
+            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            $imgsrc = "build/images/Loto/error.png";
+            $button = "Try Again";
+            $parameters = [
+                'title' => $title,
+                'imgsrc' => $imgsrc,
+                'description' => $description,
+                'button' => $button,
+                'redirect' => ''
+            ];
+            return $parameters;
+        }
         $attempts = ($simulation == 'true') ? new test_attempts() : new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
@@ -1326,9 +1341,9 @@ class BobPaymentServices
                     $title = "Payment Successful";
                     $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
-                    if (isset($topup[1]) && $topup[1] !='') {
+                    if (isset($topup[1]) && $topup[1] != '') {
                         $redirectCallBack = true;
-                    }else{
+                    } else {
                         $redirectCallBack = false;
                     }
                     $parameters = [
@@ -1350,7 +1365,7 @@ class BobPaymentServices
                     } else {
                         $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
                     }
-                    
+
                     $invoice->setStatus(invoices::$statusOrder['COMPLETED']);
                     $this->mr->persist($invoice);
                     $this->mr->flush();
@@ -1507,7 +1522,7 @@ class BobPaymentServices
         }
         return true;
     }
-    
+
     //
     public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone = null, $senderPhone = null)
     {
@@ -1532,6 +1547,21 @@ class BobPaymentServices
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
         $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
+        if (isset($content['error'])) {
+            $this->logger->info("enter to the error field popup from app");
+            $title = "Please Try Again";
+            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            $imgsrc = "build/images/Loto/error.png";
+            $button = "Try Again";
+            $parameters = [
+                'title' => $title,
+                'imgsrc' => $imgsrc,
+                'description' => $description,
+                'button' => $button,
+                'redirect' => ''
+            ];
+            return $parameters;
+        }
         $attempts = new attempts();
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
@@ -1623,8 +1653,8 @@ class BobPaymentServices
 
                 if ($topup[2] == 1) {
                     $params = json_encode(['currency' => $currency, 'amount' => $topup[1]]);
-                        $content = $this->notificationServices->getContent('CardTopUp');
-                        $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
+                    $content = $this->notificationServices->getContent('CardTopUp');
+                    $this->notificationServices->addNotification($suyooler, $content, $params, 0, "");
                 } else {
                     $imgsrc = "build/images/Loto/warning.png";
                     $title = "Compliance Check";

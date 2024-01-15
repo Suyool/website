@@ -150,8 +150,8 @@ const Buy = ({
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/Loto/error.png",
-              title: "Please Try again",
-              desc: `You Have a grid with same number in this draw`,
+              title: "Cannot Play Grid",
+              desc: `You have a grid with the same numbers in this draw`,
             });
             setModalShow(true);
           } else {

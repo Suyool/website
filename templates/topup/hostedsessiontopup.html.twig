@@ -170,8 +170,8 @@
                 formSessionUpdate: function (response) {
                     console.log(response)
                     if(response.sourceOfFunds.provided.card.nameOnCard === undefined || response.sourceOfFunds.provided.card.nameOnCard == null){
-                        document.getElementById("staticBackdropLabel").innerText = "Cardholder name is required"
-                        document.querySelector(".desc").innerText = "Cardholder name is required to proceed your transaction"
+                        document.getElementById("staticBackdropLabel").innerText = "Cardholder Name Required"
+                        document.querySelector(".desc").innerText = "Kindly add the cardholder name to proceed with this transaction."
                          $('#staticBackdrop').modal('show');
                          document.getElementById("payButton").disabled = false;
                          return;

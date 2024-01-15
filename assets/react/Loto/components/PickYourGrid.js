@@ -161,8 +161,8 @@ const PickYourGrid = ({
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/Loto/error.png",
-            title: "Can not play grid",
-            desc: `You have a grid with same numbers in this draw`,
+            title: "Cannot Play Grid",
+            desc: `You have a grid with the same numbers in this draw`,
           });
           setModalShow(true);
         }

@@ -85,7 +85,7 @@ const Result = ({
         const isDuplicate = existingBalls.some(
           (existingBallSet) =>
             existingBallSet.balls &&
-            arraysAreEqual(existingBallSet.balls, item["gridSelected"].split(" ").map(Number))
+            arraysAreEqual(existingBallSet.balls.sort(), item["gridSelected"].split(" ").map(Number).sort())
         );
         if (isDuplicate) {
           return {
@@ -256,10 +256,7 @@ const Result = ({
               const isDuplicate = existingBalls.some(
                 (existingBallSet) =>
                   existingBallSet.balls &&
-                  arraysAreEqual(
-                    existingBallSet.balls,
-                    item["gridSelected"].split(" ").map(Number)
-                  )
+                  arraysAreEqual(existingBallSet.balls.sort(), item["gridSelected"].split(" ").map(Number).sort())
               );
               if (isDuplicate) {
                 return {
