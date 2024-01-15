@@ -500,7 +500,7 @@ class TopupController extends AbstractController
     #[Route('/pay2topup', name: 'app_topup_blacklist2')]
     public function checkblacklist2topup(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $this->logger->info("user entered pay2topup");
+        $this->logger->info("user {$_COOKIE['SenderId']} entered pay2topup");
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPayTopup($_COOKIE['SenderId']);
             $status = true;
             $response = $data;
