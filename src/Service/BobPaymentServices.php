@@ -50,13 +50,13 @@ class BobPaymentServices
         $simulation = $session->get('simulation');
         $this->invoicesServices = $invoicesServices;
 
-        if ($_ENV['APP_ENV'] == "test" || $_ENV['APP_ENV'] == "sandbox") {
+        if ($_ENV['APP_ENV'] == "test") {
             // dd("here1");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
             $this->password = "002bcc643011b3cef6967ff40d140d71";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
-        } else if ($_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
+        } else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
             // dd("here");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";
