@@ -54,6 +54,12 @@
         "/build/TerraNet.65c21a2a.js"
       ]
     },
+    "Sodetel": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Sodetel.560fa7ac.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.e40c1cca.js"
@@ -124,6 +130,14 @@
       ],
       "css": [
         "/build/terraNetstyle.045b70e4.css"
+      ]
+    },
+    "SodetelStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/SodetelStyle.d9acc988.css"
       ]
     }
   }

@@ -23,6 +23,8 @@ doctrine:
             terranet:
                 url: '%env(resolve:TERRANET_DATABASE_URL)%'
 
+            sodetel:
+                url: '%env(resolve:SODETEL_DATABASE_URL)%'
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -128,8 +130,6 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/topup'
                         prefix: 'App\Entity\topup'
                         alias: topup
-            
-
             terranet:
                 connection: terranet
                 mappings:
@@ -139,3 +139,12 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/TerraNet'
                         prefix: 'App\Entity\TerraNet'
                         alias: TerraNet
+            sodetel:
+                connection: sodetel
+                mappings:
+                    Sodetel:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Sodetel'
+                        prefix: 'App\Entity\Sodetel'
+                        alias: Sodetel
