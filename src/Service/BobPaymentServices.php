@@ -41,6 +41,7 @@ class BobPaymentServices
     private $logger;
     private $notificationServices;
     private $BASE_API_HOSTED_SESSION;
+    private $invoicesServices;
 
 
     public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices,InvoiceServices $invoicesServices)
@@ -49,7 +50,7 @@ class BobPaymentServices
         $simulation = $session->get('simulation');
         $this->invoicesServices = $invoicesServices;
 
-        if ($_ENV['APP_ENV'] == "test") {
+        if ($_ENV['APP_ENV'] == "test" || $_ENV['APP_ENV'] == "sandbox") {
             // dd("here1");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
             $this->username = "merchant.TESTSUYOOL";

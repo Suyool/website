@@ -1,0 +1,72 @@
+monolog:
+    channels:
+        - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+        - Users
+        - Winning
+        - Play
+        - BoB
+        - Iveri
+        - cashout
+        - cashin
+        - topup
+    handlers:
+        users:
+            type: stream
+            path: "%kernel.logs_dir%/users.log"
+            level: debug
+            channels: ['Users']
+        winning:
+            type: stream
+            path: "%kernel.logs_dir%/winning.log"
+            level: debug
+            channels: ['Winning']
+        play:
+            type: stream
+            path: "%kernel.logs_dir%/play.log"
+            level: debug
+            channels: ['Play']
+        alfa:
+            type: stream
+            path: "%kernel.logs_dir%/BoB.log"
+            level: debug
+            channels: ['BoB']
+        iveri:
+            type: stream
+            path: "%kernel.logs_dir%/iveri.log"
+            level: debug
+            channels: ['Iveri']
+        cashin:
+            type: stream
+            path: "%kernel.logs_dir%/cashin.log"
+            level: debug
+            channels: ['cashin']
+        cashout:
+            type: stream
+            path: "%kernel.logs_dir%/cashout.log"
+            level: debug
+            channels: ['cashout']
+        topup:
+            type: stream
+            path: "%kernel.logs_dir%/topup.log"
+            level: debug
+            channels: ['topup']
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+            channels: ["!event"]
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type: firephp
+        #    level: info
+        #chromephp:
+        #    type: chromephp
+        #    level: info
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine", "!console"]
+
+        
+            # formatter: app.session_request_formatter

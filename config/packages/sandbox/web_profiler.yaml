@@ -1,0 +1,6 @@
+framework:
+    profiler: { enabled: true }
+
+doctrine:
+    dbal:
+        profiling: true

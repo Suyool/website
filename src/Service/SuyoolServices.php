@@ -36,7 +36,7 @@ class SuyoolServices
             $simulation = $sessionInterface->get('simulation');
         }
 
-        if ($_ENV['APP_ENV'] == 'test') {
+        if ($_ENV['APP_ENV'] == 'sandbox' || $_ENV['APP_ENV'] == "test") {
              // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
             //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
              $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';

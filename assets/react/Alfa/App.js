@@ -42,6 +42,11 @@ const App = ({ parameters }) => {
 
   useEffect(() => {
     setDataGetting("");
+    const searchParams = new URLSearchParams(window.location.search);
+    const idParam = searchParams.get("comp");
+    if (idParam) {
+      setActiveButton({ name: idParam });
+    }
     window.handleCheckout = (message) => {
       setDataGetting(message);
     };
