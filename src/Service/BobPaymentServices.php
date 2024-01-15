@@ -984,7 +984,7 @@ class BobPaymentServices
                     "redirectResponseUrl" => $url . "/pay2"
                 ],
                 "order" => [
-                    "id" => "test_" . $transId,
+                    "id" => $_ENV['APP_ENV']. "_" . $transId,
                     "amount" => $amount,
                     "currency" => $currency
                 ],
@@ -992,7 +992,7 @@ class BobPaymentServices
                     "id" => "trans-" . $attempts
                 ]
             ];
-            $this->session->set('orderidhostedsession', "test_" . $transId);
+            $this->session->set('orderidhostedsession', $_ENV['APP_ENV']. "_" . $transId);
         } else {
             $body = [
                 "authentication" => [
