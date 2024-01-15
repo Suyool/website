@@ -1597,7 +1597,8 @@ class BobPaymentServices
                 'imgsrc' => $imgsrc,
                 'description' => $description,
                 'button' => $button,
-                'redirect' => ''
+                'topup' => true,
+                'infoFailed' => true
             ];
             return $parameters;
         }
