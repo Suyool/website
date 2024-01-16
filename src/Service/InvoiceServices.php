@@ -72,8 +72,20 @@ class InvoiceServices
         $this->mr->persist($invoice);
         $this->mr->flush();
     }
-    public function updateOrderStatus($tranId,$entity, $status) {
-        $invoice = $this->findInvoiceByTranId($tranId,$entity);
+
+    public function findInvoiceByRefNumber($refnumber,$entity) {
+        if ($entity == 'test'){
+            $class = test_invoices::class;
+        }else{
+            $class = invoices::class;
+        }
+        $invoice = $this->mr->getRepository($class)->findOneBy(['reference' => $refnumber]);
+
+        return $invoice;
+    }
+
+    public function updateOrderStatus($refnumber ,$entity, $status) {
+        $invoice = $this->findInvoiceByRefNumber($refnumber,$entity);
 
         $invoice->setStatus($status);
         $this->mr->persist($invoice);

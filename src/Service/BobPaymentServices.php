@@ -1369,12 +1369,16 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-
-                    $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
-
-                    if($invoice){
-                        $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'Completed');
+                    $refNumb = $session->getOrders()->getCode();
+                    if($refNumb) {
+                        $firstFPosition = strpos($refNumb, 'G');
+                        $refnumber = substr($refNumb, $firstFPosition + 1);
+                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                        if($invoice){
+                            $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Completed');
+                        }
                     }
+
                     
                     return $parameters;
                 } else {
@@ -1403,10 +1407,14 @@ class BobPaymentServices
                         $this->mr->persist($order);
                         $this->mr->flush();
                     }
-                    $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
-
-                    if($invoice){
-                        $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
+                    $refNumb = $session->getOrders()->getCode();
+                    if($refNumb) {
+                        $firstFPosition = strpos($refNumb, 'G');
+                        $refnumber = substr($refNumb, $firstFPosition + 1);
+                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                        if($invoice){
+                            $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Canceled');
+                        }
                     }
                     return  $parameters;
                 }
@@ -1538,10 +1546,14 @@ class BobPaymentServices
                     $this->mr->persist($order);
                     $this->mr->flush();
                 }
-                $invoice = $this->invoicesServices->findInvoiceByTranId($session->getOrders()->gettransId(),$entity);
-
-                if($invoice){
-                    $this->invoicesServices->updateOrderStatus($session->getOrders()->gettransId(), $entity, 'CANCELED');
+                $refNumb = $session->getOrders()->getCode();
+                if($refNumb) {
+                    $firstFPosition = strpos($refNumb, 'G');
+                    $refnumber = substr($refNumb, $firstFPosition + 1);
+                    $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                    if($invoice){
+                        $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Canceled');
+                    }
                 }
             } else {
                 $title = "Please Try Again";
