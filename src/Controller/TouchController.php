@@ -12,6 +12,7 @@ use App\Service\BobServices;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -47,7 +48,7 @@ class TouchController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-         //$_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        //$_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
@@ -184,7 +185,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),0);
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), 0);
 
             if ($response[0]) {
                 //set order status to held
@@ -254,7 +255,7 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(), 'fees' => 0];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
@@ -330,7 +331,7 @@ class TouchController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-        if($_ENV['APP_ENV']=="prod"){
+        if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchersTouch($lotoServices);
         }
 
@@ -371,7 +372,7 @@ class TouchController extends AbstractController
             $order_id = $this->params->get('TOUCH_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(),0);
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
 
             if ($response[0]) {
                 //set order status to held
@@ -447,12 +448,19 @@ class TouchController extends AbstractController
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
+                    $dateString = $PayResonse["voucherExpiry"];
+                    $dateTime = new DateTime($dateString);
+
+                    $formattedDate = $dateTime->format('d/m/Y');
+
                     //intial notification
                     $params = json_encode([
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherCode"],
+                        'serial' => $PayResonse["voucherSerial"],
+                        'expiry' => $formattedDate
                     ]);
                     $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast

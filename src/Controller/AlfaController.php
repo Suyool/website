@@ -12,6 +12,7 @@ use App\Service\BobServices;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -504,12 +505,19 @@ class AlfaController extends AbstractController
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
+                    $dateString = $PayResonse["voucherExpiry"];
+                    $dateTime = new DateTime($dateString);
+
+                    $formattedDate = $dateTime->format('d/m/Y');
+
                     //intial notification
                     $params = json_encode([
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherCode"],
+                        'serial'=>$PayResonse["voucherSerial"],
+                        'expiry'=>$formattedDate
                     ]);
                     $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
                     $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
