@@ -270,7 +270,7 @@ class IframeController extends AbstractController
             $result = json_decode($response->getContent(), true);
 
             $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
-            $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceno']) ? $result['referenceno'] : null);
+            $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceNo']) ? $result['referenceNo'] : null);
             $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
             $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returnText']) ? $result['returnText'] : null);
             $SecureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
