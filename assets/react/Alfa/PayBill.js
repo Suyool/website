@@ -26,7 +26,7 @@ const PayBill = ({
   }, []);
 
   useEffect(() => {
-    if (params.deviceType == "web") {
+    if (params.deviceType == "CORPORATE") {
       setPostParametters({
         mobileNumber: mobileNumber.replace(/\s/g, ""),
         currency: currency,

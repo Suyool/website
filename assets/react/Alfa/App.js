@@ -54,15 +54,35 @@ const App = ({ parameters }) => {
     };
   });
 
+  const [webMessage, setWebMessage] = useState("message to send to parent.");
+  const sendMessageToParent = () => {
+    window.parent.postMessage(webMessage, "http://localhost:3000/bills");
+  };
+  const handleReceiveMessage = (event) => {
+    if (typeof event.data === "string") {
+      setWebMessage(event.data);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("message", handleReceiveMessage);
+    return () => {
+      window.removeEventListener("message", handleReceiveMessage);
+    };
+  }, []);
+
   return (
     <div id="AlfaBody">
-      <Header
+   <h4>{webMessage}</h4>
+        <button onClick={sendMessageToParent} className="btn btn-primary">
+          Send message to parent
+        </button>
+      {/* <Header
         parameters={parameters}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
         getBackLink={getBackLink}
-      />
+      /> */}
       <div className="scrolableView">
         {getModalName === "" && (
           <>
