@@ -48,19 +48,21 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
 
-                $parameters['deviceType'] = $suyoolUserInfo[1];
+                // $parameters['deviceType'] = $suyoolUserInfo[1];
+                $parameters['deviceType'] = "web";
+                $parameters['suyoolUserId'] = 155;
 
                 return $this->render('alfa/index.html.twig', [
                     'parameters' => $parameters
@@ -82,9 +84,14 @@ class AlfaController extends AbstractController
      */
     public function bill(Request $request, BobServices $bobServices)
     {
-        $SuyoolUserId = $this->session->get('suyoolUserId');
-
         $data = json_decode($request->getContent(), true);
+        // dd($data["mobileNumber"]);
+        if(isset($data["suyoolUserId"])){
+            $SuyoolUserId = $data["suyoolUserId"];
+        }else{
+            $SuyoolUserId = $this->session->get('suyoolUserId');            
+        }
+
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
             $sendBillRes = json_decode($sendBill, true);

@@ -11,7 +11,9 @@ const PayBill = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  params,
 }) => {
+  const [postParametters, setPostParametters] = useState({});
   const [mobileNumber, setMobileNumber] = useState("");
   const [mobileNumberNoFormat, setMobileNumberNoFormat] = useState("70102030");
   const [currency, setCurrency] = useState("LBP");
@@ -23,23 +25,37 @@ const PayBill = ({
     setBackLink("");
   }, []);
 
+  useEffect(() => {
+    if (params.deviceType == "web") {
+      setPostParametters({
+        mobileNumber: mobileNumber.replace(/\s/g, ""),
+        currency: currency,
+        suyoolUserId: params.suyoolUserId,
+      });
+    } else {
+      setPostParametters({
+        mobileNumber: mobileNumber.replace(/\s/g, ""),
+        currency: currency,
+      });
+    }
+  }, [mobileNumber]);
+
   const handleContinue = () => {
     setIsButtonDisabled(true);
     localStorage.setItem("billMobileNumber", mobileNumber);
     localStorage.setItem("billcurrency", currency);
     setSpinnerLoader(true);
+
     axios
-      .post("/alfa/bill", {
-        mobileNumber: mobileNumber.replace(/\s/g, ""),
-        currency: currency,
-      })
+      .post("/alfa/bill", postParametters)
       .then((response) => {
         console.log(response);
         if (response?.data?.message == "connected") {
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.invoicesId });
         } else if (
-          response?.data?.message == "Maximum allowed number of PIN requests is reached"
+          response?.data?.message ==
+          "Maximum allowed number of PIN requests is reached"
         ) {
           setSpinnerLoader(false);
           setModalName("ErrorModal");
@@ -48,17 +64,15 @@ const PayBill = ({
             title: " PIN Tries Exceeded",
             desc: (
               <div>
-                You have exceeded the allowed PIN requests.<br/> Kindly try again
-                later
+                You have exceeded the allowed PIN requests.
+                <br /> Kindly try again later
               </div>
             ),
             btn: "OK",
           });
           setModalShow(true);
-        }
-        else if (
-          response?.data?.message ==
-          "Not Enough Balance Amount to be paid"
+        } else if (
+          response?.data?.message == "Not Enough Balance Amount to be paid"
         ) {
           setSpinnerLoader(false);
           setModalName("ErrorModal");
@@ -67,8 +81,9 @@ const PayBill = ({
             title: " No Pending Bill",
             desc: (
               <div>
-                There is no pending bill on the mobile number {localStorage.getItem("billMobileNumber")}
-                <br/>
+                There is no pending bill on the mobile number{" "}
+                {localStorage.getItem("billMobileNumber")}
+                <br />
                 Kindly try again later
               </div>
             ),
@@ -134,7 +149,12 @@ const PayBill = ({
     if (digitsOnly.length === 0) {
       return "";
     }
-    if (truncatedValue[0] !== "undefined" && truncatedValue[0] !== "0" && truncatedValue[0] !== "7" && truncatedValue[0] !== "8") {
+    if (
+      truncatedValue[0] !== "undefined" &&
+      truncatedValue[0] !== "0" &&
+      truncatedValue[0] !== "7" &&
+      truncatedValue[0] !== "8"
+    ) {
       return "0" + truncatedValue;
     }
     if (truncatedValue.length > 3) {

@@ -9,6 +9,8 @@ import PayBill from "./PayBill";
 import ReCharge from "./ReCharge";
 
 const App = ({ parameters }) => {
+  const params = parameters;
+  
   const [activeButton, setActiveButton] = useState({ name: "" });
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
@@ -84,6 +86,7 @@ const App = ({ parameters }) => {
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                params={params}
               />
             )}
             {activeButton.name === "ReCharge" && (
