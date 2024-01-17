@@ -51,7 +51,7 @@ class AlfaController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-        $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1L9QukunhzQXZ9nFjrO4m5KIZRW8aYPzYkZSE89mBPKs";
+        // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1L9QukunhzQXZ9nFjrO4m5KIZRW8aYPzYkZSE89mBPKs";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
@@ -65,8 +65,8 @@ class AlfaController extends AbstractController
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
 
-                // $parameters['deviceType'] = $suyoolUserInfo[1];
-                $parameters['deviceType'] = "CORPORATE";
+                $parameters['deviceType'] = $suyoolUserInfo[1];
+                // $parameters['deviceType'] = "CORPORATE";
                 $parameters['suyoolUserId'] = $SuyoolUserId;
 
                 return $this->render('alfa/index.html.twig', [

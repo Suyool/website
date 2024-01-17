@@ -13,6 +13,8 @@ const Header = ({
         window.AndroidInterface.callbackHandler("GoToApp");
       } else if (parameters?.deviceType === "Iphone") {
         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+      }else if(parameters?.deviceType === "CORPORATE"){
+        window.parent.postMessage("default", "http://localhost:3000/bills");
       }
     }
     setActiveButton({ name: getBackLink });

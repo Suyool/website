@@ -70,9 +70,16 @@
 >>>>>>> 700ad0a2 (alfa stp 1)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.38115858.js"
 >>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
+<<<<<<< HEAD
 >>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
+=======
+=======
+        "/build/Alfa.8d4794e3.js"
+>>>>>>> da4c9212 (alfa postpaid on corporate)
+>>>>>>> a27daf4d (alfa postpaid on corporate)
       ]
     },
     "Touch": {
@@ -244,6 +251,7 @@
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.42e882f1.css"
 =======
         "/build/AlfaStyle.css"
@@ -251,7 +259,13 @@
 =======
         "/build/AlfaStyle.8151d074.css"
 >>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
+<<<<<<< HEAD
 >>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
+=======
+=======
+        "/build/AlfaStyle.e72834a7.css"
+>>>>>>> da4c9212 (alfa postpaid on corporate)
+>>>>>>> a27daf4d (alfa postpaid on corporate)
       ]
     },
     "TouchStyle": {

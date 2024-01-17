@@ -45,11 +45,11 @@ const MyBundle = ({
   const handleConfirmPay = () => {
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
-    if (parameters?.deviceType === "Android") {
+     if (parameters && parameters.deviceType === "Iphone") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
       }, 2000);
-    } else if (parameters?.deviceType === "Iphone") {
+    } else if (parameters && parameters.deviceType === "Android") {
       setTimeout(() => {
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "fingerprint"
@@ -155,6 +155,7 @@ const MyBundle = ({
 
   return (
     <>
+    
       {getPaymentConfirmation && (
         <>
           <div id="PaymentConfirmationPrePaid">
@@ -168,7 +169,7 @@ const MyBundle = ({
                     setPaymentConfirmation(false);
                   }}
                 >
-                  Cancel
+                 {parameters?.deviceType} Cancel
                 </button>
               </div>
             </div>
