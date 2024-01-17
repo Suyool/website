@@ -48,7 +48,8 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1L9QukunhzQXZ9nFjrO4m5KIZRW8aYPzYkZSE89mBPKs";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
@@ -86,10 +87,10 @@ class AlfaController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         // dd($data["mobileNumber"]);
-        if(isset($data["suyoolUserId"])){
+        if (isset($data["suyoolUserId"])) {
             $SuyoolUserId = $data["suyoolUserId"];
-        }else{
-            $SuyoolUserId = $this->session->get('suyoolUserId');            
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
         }
 
         if ($data != null) {
@@ -151,11 +152,14 @@ class AlfaController extends AbstractController
      */
     public function RetrieveResults(Request $request, BobServices $bobServices)
     {
-        $SuyoolUserId = $this->session->get('suyoolUserId');
-
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
-
+        if (isset($data["suyoolUserId"])) {
+            $SuyoolUserId = $data["suyoolUserId"];
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
+        }
+        // $SuyoolUserId = $this->session->get('suyoolUserId');
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
             if (isset($retrieveResults) && $retrieveResults[0]) {
@@ -234,7 +238,13 @@ class AlfaController extends AbstractController
 
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
-        $SuyoolUserId = $this->session->get('suyoolUserId');
+        if (isset($data["suyoolUserId"])) {
+            $SuyoolUserId = $data["suyoolUserId"];
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
+        }
+
+        // $SuyoolUserId = $this->session->get('suyoolUserId');
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
 
@@ -257,7 +267,6 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $order->getfees());
-
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -476,8 +485,6 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
-            // dd($response);
-
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);

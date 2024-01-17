@@ -14,13 +14,15 @@ const MyBill = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  params,
 }) => {
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
     setBackLink("PayBill");
     setIsButtonDisabled(false);
   }, []);
-
+  const [postParametters, setPostParametters] = useState({});
+  const [postParamettersPay, setPostParamettersPay] = useState({});
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
@@ -38,22 +40,53 @@ const MyBill = ({
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    const newPinCode = inputValue.slice(0, 6).split("");
+    // const newPinCode = inputValue.slice(0, 6).split("");
+    const newPinCode = inputValue.slice(0, 4).split("");
     setPinCode(newPinCode);
   };
 
+  useEffect(() => {
+    if (params.deviceType == "web") {
+      setPostParametters({
+        mobileNumber: localStorage
+          .getItem("billMobileNumber")
+          .replace(/\s/g, ""),
+        currency: "LBP",
+        Pin: pinCode,
+        invoicesId: getPostpaidData.id,
+        suyoolUserId: params.suyoolUserId,
+      });
+    } else {
+      setPostParametters({
+        mobileNumber: localStorage
+          .getItem("billMobileNumber")
+          .replace(/\s/g, ""),
+        currency: "LBP",
+        Pin: pinCode,
+        invoicesId: getPostpaidData.id,
+      });
+    }
+  }, [pinCode]);
+
+  useEffect(() => {
+    if (params.deviceType == "web") {
+      setPostParamettersPay({
+        ResponseId: getResponseId,
+        suyoolUserId: params.suyoolUserId,
+      });
+    } else {
+      setPostParamettersPay({
+        ResponseId: getResponseId,
+      });
+    }
+  }, [getResponseId]);
+
   const handlePayNow = () => {
-    if (pinCode.length === 6) {
+    // if (pinCode.length === 6) {
+    if (pinCode.length === 4) {
       setSpinnerLoader(true);
       axios
-        .post("/alfa/bill/RetrieveResults", {
-          mobileNumber: localStorage
-            .getItem("billMobileNumber")
-            .replace(/\s/g, ""),
-          currency: "LBP",
-          Pin: pinCode,
-          invoicesId: getPostpaidData.id,
-        })
+        .post("/alfa/bill/RetrieveResults", postParametters)
         .then((response) => {
           console.log(response);
           if (response.data.message == "connected") {
@@ -107,15 +140,15 @@ const MyBill = ({
   useEffect(() => {
     if (getDataGetting == "success") {
       axios
-        .post("/alfa/bill/pay", {
-          ResponseId: getResponseId,
-        })
+        .post("/alfa/bill/pay", postParamettersPay)
         .then((response) => {
           console.log(response.data);
           const jsonResponse = response?.data?.message;
           setSpinnerLoader(false);
           if (response.data?.IsSuccess) {
-           var TotalAmount = parseInt(response.data?.data.amount)+parseInt(response.data?.data.fees)
+            var TotalAmount =
+              parseInt(response.data?.data.amount) +
+              parseInt(response.data?.data.fees);
             setModalName("SuccessModal");
             setSuccessModal({
               imgPath: "/build/images/alfa/SuccessImg.png",
@@ -123,7 +156,7 @@ const MyBill = ({
               desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(
                 TotalAmount
               ).toLocaleString()}.`,
-              deviceType:parameters?.deviceType
+              deviceType: parameters?.deviceType,
             });
             setModalShow(true);
           } else {
@@ -284,7 +317,8 @@ const MyBill = ({
         <div className="PinSection" onClick={handlePincodeClick}>
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
-            {Array.from({ length: 6 }, (_, index) => (
+            {/* {Array.from({ length: 6 }, (_, index) => ( */}
+            {Array.from({ length: 4 }, (_, index) => (
               <div className="code" key={index}>
                 {pinCode[index] !== undefined ? pinCode[index] : ""}
               </div>
@@ -311,7 +345,8 @@ const MyBill = ({
             id="ContinueBtn"
             className="btnCont"
             onClick={handlePayNow}
-            disabled={pinCode.length !== 6}
+            // disabled={pinCode.length !== 6}
+            disabled={pinCode.length !== 4}
           >
             Continue
           </button>
