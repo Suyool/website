@@ -124,6 +124,11 @@ const MyBill = ({
   const handleConfirmPay = () => {
     setIsButtonDisabled(true);
     setSpinnerLoader(true);
+    if(parameters?.deviceType === "CORPORATE"){
+      setTimeout(() => {
+        window.parent.postMessage("qr", "http://localhost:3000/bills");
+      }, 2000);
+    }
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
@@ -138,6 +143,7 @@ const MyBill = ({
   };
 
   useEffect(() => {
+    console.log(getDataGetting)
     if (getDataGetting == "success") {
       axios
         .post("/alfa/bill/pay", postParamettersPay)

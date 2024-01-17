@@ -60,7 +60,7 @@ const App = ({ parameters }) => {
   };
   const handleReceiveMessage = (event) => {
     if (typeof event.data === "string") {
-      setWebMessage(event.data);
+      setDataGetting(event.data);
     }
   };
   useEffect(() => {
@@ -72,17 +72,13 @@ const App = ({ parameters }) => {
 
   return (
     <div id="AlfaBody">
-   <h4>{webMessage}</h4>
-        <button onClick={sendMessageToParent} className="btn btn-primary">
-          Send message to parent
-        </button>
-      {/* <Header
+      <Header
         parameters={parameters}
         activeButton={activeButton}
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
         getBackLink={getBackLink}
-      /> */}
+      />
       <div className="scrolableView">
         {getModalName === "" && (
           <>
