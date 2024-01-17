@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Invoices\invoices;
 use App\Entity\Invoices\merchants;
+use App\Entity\Invoices\test_invoices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -194,18 +195,6 @@ class IframeController extends AbstractController
             // Update other fields as needed
             $this->mr->persist($existingInvoice);
             $this->mr->flush();
-        } else {
-            $invoice = new invoices();
-            $invoice->setMerchantsId($merchant);
-            $invoice->setMerchantOrderId($TranID);
-            $invoice->setAmount($amount);
-            $invoice->setCurrency($currency);
-            $invoice->setMerchantOrderDesc($additionalInfo);
-            $invoice->setPaymentMethod('Mobile Payment Gateway');
-            $invoice->setStatus('Pending');
-
-            $this->mr->persist($invoice);
-            $this->mr->flush();
         }
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
@@ -299,8 +288,11 @@ class IframeController extends AbstractController
                 'CallBackURL' => $callBackURL
             ]);
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-
-            $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
+            if($env == 'test'){
+                $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
+            }else {
+                $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
+            }
 
             if($invoice) {
                 if ($result['flag'] == 1){
