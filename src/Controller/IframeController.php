@@ -273,7 +273,7 @@ class IframeController extends AbstractController
             $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceNo']) ? $result['referenceNo'] : null);
             $tranID = isset($result['TranID']) ? $result['TranID'] : (isset($result['tranid']) ? $result['tranid'] : null);
             $returnText = isset($result['ReturnText']) ? $result['ReturnText'] : (isset($result['returnText']) ? $result['returnText'] : null);
-            $SecureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['securehash']) ? $result['securehash'] : null);
+            $SecureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['secureHash']) ? $result['secureHash'] : null);
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
 
             $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $transactionId . "&SecureHash=" . rawurlencode($SecureHash);
