@@ -26,19 +26,20 @@
 
     .title {
       color: #374A5A;
-      font-size: 52px;
+      font-size: 35px !important;
       font-family: $Regular;
       margin-bottom: 30px;
     }
 
     .sub-title {
       margin: 20px 0 70px 0 !important;
+      font-size: 18px !important;
     }
 
     .text {
       margin: 30px 0;
       font-family: $Regular;
-      font-size: 20px;
+      font-size: 15px !important;
       color: #00000080;
 
       span {
@@ -53,7 +54,7 @@
 
       img {
         margin-right: 20px;
-        height: 38px;
+        height: 25px;
       }
     }
   }
@@ -174,18 +175,18 @@
 
     .getthecard {
       padding: 13px 59px;
-      border: none;
       background-color: #fff;
-      color: #4886a8;
+      color:  #004C79;
       font-family: 'PoppinsSemiBold';
       border-radius: 10px;
       margin-top: 50px;
+      border: 2px solid #fff !important;
       margin-bottom: 20px;
 
       &:hover {
         color: #fff;
-        background-color: #226d96;
-        border: 1px solid #fff;
+        background-color: #226d96 !important;
+        border: 2px solid #fff !important;
       }
     }
 
@@ -276,18 +277,24 @@
     }
   }
 
+  .stp-cont {
+    display: flex;
+    width: 80%;
+    margin: auto;
+  }
+
   .step {
-    padding: 20px 5%;
+    padding: 20px 0;
 
     .title {
-      font-size: 17px;
+      font-size: 25px;
       font-family: $Regular;
       color: #373464;
       padding: 10px 0;
     }
 
     .description {
-      font-size: 15px;
+      font-size: 17px;
       font-family: OpenSansRegular;
       //font-family: $Regular;
       color: #5a5a5a;
@@ -376,6 +383,7 @@
     font-family: $Regular;
     font-size: 52px;
     color: #202020;
+    margin-bottom: 20px;
   }
 
   .cards {
@@ -418,6 +426,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0 20px;
 
       .card {
         width: 100%;
@@ -431,8 +440,6 @@
           height: -webkit-fill-available;
 
         }
-
-        padding-bottom: 50px;
 
         img {
           width: 100%;
@@ -455,9 +462,9 @@
           .points {
             display: flex;
 
-            a{
-                color: #226d96 !important;
-                font-family: $SemiBold;
+            a {
+              color: #226d96 !important;
+              font-family: $SemiBold;
             }
 
             .dot {
@@ -469,10 +476,9 @@
             }
 
             .desc {
-              font-family: $Regular;
-              font-size: 18px;
+              font-family: "OpenSansRegular";
+              font-size: 15px;
               color: #373464;
-              // height: calc(100% - var(20px));
               padding-left: 15px;
               padding-bottom: 10px;
             }
@@ -557,7 +563,7 @@
 
       img {
         margin-right: 20px;
-        height: 38px;
+        height: 25px;
       }
     }
   }
@@ -644,18 +650,22 @@
 
       .title {
         color: #374a5a;
-        font-size: 40px;
+        font-size: 35px !important;
         margin-bottom: 25px;
       }
 
       .sub-title {
-        font-size: 18px;
+        font-size: 17px !important;
         margin: 20px 0 70px 0 !important;
       }
 
       .text {
         margin: 10px 0;
-        font-size: 20px;
+        font-size: 15px !important;
+      }
+
+      .sub-title, .text {
+        font-family: "OpenSansRegular";
       }
     }
 
@@ -748,6 +758,7 @@
 
       p {
         font-size: 17px;
+        font-family: "OpenSansRegular";
         width: 100%;
       }
     }
@@ -881,7 +892,7 @@
 
         img {
           margin-right: 20px;
-          height: 30px;
+          height: 25px;
         }
       }
     }
@@ -906,8 +917,8 @@
 
   button {
     &:hover {
-      background-color: #fff !important;
-      color: #4886a8 !important;
+      background-color: #fff;
+      color: #4886a8;
       border: 1px solid #005c8a;
     }
   }
@@ -932,9 +943,23 @@
 // }
 
 @supports (-webkit-hyphens:none) {
-
   body {
     zoom: 0.8;
+  }
+}
+
+.visa-card-page {
+  .open-suyool-account, #openSuyoolAccount {
+    width: 200px !important;
+    padding: 10px 0 !important;
+    border-radius: 30px !important;
+    border: none !important;
+  }
+
+  #openSuyoolAccount:hover {
+    background-color: #226d96;
+    color: #fff;
+    opacity: 0.7;
   }
 
 }

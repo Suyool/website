@@ -4,7 +4,6 @@
 
     <!-- Desktop Navbar Menu -->
     <div class="collapse navbar-collapse" id="navbarNav">
-        {% if visa is not defined %}
         <ul class="navbar-nav ms-5">
             <li class="nav-item">
                 <a class="nav-link personal-underline" href="{{ path('homepage') }}">Personal</a>
@@ -13,7 +12,6 @@
                 <a class="nav-link business-underline" href="{{ path('app_digital_corporate') }}">Business</a>
             </li>
         </ul>
-        {% endif %}
         {% if visa is not defined %}
         <ul class="navbar-nav ms-auto">
                 <li class="nav-item">

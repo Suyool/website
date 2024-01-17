@@ -2,17 +2,9 @@
     <div class="container-fluid footer">
         <div class="row content">
             <div class="col-md-4 title-desktop desktop">
-                <a href="{{ path('homepage') }}"><img src="{{ asset('build/images/footersuyool.png') }}" alt="suyool logo"></a>
+                <a href="{{ path('homepage') }}"><img src="{{ asset('build/images/footersuyool.png') }}"
+                                                      alt="suyool logo"></a>
                 <span class="SmartTrans">Your Money, Your Choice</span>
-
-                <div class="social">
-                    <a href="https://www.facebook.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/facebook.svg') }}" alt="sooyool facebook"></a>
-                    <a href="https://www.instagram.com/suyoolapp" target="_blank"><img src="{{ asset('build/images/instagram.svg') }}" alt="suyool instagram"></a>
-                    <a href="https://www.linkedin.com/company/suyool/about" target="_blank"><img src="{{ asset('build/images/linkedin.svg') }}" alt="suyoul linkedin"></a>
-                    <a href="https://www.youtube.com/@SuyoolApp" target="_blank"><img src="{{ asset('build/images/youtube.svg') }}" alt="souyool youtube"></a>
-                    <a href="https://twitter.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/x.svg') }}" alt="souyoul twitter x"></a>
-                    <a href="https://www.tiktok.com/@suyoolapp" target="_blank"><img  width="36.84" src="{{ asset('build/images/tiktok.svg') }}" alt="suyool tiktok"></a>
-                </div>
             </div>
             <div class="col-md-3 col-6">
                 <a href="{{ path('homepage') }}" class="title_A">PERSONAL</a>
@@ -31,12 +23,10 @@
                 <a href="#" class="title_A">SUYOOL</a>
                 <div class="desktop">
                     <a href="{{ path('app_contact_us') }}" class="desc_A">Contact Us</a>
-{#                    <a href="#" class="desc_A">About Us</a>#}
+                    {#                    <a href="#" class="desc_A">About Us</a> #}
                     <a href="{{ path('app_privacy_policy') }}" class="desc_A">Privacy Policy</a>
                     <a href="https://helpcenter.suyool.com/" class="desc_A">Help Center</a>
-                    <div class="calluson">
-                        <div>Available 24/7 on our hotline: <span><a href="tel:+96101290900"><img src="{{asset('build/images/mobile.svg')}}"/> 01 290 900</a></span></div>
-                    </div>
+
                 </div>
 
                 <div class="row mobile">
@@ -45,32 +35,55 @@
                         <a href="{{ path('app_privacy_policy') }}" class="desc_A">Privacy Policy</a>
                     </div>
                     <div class="col-6">
-{#                        <a href="#" class="desc_A">About Us</a>#}
+                        {#                        <a href="#" class="desc_A">About Us</a> #}
                         <a href="https://helpcenter.suyool.com/" class="desc_A">Help Center</a>
                     </div>
                     <div class="calluson">
-                        <div>Available 24/7 on our hotline: <span><a href="tel:+96101290900"><img src="{{asset('build/images/mobile.svg')}}"/> 01 290 900</a></span></div>
+                        <div>Available 24/7 on our hotline: <span><a href="tel:+96101290900"><img
+                                            src="{{ asset('build/images/mobile.svg') }}"/> 01 290 900</a></span></div>
                     </div>
                 </div>
 
             </div>
 
             <div class="col-md-4 title-mobile col-12 my-5">
-                <a href="{{ path('homepage') }}"><img src="{{ asset('build/images/footersuyool.png') }}" alt="suyool logo"></a>
+                <a href="{{ path('homepage') }}"><img src="{{ asset('build/images/footersuyool.png') }}"
+                                                      alt="suyool logo"></a>
                 <span class="SmartTrans">Your Money, Your Choice</span>
 
                 <div>
                     <div class="social">
-                        <a href="https://www.facebook.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/facebook.svg') }}" alt="sooyool facebook"></a>
-                        <a href="https://www.instagram.com/suyoolapp" target="_blank"><img src="{{ asset('build/images/instagram.svg') }}" alt="suyool instagram"></a>
-                        <a href="https://www.tiktok.com/@suyoolapp" target="_blank"><img src="{{ asset('build/images/tiktok.svg') }}" alt="suyoul linkedin"></a>
+                        <a href="https://www.facebook.com/SuyoolApp" target="_blank"><img
+                                    src="{{ asset('build/images/facebook.svg') }}" alt="sooyool facebook"></a>
+                        <a href="https://www.instagram.com/suyoolapp" target="_blank"><img
+                                    src="{{ asset('build/images/instagram.svg') }}" alt="suyool instagram"></a>
+                        <a href="https://www.tiktok.com/@suyoolapp" target="_blank"><img
+                                    src="{{ asset('build/images/tiktok.svg') }}" alt="suyoul linkedin"></a>
                     </div>
                     <div class="social">
-                        <a href="https://www.linkedin.com/company/suyool/about" target="_blank"><img src="{{ asset('build/images/linkedin.svg') }}" alt="souyool youtube"></a>
-                        <a href="https://www.youtube.com/@SuyoolApp" target="_blank"><img src="{{ asset('build/images/youtube.svg') }}" alt="souyoul twitter"></a>
-                        <a href="https://twitter.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/x.svg') }}" alt="suyool tiktok"></a>
+                        <a href="https://www.linkedin.com/company/suyool/about" target="_blank"><img
+                                    src="{{ asset('build/images/linkedin.svg') }}" alt="souyool youtube"></a>
+                        <a href="https://www.youtube.com/@SuyoolApp" target="_blank"><img
+                                    src="{{ asset('build/images/youtube.svg') }}" alt="souyoul twitter"></a>
+                        <a href="https://twitter.com/SuyoolApp" target="_blank"><img
+                                    src="{{ asset('build/images/x.svg') }}" alt="suyool tiktok"></a>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="flex-between desktop footer-bottom">
+            <div class="social">
+                <a href="https://www.facebook.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/facebook.svg') }}" alt="sooyool facebook"></a>
+                <a href="https://www.instagram.com/suyoolapp" target="_blank"><img src="{{ asset('build/images/instagram.svg') }}" alt="suyool instagram"></a>
+                <a href="https://www.linkedin.com/company/suyool/about" target="_blank"><img src="{{ asset('build/images/linkedin.svg') }}" alt="suyoul linkedin"></a>
+                <a href="https://www.youtube.com/@SuyoolApp" target="_blank"><img src="{{ asset('build/images/youtube.svg') }}" alt="souyool youtube"></a>
+                <a href="https://twitter.com/SuyoolApp" target="_blank"><img src="{{ asset('build/images/x.svg') }}" alt="souyoul twitter x"></a>
+                <a href="https://www.tiktok.com/@suyoolapp" target="_blank"><img  width="36.84" src="{{ asset('build/images/tiktok.svg') }}" alt="suyool tiktok"></a>
+            </div>
+
+            <div class="calluson">
+                <div class="div-flex"><span class="available-text">Available 24/7 on our hotline: </span><span><a href="tel:+96101290900"><img src="{{asset('build/images/mobile.svg')}}"/> 01 290 900</a></span></div>
             </div>
         </div>
     </div>
