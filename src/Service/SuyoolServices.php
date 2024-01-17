@@ -175,13 +175,15 @@ class SuyoolServices
     public function GetAllUsers($channelID)
     {
         $Hash = base64_encode(hash($this->hash_algo, $channelID . $this->certificate, true));
+        // dd($Hash);
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
-            'query' => ['Data' => $Hash],
+            'body'=>'"'.$Hash.'"',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
         $getAllUsers = $response->toArray(false);
+        // dd(json_encode($getAllUsers));
         $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
         return $dataArray;
@@ -198,6 +200,7 @@ class SuyoolServices
             "secureHash" => $Hash,
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}User/GetUser",  $body);
+
 
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {

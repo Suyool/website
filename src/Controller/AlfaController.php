@@ -7,6 +7,7 @@ use App\Entity\Alfa\Order;
 use App\Entity\Alfa\Postpaid;
 use App\Entity\Alfa\Prepaid;
 use App\Entity\Alfa\PostpaidRequest;
+use App\Entity\Notification\Users;
 use App\Service\LotoServices;
 use App\Service\BobServices;
 use App\Service\Memcached;
@@ -32,10 +33,11 @@ class AlfaController extends AbstractController
     private $session;
     private $lotoServices;
     private $Memcached;
-
+    private $not;
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface,LotoServices $lotoServices,Memcached $memcached)
     {
         $this->mr = $mr->getManager('alfa');
+        $this->not = $mr->getManager('notification');
         $this->params = $params;
         $this->session = $sessionInterface;
         $this->lotoServices=$lotoServices;
@@ -54,16 +56,18 @@ class AlfaController extends AbstractController
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $checkIfCorporate=$suyoolUserInfo[1];
+            $checkIfCorporate="CORPORATE";
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE") ) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
 
                 // $parameters['deviceType'] = $suyoolUserInfo[1];
-                $parameters['deviceType'] = "web";
-                $parameters['suyoolUserId'] = 155;
+                $parameters['deviceType'] = "CORPORATE";
+                $parameters['suyoolUserId'] = $SuyoolUserId;
 
                 return $this->render('alfa/index.html.twig', [
                     'parameters' => $parameters
@@ -244,6 +248,8 @@ class AlfaController extends AbstractController
             $SuyoolUserId = $this->session->get('suyoolUserId');
         }
 
+        $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+
         // $SuyoolUserId = $this->session->get('suyoolUserId');
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
         $flagCode = null;
@@ -325,10 +331,11 @@ class AlfaController extends AbstractController
                     ]);
                     $additionalData = "";
 
-                    $content = $notificationServices->getContent('AcceptedAlfaPayment');
-                    $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-
+                    if($suyooler->getType() == 1){
+                        $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                        $bulk = 0; //1 for broadcast 0 for unicast
+                        $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                    }
                     $updateUtilitiesAdditionalData = json_encode([
                         'Fees' => $Postpaid_With_id->getfees(),
                         'TransactionId' => $Postpaid_With_id->getTransactionId(),

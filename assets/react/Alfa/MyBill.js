@@ -46,7 +46,7 @@ const MyBill = ({
   };
 
   useEffect(() => {
-    if (params.deviceType == "web") {
+    if (params.deviceType == "CORPORATE") {
       setPostParametters({
         mobileNumber: localStorage
           .getItem("billMobileNumber")
@@ -69,7 +69,7 @@ const MyBill = ({
   }, [pinCode]);
 
   useEffect(() => {
-    if (params.deviceType == "web") {
+    if (params.deviceType == "CORPORATE") {
       setPostParamettersPay({
         ResponseId: getResponseId,
         suyoolUserId: params.suyoolUserId,
