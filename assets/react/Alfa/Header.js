@@ -6,6 +6,7 @@ const Header = ({
   setActiveButton,
   getHeaderTitle,
   getBackLink,
+  apiUrl
 }) => {
   const handleButtonClick = (getBackLink) => {
     if (activeButton.name == "") {
@@ -14,7 +15,7 @@ const Header = ({
       } else if (parameters?.deviceType === "Iphone") {
         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
       }else if(parameters?.deviceType === "CORPORATE"){
-        window.parent.postMessage("default", "http://localhost:3000/bills");
+        window.parent.postMessage("default", apiUrl);
       }
     }
     setActiveButton({ name: getBackLink });

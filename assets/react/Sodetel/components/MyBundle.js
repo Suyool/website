@@ -14,7 +14,8 @@ const MyBundle = ({
   setBackLink,
   setModalDesc,
   credential,
-  identifier
+  identifier,
+  apiUrl
 }) => {
   useEffect(() => {
     setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
@@ -26,6 +27,8 @@ const MyBundle = ({
   const [sodetelPassword, setSodetelPassword] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [postParamettersPay, setPostParamettersPay] = useState({});
+
 
   const handleShare = (shareCode) => {
     let object = [
@@ -46,6 +49,11 @@ const MyBundle = ({
   const handleConfirmPay = () => {
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
+    if(parameters?.deviceType === "CORPORATE"){
+      setTimeout(() => {
+        window.parent.postMessage("qr", apiUrl);
+      }, 2000);
+    }
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
@@ -60,15 +68,28 @@ const MyBundle = ({
   };
 
   useEffect(() => {
-    if (getDataGetting == "success") {
-      axios
-        .post("/sodetel/refill", {
-          refillData: getPrepaidVoucher,
+    if (parameters.deviceType == "CORPORATE") {
+      setPostParamettersPay({
+        refillData: getPrepaidVoucher,
           bundle: activeButton?.bundle,
           // identifier: credential[credential.name]?.replace(/\s/g, '')
           identifier: identifier,
-          requestId: activeButton?.requestId,
-        })
+        suyoolUserId: parameters.suyoolUserId,
+      });
+    } else {
+      setPostParamettersPay({
+        refillData: getPrepaidVoucher,
+          bundle: activeButton?.bundle,
+          // identifier: credential[credential.name]?.replace(/\s/g, '')
+          identifier: identifier
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (getDataGetting == "success") {
+      axios
+        .post("/sodetel/refill", postParamettersPay)
         .then((response) => {
           setSpinnerLoader(false);
           // const jsonResponse = JSON.parse(response?.data?.message);
@@ -134,7 +155,7 @@ const MyBundle = ({
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  });
+  },[getDataGetting]);
 
   const copyToClipboard = (value) => {
     const tempInput = document.createElement("input");
