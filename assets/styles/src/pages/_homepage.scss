@@ -124,7 +124,7 @@
         margin: auto;
 
         img {
-          width: 100%;
+          width: 80%;
         }
 
         .img-desc {
@@ -300,16 +300,19 @@
       width: 52%;
       margin-left: 15%;
       .top-title {
-        font-size: 22px!important;
+        font-size: 20px!important;
+        letter-spacing: 2px;
+        font-family: $Bold;
       }
       .title {
-        font-size: 45px;
+        font-size: 35px;
         margin: 40px 0;
         line-height: 1.5;
       }
 
       .text {
         font-size: 17px;
+        font-family: "OpenSansRegular";
       }
 
       .blue-btn {

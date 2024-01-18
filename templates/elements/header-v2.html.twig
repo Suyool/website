@@ -17,8 +17,6 @@
                 <li class="nav-item">
                     {% if corporateBTn is defined and corporateBTn is not empty %}
                         <button id="openSuyoolAccount" type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
-                    {% else %}
-                        <button id="openSuyoolAccount" type="button" class="btn button-primary" data-bs-toggle="modal" data-bs-target="#DownloadApp">Open Suyool Account</button>
                     {% endif %}
                 </li>
         </ul>
