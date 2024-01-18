@@ -63,6 +63,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Alfa.446d6a68.js"
 =======
         "/build/runtime.js",
@@ -79,7 +80,13 @@
 =======
         "/build/Alfa.8d4794e3.js"
 >>>>>>> da4c9212 (alfa postpaid on corporate)
+<<<<<<< HEAD
 >>>>>>> a27daf4d (alfa postpaid on corporate)
+=======
+=======
+        "/build/Alfa.07389ad8.js"
+>>>>>>> 697741c3 (alfa prepaid on corporate)
+>>>>>>> a129dc0f (alfa prepaid on corporate)
       ]
     },
     "Touch": {

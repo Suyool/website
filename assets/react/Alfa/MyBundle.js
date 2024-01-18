@@ -14,6 +14,7 @@ const MyBundle = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  apiUrl
 }) => {
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa");
@@ -24,6 +25,7 @@ const MyBundle = ({
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [postParamettersPay, setPostParamettersPay] = useState({});
 
   const handleShare = (shareCode) => {
     let object = [
@@ -45,11 +47,16 @@ const MyBundle = ({
   const handleConfirmPay = () => {
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
-     if (parameters && parameters.deviceType === "Iphone") {
+    if(parameters?.deviceType === "CORPORATE"){
+      setTimeout(() => {
+        window.parent.postMessage("qr", "http://localhost:3000/bills");
+      }, 2000);
+    }
+     if (parameters && parameters.deviceType === "Android") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
       }, 2000);
-    } else if (parameters && parameters.deviceType === "Android") {
+    } else if (parameters && parameters.deviceType === "Iphone") {
       setTimeout(() => {
         window.webkit.messageHandlers.callbackHandler.postMessage(
           "fingerprint"
@@ -57,19 +64,35 @@ const MyBundle = ({
       }, 2000);
     }
   };
-
   useEffect(() => {
-    if (getDataGetting == "success") {
-      axios
-        .post("/alfa/BuyPrePaid", {
-          Token: "",
+    if (parameters.deviceType == "CORPORATE") {
+      setPostParamettersPay({
+        Token: "",
+        category: "ALFA",
+        // category: getPrepaidVoucher.vouchercategory,
+        desc: getPrepaidVoucher.desc,
+        type: getPrepaidVoucher.vouchertype,
+        amountLBP: getPrepaidVoucher.priceLBP,
+        amountUSD: getPrepaidVoucher.priceUSD,
+        suyoolUserId: parameters.suyoolUserId,
+      });
+    } else {
+      setPostParamettersPay({
+        Token: "",
           category: "ALFA",
           // category: getPrepaidVoucher.vouchercategory,
           desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
-        })
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (getDataGetting == "success") {
+      axios
+        .post("/alfa/BuyPrePaid", postParamettersPay)
         .then((response) => {
           setSpinnerLoader(false);
           const jsonResponse = response?.data?.message;
@@ -80,6 +103,7 @@ const MyBundle = ({
             setSerialToClipboard(
               "*14*" + response?.data?.data?.voucherCode + "#"
             );
+            setDataGetting("")
           } else {
             console.log(response.data.flagCode);
             if (
@@ -142,7 +166,7 @@ const MyBundle = ({
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  });
+  },[getDataGetting]);
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -169,7 +193,7 @@ const MyBundle = ({
                     setPaymentConfirmation(false);
                   }}
                 >
-                 {parameters?.deviceType} Cancel
+                 Cancel
                 </button>
               </div>
             </div>

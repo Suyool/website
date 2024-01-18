@@ -52,9 +52,11 @@ class AlfaController extends AbstractController
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
         // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1L9QukunhzQXZ9nFjrO4m5KIZRW8aYPzYkZSE89mBPKs";
+        // $_POST['infoString'] = "OW+X/VaTl6ZLqckgkMu0manuT24WRqBkhl9JX+gM61I1Pf0k06OAo/yvvVDYYX81";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
+            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $checkIfCorporate=$suyoolUserInfo[1];
             $checkIfCorporate="CORPORATE";
@@ -66,8 +68,9 @@ class AlfaController extends AbstractController
                 // $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
+                // dd($parameters['deviceType']);
                 // $parameters['deviceType'] = "CORPORATE";
-                $parameters['suyoolUserId'] = $SuyoolUserId;
+                $parameters['suyoolUserId'] = $_POST['infoString'];
 
                 return $this->render('alfa/index.html.twig', [
                     'parameters' => $parameters
@@ -92,7 +95,9 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         // dd($data["mobileNumber"]);
         if (isset($data["suyoolUserId"])) {
-            $SuyoolUserId = $data["suyoolUserId"];
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
         } else {
             $SuyoolUserId = $this->session->get('suyoolUserId');
         }
@@ -159,7 +164,9 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $displayedFees = 0;
         if (isset($data["suyoolUserId"])) {
-            $SuyoolUserId = $data["suyoolUserId"];
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
         } else {
             $SuyoolUserId = $this->session->get('suyoolUserId');
         }
@@ -243,7 +250,9 @@ class AlfaController extends AbstractController
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_POSTPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
         if (isset($data["suyoolUserId"])) {
-            $SuyoolUserId = $data["suyoolUserId"];
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
         } else {
             $SuyoolUserId = $this->session->get('suyoolUserId');
         }
@@ -468,6 +477,13 @@ class AlfaController extends AbstractController
         $SuyoolUserId = $this->session->get('suyoolUserId');
         $suyoolServices = new SuyoolServices($this->params->get('ALFA_PREPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
+        if (isset($data["suyoolUserId"])) {
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
+        }
         $flagCode = null;
 
         if ($data != null) {
@@ -488,6 +504,8 @@ class AlfaController extends AbstractController
 
             $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
+            $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
             if ($response[0]) {
@@ -500,9 +518,26 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 //buy voucher from loto Provider
-                $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                if ($BuyPrePaid[0] == false) {
-                    $message = $BuyPrePaid[1];
+                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                // $PayResonse = $BuyPrePaid[0]["d"];
+                $BuyPrePaid = array();
+                $PayResonse = array();
+                $dataPayResponse = $PayResonse;
+                $PayResonse["errorinfo"]["errorcode"] = 0;
+                if ($PayResonse["errorinfo"]["errorcode"] != 0) {
+                    $logs = new Logs;
+                    $logs
+                        ->setidentifier("Prepaid Request")
+                        ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                        ->setrequest($BuyPrePaid[1])
+                        ->setresponse(json_encode($PayResonse))
+                        ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
+                    $IsSuccess = false;
+                    $message = $PayResonse["errorinfo"]["errorcode"];
+
+                    //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
                         if ($responseUpdateUtilities[0]) {
                             $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
@@ -551,22 +586,79 @@ class AlfaController extends AbstractController
                                 ->seterror($responseUpdateUtilities[1]);
                         }
                     }
-                    if ($PayResonse["errorinfo"]["errorcode"] == 0) {
-                        //if payment from loto provider success insert prepaid data to db
-                        $prepaid = new Prepaid;
-                        $prepaid
-                            ->setvoucherSerial($PayResonse["voucherSerial"])
-                            ->setvoucherCode($PayResonse["voucherCode"])
-                            ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                            ->setdescription($PayResonse["desc"])
-                            ->setdisplayMessage($PayResonse["displayMessage"])
-                            ->settoken($PayResonse["token"])
-                            ->setbalance($PayResonse["balance"])
-                            ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                            ->setinsertId($PayResonse["insertId"])
-                            ->setSuyoolUserId($SuyoolUserId);
+                }
+                if ($PayResonse["errorinfo"]["errorcode"] == 0) {
+                    //if payment from loto provider success insert prepaid data to db
+                    $prepaid = new Prepaid;
+                    // $prepaid
+                    //     ->setvoucherSerial($PayResonse["voucherSerial"])
+                    //     ->setvoucherCode($PayResonse["voucherCode"])
+                    //     ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                    //     ->setdescription($PayResonse["desc"])
+                    //     ->setdisplayMessage($PayResonse["displayMessage"])
+                    //     ->settoken($PayResonse["token"])
+                    //     ->setbalance($PayResonse["balance"])
+                    //     ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                    //     ->setinsertId($PayResonse["insertId"])
+                    //     ->setSuyoolUserId($SuyoolUserId);
 
-                        $this->mr->persist($prepaid);
+                    $prepaid
+                        ->setvoucherSerial("123456789")
+                        ->setvoucherCode("112233445566")
+                        ->setvoucherExpiry("23-09-2024")
+                        ->setdescription("")
+                        ->setdisplayMessage("")
+                        ->settoken("")
+                        ->setbalance("")
+                        ->seterrorMsg("")
+                        ->setinsertId("")
+                        ->setSuyoolUserId($SuyoolUserId);
+
+                    $this->mr->persist($prepaid);
+                    $this->mr->flush();
+
+                    $IsSuccess = true;
+                    $prepaidId = $prepaid->getId();
+                    $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
+
+                    //update order by passing prepaidId to order and set status to purshased
+                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                    $orderupdate
+                        ->setprepaidId($prepaid)
+                        ->setstatus(Order::$statusOrder['PURCHASED']);
+                    $this->mr->persist($orderupdate);
+                    $this->mr->flush();
+
+                    $dateString = $PayResonse["voucherExpiry"];
+                    $dateTime = new DateTime($dateString);
+
+                    $formattedDate = $dateTime->format('d/m/Y');
+
+                    //intial notification
+                    $params = json_encode([
+                        'amount' => $order->getamount(),
+                        'currency' => "L.L",
+                        'plan' => $data["desc"],
+                        'code' => $PayResonse["voucherCode"],
+                        'serial' => $PayResonse["voucherSerial"],
+                        'expiry' => $formattedDate
+                    ]);
+                    // $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
+                    $additionalData = "*14*" . "112233445566" . "#";
+                    if($suyooler->getType() == 1){
+                        $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                        $bulk = 0; //1 for broadcast 0 for unicast
+                        $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                    }
+                    //tell the .net that total amount is paid
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
+                    if ($responseUpdateUtilities[0]) {
+                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                        //update te status from purshased to completed
+                        $orderupdate5
+                            ->setstatus(Order::$statusOrder['COMPLETED'])
+                            ->seterror($responseUpdateUtilities[1]);
+                        $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
                         $IsSuccess = true;

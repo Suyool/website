@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
 
@@ -8,21 +9,35 @@ const ReCharge = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  SetVoucherData,
 }) => {
-  const [ filteredData, setFilteredData ] = useState([]);
-  const [ getLoading, setLoading ] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  const [getLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (parameters?.deviceType == "CORPORATE") {
+      axios
+        .post("/alfa/ReCharge")
+        .then((response) => {
+          SetVoucherData(response?.data?.message);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     setHeaderTitle("Re-charge Alfa");
     setBackLink("");
     setFilteredData(Object.values(getVoucherData));
-  }, [ getVoucherData ]);
+  }, [getVoucherData]);
 
   useEffect(() => {
     if (filteredData.length > 0) {
       setLoading(false);
     }
-  }, [ filteredData ]);
+  }, [filteredData]);
   // console.log(filteredData);
 
   return (
@@ -67,9 +82,9 @@ const ReCharge = ({
                     isavailable: record.isavailable,
                     desc1: record.desc1,
                     desc2: record.desc2,
-                    beforeTaxes:record.beforeTaxes,
-                    fees:record.fees,
-                    sayrafa:record.sayrafa
+                    beforeTaxes: record.beforeTaxes,
+                    fees: record.fees,
+                    sayrafa: record.sayrafa,
                   });
                 }}
               >
