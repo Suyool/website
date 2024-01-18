@@ -1,4 +1,38 @@
 .homepage {
+  .video-section-ads{
+      margin-top: 70px;
+      text-align: center;
+      iframe {
+        border-radius: 20px;
+      }
+      h3 {
+        color: #373464;
+        font-size: 22px;
+        font-family: $Bold;
+      }
+      h1 {
+        color: #202020;
+        font-size: 52px;
+        font-family: $Regular;
+        margin: 25px 0;
+      }
+      p {
+        color: #6B6B6B;
+        font-size: 20px;
+        font-family: $Regular;
+        margin-bottom: 50px;
+      }
+      @media screen and (max-width: 768px) {
+          padding: 0 10px;
+          h1 {
+            font-size: 24px;
+          }
+          iframe {
+            width: 95%;
+            height: 300px;
+          }
+      }
+    }
   .personal-underline {
     border-bottom: 2px solid #fff;
     color: #FFFFFF;
@@ -155,6 +189,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px 0;
+    margin-top: 70px;
 
     .how_suyool_work {
       letter-spacing: 2px;
@@ -515,6 +550,7 @@
       width: 80%;
       margin: auto;
       text-align: center;
+      margin-top: 20px;
 
       .how_suyool_work, .manage_spend {
         font-size: 14px;
