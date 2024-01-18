@@ -20,45 +20,6 @@
     display: none;
   }
 
-  .card-desc {
-    width: 75%;
-    margin: auto;
-
-    .title {
-      color: #374A5A;
-      font-size: 35px !important;
-      font-family: $Regular;
-      margin-bottom: 30px;
-    }
-
-    .sub-title {
-      margin: 20px 0 70px 0 !important;
-      font-size: 17px !important;
-    }
-
-    .text {
-      margin: 30px 0;
-      font-family: $Regular;
-      font-size: 15px !important;
-      color: #00000080;
-
-      span {
-        font-family: $SemiBold;
-        text-decoration: underline;
-        color: #226D96;
-      }
-    }
-
-    .check {
-      display: flex;
-
-      img {
-        margin-right: 20px;
-        height: 25px;
-      }
-    }
-  }
-
   .blue-btn {
     margin-left: 40px;
 
@@ -522,62 +483,6 @@
   width: 100%;
   margin: 150px 0 70px 0;
 
-  .card-desc {
-    width: 75%;
-    margin: auto;
-
-    .main_title {
-      color: #373464;
-      font-size: 23px;
-      font-family: $Bold;
-    }
-
-    .title {
-      color: #374a5a;
-      font-size: 52px;
-      font-family: $Regular;
-      margin-bottom: 30px;
-    }
-
-    .sub-title {
-      margin: 20px 0 70px 0 !important;
-      font-family: "OpenSansRegular" !Important;
-      font-size: 17px;
-    }
-
-    .text {
-      margin: 30px 0;
-      font-family: $Regular;
-      font-size: 22px;
-      color: #00000080;
-
-      p{
-        font-family: "OpenSansRegular" !Important;
-        font-size: 15px;
-      }
-      span {
-        font-family: $Bold;
-        text-decoration: underline;
-        color: #226d96;
-      }
-
-      a {
-        font-family: $Bold;
-        text-decoration: underline;
-        color: #226d96;
-      }
-    }
-
-    .check {
-      display: flex;
-
-      img {
-        margin-right: 20px;
-        height: 25px;
-      }
-    }
-  }
-
   .blue-btn {
     margin-left: 40px;
   }
@@ -650,34 +555,6 @@
   }
 
   .home-mastercard {
-    .card-desc {
-      padding-left: 10%;
-      width: 95%;
-
-      .main_title {
-        font-size: 22px;
-      }
-
-      .title {
-        color: #374a5a;
-        font-size: 35px !important;
-        margin-bottom: 25px;
-      }
-
-      .sub-title {
-        font-size: 17px !important;
-        margin: 20px 0 70px 0 !important;
-      }
-
-      .text {
-        margin: 10px 0;
-        font-size: 15px !important;
-      }
-
-      .sub-title, .text {
-        font-family: "OpenSansRegular";
-      }
-    }
 
     .blue-btn {
       margin-left: 10px;
@@ -704,26 +581,6 @@
       img {
         width: 90%;
         margin-bottom: 50px;
-      }
-    }
-
-    .card-desc {
-      width: 80%;
-      padding: 0;
-
-
-      .title {
-        font-size: 33px;
-        margin-bottom: 20px;
-      }
-
-      .sub-title {
-        margin: 20px 0 40px 0 !important;
-      }
-
-      .text {
-        margin: 30px 0;
-        font-size: 14px;
       }
     }
 
@@ -876,38 +733,6 @@
 
 @media (min-width: 768px) and (max-width: 1450px) {
   .home-mastercard {
-    .card-desc {
-      .title {
-        font-size: 35px;
-        font-family: $Regular;
-        margin-bottom: 15px;
-      }
-
-      .sub-title {
-        margin: 20px 0 40px 0 !important;
-      }
-
-      .text {
-        margin: 10px 0;
-        font-size: 17px;
-
-        span {
-          font-family: $Bold;
-          text-decoration: underline;
-          color: #226D96;
-        }
-      }
-
-      .check {
-        display: flex;
-
-        img {
-          margin-right: 20px;
-          height: 25px;
-        }
-      }
-    }
-
     .blue-btn {
       margin-left: 40px;
     }
@@ -957,20 +782,4 @@
   body {
     zoom: 0.8;
   }
-}
-
-.visa-card-page {
-  .open-suyool-account, #openSuyoolAccount {
-    width: 200px !important;
-    padding: 10px 0 !important;
-    border-radius: 30px !important;
-    border: none !important;
-  }
-
-  #openSuyoolAccount:hover {
-    background-color: #226d96;
-    color: #fff;
-    opacity: 0.7;
-  }
-
 }

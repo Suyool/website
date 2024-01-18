@@ -261,3 +261,16 @@ a:hover {
     }
   }
 }
+
+.open-suyool-account, #openSuyoolAccount {
+  width: 250px !important;
+  padding: 10px 0 !important;
+  border-radius: 30px !important;
+  border: none;
+}
+
+#openSuyoolAccount:hover {
+  background-color: #226d96;
+  color: #fff;
+  opacity: 0.7;
+}
