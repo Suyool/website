@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Notification\Users;
 use App\Entity\Touch\Logs;
 use App\Entity\Touch\Order;
 use App\Entity\Touch\Postpaid;
@@ -33,11 +34,13 @@ class TouchController extends AbstractController
     private $session;
     private $lotoServices;
     private $memcached;
+    private $not;
 
 
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $session,LotoServices $lotoServices,Memcached $memcached)
     {
         $this->mr = $mr->getManager('touch');
+        $this->not= $mr->getManager('notification');
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->params = $params;
@@ -57,13 +60,16 @@ class TouchController extends AbstractController
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $checkIfCorporate=$suyoolUserInfo[1];
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE")) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $SuyoolUserId = $this->session->set('suyoolUserId', $SuyoolUserId);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
+
+                $parameters['suyoolUserId'] = $_POST['infoString'];
 
                 return $this->render('touch/index.html.twig', [
                     'parameters' => $parameters
@@ -374,6 +380,13 @@ class TouchController extends AbstractController
         $SuyoolUserId = $this->session->get('suyoolUserId');
         $suyoolServices = new SuyoolServices($this->params->get('TOUCH_PREPAID_MERCHANT_ID'));
         $data = json_decode($request->getContent(), true);
+        if (isset($data["suyoolUserId"])) {
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
+        }
         $flagCode = null;
 
         if ($data != null) {
@@ -394,6 +407,9 @@ class TouchController extends AbstractController
 
             $order_id = $this->params->get('TOUCH_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
+            $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+
+
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
             // dd($response);
@@ -408,8 +424,11 @@ class TouchController extends AbstractController
                 $this->mr->flush();
 
                 //buy voucher from loto Provider
-                $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $PayResonse = $BuyPrePaid[0]["d"];
+                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                // $PayResonse = $BuyPrePaid[0]["d"];
+                $BuyPrePaid=array();
+                $PayResonse=array();
+                $PayResonse["errorinfo"]["errorcode"] = 0;
                 $dataPayResponse = $PayResonse;
                 if ($PayResonse["errorinfo"]["errorcode"] != 0) {
                     $logs = new Logs;
@@ -444,16 +463,28 @@ class TouchController extends AbstractController
                 if ($PayResonse["errorinfo"]["errorcode"] == 0) {
                     //if payment from loto provider success insert prepaid data to db
                     $prepaid = new Prepaid;
+                    // $prepaid
+                    //     ->setvoucherSerial($PayResonse["voucherSerial"])
+                    //     ->setvoucherCode($PayResonse["voucherCode"])
+                    //     ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                    //     ->setdescription($PayResonse["desc"])
+                    //     ->setdisplayMessage($PayResonse["displayMessage"])
+                    //     ->settoken($PayResonse["token"])
+                    //     ->setbalance($PayResonse["balance"])
+                    //     ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                    //     ->setinsertId($PayResonse["insertId"])
+                    //     ->setSuyoolUserId($SuyoolUserId);
+
                     $prepaid
-                        ->setvoucherSerial($PayResonse["voucherSerial"])
-                        ->setvoucherCode($PayResonse["voucherCode"])
-                        ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                        ->setdescription($PayResonse["desc"])
-                        ->setdisplayMessage($PayResonse["displayMessage"])
-                        ->settoken($PayResonse["token"])
-                        ->setbalance($PayResonse["balance"])
-                        ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                        ->setinsertId($PayResonse["insertId"])
+                        ->setvoucherSerial("123456789")
+                        ->setvoucherCode("112233445566")
+                        ->setvoucherExpiry("23-09-2024")
+                        ->setdescription("")
+                        ->setdisplayMessage("")
+                        ->settoken("")
+                        ->setbalance("")
+                        ->seterrorMsg("")
+                        ->setinsertId("")
                         ->setSuyoolUserId($SuyoolUserId);
 
                     $this->mr->persist($prepaid);
@@ -478,6 +509,13 @@ class TouchController extends AbstractController
                     $formattedDate = $dateTime->format('d/m/Y');
 
                     //intial notification
+                    // $params = json_encode([
+                    //     'amount' => $order->getamount(),
+                    //     'currency' => "L.L",
+                    //     'plan' => $data["desc"],
+                    //     'code' => $PayResonse["voucherCode"],
+                    // ]);
+
                     $params = json_encode([
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
@@ -486,9 +524,14 @@ class TouchController extends AbstractController
                         'serial' => $PayResonse["voucherSerial"],
                         'expiry' => $formattedDate
                     ]);
-                    $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
+                    $additionalData = "*14*" . "112233445566" . "#";
+                    if($suyooler->getType() == 1){
+                    // $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
+                    $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*200*" . $PayResonse["voucherCode"] . "#");
+                    // $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*200*" . $PayResonse["voucherCode"] . "#");
+                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*200*" . "112233445566" . "#");
+                    }
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                     if ($responseUpdateUtilities[0]) {

@@ -9,10 +9,11 @@ import ErrorModal from "./Modal/ErrorModal";
 import MyBundle from "./MyBundle";
 
 const App = ({ parameters }) => {
-  const [ activeButton, setActiveButton ] = useState({ name: "" });
-  const [ getBackLink, setBackLink ] = useState({ name: "" });
-  const [ getHeaderTitle, setHeaderTitle ] = useState("Touch");
-  const [ getPrepaidVoucher, setPrepaidVoucher ] = useState({
+  const [activeButton, setActiveButton] = useState({ name: "" });
+  const [getBackLink, setBackLink] = useState({ name: "" });
+  const [getHeaderTitle, setHeaderTitle] = useState("Touch");
+  const [apiUrl, setApiUrl] = useState(null);
+  const [getPrepaidVoucher, setPrepaidVoucher] = useState({
     vouchercategory: "",
     vouchertype: "",
     priceLBP: "",
@@ -20,32 +21,58 @@ const App = ({ parameters }) => {
     desc: "",
     isavailable: "",
   });
-  const [ getPostpaidData, setPostpaidData ] = useState({ id: "" });
-  const [ getDataGetting, setDataGetting ] = useState("");
+  const [getPostpaidData, setPostpaidData] = useState({ id: "" });
+  const [getDataGetting, setDataGetting] = useState("");
 
   //Modal Variable
-  const [ getModalName, setModalName ] = useState("");
-  const [ modalShow, setModalShow ] = useState(false);
-  const [ getSuccessModal, setSuccessModal ] = useState({
+  const [getModalName, setModalName] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  const [getSuccessModal, setSuccessModal] = useState({
     imgPath: "/build/images/touch//build/images/touch/SuccessImg.png",
     title: "",
     desc: "",
   });
-  const [ getErrorModal, setErrorModal ] = useState({
+  const [getErrorModal, setErrorModal] = useState({
     imgPath: "/build/images/touch//build/images/touch/ErrorImg.png",
     title: "Error Modal",
     desc: "Error Modal",
   });
 
-  const [ getVoucherData, SetVoucherData ] = useState([]);
+  const [getVoucherData, SetVoucherData] = useState([]);
+
+  useEffect(() => {
+    if (window.REACT_APP_API_URL == "prod") {
+      setApiUrl("");
+    } else {
+      setApiUrl("http://localhost:3000/bills");
+    }
+  }, []);
 
   useEffect(() => {
     setDataGetting("");
+    const searchParams = new URLSearchParams(window.location.search);
+    const idParam = searchParams.get("comp");
+    if (idParam) {
+      setActiveButton({ name: idParam });
+      // searchParams.set("")
+    }
 
     window.handleCheckout = (message) => {
       setDataGetting(message);
     };
-  });
+  }, []);
+
+  const handleReceiveMessage = (event) => {
+    if (typeof event.data === "string") {
+      setDataGetting(event.data);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("message", handleReceiveMessage);
+    return () => {
+      window.removeEventListener("message", handleReceiveMessage);
+    };
+  }, []);
 
   return (
     <div id="TouchBody">
@@ -84,12 +111,14 @@ const App = ({ parameters }) => {
             )}
             {activeButton.name === "ReCharge" && (
               <ReCharge
+                parameters={parameters}
                 setPrepaidVoucher={setPrepaidVoucher}
                 getVoucherData={getVoucherData}
                 activeButton={activeButton}
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                SetVoucherData={SetVoucherData}
               />
             )}
 
@@ -123,6 +152,7 @@ const App = ({ parameters }) => {
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                apiUrl={apiUrl}
               />
             )}
           </>
