@@ -64,6 +64,7 @@
 <<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.446d6a68.js"
 =======
         "/build/runtime.js",
@@ -86,7 +87,13 @@
 =======
         "/build/Alfa.07389ad8.js"
 >>>>>>> 697741c3 (alfa prepaid on corporate)
+<<<<<<< HEAD
 >>>>>>> a129dc0f (alfa prepaid on corporate)
+=======
+=======
+        "/build/Alfa.6cddbcd0.js"
+>>>>>>> 43c3b98b (touch on corporate)
+>>>>>>> c7fec90b (touch on corporate)
       ]
     },
     "Touch": {
@@ -105,9 +112,16 @@
 >>>>>>> 700ad0a2 (alfa stp 1)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Touch.b99ea282.js"
 >>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
+<<<<<<< HEAD
 >>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
+=======
+=======
+        "/build/Touch.cbb3040b.js"
+>>>>>>> 43c3b98b (touch on corporate)
+>>>>>>> c7fec90b (touch on corporate)
       ]
     },
     "Ogero": {

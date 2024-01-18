@@ -14,11 +14,13 @@ const MyBundle = ({
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  apiUrl
 }) => {
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [postParamettersPay, setPostParamettersPay] = useState({});
 
   useEffect(() => {
     setHeaderTitle("Re-charge Touch");
@@ -49,6 +51,11 @@ const MyBundle = ({
   const handleConfirmPay = () => {
     setSpinnerLoader(true);
     setIsButtonDisabled(true);
+    if(parameters?.deviceType === "CORPORATE"){
+      setTimeout(() => {
+        window.parent.postMessage("qr", apiUrl);
+      }, 2000);
+    }
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
@@ -63,16 +70,35 @@ const MyBundle = ({
   };
 
   useEffect(() => {
-    if (getDataGetting == "success") {
-      axios
-        .post("/touch/BuyPrePaid", {
-          Token: "",
+    if (parameters.deviceType == "CORPORATE") {
+      setPostParamettersPay({
+        Token: "",
+        category: "MTC",
+        // category: getPrepaidVoucher.vouchercategory,
+        desc: getPrepaidVoucher.desc,
+        type: getPrepaidVoucher.vouchertype,
+        amountLBP: getPrepaidVoucher.priceLBP,
+        amountUSD: getPrepaidVoucher.priceUSD,
+        suyoolUserId: parameters.suyoolUserId,
+      });
+    } else {
+      setPostParamettersPay({
+        Token: "",
           category: "MTC",
+          // category: getPrepaidVoucher.vouchercategory,
           desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
           amountUSD: getPrepaidVoucher.priceUSD,
-        })
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(getDataGetting)
+    if (getDataGetting == "success") {
+      axios
+        .post("/touch/BuyPrePaid", postParamettersPay)
         .then((response) => {
           setSpinnerLoader(false);
           const jsonResponse = response?.data?.message;
@@ -141,7 +167,7 @@ const MyBundle = ({
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  });
+  },[getDataGetting]);
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");

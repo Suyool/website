@@ -129,7 +129,7 @@ class Memcached
         if ($_ENV['APP_ENV'] == 'prod') {
             $file = "../var/cache/prod/touchVoucher.txt";
         } else {
-            // $file = "../var/cache/dev/touchVoucher.txt";
+            $file = "../var/cache/dev/touchVoucher.txt";
         }
 
         $clearingTime = time() - (60);

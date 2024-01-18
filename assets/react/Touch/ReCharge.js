@@ -1,12 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
 
 const ReCharge = ({
+  parameters,
   setPrepaidVoucher,
   getVoucherData,
   setActiveButton,
   setHeaderTitle,
   setBackLink,
+  SetVoucherData
 }) => {
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
@@ -16,6 +19,20 @@ const ReCharge = ({
     setBackLink("");
     setFilteredData(Object.values(getVoucherData));
   }, [ getVoucherData ]);
+
+  useEffect(() => {
+    console.log(parameters.deviceType)
+    if (parameters?.deviceType == "CORPORATE") {
+      axios
+        .post("/touch/ReCharge")
+        .then((response) => {
+          SetVoucherData(response?.data?.message);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     if (filteredData.length > 0) {

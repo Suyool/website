@@ -49,7 +49,7 @@ const MyBundle = ({
     setIsButtonDisabled(true);
     if(parameters?.deviceType === "CORPORATE"){
       setTimeout(() => {
-        window.parent.postMessage("qr", "http://localhost:3000/bills");
+        window.parent.postMessage("qr", apiUrl);
       }, 2000);
     }
      if (parameters && parameters.deviceType === "Android") {

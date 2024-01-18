@@ -59,7 +59,7 @@ class AlfaController extends AbstractController
             // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $checkIfCorporate=$suyoolUserInfo[1];
-            $checkIfCorporate="CORPORATE";
+            // $checkIfCorporate="CORPORATE";
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE") ) {
