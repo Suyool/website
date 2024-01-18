@@ -1,27 +1,10 @@
 .homepage {
   .video-section-ads{
-      margin-top: 70px;
       text-align: center;
       iframe {
         border-radius: 20px;
       }
-      h3 {
-        color: #373464;
-        font-size: 22px;
-        font-family: $Bold;
-      }
-      h1 {
-        color: #202020;
-        font-size: 52px;
-        font-family: $Regular;
-        margin: 25px 0;
-      }
-      p {
-        color: #6B6B6B;
-        font-size: 20px;
-        font-family: $Regular;
-        margin-bottom: 50px;
-      }
+
       @media screen and (max-width: 768px) {
           padding: 0 10px;
           h1 {
@@ -44,14 +27,11 @@
     margin: 0;
   }
   .button-primary {
-    border-radius: 12px;
     font-family: PoppinsSemiBold;
-    padding: 10px 30px;
   }
   .button-primary:hover {
-    background-color: #fff;
-    color: #226d96;
-    border: 1px solid #226d96;
+    color: #fff !important;
+    border: 2px solid #fff !important;
   }
   .top-section {
     background: linear-gradient(90deg,#226d96 6%,#373464 76%);
@@ -84,26 +64,15 @@
     .top-info {
       padding-top: 65px;
       .header-text {
-        font-size: 60px;
+        font-size: 40px;
         margin-bottom: 40px;
         font-family: $Regular;
         display: flex;
-
-        .part1{
-          // width: 45%;
-          font-size: unset;
-        }
-
-        .part2{
-          width: 50%;
-          padding-top: 50px;
-          font-size: unset;
-        }
       }
 
       p {
         font-size: 17px;
-        font-family: $Regular;
+        font-family: "OpenSansRegular";
         width: 80%;
         line-height: 1.8;
       }
@@ -111,7 +80,6 @@
       .buttons-cont {
         font-family: $SemiBold;
         margin-top: 70px;
-
 
         .btn {
           &:hover {
@@ -126,8 +94,8 @@
         }
 
         .button-primary:hover {
-          background: #226D96;
-          border: 2px solid #ffffff;
+          background: #226D96 !important;
+          border: 2px solid #ffffff !important;
         }
 
         .button-primary, .btn-outline-secondary {
@@ -156,7 +124,7 @@
         margin: auto;
 
         img {
-          width: 100%;
+          width: 80%;
         }
 
         .img-desc {
@@ -190,13 +158,6 @@
     align-items: center;
     padding: 20px 0;
     margin-top: 70px;
-
-    .how_suyool_work {
-      letter-spacing: 2px;
-      font-size: 22px;
-      font-family: $Bold;
-      color: #373464;
-    }
 
     .easy_steps {
       font-size: 52px;
@@ -243,7 +204,7 @@
       .text {
         font-family: $Regular;
         font-size: 17px;
-        color: #6B6B6B;
+        color: $grey;
         margin-bottom: 30px;
       }
     }
@@ -256,45 +217,7 @@
       display: none;
     }
 
-    .card-desc {
-      width: 75%;
-      margin: auto;
 
-      .title {
-        color: #374A5A;
-        font-size: 52px;
-        font-family: $Regular;
-        margin-bottom: 30px;
-        line-height: 1.5;
-      }
-
-      .sub-title {
-        margin: 20px 0 70px 0 !important;
-        font-family: "OpenSansRegular";
-      }
-
-      .text {
-        margin: 30px 0;
-        font-family: $Regular;
-        font-size: 20px;
-        color: #00000080;
-
-        span {
-          font-family: $SemiBold;
-          text-decoration: underline;
-          color: #226D96;
-        }
-      }
-
-      .check {
-        display: flex;
-
-        img {
-          margin-right: 20px;
-          height: 38px;
-        }
-      }
-    }
 
     .blue-btn {
       margin-left: 40px;
@@ -354,7 +277,7 @@
         .text {
           font-size: 17px;
           font-family: $Regular;
-          color: #6B6B6B;
+          color: $grey;
           padding-left: 72px;
           margin-top: -10px;
         }
@@ -377,16 +300,19 @@
       width: 52%;
       margin-left: 15%;
       .top-title {
-        font-size: 22px!important;
+        font-size: 20px!important;
+        letter-spacing: 2px;
+        font-family: $Bold;
       }
       .title {
-        font-size: 45px;
+        font-size: 35px;
         margin: 40px 0;
         line-height: 1.5;
       }
 
       .text {
         font-size: 17px;
+        font-family: "OpenSansRegular";
       }
 
       .blue-btn {
@@ -443,38 +369,6 @@
     }
 
     .home-mastercard {
-      .card-desc {
-        .title {
-          font-size: 35px;
-          font-family: $Regular;
-          margin-bottom: 15px;
-          line-height: 1.5;
-        }
-
-        .sub-title {
-          margin: 20px 0 40px 0 !important;
-        }
-
-        .text {
-          margin: 10px 0;
-          font-size: 17px;
-
-          span {
-            font-family: $Bold;
-            text-decoration: underline;
-            color: #226D96;
-          }
-        }
-
-        .check {
-          display: flex;
-
-          img {
-            margin-right: 20px;
-            height: 30px;
-          }
-        }
-      }
 
       .blue-btn {
         margin-left: 40px;
@@ -662,26 +556,6 @@
         img {
           width: 90%;
           margin-bottom: 50px;
-        }
-      }
-
-      .card-desc {
-        width: 80%;
-        padding: 0;
-
-
-        .title {
-          font-size: 33px;
-          margin-bottom: 20px;
-        }
-
-        .sub-title {
-          margin: 20px 0 40px 0 !important;
-        }
-
-        .text {
-          margin: 30px 0;
-          font-size: 14px;
         }
       }
 

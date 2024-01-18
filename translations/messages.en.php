@@ -54,7 +54,7 @@ return [
     "FACINGTODAYFINANCIALCHALLENGES" => "Facing today’s financial challenges, we moved our payroll to Suyool.
     You will get your own digital dual-currency account, a Visa Platinum card & a payment tool
     with the best rates available.",
-    "OPENYOURSUYOOLACCOUNT" => "Open Your Suyool Account",
+    "OPENYOURSUYOOLACCOUNT" => "Open Suyool Account",
     //alfa-employee Faq
     "WHAT_IS_SUYOOL_ALFA" => "What is Suyool?",
     "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_ALFA" => "Suyool is the first digital account with a Visa Platinum card in Lebanon.",
@@ -77,7 +77,7 @@ return [
     //usj
     "USJ_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, USJ is bringing your pay to the ultimate digital account: the first secure and independent Lebanese online platform!",
     "FACING_TODAY_FINANCIAL_CHALLENGES" => "Facing today’s financial challenges, we moved our payroll to Suyool.<br class='desktopMode'> You will get your own digital dual-currency account, a complete payment tool <br class='desktopMode'>with the best rates and a Visa Platinum card linked to the account.",
-    "OPEN_YOUR_SUYOOL_ACCOUNT" => "Open Your Suyool Account",
+    "OPEN_YOUR_SUYOOL_ACCOUNT" => "Open Suyool Account",
     "FREE_PLATINUM_MASTERCARD" => "Visa Platinum Card",
     "FREE_PAYROLL_CASH_OUT" => "Cash Withdrawal",
     "SEND_RECEIVE_MONEY_FOR_FREE" => "Send Money Locally",

@@ -154,31 +154,6 @@
 }
 
 .medcoPayrollWhyChooseSuyool {
-  .title {
-    text-align: center;
-    color: #373464;
-    font-family: PoppinsBold;
-    font-size: 20px;
-    letter-spacing: 2px;
-  }
-
-  .subtitle {
-    color: #202020;
-    font-family: PoppinsRegular;
-    font-size: 35px;
-    padding: 20px 0;
-    text-align: center;
-    @media screen and (max-width: 768px) {
-      font-size: 25px;
-    }
-  }
-
-  .desctitle {
-    text-align: center;
-    color: #6b6b6b;
-    font-family: OpenSansRegular;
-    font-size: 17px;
-  }
 
   .info {
     display: flex;
@@ -208,7 +183,7 @@
 
       .infodesc {
         font-family: "OpenSansRegular";
-        color: #6b6b6b;
+        color: $grey;
         font-size: 15px;
         @media screen and (max-width: 768px) {
           font-size: 15px;

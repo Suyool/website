@@ -16,9 +16,7 @@
         <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     {% if corporateBTn is defined and corporateBTn is not empty %}
-                        <button type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
-                    {% else %}
-                        <button type="button" class="btn button-primary" data-bs-toggle="modal" data-bs-target="#DownloadApp">Open Suyool Account</button>
+                        <button id="openSuyoolAccount" type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
                     {% endif %}
                 </li>
         </ul>
@@ -36,7 +34,8 @@
         </span>
     </button>
 {% endif %}
-{% if visa is defined %}
+{#    visa or homepage#}
+{% if visa is defined or homepage is defined %}
 <ul class="navbar-nav ms-auto justify-content-end">
     <li class="nav-item">
         <div class="calluson py-2">

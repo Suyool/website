@@ -1,0 +1,28 @@
+.three-titles {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.title-one {
+  color: #373464;
+  font-size: 20px;
+  font-family: $Bold;
+  letter-spacing: 2px;
+}
+
+.title-two {
+  color: #202020;
+  font-size: 35px;
+  font-family: $Regular;
+  margin-top: 25px;
+}
+
+.title-three {
+  color: $grey;
+  font-size: 17px;
+  font-family: $Regular;
+  max-width: 60%;
+  margin: 25px auto 50px auto;
+}
+
+
