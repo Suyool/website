@@ -143,7 +143,6 @@ const MyBill = ({
   };
 
   useEffect(() => {
-    console.log(getDataGetting)
     if (getDataGetting == "success") {
       axios
         .post("/alfa/bill/pay", postParamettersPay)

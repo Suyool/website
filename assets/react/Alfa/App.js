@@ -10,10 +10,11 @@ import ReCharge from "./ReCharge";
 
 const App = ({ parameters }) => {
   const params = parameters;
-
+  
   const [activeButton, setActiveButton] = useState({ name: "" });
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Alfa");
+  const [apiUrl,setApiUrl] = useState(null);
   const [getPrepaidVoucher, setPrepaidVoucher] = useState({
     vouchercategory: "",
     vouchertype: "",
@@ -42,17 +43,26 @@ const App = ({ parameters }) => {
 
   const [getVoucherData, SetVoucherData] = useState([]);
 
+  useEffect(()=>{
+    if(window.REACT_APP_API_URL == "prod"){
+      setApiUrl("");
+   }else{
+      setApiUrl("http://localhost:3000/bills");
+   }
+  },[])
+
   useEffect(() => {
     setDataGetting("");
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get("comp");
     if (idParam) {
       setActiveButton({ name: idParam });
+      // searchParams.set("")
     }
     window.handleCheckout = (message) => {
       setDataGetting(message);
     };
-  });
+  },[]);
 
   const [webMessage, setWebMessage] = useState("message to send to parent.");
   const sendMessageToParent = () => {
@@ -110,6 +120,7 @@ const App = ({ parameters }) => {
                 parameters={parameters}
                 setPrepaidVoucher={setPrepaidVoucher}
                 getVoucherData={getVoucherData}
+                SetVoucherData = {SetVoucherData}
                 activeButton={activeButton}
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
@@ -148,6 +159,7 @@ const App = ({ parameters }) => {
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                apiUrl = {apiUrl}
               />
             )}
           </>
