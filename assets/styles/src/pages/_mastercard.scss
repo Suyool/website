@@ -33,7 +33,7 @@
 
     .sub-title {
       margin: 20px 0 70px 0 !important;
-      font-size: 18px !important;
+      font-size: 17px !important;
     }
 
     .text {
@@ -161,13 +161,12 @@
     p {
       &.mastercard-2 {
         color: #373464;
-        font-family: PoppinsRegular;
         font-size: 20px;
         width: 80%;
       }
 
+      font-family: "OpenSansRegular";
       font-size: 17px;
-      font-family: $Regular;
       width: 80%;
       color: #fff;
 
@@ -275,12 +274,17 @@
     .title {
       font-family: $SemiBold !Important;
     }
+
+    .description{
+      font-family: "OpenSansRegular" !Important;
+    }
   }
 
   .stp-cont {
     display: flex;
     width: 80%;
     margin: auto;
+    margin-top: 30px;
   }
 
   .step {
@@ -340,7 +344,7 @@
       .description {
         padding-top: 70px;
         font-size: 17px;
-        font-family: $Regular;
+        font-family: "OpenSansRegular";
         color: #6b6b6b;
         letter-spacing: 0;
       }
@@ -374,14 +378,14 @@
 
   .title {
     font-family: $Bold;
-    font-size: 21px;
+    font-size: 20px;
     color: #373464;
   }
 
   .descri {
     margin-top: 20px;
     font-family: $Regular;
-    font-size: 52px;
+    font-size: 35px;
     color: #202020;
     margin-bottom: 20px;
   }
@@ -453,7 +457,7 @@
           padding: 30px;
 
           .title {
-            font-size: 24px;
+            font-size: 17px;
             color: #373464;
             font-family: $Bold;
             padding-bottom: 20px;
@@ -537,6 +541,8 @@
 
     .sub-title {
       margin: 20px 0 70px 0 !important;
+      font-family: "OpenSansRegular" !Important;
+      font-size: 17px;
     }
 
     .text {
@@ -545,6 +551,10 @@
       font-size: 22px;
       color: #00000080;
 
+      p{
+        font-family: "OpenSansRegular" !Important;
+        font-size: 15px;
+      }
       span {
         font-family: $Bold;
         text-decoration: underline;
@@ -811,8 +821,9 @@
               }
 
               .desc {
-                font-size: 16px;
+                font-size: 15px;
                 padding-left: 12px;
+                font-family: "OpenSansRegular";
               }
             }
           }
