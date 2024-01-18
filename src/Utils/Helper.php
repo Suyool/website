@@ -100,7 +100,7 @@ class Helper
     public function clientRequest($method, $url, $body)
     {
             $response = $this->client->request($method, $url, [
-                'body' => json_encode($body),
+                'body' => json_encode($body,JSON_UNESCAPED_SLASHES),
                 'headers' => [
                     'Content-Type' => 'application/json'
                 ]
