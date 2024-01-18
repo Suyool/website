@@ -88,6 +88,7 @@ const App = ({ parameters }) => {
         setActiveButton={setActiveButton}
         getHeaderTitle={getHeaderTitle}
         getBackLink={getBackLink}
+        apiUrl={apiUrl}
       />
       <div className="scrolableView">
         {getModalName === "" && (

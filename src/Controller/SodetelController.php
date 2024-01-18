@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Notification\Users;
 use App\Entity\Sodetel\Logs;
 use App\Entity\Sodetel\Order;
 use App\Entity\Sodetel\Product;
@@ -24,10 +25,13 @@ class SodetelController extends AbstractController
     private $mr;
     private $params;
     private $session;
+    private $not;
+
 
     public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('sodetel');
+        $this->not = $mr->getManager('notification');
         $this->params = $params;
         $this->session = $sessionInterface;
     }
@@ -44,14 +48,17 @@ class SodetelController extends AbstractController
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $checkIfCorporate = $suyoolUserInfo[1];
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 //            $devicetype = "Android";
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE")) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
+
+                $parameters['suyoolUserId'] = $_POST['infoString'];
 
                 return $this->render('sodetel/index.html.twig', [
                     'controller_name' => 'SodetelController',
@@ -145,8 +152,15 @@ class SodetelController extends AbstractController
 //        }
 
         $data = json_decode($request->getContent(), true);
+        if (isset($data["suyoolUserId"])) {
+            $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+            $suyoolUserInfo = explode("!#!", $webkey);
+            $SuyoolUserId = $suyoolUserInfo[0];
+        } else {
+            $SuyoolUserId = $this->session->get('suyoolUserId');
+        }
 
-        $SuyoolUserId = $this->session->get('suyoolUserId');
+        // $SuyoolUserId = $this->session->get('suyoolUserId');
 //        $SuyoolUserId = 218;
 
         $flagCode = null;
@@ -154,6 +168,8 @@ class SodetelController extends AbstractController
         $dataPayResponse = [];
         $status = 200;
         $message = "";
+        $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+
 
         if ($data != null && $data['requestId']) {
             // request.bundle == "dsl" || request.bundle == "fiber" => SODETEL_POSTPAID_MERCHANT_ID

@@ -98,7 +98,7 @@ class SodetelService
                 ],
             ]);
 
-            return $response->getContent();
+            return $response->getContent(false);
 
         } catch (Exception $e) {
             $this->logger->error("Sodetel error: {$e->getMessage()}");

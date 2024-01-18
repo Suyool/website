@@ -65,6 +65,7 @@
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Alfa.446d6a68.js"
 =======
         "/build/runtime.js",
@@ -93,7 +94,13 @@
 =======
         "/build/Alfa.6cddbcd0.js"
 >>>>>>> 43c3b98b (touch on corporate)
+<<<<<<< HEAD
 >>>>>>> c7fec90b (touch on corporate)
+=======
+=======
+        "/build/Alfa.39aca5bf.js"
+>>>>>>> 8f5e3f64 (sodetel corporate)
+>>>>>>> 659df818 (sodetel corporate)
       ]
     },
     "Touch": {
@@ -177,9 +184,16 @@
 >>>>>>> 700ad0a2 (alfa stp 1)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Sodetel.560fa7ac.js"
 >>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
+<<<<<<< HEAD
 >>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
+=======
+=======
+        "/build/Sodetel.cfb6a649.js"
+>>>>>>> 8f5e3f64 (sodetel corporate)
+>>>>>>> 659df818 (sodetel corporate)
       ]
     },
     "styles": {
