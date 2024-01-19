@@ -39,11 +39,10 @@ const ApplyForCorporate = ({ steSent, env }) => {
   const [data, setData] = useState([{ Name: "" }]);
   const [startDate, setStartDate] = useState(new Date());
   let baseUrl;
-  if (env == "dev") {
-    baseUrl = "http://10.20.80.62/CorporateAPI/api/";
+  if (env === "prod") {
+    baseUrl = "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
   } else {
-    baseUrl =
-      "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
+    baseUrl = "http://10.20.80.62/CorporateAPI/api/";
   }
 
   useEffect(() => {
