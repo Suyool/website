@@ -32,8 +32,6 @@
   }
   .button-primary:hover {
     color: #fff !important;
-    border: 2px solid #fff !important;
-    opacity: 1 !important;
   }
   .top-section {
     background: linear-gradient(90deg,#226d96 6%,#373464 76%);
@@ -42,6 +40,7 @@
     padding-top: 20px;
 
     .navbar {
+      padding-left: 12px;
       .right {
         display: flex;
         justify-content: space-around;
@@ -69,23 +68,30 @@
         font-size: 40px;
         margin-bottom: 40px;
         font-family: $Regular;
-        display: flex;
+
+        span {
+          font-family: $Bold;
+        }
       }
 
       p {
-        font-size: 17px;
-        font-family: "OpenSansRegular";
+        //font-size: 17px;
+        //font-family: "OpenSansRegular";
         width: 80%;
         line-height: 1.8;
+        font-size: 18px;
+        font-family: $InterRegular
       }
 
       .buttons-cont {
         font-family: $SemiBold;
         margin-top: 70px;
 
-        .btn {
-          &:hover {
-            color: #ffffff;
+        @media(min-width: 768px) {
+          .btn {
+            &:hover {
+              color: #ffffff;
+            }
           }
         }
 
@@ -204,8 +210,8 @@
       }
 
       .text {
-        font-family: "OpenSansRegular";
-        font-size: 17px;
+        font-family: $InterRegular;
+        font-size: 18px;
         color: $grey;
         margin-bottom: 30px;
       }
@@ -230,7 +236,7 @@
 
     .card-img-desk {
       img {
-        width: 80%;
+        width: 70%;
       }
     }
   }
@@ -277,8 +283,8 @@
         }
 
         .text {
-          font-size: 17px;
-          font-family: "OpenSansRegular";
+          font-size: 18px;
+          font-family: $InterRegular;
           color: $grey;
           padding-left: 72px;
           margin-top: -10px;
@@ -304,7 +310,7 @@
       .top-title {
         font-size: 20px!important;
         letter-spacing: 2px;
-        font-family: $Bold;
+        font-family: $Bold !important;
       }
       .title {
         font-size: 35px;
@@ -313,8 +319,8 @@
       }
 
       .text {
-        font-size: 17px;
-        font-family: "OpenSansRegular";
+        font-size: 18px;
+        font-family: $InterRegular;
       }
 
       .blue-btn {
@@ -339,19 +345,9 @@
       .top-info {
         padding-top: 65px;
         .header-text {
-          font-size: 55px;
+          font-size: 40px;
           margin-bottom: 40px;
           font-family: $Regular;
-          display: flex;
-
-          .part1{
-            width: 380px;
-          }
-
-          .part2{
-            width: 365px;
-            padding-top: 50px;
-          }
         }
 
       }
@@ -368,13 +364,6 @@
       .top-info {
         .header-text {
           font-size: 40px;
-
-          .part1{
-            // width: 300px
-          }
-          .part2 {
-            width: 285px
-          }
         }
 
       }
@@ -388,7 +377,7 @@
 
       .card-img-desk {
         img {
-          width: 80%;
+          width: 90%;
         }
       }
     }
@@ -411,15 +400,8 @@
         margin-bottom: 0;
       }
       .top-info {
-        padding-top: 0;
+        padding: 0;
         text-align: center;
-
-        .header-text{
-          .part1, .part2{
-            width: 100%;
-            padding: 0;
-          }
-        }
 
         .buttons-cont {
           text-align: center;
@@ -427,25 +409,24 @@
 
         .header-text {
           margin-top: 20px;
-          font-size: 44px;
-          font-family: $Regular;
           text-align: left;
-          padding-left: 16px;
         }
 
         p {
-          font-size: 14px;
-          width: 90%;
-          margin: auto;
+          font-size: 18px;
+          line-height: 1.8;
           text-align: left;
-          line-height: 2;
+          width: 100%;
         }
       }
 
       .right-section {
         .img-cont {
-          img {
             text-align: center !important;
+
+          img{
+            width: 100%;
+            margin-top: 25px;
           }
         }
       }
@@ -509,13 +490,7 @@
           }
         }
 
-        .title {
-          font-size: 20px;
-          margin-bottom: 15px;
-        }
-
         .text {
-          font-size: 14px;
           margin-bottom: 20px;
         }
       }
@@ -527,11 +502,11 @@
 
       .content {
         font-family: $Regular;
-        width: 80%;
+        width: 90%;
         margin: auto;
 
         .title {
-          font-size: 30px;
+          font-size: 35px;
           margin: 40px 0;
           color: #FFFFFF;
           line-height: 1.5;
@@ -543,16 +518,19 @@
         }
 
         .text {
-          font-size: 14px;
+          font-size: 18px;
           color: #FFFFFF;
         }
 
         .blue-btn {
           width: 90%;
-          margin: auto;
+          margin:  45px auto;
           font-size: 15px;
           padding: 20px 0;
-          margin-top: 30px;
+        }
+
+        #openSuyoolAccount {
+          margin-top: 45px;
         }
       }
     }

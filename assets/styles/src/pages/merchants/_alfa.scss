@@ -175,7 +175,7 @@ $image-path: '../../../../images/usj/';
 
             .manage_spend {
                 font-size: 17px;
-                font-family: OpenSansRegular;
+                font-family: $InterRegular;
                 color: #6B6B6B;
             }
         }
@@ -212,9 +212,9 @@ $image-path: '../../../../images/usj/';
         }
 
         .desc {
-            font-family: OpenSansRegular;
+            font-family: $InterRegular;
             color: #00000080;
-            font-size: 17px;
+            font-size: 18px;
             margin-bottom: 20px;
 
             &.exchange {
@@ -239,7 +239,7 @@ $image-path: '../../../../images/usj/';
                 p {
                     color: #00000080;
                     font-size: 15px;
-                    font-family: OpenSansRegular;
+                    font-family: $InterRegular;
                     margin-left: 10px;
 
                 }
@@ -290,8 +290,8 @@ $image-path: '../../../../images/usj/';
         }
 
         .manage_spend {
-            font-size: 17px;
-            font-family: OpenSansRegular;
+            font-size: 18px;
+            font-family: $InterRegular;
             color: #6B6B6B;
         }
     }
@@ -325,7 +325,7 @@ $image-path: '../../../../images/usj/';
             }
 
             .text {
-                font-family: OpenSansRegular;
+                font-family: $InterRegular;
                 font-size: 15px;
                 color: #6B6B6B;
                 margin-bottom: 30px;
@@ -468,7 +468,7 @@ $image-path: '../../../../images/usj/';
 
                 .description {
                     font-size: 15px;
-                    font-family:OpenSansRegular;
+                    font-family:$InterRegular;
                     color: #6b6b6b;
                     letter-spacing: 0;
                     // text-align: justify;
@@ -536,7 +536,7 @@ $image-path: '../../../../images/usj/';
     .desc {
         text-align: center;
         color: #6B6B6B;
-        font-family: OpenSansRegular;
+        font-family: $InterRegular;
         font-size: 17px;
         margin-bottom: 60px;
     }

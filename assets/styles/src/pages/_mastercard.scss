@@ -126,8 +126,8 @@
         width: 80%;
       }
 
-      font-family: "OpenSansRegular";
-      font-size: 17px;
+      font-family: $InterRegular;
+      font-size: 18px;
       width: 80%;
       color: #fff;
 
@@ -237,7 +237,7 @@
     }
 
     .description{
-      font-family: "OpenSansRegular" !Important;
+      font-family: $InterRegular !Important;
     }
   }
 
@@ -260,7 +260,7 @@
 
     .description {
       font-size: 17px;
-      font-family: OpenSansRegular;
+      font-family: $InterRegular;
       //font-family: $Regular;
       color: #5a5a5a;
     }
@@ -305,7 +305,7 @@
       .description {
         padding-top: 70px;
         font-size: 17px;
-        font-family: "OpenSansRegular";
+        font-family: $InterRegular;
         color: $grey;
         letter-spacing: 0;
       }
@@ -441,7 +441,7 @@
             }
 
             .desc {
-              font-family: "OpenSansRegular";
+              font-family: $InterRegular;
               font-size: 15px;
               color: #373464;
               padding-left: 15px;
@@ -544,8 +544,8 @@
 
         .description {
           padding-top: 55px;
-          font-size: 17px;
-          font-family: "OpenSansRegular";
+          font-size: 18px;
+          font-family: $InterRegular;
           color: $grey;
           letter-spacing: 0;
           text-align: justify;
@@ -624,8 +624,8 @@
       }
 
       p {
-        font-size: 17px;
-        font-family: "OpenSansRegular";
+        font-size: 18px;
+        font-family: $InterRegular;
         width: 100%;
       }
     }
@@ -680,7 +680,7 @@
               .desc {
                 font-size: 15px;
                 padding-left: 12px;
-                font-family: "OpenSansRegular";
+                font-family: $InterRegular;
               }
             }
           }
