@@ -30,7 +30,7 @@ class Order
     private $status;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $amount;
 

@@ -16,8 +16,8 @@ const MyBundle = ({
   setBackLink,
 }) => {
   useEffect(() => {
-    setHeaderTitle("Re-charge Alfa");
-    setBackLink("ReCharge");
+    setHeaderTitle("Buy Product");
+    setBackLink("");
     setIsButtonDisabled(false);
   }, []);
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
@@ -34,7 +34,6 @@ const MyBundle = ({
         },
       },
     ];
-    console.log(JSON.stringify(object));
     if (parameters?.deviceType === "Android") {
       window.AndroidInterface.callbackHandler(JSON.stringify(object));
     } else if (parameters?.deviceType === "Iphone") {
@@ -58,30 +57,28 @@ const MyBundle = ({
     }
   };
 
+
   useEffect(() => {
     if (getDataGetting == "success") {
       axios
-        .post("/alfa/BuyPrePaid", {
+        .post("/gift2games/product/pay", {
           Token: "",
-          category: "ALFA",
+          category: "Gift2Games",
           // category: getPrepaidVoucher.vouchercategory,
-          desc: getPrepaidVoucher.desc,
-          type: getPrepaidVoucher.vouchertype,
-          amountLBP: getPrepaidVoucher.priceLBP,
-          amountUSD: getPrepaidVoucher.priceUSD,
+          desc: getPrepaidVoucher.title,
+          amount: getPrepaidVoucher.price,
+          currency: getPrepaidVoucher.currency,
+          productId: getPrepaidVoucher.productId
         })
         .then((response) => {
           setSpinnerLoader(false);
           const jsonResponse = response?.data?.message;
-          console.log(jsonResponse);
-          // console.log()
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
             setSerialToClipboard(
               "*14*" + response?.data?.data?.voucherCode + "#"
             );
           } else {
-            console.log(response.data.flagCode);
             if (
               response.data.IsSuccess == false &&
               response.data.flagCode == 10
@@ -131,18 +128,16 @@ const MyBundle = ({
               setModalShow(true);
             }
           }
-          // console.log(response);
         })
         .catch((error) => {
           setSpinnerLoader(false);
-          console.log(error);
         });
     } else if (getDataGetting == "failed") {
       setSpinnerLoader(false);
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  });
+  }, [getDataGetting]);
 
   const copyToClipboard = () => {
     const tempInput = document.createElement("input");
@@ -181,57 +176,10 @@ const MyBundle = ({
               />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
-                You have successfully purchased the $
-                {getPrepaidVoucher.priceUSD} Alfa recharge card.
+                You have successfully purchased the {getPrepaidVoucher.title} at $
+                {getPrepaidVoucher.price}.
               </div>
 
-              <div className="br"></div>
-
-              <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">
-                Copy the 14-digit secret code below
-              </div>
-
-              <button className="copySerialBtn" onClick={copyToClipboard}>
-                <div></div>
-                <div className="serial">{getSerialToClipboard}</div>
-                <img
-                  className="copySerial"
-                  src="/build/images/alfa/copySerial.png"
-                  alt="copySerial"
-                />
-              </button>
-
-              <button
-                id="ContinueBtn"
-                className="mt-3"
-                onClick={() => {
-                  handleShare(getSerialToClipboard);
-                }}
-              >
-                Share Code
-              </button>
-
-              <div className="stepsToRecharge">
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Go to your phone tab</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Paste the code</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Tap Call</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">
-                    Your mobile prepaid line is now recharged
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </>
@@ -254,11 +202,11 @@ const MyBundle = ({
         {!getPaymentConfirmation && (
           <>
             <div className="MyBundleBody">
-              <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+              <div className="mainTitle">{getPrepaidVoucher.title}</div>
               {/* <div className="mainDesc">*All taxes excluded</div> */}
               <img
                 className="BundleBigImg"
-                src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`}
+                src={getPrepaidVoucher.image}
                 alt="Bundle"
               />
               <div className="smlDesc">
@@ -269,38 +217,16 @@ const MyBundle = ({
                   style={{ verticalAlign: "baseline" }}
                 />
                 &nbsp;
-                Alfa only accepts payments in L.L
+                Gift2Games only accepts payments in $
               </div>
               {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
-              <div className="MoreInfo">
-                <div className="label">Total before taxes</div>
-                <div className="value">$ {getPrepaidVoucher.beforeTaxes}</div>
-              </div>
-              <div className="MoreInfo">
-                <div className="label">+V.A.T & Stamp Duty</div>
-                <div className="value">$ {getPrepaidVoucher.fees}</div>
-              </div>
+
               <div className="br"></div>
               <div className="MoreInfo">
                 <div className="label">Total after taxes</div>
-                <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+                <div className="value">$ {getPrepaidVoucher.price}</div>
               </div>
-              <div className="MoreInfo">
-                <div className="label">Amount in L.L (Sayrafa rate)</div>
-                <div className="value">
-                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
-                </div>
-              </div>
-              <div className="br"></div>
-              <div className="MoreInfo">
-                <div className="label">Total amount to pay</div>
-                <div className="value1">
-                  L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
-                </div>
-              </div>
-              <div className="smlDescSayrafa">
-                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Sayrafa rate, subject to change).
-              </div>
+
             </div>
 
             <button

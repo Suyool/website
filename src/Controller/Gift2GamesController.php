@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Gift2Games\Order;
+use App\Entity\Gift2Games\Product;
 use App\Repository\Gift2GamesOrdersRepository;
 use App\Service\Gift2GamesService;
+use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,11 +21,19 @@ class Gift2GamesController extends AbstractController
 {
     private $params;
     private $session;
+    private $suyoolServices;
+    private $mr;
+    private $gamesService;
+    private $notificationServices;
 
-    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface)
+    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface,ManagerRegistry $mr,Gift2GamesService $gamesService, NotificationServices $notificationServices)
     {
         $this->params = $params;
         $this->session = $sessionInterface;
+        $this->mr = $mr->getManager('gift2games');
+        $this->suyoolServices = new SuyoolServices($params->get('GIFT2GAMES_MERCHANT_ID'));
+        $this->gamesService = $gamesService;
+        $this->notificationServices = $notificationServices;
     }
 
     /**
@@ -30,24 +41,44 @@ class Gift2GamesController extends AbstractController
      */
     public function index(): Response
     {
-        $parameters['deviceType'] = "Android";
-        return $this->render('gift2_games/index.html.twig', [
-            'parameters' => $parameters
-        ]);
+//        $parameters['deviceType'] = "Android";
 //        return $this->render('gift2_games/index.html.twig', [
-//            'controller_name' => 'Gift2GamesController',
+//            'parameters' => $parameters
 //        ]);
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+
+        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+
+        if (isset($_POST['infoString'])) {
+            $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $SuyoolUserId = $suyoolUserInfo[0];
+                $this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 155);
+
+                $parameters['deviceType'] = $suyoolUserInfo[1];
+
+                return $this->render('gift2_games/index.html.twig', [
+                    'parameters' => $parameters
+                ]);
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
     }
 
     /**
      * @Route("/gift2games/categories", name="app_g2g_categories")
      */
-    public function getCategories(Gift2GamesService $gamesService)
+    public function getCategories()
     {
-//        $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 155;
 
-        $results = $gamesService->getCategories();
+        $results = $this->gamesService->getCategories();
 
         return new JsonResponse([
             'status' => $results['status'],
@@ -58,12 +89,10 @@ class Gift2GamesController extends AbstractController
     /**
      * @Route("/gift2games/products/{categoryId}", name="app_g2g_products")
      */
-    public function getProducts($categoryId, Gift2GamesService $gamesService)
+    public function getProducts($categoryId)
     {
-//        $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 155;
 
-        $results = $gamesService->getProducts($categoryId);
+        $results = $this->gamesService->getProducts($categoryId);
 
         return new JsonResponse([
             'status' => $results['status'],
@@ -75,148 +104,108 @@ class Gift2GamesController extends AbstractController
      * PostPaid
      * Provider : Gift2Games
      * Desc: Retrieve Channel Results
-     * @Route("/gift2games/product/pay", name="app_alfa_bill_pay",methods="POST")
+     * @Route("/gift2games/product/pay", name="app_git2games_bill_pay",methods="POST")
      */
-    public function pay(Request $request, Gift2GamesService $gamesService, Gift2GamesOrdersRepository $ordersRepository)
+    public function pay(Request $request)
     {
-        $suyoolServices = new SuyoolServices($this->params->get('GIFT2GAMES_MERCHANT_ID'));
+
+        $suyoolServices = $this->suyoolServices;
         $data = json_decode($request->getContent(), true);
         $SuyoolUserId = $this->session->get('suyoolUserId');
-
+        $amount = $data['amount'];
+        $description = $data['desc'];
+        $flagCode = null;
         if ($data != null) {
-            //Initial order with status pending
+            $product = new Product();
+            $product->setProductId((int) $data['productId']);
+            $product->setDescription((string) $description);
+            $product->setPrice((float) $amount);
+            $product->setCurrency((string) $data['currency']);
+
             $order = new Order;
             $order
                 ->setsuyoolUserId($SuyoolUserId)
                 ->settransId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($data['amount'])
+                ->setamount($amount)
                 ->setcurrency($data['currency']);
-//            $this->mr->persist($order);
-//            $this->mr->flush();
 
-            $ordersRepository->insertOrder($order);
+            $product->setOrder($order);
+            $product->setOrderId($order->getId());
 
-            $order_id = $this->params->get('GIFT2GAMES_MERCHANT_ID') . "-" . $order->getId();
+            $this->mr->persist($product);
+            $this->mr->persist($order);
+            $this->mr->flush();
 
-            //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),$order->getfees());
-
-            dd($response);
-
-            if ($response[0]) {
+//            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $data['currency']);
+//            $checkBalance = json_decode($checkBalance->getContent(), true);
+//            $checkBalance = $checkBalance['response'];
+            $checkBalance = array(0=>"true",1=>'Ref-GN1234551');
+            $transactionID = $checkBalance[1];
+            if ($checkBalance[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate1
-                    ->settransId($response[1])
+                    ->settransId($transactionID)
                     ->setstatus(Order::$statusOrder['HELD']);
+
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
+                $purchase = $this->Purchase($data['productId'], $transactionID, $order->getId());
 
-                //paid postpaid from bob Provider
-                $billPay = $bobServices->BillPay($Postpaid_With_id);
-                if ($billPay[0] != "") {
-                    $billPayArray = json_decode($billPay[0], true);
-                    //if payment from loto provider success insert prepaid data to db
-                    $postpaid = new Postpaid;
-                    $postpaid
-                        ->settransactionDescription($billPayArray["TransactionDescription"])
-                        ->setstatus(Order::$statusOrder['COMPLETED'])
-                        ->setfees($Postpaid_With_id->getfees())
-                        ->setfees1($Postpaid_With_id->getfees1())
-                        ->setdisplayedFees($Postpaid_With_id->getdisplayedFees())
-                        ->setamount($Postpaid_With_id->getamount())
-                        ->setamount1($Postpaid_With_id->getamount1())
-                        ->setamount2($Postpaid_With_id->getamount2())
-                        ->setreferenceNumber($Postpaid_With_id->getreferenceNumber())
-                        ->setinformativeOriginalWSamount($Postpaid_With_id->getinformativeOriginalWSamount())
-                        ->settotalamount($Postpaid_With_id->gettotalamount())
-                        ->setcurrency($Postpaid_With_id->getcurrency())
-                        ->setrounding($Postpaid_With_id->getrounding())
-                        ->setadditionalfees($Postpaid_With_id->getadditionalfees())
-                        ->setPin($Postpaid_With_id->getPin())
-                        ->setTransactionId($Postpaid_With_id->getTransactionId())
-                        ->setSuyoolUserId($Postpaid_With_id->getSuyoolUserId())
-                        ->setGsmNumber($Postpaid_With_id->getGsmNumber());
-                    $this->mr->persist($postpaid);
-                    $this->mr->flush();
-
+                if ($purchase == true) {
                     $IsSuccess = true;
+                    $additionalDataArray[] = [];
+                    $additionalData = json_encode($additionalDataArray, true);
+                     $content = $this->notificationServices->getContent('terranetLandlineRecharged');
 
-                    $postpaidId = $postpaid->getId();
-                    $postpaid = $this->mr->getRepository(Postpaid::class)->findOneBy(['id' => $postpaidId]);
-
-                    //update order by passing prepaidId to order and set status to purshased
-                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                    $orderupdate
-                        ->setpostpaidId($postpaid)
-                        ->setstatus(Order::$statusOrder['PURCHASED']);
-                    $this->mr->persist($orderupdate);
-                    $this->mr->flush();
-
-                    //intial notification
+                    $bulk = 0;
                     $params = json_encode([
-                        'amount' => $order->getamount(),
-                        'currency' => "L.L",
-                        'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
+                        'amount' => $amount,
+                        'userAccount' => '',
+                        'type' => $description
                     ]);
-                    $additionalData = "";
+                   // $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
 
-                    $content = $notificationServices->getContent('AcceptedAlfaPayment');
-                    $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-
-                    $updateUtilitiesAdditionalData = json_encode([
-                        'Fees' => $Postpaid_With_id->getfees(),
-                        'TransactionId' => $Postpaid_With_id->getTransactionId(),
-                        'Amount' => $Postpaid_With_id->getamount(),
-                        'TotalAmount' => $Postpaid_With_id->gettotalamount(),
-                        'Currency' => $Postpaid_With_id->getcurrency(),
-                    ]);
-
-                    //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                    if ($responseUpdateUtilities) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                    //$updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
+                    $updateUtility = true;
+                    if ($updateUtility) {
+                        $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed
-                        $orderupdate5
+                        $orderupdate3
                             ->setstatus(Order::$statusOrder['COMPLETED'])
                             ->seterror("SUCCESS");
-                        $this->mr->persist($orderupdate5);
+                        $this->mr->persist($orderupdate3);
                         $this->mr->flush();
-
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
                         $message = "Success";
                     } else {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-                        $orderupdate5
+                        $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                        $orderupdate3
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1]);
-                        $this->mr->persist($orderupdate5);
+                            ->seterror($updateUtility[1]);
+                        $this->mr->persist($orderupdate3);
                         $this->mr->flush();
                         $message = "something wrong while UpdateUtilities";
-                        $dataPayResponse = -1;
                     }
+
                 } else {
                     $IsSuccess = false;
-                    $dataPayResponse = -1;
                     //if not purchase return money
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                    $responseUpdateUtilities = $this->suyoolServices->UpdateUtilities(0, "", $transactionID);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror("reversed error from alfa:" . $billPay[2]);;
+                            ->seterror("reversed error from Gift2Games");
 
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
-
                         $message = "Success return money!!";
                     } else {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1] . " " . $billPay[2]);
+                            ->seterror($responseUpdateUtilities[1]);
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
                         $message = "Can not return money!!";
@@ -227,20 +216,18 @@ class Gift2GamesController extends AbstractController
                 $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
                 $orderupdate3
                     ->setstatus(Order::$statusOrder['CANCELED'])
-                    ->seterror($response[1]);
+                    ->seterror($checkBalance[1]);
                 $this->mr->persist($orderupdate3);
                 $this->mr->flush();
                 $IsSuccess = false;
-                $message = json_decode($response[1], true);
-                if (isset($response[2])) {
-                    $flagCode = $response[2];
+                $message = json_decode($checkBalance[1], true);
+                if (isset($checkBalance[2])) {
+                    $flagCode = $checkBalance[2];
                 }
-                $dataPayResponse = -1;
             }
         } else {
             $IsSuccess = false;
-            $dataPayResponse = -1;
-            $message = "Can not retrive data !!";
+            $message = "You dont have a bundle available";
         }
 
         return new JsonResponse([
@@ -248,10 +235,41 @@ class Gift2GamesController extends AbstractController
             'message' => $message,
             'IsSuccess' => $IsSuccess,
             'flagCode' => $flagCode,
-            'data' => $dataPayResponse,
         ], 200);
 
     }
 
+    private function checkBalance($suyoolUserId, $orderId, $amount, $currency)
+    {
+        $merchantId = $this->params->get('GIFT2GAMES_MERCHANT_ID') ;
+        $order_id = $merchantId . "-" . $orderId;
+        $fees = 0;
+        $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees);
 
+        return new JsonResponse([
+            'response' => $pushutility
+        ], 200);
+    }
+
+    private function Purchase($ProductId, $transID, $orderId)
+    {
+        $suyoolUserId = $this->session->get('suyoolUserId');
+
+        $orderupdate2 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $orderId, 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+
+        if ($orderupdate2) {
+            $refillAccount = $this->gamesService->createOrder($ProductId, $transID);
+
+            if ($refillAccount) {
+                $orderupdate2
+                    ->setstatus(Order::$statusOrder['PURCHASED']);
+                $this->mr->persist($orderupdate2);
+                $this->mr->flush();
+            }
+            return $refillAccount;
+
+        } else {
+            return new JsonResponse(['error' => 'Order not found'], 404);
+        }
+    }
 }

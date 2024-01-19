@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Alfa;
+namespace App\Entity\Gift2Games;
 
 use Doctrine\ORM\Mapping as ORM;
 

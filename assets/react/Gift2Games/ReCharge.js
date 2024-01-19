@@ -4,12 +4,12 @@ import axios from "axios";
 
 const ReCharge = ({
                       parameters,
-                      setPrepaidVoucher,
                       getVoucherData,
                       setActiveButton,
                       setHeaderTitle,
                       setBackLink,
-                      activeButton
+                      activeButton,
+                      setPrepaidVoucher
                   }) => {
     const [filteredData, setFilteredData] = useState([]);
     const [getLoading, setLoading] = useState(true);
@@ -19,8 +19,10 @@ const ReCharge = ({
             .get(`/gift2games/products/${activeButton.category}`)
             .then((response) => {
                 console.log("response", response)
-                if (response?.data?.status)
-                    setFilteredData(JSON.parse(response?.data?.Payload)?.data);
+                if (response?.data?.status) {
+                    const productData = JSON.parse(response?.data?.Payload)?.data;
+                    setFilteredData(productData);
+                }
                 setLoading(false)
             })
             .catch((error) => {
@@ -29,19 +31,11 @@ const ReCharge = ({
     }
 
     useEffect(() => {
-        setHeaderTitle("Products");
+        setHeaderTitle();
         setBackLink("");
         fetchProducts();
-        setFilteredData(Object.values(getVoucherData));
     }, [getVoucherData]);
 
-    useEffect(() => {
-        if (activeButton.name === "Products") {
-            fetchProducts();
-        }
-    }, [activeButton]);
-
-    console.log("filteredData", filteredData)
 
     return (
         <div id="ReCharge">
@@ -75,20 +69,14 @@ const ReCharge = ({
                                         : {display: "flex"}
                                 }
                                 onClick={() => {
-                                    setActiveButton({name: "MyBundle"});
                                     setPrepaidVoucher({
-                                        vouchercategory: record.vouchercategory,
-                                        vouchertype: record.vouchertype,
-                                        priceLBP: record.priceLBP,
-                                        priceUSD: record.priceUSD,
-                                        desc: record.desc,
-                                        isavailable: record.isavailable,
-                                        desc1: record.desc1,
-                                        desc2: record.desc2,
-                                        beforeTaxes: record.beforeTaxes,
-                                        fees: record.fees,
-                                        sayrafa: record.sayrafa
+                                        price: record.price,
+                                        currency: record.currency,
+                                        title: record.title,
+                                        image: record.image,
+                                        productId: record.id
                                     });
+                                    setActiveButton({name: "MyBundle"});
                                 }}
                             >
                                 <img

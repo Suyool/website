@@ -20,7 +20,6 @@ doctrine:
                 url: '%env(resolve:NOTIFICATION_DATABASE_URL)%'
             topup:
                 url: '%env(resolve:TOPUP_DATABASE_URL)%'
-<<<<<<< HEAD
             terranet:
                 url: '%env(resolve:TERRANET_DATABASE_URL)%'
             invoices:
@@ -28,10 +27,9 @@ doctrine:
 
             sodetel:
                 url: '%env(resolve:SODETEL_DATABASE_URL)%'
-=======
             gift2games:
                 url: '%env(resolve:GIFT2GAMES_DATABASE_URL)%'
->>>>>>> f68d3e41 (template dummy)
+
         default_connection: default
         # charset: UTF8
         # logging: true

@@ -23,13 +23,8 @@ use PDO;
  * @method Order[]    findAll()
  * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class Gift2GamesOrdersRepository extends ServiceEntityRepository
+class Gift2GamesOrdersRepository extends EntityRepository
 {
-
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Order::class);
-    }
 
 
     public function insertOrder($order)
