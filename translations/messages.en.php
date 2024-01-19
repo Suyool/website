@@ -418,14 +418,14 @@ return [
 
     //ecm
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ECM" => "What are the benefits for ECM employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are an ECM employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an ECM employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_ECM" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_ECM" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ECM" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a ECM employee.",
 
     //fig
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Freim Industrial Group employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIG" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Freim Industrial Group employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIG" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of their monthly salary as long as they are a Freim Industrial Group employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_FIG" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_FIG" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_FIG" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Freim Industrial Group employee.",
