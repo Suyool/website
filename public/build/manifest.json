@@ -1,79 +1,25 @@
 {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
   "build/app1.js": "/build/app1.1dfb62eb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/Alfa.js": "/build/Alfa.a749854c.js",
-  "build/Touch.js": "/build/Touch.598283a4.js",
+  "build/Alfa.js": "/build/Alfa.3474def5.js",
+  "build/Touch.js": "/build/Touch.55616177.js",
   "build/Ogero.js": "/build/Ogero.5c85e96d.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/TerraNet.js": "/build/TerraNet.4a892938.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+  "build/TerraNet.js": "/build/TerraNet.37d18a06.js",
+  "build/Sodetel.js": "/build/Sodetel.ed2853b9.js",
   "build/styles.css": "/build/styles.48f26c80.css",
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.42e882f1.css",
+  "build/AlfaStyle.css": "/build/AlfaStyle.71258f75.css",
   "build/TouchStyle.css": "/build/TouchStyle.f78eb91d.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.131ea645.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
   "build/runtime.js": "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-=======
-=======
-  "build/app1.js": "/build/app1.js",
-  "build/admin-app.js": "/build/admin-app.js",
-  "build/Loto.js": "/build/Loto.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
-  "build/Alfa.js": "/build/Alfa.js",
-  "build/Touch.js": "/build/Touch.js",
-  "build/Ogero.js": "/build/Ogero.js",
-  "build/iveri.js": "/build/iveri.js",
-  "build/TerraNet.js": "/build/TerraNet.js",
-  "build/Sodetel.js": "/build/Sodetel.js",
-  "build/styles.css": "/build/styles.css",
-  "build/admin.css": "/build/admin.css",
-  "build/Lotostyles.css": "/build/Lotostyles.css",
-  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.css",
-  "build/TouchStyle.css": "/build/TouchStyle.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.css",
-  "build/iveristyles.css": "/build/iveristyles.css",
-  "build/terraNetstyle.css": "/build/terraNetstyle.css",
-  "build/SodetelStyle.css": "/build/SodetelStyle.css",
-  "build/runtime.js": "/build/runtime.js",
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-  "build/app1.js": "/build/app1.1dfb62eb.js",
-  "build/admin-app.js": "/build/admin-app.fd697fc2.js",
-  "build/Loto.js": "/build/Loto.cf7c38de.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.c80b9b87.js",
-  "build/Alfa.js": "/build/Alfa.39aca5bf.js",
-  "build/Touch.js": "/build/Touch.cbb3040b.js",
-  "build/Ogero.js": "/build/Ogero.6cc9251a.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/TerraNet.js": "/build/TerraNet.65c21a2a.js",
-  "build/Sodetel.js": "/build/Sodetel.cfb6a649.js",
-  "build/styles.css": "/build/styles.88f2f374.css",
-  "build/admin.css": "/build/admin.1ee767bc.css",
-  "build/Lotostyles.css": "/build/Lotostyles.bc220b4c.css",
-  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.99ef5dda.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.e72834a7.css",
-  "build/TouchStyle.css": "/build/TouchStyle.0a61bc4c.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.301fc34f.css",
-  "build/iveristyles.css": "/build/iveristyles.2de240eb.css",
-  "build/terraNetstyle.css": "/build/terraNetstyle.045b70e4.css",
-  "build/SodetelStyle.css": "/build/SodetelStyle.d9acc988.css",
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",
@@ -329,44 +275,15 @@
   "build/images/alfa/Bundle1h.png": "/build/images/alfa/Bundle1h.png",
   "build/images/meta-image-website.png": "/build/images/meta-image-website.png",
   "build/images/payroll/indevcoTablet-min.png": "/build/images/payroll/indevcoTablet-min.png",
-<<<<<<< HEAD
   "build/images/Touch/Bundle90h.png": "/build/images/Touch/Bundle90h.png",
   "build/images/Touch/Bundle60h.png": "/build/images/Touch/Bundle60h.png",
   "build/images/ma-tbank/ma-tBank-card-metaimage-min.png": "/build/images/ma-tbank/ma-tBank-card-metaimage-min.png",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/images/Touch/Bundle90h.png": "/build/images/Touch/Bundle90h.png",
-  "build/images/Touch/Bundle60h.png": "/build/images/Touch/Bundle60h.png",
-  "build/images/ma-tbank/ma-tBank-card-metaimage-min.png": "/build/images/ma-tbank/ma-tBank-card-metaimage-min.png",
-=======
-  "build/images/touch/Bundle90h.png": "/build/images/touch/Bundle90h.png",
-  "build/images/touch/Bundle60h.png": "/build/images/touch/Bundle60h.png",
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-  "build/images/Touch/Bundle90h.png": "/build/images/Touch/Bundle90h.png",
-  "build/images/Touch/Bundle60h.png": "/build/images/Touch/Bundle60h.png",
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
   "build/images/alfa/Bundle32h.png": "/build/images/alfa/Bundle32h.png",
   "build/images/alfa/Bundle13.png": "/build/images/alfa/Bundle13.png",
   "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
   "build/images/mobile_top_section.png": "/build/images/mobile_top_section.78de921e.png",
-<<<<<<< HEAD
   "build/images/ma-tbank/ma-tBank-metaimage2-min.png": "/build/images/ma-tbank/ma-tBank-metaimage2-min.png",
   "build/images/Touch/Bundle30h.png": "/build/images/Touch/Bundle30h.png",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/images/ma-tbank/ma-tBank-metaimage2-min.png": "/build/images/ma-tbank/ma-tBank-metaimage2-min.png",
-  "build/images/Touch/Bundle30h.png": "/build/images/Touch/Bundle30h.png",
-=======
-  "build/images/touch/Bundle30h.png": "/build/images/touch/Bundle30h.png",
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-  "build/images/Touch/Bundle30h.png": "/build/images/Touch/Bundle30h.png",
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
   "build/images/alfa/Bundle65.png": "/build/images/alfa/Bundle65.png",
   "build/images/alfa_employee/merchants.png": "/build/images/alfa_employee/merchants.png",
   "build/images/platinumMastercard/top-section-visa-mob.png": "/build/images/platinumMastercard/top-section-visa-mob.png",
