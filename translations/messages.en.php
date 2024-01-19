@@ -69,10 +69,10 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_ALFA" => "Where can I withdraw my salary in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_ALFA" => "You can withdraw your salary from more than 700 BOB finance cash points.",
 
-    "REQUEST_MONEY_FROM_ANYONE_WITH_A_LEBANESE_NUMBER"=>"Request money from anyone with a Lebanese number",
-    "ALL_YOU_NEED_IS_THEIRE_PHONE_NUMBER_TO_REQUEST_MENEY"=>"All you need is their phone number to request money.",
-    "IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED"=>"If they are a Suyool user they will be notified instantly via notification.",
-    "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION"=>"If they don't have an account, they will have 3 options to pay you: Open a Suyool account, deposit the amount at BOB Finance using a code generated, or settle the amount via card payment",
+    "REQUEST_MONEY_FROM_ANYONE_WITH_A_LEBANESE_NUMBER" => "Request money from anyone with a Lebanese number",
+    "ALL_YOU_NEED_IS_THEIRE_PHONE_NUMBER_TO_REQUEST_MENEY" => "All you need is their phone number to request money.",
+    "IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED" => "If they are a Suyool user they will be notified instantly via notification.",
+    "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION" => "If they don't have an account, they will have 3 options to pay you: Open a Suyool account, deposit the amount at BOB Finance using a code generated, or settle the amount via card payment",
 
     //usj
     "USJ_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, USJ is bringing your pay to the ultimate digital account: the first secure and independent Lebanese online platform!",
@@ -347,15 +347,15 @@ return [
     "SENDING_MONEY_TO_A_SUYOOL_FREE" => "Sending money to a Suyool user is FREE! If not, fees apply.",
 
     "HOW_CAN_I_SEND_MONEY_WITH_SUYOOL" => "How can I send money with Suyool?",
-    "SUYOOL_USER_CAN_TRANSFER"=>"Suyool users can transfer money to any Lebanese mobile number. All they need to do is :<br> Tap on “Use My Money”.<br>  Tap on “Send Money”. <br> Insert the name of the contact they are sending the money to, or their phone number.<br>  Choose the currency (USD or LBP).<br>  Add the amount.<br>  Tap on “Confirm & Pay”. <br> Their money is sent successfully!",
-    "CAN_I_SEND_MONEY_TO_A_NON"=> "Can I send money to a non Suyool user?",
-    "YOU_CAN_SEND_MONEU_TO_ANY"=>"You can send money to any Lebanese mobile number.<br>  If they’re a Suyool user, they’ll receive the amount instantly on the app.<br>  If they’re not, they’ll receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash.",
-    "IS_THERE_A_FEE_FOR_TRANSFERRING"=>"Is there a fee for transferring money in Suyool?",
-    "TRANSFERRING_MONEY_THROUGH_SUYOOL"=>"Transferring money through Suyool to any Lebanese number is free of charge.",
-    "CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT"=>"Can I send money to a person without exchanging my personal details with them?",
-    "YES_YOU_CAN_SEND_MONEY"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
-    "WHAT_DO_ID_DO_IF_I"=>"What do I do if I sent money to the wrong number?",
-    "WEVE_ADDED_EXTRA_SECURITY"=> "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
+    "SUYOOL_USER_CAN_TRANSFER" => "Suyool users can transfer money to any Lebanese mobile number. All they need to do is :<br> Tap on “Use My Money”.<br>  Tap on “Send Money”. <br> Insert the name of the contact they are sending the money to, or their phone number.<br>  Choose the currency (USD or LBP).<br>  Add the amount.<br>  Tap on “Confirm & Pay”. <br> Their money is sent successfully!",
+    "CAN_I_SEND_MONEY_TO_A_NON" => "Can I send money to a non Suyool user?",
+    "YOU_CAN_SEND_MONEU_TO_ANY" => "You can send money to any Lebanese mobile number.<br>  If they’re a Suyool user, they’ll receive the amount instantly on the app.<br>  If they’re not, they’ll receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash.",
+    "IS_THERE_A_FEE_FOR_TRANSFERRING" => "Is there a fee for transferring money in Suyool?",
+    "TRANSFERRING_MONEY_THROUGH_SUYOOL" => "Transferring money through Suyool to any Lebanese number is free of charge.",
+    "CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT" => "Can I send money to a person without exchanging my personal details with them?",
+    "YES_YOU_CAN_SEND_MONEY" => "Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
+    "WHAT_DO_ID_DO_IF_I" => "What do I do if I sent money to the wrong number?",
+    "WEVE_ADDED_EXTRA_SECURITY" => "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
     //visa
     //Send Receive Money
     "SEND_RECEIVE_MOENY_TITLE" => "Send money instantly <br> to any Lebanese number",
@@ -368,15 +368,15 @@ return [
     "SENDING_MONEY_TO_A_SUYOOL_FREE" => "Sending money to a Suyool user is FREE! If not, fees apply.",
 
     "HOW_CAN_I_SEND_MONEY_WITH_SUYOOL" => "How can I send money with Suyool?",
-    "SUYOOL_USER_CAN_TRANSFER"=>"Suyool users can transfer money to any Lebanese mobile number. All they need to do is :<br> Tap on “Use My Money”.<br>  Tap on “Send Money”. <br> Insert the name of the contact they are sending the money to, or their phone number.<br>  Choose the currency (USD or LBP).<br>  Add the amount.<br>  Tap on “Confirm & Pay”. <br> Their money is sent successfully!",
-    "CAN_I_SEND_MONEY_TO_A_NON"=> "Can I send money to a non Suyool user?",
-    "YOU_CAN_SEND_MONEU_TO_ANY"=>"You can send money to any Lebanese mobile number.<br>  If they’re a Suyool user, they’ll receive the amount instantly on the app.<br>  If they’re not, they’ll receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash.",
-    "IS_THERE_A_FEE_FOR_TRANSFERRING"=>"Is there a fee for transferring money in Suyool?",
-    "TRANSFERRING_MONEY_THROUGH_SUYOOL"=>"Transferring money through Suyool to any Lebanese number is free of charge.",
-    "CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT"=>"Can I send money to a person without exchanging my personal details with them?",
-    "YES_YOU_CAN_SEND_MONEY"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
-    "WHAT_DO_ID_DO_IF_I"=>"What do I do if I sent money to the wrong number?",
-    "WEVE_ADDED_EXTRA_SECURITY"=> "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
+    "SUYOOL_USER_CAN_TRANSFER" => "Suyool users can transfer money to any Lebanese mobile number. All they need to do is :<br> Tap on “Use My Money”.<br>  Tap on “Send Money”. <br> Insert the name of the contact they are sending the money to, or their phone number.<br>  Choose the currency (USD or LBP).<br>  Add the amount.<br>  Tap on “Confirm & Pay”. <br> Their money is sent successfully!",
+    "CAN_I_SEND_MONEY_TO_A_NON" => "Can I send money to a non Suyool user?",
+    "YOU_CAN_SEND_MONEU_TO_ANY" => "You can send money to any Lebanese mobile number.<br>  If they’re a Suyool user, they’ll receive the amount instantly on the app.<br>  If they’re not, they’ll receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash.",
+    "IS_THERE_A_FEE_FOR_TRANSFERRING" => "Is there a fee for transferring money in Suyool?",
+    "TRANSFERRING_MONEY_THROUGH_SUYOOL" => "Transferring money through Suyool to any Lebanese number is free of charge.",
+    "CAN_I_SEND_MONEY_TO_A_PERSON_WITHOUT" => "Can I send money to a person without exchanging my personal details with them?",
+    "YES_YOU_CAN_SEND_MONEY" => "Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details.",
+    "WHAT_DO_ID_DO_IF_I" => "What do I do if I sent money to the wrong number?",
+    "WEVE_ADDED_EXTRA_SECURITY" => "We’ve added extra security. If the recipient’s number isn’t in your contacts, you’ll need to enter it again before sending the money. Once the transfer is done, you can’t undo it unless the recipient sends the money back.",
 
     //medco-payroll
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDCOPAYROLL" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Medco employee.",
@@ -391,35 +391,42 @@ return [
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_PAYROLL" => "Is there a fee for obtaining the Suyool Visa Platinum debit card?",
 
     //debbas
-     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBAS"=>"What are the benefits for Debbas employees?",
-     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DEBBAS" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Debbas employee.",
-     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_DEBBAS" => "Where can I withdraw my payroll in cash?",
-     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_DEBBAS" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBAS"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbas employee.",
-    
-     //INDEVCO
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INDEVCO"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Indevco employee.",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INDEVCO"=>"They will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are an Indevco employee.",
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INDEVCO"=>"What are the benefits for Indevco employees?",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBAS" => "What are the benefits for Debbas employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DEBBAS" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Debbas employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_DEBBAS" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_DEBBAS" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBAS" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbas employee.",
+
+    //INDEVCO
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INDEVCO" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Indevco employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INDEVCO" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are an Indevco employee.",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INDEVCO" => "What are the benefits for Indevco employees?",
 
     //debbane
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBANE"=>"What are the benefits for Debbane Saikali Group employees?",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_DEBBANE" => "What are the benefits for Debbane Saikali Group employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_DEBBANE" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Debbane Saikali Group employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_DEBBANE" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_DEBBANE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBANE"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbane Saikali Group employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_DEBBANE" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Debbane Saikali Group employee.",
 
     //mikesport
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MIKESPORT"=>"What are the benefits for Mike Sport employees?",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MIKESPORT" => "What are the benefits for Mike Sport employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MIKESPORT" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are a Mike Sport employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MIKESPORT" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MIKESPORT" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIKESPORT"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Mike Sport employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIKESPORT" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Mike Sport employee.",
 
     //ecm
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ECM"=>"What are the benefits for ECM employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are a ECM employee.",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ECM" => "What are the benefits for ECM employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are an ECM employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_ECM" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_ECM" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ECM"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a ECM employee.",
-    ];
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ECM" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a ECM employee.",
+
+    //fig
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Freim Industrial Group employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIG" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a Freim Industrial Group employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_FIG" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_FIG" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_FIG" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Freim Industrial Group employee.",
+];

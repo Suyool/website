@@ -1,0 +1,39 @@
+<div class="topSectionMedcoPayrollEmp">
+    {# <img src="{{ asset('build/images/payroll/logo-indevco.png')}}"/> #}
+    <div class="desktopMode"><img src="{{ asset('build/images/payroll/figDesk.png') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/payroll/figTablet.png') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/payroll/figMobile.png') }}"></div>
+    <div class="container">
+        <div class="information">
+            <div class="title">
+                Freim Industrial Group Is Bringing Your Pay To The Ultimate Digital Account!
+            </div>
+            <div class="desc">
+                {# You now have the option to  receive your payroll on Suyool! Suyool’s payroll system isn't just about receiving your pay—it's a gateway to your own digital dual-currency account, a Visa Platinum debit card, and the best rates for your financial transactions.  #}
+            Facing today’s financial challenges, we moved our payroll to Suyool.<br>
+            You will get your own digital dual-currency account, a complete payment tool and a complementary Visa Platinum card linked to the account.
+            </div>
+            <div class="OpenSuyoolAccount">
+                <div class="desktopMode">
+                    <button class="OpenYourSuyoolAccount" data-bs-toggle="modal" data-bs-target="#DownloadApp">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        {{ 'OPEN_YOUR_SUYOOL_ACCOUNT'|trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{# {% include 'medco-payroll/infoSection.html.twig' %} #}
+    {% include 'medco-payroll/whyChooseSuyool.html.twig' %}
