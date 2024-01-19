@@ -7,9 +7,12 @@
             <button type="button" class="btn button-primary btn-type-{{type}}" onclick="window.location.href='/legal_enrollment'">Apply as Corporate</button>
         </div>
     {% else %}
-        <h4 class="waiting">{{ 'WHAT_ARE_YOU_WAITING_FOR' | trans}}</h4>
-        <h3 class="get-suyool-1">{{ 'SCAN_DOWNLOAD' | trans}}</h3>
-        <div class="buttons-cont text-center mb-5">
+        <div class="three-titles">
+            <div class="title-one">{{ 'WHAT_ARE_YOU_WAITING_FOR' | trans}}</div>
+            <div class="title-two">{{ 'SCAN_DOWNLOAD' | trans}}</div>
+        </div>
+
+        <div class="buttons-cont text-center my-5">
             <button id="openSuyoolAccount" class="btn button-primary mr-5 desktop" data-bs-toggle="modal" data-bs-target="#DownloadApp">{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}</button>
             <button id="openSuyoolAccount" class="btn button-primary mr-5 OpenYourSuyoolAccount">{{'OPEN_YOUR_SUYOOL_ACCOUNT'|trans}}</button>
         </div>

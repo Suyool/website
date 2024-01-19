@@ -6,6 +6,8 @@ $Italic: PoppinsItalic;
 
 $grey: rgb(69, 72, 69);
 
+$InterRegular: InterRegular;
+
 @font-face {
     font-family: PoppinsBold;
     src: url('../../../fonts/Poppins-Bold.ttf');
@@ -31,4 +33,9 @@ $grey: rgb(69, 72, 69);
 @font-face {
     font-family: PoppinsItalic;
     src: url('../../../fonts/Poppins-Italic.ttf');
+}
+
+@font-face {
+    font-family: InterRegular;
+    src: url('../../../fonts/Inter-Regular.ttf');
 }

@@ -19,10 +19,16 @@
 
 .title-three {
   color: $grey;
-  font-size: 17px;
-  font-family: "OpenSansRegular";
+  font-size: 18px;
+  //font-family: "OpenSansRegular";
+  font-family: $InterRegular;
   max-width: 60%;
   margin: 25px auto 50px auto;
+}
+@media (max-width: 768px) {
+    .title-three {
+       max-width: 95%;
+    }
 }
 
 

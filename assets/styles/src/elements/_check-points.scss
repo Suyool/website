@@ -3,7 +3,7 @@
   margin: auto;
 
   .title {
-    color: #374A5A;
+    color: #202020;
     font-size: 35px !important;
     font-family: $Regular;
     margin-bottom: 30px;
@@ -11,8 +11,8 @@
 
   .sub-title {
     margin: 20px 0 70px 0 !important;
-    font-size: 17px;
-    font-family: "OpenSansRegular";
+    font-size: 18px;
+    font-family: $InterRegular;
   }
 
   .text {
@@ -28,8 +28,8 @@
 
   .check {
     display: flex;
-    font-size: 15px;
-    font-family: "OpenSansRegular";
+    font-size: 18px;
+    font-family: $InterRegular;
 
     img {
       margin-right: 20px;
@@ -40,7 +40,6 @@
 
 @media (max-width: 768px) {
   .card-desc {
-    padding-left: 10%;
     width: 95%;
 
     .main_title {
@@ -48,7 +47,6 @@
     }
 
     .title {
-      color: #374a5a;;
       margin-bottom: 25px;
     }
 

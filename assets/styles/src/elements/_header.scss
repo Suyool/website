@@ -30,6 +30,23 @@ nav {
     .tabletMode {
       span{
         padding: 10px 16px;
+
+        a {
+          font-size: 14px;
+        }
+        img{
+          padding-right: 5px;
+        }
+      }
+
+    }
+
+    .tabletmobileMode{
+      span{
+        padding: 6px 10px;
+        a {
+          font-size: 14px;
+        }
         img{
           padding-right: 5px;
         }
@@ -45,9 +62,12 @@ nav {
       margin-left: 10px;
     }
 
-    span:hover{
-      opacity: 0.7;
+    @media(min-width: 768px){
+      span:hover{
+        opacity: 0.7;
+      }
     }
+
   }
 
   font-family: $Regular;

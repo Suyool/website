@@ -65,7 +65,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.5accaf8f.css"
+        "/build/styles.1e0cecc5.css"
       ]
     },
     "admin": {
@@ -73,7 +73,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.1ee767bc.css"
+        "/build/admin.8fb78dae.css"
       ]
     },
     "Lotostyles": {
@@ -81,7 +81,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.bc220b4c.css"
+        "/build/Lotostyles.171d8ead.css"
       ]
     },
     "LegalEnrollementStyle": {
@@ -89,7 +89,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.99ef5dda.css"
+        "/build/LegalEnrollementStyle.9aa10a31.css"
       ]
     },
     "AlfaStyle": {
@@ -97,7 +97,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.8151d074.css"
+        "/build/AlfaStyle.42e882f1.css"
       ]
     },
     "TouchStyle": {
@@ -105,7 +105,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.0a61bc4c.css"
+        "/build/TouchStyle.f78eb91d.css"
       ]
     },
     "OgeroStyle": {
@@ -113,7 +113,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.301fc34f.css"
+        "/build/OgeroStyle.131ea645.css"
       ]
     },
     "iveristyles": {
@@ -121,7 +121,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/iveristyles.2de240eb.css"
+        "/build/iveristyles.382777e8.css"
       ]
     },
     "terraNetstyle": {
@@ -129,7 +129,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/terraNetstyle.045b70e4.css"
+        "/build/terraNetstyle.4d489fae.css"
       ]
     },
     "SodetelStyle": {
@@ -137,7 +137,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SodetelStyle.d9acc988.css"
+        "/build/SodetelStyle.d2e21a6e.css"
       ]
     }
   }
