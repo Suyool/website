@@ -424,9 +424,9 @@ return [
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ECM" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a ECM employee.",
 
     //fig
-    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Freim Industrial Group employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIG" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of their monthly salary as long as they are a Freim Industrial Group employee.",
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Frem Industrial Group employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIG" => "They will benefit from a free Visa Platinum debit card & free cash withdrawal of their monthly salary as long as they are a Frem Industrial Group employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_FIG" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_FIG" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_FIG" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Freim Industrial Group employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_FIG" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Frem Industrial Group employee.",
 ];
