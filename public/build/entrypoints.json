@@ -14,142 +14,32 @@
     },
     "Loto": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
         "/build/Loto.ecf58fd2.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.ecf58fd2.js"
-=======
-        "/build/runtime.js",
-        "/build/Loto.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.cf7c38de.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "LegalEnrollement": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
         "/build/LegalEnrollement.2acf5642.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.2acf5642.js"
-=======
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.c80b9b87.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "Alfa": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.a749854c.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Alfa.446d6a68.js"
-=======
-        "/build/runtime.js",
-        "/build/Alfa.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Alfa.38115858.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
-<<<<<<< HEAD
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
-=======
-=======
-        "/build/Alfa.8d4794e3.js"
->>>>>>> da4c9212 (alfa postpaid on corporate)
-<<<<<<< HEAD
->>>>>>> a27daf4d (alfa postpaid on corporate)
-=======
-=======
-        "/build/Alfa.07389ad8.js"
->>>>>>> 697741c3 (alfa prepaid on corporate)
-<<<<<<< HEAD
->>>>>>> a129dc0f (alfa prepaid on corporate)
-=======
-=======
-        "/build/Alfa.6cddbcd0.js"
->>>>>>> 43c3b98b (touch on corporate)
-<<<<<<< HEAD
->>>>>>> c7fec90b (touch on corporate)
-=======
-=======
-        "/build/Alfa.39aca5bf.js"
->>>>>>> 8f5e3f64 (sodetel corporate)
->>>>>>> 659df818 (sodetel corporate)
+        "/build/Alfa.3474def5.js"
       ]
     },
     "Touch": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.598283a4.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.598283a4.js"
-=======
-        "/build/runtime.js",
-        "/build/Touch.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Touch.b99ea282.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
-<<<<<<< HEAD
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
-=======
-=======
-        "/build/Touch.cbb3040b.js"
->>>>>>> 43c3b98b (touch on corporate)
->>>>>>> c7fec90b (touch on corporate)
+        "/build/Touch.55616177.js"
       ]
     },
     "Ogero": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
         "/build/Ogero.5c85e96d.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.5c85e96d.js"
-=======
-        "/build/runtime.js",
-        "/build/Ogero.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.6cc9251a.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "iveri": {
@@ -161,39 +51,13 @@
     "TerraNet": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/TerraNet.4a892938.js"
-=======
-        "/build/TerraNet.65c21a2a.js"
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
+        "/build/TerraNet.37d18a06.js"
       ]
     },
     "Sodetel": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
-        "/build/Sodetel.7f47d3e3.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-        "/build/Sodetel.73f3d3ba.js"
-=======
-        "/build/runtime.js",
-        "/build/Sodetel.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Sodetel.560fa7ac.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
-<<<<<<< HEAD
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
-=======
-=======
-        "/build/Sodetel.cfb6a649.js"
->>>>>>> 8f5e3f64 (sodetel corporate)
->>>>>>> 659df818 (sodetel corporate)
+        "/build/Sodetel.ed2853b9.js"
       ]
     },
     "styles": {
@@ -201,19 +65,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/styles.48f26c80.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.48f26c80.css"
-=======
-        "/build/styles.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/styles.88f2f374.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "admin": {
@@ -221,19 +73,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/admin.8fb78dae.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/admin.8fb78dae.css"
-=======
-        "/build/admin.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/admin.1ee767bc.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "Lotostyles": {
@@ -241,19 +81,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/Lotostyles.77b15344.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Lotostyles.77b15344.css"
-=======
-        "/build/Lotostyles.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/Lotostyles.bc220b4c.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "LegalEnrollementStyle": {
@@ -261,19 +89,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/LegalEnrollementStyle.65484ccf.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/LegalEnrollementStyle.65484ccf.css"
-=======
-        "/build/LegalEnrollementStyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/LegalEnrollementStyle.99ef5dda.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "AlfaStyle": {
@@ -281,26 +97,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
-        "/build/AlfaStyle.42e882f1.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/AlfaStyle.42e882f1.css"
-=======
-        "/build/AlfaStyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/AlfaStyle.8151d074.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
-<<<<<<< HEAD
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
-=======
-=======
-        "/build/AlfaStyle.e72834a7.css"
->>>>>>> da4c9212 (alfa postpaid on corporate)
->>>>>>> a27daf4d (alfa postpaid on corporate)
+        "/build/AlfaStyle.71258f75.css"
       ]
     },
     "TouchStyle": {
@@ -308,19 +105,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/TouchStyle.f78eb91d.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/TouchStyle.f78eb91d.css"
-=======
-        "/build/TouchStyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/TouchStyle.0a61bc4c.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "OgeroStyle": {
@@ -328,19 +113,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/OgeroStyle.131ea645.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/OgeroStyle.131ea645.css"
-=======
-        "/build/OgeroStyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/OgeroStyle.301fc34f.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "iveristyles": {
@@ -348,19 +121,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/iveristyles.382777e8.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/iveristyles.382777e8.css"
-=======
-        "/build/iveristyles.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/iveristyles.2de240eb.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "terraNetstyle": {
@@ -368,19 +129,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/terraNetstyle.4d489fae.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/terraNetstyle.4d489fae.css"
-=======
-        "/build/terraNetstyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/terraNetstyle.045b70e4.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     },
     "SodetelStyle": {
@@ -388,19 +137,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-<<<<<<< HEAD
         "/build/SodetelStyle.d2e21a6e.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/SodetelStyle.d2e21a6e.css"
-=======
-        "/build/SodetelStyle.css"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/SodetelStyle.d9acc988.css"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
->>>>>>> e8e4ba88 (corporate in webkey and fetch accounts)
       ]
     }
   }

@@ -13,6 +13,11 @@
     {% endblock %}
 </head>
 
+{% set env = app.request.server.get('APP_ENV') %}
+	<script>
+        window.REACT_APP_API_URL = "{{ env }}";
+    </script>
+
 <body class="TerraNet">
 <div id="TerraNet" data-data="{{ parameters|json_encode }}"></div>
 </body>

@@ -6,6 +6,7 @@ const Header = ({
   setActiveButton,
   getHeaderTitle,
   getBackLink,
+  apiUrl
 }) => {
   const handleButtonClick = (getBackLink) => {
     if (activeButton.name == "") {
@@ -13,6 +14,8 @@ const Header = ({
         window.AndroidInterface.callbackHandler("GoToApp");
       } else if (parameters?.deviceType === "Iphone") {
         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
+      }else if(parameters?.deviceType === "CORPORATE"){
+        window.parent.postMessage("default", apiUrl);
       }
     }
     setActiveButton({ name: getBackLink });

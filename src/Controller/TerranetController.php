@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Notification\Users;
 use App\Entity\TerraNet\Order;
 use App\Entity\TerraNet\Product;
 use App\Service\DecryptService;
@@ -25,6 +25,7 @@ class TerranetController extends AbstractController
     private $suyoolServices;
     private $mr;
     private $params;
+    private $not;
 
     public function __construct(TerraNetService $apiService, SessionInterface $sessionInterface, ParameterBagInterface $params, ManagerRegistry $mr)
     {
@@ -32,6 +33,7 @@ class TerranetController extends AbstractController
         $this->session = $sessionInterface;
         $this->suyoolServices = new SuyoolServices($params->get('TERRANET_MERCHANT_ID'));
         $this->mr = $mr->getManager('terranet');
+        $this->not = $mr->getManager('notification');
         $this->params = $params;
     }
 
@@ -47,15 +49,16 @@ class TerranetController extends AbstractController
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $checkIfCorporate = $suyoolUserInfo[1];
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE")) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 //$this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-
+                $parameters['suyoolUserId']=$_POST['infoString'];
                 return $this->render('terranet/index.html.twig', [
                     'parameters' => $parameters
                 ]);
@@ -113,12 +116,16 @@ class TerranetController extends AbstractController
         $requestData = $request->getContent();
         $data = json_decode($requestData, true);
         if (!empty($data)) {
-            $amount = null;
-            $currency = null;
-            $description = null;
-            $productCost = null;
-            $productOriginalHT = null;
-            $suyoolUserId = $this->session->get('suyoolUserId');
+            $amount = $data['productPrice'];
+            $currency = $data['productCurrency'];
+            $description = $data['productDescription'];
+            if (isset($data["suyoolUserId"])) {
+                $webkey = SuyoolServices::decrypt($data["suyoolUserId"]);
+                $suyoolUserInfo = explode("!#!", $webkey);
+                $suyoolUserId = $suyoolUserInfo[0];
+            } else {
+                $suyoolUserId = $this->session->get('suyoolUserId');
+            }
             $PPPLoginName = $this->session->get('PPPLoginName');
             //$PPPLoginName = 'L314240';
             $ProductId = $data['productId'];
@@ -144,6 +151,7 @@ class TerranetController extends AbstractController
                     'message' => 'Product not found',
                 ], 404);
             }
+            $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$suyoolUserId]);
 
             if ($suyoolUserId != null) {
 
@@ -188,8 +196,8 @@ class TerranetController extends AbstractController
                         $IsSuccess = true;
                         $additionalDataArray[] = ['suyoolUserId' => $suyoolUserId];
                         $additionalData = json_encode($additionalDataArray, true);
-
-                        if($data['accountType'] == 'username')
+                        if($suyooler->getType() == 1){
+                            if($data['accountType'] == 'username')
                             $content = $notificationServices->getContent('terranetLandlineRecharged');
                         else
                             $content = $notificationServices->getContent('terranetLandlineRecharged');
@@ -201,7 +209,7 @@ class TerranetController extends AbstractController
                             'type' => $description
                         ]);
                         $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
-
+                        }
                         $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transID);
                         if ($updateUtility) {
                             $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
