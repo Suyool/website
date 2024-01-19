@@ -415,4 +415,11 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MIKESPORT" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MIKESPORT" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIKESPORT"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Mike Sport employee.",
+
+    //ecm
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ECM"=>"What are the benefits for ECM employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are a ECM employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_ECM" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_ECM" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ECM"=>"Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a ECM employee.",
     ];
