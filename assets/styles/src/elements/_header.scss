@@ -27,6 +27,16 @@ nav {
     color: #fff;
     font-family: $Regular;
 
+    .tabletMode {
+      span{
+        padding: 10px 16px;
+        img{
+          padding-right: 5px;
+        }
+      }
+
+    }
+
     span {
       background: #fff;
       color: #287094;
@@ -47,6 +57,12 @@ nav {
   .navbar-brand-blue {
     img {
       width: 85%;
+    }
+
+    @media (max-width: 768px) {
+      img{
+        width: 85px;
+      }
     }
   }
 

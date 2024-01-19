@@ -202,7 +202,7 @@
 
   .stp-top {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 80px;
 
     .stp-top-title {
       color: #373464;
@@ -281,7 +281,7 @@
       border-radius: 3px;
       box-shadow: 0 10px 60px rgba(0, 0, 0, 0.18);
       margin: auto;
-      min-height: 360px;
+      min-height: 300px;
       padding: 20px 5%;
       position: relative;
       display: flex;
@@ -306,7 +306,7 @@
         padding-top: 70px;
         font-size: 17px;
         font-family: "OpenSansRegular";
-        color: #6b6b6b;
+        color: $grey;
         letter-spacing: 0;
       }
     }
@@ -545,8 +545,8 @@
         .description {
           padding-top: 55px;
           font-size: 17px;
-          font-family: $Regular;
-          color: #6b6b6b;
+          font-family: "OpenSansRegular";
+          color: $grey;
           letter-spacing: 0;
           text-align: justify;
         }

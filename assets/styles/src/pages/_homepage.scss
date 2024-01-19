@@ -28,10 +28,12 @@
   }
   .button-primary {
     font-family: PoppinsSemiBold;
+    border: 2px solid #FFFFFF;
   }
   .button-primary:hover {
     color: #fff !important;
     border: 2px solid #fff !important;
+    opacity: 1 !important;
   }
   .top-section {
     background: linear-gradient(90deg,#226d96 6%,#373464 76%);
@@ -202,7 +204,7 @@
       }
 
       .text {
-        font-family: $Regular;
+        font-family: "OpenSansRegular";
         font-size: 17px;
         color: $grey;
         margin-bottom: 30px;
@@ -276,7 +278,7 @@
 
         .text {
           font-size: 17px;
-          font-family: $Regular;
+          font-family: "OpenSansRegular";
           color: $grey;
           padding-left: 72px;
           margin-top: -10px;
@@ -318,6 +320,16 @@
       .blue-btn {
         width: 300px;
         margin-top: 50px;
+        background: #FFFFFF;
+        color: #226d96;
+        border: 2px solid #FFF !important;
+      }
+
+      .blue-btn:hover {
+        background:  #226d96;
+        color: #FFF;
+        border: 2px solid #FFF !important;
+        opacity: 1 !important;
       }
     }
   }

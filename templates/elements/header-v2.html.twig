@@ -1,6 +1,7 @@
 <div class="navbar navbar-expand-lg navbar_v2">
     <a class="navbar-brand" href="/"><img src="{{ asset('build/images/suyool-title-white.png') }}" alt="Suyool"></a>
-    <a class="navbar-brand-blue" style="display: none" href="/"><img src="{{ asset('build/images/suyool-Logo.png') }}" alt="Suyool"></a>
+    <a class="navbar-brand-blue" style="display: none" href="/"><img src="{{ asset('build/images/suyool-Logo.png') }}"
+                                                                     alt="Suyool"></a>
 
     <!-- Desktop Navbar Menu -->
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -13,18 +14,37 @@
             </li>
         </ul>
         {% if visa is not defined %}
-        <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     {% if corporateBTn is defined and corporateBTn is not empty %}
-                        <button id="openSuyoolAccount" type="button" class="btn button-primary" onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
+                        <button id="openSuyoolAccount" type="button" class="btn button-primary"
+                                onclick="window.location.href='/legal_enrollment'">{{ corporateBTn }}</button>
                     {% endif %}
                 </li>
-        </ul>
-                {% endif %}
+            </ul>
+        {% endif %}
     </div>
+
+    {#    visa or homepage #}
+    {% if visa is defined or homepage is defined %}
+        <ul class="navbar-nav ms-auto justify-content-end me-4">
+            <li class="nav-item">
+                <div class="calluson py-2">
+                    <div>
+                        <div class="desktopMode">Available 24/7 on our hotline:<span><a href="tel:+96101290900"><img
+                                            src="{{ asset('build/images/mobile.svg') }}"/> 01 290 900</a></span></div>
+                        <div class="tabletmobileMode"><span><a href="tel:+96101290900"><img
+                                            src="{{ asset('build/images/mobile.svg') }}"/>01 290 900</a></span></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    {% endif %}
+
     {% if visa is not defined %}
-    <!-- Mobile Toggle Button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar" aria-controls="mobileNavbar">
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavbar"
+                aria-controls="mobileNavbar">
         <span class="navbar-toggler-icon">
             <div class="burger-menu">
                 <div class="bar {{ barBgColor }}"></div>
@@ -32,24 +52,15 @@
                 <div class="bar {{ barBgColor }}"></div>
             </div>
         </span>
-    </button>
-{% endif %}
-{#    visa or homepage#}
-{% if visa is defined or homepage is defined %}
-<ul class="navbar-nav ms-auto justify-content-end">
-    <li class="nav-item">
-        <div class="calluson py-2">
-            <div><div class="desktopMode">Available 24/7 on our hotline:<span><a href="tel:+96101290900"><img src="{{asset('build/images/mobile.svg')}}"/> 01 290 900</a></span></div>
-            <div class="tabletmobileMode"><span><a href="tel:+96101290900"><img src="{{asset('build/images/mobile.svg')}}"/>01 290 900</a></span></div></div>
-        </div>
-    </li>
-</ul>
-{% endif %}
+        </button>
+    {% endif %}
+
 
     <!-- Mobile Navigation Drawer -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavbar" aria-labelledby="mobileNavbarLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="mobileNavbarLabel"><img src="{{asset('build/images/suyool-title-white.png')}}"></h5>
+            <h5 class="offcanvas-title" id="mobileNavbarLabel"><img
+                        src="{{ asset('build/images/suyool-title-white.png') }}"></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -65,7 +76,8 @@
                                     <a class="nav-link" href="{{ path('app_visa_card') }}">Visa Platinum Card</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('terms_and_conditions_personal') }}">Terms & Conditions</a>
+                                    <a class="nav-link" href="{{ path('terms_and_conditions_personal') }}">Terms &
+                                        Conditions</a>
                                 </li>
 
                                 <li class="nav-item head">
@@ -87,9 +99,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_contact_us') }}">Contact Us</a>
                                 </li>
-{#                                <li class="nav-item">#}
-{#                                    <a class="nav-link" href="#">About Us</a>#}
-{#                                </li>#}
+                                {#                                <li class="nav-item"> #}
+                                {#                                    <a class="nav-link" href="#">About Us</a> #}
+                                {#                                </li> #}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('app_privacy') }}">Privacy & Policy</a>
                                 </li>
@@ -98,7 +110,9 @@
                                 </li>
 
                                 <li class="nav-item nav-btn-cont">
-                                    <button type="button" class="btn button-primary open-suyool-account">Open Suyool Account</button>
+                                    <button type="button" class="btn button-primary open-suyool-account">Open Suyool
+                                        Account
+                                    </button>
                                 </li>
                             </ul>
                         </div>

@@ -38,42 +38,6 @@
   }
 }
 
-
-@media (min-width: 768px) and (max-width: 1450px) {
-  .card-desc {
-    .title {
-      font-size: 35px;
-      font-family: $Regular;
-      margin-bottom: 15px;
-      line-height: 1.5;
-    }
-
-    .sub-title {
-      margin: 20px 0 40px 0 !important;
-    }
-
-    .text {
-      margin: 10px 0;
-      font-size: 17px;
-
-      span {
-        font-family: $Bold;
-        text-decoration: underline;
-        color: #226D96;
-      }
-    }
-
-    .check {
-      display: flex;
-
-      img {
-        margin-right: 20px;
-        height: 30px;
-      }
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .card-desc {
     padding-left: 10%;
