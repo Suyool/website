@@ -153,6 +153,15 @@ if (document.querySelector(".open-suyool-account")) {
 });
 }
 
+if (document.querySelector(".open-suyool-account-rtp")) {
+  const open_suyool_account = document.querySelectorAll(".open-suyool-account-rtp");
+  open_suyool_account.forEach(function (element) {
+    element.addEventListener("click", function () {
+    clickOne("https://suyoolapp.page.link/app", "", "/");
+  });
+});
+}
+
 if (document.querySelector(".get-the-card")) {
 
   const open_suyool_account = document.querySelectorAll(".get-the-card");

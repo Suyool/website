@@ -115,6 +115,7 @@ a:hover {
   .tabletMode {
     display: block;
   }
+
   .tabletmobileMode {
     display: block;
   }
@@ -127,12 +128,13 @@ a:hover {
 
 
   .desktopMode {
-    display: none!important;
+    display: none !important;
   }
 
   .tabletMode {
     display: none;
   }
+
   .tabletmobileMode {
     display: block;
   }
@@ -222,12 +224,13 @@ a:hover {
     }
   }
 }
+
 .bg-white {
-  background: #fff!important;
+  background: #fff !important;
 }
 
 .bg-blue {
-  background: #226d96!important;
+  background: #226d96 !important;
 }
 
 @media (max-width: 768px) {
@@ -262,10 +265,11 @@ a:hover {
   }
 }
 
-.open-suyool-account, #openSuyoolAccount {
-   width: 250px !important;
-   padding: 10px 0 !important;
-   border-radius: 30px !important;
+.open-suyool-account,
+#openSuyoolAccount {
+  width: 250px !important;
+  padding: 10px 0 !important;
+  border-radius: 30px !important;
   border: none;
 }
 

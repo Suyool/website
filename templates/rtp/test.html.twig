@@ -47,7 +47,7 @@
 				request_details_response.allowAppDownload  != "false" and 
 				request_details_response.allowAppDownload  is not null 
 			%}
-				<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+				<div class="container-fluid choose_way open-suyool-account-rtp" title="Open suyool account">
 					<div class="row">
 						<div class="col-md-3 col-2 logo_container">
 							<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.svg') }}">
@@ -135,7 +135,7 @@
 		and request_details_response.allowAppDownload  is not null %}
 				<div class="title">{{'CHOOSE_HOW_TO_PAY_THEM_RTP'|trans}}{{request_details_response.senderName  | split(' ', 2)[0] }}
 					</div>
-				<div class="container-fluid choose_way open-suyool-account" title="Open suyool account">
+				<div class="container-fluid choose_way open-suyool-account-rtp" title="Open suyool account">
 					<div class="row">
 						<div class="col-2 logo_container">
 							<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}">
