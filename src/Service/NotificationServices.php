@@ -23,21 +23,21 @@ class NotificationServices
     private $logger;
     private $session;
 
-    public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo,SessionInterface $sessionInterface)
+    public function __construct(LoggerInterface $logger, ManagerRegistry $mr, SuyoolServices $suyoolServices, $certificate, $hash_algo, SessionInterface $sessionInterface)
     {
         $this->mr = $mr->getManager('notification');
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->suyoolServices = $suyoolServices;
         $this->logger = $logger;
-        $this->session=$sessionInterface;
+        $this->session = $sessionInterface;
     }
 
     public function GetuserDetails($userid)
     {
         try {
-            $userDetails= $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
-            return array($userDetails->getfname(),$userDetails->getlname());
+            $userDetails = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $userid]);
+            return array($userDetails->getfname(), $userDetails->getlname());
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
         }
@@ -56,18 +56,20 @@ class NotificationServices
 
                 $user = new Users;
                 $user
-                    ->setsuyoolUserId($userid)
-                    ->setfname($suyoolUser["FirstName"])
-                    ->setlname($suyoolUser["LastName"])
-                    ->setlang($suyoolUser["LanguageID"])
-                    ->setMobileNo($suyoolUser['MobileNo']);
+                    ->setsuyoolUserId($suyoolUser["AccountID"])
+                    ->setfname(@$suyoolUser["FirstName"])
+                    ->setlname(@$suyoolUser["LastName"])
+                    ->setMobileNo(@$suyoolUser['MobileNo'])
+                    ->setlang(@$suyoolUser["LanguageID"])
+                    ->settype($suyoolUser['Type'])
+                    ->setCompanyName(@$suyoolUser['CompanyName']);
                 $this->mr->persist($user);
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
-                $this->session->set('mobileNo',$suyoolUser['MobileNo']);
+                $this->session->set('mobileNo', $suyoolUser['MobileNo']);
             } else {
                 $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
-                $this->session->set('mobileNo',$singleUser->getMobileNo());
+                $this->session->set('mobileNo', $singleUser->getMobileNo());
             }
             return true;
         } catch (Exception $e) {
@@ -84,7 +86,7 @@ class NotificationServices
             $$field = $value;
         }
         if (isset($amount) && isset($currency)) {
-            $currency == "$" ? $amount = number_format($amount,2) : $amount = number_format($amount);
+            $currency == "$" ? $amount = number_format($amount, 2) : $amount = number_format($amount);
         }
         if (isset($numgrids)) {
             if ($numgrids > 1) {

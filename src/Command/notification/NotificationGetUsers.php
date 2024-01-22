@@ -35,29 +35,29 @@ class NotificationGetUsers extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $ChannelID = 20;
-        // $suyoolUsers = $this->suyoolServices->GetAllUsers($ChannelID, $this->hash_algo, $this->certificate);
-        $suyoolUsers = [
-            "data" => [
-                "users"=>[
-                    "AccountID" => 20,
-                    "FirstName" => "Geo",
-                    "LastName" => "Ass",
-                    "MobileNo" => "0",
-                    "LanguageID" => 1,
-                    "type"=>1
-                ],
-                "legal"=>[
-                    "AccountID" => 21,
-                    "CompanyName" => "Suyool",
-                    "type"=>3
-                ],
-                "merchants"=>[
-                    "AccountID" => 22,
-                    "CompanyName" => "LOTO",
-                    "type"=>5
-                ]
-            ],
-        ];
+        $suyoolUsers = $this->suyoolServices->GetAllUsers($ChannelID, $this->hash_algo, $this->certificate);
+        // $suyoolUsers = [
+        //     "data" => [
+        //         "users"=>[
+        //             "AccountID" => 20,
+        //             "FirstName" => "Geo",
+        //             "LastName" => "Ass",
+        //             "MobileNo" => "0",
+        //             "LanguageID" => 1,
+        //             "type"=>1
+        //         ],
+        //         "legal"=>[
+        //             "AccountID" => 21,
+        //             "CompanyName" => "Suyool",
+        //             "type"=>3
+        //         ],
+        //         "merchants"=>[
+        //             "AccountID" => 22,
+        //             "CompanyName" => "LOTO",
+        //             "type"=>5
+        //         ]
+        //     ],
+        // ];
         
         // Convert the array to JSON for printing or further use
         // dd($suyoolUsers);
@@ -79,7 +79,7 @@ class NotificationGetUsers extends Command
                         ->setlname(@$item["LastName"])
                         ->setMobileNo(@$item['MobileNo'])
                         ->setlang(@$item["LanguageID"])
-                        ->settype($item['type'])
+                        ->settype($item['Type'])
                         ->setCompanyName(@$item['CompanyName']);
     
                     $this->mr->persist($user);

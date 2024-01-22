@@ -550,7 +550,7 @@ class TouchController extends AbstractController
                         'expiry' => $formattedDate
                     ]);
                     $additionalData = "*14*" . "112233445566" . "#";
-                    if($suyooler->getType() == 1){
+                    if($suyooler->getType() == 2){
                     // $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
                     $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                     $bulk = 0; //1 for broadcast 0 for unicast

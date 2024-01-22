@@ -196,7 +196,7 @@ class TerranetController extends AbstractController
                         $IsSuccess = true;
                         $additionalDataArray[] = ['suyoolUserId' => $suyoolUserId];
                         $additionalData = json_encode($additionalDataArray, true);
-                        if($suyooler->getType() == 1){
+                        if($suyooler->getType() == 2){
                             if($data['accountType'] == 'username')
                             $content = $notificationServices->getContent('terranetLandlineRecharged');
                         else

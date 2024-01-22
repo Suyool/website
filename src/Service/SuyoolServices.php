@@ -95,7 +95,7 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
-                'userAccountID' => $SuyoolUserId,
+                'masterAccountID' => $SuyoolUserId,
                 "merchantAccountID" => $this->merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
@@ -176,7 +176,7 @@ class SuyoolServices
     {
         $Hash = base64_encode(hash($this->hash_algo, $channelID . $this->certificate, true));
         // dd($Hash);
-        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}User/GetAllUsers", [
+        $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MasterAccount/GetAllMasterAccounts", [
             'body'=>'"'.$Hash.'"',
             'headers' => [
                 'Content-Type' => 'application/json'
@@ -196,10 +196,11 @@ class SuyoolServices
     {
         $Hash = base64_encode(hash($this->hash_algo, $userId . $this->certificate, true));
         $body = [
-            'userAccountID' => $userId,
+            'accountID' => $userId,
             "secureHash" => $Hash,
         ];
-        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}User/GetUser",  $body);
+        
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}MasterAccount/GetMasterAccount",  $body);
 
 
         $status = $response->getStatusCode(); // Get the status code
