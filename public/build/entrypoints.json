@@ -21,7 +21,7 @@
     "LegalEnrollement": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.c80b9b87.js"
+        "/build/LegalEnrollement.2faf01f0.js"
       ]
     },
     "Alfa": {
@@ -65,7 +65,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.1e0cecc5.css"
+        "/build/styles.dd97f974.css"
       ]
     },
     "admin": {

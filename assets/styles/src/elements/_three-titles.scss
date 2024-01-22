@@ -25,6 +25,25 @@
   max-width: 60%;
   margin: 25px auto 50px auto;
 }
+
+.shadda-cont{
+  display: flex;
+  justify-content: center;
+
+  .shadda, .kasra {
+    position: relative;
+  }
+  .shadda {
+    top: -5px;
+    right: 35px;
+  }
+
+  .kasra {
+    top: -24px;
+    right: 34px;
+  }
+}
+
 @media (max-width: 768px) {
     .title-three {
        max-width: 95%;
