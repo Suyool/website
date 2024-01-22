@@ -76,7 +76,7 @@ const MyBundle = ({
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
             setSerialToClipboard(
-              "*14*" + response?.data?.data?.voucherCode + "#"
+                response?.data?.data?.data?.serialCode
             );
           } else {
             if (
@@ -179,7 +179,32 @@ const MyBundle = ({
                 You have successfully purchased the {getPrepaidVoucher.title} at $
                 {getPrepaidVoucher.price}.
               </div>
+              <div className="br"></div>
 
+              <div className="copyTitle">To recharge your Voucher: </div>
+              <div className="copyDesc">
+                Copy the secret serial code below
+              </div>
+
+              <button className="copySerialBtn" onClick={copyToClipboard}>
+                <div></div>
+                <div className="serial">{getSerialToClipboard}</div>
+                <img
+                    className="copySerial"
+                    src="/build/images/alfa/copySerial.png"
+                    alt="copySerial"
+                />
+              </button>
+
+              <button
+                  id="ContinueBtn"
+                  className="mt-3"
+                  onClick={() => {
+                    handleShare(getSerialToClipboard);
+                  }}
+              >
+                Share Code
+              </button>
             </div>
           </div>
         </>

@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 class Gift2GamesController extends AbstractController
 {
@@ -48,7 +49,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -58,7 +59,7 @@ class Gift2GamesController extends AbstractController
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                $this->session->set('suyoolUserId', 155);
+//                $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
@@ -168,7 +169,7 @@ class Gift2GamesController extends AbstractController
             $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $data['currency']);
             $checkBalance = json_decode($checkBalance->getContent(), true);
             $checkBalance = $checkBalance['response'];
-
+//            $checkBalance =array(true,123123,1);
             $transactionID = $checkBalance[1];
             if ($checkBalance[0]) {
                 //set order status to held
@@ -180,20 +181,29 @@ class Gift2GamesController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
                 $purchase = $this->Purchase($data['productId'], $transactionID, $order->getId());
-
+                $purchaseData =-1;
                 if ($purchase == true) {
                     $IsSuccess = true;
-                    $additionalDataArray[] = [];
-                    $additionalData = json_encode($additionalDataArray, true);
-                     $content = $this->notificationServices->getContent('terranetLandlineRecharged');
+
+                    $content = $this->notificationServices->getContent('terranetLandlineRecharged');
+                    $purchaseData = json_decode($purchase['data'],true);
+
+                    $dateString = $purchaseData['data']['serialExpiryDate'];
+                    $dateTime = DateTime::createFromFormat('U', $dateString);
+                    $formattedDate = $dateTime->format('d/m/Y');
 
                     $bulk = 0;
                     $params = json_encode([
                         'amount' => $amount,
                         'userAccount' => '',
-                        'type' => $description
+                        'type' => $description,
+                        'code' => $purchaseData['data']['serialCode'],
+                        'serial'=>$purchaseData['data']['serialNumber'],
+                        'expiry'=>$formattedDate
                     ]);
-                   $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, '');
+                    $additionalData =  $purchaseData['data']['serialCode'] ;
+
+                    $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
                     $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
                     if ($updateUtility) {
@@ -262,6 +272,7 @@ class Gift2GamesController extends AbstractController
             'message' => $message,
             'IsSuccess' => $IsSuccess,
             'flagCode' => $flagCode,
+            'data' => $purchaseData,
         ], 200);
 
     }
