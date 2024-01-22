@@ -55,6 +55,9 @@ class AlfaController extends AbstractController
         // $_POST['infoString'] = "OW+X/VaTl6ZLqckgkMu0manuT24WRqBkhl9JX+gM61I1Pf0k06OAo/yvvVDYYX81";
 
         if (isset($_POST['infoString'])) {
+            if(isset($_POST['getUsersToReceiveNotification'])){
+                $parameters['getUsersToReceiveNotification'] = $_POST['getUsersToReceiveNotification'];
+            }
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
@@ -344,6 +347,10 @@ class AlfaController extends AbstractController
                         $content = $notificationServices->getContent('AcceptedAlfaPayment');
                         $bulk = 0; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                    }else{
+                        $content = $notificationServices->getContent('AcceptedAlfaPayment');
+                        $bulk = 1; //1 for broadcast 0 for unicast
+                        $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
                     }
                     $updateUtilitiesAdditionalData = json_encode([
                         'Fees' => $Postpaid_With_id->getfees(),

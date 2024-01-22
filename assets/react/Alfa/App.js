@@ -144,6 +144,7 @@ const App = ({ parameters }) => {
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
                 params={params}
+                apiUrl={apiUrl}
               />
             )}
             {activeButton.name === "MyBundle" && (
@@ -184,6 +185,7 @@ const App = ({ parameters }) => {
           parameters={parameters}
           getErrorModal={getErrorModal}
           show={modalShow}
+          apiUrl={apiUrl}
           onHide={() => {
             setModalShow(false);
             setModalName("");
