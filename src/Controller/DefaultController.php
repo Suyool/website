@@ -55,7 +55,7 @@ class DefaultController extends AbstractController
         $parameters = [
             'title' => $title,
             'desc' => $desc,
-            'metaimage' => 'build/images/meta-image-website2.png',
+            'metaimage' => 'build/images/meta-image-website3.png',
             'descmeta' => $desc,
             'barBgColor' => 'barWhite',
             'chatbot'=>true,
