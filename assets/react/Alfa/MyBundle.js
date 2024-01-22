@@ -91,6 +91,7 @@ const MyBundle = ({
 
   useEffect(() => {
     if (getDataGetting == "success") {
+      setDataGetting("")
       axios
         .post("/alfa/BuyPrePaid", postParamettersPay)
         .then((response) => {
@@ -103,7 +104,6 @@ const MyBundle = ({
             setSerialToClipboard(
               "*14*" + response?.data?.data?.voucherCode + "#"
             );
-            setDataGetting("")
           } else {
             console.log(response.data.flagCode);
             if (

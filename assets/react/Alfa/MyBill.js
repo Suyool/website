@@ -15,6 +15,7 @@ const MyBill = ({
   setHeaderTitle,
   setBackLink,
   params,
+  apiUrl
 }) => {
   useEffect(() => {
     setHeaderTitle("Pay Mobile Bill");
@@ -73,6 +74,7 @@ const MyBill = ({
       setPostParamettersPay({
         ResponseId: getResponseId,
         suyoolUserId: params.suyoolUserId,
+        getUsersToReceiveNotification: params?.getUsersToReceiveNotification
       });
     } else {
       setPostParamettersPay({
@@ -126,7 +128,7 @@ const MyBill = ({
     setSpinnerLoader(true);
     if(parameters?.deviceType === "CORPORATE"){
       setTimeout(() => {
-        window.parent.postMessage("qr", "http://localhost:3000/bills");
+        window.parent.postMessage("qr", apiUrl);
       }, 2000);
     }
     if (parameters?.deviceType === "Android") {
@@ -144,6 +146,7 @@ const MyBill = ({
 
   useEffect(() => {
     if (getDataGetting == "success") {
+      setDataGetting("")
       axios
         .post("/alfa/bill/pay", postParamettersPay)
         .then((response) => {

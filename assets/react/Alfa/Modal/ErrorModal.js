@@ -17,6 +17,10 @@ const ErrorModal = (props) => {
       } else if (props.parameters?.deviceType === "Iphone") {
         // const message = "data";
         window.webkit.messageHandlers.callbackHandler.postMessage(object);
+      }else if(props.parameters?.deviceType === "CORPORATE"){
+        setTimeout(() => {
+          window.parent.postMessage("gotoexchange3molma3roufyaelie", props.apiUrl);
+        }, 2000);
       }
     }
     if (props.getErrorModal.path == "90") {

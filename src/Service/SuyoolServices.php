@@ -112,6 +112,7 @@ class SuyoolServices
             }
 
             $push_utility_response = $response->toArray(false);
+            // $this->cashout->error(json_encode($push_utility_response));
 
             $error = "";
             $globalCode = $push_utility_response['globalCode'];
@@ -127,7 +128,7 @@ class SuyoolServices
                 return array(false, $message, $flagCode, $error);
             }
         } catch (Exception $e) {
-            return array(false, "", "", $e->getMessage());
+            return array(false, $e->getMessage(), $e->getMessage(), $e->getMessage());
         }
     }
 
