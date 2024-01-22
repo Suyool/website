@@ -37,4 +37,14 @@
 		</div>
 	</div>
 
+	<script>
+		// Check if redirectCallBack is defined and redirectURL is not null
+		var redirectCallBack = {{ redirectCallBack|default('false') }};
+		var redirectURL = "{{ redirect|default('') }}";
+
+		if (typeof redirectCallBack !== 'undefined'  && redirectURL !== '') {
+			// Redirect to the specified URL instantly
+			window.location.href = redirectURL;
+		}
+	</script>
 {% endblock %}
