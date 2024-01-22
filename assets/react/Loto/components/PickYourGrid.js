@@ -126,12 +126,14 @@ const PickYourGrid = ({
 
         const existingData = localStorage.getItem("selectedBalls");
         const existingBalls = existingData ? JSON.parse(existingData) : [];
+        let sortedExistingBalls;
+        let sortedSelectedBalls;
         const isNewSet = !existingBalls.some((set) => {
           if (set.balls && set.balls.length > 0) {
-            const sortedExistingBalls = [ ...set.balls ]
+             sortedExistingBalls = [ ...set.balls ]
               .filter((item) => item !== null)
               .sort();
-            const sortedSelectedBalls = [ ...selectedBalls ]
+             sortedSelectedBalls = [ ...selectedBalls ]
               .filter((item) => item !== null)
               .sort();
             return (
@@ -158,11 +160,12 @@ const PickYourGrid = ({
             localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
           }
         } else {
+          const jsonString = JSON.stringify(sortedSelectedBalls);
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/Loto/error.png",
             title: "Cannot Play Grid",
-            desc: `You have a grid with the same numbers in this draw`,
+            desc: "You have a grid with the same numbers in this draw <br />"+jsonString,
           });
           setModalShow(true);
         }

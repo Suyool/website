@@ -48,7 +48,7 @@ const ErrorModal = (props) => {
         <div id="ErrorModal">
           <img src={props.getErrorModal.img} alt="flag" />
           <div className="title">{props.getErrorModal.title}</div>
-          <div className="desc">{props.getErrorModal.desc}</div>
+          <div className="desc" dangerouslySetInnerHTML={{ __html: props.getErrorModal.desc }}></div>
           <div className="buttonsDesign">
             <button
               className={`${
@@ -56,7 +56,7 @@ const ErrorModal = (props) => {
               }`}
               onClick={props.onHide}
             >
-              Cancel
+              OK
             </button>
             {props.getErrorModal.btn && (
               <button className="exchangeBtnModal" onClick={handleExchange}>

@@ -151,7 +151,7 @@ const Buy = ({
             setErrorModal({
               img: "/build/images/Loto/error.png",
               title: "Cannot Play Grid",
-              desc: `You have a grid with the same numbers in this draw`,
+              desc: `You have a grid with the same numbers in this draw <br/>` + response.data.gridSelected,
             });
             setModalShow(true);
           } else {
