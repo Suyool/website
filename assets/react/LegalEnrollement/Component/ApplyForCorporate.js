@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import LegalForm from "./LegalForm";
 
 const ApplyForCorporate = ({ steSent, env }) => {
+  const [ getIsLoading, setIsLoading ] = useState(false);
   const [getInfoShowing, setInfoShowing] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [getModalTitle, setModalTitle] = useState("");
@@ -40,7 +41,8 @@ const ApplyForCorporate = ({ steSent, env }) => {
   const [startDate, setStartDate] = useState(new Date());
   let baseUrl;
   if (env === "prod") {
-    baseUrl = "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
+    baseUrl =
+      "https://corporateapiservice.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/";
   } else {
     baseUrl = "http://10.20.80.62/CorporateAPI/api/";
   }
@@ -92,6 +94,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
   }, [errors]);
 
   const handleFormSubmit = (e) => {
+    setIsLoading(true)
     e.preventDefault();
 
     const newErrors = {};
@@ -168,6 +171,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setIsLoading(false);
     } else {
       setErrors({});
       const namesArray = data.map((item) => item.Name);
@@ -190,6 +194,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
           ownerInfos: namesArray,
         })
         .then((response) => {
+          setIsLoading(false)
           if (
             (response.data.Payload.GlobalCode =
               1 && response.data.Payload.FlagCode > 1)
@@ -206,6 +211,7 @@ const ApplyForCorporate = ({ steSent, env }) => {
           }
         })
         .catch((error) => {
+          setIsLoading(false)
           console.log(error);
         });
     }
@@ -230,7 +236,9 @@ const ApplyForCorporate = ({ steSent, env }) => {
   return (
     <>
       <div className="ApplyForCorporate error-container">
-        <div className="CorporateCont">
+        <div
+        className="CorporateCont">
+          {getIsLoading && <div className="hideBack"></div>}
           <div className="TopSection">Apply for Corporate Account</div>
 
           <div className="formCompany">
