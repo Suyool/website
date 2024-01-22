@@ -10,6 +10,7 @@ use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,30 +76,57 @@ class Gift2GamesController extends AbstractController
     /**
      * @Route("/gift2games/categories", name="app_g2g_categories")
      */
-    public function getCategories()
+    public function getCategories(AdapterInterface $cache)
     {
+        $cacheKey = 'categories_cache';
 
-        $results = $this->gamesService->getCategories();
+        // Check if data is in the cache
+        if ($cache->hasItem($cacheKey)) {
+            $data = $cache->getItem($cacheKey)->get();
+        } else {
+            // If not in cache, fetch data from the service
+            $results = $this->gamesService->getCategories();
+            $data = $results['data'];
+
+            // Store data in the cache for future use (set an expiration time if needed)
+            $cacheItem = $cache->getItem($cacheKey);
+            $cacheItem->set($data);
+            $cache->save($cacheItem);
+        }
 
         return new JsonResponse([
-            'status' => $results['status'],
-            'Payload' => $results['data'],
+            'status' => 'success',
+            'Payload' => $data,
         ], 200);
     }
 
     /**
      * @Route("/gift2games/products/{categoryId}", name="app_g2g_products")
      */
-    public function getProducts($categoryId)
+    public function getProducts($categoryId, AdapterInterface $cache)
     {
+        $cacheKey = 'products_cache_' . $categoryId;
 
-        $results = $this->gamesService->getProducts($categoryId);
+        // Check if data is in the cache
+        if ($cache->hasItem($cacheKey)) {
+            $data = $cache->getItem($cacheKey)->get();
+        } else {
+            // If not in cache, fetch data from the service
+            $results = $this->gamesService->getProducts($categoryId);
+            $data = $results['data'];
+
+            // Store data in the cache for future use (set an expiration time if needed)
+            $cacheItem = $cache->getItem($cacheKey);
+            $cacheItem->set($data);
+            $cache->save($cacheItem);
+        }
 
         return new JsonResponse([
-            'status' => $results['status'],
-            'Payload' => $results['data'],
+            'status' => 'success',
+            'Payload' => $data,
         ], 200);
     }
+
 
     /**
      * PostPaid
