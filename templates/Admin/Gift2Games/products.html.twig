@@ -1,0 +1,36 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Postpaid</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Order_id</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products  %}
+
+        <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.productid }}</td>
+                <td>{{ product.orderId }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.currency }}</td>
+                <td>{{ product.created|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+

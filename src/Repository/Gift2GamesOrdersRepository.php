@@ -2,18 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\Alfa\Order as AlfaOrder;
-use App\Entity\Loto\LOTO_draw;
-use App\Entity\Loto\LOTO_results;
+use App\Entity\Gift2Games\Order as Gift2GamesOrder;
 use App\Entity\Gift2Games\Order;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
-use PDO;
+
 
 /**
  * @extends ServiceEntityRepository<Order>
@@ -113,17 +105,17 @@ class Gift2GamesOrdersRepository extends EntityRepository
                 }
             }
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.create_date,o.postpaid_id,o.prepaid_id
-        FROM suyool_alfa.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created
+        FROM suyool_gift2games.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         WHERE o.{$method} is not null {$where}
-        ORDER BY o.create_date DESC
+        ORDER BY o.created DESC
          ";
         } else {
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.create_date,o.postpaid_id,o.prepaid_id
-        FROM suyool_alfa.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created
+        FROM suyool_gift2games.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         {$where}
-        ORDER BY o.create_date DESC
+        ORDER BY o.created DESC
          ";
         }
         $stmt = $connection->prepare($sql);
@@ -132,12 +124,12 @@ class Gift2GamesOrdersRepository extends EntityRepository
         $array = array();
         foreach ($qb as $row) {
             if (!isset($array[$row['id']])) {
-                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'error' => $row['error'], 'created' => $row['create_date'], 'postpaid' => $row['postpaid_id'], 'prepaid' => $row['prepaid_id']];
-                if ($row['status'] != AlfaOrder::$statusOrder['COMPLETED']) {
+                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'error' => $row['error'], 'created' => $row['created']];
+                if ($row['status'] != Gift2GamesOrder::$statusOrder['COMPLETED']) {
                     $array[$row['id']]['redFlag'] = true;
                 }
             } else {
-                if ($row['status'] != AlfaOrder::$statusOrder['COMPLETED']) {
+                if ($row['status'] != Gift2GamesOrder::$statusOrder['COMPLETED']) {
                     $array[$row['id']]['redFlag'] = true;
                 }
             }

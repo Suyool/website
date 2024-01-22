@@ -137,10 +137,10 @@ class Gift2GamesController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-//            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $data['currency']);
-//            $checkBalance = json_decode($checkBalance->getContent(), true);
-//            $checkBalance = $checkBalance['response'];
-            $checkBalance = array(0=>"true",1=>'Ref-GN1234551');
+            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $data['currency']);
+            $checkBalance = json_decode($checkBalance->getContent(), true);
+            $checkBalance = $checkBalance['response'];
+
             $transactionID = $checkBalance[1];
             if ($checkBalance[0]) {
                 //set order status to held
@@ -165,10 +165,9 @@ class Gift2GamesController extends AbstractController
                         'userAccount' => '',
                         'type' => $description
                     ]);
-                   // $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
+                   $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, '');
 
-                    //$updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
-                    $updateUtility = true;
+                    $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
                     if ($updateUtility) {
                         $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed

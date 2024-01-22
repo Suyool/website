@@ -47,6 +47,16 @@ class Product
      */
     private $orderId;
 
+    /**
+     * @ORM\Column(name="created",type="datetime",nullable=true)
+     */
+    private $created;
+
+    public function __construct()
+    {
+        $this->created = new \DateTime();
+    }
+
     public function getOrderId(): ?int
     {
         return $this->orderId;
@@ -123,5 +133,8 @@ class Product
         $this->currency = $currency;
 
         return $this;
+    }
+    public function getCreated(){
+        return $this->created;
     }
 }
