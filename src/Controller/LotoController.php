@@ -371,6 +371,7 @@ class LotoController extends AbstractController
                             return new JsonResponse([
                                 'status' => false,
                                 'flagCode' => 210,
+                                'gridSelected'=>$item['balls'],
                                 'message' => 'You have a grid with same numbers in this draw'
                             ], 200);
                         }

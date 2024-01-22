@@ -464,7 +464,7 @@ class PlaysRepository extends EntityRepository
     {
         $balls = implode(' ', $balls);
         $qb = $this->createQueryBuilder('l')
-            ->select('l.ticketId')
+            ->select('l.ticketId,l.gridSelected')
             ->leftJoin(order::class, 'o', 'WITH', 'o.id = l.order')
             ->where("o.suyoolUserId = $suyoolUserId and l.drawNumber = $drawnumber and l.gridSelected like '%$balls%' and l.ticketId != 0")
             ->getQuery()
