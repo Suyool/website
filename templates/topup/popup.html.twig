@@ -42,9 +42,12 @@
 		var redirectCallBack = {{ redirectCallBack|default('false') }};
 		var redirectURL = "{{ redirect|default('') }}";
 
-		if (typeof redirectCallBack !== 'undefined'  && redirectURL !== '') {
-			// Redirect to the specified URL instantly
-			window.location.href = redirectURL;
+		if (typeof redirectCallBack !== 'undefined' && redirectURL !== '') {
+			// Delay the redirection by 2000 milliseconds (2 seconds)
+			setTimeout(function() {
+				// Redirect to the specified URL after 2 seconds
+				window.location.href = redirectURL;
+			}, 2000);
 		}
 	</script>
 {% endblock %}
