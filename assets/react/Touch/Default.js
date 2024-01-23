@@ -49,8 +49,8 @@ const Default = ({
           alt="touchLogo"
         />
         <div className="Text">
-          <div className="SubTitle">Buy Code To Re-charge</div>
-          <div className="description">Recharge your Touch prepaid number</div>
+          <div className="SubTitle">Purchase Touch Recharge Code</div>
+          <div className="description">Choose your Touch package & buy the recharge code for your prepaid number.</div>
         </div>
       </div>
     </div>

@@ -60,8 +60,8 @@ const Default = ({
           alt="alfaLogo"
         />
         <div className="Text">
-          <div className="SubTitle">Re-charge Alfa</div>
-          <div className="description">Recharge your Alfa prepaid number</div>
+          <div className="SubTitle">Purchase Alfa Recharge Code</div>
+          <div className="description">Choose your Alfa package & buy the recharge code for your prepaid number.</div>
         </div>
       </div>
     </div>
