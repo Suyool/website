@@ -1,10 +1,8 @@
 .topSectionNdsPayrollEmp{
     .tabletMode {
-        .img{
-            width: 100%;
-        }
         img {
           max-height: 98vh;
+          width: 100%;
         }
       }
     .ndsimage{
@@ -15,14 +13,16 @@
         position: absolute;
         margin: auto;
         left: 0;
-        width: 60px;
+        width: 100px;
         right: 0;
         text-align: center;
         z-index: 1;
+        top: 20px;
     }
     .suyoolsymbol{
         position: absolute;
-        top: 0;
+        top: 20px;
+        left: 20px;
     }
     .information {
         position: absolute;
@@ -107,9 +107,10 @@
     .topSectionNdsPayrollEmp {
         img{
             width: 100%;
+            // min-height: 750px;
         }
         .information {
-          padding-top: 20px;
+          padding-top: 80px;
           left: 30px;
           right: 30px;
     
