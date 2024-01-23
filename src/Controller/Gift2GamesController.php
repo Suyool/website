@@ -49,7 +49,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-        //$_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -186,10 +186,17 @@ class Gift2GamesController extends AbstractController
                 if (isset($purchase['status']) && $purchase['status'] == true) {
                     $IsSuccess = true;
 
-                    $content = $this->notificationServices->getContent('terranetLandlineRecharged');
                     $purchaseData = json_decode($purchase['data'],true);
 
                     $dateString = $purchaseData['data']['serialExpiryDate'];
+                    if(isset($dateString))
+                    {
+                        $contentType = 'Gift2GamesVouchersExpiryDate';
+                    }else {
+                        $contentType = 'Gift2GamesVouchersWithoutExpiryDate';
+                    }
+                    $content = $this->notificationServices->getContent($contentType);
+
                     $dateTime = DateTime::createFromFormat('U', $dateString);
                     $formattedDate = $dateTime->format('d/m/Y');
 
@@ -199,11 +206,14 @@ class Gift2GamesController extends AbstractController
 
                     $this->mr->persist($orderupdate1);
                     $this->mr->flush();
+                    $userDetails = $this->notificationServices->GetuserDetails($SuyoolUserId);
+                    $userName = $userDetails[0] . ' ' . $userDetails[1];
 
                     $bulk = 0;
                     $params = json_encode([
+                        'ProviderName' => 'test',
+                        'fname' => $userName,
                         'amount' => $amount,
-                        'userAccount' => '',
                         'type' => $description,
                         'code' => $purchaseData['data']['serialCode'],
                         'serial'=>$purchaseData['data']['serialNumber'],

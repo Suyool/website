@@ -90,13 +90,12 @@ class SuyoolServices
      */
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees)
     {
-
-        $sum = number_format((float) $sum, 3, '.', '');
+        $sum = number_format((float) $sum, 1, '.', '');
         $fees = number_format((float) $fees, 1, '.', '');
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
-                'userAccountID' => $SuyoolUserId,
+                'masterAccountID' => $SuyoolUserId,
                 "merchantAccountID" => $this->merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
@@ -104,6 +103,7 @@ class SuyoolServices
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
+
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
