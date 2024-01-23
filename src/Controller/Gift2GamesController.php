@@ -265,6 +265,7 @@ class Gift2GamesController extends AbstractController
         } else {
             $IsSuccess = false;
             $message = "You dont have a bundle available";
+            $purchaseData =-1;
         }
 
         return new JsonResponse([
