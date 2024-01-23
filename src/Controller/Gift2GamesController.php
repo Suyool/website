@@ -79,7 +79,7 @@ class Gift2GamesController extends AbstractController
      */
     public function getCategories(AdapterInterface $cache)
     {
-        $cacheKey = 'categories_cache';
+        $cacheKey = 'Gift2Games_categories_cache';
 
         // Check if data is in the cache
         if ($cache->hasItem($cacheKey)) {
@@ -106,7 +106,7 @@ class Gift2GamesController extends AbstractController
      */
     public function getProducts($categoryId, AdapterInterface $cache)
     {
-        $cacheKey = 'products_cache_' . $categoryId;
+        $cacheKey = 'Gift2Games_products_cache_' . $categoryId;
 
         // Check if data is in the cache
         if ($cache->hasItem($cacheKey)) {
