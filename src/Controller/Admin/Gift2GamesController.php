@@ -96,4 +96,63 @@ class Gift2GamesController extends AbstractController
             'logs' => $pagination,
         ]);
     }
+    /**
+     * @Route("/admin/gift2games/orders/export-csv", name="export_csv")
+     */
+    public function exportCsv(): Response
+    {
+        $orders = $this->mr->getRepository(Order::class)->OrderSubscription();
+
+        // Generate CSV content
+        $csvContent = $this->generateCsvContent($orders);
+
+        // Create a CSV response
+        $response = new Response($csvContent);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="orders.csv"');
+
+        return $response;
+    }
+
+    /**
+     * Generate CSV content from orders
+     *
+     * @param array $orders
+     * @return string
+     */
+    private function generateCsvContent(array $orders): string
+    {
+        $csvContent = "Id,SuyoolUser,Status,Amount,Currency,TransId,Error,Created\n";
+
+        foreach ($orders as $order) {
+            $createdFormatted = ($order['created'] instanceof \DateTime)
+                ? $order['created']->format('Y-m-d H:i:s')
+                : $order['created'];
+
+            $csvContent .= $this->generateCsvLine([
+                $order['id'],
+                $order['fname'] . ' ' . $order['lname'],
+                $order['status'],
+                $order['amount'],
+                $order['currency'],
+                $order['transId'],
+                $order['error'],
+                $createdFormatted,
+            ]);
+        }
+
+        return $csvContent;
+    }
+
+    private function generateCsvLine(array $data): string
+    {
+        $handle = fopen('php://memory', 'rw');
+        fputcsv($handle, $data, ',');
+
+        rewind($handle);
+        $line = stream_get_contents($handle);
+        fclose($handle);
+
+        return $line;
+    }
 }

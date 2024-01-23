@@ -49,7 +49,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        //$_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -59,7 +59,7 @@ class Gift2GamesController extends AbstractController
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-//                $this->session->set('suyoolUserId', 155);
+                //$this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
@@ -171,6 +171,7 @@ class Gift2GamesController extends AbstractController
             $checkBalance = $checkBalance['response'];
 //            $checkBalance =array(true,123123,1);
             $transactionID = $checkBalance[1];
+            $purchaseData = -1;
             if ($checkBalance[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -181,8 +182,8 @@ class Gift2GamesController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
                 $purchase = $this->Purchase($data['productId'], $transactionID, $order->getId());
-                $purchaseData =-1;
-                if ($purchase == true) {
+
+                if (isset($purchase['status']) && $purchase['status'] == true) {
                     $IsSuccess = true;
 
                     $content = $this->notificationServices->getContent('terranetLandlineRecharged');
@@ -191,6 +192,13 @@ class Gift2GamesController extends AbstractController
                     $dateString = $purchaseData['data']['serialExpiryDate'];
                     $dateTime = DateTime::createFromFormat('U', $dateString);
                     $formattedDate = $dateTime->format('d/m/Y');
+
+                    $orderupdate1->setSerialCode($purchaseData['data']['serialCode']);
+                    $orderupdate1->setSerialNumber($purchaseData['data']['serialNumber']);
+                    $orderupdate1->setOrderFake($purchaseData['data']['OrderFake']);
+
+                    $this->mr->persist($orderupdate1);
+                    $this->mr->flush();
 
                     $bulk = 0;
                     $params = json_encode([
@@ -299,9 +307,18 @@ class Gift2GamesController extends AbstractController
         if ($orderupdate2) {
             $refillAccount = $this->gamesService->createOrder($ProductId, $transID);
 
-            if ($refillAccount) {
+            if(isset($refillAccount[1])) {
+                $dataContent = json_decode($refillAccount[1],true);
+                $orderupdate2
+                    ->setError($dataContent['message']);
+                $this->mr->persist($orderupdate2);
+                $this->mr->flush();
+            }
+
+            if (isset($refillAccount['data'])) {
                 $orderupdate2
                     ->setstatus(Order::$statusOrder['PURCHASED']);
+
                 $this->mr->persist($orderupdate2);
                 $this->mr->flush();
             }

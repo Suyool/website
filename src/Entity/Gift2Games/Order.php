@@ -44,10 +44,26 @@ class Order
      */
     private $transId;
 
-//    /**
-//     * @ORM\Column(name="errorInfo")
-//     */
-//    private $error;
+    /**
+     * @ORM\Column(name="serialCode", type="string", nullable=true)
+     */
+    private $serialCode;
+
+    /**
+     * @ORM\Column(name="serialNumber", type="string", nullable=true)
+     */
+    private $serialNumber;
+
+
+    /**
+     * @ORM\Column(name="orderFake", type="string", nullable=true)
+     */
+    private $orderFake;
+
+    /**
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
 
     public function getId()
     {
@@ -120,5 +136,42 @@ class Order
         return $this->error;
     }
 
+    public function getSerialCode()
+    {
+        return $this->serialCode;
+    }
+
+    public function setSerialCode($serialCode)
+    {
+        $this->serialCode = $serialCode;
+        return $this;
+    }
+
+    public function getSerialNumber()
+    {
+        return $this->serialNumber;
+    }
+
+    public function setSerialNumber($serialNumber)
+    {
+        $this->serialNumber = $serialNumber;
+        return $this;
+    }
+
+    public function getSerialExpiryDate()
+    {
+        return $this->serialExpiryDate;
+    }
+
+    public function getOrderFake()
+    {
+        return $this->orderFake;
+    }
+
+    public function setOrderFake($orderFake)
+    {
+        $this->orderFake = $orderFake;
+        return $this;
+    }
 
 }

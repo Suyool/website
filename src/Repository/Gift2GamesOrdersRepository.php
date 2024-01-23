@@ -105,14 +105,14 @@ class Gift2GamesOrdersRepository extends EntityRepository
                 }
             }
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId, o.serialCode, o.serialNumber, o.orderFake,o.errorInfo as error,o.created
         FROM suyool_gift2games.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         WHERE o.{$method} is not null {$where}
         ORDER BY o.created DESC
          ";
         } else {
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId, o.serialCode, o.serialNumber, o.orderFake,o.errorInfo as error,o.created
         FROM suyool_gift2games.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         {$where}
         ORDER BY o.created DESC
@@ -124,7 +124,7 @@ class Gift2GamesOrdersRepository extends EntityRepository
         $array = array();
         foreach ($qb as $row) {
             if (!isset($array[$row['id']])) {
-                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'error' => $row['error'], 'created' => $row['created']];
+                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'serialCode' => $row['serialCode'], 'serialNumber' => $row['serialNumber'], 'orderFake' => $row['orderFake'] ,'error' => $row['error'], 'created' => $row['created']];
                 if ($row['status'] != Gift2GamesOrder::$statusOrder['COMPLETED']) {
                     $array[$row['id']]['redFlag'] = true;
                 }
