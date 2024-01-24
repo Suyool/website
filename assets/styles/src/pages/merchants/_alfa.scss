@@ -285,47 +285,6 @@ $image-path: '../../../../images/usj/';
     }
 }
 
-.alfa-questions {
-    .title {
-        margin-top: 130px;
-        text-align: center;
-        font-size: 20px;
-        color: #226D96;
-        font-family: $Medium;
-        margin-bottom: 30px;
-        text-transform: uppercase;
-    }
-
-    .sub-title {
-        text-align: center;
-        font-size: 35px;
-        color: #374A5A;
-        font-family: $SemiBold;
-        margin-bottom: 30px;
-    }
-
-    .desc {
-        text-align: center;
-        color: #6B6B6B;
-        font-family: $InterRegular;
-        font-size: 17px;
-        margin-bottom: 60px;
-    }
-
-    .contact {
-        text-align: center;
-        margin-bottom: 100px;
-
-        .contact-us {
-            color: #FFFFFF;
-            font-family: $SemiBold;
-            background-color: #226D96;
-            padding: 16px 27px;
-            border-radius: 10px;
-        }
-    }
-}
-
 @media (min-width: 998px) and (max-width: 1400px) {
     .topSectionAlfaEmp {
         .tabletMode {
@@ -429,22 +388,4 @@ $image-path: '../../../../images/usj/';
         padding-bottom: 60px;
     }
 
-    .alfa-questions {
-        .desc {
-            font-size: 14px;
-        }
-
-        .sub-title {
-            font-size: 25px;
-        }
-
-        .title {
-            font-size: 14px;
-            margin-top: 70px;
-        }
-
-        .contact {
-            margin-bottom: 70px;
-        }
-    }
 }
