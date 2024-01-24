@@ -43,8 +43,7 @@
 		var redirectURL = "{{ redirect|default('') }}";
 
 		if (typeof redirectCallBack !== 'undefined' && redirectURL !== '') {
-			// Delay the redirection by 2000 milliseconds (2 seconds)
-				// Redirect to the specified URL after 2 seconds
+				redirectURL = redirectURL.replace(/&amp;/g, '&');
 				window.location.href = redirectURL;
 		}
 	</script>
