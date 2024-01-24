@@ -87,7 +87,7 @@ return [
     "PAY_WITH_SUYOOL_QR" => "Pay with Suyool QR",
     "HOW_DOES_SUYOOL_WORK" => "HOW TO GET STARTED",
     "3_EASY_STEPS_TO_GET_STARTED" => "3 Easy Steps To Get Started",
-    "MANAGE_SPEND_ACCESS_REAL_TIME"=>"Manage, spend & access your money in real time",
+    "MANAGE_SPEND_ACCESS_REAL_TIME" => "Manage, spend & access your money in real time",
     "MANAGE_SPEND_ACCRSS_YOUR_MONEY_IN_REAL_TIME" => "",
     "OPEN_AN_ACCOUNT_IN_MINUTES" => "Open an account in minutes from the comfort of your home",
     "ALL_YOU_NEED_IS_A_LEBANESE_MOBILE_NUMBER" => "All you need is your smartphone, a Lebanese number & a legal identification document (ID or Passport).",
@@ -417,6 +417,13 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MIKESPORT" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIKESPORT" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Mike Sport employee.",
 
+    //mikesport
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_CLIMATE" => "What are the benefits for Climate Technology employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_CLIMATE" => "You will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of your monthly salary as long as you are a Climate Technology employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_CLIMATE" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_CLIMATE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_CLIMATE" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Climate Technology employee.",
+
     //ecm
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ECM" => "What are the benefits for ECM employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ECM" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an ECM employee.",
@@ -444,6 +451,6 @@ return [
     "EXCHANGE_AT_THE_LIVE_PARALLEL_ANY_DAT" => "Exchange at the parallel market rate any time of any day.",
     "NO_WAIT_AT_THE_EXCHANGE_HOUSES_SHORT" => "No wait at the exchange houses.",
     "FOR_AS_MANY_TIMES_AS_YOU_WANT_UP_TO_YOUR_WALLET_LIMIT_SHORT" => "For as many times as you want up to your wallet limit.",
-//Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.
+    //Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.
     "AUTO_CONVERSION_FEATURE_WITH_QR_PAYMENTS_OFFERS_FREE_AUTOMATIC_CURRENCY_CONVERSION" => "Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.",
-    ];
+];
