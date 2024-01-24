@@ -27,7 +27,7 @@ class Gift2GamesController extends AbstractController
     }
 
     /**
-     * @Route("admin/gift2games/prepaid", name="admin_gift2games_products")
+     * @Route("admin/gift2games/products", name="admin_gift2games_products")
      */
     public function getProducts(Request $request,PaginatorInterface $paginator): Response
     {

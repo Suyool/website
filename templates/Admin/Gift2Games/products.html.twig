@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1 class="mb-4">Postpaid</h1>
+    <h1 class="mb-4">Products</h1>
     <table class="table">
         <thead>
         <tr>
@@ -30,7 +30,9 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(products) }}
+    </div>
 
 {% endblock %}
 

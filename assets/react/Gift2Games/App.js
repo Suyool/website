@@ -29,6 +29,26 @@ const App = ({ parameters }) => {
     btn: "Top Up",
     desc: "Error Modal",
   });
+
+  const desiredChildIdsMap  = {
+    "1111": ["646"],
+    "1110": ["414"],
+    "1091": ["1123", "730"],
+    "454": ["514", "504"],
+    "448": ["633", "624", "298"],
+    "446": ["582", "581", "413"],
+    "445": ["567", "562", "558"],
+    "444": ["575"],
+    "442": ["704", "703", "644", "642", "641", "636"],
+    "441": ["664", "656", "617", "496"],
+    "439": ["477", "472"],
+    "434": ["469", "462", "457", "455", "428"],
+    "406": ["645"],
+    "302": ["417"],
+    "282": ["647"],
+    "277": ["905"],
+    "76": ["343"],
+  };
   useEffect(() => {
     setDataGetting("");
     window.handleCheckout = (message) => {
@@ -54,17 +74,20 @@ const App = ({ parameters }) => {
   };
 
   const handleCategoryClick = (categoryId, hasChild) => {
-    // Check if the category has children based on the 'childs' array
     const categoryWithChildren = categories.find((category) => category.id === categoryId);
+
     if (categoryWithChildren && categoryWithChildren.childs && categoryWithChildren.childs.length > 0) {
-      // If 'childs' array is not empty, navigate to child categories
-      setChildCategories(categoryWithChildren.childs);
+      const childIds = desiredChildIdsMap[categoryId] || [];
+      const filteredChildCategories = categoryWithChildren.childs.filter((child) => childIds.includes(child.id));
+
+      setChildCategories(filteredChildCategories);
       setActiveButton({ name: "ChildCategories", category: categoryId });
     } else {
-      // Navigate directly to products for the selected category
       setActiveButton({ name: "Products", category: categoryId });
+      setChildCategories([]);
     }
   };
+
 
 
   const handleChildCategoryClick = (childCategoryId) => {
@@ -91,6 +114,7 @@ const App = ({ parameters }) => {
                     setBackLink={setBackLink}
                     categories={categories}
                     handleCategoryClick={handleCategoryClick}
+                    desiredChildIdsMap={desiredChildIdsMap} // Pass desiredChildIdsMap here
                 />
             )}
 
