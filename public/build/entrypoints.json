@@ -65,7 +65,11 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.e5ae997f.css"
+=======
+        "/build/styles.132f3f2b.css"
+>>>>>>> 2f4fa7ab (style of use money)
       ]
     },
     "admin": {

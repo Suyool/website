@@ -1,4 +1,8 @@
 .use-money-common {
+  .card-desc{
+    margin: 0;
+  }
+
   .seeWatchVideo {
     .watchvideo {
       border-radius: 7px;
@@ -39,31 +43,11 @@
   }
 
   .title {
-    color: #374A5A;
-    font-family: $Regular;
-    font-size: 40px;
-    margin-bottom: 20px;
-    padding-top: 170px;
-
     @media screen and (max-width: 1440px) {
       padding-top: 65px;
     }
-
   }
 
-  .desc {
-    font-family: $Regular;
-    color: #00000080;
-    font-size: 20px;
-    margin-bottom: 20px;
-
-    &.exchange {
-      padding-top: 100px;
-      @media screen and (max-width: 768px) {
-        padding-top: 0;
-      }
-    }
-  }
 
   .list {
     .check {
@@ -92,6 +76,12 @@
       img {
         width: 100%;
       }
+
+      .card-desc{
+        img{
+          width: 22px;
+        }
+      }
     }
 
     .image {
@@ -101,15 +91,6 @@
     .title {
       font-size: 25px;
       padding-top: 33px;
-    }
-
-    .desc {
-      font-size: 18px;
-    }
-    .check{
-      p {
-        font-size: 14px!important;
-      }
     }
 
     .image {
