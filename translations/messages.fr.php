@@ -143,4 +143,11 @@ return [
     "SCAN_AND_DOWNLOAD"=>"Scannez et Téléchargez",
 
     "WATCH_VIDEO" => "Regarder la vidéo",
+
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_EVERYTIME" => "Échangez au taux du marché parallèle en temps réel",
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_ANY_DAT" => "Changez vos livres en dollars ou vice-versa au taux du marché parallèle en temps réel",
+    "NO_WAIT_AT_THE_EXCHANGE_HOUSES_SHORT" => "Évitez les déplacements et l’attente dans les bureaux de change",
+    "FOR_AS_MANY_TIMES_AS_YOU_WANT_UP_TO_YOUR_WALLET_LIMIT_SHORT" => "Évitez les risques de fluctuation des monnaies : changez le montant exact requis.",
+    "AUTO_CONVERSION_FEATURE_WITH_QR_PAYMENTS_OFFERS_FREE_AUTOMATIC_CURRENCY_CONVERSION" => "Les paiements QR assurent une conversion automatique gratuite, échangeant uniquement ce nécessaire pour vos achats.",
+
     ];

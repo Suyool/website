@@ -440,4 +440,10 @@ return [
 
     "WATCH_VIDEO" => "Watch Video",
 
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_EVERYTIME" => "Exchange at the live parallel market rate - Everytime",
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_ANY_DAT" => "Exchange at the parallel market rate any time of any day.",
+    "NO_WAIT_AT_THE_EXCHANGE_HOUSES_SHORT" => "No wait at the exchange houses.",
+    "FOR_AS_MANY_TIMES_AS_YOU_WANT_UP_TO_YOUR_WALLET_LIMIT_SHORT" => "For as many times as you want up to your wallet limit.",
+//Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.
+    "AUTO_CONVERSION_FEATURE_WITH_QR_PAYMENTS_OFFERS_FREE_AUTOMATIC_CURRENCY_CONVERSION" => "Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.",
     ];
