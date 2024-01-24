@@ -371,116 +371,6 @@
         }
     }
 
-    .solution {
-        margin-bottom: 5pc;
-        margin-top: 9pc;
-
-        .title-solution {
-            text-align: center;
-            font-size: 22px;
-            color: #373464;
-            font-family: $Bold;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
-
-        .sub-title {
-            text-align: center;
-            font-size: 52px;
-            color: #202020;
-            font-family: $Regular;
-            margin-bottom: 30px;
-        }
-
-        .three_steps2 {
-            display: flex;
-            margin: 0;
-            justify-content: center;
-            margin-top: 70px;
-
-            .step {
-
-                // width: 30%;
-                .sub1 {
-                    margin-bottom: 40px;
-                }
-
-                .sub {
-                    @media screen and (max-width:998px) {
-                        margin-top: 20px;
-                    }
-
-                    padding: 21px;
-                    background-color: #fff;
-                    border-radius: 5px;
-                    box-shadow: 0 10px 60px rgba(0, 0, 0, .18);
-                    margin: auto;
-                    height: 280px;
-                    position: relative;
-                    // display: flex;
-                    width: 90%;
-                    flex-direction: column;
-                    justify-content: space-between;
-
-                    img {
-                        width: 13%;
-                        float: right;
-                    }
-
-                    .title {
-                        font-size: 25px;
-                        font-family: $SemiBold;
-                        color: #000000;
-                    }
-
-                    .description {
-                        font-size: 17px;
-                        font-family: $Regular;
-                        color: #6b6b6b;
-                        letter-spacing: 0;
-                        // text-align: justify;
-                    }
-                }
-            }
-        }
-
-        @media screen and (max-width:768px) {
-            .title-solution {
-                font-size: 14px;
-            }
-
-            .three_steps2 {
-                .step {
-                    width: 100%;
-
-                    .sub {
-                        margin-top: 20px;
-
-                        .sub1 {
-                            margin-bottom: 0px;
-                        }
-
-                        img {
-                            position: initial;
-                            width: 15%;
-                        }
-
-                        .title {
-                            font-size: 25px;
-                        }
-
-                        .description {
-                            padding-top: 20px;
-                            font-size: 14px;
-                            line-height: 30px;
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     .alfa-questions {
         .title {
             margin-top: 130px;
@@ -642,14 +532,6 @@
             }
             .seeWatchVideo {
                 justify-content: center;
-            }
-        }
-
-        .solution {
-            margin-top: 0px;
-            margin-bottom: 2pc;
-            .sub-title{
-                text-align: 25px;
             }
         }
 

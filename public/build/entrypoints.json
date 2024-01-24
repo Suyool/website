@@ -66,10 +66,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.e5ae997f.css"
 =======
         "/build/styles.132f3f2b.css"
 >>>>>>> 2f4fa7ab (style of use money)
+=======
+        "/build/styles.dc802bae.css"
+>>>>>>> 92c2e7de (unified solution section and design)
       ]
     },
     "admin": {
