@@ -34,7 +34,8 @@ return [
     "PAY_BILLS"=>"Règlement de factures",
     "PAY_WITH_SUYOOL_QR"=>"Paiement via QR sécurisé",
     "HOW_DOES_SUYOOL_WORK"=>"DÉBUTER AVEC SUYOOL",
-    "3_EASY_STEPS_TO_GET_STARTED"=>"3 Étapes Simples",
+    "3_EASY_STEPS_TO_GET_STARTED"=>"3 Étapes Simples pour Commencer",
+    "MANAGE_SPEND_ACCESS_REAL_TIME"=>"Gérez, dépensez et accédez votre argent en temps réel",
     "MANAGE_SPEND_ACCRSS_YOUR_MONEY_IN_REAL_TIME"=>"",
     "OPEN_AN_ACCOUNT_IN_MINUTES"=>"Ouvrez votre compte en quelques minutes sans vous déplacer",
     "ALL_YOU_NEED_IS_A_LEBANESE_MOBILE_NUMBER"=>"Vous avez juste besoin de votre smartphone avec un numéro libanais et d’un document officiel valide (carte d’identité ou passeport)",
@@ -140,5 +141,13 @@ return [
     "WHAT_ARE_YOU_WAITING_FOR"=>"QU'ATTENDEZ-VOUS?",
     "OPEN_YOUR_SUYOOL_ACCOUNT_CAP"=>"OUVREZ VOTRE COMPTE SUYOOL",
     "SCAN_AND_DOWNLOAD"=>"Scannez et Téléchargez",
+
+    "WATCH_VIDEO" => "Regarder la vidéo",
+
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_EVERYTIME" => "Échangez au taux du marché parallèle en temps réel",
+    "EXCHANGE_AT_THE_LIVE_PARALLEL_ANY_DAT" => "Changez vos livres en dollars ou vice-versa au taux du marché parallèle en temps réel",
+    "NO_WAIT_AT_THE_EXCHANGE_HOUSES_SHORT" => "Évitez les déplacements et l’attente dans les bureaux de change",
+    "FOR_AS_MANY_TIMES_AS_YOU_WANT_UP_TO_YOUR_WALLET_LIMIT_SHORT" => "Évitez les risques de fluctuation des monnaies : changez le montant exact requis.",
+    "AUTO_CONVERSION_FEATURE_WITH_QR_PAYMENTS_OFFERS_FREE_AUTOMATIC_CURRENCY_CONVERSION" => "Les paiements QR assurent une conversion automatique gratuite, échangeant uniquement ce nécessaire pour vos achats.",
 
     ];

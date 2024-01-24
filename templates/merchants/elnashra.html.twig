@@ -6,31 +6,15 @@
 {% block body %}
 
     <div class="usj">
-{#        <div id="language_selection">#}
-{#            <div {% if lang == "en" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>#}
-{#                <a href="?lang=en">En</a>#}
-{#            </div>#}
-{#            <div {% if lang == "ar" %} class="lang_sec_selected" {% else %} class="lang_sec" {% endif %}>#}
-{#                <a href="?lang=ar">Ar</a>#}
-{#            </div>#}
-{#        </div>#}
-{#        <form action="#" method="get" >#}
-{#            <div id="language-dropdown" class="d-block d-md-none">#}
-{#                <select name="lang" onchange="this.form.submit()">#}
-{#                    <option value="en" {% if lang == "en" %} selected {% endif %}>En</option>#}
-{#                    <option value="ar" {% if lang == "ar" %} selected {% endif %}>Ar</option>#}
-{#                </select>#}
-{#            </div>#}
-{#        </form>#}
-
         {% include 'elements/elnashra/topSection.html.twig' %}
-        {% include 'elements/usj/usj_steps.html.twig' %}
+        {% include 'elements/infoSection.html.twig'%}
+        {% include 'elements/payrolls/three-steps.html.twig' %}
         {% include 'elements/elnashra/nashra_mastercard.html.twig' %}
-        {% include 'elements/usj/use-money.html.twig' %}
-        {% include 'elements/usj/solution-suyool.html.twig' %}
-        {% include 'elements/usj/exchange.html.twig' %}
+        {% include 'elements/payrolls/use-money.html.twig'%}
+        {% include 'elements/payrolls/solution.html.twig' %}
+        {% include 'elements/payrolls/exchange.html.twig' %}
         {% include 'elements/faq/faqSuyool.html.twig' %}
-        {% include 'elements/usj/questions.html.twig' %}
+        {% include 'elements/payrolls/questions.html.twig' %}
         {% include 'elements/get-suyool.html.twig' %}
     </div>
 

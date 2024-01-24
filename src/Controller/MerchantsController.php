@@ -13,11 +13,74 @@ class MerchantsController extends AbstractController
 {
 
     private $trans;
+    private $infoSection;
+    private $infoSection2;
 
     public function __construct(translation $trans)
     {
         $this->trans = $trans;
+        $this->infoSection = [
+            'title' => '6 Ways To Use Your Money',
+            'items' => [
+                [
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/cashout.svg',
+                    'description' => 'Free Payroll Cash Out',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/arrow1.svg',
+                    'description' => 'Send & Receive Money for Free',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/request-money.svg',
+                    'description' => 'Request Money',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payroll.svg',
+                    'description' => 'Pay Bills',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payQr1.svg',
+                    'description' => 'Pay with Suyool QR',
+                ],
+            ],
+        ];
+
+        $this->infoSection2 = [
+            'title' => '6 Ways To Use Your Money',
+            'items' => [
+                [
+                    'image' => 'build/images/alfa_employee/card3.svg',
+                    'description' => 'Visa Platinum Card',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/cashout1.svg',
+                    'description' => 'Cash Withdrawal',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/arrow1.svg',
+                    'description' => 'Send & Receive Money for Free',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/request-money.svg',
+                    'description' => 'Request Money',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payroll.svg',
+                    'description' => 'Pay Bills',
+                ],
+                [
+                    'image' => 'build/images/alfa_employee/payQr1.svg',
+                    'description' => 'Pay with Suyool QR',
+                ],
+            ],
+        ];
     }
+
+
 
     /**
      * @Route("/alfa-employee", name="app_alfa_employee")
@@ -59,36 +122,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Alfa Employee | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/alfa.html.twig', $parameters);
     }
@@ -137,6 +172,7 @@ class MerchantsController extends AbstractController
                 "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"
             ],
         ];
+
 
         $parameters['title'] = "USJ | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool.
@@ -225,6 +261,8 @@ class MerchantsController extends AbstractController
             ],
         ];
 
+        $parameters['infoSection'] = $this->infoSection;
+
         $parameters['title'] = "elnashra | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool.
         You will get your own digital dual-currency account, a complete payment tool
@@ -271,36 +309,7 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "LLDJ Employee | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/lldj.html.twig', $parameters);
     }
@@ -344,36 +353,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Aramex | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/aramex.html.twig', $parameters);
     }
@@ -417,36 +398,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "E-mood Employee | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/emood.html.twig', $parameters);
     }
@@ -490,36 +443,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "The Web Addicts | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/web-addicts.html.twig', $parameters);
     }
@@ -563,36 +488,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Droguerie Phenicia | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/droguerie-Phenicia.html.twig', $parameters);
     }
@@ -709,36 +606,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Group ka | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/kallasi.html.twig', $parameters);
     }
@@ -782,36 +651,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Laser vision | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/laser.html.twig', $parameters);
     }
@@ -855,36 +696,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Editec | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/editec.html.twig', $parameters);
     }
@@ -928,36 +741,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Fahed | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout.svg',
-                    'description' => 'Free Payroll Cash Out',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection;
 
         return $this->render('merchants/fahed.html.twig', $parameters);
     }
@@ -1001,36 +786,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Medco | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('medco-payroll/index.html.twig', $parameters);
     }
@@ -1074,36 +831,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Debbas | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('debbas-payroll/index.html.twig', $parameters);
     }
@@ -1147,36 +876,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Debbane Saikali Group | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('debbane/index.html.twig', $parameters);
     }
@@ -1220,36 +921,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Mike Sport | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('mikesport/index.html.twig', $parameters);
     }
@@ -1293,36 +966,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Notre Dame des Secours | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('nds/index.html.twig', $parameters);
     }
@@ -1366,36 +1011,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "ECM | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('ecm/index.html.twig', $parameters);
     }
@@ -1440,36 +1057,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Payroll | Suyool";
         $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('payroll/index.html.twig', $parameters);
     }
@@ -1513,36 +1102,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Indevco | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('indevco/index.html.twig', $parameters);
     }
@@ -1586,36 +1147,8 @@ class MerchantsController extends AbstractController
 
         $parameters['title'] = "Frem Industrial Group | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
-        $infoSection = [
-            'title' => '6 Ways To Use Your Money',
-            'items' => [
-                [
-                    'image' => 'build/images/alfa_employee/card3.svg',
-                    'description' => 'Visa Platinum Card',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/cashout1.svg',
-                    'description' => 'Cash Withdrawal',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/arrow1.svg',
-                    'description' => 'Send & Receive Money for Free',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/request-money.svg',
-                    'description' => 'Request Money',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payroll.svg',
-                    'description' => 'Pay Bills',
-                ],
-                [
-                    'image' => 'build/images/alfa_employee/payQr1.svg',
-                    'description' => 'Pay with Suyool QR',
-                ],
-            ],
-        ];
-        $parameters['infoSection'] = $infoSection;
+
+        $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('fig/index.html.twig', $parameters);
     }
