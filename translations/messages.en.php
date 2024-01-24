@@ -437,4 +437,7 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_NDS" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_NDS" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_NDS" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Notre Dame des Secours employee.",
-];
+
+    "WATCH_VIDEO" => "Watch Video",
+
+    ];

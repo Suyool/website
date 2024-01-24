@@ -142,4 +142,5 @@ return [
     "OPEN_YOUR_SUYOOL_ACCOUNT_CAP"=>"OUVREZ VOTRE COMPTE SUYOOL",
     "SCAN_AND_DOWNLOAD"=>"Scannez et Téléchargez",
 
+    "WATCH_VIDEO" => "Regarder la vidéo",
     ];
