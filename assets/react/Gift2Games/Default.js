@@ -1,36 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const Default = ({
-                     setHeaderTitle,
-                     setBackLink,
-                     categories,
-                     handleCategoryClick,
-                     desiredChildIdsMap, // Pass the desiredChildIdsMap as a prop
-                 }) => {
+const Default = ({ categories, handleChildCategoryClick, desiredChildIdsMap }) => {
+    // Convert category IDs to numbers
+    const categoriesWithNumberIds = categories.map((category) => ({
+        ...category,
+        id: Number(category.id),
+    }));
+
+    // Extract all category IDs from the desiredChildIdsMap
+    const categoryIdsToDisplay = Object.keys(desiredChildIdsMap).map(Number);
+
+    // State to track the active category
+    const [activeCategoryId, setActiveCategoryId] = useState(categoryIdsToDisplay[0]);
+
+    // Effect to handle initial rendering
     useEffect(() => {
-        setHeaderTitle("Gift2Games");
-        setBackLink("default");
-    }, []);
+        // Set the first category as active on initial render
+        setActiveCategoryId(categoryIdsToDisplay[0]);
+    }, [categoryIdsToDisplay]);
 
-    const categoryIds = Object.keys(desiredChildIdsMap);
+    const handleCategoryClick = (categoryId) => {
+        console.log(categoryId);
+        // Set the clicked category as active
+        setActiveCategoryId(categoryId);
+    };
 
     return (
         <div id="Default_g2g">
-            <div className="MainTitle">What do you want to do?</div>
+            <div className="categories-scroll">
+                {categoryIdsToDisplay.map((categoryId) => {
+                    const categoryToDisplay = categoriesWithNumberIds.find(
+                        (category) => category.id === Number(categoryId)
+                    );
 
-            <div className="categories">
-                {categories
-                    .filter((category) => categoryIds.includes(category.id))
-                    .map(({ id, title, image, hasChild }) => (
-                        <div
-                            className="Cards"
-                            key={id}
-                            onClick={() => handleCategoryClick(id, hasChild)}
-                        >
-                            <img className="logoImg" src={image} alt="gift2gamesLogo" style={{ borderRadius: "50%" }} />
-                            <div className="Text">
-                                <div className="SubTitle">{title}</div>
+                    return (
+                        categoryToDisplay && (
+                            <div
+                                key={categoryToDisplay.id}
+                                className={`category-item ${activeCategoryId === Number(categoryId) ? "selected" : ""}`}
+                                onClick={() => handleCategoryClick(Number(categoryId))}
+                            >
+                                <img src={categoryToDisplay.image} alt={categoryToDisplay.title} />
+                                <p className="SubTitleCat">{categoryToDisplay.title}</p>
                             </div>
+                        )
+                    );
+                })}
+            </div>
+
+            {/* Display child categories for the active category */}
+            <div className="child-categories">
+                {categoriesWithNumberIds
+                    .find((category) => category.id === activeCategoryId)
+                    ?.childs.map((child) => (
+                        <div key={child.id} className="child-category">
+                            <p className="SubTitleCat">{child.short_title}</p>
                         </div>
                     ))}
             </div>

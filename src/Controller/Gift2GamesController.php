@@ -39,9 +39,9 @@ class Gift2GamesController extends AbstractController
     }
 
     /**
-     * @Route("/gift2games", name="app_gift2_games")
+     * @Route("/gift2games/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
-    public function index(): Response
+    public function index($id): Response
     {
 //        $parameters['deviceType'] = "Android";
 //        return $this->render('gift2_games/index.html.twig', [
@@ -49,7 +49,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+//       $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -62,7 +62,7 @@ class Gift2GamesController extends AbstractController
                 //$this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-
+                $parameters['TypeID'] = $id;
                 return $this->render('gift2_games/index.html.twig', [
                     'parameters' => $parameters
                 ]);
