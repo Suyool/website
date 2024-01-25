@@ -276,8 +276,11 @@ class IframeController extends AbstractController
             $SecureHash = isset($result['SecureHash']) ? $result['SecureHash'] : (isset($result['secureHash']) ? $result['secureHash'] : null);
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
 
-            $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $transactionId . "&SecureHash=" . rawurlencode($SecureHash);
-            $callBackURL = str_replace("&amp;","&",$callBackURL);
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+            if($merchant->getWebhook() == 0) {
+                $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $transactionId . "&SecureHash=" . rawurlencode($SecureHash);
+                $callBackURL = str_replace("&amp;","&",$callBackURL);
+            }
 
             $responseContent = json_encode([
                 'Flag' => $flag,
@@ -287,7 +290,6 @@ class IframeController extends AbstractController
                 'AdditionalInfo' => $additionalInfo,
                 'CallBackURL' => $callBackURL
             ]);
-            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
             if($env == 'test'){
                 $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
             }else {

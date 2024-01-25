@@ -26,7 +26,7 @@ class InvoicesController extends AbstractController
     private $certificate;
 
 
-    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter,RequestStack $requestStack)
+    public function __construct(ManagerRegistry $mr, RateLimiter $rateLimiter, RequestStack $requestStack)
     {
         $this->mr = $mr->getManager('invoices');
         $this->rateLimiter = $rateLimiter;
@@ -39,72 +39,81 @@ class InvoicesController extends AbstractController
      * @Route("/merchant/v1/invoices/{test?}", name="payment_api_invoice_test", requirements={"test"="test"},methods="POST")
      * @Route("/merchant/v1/invoices/", name="payment_api_invoice",methods="POST")
      */
-    public function api(Request $request,SessionInterface $session,InvoiceServices $invoicesServices, $test=null)
+    public function api(Request $request, SessionInterface $session, InvoiceServices $invoicesServices, $test = null)
     {
         if ($test === 'test') {
-            $_ENV['APP_ENV'] = 'preProd';
-            $session->set('APP_ENV_test','preProd');
+            $session->set('simulation', true);
         }
         // Get IP address of the requester
         $ipAddress = $request->getClientIp();
-
-        $data = json_decode($request->getContent(),true);
-        $merchantId = $data['MerchantAccountID'];
-
-        if (!$merchantId) {
-            return new Response('Merchant ID not found in request data', 400); // Bad Request
-        }
-
-        // Use the rate limiter service
-        if (!$this->rateLimiter->limitRequests($ipAddress, $merchantId)) {
-            return new Response('Rate limit exceeded', 429); // Too Many Requests
-        }
-
-
         $apiKey = $request->headers->get('X-API-Key');
+        $merchant = $this->mr->getRepository(MerchantKey::class)->findOneBy(['apiKey' => $apiKey]);
+        if ($merchant) {
 
-        $order_id = $data['TransactionID'];
-        $amount = $data['Amount'];
-        $currency = $data['Currency'];
-        $order_desc = $data['AdditionalInfo'];
-        $callBackUrl = $data['callBackUrl'];
-
-        $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-        $merchantApiKey = $this->mr->getRepository(MerchantKey::class)->findOneBy(['merchant' => $merchant->getId()]);
-        $apiKeydata = $merchantApiKey->getApiKey();
-        $referenceNumber = $this->generateRandomString(6);
+            $merchantId = $merchant->getMerchant()->getMerchantMid();
 
 
-        // Get the current request
-        $request = $this->requestStack->getCurrentRequest();
+            if (!$merchantId) {
+                return new Response('Merchant ID not found in request data', 400); // Bad Request
+            }
 
-        // Get the base URL
-        $baseUrl = $request->getSchemeAndHttpHost();
+            // Use the rate limiter service
+            if (!$this->rateLimiter->limitRequests($ipAddress, $merchantId)) {
+                return new Response('Rate limit exceeded', 429); // Too Many Requests
+            }
 
-        // Get the base URL
-        if($apiKeydata == $apiKey){
+            $data = json_decode($request->getContent(), true);
+
+            $order_id = $data['invoiceId'];
+            $amount = $data['amount'];
+            $currency = $data['currency'];
+            $order_desc = $data['description'];
+            $callBackUrl = $data['redirectURl'];
+
+            // Check if $amount, $currency, or $order_id is null
+            if ($amount == null || $currency == null || $order_id == null) {
+                $array = [
+                    "success" => false,
+                    "data" => ['payment_url'=> ''],
+                    "message" => 'Amount, currency, or order ID cannot be null'
+                ];
+                return new JsonResponse($array);
+            }
+
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
+            $merchantApiKey = $this->mr->getRepository(MerchantKey::class)->findOneBy(['merchant' => $merchant->getId()]);
+            //$apiKeydata = $merchantApiKey->getApiKey();
+            $referenceNumber = $this->generateRandomString(6);
+
+            // Get the current request
+//        $request = $this->requestStack->getCurrentRequest();
+//        $baseUrl = $request->getSchemeAndHttpHost();
+
+            // Get the base URL
             if ($test === 'test') {
-                $url = $baseUrl . "/test/G".$referenceNumber;
+                $url = 'https://sandbox.suyool.com' . "/test/G" . $referenceNumber;
                 $simulation = true;
-            }else {
-                $url = $baseUrl . "/G".$referenceNumber;
+            } else {
+                $url = 'https://suyool.com' . "/G" . $referenceNumber;
                 $simulation = false;
             }
 
-            $invoicesServices->PostInvoices($merchant,$order_id,$amount,$currency,$order_desc,null,'',$referenceNumber,$callBackUrl,$simulation);
+            $invoicesServices->PostInvoices($merchant, $order_id, $amount, $currency, $order_desc, null, '', $referenceNumber, $callBackUrl, $simulation);
 
             $array = [
-                "url" => $url,
-                "success" => true
+                "success" => true,
+                "data" => ['payment_url'=> $url],
+                "message" => 'success'
             ];
 
             return new JsonResponse($array);
 
-        }else {
+        } else {
             return new Response("your are not eligible to continue");
 
         }
     }
+
     private function generateRandomString($length = 6)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -122,7 +131,7 @@ class InvoicesController extends AbstractController
      * @Route("/test/{refnumber}", name="payment_gateway_test", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      */
-    public function paymentGateway(Request $request,SessionInterface $session,$refnumber)
+    public function paymentGateway(Request $request, SessionInterface $session, $refnumber)
     {
 
         $session->remove('payment_data');
@@ -134,9 +143,9 @@ class InvoicesController extends AbstractController
 
         $isTestRequest = strpos($request->getPathInfo(), '/test/') === 0;
         $invoiceClass = invoices::class;
-        if ($isTestRequest){
+        if ($isTestRequest) {
             $invoiceClass = test_invoices::class;
-            $session->set('simulation',true);
+            $session->set('simulation', true);
         }
 
         $invoice = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
@@ -156,7 +165,7 @@ class InvoicesController extends AbstractController
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
             $secure = $orderId . $merchantId . $amount . $currency . $callbackURL . $timestamp . $certificate;
             $isMobile = true;
-        }else {
+        } else {
             $secure = $orderId . $timestamp . $amount . $currency . $callbackURL . $timestamp . $certificate;
         }
 
@@ -181,19 +190,18 @@ class InvoicesController extends AbstractController
 
         // Store data in the session
         $session->set('payment_data', $paymentData);
-        if(isset($merchantSettings) && $merchantSettings == 1 ) {
-            if($isMobile) {
+        if (isset($merchantSettings) && $merchantSettings == 1) {
+            if ($isMobile) {
                 return $this->redirectToRoute('app_pay_suyool_mobile');
-            }
-            else{
+            } else {
                 return $this->redirectToRoute('app_pay_suyool_qr');
             }
-        }else {
-            return $this->render('Invoices/index.html.twig',[
+        } else {
+            return $this->render('Invoices/index.html.twig', [
                 'is_mobile' => $isMobile,
             ]);
         }
-        return $this->render('Invoices/index.html.twig',[
+        return $this->render('Invoices/index.html.twig', [
             'is_mobile' => $isMobile,
         ]);
     }

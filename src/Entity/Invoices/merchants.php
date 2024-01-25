@@ -43,6 +43,11 @@ class merchants
     private $settings;
 
     /**
+     * @ORM\Column(name="webhook", type="boolean")
+     */
+    private $webhook;
+
+    /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -95,6 +100,17 @@ class merchants
 
     public function setSettings($settings){
         $this->settings = $settings;
+    }
+
+    // Getter and setter for the new property
+    public function getWebhook()
+    {
+        return $this->webhook;
+    }
+
+    public function setWebhook($webhook)
+    {
+        $this->webhook = $webhook;
     }
 
     public function getCreated(){

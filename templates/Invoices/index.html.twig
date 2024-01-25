@@ -13,7 +13,16 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{% if is_mobile %}{{ path('app_pay_suyool_mobile') }}{% else %}{{ path('app_pay_suyool_qr') }}{% endif %}">
+                    {% if is_mobile %}
+                        {% set path = path('app_pay_suyool_mobile') %}
+                    {% else %}
+                        {% if app.session.get('simulation') is defined and app.session.get('simulation') == true %}
+                            {% set path = path('app_pay_suyool_qr_test') %}
+                        {% else %}
+                            {% set path = path('app_pay_suyool_qr') %}
+                        {% endif %}
+                    {% endif %}
+                    <a href="{{ path }}">
                         <div class="card text-center mb-4">
                             <div class="card-body d-flex align-items-center">
                                 <img src="{{ asset('build/images/qrPayLogo.svg') }}" alt="QR Payment" width="60" class="mr-3">
