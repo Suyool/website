@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Default from "./Default";
 import Header from "./Header";
 import ErrorModal from "./Modal/ErrorModal";
@@ -8,9 +8,9 @@ import ReCharge from "./ReCharge";
 import ChildCategories from "./ChildCategories";
 import axios from "axios";
 
-const App = ({ parameters }) => {
-    const [activeButton, setActiveButton] = useState({ name: "" });
-    const [getBackLink, setBackLink] = useState({ name: "" });
+const App = ({parameters}) => {
+    const [activeButton, setActiveButton] = useState({name: ""});
+    const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Gift2Games");
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
@@ -29,9 +29,11 @@ const App = ({ parameters }) => {
         btn: "Top Up",
         desc: "Error Modal",
     });
-    let desiredChildIdsMap;
-    if(parameters?.TypeID == 1) {
-        desiredChildIdsMap  = {
+
+    const [childIds, setChildIds] = useState([]);
+
+    useEffect(() => {
+        const child1 = {
             "1111": ["646"],
             "1110": ["414"],
             "454": ["514", "504"],
@@ -45,25 +47,22 @@ const App = ({ parameters }) => {
             "277": ["905"],
             "76": ["343"],
         };
-    }
-    else if(parameters?.TypeID == 2) {
-        desiredChildIdsMap  = {
-            "439": ["477", "472"],
-        };
-    }
 
-    else if(parameters?.TypeID == 3) {
-        desiredChildIdsMap  = {
+        const child2 = {
+            "439": ["477", "472"],
+        }
+
+        const child3 = {
             "1091": ["1123", "730"],
             "442": ["704", "703", "644", "642", "641", "636"],
             "434": ["469", "462", "457", "455", "428"],
-        };
+        }
+        setChildIds(parameters?.TypeID == 1 ? child1 : parameters?.TypeID == 2 ? child2 : child3);
+    }, [parameters.TypeID]);
 
-    }
     useEffect(() => {
         setDataGetting("");
         window.handleCheckout = (message) => {
-            console.log("Handling checkout:", message);
             setDataGetting(message);
         };
 
@@ -84,7 +83,6 @@ const App = ({ parameters }) => {
             });
     };
 
-
     const handleChildCategoryClick = (childCategoryId) => {
         // Find the category that contains the child
         const parentCategory = categories.find((category) =>
@@ -93,7 +91,7 @@ const App = ({ parameters }) => {
 
         if (parentCategory) {
             // Parent category found, proceed with handling the click
-            setActiveButton({ name: "Products", category: childCategoryId });
+            setActiveButton({name: "Products", category: childCategoryId});
         }
     };
 
@@ -111,13 +109,13 @@ const App = ({ parameters }) => {
                     <>
                         {activeButton.name === "" && (
                             <Default
-                                SetVoucherData={() => {}}
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 categories={categories}
                                 handleChildCategoryClick={handleChildCategoryClick}
-                                desiredChildIdsMap={desiredChildIdsMap} // Pass desiredChildIdsMap here
+                                desiredChildIdsMap={childIds}
+                                setPrepaidVoucher={setPrepaidVoucher}
                             />
                         )}
 
@@ -169,7 +167,7 @@ const App = ({ parameters }) => {
                     onHide={() => {
                         setModalShow(false);
                         setModalName("");
-                        setActiveButton({ name: "" });
+                        setActiveButton({name: ""});
                     }}
                 />
             )}
@@ -181,7 +179,7 @@ const App = ({ parameters }) => {
                     onHide={() => {
                         setModalShow(false);
                         setModalName("");
-                        setActiveButton({ name: "" });
+                        setActiveButton({name: ""});
                     }}
                 />
             )}

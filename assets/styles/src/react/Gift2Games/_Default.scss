@@ -1,123 +1,136 @@
 #Default_g2g {
-    height: 100vh;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  padding: 20px 15px;
+
+  .MainTitle {
+    font-family: $Medium;
+    font-size: 16px;
+    color: black;
     width: 100%;
-    position: relative;
+    margin-top: 10px;
+  }
+
+  .categories {
+    overflow: auto;
+    padding: 0 10px;
+  }
+
+  .SubTitleCat {
+    font-family: $Regular;
+    font-size: 13px;
+    color: #868686;
+    margin-bottom: 0;
+  }
+
+  .Cards {
     display: flex;
-    flex-direction: column;
-    overflow-y: hidden;
-    padding: 20px 15px;
+    flex-direction: row;
+    width: 100%;
+    padding: 16px 0px 10px 0px;
+    border-radius: 6px;
+    border: 1px solid #D8DEE6;
+    box-shadow: 0px 3px 10px #E7EAF0;
+    margin-top: 15px;
+    align-items: center;
+    margin-left: 12px;
+    justify-content: center;
 
-    .MainTitle {
-        font-family: $Medium;
-        font-size: 16px;
+    .logoImg {
+      width: 54px;
+      height: 54px;
+      margin-left: 10px;
+    }
+
+    .Text {
+      .SubTitle {
+        font-family: $SemiBold;
+        font-size: 15px;
         color: black;
-        width: 100%;
-        margin-top: 10px;
-    }
+      }
 
-    .categories {
-        overflow: auto;
-        padding: 0 10px;
-    }
-    .SubTitleCat {
+      .description {
         font-family: $Regular;
         font-size: 14px;
-        color: #868686;
-        margin-bottom: 0;
+        color: #767676;
+      }
     }
-    .Cards {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        padding: 16px 0px 10px 0px;
-        border-radius: 6px;
-        border: 1px solid #D8DEE6;
-        box-shadow: 0px 3px 10px #E7EAF0;
-        margin-top: 15px;
-        align-items: center;
-        margin-left: 12px;
-        justify-content: center;
+  }
 
-        .logoImg {
-            width: 54px;
-            height: 54px;
-            margin-left: 10px;
-        }
+  .categories-scroll {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    white-space: nowrap;
+    display: flex;
+    min-height: 100px;
+  }
 
-        .Text {
-            .SubTitle {
-                font-family: $SemiBold;
-                font-size: 15px;
-                color: black;
-            }
+  .categories-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
 
-            .description {
-                font-family: $Regular;
-                font-size: 14px;
-                color: #767676;
-            }
-        }
+  .categories-scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .Category {
+    cursor: pointer;
+  }
+
+  .Category img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .Category:hover img {
+    transform: scale(1.2);
+  }
+
+  .selected img {
+    border: 2px solid #007bff; /* Assuming you want a blue border for the selected category */
+  }
+
+  .child-categories {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .active-sub {
+    background-color: #4987A8;
+    font-family: $SemiBold;
+    border-color: #4987a8;
+
+    .SubTitleCat {
+      color: #FFFFFF !important;
     }
-    .categories-scroll {
-        overflow-x: auto;
-        scrollbar-width: thin;
-        scrollbar-color: transparent transparent;
-        white-space: nowrap;
-        display: flex;
+  }
 
-    }
+  .child-category {
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 1px solid #868686;
+    width: 80px;
+    text-align: center;
+    padding: 8px 0px;
+    min-width: 60px;
+  }
 
-    .categories-scroll::-webkit-scrollbar {
-        width: 8px;
-    }
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    margin-right: 25px;
+  }
 
-    .categories-scroll::-webkit-scrollbar-thumb {
-        background-color: transparent;
-    }
-
-    .Category {
-        cursor: pointer;
-    }
-
-    .Category img {
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .Category:hover img {
-        transform: scale(1.2);
-    }
-
-    .selected img {
-        border: 2px solid #007bff; /* Assuming you want a blue border for the selected category */
-    }
-
-    .child-categories {
-        display: flex;
-        margin-top: 20px;
-        flex-wrap: nowrap;
-
-    }
-
-    .child-category {
-        margin-right: 10px;
-        border-radius: 20px;
-        border: 1px solid #868686;
-        width: 80px;
-        text-align: center;
-        padding: 12px 0px;
-
-    }
-
-    .category-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;  /* Center horizontally */
-        justify-content: center;  /* Center vertically */
-        margin-right: 50px;
-    }
-    .category-item img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-    }
+  .category-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
 }
