@@ -21,6 +21,7 @@ const Play = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState(false);
   const [selectedSub, setSelectedSub] = useState(false);
+  const [selectedSub2, setSelectedSub2] = useState(false);
   const [checked, setChecked] = useState(false);
   const selectedBallsToShow = localStorage.getItem("selectedBalls");
   const [getHowOftenPlay, setHowOftenPlay] = useState(0);
@@ -40,6 +41,7 @@ const Play = ({
     setDataGetting("");
     setSelectedOption(0);
     setSelectedSub(1);
+    setSelectedSub2(1);
     localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Play");
@@ -100,9 +102,11 @@ const Play = ({
 
       updatedBalls[index].withZeed = !updatedBalls[index].withZeed;
       if (updatedBalls[index].withZeed) {
-        updatedBalls[index].price = updatedBalls[index].price + parameters.gridpricematrix[0].zeed;
+        updatedBalls[index].price =
+          updatedBalls[index].price + parameters.gridpricematrix[0].zeed;
       } else {
-        updatedBalls[index].price = updatedBalls[index].price - parameters.gridpricematrix[0].zeed;
+        updatedBalls[index].price =
+          updatedBalls[index].price - parameters.gridpricematrix[0].zeed;
       }
       localStorage.setItem("selectedBalls", JSON.stringify(updatedBalls));
       const newTotalPrice = calculateTotalPrice(updatedBalls);
@@ -134,7 +138,7 @@ const Play = ({
         selectedBallsToShow == null ||
           JSON.parse(selectedBallsToShow).length === 0
       );
-      setTotalAmount(totalPrice * selectedSub);
+      setTotalAmount(totalPrice * selectedSub2);
       if (parameters.hasOwnProperty("tooLateDraw")) {
         setModalName("WarningModal");
         setWarningModal({
@@ -148,7 +152,6 @@ const Play = ({
         return;
       }
       setActiveButton({ name: "Buy" });
-      
     }
   };
 
@@ -156,53 +159,86 @@ const Play = ({
     {
       titleNb: "Play Once",
       desc: parameters.HowOftenDoYouWantToPlay[0] + " at 7:30PM",
-      price: totalPrice === 0 ? "" : parseInt(totalPrice * 1).toLocaleString(),
+      price:
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 1).toLocaleString() + " LBP",
     },
     {
       titleNb: "1 Week",
       desc: "2 Draws - until " + parameters.HowOftenDoYouWantToPlay[1],
-      price: totalPrice === 0 ? "" : parseInt(totalPrice * 2).toLocaleString(),
+      price:
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 2).toLocaleString() + " LBP",
     },
     {
       titleNb: "1 Month",
       desc: "8 Draws - until " + parameters.HowOftenDoYouWantToPlay[2],
-      price: totalPrice === 0 ? "" : parseInt(totalPrice * 8).toLocaleString(),
+      price:
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 8).toLocaleString() + " LBP",
     },
     {
       titleNb: "6 Months 52 Draws",
       desc: "until " + parameters.HowOftenDoYouWantToPlay[3],
-      price: totalPrice === 0 ? "" : parseInt(totalPrice * 52).toLocaleString(),
+      price:
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 52).toLocaleString() + " LBP",
     },
     {
       titleNb: "1 Year 104 Draws",
       desc: "until " + parameters.HowOftenDoYouWantToPlay[4],
       price:
-        totalPrice === 0 ? "" : parseInt(totalPrice * 104).toLocaleString(),
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 104).toLocaleString() + " LBP",
+    },
+    {
+      titleNb: "Auto play",
+      desc: "Can be canceled at any time",
+      price:
+        totalPrice === 0
+          ? ""
+          : parseInt(totalPrice * 1).toLocaleString() + " LBP/ Draw",
     },
   ];
 
   const handleOptionSelect = (index) => {
     setHowOftenPlay(index);
     let sub = 0;
+    let sub2 = 0;
     if (index == 0) {
       totalPrice = totalPrice * 1;
       sub = 1;
+      sub2 = 1;
     } else if (index == 1) {
       totalPrice = totalPrice * 2;
       sub = 2;
+      sub2 = 2;
     } else if (index == 2) {
       totalPrice = totalPrice * 8;
       sub = 8;
+      sub2 = 8;
     } else if (index == 3) {
       totalPrice = totalPrice * 52;
       sub = 52;
+      sub2 = 52;
     } else if (index == 4) {
       totalPrice = totalPrice * 104;
       sub = 104;
+      sub2 = 104;
+    } else if (index == 5) {
+      totalPrice = totalPrice * 1;
+      sub = 99999;
+      sub2 = 1;
     }
     setTotalAmount(totalPrice);
     setSelectedOption(index);
     setSelectedSub(sub);
+    setSelectedSub2(sub2);
   };
 
   return (
@@ -224,7 +260,13 @@ const Play = ({
                     Bouquet
                   </span>
                   <span className="right">
-                    <span>PLAY ZEED (+ L.L {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()})</span>
+                    <span>
+                      PLAY ZEED (+ L.L{" "}
+                      {parseInt(
+                        parameters.gridpricematrix[0].zeed
+                      ).toLocaleString()}
+                      )
+                    </span>
 
                     <div className="toggle">
                       <div className="toggle-switch">
@@ -268,7 +310,13 @@ const Play = ({
                     GRID {index + 1}
                   </span>
                   <span className="right">
-                    <span>PLAY ZEED (+ L.L {parseInt(parameters.gridpricematrix[0].zeed).toLocaleString()})</span>
+                    <span>
+                      PLAY ZEED (+ L.L{" "}
+                      {parseInt(
+                        parameters.gridpricematrix[0].zeed
+                      ).toLocaleString()}
+                      )
+                    </span>
 
                     <div className="toggle">
                       <div className="toggle-switch">
@@ -291,7 +339,16 @@ const Play = ({
                 <div className="body">
                   <div className="ballSection mt-2">
                     {ballsSet.balls.map((ball, ballIndex) =>
-                      ball !== null ? <span key={ballIndex} style={ballIndex >= 6 ? { backgroundColor: '#8D0500' } : {}}>{ball}</span> : null
+                      ball !== null ? (
+                        <span
+                          key={ballIndex}
+                          style={
+                            ballIndex >= 6 ? { backgroundColor: "#8D0500" } : {}
+                          }
+                        >
+                          {ball}
+                        </span>
+                      ) : null
                     )}
                   </div>
                   <div className="edit" onClick={() => handleEdit(index)}>

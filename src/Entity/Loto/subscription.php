@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\SubscriptionRepository")
  * @ORM\Table(name="subscription")
  */
-class loto
+class subscription
 {
     /**
      * @ORM\Id
@@ -18,29 +18,24 @@ class loto
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=order::class, inversedBy="id")
+     * @ORM\Column(name="suyoolUserId")
      */
-    private $order;
+    private $suyoolUserId ;
 
     /**
-     * @ORM\Column(name="ticketId")
+     * @ORM\Column(name="mobileNo")
      */
-    private $ticketId = 0;
+    private $mobileNo ;
 
     /**
-     * @ORM\Column(name="drawNumber",type="string")
-     */
-    private $drawNumber;
-
-    /**
-     * @ORM\Column(name="numdraws",type="string")
+     * @ORM\Column(name="numdraws")
      */
     private $numdraws;
 
     /**
-     * @ORM\Column(name="withZeed",type="integer")
+     * @ORM\Column(name="isZeed",type="integer")
      */
-    private $withZeed;
+    private $isZeed;
 
     /**
      * @ORM\Column(name="gridSelected")
@@ -48,49 +43,24 @@ class loto
     private $gridSelected;
 
     /**
-     * @ORM\Column(name="zeednumbers")
+     * @ORM\Column(name="isBouquet")
      */
-    private $zeednumbers;
+    private $isBouquet;
 
     /**
-     * @ORM\Column(name="price")
+     * @ORM\Column(name="canceledDate")
      */
-    private $price;
+    private $canceledDate;
 
     /**
-     * @ORM\Column(name="currency")
+     * @ORM\Column(name="canceled")
      */
-    private $currency;
+    private $canceled = 0;
 
     /**
-     * @ORM\Column(name="bouquet")
+     * @ORM\Column(name="remaining")
      */
-    private $bouquet;
-
-    /**
-     * @ORM\Column(name="errorInfo")
-     */
-    private $errorInfo;
-
-    /**
-     * @ORM\Column(name="winLoto")
-     */
-    private $winloto;
-
-    /**
-     * @ORM\Column(name="winZeed")
-     */
-    private $winzeed;
-
-     /**
-     * @ORM\Column(name="isWon")
-     */
-    private $isWon;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $winningStatus;
+    private $remaining;
 
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
@@ -107,36 +77,25 @@ class loto
         return $this->id;
     }
 
-    public function getOrderId(): ?order
+    public function getsuyoolUserId()
     {
-        return $this->order;
+        return $this->suyoolUserId;
     }
 
-    public function setOrderId(?order $order_id): self
+    public function setsuyoolUserId($suyoolUserId)
     {
-        $this->order = $order_id;
+        $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
 
-    public function getticketId()
+    public function getMobileNo()
     {
-        return $this->ticketId;
+        return $this->mobileNo;
     }
 
-    public function setticketId($ticketId)
+    public function setMobileNo($mobileNo)
     {
-        $this->ticketId = $ticketId;
-        return $this;
-    }
-
-    public function getdrawnumber()
-    {
-        return $this->drawNumber;
-    }
-
-    public function setdrawnumber($drawNumber)
-    {
-        $this->drawNumber = $drawNumber;
+        $this->mobileNo = $mobileNo;
         return $this;
     }
 
@@ -151,18 +110,29 @@ class loto
         return $this;
     }
 
-    public function getwithZeed()
+    public function getRemaining()
     {
-        if ($this->withZeed == true) {
+        return $this->remaining;
+    }
+
+    public function setRemaining($remaining)
+    {
+        $this->remaining = $remaining;
+        return $this;
+    }
+
+    public function getIsZeed()
+    {
+        if ($this->isZeed == true) {
             return 1;
         } else {
             return 0;
         }
     }
 
-    public function setWithZeed($withZeed)
+    public function setIsZeed($isZeed)
     {
-        $this->withZeed = $withZeed;
+        $this->isZeed = $isZeed;
         return $this;
     }
 
@@ -177,108 +147,41 @@ class loto
         return $this;
     }
 
-    public function getzeednumber()
+    public function getCanceled()
     {
-        return $this->zeednumbers;
+        return $this->canceled;
     }
 
-    public function setzeednumber($zeednumbers)
+    public function setCanceled($canceled)
     {
-        $this->zeednumbers = $zeednumbers;
+        $this->canceled = $canceled;
         return $this;
     }
 
-
-    public function getprice()
+    public function getCanceledDate()
     {
-        return $this->price;
+        return $this->canceledDate;
     }
 
-    public function setprice($price)
+    public function setCanceledDate($canceledDate)
     {
-        $this->price = $price;
+        $this->canceledDate = $canceledDate;
         return $this;
     }
 
-    public function getcurrency()
+    public function getIsbouquet()
     {
-        return $this->currency;
-    }
-
-    public function setcurrency($currency)
-    {
-        $this->currency = $currency;
-        return $this;
-    }
-
-    public function getbouquet()
-    {
-        if ($this->bouquet) {
+        if ($this->isBouquet) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function setbouquet($bouquet)
+    public function setIsbouquet($isBouquet)
     {
-        $this->bouquet = $bouquet;
+        $this->isBouquet = $isBouquet;
         return $this;
-    }
-
-    public function geterror()
-    {
-        return $this->errorInfo;
-    }
-
-    public function seterror($errorInfo)
-    {
-        $this->errorInfo = $errorInfo;
-        return $this;
-    }
-
-    public function getwinloto()
-    {
-        return $this->winloto;
-    }
-
-    public function setwinloto($winloto)
-    {
-        $this->winloto = $winloto;
-        return $this;
-    }
-
-    public function getwinzeed()
-    {
-        return $this->winzeed;
-    }
-
-    public function setwinzeed($winzeed)
-    {
-        $this->winzeed = $winzeed;
-        return $this;
-    }
-
-    public function setwinningStatus($winningStatus)
-    {
-        $this->winningStatus = $winningStatus;
-        return $this;
-    }
-
-    public function getwinningStatus()
-    {
-        return $this->winningStatus;
-    }
-
-    public function setisWon($isWon)
-    {
-        $this->isWon = $isWon;
-        return $this;
-    }
-
-    public function getisWon()
-    {
-        return $this->isWon;
     }
 
     public function getCreated()
