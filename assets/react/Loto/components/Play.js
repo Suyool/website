@@ -324,7 +324,7 @@ const Play = ({
         <span>+</span>
       </div>
       {/* DONOTREMOVE */}
-      {/* <div className="br"></div>
+      <div className="br"></div>
       <div className="wantToPlay">
         <div className="title">How often do you want to play?</div>
         <div className="listSection">
@@ -349,7 +349,7 @@ const Play = ({
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
 
       <div className="btnSection">
         <div id="Total">
