@@ -30,9 +30,9 @@
 </div>
 
 <div>
-    <input type="hidden" id="transaction_id" value="$transactionId">
-    <input type="hidden" id="merchant_id" value="$merchantID">
-    <input type="hidden" id="callBack_URL" value="$callBackURL">
+    <input type="hidden" id="transaction_id" value="{{ order_id }}">
+    <input type="hidden" id="merchant_id" value="{{ merchantId }}">
+    <input type="hidden" id="callBack_URL" value="{{ CallBackURL }}">
     <input type="hidden" id="env" value="{{ env }}">
 </div>
 
@@ -79,7 +79,7 @@
                     env: env,
                 },
                 success: function (data) {
-                    var paymentInfo = JSON.parse(data);
+                    var paymentInfo = data;
                     //console.log(data);
 
 

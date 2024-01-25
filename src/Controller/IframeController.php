@@ -170,8 +170,13 @@ class IframeController extends AbstractController
      */
     public function paySuyoolMobile(Request $request): Response
     {
+        if (!empty($this->session->get('payment_data'))) {
+            $data = $this->session->get('payment_data');
+        } else {
+            $data = $request->query->all();
+            $data['SecureHash'] = str_replace(' ', '+', $data['SecureHash']);
+        }
         $env = "live";
-        $data = $request->query->all();
         $TranID = isset($data['TranID']) ? $data['TranID'] : "";
         $amount = isset($data['Amount']) ? $data['Amount'] : "";
         $currency = isset($data['Currency']) ? $data['Currency'] : "";
@@ -179,7 +184,7 @@ class IframeController extends AbstractController
         $secureHash = isset($data['SecureHash']) ? rawurldecode($data['SecureHash']) : "";
         $TS = isset($data['TS']) ? $data['TS'] : "";
         $TranTS = isset($data['TranTS']) ? $data['TranTS'] : "";
-        $merchantId = isset($result['MerchantID']) ? $result['MerchantID'] : (isset($result['MerchantAccountID']) ? $result['MerchantAccountID'] : null);
+        $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
         $CurrentUrlClient = isset($data['currentUrl']) ? rawurldecode($data['currentUrl']) : "";
         $Browsertype = isset($data['browsertype']) ? $data['browsertype'] : Helper::getBrowserType();
         $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : "";
@@ -220,6 +225,8 @@ class IframeController extends AbstractController
                 'order_id' => $TranID,
                 'env' => $env,
                 'main_url' => $main_url,
+                'merchantId' => $merchantId,
+                'CallBackURL' => $CallBackURL,
 
             ]);
         }
@@ -277,7 +284,9 @@ class IframeController extends AbstractController
             $additionalInfo = isset($result['AdditionalInfo']) ? $result['AdditionalInfo'] : (isset($result['additionalinfo']) ? $result['additionalinfo'] : null);
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-            if($merchant->getWebhook() == 0) {
+
+            $webhook = $merchant->getWebhook() ?? '';
+            if(isset($webhook) && $webhook == 0) {
                 $callBackURL = $callBackURL ."?Flag=".$flag . "&ReturnText=".$returnText . "&ReferenceNo=".$referenceNo . "&TranID=". $transactionId . "&SecureHash=" . rawurlencode($SecureHash);
                 $callBackURL = str_replace("&amp;","&",$callBackURL);
             }
