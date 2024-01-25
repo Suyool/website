@@ -445,16 +445,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-            [
-                'imagePath' => 'build/images/platinumMastercard/visa.png',
-                'title' => 'Visa Luxury Hotel Collection',
-                'points' => [
-                    'Best available rate guarantee',
-                    'Automatic room upgrade, and VIP guest status',
-                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
-                ],
-                'learnMoreLink' => '/',
-            ],
+//            [
+//                'imagePath' => 'build/images/platinumMastercard/visa.png',
+//                'title' => 'Visa Luxury Hotel Collection',
+//                'points' => [
+//                    'Best available rate guarantee',
+//                    'Automatic room upgrade, and VIP guest status',
+//                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
+//                ],
+//                'learnMoreLink' => '/',
+//            ],
             [
                 'imagePath' => 'build/images/platinumMastercard/sixt.png',
                 'title' => 'Car Rental offers with SIXT',
@@ -525,16 +525,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-            [
-                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
-                'title' => 'Shopping with Global Blue',
-                'points' => [
-                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
-                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-                    'Offer valid until December 31, 2024',
-                ],
-                'learnMoreLink' => '/',
-            ],
+//            [
+//                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+//                'title' => 'Shopping with Global Blue',
+//                'points' => [
+//                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+//                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+//                    'Offer valid until December 31, 2024',
+//                ],
+//                'learnMoreLink' => '/',
+//            ],
             // [
             //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
             //     'title' => 'Shopping with Global Blue',
@@ -717,16 +717,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-            [
-                'imagePath' => 'build/images/platinumMastercard/visa.png',
-                'title' => 'Visa Luxury Hotel Collection',
-                'points' => [
-                    'Best available rate guarantee',
-                    'Automatic room upgrade, and VIP guest status',
-                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
-                ],
-                'learnMoreLink' => '/',
-            ],
+//            [
+//                'imagePath' => 'build/images/platinumMastercard/visa.png',
+//                'title' => 'Visa Luxury Hotel Collection',
+//                'points' => [
+//                    'Best available rate guarantee',
+//                    'Automatic room upgrade, and VIP guest status',
+//                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
+//                ],
+//                'learnMoreLink' => '/',
+//            ],
             [
                 'imagePath' => 'build/images/platinumMastercard/sixt.png',
                 'title' => 'Car Rental offers with SIXT',
@@ -797,16 +797,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-            [
-                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
-                'title' => 'Shopping with Global Blue',
-                'points' => [
-                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
-                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-                    'Offer valid until December 31, 2024',
-                ],
-                'learnMoreLink' => '/',
-            ],
+//            [
+//                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+//                'title' => 'Shopping with Global Blue',
+//                'points' => [
+//                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+//                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+//                    'Offer valid until December 31, 2024',
+//                ],
+//                'learnMoreLink' => '/',
+//            ],
             // [
             //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
             //     'title' => 'Shopping with Global Blue',
