@@ -1139,10 +1139,37 @@ class DefaultController extends AbstractController
      */
     public function MatBankCard()
     {
-      
+        $faq=[
+            "ONE"=>[
+                "Title"=>"How do I request my Suyool Visa Platinum card?",
+                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+            ],
+            "TWO"=>[
+                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            ],
+            "THREE"=>[
+                "Title"=>"Can I use the card online?",
+                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            ],
+            "FOUR"=>[
+                "Title"=>"Can I use the card internationally",
+                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            ],
+            "FIVE"=>[
+                "Title"=>"Is the Suyool Visa Platinum card an international card?",
+                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            ],
+            "SIX"=>[
+                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
+                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            ],
+        ];
+
 
         $parameters=[
             'barBgColor' => 'barWhite',
+            'faq' => $faq
 
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig',$parameters);

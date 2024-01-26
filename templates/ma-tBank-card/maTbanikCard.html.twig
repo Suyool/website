@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	<div class="maTbanikCard">
+	<div class="homepage maTbanikCard">
 		<div class="top-section container-fluid">
-
+			{% include 'elements/header-v2.html.twig' %}
 			<div class="left-section">
 				<h1 class="header-text">
 					Use Suyool Visa Card
@@ -11,17 +11,35 @@
 				<div class="buttons-cont desktopMode">
 					<button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadApp" id="openSuyoolAccount">Get The Card</button>
 				</div>
+				<div class="buttons-cont tabletMode">
+					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount">Get The Card</button>
+				</div>
+				<div class="buttons-cont mobileMode">
+					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount">Get The Card</button>
+				</div>
 			</div>
-
 			<div class="right-section">
 				<div class="img-cont">
-					<img src="{{ asset('build/images/homepage/maTbanikCard.png') }}">
-					<span>#Ma_tBank</span>
+					<img class="maTbanik" src="{{ asset('build/images/maTbanik.svg') }}">
+					<img class="maTbanikCard" src="{{ asset('build/images/maTbanikCard.png') }}">
 				</div>
 			</div>
 		</div>
+		<div class="mobileCardImage">
+			<img class="maTbanikCard2" src="{{ asset('build/images/maTbanikCard.png') }}">
+		</div>
 
-		<div class="m-5"></div>
+		<div class="mb-5">
+			{% include 'ma-tBank-card/threeBoxTemplate.html.twig' %}
+			{% include 'ma-tBank-card/threeEasySteps.html.twig' %}
+			{% set buttonName = 'Explore Exclusive Privileges' %}
+			{% include 'homepage/home-visa.html.twig' with {'buttonName': buttonName} %}
+			{% include 'ma-tBank-card/backgroundSection.html.twig' %}
+			{% include 'elements/faq/faqSuyool.html.twig' %}
+			{% include 'elements/get-suyool-visa.html.twig' %}
+
+		</div>
+
 
 		{% include 'elements/footer.html.twig' %}
 	</div>

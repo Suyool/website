@@ -29,7 +29,11 @@
                 </div>
 
                 {% if not hideLearnMore is defined %}
-                <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn">Learn More</a>
+                    {% if buttonName is defined %}
+                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn">{{ buttonName }}</a>
+                    {% else %}
+                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn">Learn More</a>
+                    {% endif %}
                 {% endif %}
 
             </div>
