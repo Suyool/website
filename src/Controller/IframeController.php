@@ -210,21 +210,20 @@ class IframeController extends AbstractController
 
         if ($TranID !== '' && $amount !== '' && $currency !== '' && $secureHash !== '' && $TS !== '' && $merchantId !== '') {
             $transactionData = [
-                'TransactionID' => "$TranID",
+                'strTranID' => "$TranID",
+                'MerchantID' => $merchantId,
                 'Amount' => $amount,
                 'Currency' => $currency,
-                'SecureHash' => $secureHash,
-                'TS' => "$TS",
-                'TranTS' => "$TranTS",
                 "CallBackURL" => $CallBackURL,
-                'MerchantAccountID' => $merchantId,
+                'TS' => "$TS",
+                'SecureHash' => $secureHash,
                 'currentUrl' => "$CurrentUrlClient",
                 'browsertype' => $Browsertype,
                 'AdditionalInfo' => $additionalInfo,
             ];
 
             $jsonEncoded = json_encode($transactionData);
-            $appUrl = "suyoolpay://suyool.com/suyool=?" . $jsonEncoded;
+            $appUrl = "suyoolpay://suyool.com/suyool=?" . urlencode($jsonEncoded);
 
             return $this->render('iframe/pay-mobile.html.twig', [
                 'deepLink' => $appUrl,
