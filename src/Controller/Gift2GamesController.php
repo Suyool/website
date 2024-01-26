@@ -43,7 +43,7 @@ class Gift2GamesController extends AbstractController
      */
     public function index($id): Response
     {
-//        $parameters['deviceType'] = "Android";
+        $parameters['deviceType'] = "Android";
 //        return $this->render('gift2_games/index.html.twig', [
 //            'parameters' => $parameters
 //        ]);
