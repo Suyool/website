@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="maTbanikCard">
+		<div class="top-section container-fluid">
+
+			<div class="left-section">
+				<h1 class="header-text">
+					Use Suyool Visa Card
+				</h1>
+				<p>In Lebanon & abroad, in-store & online</p>
+				<div class="buttons-cont desktopMode">
+					<button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadApp" id="openSuyoolAccount">Get The Card</button>
+				</div>
+			</div>
+
+			<div class="right-section">
+				<div class="img-cont">
+					<img src="{{ asset('build/images/homepage/maTbanikCard.png') }}">
+					<span>#Ma_tBank</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="m-5"></div>
+
+		{% include 'elements/footer.html.twig' %}
+	</div>
+
+{% endblock %}

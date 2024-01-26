@@ -2,142 +2,142 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/app1.1dfb62eb.js"
+        "/build/runtime.js",
+        "/build/app1.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/admin-app.fd697fc2.js"
+        "/build/runtime.js",
+        "/build/admin-app.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Loto.9d380b4e.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/LegalEnrollement.2acf5642.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.8062364f.js"
+        "/build/runtime.js",
+        "/build/Alfa.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.d4e6165e.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.6cc9251a.js"
+        "/build/runtime.js",
+        "/build/Ogero.js"
       ]
     },
     "iveri": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/iveri.429e5515.js"
+        "/build/runtime.js",
+        "/build/iveri.js"
       ]
     },
     "TerraNet": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/TerraNet.65c21a2a.js"
+        "/build/runtime.js",
+        "/build/TerraNet.js"
       ]
     },
     "Sodetel": {
       "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Sodetel.560fa7ac.js"
+        "/build/runtime.js",
+        "/build/Sodetel.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.f0fb7692.css"
+        "/build/styles.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/admin.8fb78dae.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.171d8ead.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.65484ccf.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/AlfaStyle.42e882f1.css"
+        "/build/AlfaStyle.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.f78eb91d.css"
+        "/build/TouchStyle.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.131ea645.css"
+        "/build/OgeroStyle.css"
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/iveristyles.382777e8.css"
+        "/build/iveristyles.css"
       ]
     },
     "terraNetstyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/terraNetstyle.4d489fae.css"
+        "/build/terraNetstyle.css"
       ]
     },
     "SodetelStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/SodetelStyle.d2e21a6e.css"
+        "/build/SodetelStyle.css"
       ]
     }
   }

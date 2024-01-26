@@ -1,0 +1,90 @@
+.maTbanikCard {
+  .top-section {
+    background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+    color: #fff;
+    padding-bottom: 52px;
+    padding-top: 20px;
+
+    .left-section {
+      width: 70vw;
+      padding-top: 65px;
+      .header-text {
+        font-size: 40px;
+        margin-bottom: 40px;
+        font-family: $Regular;
+      }
+
+      p {
+        width: 80%;
+        line-height: 1.8;
+        font-size: 18px;
+        font-family: $InterRegular;
+      }
+
+      .buttons-cont {
+        font-family: $SemiBold;
+        margin-top: 70px;
+
+        @media (min-width: 768px) {
+          .btn {
+            &:hover {
+              color: #ffffff;
+            }
+          }
+        }
+
+        .button-primary {
+          margin-right: 10px;
+          font-size: 16px;
+          border: 2px solid #ffffff;
+        }
+
+        .button-primary:hover {
+          background: #226d96 !important;
+          border: 2px solid #ffffff !important;
+        }
+
+        .button-primary,
+        .btn-outline-secondary {
+          border-radius: 12px;
+          padding: 10px 30px;
+          background: #ffffff;
+          color: #226d96;
+        }
+
+        .btn-outline-secondary {
+          border-color: #226d96;
+          color: #226d96;
+
+          &:hover {
+            background-color: unset;
+            color: #226d96;
+          }
+        }
+      }
+    }
+
+    .right-section {
+      position: absolute;
+      right: 30px;
+      top: 50px;
+      width: 30vw;
+
+      .img-cont {
+        position: relative;
+        max-width: 615px;
+        margin: auto;
+
+        img {
+          width: 80%;
+        }
+        span{
+          font-size: 30px;
+          position: absolute;
+          bottom: 30px;
+          left: 20px;
+        }
+      }
+    }
+  }
+}

@@ -1133,4 +1133,18 @@ class DefaultController extends AbstractController
         ];
         return $this->render('medco-payment/index.html.twig',$parameters);
     }
+
+     /**
+     * @Route("/ma-tBank-card", name="ma_tBank_card")
+     */
+    public function MatBankCard()
+    {
+      
+
+        $parameters=[
+            'barBgColor' => 'barWhite',
+
+        ];
+        return $this->render('ma-tBank-card/maTbanikCard.html.twig',$parameters);
+    }
 }
