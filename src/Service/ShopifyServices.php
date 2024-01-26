@@ -32,7 +32,7 @@ class ShopifyServices
 
     public function getQr($data)
     {
-        $response = $this->client->request('POST', $this->API_HOST . $data['url'], [
+        $response = $this->client->request('POST', $this->SUYOOL_API_HOST . $data['url'], [
             'body' => $data['data'],
             'headers' => [
                 'Content-Type' => 'application/json'
