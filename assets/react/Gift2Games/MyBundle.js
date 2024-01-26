@@ -68,7 +68,8 @@ const MyBundle = ({
           desc: getPrepaidVoucher.title,
           amount: getPrepaidVoucher.price,
           currency: getPrepaidVoucher.currency,
-          productId: getPrepaidVoucher.productId
+          productId: getPrepaidVoucher.productId,
+          categoryName: sessionStorage.getItem("categoryName")
         })
         .then((response) => {
           setSpinnerLoader(false);

@@ -90,7 +90,10 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
                             <div
                                 key={categoryToDisplay.id}
                                 className={`category-item ${activeCategoryId === Number(categoryId) ? "selected" : ""}`}
-                                onClick={() => handleCategoryClick(Number(categoryId))}
+                                onClick={() =>{
+                                    handleCategoryClick(Number(categoryId))
+                                    sessionStorage.setItem("categoryName", categoryToDisplay.title)
+                                }}
                             >
                                 <img src={categoryToDisplay.image} alt={categoryToDisplay.title}/>
                                 <p className="SubTitleCat">{categoryToDisplay.title}</p>
