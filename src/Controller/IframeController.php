@@ -180,8 +180,8 @@ class IframeController extends AbstractController
             $data = $this->session->get('payment_data');
         } else {
             $data = $request->query->all();
-            $data['SecureHash'] = str_replace(' ', '+', $data['SecureHash']);
         }
+        $data['SecureHash'] = str_replace(' ', '+', $data['SecureHash']);
         $env = "live";
         $TranID = isset($data['TranID']) ? $data['TranID'] : "";
         $amount = isset($data['Amount']) ? $data['Amount'] : "";
