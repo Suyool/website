@@ -26,7 +26,9 @@
         @media (min-width: 768px) {
           .btn {
             &:hover {
-              color: #ffffff;
+              border: 2px solid #fff!important;
+              color: #fff;
+              opacity: 1!important;
             }
           }
         }
@@ -36,10 +38,6 @@
           border: 2px solid #ffffff;
         }
 
-        .button-primary:hover {
-          background: #226d96 !important;
-          border: 2px solid #ffffff !important;
-        }
 
         .button-primary,
         .btn-outline-secondary {
@@ -77,7 +75,7 @@
         justify-content: flex-end;
 
         .maTbanikCard {
-          margin-top: 20px;
+          margin-top: 30px;
         }
         .maTbanik {
           position: absolute;
@@ -108,9 +106,13 @@
 
     .button-primary {
       border-radius: 12px;
-      padding: 14px 0px!important;
       background: #ffffff;
       color: #226d96;
+      &:hover{
+        border: 2px solid #fff!important;
+        color: #fff;
+        opacity: 1!important;
+      }
     }
   }
   @media (max-width: 768px) {

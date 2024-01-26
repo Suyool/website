@@ -1141,26 +1141,30 @@ class DefaultController extends AbstractController
     {
         $faq=[
             "ONE"=>[
+                "Title"=>"Can anyone request the Suyool Visa platinum card?",
+                "Desc"=>"Once successfully registered on the Suyool app, anyone can request the Suyool Visa Platinum card and enjoy its privileges."
+            ],
+            "TWO"=>[
                 "Title"=>"How do I request my Suyool Visa Platinum card?",
                 "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
             ],
-            "TWO"=>[
+            "THREE"=>[
                 "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
                 "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
             ],
-            "THREE"=>[
+            "FOUR"=>[
                 "Title"=>"Can I use the card online?",
                 "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
             ],
-            "FOUR"=>[
+            "FIVE"=>[
                 "Title"=>"Can I use the card internationally",
                 "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
             ],
-            "FIVE"=>[
+            "SIX"=>[
                 "Title"=>"Is the Suyool Visa Platinum card an international card?",
                 "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "SIX"=>[
+            "Seven"=>[
                 "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
                 "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
             ],
