@@ -9,17 +9,19 @@
 				</h1>
 				<p>In Lebanon & abroad, in-store & online</p>
 				<div class="buttons-cont desktopMode">
-					<button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadApp" id="openSuyoolAccount">Get The Card</button>
+					<button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD" id="openSuyoolAccount">Get The Card</button>
 				</div>
 				<div class="buttons-cont tabletMode">
-					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount">Get The Card</button>
+					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount" data-bs-target="#DownloadAppCARD"
+							onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card</button>
 				</div>
 				<div class="buttons-cont mobileMode">
-					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount">Get The Card</button>
+					<button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount"
+							onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card</button>
 				</div>
 			</div>
 			<div class="right-section">
-				<div class="img-cont">
+				<div class="img-contt">
 					<img class="maTbanik" src="{{ asset('build/images/maTbanik.svg') }}">
 					<img class="maTbanikCard" src="{{ asset('build/images/maTbanikCard.png') }}">
 				</div>

@@ -1169,7 +1169,8 @@ class DefaultController extends AbstractController
 
         $parameters=[
             'barBgColor' => 'barWhite',
-            'faq' => $faq
+            'faq' => $faq,
+            'visa'=>true
 
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig',$parameters);
