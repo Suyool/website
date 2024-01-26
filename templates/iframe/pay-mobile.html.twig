@@ -43,11 +43,9 @@
         var deepLinkURL = $('#deeplink-url').attr('href');
         if(deepLinkURL != ''){
             setTimeout(function(){
-                //Post the Deeplink URL to the parent page to trigger there location=url in order to open skash app
+                //Post the Deeplink URL to the parent page to trigger there location=url in order to open Suyool app
                 //Because location=url doesn't work only on safari from an iframe
-                window.parent.postMessage({
-                    'url': deepLinkURL
-                }, "*");
+                window.location.href = deepLinkURL;
             }, 1000);
 
             var osMobile = getMobileOperatingSystem();
