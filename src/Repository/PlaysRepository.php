@@ -472,4 +472,14 @@ class PlaysRepository extends EntityRepository
 
         return $qb;
     }
+
+    public function getOrdersFromSubscripyionPerUser(){
+        return $this->createQueryBuilder('l')
+        ->select('o,SUM(l.price) as totalAmount')
+        ->leftJoin(order::class,'o','WITH','o.id = l.order')
+        ->where("o.status = 'pending' and o.fromSubscription = 1")
+        ->groupBy('o.id')
+        ->getQuery()
+        ->getResult();
+    }
 }

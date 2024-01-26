@@ -60,6 +60,11 @@ class order
     private $mobileNo;
 
     /**
+     * @ORM\Column(name="fromSubscription")
+     */
+    private $fromSubscription = 0;
+
+    /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
     private $created;
@@ -165,5 +170,16 @@ class order
     {
         $this->mobileNo = $mobileNo;
         return $this;
+    }
+
+    public function setFromSub($fromSubscription)
+    {
+        $this->fromSubscription = $fromSubscription;
+        return $this;
+    }
+
+    public function getFromSub()
+    {
+        return $this->fromSubscription;
     }
 }

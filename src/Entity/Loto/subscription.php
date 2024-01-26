@@ -2,6 +2,7 @@
 
 namespace App\Entity\Loto;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +49,7 @@ class subscription
     private $isBouquet;
 
     /**
-     * @ORM\Column(name="canceledDate")
+     * @ORM\Column(name="canceledDate",type="datetime",nullable=true)
      */
     private $canceledDate;
 
@@ -56,6 +57,11 @@ class subscription
      * @ORM\Column(name="canceled")
      */
     private $canceled = 0;
+
+    /**
+     * @ORM\Column(name="autoPlay")
+     */
+    private $autoPlay = 0;
 
     /**
      * @ORM\Column(name="remaining")
@@ -158,12 +164,23 @@ class subscription
         return $this;
     }
 
+    public function getAutoPlay()
+    {
+        return $this->autoPlay;
+    }
+
+    public function setAutoPlay($autoPlay)
+    {
+        $this->autoPlay = $autoPlay;
+        return $this;
+    }
+
     public function getCanceledDate()
     {
         return $this->canceledDate;
     }
 
-    public function setCanceledDate($canceledDate)
+    public function setCanceledDate(DateTime $canceledDate)
     {
         $this->canceledDate = $canceledDate;
         return $this;

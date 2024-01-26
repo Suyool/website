@@ -211,27 +211,33 @@ const Play = ({
     let sub = 0;
     let sub2 = 0;
     if (index == 0) {
-      totalPrice = totalPrice * 1;
+      // totalPrice = totalPrice * 1;
+      totalPrice = "";
       sub = 1;
       sub2 = 1;
     } else if (index == 1) {
-      totalPrice = totalPrice * 2;
+      // totalPrice = totalPrice * 2;
+      totalPrice = "";
       sub = 2;
-      sub2 = 2;
+      sub2 = 1;
     } else if (index == 2) {
-      totalPrice = totalPrice * 8;
+      // totalPrice = totalPrice * 8;
+      totalPrice = "";
       sub = 8;
-      sub2 = 8;
+      sub2 = 1;
     } else if (index == 3) {
-      totalPrice = totalPrice * 52;
+      // totalPrice = totalPrice * 52;
+      totalPrice = "";
       sub = 52;
-      sub2 = 52;
+      sub2 = 1;
     } else if (index == 4) {
-      totalPrice = totalPrice * 104;
+      // totalPrice = totalPrice * 104;
+      totalPrice = "";
       sub = 104;
-      sub2 = 104;
+      sub2 = 1;
     } else if (index == 5) {
-      totalPrice = totalPrice * 1;
+      // totalPrice = totalPrice * 1;
+      totalPrice = "";
       sub = 99999;
       sub2 = 1;
     }
@@ -402,7 +408,7 @@ const Play = ({
                 <div className="titleNb">{item.titleNb}</div>
                 <div className="desc">{item.desc}</div>
               </div>
-              <div className="price">{item.price}</div>
+              {/* <div className="price">{item.price}</div> */}
             </div>
           ))}
         </div>

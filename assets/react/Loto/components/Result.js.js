@@ -35,11 +35,16 @@ const Result = ({
   const [prize3zeed, setprize3zeed] = useState([]);
   const [prize4zeed, setprize4zeed] = useState([]);
   const [getBallReplay, setBallReplay] = useState([]);
+  const [getAutoPlay,setAutoPlay] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("BackPage", "LLDJ");
     setBackLink(localStorage.getItem("BackPage"));
     setHeaderTitle("Results");
+
+    if(parameters?.autoplay){
+      setAutoPlay(true)
+    }
 
     if (getCheckBuy) {
       handleChangeDate(parameters.prize_loto_result[0]?.drawNumber, 0);
@@ -85,7 +90,10 @@ const Result = ({
         const isDuplicate = existingBalls.some(
           (existingBallSet) =>
             existingBallSet.balls &&
-            arraysAreEqual(existingBallSet.balls.sort(), item["gridSelected"].split(" ").map(Number).sort())
+            arraysAreEqual(
+              existingBallSet.balls.sort(),
+              item["gridSelected"].split(" ").map(Number).sort()
+            )
         );
         if (isDuplicate) {
           return {
@@ -95,9 +103,9 @@ const Result = ({
             replay: item["gridSelected"].split(" ").map(Number),
             price: price,
             flag: item["flag"],
-            btn:false
+            btn: false,
           };
-        }else{
+        } else {
           return {
             index: index,
             grid: item["gridSelected"].split(" ").map(Number),
@@ -105,10 +113,9 @@ const Result = ({
             replay: item["gridSelected"].split(" ").map(Number),
             price: price,
             flag: item["flag"],
-            btn:true
+            btn: true,
           };
         }
-       
       });
 
       const zeedSelectedArray = item.gridSelected
@@ -256,7 +263,10 @@ const Result = ({
               const isDuplicate = existingBalls.some(
                 (existingBallSet) =>
                   existingBallSet.balls &&
-                  arraysAreEqual(existingBallSet.balls.sort(), item["gridSelected"].split(" ").map(Number).sort())
+                  arraysAreEqual(
+                    existingBallSet.balls.sort(),
+                    item["gridSelected"].split(" ").map(Number).sort()
+                  )
               );
               if (isDuplicate) {
                 return {
@@ -266,9 +276,9 @@ const Result = ({
                   replay: item["gridSelected"].split(" ").map(Number),
                   price: price2,
                   flag: item["flag"],
-                  btn:false
+                  btn: false,
                 };
-              }else{
+              } else {
                 return {
                   index: index,
                   grid: item["gridSelected"].split(" ").map(Number),
@@ -276,7 +286,7 @@ const Result = ({
                   replay: item["gridSelected"].split(" ").map(Number),
                   price: price2,
                   flag: item["flag"],
-                  btn:true
+                  btn: true,
                 };
               }
             }
@@ -423,8 +433,26 @@ const Result = ({
     );
   };
 
+  const cancel = () => {
+    axios
+      .put("/loto/delete")
+      .then((response) => {
+        if (response.data.status == true) {
+          console.log("canceled");
+          setAutoPlay(false)
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div id="Result">
+      {getAutoPlay && (
+        <button onClick={() => cancel()}>Cancel The Auto Play</button>
+      )}
       <div className="resultTopSection mt-4">
         <div className="title">Draw Numbers</div>
         <div className="ballSection mt-3">
@@ -499,7 +527,7 @@ const Result = ({
               index: gridItem.index,
               price: gridItem.price,
               flag: gridItem.flag,
-              btn: gridItem.btn
+              btn: gridItem.btn,
             }))
             .sort((a, b) => {
               const aHasWin =

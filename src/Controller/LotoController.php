@@ -202,6 +202,12 @@ class LotoController extends AbstractController
                     $PlayOnce, $OneWeek, $OneMonth, $SixMonth, $OneYear
                 ];
                 $suyoolUserId = $suyoolUserInfo[0];
+                $getUserIfHePlayAutoPlay = $this->mr->getRepository(subscription::class)->findOneBy(['suyoolUserId' => $suyoolUserId, 'autoPlay' => 1, 'canceled' => 0]);
+                if (!is_null($getUserIfHePlayAutoPlay)) {
+                    $autoplay = true;
+                } else {
+                    $autoplay = false;
+                }
                 $this->session->set('suyoolUserId', $suyoolUserId);
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
                 $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
@@ -311,6 +317,7 @@ class LotoController extends AbstractController
                 $parameters['prize_loto_perdays'] = $prize_loto_perdays;
                 $parameters['prize_loto_result'] =  array_map("unserialize", array_unique(array_map("serialize", $prize_loto_result)));
                 $parameters['prize_loto_result'] = array_values($parameters['prize_loto_result']);
+                $parameters['autoplay'] = $autoplay;
 
                 $today = new DateTime();
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
@@ -410,51 +417,63 @@ class LotoController extends AbstractController
                     }
 
                     //subscription
-                    if($item['subscription'] > 1){
-                    if ($withZeed == false) {
-                        if (isset($item['balls']) && $item['balls'] != null) {
-                            $ballsnumbers = count($item['balls']);
-                            $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => $ballsnumbers]);
-                            $item['price'] = $price->getprice();
-                            $balls = implode(" ", $item['balls']);
-                            $ballsArrayNoZeedSub[] = $balls;
-                            $amounttotalSub += $item['price'];
+                    if ($item['subscription'] > 1) {
+                        if ($withZeed == false) {
+                            if (isset($item['balls']) && $item['balls'] != null) {
+                                $ballsnumbers = count($item['balls']);
+                                $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => $ballsnumbers]);
+                                $item['price'] = $price->getprice();
+                                $balls = implode(" ", $item['balls']);
+                                $ballsArrayNoZeedSub[] = $balls;
+                                $amounttotalSub += $item['price'];
+                            } else {
+                                $bouquetNum = explode('B', $item['bouquet']);
+                                $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => 6]);
+                                $item['price'] = $price->getprice() * $bouquetNum[1];
+                                $amounttotalBouquetSub += $item['price'];
+                                $ballsArrayNoZeedBouquetSub = $item['bouquet'];
+                                $numGrids += $bouquetNum[1];
+                            }
+                            $withZeed = 0;
                         } else {
-                            $bouquetNum = explode('B', $item['bouquet']);
-                            $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => 6]);
-                            $item['price'] = $price->getprice() * $bouquetNum[1];
-                            $amounttotalBouquetSub += $item['price'];
-                            $ballsArrayNoZeedBouquetSub = $item['bouquet'];
-                            $numGrids += $bouquetNum[1];
+                            if (isset($item['balls']) && $item['balls'] != null) {
+                                $ballsnumbers = count($item['balls']);
+                                $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => $ballsnumbers]);
+                                $item['price'] = $price->getprice() + $price->getzeed();
+                                $balls = implode(" ", $item['balls']);
+                                $ballsArraySub = $balls;
+                                $bouquet = false;
+                            } else {
+                                $bouquetNum = explode('B', $item['bouquet']);
+                                $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => 6]);
+                                $item['price'] = $price->getprice() * $bouquetNum[1] + $price->getzeed();
+                                $ballsArraySub = $item['bouquet'];
+                                $bouquet = true;
+                            }
+                            $subscription = new subscription;
+                            if ($item['subscription'] >= 99999) {
+                                $subscription->setsuyoolUserId($suyoolUserId)
+                                    ->setMobileNo($this->session->get('mobileNo'))
+                                    ->setnumdraws($item['subscription'])
+                                    ->setIsZeed(true)
+                                    ->setgridSelected($ballsArraySub)
+                                    ->setAutoPlay(true)
+                                    ->setRemaining($item['subscription'])
+                                    ->setIsbouquet($bouquet);
+                            } else {
+                                $subscription->setsuyoolUserId($suyoolUserId)
+                                    ->setMobileNo($this->session->get('mobileNo'))
+                                    ->setnumdraws($item['subscription'])
+                                    ->setIsZeed(true)
+                                    ->setgridSelected($ballsArraySub)
+                                    ->setRemaining($item['subscription'])
+                                    ->setIsbouquet($bouquet);
+                            }
+
+                            $this->mr->persist($subscription);
+                            $this->mr->flush();
                         }
-                        $withZeed = 0;
-                    } else {
-                        if (isset($item['balls']) && $item['balls'] != null) {
-                            $ballsnumbers = count($item['balls']);
-                            $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => $ballsnumbers]);
-                            $item['price'] = $price->getprice() + $price->getzeed();
-                            $balls = implode(" ", $item['balls']);
-                            $ballsArraySub = $balls;
-                            $bouquet = false;
-                        } else {
-                            $bouquetNum = explode('B', $item['bouquet']);
-                            $price = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => 6]);
-                            $item['price'] = $price->getprice() * $bouquetNum[1] + $price->getzeed();
-                            $ballsArraySub = $item['bouquet'];
-                            $bouquet = true;
-                        }
-                        $subscription = new subscription;
-                        $subscription->setsuyoolUserId($suyoolUserId)
-                            ->setMobileNo($this->session->get('mobileNo'))
-                            ->setnumdraws($item['subscription'])
-                            ->setIsZeed(true)
-                            ->setgridSelected($ballsArraySub)
-                            ->setRemaining($item['subscription'])
-                            ->setIsbouquet($bouquet);
-                        $this->mr->persist($subscription);
-                        $this->mr->flush();
                     }
-                }
                     /////////
 
 
@@ -515,25 +534,47 @@ class LotoController extends AbstractController
                 if ($ballsArrayNoZeedSub != null) {
                     $selected = implode('|', $ballsArrayNoZeedSub);
                     $subscription = new subscription;
+                    if ($item['subscription'] >= 99999) {
                     $subscription->setsuyoolUserId($suyoolUserId)
+                        ->setMobileNo($this->session->get('mobileNo'))
+                        ->setnumdraws($item['subscription'])
+                        ->setIsZeed(false)
+                        ->setAutoPlay(true)
+                        ->setgridSelected($selected)
+                        ->setRemaining($item['subscription'])
+                        ->setIsbouquet(false);
+                    }else{
+                        $subscription->setsuyoolUserId($suyoolUserId)
                         ->setMobileNo($this->session->get('mobileNo'))
                         ->setnumdraws($item['subscription'])
                         ->setIsZeed(false)
                         ->setgridSelected($selected)
                         ->setRemaining($item['subscription'])
                         ->setIsbouquet(false);
+                    }
                     $this->mr->persist($subscription);
                     $this->mr->flush();
                 }
                 if ($ballsArrayNoZeedBouquetSub != null) {
                     $subscription = new subscription;
-                    $subscription->setsuyoolUserId($suyoolUserId)
-                        ->setMobileNo($this->session->get('mobileNo'))
-                        ->setnumdraws($item['subscription'])
-                        ->setIsZeed(false)
-                        ->setgridSelected($ballsArrayNoZeedBouquetSub)
-                        ->setRemaining($item['subscription'])
-                        ->setIsbouquet(true);
+                    if ($item['subscription'] >= 99999) {
+                        $subscription->setsuyoolUserId($suyoolUserId)
+                            ->setMobileNo($this->session->get('mobileNo'))
+                            ->setnumdraws($item['subscription'])
+                            ->setIsZeed(false)
+                            ->setAutoPlay(true)
+                            ->setgridSelected($selected)
+                            ->setRemaining($item['subscription'])
+                            ->setIsbouquet(true);
+                        }else{
+                            $subscription->setsuyoolUserId($suyoolUserId)
+                            ->setMobileNo($this->session->get('mobileNo'))
+                            ->setnumdraws($item['subscription'])
+                            ->setIsZeed(false)
+                            ->setgridSelected($selected)
+                            ->setRemaining($item['subscription'])
+                            ->setIsbouquet(true);
+                        }
                     $this->mr->persist($subscription);
                     $this->mr->flush();
                 }
@@ -582,11 +623,12 @@ class LotoController extends AbstractController
                 $id = $orderid->getId();
                 $merchantId = $this->params->get('LOTO_MERCHANT_ID'); // 1 for loto merchant
                 $order_id = $merchantId . "-" . $id;
-                if($item['subscription'] == 99999){
-                    $sum = $sum * $numDraws;
-                }else{
-                    $sum = $sum * $item['subscription'];
-                }
+                // if ($item['subscription'] == 99999) {
+                //     $sum = $sum * $numDraws;
+                // } else {
+                //     $sum = $sum * $item['subscription'];
+                // }
+                // dd($sum);
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP, 0);
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
@@ -698,6 +740,25 @@ class LotoController extends AbstractController
                 'message' => 'An error occured'
             ]);
         }
+    }
+
+    /**
+     * @Route("/loto/delete", name="app_loto_delete",methods="PUT")
+     */
+    public function delete()
+    {
+        $suyoolUserId = $this->session->get('suyoolUserId');
+        $subscription = $this->mr->getRepository(subscription::class)->findBy(['suyoolUserId' => $suyoolUserId, 'autoPlay' => 1]);
+        foreach ($subscription as $subscription) {
+            $subscription->setCanceled(1);
+            $subscription->setCanceledDate(new DateTime());
+            $this->mr->persist($subscription);
+            $this->mr->flush();
+        }
+
+        return new JsonResponse([
+            'status' => true
+        ]);
     }
 
     // /**

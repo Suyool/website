@@ -160,13 +160,16 @@ class PlayLoto extends Command
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
                     $newElement = [];
-                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    $submit=[true,null];
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
-                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId = $this->lotoServices->GetTicketId();
+                            $ticketId ="12345";
                             sleep(2);
-                            $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            // $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            $BouquetGrids = "1 2 3 4 5 6";
                             $lotoToBePlayed->setticketId($ticketId);
                             if ($submit[1] != null || $submit[1] != "") {
                                 $lotoToBePlayed->setzeednumber(str_pad($submit[1], 5, "0", STR_PAD_LEFT));
@@ -237,7 +240,8 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(2);
-                            $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId = $this->lotoServices->GetTicketId();
+                            $ticketId = "123";
                             $lotoToBePlayed->setticketId($ticketId);
                             if ($submit[1] != null || $submit[1] != "") {
                                 $lotoToBePlayed->setzeednumber(str_pad($submit[1], 5, "0", STR_PAD_LEFT));
