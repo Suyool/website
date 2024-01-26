@@ -80,7 +80,6 @@
             <input type="hidden" id="transaction_id" value="{{ order_id }}">
             <input type="hidden" id="merchant_id" value="{{ merchantId }}">
             <input type="hidden" id="callBack_URL" value="{{ CallBackURL }}">
-            <input type="hidden" id="env" value="{{ env }}">
 
         </div>
     </div>
@@ -99,7 +98,6 @@
         var merchant_id = $("#merchant_id").val();
         var transaction_id = $("#transaction_id").val();
         var callbackUrl = $("#callBack_URL").val();
-        var env = $("#env").val();
 
         if (merchant_id != '' && transaction_id != '') {
             $.ajax({
@@ -109,7 +107,6 @@
                     merchant_id: merchant_id,
                     transaction_id: transaction_id,
                     callBack_URL: callbackUrl,
-                    env: env,
                 },
                 success: function(data) {
                     var paymentInfo = data;

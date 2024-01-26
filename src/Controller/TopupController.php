@@ -310,16 +310,11 @@ class TopupController extends AbstractController
 
             $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
 
-            if($sessionInterface->get('simulation') == 'true' && $test == 'test'){
-                $entity = 'test';
-            }else{
-                $entity = 'live';
-            }
-            $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$mechantOrderId,$entity);
+            $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$mechantOrderId);
 
             $paymentType = 'Gateway';
             if ($existingInvoice) {
-                $invoicesServices->UpdateInvoiceDetails($transactionDetails->TransactionId,'Card',$entity,$merchant,$mechantOrderId);
+                $invoicesServices->UpdateInvoiceDetails($transactionDetails->TransactionId,'Card',$merchant,$mechantOrderId);
                 $paymentType = 'Invoice';
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');

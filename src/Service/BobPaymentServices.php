@@ -1373,9 +1373,9 @@ class BobPaymentServices
                     if($refNumb) {
                         $firstFPosition = strpos($refNumb, 'G');
                         $refnumber = substr($refNumb, $firstFPosition + 1);
-                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
                         if($invoice){
-                            $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Completed');
+                            $this->invoicesServices->updateOrderStatus($refnumber, 'Completed');
                         }
                     }
 
@@ -1411,9 +1411,9 @@ class BobPaymentServices
                     if($refNumb) {
                         $firstFPosition = strpos($refNumb, 'G');
                         $refnumber = substr($refNumb, $firstFPosition + 1);
-                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                        $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
                         if($invoice){
-                            $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Canceled');
+                            $this->invoicesServices->updateOrderStatus($refnumber, 'Canceled');
                         }
                     }
                     return  $parameters;
@@ -1550,9 +1550,9 @@ class BobPaymentServices
                 if($refNumb) {
                     $firstFPosition = strpos($refNumb, 'G');
                     $refnumber = substr($refNumb, $firstFPosition + 1);
-                    $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber, $entity);
+                    $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
                     if($invoice){
-                        $this->invoicesServices->updateOrderStatus($refnumber, $entity, 'Canceled');
+                        $this->invoicesServices->updateOrderStatus($refnumber, 'Canceled');
                     }
                 }
             } else {

@@ -21,11 +21,26 @@ class IframeController extends AbstractController
     private $client;
     private $session;
     private $mr;
+    private $SUYOOL_API_HOST;
+
     public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session)
     {
         $this->client = $client;
         $this->mr = $mr->getManager('invoices');
         $this->session = $session;
+        if ($session!=null && $session->has('simulation')) {
+            $simulation = $session->get('simulation');
+        }
+
+        if ($_ENV['APP_ENV'] == "test") {
+            $this->SUYOOL_API_HOST = 'http://10.20.80.62/api/OnlinePayment';
+        }
+        else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
+            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/OnlinePayment';
+        }
+        else {
+            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/OnlinePayment';
+        }
     }
 
     /**
@@ -129,12 +144,11 @@ class IframeController extends AbstractController
                 'AdditionalInfo' => $additionalInfo,
                 'CallBackUrl' => $CallBackURL
             ];
-            $url = "api/OnlinePayment/PayQR";
+            $url = "/PayQR";
 
             $params = [
                 'data' => json_encode($transactionData),
                 'url' => $url,
-                'env' => $env,
             ];
 
             return $this->getQr($params);
@@ -143,15 +157,7 @@ class IframeController extends AbstractController
 
     public function getQr($data)
     {
-        if ($data['env'] == 'live') {
-            $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-        }
-        else {
-            $apiHost = 'https://externalservices.suyool.money/';
-        }
-
-
-        $response = $this->client->request('POST', $apiHost . $data['url'], [
+        $response = $this->client->request('POST', $this->SUYOOL_API_HOST . $data['url'], [
             'body' => $data['data'],
             'headers' => [
                 'Content-Type' => 'application/json'
@@ -241,14 +247,10 @@ class IframeController extends AbstractController
         $transactionId = $data['transaction_id'];
         $merchantId = $data['merchant_id'];
         $callBackURL = $data['callBack_URL'];
-        $env = $data['env'];
 
         if ($transactionId != '' && $merchantId != '') {
             $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
             $certificate = "6eEimt2ffGTy2Jps3T7XS9aKzl1Rjwut0vk8q3byk1ERUAosAppdzaLorUVEfmMP0ip33aoiWpwKX9iSsFTfX19FqT9WiYPou1tX4KkaZYIJBzdaIPhD49NRsm1JXW8ZJMmTYKsqw7zeYeUjgA9JDc";
-           
-            // $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-            // $certificate = $merchant->getCertificate();
 
             $secure = $timestamp . $transactionId . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
@@ -259,16 +261,10 @@ class IframeController extends AbstractController
                 "secureHash" => $secureHash
             ];
             $params['data'] = json_encode($json);
-            $params['url'] = 'api/OnlinePayment/CheckQRPaymentStatus';
+            $params['url'] = '/CheckQRPaymentStatus';
 
-            if ($env == 'live') {
-                $apiHost = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-            }
-            else {
-                $apiHost = 'https://externalservices.suyool.money/';
-            }
 
-            $response = $this->client->request('POST', $apiHost . $params['url'], [
+            $response = $this->client->request('POST', $this->SUYOOL_API_HOST . $params['url'], [
                 'body' => $params['data'],
                 'headers' => [
                     'Content-Type' => 'application/json'
@@ -299,11 +295,8 @@ class IframeController extends AbstractController
                 'AdditionalInfo' => $additionalInfo,
                 'CallBackURL' => $callBackURL
             ]);
-            if($env == 'test'){
-                $invoice = $this->mr->getRepository(test_invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
-            }else {
-                $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
-            }
+
+            $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['merchants' => $merchant->getId(),'merchantOrderId'=> $transactionId]);
 
             if($invoice) {
                 if ($result['flag'] == 1){

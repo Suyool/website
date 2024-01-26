@@ -36,22 +36,16 @@ class InvoicesController extends AbstractController
 
 
     /**
-     * @Route("/merchant/v1/invoices/{test?}", name="payment_api_invoice_test", requirements={"test"="test"},methods="POST")
      * @Route("/merchant/v1/invoices/", name="payment_api_invoice",methods="POST")
      */
-    public function api(Request $request, SessionInterface $session, InvoiceServices $invoicesServices, $test = null)
+    public function api(Request $request, SessionInterface $session, InvoiceServices $invoicesServices)
     {
-        if ($test === 'test') {
-            $session->set('simulation', true);
-        }
         // Get IP address of the requester
         $ipAddress = $request->getClientIp();
         $apiKey = $request->headers->get('X-API-Key');
         $merchant = $this->mr->getRepository(MerchantKey::class)->findOneBy(['apiKey' => $apiKey]);
         if ($merchant) {
-
             $merchantId = $merchant->getMerchant()->getMerchantMid();
-
 
             if (!$merchantId) {
                 return new Response('Merchant ID not found in request data', 400); // Bad Request
@@ -81,24 +75,22 @@ class InvoicesController extends AbstractController
             }
 
             $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
-            $merchantApiKey = $this->mr->getRepository(MerchantKey::class)->findOneBy(['merchant' => $merchant->getId()]);
-            //$apiKeydata = $merchantApiKey->getApiKey();
             $referenceNumber = $this->generateRandomString(6);
 
-            // Get the current request
-//        $request = $this->requestStack->getCurrentRequest();
-//        $baseUrl = $request->getSchemeAndHttpHost();
-
-            // Get the base URL
-            if ($test === 'test') {
-                $url = 'https://sandbox.suyool.com' . "/test/G" . $referenceNumber;
-                $simulation = true;
-            } else {
-                $url = 'https://suyool.com' . "/G" . $referenceNumber;
-                $simulation = false;
+            if ($_ENV['APP_ENV'] == "test") {
+                $path = 'http://suyool.ls';
+            }
+            else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev'){
+                $path = 'https://sandbox.suyool.com';
+            }
+            else {
+                $path = 'https://suyool.com';
             }
 
-            $invoicesServices->PostInvoices($merchant, $order_id, $amount, $currency, $order_desc, null, '', $referenceNumber, $callBackUrl, $simulation);
+            $url = $path. "/G" . $referenceNumber;
+
+
+            $invoicesServices->PostInvoices($merchant, $order_id, $amount, $currency, $order_desc, null, '', $referenceNumber, $callBackUrl);
 
             $array = [
                 "success" => true,
@@ -128,7 +120,6 @@ class InvoicesController extends AbstractController
     }
 
     /**
-     * @Route("/test/{refnumber}", name="payment_gateway_test", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      * @Route("/{refnumber}", name="payment_gateway_main", requirements={"refnumber"="G[a-zA-Z0-9]+"})
      */
     public function paymentGateway(Request $request, SessionInterface $session, $refnumber)
@@ -141,14 +132,7 @@ class InvoicesController extends AbstractController
 
         $refnumber = substr($refnumber, $firstFPosition + 1);
 
-        $isTestRequest = strpos($request->getPathInfo(), '/test/') === 0;
-        $invoiceClass = invoices::class;
-        if ($isTestRequest) {
-            $invoiceClass = test_invoices::class;
-            $session->set('simulation', true);
-        }
-
-        $invoice = $this->mr->getRepository($invoiceClass)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
+        $invoice = $this->mr->getRepository(invoices::class)->createQueryBuilder('i')->select('i', 'm')->leftJoin('i.merchants', 'm')
             ->where('i.reference = :refnumber')->setParameter('refnumber', $refnumber)->getQuery()->getOneOrNullResult();
 
         $merchant = $invoice->getMerchantsId();
@@ -170,6 +154,14 @@ class InvoicesController extends AbstractController
         }
 
         $secureHash = base64_encode(hash('sha512', $secure, true));
+
+        if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == "test"){
+            $session->set('simulation', true);
+            $qrPath = 'app_pay_suyool_qr_test';
+
+        }else {
+            $qrPath = 'app_pay_suyool_qr';
+        }
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
         $merchantSettings = $merchant->getSettings();
@@ -194,7 +186,7 @@ class InvoicesController extends AbstractController
             if ($isMobile) {
                 return $this->redirectToRoute('app_pay_suyool_mobile');
             } else {
-                return $this->redirectToRoute('app_pay_suyool_qr');
+                return $this->redirectToRoute($qrPath);
             }
         } else {
             return $this->render('Invoices/index.html.twig', [

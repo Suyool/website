@@ -16,9 +16,9 @@ class InvoiceServices
         $this->mr=$mr->getManager('invoices');
     }
 
-    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null,$simulation = null)
+    public function PostInvoices($merchant,$merchantOrderId,$amount,$currency,$merchantOrderDesc,$transId,$paymentMethod,$ref,$callBackUrl=null)
     {
-        $invoices = ($simulation == 'true') ? new test_invoices() : new invoices();
+        $invoices =  new invoices();
 
         $invoices->setMerchantsId($merchant);
         $invoices->setMerchantOrderId($merchantOrderId);
@@ -36,26 +36,16 @@ class InvoiceServices
 
         return $invoices->getId();
     }
-    public function findExistingInvoice($merchant,$mechantOrderId,$entity) {
-        if ($entity == 'test'){
-            $class = test_invoices::class;
-        }else{
-            $class = invoices::class;
-        }
-        $existingInvoice = $this->mr->getRepository($class)->findOneBy([
+    public function findExistingInvoice($merchant,$mechantOrderId) {
+        $existingInvoice = $this->mr->getRepository(invoices::class)->findOneBy([
             'merchants' => $merchant,
             'merchantOrderId' => $mechantOrderId
         ]);
 
         return $existingInvoice;
     }
-    public function findInvoiceByTranId($tranId,$entity) {
-        if ($entity == 'test'){
-            $class = test_invoices::class;
-        }else{
-            $class = invoices::class;
-        }
-        $invoice = $this->mr->getRepository($class)->findOneBy(['transId' => $tranId]);
+    public function findInvoiceByTranId($tranId) {
+        $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['transId' => $tranId]);
 
         return $invoice;
     }
@@ -64,8 +54,8 @@ class InvoiceServices
 
         return $merchant;
     }
-    public function UpdateInvoiceDetails($tranId,$paymentMethod,$entity,$merchant,$mechantOrderId) {
-        $invoice = $this->findExistingInvoice($merchant,$mechantOrderId,$entity);
+    public function UpdateInvoiceDetails($tranId,$paymentMethod,$merchant,$mechantOrderId) {
+        $invoice = $this->findExistingInvoice($merchant,$mechantOrderId);
 
         $invoice->setTransId($tranId);
         $invoice->setPaymentMethod($paymentMethod);
@@ -73,19 +63,15 @@ class InvoiceServices
         $this->mr->flush();
     }
 
-    public function findInvoiceByRefNumber($refnumber,$entity) {
-        if ($entity == 'test'){
-            $class = test_invoices::class;
-        }else{
-            $class = invoices::class;
-        }
-        $invoice = $this->mr->getRepository($class)->findOneBy(['reference' => $refnumber]);
+    public function findInvoiceByRefNumber($refnumber) {
+
+        $invoice = $this->mr->getRepository(invoices::class)->findOneBy(['reference' => $refnumber]);
 
         return $invoice;
     }
 
-    public function updateOrderStatus($refnumber ,$entity, $status) {
-        $invoice = $this->findInvoiceByRefNumber($refnumber,$entity);
+    public function updateOrderStatus($refnumber, $status) {
+        $invoice = $this->findInvoiceByRefNumber($refnumber);
 
         $invoice->setStatus($status);
         $this->mr->persist($invoice);
