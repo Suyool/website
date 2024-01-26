@@ -76,9 +76,10 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
     return (
         <div id="Default_g2g">
             <div className="search-bar">
-                <input type="text" placeholder="Search in gaming e-store" onChange={(event)=>{
-                    handleSearch(event)
-                }}/>
+                <input type="text" placeholder="Search in gaming e-store" onChange={(event) => handleSearch(event)} />
+                <div className="search-icon">
+                    <i className="fa fa-search"></i>
+                </div>
             </div>
             <div className="categories-scroll">
                 {categoryIdsToDisplay.map((categoryId) => {
