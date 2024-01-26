@@ -1170,7 +1170,10 @@ class DefaultController extends AbstractController
         $parameters=[
             'barBgColor' => 'barWhite',
             'faq' => $faq,
-            'visa'=>true
+            'visa'=>true,
+            'title' => 'Use Suyool Visa Card',
+            'desc' => 'In Lebanon & abroad, in-store & online',
+            'descmeta'=>'In Lebanon & abroad, in-store & online',
 
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig',$parameters);
