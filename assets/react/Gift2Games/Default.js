@@ -6,10 +6,7 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     // Convert category IDs to numbers
-    const categoriesWithNumberIds = categories.map((category) => ({
-        ...category,
-        id: Number(category.id),
-    }));
+    const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
     const categoryIdsToDisplay = Object.keys(desiredChildIdsMap).map(Number);
     const [activeCategoryId, setActiveCategoryId] = useState(categoryIdsToDisplay[0]);
     const [activeSubCategoryId, setActiveSubCategoryId] = useState(
@@ -17,14 +14,18 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
     );
 
     useEffect(() => {
+        setCategoriesWithNumberIds(
+            categories.map((category) => ({
+                ...category,
+                id: Number(category.id),
+            }))
+        );
+    }, [categories]);
+
+    useEffect(() => {
         setActiveCategoryId(categoryIdsToDisplay[0]);
     }, [desiredChildIdsMap]);
 
-    // console.log("activeCategoryId", activeCategoryId);
-    // console.log("activeSubCategoryId", activeSubCategoryId);
-    // console.log("categoriesWithNumberIds", categoriesWithNumberIds);
-
-    console.log("desiredChildIdsMap", desiredChildIdsMap);
 
     useEffect(() => {
         if (activeCategoryId && desiredChildIdsMap)
@@ -59,14 +60,30 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
         }
     }, [activeSubCategoryId]);
 
-    console.log("filteredData", filteredData)
+
+    const handleSearch = (e) => {
+        const searchValue = e.target.value;
+        const filteredData = categories.filter((category)=>{
+            return category.title.toLowerCase().includes(searchValue.toLowerCase())
+        })
+
+        setCategoriesWithNumberIds(filteredData)
+
+    }
+
+    console.log("categoriesWithNumberIds", categoriesWithNumberIds);
 
     return (
         <div id="Default_g2g">
+            <div className="search-bar">
+                <input type="text" placeholder="Search in gaming e-store" onChange={(event)=>{
+                    handleSearch(event)
+                }}/>
+            </div>
             <div className="categories-scroll">
                 {categoryIdsToDisplay.map((categoryId) => {
                     const categoryToDisplay = categoriesWithNumberIds.find(
-                        (category) => category.id === Number(categoryId)
+                        (category) => Number(category.id) === Number(categoryId)
                     );
 
                     return (
@@ -87,10 +104,10 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
             {/* Display child categories for the active category */}
             <div className="child-categories">
                 {categoriesWithNumberIds
-                    .find((category) => category.id === activeCategoryId)?.childs.map((child) => {
+                    .find((category) => category.id == activeCategoryId)?.childs.map((child) => {
                             if (desiredChildIdsMap[activeCategoryId].includes(child.id))
                                 return (
-                                    <div key={child.id} className={`child-category ${child.id === activeSubCategoryId? "active-sub" : ""}`} onClick={() => {
+                                    <div key={child.id} className={`child-category ${child.id == activeSubCategoryId? "active-sub" : ""}`} onClick={() => {
                                         setActiveSubCategoryId(child.id)
                                     }}>
                                         <p className="SubTitleCat">{child.short_title}</p>

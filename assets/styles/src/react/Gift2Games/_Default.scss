@@ -63,11 +63,10 @@
 
   .categories-scroll {
     overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
     white-space: nowrap;
     display: flex;
     min-height: 100px;
+    //border-bottom: 1px solid #868686;
   }
 
   .categories-scroll::-webkit-scrollbar {
@@ -126,6 +125,14 @@
     align-items: center; /* Center horizontally */
     justify-content: center; /* Center vertically */
     margin-right: 25px;
+  }
+
+  .selected{
+    border-bottom: 3px solid #216D96;
+
+    p{
+      color: #216D96;
+    }
   }
 
   .category-item img {
