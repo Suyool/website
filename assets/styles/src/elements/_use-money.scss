@@ -1,5 +1,12 @@
 .use-money-common {
   .card-desc{
+    .title{
+      color: #374A5A;
+
+      span{
+        font-family: $SemiBold;
+      }
+    }
     margin: 0;
   }
 
@@ -30,7 +37,7 @@
   }
 
   .use-money-row {
-    margin-bottom: 60px;
+    margin-bottom: 60px !important;
   }
 
   .image {

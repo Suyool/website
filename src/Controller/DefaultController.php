@@ -1134,52 +1134,68 @@ class DefaultController extends AbstractController
         return $this->render('medco-payment/index.html.twig',$parameters);
     }
 
+
      /**
      * @Route("/ma-tBank-card", name="ma_tBank_card")
      */
     public function MatBankCard()
     {
-        $faq=[
-            "ONE"=>[
-                "Title"=>"Can anyone request the Suyool Visa platinum card?",
-                "Desc"=>"Once successfully registered on the Suyool app, anyone can request the Suyool Visa Platinum card and enjoy its privileges."
+        $faq = [
+            "ONE" => [
+                "Title" => "Can anyone request the Suyool Visa platinum card?",
+                "Desc" => "Once successfully registered on the Suyool app, anyone can request the Suyool Visa Platinum card and enjoy its privileges."
             ],
-            "TWO"=>[
-                "Title"=>"How do I request my Suyool Visa Platinum card?",
-                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+            "TWO" => [
+                "Title" => "How do I request my Suyool Visa Platinum card?",
+                "Desc" => "Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
             ],
-            "THREE"=>[
-                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
-                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            "THREE" => [
+                "Title" => "What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc" => "The fee for requesting your Suyool Debit Card is $12 to be paid annually."
             ],
-            "FOUR"=>[
-                "Title"=>"Can I use the card online?",
-                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            "FOUR" => [
+                "Title" => "Can I use the card online?",
+                "Desc" => "Yes, you can use the Suyool Visa Platinum card online."
             ],
-            "FIVE"=>[
-                "Title"=>"Can I use the card internationally",
-                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            "FIVE" => [
+                "Title" => "Can I use the card internationally",
+                "Desc" => "Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
             ],
-            "SIX"=>[
-                "Title"=>"Is the Suyool Visa Platinum card an international card?",
-                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            "SIX" => [
+                "Title" => "Is the Suyool Visa Platinum card an international card?",
+                "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "Seven"=>[
-                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
-                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            "Seven" => [
+                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
             ],
         ];
 
 
-        $parameters=[
+        $parameters = [
             'barBgColor' => 'barWhite',
             'faq' => $faq,
-            'visa'=>true,
+            'visa' => true,
             'title' => 'Use Suyool Visa Card',
             'desc' => 'In Lebanon & abroad, in-store & online',
-            'descmeta'=>'In Lebanon & abroad, in-store & online',
+            'descmeta' => 'In Lebanon & abroad, in-store & online',
 
         ];
-        return $this->render('ma-tBank-card/maTbanikCard.html.twig',$parameters);
+        return $this->render('ma-tBank-card/maTbanikCard.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/ma-tBank", name="app_ma_tBank")
+     */
+    public function matBank() {
+
+        $parameters = [
+            'barBgColor' => 'barWhite',
+            'bgColor'=> 'bg-white',
+            'btnBgColor'=> 'bg-blue',
+            'homepage' => true,
+        ];
+
+        return $this->render('MatBank/index.html.twig', $parameters);
     }
 }
