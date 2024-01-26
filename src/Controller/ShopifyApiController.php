@@ -82,15 +82,10 @@ class ShopifyApiController extends AbstractController
                 'MerchantAccountID' => $merchantId,
                 'AdditionalInfo' => $additionalInfo,
             ];
-            if ($env == 'test') {
-                $url = 'SuyoolOnlinePayment/PayQR';
-            } else {
-                $url = 'api/OnlinePayment/PayQR';
 
-            }
             $params = [
                 'data' => json_encode($transactionData),
-                'url' => $url,
+                'url' => "/PayQR",
             ];
             $response = $shopifyServices->getQr($params);
 

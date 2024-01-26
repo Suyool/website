@@ -19,10 +19,14 @@ class ShopifyServices
         $this->client = $client;
         $this->mr = $mr->getManager('Shopify');
 
-        if ($_ENV['APP_ENV'] == 'prod') {
-            $this->API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
-        } else {
-            $this->API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/';
+        if ($_ENV['APP_ENV'] == "test") {
+            $this->SUYOOL_API_HOST = 'http://10.20.80.62/api/OnlinePayment';
+        }
+        else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' ){
+            $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/OnlinePayment';
+        }
+        else {
+            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/OnlinePayment';
         }
     }
 
@@ -43,7 +47,7 @@ class ShopifyServices
     }
     public function updateStatusShopify($data)
     {
-        $response = $this->client->request('POST', $data['url'], [
+        $response = $this->client->request('POST',$this->SUYOOL_API_HOST . $data['url'], [
             'body' => $data['data'],
             'headers' => [
                 'Content-Type' => 'application/json',
