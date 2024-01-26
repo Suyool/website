@@ -322,8 +322,8 @@ class MerchantsController extends AbstractController
         $parameters = $this->trans->translation($request, $translatorInterface);
         $translatorInterface->setLocale("en");
         $parameters['lang'] = "en";
-        $parameters['metaimage'] = "build/images/aramex/metaAramex.png";
-        $parameters['descmeta'] = "Your Payroll is now on Suyool";
+        $parameters['metaimage'] = "build/images/payroll/aramexMeta.png";
+        $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
         $parameters['faq'] = [
             "ONE" => [
                 "Title" => "WHAT_IS_SUYOOL_ARAMEX",
