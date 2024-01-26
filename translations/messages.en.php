@@ -433,10 +433,10 @@ return [
 
     //sad
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_SAD" => "What are the benefits for S.A.D employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_SAD" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a S.A.D employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_SAD" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an S.A.D employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_SAD" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SAD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SAD" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a S.A.D employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SAD" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an S.A.D employee.",
 
     //fig
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Frem Industrial Group employees?",

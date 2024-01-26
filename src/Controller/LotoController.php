@@ -62,7 +62,6 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
-        $this->suyoolServices->UpdateUtilities(0, json_encode(["ticketId" => "5421440"]), 36489);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
