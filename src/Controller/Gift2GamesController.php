@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
-use App\Repository\Gift2GamesOrdersRepository;
+use App\Entity\Gift2Games\Transaction;
 use App\Service\Gift2GamesService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -138,18 +138,17 @@ class Gift2GamesController extends AbstractController
     public function pay(Request $request)
     {
 
-        $suyoolServices = $this->suyoolServices;
         $data = json_decode($request->getContent(), true);
         $SuyoolUserId = $this->session->get('suyoolUserId');
         $amount = $data['amount'];
         $description = $data['desc'];
         $flagCode = null;
         if ($data != null) {
-            $product = new Product();
-            $product->setProductId((int) $data['productId']);
-            $product->setDescription((string) $description);
-            $product->setPrice((float) $amount);
-            $product->setCurrency((string) $data['currency']);
+            $transaction = new Transaction();
+            $transaction->setProductId((int) $data['productId']);
+            $transaction->setDescription((string) $description);
+            $transaction->setPrice((float) $amount);
+            $transaction->setCurrency((string) $data['currency']);
 
             $order = new Order;
             $order
@@ -159,10 +158,10 @@ class Gift2GamesController extends AbstractController
                 ->setamount($amount)
                 ->setcurrency($data['currency']);
 
-            $product->setOrder($order);
-            $product->setOrderId($order->getId());
+            $transaction->setOrder($order);
+            $transaction->setOrderId($order->getId());
 
-            $this->mr->persist($product);
+            $this->mr->persist($transaction);
             $this->mr->persist($order);
             $this->mr->flush();
 
