@@ -33,19 +33,22 @@ a {
   color: unset;
 }
 
-a:hover {
-  text-decoration: none;
-  color: unset;
+@media(min-width: 768px) {
+  a:hover {
+    text-decoration: none;
+    color: unset;
+  }
 }
 
 .button-primary {
   background-color: #226d96;
   padding: 8px 80px;
-  color: unset;
   color: white;
 
-  &:hover {
-    background-color: #226d96;
+  @media(min-width: 768px) {
+    &:hover {
+      background-color: #226d96;
+    }
   }
 }
 

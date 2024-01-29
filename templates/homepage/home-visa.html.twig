@@ -30,9 +30,9 @@
 
                 {% if not hideLearnMore is defined %}
                     {% if buttonName is defined %}
-                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn">{{ buttonName }}</a>
+                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn button-primary">{{ buttonName }}</a>
                     {% else %}
-                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn">Learn More</a>
+                        <a id="openSuyoolAccount" href="{{ path('app_visa') }}" class="blue-btn button-primary ">Learn More</a>
                     {% endif %}
                 {% endif %}
 

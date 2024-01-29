@@ -101,10 +101,13 @@
           border: 2px solid #ffffff;
         }
 
-        .button-primary:hover {
-          background: #226D96 !important;
-          border: 2px solid #ffffff !important;
+        @media(min-width: 768px) {
+          .button-primary:hover {
+            background: #226D96 !important;
+            border: 2px solid #ffffff !important;
+          }
         }
+
 
         .button-primary, .btn-outline-secondary {
           border-radius: 12px;
@@ -117,9 +120,11 @@
           border-color: #226D96;
           color: #226D96;
 
-          &:hover {
-            background-color: unset;
-            color: #226d96;
+          @media(min-width: 768px) {
+            &:hover {
+              background-color: unset;
+              color: #226d96;
+            }
           }
         }
       }
@@ -132,7 +137,6 @@
     #openSuyoolAccount:hover {
       opacity: 1;
     }
-
 
     .right-section {
       .img-cont {
@@ -261,9 +265,12 @@
     text-align: center;
     width: 200px;
     cursor: pointer;
-    &:hover{
-      background-color: #fff;
-      color: #226d96;
+
+    @media(min-width: 768px) {
+      &:hover {
+        background-color: #fff;
+        color: #226d96;
+      }
     }
   }
 
@@ -340,11 +347,13 @@
         border: 2px solid #FFF !important;
       }
 
-      .blue-btn:hover {
-        background:  #226d96;
-        color: #FFF;
-        border: 2px solid #FFF !important;
-        opacity: 1 !important;
+      @media(min-width: 768px) {
+        .blue-btn:hover {
+          background: #226d96;
+          color: #FFF;
+          border: 2px solid #FFF !important;
+          opacity: 1 !important;
+        }
       }
     }
   }
@@ -358,7 +367,6 @@
           margin-bottom: 40px;
           font-family: $Regular;
         }
-
       }
     }
   }
@@ -379,7 +387,6 @@
     }
 
     .home-mastercard {
-
       .blue-btn {
         margin-left: 40px;
       }
