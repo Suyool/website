@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Loto\order;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,6 +26,13 @@ class SearchPaymentForm extends AbstractType
             ])
             ->add('transId', TextType::class, [
                 'label' => 'TransId'
+            ])
+            ->add('currency', ChoiceType::class, [
+                'choices'=>[
+                    'LBP'=>'LBP',
+                    'USD'=>'USD'
+                ],
+                'label' => 'Currency'
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Search',

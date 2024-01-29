@@ -1,49 +1,77 @@
 {% extends 'Admin/base.html.twig' %}
 
-    {% block content %}
-        {{ form_start(form) }}
-        {{ form_row(form.status) }}
-        {{form_row(form.transId)}}
-        {{ form_end(form) }}
-        <h1 class="mb-4">Orders</h1>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">id</th>
-                <th scope="col">suyoolUserId</th>
-                <th scope="col">transId</th>
-                <th scope="col">status</th>
-                <th scope="col">amount</th>
-                <th scope="col">currency</th>
-                <th scope="col">session</th>
-                <th scope="col">transactionStatus</th>
-                <th scope="col">flagCode</th>
-                <th scope="col">error</th>
-                <th scope="col">created</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for order in orders %}
-            <tr {% if order.status == 'completed' %}style="background-color:#a7ffb3;"{% elseif order.status == 'canceled' %}style="background-color:rgba(255,0,0,.3);"{% endif %}>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.suyoolUserId }}</td>
-                    <td>{{ order.transId}}</td>
-                    <td>{{ order.status }}</td>
-                    <td>{{ order.amount }}</td>
-                    <td>{{ order.currency }}</td>
-                    <td>{{ order.session }}</td>
-                    <td>{{ order.transactionStatus }}</td>
-                    <td>{{ order.flagCode }}</td>
-                    <td>{{ order.error }}</td>
-                    <td>{{ order.created|date("Y-m-d H:i:s") }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    
-        <div class="pagination justify-content-center">
-            {{ knp_pagination_render(orders) }}
-        </div>
-    {% endblock %}
-    
-    
+{% block content %}
+	{{ form_start(form) }}
+	{{ form_row(form.status) }}
+	{{form_row(form.transId)}}
+	{{ form_end(form) }}
+	{# <a class="export" href="/admin/export/payment/{{currency}}">Export To excel</a> #}
+	<!-- Button trigger modal -->
+		<a class="export" class="export" data-bs-toggle="modal" data-bs-target="#exampleModal"> Export
+	</a>
+	<h1 class="mb-4">Orders</h1>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">id</th>
+				<th scope="col">suyoolUserId</th>
+				<th scope="col">transId</th>
+				<th scope="col">status</th>
+				<th scope="col">amount</th>
+				<th scope="col">currency</th>
+				<th scope="col">session</th>
+				<th scope="col">transactionStatus</th>
+				<th scope="col">flagCode</th>
+				<th scope="col">error</th>
+				<th scope="col">created</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for order in orders %}
+				<tr {% if order.status == 'completed' %} style="background-color:#a7ffb3;" {% elseif order.status == 'canceled' %} style="background-color:rgba(255,0,0,.3);" {% endif %}>
+					<td>{{ order.id }}</td>
+					<td>{{ order.suyoolUserId }}</td>
+					<td>{{ order.transId}}</td>
+					<td>{{ order.status }}</td>
+					<td>{{ order.amount }}</td>
+					<td>{{ order.currency }}</td>
+					<td>{{ order.session }}</td>
+					<td>{{ order.transactionStatus }}</td>
+					<td>{{ order.flagCode }}</td>
+					<td>{{ order.error }}</td>
+					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="pagination justify-content-center">
+		{{ knp_pagination_render(orders) }}
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Date picker</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="exportForm" action="/admin/export/payment" method="post">
+						<label for="birthday">From:</label>
+                        <select name="currency">
+                            <option value="LBP">LBP</option>
+                            <option value="USD">USD</option>
+                        </select>
+						<input type="date" name="from" required>
+                        <button type="submit" class="btn btn-primary" id="exportBtn">Export</button>
+                    </form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -113,15 +113,15 @@ class lotoAdminController extends AbstractController
      */
     public function exportToExcel()
     {
-        $file_name="winners_".date('Y-m-d').".xls";
+        $file_name="winners_".date('Y-m-d').".csv";
         $fields=array('OrderId','Suyooler','ticketId','Draw Number','Loto winning numbers','Zeed winning numbers','winLoto','winZeed','winningStatus','Created');
-        $excelData = implode("\t",array_values($fields)) . "\n";
+        $excelData = implode(",",array_values($fields)) . "\n";
 
         $winningTickets=$this->mr->getRepository(loto::class)->findAllWinningTickets();
         foreach($winningTickets as $winningTickets)
         {
             $lineData = array($winningTickets['id'],$winningTickets['fname']." ".$winningTickets['lname'],$winningTickets['ticketId'],$winningTickets['drawNumber'],$winningTickets['numbers'],$winningTickets['zeednumber1'],$winningTickets['winLoto'],$winningTickets['winZeed'],$winningTickets['winningStatus'],$winningTickets['created']);
-            $excelData .= implode("\t",array_values($lineData)) . "\n";
+            $excelData .= implode(",",array_values($lineData)) . "\n";
         }
 
         header("Content-Type:application/vnd.ms-excel");

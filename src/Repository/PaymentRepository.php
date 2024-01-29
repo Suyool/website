@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\topup\attempts;
 use App\Entity\topup\bob_transactions;
 use App\Entity\topup\session;
 use DateTime;
@@ -28,14 +29,16 @@ class PaymentRepository extends EntityRepository
     {
 
         $where = "";
-
+        // dd($searchQuery);
         if ($searchQuery != null) {
-            if ($searchQuery['status'] != null && $searchQuery['transId'] != null) {
-                $where = "o.status='" . $searchQuery['status'] . "' and o.transId= " . $searchQuery['transId'];
+            if ($searchQuery['status'] != null && $searchQuery['transId'] != null && $searchQuery['currency'] != null) {
+                $where = "o.status='" . $searchQuery['status'] . "' and o.transId= " . $searchQuery['transId'] . " and o.currency ='" . $searchQuery['currency'] . "'";
             } else if ($searchQuery['status'] != null) {
                 $where = "o.status='" . $searchQuery['status'] . "'";
             } else if ($searchQuery['transId'] != null) {
                 $where = "o.transId= " . $searchQuery['transId'];
+            } else if ($searchQuery['currency'] != null) {
+                $where = "o.currency= '" . $searchQuery['currency'] . "'";
             }
         }
 
@@ -62,7 +65,7 @@ class PaymentRepository extends EntityRepository
 
         return $this->createQueryBuilder('o')
             ->select('s')
-            ->leftJoin(session::class,'s','WITH','s.orders = o.id')
+            ->leftJoin(session::class, 's', 'WITH', 's.orders = o.id')
             ->where("o.status = 'pending' and o.created > '2023-12-11 00:00:00' and o.created < :tenMinutesAgo")
             ->setParameter('tenMinutesAgo', $tenMinutesAgo)
             ->getQuery()
@@ -77,7 +80,7 @@ class PaymentRepository extends EntityRepository
 
         return $this->createQueryBuilder('o')
             ->select('o')
-            ->leftJoin(session::class,'s','WITH','s.orders = o.id')
+            ->leftJoin(session::class, 's', 'WITH', 's.orders = o.id')
             ->where("o.status = 'pending' and o.created > '2023-12-11 00:00:00' and o.created < :tenMinutesAgo")
             ->andWhere('s.id IS NULL')
             ->setParameter('tenMinutesAgo', $tenMinutesAgo)
@@ -88,11 +91,22 @@ class PaymentRepository extends EntityRepository
     public function findTransactionsThatIsNotCompleted($transId)
     {
         return $this->createQueryBuilder('o')
-        ->select('o')
-        ->where("o.status != 'completed' and o.transId = {$transId}")
-        ->orderBy('o.created','DESC')
-        ->setMaxResults(1)
+            ->select('o')
+            ->where("o.status != 'completed' and o.transId = {$transId}")
+            ->orderBy('o.created', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getTransactions($currency,$from)
+    {
+        return $this->createQueryBuilder('o')
+        ->select('o.suyoolUserId,o.transId,o.amount,o.currency,o.status,a.status as statuscard,a.card,a.name,o.created')
+        ->leftJoin(attempts::class,'a','WITH','o.transId = a.transactionId')
+        ->where("o.status = 'completed' and o.currency = '{$currency}' and o.created >= '{$from}'")
+        ->groupBy('a.transactionId')
         ->getQuery()
-        ->getOneOrNullResult();
+        ->getResult();
     }
 }

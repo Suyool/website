@@ -27,7 +27,7 @@ class PaymentController extends AbstractController
     public function paymentOrders(Request $request)
     {
         $current_page=$request->get('page',1);
-        $orders=$this->mr->getRepository(orders::class)->fetchAllPaymentDetails(array('status'=>'','transId'=>''));
+        $orders=$this->mr->getRepository(orders::class)->fetchAllPaymentDetails(array('status'=>'','transId'=>'','currency'=>''));
         // dd($orders);
 
         $form=$this->createForm(SearchPaymentForm::class);
@@ -39,6 +39,7 @@ class PaymentController extends AbstractController
 
         if ($form->isSubmitted()) {
             $searchQuery=$request->get('search_payment_form');
+            // dd($searchQuery);
             $orders=$this->mr->getRepository(orders::class)->fetchAllPaymentDetails($searchQuery);
         }
 
@@ -50,10 +51,34 @@ class PaymentController extends AbstractController
 
         return $this->render('Admin/Payment/orders.html.twig', [
             'orders' => $pagination,
-            'form'=>$formrender
+            'form'=>$formrender,
+            'currency'=>@$searchQuery['currency']
         ]);
 
 
+    }
+
+    /**
+     * @Route("admin/export/payment", name="admin_export_to_excel_payment")
+     */
+    public function exportToExcelpayment()
+    {
+        $file_name=$_POST['currency']."_transactions_".date('Y-m-d').".csv";
+        $fields=array('suyoolUserId','Transaction','Amount','Currency','Status','Card Status','Card number','name','Created');
+        $excelData = implode(",",array_values($fields)) . "\n";
+
+        $getTransactions=$this->mr->getRepository(orders::class)->getTransactions($_POST['currency'],$_POST['from']);
+        // dd($getTransactions);
+        foreach($getTransactions as $getTransactions)
+        {
+            $lineData = array($getTransactions['suyoolUserId'],$getTransactions['transId'],$getTransactions['amount'],$getTransactions['currency'],$getTransactions['status'],$getTransactions['statuscard'],$getTransactions['card'],$getTransactions['name'],$getTransactions['created']->format('Y-m-d H:i:s'));
+            $excelData .= implode(",",array_values($lineData)) . "\n";
+        }
+
+        header("Content-Type:application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=\"" .basename($file_name) ."\"");
+        echo $excelData;
+        exit();
     }
 }
 
