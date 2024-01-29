@@ -31,14 +31,21 @@ class PaymentRepository extends EntityRepository
         $where = "";
         // dd($searchQuery);
         if ($searchQuery != null) {
-            if ($searchQuery['status'] != null && $searchQuery['transId'] != null && $searchQuery['currency'] != null) {
-                $where = "o.status='" . $searchQuery['status'] . "' and o.transId= " . $searchQuery['transId'] . " and o.currency ='" . $searchQuery['currency'] . "'";
-            } else if ($searchQuery['status'] != null) {
+            if ($searchQuery['status'] != null && $searchQuery['transId'] != null && $searchQuery['currency'] != null && $searchQuery['created'] != null) {
+                $where = "o.status='" . $searchQuery['status'] . "' and o.transId= " . $searchQuery['transId'] . " and o.currency ='" . $searchQuery['currency'] . "' and o.created >= '" . $searchQuery['created'] ."'";
+            } else if($searchQuery['currency'] != null && $searchQuery['created'] != null){
+                $where = "o.currency= '" . $searchQuery['currency'] . "' and  o.created >= '" . $searchQuery['created'] ."'";
+            } 
+            else if ($searchQuery['status'] != null) {
                 $where = "o.status='" . $searchQuery['status'] . "'";
             } else if ($searchQuery['transId'] != null) {
                 $where = "o.transId= " . $searchQuery['transId'];
             } else if ($searchQuery['currency'] != null) {
                 $where = "o.currency= '" . $searchQuery['currency'] . "'";
+            }
+           
+            else if ($searchQuery['created'] != null) {
+                $where = "o.created >= '" . $searchQuery['created'] ."'";
             }
         }
 
@@ -101,10 +108,18 @@ class PaymentRepository extends EntityRepository
 
     public function getTransactions($currency,$from)
     {
+        $where = "o.status = 'completed' ";
+        if(!empty($currency) && !empty($from)){
+            $where .= " and o.currency = '{$currency}' and o.created >= '{$from}'";
+        }else if(!empty($currency)){
+            $where .= " and o.currency = '{$currency}'";
+        }else if(!empty($from)){
+            $where .= " and o.created >= '{$from}'";
+        }
         return $this->createQueryBuilder('o')
         ->select('o.suyoolUserId,o.transId,o.amount,o.currency,o.status,a.status as statuscard,a.card,a.name,o.created')
         ->leftJoin(attempts::class,'a','WITH','o.transId = a.transactionId')
-        ->where("o.status = 'completed' and o.currency = '{$currency}' and o.created >= '{$from}'")
+        ->where($where)
         ->groupBy('a.transactionId')
         ->getQuery()
         ->getResult();

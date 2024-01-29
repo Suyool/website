@@ -27,7 +27,7 @@ class PaymentController extends AbstractController
     public function paymentOrders(Request $request)
     {
         $current_page=$request->get('page',1);
-        $orders=$this->mr->getRepository(orders::class)->fetchAllPaymentDetails(array('status'=>'','transId'=>'','currency'=>''));
+        $orders=$this->mr->getRepository(orders::class)->fetchAllPaymentDetails(array('status'=>'','transId'=>'','currency'=>'','created'=>''));
         // dd($orders);
 
         $form=$this->createForm(SearchPaymentForm::class);
@@ -52,7 +52,8 @@ class PaymentController extends AbstractController
         return $this->render('Admin/Payment/orders.html.twig', [
             'orders' => $pagination,
             'form'=>$formrender,
-            'currency'=>@$searchQuery['currency']
+            'currency'=>@$searchQuery['currency'],
+            'date'=>@$searchQuery['created']
         ]);
 
 
@@ -61,13 +62,16 @@ class PaymentController extends AbstractController
     /**
      * @Route("admin/export/payment", name="admin_export_to_excel_payment")
      */
-    public function exportToExcelpayment()
+    public function exportToExcelpayment(Request $request)
     {
-        $file_name=$_POST['currency']."_transactions_".date('Y-m-d').".csv";
+        $currency = $request->query->get('currency');
+        $date = $request->query->get('date');
+        // dd($currency . " " . $date);
+        $file_name="transactions_".date('Y-m-d').".csv";
         $fields=array('suyoolUserId','Transaction','Amount','Currency','Status','Card Status','Card number','name','Created');
         $excelData = implode(",",array_values($fields)) . "\n";
 
-        $getTransactions=$this->mr->getRepository(orders::class)->getTransactions($_POST['currency'],$_POST['from']);
+        $getTransactions=$this->mr->getRepository(orders::class)->getTransactions($currency,$date);
         // dd($getTransactions);
         foreach($getTransactions as $getTransactions)
         {

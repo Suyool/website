@@ -29,13 +29,19 @@ class SearchPaymentForm extends AbstractType
             ])
             ->add('currency', ChoiceType::class, [
                 'choices'=>[
+                    ''=>'',
                     'LBP'=>'LBP',
                     'USD'=>'USD'
                 ],
                 'label' => 'Currency'
             ])
+            ->add('created',DateType::class,[
+                'widget' => 'single_text',
+                'required'=>true
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Search',
+                'attr'=>['class'=>'btn btn-primary']
             ]);
     }
 
