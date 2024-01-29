@@ -27,13 +27,13 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.8062364f.js"
+        "/build/Alfa.536e6ec6.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.d4e6165e.js"
+        "/build/Touch.105a0c7b.js"
       ]
     },
     "Ogero": {
@@ -81,7 +81,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.171d8ead.css"
+        "/build/Lotostyles.77b15344.css"
       ]
     },
     "LegalEnrollementStyle": {

@@ -286,7 +286,7 @@ const MyBundle = ({
                 <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
               </div>
               <div className="MoreInfo">
-                <div className="label">Amount in L.L (Sayrafa rate)</div>
+                <div className="label">Amount in L.L</div>
                 <div className="value">
                   L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}
                 </div>
@@ -299,7 +299,7 @@ const MyBundle = ({
                 </div>
               </div>
               <div className="smlDescSayrafa">
-                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Sayrafa rate, subject to change).
+                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Subject to change).
               </div>
             </div>
 
