@@ -294,7 +294,7 @@ class OgeroController extends AbstractController
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
                             ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1]);
+                            ->seterror("reversed");
                         $this->mr->persist($orderupdate4);
                         $this->mr->flush();
 
