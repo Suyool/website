@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Gift2Games\Categories;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
+use App\Entity\Gift2Games\Products;
 use App\Entity\Gift2Games\Transaction;
 use App\Service\Gift2GamesService;
 use App\Service\NotificationServices;
@@ -77,23 +79,9 @@ class Gift2GamesController extends AbstractController
     /**
      * @Route("/gift2games/categories", name="app_g2g_categories")
      */
-    public function getCategories(AdapterInterface $cache)
+    public function getCategories()
     {
-        $cacheKey = 'Gift2Games_categories_cache';
-
-        // Check if data is in the cache
-        if ($cache->hasItem($cacheKey)) {
-            $data = $cache->getItem($cacheKey)->get();
-        } else {
-            // If not in cache, fetch data from the service
-            $results = $this->gamesService->getCategories();
-            $data = $results['data'];
-
-            // Store data in the cache for future use (set an expiration time if needed)
-            $cacheItem = $cache->getItem($cacheKey);
-            $cacheItem->set($data);
-            $cache->save($cacheItem);
-        }
+        $data = $this->mr->getRepository(Categories::class)->findAll();
 
         return new JsonResponse([
             'status' => 'success',
@@ -104,24 +92,9 @@ class Gift2GamesController extends AbstractController
     /**
      * @Route("/gift2games/products/{categoryId}", name="app_g2g_products")
      */
-    public function getProducts($categoryId, AdapterInterface $cache)
+    public function getProducts($categoryId)
     {
-        $cacheKey = 'Gift2Games_products_cache_' . $categoryId;
-
-        // Check if data is in the cache
-        if ($cache->hasItem($cacheKey)) {
-            $data = $cache->getItem($cacheKey)->get();
-        } else {
-            // If not in cache, fetch data from the service
-            $results = $this->gamesService->getProducts($categoryId);
-            $data = $results['data'];
-
-            // Store data in the cache for future use (set an expiration time if needed)
-            $cacheItem = $cache->getItem($cacheKey);
-            $cacheItem->set($data);
-            $cache->save($cacheItem);
-        }
-
+        $data = $this->mr->getRepository(Products::class)->findBy(['categoryId' => 642]);
         return new JsonResponse([
             'status' => 'success',
             'Payload' => $data,

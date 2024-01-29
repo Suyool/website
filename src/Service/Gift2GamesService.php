@@ -86,7 +86,7 @@ class Gift2GamesService
         }
     }
 
-    public function getProducts($categoryId) {
+    public function getProducts($categoryId=null) {
         try {
             $formData = [
                 "categoryId" => $categoryId,
