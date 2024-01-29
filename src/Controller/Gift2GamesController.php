@@ -94,7 +94,7 @@ class Gift2GamesController extends AbstractController
      */
     public function getProducts($categoryId)
     {
-        $data = $this->mr->getRepository(Products::class)->findBy(['categoryId' => 642]);
+        $data = $this->mr->getRepository(Products::class)->findBy(['categoryId' => $categoryId]);
         return new JsonResponse([
             'status' => 'success',
             'Payload' => $data,
