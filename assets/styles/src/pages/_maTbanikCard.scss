@@ -84,6 +84,17 @@
         }
       }
     }
+
+    @media(min-width: 1400px) {
+      .top-container{
+        width: 80%;
+        margin: auto;
+
+        .right-section{
+          width: 55vw;
+        }
+      }
+    }
   }
   .mobileCardImage {
     display: none;
