@@ -33,7 +33,10 @@ class PaymentRepository extends EntityRepository
         if ($searchQuery != null) {
             if ($searchQuery['status'] != null && $searchQuery['transId'] != null && $searchQuery['currency'] != null && $searchQuery['created'] != null) {
                 $where = "o.status='" . $searchQuery['status'] . "' and o.transId= " . $searchQuery['transId'] . " and o.currency ='" . $searchQuery['currency'] . "' and o.created >= '" . $searchQuery['created'] ."'";
-            } else if($searchQuery['currency'] != null && $searchQuery['created'] != null){
+            }else if($searchQuery['status'] != null && $searchQuery['currency'] != null && $searchQuery['created'] != null){
+                $where = "o.status='" . $searchQuery['status'] . "' and o.currency= '" . $searchQuery['currency'] . "' and  o.created >= '" . $searchQuery['created'] ."'";
+            }  
+            else if($searchQuery['currency'] != null && $searchQuery['created'] != null){
                 $where = "o.currency= '" . $searchQuery['currency'] . "' and  o.created >= '" . $searchQuery['created'] ."'";
             } 
             else if ($searchQuery['status'] != null) {
@@ -42,8 +45,7 @@ class PaymentRepository extends EntityRepository
                 $where = "o.transId= " . $searchQuery['transId'];
             } else if ($searchQuery['currency'] != null) {
                 $where = "o.currency= '" . $searchQuery['currency'] . "'";
-            }
-           
+            }      
             else if ($searchQuery['created'] != null) {
                 $where = "o.created >= '" . $searchQuery['created'] ."'";
             }
