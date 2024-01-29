@@ -185,13 +185,13 @@ const Result = ({
   };
 
   const handlePrevious = () => {
-    setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setStartIndex((prevIndex) => Math.min(prevIndex + 1, filteredData.length - 4));
     setClickedIndex(null);
   };
 
   const handleNext = () => {
     setStartIndex((prevIndex) =>
-      Math.min(prevIndex + 1, filteredData.length - 4)
+      Math.max(prevIndex - 1, 0)
     );
     setClickedIndex(null);
   };
