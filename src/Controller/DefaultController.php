@@ -1196,6 +1196,7 @@ class DefaultController extends AbstractController
             'btnBgColor'=> 'bg-blue',
             'homepage' => true,
             'matBank' => true,
+            'descmeta' => 'In Lebanon & abroad, in-store & online',
             'metaimage' => 'build/images/ma-tbank/ma-tBank-metaimage-min.png',
         ];
 
