@@ -30,6 +30,7 @@ const Buy = ({
   const [getPlayedBalls, setPlayedBalls] = useState(
     JSON.parse(selectedBallsToShow) || []
   );
+  const [successCount, setSuccessCount] = useState(0);
   useEffect(() => {
     setPlayedBalls(JSON.parse(selectedBallsToShow));
     if (selectedBallsToShow != null) {
@@ -62,7 +63,6 @@ const Buy = ({
     if (isClicked) {
       return;
     }
-    setTimeout(() => {
       console.log("clicked");
       setIsClicked(true);
       setDataGetting("");
@@ -77,111 +77,215 @@ const Buy = ({
           );
         }, 2000);
       }
-      window.handleCheckout = (message) => {
-        setDataGetting(message);
-      };
-    }, 1000);
+    window.handleCheckout = (message) => {
+      // setDataGetting(message);
+      if (message == "success") {
+        setSuccessCount((prevCount) => prevCount + 1);
+        const selectedBallsToShowAfterMSG = localStorage.getItem("selectedBalls");
+        setDataGetting("");
+        axios
+          .post("/loto/play", {
+            selectedBalls: selectedBallsToShowAfterMSG,
+          })
+          .then((response) => {
+            const jsonResponse = response.data.message;
+            setSpinnerLoader(false);
+            if (response.data.status) {
+              const amount = response.data.amount;
+              setModalName("SuccessModal");
+              setSuccessModal({
+                imgPath: "/build/images/Loto/success.png",
+                title: "LOTO Purchased Successfully",
+                desc: (
+                  <div>
+                    You have successfully paid L.L{" "}
+                    {parseInt(amount).toLocaleString()} for LOTO.
+                    <br />
+                    Best of Luck!
+                  </div>
+                ),
+                deviceType: parameters?.deviceType,
+              });
+              setModalShow(true);
+              localStorage.removeItem("selectedBalls");
+              setPlayedBalls([]);
+              setDisabledBtn(true);
+              setCheckBuy(true);
+              return;
+            } else if (!response.data.status && response.data.flagCode == 10) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/Loto/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else if (!response.data.status && response.data.flagCode == 11) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/Loto/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.ButtonOne.Flag,
+                btn: jsonResponse.ButtonOne.Text,
+              });
+              setModalShow(true);
+            } else if (!response.data.status && response.data.flagCode == 150) {
+              const amount = response.data.amount;
+              setModalName("WarningModal");
+              setWarningModal({
+                imgPath: "/build/images/Loto/warning.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                path: jsonResponse.flag,
+                btn: jsonResponse.Text,
+              });
+              setModalShow(true);
+            } else if (!response.data.status && response.data.flagCode == 210) {
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/Loto/error.png",
+                title: "Cannot Play Grid",
+                desc: `You have a grid with the same numbers in this draw <br/>` + response.data.gridSelected,
+              });
+              setModalShow(true);
+            } else {
+              // setModalName("ErrorModal");
+              // setErrorModal({
+              //   img: "/build/images/Loto/error.png",
+              //   title: "Please Try again",
+              //   desc: `You cannot purchase now`,
+              // });
+              // setModalShow(true);
+              return;
+            }
+          })
+          .catch((error) => {
+            setSpinnerLoader(false);
+            console.log(error);
+            setDisabledBtn(
+              selectedBallsToShow == null ||
+                JSON.parse(selectedBallsToShow).length === 0
+            );
+          });
+        setDisable(false);
+        console.log("here")
+        return;
+      } else if (message == "failed") {
+        setDataGetting("");
+        setSpinnerLoader(false);
+        setDisable(false);
+      }
+      return;
+    };
+
+    
   };
 
-  useEffect(() => {
-    console.log(getDataGetting);
-    if (getDataGetting == "success") {
-      setDataGetting("");
-      axios
-        .post("/loto/play", {
-          selectedBalls: selectedBallsToShow,
-        })
-        .then((response) => {
-          const jsonResponse = response.data.message;
-          setSpinnerLoader(false);
-          if (response.data.status) {
-            const amount = response.data.amount;
-            setModalName("SuccessModal");
-            setSuccessModal({
-              imgPath: "/build/images/Loto/success.png",
-              title: "LOTO Purchased Successfully",
-              desc: (
-                <div>
-                  You have successfully paid L.L{" "}
-                  {parseInt(amount).toLocaleString()} for LOTO.
-                  <br />
-                  Best of Luck!
-                </div>
-              ),
-              deviceType: parameters?.deviceType,
-            });
-            setModalShow(true);
-            localStorage.removeItem("selectedBalls");
-            setPlayedBalls([]);
-            setDisabledBtn(true);
-            setCheckBuy(true);
-          } else if (!response.data.status && response.data.flagCode == 10) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else if (!response.data.status && response.data.flagCode == 11) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else if (!response.data.status && response.data.flagCode == 150) {
-            const amount = response.data.amount;
-            setModalName("WarningModal");
-            setWarningModal({
-              imgPath: "/build/images/Loto/warning.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.flag,
-              btn: jsonResponse.Text,
-            });
-            setModalShow(true);
-          } else if (!response.data.status && response.data.flagCode == 210) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: "Cannot Play Grid",
-              desc: `You have a grid with the same numbers in this draw <br/>` + response.data.gridSelected,
-            });
-            setModalShow(true);
-          } else {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: "Please Try again",
-              desc: `You cannot purchase now`,
-            });
-            setModalShow(true);
-          }
-        })
-        .catch((error) => {
-          setSpinnerLoader(false);
-          console.log(error);
-          setDisabledBtn(
-            selectedBallsToShow == null ||
-              JSON.parse(selectedBallsToShow).length === 0
-          );
-        });
-      setDisable(false);
-    } else if (getDataGetting == "failed") {
-      setDataGetting("");
-      setSpinnerLoader(false);
-      setDisable(false);
-    }
-  }, [getDataGetting]);
+  // useEffect(() => {
+  //   console.log(getDataGetting);
+  //   if (getDataGetting == "success") {
+  //     const selectedBallsToShowAfterMSG = localStorage.getItem("selectedBalls");
+  //     setDataGetting("");
+  //     axios
+  //       .post("/loto/play", {
+  //         selectedBalls: selectedBallsToShowAfterMSG,
+  //       })
+  //       .then((response) => {
+  //         const jsonResponse = response.data.message;
+  //         setSpinnerLoader(false);
+  //         if (response.data.status) {
+  //           const amount = response.data.amount;
+  //           setModalName("SuccessModal");
+  //           setSuccessModal({
+  //             imgPath: "/build/images/Loto/success.png",
+  //             title: "LOTO Purchased Successfully",
+  //             desc: (
+  //               <div>
+  //                 You have successfully paid L.L{" "}
+  //                 {parseInt(amount).toLocaleString()} for LOTO.
+  //                 <br />
+  //                 Best of Luck!
+  //               </div>
+  //             ),
+  //             deviceType: parameters?.deviceType,
+  //           });
+  //           setModalShow(true);
+  //           localStorage.removeItem("selectedBalls");
+  //           setPlayedBalls([]);
+  //           setDisabledBtn(true);
+  //           setCheckBuy(true);
+  //         } else if (!response.data.status && response.data.flagCode == 10) {
+  //           setModalName("ErrorModal");
+  //           setErrorModal({
+  //             img: "/build/images/Loto/error.png",
+  //             title: jsonResponse.Title,
+  //             desc: jsonResponse.SubTitle,
+  //             path: jsonResponse.ButtonOne.Flag,
+  //             btn: jsonResponse.ButtonOne.Text,
+  //           });
+  //           setModalShow(true);
+  //         } else if (!response.data.status && response.data.flagCode == 11) {
+  //           setModalName("ErrorModal");
+  //           setErrorModal({
+  //             img: "/build/images/Loto/error.png",
+  //             title: jsonResponse.Title,
+  //             desc: jsonResponse.SubTitle,
+  //             path: jsonResponse.ButtonOne.Flag,
+  //             btn: jsonResponse.ButtonOne.Text,
+  //           });
+  //           setModalShow(true);
+  //         } else if (!response.data.status && response.data.flagCode == 150) {
+  //           const amount = response.data.amount;
+  //           setModalName("WarningModal");
+  //           setWarningModal({
+  //             imgPath: "/build/images/Loto/warning.png",
+  //             title: jsonResponse.Title,
+  //             desc: jsonResponse.SubTitle,
+  //             path: jsonResponse.flag,
+  //             btn: jsonResponse.Text,
+  //           });
+  //           setModalShow(true);
+  //         } else if (!response.data.status && response.data.flagCode == 210) {
+  //           setModalName("ErrorModal");
+  //           setErrorModal({
+  //             img: "/build/images/Loto/error.png",
+  //             title: "Cannot Play Grid",
+  //             desc: `You have a grid with the same numbers in this draw <br/>` + response.data.gridSelected,
+  //           });
+  //           setModalShow(true);
+  //         } else {
+  //           // setModalName("ErrorModal");
+  //           // setErrorModal({
+  //           //   img: "/build/images/Loto/error.png",
+  //           //   title: "Please Try again",
+  //           //   desc: `You cannot purchase now`,
+  //           // });
+  //           // setModalShow(true);
+  //           return;
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         setSpinnerLoader(false);
+  //         console.log(error);
+  //         setDisabledBtn(
+  //           selectedBallsToShow == null ||
+  //             JSON.parse(selectedBallsToShow).length === 0
+  //         );
+  //       });
+  //     setDisable(false);
+  //   } else if (getDataGetting == "failed") {
+  //     setDataGetting("");
+  //     setSpinnerLoader(false);
+  //     setDisable(false);
+  //   }
+  // }, [getDataGetting]);
 
   return (
     <div id="Buy" className={` ${getSpinnerLoader ? "hideBackk" : ""}`}>
+      {successCount}
       {getSpinnerLoader && (
         <div id="spinnerLoader">
           <Spinner className="spinner" animation="border" variant="secondary" />
