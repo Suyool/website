@@ -125,6 +125,15 @@
       }
     }
 
+    #openSuyoolAccount{
+      border: 2px solid #fff;
+    }
+
+    #openSuyoolAccount:hover {
+      opacity: 1;
+    }
+
+
     .right-section {
       .img-cont {
         position: relative;
@@ -190,7 +199,7 @@
     justify-content: center;
 
     .step {
-      padding: 40px;
+      padding: 30px;
       margin: 0 10px 50px 10px;
       border-radius: 10px;
       border: none;
@@ -480,7 +489,7 @@
 
     .home-steps {
       .step {
-        padding: 20px 40px;
+        padding: 20px 30px;
 
         .head {
           font-size: 45px;

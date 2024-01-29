@@ -103,17 +103,6 @@
   .corporate-section {
     background-image: url("../../../images/backgoundImagematbanik.jpg");
     padding: 80px 0;
-
-    .button-primary {
-      border-radius: 12px;
-      background: #ffffff;
-      color: #226d96;
-      &:hover{
-        border: 2px solid #fff!important;
-        color: #fff;
-        opacity: 1!important;
-      }
-    }
   }
   @media (max-width: 768px) {
     .button-primary {
