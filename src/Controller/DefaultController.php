@@ -1196,7 +1196,8 @@ class DefaultController extends AbstractController
             'btnBgColor'=> 'bg-blue',
             'homepage' => true,
             'matBank' => true,
-            'descmeta' => 'In Lebanon & abroad, in-store & online',
+            'title' => 'Your Money is in Safe Hands, Yours!',
+            'descmeta' => 'Suyool Visa: Accepted worldwide, make transactions, transfer money to any Lebanese number, and enjoy various features—all in one app.',
             'metaimage' => 'build/images/ma-tbank/ma-tBank-metaimage-min.png',
         ];
 
