@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="ma-tbank homepage">
+        {% include 'MatBank/top-section.html.twig' %}
+        <div class="mt-5">
+            {% include 'medco-payroll/whyChooseSuyool.html.twig' %}
+        </div>
+        <div class="buttons-cont text-center mt-5">
+            <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Open Suyool Account</button>
+            <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">Open Suyool Account</button>
+        </div>
+        {%include 'MatBank/three-questions.html.twig'%}
+        <div class="buttons-cont text-center my-5">
+            <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Open Suyool Account</button>
+            <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">Open Suyool Account</button>
+        </div>
+        {% include 'MatBank/use-money.html.twig' %}
+        {% include 'elements/get-suyool.html.twig' %}
+
+        {% include 'elements/footer.html.twig' %}
+    </div>
+
+{% endblock %}
