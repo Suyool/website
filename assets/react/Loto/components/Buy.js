@@ -80,7 +80,7 @@ const Buy = ({
     window.handleCheckout = (message) => {
       // setDataGetting(message);
       if (message == "success") {
-        setSuccessCount((prevCount) => prevCount + 1);
+        // setSuccessCount((prevCount) => prevCount + 1);
         const selectedBallsToShowAfterMSG = localStorage.getItem("selectedBalls");
         setDataGetting("");
         axios
@@ -152,13 +152,13 @@ const Buy = ({
               });
               setModalShow(true);
             } else {
-              // setModalName("ErrorModal");
-              // setErrorModal({
-              //   img: "/build/images/Loto/error.png",
-              //   title: "Please Try again",
-              //   desc: `You cannot purchase now`,
-              // });
-              // setModalShow(true);
+              setModalName("ErrorModal");
+              setErrorModal({
+                img: "/build/images/Loto/error.png",
+                title: "Please Try again",
+                desc: `You cannot purchase now`,
+              });
+              setModalShow(true);
               return;
             }
           })
