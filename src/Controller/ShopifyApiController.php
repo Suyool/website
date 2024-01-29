@@ -36,9 +36,9 @@ class ShopifyApiController extends AbstractController
     {
         $metadata = json_decode($request->request->get('metadata'), true);
         $env = $metadata['env'];
-        $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
 
-        $ordersRepository = $this->mr->getRepository($orderClass);
+
+        $ordersRepository = $this->mr->getRepository(Orders::class);
 
         $orderId = $request->request->get('order_id');
         $order = $ordersRepository->findOneBy(['orderId' => $orderId]);

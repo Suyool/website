@@ -51,9 +51,8 @@ class ShopifyController extends AbstractController
             if($credential->getDomain() == $hostname){
                 $merchantId = $credential->getMerchantId();
                 $metadata = json_encode(array('url' => $url, 'path' => $domain, 'error_url' => $errorUrl, 'currency' => $currency, 'total_price' => $totalPrice, 'env' => $env, 'merchant_id' => $merchantId));
-                $orderClass = ($env == "test") ? OrdersTest::class : Orders::class;
 
-                $order = new $orderClass();
+                $order = new Orders();
                 $order->setOrderId($orderID);
                 $order->setShopName($domain);
                 $order->setAmount($totalPrice);
@@ -65,7 +64,7 @@ class ShopifyController extends AbstractController
                 $order->setStatus(0);
                 $order->setFlag(0);
 
-                $existingOrder = $this->mr->getRepository($orderClass)->findOneBy(['orderId' => $orderID]);
+                $existingOrder = $this->mr->getRepository(Orders::class)->findOneBy(['orderId' => $orderID]);
 
                 if ($existingOrder) {
                     // Update the existing order
