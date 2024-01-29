@@ -177,4 +177,21 @@ class Products
 
         return $this;
     }
+
+    public function toArray(int $depth = 1): array
+    {
+        if ($depth <= 0) {
+            return [];
+        }
+
+        return [
+            'id' => $this->id,
+            'productId' => $this->productId,
+            'categoryId' => $this->categoryId,
+            'title' => $this->title,
+            'price' => $this->price,
+            'inStock' => $this->inStock,
+            'image' => $this->image,
+        ];
+    }
 }

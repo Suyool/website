@@ -167,4 +167,26 @@ class Categories
 
         return $this;
     }
+    public function toArray(int $depth = 1): array
+    {
+        if ($depth <= 0) {
+            return [];
+        }
+
+        $children = [];
+        foreach ($this->childs as $child) {
+            $children[] = $child->toArray($depth - 1);
+        }
+
+        return [
+            'id' => $this->id,
+            'categoryId' => $this->categoryId,
+            'title' => $this->title,
+            'shortTitle' => $this->shortTitle,
+            'image' => $this->image,
+            'parent' => $this->parent ? $this->parent->toArray($depth - 1) : null,
+            'childs' => $children,
+            'type' => $this->type,
+        ];
+    }
 }

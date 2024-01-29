@@ -51,7 +51,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-//       $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+       $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -82,10 +82,15 @@ class Gift2GamesController extends AbstractController
     public function getCategories()
     {
         $data = $this->mr->getRepository(Categories::class)->findAll();
+        $categoriesArray = [];
+
+        foreach ($data as $category) {
+            $categoriesArray[] = $category->toArray();
+        }
 
         return new JsonResponse([
             'status' => 'success',
-            'Payload' => $data,
+            'Payload' => $categoriesArray,
         ], 200);
     }
 
@@ -95,9 +100,15 @@ class Gift2GamesController extends AbstractController
     public function getProducts($categoryId)
     {
         $data = $this->mr->getRepository(Products::class)->findBy(['categoryId' => $categoryId]);
+
+        // Convert each product to array with limited recursion depth
+        $dataArray = [];
+        foreach ($data as $product) {
+            $dataArray[] = $product->toArray();
+        }
         return new JsonResponse([
             'status' => 'success',
-            'Payload' => $data,
+            'Payload' => $dataArray,
         ], 200);
     }
 
