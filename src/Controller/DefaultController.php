@@ -1179,6 +1179,7 @@ class DefaultController extends AbstractController
             'title' => 'Use Suyool Visa Card',
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
+            'matBank' => true,
 
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig', $parameters);
@@ -1194,6 +1195,7 @@ class DefaultController extends AbstractController
             'bgColor'=> 'bg-white',
             'btnBgColor'=> 'bg-blue',
             'homepage' => true,
+            'matBank' => true,
         ];
 
         return $this->render('MatBank/index.html.twig', $parameters);
