@@ -266,7 +266,7 @@ const MyBundle = ({
                 </div>
               </div>
               <div className="smlDescSayrafa">
-                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Sayrafa rate, subject to change).
+                $1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Subject to change).
               </div>
             </div>
 
