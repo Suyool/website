@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
             'descmeta' => $desc,
             'barBgColor' => 'barWhite',
             'chatbot'=>true,
-            'homepage'=>true
+            'homepage'=>true,
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
@@ -1179,7 +1179,8 @@ class DefaultController extends AbstractController
             'title' => 'Use Suyool Visa Card',
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
-
+            'matBank' => true,
+            'metaimage' => 'build/images/ma-tbank/ma-tBank-card-metaimage-min.png',
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig', $parameters);
     }
@@ -1194,6 +1195,10 @@ class DefaultController extends AbstractController
             'bgColor'=> 'bg-white',
             'btnBgColor'=> 'bg-blue',
             'homepage' => true,
+            'matBank' => true,
+            'title' => 'Your Money is in Safe Hands, Yours!',
+            'descmeta' => 'Suyool Visa: Accepted worldwide, make transactions, transfer money to any Lebanese number, and enjoy various features—all in one app.',
+            'metaimage' => 'build/images/ma-tbank/ma-tBank-metaimage-min.png',
         ];
 
         return $this->render('MatBank/index.html.twig', $parameters);
