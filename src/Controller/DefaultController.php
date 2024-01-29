@@ -60,7 +60,6 @@ class DefaultController extends AbstractController
             'barBgColor' => 'barWhite',
             'chatbot'=>true,
             'homepage'=>true,
-            'metaimage' => "build/images/alfa_employee/alfametaimage.png"
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
@@ -1181,7 +1180,7 @@ class DefaultController extends AbstractController
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
             'matBank' => true,
-
+            'metaimage' => 'build/images/ma-tbank/ma-tBank-card-metaimage-min.png',
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig', $parameters);
     }
@@ -1197,6 +1196,7 @@ class DefaultController extends AbstractController
             'btnBgColor'=> 'bg-blue',
             'homepage' => true,
             'matBank' => true,
+            'metaimage' => 'build/images/ma-tbank/ma-tBank-metaimage-min.png',
         ];
 
         return $this->render('MatBank/index.html.twig', $parameters);
