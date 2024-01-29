@@ -1180,7 +1180,7 @@ class DefaultController extends AbstractController
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
             'matBank' => true,
-            'metaimage' => 'build/images/ma-tbank/ma-tBank-card-metaimage-min.png',
+            'metaimage' => 'build/images/ma-tbank/ma-tBank-metaimage2-min.png',
         ];
         return $this->render('ma-tBank-card/maTbanikCard.html.twig', $parameters);
     }
