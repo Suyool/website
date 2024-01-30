@@ -33,34 +33,6 @@ const App = ({parameters}) => {
     const [childIds, setChildIds] = useState([]);
 
     useEffect(() => {
-        const child1 = {
-            "1111": ["646"],
-            "1110": ["414"],
-            "454": ["514", "504"],
-            "448": ["633", "624", "298"],
-            "445": ["567", "562", "558"],
-            "444": ["575"],
-            "441": ["664", "656", "617", "496"],
-            "406": ["645"],
-            "302": ["417"],
-            "282": ["647"],
-            "277": ["905"],
-            "76": ["343"],
-        };
-
-        const child2 = {
-            "439": ["477", "472"],
-        }
-
-        const child3 = {
-            "1091": ["1123", "730"],
-            "442": ["704", "703", "644", "642", "641", "636"],
-            "434": ["469", "462", "457", "455", "428"],
-        }
-        setChildIds(parameters?.TypeID == 1 ? child1 : parameters?.TypeID == 2 ? child2 : child3);
-    }, [parameters.TypeID]);
-
-    useEffect(() => {
         setDataGetting("");
         window.handleCheckout = (message) => {
             setDataGetting(message);
@@ -71,11 +43,12 @@ const App = ({parameters}) => {
 
     const fetchCategories = () => {
         axios
-            .get("/gift2games/categories")
+            .get(`/gift2games/categories/${parameters.TypeID}`)
             .then((response) => {
+                console.log(response);
                 if (response?.data?.status) {
-                    const parsedData = JSON.parse(response?.data?.Payload);
-                    setCategories(parsedData?.data);
+                    const parsedData = response?.data?.Payload;
+                    setCategories(parsedData);
                 }
             })
             .catch((error) => {
@@ -113,8 +86,6 @@ const App = ({parameters}) => {
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 categories={categories}
-                                handleChildCategoryClick={handleChildCategoryClick}
-                                desiredChildIdsMap={childIds}
                                 setPrepaidVoucher={setPrepaidVoucher}
                             />
                         )}

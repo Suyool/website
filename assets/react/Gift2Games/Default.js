@@ -2,13 +2,14 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
 
-const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVoucher}) => {
+const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     // Convert category IDs to numbers
     const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
-    const categoryIdsToDisplay = Object.keys(desiredChildIdsMap).map(Number);
-    const [activeCategoryId, setActiveCategoryId] = useState(categoryIdsToDisplay[0]);
+    const [childCategories, setChildCategories] = useState([]);
+
+    const [activeCategoryId, setActiveCategoryId] = useState();
     const [activeSubCategoryId, setActiveSubCategoryId] = useState(
         0
     );
@@ -22,21 +23,24 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
         );
     }, [categories]);
 
-    useEffect(() => {
-        setActiveCategoryId(categoryIdsToDisplay[0]);
-    }, [desiredChildIdsMap]);
 
 
-    useEffect(() => {
-        if (activeCategoryId && desiredChildIdsMap)
-            setActiveSubCategoryId(
-                desiredChildIdsMap[activeCategoryId][0]
-            )
-    }, [activeCategoryId])
-
-
-    const handleCategoryClick = (categoryId) => {
+    const handleCategoryClick = (categoryId,id) => {
         setActiveCategoryId(categoryId);
+        fetchChildCategories(id);
+    };
+
+    const fetchChildCategories = (parentId) => {
+        axios.get(`/gift2games/categories/${parentId}/childs`)
+            .then((response) => {
+                if (response?.data?.status) {
+                    const childCategories = response?.data?.Payload;
+                    setChildCategories(childCategories);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const fetchProducts = () => {
@@ -44,7 +48,7 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
         axios.get(`/gift2games/products/${activeSubCategoryId}`)
             .then((response) => {
                 if (response?.data?.status) {
-                    const productData = JSON.parse(response?.data?.Payload)?.data;
+                    const productData = response?.data?.Payload;
                     setFilteredData(productData);
                 }
                 setLoading(false)
@@ -63,7 +67,7 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
 
     const handleSearch = (e) => {
         const searchValue = e.target.value;
-        const filteredData = categories.filter((category)=>{
+        const filteredData = categories.filter((category) => {
             return category.title.toLowerCase().includes(searchValue.toLowerCase())
         })
 
@@ -71,53 +75,56 @@ const Default = ({categories, desiredChildIdsMap, setActiveButton, setPrepaidVou
 
     }
 
+    console.log("categories", categories);
+
     return (
         <div id="Default_g2g">
             <div className="search-bar">
                 <div className="search-icon">
                     <img src="/build/images/g2g/search.svg" alt=""/>
                 </div>
-                <input type="text" placeholder="Search in gaming e-store" onChange={(event) => handleSearch(event)} />
+                <input type="text" placeholder="Search in gaming e-store" onChange={(event) => handleSearch(event)}/>
             </div>
-            <div className="categories-scroll">
-                {categoryIdsToDisplay.map((categoryId) => {
-                    const categoryToDisplay = categoriesWithNumberIds.find(
-                        (category) => Number(category.id) === Number(categoryId)
-                    );
 
-                    return (
-                        categoryToDisplay && (
+            <div className="categories-scroll">
+                {
+                    categories.map((category) => {
+                        return (
                             <div
-                                key={categoryToDisplay.id}
-                                className={`category-item ${activeCategoryId === Number(categoryId) ? "selected" : ""}`}
-                                onClick={() =>{
-                                    handleCategoryClick(Number(categoryId))
-                                    sessionStorage.setItem("categoryName", categoryToDisplay.title)
+                                key={category.id}
+                                className={`category-item ${activeCategoryId === Number(category.categoryId) ? "selected" : ""}`}
+                                onClick={() => {
+                                    handleCategoryClick(Number(category.categoryId),category.id)
+                                    sessionStorage.setItem("categoryName", category.title)
                                 }}
                             >
-                                <img src={categoryToDisplay.image} alt={categoryToDisplay.title}/>
-                                <p className="SubTitleCat">{categoryToDisplay.title}</p>
+                                <img src={category.image} alt={category.title}/>
+                                <p className="SubTitleCat">{category.title}</p>
+
                             </div>
-                        )
+                        );
+                    })
+                }
+            </div>
+
+            {/* Display child categories for the active category */}
+
+            <div className="child-categories">
+                {childCategories.map((child) => {
+                    return (
+                        <div
+                            key={child.id}
+                            className={`child-category ${child.id === activeSubCategoryId ? "active-sub" : ""}`}
+                            onClick={() => {
+                                setActiveSubCategoryId(child.categoryId)
+                            }}
+                        >
+                            <p className="SubTitleCat">{child.shortTitle}</p>
+                        </div>
                     );
                 })}
             </div>
 
-            {/* Display child categories for the active category */}
-            <div className="child-categories">
-                {categoriesWithNumberIds
-                    .find((category) => category.id == activeCategoryId)?.childs.map((child) => {
-                            if (desiredChildIdsMap[activeCategoryId].includes(child.id))
-                                return (
-                                    <div key={child.id} className={`child-category ${child.id == activeSubCategoryId? "active-sub" : ""}`} onClick={() => {
-                                        setActiveSubCategoryId(child.id)
-                                    }}>
-                                        <p className="SubTitleCat">{child.short_title}</p>
-                                    </div>
-                                )
-                        }
-                    )}
-            </div>
 
             <div id="ReCharge">
                 <div className="bundlesSection">

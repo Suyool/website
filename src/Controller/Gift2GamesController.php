@@ -77,11 +77,11 @@ class Gift2GamesController extends AbstractController
     }
 
     /**
-     * @Route("/gift2games/categories", name="app_g2g_categories")
+     * @Route("/gift2games/categories/{type}", name="app_g2g_categories")
      */
-    public function getCategories()
+    public function getCategories($type)
     {
-        $data = $this->mr->getRepository(Categories::class)->findAll();
+        $data = $this->mr->getRepository(Categories::class)->findBy(['type' => $type]);
         $categoriesArray = [];
 
         foreach ($data as $category) {
@@ -94,6 +94,23 @@ class Gift2GamesController extends AbstractController
         ], 200);
     }
 
+    /**
+     * @Route("/gift2games/categories/{parentId}/childs", name="app_g2g_child_categories")
+     */
+    public function getChildCategories($parentId)
+    {
+        // Fetch all child categories for the given parent ID
+        $childCategories = $this->mr->getRepository(Categories::class)->findBy(['parent' => $parentId]);
+        $childCategoriesArray = [];
+        foreach ($childCategories as $childCategory) {
+            $childCategoriesArray[] = $childCategory->toArray();
+        }
+
+        return new JsonResponse([
+            'status' => 'success',
+            'Payload' => $childCategoriesArray,
+        ], 200);
+    }
     /**
      * @Route("/gift2games/products/{categoryId}", name="app_g2g_products")
      */

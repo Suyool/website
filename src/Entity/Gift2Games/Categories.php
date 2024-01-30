@@ -184,9 +184,31 @@ class Categories
             'title' => $this->title,
             'shortTitle' => $this->shortTitle,
             'image' => $this->image,
-            'parent' => $this->parent ? $this->parent->toArray($depth - 1) : null,
-            'childs' => $children,
             'type' => $this->type,
+            'children' => $children,
         ];
+    }
+
+    /**
+     * Get child categories for the given category ID.
+     *
+     * @param int $categoryId
+     * @param int $depth
+     * @return array
+     */
+    public function getChildCategories(int $categoryId, int $depth = 1): array
+    {
+        $category = $this->mr->getRepository(Categories::class)->find($categoryId);
+
+        if (!$category) {
+            return []; // Category not found
+        }
+
+        $children = [];
+        foreach ($category->getChilds() as $child) {
+            $children[] = $child->toArray($depth - 1);
+        }
+
+        return $children;
     }
 }
