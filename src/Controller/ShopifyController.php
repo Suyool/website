@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Invoices\merchants;
 use App\Entity\Shopify\ShopifyInstallation;
 use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
@@ -42,13 +43,23 @@ class ShopifyController extends AbstractController
             $currency = $request->query->get('Currency');
             $merchantID = $request->query->get('MerchantID');
             $callBackURL = $request->query->get('CallBackURL');
+            $additionalInfo = $request->query->get('additionalInfo');
+
             $secureHash = $request->query->get('SecureHash');
             $currentHost = $request->getHost();
             $formattedPrice = number_format($totalPrice, 3);
+            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMId' => $merchantID]);
+            $certificate = $merchant->getCertificate();
 
-            $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.$callBackURL .'&SecureHash=' .$secureHash;
+            $secure = $trandID . $merchantID . $additionalInfo . $certificate;
+            $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
+            if($suyoolSecureHash == $secureHash){
+                $secure = $trandID . $merchantID . $formattedPrice .$additionalInfo . $certificate;
+                $APISecureHash = base64_encode(hash('sha512', $secure, true));
+                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.$callBackURL .'&SecureHash=' .$APISecureHash;
+                return new RedirectResponse($url);
 
-            return new RedirectResponse($url);
+            }
 
         }
         $url = $request->query->get('url');
