@@ -42,6 +42,25 @@ const PayBill = ({
             setLandlineData({ id: response?.data?.LandlineReqId });
             setLandlineDisplayedData(response?.data?.message);
             setLandlineMobile(response?.data?.mobileNb);
+          }
+          else if (
+            response?.data?.message == 111 || response?.data?.message == 108
+          ) {
+            setSpinnerLoader(false);
+            setModalName("ErrorModal");
+            setErrorModal({
+              imgPath: "/build/images/alfa/error.png",
+              title: " No Pending Bill",
+              desc: (
+                <div>
+                  There is no pending bill on the mobile number {mobileNumber}
+                  <br/>
+                  Kindly try again later
+                </div>
+              ),
+              btn: "OK",
+            });
+            setModalShow(true);
           } else {
             setSpinnerLoader(false);
             setModalName("ErrorModal");

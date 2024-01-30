@@ -120,7 +120,12 @@ class OgeroController extends AbstractController
                     ->seterrordesc($RetrieveChannel[2]);
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
-                $message = "Not found";
+                $error = explode("-",$RetrieveChannel[2]);
+                $errorcode = $error[1];
+                // if($errorcode == 113){
+                //     dd("ok");
+                // }
+                $message = $errorcode;
                 $LandlineReqId = -1;
                 $mobileNb = $data["mobileNumber"];
             }
