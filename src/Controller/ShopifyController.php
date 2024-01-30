@@ -46,16 +46,16 @@ class ShopifyController extends AbstractController
             $callBackURL = $request->query->get('callBackURL');
             $additionalInfo = $request->query->get('additionalInfo');
 
-            $secureHash = $request->query->get('SsecureHash');
+            $secureHash = $request->query->get('secureHash');
             $currentHost = $request->getHost();
             $formattedPrice = number_format($totalPrice, 3);
             $merchant = $invoicesServices->findMerchantByMerchId($merchantID);
             $certificate = $merchant->getCertificate();
 
-            $secure = $trandID . $merchantID . $additionalInfo . $certificate;
+            $secure = $trandID . $merchantID . $currency . $additionalInfo . $certificate;
             $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
             if($suyoolSecureHash == $secureHash){
-                $secure = $trandID . $merchantID . $orderID .$formattedPrice .$additionalInfo . $certificate;
+                $secure = $trandID . $merchantID . $orderID .$formattedPrice .$currency.$additionalInfo . $certificate;
                 $APISecureHash = base64_encode(hash('sha512', $secure, true));
                 $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.$callBackURL .'&SecureHash=' .$APISecureHash;
                 return new RedirectResponse($url);
