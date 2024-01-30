@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Alfa\Order as AlfaOrder;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\order;
+use App\Entity\Ogero\Order as OgeroOrder;
 use App\Entity\Support;
 use App\Entity\topup\orders;
 use App\Entity\Touch\Order as TouchOrder;
@@ -64,6 +65,19 @@ class DashboardService
         'resultArray'=>$resultArray,
         'postpaidsum'=>$postpaidsum,
         'prepaidsum'=>$prepaidsum
+       ];
+
+       return $parameters;
+
+    }
+
+    public function OgeroDashboard($ogeroRepository){
+        $parameters = array();
+       $postpaidcount=$ogeroRepository->getRepository(OgeroOrder::class)->getMethodPaid();
+       $postpaidsum=number_format($ogeroRepository->getRepository(OgeroOrder::class)->getMethodPaidSum());
+       $parameters=[
+        'postpaidcount'=>$postpaidcount,
+        'postpaidsum'=>$postpaidsum,
        ];
 
        return $parameters;

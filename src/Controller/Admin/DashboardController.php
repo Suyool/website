@@ -18,6 +18,7 @@ class DashboardController extends AbstractController
     private $touchRepository;
     private $supportRepository;
     private $paymentRepository;
+    private $ogeroRepository;
 
     public function __construct(ManagerRegistry $mr)
     {
@@ -26,6 +27,7 @@ class DashboardController extends AbstractController
         $this->touchRepository=$mr->getManager('touch');
         $this->supportRepository=$mr->getManager('default');
         $this->paymentRepository=$mr->getManager('topup');
+        $this->ogeroRepository = $mr->getManager('ogero');
     }
 
     /**
@@ -40,12 +42,14 @@ class DashboardController extends AbstractController
         $touch=$dashboard->TouchDashboard($this->touchRepository);
         $support=$dashboard->SupportDashboard($this->supportRepository);
         $payment=$dashboard->PaymentDashboard($this->paymentRepository);
+        $ogero=$dashboard->OgeroDashboard($this->ogeroRepository);
         return $this->render('Admin/dashboard.html.twig', array(
             'loto'=>$loto,
             'alfa'=>$alfa,
             'touch'=>$touch,
             'support'=>$support,
-            'payment'=>$payment
+            'payment'=>$payment,
+            'ogero'=>$ogero
         ));
     }
 }

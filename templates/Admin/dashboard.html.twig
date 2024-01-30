@@ -105,7 +105,7 @@
 
 						</div>
 						<div class="col-xs-6 col-sm-4 placeholder text-center">
-							<div class="dashborder">
+							<div class="dashborder" onclick="window.location.href='{{path('admin_ogero_orders')}}'">
 								<h4>Ogero</h4>
 								<div class="row">
 									<div class="col-md-12">
@@ -113,11 +113,11 @@
 										<div class="TotalAmount">PostPaid</div>
 											<li>
 												<a class="TicketsCount">PostPaid:
-													{{touch.postpaidcount}}</a>
+													{{ogero.postpaidcount}}</a>
 											</li>
 											<li>
 												<div class="TotalAmount">Amount:
-													{{touch.postpaidsum}}</div>
+													{{ogero.postpaidsum}}</div>
 											</li>
 										</ul>
 									</div>
