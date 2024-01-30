@@ -18,6 +18,8 @@ const App = ({parameters}) => {
     const [childCategories, setChildCategories] = useState([]);
     const [getDataGetting, setDataGetting] = useState("");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState(true);
+    const [getTypeID, setTypeID] = useState("");
+
     const [getSuccessModal, setSuccessModal] = useState({
         imgPath: "/build/images/alfa/SuccessImg.png",
         title: "Success Modal",
@@ -38,23 +40,8 @@ const App = ({parameters}) => {
             setDataGetting(message);
         };
 
-        fetchCategories();
     }, []);
 
-    const fetchCategories = () => {
-        axios
-            .get(`/gift2games/categories/${parameters.TypeID}`)
-            .then((response) => {
-                console.log(response);
-                if (response?.data?.status) {
-                    const parsedData = response?.data?.Payload;
-                    setCategories(parsedData);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching categories:", error);
-            });
-    };
 
     const handleChildCategoryClick = (childCategoryId) => {
         // Find the category that contains the child
@@ -87,6 +74,7 @@ const App = ({parameters}) => {
                                 setBackLink={setBackLink}
                                 categories={categories}
                                 setPrepaidVoucher={setPrepaidVoucher}
+                                setTypeID ={parameters.TypeID}
                             />
                         )}
 

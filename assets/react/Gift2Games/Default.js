@@ -2,36 +2,47 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
 
-const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
+const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
-    // Convert category IDs to numbers
     const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
     const [childCategories, setChildCategories] = useState([]);
-
+    const [categories, setCategories] = useState([]);
     const [activeCategoryId, setActiveCategoryId] = useState();
-    const [activeSubCategoryId, setActiveSubCategoryId] = useState(
-        0
-    );
+    const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
 
-    useEffect(() => {
-        setCategoriesWithNumberIds(
-            categories.map((category) => ({
-                ...category,
-                id: Number(category.id),
-            }))
-        );
-    }, [categories]);
+    const handleSearch = (e) => {
+        const searchValue = e.target.value;
+        const filteredData = categories.filter((category) => {
+            return category.title.toLowerCase().includes(searchValue.toLowerCase());
+        });
 
+        setCategoriesWithNumberIds(filteredData);
+    };
 
+    const fetchCategories = () => {
+        axios
+            .get(`/gift2games/categories/${setTypeID}`)
+            .then((response) => {
+                // console.log(response);
+                if (response?.data?.status) {
+                    const parsedData = response?.data?.Payload;
+                    setCategories(parsedData);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching categories:", error);
+            });
+    };
 
-    const handleCategoryClick = (categoryId,id) => {
-        setActiveCategoryId(categoryId);
+    const handleCategoryClick = (categoryId, id) => {
+        setActiveCategoryId(id);
         fetchChildCategories(id);
     };
 
     const fetchChildCategories = (parentId) => {
-        axios.get(`/gift2games/categories/${parentId}/childs`)
+        axios
+            .get(`/gift2games/categories/${parentId}/childs`)
             .then((response) => {
                 if (response?.data?.status) {
                     const childCategories = response?.data?.Payload;
@@ -45,37 +56,59 @@ const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
 
     const fetchProducts = () => {
         setLoading(true);
-        axios.get(`/gift2games/products/${activeSubCategoryId}`)
-            .then((response) => {
-                if (response?.data?.status) {
-                    const productData = response?.data?.Payload;
-                    setFilteredData(productData);
-                }
-                setLoading(false)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+        if(activeSubCategoryId !=0){
+            axios
+                .get(`/gift2games/products/${activeSubCategoryId}`)
+                .then((response) => {
+                    if (response?.data?.status) {
+                        const productData = response?.data?.Payload;
+                        setFilteredData(productData);
+                    }
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+    };
 
     useEffect(() => {
+        fetchCategories();
+    }, [setTypeID]);
+
+    useEffect(() => {
+        setCategoriesWithNumberIds(
+            categories.map((category) => ({
+                ...category,
+                id: Number(category.id),
+            }))
+        );
+    }, [categories]);
+
+    useEffect(() => {
+        // Select the first category when the component mounts
+        if (categoriesWithNumberIds.length > 0) {
+            const firstCategory = categoriesWithNumberIds[0];
+            setActiveCategoryId(firstCategory.id);
+            fetchChildCategories(firstCategory.id);
+        }
+    }, [categoriesWithNumberIds]);
+
+    useEffect(() => {
+        // Fetch products for the first child category when the component mounts
+        if (childCategories.length > 0) {
+            const firstChildCategory = childCategories[0];
+            setActiveSubCategoryId(firstChildCategory.categoryId);
+        }
+    }, [childCategories]);
+
+    useEffect(() => {
+
         if (activeSubCategoryId) {
             fetchProducts();
         }
     }, [activeSubCategoryId]);
-
-
-    const handleSearch = (e) => {
-        const searchValue = e.target.value;
-        const filteredData = categories.filter((category) => {
-            return category.title.toLowerCase().includes(searchValue.toLowerCase())
-        })
-
-        setCategoriesWithNumberIds(filteredData)
-
-    }
-
-    console.log("categories", categories);
 
     return (
         <div id="Default_g2g">
@@ -88,11 +121,11 @@ const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
 
             <div className="categories-scroll">
                 {
-                    categories.map((category) => {
+                    categoriesWithNumberIds.map((category) => {
                         return (
                             <div
-                                key={category.id}
-                                className={`category-item ${activeCategoryId === Number(category.categoryId) ? "selected" : ""}`}
+                                key={category.categoryId}
+                                className={`category-item ${activeCategoryId === Number(category.id) ? "selected" : ""}`}
                                 onClick={() => {
                                     handleCategoryClick(Number(category.categoryId),category.id)
                                     sessionStorage.setItem("categoryName", category.title)
@@ -112,15 +145,17 @@ const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
             <div className="child-categories">
                 {childCategories.map((child) => {
                     return (
-                        <div
+                        <button
                             key={child.id}
-                            className={`child-category ${child.id === activeSubCategoryId ? "active-sub" : ""}`}
+                            className={`child-category ${
+                                child.categoryId === activeSubCategoryId ? "active-sub" : ""
+                            }`}
                             onClick={() => {
-                                setActiveSubCategoryId(child.categoryId)
+                                setActiveSubCategoryId(child.categoryId);
                             }}
                         >
                             <p className="SubTitleCat">{child.shortTitle}</p>
-                        </div>
+                        </button>
                     );
                 })}
             </div>
@@ -152,17 +187,18 @@ const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
                                     className="bundleGrid"
                                     key={index}
                                     style={
-                                        record.isinstock == 0
+                                        record.instock == 0
                                             ? {display: "none"}
                                             : {display: "flex"}
                                     }
                                     onClick={() => {
                                         setPrepaidVoucher({
-                                            price: record.price,
+                                            price: record.sellPrice,
+                                            displayPrice: record.displayPrice,
                                             currency: record.currency,
                                             title: record.title,
                                             image: record.image,
-                                            productId: record.id
+                                            productId: record.productId
                                         });
                                         setActiveButton({name: "MyBundle"});
                                     }}
@@ -174,7 +210,7 @@ const Default = ({categories, setActiveButton, setPrepaidVoucher}) => {
                                     />
                                     <div className="gridDesc">
                                         <div className="Price">
-                                            ${record?.sellPrice}{" "}
+                                            ${record?.displayPrice}{" "}
                                         </div>
                                         <div className="bundleName">{record.title}</div>
                                     </div>

@@ -60,8 +60,8 @@ class Gift2GamesController extends AbstractController
 
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
-                //$this->session->set('suyoolUserId', 155);
+                //$this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
                 $parameters['TypeID'] = $id;
@@ -116,8 +116,10 @@ class Gift2GamesController extends AbstractController
      */
     public function getProducts($categoryId)
     {
-        $data = $this->mr->getRepository(Products::class)->findBy(['categoryId' => $categoryId]);
-
+        $data = $this->mr->getRepository(Products::class)->findBy(
+            ['categoryId' => $categoryId, 'inStock' => 1],
+            ['price' => 'ASC']
+        );
         // Convert each product to array with limited recursion depth
         $dataArray = [];
         foreach ($data as $product) {
@@ -182,6 +184,7 @@ class Gift2GamesController extends AbstractController
                 $this->mr->persist($orderupdate1);
                 $this->mr->flush();
                 $purchase = $this->Purchase($data['productId'], $transactionID, $order->getId());
+
 
                 if (isset($purchase['status']) && $purchase['status'] == true) {
                     $IsSuccess = true;

@@ -190,6 +190,9 @@ class Products
             'categoryId' => $this->categoryId,
             'title' => $this->title,
             'price' => $this->price,
+            'sellPrice' => $this->sellPrice,
+            'displayPrice' => number_format($this->sellPrice, 2),
+            'currency' => $this->currency,
             'inStock' => $this->inStock,
             'image' => $this->image,
         ];

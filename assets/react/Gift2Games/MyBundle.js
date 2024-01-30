@@ -178,7 +178,7 @@ const MyBundle = ({
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
                 You have successfully purchased the {getPrepaidVoucher.title} at $
-                {getPrepaidVoucher.price}.
+                {getPrepaidVoucher.displayPrice}.
               </div>
               <div className="br"></div>
 
