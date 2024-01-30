@@ -42,7 +42,7 @@ class Categories
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="childs")
+     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="childs",fetch="EAGER")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
@@ -56,6 +56,12 @@ class Categories
      * @ORM\Column(type="integer",nullable=true)
      */
     private $type;
+
+    
+     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canceled = 0;
 
     public function __construct()
     {
@@ -135,6 +141,18 @@ class Categories
     public function setParent(?Categories $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getCanceled(): ?bool
+    {
+        return $this->canceled;
+    }
+
+    public function setCanceled(?bool $canceled): self
+    {
+        $this->canceled = $canceled;
 
         return $this;
     }

@@ -7,15 +7,12 @@
 		<thead>
 			<tr>
 				<th scope="col">id</th>
-				<th scope="col">Product ID</th>
-				<th scope="col">Category_id</th>
+				<th scope="col">Parent</th>
+				<th scope="col">CategoryId</th>
 				<th scope="col">title</th>
 				<th scope="col">image</th>
-				<th scope="col">sellPrice</th>
-				<th scope="col">price</th>
-				<th scope="col">discountRate</th>
-				<th scope="col">inStock</th>
-				<th scope="col">currency</th>
+				<th scope="col">Short Title</th>
+				<th scope="col">Type</th>
 				<th scope="col">Canceled</th>
 				<th scope="col">Action</th>
 			</tr>
@@ -25,15 +22,12 @@
 
 				<tr>
 					<td>{{ product.id }}</td>
-					<td>{{ product.productId }}</td>
+			<td>{% if product.parent is not null %}{{ product.parent.title }}{% endif %}</td>
 					<td>{{ product.categoryId }}</td>
 					<td>{{ product.title }}</td>
 					<td><img src="{{ product.image }}" width="100px"/></td>
-					<td>{{ product.sellPrice }}</td>
-					<td>{{ product.price }}</td>
-					<td>{{ product.discountRate }}</td>
-					<td>{{ product.inStock }}</td>
-					<td>{{ product.currency }}</td>
+					<td>{{ product.shortTitle }}</td>
+					<td>{{ product.type }}</td>
 					<td>{{ product.canceled }}</td>
 					<td>
 						<div class="dropdown">
@@ -42,13 +36,10 @@
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 								<li>
-									<a class="dropdown-item" href="{{path('admin_gift2games_update_canceled',{'id':product.id})}}">
+									<a class="dropdown-item" href="{{path('admin_gift2games_update_canceled_cat',{'id':product.id})}}">
 										{% if product.canceled %}Enabled{% else %}Disabled
 										{% endif %}
 									</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="{{ product.id }}">Update Sell Price</a>
 								</li>
 							</ul>
 						</div>

@@ -3,10 +3,11 @@
 
 namespace App\Controller\Admin;
 
-
+use App\Entity\Gift2Games\Categories;
 use App\Entity\Gift2Games\Logs;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
+use App\Entity\Gift2Games\Products;
 use App\Form\SearchAlfaOrdersForm;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -32,7 +33,8 @@ class Gift2GamesController extends AbstractController
     public function getProducts(Request $request,PaginatorInterface $paginator): Response
     {
 
-        $query = $this->mr->getRepository(Product::class)->findAll();
+        $query = $this->mr->getRepository(Products::class)->findAll();
+        // dd($query);
 
         // Paginate the results
         $products = $paginator->paginate(
@@ -42,6 +44,27 @@ class Gift2GamesController extends AbstractController
         );
 
         return $this->render('Admin/Gift2games/products.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+     /**
+     * @Route("admin/gift2games/category", name="admin_gift2games_categories")
+     */
+    public function getCategory(Request $request,PaginatorInterface $paginator): Response
+    {
+
+        $query = $this->mr->getRepository(Categories::class)->findAll();
+        // dd($query);
+
+        // Paginate the results
+        $products = $paginator->paginate(
+            $query,                      // Query to paginate
+            $request->query->getInt('page', 1), // Get the current page from the request
+            10                           // Number of items per page
+        );
+
+        return $this->render('Admin/Gift2games/category.html.twig', [
             'products' => $products,
         ]);
     }
@@ -154,5 +177,44 @@ class Gift2GamesController extends AbstractController
         fclose($handle);
 
         return $line;
+    }
+
+    /**
+     * @Route("admin/gift2games/updateStatus/{id}", name="admin_gift2games_update_canceled")
+     */
+    public function canceled($id = null)
+    {
+        $product = $this->mr->getRepository(Products::class)->findOneBy(['id'=>$id]);
+        $product->getCanceled() == true ? $product->setCanceled(false) : $product->setCanceled(true) ;
+        $this->mr->persist($product);
+        $this->mr->flush();
+
+        return $this->redirectToRoute('admin_gift2games_products');
+    }
+
+    /**
+     * @Route("admin/gift2games/update/{id}", name="admin_gift2games_update")
+     */
+    public function sellPrice($id)
+    {
+        $product = $this->mr->getRepository(Products::class)->findOneBy(['id'=>$id]);
+        $product->setSellPrice($_POST['sellprice']);
+        $this->mr->persist($product);
+        $this->mr->flush();
+
+        return $this->redirectToRoute('admin_gift2games_products');
+    }
+
+    /**
+     * @Route("admin/gift2games/updateStatuscategory/{id}", name="admin_gift2games_update_canceled_cat")
+     */
+    public function canceledcat($id = null)
+    {
+        $product = $this->mr->getRepository(Categories::class)->findOneBy(['id'=>$id]);
+        $product->getCanceled() == true ? $product->setCanceled(false) : $product->setCanceled(true) ;
+        $this->mr->persist($product);
+        $this->mr->flush();
+
+        return $this->redirectToRoute('admin_gift2games_categories');
     }
 }

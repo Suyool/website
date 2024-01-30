@@ -63,6 +63,11 @@ class Products
      */
     private $currency;
 
+     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canceled = 0;
+
     // Getters and Setters for each property
 
     public function getId(): ?int
@@ -162,6 +167,18 @@ class Products
     public function setInStock(?bool $inStock): self
     {
         $this->inStock = $inStock;
+
+        return $this;
+    }
+
+    public function getCanceled(): ?bool
+    {
+        return $this->canceled;
+    }
+
+    public function setCanceled(?bool $canceled): self
+    {
+        $this->canceled = $canceled;
 
         return $this;
     }
