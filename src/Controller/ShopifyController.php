@@ -55,9 +55,9 @@ class ShopifyController extends AbstractController
             $secure = $trandID . $merchantID . $currency . $additionalInfo . $certificate;
             $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
             if($suyoolSecureHash == $secureHash){
-                $secure = $trandID . $merchantID . $orderID .$formattedPrice .$currency.$additionalInfo . $certificate;
-                $APISecureHash = base64_encode(hash('sha512', $secure, true));
-                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.$callBackURL .'&SecureHash=' .$APISecureHash;
+                $apiSecure = $trandID . $merchantID .$formattedPrice .$currency.$additionalInfo . $certificate;
+                $APISecureHash = base64_encode(hash('sha512', $apiSecure, true));
+                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.urlencode($callBackURL) .'&SecureHash=' .$APISecureHash;
                 return new RedirectResponse($url);
 
             }
