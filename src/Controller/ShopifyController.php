@@ -21,11 +21,12 @@ class ShopifyController extends AbstractController
     {
         $this->mr=$mr->getManager('Shopify');
     }
-    /**
-     * @Route("/shopify/", name="app_shopify_handle_request")
-     */
-    public function handleRequest(Request $request,ShopifyServices $shopifyServices): Response
+
+    #[Route('/shopify', name: 'app_shopify_handle_request')]
+    #[Route('/shopify/{cardpayment}', name: 'app_shopify_card_handle_request', requirements: ['cardpayment' => 'cardpayment'])]
+    public function handleRequest(Request $request, ShopifyServices $shopifyServices, $cardpayment = null): Response
     {
+
         $orderID = $request->query->get('order_id');
         $domain = $request->query->get('domain');
 
@@ -35,6 +36,20 @@ class ShopifyController extends AbstractController
         $appPass = $merchantCredentials['appPass'];
         $checkShopifyOrder = $shopifyServices->getShopifyOrder($orderID, $appKey, $appPass, $hostname);
         $totalPrice = $checkShopifyOrder['transactions']['0']['amount'];
+        if($cardpayment) {
+            $trandID = $request->query->get('TranID');
+            $currency = $request->query->get('Currency');
+            $merchantID = $request->query->get('MerchantID');
+            $callBackURL = $request->query->get('CallBackURL');
+            $secureHash = $request->query->get('SecureHash');
+            $currentHost = $request->getHost();
+            $formattedPrice = number_format($totalPrice, 3);
+
+            $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.$callBackURL .'&SecureHash=' .$secureHash;
+            
+            return new RedirectResponse($url);
+
+        }
         $url = $request->query->get('url');
         $errorUrl = $request->query->get('error_url');
         $currency = $request->query->get('currency');
