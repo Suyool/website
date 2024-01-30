@@ -53,7 +53,7 @@ const PayBill = ({
               title: " No Pending Bill",
               desc: (
                 <div>
-                  There is no pending bill on the mobile number {mobileNumber}
+                  There is no pending bill on the landline <br/> {mobileNumber}
                   <br/>
                   Kindly try again later
                 </div>
