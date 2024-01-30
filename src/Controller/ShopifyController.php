@@ -7,6 +7,7 @@ use App\Entity\Shopify\ShopifyInstallation;
 use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
+use App\Service\InvoiceServices;
 use App\Service\ShopifyServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,7 +27,7 @@ class ShopifyController extends AbstractController
 
     #[Route('/shopify', name: 'app_shopify_handle_request')]
     #[Route('/shopify/{cardpayment}', name: 'app_shopify_card_handle_request', requirements: ['cardpayment' => 'cardpayment'])]
-    public function handleRequest(Request $request, ShopifyServices $shopifyServices, $cardpayment = null): Response
+    public function handleRequest(Request $request, ShopifyServices $shopifyServices, InvoiceServices $invoicesServices, $cardpayment = null): Response
     {
 
         $orderID = $request->query->get('order_id');
@@ -48,7 +49,7 @@ class ShopifyController extends AbstractController
             $secureHash = $request->query->get('SecureHash');
             $currentHost = $request->getHost();
             $formattedPrice = number_format($totalPrice, 3);
-            $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMId' => $merchantID]);
+            $merchant = $invoicesServices->findMerchantByMerchId($merchantID);
             $certificate = $merchant->getCertificate();
 
             $secure = $trandID . $merchantID . $additionalInfo . $certificate;
