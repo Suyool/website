@@ -242,7 +242,8 @@ class DefaultController extends AbstractController
         ];
         $parameters['hideLearnMore'] = "";
 
-        return $this->render('homepage/mastercard.html.twig', $parameters);
+        // return $this->render('homepage/mastercard.html.twig', $parameters);
+        return $this->redirectToRoute('app_visa');
     }
 
     public function show()

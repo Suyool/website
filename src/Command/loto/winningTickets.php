@@ -70,9 +70,13 @@ class winningTickets extends Command
 
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);
         // dd($getGridsinThisDraw);
+        $body = [];
         foreach ($getGridsinThisDraw as $gridsTobeUpdated) {
             $loto=0;
             $zeed=0;
+            $gridsWin=[];
+            $gridsWinLoto=[];
+            $gridsWinZeed=[];
             $winning=$this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
             // $winning=[
             //     "d" => [
@@ -91,7 +95,7 @@ class winningTickets extends Command
             //         ],
             //          [
             //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
-            //           "zeedNumber" => "000-1",
+            //           "zeedNumber" => "12345",
             //           "zeedWinnings" => 20000,
             //           "lotoWinnings" => 0,
             //           "gridValidation" => "8000-4403074",
@@ -104,8 +108,8 @@ class winningTickets extends Command
             //         [
             //           "drawDate" => "2023-10-22T21:00:00.0000000Z",
             //           "zeedNumber" => "000-1",
-            //           "zeedWinnings" => 1150470,
-            //           "lotoWinnings" => 23500000,
+            //           "zeedWinnings" => 0,
+            //           "lotoWinnings" => 200000,
             //           "gridValidation" => "8000-4403075",
             //           "gridId" => 3945248,
             //           "gridBalls" => "10 25 26 28 39 41",
@@ -115,10 +119,23 @@ class winningTickets extends Command
             //         ]
             //     ]
             //       ]];
+            foreach($winning['d']['grids'] as $winnings)
+            {
+                $loto += $winnings['lotoWinnings'];
+                $zeed += $winnings['zeedWinnings'];
+            }
             foreach($winning['d']['grids'] as $winning)
             {
-                $loto += $winning['lotoWinnings'];
-                $zeed += $winning['zeedWinnings'];
+                if($winning['lotoWinnings'] != 0){
+                    $gridsWinLoto[]=[
+                        $winning['gridBalls']
+                    ];
+                } 
+                if($winning['zeedWinnings'] != 0){
+                    $gridsWinZeed[]=[
+                        $winning['zeedNumber']
+                    ];
+                }
             }
             if($loto != 0 || $zeed != 0){
                 $gridsTobeUpdated->setisWon(true);
@@ -129,7 +146,19 @@ class winningTickets extends Command
             $gridsTobeUpdated->setwinzeed($zeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
+            $body[]=[
+                'ticketId'=>$gridsTobeUpdated->getticketId(),
+                'Loto'=>number_format($loto),
+                'Zeed'=>number_format($zeed),
+                'LotoNumbers'=>json_encode($gridsWinLoto),
+                'ZeedNumbers'=>json_encode($gridsWinZeed)
+            ];
         }
+        $text = "";
+        foreach($body as $body){
+            $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed grids win : {$body['ZeedNumbers']} <br>";
+        }
+        $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         // dd($getUsersWhoWon);
         $this->logger->debug(json_encode($getUsersWhoWon));
