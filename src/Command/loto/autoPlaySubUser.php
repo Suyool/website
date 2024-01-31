@@ -70,7 +70,18 @@ class autoPlaySubUser extends Command
             return $grid->getId();
         }, $gridsToPlayFetch));
         $uniqueGrids = $this->mr->getRepository(subscription::class)->findBy(['id' => $gridsToPlayFetch]);
-        // dd($uniqueGrids);
+        $sumByUserId = [];
+
+        foreach ($uniqueGrids as $subscription) {
+            $suyoolUserId = $subscription->getSuyoolUserId();
+            $numGrids = $subscription->getNumGrids();
+
+            if (!isset($sumByUserId[$suyoolUserId])) {
+                $sumByUserId[$suyoolUserId] = $numGrids;
+            } else {
+                $sumByUserId[$suyoolUserId] += $numGrids;
+            }
+        }
         foreach ($uniqueGrids as $gridsToPlay) {
             $price = 0;
             $orders = $this->mr->getRepository(order::class)->findOneBy(['suyoolUserId' => $gridsToPlay->getsuyoolUserId(), 'status' => 'pending']);
@@ -85,6 +96,9 @@ class autoPlaySubUser extends Command
                 $this->mr->flush();
 
                 $grid = explode("|", $gridsToPlay->getgridSelected());
+                if (strpos($gridsToPlay->getgridSelected(), 'B') !== 0) {
+                    $gridsToCount[] = explode("|", $gridsToPlay->getgridSelected());
+                }
                 if ($gridsToPlay->getIsBouquet()) {
                     $gridArrayBouquet = explode("B", $grid[0]);
                     $priceFromDb = $this->mr->getRepository(LOTO_numbers::class)->findOneBy(['numbers' => 6]);
@@ -167,13 +181,17 @@ class autoPlaySubUser extends Command
                 $this->mr->persist($orders[0]);
                 $this->mr->flush();
                 foreach ($uniqueGrids as $gridsToPlay) {
-                    if($gridsToPlay->getsuyoolUserId() == $orders[0]->getsuyoolUserId()){
+                    if ($gridsToPlay->getsuyoolUserId() == $orders[0]->getsuyoolUserId()) {
                         $remaining = $gridsToPlay->getRemaining();
                         $gridsToPlay->setRemaining($remaining - 1);
                         $this->mr->persist($gridsToPlay);
                         $this->mr->flush();
                     }
                 }
+                $content = $this->notificationServices->getContent('Payment taken loto');
+                $params = json_encode(['amount' => $orders['totalAmount'], 'currency' => "L.L", 'numgrids' => $sumByUserId[$orders[0]->getsuyoolUserId()]], true);
+                $bulk = 0;
+                $this->notificationServices->addNotification($orders[0]->getsuyoolUserId(), $content, $params, $bulk);
             } else {
                 $orders[0]
                     ->setstatus(order::$statusOrder['CANCELED'])

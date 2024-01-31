@@ -68,6 +68,11 @@ class subscription
      */
     private $remaining;
 
+     /**
+     * @ORM\Column(name="numGrids")
+     */
+    private $numGrids;
+
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
@@ -124,6 +129,17 @@ class subscription
     public function setRemaining($remaining)
     {
         $this->remaining = $remaining;
+        return $this;
+    }
+
+    public function getNumGrids()
+    {
+        return $this->numGrids;
+    }
+
+    public function setNumGrids($numGrids)
+    {
+        $this->numGrids = $numGrids;
         return $this;
     }
 

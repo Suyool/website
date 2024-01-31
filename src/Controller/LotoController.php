@@ -383,7 +383,7 @@ class LotoController extends AbstractController
                             return new JsonResponse([
                                 'status' => false,
                                 'flagCode' => 210,
-                                'gridSelected' => $item['balls'],
+                            'gridSelected' => $item['balls'],
                                 'message' => 'You have a grid with same numbers in this draw'
                             ], 200);
                         }
@@ -451,6 +451,11 @@ class LotoController extends AbstractController
                                 $bouquet = true;
                             }
                             $subscription = new subscription;
+                            if($bouquet){
+                                $numGridsCountPerOne = $bouquetNum[1];
+                            }else{
+                                $numGridsCountPerOne = explode("|",$ballsArraySub) ;
+                            }
                             if ($item['subscription'] >= 99999) {
                                 $subscription->setsuyoolUserId($suyoolUserId)
                                     ->setMobileNo($this->session->get('mobileNo'))
@@ -458,6 +463,7 @@ class LotoController extends AbstractController
                                     ->setIsZeed(true)
                                     ->setgridSelected($ballsArraySub)
                                     ->setAutoPlay(true)
+                                    ->setNumGrids(sizeof($numGridsCountPerOne))
                                     ->setRemaining($item['subscription'])
                                     ->setIsbouquet($bouquet);
                             } else {
@@ -466,6 +472,7 @@ class LotoController extends AbstractController
                                     ->setnumdraws($item['subscription'])
                                     ->setIsZeed(true)
                                     ->setgridSelected($ballsArraySub)
+                                    ->setNumGrids(sizeof($numGridsCountPerOne))
                                     ->setRemaining($item['subscription'])
                                     ->setIsbouquet($bouquet);
                             }
@@ -541,6 +548,7 @@ class LotoController extends AbstractController
                         ->setIsZeed(false)
                         ->setAutoPlay(true)
                         ->setgridSelected($selected)
+                        ->setNumGrids(sizeof($ballsArrayNoZeedSub))
                         ->setRemaining($item['subscription'])
                         ->setIsbouquet(false);
                     }else{
@@ -549,6 +557,7 @@ class LotoController extends AbstractController
                         ->setnumdraws($item['subscription'])
                         ->setIsZeed(false)
                         ->setgridSelected($selected)
+                        ->setNumGrids(sizeof($ballsArrayNoZeedSub))
                         ->setRemaining($item['subscription'])
                         ->setIsbouquet(false);
                     }
@@ -556,6 +565,7 @@ class LotoController extends AbstractController
                     $this->mr->flush();
                 }
                 if ($ballsArrayNoZeedBouquetSub != null) {
+                    $selectedBouquet = explode("B",$ballsArrayNoZeedBouquet);
                     $subscription = new subscription;
                     if ($item['subscription'] >= 99999) {
                         $subscription->setsuyoolUserId($suyoolUserId)
@@ -563,7 +573,8 @@ class LotoController extends AbstractController
                             ->setnumdraws($item['subscription'])
                             ->setIsZeed(false)
                             ->setAutoPlay(true)
-                            ->setgridSelected($selected)
+                            ->setgridSelected($ballsArrayNoZeedBouquet)
+                            ->setNumGrids($selectedBouquet[1])
                             ->setRemaining($item['subscription'])
                             ->setIsbouquet(true);
                         }else{
@@ -571,7 +582,8 @@ class LotoController extends AbstractController
                             ->setMobileNo($this->session->get('mobileNo'))
                             ->setnumdraws($item['subscription'])
                             ->setIsZeed(false)
-                            ->setgridSelected($selected)
+                            ->setgridSelected($ballsArrayNoZeedBouquet)
+                            ->setNumGrids($selectedBouquet[1])
                             ->setRemaining($item['subscription'])
                             ->setIsbouquet(true);
                         }
