@@ -193,12 +193,33 @@ class autoPlaySubUser extends Command
                 $bulk = 0;
                 $this->notificationServices->addNotification($orders[0]->getsuyoolUserId(), $content, $params, $bulk);
             } else {
-                $orders[0]
-                    ->setstatus(order::$statusOrder['CANCELED'])
-                    ->seterror($pushutility[3]);
-                $this->mr->persist($orders[0]);
-                $this->mr->flush();
-                echo "Cannot play " . $orders[0]->getsuyoolUserId() . " for the amount of " . $orders['totalAmount'];
+                if ($pushutility[2] == 10) {
+                    $orders[0]
+                        ->setstatus(order::$statusOrder['CANCELED'])
+                        ->seterror($pushutility[3]);
+                    $this->mr->persist($orders[0]);
+                    $this->mr->flush();
+                    $content = $this->notificationServices->getContent('ExchangeLotoSubscription');
+                    $params = json_encode(['numgrids' => $sumByUserId[$orders[0]->getsuyoolUserId()]], true);
+                    $bulk = 0;
+                    $this->notificationServices->addNotification($orders[0]->getsuyoolUserId(), $content, $params, $bulk);
+                } else if ($pushutility[2] == 11) {
+                    $orders[0]
+                        ->setstatus(order::$statusOrder['CANCELED'])
+                        ->seterror($pushutility[3]);
+                    $this->mr->persist($orders[0]);
+                    $this->mr->flush();
+                    $content = $this->notificationServices->getContent('AddMoneyLotoSubscription');
+                    $params = json_encode(['numgrids' => $sumByUserId[$orders[0]->getsuyoolUserId()]], true);
+                    $bulk = 0;
+                    $this->notificationServices->addNotification($orders[0]->getsuyoolUserId(), $content, $params, $bulk);
+                } else {
+                    $orders[0]
+                        ->setstatus(order::$statusOrder['CANCELED'])
+                        ->seterror($pushutility[3]);
+                    $this->mr->persist($orders[0]);
+                    $this->mr->flush();
+                }
             }
         }
         return 1;
