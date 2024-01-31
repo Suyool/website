@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	</div>
-
+	{% if redirectCallBack is defined %}
 	<script>
 		// Check if redirectCallBack is defined and redirectURL is not null
 		var redirectCallBack = {{ redirectCallBack|default('false') }};
@@ -47,4 +47,5 @@
 				window.location.href = redirectURL;
 		}
 	</script>
+	{% endif %}
 {% endblock %}
