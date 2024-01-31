@@ -8,6 +8,7 @@ use App\Entity\Gift2Games\Logs;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
 use App\Entity\Gift2Games\Products;
+use App\Form\ImportCsvType;
 use App\Form\SearchAlfaOrdersForm;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\CsvProcessorService;
 
 class Gift2GamesController extends AbstractController
 {
@@ -30,21 +32,33 @@ class Gift2GamesController extends AbstractController
     /**
      * @Route("admin/gift2games/products", name="admin_gift2games_products")
      */
-    public function getProducts(Request $request,PaginatorInterface $paginator): Response
+    public function getProducts(Request $request,PaginatorInterface $paginator,CsvProcessorService $csvProcessor): Response
     {
 
         $query = $this->mr->getRepository(Products::class)->findAll();
-        // dd($query);
+        $importForm = $this->createForm(ImportCsvType::class);
 
-        // Paginate the results
+        $importForm->handleRequest($request);
+
+        if ($importForm->isSubmitted() && $importForm->isValid()) {
+            // Get the CSV file from the form
+            $csvFile = $importForm->get('csvFile')->getData();
+
+            // Process the CSV file and update the database
+            $csvProcessor->processCsv($csvFile);
+
+            return $this->redirectToRoute('admin_gift2games_products');
+        }
+
         $products = $paginator->paginate(
-            $query,                      // Query to paginate
-            $request->query->getInt('page', 1), // Get the current page from the request
-            10                           // Number of items per page
+            $query,
+            $request->query->getInt('page', 1),
+            10
         );
 
         return $this->render('Admin/Gift2games/products.html.twig', [
             'products' => $products,
+            'importForm' => $importForm->createView(),
         ]);
     }
 
@@ -192,7 +206,7 @@ class Gift2GamesController extends AbstractController
      */
     private function generateCsvContentProducts(array $products): string
     {
-        $csvContent = "id,Product ID,Category_id,title,image,sellPrice,price,discountRate,inStock,currency,Canceled\n";
+        $csvContent = "id,productId,categoryId,title,image,sellPrice,price,discountRate,inStock,currency,canceled\n";
 
         foreach ($products as $product) {
 

@@ -3,6 +3,16 @@
 {% block content %}
 
 	<h1 class="mb-4">Products</h1>
+	<h1>Import CSV</h1>
+
+	{{ form_start(importForm) }}
+
+	{{ form_label(importForm.csvFile, 'CSV File') }}
+	{{ form_widget(importForm.csvFile) }}
+
+	<button type="submit">Import</button>
+
+	{{ form_end(importForm) }}
 	<a href="{{ path('export_csv_product') }}" class="d-flex justify-content-end">
 		<i class="fas fa-file-csv fa-lg"></i>
 	</a>
@@ -10,8 +20,8 @@
 		<thead>
 			<tr>
 				<th scope="col">id</th>
-				<th scope="col">Product ID</th>
-				<th scope="col">Category_id</th>
+				<th scope="col">productId</th>
+				<th scope="col">categoryId</th>
 				<th scope="col">title</th>
 				<th scope="col">image</th>
 				<th scope="col">sellPrice</th>
