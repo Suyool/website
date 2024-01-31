@@ -70,11 +70,7 @@
     background-size: cover;
   }
 
-  .top-section {
-    color: #fff;
-    padding-bottom: 100px;
-    padding-top: 20px;
-
+  .top-section-common {
     .navbar {
       .right {
         display: flex;
@@ -97,112 +93,8 @@
 
     }
 
-    .top-info {
-      padding-top: 65px;
-
-      .header-text {
-        font-size: 40px;
-        margin-bottom: 40px;
-        font-family: $Regular;
-        display: flex;
-
-        .part1 {
-          width: 45%;
-        }
-
-        .part2 {
-          width: 50%;
-          padding-top: 50px;
-        }
-      }
-
-      span {
-        line-height: 1.3;
-        font-family: $Regular;
-      }
-
-      p {
-        font-size: 17px;
-        font-family: $InterRegular;
-        width: 80%;
-        line-height: 2;
-      }
-
-      .buttons-cont {
-        font-family: $SemiBold;
-        margin-top: 70px;
 
 
-        .btn {
-          font-size: 16px !important;
-
-          &:hover {
-            color: #ffffff;
-          }
-        }
-
-        .button-primary {
-          margin-right: 10px;
-          font-size: 18px;
-          border: 2px solid #ffffff;
-        }
-
-        .button-primary:hover {
-          background: #226D96;
-          border: 2px solid #ffffff;
-        }
-
-        .button-primary, .btn-outline-secondary {
-          border-radius: 30px;
-          padding: 10px 30px;
-          background: #FFFFFF;
-          color: #226D96;
-        }
-
-        .btn-outline-secondary {
-          border-color: #226D96;
-          color: #226D96;
-
-          &:hover {
-            background-color: unset;
-            color: #226d96;
-          }
-        }
-      }
-    }
-
-    .right-section {
-      .img-cont {
-        position: relative;
-        max-width: 615px;
-        margin: auto;
-
-        img {
-          width: 100%;
-        }
-
-        .img-desc {
-          background-color: #fff;
-          border-radius: 70px;
-          bottom: 30px;
-          font-family: $SemiBold;
-          font-size: 20px;
-          padding: 20px 75px;
-          position: absolute;
-          right: 24px;
-          box-shadow: 0px 0 4px -2px #888;
-
-          i {
-            color: #858585;
-            display: block;
-            position: absolute;
-            top: 50px;
-            left: 30px;
-            font-size: 40px;
-          }
-        }
-      }
-    }
   }
 
   .solution {
@@ -332,13 +224,7 @@
       }
     }
 
-    .top-section {
-      .top-info {
-        .header-text {
-          font-size: 40px;
-        }
-      }
-    }
+
     .should-to-know {
       margin-bottom: 50px;
       margin-top: 60px;
