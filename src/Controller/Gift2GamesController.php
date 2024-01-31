@@ -81,7 +81,7 @@ class Gift2GamesController extends AbstractController
      */
     public function getCategories($type)
     {
-        $data = $this->mr->getRepository(Categories::class)->findBy(['type' => $type]);
+        $data = $this->mr->getRepository(Categories::class)->findBy(['type' => $type, 'canceled' => 0]);
         $categoriesArray = [];
 
         foreach ($data as $category) {
@@ -117,7 +117,7 @@ class Gift2GamesController extends AbstractController
     public function getProducts($categoryId)
     {
         $data = $this->mr->getRepository(Products::class)->findBy(
-            ['categoryId' => $categoryId, 'inStock' => 1],
+            ['categoryId' => $categoryId, 'inStock' => 1, 'canceled' => 0],
             ['price' => 'ASC']
         );
         // Convert each product to array with limited recursion depth
