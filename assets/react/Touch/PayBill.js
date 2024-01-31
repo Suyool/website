@@ -37,7 +37,28 @@ const PayBill = ({
         if (response?.data?.isSuccess) {
           setActiveButton({ name: "MyBill" });
           setPostpaidData({ id: response?.data?.postpaidRequestId });
-        } else {
+        }
+        else if (
+          response?.data?.message ==
+          "Not Enough Balance Amount to be paid"
+        ) {
+          setSpinnerLoader(false);
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: " No Pending Bill",
+            desc: (
+              <div>
+                There is no pending bill on the mobile number {localStorage.getItem("billMobileNumber")}
+                <br/>
+                Kindly try again later
+              </div>
+            ),
+            btn: "OK",
+          });
+          setModalShow(true);
+        }
+         else {
           setModalName("ErrorModal");
           setErrorModal({
             img: "/build/images/alfa/error.png",
