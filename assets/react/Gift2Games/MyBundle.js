@@ -13,7 +13,7 @@ const MyBundle = ({
   setErrorModal,
   setActiveButton,
   setHeaderTitle,
-  setBackLink,
+  setBackLink, setTypeID
 }) => {
   useEffect(() => {
     setHeaderTitle("Buy Product");
@@ -24,7 +24,16 @@ const MyBundle = ({
   const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-
+  const getDefaultImage = (typeID) => {
+    switch (typeID) {
+      case 1:
+        return '/build/images/gameicon.svg';
+      case 2:
+        return '/build/images/streamicon.svg';
+      default:
+        return '/build/images/vouchersicon.svg';
+    }
+  };
   const handleShare = (shareCode) => {
     let object = [
       {
@@ -182,9 +191,9 @@ const MyBundle = ({
               </div>
               <div className="br"></div>
 
-              <div className="copyTitle">To recharge your Voucher: </div>
+              <div className="copyTitle">To use your voucher:</div>
               <div className="copyDesc">
-                Copy the secret serial code below
+                Copy the code below
               </div>
 
               <button className="copySerialBtn" onClick={copyToClipboard}>
@@ -229,10 +238,9 @@ const MyBundle = ({
           <>
             <div className="MyBundleBody">
               <div className="mainTitle">{getPrepaidVoucher.title}</div>
-              {/* <div className="mainDesc">*All taxes excluded</div> */}
               <img
                 className="BundleBigImg"
-                src={getPrepaidVoucher.image}
+                src={getPrepaidVoucher.image || getDefaultImage(setTypeID)}
                 alt="Bundle"
               />
               <div className="smlDesc">
@@ -243,13 +251,12 @@ const MyBundle = ({
                   style={{ verticalAlign: "baseline" }}
                 />
                 &nbsp;
-                Gift2Games only accepts payments in $
+                Only payments in USD are accepted.
               </div>
-              {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
 
               <div className="br"></div>
               <div className="MoreInfo">
-                <div className="label">Total after taxes</div>
+                <div className="label">Total amount to pay</div>
                 <div className="value">$ {getPrepaidVoucher.price}</div>
               </div>
 

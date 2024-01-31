@@ -4,9 +4,6 @@ import Header from "./Header";
 import ErrorModal from "./Modal/ErrorModal";
 import SuccessModal from "./Modal/SuccessModal";
 import MyBundle from "./MyBundle";
-import ReCharge from "./ReCharge";
-import ChildCategories from "./ChildCategories";
-import axios from "axios";
 
 const App = ({parameters}) => {
     const [activeButton, setActiveButton] = useState({name: ""});
@@ -111,6 +108,7 @@ const App = ({parameters}) => {
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 setDataGetting={setDataGetting}
+                                setTypeID ={parameters.TypeID}
 
                             />
                         )}

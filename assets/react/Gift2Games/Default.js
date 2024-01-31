@@ -10,7 +10,17 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
     const [categories, setCategories] = useState([]);
     const [activeCategoryId, setActiveCategoryId] = useState();
     const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
-
+    const [noProductsMessage, setNoProductsMessage] = useState('');
+    const getDefaultImage = (typeID) => {
+        switch (typeID) {
+            case 1:
+                return '/build/images/gameicon.svg';
+            case 2:
+                return '/build/images/streamicon.svg';
+            default:
+                return '/build/images/vouchersicon.svg';
+        }
+    };
     const handleSearch = (e) => {
         const searchValue = e.target.value;
         const filteredData = categories.filter((category) => {
@@ -63,6 +73,13 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
                     if (response?.data?.status) {
                         const productData = response?.data?.Payload;
                         setFilteredData(productData);
+                        if (productData.length === 0) {
+                            // Set a message when there are no products
+                            setNoProductsMessage('Products out of stock');
+                        } else {
+                            // Clear the message if products are available
+                            setNoProductsMessage('');
+                        }
                     }
                     setLoading(false);
                 })
@@ -116,8 +133,12 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
                 <div className="search-icon">
                     <img src="/build/images/g2g/search.svg" alt=""/>
                 </div>
-                <input type="text" placeholder="Search in gaming e-store" onChange={(event) => handleSearch(event)}/>
-            </div>
+                <input
+                    type="text"
+                    placeholder="Search in gaming e-store"
+                    onChange={(event) => handleSearch(event)}
+                    style={{ fontWeight: 'bold', color: '#000000', fontFamily: 'PoppinsRegular' }}
+                />            </div>
 
             <div className="categories-scroll">
                 {
@@ -159,12 +180,20 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
                     );
                 })}
             </div>
-
+            {noProductsMessage && (
+                <div className="out-of-stock-message">
+                    <div className="icon">
+                        <img src="/build/images/outOfStock.svg" alt="outOfStock" />
+                    </div>
+                    <div className="text">
+                        <p className="title">Product out of stock</p>
+                        <p className="desc">Once we re-stock, you will see the products here</p>
+                    </div>
+                </div>
+            )}
 
             <div id="ReCharge">
                 <div className="bundlesSection">
-                    <div className="mainTitle">Available Re-charge Packages</div>
-                    <div className="mainDesc">* Excluding Taxes</div>
                     {loading ? (
                         <ContentLoader
                             speed={2}
@@ -205,12 +234,12 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
                                 >
                                     <img
                                         className="GridImg"
-                                        src={record?.image}
+                                        src={record?.image || getDefaultImage(setTypeID)}
                                         alt="bundleImg"
                                     />
                                     <div className="gridDesc">
                                         <div className="Price">
-                                            ${record?.displayPrice}{" "}
+                                            ${record?.sellPrice}{" "}
                                         </div>
                                         <div className="bundleName">{record.title}</div>
                                     </div>

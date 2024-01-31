@@ -170,4 +170,20 @@
     height: 50px;
     border-radius: 50%;
   }
+  .out-of-stock-message {
+    text-align: center;
+    background-color: #F4F4F4;
+    margin-top: 20px;
+    padding: 20px;
+    .text {
+      margin-top: 6px;
+      .title {
+        font-family: $Medium;
+      }
+      .desc {
+        color: #707070;
+        font-family: $Regular;
+      }
+    }
+  }
 }
