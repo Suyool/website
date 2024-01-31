@@ -136,6 +136,23 @@ class Gift2GamesController extends AbstractController
 
         return $response;
     }
+    /**
+     * @Route("/admin/gift2games/products/export-csv", name="export_csv_product")
+     */
+    public function exportCsvProducts(): Response
+    {
+        $products = $this->mr->getRepository(Products::class)->findAll();
+
+        // Generate CSV content
+        $csvContent = $this->generateCsvContentProducts($products);
+
+        // Create a CSV response
+        $response = new Response($csvContent);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="products.csv"');
+
+        return $response;
+    }
 
     /**
      * Generate CSV content from orders
@@ -161,6 +178,36 @@ class Gift2GamesController extends AbstractController
                 $order['transId'],
                 $order['error'],
                 $createdFormatted,
+            ]);
+        }
+
+        return $csvContent;
+    }
+
+    /**
+     * Generate CSV content from orders
+     *
+     * @param array $products
+     * @return string
+     */
+    private function generateCsvContentProducts(array $products): string
+    {
+        $csvContent = "id,Product ID,Category_id,title,image,sellPrice,price,discountRate,inStock,currency,Canceled\n";
+
+        foreach ($products as $product) {
+
+            $csvContent .= $this->generateCsvLine([
+                $product->getId(),
+                $product->getProductId(),
+                $product->getCategoryId(),
+                $product->getTitle(),
+                $product->getImage(),
+                $product->getSellPrice(),
+                $product->getPrice(),
+                $product->getDiscountRate(),
+                $product->getInStock(),
+                $product->getCurrency(),
+                $product->getCanceled(),
             ]);
         }
 
