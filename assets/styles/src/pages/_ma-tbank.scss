@@ -32,7 +32,7 @@
       margin: 20px 0;
     }
 
-    .title{
+    .title {
       margin: 20px 0;
     }
 
@@ -42,42 +42,43 @@
       color: #005C8A;
     }
   }
-}
 
-@media screen and (max-width: 991px) {
-  .mobileMode{
-    display: block !important;
-  }
 
-  .top-section {
-    background-image: url('../../../images/ma-tbank/backgorund-mobile.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  @media screen and (max-width: 991px) {
+    .mobileMode {
+      display: block !important;
+    }
 
-    .top-info{
-      text-align: left !important;
-      padding-left: 10px !important;
+    .top-section {
+      background-image: url('../../../images/ma-tbank/backgorund-mobile.png');
+      background-repeat: no-repeat;
+      background-size: cover;
 
-      .buttons-cont{
-        margin-bottom: 25px;
+      .top-info {
+        text-align: left !important;
+        padding-left: 10px !important;
+
+        .buttons-cont {
+          margin-bottom: 25px;
+        }
       }
-    }
 
-    .top-title {
-      font-family: $Bold;
-      font-size: 40px;
-      color: #fff;
-    }
+      .top-title {
+        font-family: $Bold;
+        font-size: 40px;
+        color: #fff;
+      }
 
-    .iframe {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%,0%);
+      .iframe {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
 
-      iframe {
-      border-radius: 19px;
-    }
+        iframe {
+          border-radius: 19px;
+        }
 
+      }
     }
   }
 }
