@@ -24,7 +24,7 @@ class TerraNetService
         $this->mr = $mr->getManager('terranet');
         $this->wsdl = 'https://psp.terra.net.lb/TerraRefill.asmx?WSDL';
         $this->uid = 'SuyoolWS';
-        $this->pid = 'sd^$lKoihb61';
+        $this->pid = 'fg^stpJD&4bCeXVk';
 
         $options = [
             'trace' => 1,
