@@ -60,6 +60,8 @@ class ShopifyController extends AbstractController
                 $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.urlencode($callBackURL) .'&SecureHash=' .$APISecureHash;
                 return new RedirectResponse($url);
 
+            }else {
+                return new Response("Your order cannot be processed. Please contact support.");
             }
 
         }
@@ -69,7 +71,7 @@ class ShopifyController extends AbstractController
         $env = $request->query->get('env');
         if (!isset($url) || $url == '' || !isset($errorUrl) || $errorUrl == '') {
             //insert transaction log error of missing url: to be done later
-            return new Response("Your order cannot be proccessed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
+            return new Response("Your order cannot be processed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
         }
 
         $hostname = $domain;
