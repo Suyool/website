@@ -1136,7 +1136,7 @@ class DefaultController extends AbstractController
 
 
      /**
-     * @Route("/ma-tBank-card", name="ma_tBank_card")
+     * @Route("/use-visa-card", name="ma_tBank_card")
      */
     public function MatBankCard()
     {
@@ -1186,7 +1186,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/ma-tBank", name="app_ma_tBank")
+     * @Route("/money-in-safe-hands-no-bank", name="app_ma_tBank")
      */
     public function matBank() {
 
