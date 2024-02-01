@@ -146,6 +146,7 @@ class winningTickets extends Command
             $gridsTobeUpdated->setwinzeed($zeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
+            if(!empty($gridsWinLoto) || !empty($gridsWinZeed)){
             $body[]=[
                 'ticketId'=>$gridsTobeUpdated->getticketId(),
                 'Loto'=>number_format($loto),
@@ -154,11 +155,16 @@ class winningTickets extends Command
                 'ZeedNumbers'=>json_encode($gridsWinZeed)
             ];
         }
-        $text = "";
-        foreach($body as $body){
-            $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed grids win : {$body['ZeedNumbers']} <br>";
         }
-        $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+        $text = "Draw Number: {$drawId} <br> Loto winning numbers: {$getLastResults->getnumbers()} <br> Zeed winning numbers: {$getLastResults->getzeednumber1()} <br><br>";
+        foreach($body as $body){
+            $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed numbers : {$body['ZeedNumbers']} <br>";
+        }
+        if($_ENV['APP_ENV'] == 'prod'){
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'aya.j@skash.com,anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+        }else{
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+        }
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         // dd($getUsersWhoWon);
         $this->logger->debug(json_encode($getUsersWhoWon));
