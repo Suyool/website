@@ -19,7 +19,7 @@ class Products
     private $id;
 
     /**
-     * @ORM\Column(type="integer", name="product_id", nullable=true)
+     * @ORM\Column(type="integer", name="gift2gamesProductId", nullable=true)
      */
     private $productId;
 
@@ -49,7 +49,7 @@ class Products
     private $price;
 
     /**
-     * @ORM\Column(type="decimal", name="discount_rate", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $discountRate;
 

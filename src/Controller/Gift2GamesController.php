@@ -50,7 +50,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-      // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+       $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
@@ -58,11 +58,11 @@ class Gift2GamesController extends AbstractController
 
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
-                //$this->session->set('suyoolUserId', 155);
+               // $this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-                $parameters['TypeID'] = $id;
+                $parameters['typeID'] = $id;
                 return $this->render('gift2_games/index.html.twig', [
                     'parameters' => $parameters
                 ]);
@@ -145,24 +145,19 @@ class Gift2GamesController extends AbstractController
         $description = $data['desc'];
         $flagCode = null;
         if ($data != null) {
-            $transaction = new Transaction();
-            $transaction->setProductId((int) $data['productId']);
-            $transaction->setDescription((string) $description);
-            $transaction->setPrice((float) $amount);
-            $transaction->setCurrency((string) $data['currency']);
 
             $order = new Order;
             $order
                 ->setsuyoolUserId($SuyoolUserId)
                 ->settransId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
+                ->setProductId((int) $data['productId'])
+                ->setCategory((string) $data['categoryName'])
+                ->setDescription((string) $description)
                 ->setamount($amount)
                 ->setcurrency($data['currency']);
 
-            $transaction->setOrder($order);
-            $transaction->setOrderId($order->getId());
 
-            $this->mr->persist($transaction);
             $this->mr->persist($order);
             $this->mr->flush();
 

@@ -69,7 +69,7 @@ const App = ({parameters}) => {
                                 setBackLink={setBackLink}
                                 categories={categories}
                                 setPrepaidVoucher={setPrepaidVoucher}
-                                setTypeID ={parameters.TypeID}
+                                setTypeID ={parameters.typeID}
                             />
                         )}
 
@@ -87,7 +87,7 @@ const App = ({parameters}) => {
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 setDataGetting={setDataGetting}
-                                setTypeID ={parameters.TypeID}
+                                setTypeID ={parameters.typeID}
 
                             />
                         )}

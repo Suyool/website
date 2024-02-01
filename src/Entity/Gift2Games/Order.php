@@ -32,6 +32,21 @@ class Order
     /**
      * @ORM\Column(type="string")
      */
+    private $productId;
+
+    /**
+     * @ORM\Column(name="category", type="string")
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $amount;
 
     /**
@@ -97,6 +112,29 @@ class Order
         return $this->amount;
     }
 
+    public function getProductId(): ?string
+    {
+        return $this->productId;
+    }
+
+    public function setProductId(string $productId): self
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
     public function setAmount($amount)
     {
         $this->amount = $amount;
@@ -174,4 +212,14 @@ class Order
         return $this;
     }
 
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
 }

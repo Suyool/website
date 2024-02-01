@@ -22,7 +22,7 @@ class Categories
     private $id;
 
     /**
-     * @ORM\Column(type="integer", name="category_id", unique=true)
+     * @ORM\Column(type="integer", name="gift2gamesCategoryId", unique=true)
      */
     private $categoryId;
 
@@ -32,7 +32,7 @@ class Categories
     private $title;
 
     /**
-     * @ORM\Column(type="string", name="short_title", length=255)
+     * @ORM\Column(type="string", length=255)
      */
     private $shortTitle;
 

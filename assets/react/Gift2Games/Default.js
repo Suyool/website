@@ -120,6 +120,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle 
         // Select the first category when the component mounts
         if (categoriesWithNumberIds.length > 0) {
             const firstCategory = categoriesWithNumberIds[0];
+            sessionStorage.setItem("categoryName", firstCategory.title)
             setActiveCategoryId(firstCategory.id);
             fetchChildCategories(firstCategory.id);
         }
