@@ -67,20 +67,23 @@ class Gift2GamesOrdersRepository extends EntityRepository
     {
         $where = "";
         if ($searchQuery != null) {
-            if ($searchQuery['status'] != null && $searchQuery['amount'] != null && $searchQuery['transId'] != null) {
+            if ((isset($searchQuery['status']) && $searchQuery['status'] != null) && (isset($searchQuery['amount']) && $searchQuery['amount'] != null) && (isset($searchQuery['transId']) && $searchQuery['transId'] != null)) {
                 $where = "where o.status='" . $searchQuery['status'] . "' and o.amount " . $searchQuery['amount'] . "and o.transId= " . $searchQuery['transId'];
-            } else if ($searchQuery['status'] != null && $searchQuery['transId'] != null) {
+            } else if ((isset($searchQuery['status']) && $searchQuery['status'] != null) && (isset($searchQuery['transId']) && $searchQuery['transId'] != null)) {
                 $where = "where o.status='" . $searchQuery['status'] . "' and o.transId=" . $searchQuery['transId'];
-            } else if ($searchQuery['status'] != null && $searchQuery['amount'] != null) {
+            } else if ((isset($searchQuery['status']) && $searchQuery['status'] != null) && (isset($searchQuery['amount']) && $searchQuery['amount'] != null)) {
                 $where = "where o.status='" . $searchQuery['status'] . "' and o.amount" . $searchQuery['amount'];
-            } else if ($searchQuery['suyoolUserId'] != null) {
+            } else if (isset($searchQuery['suyoolUserId']) && $searchQuery['suyoolUserId'] != null) {
                 $where = "where u.fname LIKE '%{$searchQuery['suyoolUserId']}%'";
-            }else if ($searchQuery['status'] != null) {
+            }else if (isset($searchQuery['status']) && $searchQuery['status'] != null) {
                 $where = "where o.status='" . $searchQuery['status'] . "'";
-            } else if ($searchQuery['amount'] != null) {
+            } else if (isset($searchQuery['amount']) && $searchQuery['amount'] != null) {
                 $where = "where o.amount " . $searchQuery['amount'];
-            } else if ($searchQuery['transId'] != null) {
+            } else if (isset($searchQuery['transId']) && $searchQuery['transId'] != null) {
                 $where = "where o.transId= " . $searchQuery['transId'];
+            }
+            else if (isset($searchQuery['id']) && $searchQuery['id'] != null) {
+                $where = "where o.id= " . $searchQuery['id'];
             }
         }
         $connection = $this->getEntityManager()->getConnection();

@@ -1,70 +1,78 @@
 {% extends 'Admin/base.html.twig' %}
 
-{% block currentPage %}Alfa
-{% endblock %}
+{% block currentPage %}Orders{% endblock %}
 
+{% block content %}
+    {% if order is defined %}
+        {# Display details for a single order #}
+        <h2>Order Details</h2>
+        <p>Order ID: {{ order.id }}</p>
+        <p>SuyoolUser: {{ order.fname }} {{ order.lname }}</p>
+        <p>Status: {{ order.status }}</p>
+        <p>Amount: {{ order.amount }}</p>
+        <p>Currency: {{ order.currency }}</p>
+        <p>TransId: {{ order.transId }}</p>
+        <p>SerialCode: {{ order.serialCode }}</p>
+        <p>SerialNumber: {{ order.serialNumber }}</p>
+        <p>OrderFake: {{ order.orderFake }}</p>
+        <p>Error: {{ order.error }}</p>
+        <p>Created: {{ order.created|date("Y-m-d H:i:s") }}</p>
+    {% else %}
+        {# Original code for listing orders #}
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-3">{{ form_row(form.status) }}</div>
+            <div class="col-md-3">{{ form_row(form.amount) }}</div>
+            <div class="col-md-3">{{ form_row(form.transId) }}</div>
+            <div class="col-md-3">{{ form_row(form.suyoolUserId) }}</div>
+        </div>
+        {{ form_end(form) }}
 
-{% block content  %}
-	{{ form_start(form) }}
-	<div class="row">
-		<div class="col-md-3">{{ form_row(form.status) }}
-		</div>
-		<div class="col-md-3">{{form_row(form.amount)}}
-		</div>
-		<div class="col-md-3">{{form_row(form.transId)}}
-		</div>
-        <div class="col-md-3">{{form_row(form.suyoolUserId)}}
-		</div>
-	</div>
-	{{ form_end(form) }}
-	<a href="{{ path('export_csv') }}" class="d-flex justify-content-end">
-		<i class="fas fa-file-csv fa-lg"></i>
-	</a>
+        <a href="{{ path('export_csv') }}" class="d-flex justify-content-end">
+            <i class="fas fa-file-csv fa-lg"></i>
+        </a>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>SuyoolUser</th>
-				<th>Status</th>
-				<th>Amount</th>
-				<th>Currency</th>
-				<th>TransId</th>
-				<th>SerialCode</th>
-				<th>SerialNumber</th>
-				<th>OrderFake</th>
-				<th>Error</th>
-				<th>Created</th>
-			</tr>
-		</thead>
-		<tbody>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>SuyoolUser</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>TransId</th>
+                <th>SerialCode</th>
+                <th>SerialNumber</th>
+                <th>OrderFake</th>
+                <th>Error</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in pagination %}
+                <tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.fname }} {{ order.lname }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.currency }}</td>
+                    <td>{{ order.transId }}</td>
+                    <td>{{ order.serialCode }}</td>
+                    <td>{{ order.serialNumber }}</td>
+                    <td>{{ order.orderFake }}</td>
+                    <td>{{ order.error }}</td>
+                    <td>{{ order.created|date("Y-m-d H:i:s") }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-			{% for order in pagination  %}
-				{# <a href="{{path('admin_loto_tickets',{'id':order.id})}}"> #}
-				<tr class="pointer {% if order.redFlag is defined %} redFlag {% endif %}">
-					<td>{{ order.id }}
-					</td>
-					<td>{{ order.fname }}
-						{{ order.lname }}</td>
-					<td>{{ order.status }}</td>
-					<td>{{ order.amount }}</td>
-					<td>{{ order.currency }}</td>
-					<td>{{ order.transId }}</td>
-					<td>{{ order.serialCode }}</td>
-					<td>{{ order.serialNumber }}</td>
-					<td>{{ order.orderFake }}</td>
-					<td>{{order.error}}</td>
-					<td>{{ order.created|date("Y-m-d H:i:s") }}</td>
-				</tr>
-				{# </a> #}
-			{% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
-		</tbody>
-	</table>
-	<div class="navigation">
-		{{ knp_pagination_render(pagination) }}
-	</div>
-	{% if pagination.getItems() == null %}
-		<div class="orderEmpty">Order empty</div>
-	{% endif %}
+        {% if pagination.getItems() is empty %}
+            <div class="orderEmpty">Order empty</div>
+        {% endif %}
+    {% endif %}
 {% endblock %}

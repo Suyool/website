@@ -8,6 +8,7 @@ use App\Entity\Gift2Games\Logs;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
 use App\Entity\Gift2Games\Products;
+use App\Entity\Gift2Games\Transaction;
 use App\Form\ImportCsvType;
 use App\Form\SearchAlfaOrdersForm;
 use Doctrine\Persistence\ManagerRegistry;
@@ -86,24 +87,36 @@ class Gift2GamesController extends AbstractController
 
 
     /**
-     * @Route("admin/gift2games/orders", name="admin_gift2games_orders")
+     * @Route("admin/gift2games/orders/{id}", name="admin_gift2games_orders", methods={"GET"})
+     * @Route("admin/gift2games/orders", name="admin_gift2games_orders_list", methods={"GET"})
      */
-    public function getOrders(Request $request,PaginatorInterface $paginator): Response
+    public function getOrders(Request $request, PaginatorInterface $paginator, $id = null): Response
     {
-        $orders=$this->mr->getRepository(Order::class)->OrderSubscription();
+        if ($id !== null) {
+            // Fetch the order details by ID
+            $searchQuery = array('id' => $id);
+            $order = $this->mr->getRepository(Order::class)->OrderSubscription(null,$searchQuery);
+            $order = $order['0'];
+            if (!$order) {
+                throw $this->createNotFoundException('Order not found');
+            }
 
-        $form=$this->createForm(SearchAlfaOrdersForm::class);
+            return $this->render('Admin/Gift2games/orders.html.twig', [
+                'order' => $order,
+                'form' => $this->createForm(SearchAlfaOrdersForm::class)->createView(),
+            ]);
+        }
 
-        $AlfaSearchForm=$form->createView();
+        // Original code for listing orders
+        $orders = $this->mr->getRepository(Order::class)->OrderSubscription();
 
+        $form = $this->createForm(SearchAlfaOrdersForm::class);
+        $AlfaSearchForm = $form->createView();
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted()) {
-
-            $searchQuery=$request->get('search_alfa_orders_form');
-            $orders=$this->mr->getRepository(order::class)->OrderSubscription(null,$searchQuery);
-
+            $searchQuery = $request->get('search_alfa_orders_form');
+            $orders = $this->mr->getRepository(Order::class)->OrderSubscription(null, $searchQuery);
         }
 
         $pagination = $paginator->paginate(
@@ -111,9 +124,10 @@ class Gift2GamesController extends AbstractController
             $request->get('page', 1),
             15
         );
+
         return $this->render('Admin/Gift2games/orders.html.twig', [
             'pagination' => $pagination,
-            'form'=>$AlfaSearchForm
+            'form' => $AlfaSearchForm,
         ]);
     }
 
@@ -134,6 +148,27 @@ class Gift2GamesController extends AbstractController
             'logs' => $pagination,
         ]);
     }
+
+    /**
+     * @Route("admin/gift2games/transactions", name="admin_gift2games_transactions")
+     */
+    public function getTransactions(Request $request,PaginatorInterface $paginator): Response
+    {
+        $transactionsRepository = $this->mr->getRepository(Transaction::class);
+        $transactionsQuery = $transactionsRepository->createQueryBuilder('t')
+            ->getQuery();
+
+        $transactions = $paginator->paginate(
+            $transactionsQuery,
+            $request->query->getInt('page', 1),
+            15
+        );
+
+        return $this->render('Admin/Gift2games/transactions.html.twig', [
+            'transactions' => $transactions,
+        ]);
+    }
+
     /**
      * @Route("/admin/gift2games/orders/export-csv", name="export_csv")
      */
