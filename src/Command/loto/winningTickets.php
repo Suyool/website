@@ -161,7 +161,7 @@ class winningTickets extends Command
             $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed numbers : {$body['ZeedNumbers']} <br>";
         }
         if($_ENV['APP_ENV'] == 'prod'){
-            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'aya.j@skash.com,anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'aya.j@skash.com,anthony.saliba@elbarid.com',$text, "", "", "no-reply@suyool.com", "no-reply", 1, 0);
         }else{
             $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
         }
