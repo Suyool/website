@@ -45,7 +45,7 @@
     "Gift2Games": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Gift2Games.8c80f460.js"
+        "/build/Gift2Games.cbcacbe9.js"
       ]
     },
     "iveri": {
@@ -127,7 +127,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Gift2GamesStyle.2f77083c.css"
+        "/build/Gift2GamesStyle.2499dafd.css"
       ]
     },
     "iveristyles": {

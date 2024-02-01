@@ -12,10 +12,8 @@ const App = ({parameters}) => {
     const [getModalName, setModalName] = useState("");
     const [modalShow, setModalShow] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [childCategories, setChildCategories] = useState([]);
     const [getDataGetting, setDataGetting] = useState("");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState(true);
-    const [getTypeID, setTypeID] = useState("");
 
     const [getSuccessModal, setSuccessModal] = useState({
         imgPath: "/build/images/alfa/SuccessImg.png",
@@ -72,25 +70,6 @@ const App = ({parameters}) => {
                                 categories={categories}
                                 setPrepaidVoucher={setPrepaidVoucher}
                                 setTypeID ={parameters.TypeID}
-                            />
-                        )}
-
-                        {activeButton.name === "ChildCategories" && (
-                            <ChildCategories
-                                childCategories={childCategories}
-                                handleChildCategoryClick={handleChildCategoryClick}
-                                setBackLink={setBackLink}
-
-                            />
-                        )}
-                        {activeButton.name === "Products" && (
-                            <ReCharge
-                                parameters={parameters}
-                                activeButton={activeButton}
-                                setActiveButton={setActiveButton}
-                                setHeaderTitle={setHeaderTitle}
-                                setBackLink={setBackLink}
-                                setPrepaidVoucher={setPrepaidVoucher}
                             />
                         )}
 

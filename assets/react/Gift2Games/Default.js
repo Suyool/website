@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
 
-const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
+const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle }) => {
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
@@ -11,16 +11,29 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID }) => {
     const [activeCategoryId, setActiveCategoryId] = useState();
     const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
     const [noProductsMessage, setNoProductsMessage] = useState('');
-    const getDefaultImage = (typeID) => {
-        switch (typeID) {
-            case 1:
-                return '/build/images/gameicon.svg';
-            case 2:
-                return '/build/images/streamicon.svg';
-            default:
-                return '/build/images/vouchersicon.svg';
-        }
-    };
+
+    useEffect(() => {
+        // Declare setHeaderTitle as a variable
+        const setHeaderTitleVar = setHeaderTitle;
+
+        const getDefaultImage = (typeID) => {
+            switch (parseInt(typeID, 10)) {
+                case 1:
+                    setHeaderTitleVar('Games');
+                    return '/build/images/gameicon.svg';
+                case 2:
+                    setHeaderTitleVar('Streaming');
+                    return '/build/images/streamicon.svg';
+                case 3:
+                    setHeaderTitleVar('Gifts');
+                    return '/build/images/vouchersicon.svg';
+            }
+        };
+
+        const defaultImage = getDefaultImage(setTypeID);
+        // Do something with defaultImage if needed
+    }, [setTypeID, setHeaderTitle]);
+
     const handleSearch = (e) => {
         const searchValue = e.target.value;
         const filteredData = categories.filter((category) => {
