@@ -34,8 +34,9 @@ class Gift2GamesController extends AbstractController
      */
     public function getProducts(Request $request,PaginatorInterface $paginator,CsvProcessorService $csvProcessor): Response
     {
-
-        $query = $this->mr->getRepository(Products::class)->findAll();
+        $productsRepository = $this->mr->getRepository(Products::class);
+        $productsQuery = $productsRepository->createQueryBuilder('p')
+            ->getQuery();
         $importForm = $this->createForm(ImportCsvType::class);
 
         $importForm->handleRequest($request);
@@ -51,9 +52,9 @@ class Gift2GamesController extends AbstractController
         }
 
         $products = $paginator->paginate(
-            $query,
+            $productsQuery,
             $request->query->getInt('page', 1),
-            10
+            15
         );
 
         return $this->render('Admin/Gift2games/products.html.twig', [
