@@ -87,6 +87,8 @@
     white-space: nowrap;
     display: flex;
     min-height: 110px;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
     //border-bottom: 1px solid #868686;
   }
 
@@ -120,6 +122,8 @@
     min-height: 50px;
     overflow-x: auto;
     white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
   }
