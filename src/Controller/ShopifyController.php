@@ -39,8 +39,12 @@ class ShopifyController extends AbstractController
         $appPass = $merchantCredentials['appPass'];
         $checkShopifyOrder = $shopifyServices->getShopifyOrder($orderID, $appKey, $appPass, $hostname);
         $totalPrice = $checkShopifyOrder['transactions']['0']['amount'];
+        $url = $request->query->get('url');
+        $errorUrl = $request->query->get('error_url');
+        $currency = $request->query->get('currency');
+        $env = $request->query->get('env');
+
         if($cardpayment) {
-            $trandID = $request->query->get('order_id');
             $currency = $request->query->get('currency');
             $merchantID = $request->query->get('merchantID');
             $callBackURL = $request->query->get('callBackURL');
@@ -52,12 +56,27 @@ class ShopifyController extends AbstractController
             $merchant = $invoicesServices->findMerchantByMerchId($merchantID);
             $certificate = $merchant->getCertificate();
 
-            $secure = $trandID . $merchantID . $currency . $additionalInfo . $certificate;
+            $secure = $orderID . $merchantID . $currency . $additionalInfo . $certificate;
             $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
             if($suyoolSecureHash == $secureHash){
-                $apiSecure = $trandID . $merchantID .$formattedPrice .$currency.$additionalInfo . $certificate;
+                $order = new Orders();
+                $order->setOrderId($orderID);
+                $order->setShopName($domain);
+                $order->setAmount($formattedPrice);
+                $order->setCurrency($currency);
+                $order->setCallbackUrl($url);
+                $order->setErrorUrl($errorUrl);
+                $order->setEnv($env);
+                $order->setMerchantId($merchantID);
+                $order->setStatus(0);
+                $order->setFlag(0);
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+
+                $apiSecure = $orderID . $merchantID .$formattedPrice .$currency.$additionalInfo . $certificate;
                 $APISecureHash = base64_encode(hash('sha512', $apiSecure, true));
-                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$trandID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.urlencode($callBackURL) .'&SecureHash=' .urlencode($APISecureHash);
+                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$orderID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.urlencode($callBackURL) .'&SecureHash=' .urlencode($APISecureHash);
                 return new RedirectResponse($url);
 
             }else {
@@ -65,10 +84,7 @@ class ShopifyController extends AbstractController
             }
 
         }
-        $url = $request->query->get('url');
-        $errorUrl = $request->query->get('error_url');
-        $currency = $request->query->get('currency');
-        $env = $request->query->get('env');
+
         if (!isset($url) || $url == '' || !isset($errorUrl) || $errorUrl == '') {
             //insert transaction log error of missing url: to be done later
             return new Response("Your order cannot be processed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
