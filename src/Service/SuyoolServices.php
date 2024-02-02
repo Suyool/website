@@ -546,7 +546,13 @@ class SuyoolServices
 
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=" . $Hash,  $body);
             $content = $response->toArray(false);
-            $this->winning->info(json_encode($content));
+            
+            if ($this->winning) {
+                $this->winning->info(json_encode($content));
+            } else {
+                error_log('Logger not initialized!');
+            }
+
             if ($content['statusCode'] == 0) {
                 return true;
             } else {
