@@ -52,15 +52,27 @@
 	{% if app.request.cookies.get('shopifyCardPayment') is defined and app.request.cookies.get('shopifyCardPayment') == true %}
 		<script>
 			function checkOrderStatus(order_id) {
-				console.log(order_id);
+				$.ajax({
+					type: "post",
+					url: "/check_status/"+String(order_id),
+					success: function(data) {
+							if (data.status === 1) {
+									// Order status is 1
+									window.location.href = data.url;
+							}
+							if (data.status === 2) {
+									// Order status is 2
+									window.location.href = data.url;
+							}                                      
+					}
+			});
+
 			}
 
-			$(document).ready(function() {
 				setInterval(function() {
 					// Call the checkOrderStatus function
 					checkOrderStatus({{ app.request.cookies.get('orderIdToShopify') }});
 				}, 3000); // Check order status every 3 seconds
-			});
 		</script>
 
 	{% endif %}
