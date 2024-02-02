@@ -47,6 +47,7 @@ class ShopifyController extends AbstractController
 
         if($cardpayment) {
             $session->set('shopifyCardPayment', true);
+            $session->set('orderIdToShopify',$orderID);
 
             $currency = $request->query->get('currency');
             $merchantID = $request->query->get('merchantID');
