@@ -36,13 +36,13 @@ class SuyoolServices
             $simulation = $sessionInterface->get('simulation');
         }
 
-        if ($_ENV['APP_ENV'] == "test") {
+        if ($_ENV['APP_ENV'] == "test" || $_ENV['APP_ENV'] == 'dev') {
              // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
             //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
              $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
              $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
-        else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
+        else if ($_ENV['APP_ENV'] == "sandbox" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
             $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
         }

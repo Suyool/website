@@ -2,6 +2,7 @@
 
 namespace App\Entity\Ogero;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +60,21 @@ class Order
      * @ORM\Column(type="integer")
      */
     private $transId;
+
+     /**
+     * @ORM\Column(name="created")
+     */
+    private $created;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
     public function getId()
     {

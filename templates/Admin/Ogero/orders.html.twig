@@ -13,6 +13,8 @@
             <th scope="col">{{ knp_pagination_sortable(orders, 'Amount', 'o.amount') }}</th>
             <th scope="col">{{ knp_pagination_sortable(orders, 'Currency', 'o.currency') }}</th>
             <th scope="col">{{ knp_pagination_sortable(orders, 'Tran ID', 'o.transId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Error', 'o.error') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(orders, 'Created', 'o.created') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +27,8 @@
                 <td>{{ order.amount }}</td>
                 <td>{{ order.currency }}</td>
                 <td>{{ order.transId }}</td>
+                <td>{{ order.error }}</td>
+                <td>{{ order.created|date('Y-m-d H:i:s') }}</td>
             </tr>
         {% endfor %}
         </tbody>

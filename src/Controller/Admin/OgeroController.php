@@ -69,8 +69,7 @@ class OgeroController extends AbstractController
     {
         $ordersRepository = $this->mr->getRepository(Order::class);
         //dd($ordersRepository);
-        $allordersQuery = $ordersRepository->createQueryBuilder('o')
-            ->getQuery();
+        $allordersQuery = $ordersRepository->findBy([],['id'=>'DESC']);
 
         $pagination = $paginator->paginate(
             $allordersQuery,  // Query to paginate

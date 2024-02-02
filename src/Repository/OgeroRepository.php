@@ -38,4 +38,6 @@ class OgeroRepository extends EntityRepository
 
         return $qb;
     }
+
+    
 }
