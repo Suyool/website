@@ -47,7 +47,7 @@ class AlfaController extends AbstractController
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
-            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
+            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
@@ -84,28 +84,41 @@ class AlfaController extends AbstractController
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
             $sendBillRes = json_decode($sendBill, true);
-            if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
-                $invoices = new PostpaidRequest;
-                $invoices
-                    ->setSuyoolUserId($SuyoolUserId)
-                    ->setGsmNumber($data["mobileNumber"]);
-                $this->mr->persist($invoices);
-                $this->mr->flush();
+            if (isset($sendBillRes["ResponseText"])) {
+                if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
+                    $invoices = new PostpaidRequest;
+                    $invoices
+                        ->setSuyoolUserId($SuyoolUserId)
+                        ->setGsmNumber($data["mobileNumber"]);
+                    $this->mr->persist($invoices);
+                    $this->mr->flush();
 
-                $invoicesId = $invoices->getId();
-                $message = "connected";
+                    $invoicesId = $invoices->getId();
+                    $message = "connected";
+                } else {
+                    $postpaidrequest = new PostpaidRequest;
+                    $postpaidrequest
+                        ->setSuyoolUserId($SuyoolUserId)
+                        ->setGsmNumber($data["mobileNumber"])
+                        ->seterror(@$sendBillRes["ResponseText"]);
+
+                    $this->mr->persist($postpaidrequest);
+                    $this->mr->flush();
+                    // echo "error";
+                    $invoicesId = -1;
+                    $message = $sendBillRes["ResponseText"];
+                }
             } else {
+                // $sendBill = "Internal Error";
                 $postpaidrequest = new PostpaidRequest;
                 $postpaidrequest
                     ->setSuyoolUserId($SuyoolUserId)
                     ->setGsmNumber($data["mobileNumber"])
-                    ->seterror(@$sendBillRes["ResponseText"]);
-
+                    ->seterror(@$sendBill);
                 $this->mr->persist($postpaidrequest);
                 $this->mr->flush();
-                // echo "error";
+                $message = @$sendBill;
                 $invoicesId = -1;
-                $message = $sendBillRes["ResponseText"];
             }
         } else {
             $message = "not connected";
@@ -232,7 +245,7 @@ class AlfaController extends AbstractController
             $order_id = $this->params->get('ALFA_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'),$order->getfees());
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $order->getfees());
 
             if ($response[0]) {
                 //set order status to held
@@ -315,7 +328,7 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate5);
                         $this->mr->flush();
 
-                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(),'fees'=>0];
+                        $dataPayResponse = ['amount' => $order->getamount(), 'currency' => $order->getcurrency(), 'fees' => 0];
                         $message = "Success";
                     } else {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
@@ -390,7 +403,7 @@ class AlfaController extends AbstractController
      */
     public function ReCharge(LotoServices $lotoServices, Memcached $Memcached)
     {
-        if($_ENV['APP_ENV']=="prod"){
+        if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         }
 
@@ -431,7 +444,7 @@ class AlfaController extends AbstractController
             $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
             //Take amount from .net
-            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(),0);
+            $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
 
             if ($response[0]) {
                 //set order status to held
@@ -516,8 +529,8 @@ class AlfaController extends AbstractController
                         'currency' => "L.L",
                         'plan' => $data["desc"],
                         'code' => $PayResonse["voucherCode"],
-                        'serial'=>$PayResonse["voucherSerial"],
-                        'expiry'=>$formattedDate
+                        'serial' => $PayResonse["voucherSerial"],
+                        'expiry' => $formattedDate
                     ]);
                     $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
                     $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');

@@ -76,6 +76,26 @@ const PayBill = ({
           });
           setModalShow(true);
         }
+        else if (
+          response?.data?.message ==
+          "Internal Error"
+        ) {
+          setSpinnerLoader(false);
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: " Unable To Pay Your Bill",
+            desc: (
+              <div>
+                We were unable to process your transaction for the bill payment associated with {localStorage.getItem("billMobileNumber")} .
+                <br/>
+                Kindly check your internet connection & try again. 
+              </div>
+            ),
+            btn: "OK",
+          });
+          setModalShow(true);
+        }
          else {
           setSpinnerLoader(false);
           setModalName("ErrorModal");
