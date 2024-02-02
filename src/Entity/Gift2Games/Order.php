@@ -45,9 +45,14 @@ class Order
     private $description;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="decimal", precision=10, scale=3, nullable=true)
      */
     private $amount;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=3, nullable=true)
+     */
+    private $originalAmount;
 
     /**
      * @ORM\Column(type="string")
@@ -112,6 +117,18 @@ class Order
         return $this->amount;
     }
 
+    public function getOriginalAmount(): ?float
+    {
+        return $this->originalAmount;
+    }
+
+    public function setOriginalAmount(?float $originalAmount): self
+    {
+        $this->originalAmount = $originalAmount;
+
+        return $this;
+    }
+
     public function getProductId(): ?string
     {
         return $this->productId;
@@ -140,6 +157,8 @@ class Order
         $this->amount = $amount;
         return $this;
     }
+
+
 
     public function setCurrency($currency)
     {

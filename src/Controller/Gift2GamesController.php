@@ -57,9 +57,9 @@ class Gift2GamesController extends AbstractController
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
             if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $SuyoolUserId = $suyoolUserInfo[0];
+                //$SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                //$this->session->set('suyoolUserId', 155);
+                $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
                 $parameters['typeID'] = $id;
@@ -140,9 +140,14 @@ class Gift2GamesController extends AbstractController
     {
 
         $data = json_decode($request->getContent(), true);
+        $product = $this->mr->getRepository(Products::class)->findOneBy(['productId' => $data['productId']]);
+
+        $category = $this->mr->getRepository(Categories::class)->findOneBy(['categoryId' => $product->getCategoryId()]);
         $SuyoolUserId = $this->session->get('suyoolUserId');
-        $amount = $data['amount'];
-        $description = $data['desc'];
+        $amount = $product->getSellPrice();
+        $currency = $product->getCurrency();
+        $description = $product->getTitle();
+        $categoryName = $category->getTitle();
         $flagCode = null;
         if ($data != null) {
 
@@ -152,16 +157,16 @@ class Gift2GamesController extends AbstractController
                 ->settransId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
                 ->setProductId((int) $data['productId'])
-                ->setCategory((string) $data['categoryName'])
+                ->setCategory((string) $categoryName)
                 ->setDescription((string) $description)
                 ->setamount($amount)
-                ->setcurrency($data['currency']);
-
+                ->setOriginalAmount($product->getPrice())
+                ->setcurrency($currency);
 
             $this->mr->persist($order);
             $this->mr->flush();
 
-            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $data['currency']);
+            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency);
             $checkBalance = json_decode($checkBalance->getContent(), true);
             $checkBalance = $checkBalance['response'];
 //            $checkBalance =array(true,123123,1);
@@ -207,7 +212,7 @@ class Gift2GamesController extends AbstractController
 
                     $bulk = 0;
                     $params = json_encode([
-                        'ProviderName' => $data['categoryName'],
+                        'ProviderName' => $categoryName,
                         'fname' => $userName,
                         'amount' => $amount,
                         'type' => $description,

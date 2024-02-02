@@ -18,7 +18,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
     const getDefaultImage = (typeID) => {
         switch (parseInt(typeID, 10)) {
             case 1:
-                setHeaderTitleVar('Games');
+                setHeaderTitleVar('Gaming');
                 return '/build/images/gameicon.svg';
             case 2:
                 setHeaderTitleVar('Streaming');
@@ -247,7 +247,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
                                     }
                                     onClick={() => {
                                         setPrepaidVoucher({
-                                            price: record.sellPrice,
+                                            price: record.displayPrice,
                                             displayPrice: record.displayPrice,
                                             currency: record.currency,
                                             title: record.title,
@@ -264,7 +264,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
                                     />
                                     <div className="gridDesc">
                                         <div className="Price">
-                                            ${record?.sellPrice}{" "}
+                                            ${record?.displayPrice}{" "}
                                         </div>
                                         <div className="bundleName">{record.title}</div>
                                     </div>
