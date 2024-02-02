@@ -169,7 +169,7 @@ const MyBundle = ({
                 <div className="titleGrid"></div>
                 <button
                   onClick={() => {
-                    setActiveButton({ name: "MyBundle" });
+                    setActiveButton({ name: "" });
                     setPaymentConfirmation(false);
                   }}
                 >

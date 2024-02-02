@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
 
-const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle }) => {
+const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,setDataGetting }) => {
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
@@ -32,6 +32,9 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle 
         }
     };
 
+    useEffect(()=>{
+        setDataGetting("")
+    },[])
     useEffect(() => {
         const defaultImage = getDefaultImage(setTypeID);
     }, [setTypeID, setHeaderTitle]);
