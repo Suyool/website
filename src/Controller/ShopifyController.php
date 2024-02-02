@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ShopifyController extends AbstractController
@@ -27,7 +28,7 @@ class ShopifyController extends AbstractController
 
     #[Route('/shopify', name: 'app_shopify_handle_request')]
     #[Route('/shopify/{cardpayment}', name: 'app_shopify_card_handle_request', requirements: ['cardpayment' => 'cardpayment'])]
-    public function handleRequest(Request $request, ShopifyServices $shopifyServices, InvoiceServices $invoicesServices, $cardpayment = null): Response
+    public function handleRequest(Request $request, ShopifyServices $shopifyServices, InvoiceServices $invoicesServices, $cardpayment = null,SessionInterface $session): Response
     {
 
         $orderID = $request->query->get('order_id');
@@ -45,6 +46,8 @@ class ShopifyController extends AbstractController
         $env = $request->query->get('env');
 
         if($cardpayment) {
+            $session->set('shopifyCardPayment', true);
+
             $currency = $request->query->get('currency');
             $merchantID = $request->query->get('merchantID');
             $callBackURL = $request->query->get('callBackURL');
