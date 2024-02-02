@@ -12,32 +12,38 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle 
     const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
     const [noProductsMessage, setNoProductsMessage] = useState('');
 
+    const setHeaderTitleVar = setHeaderTitle;
+
+    // Declare getDefaultImage outside of useEffect
+    const getDefaultImage = (typeID) => {
+        switch (parseInt(typeID, 10)) {
+            case 1:
+                setHeaderTitleVar('Games');
+                return '/build/images/gameicon.svg';
+            case 2:
+                setHeaderTitleVar('Streaming');
+                return '/build/images/streamicon.svg';
+            case 3:
+                setHeaderTitleVar('Gifts');
+                return '/build/images/vouchersicon.svg';
+            default:
+                setHeaderTitleVar('Estore');
+
+        }
+    };
+
     useEffect(() => {
-        // Declare setHeaderTitle as a variable
-        const setHeaderTitleVar = setHeaderTitle;
-
-        const getDefaultImage = (typeID) => {
-            switch (parseInt(typeID, 10)) {
-                case 1:
-                    setHeaderTitleVar('Games');
-                    return '/build/images/gameicon.svg';
-                case 2:
-                    setHeaderTitleVar('Streaming');
-                    return '/build/images/streamicon.svg';
-                case 3:
-                    setHeaderTitleVar('Gifts');
-                    return '/build/images/vouchersicon.svg';
-            }
-        };
-
         const defaultImage = getDefaultImage(setTypeID);
-        // Do something with defaultImage if needed
     }, [setTypeID, setHeaderTitle]);
 
+
+
+
     const handleSearch = (e) => {
-        const searchValue = e.target.value;
+        const searchValue = e.target.value.toLowerCase();
         const filteredData = categories.filter((category) => {
-            return category.title.toLowerCase().includes(searchValue.toLowerCase());
+            // Check if the first 3 characters of the title match the searchValue
+            return category.title.toLowerCase().startsWith(searchValue.slice(0, 3));
         });
 
         setCategoriesWithNumberIds(filteredData);
