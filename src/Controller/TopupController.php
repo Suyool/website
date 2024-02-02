@@ -413,6 +413,7 @@ class TopupController extends AbstractController
         setcookie('merchant_name', $sessionInterface->get('merchant_name'), time() + (60 * 10));
         setcookie('card_payment_url', $sessionInterface->get('card_payment_url'), time() + (60 * 10));
         setcookie('simulation', $sessionInterface->get('simulation'), time() + (60 * 10));
+        setcookie('shopifyCardPayment', $sessionInterface->get('shopifyCardPayment'), time() + (60 * 10));
         $parameters = [
             'session' => $sessionInterface->get('hostedSessionId'),
             'orderId' => $sessionInterface->get('orderidhostedsession'),

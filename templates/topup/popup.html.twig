@@ -49,7 +49,7 @@
 	</script>
 	{% endif %}
 
-	{% if app.session.get('shopifyCardPayment') is defined and app.session.get('shopifyCardPayment') == true %}
+	{% if app.request.cookies.get('shopifyCardPayment') is defined and app.request.cookies.get('shopifyCardPayment') == true %}
 		<script>
 			function checkOrderStatus(order_id) {
 				$.ajax({
