@@ -7,6 +7,13 @@
   overflow-y: hidden;
   padding: 20px 15px;
 
+  #MyBundle .MyBundleBody .BundleBigImg {
+    margin-bottom: 22px;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 3%;
+  }
+
   .search-bar {
     position: relative;
     margin-bottom: 15px;
@@ -126,7 +133,7 @@
   }
 
   .active-sub {
-    background-color: #4987A8;
+    background-color: #4987A8!important;
     font-family: $SemiBold;
     border-color: #4987a8;
 
@@ -143,7 +150,8 @@
     text-align: center;
     padding: 8px 0px;
     min-width: 60px;
-    margin-top: 10px
+    margin-top: 10px;
+    background-color: white;
   }
 
   .category-item {
@@ -163,6 +171,7 @@
 
     p{
       color: #216D96;
+      font-weight: bold;
     }
   }
 
@@ -186,5 +195,26 @@
         font-family: $Regular;
       }
     }
+  }
+}
+#G2GBody {
+  #MyBundle {
+    .MyBundleBody {
+      .BundleBigImg {
+        margin-bottom: 22px;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 3%;
+        padding: unset;
+      }
+    }
+  }
+  .payNowBtnCont {
+    position: fixed;
+    bottom: 58px;
+    width: 95%;
+  }
+  .hideBackk {
+    background: rgb(150 150 150 / 64%);
   }
 }

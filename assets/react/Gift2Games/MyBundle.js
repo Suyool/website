@@ -16,7 +16,6 @@ const MyBundle = ({
   setBackLink, setTypeID
 }) => {
   useEffect(() => {
-    setHeaderTitle("Buy Product");
     setBackLink("");
     setIsButtonDisabled(false);
   }, []);
@@ -27,10 +26,13 @@ const MyBundle = ({
   const getDefaultImage = (typeID) => {
     switch (typeID) {
       case 1:
+        setHeaderTitle("Gaming");
         return '/build/images/gameicon.svg';
       case 2:
+        setHeaderTitle("Streaming");
         return '/build/images/streamicon.svg';
       default:
+        setHeaderTitle("Gifts");
         return '/build/images/vouchersicon.svg';
     }
   };
@@ -180,7 +182,7 @@ const MyBundle = ({
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
                 You have successfully purchased the {getPrepaidVoucher.title} at $
-                {getPrepaidVoucher.displayPrice}.
+                {getPrepaidVoucher.displayPrice}
               </div>
               <div className="br"></div>
 
@@ -201,7 +203,7 @@ const MyBundle = ({
 
               <button
                   id="ContinueBtn"
-                  className="mt-3"
+                  className="mt-4"
                   onClick={() => {
                     handleShare(getSerialToClipboard);
                   }}
@@ -254,15 +256,16 @@ const MyBundle = ({
               </div>
 
             </div>
-
-            <button
-              id="ContinueBtn"
-              className="btnCont"
-              onClick={handleConfirmPay}
-              disabled={isButtonDisabled}
-            >
-              Pay Now
-            </button>
+            <div className="payNowBtnCont">
+              <button
+                  id="ContinueBtn"
+                  className="btnCont"
+                  onClick={handleConfirmPay}
+                  disabled={isButtonDisabled}
+              >
+                Pay Now
+              </button>
+            </div>
           </>
         )}
       </div>

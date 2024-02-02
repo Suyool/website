@@ -46,6 +46,7 @@
                 color: #D32127;
                 font-size: 15px;
                 font-family: $Medium;
+                padding: 0;
             }
         }
     }
@@ -58,10 +59,9 @@
         overflow: hidden;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-top: 15px;
         padding-bottom: 80px;
         align-items: center;
-        height: 80vh;
+        height: 54vh;
 
         .SuccessImg {
             // width: 55px;
@@ -127,7 +127,7 @@
 
         .br {
             // margin: 10px 0;
-            height: 0.5px;
+            height: 2px;
             width: 100%;
             background-color: #EBEBEB;
             width: -webkit-fill-available;

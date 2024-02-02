@@ -59,6 +59,8 @@ class StoreCategoriesCommand extends Command
             '282'  => ['647'],
             '277'  => ['905'],
             '76'   => ['343'],
+            '139'  => ['140'],
+            '280'  => ['430'],
         ];
 
         $results = $this->gamesService->getCategories();
