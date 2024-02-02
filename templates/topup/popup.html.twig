@@ -71,7 +71,7 @@
 			$(document).ready(function() {
 				setInterval(function() {
 					// Call the checkOrderStatus function
-					checkOrderStatus({{ order_id }});
+					checkOrderStatus({{ app.request.cookies.get('orderIdToShopify') }});
 				}, 3000); // Check order status every 3 seconds
 			});
 		</script>

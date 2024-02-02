@@ -493,7 +493,7 @@ class TopupController extends AbstractController
         } else {
             $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null, null, null, null, $_COOKIE['merchant_name'], $_COOKIE['simulation']);
         }
-        return $this->render('topup/popup.html.twig', [$data,'order_id'=>$_COOKIE['orderIdToShopify']]);
+        return $this->render('topup/popup.html.twig', $data);
     }
 
     #[Route('/pay2topup', name: 'app_topup_blacklist2')]
