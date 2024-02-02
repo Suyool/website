@@ -71,14 +71,7 @@ const MyBundle = ({
     if (getDataGetting == "success") {
       axios
         .post("/gift2games/product/pay", {
-          Token: "",
-          category: "Gift2Games",
-          // category: getPrepaidVoucher.vouchercategory,
-          desc: getPrepaidVoucher.title,
-          amount: getPrepaidVoucher.price,
-          currency: getPrepaidVoucher.currency,
           productId: getPrepaidVoucher.productId,
-          categoryName: sessionStorage.getItem("categoryName")
         })
         .then((response) => {
           setSpinnerLoader(false);
