@@ -181,7 +181,7 @@ const MyBundle = ({
               />
               <div className="bigTitle">Payment Successful</div>
               <div className="descriptio">
-                You have successfully purchased the {getPrepaidVoucher.title} at $
+                You have successfully purchased the {getPrepaidVoucher.title} for $
                 {getPrepaidVoucher.displayPrice}
               </div>
               <div className="br"></div>

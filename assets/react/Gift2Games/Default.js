@@ -47,7 +47,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
         const searchValue = e.target.value.toLowerCase();
         const filteredData = categories.filter((category) => {
             // Check if the first 3 characters of the title match the searchValue
-            return category.title.toLowerCase().startsWith(searchValue.slice(0, 3));
+            return category.title.toLowerCase().startsWith(searchValue.slice(0, 2));
         });
         setFilteredData([]);
         setNoProductsMessage('');
