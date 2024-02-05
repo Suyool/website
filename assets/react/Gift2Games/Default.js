@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
 
-const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,setDataGetting }) => {
+const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle, setDataGetting}) => {
     const [loading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
@@ -32,26 +32,29 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setDataGetting("")
-    },[])
+    }, [])
     useEffect(() => {
         const defaultImage = getDefaultImage(setTypeID);
     }, [setTypeID, setHeaderTitle]);
 
 
-
-
     const handleSearch = (e) => {
         setChildCategories([]);
+
         const searchValue = e.target.value.toLowerCase();
-        const filteredData = categories.filter((category) => {
+        const filteredCategories = categories.filter((category) => {
             // Check if the first 3 characters of the title match the searchValue
             return category.title.toLowerCase().startsWith(searchValue.slice(0, 2));
         });
-        setFilteredData([]);
+        if (filteredCategories.length > 0)
+            fetchChildCategories(filteredCategories[0]?.id);
+        else
+            setFilteredData([]);
+
         setNoProductsMessage('');
-        setCategoriesWithNumberIds(filteredData);
+        setCategoriesWithNumberIds(filteredCategories);
     };
 
     const fetchCategories = () => {
@@ -90,7 +93,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
 
     const fetchProducts = () => {
         setLoading(true);
-        if(activeSubCategoryId !=0){
+        if (activeSubCategoryId != 0) {
             axios
                 .get(`/gift2games/products/${activeSubCategoryId}`)
                 .then((response) => {
@@ -162,8 +165,8 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
                     type="text"
                     placeholder="Search in gaming e-store"
                     onChange={(event) => handleSearch(event)}
-                    style={{ fontWeight: 'bold', color: '#000000', fontFamily: 'PoppinsRegular' }}
-                />            </div>
+                    style={{fontWeight: 'bold', color: '#000000', fontFamily: 'PoppinsRegular'}}
+                /></div>
 
             <div className="categories-scroll">
                 {
@@ -173,7 +176,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
                                 key={category.categoryId}
                                 className={`category-item ${activeCategoryId === Number(category.id) ? "selected" : ""}`}
                                 onClick={() => {
-                                    handleCategoryClick(Number(category.categoryId),category.id)
+                                    handleCategoryClick(Number(category.categoryId), category.id)
                                     sessionStorage.setItem("categoryName", category.title)
                                 }}
                             >
@@ -208,7 +211,7 @@ const Default = ({ setActiveButton, setPrepaidVoucher, setTypeID,setHeaderTitle,
             {noProductsMessage && (
                 <div className="out-of-stock-message">
                     <div className="icon">
-                        <img src="/build/images/outOfStock.svg" alt="outOfStock" />
+                        <img src="/build/images/outOfStock.svg" alt="outOfStock"/>
                     </div>
                     <div className="text">
                         <p className="title">Product out of stock</p>
