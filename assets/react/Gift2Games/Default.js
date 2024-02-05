@@ -74,7 +74,14 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
 
     const handleCategoryClick = (categoryId, id) => {
         setActiveCategoryId(id);
-        fetchChildCategories(id);
+        const childCategories = fetchChildCategories(id);
+
+        // Check if childCategories is defined and an array
+        if (childCategories && Array.isArray(childCategories) && childCategories.length > 0) {
+            setChildCategories(childCategories);
+        } else {
+            setActiveSubCategoryId(Number(categoryId));
+        }
     };
 
     const fetchChildCategories = (parentId) => {
