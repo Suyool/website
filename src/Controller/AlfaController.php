@@ -34,7 +34,7 @@ class AlfaController extends AbstractController
     private $lotoServices;
     private $Memcached;
     private $not;
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface,LotoServices $lotoServices,Memcached $memcached)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface, LotoServices $lotoServices, Memcached $memcached)
     {
         $this->mr = $mr->getManager('alfa');
         $this->not = $mr->getManager('notification');
@@ -55,17 +55,17 @@ class AlfaController extends AbstractController
         // $_POST['infoString'] = "OW+X/VaTl6ZLqckgkMu0manuT24WRqBkhl9JX+gM61I1Pf0k06OAo/yvvVDYYX81";
 
         if (isset($_POST['infoString'])) {
-            if(isset($_POST['getUsersToReceiveNotification'])){
+            if (isset($_POST['getUsersToReceiveNotification'])) {
                 $parameters['getUsersToReceiveNotification'] = $_POST['getUsersToReceiveNotification'];
             }
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $checkIfCorporate=$suyoolUserInfo[1];
+            $checkIfCorporate = $suyoolUserInfo[1];
             // $checkIfCorporate="CORPORATE";
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE") ) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && ($devicetype || $checkIfCorporate == "CORPORATE")) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -260,7 +260,7 @@ class AlfaController extends AbstractController
             $SuyoolUserId = $this->session->get('suyoolUserId');
         }
 
-        $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+        $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId' => $SuyoolUserId]);
 
         // $SuyoolUserId = $this->session->get('suyoolUserId');
         $Postpaid_With_id = $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
@@ -343,11 +343,11 @@ class AlfaController extends AbstractController
                     ]);
                     $additionalData = "";
 
-                    if($suyooler->getType() == 2){
+                    if ($suyooler->getType() == 2) {
                         $content = $notificationServices->getContent('AcceptedAlfaPayment');
                         $bulk = 0; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-                    }else{
+                    } else {
                         $content = $notificationServices->getContent('AcceptedAlfaPayment');
                         $bulk = 1; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
@@ -511,7 +511,7 @@ class AlfaController extends AbstractController
 
             $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
-            $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId'=>$SuyoolUserId]);
+            $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId' => $SuyoolUserId]);
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
@@ -652,7 +652,7 @@ class AlfaController extends AbstractController
                     ]);
                     // $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
                     $additionalData = "*14*" . "112233445566" . "#";
-                    if($suyooler->getType() == 2){
+                    if ($suyooler->getType() == 2) {
                         $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                         $bulk = 0; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
@@ -750,5 +750,84 @@ class AlfaController extends AbstractController
             'flagCode' => $flagCode,
             'data' => $dataPayResponse
         ], 200);
+    }
+
+    /**
+     * PostPaid
+     * Provider : BOB
+     * Desc: Send Pin to user based on phoneNumber
+     * @Route("/api/alfa/bill", name="ap1_alfa_bill", methods="POST")
+     */
+    public function RestAlfaBill(Request $request, BobServices $bobServices)
+    {
+        $data = json_decode($request->getContent(), true);
+        $webkey = $request->headers->get('Authorization');
+        $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
+
+        $response = [
+            'status' => false,
+            'message' => '',
+            'invoicesId' => null,
+        ];
+
+        if (isset($webkeyDecrypted["merchantId"])) {
+            if ($data["mobileNumber"] != null) {
+                $sendBill = $bobServices->Bill($data["mobileNumber"]);
+                $sendBillRes = json_decode($sendBill, true);
+
+                if (isset($sendBillRes["ResponseText"])) {
+                    if ($sendBillRes["ResponseText"] == "Success") {
+                        $invoices = new PostpaidRequest;
+                        $invoices
+                            ->setSuyoolUserId($webkeyDecrypted["merchantId"])
+                            ->setGsmNumber($data["mobileNumber"]);
+                        $this->mr->persist($invoices);
+                        $this->mr->flush();
+
+                        $invoicesId = $invoices->getId();
+                        $message = "connected";
+                    } else {
+                        $postpaidrequest = new PostpaidRequest;
+                        $postpaidrequest
+                            ->setSuyoolUserId($webkeyDecrypted["merchantId"])
+                            ->setGsmNumber($data["mobileNumber"])
+                            ->seterror(@$sendBillRes["ResponseText"]);
+
+                        $this->mr->persist($postpaidrequest);
+                        $this->mr->flush();
+
+                        $invoicesId = -1;
+                        $message = $sendBillRes["ResponseText"];
+                    }
+                } else {
+                    $postpaidrequest = new PostpaidRequest;
+                    $postpaidrequest
+                        ->setSuyoolUserId($webkeyDecrypted["merchantId"])
+                        ->setGsmNumber($data["mobileNumber"])
+                        ->seterror(@$sendBill);
+
+                    $this->mr->persist($postpaidrequest);
+                    $this->mr->flush();
+
+                    $message = @$sendBill;
+                    $invoicesId = -1;
+                }
+            } else {
+                $response['message'] = "mobileNumber is required";
+                return new JsonResponse($response, 400);
+            }
+        } else {
+            $response['message'] = "Unauthorized Access";
+            return new JsonResponse($response, 401);
+        }
+
+        // Populate the response array
+        $response['status'] = true;
+        $response['message'] = $message;
+        $response['invoicesId'] = $invoicesId;
+        // dd("RestAlfaBill");
+
+        // Return the response array
+        return new JsonResponse($response, 200);
     }
 }
