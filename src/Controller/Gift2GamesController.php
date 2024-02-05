@@ -143,6 +143,7 @@ class Gift2GamesController extends AbstractController
         $product = $this->mr->getRepository(Products::class)->findOneBy(['productId' => $data['productId']]);
 
         $category = $this->mr->getRepository(Categories::class)->findOneBy(['categoryId' => $product->getCategoryId()]);
+
         $SuyoolUserId = $this->session->get('suyoolUserId');
         $amount = $product->getSellPrice();
         $currency = $product->getCurrency();
@@ -165,8 +166,12 @@ class Gift2GamesController extends AbstractController
 
             $this->mr->persist($order);
             $this->mr->flush();
-
-            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency);
+            if ($category->getParent()){
+                $merchantId = $category->getParent()->getMerchantId();
+            }else {
+                $merchantId = $category->getMerchantId();
+            }
+            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency,$merchantId);
             $checkBalance = json_decode($checkBalance->getContent(), true);
             $checkBalance = $checkBalance['response'];
 //            $checkBalance =array(true,123123,1);
@@ -297,12 +302,11 @@ class Gift2GamesController extends AbstractController
 
     }
 
-    private function checkBalance($suyoolUserId, $orderId, $amount, $currency)
+    private function checkBalance($suyoolUserId, $orderId, $amount, $currency,$merchantId)
     {
-        $merchantId = $this->params->get('GIFT2GAMES_MERCHANT_ID') ;
         $order_id = $merchantId . "-" . $orderId;
         $fees = 0;
-        $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees);
+        $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees, $merchantId);
 
         return new JsonResponse([
             'response' => $pushutility

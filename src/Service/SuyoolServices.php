@@ -88,15 +88,18 @@ class SuyoolServices
     /**
      * Push Utility Api
      */
-    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees,$merchantId = null)
     {
         $sum = number_format((float) $sum, 1, '.', '');
         $fees = number_format((float) $fees, 1, '.', '');
-        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
+        $merchantAccountID = isset($merchantId) && $merchantId !== null ? $merchantId : $this->merchantAccountID;
+
+
+        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
                 'masterAccountID' => $SuyoolUserId,
-                "merchantAccountID" => $this->merchantAccountID,
+                "merchantAccountID" => $merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
                 'fees' => $fees,

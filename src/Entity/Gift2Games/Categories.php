@@ -27,6 +27,11 @@ class Categories
     private $categoryId;
 
     /**
+     * @ORM\Column(type="integer", unique=true)
+     */
+    private $merchantId;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -129,6 +134,18 @@ class Categories
     public function setCategoryId(int $categoryId): self
     {
         $this->categoryId = $categoryId;
+
+        return $this;
+    }
+
+    public function getMerchantId(): ?int
+    {
+        return $this->merchantId;
+    }
+
+    public function setMerchantId(int $merchantId): self
+    {
+        $this->merchantId = $merchantId;
 
         return $this;
     }
