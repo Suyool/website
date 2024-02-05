@@ -47,7 +47,7 @@ class ShopifyServices
     }
     public function updateStatusShopify($data)
     {
-        $response = $this->client->request('POST',$this->SUYOOL_API_HOST . $data['url'], [
+        $response = $this->client->request('POST',$data['url'], [
             'body' => $data['data'],
             'headers' => [
                 'Content-Type' => 'application/json',

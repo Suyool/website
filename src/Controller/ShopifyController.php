@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Invoices\merchants;
 use App\Entity\Shopify\ShopifyInstallation;
 use App\Entity\Shopify\ShopifyOrders;
 use App\Entity\Shopify\Orders;
 use App\Entity\Shopify\OrdersTest;
+use App\Service\InvoiceServices;
 use App\Service\ShopifyServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ShopifyController extends AbstractController
@@ -21,11 +25,12 @@ class ShopifyController extends AbstractController
     {
         $this->mr=$mr->getManager('Shopify');
     }
-    /**
-     * @Route("/shopify/", name="app_shopify_handle_request")
-     */
-    public function handleRequest(Request $request,ShopifyServices $shopifyServices): Response
+
+    #[Route('/shopify', name: 'app_shopify_handle_request')]
+    #[Route('/shopify/{cardpayment}', name: 'app_shopify_card_handle_request', requirements: ['cardpayment' => 'cardpayment'])]
+    public function handleRequest(Request $request, ShopifyServices $shopifyServices, InvoiceServices $invoicesServices, $cardpayment = null,SessionInterface $session): Response
     {
+
         $orderID = $request->query->get('order_id');
         $domain = $request->query->get('domain');
 
@@ -39,9 +44,54 @@ class ShopifyController extends AbstractController
         $errorUrl = $request->query->get('error_url');
         $currency = $request->query->get('currency');
         $env = $request->query->get('env');
+
+        if($cardpayment) {
+            $session->set('shopifyCardPayment', true);
+            $session->set('orderIdToShopify',$orderID);
+
+            $currency = $request->query->get('currency');
+            $merchantID = $request->query->get('merchantID');
+            $callBackURL = $request->query->get('callBackURL');
+            $additionalInfo = $request->query->get('additionalInfo');
+
+            $secureHash = $request->query->get('secureHash');
+            $currentHost = $request->getHost();
+            $formattedPrice = number_format($totalPrice, 3);
+            $merchant = $invoicesServices->findMerchantByMerchId($merchantID);
+            $certificate = $merchant->getCertificate();
+
+            $secure = $orderID . $merchantID . $currency . $additionalInfo . $certificate;
+            $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
+            if($suyoolSecureHash == $secureHash){
+                $order = new Orders();
+                $order->setOrderId($orderID);
+                $order->setShopName($domain);
+                $order->setAmount($formattedPrice);
+                $order->setCurrency($currency);
+                $order->setCallbackUrl($url);
+                $order->setErrorUrl($errorUrl);
+                $order->setEnv($env);
+                $order->setMerchantId($merchantID);
+                $order->setStatus(0);
+                $order->setFlag(0);
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+
+                $apiSecure = $orderID . $merchantID .$formattedPrice .$currency.$additionalInfo . $certificate;
+                $APISecureHash = base64_encode(hash('sha512', $apiSecure, true));
+                $url = 'http://'.$currentHost.'/cardpayment/?Amount='.$formattedPrice.'&TranID='.$orderID.'&Currency='.$currency.'&MerchantID='.$merchantID.'&CallBackURL='.urlencode($callBackURL) .'&SecureHash=' .urlencode($APISecureHash);
+                return new RedirectResponse($url);
+
+            }else {
+                return new Response("Your order cannot be processed. Please contact support.");
+            }
+
+        }
+
         if (!isset($url) || $url == '' || !isset($errorUrl) || $errorUrl == '') {
             //insert transaction log error of missing url: to be done later
-            return new Response("Your order cannot be proccessed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
+            return new Response("Your order cannot be processed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
         }
 
         $hostname = $domain;

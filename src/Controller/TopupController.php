@@ -276,6 +276,8 @@ class TopupController extends AbstractController
         setcookie('merchant_name', '', -1, '/');
         setcookie('card_payment_url', '', -1, '/');
         setcookie('simulation', '', -1, '/');
+        setcookie('orderIdToShopify', '', -1, '/');
+        setcookie('shopifyCardPayment', '', -1, '/');
         try {
             if (!empty($sessionInterface->get('payment_data'))) {
                 $data = $sessionInterface->get('payment_data');
@@ -413,6 +415,9 @@ class TopupController extends AbstractController
         setcookie('merchant_name', $sessionInterface->get('merchant_name'), time() + (60 * 10));
         setcookie('card_payment_url', $sessionInterface->get('card_payment_url'), time() + (60 * 10));
         setcookie('simulation', $sessionInterface->get('simulation'), time() + (60 * 10));
+        setcookie('shopifyCardPayment', $sessionInterface->get('shopifyCardPayment'), time() + (60 * 10));
+        setcookie('orderIdToShopify', $sessionInterface->get('orderIdToShopify'), time() + (60 * 10));
+
         $parameters = [
             'session' => $sessionInterface->get('hostedSessionId'),
             'orderId' => $sessionInterface->get('orderidhostedsession'),
