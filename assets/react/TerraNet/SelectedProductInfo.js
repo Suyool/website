@@ -57,11 +57,6 @@ const SelectedProductInfo = ({
                 axios
                     .post("/terraNet/refill_customer_terranet", {
                         productId: getPrepaidVoucher.ProductId,
-                        productPrice: getPrepaidVoucher.Price,
-                        productCurrency: getPrepaidVoucher.Currency,
-                        productDescription: getPrepaidVoucher.Description,
-                        productCost: selectedProduct?.Cost,
-                        productOriginalHT: selectedProduct?.OriginalHT,
                         accountType: type,
 
                     })

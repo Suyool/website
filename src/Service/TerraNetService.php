@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Client;
 use App\Utils\Helper;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 
 class TerraNetService
 {
@@ -17,14 +18,16 @@ class TerraNetService
     private $wsdl;
     private $uid;
     private $pid;
+    private $memcachedCache;
 
-    public function __construct(Helper $helper, ManagerRegistry $mr)
+    public function __construct(Helper $helper, ManagerRegistry $mr,AdapterInterface  $memcachedCache)
     {
         $this->helper = $helper;
         $this->mr = $mr->getManager('terranet');
         $this->wsdl = 'https://psp.terra.net.lb/TerraRefill.asmx?WSDL';
         $this->uid = 'SuyoolWS';
         $this->pid = 'fg^stpJD&4bCeXVk';
+        $this->memcachedCache = $memcachedCache;
 
         $options = [
             'trace' => 1,
@@ -161,6 +164,9 @@ class TerraNetService
     }
     public function getProducts($PPPLoginName)
     {
+        $cacheKey = 'products_' . $PPPLoginName;
+
+
         $params = [
             'uid' => $this->uid,
             'pid' => $this->pid,
@@ -208,6 +214,10 @@ class TerraNetService
 
                 }
                 // $this->mr->flush();
+// Save the products in Memcached
+                $cacheItem = $this->memcachedCache->getItem($cacheKey);
+                $cacheItem->set($productsArray);
+                $this->memcachedCache->save($cacheItem);
 
                 return $productsArray;
             } else {
@@ -294,6 +304,20 @@ class TerraNetService
             return $transactionsData;
         } catch (\SoapFault $fault) {
             return $fault;
+        }
+    }
+    public function getProductsFromCache($PPPLoginName)
+    {
+        // Use cache key based on $PPPLoginName
+        $cacheKey = 'products_' . $PPPLoginName;
+        // Retrieve data from Memcached
+        $cachedProducts = $this->memcachedCache->getItem($cacheKey);
+        if ($cachedProducts->isHit()) {
+            // Data is present in Memcached, retrieve and return it
+            return $cachedProducts->get();
+        } else {
+            // Data is not present in Memcached, handle accordingly
+            return false;
         }
     }
 }

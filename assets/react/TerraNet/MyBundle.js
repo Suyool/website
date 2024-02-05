@@ -64,8 +64,7 @@ const MyBundle = ({
     axios
         .post("/terraNet/refill_customer_terranet", {
           productId: getPrepaidVoucher.ProductId,
-          productPrice: getPrepaidVoucher.Price,
-          productCurrency: getPrepaidVoucher.Currency,
+
 
           // Include any other necessary data
         })

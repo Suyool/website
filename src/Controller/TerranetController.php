@@ -42,7 +42,7 @@ class TerranetController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
@@ -51,8 +51,8 @@ class TerranetController extends AbstractController
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
-                //$this->session->set('suyoolUserId', 155);
+                //$this->session->set('suyoolUserId', $SuyoolUserId);
+                $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
 
@@ -113,14 +113,37 @@ class TerranetController extends AbstractController
         $requestData = $request->getContent();
         $data = json_decode($requestData, true);
         if (!empty($data)) {
-            $amount = $data['productPrice'];
-            $currency = $data['productCurrency'];
-            $description = $data['productDescription'];
+            $amount = null;
+            $currency = null;
+            $description = null;
+            $productCost = null;
+            $productOriginalHT = null;
             $suyoolUserId = $this->session->get('suyoolUserId');
             $PPPLoginName = $this->session->get('PPPLoginName');
             //$PPPLoginName = 'L314240';
             $ProductId = $data['productId'];
             $flagCode = null;
+            $cachedProducts = $this->apiService->getProductsFromCache($PPPLoginName);
+            $filteredProducts = array_filter($cachedProducts, function ($product) use ($ProductId) {
+                return $product['ProductId'] == $ProductId;
+            });
+
+            // Check if any product matches the given ProductId
+            if (!empty($filteredProducts)) {
+                // Retrieve the first matching product (assuming there's only one)
+                $selectedProduct = reset($filteredProducts);
+                $amount = $selectedProduct['Price'];
+                $currency = $selectedProduct['Currency'];
+                $description = $selectedProduct['Description'];
+                $productCost = $selectedProduct['productCost'];
+                $productOriginalHT = $selectedProduct['OriginalHT'];
+            }else {
+                // Return a JSON response when no product matches the given ProductId
+                return new JsonResponse([
+                    'status' => 'error',
+                    'message' => 'Product not found',
+                ], 404);
+            }
 
             if ($suyoolUserId != null) {
 
@@ -128,9 +151,9 @@ class TerranetController extends AbstractController
                 $product->setProductId((int) $ProductId);
                 $product->setDescription((string) $description);
                 $product->setPrice((float) $amount);
-                $product->setCost((float) $data['productCost']);
-                $product->setOriginalHT((float) $data['productOriginalHT']);
-                $product->setCurrency((string) $data['productCurrency']);
+                $product->setCost((float) $productCost);
+                $product->setOriginalHT((float) $productOriginalHT);
+                $product->setCurrency((string) $currency);
 
                 $order = new Order();
                 $order->setsuyoolUserId($suyoolUserId);
