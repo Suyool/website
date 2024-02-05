@@ -40,22 +40,56 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
     }, [setTypeID, setHeaderTitle]);
 
 
-    const handleSearch = (e) => {
-        setChildCategories([]);
+    // const handleSearch = (e) => {
+    //     setChildCategories([]);
+    //
+    //     const searchValue = e.target.value.toLowerCase();
+    //     const filteredCategories = categories.filter((category) => {
+    //         // Check if the first 3 characters of the title match the searchValue
+    //         return category.title.toLowerCase().startsWith(searchValue.slice(0, 2));
+    //     });
+    //     if (filteredCategories.length > 0)
+    //         fetchChildCategories(filteredCategories[0]?.id);
+    //     else
+    //         setFilteredData([]);
+    //
+    //     setNoProductsMessage('');
+    //     setCategoriesWithNumberIds(filteredCategories);
+    // };
 
-        const searchValue = e.target.value.toLowerCase();
-        const filteredCategories = categories.filter((category) => {
-            // Check if the first 3 characters of the title match the searchValue
-            return category.title.toLowerCase().startsWith(searchValue.slice(0, 2));
-        });
-        if (filteredCategories.length > 0)
-            fetchChildCategories(filteredCategories[0]?.id);
-        else
-            setFilteredData([]);
-
-        setNoProductsMessage('');
-        setCategoriesWithNumberIds(filteredCategories);
+    let typingTimeout;
+    const handleChange = (e) => {
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+            handleSearch(e);
+        }, 500);
     };
+
+    const handleSearch = (e) => {
+        const searchValue = e.target.value;
+        const filteredCategories = categories.filter((category)=>{
+            return category.title.toLowerCase().includes(searchValue.toLowerCase())
+        })
+
+        setCategoriesWithNumberIds(filteredCategories);
+
+        if (filteredCategories.length > 0){
+            const childCategories = fetchChildCategories(filteredCategories[0]?.id);
+
+            if (childCategories && Array.isArray(childCategories) && childCategories.length > 0){
+                setActiveCategoryId(filteredCategories[0]?.id);
+            }else{
+                setActiveSubCategoryId(Number(filteredCategories[0]?.categoryId));
+            }
+        }else{
+            setChildCategories([]);
+            setFilteredData([]);
+            setActiveSubCategoryId(null);
+        }
+
+    }
+
+    console.log("category", categories);
 
     const fetchCategories = () => {
         axios
@@ -156,7 +190,6 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
     }, [childCategories]);
 
     useEffect(() => {
-
         if (activeSubCategoryId) {
             fetchProducts();
         }
@@ -171,7 +204,7 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                 <input
                     type="text"
                     placeholder="Search in gaming e-store"
-                    onChange={(event) => handleSearch(event)}
+                    onChange={(event) => handleChange(event)}
                     style={{fontWeight: 'bold', color: '#000000', fontFamily: 'PoppinsRegular'}}
                 /></div>
 
