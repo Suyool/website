@@ -52,9 +52,8 @@ function BundleCredentials({
                 identifier: credential[credential.name]?.replace(/\s/g, ''),
             })
             .then((response) => {
-                console.log(response);
                 if (response?.data[0]) {
-                    setActiveButton({...activeButton, name: "Services"});
+                    setActiveButton({...activeButton, name: "Services", requestId: response?.data[2]});
                     setBundleData({id: response?.data[1]});
                 } else if (
                     response?.data?.message === "Maximum allowed number of PIN requests is reached"

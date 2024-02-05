@@ -60,6 +60,11 @@ class Order
      */
     private $identifier;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $requestId;
+
 
 //    /**
 //     * @ORM\OneToOne(targetEntity="App\Entity\Sodetel\Product",fetch="EAGER")
@@ -171,6 +176,17 @@ class Order
     public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
+        return $this;
+    }
+
+    public function getRequestId()
+    {
+        return $this->requestId;
+    }
+
+    public function setRequestId($requestId)
+    {
+        $this->requestId = $requestId;
         return $this;
     }
 

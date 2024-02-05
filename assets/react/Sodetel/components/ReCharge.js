@@ -34,7 +34,6 @@ const ReCharge = ({
       setLoading(false);
     }
   }, [ filteredData ]);
-  console.log("getVoucherData", getVoucherData);
 
   return (
     <div id="ReCharge">

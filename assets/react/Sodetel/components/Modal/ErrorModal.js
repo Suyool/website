@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
     const [getAnth, setAnth] = useState("");
 
-    console.log("props.getErrorModal", props.getErrorModal)
     const handleExchange = () => {
         if (props.getErrorModal.path == "84") {
             let object = [

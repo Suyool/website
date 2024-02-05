@@ -30,7 +30,6 @@ const PayBill = ({
                 currency: currency,
             })
             .then((response) => {
-                console.log(response);
                 if (response?.data?.message === "connected") {
                     setActiveButton({ name: "MyBill" });
                     setPostpaidData({ id: response?.data?.invoicesId });
@@ -101,7 +100,6 @@ const PayBill = ({
     const formatMobileNumber = (value) => {
         const digitsOnly = value.replace(/\D/g, "");
         const truncatedValue = digitsOnly.slice(0, 8);
-        console.log(truncatedValue[0]);
         if (digitsOnly.length === 0) {
             return "";
         }
