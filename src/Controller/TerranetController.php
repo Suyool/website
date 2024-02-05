@@ -135,7 +135,7 @@ class TerranetController extends AbstractController
                 $amount = $selectedProduct['Price'];
                 $currency = $selectedProduct['Currency'];
                 $description = $selectedProduct['Description'];
-                $productCost = $selectedProduct['productCost'];
+                $productCost = $selectedProduct['Cost'];
                 $productOriginalHT = $selectedProduct['OriginalHT'];
             }else {
                 // Return a JSON response when no product matches the given ProductId
