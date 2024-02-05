@@ -31,15 +31,19 @@ class TouchController extends AbstractController
     public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
     public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
     private $session;
+    private $lotoServices;
+    private $memcached;
 
 
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $session)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $session,LotoServices $lotoServices,Memcached $memcached)
     {
         $this->mr = $mr->getManager('touch');
         $this->hash_algo = $hash_algo;
         $this->certificate = $certificate;
         $this->params = $params;
         $this->session = $session;
+        $this->lotoServices = $lotoServices;
+        $this->memcached = $memcached;
     }
 
     /**
@@ -333,12 +337,30 @@ class TouchController extends AbstractController
     {
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchersTouch($lotoServices);
+        }else{
+            // $filter =  $Memcached->getVouchersTouch($lotoServices);
         }
 
         return new JsonResponse([
             'status' => true,
             'message' => $filter
         ], 200);
+    }
+
+    public function getVoucherPriceByTypeTouch($type)
+    {
+        $filterAlfa=$this->memcached->getVouchersTouch($this->lotoServices);
+        // dd($filterAlfa);
+        $priceToPush = 0;
+        foreach($filterAlfa as $filterAlfa)
+        {
+            if($filterAlfa['vouchertype'] == $type)
+            {
+                $priceToPush = $filterAlfa['priceLBP'];
+            }
+        }
+
+        return $priceToPush;
     }
 
     /**
@@ -355,6 +377,7 @@ class TouchController extends AbstractController
         $flagCode = null;
 
         if ($data != null) {
+            $price = $this->getVoucherPriceByTypeTouch($data["type"]);
             //Initial order with status pending
             $order = new Order;
             $order
@@ -364,7 +387,7 @@ class TouchController extends AbstractController
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
                 ->setfees(0)
-                ->setamount($data["amountLBP"])
+                ->setamount($price)
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
@@ -373,6 +396,7 @@ class TouchController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
+            // dd($response);
 
             if ($response[0]) {
                 //set order status to held

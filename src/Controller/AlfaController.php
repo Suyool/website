@@ -30,12 +30,16 @@ class AlfaController extends AbstractController
     public $key = "SY1X24elh9eG3fpOaHcWlQ9h2bHaqimdIDoyoOaFoi0rukAj3Z";
     public $iv = "fgu26y9e43wc8dj2"; //initiallization vector for decrypt
     private $session;
+    private $lotoServices;
+    private $Memcached;
 
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface,LotoServices $lotoServices,Memcached $memcached)
     {
         $this->mr = $mr->getManager('alfa');
         $this->params = $params;
         $this->session = $sessionInterface;
+        $this->lotoServices=$lotoServices;
+        $this->Memcached=$memcached;
     }
 
     /**
@@ -405,12 +409,31 @@ class AlfaController extends AbstractController
     {
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
+        }else{
+            // $filter =  $Memcached->getVouchers($lotoServices);
         }
+        // dd($filter);
 
         return new JsonResponse([
             'status' => true,
             'message' => $filter
         ], 200);
+    }
+
+    public function getVoucherPriceByTypeAlfa($type)
+    {
+        $filterAlfa=$this->Memcached->getVouchers($this->lotoServices);
+        // dd($filterAlfa);
+        $priceToPush = 0;
+        foreach($filterAlfa as $filterAlfa)
+        {
+            if($filterAlfa['vouchertype'] == $type)
+            {
+                $priceToPush = $filterAlfa['priceLBP'];
+            }
+        }
+
+        return $priceToPush;
     }
 
     /**
@@ -427,6 +450,7 @@ class AlfaController extends AbstractController
         $flagCode = null;
 
         if ($data != null) {
+            $price = $this->getVoucherPriceByTypeAlfa($data["type"]);
             //Initial order with status pending
             $order = new Order;
             $order
@@ -435,7 +459,7 @@ class AlfaController extends AbstractController
                 ->setpostpaidId(null)
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
-                ->setamount($data["amountLBP"])
+                ->setamount($price)
                 ->setfees(0)
                 ->setcurrency("LBP");
             $this->mr->persist($order);
@@ -445,6 +469,7 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
+            // dd($response);
 
             if ($response[0]) {
                 //set order status to held
