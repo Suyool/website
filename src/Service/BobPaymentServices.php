@@ -1362,7 +1362,7 @@ class BobPaymentServices
                     $status = true;
                     $imgsrc = "build/images/Loto/success.png";
                     $title = "Payment Successful";
-                    $description = "Your Suyool payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
+                    $description = "Your card payment of {$currency} {$amount} has <br> been accepted at {$merchantName}";
                     $button = "Continue";
                     if (isset($topup[1]) && $topup[1] != '') {
                         $redirectCallBack = true;
