@@ -100,7 +100,8 @@ class PaymentRepository extends EntityRepository
     public function findTransactionsThatIsNotCompleted($transId)
     {
         return $this->createQueryBuilder('o')
-            ->select('o')
+            ->select('o,s.session')
+            ->leftJoin(session::class,'s','WITH','o.id = s.orders')
             ->where("o.status != 'completed' and o.transId = {$transId}")
             ->orderBy('o.created', 'DESC')
             ->setMaxResults(1)
@@ -125,5 +126,18 @@ class PaymentRepository extends EntityRepository
         ->groupBy('a.transactionId')
         ->getQuery()
         ->getResult();
+    }
+
+    public function getTheSession($orderid)
+    {
+        return $this->createQueryBuilder('o')
+        ->select('s.session,o.suyoolUserId','o.details')
+        ->leftJoin(session::class,'s','WITH','o.id = s.orders')
+        ->where("o.transId = {$orderid} and o.status != 'completed'")
+        ->orderBy('o.created', 'DESC')
+        ->groupBy('s.orders')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
     }
 }

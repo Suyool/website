@@ -133,18 +133,6 @@ class TopupController extends AbstractController
     public function index(Request $request, SessionInterface $sessionInterface, BobPaymentServices $bobPaymentServices)
     {
         try {
-            setcookie('SenderId', '', -1, '/');
-            setcookie('ReceiverPhone', '', -1, '/');
-            setcookie('SenderPhone', '', -1, '/');
-            setcookie('hostedSessionId', '', -1, '/');
-            setcookie('orderidhostedsession', '', -1, '/');
-            setcookie('transactionidhostedsession', '', -1, '/');
-            unset($_COOKIE['SenderId']);
-            unset($_COOKIE['ReceiverPhone']);
-            unset($_COOKIE['SenderPhone']);
-            unset($_COOKIE['hostedSessionId']);
-            unset($_COOKIE['orderidhostedsession']);
-            unset($_COOKIE['transactionidhostedsession']);
             if (isset($_POST['infoString'])) {
                 if ($_POST['infoString'] == "")
                     return $this->render('ExceptionHandling.html.twig');
@@ -349,14 +337,19 @@ class TopupController extends AbstractController
         }
     }
 
-    #[Route('/topup2', name: 'app_topup_hostedsession')]
+    #[Route('payment/topupRtp', name: 'app_topup_hostedsession')]
     public function hostedsession(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
         $nonSuyooler = $this->suyoolServices->NonSuyoolerTopUpTransaction($sessionInterface->get('TranSimID'));
         $senderName = $sessionInterface->get('SenderInitials');
         $data = json_decode($nonSuyooler[1], true);
         $parameters = array();
-        $bobpayment = $bobPaymentServices->hostedsessionRTP($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'), 'rtp');
+        $bobpayment = $bobPaymentServices->hostedsessionRTP($data['TotalAmount'], $data['Currency'], $sessionInterface->get('TranSimID'), $sessionInterface->get('SenderId'), $sessionInterface->get('Code'), 'rtp',json_encode([
+            'SendarInitials'=>$sessionInterface->get('SenderInitials'),
+            'SenderPhone'=>$sessionInterface->get('SenderPhone'),
+            'ReceiverPhone'=>$sessionInterface->get('ReceiverPhone'),
+            'SenderId'=> $sessionInterface->get('SenderId')
+        ]));
         $parameters = [
             'session' => $bobpayment[0],
             'orderId' => $bobpayment[1],
@@ -405,13 +398,13 @@ class TopupController extends AbstractController
     #[Route('/3dsreceipt', name: 'app_topup_edsecure')]
     public function secure(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface, $test = null)
     {
-        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
-        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
-        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
-        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
-        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
-        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
-        setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
+        // setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
+        // setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
+        // setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
+        // setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
+        // setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
+        // setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
+        // setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
         setcookie('merchant_name', $sessionInterface->get('merchant_name'), time() + (60 * 10));
         setcookie('card_payment_url', $sessionInterface->get('card_payment_url'), time() + (60 * 10));
         setcookie('simulation', $sessionInterface->get('simulation'), time() + (60 * 10));
@@ -430,16 +423,16 @@ class TopupController extends AbstractController
     #[Route('/3dsreceipt2', name: 'app_topup_edsecure2')]
     public function secure2(BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface, $test = null)
     {
-        setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
-        setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
-        setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
-        setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
-        setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
-        setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
-        setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
-        setcookie('merchant_name', $sessionInterface->get('merchant_name'), time() + (60 * 10));
-        setcookie('card_payment_url', $sessionInterface->get('card_payment_url'), time() + (60 * 10));
-        setcookie('simulation', $sessionInterface->get('simulation'), time() + (60 * 10));
+        // setcookie('hostedSessionId', $sessionInterface->get('hostedSessionId'), time() + (60 * 10));
+        // setcookie('orderidhostedsession', $sessionInterface->get('orderidhostedsession'), time() + (60 * 10));
+        // setcookie('transactionidhostedsession', $sessionInterface->get('transactionidhostedsession'), time() + (60 * 10));
+        // setcookie('SenderId', $sessionInterface->get('SenderId'), time() + (60 * 10));
+        // setcookie('ReceiverPhone', $sessionInterface->get('ReceiverPhone'), time() + (60 * 10));
+        // setcookie('SenderPhone', $sessionInterface->get('SenderPhone'), time() + (60 * 10));
+        // setcookie('SenderInitials', $sessionInterface->get('SenderInitials'), time() + (60 * 10));
+        // setcookie('merchant_name', $sessionInterface->get('merchant_name'), time() + (60 * 10));
+        // setcookie('card_payment_url', $sessionInterface->get('card_payment_url'), time() + (60 * 10));
+        // setcookie('simulation', $sessionInterface->get('simulation'), time() + (60 * 10));
         $parameters = [
             'session' => $sessionInterface->get('hostedSessionId'),
             'orderId' => $sessionInterface->get('orderidhostedsession'),
@@ -485,23 +478,23 @@ class TopupController extends AbstractController
         ]);
     }
 
-    #[Route('/pay2', name: 'app_topup_blacklist2_rtp')]
-    public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
+    #[Route('/payment/responseRtp/{orderid}/{transid}', name: 'app_topup_blacklist2_rtp')]
+    public function checkblacklist2(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface,$orderid,$transid)
     {
-        if (isset($_COOKIE['SenderId']) && isset($_COOKIE['SenderPhone']) && isset($_COOKIE['SenderInitials'])) {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($_COOKIE['SenderId'], @$_COOKIE['ReceiverPhone'], $_COOKIE['SenderPhone'], $_COOKIE['SenderInitials']);
-        } else {
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay(null, null, null, null, $_COOKIE['merchant_name'], $_COOKIE['simulation']);
+        if(isset($_COOKIE['merchant_name'])){
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($orderid,$transid,null, null, null, null, $_COOKIE['merchant_name'], $_COOKIE['simulation']);
+        }else{
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPay($orderid,$transid,@$_COOKIE['SenderId'], @$_COOKIE['ReceiverPhone'], @$_COOKIE['SenderPhone'], @$_COOKIE['SenderInitials']);
         }
         return $this->render('topup/popup.html.twig', $data);
     }
 
-    #[Route('/pay2topup', name: 'app_topup_blacklist2')]
-    public function checkblacklist2topup(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
+    #[Route('payment/response/{orderid}/{transid}', name: 'app_topup_blacklist2')]
+    public function checkblacklist2topup(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface,$orderid,$transid)
     {
         sleep(1);
-        $this->logger->info("user {$_COOKIE['SenderId']} entered pay2topup");
-            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPayTopup($_COOKIE['SenderId']);
+        $this->logger->info("user entered pay2topup");
+            $data = $bobPaymentServices->updatedTransactionInHostedSessionToPayTopup($orderid,$transid);
             $status = true;
             $response = $data;
         return $this->render('topup/popup.html.twig', $response);

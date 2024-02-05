@@ -61,6 +61,11 @@ class orders
      */
     private $code;
 
+     /**
+     * @ORM\Column(name="details")
+     */
+    private $details;
+
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
@@ -156,6 +161,17 @@ class orders
     public function setCode($code)
     {
         $this->code = $code;
+        return $this;
+    }
+
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    public function setDetails($details)
+    {
+        $this->details = $details;
         return $this;
     }
 

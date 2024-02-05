@@ -777,7 +777,8 @@ class BobPaymentServices
             $content = json_decode($response->getContent(), true, 512, JSON_INVALID_UTF8_IGNORE);
             // dd($content);
             // $this->logger->error(json_encode($content));
-            if ($content['result'] != 'ERROR') {
+            // dd($content['authenticationStatus']);
+        if ($content['result'] != 'ERROR') {
                 $attempts = new attempts();
                 $attempts->setResponse(json_encode($content))
                     ->setSuyoolUserId($suyoolUserId)
@@ -786,7 +787,7 @@ class BobPaymentServices
                     ->setCurrency($content['currency'])
                     ->setStatus($content['status'])
                     ->setResult($content['result'])
-                    ->setAuthStatus($content['authenticationStatus'])
+                    ->setAuthStatus(@$content['authenticationStatus'])
                     ->setCard(end($content['transaction'])['sourceOfFunds']['provided']['card']['number'])
                     ->setName(@end($content['transaction'])['sourceOfFunds']['provided']['card']['nameOnCard']);
 
@@ -997,7 +998,7 @@ class BobPaymentServices
             $body = [
                 "authentication" => [
                     "channel" => "PAYER_BROWSER",
-                    "redirectResponseUrl" => $url . "/pay2"
+                    "redirectResponseUrl" => $url . "/payment/responseRtp/{$transId}/trans-{$attempts}"
                 ],
                 "order" => [
                     "id" => $transId,
@@ -1025,11 +1026,11 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
-    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code, $type)
+    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code, $type,$details)
     {
-        $order = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
-        // dd($order);
-        if (is_null($order)) {
+        $orderSession = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
+        // dd($orderSession);
+        if (is_null($orderSession)) {
             $this->session->remove('hostedSessionId');
             $attempts = 1;
             $order = ($this->session->get('simulation') == 'true') ? new test_orders() : new orders();
@@ -1041,19 +1042,20 @@ class BobPaymentServices
             $order->setcurrency($currency);
             $order->setAttempt($attempts);
             $order->settype($type);
+            $order->setDetails(@$details);
             $order->setCode($code);
             $this->mr->persist($order);
             $this->mr->flush();
         } else {
             $now = new DateTime();
             $now = $now->format('Y-m-d H:i:s');
-            $date = $order->getCreated();
+            $date = $orderSession[0]->getCreated();
             $date->modify('+9 minutes');
             $dateAfter09Minutes = $date->format('Y-m-d H:i:s');
             if ($now > $dateAfter09Minutes) {
                 // dd($order->getAttempt());
                 $this->session->remove('hostedSessionId');
-                $attempts = $order->getAttempt() + 1;
+                $attempts = $orderSession[0]->getAttempt() + 1;
                 $order = ($this->session->get('simulation')) ? new test_orders() : new orders();
                 $order->setstatus(orders::$statusOrder['PENDING']);
                 $order->setsuyoolUserId($suyoolUserId);
@@ -1062,17 +1064,18 @@ class BobPaymentServices
                 $order->setcurrency($currency);
                 $order->setAttempt($attempts);
                 $order->settype($type);
+                $order->setDetails(@$details);
                 $order->setCode($code);
                 $this->mr->persist($order);
                 $this->mr->flush();
             } else {
-                $attempts = $order->getAttempt() + 1;
-                $order->setAttempt($order->getAttempt() + 1);
-                $this->mr->persist($order);
+                $attempts = $orderSession[0]->getAttempt() + 1;
+                $orderSession[0]->setAttempt($orderSession[0]->getAttempt() + 1);
+                $this->mr->persist($orderSession[0]);
                 $this->mr->flush();
             }
         }
-        $session = $this->session->get('hostedSessionId');
+        $session = @$orderSession['session'];
         if (is_null($session)) {
             $body = [
                 "session" => [
@@ -1092,6 +1095,7 @@ class BobPaymentServices
             $content = $response->toArray(false);
             $session = $content['session']['id'];
             $session = ($this->session->get('simulation') == 'true') ? new test_session() : new session();
+            !is_null($orderSession) ? $order = $orderSession[0] : $order = $order;
 
             $session->setOrders($order);
             $session->setSession($content['session']['id']);
@@ -1100,14 +1104,14 @@ class BobPaymentServices
             $this->mr->persist($session);
             $this->mr->flush();
             $session = $content['session']['id'];
-            $this->session->set('hostedSessionId', $session);
         }
+        $this->session->set('hostedSessionId', $session);
         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
         if ($this->session->get('simulation') == 'true') {
             $body = [
                 "authentication" => [
                     "channel" => "PAYER_BROWSER",
-                    "redirectResponseUrl" => $url . "/pay2"
+                    "redirectResponseUrl" => $url . "/payment/responseRtp/test_{$transId}/trans-{$attempts}"
                 ],
                 "order" => [
                     "id" => "test_" . $transId,
@@ -1123,7 +1127,7 @@ class BobPaymentServices
             $body = [
                 "authentication" => [
                     "channel" => "PAYER_BROWSER",
-                    "redirectResponseUrl" => $url . "/pay2"
+                    "redirectResponseUrl" => $url . "/payment/responseRtp/{$transId}/trans-{$attempts}"
                 ],
                 "order" => [
                     "id" => $transId,
@@ -1232,7 +1236,7 @@ class BobPaymentServices
         $body = [
             "authentication" => [
                 "channel" => "PAYER_BROWSER",
-                "redirectResponseUrl" => $url . "/pay2topup"
+                "redirectResponseUrl" => $url . "/payment/response/{$transId}/trans-{$attempts}"
             ],
             "order" => [
                 "id" => $transId,
@@ -1259,19 +1263,29 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $simulation = null)
+    public function updatedTransactionInHostedSessionToPay($orderid,$trans,$suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $simulation = null)
     {
+        $getTheSession = $this->mr->getRepository(orders::class)->getTheSession($orderid);
+        // dd($getTheSession);
+        $suyooler = $getTheSession['suyoolUserId'];
+        $details = $getTheSession['details'];
+        $details = json_decode($details,true);
+        if(!is_null($details)){
+            $senderInitials = $details['SendarInitials'];
+            $receiverPhone=$details['ReceiverPhone'];
+            $senderPhone = $details['SenderPhone'];
+        }
         $body = [
             "apiOperation" => "PAY",
             "authentication" => [
-                "transactionId" => $_COOKIE['transactionidhostedsession']
+                "transactionId" => $trans
             ],
             "session" => [
-                "id" => "{$_COOKIE['hostedSessionId']}"
+                "id" => "{$getTheSession['session']}"
             ]
         ];
-        $transIdNew = explode("trans-", $_COOKIE['transactionidhostedsession']);
-        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
+        $transIdNew = explode("trans-", $trans);
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$orderid}/transaction/{$transIdNew[1]}", [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -1281,7 +1295,7 @@ class BobPaymentServices
         $content = $response->toArray(false);
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
-        $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
+        $this->logger->info(json_encode($this->BASE_API . "order/{$orderid}/transaction/{$transIdNew[1]}"));
         // dd($content);
         if (isset($content['error'])) {
             $this->logger->info("enter to the error field popup");
@@ -1303,7 +1317,7 @@ class BobPaymentServices
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
             ->setResponse(json_encode($content))
-            ->setTransactionId($_COOKIE['orderidhostedsession'])
+            ->setTransactionId($orderid)
             ->setAmount($content['order']['amount'])
             ->setCurrency($content['order']['currency'])
             ->setStatus($content['order']['status'])
@@ -1314,10 +1328,10 @@ class BobPaymentServices
         $this->mr->persist($attempts);
         $this->mr->flush();
         if ($simulation == 'true') {
-            $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $getTheSession['session']]);
             $entity = 'test';
         } else {
-            $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+            $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $getTheSession['session']]);
             $entity = 'live';
         }
 
@@ -1476,7 +1490,7 @@ class BobPaymentServices
                 $order->setstatus(orders::$statusOrder['PAID']);
                 $this->mr->persist($order);
                 $this->mr->flush();
-                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
+                $topup = $this->suyoolServices->UpdateCardTopUpTransaction($orderid, 3, strval($orderid), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -1576,19 +1590,23 @@ class BobPaymentServices
     }
 
     //
-    public function updatedTransactionInHostedSessionToPayTopup($suyooler, $receiverPhone = null, $senderPhone = null)
+    public function updatedTransactionInHostedSessionToPayTopup($orderid,$trans,$suyooler=null, $receiverPhone = null, $senderPhone = null)
     {
+        $getTheSession = $this->mr->getRepository(orders::class)->getTheSession($orderid);
+        $suyooler = $getTheSession['suyoolUserId'];
+        // dd($getTheSession);
+        // dd($orderid . " " . $trans);
         $body = [
             "apiOperation" => "PAY",
             "authentication" => [
-                "transactionId" => $_COOKIE['transactionidhostedsession']
+                "transactionId" =>$trans
             ],
             "session" => [
-                "id" => "{$_COOKIE['hostedSessionId']}"
+                "id" => "{$getTheSession['session']}"
             ]
         ];
-        $transIdNew = explode("trans-", $_COOKIE['transactionidhostedsession']);
-        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}", [
+        $transIdNew = explode("trans-", $trans);
+        $response = $this->client->request('PUT', $this->BASE_API_HOSTED_SESSION . "order/{$orderid}/transaction/{$transIdNew[1]}", [
             'body' => json_encode($body),
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -1598,7 +1616,7 @@ class BobPaymentServices
         $content = $response->toArray(false);
         $this->logger->info(json_encode($body));
         $this->logger->info(json_encode($content));
-        $this->logger->info(json_encode($this->BASE_API . "order/{$_COOKIE['orderidhostedsession']}/transaction/{$transIdNew[1]}"));
+        $this->logger->info(json_encode($this->BASE_API . "order/{$orderid}/transaction/{$transIdNew[1]}"));
         if (isset($content['error'])) {
             $this->logger->info("enter to the error field popup from app");
             $title = "Please Try Again";
@@ -1620,7 +1638,7 @@ class BobPaymentServices
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
             ->setResponse(json_encode($content))
-            ->setTransactionId($_COOKIE['orderidhostedsession'])
+            ->setTransactionId($orderid)
             ->setAmount($content['order']['amount'])
             ->setCurrency($content['order']['currency'])
             ->setStatus($content['order']['status'])
@@ -1630,7 +1648,7 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $_COOKIE['hostedSessionId']]);
+        $session = $this->mr->getRepository(session::class)->findOneBy(['session' =>$getTheSession['session']]);
         if ($content['order']['status'] == 'CAPTURED') {
             $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
@@ -1688,7 +1706,7 @@ class BobPaymentServices
             $order->setstatus(orders::$statusOrder['PAID']);
             $this->mr->persist($order);
             $this->mr->flush();
-            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($_COOKIE['orderidhostedsession'], 3, strval($_COOKIE['orderidhostedsession']), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
+            $topup = $this->suyoolServices->UpdateCardTopUpTransaction($orderid, 3, strval($orderid), $content['order']['amount'], $content['order']['currency'], json_encode($additionalData));
             $transaction->setflagCode($topup[2]);
             $transaction->setError($topup[3]);
             $this->mr->persist($transaction);
