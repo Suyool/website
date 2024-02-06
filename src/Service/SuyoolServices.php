@@ -91,7 +91,7 @@ class SuyoolServices
     public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees,$merchantId = null)
     {
         $sum = number_format((float) $sum, 1, '.', '');
-        $fees = number_format((float) $fees, 1, '.', '');
+        $fees = number_format((float) $fees, 3, '.', '');
         $merchantAccountID = isset($merchantId) && $merchantId !== null ? $merchantId : $this->merchantAccountID;
 
 

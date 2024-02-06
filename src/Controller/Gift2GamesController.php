@@ -6,13 +6,11 @@ use App\Entity\Gift2Games\Categories;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
 use App\Entity\Gift2Games\Products;
-use App\Entity\Gift2Games\Transaction;
 use App\Service\Gift2GamesService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +40,7 @@ class Gift2GamesController extends AbstractController
 
 
     /**
-     * @Route("/gift2games/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
+     * @Route("/gift2games/{id}", name="app_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
     public function index($id): Response
     {
