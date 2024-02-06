@@ -164,7 +164,7 @@ class Memcached
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 29:
-                        $item['desc1'] = "30 Days Validity & 5 Days Grace";
+                        $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "$4.50 Touch recharge card";
                         // $item['priceUSD']="4.50";
