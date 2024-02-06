@@ -27,41 +27,13 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Alfa.3474def5.js"
-=======
         "/build/Alfa.26a1e018.js"
->>>>>>> 1d082f2f (alfa  corporate exchange redirect)
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Touch.55616177.js"
-=======
-<<<<<<< HEAD
-        "/build/Touch.598283a4.js"
-=======
-        "/build/runtime.js",
-        "/build/Touch.js"
->>>>>>> 700ad0a2 (alfa stp 1)
-=======
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Touch.b99ea282.js"
->>>>>>> 7636e1b7 (corporate in webkey and fetch accounts)
-=======
-        "/build/Touch.cbb3040b.js"
->>>>>>> 43c3b98b (touch on corporate)
-=======
-        "/build/Touch.809bb8ae.js"
->>>>>>> 647429a3 (touch corporate)
->>>>>>> a99ea0a8 (touch corporate)
-=======
         "/build/Touch.7067e6a6.js"
->>>>>>> 1d082f2f (alfa  corporate exchange redirect)
       ]
     },
     "Ogero": {
@@ -85,11 +57,7 @@
     "Sodetel": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
         "/build/Sodetel.ed2853b9.js"
-=======
-        "/build/Sodetel.d659bc95.js"
->>>>>>> 1d082f2f (alfa  corporate exchange redirect)
       ]
     },
     "styles": {
