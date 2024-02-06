@@ -62,7 +62,7 @@ class reminderNotification extends Command
             $date = new DateTime();
             $day = $date->format('w');
 
-            $params = json_encode(['currency' => 'L.L', 'amount' => number_format($draw->getlotoprize())]);
+            $params = json_encode(['currency' => 'LBP', 'amount' => number_format($draw->getlotoprize())]);
             $template = $this->notifMr->getRepository(Template::class)->findOneBy(['identifier' => "reminder notification"]);
             $index = $template->getIndex();
             $content = $this->notifMr->getRepository(content::class)->findOneBy(['template' => $template->getId(), 'version' => $index]);
