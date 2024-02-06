@@ -168,4 +168,26 @@ class Gift2GamesService
             return array(false, $e->getMessage(), 255, $e->getMessage());
         }
     }
+    public function checkBalance()
+    {
+        try {
+            $formData = [
+
+            ];
+            $headers = [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Authorization' => $this->apiKey,
+            ];
+
+            $response = $this->helper->clientRequestWithHeaders('POST', $this->G2G_API_HOST . "check_balance",$formData,
+                $headers
+            );
+            $content = $response->getContent();
+
+            return array(true, $content);
+        } catch (Exception $e) {
+            $this->logger->error("Balance error: {$e->getMessage()}");
+            return array(false, $e->getMessage(), 255, $e->getMessage());
+        }
+    }
 }

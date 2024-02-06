@@ -11,9 +11,11 @@ use App\Entity\Gift2Games\Products;
 use App\Entity\Gift2Games\Transaction;
 use App\Form\ImportCsvType;
 use App\Form\SearchAlfaOrdersForm;
+use App\Service\Gift2GamesService;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,11 +24,13 @@ use App\Service\CsvProcessorService;
 class Gift2GamesController extends AbstractController
 {
     private $mr;
+    private $gamesService;
 
 
-    public function __construct(ManagerRegistry $mr)
+    public function __construct(ManagerRegistry $mr,Gift2GamesService $gamesService)
     {
         $this->mr = $mr->getManager('gift2games');
+        $this->gamesService = $gamesService;
 
     }
 
@@ -313,5 +317,27 @@ class Gift2GamesController extends AbstractController
         $this->mr->flush();
 
         return $this->redirectToRoute('admin_gift2games_categories');
+    }
+
+    /**
+     * @Route("admin/gift2games/checkBalance", name="admin_gift2games_checkBalance")
+     */
+    public function checkGift2GamesBalance(): Response
+    {
+        $checkBalance = $this->gamesService->checkBalance();
+        $checkBalance = json_decode($checkBalance[1]);
+        $balance = $checkBalance->data;
+
+        return $this->render('Admin/Gift2games/balance.html.twig', [
+            'balance' => $balance,
+        ]);
+    }
+    public function getGift2GamesBalance(): Response
+    {
+        $checkBalance = $this->gamesService->checkBalance();
+        $checkBalance = json_decode($checkBalance[1]);
+        $balance = $checkBalance->data->balanceUSD;
+
+        return new JsonResponse($balance);
     }
 }

@@ -1,0 +1,17 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block title %}Gift2Games Balance{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Gift2Games Balance</h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>User ID: {{ balance.userId }}</h3>
+                <p><strong>Balance in USD:</strong> ${{ balance.balanceUSD }}</p>
+                <p><strong>Balance in LBP:</strong> {{ balance.balanceLBP }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
