@@ -98,7 +98,7 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
-                'masterAccountID' => $SuyoolUserId,
+                'userAccountID' => $SuyoolUserId,
                 "merchantAccountID" => $merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
