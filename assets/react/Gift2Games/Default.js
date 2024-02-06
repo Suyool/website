@@ -89,13 +89,10 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
 
     }
 
-    console.log("category", categories);
-
     const fetchCategories = () => {
         axios
             .get(`/gift2games/categories/${setTypeID}`)
             .then((response) => {
-                // console.log(response);
                 if (response?.data?.status) {
                     const parsedData = response?.data?.Payload;
                     setCategories(parsedData);
@@ -231,23 +228,25 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
 
             {/* Display child categories for the active category */}
 
-            <div className="child-categories">
-                {childCategories.map((child) => {
-                    return (
-                        <button
-                            key={child.id}
-                            className={`child-category ${
-                                child.categoryId === activeSubCategoryId ? "active-sub" : ""
-                            }`}
-                            onClick={() => {
-                                setActiveSubCategoryId(child.categoryId);
-                            }}
-                        >
-                            <p className="SubTitleCat">{child.shortTitle}</p>
-                        </button>
-                    );
-                })}
-            </div>
+            {childCategories.length > 0 && (
+                <div className="child-categories">
+                    {childCategories.map((child) => {
+                        return (
+                            <button
+                                key={child.id}
+                                className={`child-category ${
+                                    child.categoryId === activeSubCategoryId ? "active-sub" : ""
+                                }`}
+                                onClick={() => {
+                                    setActiveSubCategoryId(child.categoryId);
+                                }}
+                            >
+                                <p className="SubTitleCat">{child.shortTitle}</p>
+                            </button>
+                        );
+                    })}
+                </div>
+            )}
             {noProductsMessage && (
                 <div className="out-of-stock-message">
                     <div className="icon">

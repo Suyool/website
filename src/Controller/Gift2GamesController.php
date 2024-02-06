@@ -40,6 +40,7 @@ class Gift2GamesController extends AbstractController
         $this->notificationServices = $notificationServices;
     }
 
+
     /**
      * @Route("/gift2games/{id}", name="admin_categories_edit", requirements={"id"="\d+"}, defaults={"id"=null})
      */
@@ -50,7 +51,7 @@ class Gift2GamesController extends AbstractController
 //        ]);
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 
-      // $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+       //$_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
         if (isset($_POST['infoString'])) {
             $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
@@ -171,7 +172,10 @@ class Gift2GamesController extends AbstractController
             }else {
                 $merchantId = $category->getMerchantId();
             }
-            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency,$merchantId);
+            $fees = $amount - $product->getPrice();
+            $fees = number_format((float) $fees, 3, '.', '');
+
+            $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency,$merchantId,$fees);
             $checkBalance = json_decode($checkBalance->getContent(), true);
             $checkBalance = $checkBalance['response'];
 //            $checkBalance =array(true,123123,1);
@@ -226,7 +230,6 @@ class Gift2GamesController extends AbstractController
                         'expiry'=>$formattedDate
                     ]);
 
-                    $fees = $amount - $product->getPrice();
 
                     $additionalData = json_encode([
                         'Fees' => $fees,
@@ -310,10 +313,9 @@ class Gift2GamesController extends AbstractController
 
     }
 
-    private function checkBalance($suyoolUserId, $orderId, $amount, $currency,$merchantId)
+    private function checkBalance($suyoolUserId, $orderId, $amount, $currency,$merchantId,$fees)
     {
         $order_id = $merchantId . "-" . $orderId;
-        $fees = 0;
         $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees, $merchantId);
 
         return new JsonResponse([
