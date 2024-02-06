@@ -55,7 +55,6 @@ const MyBill = ({
           invoicesId: getPostpaidData.id,
         })
         .then((response) => {
-          console.log(response);
           if (response.data.message == "connected") {
             setSpinnerLoader(false);
             setDisplayData(response?.data?.displayData);
@@ -111,7 +110,6 @@ const MyBill = ({
           ResponseId: getResponseId,
         })
         .then((response) => {
-          console.log(response.data);
           const jsonResponse = response?.data?.message;
           setSpinnerLoader(false);
           if (response.data?.IsSuccess) {
@@ -127,7 +125,6 @@ const MyBill = ({
             });
             setModalShow(true);
           } else {
-            console.log(response.data.flagCode);
             if (
               response.data.IsSuccess == false &&
               response.data.flagCode == 10
@@ -168,7 +165,6 @@ const MyBill = ({
           }
         })
         .catch((error) => {
-          console.log(error);
           setSpinnerLoader(false);
         });
     } else if (getDataGetting == "failed") {
@@ -185,7 +181,6 @@ const MyBill = ({
   };
 
   const handleInputBlur = () => {
-    console.log("hi");
     setBtnDesign(false);
   };
 

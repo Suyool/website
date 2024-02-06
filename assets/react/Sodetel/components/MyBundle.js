@@ -58,7 +58,6 @@ const MyBundle = ({
       }, 2000);
     }
   };
-  console.log("identifier", identifier);
 
   useEffect(() => {
     if (getDataGetting == "success") {
@@ -67,12 +66,12 @@ const MyBundle = ({
           refillData: getPrepaidVoucher,
           bundle: activeButton?.bundle,
           // identifier: credential[credential.name]?.replace(/\s/g, '')
-          identifier: identifier
+          identifier: identifier,
+          requestId: activeButton?.requestId,
         })
         .then((response) => {
           setSpinnerLoader(false);
           // const jsonResponse = JSON.parse(response?.data?.message);
-          console.log("jsonResponse", response);
           if (response?.data.IsSuccess) {
             setPaymentConfirmation(true);
             setSerialToClipboard(response?.data?.data?.id);
@@ -83,9 +82,6 @@ const MyBundle = ({
               (response.data?.flagCode === 10 || response.data.flagCode === 11)
             ) {
               const message = JSON.parse(response.data?.message);
-              console.log("message", message);
-              console.log("mess", response.data?.message);
-              console.log("exchange", response);
               setModalDesc({
                 name : "ErrorModal",
                 imgPath: "/build/images/alfa/error.png",
@@ -131,7 +127,6 @@ const MyBundle = ({
           }
         })
         .catch((error) => {
-            console.log("err", error);
           setSpinnerLoader(false);
         });
     } else if (getDataGetting == "failed") {
