@@ -44,7 +44,7 @@ class DashboardController extends AbstractController
         $payment=$dashboard->PaymentDashboard($this->paymentRepository);
         $ogero=$dashboard->OgeroDashboard($this->ogeroRepository);
         $gift2gamesBalance = $gift2GamesController->getGift2GamesBalance();
-        $balance  = $gift2gamesBalance->getContent();
+        $balance  = str_replace('"', '', $gift2gamesBalance->getContent());
         return $this->render('Admin/dashboard.html.twig', array(
             'loto'=>$loto,
             'alfa'=>$alfa,
