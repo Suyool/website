@@ -72,12 +72,12 @@ class winningTickets extends Command
         // dd($getGridsinThisDraw);
         $body = [];
         foreach ($getGridsinThisDraw as $gridsTobeUpdated) {
-            $loto=0;
-            $zeed=0;
-            $gridsWin=[];
-            $gridsWinLoto=[];
-            $gridsWinZeed=[];
-            $winning=$this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
+            $loto = 0;
+            $zeed = 0;
+            $gridsWin = [];
+            $gridsWinLoto = [];
+            $gridsWinZeed = [];
+            $winning = $this->lotoServices->GetWinTicketsPrize($gridsTobeUpdated->getticketId());
             // $winning=[
             //     "d" => [
             //       "grids" => [
@@ -119,51 +119,51 @@ class winningTickets extends Command
             //         ]
             //     ]
             //       ]];
-            foreach($winning['d']['grids'] as $winnings)
-            {
-                $loto += $winnings['lotoWinnings'];
-                $zeed += $winnings['zeedWinnings'];
-            }
-            foreach($winning['d']['grids'] as $winning)
-            {
-                if($winning['lotoWinnings'] != 0){
-                    $gridsWinLoto[]=[
-                        $winning['gridBalls']
-                    ];
-                } 
-                if($winning['zeedWinnings'] != 0){
-                    $gridsWinZeed[]=[
-                        $winning['zeedNumber']
-                    ];
+            if (isset($winning['d']['grids'])) {
+                foreach ($winning['d']['grids'] as $winnings) {
+                    $loto += $winnings['lotoWinnings'];
+                    $zeed += $winnings['zeedWinnings'];
+                }
+                foreach ($winning['d']['grids'] as $winning) {
+                    if ($winning['lotoWinnings'] != 0) {
+                        $gridsWinLoto[] = [
+                            $winning['gridBalls']
+                        ];
+                    }
+                    if ($winning['zeedWinnings'] != 0) {
+                        $gridsWinZeed[] = [
+                            $winning['zeedNumber']
+                        ];
+                    }
                 }
             }
-            if($loto != 0 || $zeed != 0){
+            if ($loto != 0 || $zeed != 0) {
                 $gridsTobeUpdated->setisWon(true);
-            }elseif($loto == 0 && $zeed ==0){
+            } elseif ($loto == 0 && $zeed == 0) {
                 $gridsTobeUpdated->setisWon(false);
             }
             $gridsTobeUpdated->setwinloto($loto);
             $gridsTobeUpdated->setwinzeed($zeed);
             $this->mr->persist($gridsTobeUpdated);
             $this->mr->flush();
-            if(!empty($gridsWinLoto) || !empty($gridsWinZeed)){
-            $body[]=[
-                'ticketId'=>$gridsTobeUpdated->getticketId(),
-                'Loto'=>number_format($loto),
-                'Zeed'=>number_format($zeed),
-                'LotoNumbers'=>json_encode($gridsWinLoto),
-                'ZeedNumbers'=>json_encode($gridsWinZeed)
-            ];
-        }
+            if (!empty($gridsWinLoto) || !empty($gridsWinZeed)) {
+                $body[] = [
+                    'ticketId' => $gridsTobeUpdated->getticketId(),
+                    'Loto' => number_format($loto),
+                    'Zeed' => number_format($zeed),
+                    'LotoNumbers' => json_encode($gridsWinLoto),
+                    'ZeedNumbers' => json_encode($gridsWinZeed)
+                ];
+            }
         }
         $text = "Draw Number: {$drawId} <br> Loto winning numbers: {$getLastResults->getnumbers()} <br> Zeed winning numbers: {$getLastResults->getzeednumber1()} <br><br>";
-        foreach($body as $body){
+        foreach ($body as $body) {
             $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed numbers : {$body['ZeedNumbers']} <br>";
         }
-        if($_ENV['APP_ENV'] == 'prod'){
-            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'aya.j@skash.com,anthony.saliba@elbarid.com',$text, "", "", "no-reply@suyool.com", "no-reply", 1, 0);
-        }else{
-            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets",'anthony.saliba@elbarid.com',$text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
+        if ($_ENV['APP_ENV'] == 'prod') {
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'aya.j@skash.com,anthony.saliba@elbarid.com', $text, "", "", "no-reply@suyool.com", "no-reply", 1, 0);
+        } else {
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'anthony.saliba@elbarid.com', $text, "", "", "suyool@noreply.com", "Suyool", 1, 0);
         }
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         // dd($getUsersWhoWon);

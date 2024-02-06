@@ -1076,7 +1076,7 @@ class BobPaymentServices
             }
         }
         $session = @$orderSession['session'];
-        if (is_null($session)) {
+        if (is_null($session) || $now > $dateAfter09Minutes) {
             $body = [
                 "session" => [
                     "authenticationLimit" => 25
