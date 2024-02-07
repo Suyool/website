@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Utils\Helper;
+use Exception;
 use Psr\Log\LoggerInterface;
 
 class LotoServices
@@ -15,13 +16,13 @@ class LotoServices
     private $helper;
     private $loggerInterface;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper,LoggerInterface $loggerInterface)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $loggerInterface)
     {
         $this->client = $client;
         $this->LOTO_API_HOST = 'https://backbone.lebaneseloto.com/Service.asmx/';
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
-        $this->loggerInterface=$loggerInterface;
+        $this->loggerInterface = $loggerInterface;
     }
 
     public function Login()
@@ -53,36 +54,41 @@ class LotoServices
 
     public function BuyPrePaid($Token, $category, $type)
     {
-        $login = $this->Login();
-        $retryattempt = 1;
-        while ($retryattempt <= 2) {
-            $body = [
-                "Token" => $login,
-                "category" => $category,
-                "type" => $type,
-            ];
-            $response = $this->helper->clientRequest($this->METHOD_POST,  $this->LOTO_API_HOST . '/PurchaseVoucher',  $body);
+        try {
+            $login = $this->Login();
+            $retryattempt = 1;
+            while ($retryattempt <= 2) {
+                $body = [
+                    "Token" => $login,
+                    "category" => $category,
+                    "type" => $type,
+                ];
+                // dd($body);
+                $response = $this->helper->clientRequest($this->METHOD_POST,  $this->LOTO_API_HOST . '/PurchaseVoucher',  $body);
 
-            $content = $response->getContent();
-            $content = $response->toArray();
+                $content = $response->getContent();
+                $content = $response->toArray();
 
-            if ($content['d']['errorinfo']['errorcode'] == 0) {
-                $submit = 0;
-            } else if ($retryattempt == 2) {
-                $submit = 0;
-            } else {
-                $submit = $content['d']['errorinfo']['errorcode'];
+                if ($content['d']['errorinfo']['errorcode'] == 0) {
+                    $submit = 0;
+                } else if ($retryattempt == 2) {
+                    $submit = 0;
+                } else {
+                    $submit = $content['d']['errorinfo']['errorcode'];
+                }
+
+                if ($submit == 0) {
+                    return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
+                } else {
+                    sleep(3);
+                    $retryattempt++;
+                }
             }
 
-            if ($submit == 0) {
-                return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
-            } else {
-                sleep(3);
-                $retryattempt++;
-            }
+            return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
+        } catch (Exception $e) {
+            return array(false, $e->getMessage());
         }
-
-        return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
     }
 
     public function BouquetGrids($ticketId)
@@ -147,7 +153,7 @@ class LotoServices
         }
     }
 
-    public function playLoto($draw, $withZeed, $gridselected, $numdraws,$mobileNo)
+    public function playLoto($draw, $withZeed, $gridselected, $numdraws, $mobileNo)
     {
         $retryattempt = 1;
         while ($retryattempt <= 2) {
@@ -159,7 +165,7 @@ class LotoServices
                 'withZeed' => $withZeed,
                 'saveToFavorite' => 1,
                 'GridsSelected' => $gridselected,
-                'PhoneNumber'=>$mobileNo
+                'PhoneNumber' => $mobileNo
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",  $body);
 
@@ -233,7 +239,7 @@ class LotoServices
     public function GetWinTicketsPrize($ticketId)
     {
         $token = $this->Login();
-        $body = ['Token' => $token,'historyId'=>$ticketId,'bouquetId'=>-1];
+        $body = ['Token' => $token, 'historyId' => $ticketId, 'bouquetId' => -1];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserTransactionHistoryDetail",  $body);
 
         $status = $response->getStatusCode(); // Get the status code

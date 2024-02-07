@@ -33,13 +33,13 @@ class AlfaController extends AbstractController
     private $lotoServices;
     private $Memcached;
 
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface,LotoServices $lotoServices,Memcached $memcached)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $sessionInterface, LotoServices $lotoServices, Memcached $memcached)
     {
         $this->mr = $mr->getManager('alfa');
         $this->params = $params;
         $this->session = $sessionInterface;
-        $this->lotoServices=$lotoServices;
-        $this->Memcached=$memcached;
+        $this->lotoServices = $lotoServices;
+        $this->Memcached = $memcached;
     }
 
     /**
@@ -409,7 +409,7 @@ class AlfaController extends AbstractController
     {
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
-        }else{
+        } else {
             // $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
@@ -422,13 +422,11 @@ class AlfaController extends AbstractController
 
     public function getVoucherPriceByTypeAlfa($type)
     {
-        $filterAlfa=$this->Memcached->getVouchers($this->lotoServices);
+        $filterAlfa = $this->Memcached->getVouchers($this->lotoServices);
         // dd($filterAlfa);
         $priceToPush = 0;
-        foreach($filterAlfa as $filterAlfa)
-        {
-            if($filterAlfa['vouchertype'] == $type)
-            {
+        foreach ($filterAlfa as $filterAlfa) {
+            if ($filterAlfa['vouchertype'] == $type) {
                 $priceToPush = $filterAlfa['priceLBP'];
             }
         }
@@ -482,103 +480,123 @@ class AlfaController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $PayResonse = $BuyPrePaid[0]["d"];
-                $dataPayResponse = $PayResonse;
-                if ($PayResonse["errorinfo"]["errorcode"] != 0) {
-                    $logs = new Logs;
-                    $logs
-                        ->setidentifier("Prepaid Request")
-                        ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
-                        ->setrequest($BuyPrePaid[1])
-                        ->setresponse(json_encode($PayResonse))
-                        ->seterror($PayResonse["errorinfo"]["errormsg"]);
-                    $this->mr->persist($logs);
-                    $this->mr->flush();
-                    $IsSuccess = false;
-                    $message = $PayResonse["errorinfo"]["errorcode"];
-
-                    //if not purchase return money
+                if ($BuyPrePaid[0] == false) {
+                    $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                    if ($responseUpdateUtilities[0]) {
-                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                        $orderupdate4
-                            ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror("{reversed " . $message . "}");
-                        $this->mr->persist($orderupdate4);
+                        if ($responseUpdateUtilities[0]) {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror("{reversed " . $message . "}");
+                            $this->mr->persist($orderupdate4);
+                            $this->mr->flush();
+                        } else {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror($responseUpdateUtilities[1]);
+                        }
+                    $IsSuccess = false;
+                    $dataPayResponse = [];
+                } else {
+                    $PayResonse = $BuyPrePaid[0]["d"];
+                    $dataPayResponse = $PayResonse;
+                    if ($PayResonse["errorinfo"]["errorcode"] != 0) {
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("Prepaid Request")
+                            ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
+                            ->setrequest($BuyPrePaid[1])
+                            ->setresponse(json_encode($PayResonse))
+                            ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                        $this->mr->persist($logs);
                         $this->mr->flush();
-                    } else {
-                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                        $orderupdate4
-                            ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1]);
+                        $IsSuccess = false;
+                        $message = $PayResonse["errorinfo"]["errorcode"];
+
+                        //if not purchase return money
+                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                        if ($responseUpdateUtilities[0]) {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror("{reversed " . $message . "}");
+                            $this->mr->persist($orderupdate4);
+                            $this->mr->flush();
+                        } else {
+                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                            $orderupdate4
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror($responseUpdateUtilities[1]);
+                        }
                     }
-                }
-                if ($PayResonse["errorinfo"]["errorcode"] == 0) {
-                    //if payment from loto provider success insert prepaid data to db
-                    $prepaid = new Prepaid;
-                    $prepaid
-                        ->setvoucherSerial($PayResonse["voucherSerial"])
-                        ->setvoucherCode($PayResonse["voucherCode"])
-                        ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                        ->setdescription($PayResonse["desc"])
-                        ->setdisplayMessage($PayResonse["displayMessage"])
-                        ->settoken($PayResonse["token"])
-                        ->setbalance($PayResonse["balance"])
-                        ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                        ->setinsertId($PayResonse["insertId"])
-                        ->setSuyoolUserId($SuyoolUserId);
+                    if ($PayResonse["errorinfo"]["errorcode"] == 0) {
+                        //if payment from loto provider success insert prepaid data to db
+                        $prepaid = new Prepaid;
+                        $prepaid
+                            ->setvoucherSerial($PayResonse["voucherSerial"])
+                            ->setvoucherCode($PayResonse["voucherCode"])
+                            ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                            ->setdescription($PayResonse["desc"])
+                            ->setdisplayMessage($PayResonse["displayMessage"])
+                            ->settoken($PayResonse["token"])
+                            ->setbalance($PayResonse["balance"])
+                            ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                            ->setinsertId($PayResonse["insertId"])
+                            ->setSuyoolUserId($SuyoolUserId);
 
-                    $this->mr->persist($prepaid);
-                    $this->mr->flush();
-
-                    $IsSuccess = true;
-                    $prepaidId = $prepaid->getId();
-                    $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
-
-                    //update order by passing prepaidId to order and set status to purshased
-                    $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                    $orderupdate
-                        ->setprepaidId($prepaid)
-                        ->setstatus(Order::$statusOrder['PURCHASED']);
-                    $this->mr->persist($orderupdate);
-                    $this->mr->flush();
-
-                    $dateString = $PayResonse["voucherExpiry"];
-                    $dateTime = new DateTime($dateString);
-
-                    $formattedDate = $dateTime->format('d/m/Y');
-
-                    //intial notification
-                    $params = json_encode([
-                        'amount' => $order->getamount(),
-                        'currency' => "L.L",
-                        'plan' => $data["desc"],
-                        'code' => $PayResonse["voucherCode"],
-                        'serial' => $PayResonse["voucherSerial"],
-                        'expiry' => $formattedDate
-                    ]);
-                    $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
-                    $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
-                    $bulk = 0; //1 for broadcast 0 for unicast
-                    $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-
-                    //tell the .net that total amount is paid
-                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
-                    if ($responseUpdateUtilities[0]) {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-                        //update te status from purshased to completed
-                        $orderupdate5
-                            ->setstatus(Order::$statusOrder['COMPLETED'])
-                            ->seterror($responseUpdateUtilities[1]);
-                        $this->mr->persist($orderupdate5);
+                        $this->mr->persist($prepaid);
                         $this->mr->flush();
-                        $message = "Success";
-                    } else {
-                        $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
-                        $orderupdate5
-                            ->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($responseUpdateUtilities[1]);
-                        $message = "something wrong while UpdateUtilities";
+
+                        $IsSuccess = true;
+                        $prepaidId = $prepaid->getId();
+                        $prepaid = $this->mr->getRepository(Prepaid::class)->findOneBy(['id' => $prepaidId]);
+
+                        //update order by passing prepaidId to order and set status to purshased
+                        $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                        $orderupdate
+                            ->setprepaidId($prepaid)
+                            ->setstatus(Order::$statusOrder['PURCHASED']);
+                        $this->mr->persist($orderupdate);
+                        $this->mr->flush();
+
+                        $dateString = $PayResonse["voucherExpiry"];
+                        $dateTime = new DateTime($dateString);
+
+                        $formattedDate = $dateTime->format('d/m/Y');
+
+                        //intial notification
+                        $params = json_encode([
+                            'amount' => $order->getamount(),
+                            'currency' => "L.L",
+                            'plan' => $data["desc"],
+                            'code' => $PayResonse["voucherCode"],
+                            'serial' => $PayResonse["voucherSerial"],
+                            'expiry' => $formattedDate
+                        ]);
+                        $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
+                        $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                        $bulk = 0; //1 for broadcast 0 for unicast
+                        $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+
+                        //tell the .net that total amount is paid
+                        $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
+                        if ($responseUpdateUtilities[0]) {
+                            $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                            //update te status from purshased to completed
+                            $orderupdate5
+                                ->setstatus(Order::$statusOrder['COMPLETED'])
+                                ->seterror($responseUpdateUtilities[1]);
+                            $this->mr->persist($orderupdate5);
+                            $this->mr->flush();
+                            $message = "Success";
+                        } else {
+                            $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
+                            $orderupdate5
+                                ->setstatus(Order::$statusOrder['CANCELED'])
+                                ->seterror($responseUpdateUtilities[1]);
+                            $message = "something wrong while UpdateUtilities";
+                        }
                     }
                 }
             } else {
