@@ -32,7 +32,7 @@ class orders
     private $transId;
 
     /**
-     * @ORM\Column(type="integer", name="merchant_id")
+     * @ORM\Column(type="integer")
      */
     private $merchantId;
 
