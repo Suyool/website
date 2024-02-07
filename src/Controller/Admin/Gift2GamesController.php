@@ -62,7 +62,7 @@ class Gift2GamesController extends AbstractController
             15
         );
 
-        return $this->render('Admin/Gift2games/products.html.twig', [
+        return $this->render('Admin/Gift2Games/products.html.twig', [
             'products' => $products,
             'importForm' => $importForm->createView(),
         ]);
@@ -84,7 +84,7 @@ class Gift2GamesController extends AbstractController
             10                           // Number of items per page
         );
 
-        return $this->render('Admin/Gift2games/category.html.twig', [
+        return $this->render('Admin/Gift2Games/category.html.twig', [
             'products' => $products,
         ]);
     }
@@ -105,7 +105,7 @@ class Gift2GamesController extends AbstractController
                 throw $this->createNotFoundException('Order not found');
             }
 
-            return $this->render('Admin/Gift2games/orders.html.twig', [
+            return $this->render('Admin/Gift2Games/orders.html.twig', [
                 'order' => $order,
                 'form' => $this->createForm(SearchAlfaOrdersForm::class)->createView(),
             ]);
@@ -129,7 +129,7 @@ class Gift2GamesController extends AbstractController
             15
         );
 
-        return $this->render('Admin/Gift2games/orders.html.twig', [
+        return $this->render('Admin/Gift2Games/orders.html.twig', [
             'pagination' => $pagination,
             'form' => $AlfaSearchForm,
         ]);
@@ -148,7 +148,7 @@ class Gift2GamesController extends AbstractController
             $request->get('page', 1),   // Current page number
             15              // Records per page
         );
-        return $this->render('Admin/Gift2games/logs.html.twig', [
+        return $this->render('Admin/Gift2Games/logs.html.twig', [
             'logs' => $pagination,
         ]);
     }
@@ -168,7 +168,7 @@ class Gift2GamesController extends AbstractController
             15
         );
 
-        return $this->render('Admin/Gift2games/transactions.html.twig', [
+        return $this->render('Admin/Gift2Games/transactions.html.twig', [
             'transactions' => $transactions,
         ]);
     }
@@ -328,7 +328,7 @@ class Gift2GamesController extends AbstractController
         $checkBalance = json_decode($checkBalance[1]);
         $balance = $checkBalance->data;
 
-        return $this->render('Admin/Gift2games/balance.html.twig', [
+        return $this->render('Admin/Gift2Games/balance.html.twig', [
             'balance' => $balance,
         ]);
     }
