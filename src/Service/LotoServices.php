@@ -130,7 +130,7 @@ class LotoServices
             $body = [
                 'Token' => $token,
                 'fromDate' =>  date('Y-m-d'),
-                'toDate' => date('Y-m-d', strtotime("+1 day")),
+                'toDate' => date('Y-m-d', strtotime("+2 days")),
                 'transactionType' => 0
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}GetUserTransactionHistory",  $body);
