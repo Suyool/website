@@ -32,6 +32,11 @@ class orders
     private $transId;
 
     /**
+     * @ORM\Column(type="integer", name="merchant_id")
+     */
+    private $merchantId;
+
+    /**
      * @ORM\Column(name="amount")
      */
     private $amount;
@@ -178,6 +183,18 @@ class orders
     public function gettype()
     {
         return $this->type;
+    }
+
+    public function getMerchantId(): ?int
+    {
+        return $this->merchantId;
+    }
+
+    public function setMerchantId(int $merchantId): self
+    {
+        $this->merchantId = $merchantId;
+
+        return $this;
     }
 
     public function getCreated()

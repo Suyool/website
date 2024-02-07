@@ -896,7 +896,7 @@ class BobPaymentServices
         }
     }
 
-    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code, $type)
+    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code, $type, $merchantId = null)
     {
         if ($this->session->get('simulation') == 'true') {
             $order = $this->mr->getRepository(test_orders::class)->findTestTransactionsThatIsNotCompleted($transId);
@@ -916,6 +916,7 @@ class BobPaymentServices
             $order->setcurrency($currency);
             $order->setAttempt($attempts);
             $order->settype($type);
+            $order->setMerchantId($merchantId);
             $order->setCode($code);
             $this->mr->persist($order);
             $this->mr->flush();
@@ -937,6 +938,7 @@ class BobPaymentServices
                 $order->setcurrency($currency);
                 $order->setAttempt($attempts);
                 $order->settype($type);
+                $order->setMerchantId($merchantId);
                 $order->setCode($code);
                 $this->mr->persist($order);
                 $this->mr->flush();

@@ -309,7 +309,7 @@ class TopupController extends AbstractController
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
 
-            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,$paymentType);
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,$paymentType,$merchantId);
 
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");
