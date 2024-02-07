@@ -451,6 +451,13 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_GESPASALINT" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_GESPASALINT" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_GESPASALINT" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a GESPA International SAL employee.",
+    //altatrade
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALTATRADE" => "What are the benefits for Altatrade SAL employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ALTATRADE" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as you are an Altatrade SAL employee",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_ALTATRADE" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_ALTATRADE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ALTATRADE" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Altatrade SAL employee.",
+
 
     //fig
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Frem Industrial Group employees?",
