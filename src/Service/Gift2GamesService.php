@@ -32,9 +32,9 @@ class Gift2GamesService
         $this->mr = $mr->getManager('gift2games');
 
         if ($_ENV['APP_ENV'] == 'prod') {
-            $this->G2G_API_HOST = '';
-            $this->email = "";
-            $this->apiKey = "";
+            $this->G2G_API_HOST = 'https://gift2games.net/api/';
+            $this->email = "it@suyool.com";
+            $this->apiKey = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml0QHN1eW9vbC5jb20iLCJ0b2tlbl90aW1lIjoxNzA3MzA0NzEwfQ.2TrHQtu-6eCgdEb7GGGoytRZ-rhzj566rbePmKQKe_k";
         } else {
             $this->G2G_API_HOST = 'https://gift2games.net/api/';
             $this->email = "testsuyool@suyool.com";
