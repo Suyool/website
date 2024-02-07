@@ -451,6 +451,7 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_GESPASALINT" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_GESPASALINT" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_GESPASALINT" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a GESPA International SAL employee.",
+
     //altatrade
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ALTATRADE" => "What are the benefits for Altatrade SAL employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ALTATRADE" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as you are an Altatrade SAL employee",
@@ -460,17 +461,24 @@ return [
 
     //seapera
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_SEAPERA" => "What are the benefits for Seapera SAL employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_SEAPERA" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Seapera SAL employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_SEAPERA" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Seapera SAL employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_SEAPERA" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SEAPERA" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SEAPERA" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Seapera SAL employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SEAPERA" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Seapera SAL employee.",
 
     //Mediapak
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MEDIAPAK" => "What are the benefits for Mediapak employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDIAPAK" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Mediapak employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MEDIAPAK" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Mediapak employee.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDIAPAK" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDIAPAK" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MEDIAPAK" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Mediapak employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MEDIAPAK" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Mediapak employee.",
+
+    //Immobiliere
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_IMMOBILIERE" => "What are the benefits for Al Karma Immobiliere SAL employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_IMMOBILIERE" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Al Karma Immobiliere SAL employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_IMMOBILIERE" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_IMMOBILIERE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_IMMOBILIERE" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Al Karma Immobiliere SAL employee.",
 
     //fig
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIG" => "What are the benefits for Frem Industrial Group employees?",
