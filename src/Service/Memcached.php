@@ -16,7 +16,7 @@ class Memcached
         if ($_ENV['APP_ENV'] == 'prod') {
             $file = "../var/cache/prod/alfaVoucher.txt";
         } else {
-            // $file = "../var/cache/dev/alfaVoucher.txt";
+            $file = "../var/cache/dev/alfaVoucher.txt";
         }
 
         $clearingTime = time() - (60);
@@ -40,6 +40,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 13:
                         $item['desc1'] = "$3.02 Alfa recharge card";
@@ -50,6 +52,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 4:
                         $item['desc1'] = "$4.50 Alfa recharge card";
@@ -59,6 +63,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 35:
                         $item['desc1'] = "$7.58 Alfa recharge card";
@@ -68,6 +74,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 65:
                         $item['desc1'] = "$15.15 Alfa recharge card";
@@ -77,6 +85,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 95:
                         $item['desc1'] = "$22.73 Alfa recharge card";
@@ -86,6 +96,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 32:
                         $item['desc1'] = "$7.50 Alfa recharge card";
@@ -95,6 +107,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 33:
                         $item['desc1'] = "Waffer Credit and 30 Days Validity";
@@ -104,6 +118,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/alfa/Bundle{$item['vouchertype']}h.png";
                         break;
                     default:
                         $item['desc1'] = "default";
@@ -152,6 +168,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 10:
                         $item['desc1'] = "10 Days Validity & 5 Days Grace";
@@ -162,6 +180,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 29:
                         $item['desc1'] = "30 Days Validity";
@@ -172,6 +192,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 30:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
@@ -182,6 +204,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 60:
                         $item['desc1'] = "60 Days Validity & 5 Days Grace";
@@ -192,6 +216,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 90:
                         $item['desc1'] = "90 Days Validity & 5 Days Grace";
@@ -202,6 +228,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     case 31:
                         $item['desc1'] = "30 Days Validity";
@@ -212,6 +240,8 @@ class Memcached
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
                         $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['image']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/bundleImg{$item['vouchertype']}h.png";
+                        $item['icon']= (isset($_SERVER['HTTPS']) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST']."/build/images/Touch/Bundle{$item['vouchertype']}h.png";
                         break;
                     default:
                         $item['desc1'] = "default";
