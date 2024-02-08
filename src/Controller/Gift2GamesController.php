@@ -35,7 +35,7 @@ class Gift2GamesController extends AbstractController
         $this->params = $params;
         $this->session = $sessionInterface;
         $this->mr = $mr->getManager('gift2games');
-        $this->suyoolServices = new SuyoolServices($params->get('GIFT2GAMES_MERCHANT_ID'));
+        $this->suyoolServices = new SuyoolServices(null,null,null,null,$loggerInterface);
         $this->gamesService = $gamesService;
         $this->notificationServices = $notificationServices;
         $this->loggerInterface = $loggerInterface;
