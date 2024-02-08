@@ -239,7 +239,7 @@ class Gift2GamesController extends AbstractController
                         'TotalAmount' => $amount,
                         'Currency' => $currency,
                     ]);
-                    $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                    $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $purchaseData['data']['serialCode']);
 
                     $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
                     if ($updateUtility) {
