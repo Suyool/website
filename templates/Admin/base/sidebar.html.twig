@@ -117,6 +117,24 @@
                             </li>
                         </ul>
                     </li>
+                        <li>
+                            <a href="#gift2games" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Gift2Games</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="gift2games" data-bs-parent="#menu">
+                                <li class="w-100">
+                                    <a href="{{ path('admin_gift2games_products') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Products</span></a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{ path('admin_gift2games_logs') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Logs</span></a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{ path('admin_gift2games_transactions') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Transactions</span></a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="{{ path('admin_gift2games_orders_list') }}" class="nav-link px-0"><span class="d-none d-sm-inline">Orders</span></a>
+                                </li>
+                            </ul>
+                        </li>
                     <li>
                         <a href="#ogero" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <img src="{{asset('build/images/plusadmin.svg')}}" width="13px"/> <span class="ms-1 d-none d-sm-inline text-white">Ogero</span> </a>
@@ -132,6 +150,7 @@
                             </li>
                         </ul>
                     </li>
+
                     {% endif %}
 
                     <li>

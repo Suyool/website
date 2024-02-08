@@ -1,0 +1,35 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Logs</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'ID', 'l.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Identifier', 'l.identifier') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'URL', 'l.url') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Request', 'l.request') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Response', 'l.response') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(logs, 'Error', 'l.error') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for log in logs %}
+            <tr>
+                <td>{{ log.id }}</td>
+                <td>{{ log.identifier }}</td>
+                <td>{{ log.url }}</td>
+                <td>{{ log.request }}</td>
+                <td><p class="answers-show">{{ log.response }}</p></td>
+                <td>{{ log.error }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(logs) }}
+    </div>
+{% endblock %}
+

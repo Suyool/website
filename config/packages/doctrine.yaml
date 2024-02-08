@@ -27,6 +27,9 @@ doctrine:
 
             sodetel:
                 url: '%env(resolve:SODETEL_DATABASE_URL)%'
+            gift2games:
+                url: '%env(resolve:GIFT2GAMES_DATABASE_URL)%'
+
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -150,6 +153,16 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Sodetel'
                         prefix: 'App\Entity\Sodetel'
                         alias: Sodetel
+
+            gift2games:
+                connection: gift2games
+                mappings:
+                    Gift2Games:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Gift2Games'
+                        prefix: 'App\Entity\Gift2Games'
+                        alias: Gift2Games
 
             invoices:
                 connection: invoices

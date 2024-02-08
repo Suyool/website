@@ -1,0 +1,92 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+	<h1 class="mb-4">Products</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">id</th>
+				<th scope="col">Parent</th>
+				<th scope="col">CategoryId</th>
+				<th scope="col">title</th>
+				<th scope="col">image</th>
+				<th scope="col">Short Title</th>
+				<th scope="col">Type</th>
+				<th scope="col">Canceled</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for product in products  %}
+
+				<tr>
+					<td>{{ product.id }}</td>
+			<td>{% if product.parent is not null %}{{ product.parent.title }}{% endif %}</td>
+					<td>{{ product.categoryId }}</td>
+					<td>{{ product.title }}</td>
+					<td><img src="{{ product.image }}" width="100px"/></td>
+					<td>{{ product.shortTitle }}</td>
+					<td>{{ product.type }}</td>
+					<td>{{ product.canceled }}</td>
+					<td>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> 
+								Action
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								<li>
+									<a class="dropdown-item" href="{{path('admin_gift2games_update_canceled_cat',{'id':product.id})}}">
+										{% if product.canceled %}Enabled{% else %}Disabled
+										{% endif %}
+									</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="pagination justify-content-center">
+		{{ knp_pagination_render(products) }}
+	</div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Change Sell Price</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="" id="updateSellPriceForm" method="post">
+                <input type="number" name="sellprice" min="1" required>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+                </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {# <button type="button" class="btn btn-primary" onclick="updateSellPrice()">Save changes</button> #}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        var nodeList = document.querySelectorAll('[data-bs-target="#exampleModal"]');
+
+            nodeList.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    var productId = element.dataset.id;
+                    console.log(productId);
+                    document.getElementById('updateSellPriceForm').action = "/admin/gift2games/update/" + productId;
+                });
+            });
+        function updateSellPrice() {
+             document.getElementById('updateSellPriceForm').submit();
+        }
+    </script>
+
+
+{% endblock %}

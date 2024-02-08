@@ -88,15 +88,18 @@ class SuyoolServices
     /**
      * Push Utility Api
      */
-    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees,$merchantId = null)
     {
         $sum = number_format((float) $sum, 1, '.', '');
-        $fees = number_format((float) $fees, 1, '.', '');
-        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $this->merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
+        $fees = number_format((float) $fees, 3, '.', '');
+        $merchantAccountID = isset($merchantId) && $merchantId !== null ? $merchantId : $this->merchantAccountID;
+
+
+        $Hash = base64_encode(hash($this->hash_algo, $SuyoolUserId . $merchantAccountID . $id . $sum . $fees . $currency . $this->certificate, true));
         try {
             $body = [
                 'userAccountID' => $SuyoolUserId,
-                "merchantAccountID" => $this->merchantAccountID,
+                "merchantAccountID" => $merchantAccountID,
                 'orderID' => $id,
                 'amount' => $sum,
                 'fees' => $fees,
@@ -112,6 +115,20 @@ class SuyoolServices
             }
 
             $push_utility_response = $response->toArray(false);
+
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($body));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
+
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($push_utility_response));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
 
             $error = "";
             $globalCode = $push_utility_response['globalCode'];

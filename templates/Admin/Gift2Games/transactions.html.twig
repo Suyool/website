@@ -1,0 +1,38 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block content %}
+
+    <h1 class="mb-4">Transactions</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'id', 't.id') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'ProductId', 't.productid') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'OrderId', 't.orderId') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'Description', 't.description') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'Price', 't.price') }}</th>
+            <th scope="col">{{ knp_pagination_sortable(transactions, 'Currency', 't.currency') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.productid }}</td>
+                <td>
+                    <a href="{{ path('admin_gift2games_orders', {'id': transaction.orderId}) }}">
+                        {{ transaction.orderId }}
+                    </a>
+                </td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.price }}</td>
+                <td>{{ transaction.currency }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(transactions) }}
+    </div>
+
+{% endblock %}

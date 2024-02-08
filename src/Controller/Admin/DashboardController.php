@@ -33,7 +33,7 @@ class DashboardController extends AbstractController
     /**
      * @Route("/admin", name="admin_homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,Gift2GamesController $gift2GamesController)
     {
         $dashboard = new DashboardService();
         $drawId=$this->LotoRepository->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
@@ -43,13 +43,16 @@ class DashboardController extends AbstractController
         $support=$dashboard->SupportDashboard($this->supportRepository);
         $payment=$dashboard->PaymentDashboard($this->paymentRepository);
         $ogero=$dashboard->OgeroDashboard($this->ogeroRepository);
+        $gift2gamesBalance = $gift2GamesController->getGift2GamesBalance();
+        $balance  = str_replace('"', '', $gift2gamesBalance->getContent());
         return $this->render('Admin/dashboard.html.twig', array(
             'loto'=>$loto,
             'alfa'=>$alfa,
             'touch'=>$touch,
             'support'=>$support,
             'payment'=>$payment,
-            'ogero'=>$ogero
+            'ogero'=>$ogero,
+            'gift2gamesBalance' =>$balance
         ));
     }
 }

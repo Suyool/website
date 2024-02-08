@@ -108,5 +108,15 @@ class Helper
         
             return $response;
     }
+
+    public function clientRequestWithHeaders($method, $url, $body, $headers)
+    {
+            $response = $this->client->request($method, $url, [
+                'body' => $body,
+                'headers' => $headers
+            ]);
+
+            return $response;
+    }
     
 }
