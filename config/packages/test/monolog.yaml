@@ -9,6 +9,7 @@ monolog:
         - cashout
         - cashin
         - topup
+        - Alfa
     handlers:
         users:
             type: stream
@@ -50,6 +51,11 @@ monolog:
             path: "%kernel.logs_dir%/topup.log"
             level: debug
             channels: ['topup']
+        Alfa:
+            type: stream
+            path: "%kernel.logs_dir%/alfa.log"
+            level: debug
+            channels: ['Alfa']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

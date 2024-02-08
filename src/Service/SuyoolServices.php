@@ -71,6 +71,32 @@ class SuyoolServices
         return $decrypted_string;
     }
 
+    public static function decryptWebKey($webkey)
+    {
+        $webkeyDecrypted = openssl_decrypt($webkey, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
+        // dd($webkeyDecrypted);
+        try {
+            $webkeyParts = explode('!#!', $webkeyDecrypted);
+            $webkeyArray = [
+                'merchantId' => $webkeyParts[0],
+                'devicesType' => $webkeyParts[1],
+                'lang' => $webkeyParts[2],
+                'timestamp' => $webkeyParts[3],
+                'message' => 'Success',
+            ];
+        } catch (Exception $e) {
+            $webkeyArray = [
+                'merchantId' => null,
+                'devicesType' => null,
+                'lang' => null,
+                'timestamp' => null,
+                'message' => 'Failed to decrypt webkey',
+            ];
+        }
+
+        return $webkeyArray;
+    }
+
     public static function aesDecryptString($base64StringToDecrypt)
     {
         // $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', "hdjs812k389dksd5", 0, $_ENV['INITIALLIZATION_VECTOR']);
@@ -199,6 +225,7 @@ class SuyoolServices
             ]
         ]);
         $getAllUsers = $response->toArray(false);
+        // dd(json_encode($getAllUsers));
         $dataString = $getAllUsers["data"];
         $dataArray = json_decode($dataString, true);
         return $dataArray;
