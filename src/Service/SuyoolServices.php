@@ -116,6 +116,20 @@ class SuyoolServices
 
             $push_utility_response = $response->toArray(false);
 
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($body));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
+
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($push_utility_response));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
+
             $error = "";
             $globalCode = $push_utility_response['globalCode'];
             $message = $push_utility_response['data'];

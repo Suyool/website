@@ -143,6 +143,10 @@ services:
     App\Service\SodetelService:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Sodetel' }
+
+    App\Controller\Gift2GamesController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Users' }
         
 
     # App\Controller\LotoController:

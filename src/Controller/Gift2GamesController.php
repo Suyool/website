@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
+use Psr\Log\LoggerInterface;
 
 class Gift2GamesController extends AbstractController
 {
@@ -27,8 +28,9 @@ class Gift2GamesController extends AbstractController
     private $mr;
     private $gamesService;
     private $notificationServices;
+    private $loggerInterface;
 
-    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface,ManagerRegistry $mr,Gift2GamesService $gamesService, NotificationServices $notificationServices)
+    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface,ManagerRegistry $mr,Gift2GamesService $gamesService, NotificationServices $notificationServices,LoggerInterface $loggerInterface)
     {
         $this->params = $params;
         $this->session = $sessionInterface;
@@ -36,6 +38,7 @@ class Gift2GamesController extends AbstractController
         $this->suyoolServices = new SuyoolServices($params->get('GIFT2GAMES_MERCHANT_ID'));
         $this->gamesService = $gamesService;
         $this->notificationServices = $notificationServices;
+        $this->loggerInterface = $loggerInterface;
     }
 
 
