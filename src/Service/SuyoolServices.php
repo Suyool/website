@@ -101,8 +101,8 @@ class SuyoolServices
         // return $decryptedData;
         try {
             $passphraseBytes = utf8_encode("hdjs812k389dksd5");
-            $decryptedData = openssl_decrypt($base64StringToDecrypt, 'AES128', $passphraseBytes, 0, $_ENV['INITIALLIZATION_VECTOR']);
-
+            $decryptedData = openssl_encrypt($base64StringToDecrypt, 'AES128', $passphraseBytes, 0, $_ENV['INITIALLIZATION_VECTOR']);
+dd($decryptedData);
             return $decryptedData;
         } catch (Exception $e) {
             return $base64StringToDecrypt;
@@ -137,7 +137,19 @@ class SuyoolServices
 
             $push_utility_response = $response->toArray(false);
             // $this->cashout->error(json_encode($push_utility_response));
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($body));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
 
+            if ($this->userlog) {
+                $this->userlog->info(json_encode($push_utility_response));
+            } else {
+                // Handle the case when the logger is not initialized
+                error_log('Logger not initialized!');
+            }
             $error = "";
             $globalCode = $push_utility_response['globalCode'];
             $message = $push_utility_response['data'];

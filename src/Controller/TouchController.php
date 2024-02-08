@@ -946,20 +946,32 @@ class TouchController extends AbstractController
      * Desc: Fetch ReCharge vouchers
      * @Route("/api/touch/ReCharge", name="api_touch_ReCharge",methods="GET")
      */
-    public function ReChargeApi(LotoServices $lotoServices, Memcached $Memcached)
+    public function ReChargeApi(LotoServices $lotoServices, Memcached $Memcached,NotificationServices $notificationServices)
     {
-        $filter = null;
-        if ($_ENV['APP_ENV'] == "prod") {
-            $filter = $Memcached->getVouchersTouch($lotoServices);
-        }
-        else {
-             $filter =  $Memcached->getVouchersTouch($lotoServices);
-        }
+        $webkey = apache_request_headers();
+        $webkey = $webkey['Authorization'];
+        $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
-        return new JsonResponse([
-            'status' => true,
-            'message' => $filter
-        ], 200);
+        if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
+            $filter = null;
+            if ($_ENV['APP_ENV'] == "prod") {
+                $filter = $Memcached->getVouchersTouch($lotoServices);
+            } else {
+                $filter =  $Memcached->getVouchersTouch($lotoServices);
+            }
+            // dd($filter);
+
+            return new JsonResponse([
+                'status' => true,
+                'message' => "Success retrieve data",
+                'data' => array_merge($filter)
+            ], 200);
+        } else {
+            return new JsonResponse([
+                'status' => false,
+                'message' => "Unauthorize"
+            ], 401);
+        }
     }
 
 
@@ -1096,7 +1108,7 @@ class TouchController extends AbstractController
                     $this->mr->persist($orderupdate);
                     $this->mr->flush();
 
-//                    $dateString = $PayResonse["voucherExpiry"];
+                    //                    $dateString = $PayResonse["voucherExpiry"];
                     $dateString = "23-09-2024";
                     $dateTime = new DateTime($dateString);
 
@@ -1114,9 +1126,9 @@ class TouchController extends AbstractController
                         'amount' => $order->getamount(),
                         'currency' => "L.L",
                         'plan' => $data["desc"],
-//                        'code' => $PayResonse["voucherCode"],
-                    'code' => "112233445566",
-//                        'serial' => $PayResonse["voucherSerial"],
+                        //                        'code' => $PayResonse["voucherCode"],
+                        'code' => "112233445566",
+                        //                        'serial' => $PayResonse["voucherSerial"],
                         'serial' => "123456789",
                         'expiry' => $formattedDate
                     ]);
@@ -1179,6 +1191,4 @@ class TouchController extends AbstractController
             'data' => $dataPayResponse
         ], 200);
     }
-
-
 }

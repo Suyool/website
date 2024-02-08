@@ -449,7 +449,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            // $filter =  $Memcached->getVouchers($lotoServices);
+            $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
@@ -833,7 +833,9 @@ class AlfaController extends AbstractController
             return new JsonResponse([
                 'status' => true,
                 'message' => $message,
-                'invoicesId' => $invoicesId
+                'data' => [
+                    'invoiceId' => $invoicesId
+                ]
             ], 200);
         } else {
             return new JsonResponse([
@@ -915,13 +917,15 @@ class AlfaController extends AbstractController
                 $message = "No data retrived!!";
                 $invoicesId = -1;
             }
-
-            return new JsonResponse([
-                'status' => true,
-                'message' => $message,
+            $parameters = [
                 'postpayed' => $invoicesId,
                 'displayData' => $displayData,
                 'displayedFees' => $displayedFees,
+            ];
+            return new JsonResponse([
+                'status' => true,
+                'message' => $message,
+                'data' => $parameters
             ], 200);
         } else {
             return new JsonResponse([
@@ -1109,18 +1113,22 @@ class AlfaController extends AbstractController
                 $dataPayResponse = -1;
                 $message = "Can not retrive data !!";
             }
-
-            return new JsonResponse([
-                'status' => true,
+            $parameters = [
                 'message' => $message,
                 'IsSuccess' => $IsSuccess,
                 'flagCode' => $flagCode,
                 'data' => $dataPayResponse,
+            ];
+            return new JsonResponse([
+                'status' => true,
+                'message' => "Success",
+                'data' => $parameters
             ], 200);
         } else {
             return new JsonResponse([
-                'status' => false
-            ]);
+                'status' => false,
+                'message' => "Unauthorize"
+            ], 401);
         }
     }
 
@@ -1146,12 +1154,14 @@ class AlfaController extends AbstractController
 
             return new JsonResponse([
                 'status' => true,
-                'message' => $filter
+                'message' => "Success retrieve data",
+                'data' => $filter
             ], 200);
         } else {
             return new JsonResponse([
-                'status' => false
-            ]);
+                'status' => false,
+                'message' => "Unauthorize"
+            ], 401);
         }
     }
 
@@ -1161,7 +1171,7 @@ class AlfaController extends AbstractController
      * Desc: Buy PrePaid vouchers
      * @Route("api/alfa/BuyPrePaid", name="ap2_alfa_BuyPrePaid",methods="POST")
      */
-    public function ReChargeBuyApi(LotoServices $lotoServices, Memcached $Memcached, NotificationServices $notificationServices,Request $request)
+    public function ReChargeBuyApi(LotoServices $lotoServices, Memcached $Memcached, NotificationServices $notificationServices, Request $request)
     {
         $webkey = apache_request_headers();
         $webkey = $webkey['Authorization'];
@@ -1293,11 +1303,11 @@ class AlfaController extends AbstractController
                             'amount' => $order->getamount(),
                             'currency' => "L.L",
                             // 'plan' => $data["desc"],
-                            'plan'=>1233,
+                            'plan' => 1233,
                             // 'code' => $PayResonse["voucherCode"],
-                            'code'=>1231223425,
+                            'code' => 1231223425,
                             // 'serial' => $PayResonse["voucherSerial"],
-                            'serial'=>23455,
+                            'serial' => 23455,
                             'expiry' => $formattedDate
                         ]);
                         // $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
@@ -1349,18 +1359,23 @@ class AlfaController extends AbstractController
                 $dataPayResponse = -1;
                 $message = "Can not retrive data !!";
             }
-
-            return new JsonResponse([
-                'status' => true,
-                'message' => $message,
+            $parameters = [
+                'message'=>$message,
                 'IsSuccess' => $IsSuccess,
                 'flagCode' => $flagCode,
                 'data' => $dataPayResponse
+            ];
+
+            return new JsonResponse([
+                'status' => true,
+                'message' => "Success",
+                'data' => $parameters
             ], 200);
         } else {
             return new JsonResponse([
-                'status' => false
-            ]);
+                'status' => false,
+                'message' => "Unauthorize"
+            ], 401);
         }
     }
 }

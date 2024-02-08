@@ -27,7 +27,7 @@ class DomainAccessListener
     private function isApiPath($request)
     {
         // Check if the request path is within the API paths
-        return strpos($request->getPathInfo(), '/merchant/v1/invoices') === 0;
+        return strpos($request->getPathInfo(), '/merchant/v1/invoices') === 0 ;
     }
 
     private function isAdminPath($request)
