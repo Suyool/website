@@ -909,7 +909,7 @@ class AlfaController extends AbstractController
                     $this->mr->flush();
 
                     $displayData = -1;
-                    $message = $retrieveResults[2];
+                    $message = $retrieveResults[1];
                     $invoicesId = -1;
                 }
             } else {
