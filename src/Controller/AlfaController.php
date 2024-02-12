@@ -1252,6 +1252,14 @@ class AlfaController extends AbstractController
                                 $bulk = 0; //1 for broadcast 0 for unicast
                                 $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
                             }
+                            $popup = [
+                                "Title" => "Alfa Bill Paid Successfully",
+                                "globalCode" => 0,
+                                "flagCode" => 101,
+                                "Message" => "You have successfully paid purchased the Alfa {$data['desc']}",
+                                "code"=>"*14*" . "112233445566" . "#",
+                                "isPopup" => true
+                            ];
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                             if ($responseUpdateUtilities[0]) {
@@ -1305,7 +1313,7 @@ class AlfaController extends AbstractController
                     'message' => $message,
                     'IsSuccess' => $IsSuccess,
                     'flagCode' => $flagCode,
-                    'popup' => @$popup
+                    'Popup' => @$popup
                 ];
 
                 return new JsonResponse([

@@ -968,7 +968,7 @@ class TouchController extends AbstractController
      * PrePaid
      * Provider : LOTO
      * Desc: Buy PrePaid vouchers
-     * @Route("api/alfa/BuyPrePaid", name="ap2_alfa_BuyPrePaid",methods="POST")
+     * @Route("api/touch/BuyPrePaid", name="ap2_touch_BuyPrePaid",methods="POST")
      */
     public function ReChargeBuyApi(LotoServices $lotoServices, Memcached $Memcached, NotificationServices $notificationServices, Request $request)
     {
@@ -979,12 +979,12 @@ class TouchController extends AbstractController
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
                 $SuyoolUserId = $webkeyDecrypted['merchantId'];
-                $suyoolServices = new SuyoolServices($this->params->get('ALFA_PREPAID_MERCHANT_ID'));
+                $suyoolServices = new SuyoolServices($this->params->get('TOUCH_PREPAID_MERCHANT_ID'));
                 $data = json_decode($request->getContent(), true);
                 $flagCode = null;
 
                 if ($data != null) {
-                    $price = $this->getVoucherPriceByTypeAlfa($data["type"]);
+                    $price = $this->getVoucherPriceByTypeTouch($data["type"]);
                     //Initial order with status pending
                     $order = new Order;
                     $order
@@ -999,7 +999,7 @@ class TouchController extends AbstractController
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-                    $order_id = $this->params->get('ALFA_PREPAID_MERCHANT_ID') . "-" . $order->getId();
+                    $order_id = $this->params->get('TOUCH_PREPAID_MERCHANT_ID') . "-" . $order->getId();
 
                     $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId' => $SuyoolUserId]);
 
@@ -1117,6 +1117,14 @@ class TouchController extends AbstractController
                                 $bulk = 0; //1 for broadcast 0 for unicast
                                 $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
                             }
+                            $popup = [
+                                "Title" => "Touch Bill Paid Successfully",
+                                "globalCode" => 0,
+                                "flagCode" => 101,
+                                "Message" => "You have successfully paid purchased the Touch {$data['desc']}",
+                                "code"=>"*14*" . "112233445566" . "#",
+                                "isPopup" => true
+                            ];
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
                             if ($responseUpdateUtilities[0]) {
@@ -1170,7 +1178,7 @@ class TouchController extends AbstractController
                     'message' => $message,
                     'IsSuccess' => $IsSuccess,
                     'flagCode' => $flagCode,
-                    'popup' => @$popup
+                    'Popup' => @$popup
                 ];
 
                 return new JsonResponse([
