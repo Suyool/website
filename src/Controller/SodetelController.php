@@ -77,16 +77,33 @@ class SodetelController extends AbstractController
         $identifier = $parameters['identifier'];
         $cards = $sodetelService->getAvailableCards($service, $identifier);
 
+//        dd($cards);
+
         if (isset($cards[0])) {
             $logs = new Logs;
             $logs
                 ->setidentifier("Sodetel Request")
                 ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
                 ->setrequest(json_encode(array($service, $identifier)))
-                ->setresponse(null)
-                ->seterror(json_encode($cards[1]));
+                ->setresponse(json_encode($cards[1]))
+                ->seterror(null);
             $this->mr->persist($logs);
             $this->mr->flush();
+
+            if($cards[0]){
+                $decodedCards = json_decode($cards[1], true);
+
+//                dd($decodedCards);
+
+                $request = new SodetelRequest;
+                $request
+                    ->setIdentifier($identifier)
+                    ->setServices(json_encode($decodedCards['0']));
+
+                $this->mr->persist($request);
+                $this->mr->flush();
+            }
+
         }
         if(isset($cards['status']) && $cards['status']){
             $response = new Response();
@@ -155,7 +172,7 @@ class SodetelController extends AbstractController
         $status = 200;
         $message = "";
 
-        if ($data != null && $data['requestId']) {
+        if ($data != null && isset($data['requestId'])) {
             // request.bundle == "dsl" || request.bundle == "fiber" => SODETEL_POSTPAID_MERCHANT_ID
             // request.bundle == "4g" => SODETEL_4G_MERCHANT_ID
 
@@ -364,6 +381,17 @@ class SodetelController extends AbstractController
                 $status = 400;
             }
         } else {
+            $logs = new Logs;
+            $logs
+                ->setidentifier("data request")
+                ->seturl(null)
+                ->setrequest(json_encode($data))
+                ->setresponse(null)
+                ->seterror("bad request");
+
+            $this->mr->persist($logs);
+            $this->mr->flush();
+
             $message = "bad request";
             $flagCode = "";
             $status = 400;
