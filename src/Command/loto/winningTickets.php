@@ -156,10 +156,32 @@ class winningTickets extends Command
                 ];
             }
         }
+        // ob_start();
+        // $data1=array(
+        //     array('ticketId', 'Loto', 'Zeed','Loto Numbers','Zeed Numbers')
+        // );
+        // $data = array();
+        // $data[] = $data1[0]; // Add the header row from $data1
+
         $text = "Draw Number: {$drawId} <br> Loto winning numbers: {$getLastResults->getnumbers()} <br> Zeed winning numbers: {$getLastResults->getzeednumber1()} <br><br>";
         foreach ($body as $body) {
             $text .= "TicketId: {$body['ticketId']} , Loto: {$body['Loto']} , Zeed : {$body['Zeed']} , Loto grids win : {$body['LotoNumbers']} , Zeed numbers : {$body['ZeedNumbers']} <br>";
+            // $data[] = array($body['ticketId'], $body['Loto'], $body['Zeed'], $body['LotoNumbers'], $body['ZeedNumbers']);
         }
+        
+        // $filename = "./public/winners" . date('Y-m-d') .".csv";
+        // $fp = fopen($filename, 'w');
+        
+        // if ($fp !== FALSE) {
+        //     foreach ($data as $row) {
+        //         fputcsv($fp, $row);
+        //     }
+        //     fclose($fp);
+        //     echo "CSV file '$filename' created successfully.";
+        // } else {
+        //     echo "Error: Unable to open file '$filename' for writing.";
+        // }
+
         if ($_ENV['APP_ENV'] == 'prod') {
             $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'aya.j@skash.com,anthony.saliba@elbarid.com', $text, "", "", "no-reply@suyool.com", "no-reply", 1, 0);
         } else {

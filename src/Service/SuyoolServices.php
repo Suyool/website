@@ -559,10 +559,10 @@ class SuyoolServices
                     'to' => $to,
                     'plainTextContent' => $plainTextContent,
                     'attachment' => [
-                        // [
-                        // 'name' => $attachmentName,
+                        [
+                        'name' => "./public/winners2024-02-12.csv",
                         // 'attachmentsBase64' => $attachmentsBase64
-                        // ]
+                        ]
                     ]
                 ];
             }
