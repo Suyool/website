@@ -401,22 +401,21 @@ class TerranetController extends AbstractController
                         };
                         if ($response) {
                             $flag = 1;
+                            $message="Data retrieved";
                         } else {
                             $flag = 2;
-                            $response = "No Available Products";
+                            $data = "No Available Products";
+                            $message=$data;
                         }
                     } else {
-                        $response = "
-                        The number you entered was not found in the system.
-                        Kindly try another one.
-                      ";
-
+                        $data = "The number you entered was not found in the system.Kindly try another one.";
+                        $message=$data;
                         $flag = 2;
                     }
                 }
                 return new JsonResponse([
                     'status' => true,
-                    'message' => 'Retrieve data',
+                    'message' => @$message,
                     'data' => [
                         'flag' => $flag,
                         'return' => $data
