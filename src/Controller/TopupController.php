@@ -278,7 +278,7 @@ class TopupController extends AbstractController
             $parameters = array();
             $amount = $data['Amount'] ?? '';
             $currency = $data['Currency'] ?? '';
-            $mechantOrderId = $data['TranID'] ?? '';
+            $merchantOrderId = $data['TranID'] ?? '';
             $merchantId = $data['MerchantID'] ?? '';
             $callBackUrl = $data['CallBackURL'] ?? '';
             $refNumber = $data['refNumber'] ?? '';
@@ -288,28 +288,28 @@ class TopupController extends AbstractController
 
             if ($refNumber != null) {
                 $refNumber = "G" . $refNumber;
-                $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $data['AdditionalInfo'] . $merchant->getCertificate(), true));
+                $Hash = base64_encode(hash($this->hash_algo,   $merchantOrderId .$merchantId . $amount . $currency . $data['AdditionalInfo'] . $merchant->getCertificate(), true));
             } else {
                 $refNumber = null;
             }
 
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($mechantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl,$Hash);
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($merchantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl,$Hash);
             $sessionInterface->remove('payment_data');
             //dd($pushCard);
             $transactionDetails = json_decode($pushCard[1]);
 
             $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
 
-            $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$mechantOrderId);
+            $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$merchantOrderId);
 
             $paymentType = 'Gateway';
             if ($existingInvoice) {
-                $invoicesServices->UpdateInvoiceDetails($transactionDetails->TransactionId,'Card',$merchant,$mechantOrderId);
+                $invoicesServices->UpdateInvoiceDetails($transactionDetails->TransactionId,'Card',$merchant,$merchantOrderId);
                 $paymentType = 'Invoice';
             }
             $finalAmount = number_format($transactionDetails->TransactionAmount, 2, '.', '');
 
-            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,$paymentType,$merchantId);
+            $bobpayment = $bobPaymentServices->hostedsession($finalAmount, $transactionDetails->Currency, $transactionDetails->TransactionId, null,$refNumber,$paymentType,$merchantId,$merchantOrderId);
 
             if ($bobpayment[0] == false) {
                 return $this->redirectToRoute("homepage");

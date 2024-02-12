@@ -47,6 +47,11 @@ class orders
     private $currency;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $merchantOrderId;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $type;
@@ -105,6 +110,17 @@ class orders
     public function setamount($amount)
     {
         $this->amount = $amount;
+        return $this;
+    }
+
+    public function getMerchantOrderId()
+    {
+        return $this->merchantOrderId;
+    }
+
+    public function setMerchantOrderId($merchantOrderId)
+    {
+        $this->merchantOrderId = $merchantOrderId;
         return $this;
     }
 
