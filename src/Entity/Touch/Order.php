@@ -67,10 +67,15 @@ class Order
     */
     private $fees;
 
-     /**
+    /**
      * @ORM\Column(name="vouchertypeid")
      */
     private $vouchertypeid;
+
+    /**
+    * @ORM\Column(name="isCorporate")
+    */
+    private $isCorporate = 0;
 
      /**
      * @ORM\Column(name="created")
@@ -81,6 +86,7 @@ class Order
     {
         $this->created = new DateTime();
     }
+
 
     public function getId()
     {
@@ -205,5 +211,15 @@ class Order
 
     public function getCreated(){
         return $this->created;
+    }
+    public function getIsCorporate()
+    {
+        return $this->isCorporate;
+    }
+
+    public function setIsCorporate($isCorporate)
+    {
+        $this->isCorporate = $isCorporate;
+        return $this;
     }
 }

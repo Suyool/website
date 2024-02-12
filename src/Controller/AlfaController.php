@@ -875,7 +875,7 @@ class AlfaController extends AbstractController
                 $order_id = $this->params->get('ALFA_POSTPAID_MERCHANT_ID') . "-" . $order->getId();
 
                 //Take amount from .net
-                $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, 14000000000000, $this->params->get('CURRENCY_LBP'), $order->getfees());
+                $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $order->getfees());
                 if ($response[0]) {
                     //set order status to held
                     $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
