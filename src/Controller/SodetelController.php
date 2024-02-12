@@ -39,13 +39,13 @@ class SodetelController extends AbstractController
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
 //        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-//        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
+        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-//            $devicetype = "Android";
+            $devicetype = "Android";
 
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
@@ -77,16 +77,33 @@ class SodetelController extends AbstractController
         $identifier = $parameters['identifier'];
         $cards = $sodetelService->getAvailableCards($service, $identifier);
 
+//        dd($cards);
+
         if (isset($cards[0])) {
             $logs = new Logs;
             $logs
                 ->setidentifier("Sodetel Request")
                 ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
                 ->setrequest(json_encode(array($service, $identifier)))
-                ->setresponse(null)
-                ->seterror(json_encode($cards[1]));
+                ->setresponse(json_encode($cards[1]))
+                ->seterror(null);
             $this->mr->persist($logs);
             $this->mr->flush();
+
+            if($cards[0]){
+                $decodedCards = json_decode($cards[1], true);
+
+//                dd($decodedCards);
+
+                $request = new SodetelRequest;
+                $request
+                    ->setIdentifier($identifier)
+                    ->setServices(json_encode($decodedCards['0']));
+
+                $this->mr->persist($request);
+                $this->mr->flush();
+            }
+
         }
         if(isset($cards['status']) && $cards['status']){
             $response = new Response();
