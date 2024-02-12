@@ -125,8 +125,7 @@ class InvoicesController extends AbstractController
     public function paymentGateway(Request $request, SessionInterface $session, $refnumber)
     {
 
-        $session->remove('payment_data');
-        $session->remove('simulation');
+        //$session->remove('payment_data');
 
         $firstFPosition = strpos($refnumber, 'G');
 
@@ -152,16 +151,11 @@ class InvoicesController extends AbstractController
         } else {
             $secure = $orderId . $timestamp . $amount . $currency . $callbackURL . $timestamp . $certificate;
         }
-
         $secureHash = base64_encode(hash('sha512', $secure, true));
 
-        if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || $_ENV['APP_ENV'] == "test"){
-            $session->set('simulation', true);
-            $qrPath = 'app_pay_suyool_qr_test';
 
-        }else {
-            $qrPath = 'app_pay_suyool_qr';
-        }
+        $qrPath = 'app_pay_suyool_qr';
+
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
         $merchantSettings = $merchant->getSettings();
