@@ -192,7 +192,9 @@ const MyBundle = ({
                 Copy the 14-digit secret code below
               </div>
 
-              <button className="copySerialBtn" onClick={copyToClipboard}>
+              <button className="copySerialBtn" onClick={() => {
+                    handleShare(getSerialToClipboard);
+                  }}>
                 <div></div>
                 <div className="serial">{getSerialToClipboard}</div>
                 <img
