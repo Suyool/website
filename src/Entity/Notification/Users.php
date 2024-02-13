@@ -32,6 +32,16 @@ class Users
     private $lang;
 
     /**
+     * @ORM\Column(name="companyName",type="string")
+     */
+    private $companyName;
+
+    /**
+     * @ORM\Column(name="type",type="integer")
+     */
+    private $type;
+
+    /**
      * @ORM\Column(name="mobileNo",type="string")
      */
     private $mobileNo;
@@ -88,6 +98,28 @@ class Users
     public function setMobileNo($mobileNo)
     {
         $this->mobileNo = $mobileNo;
+        return $this;
+    }
+
+    public function getCompanyName()
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName($companyName)
+    {
+        $this->companyName = $companyName;
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 }
