@@ -16,7 +16,7 @@ const ReCharge = ({ parameters, setPrepaidVoucher, getVoucherData, setActiveButt
       setLoading(false);
     }
   }, [filteredData]);
-  // console.log(filteredData);
+  console.log(filteredData);
 
   return (
     <div id="ReCharge">
@@ -34,50 +34,37 @@ const ReCharge = ({ parameters, setPrepaidVoucher, getVoucherData, setActiveButt
           </ContentLoader>
         ) : (
           <>
-            {filteredData.length == 0 ? (
-              <div className="noData">
-                <img src="/build/images/productOut.svg" />
-                <div className="title">Product out of stock</div>
-                <div className="desc">Once we re-stock you will see the products here.</div>
-              </div>
-            ) : (
-              <>
-                {filteredData.map((record, index) => (
-                  <div
-                    className="bundleGrid"
-                    key={index}
-                    style={record.isinstock == 0 ? { display: "none" } : { display: "flex" }}
-                    onClick={() => {
-                      setActiveButton({ name: "MyBundle" });
-                      setPrepaidVoucher({
-                        vouchercategory: record.vouchercategory,
-                        vouchertype: record.vouchertype,
-                        priceLBP: record.priceLBP,
-                        priceUSD: record.priceUSD,
-                        desc: record.desc,
-                        isavailable: record.isavailable,
-                        desc1: record.desc1,
-                        desc2: record.desc2,
-                        beforeTaxes: record.beforeTaxes,
-                        fees: record.fees,
-                        sayrafa: record.sayrafa,
-                      });
-                    }}
-                  >
-                    <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
-                    <div className="gridDesc">
-                      <div className="Price">
-                        ${record.beforeTaxes}{" "}
-                        {/* <span>
-                      (LBP {parseInt(record.priceLBP).toLocaleString()})
-                    </span> */}
-                      </div>
-                      <div className="bundleName">{record.desc3}</div>
-                    </div>
-                  </div>
-                ))}
-              </>
-            )}
+            {filteredData.map((record, index) => (
+              <button
+                // className="bundleGrid"
+                className={`${record.isinstock == 0 ? "bundleGrid outofstock" : "bundleGrid"}`}
+                key={index}
+                disabled={record.isinstock == 0}
+                // style={record.isinstock == 0 ? { display: "none" } : { display: "flex" }}
+                onClick={() => {
+                  setActiveButton({ name: "MyBundle" });
+                  setPrepaidVoucher({
+                    vouchercategory: record.vouchercategory,
+                    vouchertype: record.vouchertype,
+                    priceLBP: record.priceLBP,
+                    priceUSD: record.priceUSD,
+                    desc: record.desc,
+                    isavailable: record.isavailable,
+                    desc1: record.desc1,
+                    desc2: record.desc2,
+                    beforeTaxes: record.beforeTaxes,
+                    fees: record.fees,
+                    sayrafa: record.sayrafa,
+                  });
+                }}
+              >
+                <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
+                <div className="gridDesc">
+                  <div className="Price">${record.beforeTaxes}{record.isinstock == 0 ? <span className="outstock">Out of Stock</span> : ""}</div>
+                  <div className="bundleName">{record.desc3}</div>
+                </div>
+              </button>
+            ))}
           </>
         )}
       </div>

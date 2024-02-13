@@ -53,6 +53,24 @@
       }
     }
 
+    .outofstock {
+      opacity: 0.5;
+      .gridDesc {
+        align-items: flex-start;
+        .Price {
+          display: flex;
+          align-items: flex-start;
+          .outstock {
+            margin-left: 15px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 12px;
+          }
+        }
+      }
+    }
     .bundleGrid {
       width: 100%;
       display: flex;
@@ -74,8 +92,11 @@
         display: flex;
         flex-direction: column;
         width: 70%;
+        align-items: flex-start;
 
         .Price {
+          display: flex;
+          align-items: flex-start;
           font-family: $Bold;
           color: black;
           font-size: 20px;

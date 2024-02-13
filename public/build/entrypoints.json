@@ -2,156 +2,156 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.js",
-        "/build/app1.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.1dfb62eb.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.js",
-        "/build/admin-app.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/admin-app.fd697fc2.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.ecf58fd2.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.2acf5642.js"
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.js",
-        "/build/Alfa.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.289b3e4b.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.js",
-        "/build/Touch.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.34867f23.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.js",
-        "/build/Ogero.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.5c85e96d.js"
       ]
     },
     "Gift2Games": {
       "js": [
-        "/build/runtime.js",
-        "/build/Gift2Games.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Gift2Games.235249a9.js"
       ]
     },
     "iveri": {
       "js": [
-        "/build/runtime.js",
-        "/build/iveri.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/iveri.429e5515.js"
       ]
     },
     "TerraNet": {
       "js": [
-        "/build/runtime.js",
-        "/build/TerraNet.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/TerraNet.4a892938.js"
       ]
     },
     "Sodetel": {
       "js": [
-        "/build/runtime.js",
-        "/build/Sodetel.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Sodetel.7f47d3e3.js"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.48f26c80.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/admin.css"
+        "/build/admin.8fb78dae.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.77b15344.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.css"
+        "/build/AlfaStyle.a53dcccf.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.css"
+        "/build/TouchStyle.a12e4b71.css"
       ]
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.css"
+        "/build/OgeroStyle.131ea645.css"
       ]
     },
     "Gift2GamesStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/Gift2GamesStyle.css"
+        "/build/Gift2GamesStyle.aa74730c.css"
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/iveristyles.css"
+        "/build/iveristyles.382777e8.css"
       ]
     },
     "terraNetstyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/terraNetstyle.css"
+        "/build/terraNetstyle.4d489fae.css"
       ]
     },
     "SodetelStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SodetelStyle.css"
+        "/build/SodetelStyle.d2e21a6e.css"
       ]
     }
   }
