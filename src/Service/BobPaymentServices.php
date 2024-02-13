@@ -1316,7 +1316,17 @@ class BobPaymentServices
             ];
             return $parameters;
         }
-        $attempts = ($simulation == 'true') ? new test_attempts() : new attempts();
+        // Check if attempt exists
+        if (is_null($suyooler)) {
+            $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
+        }else {
+            $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid, 'status' => null]);
+        }
+        // Create a new attempt object
+        if ($attempts === null) {
+            $attempts = new attempts();
+        }
+
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1331,6 +1341,7 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
+
         if ($simulation == 'true') {
             $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $getTheSession['session']]);
             $entity = 'test';
@@ -1637,7 +1648,12 @@ class BobPaymentServices
             ];
             return $parameters;
         }
-        $attempts = new attempts();
+        $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
+
+        // Create a new attempt object
+        if ($attempts === null) {
+            $attempts = new attempts();
+        }
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1790,7 +1806,7 @@ class BobPaymentServices
         $this->logger->info($this->BASE_API . "session/" . $this->session->get('hostedSessionId'));
         $content = $response->toArray(false);
         $this->logger->info(json_encode($content));
-        return $content['sourceOfFunds']['provided']['card']['number'];
+        return $content['sourceOfFunds']['provided']['card'];
     }
 
     //
