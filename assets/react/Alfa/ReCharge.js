@@ -58,10 +58,10 @@ const ReCharge = ({ parameters, setPrepaidVoucher, getVoucherData, setActiveButt
                   });
                 }}
               >
-                <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" />
+                <img className="GridImg" src={`/build/images/alfa/bundleImg${record.vouchertype}h.png`} alt="bundleImg" style={{ opacity: record.isinstock == 0 ? 0.5 : 1 }} />
                 <div className="gridDesc">
-                  <div className="Price">${record.beforeTaxes}{record.isinstock == 0 ? <span className="outstock">Out of Stock</span> : ""}</div>
-                  <div className="bundleName">{record.desc3}</div>
+                  <div className="Price"><div style={{ opacity: record.isinstock == 0 ? 0.5 : 1 }}>${record.beforeTaxes}</div>{record.isinstock == 0 ? <span className="outstock">Out of Stock</span> : ""}</div>
+                  <div className="bundleName" style={{ opacity: record.isinstock == 0 ? 0.5 : 1 }}>{record.desc3}</div>
                 </div>
               </button>
             ))}
