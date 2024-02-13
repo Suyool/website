@@ -410,7 +410,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            // $filter =  $Memcached->getVouchers($lotoServices);
+            $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
