@@ -417,7 +417,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            $filter =  $Memcached->getVouchers($lotoServices);
+            // $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
@@ -498,7 +498,7 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 //buy voucher from loto Provider
-                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
@@ -1331,7 +1331,7 @@ class AlfaController extends AbstractController
             $this->loggerInterface->error($e->getMessage());
             return new JsonResponse([
                 'status' => false,
-                'message' => $e->getMessage(),
+                'message' => "An error has occured",
             ], 500);
         }
     }

@@ -1193,7 +1193,6 @@ class TouchController extends AbstractController
                 ], 401);
             }
         } catch (Exception $e) {
-            $this->loggerInterface->error($e->getMessage());
             return new JsonResponse([
                 'status' => false,
                 'message' => $e->getMessage(),
