@@ -740,7 +740,8 @@ class AlfaController extends AbstractController
                     'status' => true,
                     'message' => $message,
                     'data' => [
-                        'invoiceId' => $invoicesId
+                        'invoiceId' => $invoicesId,
+                        'Popup'=>@$popup
                     ]
                 ], 200);
             } else {
