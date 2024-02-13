@@ -708,9 +708,34 @@ class AlfaController extends AbstractController
 
                             $this->mr->persist($postpaidrequest);
                             $this->mr->flush();
+                            $message = $sendBillRes["ResponseText"];
+                            switch ($message) {
+                                case "Maximum allowed number of PIN requests is reached":
+                                    $title = "PIN Tries Exceeded";
+                                    $body = "You have exceeded the allowed PIN requests.<br> Kindly try again later";
+                                    break;
+                                case "Not Enough Balance Amount to be paid":
+                                    $title = "No Pending Bill";
+                                    $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
+                                    break;
+                                case "Internal Error":
+                                    $title = "Unable To Pay Your Bill";
+                                    $body = "We were unable to process your transaction for the bill payment associated with {$data["mobileNumber"]} .<br>Kindly check your internet connection & try again. ";
+                                    break;
+                                default:
+                                    $title = "Number Not Found";
+                                    $body = "The number you entered was not found in the system.<br>Kindly try another number.";
+                                    break;
+                            }
+                            $popup = [
+                                "Title" => @$title,
+                                "globalCode" => 0,
+                                "flagCode" => 800,
+                                "Message" => @$body,
+                                "isPopup" => true
+                            ];
                             // echo "error";
                             $invoicesId = -1;
-                            $message = $sendBillRes["ResponseText"];
                         }
                     } else {
                         // $sendBill = "Internal Error";
@@ -722,11 +747,30 @@ class AlfaController extends AbstractController
                         $this->mr->persist($postpaidrequest);
                         $this->mr->flush();
                         $message = @$sendBill;
+                        $message = "Not Enough Balance Amount to be paid";
+                        switch ($message) {
+                            case "Maximum allowed number of PIN requests is reached":
+                                $title = "PIN Tries Exceeded";
+                                $body = "You have exceeded the allowed PIN requests.<br> Kindly try again later";
+                                break;
+                            case "Not Enough Balance Amount to be paid":
+                                $title = "No Pending Bill";
+                                $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
+                                break;
+                            case "Internal Error":
+                                $title = "Unable To Pay Your Bill";
+                                $body = "We were unable to process your transaction for the bill payment associated with {$data["mobileNumber"]} .<br>Kindly check your internet connection & try again. ";
+                                break;
+                            default:
+                                $title = "Number Not Found";
+                                $body = "The number you entered was not found in the system.<br>Kindly try another number.";
+                                break;
+                        }
                         $popup = [
-                            "Title" => "No Pending Bill",
+                            "Title" => @$title,
                             "globalCode" => 0,
-                            "flagCode" =>800,
-                            "Message" => @$sendBill,
+                            "flagCode" => 800,
+                            "Message" => @$body,
                             "isPopup" => true
                         ];
                         $invoicesId = -1;
@@ -741,7 +785,7 @@ class AlfaController extends AbstractController
                     'message' => $message,
                     'data' => [
                         'invoiceId' => $invoicesId,
-                        'Popup'=>@$popup
+                        'Popup' => @$popup
                     ]
                 ], 200);
             } else {
@@ -823,7 +867,24 @@ class AlfaController extends AbstractController
                     $this->mr->flush();
 
                     $displayData = -1;
-                    $message = $retrieveResults[1];
+                    $message = $retrieveResults[2];
+                    switch ($message) {
+                        case 213:
+                            $title = $retrieveResults[1];
+                            $body = $retrieveResults[1] . "<br> Error code: " . $message;
+                            break;
+                        default:
+                            $title = "No Available Bill";
+                            $body = "There is no available bill for {$data["mobileNumber"]} at the moment. <br></br>Kindly try again later. ";
+                            break;
+                    }
+                    $popup = [
+                        "Title" => @$title,
+                        "globalCode" => 0,
+                        "flagCode" => 800,
+                        "Message" => @$body,
+                        "isPopup" => true
+                    ];
                     $invoicesId = -1;
                 }
             } else {
@@ -835,6 +896,7 @@ class AlfaController extends AbstractController
                 'postpayed' => $invoicesId,
                 'displayData' => $displayData,
                 'displayedFees' => $displayedFees,
+                'Popup'=>@$popup
             ];
             return new JsonResponse([
                 'status' => true,
@@ -1265,7 +1327,7 @@ class AlfaController extends AbstractController
                                 "globalCode" => 0,
                                 "flagCode" => 101,
                                 "Message" => "You have successfully paid purchased the Alfa {$data['desc']}",
-                                "code"=>"*14*" . "112233445566" . "#",
+                                "code" => "*14*" . "112233445566" . "#",
                                 "isPopup" => true
                             ];
                             //tell the .net that total amount is paid
