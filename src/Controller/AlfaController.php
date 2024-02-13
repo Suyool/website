@@ -722,6 +722,13 @@ class AlfaController extends AbstractController
                         $this->mr->persist($postpaidrequest);
                         $this->mr->flush();
                         $message = @$sendBill;
+                        $popup = [
+                            "Title" => "No Pending Bill",
+                            "globalCode" => 0,
+                            "flagCode" =>800,
+                            "Message" => @$sendBill,
+                            "isPopup" => true
+                        ];
                         $invoicesId = -1;
                     }
                 } else {
