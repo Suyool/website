@@ -128,12 +128,13 @@ class TouchOrdersRepository extends EntityRepository
         return array_merge($array);
     }
 
-    public function purchaseCardsPerDay($suyoolUserId)
+    public function purchaseCardsPerDay($suyoolUserId,$type)
     {
         $date = date('Y-m-d H:i:s',strtotime('-1 day'));
         return $this->createQueryBuilder('o')
         ->select('count(o) as numberofcompletedordersprepaid')
-        ->where("o.prepaid is not null and o.status = 'completed' and o.suyoolUserId = {$suyoolUserId} and o.created >= '{$date}' ")
+        ->where("o.prepaid is not null and o.status = 'completed' and o.suyoolUserId = {$suyoolUserId} and o.created >= '{$date}' and o.vouchertypeid = {$type} ")
+        ->groupBy('o.vouchertypeid')
         ->getQuery()
         ->getOneOrNullResult();
     }

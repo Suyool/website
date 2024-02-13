@@ -68,6 +68,11 @@ class Order
     private $fees;
 
      /**
+     * @ORM\Column(name="vouchertypeid")
+     */
+    private $vouchertypeid;
+
+     /**
      * @ORM\Column(name="created")
      */
     private DateTime $created;
@@ -185,6 +190,17 @@ class Order
     {
         $this->fees = $fees;
         return $this;
+    }
+
+    public function setVoucherTypeId($vouchertypeid)
+    {
+        $this->vouchertypeid = $vouchertypeid;
+        return $this;
+    }
+
+    public function getVoucherTypeId()
+    {
+        return $this->vouchertypeid;
     }
 
     public function getCreated(){

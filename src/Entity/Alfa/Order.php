@@ -67,6 +67,11 @@ class Order
      * @ORM\Column(name="errorInfo")
      */
     private $error;
+
+    /**
+     * @ORM\Column(name="vouchertypeid")
+     */
+    private $vouchertypeid;
     
     /**
      * @ORM\Column(name="created")
@@ -186,6 +191,18 @@ class Order
     public function geterror()
     {
         return $this->error;
+    }
+
+    
+    public function setVoucherTypeId($vouchertypeid)
+    {
+        $this->vouchertypeid = $vouchertypeid;
+        return $this;
+    }
+
+    public function getVoucherTypeId()
+    {
+        return $this->vouchertypeid;
     }
 
     public function getCreated(){

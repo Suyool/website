@@ -338,7 +338,7 @@ class TouchController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchersTouch($lotoServices);
         } else {
-            $filter =  $Memcached->getVouchersTouch($lotoServices);
+            // $filter =  $Memcached->getVouchersTouch($lotoServices);
         }
 
         return new JsonResponse([
@@ -376,9 +376,9 @@ class TouchController extends AbstractController
 
         if ($data != null) {
             $price = $this->getVoucherPriceByTypeTouch($data["type"]);
-            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId);
+            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId,$data["type"]);
             // dd($cardsPerDay);
-            if ($cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
+            if (!is_null($cardsPerDay) && $cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
                 return new JsonResponse([
                     'status' => true,
                     'IsSuccess' => false,
@@ -398,6 +398,7 @@ class TouchController extends AbstractController
                 ->setprepaidId(null)
                 ->setstatus(Order::$statusOrder['PENDING'])
                 ->setfees(0)
+                ->setVoucherTypeId($data['type'])
                 ->setamount($price)
                 ->setcurrency("LBP");
             $this->mr->persist($order);

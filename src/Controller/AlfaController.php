@@ -410,7 +410,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            $filter =  $Memcached->getVouchers($lotoServices);
+            // $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
@@ -449,9 +449,9 @@ class AlfaController extends AbstractController
 
         if ($data != null) {
             $price = $this->getVoucherPriceByTypeAlfa($data["type"]);
-            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId);
+            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId,$data["type"]);
             // dd($cardsPerDay);
-            if ($cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
+            if (!is_null($cardsPerDay) && $cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
                 return new JsonResponse([
                     'status' => true,
                     'IsSuccess' => false,
@@ -472,6 +472,7 @@ class AlfaController extends AbstractController
                 ->setstatus(Order::$statusOrder['PENDING'])
                 ->setamount($price)
                 ->setfees(0)
+                ->setVoucherTypeId($data["type"])
                 ->setcurrency("LBP");
             $this->mr->persist($order);
             $this->mr->flush();
