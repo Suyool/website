@@ -119,7 +119,19 @@ const MyBundle = ({
                 btn: "OK",
               });
               setModalShow(true);
-            } else {
+            }else if(!response.data.IsSuccess &&
+              response.data.flagCode == 210) {
+                setModalName("ErrorModal");
+                setErrorModal({
+                  img: "/build/images/alfa/error.png",
+                  title: response.data.Title,
+                  desc: response.data.message,
+                  // path: response.data.path,
+                  btn: "OK",
+                });
+                setModalShow(true);
+              }
+              else {
               setModalName("ErrorModal");
               setErrorModal({
                 img: "/build/images/alfa/error.png",

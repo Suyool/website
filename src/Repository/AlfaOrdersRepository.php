@@ -134,4 +134,14 @@ class AlfaOrdersRepository extends EntityRepository
         }
         return array_merge($array);
     }
+
+    public function purchaseCardsPerDay($suyoolUserId)
+    {
+        $date = date('Y-m-d H:i:s',strtotime('-1 day'));
+        return $this->createQueryBuilder('o')
+        ->select('count(o) as numberofcompletedordersprepaid')
+        ->where("o.prepaid is not null and o.status = 'completed' and o.suyoolUserId = {$suyoolUserId} and o.created >= '{$date}' ")
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }

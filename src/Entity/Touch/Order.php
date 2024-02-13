@@ -2,6 +2,7 @@
 
 namespace App\Entity\Touch;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +66,16 @@ class Order
     * @ORM\Column(type="integer")
     */
     private $fees;
+
+     /**
+     * @ORM\Column(name="created")
+     */
+    private DateTime $created;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+    }
 
     public function getId()
     {
@@ -174,5 +185,9 @@ class Order
     {
         $this->fees = $fees;
         return $this;
+    }
+
+    public function getCreated(){
+        return $this->created;
     }
 }

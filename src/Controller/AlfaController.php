@@ -410,7 +410,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            // $filter =  $Memcached->getVouchers($lotoServices);
+            $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
@@ -449,6 +449,19 @@ class AlfaController extends AbstractController
 
         if ($data != null) {
             $price = $this->getVoucherPriceByTypeAlfa($data["type"]);
+            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId);
+            // dd($cardsPerDay);
+            if ($cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
+                return new JsonResponse([
+                    'status' => true,
+                    'IsSuccess' => false,
+                    'flagCode' => 210,
+                    'Title' => 'Daily Limit Exceeded',
+                    'message' => 'Due to the ongoing strike of Alfa & Touch, and in our effort to accommodate all our Suyoolers fairly, we are temporarily limiting the purchase to 2 recharge cards per type per day.<br>
+                                We plan to remove this limitation as soon as the strike is resolved.<br>
+                                We appreciate your understanding.'
+                ], 200);
+            }
             //Initial order with status pending
             $order = new Order;
             $order
@@ -483,19 +496,19 @@ class AlfaController extends AbstractController
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                        if ($responseUpdateUtilities[0]) {
-                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                            $orderupdate4
-                                ->setstatus(Order::$statusOrder['CANCELED'])
-                                ->seterror("{reversed " . $message . "}");
-                            $this->mr->persist($orderupdate4);
-                            $this->mr->flush();
-                        } else {
-                            $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
-                            $orderupdate4
-                                ->setstatus(Order::$statusOrder['CANCELED'])
-                                ->seterror($responseUpdateUtilities[1]);
-                        }
+                    if ($responseUpdateUtilities[0]) {
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                        $orderupdate4
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror("{reversed " . $message . "}");
+                        $this->mr->persist($orderupdate4);
+                        $this->mr->flush();
+                    } else {
+                        $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
+                        $orderupdate4
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror($responseUpdateUtilities[1]);
+                    }
                     $IsSuccess = false;
                     $dataPayResponse = [];
                 } else {

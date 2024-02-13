@@ -2,6 +2,7 @@
 
 namespace App\Entity\Alfa;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +67,16 @@ class Order
      * @ORM\Column(name="errorInfo")
      */
     private $error;
+    
+    /**
+     * @ORM\Column(name="created")
+     */
+    private DateTime $created;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+    }
 
     public function getId()
     {
@@ -177,5 +188,7 @@ class Order
         return $this->error;
     }
 
-
+    public function getCreated(){
+        return $this->created;
+    }
 }
