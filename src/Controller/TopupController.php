@@ -322,7 +322,7 @@ class TopupController extends AbstractController
                 'fees' => $transactionDetails->FeesAmount,
                 'amount' => $finalAmount,
                 'currency' => $currency,
-                'merchantName' => $merchantName,
+                'merchantName' => $merchant->getName(),
                 'simulation' => $sessionInterface->get('simulation')
             ];
             $sessionInterface->remove('payment_data');

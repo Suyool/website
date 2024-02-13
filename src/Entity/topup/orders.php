@@ -47,7 +47,7 @@ class orders
     private $currency;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $merchantOrderId;
 
