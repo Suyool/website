@@ -41,6 +41,11 @@ class Order
     private $currency;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $userAccount;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $transId;
@@ -116,6 +121,17 @@ class Order
     public function getcurrency()
     {
         return $this->currency;
+    }
+
+    public function setUserAccount($userAccount)
+    {
+        $this->userAccount = $userAccount;
+        return $this;
+    }
+
+    public function getUserAccount()
+    {
+        return $this->userAccount;
     }
 
 

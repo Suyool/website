@@ -161,7 +161,7 @@ class TerranetController extends AbstractController
                 $order->setamount($amount);
                 $order->setcurrency($currency);
                 $order->setProduct($product);
-
+                $order->setUserAccount($PPPLoginName);
                 $product->setOrder($order);
                 $product->setOrderId($order->getId());
 

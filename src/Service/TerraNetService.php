@@ -244,7 +244,15 @@ class TerraNetService
 
             $response = $this->soapClient->RefillCustomerTerranet($params);
             $RefillCustomerTerranetResult = $response->RefillCustomerTerranetResult;
-
+            $logs = new Logs();
+            $logs
+                ->setidentifier("Bundle Purchase")
+                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~RefillCustomerTerranetResult")
+                ->setrequest(json_encode($params))
+                ->setresponse(json_encode($response))
+                ->seterror($response->errorMessage);
+            $this->mr->persist($logs);
+            $this->mr->flush();
 
             return $RefillCustomerTerranetResult;
         } catch (\SoapFault $fault) {
