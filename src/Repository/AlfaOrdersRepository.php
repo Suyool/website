@@ -103,17 +103,17 @@ class AlfaOrdersRepository extends EntityRepository
                 }
             }
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.create_date,o.postpaid_id,o.prepaid_id
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created,o.postpaid_id,o.prepaid_id
         FROM suyool_alfa.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         WHERE o.{$method} is not null {$where}
-        ORDER BY o.create_date DESC
+        ORDER BY o.created DESC
          ";
         } else {
             $sql = "select
-        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.create_date,o.postpaid_id,o.prepaid_id
+        o.id,o.suyoolUserId,u.fname,u.lname,o.status,o.amount,o.currency,o.transId,o.errorInfo as error,o.created,o.postpaid_id,o.prepaid_id
         FROM suyool_alfa.orders o LEFT JOIN  suyool_notification.users u ON o.suyoolUserId = u.suyoolUserId
         {$where}
-        ORDER BY o.create_date DESC
+        ORDER BY o.created DESC
          ";
         }
         $stmt = $connection->prepare($sql);
@@ -122,7 +122,7 @@ class AlfaOrdersRepository extends EntityRepository
         $array = array();
         foreach ($qb as $row) {
             if (!isset($array[$row['id']])) {
-                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'error' => $row['error'], 'created' => $row['create_date'], 'postpaid' => $row['postpaid_id'], 'prepaid' => $row['prepaid_id']];
+                $array[$row['id']] = ['id' => $row['id'], 'suyoolUserId' => $row['suyoolUserId'], 'fname' => $row['fname'], 'lname' => $row['lname'], 'status' => $row['status'], 'amount' => $row['amount'], 'currency' => $row['currency'], 'transId' => $row['transId'], 'error' => $row['error'], 'created' => $row['created'], 'postpaid' => $row['postpaid_id'], 'prepaid' => $row['prepaid_id']];
                 if ($row['status'] != AlfaOrder::$statusOrder['COMPLETED']) {
                     $array[$row['id']]['redFlag'] = true;
                 }
