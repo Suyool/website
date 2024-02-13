@@ -446,28 +446,9 @@ class SodetelController extends AbstractController
             $service = $parameters['service'];
             $identifier = $parameters['identifier'];
             $cards = $sodetelService->getAvailableCards($service, $identifier);
-            // dd($cards);
-            foreach ($cards['data'] as $key => $cardsToPushImage) {
-                if ($key == "customerid") {
-                    continue;
-                }
-                $cards['data'][$key][] = [
-                    'image' => (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$cardsToPushImage['plancode']}.svg",
-                    'icon' => $item['icon'] = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$cardsToPushImage['plancode']}-cir.svg"
-                ];
-                $cardResponseJson[] = [
-                    'plancode' => $cards['data'][$key]['plancode'],
-                    'plandescription' => $cards['data'][$key]['plandescription'],
-                    'pricettc' => $cards['data'][$key]['pricettc'],
-                    'priceht' => $cards['data'][$key]['priceht'],
-                    'price' => $cards['data'][$key]['price'],
-                    'currency' => $cards['data'][$key]['currency'],
-                    'sayrafa' => $cards['data'][$key]['sayrafa'],
-                    'image' => $cards['data'][$key][0]['image'],
-                    'icon' => $cards['data'][$key][0]['icon'],
-                    'customerid' => $cards['data']['customerid'],
-                ];
-            }
+
+
+
 
             if (isset($cards[0])) {
                 $logs = new Logs;
@@ -475,12 +456,71 @@ class SodetelController extends AbstractController
                     ->setidentifier("Sodetel Request")
                     ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
                     ->setrequest(json_encode(array($service, $identifier)))
-                    ->setresponse(null)
-                    ->seterror(json_encode($cards[1]));
+                    ->setresponse(json_encode($cards[1]))
+                    ->seterror(null);
                 $this->mr->persist($logs);
                 $this->mr->flush();
+
+                $arr = json_decode($cards[1], true);
+
+                foreach ($arr as $key => $value) {
+                    if ($key == "customerid") {
+                        continue;
+                    }
+                    $arrReturn[$key] = [
+                        'plancode' => $value['plancode'],
+                        'plandescription' => $value['plandescription'],
+                        'pricettc' => $value['pricettc'],
+                        'priceht' => $value['priceht'],
+                        'price' => $value['price'],
+                        'currency' => $value['currency'],
+                        'sayrafa' => $value['sayrafa'],
+                        'image' => (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$value['plancode']}.svg",
+                        'icon' => (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$value['plancode']}-cir.svg"
+                    ];
+                }
+
+                $request = new SodetelRequest;
+                $request
+                    ->setIdentifier($identifier)
+                    ->setServices(json_encode($arr));
+
+                $this->mr->persist($request);
+                $this->mr->flush();
+
+                $requestId = $request->getId();
+
+
+                return new JsonResponse([
+                    'status' => true,
+                    'message' => "Success retrieve data",
+                    'data' => (array('display' => $arrReturn, 'requestId' => $requestId)), //left to make the arrReturn as an object
+                ], 200);
             }
             if (isset($cards['status']) && $cards['status']) {
+
+                foreach ($cards['data'] as $key => $cardsToPushImage) {
+                    if ($key == "customerid") {
+                        continue;
+                    }
+                    $cards['data'][$key][] = [
+                        'image' => (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$cardsToPushImage['plancode']}.svg",
+                        'icon' => $item['icon'] = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . "/build/images/sodetel/{$cardsToPushImage['plancode']}-cir.svg"
+                    ];
+                    $cardResponseJson[] = [
+                        'plancode' => $cards['data'][$key]['plancode'],
+                        'plandescription' => $cards['data'][$key]['plandescription'],
+                        'pricettc' => $cards['data'][$key]['pricettc'],
+                        'priceht' => $cards['data'][$key]['priceht'],
+                        'price' => $cards['data'][$key]['price'],
+                        'currency' => $cards['data'][$key]['currency'],
+                        'sayrafa' => $cards['data'][$key]['sayrafa'],
+                        'image' => $cards['data'][$key][0]['image'],
+                        'icon' => $cards['data'][$key][0]['icon'],
+                        'customerid' => $cards['data']['customerid'],
+                    ];
+                }
+
                 $response = new Response();
                 $arr[0] = true;
                 $arr[1] = json_encode($cards['data']);
@@ -513,21 +553,6 @@ class SodetelController extends AbstractController
                 ], 200);
             }
 
-            $logs = new Logs;
-            $logs
-                ->setidentifier("Sodetel Request")
-                ->seturl("https://ws.sodetel.net.lb/getavailablecards.php")
-                ->setrequest(json_encode(array($service, $identifier)))
-                ->setresponse(json_encode($cards))
-                ->seterror(null);
-
-            $this->mr->persist($logs);
-            $this->mr->flush();
-
-            return new JsonResponse([
-                'status' => true,
-                'data' => $cards
-            ]);
         } else {
             return new JsonResponse([
                 'status' => false,
@@ -544,49 +569,65 @@ class SodetelController extends AbstractController
     public function refillApi(Request $request, SodetelService $sodetelService, NotificationServices $notificationServices)
     {
         //        request: {
-        //            "bundle": "dsl",
-        //             "identifier": "96170000000",
-        //             "requestId": 1,
-        //             "refillData": {
-        //                "plancode": "vs1",
-        //                "plandescription": "Fiber extra 12GB",
-        //                "pricettc": 233100,
-        //                "priceht": 210000,
-        //                "price": 233100,
-        //                "currency": "LBP",
-        //                "sayrafa": 85500
-        //             }
+//                    "bundle": "dsl",
+//                     "identifier": "96170000000",
+//                     "requestId": 1,
+//                     "refillData": {
+//                        "plancode": "vs1",
+//                        "plandescription": "Fiber extra 12GB",
+//                        "pricettc": 233100,
+//                        "priceht": 210000,
+//                        "price": 233100,
+//                        "currency": "LBP",
+//                        "sayrafa": 85500
+//                     }
         //        }
         $webkey = apache_request_headers();
         $webkey = $webkey['Authorization'];
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
-        if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
+        if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] != "CORPORATE") {
+            return new JsonResponse([
+                'status' => false,
+                'message' => "Unauthorized"
+            ], 401);
+        } else{
             $data = json_decode($request->getContent(), true);
             $SuyoolUserId = $webkeyDecrypted['merchantId'];
 
             $flagCode = null;
             $IsSuccess = false;
-            $dataPayResponse = [];
             $status = 200;
             $message = "";
             $suyooler = $this->not->getRepository(Users::class)->findOneBy(['suyoolUserId' => $SuyoolUserId]);
 
 
-            if ($data != null && isset($data['requestId'])) {
+            if ($data == null || !isset($data['requestId'])) {
+                return new JsonResponse([
+                    'status' => false,
+                    'message' => "bad request",
+                ], 400);
+            }else {
                 $sodetelMerchantId = $data['bundle'] == "4g" ? $this->params->get('SODETEL_4G_MERCHANT_ID') : $this->params->get('SODETEL_POSTPAID_MERCHANT_ID');
                 $suyoolServices = new SuyoolServices($sodetelMerchantId, null, null, null, $this->loggerInterface);
 
                 $requestId = $data['requestId'];
 
                 $sodetelRequest = $this->mr->getRepository(SodetelRequest::class)->find($requestId);
-                if ($sodetelRequest) {
+                if ($sodetelRequest == null) {
+                    return new JsonResponse([
+                        'status' => false,
+                        'message' => "Request not found",
+                    ], 400);
+                } else {
                     $services = json_decode($sodetelRequest->getServices(), true);
 
                     $matchingObject = null;
 
+//                    dd($services);
+
                     foreach ($services as $key => $value) {
-                        if (is_array($value) && isset($value['plancode']) && $value['plancode'] === $data['plancode']) {
+                        if (is_array($value) && isset($value['plancode']) && $value['plancode'] === $data['refillData']['plancode']) {
                             $matchingObject = $value;
                             break;
                         }
@@ -610,7 +651,29 @@ class SodetelController extends AbstractController
 
                     $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0);
 
-                    if ($utilityResponse[0]) {
+                    if (!$utilityResponse[0]) {
+                        $order->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror($utilityResponse[1]);
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("Sodetel Request")
+                            ->seturl("Utilities/PushUtilityPayment")
+                            ->setrequest(json_encode(array($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0)))
+                            ->setresponse(null)
+                            ->seterror(json_encode($utilityResponse));
+
+                        $this->mr->persist($logs);
+                        $this->mr->flush();
+
+                        return new JsonResponse([
+                            'status' => false,
+                            'message' => $utilityResponse[1],
+                            'flagCode' => $utilityResponse[2],
+                        ], 200);
+                    } else {
                         $order->setStatus(Order::$statusOrder['HELD']);
 
                         $this->mr->persist($order);
@@ -694,14 +757,14 @@ class SodetelController extends AbstractController
                                     $this->mr->flush();
 
                                     $dataPayResponse = ['amount' => $order->getAmount(), 'currency' => $order->getCurrency(), 'fees' => 0, 'id' => $sodetelData['id'], 'password' => $sodetelData['password']];
-                                    $message = "Success";
-                                    $IsSuccess = true;
+                                    $message = "Service Refilled Successfully";
+                                    $flagCode = 0;
                                 } else {
                                     $order->setStatus(Order::$statusOrder['CANCELED'])
                                         ->setError($responseUpdateUtilities[1]);
 
-                                    $message = "something wrong while UpdateUtilities";
-                                    $dataPayResponse = -1;
+                                    $message = "Something wrong while transferring the money";
+                                    $flagCode = 2;
                                 }
 
                                 $logs = new Logs;
@@ -711,6 +774,18 @@ class SodetelController extends AbstractController
                                     ->setrequest(json_encode(array($data['bundle'], $matchingObject['plancode'], $data['identifier'], $order->getId())))
                                     ->setresponse(json_encode($sodetelData))
                                     ->seterror(null);
+
+                                $this->mr->persist($logs);
+                                $this->mr->flush();
+
+                                return new JsonResponse([
+                                    'status' => true,
+                                    'data' => [
+                                        'Message' => $message,
+                                        'flagCode' => $flagCode,
+                                        'additionalData' => $dataPayResponse,
+                                    ],
+                                ], $status);
                             } else {
                                 $logs = new Logs;
                                 $logs
@@ -739,8 +814,11 @@ class SodetelController extends AbstractController
                                 $this->mr->persist($order);
                                 $this->mr->flush();
 
-                                $IsSuccess = false;
-                                $dataPayResponse = -1;
+                                return new JsonResponse([
+                                    'status' => false,
+                                    'message' => $message,
+                                    'flagCode' => 2,
+                                ], 200);
                             }
                         } else {
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
@@ -758,57 +836,15 @@ class SodetelController extends AbstractController
                             $this->mr->persist($order);
                             $this->mr->flush();
 
-                            $IsSuccess = false;
-                            $dataPayResponse = -1;
+                            return new JsonResponse([
+                                'status' => false,
+                                'message' => $message,
+                                'flagCode' => 2,
+                            ], 200);
                         }
-                    } else {
-                        $order->setstatus(Order::$statusOrder['CANCELED'])
-                            ->seterror($utilityResponse[1]);
-                        $this->mr->persist($order);
-                        $this->mr->flush();
-
-                        $logs = new Logs;
-                        $logs
-                            ->setidentifier("Sodetel Request")
-                            ->seturl("Utilities/PushUtilityPayment")
-                            ->setrequest(json_encode(array($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0)))
-                            ->setresponse(null)
-                            ->seterror(json_encode($utilityResponse));
-
-                        $this->mr->persist($logs);
-                        $this->mr->flush();
-
-                        $message = $utilityResponse[1];
-                        $flagCode = $utilityResponse[2];
-
-                        $status = 200;
                     }
-                } else {
-                    $message = "Request not found";
-                    $flagCode = "";
-                    $status = 400;
                 }
-            } else {
-                $message = "bad request";
-                $flagCode = "";
-                $status = 400;
             }
-            $parameters = [
-                'message' => $message,
-                'IsSuccess' => $IsSuccess,
-                'flagCode' => $flagCode,
-                'data' => $dataPayResponse,
-            ];
-            return new JsonResponse([
-                'status' => true,
-                'message' => "Success",
-                'data' => $parameters,
-            ], $status);
-        } else {
-            return new JsonResponse([
-                'status' => false,
-                'message' => "Unauthorize"
-            ], 401);
         }
     }
 }
