@@ -376,7 +376,7 @@ class TouchController extends AbstractController
 
         if ($data != null) {
             $price = $this->getVoucherPriceByTypeTouch($data["type"]);
-            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId,$data["type"]);
+            $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId, $data["type"]);
             // dd($cardsPerDay);
             if (!is_null($cardsPerDay) && $cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
                 return new JsonResponse([
@@ -384,9 +384,8 @@ class TouchController extends AbstractController
                     'IsSuccess' => false,
                     'flagCode' => 210,
                     'Title' => 'Daily Limit Exceeded',
-                    'message' => 'Due to the ongoing strike of Alfa & Touch, and in our effort to accommodate all our Suyoolers fairly, we are temporarily limiting the purchase to 2 recharge cards per type per day.<br>
-                                We plan to remove this limitation as soon as the strike is resolved.<br>
-                                We appreciate your understanding.'
+                    'message' => 'In our effort to accommodate all our Suyoolers fairly, we are temporarily limiting the purchase to 2 recharge cards per type per day.<br>
+                    We plan to remove this limitation as soon as soon as possible.'
                 ], 200);
             }
             //Initial order with status pending
