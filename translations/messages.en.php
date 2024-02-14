@@ -502,4 +502,15 @@ return [
     "FOR_AS_MANY_TIMES_AS_YOU_WANT_UP_TO_YOUR_WALLET_LIMIT_SHORT" => "For as many times as you want up to your wallet limit.",
     //Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.
     "AUTO_CONVERSION_FEATURE_WITH_QR_PAYMENTS_OFFERS_FREE_AUTOMATIC_CURRENCY_CONVERSION" => "Auto conversion feature with QR payments offers free automatic currency conversion, ensuring you exchange only what’s necessary for your purchases.",
+
+    //MIC
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MIC" => "What are the benefits for MIC S.A.L employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MIC" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an MIC S.A.L employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIC" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an MIC S.A.L employee.",
+
+
+    //BCL
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_BCL" => "What are the benefits for BCL S.A.L employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_BCL" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an BCL S.A.L employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_BCL" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an BCL S.A.L employee.",
 ];
