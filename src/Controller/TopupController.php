@@ -271,10 +271,9 @@ class TopupController extends AbstractController
                 $data = $sessionInterface->get('payment_data');
             } else {
                 $data = $request->query->all();
-                $additionalInfo = $data['AdditionalInfo'] ?? '';
                 $sessionInterface->set('card_payment_url',$_SERVER['REQUEST_URI']);
             }
-
+            $additionalInfo = $data['AdditionalInfo'] ?? '';
             $parameters = array();
             $amount = $data['Amount'] ?? '';
             $currency = $data['Currency'] ?? '';
@@ -288,12 +287,12 @@ class TopupController extends AbstractController
 
             if ($refNumber != null) {
                 $refNumber = "G" . $refNumber;
-                $Hash = base64_encode(hash($this->hash_algo,   $merchantOrderId .$merchantId . $amount . $currency . $data['AdditionalInfo'] . $merchant->getCertificate(), true));
+                $Hash = base64_encode(hash($this->hash_algo,   $merchantOrderId .$merchantId . $amount . $currency . $additionalInfo . $merchant->getCertificate(), true));
             } else {
                 $refNumber = null;
             }
 
-            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($merchantOrderId,(float)$amount, $currency, '', $merchantId, $callBackUrl,$Hash);
+            $pushCard = $this->suyoolServices->PushCardToMerchantTransaction($merchantOrderId,(float)$amount, $currency, $additionalInfo, $merchantId, $callBackUrl,$Hash);
             $sessionInterface->remove('payment_data');
             //dd($pushCard);
             $transactionDetails = json_decode($pushCard[1]);
