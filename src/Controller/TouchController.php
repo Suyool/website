@@ -953,13 +953,31 @@ class TouchController extends AbstractController
             } else {
                 return new JsonResponse([
                     'status' => false,
-                    'message' => "Unauthorize"
+                    'message' => "Unauthorize",
+                    'data'=>[
+                        'Popup'=>[
+                            "Title" => "Unauthorize",
+                            "globalCode" => 0,
+                            "flagCode" => 801,
+                            "Message" => "You have been unauthorized",
+                            "isPopup" => true
+                        ]
+                    ]
                 ], 401);
             }
         } catch (Exception $e) {
             return new JsonResponse([
                 'status' => false,
-                'message' => $e->getMessage(),
+                'message' => "An error has occured",
+                'data' => [
+                    'Popup' => [
+                        "Title" => "An error has occured",
+                        "globalCode" => 0,
+                        "flagCode" => 802,
+                        "Message" => "An error has occured",
+                        "isPopup" => true
+                    ]
+                ]
             ], 500);
         }
     }
@@ -1043,6 +1061,14 @@ class TouchController extends AbstractController
                                     ->seterror("{reversed " . $message . "}");
                                 $this->mr->persist($orderupdate4);
                                 $this->mr->flush();
+                                $popup = [
+                                    "Title" => "Return money Successfully",
+                                    "globalCode" => 0,
+                                    "flagCode" => 800,
+                                    "Message" => "Return money Successfully",
+                                    // "code" => "*14*" . "112233445566" . "#",
+                                    "isPopup" => true
+                                ];
                             } else {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4
@@ -1102,20 +1128,25 @@ class TouchController extends AbstractController
                             $params = json_encode([
                                 'amount' => $order->getamount(),
                                 'currency' => "L.L",
-                                // 'plan' => $data["desc"],
-                                'plan' => 1233,
+                                'plan' => $data["desc"],
+                                // 'plan' => 1233,
                                 // 'code' => $PayResonse["voucherCode"],
                                 'code' => 1231223425,
                                 // 'serial' => $PayResonse["voucherSerial"],
                                 'serial' => 23455,
-                                'expiry' => $formattedDate
+                                'expiry' => $formattedDate,
+                                'name'=> $data['PayerName']
                             ]);
                             // $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
                             $additionalData = "*14*" . "112233445566" . "#";
                             if ($suyooler->getType() == 2) {
-                                $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
+                                $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
                                 $bulk = 0; //1 for broadcast 0 for unicast
                                 $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                            }else{
+                                $content = $notificationServices->getContent('TouchCardPurchasedSuccessfullyCorporate');
+                                $bulk = 1; //1 for broadcast 0 for unicast
+                                $notificationServices->addNotification($data['getUsersToReceiveNotification'], $content, $params, $bulk, $additionalData);
                             }
                             $popup = [
                                 "Title" => "Touch Bill Paid Successfully",
@@ -1153,8 +1184,8 @@ class TouchController extends AbstractController
                         $this->mr->persist($orderupdate3);
                         $this->mr->flush();
                         $IsSuccess = false;
-
-                        if (isset($response[2])) {
+                        $message = json_decode($response[1], true);
+                        if (isset($response[2]) && isset($message['Title'])) {
                             $message = json_decode($response[1], true);
                             $popup = [
                                 "Title" => $message['Title'],
@@ -1164,8 +1195,15 @@ class TouchController extends AbstractController
                                 "isPopup" => true
                             ];
                             $flagCode = $response[2];
-                        } else {
+                        }else {
                             $message = "You can not purchase now";
+                            $popup = [
+                                "Title" => "Error has occured",
+                                "globalCode" => 0,
+                                "flagCode" => 800,
+                                "Message" => "Please try again <br> Error: {$response[3]}",
+                                "isPopup" => true
+                            ];
                         }
                         $dataPayResponse = -1;
                     }
@@ -1189,13 +1227,31 @@ class TouchController extends AbstractController
             } else {
                 return new JsonResponse([
                     'status' => false,
-                    'message' => "Unauthorize"
+                    'message' => "Unauthorize",
+                    'data'=>[
+                        'Popup'=>[
+                            "Title" => "Unauthorize",
+                            "globalCode" => 0,
+                            "flagCode" => 801,
+                            "Message" => "You have been unauthorized",
+                            "isPopup" => true
+                        ]
+                    ]
                 ], 401);
             }
         } catch (Exception $e) {
             return new JsonResponse([
                 'status' => false,
-                'message' => $e->getMessage(),
+                'message' => "An error has occured",
+                'data' => [
+                    'Popup' => [
+                        "Title" => "An error has occured",
+                        "globalCode" => 0,
+                        "flagCode" => 802,
+                        "Message" => "An error has occured",
+                        "isPopup" => true
+                    ]
+                ]
             ], 500);
         }
     }
