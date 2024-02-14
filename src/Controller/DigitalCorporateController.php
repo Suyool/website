@@ -70,7 +70,7 @@ class DigitalCorporateController extends AbstractController
                 'Improve your budgeting & cash flow management.',
             ],
         ];
-        $parameters['platinumCardImagePath'] = 'corporate-plat-master.png';
+        $parameters['platinumCardImagePath'] = 'corporate-plat-visa.png';
 
         $bookKeeping = [
             'title' => 'Keep Track of <br> Your Money In Real Time',
