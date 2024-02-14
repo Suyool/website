@@ -1320,7 +1320,7 @@ class BobPaymentServices
         if (is_null($suyooler)) {
             $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
         }else {
-            $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid, 'status' => null]);
+            $attempts = $this->mr->getRepository(attempts::class)->getTransactionPerStatus($orderid);
         }
         // Create a new attempt object
         if ($attempts === null) {

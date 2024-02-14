@@ -300,7 +300,7 @@ class TopupController extends AbstractController
             $sessionInterface->set('merchant_name',$merchant->getName());
 
             $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$merchantOrderId);
-            $sessionInterface->set('suyoolTranId', $transactionDetails->TransactionId);
+            // $sessionInterface->set('suyoolTranId', $transactionDetails->TransactionId);
 
             $paymentType = 'Gateway';
             if ($existingInvoice) {
@@ -449,7 +449,7 @@ class TopupController extends AbstractController
         $cardDetails = $bobPaymentServices->checkCardNumber();
         $cardnumber = $cardDetails['number'];
         $cardHolderName = $cardDetails['nameOnCard'];
-        $tranId = $sessionInterface->get('suyoolTranId');
+        $tranId = $sessionInterface->get('orderidhostedsession');
 
         $attempts = new attempts();
         $attempts

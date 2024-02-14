@@ -53,4 +53,15 @@ class AttemptsRepository extends EntityRepository
             ->getQuery()
             ->getResult());
     }
+
+    public function getTransactionPerStatus($transid)
+    {
+        return $this->createQueryBuilder('a')
+        ->select('a')
+        ->where("a.transactionId = {$transid} and a.status is null")
+        ->orderBy("a.id","DESC")
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }
