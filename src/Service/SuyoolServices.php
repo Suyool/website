@@ -193,7 +193,7 @@ class SuyoolServices
     {
         $Hash = base64_encode(hash($this->hash_algo, $channelID . $this->certificate, true));
         $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}MasterAccount/GetAllMasterAccounts", [
-            'query' => ['Data' => $Hash],
+            'query' => ['SecureHash' => $Hash],
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
