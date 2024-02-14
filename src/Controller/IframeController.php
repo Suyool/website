@@ -116,7 +116,7 @@ class IframeController extends AbstractController
         $TS = $data['TS'] ?? '';
         $TranTS = $data['TranTS'] ?? '';
         $merchantId = isset($data['MerchantID']) ? $data['MerchantID'] : (isset($data['MerchantAccountID']) ? $data['MerchantAccountID'] : null);
-        $additionalInfo = $data['AdditionalInfo'] ?? '';
+        $additionalInfo = isset($data['AdditionalInfo']) ? $data['AdditionalInfo'] : (isset($data['description']) ? $data['description'] : '');
 
         $merchant = $this->mr->getRepository(merchants::class)->findOneBy(['merchantMid' => $merchantId]);
 

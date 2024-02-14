@@ -149,7 +149,7 @@ class InvoicesController extends AbstractController
             $secure = $orderId . $merchantId . $amount . $currency . $callbackURL . $timestamp . $certificate;
             $isMobile = true;
         } else {
-            $secure = $orderId . $timestamp . $amount . $currency . $callbackURL . $timestamp . $certificate;
+            $secure = $orderId . $timestamp . $amount . $currency . $callbackURL . $timestamp . $invoice->getMerchantOrderDesc() .$certificate;
         }
         $secureHash = base64_encode(hash('sha512', $secure, true));
 
