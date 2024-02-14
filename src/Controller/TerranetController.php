@@ -402,36 +402,73 @@ class TerranetController extends AbstractController
                         if ($response) {
                             $flag = 1;
                             $message="Data retrieved";
+                            $parameters = [
+                                'flag' => $flag,
+                                'return' => $data
+                            ];
                         } else {
                             $flag = 2;
                             $data = "No Available Products";
                             $message=$data;
+                            $parameters = [
+                                'Popup' => [
+                                    "Title" => "No Available Products",
+                                    "globalCode" => 0,
+                                    "flagCode" => 800,
+                                    "Message" => @$data,
+                                    "isPopup" => true
+                                ]
+                                ];
                         }
                     } else {
-                        $data = "The number you entered was not found in the system.Kindly try another one.";
+                        $data = "The number you entered was not found in the system. <br>Kindly try another one.";
                         $message=$data;
                         $flag = 2;
+                        $parameters = [
+                            'Popup' => [
+                                "Title" => "Number Not Found",
+                                "globalCode" => 0,
+                                "flagCode" => 800,
+                                "Message" => @$data,
+                                "isPopup" => true
+                            ]
+                            ];
                     }
                 }
                 return new JsonResponse([
                     'status' => true,
                     'message' => @$message,
-                    'data' => [
-                        'flag' => $flag,
-                        'return' => $data
-                    ]
+                    'data' => $parameters
 
                 ], 200);
             } else {
                 return new JsonResponse([
                     'status' => false,
-                    'message' => 'unauthorize'
+                    'message' => "Unauthorize",
+                    'data'=>[
+                        'Popup'=>[
+                            "Title" => "Unauthorize",
+                            "globalCode" => 0,
+                            "flagCode" => 801,
+                            "Message" => "You have been unauthorized",
+                            "isPopup" => true
+                        ]
+                    ]
                 ], 401);
             }
         } catch (Exception $e) {
             return new JsonResponse([
-                'status' => true,
-                'message' => $e->getMessage()
+                'status' => false,
+                'message' => "An error has occured",
+                'data' => [
+                    'Popup' => [
+                        "Title" => "An error has occured",
+                        "globalCode" => 0,
+                        "flagCode" => 802,
+                        "Message" => "An error has occured",
+                        "isPopup" => true
+                    ]
+                ]
             ], 500);
         }
     }
