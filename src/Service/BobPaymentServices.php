@@ -878,6 +878,7 @@ class BobPaymentServices
                     'cardNumber' => $cardnumber,
                 ];
                 $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
+                // dd($topup);
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
