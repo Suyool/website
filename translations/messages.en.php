@@ -505,12 +505,12 @@ return [
 
     //MIC
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_MIC" => "What are the benefits for MIC S.A.L employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MIC" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an MIC S.A.L employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIC" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an MIC S.A.L employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_MIC" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a MIC S.A.L employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_MIC" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a MIC S.A.L employee.",
 
 
     //BCL
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_BCL" => "What are the benefits for BCL S.A.L employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_BCL" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an BCL S.A.L employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_BCL" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an BCL S.A.L employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_BCL" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a BCL S.A.L employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_BCL" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a BCL S.A.L employee.",
 ];
