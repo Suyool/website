@@ -183,9 +183,9 @@ class winningTickets extends Command
         }
 
         if ($_ENV['APP_ENV'] == 'prod') {
-            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'aya.j@skash.com,anthony.saliba@elbarid.com', $text, "", "", "no-reply@suyool.com", "no-reply", 1, 0);
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'aya.j@skash.com,anthony.saliba@elbarid.com', $text,  "winners" . date('Y-m-d') .".csv", base64_encode(file_get_contents($filename)), "no-reply@suyool.com", "no-reply", 1, 0);
         } else {
-            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'anthony.saliba@elbarid.com', $text,  "Winners.csv", base64_encode(file_get_contents($filename)), "suyool@noreply.com", "Suyool", 1, 0);
+            $this->suyoolServices->sendDotNetEmail("{$drawId} Winning Tickets", 'anthony.saliba@elbarid.com', $text,  "winners" . date('Y-m-d') .".csv", base64_encode(file_get_contents($filename)), "suyool@noreply.com", "Suyool", 1, 0);
         }
         $getUsersWhoWon = $this->mr->getRepository(loto::class)->getUsersWhoWon($drawId);
         // dd($getUsersWhoWon);
