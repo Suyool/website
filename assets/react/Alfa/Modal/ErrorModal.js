@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 const ErrorModal = (props) => {
-  const [ getAnth, setAnth ] = useState("");
+  const [getAnth, setAnth] = useState("");
   const handleExchange = () => {
     if (props.getErrorModal.path == "84") {
       let object = [
@@ -51,7 +51,15 @@ const ErrorModal = (props) => {
         <div id="ErrorModal">
           <img src={props.getErrorModal.img} alt="flag" />
           <div className="title">{props.getErrorModal.title}</div>
-          <div className="desc" dangerouslySetInnerHTML={{ __html: props.getErrorModal.desc }}></div>
+          <div className="desc">
+            {typeof props.getErrorModal.desc === "string" ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: props.getErrorModal.desc }}
+              />
+            ) : (
+              props.getErrorModal.desc
+            )}
+          </div>
           <div className="buttonsDesign">
             {props.getErrorModal.btn == "OK" && (
               <button className="exchangeBtnModal" onClick={props.onHide}>
