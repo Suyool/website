@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Gift2Games\IframeLog;
 use App\Entity\Invoices\invoices;
 use App\Entity\Invoices\merchants;
 use App\Entity\Invoices\test_invoices;
@@ -27,6 +28,8 @@ class IframeController extends AbstractController
     {
         $this->client = $client;
         $this->mr = $mr->getManager('invoices');
+        $this->defaultDB=$mr->getManager('default');
+
         $this->session = $session;
         if ($session!=null && $session->has('simulation')) {
             $simulation = $session->get('simulation');
@@ -166,6 +169,19 @@ class IframeController extends AbstractController
 
         $content = $response->getContent();
         $response = json_decode($content, true);
+
+        $logs = new IframeLog();
+        $logs->setidentifier("QR Payment");
+        $logs->seturl($this->SUYOOL_API_HOST . $data['url']);
+        $logs->setrequest($data['data']);
+        $logs->setresponse($content);
+        $logs->seterror(json_encode($response['returnText']));
+
+        $this->defaultDB->persist($logs);
+        $this->defaultDB->flush();
+
+
+
         $this->session->remove('payment_data');
 
         return $response;
