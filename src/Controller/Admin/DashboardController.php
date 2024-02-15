@@ -49,7 +49,7 @@ class DashboardController extends AbstractController
             'loto'=>$loto,
             'alfa'=>$alfa,
             'touch'=>$touch,
-            'support'=>$support,
+            //'support'=>@$support,
             'payment'=>$payment,
             'ogero'=>$ogero,
             'gift2gamesBalance' =>$balance
