@@ -15,6 +15,7 @@ use App\Service\DecryptService;
 use App\Service\LogsService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use Dompdf\Dompdf;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,8 +41,23 @@ class OgeroController extends AbstractController
     /**
      * @Route("/ogero", name="app_ogero")
      */
-    public function index(NotificationServices $notificationServices): Response
+    public function index(NotificationServices $notificationServices, BobServices $bobServices): Response
     {
+        // HTML content
+        print_r($bobServices->RetrieveTransactionReceipt());
+        $html = $bobServices->RetrieveTransactionReceipt();
+        // $html = "<h1>\\n\\ranthony</h1>"
+        // Create dompdf object
+        $dompdf = new Dompdf();
+        // Load HTML content
+        $dompdf->loadHtml($html);
+        // Set paper size (optional)
+        $dompdf->setPaper('A4', 'portrait');
+        // Render the HTML as PDF
+        $dompdf->render();
+        // Output the generated PDF (inline or download)
+        $dompdf->stream("example.pdf", array("Attachment" => true));
+        // $bobServices->RetrieveTransactionReceipt();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
