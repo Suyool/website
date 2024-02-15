@@ -18,11 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-
 class SimlyController extends AbstractController
 {
     private $mr;
@@ -59,32 +54,11 @@ class SimlyController extends AbstractController
      */
     public function index(NotificationServices $notificationServices)
     {
-        $useragent = $_SERVER['HTTP_USER_AGENT'];
-//        $_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-//        $_POST['infoString'] = "fDw1fGSFl9P1u6pVDvVFTJAuMCD8nnbrdOm3klT/EuBs+IueXRHFPorgUh30SnQ+";
+        $parameters['deviceType'] = 'Android';
 
-        if (isset($_POST['infoString'])) {
-            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);//['device'=>"aad", asdfsd]
-            $suyoolUserInfo = explode("!#!", $decrypted_string);
-            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-//            $devicetype = "Android";
-
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
-                $SuyoolUserId = $suyoolUserInfo[0];
-                $this->session->set('suyoolUserId', $SuyoolUserId);
-
-                $parameters['deviceType'] = $suyoolUserInfo[1];
-
-                return $this->render('simly/index.html.twig', [
-                    'controller_name' => 'SodetelController',
-                    'parameters' => $parameters,
-                ]);
-            } else {
-                return $this->render('ExceptionHandling.html.twig');
-            }
-        } else  {
-            return $this->render('ExceptionHandling.html.twig');
-        }
+         return $this->render('simly/index.html.twig', [
+             'parameters' => $parameters
+         ]);
     }
 
     /**
