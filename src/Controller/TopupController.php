@@ -297,9 +297,10 @@ class TopupController extends AbstractController
             //dd($pushCard);
             $transactionDetails = json_decode($pushCard[1]);
 
-            $merchantName = $sessionInterface->set('merchant_name',$merchant->getName());
+            $sessionInterface->set('merchant_name',$merchant->getName());
 
             $existingInvoice = $invoicesServices->findExistingInvoice($merchant,$merchantOrderId);
+            // $sessionInterface->set('suyoolTranId', $transactionDetails->TransactionId);
 
             $paymentType = 'Gateway';
             if ($existingInvoice) {
@@ -444,7 +445,21 @@ class TopupController extends AbstractController
     #[Route('/pay', name: 'app_topup_blacklist', methods: ['POST'])]
     public function checkblacklist(Request $request, BobPaymentServices $bobPaymentServices, SessionInterface $sessionInterface)
     {
-        $cardnumber = $bobPaymentServices->checkCardNumber();
+
+        $cardDetails = $bobPaymentServices->checkCardNumber();
+        $cardnumber = $cardDetails['number'];
+        $cardHolderName = $cardDetails['nameOnCard'];
+        $tranId = $sessionInterface->get('orderidhostedsession');
+
+        $attempts = new attempts();
+        $attempts
+            ->setTransactionId($tranId)
+            ->setCard($cardnumber)
+            ->setName($cardHolderName);
+
+        $this->mr->persist($attempts);
+        $this->mr->flush();
+
         if (substr($cardnumber, 0, 6) == 423265 || substr($cardnumber, 0, 6) == 552009 || substr($cardnumber, 0, 6) == 557618) {
             $response = [
                 'title' => 'Using Suyooler Card',

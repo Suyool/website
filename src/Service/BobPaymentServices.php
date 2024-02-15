@@ -760,7 +760,7 @@ class BobPaymentServices
         }
     }
 
-    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId)
+    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId,$attempts=null)
     {
         try {
             $response = $this->client->request('GET', $this->BASE_API . "order/" . $order, [
@@ -779,7 +779,7 @@ class BobPaymentServices
             // $this->logger->error(json_encode($content));
             // dd($content['authenticationStatus']);
         if ($content['result'] != 'ERROR') {
-                $attempts = new attempts();
+               $attempts == null ? $attempts = new attempts() : $attempts = $attempts;
                 $attempts->setResponse(json_encode($content))
                     ->setSuyoolUserId($suyoolUserId)
                     ->setTransactionId($content['id'])
@@ -878,6 +878,7 @@ class BobPaymentServices
                     'cardNumber' => $cardnumber,
                 ];
                 $topup = $this->suyoolServices->UpdateCardTopUpTransaction($session->getOrders()->gettransId(), 3, strval($session->getOrders()->gettransId()), (float)$session->getOrders()->getamount(), $session->getOrders()->getcurrency(), json_encode($additionalData));
+                // dd($topup);
                 $transaction->setflagCode($topup[2]);
                 $transaction->setError($topup[3]);
                 $this->mr->persist($transaction);
@@ -1316,7 +1317,17 @@ class BobPaymentServices
             ];
             return $parameters;
         }
-        $attempts = ($simulation == 'true') ? new test_attempts() : new attempts();
+        // Check if attempt exists
+        if (is_null($suyooler)) {
+            $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
+        }else {
+            $attempts = $this->mr->getRepository(attempts::class)->getTransactionPerStatus($orderid);
+        }
+        // Create a new attempt object
+        if ($attempts === null) {
+            $attempts = new attempts();
+        }
+
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1331,6 +1342,7 @@ class BobPaymentServices
             ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
         $this->mr->persist($attempts);
         $this->mr->flush();
+
         if ($simulation == 'true') {
             $session = $this->mr->getRepository(test_session::class)->findOneBy(['session' => $getTheSession['session']]);
             $entity = 'test';
@@ -1637,7 +1649,12 @@ class BobPaymentServices
             ];
             return $parameters;
         }
-        $attempts = new attempts();
+        $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
+
+        // Create a new attempt object
+        if ($attempts === null) {
+            $attempts = new attempts();
+        }
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1790,7 +1807,7 @@ class BobPaymentServices
         $this->logger->info($this->BASE_API . "session/" . $this->session->get('hostedSessionId'));
         $content = $response->toArray(false);
         $this->logger->info(json_encode($content));
-        return $content['sourceOfFunds']['provided']['card']['number'];
+        return $content['sourceOfFunds']['provided']['card'];
     }
 
     //
