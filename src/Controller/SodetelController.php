@@ -742,7 +742,7 @@ class SodetelController extends AbstractController
 
                                     $additionalData = '';
 
-                                    $notificationType = $data['bundle'] == "4g" ? 'AcceptedSodetel4GPayment' : 'AcceptedSodetelDSLPaymentCorporate';
+                                    $notificationType = $data['bundle'] == "4g" ? 'AcceptedSodetel4GPaymentCorporate' : 'AcceptedSodetelDSLPaymentCorporate';
                                     $content = $notificationServices->getContent($notificationType);
                                     $bulk = 1; //1 for broadcast 0 for unicast
                                     $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);

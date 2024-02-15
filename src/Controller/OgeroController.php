@@ -449,34 +449,34 @@ class OgeroController extends AbstractController
                         $messageBack = $RetrieveChannel[2];
                         $LandlineReqId = -1;
                         $mobileNb = $data["mobileNumber"];
-                            switch ($error[1]) {
-                                case 111:
-                                    $title = "No Pending Bill";
-                                    $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
-                                    break;
-                                case 108:
-                                    $title = "No Pending Bill";
-                                    $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
-                                    break;
-                                case 112:
-                                    $title = "Number Not Found";
-                                    $body = "The number you entered was not found in the system.<br>Kindly try another number.";
-                                    break;
-                                default:
-                                    $title = "Number Not Found";
-                                    $body = "The number you entered was not found in the system.<br>Kindly try another number.";
-                                    break;
-                            }
-                            $popup = [
-                                "Title" => @$title,
-                                "globalCode" => 0,
-                                "flagCode" => 800,
-                                "Message" => @$body,
-                                "isPopup" => true
-                            ];
-                            $parameters = [
-                                'Popup'=>$popup
-                            ];
+                        switch ($error[1]) {
+                            case 111:
+                                $title = "No Pending Bill";
+                                $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
+                                break;
+                            case 108:
+                                $title = "No Pending Bill";
+                                $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
+                                break;
+                            case 112:
+                                $title = "Number Not Found";
+                                $body = "The number you entered was not found in the system.<br>Kindly try another number.";
+                                break;
+                            default:
+                                $title = "Number Not Found";
+                                $body = "The number you entered was not found in the system.<br>Kindly try another number.";
+                                break;
+                        }
+                        $popup = [
+                            "Title" => @$title,
+                            "globalCode" => 0,
+                            "flagCode" => 800,
+                            "Message" => @$body,
+                            "isPopup" => true
+                        ];
+                        $parameters = [
+                            'Popup' => $popup
+                        ];
                     }
                 } else {
                     $message = "not connected";
@@ -599,7 +599,13 @@ class OgeroController extends AbstractController
                                 'name' => $data['PayerName']
                             ]);
                             $additionalData = "";
-
+                            $popup = [
+                                "Title" => "Ogero Bill Paid Successfully",
+                                "globalCode" => 0,
+                                "flagCode" => 0,
+                                "Message" => "You have successfully paid your Ogero bill of L.L " . number_format($order->getamount()) . ".",
+                                "isPopup" => true
+                            ];
                             $content = $notificationServices->getContent('AcceptedOgeroPaymentCorporate');
                             $bulk = 1; //1 for broadcast 0 for unicast
                             $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
@@ -622,14 +628,9 @@ class OgeroController extends AbstractController
                                 'Rounding' => $Landline_With_id->getrounding(),
                                 'OgeroTotalAmount' => $Landline_With_id->getogeroTotalAmount(),
                                 'AdditionalFees' => $Landline_With_id->getadditionalFees(),
+                                'landlinenumber' => $Landline_With_id->getGsmNumber()
                             ]);
-                            $popup = [
-                                "Title" => "Ogero Bill Paid Successfully",
-                                "globalCode" => 0,
-                                "flagCode" => 0,
-                                "Message" => "You have successfully paid your Ogero bill of L.L " . number_format($order->getamount()) . ".",
-                                "isPopup" => true
-                            ];
+
                             $message = "Success";
                             $messageBack = "Success";
                             //tell the .net that total amount is paid

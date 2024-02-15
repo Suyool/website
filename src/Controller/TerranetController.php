@@ -574,11 +574,12 @@ class TerranetController extends AbstractController
                                     ]);
                                     $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
                                 } else {
-                                    $content = $notificationServices->getContent('terranetLandlineRecharged');
+                                    $content = $notificationServices->getContent('terranetLandlineRechargedCorporate');
                                     $params = json_encode([
                                         'amount' => $amount,
                                         'userAccount' => $PPPLoginName,
-                                        'type' => $description
+                                        'type' => $description,
+                                        'name'=>$data['PayerName']
                                     ]);
                                     $bulk = 1; //1 for broadcast 0 for unicast
                                     $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
