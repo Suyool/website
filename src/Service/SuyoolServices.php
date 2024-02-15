@@ -74,7 +74,7 @@ class SuyoolServices
     public static function decryptWebKey($webkey)
     {
         $webkey = $webkey['authorization'] ?? $webkey['Authorization'] ?? null;
-        $webkeyDecrypted = openssl_decrypt($webkey['authorization'], $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
+        $webkeyDecrypted = openssl_decrypt($webkey, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
         // dd($webkeyDecrypted);
         try {
             $webkeyParts = explode('!#!', $webkeyDecrypted);
