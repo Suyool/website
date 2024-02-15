@@ -1301,7 +1301,7 @@ class AlfaController extends AbstractController
                         $this->mr->flush();
 
                         //buy voucher from loto Provider
-                        $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                        $BuyPrePaid = $lotoServices->BuyPrePaid("", $data["category"], $data["type"]);
                         $PayResonse = $BuyPrePaid[0]["d"];
                         // $BuyPrePaid = array();
                         // $PayResonse = array();
