@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 
-use App\Entity\Gift2Games\IframeLog;
+use App\Entity\IframeLog;
 use App\Entity\Invoices\invoices;
 use App\Entity\Invoices\merchants;
 use App\Entity\Invoices\test_invoices;
