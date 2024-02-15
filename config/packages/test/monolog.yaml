@@ -10,6 +10,7 @@ monolog:
         - cashin
         - topup
         - Alfa
+        - simly
     handlers:
         users:
             type: stream
@@ -56,6 +57,11 @@ monolog:
             path: "%kernel.logs_dir%/alfa.log"
             level: debug
             channels: ['Alfa']
+        simly:
+            type: stream
+            path: "%kernel.logs_dir%/simly.log"
+            level: debug
+            channels: ['simly']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
