@@ -1131,7 +1131,7 @@ class TouchController extends AbstractController
                                 'expiry' => $formattedDate,
                                 'name'=> $data['PayerName']
                             ]);
-                            $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
+                            $additionalData = "*200*" . $PayResonse["voucherCode"] . "#";
                             // $additionalData = "*14*" . "112233445566" . "#";
                             if ($suyooler->getType() == 2) {
                                 $content = $notificationServices->getContent('TouchCardPurchasedSuccessfully');
@@ -1147,7 +1147,7 @@ class TouchController extends AbstractController
                                 "globalCode" => 0,
                                 "flagCode" => 101,
                                 "Message" => "You have successfully paid purchased the Touch {$data['desc']}",
-                                "code"=>"*14*" . "112233445566" . "#",
+                                "code"=>"*200*" . $PayResonse["voucherCode"] . "#",
                                 "isPopup" => true
                             ];
                             //tell the .net that total amount is paid
