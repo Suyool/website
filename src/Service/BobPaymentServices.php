@@ -760,7 +760,7 @@ class BobPaymentServices
         }
     }
 
-    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId)
+    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId,$attempts=null)
     {
         try {
             $response = $this->client->request('GET', $this->BASE_API . "order/" . $order, [
@@ -779,7 +779,7 @@ class BobPaymentServices
             // $this->logger->error(json_encode($content));
             // dd($content['authenticationStatus']);
         if ($content['result'] != 'ERROR') {
-                $attempts = new attempts();
+               $attempts == null ? $attempts = new attempts() : $attempts = $attempts;
                 $attempts->setResponse(json_encode($content))
                     ->setSuyoolUserId($suyoolUserId)
                     ->setTransactionId($content['id'])
