@@ -241,6 +241,16 @@ class IframeController extends AbstractController
             $jsonEncoded = json_encode($transactionData);
             $appUrl = "suyoolpay://suyool.com/suyool=?" . urlencode($jsonEncoded);
 
+            $logs = new IframeLog();
+            $logs->setidentifier("Mobile Payment");
+            $logs->seturl("suyoolpay://suyool.com/suyool=?");
+            $logs->setrequest($jsonEncoded);
+            $logs->setresponse($appUrl);
+            $logs->seterror('');
+
+            $this->defaultDB->persist($logs);
+            $this->defaultDB->flush();
+
             return $this->render('iframe/pay-mobile.html.twig', [
                 'deepLink' => $appUrl,
                 'order_id' => $TranID,
@@ -285,7 +295,20 @@ class IframeController extends AbstractController
                     'Content-Type' => 'application/json'
                 ]
             ]);
+
+
+
             $result = json_decode($response->getContent(), true);
+
+            $logs = new IframeLog();
+            $logs->setidentifier("Check Payment STATUS");
+            $logs->seturl($this->SUYOOL_API_HOST . $params['url']);
+            $logs->setrequest($params['data']);
+            $logs->setresponse($response->getContent());
+            $logs->seterror(json_encode($result['returnText']));
+
+            $this->defaultDB->persist($logs);
+            $this->defaultDB->flush();
 
             $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
             $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceNo']) ? $result['referenceNo'] : null);
