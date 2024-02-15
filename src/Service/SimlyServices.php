@@ -41,10 +41,9 @@ class SimlyServices
 
     private function getResponse($status, $message, $data, $functionName)
     {
-        // if ($status == 200) {
-        // dd($this->logger);
-        $this->logger->error("Simly Request : status-> {$status} ; message-> {$message} ; functionName -> {$functionName}");
-        // }
+        if ($status != 200) {
+            $this->logger->error("Simly Request : status-> {$status} ; message-> {$message} ; functionName -> {$functionName}");
+        }
         return [
             'status' => $status,
             'message' => $message,
@@ -52,6 +51,32 @@ class SimlyServices
         ];
     }
 
+    public function IsAuthenticated()
+    {
+        try {
+            $body = [
+                "email" => $this->USERNAME,
+                "password" => $this->PASSWORD,
+            ];
+            $response = $this->helper->clientRequest("POST", $this->SIMLY_API_HOST . 'login', $body);
+            $status = $response->getStatusCode();
+
+            if ($status === 500) {
+                return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+            }
+
+            $data = json_decode($response->getContent(), true);
+
+            if ($status === 200 && isset($data['data']['token'])) {
+                return $data['data']['token'];
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+        }
+    }
     public function Authentication(): array
     {
         try {
@@ -72,6 +97,28 @@ class SimlyServices
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+        }
+    }
+
+    public function GetCountriesPlans()
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            // dd($token);
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+            }
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+
+            dd($data);
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
         }
     }
 }
