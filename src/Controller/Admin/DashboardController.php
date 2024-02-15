@@ -40,7 +40,7 @@ class DashboardController extends AbstractController
         $loto=$dashboard->LotoDashboard($this->LotoRepository,$drawId->getdrawId());
         $alfa=$dashboard->AlfaDashboard($this->alfaRepository);
         $touch=$dashboard->TouchDashboard($this->touchRepository);
-        $support=$dashboard->SupportDashboard($this->supportRepository);
+        // $support=$dashboard->SupportDashboard($this->supportRepository);
         $payment=$dashboard->PaymentDashboard($this->paymentRepository);
         $ogero=$dashboard->OgeroDashboard($this->ogeroRepository);
         $gift2gamesBalance = $gift2GamesController->getGift2GamesBalance();
@@ -49,7 +49,7 @@ class DashboardController extends AbstractController
             'loto'=>$loto,
             'alfa'=>$alfa,
             'touch'=>$touch,
-            'support'=>$support,
+            //'support'=>@$support,
             'payment'=>$payment,
             'ogero'=>$ogero,
             'gift2gamesBalance' =>$balance

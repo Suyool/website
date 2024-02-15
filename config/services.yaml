@@ -148,6 +148,17 @@ services:
     App\Controller\Gift2GamesController:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Users' }
+    App\Controller\SodetelController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Users' }
+    
+    App\Controller\AlfaController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Alfa' }
+    
+    App\Controller\TerranetController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Alfa' }
         
 
     # App\Controller\LotoController:

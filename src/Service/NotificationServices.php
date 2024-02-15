@@ -51,7 +51,6 @@ class NotificationServices
 
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
-                //dd($suyoolUser);
                 if (is_null($suyoolUser)) return false;
 
                 $user = new Users;
