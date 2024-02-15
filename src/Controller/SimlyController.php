@@ -49,12 +49,17 @@ class SimlyController extends AbstractController
      */
     public function API(SimlyServices $simlyServices)
     {
-        $authenticationResult = $simlyServices->Authentication();
+        // $authenticationResult = $simlyServices->Authentication();
+        // dd($authenticationResult);
 
-        $response = new Response(json_encode($authenticationResult['data']));
-        $response->headers->set('Content-Type', 'application/json');
-        $response->setStatusCode($authenticationResult['code']);
+        $res = $simlyServices->GetCountriesPlans();
+        dd($res);
 
-        return $response;
+
+        // $response = new Response(json_encode($authenticationResult['data']));
+        // $response->headers->set('Content-Type', 'application/json');
+        // $response->setStatusCode($authenticationResult['code']);
+
+        // return $response;
     }
 }
