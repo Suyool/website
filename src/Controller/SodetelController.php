@@ -417,7 +417,6 @@ class SodetelController extends AbstractController
     public function checkWebkey(NotificationServices $notificationServices)
     {
         $webkey = apache_request_headers();
-        $webkey = $webkey['Authorization'];
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -439,7 +438,6 @@ class SodetelController extends AbstractController
     public function getCardsApi(Request $request, NotificationServices $notificationServices, SodetelService $sodetelService)
     {
         $webkey = apache_request_headers();
-        $webkey = $webkey['Authorization'];
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -585,7 +583,6 @@ class SodetelController extends AbstractController
         //        }
         try {
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {

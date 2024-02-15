@@ -582,7 +582,6 @@ class TouchController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $webkey = apache_request_headers();
-        $webkey = $webkey['Authorization'];
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -604,7 +603,6 @@ class TouchController extends AbstractController
         try {
             $data = json_decode($request->getContent(), true);
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -661,7 +659,6 @@ class TouchController extends AbstractController
         try {
             $data = json_decode($request->getContent(), true);
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -730,7 +727,6 @@ class TouchController extends AbstractController
         try {
             $data = json_decode($request->getContent(), true);
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -934,7 +930,6 @@ class TouchController extends AbstractController
     {
         try {
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -992,7 +987,6 @@ class TouchController extends AbstractController
     {
         try {
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {

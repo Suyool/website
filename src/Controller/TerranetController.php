@@ -352,7 +352,6 @@ class TerranetController extends AbstractController
     public function checkWebkey(NotificationServices $notificationServices)
     {
         $webkey = apache_request_headers();
-        $webkey = $webkey['Authorization'];
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -373,7 +372,6 @@ class TerranetController extends AbstractController
     {
         try {
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
@@ -480,7 +478,6 @@ class TerranetController extends AbstractController
     {
         try {
             $webkey = apache_request_headers();
-            $webkey = $webkey['Authorization'];
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
