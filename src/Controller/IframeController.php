@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 
-use App\Entity\IframeLog;
+use App\Entity\Invoices\IframeLog;
 use App\Entity\Invoices\invoices;
 use App\Entity\Invoices\merchants;
 use App\Entity\Invoices\test_invoices;
@@ -28,7 +28,6 @@ class IframeController extends AbstractController
     {
         $this->client = $client;
         $this->mr = $mr->getManager('invoices');
-        $this->defaultDB=$mr->getManager('default');
 
         $this->session = $session;
         if ($session!=null && $session->has('simulation')) {
@@ -177,8 +176,8 @@ class IframeController extends AbstractController
         $logs->setresponse($content);
         $logs->seterror(json_encode($response['returnText']));
 
-        $this->defaultDB->persist($logs);
-        $this->defaultDB->flush();
+        $this->mr->persist($logs);
+        $this->mr->flush();
 
 
 
@@ -248,8 +247,8 @@ class IframeController extends AbstractController
             $logs->setresponse($appUrl);
             $logs->seterror('');
 
-            $this->defaultDB->persist($logs);
-            $this->defaultDB->flush();
+            $this->mr->persist($logs);
+            $this->mr->flush();
 
             return $this->render('iframe/pay-mobile.html.twig', [
                 'deepLink' => $appUrl,
@@ -307,8 +306,8 @@ class IframeController extends AbstractController
             $logs->setresponse($response->getContent());
             $logs->seterror(json_encode($result['returnText']));
 
-            $this->defaultDB->persist($logs);
-            $this->defaultDB->flush();
+            $this->mr->persist($logs);
+            $this->mr->flush();
 
             $flag = isset($result['Flag']) ? $result['Flag'] : (isset($result['flag']) ? $result['flag'] : null);
             $referenceNo = isset($result['ReferenceNo']) ? $result['ReferenceNo'] : (isset($result['referenceNo']) ? $result['referenceNo'] : null);
