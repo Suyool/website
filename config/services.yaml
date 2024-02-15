@@ -145,6 +145,10 @@ services:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Sodetel' }
 
+    App\Service\SimlyServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'simly' }
+
     App\Controller\Gift2GamesController:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Users' }

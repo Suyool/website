@@ -9,6 +9,7 @@ monolog:
         - cashout
         - cashin
         - topup
+        - simly
     handlers:
         users:
             type: stream
@@ -50,6 +51,11 @@ monolog:
             path: "%kernel.logs_dir%/topup.log"
             level: debug
             channels: ['topup']
+        simly:
+            type: stream
+            path: "%kernel.logs_dir%/simly.log"
+            level: debug
+            channels: ['simly']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
