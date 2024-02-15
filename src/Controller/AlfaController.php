@@ -806,7 +806,7 @@ class AlfaController extends AbstractController
             $this->loggerInterface->error($e->getMessage());
             return new JsonResponse([
                 'status' => false,
-                'message' => "An error has occured",
+                'message' => $e->getMessage(),
                 'data' => [
                     'Popup' => [
                         "Title" => "An error has occured",
