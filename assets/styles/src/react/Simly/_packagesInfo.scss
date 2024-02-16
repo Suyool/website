@@ -1,0 +1,127 @@
+.packagesinfo {
+    padding-left: 15px;
+
+    .logo {
+        margin: 30px auto;
+        border-radius: 10px;
+        /* background: white; */
+        height: 80px;
+        width: 100px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .title {
+        text-align: center;
+        font-size: 24px;
+        padding-bottom: 30px;
+        font-family: $SemiBold;
+    }
+
+    .card {
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        margin-right: 15px;
+        border-radius: 13px !important;
+        height: 130px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .data {
+            padding-top: 25px;
+
+            .title2 {
+                padding-left: 15px;
+                font-size: 12px;
+            }
+
+            .info {
+                font-size: 25px;
+                font-family: $SemiBold;
+            }
+        }
+
+        .bd {
+            border: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        .price {
+            padding-top: 25px;
+            font-size: 12px;
+
+            /* padding-left: 16px; */
+            /* width: 47px; */
+            .price2 {
+                padding-left: 12px;
+            }
+
+            .info {
+                font-size: 25px;
+                font-family: $SemiBold;
+            }
+        }
+    }
+
+    .valid {
+        text-align: center;
+        font-size: 15px;
+        color: #767676;
+        padding-top: 10px;
+
+        span {
+            font-family: 'PoppinsSemiBold';
+            color: #000;
+        }
+    }
+
+    .country {
+        color: #767676;
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    .works {
+        font-size: 25px;
+        font-family: 'PoppinsSemiBold';
+    }
+
+    .network {
+        padding-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 15px;
+
+        .info {
+            color: #767676;
+        }
+
+        .about {
+            font-family: $Medium;
+        }
+    }
+
+    .policy {
+        padding-bottom: 8px;
+        color: #767676;
+    }
+
+    .validation{
+        padding-bottom: 20px;
+    }
+
+    .pay {
+        text-align: center;
+
+        .payactivate {
+            background-color: #00ADFF;
+            border: none;
+            width: 85%;
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            font-family: $Medium;
+        }
+    }
+}
