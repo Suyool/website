@@ -1,323 +1,220 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ContentLoader from "react-content-loader";
+import PackageItems from "./PackageItems";
 
-const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle, setDataGetting}) => {
-    const [loading, setLoading] = useState(true);
+const Packages = () => {
+    const [view, setView] = useState('countries');
+    const [selectedData, setSelectedData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isPackageItem, setIsPackageItem] = useState(false);
+    const [items, setItems] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [categoriesWithNumberIds, setCategoriesWithNumberIds] = useState([]);
-    const [childCategories, setChildCategories] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [activeCategoryId, setActiveCategoryId] = useState();
-    const [activeSubCategoryId, setActiveSubCategoryId] = useState(null);
-    const [noProductsMessage, setNoProductsMessage] = useState('');
+    const [selectedCountry, setSelectedCountry] = useState(null);
 
-    const setHeaderTitleVar = setHeaderTitle;
-
-    // Declare getDefaultImage outside of useEffect
-    const getDefaultImage = (typeID) => {
-        switch (parseInt(typeID, 10)) {
-            case 1:
-                setHeaderTitleVar('Gaming');
-                return '/build/images/gameicon.svg';
-            case 2:
-                setHeaderTitleVar('Streaming');
-                return '/build/images/streamicon.svg';
-            case 3:
-                setHeaderTitleVar('Gifts');
-                return '/build/images/vouchersicon.svg';
-            default:
-                setHeaderTitleVar('Simly');
-
-        }
+    const handleViewChange = (selectedView) => {
+        setView(selectedView);
     };
-
     useEffect(() => {
-        setDataGetting("")
-    }, [])
-    useEffect(() => {
-        const defaultImage = getDefaultImage(setTypeID);
-    }, [setTypeID, setHeaderTitle]);
+        setIsLoading(true);
+        // Fetch data using Axios
+        axios.get('http://10.20.80.79/simly/getAllAvailableCountries')
+            .then(response => {
+                // Set the fetched data to state
+                setSelectedData(response.data.message);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                setIsLoading(false);
+            });
+    }, []);
 
-
-    // const handleSearch = (e) => {
-    //     setChildCategories([]);
-    //
-    //     const searchValue = e.target.value.toLowerCase();
-    //     const filteredCategories = categories.filter((category) => {
-    //         // Check if the first 3 characters of the title match the searchValue
-    //         return category.title.toLowerCase().startsWith(searchValue.slice(0, 2));
-    //     });
-    //     if (filteredCategories.length > 0)
-    //         fetchChildCategories(filteredCategories[0]?.id);
-    //     else
-    //         setFilteredData([]);
-    //
-    //     setNoProductsMessage('');
-    //     setCategoriesWithNumberIds(filteredCategories);
-    // };
-
-    let typingTimeout;
-    const handleChange = (e) => {
-        clearTimeout(typingTimeout);
-        typingTimeout = setTimeout(() => {
-            handleSearch(e);
-        }, 500);
-    };
-
-    const handleSearch = (e) => {
-        const searchValue = e.target.value;
-        const filteredCategories = categories.filter((category)=>{
-            return category.title.toLowerCase().includes(searchValue.toLowerCase())
-        })
-
-        setCategoriesWithNumberIds(filteredCategories);
-
-        if (filteredCategories.length > 0){
-            const childCategories = fetchChildCategories(filteredCategories[0]?.id);
-
-            if (childCategories && Array.isArray(childCategories) && childCategories.length > 0){
-                setActiveCategoryId(filteredCategories[0]?.id);
-            }else{
-                setActiveSubCategoryId(Number(filteredCategories[0]?.categoryId));
+    // Function to filter data based on search query
+    const filterData = (data, query) => {
+        const filtered = Object.keys(data.local).reduce((acc, continent) => {
+            const countries = data.local[continent].filter(country =>
+                country.name.toLowerCase().includes(query.toLowerCase())
+            );
+            if (countries.length > 0) {
+                acc[continent] = countries;
             }
-        }else{
-            setChildCategories([]);
-            setFilteredData([]);
-            setActiveSubCategoryId(null);
-        }
-
-    }
-
-    const fetchCategories = () => {
-        axios
-            .get(`/gift2games/categories/${setTypeID}`)
-            .then((response) => {
-                if (response?.data?.status) {
-                    const parsedData = response?.data?.Payload;
-                    setCategories(parsedData);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching categories:", error);
-            });
+            return acc;
+        }, {});
+        return filtered;
     };
 
-    const handleCategoryClick = (categoryId, id) => {
-        setActiveCategoryId(id);
-        const childCategories = fetchChildCategories(id);
-
-        // Check if childCategories is defined and an array
-        if (childCategories && Array.isArray(childCategories) && childCategories.length > 0) {
-            setChildCategories(childCategories);
+    useEffect(() => {
+        // Filter data based on search query
+        if (searchQuery.length >= 3) {
+            const filtered = filterData(selectedData, searchQuery);
+            setFilteredData(filtered);
         } else {
-            setActiveSubCategoryId(Number(categoryId));
+            // Display all countries when search query is empty or less than 3 characters
+            setFilteredData(selectedData.local || {});
         }
+    }, [searchQuery, selectedData]);
+
+    const handleSearchChange = (event) => {
+        const query = event.target.value;
+        setSearchQuery(query);
     };
 
-    const fetchChildCategories = (parentId) => {
-        axios
-            .get(`/gift2games/categories/${parentId}/childs`)
-            .then((response) => {
-                if (response?.data?.status) {
-                    const childCategories = response?.data?.Payload;
-                    setChildCategories(childCategories);
-                }
+    const handleClick = (isoCode) => {
+        // Call the API to fetch items using the ISO code
+        setIsLoading(true);
+        axios.get(`http://10.20.80.74/simly/getPlansUsingISOCode?code=${isoCode}`)
+            .then(response => {
+                setItems(response.data); // Update the state with fetched items
+                setSelectedCountry(response.data.message);
+                setIsPackageItem(true)
+
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(error => {
+                console.error('Error fetching items:', error);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
-
-    const fetchProducts = () => {
-        setLoading(true);
-        if (activeSubCategoryId != 0) {
-            axios
-                .get(`/gift2games/products/${activeSubCategoryId}`)
-                .then((response) => {
-                    if (response?.data?.status) {
-                        const productData = response?.data?.Payload;
-                        setFilteredData(productData);
-                        if (productData.length === 0) {
-                            // Set a message when there are no products
-                            setNoProductsMessage('Products out of stock');
-                        } else {
-                            // Clear the message if products are available
-                            setNoProductsMessage('');
-                        }
-                    }
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-
-    };
-
-    useEffect(() => {
-        fetchCategories();
-    }, [setTypeID]);
-
-    useEffect(() => {
-        setCategoriesWithNumberIds(
-            categories.map((category) => ({
-                ...category,
-                id: Number(category.id),
-            }))
-        );
-    }, [categories]);
-
-    useEffect(() => {
-        // Select the first category when the component mounts
-        if (categoriesWithNumberIds.length > 0) {
-            const firstCategory = categoriesWithNumberIds[0];
-            sessionStorage.setItem("categoryName", firstCategory.title)
-            setActiveCategoryId(firstCategory.id);
-            fetchChildCategories(firstCategory.id);
-        }
-    }, [categoriesWithNumberIds]);
-
-    useEffect(() => {
-        // Fetch products for the first child category when the component mounts
-        if (childCategories.length > 0) {
-            const firstChildCategory = childCategories[0];
-            setActiveSubCategoryId(firstChildCategory.categoryId);
-        }
-    }, [childCategories]);
-
-    useEffect(() => {
-        if (activeSubCategoryId) {
-            fetchProducts();
-        }
-    }, [activeSubCategoryId]);
 
     return (
-        <div id="Default_simly">
-            <div className="search-bar">
-                <div className="search-icon">
-                    <img src="/build/images/g2g/search.svg" alt=""/>
+        <div className="container">
+            <div className="search-bar mt-5">
+                <div className="search-icon-left">
+                    <img src="/build/images/g2g/search.svg" alt="Search Icon"/>
                 </div>
                 <input
                     type="text"
                     placeholder="Search Destination"
-                    onChange={(event) => handleChange(event)}
+                    value={searchQuery}
+                    onChange={handleSearchChange}
                     style={{fontWeight: 'bold', color: '#000000', fontFamily: 'PoppinsRegular'}}
-                /></div>
-
-            <div className="categories-scroll">
-                {
-                    categoriesWithNumberIds.map((category) => {
-                        return (
-                            <div
-                                key={category.categoryId}
-                                className={`category-item ${activeCategoryId === Number(category.id) ? "selected" : ""}`}
-                                onClick={() => {
-                                    handleCategoryClick(Number(category.categoryId), category.id)
-                                    sessionStorage.setItem("categoryName", category.title)
-                                }}
-                            >
-                                <img src={category.image} alt={category.title}/>
-                                <p className="SubTitleCat">{category.title}</p>
-
-                            </div>
-                        );
-                    })
-                }
+                />
+                <div className="search-icon-right">
+                    <img src="/build/images/topUpSimIcon.svg" alt="Icon"/>
+                </div>
             </div>
-
-            {/* Display child categories for the active category */}
-
-            {childCategories.length > 0 && (
-                <div className="child-categories">
-                    {childCategories.map((child) => {
-                        return (
-                            <button
-                                key={child.id}
-                                className={`child-category ${
-                                    child.categoryId === activeSubCategoryId ? "active-sub" : ""
-                                }`}
-                                onClick={() => {
-                                    setActiveSubCategoryId(child.categoryId);
-                                }}
-                            >
-                                <p className="SubTitleCat">{child.shortTitle}</p>
-                            </button>
-                        );
-                    })}
+            <div className="row filter-btns-cont">
+                <div className="col d-flex justify-content-center">
+                    <button
+                        className={"btn btn-primary " + (view === 'countries' ? "active" : "")}
+                        onClick={() => setView('countries')}
+                    >
+                        Per Country
+                    </button>
                 </div>
-            )}
-            {noProductsMessage && (
-                <div className="out-of-stock-message">
-                    <div className="icon">
-                        <img src="/build/images/outOfStock.svg" alt="outOfStock"/>
-                    </div>
-                    <div className="text">
-                        <p className="title">Product out of stock</p>
-                        <p className="desc">Once we re-stock, you will see the products here</p>
-                    </div>
+                <div className="col d-flex justify-content-center">
+                    <button
+                        className={"btn btn-primary " + (view === 'regions' ? "active" : "")}
+                        onClick={() => setView('regions')}
+                    >
+                        Per Region
+                    </button>
                 </div>
-            )}
-
-            <div id="ReCharge">
-                <div className="bundlesSection">
-                    {loading ? (
-                        <ContentLoader
-                            speed={2}
-                            width="100%"
-                            height="90vh"
-                            backgroundColor="#f3f3f3"
-                            foregroundColor="#ecebeb"
-                        >
-                            <rect x="0" y="0" rx="3" ry="3" width="100%" height="80"/>
-                            <rect x="0" y="90" rx="3" ry="3" width="100%" height="80"/>
-                            <rect x="0" y="180" rx="3" ry="3" width="100%" height="80"/>
-                            <rect x="0" y="270" rx="3" ry="3" width="100%" height="80"/>
-                            <rect x="0" y="360" rx="3" ry="3" width="100%" height="80"/>
-                            <rect x="0" y="450" rx="3" ry="3" width="100%" height="80"/>
-                        </ContentLoader>
-                    ) : (
+                <div className="col d-flex justify-content-center">
+                    <button
+                        className={"btn btn-primary " + (view === 'global' ? "active" : "")}
+                        onClick={() => setView('global')}
+                    >
+                        Global
+                    </button>
+                </div>
+            </div>
+            {isPackageItem ? (
+                // Render content when isPackageItem is true
+                <PackageItems country={selectedCountry}/>
+            ) : (
+                // Render content when isPackageItem is false
+                <>
+                    {view === 'countries' && (
                         <>
-                            {filteredData.map((record, index) => (
-                                <div
-                                    className="bundleGrid"
-                                    key={index}
-                                    style={
-                                        record.instock == 0
-                                            ? {display: "none"}
-                                            : {display: "flex"}
-                                    }
-                                    onClick={() => {
-                                        setPrepaidVoucher({
-                                            price: record.displayPrice,
-                                            displayPrice: record.displayPrice,
-                                            currency: record.currency,
-                                            title: record.title,
-                                            image: record.image,
-                                            productId: record.productId
-                                        });
-                                        setActiveButton({name: "MyBundle"});
-                                    }}
-                                >
-                                    <img
-                                        className="GridImg"
-                                        src={record?.image || getDefaultImage(setTypeID)}
-                                        alt="bundleImg"
-                                    />
-                                    <div className="gridDesc">
-                                        <div className="Price">
-                                            ${record?.displayPrice}{" "}
+                            {isLoading ? (
+                                <ContentLoader speed={2} width="100%" height="90vh" backgroundColor="#f3f3f3"
+                                               foregroundColor="#ecebeb">
+                                    <rect x="0" y="0" rx="3" ry="3" width="100%" height="80"/>
+                                    <rect x="0" y="90" rx="3" ry="3" width="100%" height="80"/>
+                                    <rect x="0" y="180" rx="3" ry="3" width="100%" height="80"/>
+                                    <rect x="0" y="270" rx="3" ry="3" width="100%" height="80"/>
+                                    <rect x="0" y="360" rx="3" ry="3" width="100%" height="80"/>
+                                    <rect x="0" y="450" rx="3" ry="3" width="100%" height="80"/>
+                                </ContentLoader>
+                            ) : (
+                                <div className="row ps-3">
+                                    <div className="col">
+                                        <div className="card-columns continent-card-container">
+                                            {Object.keys(filteredData).map((continent, index) => (
+                                                <div key={index} className="continent-container">
+                                                    {filteredData[continent].length > 0 && (
+                                                        <>
+                                                            <h5>{continent}</h5>
+                                                            <div className="country-scroll-container">
+                                                                <div className="row flex-nowrap">
+                                                                    {filteredData[continent].map((country, idx) => (
+                                                                        <div key={idx} className="col">
+                                                                            <div className="card countryCard mb-3"
+                                                                                 onClick={() => handleClick(country.isoCode)}>
+                                                                                <div className="card-body">
+                                                                                    <img src={country.countryImageURL}
+                                                                                         alt={country.name} width={50}/>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            ))}
                                         </div>
-                                        <div className="bundleName">{record.title}</div>
                                     </div>
                                 </div>
-                            ))}
+                            )}
                         </>
                     )}
-                </div>
-            </div>
+
+                    {view === 'regions' && (
+                        <div className="row">
+                            <div className="col">
+                                {selectedData && selectedData.regional && selectedData.regional.map((region, index) => (
+                                    <div key={index} className="card mb-3" onClick={() => handleClick(region.isoCode)}>
+
+                                        <div className="card-body">
+                                            <img src={region.countryImageURL} alt={region.name} width={50}/>
+                                            <h5 className="card-title mt-2">{region.name} Packages</h5>
+                                            <p className="card-text">
+                                                {region.destinations} destinations
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {view === 'global' && (
+                        <div className="row">
+                            <div className="col">
+                                {selectedData && selectedData.global && selectedData.global.map((globalItem, index) => (
+                                    <div key={index} className="card mb-3" onClick={() => handleClick(globalItem.isoCode)}>
+                                        <div className="card-body">
+                                            <img src={globalItem.countryImageURL} alt={globalItem.name} width={50}/>
+                                            <h5 className="card-title">{globalItem.name} Package</h5>
+                                            <p className="card-text">
+                                                {globalItem.destinations} destinations
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </>
+            )}
         </div>
     );
 };
 
-export default Default;
+export default Packages;
