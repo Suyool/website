@@ -1,4 +1,4 @@
-#Default_g2g {
+#Default_simly {
   height: 100vh;
   width: 100%;
   position: relative;
@@ -59,14 +59,13 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 16px 0px 10px 0px;
+    // padding: 20px 10px;
+    padding: 16px 10px 10px 10px;
     border-radius: 6px;
     border: 1px solid #D8DEE6;
     box-shadow: 0px 3px 10px #E7EAF0;
     margin-top: 15px;
-    align-items: center;
-    margin-left: 12px;
-    justify-content: center;
+    align-items: flex-start;
 
     .logoImg {
       width: 54px;
@@ -75,6 +74,11 @@
     }
 
     .Text {
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
+      padding-right: 20px;
+
       .SubTitle {
         font-family: $SemiBold;
         font-size: 15px;
