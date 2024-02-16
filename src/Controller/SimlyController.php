@@ -151,12 +151,13 @@ class SimlyController extends AbstractController
         }
 
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
+        $simlyPlan = $simlyServices->getPlanById($data['planId']);
 
         $order = new Order();
         $order
             ->setEsimsId(0)
             ->setStatus(Order::$statusOrder['PENDING'])
-            ->setAmount(0)
+            ->setAmount($simlyPlan['price'])
             ->setFees(0)
             ->setCurrency('USD')
             ->setTransId(0);
