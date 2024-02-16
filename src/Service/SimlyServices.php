@@ -211,7 +211,6 @@ class SimlyServices
                 return $this->getResponse(401, 'Unauthorized', null, 'PurchaseTopup');
             }
 
-            $body = [];
             if ($esimId != null) {
                 $body = [
                     "planId" => $planId,
@@ -222,6 +221,7 @@ class SimlyServices
                     "planId" => $planId
                 ];
             }
+
             $response = $this->client->request("POST", $this->SIMLY_API_HOST . 'esims/purchase', [
                 'body' => $body,
                 'headers' => [

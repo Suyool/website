@@ -133,6 +133,7 @@ class SuyoolServices
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
+//            dd(json_encode($body));
 
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
@@ -142,6 +143,7 @@ class SuyoolServices
             // }
 
             $push_utility_response = $response->toArray(false);
+//            dd($push_utility_response);
 
             if ($this->userlog) {
                 $this->userlog->info(json_encode($body));

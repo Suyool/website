@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
 // * @ORM\Entity(repositoryClass="App\Repository\SimlyOrdersRepository")
- * @ORM\Table(name="esima")
+ * @ORM\Table(name="esims")
  */
 
 class Esim
@@ -22,7 +22,7 @@ class Esim
     /**
      * @ORM\Column(type="string")
      */
-    private $esims_id;
+    private $esimId;
 
     /**
      * @ORM\Column(type="integer")
@@ -84,9 +84,9 @@ class Esim
         return $this->esims_id;
     }
 
-    public function setEsimsId(string $esimId): self
+    public function setEsimId(string $esimId): self
     {
-        $this->esims_id = $esimId;
+        $this->esimId = $esimId;
         return $this;
     }
 

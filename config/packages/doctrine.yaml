@@ -24,7 +24,6 @@ doctrine:
                 url: '%env(resolve:TERRANET_DATABASE_URL)%'
             invoices:
                 url: '%env(resolve:INVOICES_DATABASE_URL)%'
-
             sodetel:
                 url: '%env(resolve:SODETEL_DATABASE_URL)%'
             gift2games:
