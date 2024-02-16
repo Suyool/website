@@ -10,7 +10,7 @@ import Account from "./Account";
 
 
 const App = ({ parameters }) => {
-  const [activeButton, setActiveButton] = useState({ name: "" });
+  const [activeButton, setActiveButton] = useState({ name: "PackagesInfo" });
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
   const [getModalName, setModalName] = useState("");
@@ -91,7 +91,7 @@ const App = ({ parameters }) => {
                 setTypeID={parameters.typeID}
               />
             )}
-            {activeButton.name === "PackagesInfo" && <PackagesInfo />}
+            {activeButton.name === "PackagesInfo" && <PackagesInfo setBackLink={setBackLink} />}
             {activeButton.name === "eSimAccount" && <Account setHeaderTitle={setHeaderTitle} setBackLink={setBackLink}/>}
           </>
         )}
