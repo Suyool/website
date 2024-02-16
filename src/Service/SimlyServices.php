@@ -266,5 +266,35 @@ class SimlyServices
             return $this->getResponse(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
         }
     }
+
+    public function getPlanById($planId)
+    {
+        //dummy data
+        //{
+        //                "duration": 7,
+        //                "size": 1,
+        //                "price": 7.65,
+        //                "planId": "simly_GLOBAL_1GB_7D",
+        //                "activationPolicy": "The validity period starts when the SIM connects to any supported networks.",
+        //                "topup": true,
+        //                "planType": "Data Only",
+        //                "isManualAPNRequired": false,
+        //                "isKYCRequired": false,
+        //                "apn": "globalData"
+        //            }
+
+        return [
+            "duration" => 7,
+            "size" => 1,
+            "price" => 7.65,
+            "planId" => "simly_GLOBAL_1GB_7D",
+            "activationPolicy" => "The validity period starts when the SIM connects to any supported networks.",
+            "topup" => true,
+            "planType" => "Data Only",
+            "isManualAPNRequired" => false,
+            "isKYCRequired" => false,
+            "apn" => "globalData"
+        ];
+    }
 }
  
