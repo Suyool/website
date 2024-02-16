@@ -82,7 +82,7 @@ class SimlyServices
                 $status = $response->getStatusCode();
 
                 if ($status === 500) {
-                    return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+                    return $this->getResponse(500, 'Internal Server Error', null, 'IsAuthenticated');
                 }
 
                 $data = json_decode($response->getContent(), true);
@@ -101,7 +101,7 @@ class SimlyServices
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+            return $this->getResponse(500, 'Internal Server Error', null, 'IsAuthenticated');
         }
     }
     public function Authentication(): array
@@ -134,7 +134,7 @@ class SimlyServices
             $token = $this->IsAuthenticated();
             // dd($token);
             if (!$token) {
-                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+                return $this->getResponse(401, 'Unauthorized', null, 'GetCountriesPlans');
             }
             $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries', [
                 'headers' => [
@@ -150,7 +150,7 @@ class SimlyServices
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
         }
     }
 
@@ -159,7 +159,7 @@ class SimlyServices
         try {
             $token = $this->IsAuthenticated();
             if (!$token) {
-                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+                return $this->getResponse(401, 'Unauthorized', null, 'GetPlansUsingISOCode');
             }
             $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $code . '', [
                 'headers' => [
@@ -171,21 +171,46 @@ class SimlyServices
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
-                return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
         }
     }
 
+    public function GetAvailableNetworkFromGivenId($planId)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'GetAvailableNetworkFromGivenId');
+            }
+
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'networks/' . $planId . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetAvailableNetworkFromGivenId');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetAvailableNetworkFromGivenId');
+        }
+    }
 
     public function PurchaseTopup($planId, $esimId = null)
     {
         try {
             $token = $this->IsAuthenticated();
             if (!$token) {
-                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+                return $this->getResponse(401, 'Unauthorized', null, 'PurchaseTopup');
             }
 
             $body = [];
@@ -210,11 +235,37 @@ class SimlyServices
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
-                return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
+                return $this->getResponse(500, 'Internal Server Error', null, 'PurchaseTopup');
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+            return $this->getResponse(500, 'Internal Server Error', null, 'PurchaseTopup');
+        }
+    }
+
+    public function FetchUsageOfPurchasedESIM($esimId)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'FetchUsageOfPurchasedESIM');
+            }
+
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'esims/usage/' . $esimId . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
         }
     }
 }
