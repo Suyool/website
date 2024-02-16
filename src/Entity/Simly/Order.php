@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Alfa;
+namespace App\Entity\Simly;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,12 +33,12 @@ class Order
     private $status;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2))
      */
     private $amount;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2))
      */
     private $fees;
 
@@ -52,150 +52,108 @@ class Order
      */
     private $transId;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $type;
+
 
     /**
      * @ORM\Column(name="errorInfo")
      */
     private $error;
 
-    /**
-     * @ORM\Column(name="vouchertypeid")
-     */
-    private $vouchertypeid;
 
-    /**
-     * @ORM\Column(name="created")
-     */
-    private DateTime $created;
-
-    public function __construct()
-    {
-        $this->created = new DateTime();
-    }
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getsuyoolUserId()
+    public function getEsimId(): ?int
     {
-        return $this->suyoolUserId;
+        return $this->esims_id;
     }
 
-    public function setsuyoolUserId($suyoolUserId)
+    public function setEsimId(int $esims_id): self
     {
-        $this->suyoolUserId = $suyoolUserId;
+        $this->esims_id = $esims_id;
         return $this;
     }
 
-    public function getstatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setstatus($status)
+    public function setStatus(string $status): self
     {
         $this->status = $status;
         return $this;
     }
 
-    public function getamount()
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setamount($amount)
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
         return $this;
     }
 
-    public function getfees()
+    public function getFees(): ?float
     {
         return $this->fees;
     }
 
-    public function setfees($fees)
+    public function setFees(float $fees): self
     {
         $this->fees = $fees;
         return $this;
     }
 
-    public function setcurrency($currency)
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
         return $this;
     }
 
-    public function getcurrency()
-    {
-        return $this->currency;
-    }
-
-    public function getpostpaidId()
-    {
-        if ($this->postpaid) {
-            return $this->postpaid->getId();
-        }
-
-        return null;
-    }
-    public function setpostpaidId(?Postpaid $postpaid_id): self
-    {
-        $this->postpaid = $postpaid_id;
-        return $this;
-    }
-
-    public function getprepaidId()
-    {
-        if ($this->prepaid) {
-            return $this->prepaid->getId();
-        }
-
-        return null;
-    }
-    public function setprepaidId(?Prepaid $prepaid_id): self
-    {
-        $this->prepaid = $prepaid_id;
-        return $this;
-    }
-
-    public function gettransId()
+    public function getTransId(): ?int
     {
         return $this->transId;
     }
 
-    public function settransId($transId)
+    public function setTransId(int $transId): self
     {
         $this->transId = $transId;
         return $this;
     }
 
-    public function seterror($error)
+    public function getType(): ?string
     {
-        $this->error = $error;
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
         return $this;
     }
 
-    public function geterror()
+    public function getError(): ?string
     {
         return $this->error;
     }
 
-
-    public function setVoucherTypeId($vouchertypeid)
+    public function setError(string $error): self
     {
-        $this->vouchertypeid = $vouchertypeid;
+        $this->error = $error;
         return $this;
-    }
-
-    public function getVoucherTypeId()
-    {
-        return $this->vouchertypeid;
-    }
-
-    public function getCreated(){
-        return $this->created;
     }
 }

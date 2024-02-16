@@ -215,10 +215,6 @@ class SodetelController extends AbstractController
 
                 if ($utilityResponse[0]) {
                     $order->setStatus(Order::$statusOrder['HELD']);
-
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-
                     $transId = $utilityResponse[1];
 
                     $order->setTransId($transId);

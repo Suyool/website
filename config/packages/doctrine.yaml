@@ -29,6 +29,8 @@ doctrine:
                 url: '%env(resolve:SODETEL_DATABASE_URL)%'
             gift2games:
                 url: '%env(resolve:GIFT2GAMES_DATABASE_URL)%'
+            simly:
+                url: '%env(resolve:SIMLY_DATABASE_URL)%'
 
         default_connection: default
         # charset: UTF8
@@ -173,3 +175,13 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Invoices'
                         prefix: 'App\Entity\Invoices'
                         alias: invoices
+
+            simly:
+                connection: simly
+                mappings:
+                    Simly:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Simly'
+                        prefix: 'App\Entity\Simly'
+                        alias: Simly
