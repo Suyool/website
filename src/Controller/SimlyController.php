@@ -50,16 +50,20 @@ class SimlyController extends AbstractController
      */
     public function API(SimlyServices $simlyServices)
     {
-        $res = $simlyServices->IsAuthenticated();
-        dd($res);
+        // $res = $simlyServices->IsAuthenticated();
+        // dd($res);
 
-        $res = $simlyServices->Authentication();
-        dd($res);
+        // $res = $simlyServices->Authentication();
+        // dd($res);
 
-        $res = $simlyServices->GetCountriesPlans();
-        dd($res);
+        // $res = $simlyServices->GetCountriesPlans();
+        // dd($res);
 
-        $res = $simlyServices->GetPlansUsingISOCode('ME');
+        // $res = $simlyServices->GetPlansUsingISOCode('ME');
+        // dd($res);
+
+        // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
+        $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         dd($res);
     }
 

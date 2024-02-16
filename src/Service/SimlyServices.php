@@ -59,16 +59,16 @@ class SimlyServices
             } else {
                 $file = "../var/cache/dev/SimlyToken.txt";
             }
-    
+
             if (file_exists($file)) {
                 $fileModificationTime = filemtime($file);
             } else {
                 $fileModificationTime = 0;
             }
-    
+
             $cacheExpiration = 3600;
             $currentTime = time();
-    
+
             if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
                 $operationsjson = file_get_contents($file);
                 echo "data get from cache\n";
@@ -162,6 +162,45 @@ class SimlyServices
                 return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
             }
             $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $code . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+        }
+    }
+
+
+    public function PurchaseTopup($planId, $esimId = null)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+            }
+
+            $body = [];
+            if ($esimId != null) {
+                $body = [
+                    "planId" => $planId,
+                    "esimId" => $esimId
+                ];
+            } else {
+                $body = [
+                    "planId" => $planId
+                ];
+            }
+            $response = $this->client->request("POST", $this->SIMLY_API_HOST . 'esims/purchase', [
+                'body' => $body,
                 'headers' => [
                     'x-simly-token' => $token
                 ],
