@@ -62,9 +62,15 @@ class SimlyController extends AbstractController
         // $res = $simlyServices->GetPlansUsingISOCode('ME');
         // dd($res);
 
+        // $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
+        // dd($res);
+
         // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
-        $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
-        dd($res);
+        // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
+        // dd($res);
+
+        // $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+        // dd($res);
     }
 
 
