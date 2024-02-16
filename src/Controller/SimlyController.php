@@ -170,10 +170,10 @@ class SimlyController extends AbstractController
 
         $this->mr->persist($order);
         $this->mr->flush();
-
         $order_id = $simlyMerchId."-".$order->getId();
-        $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), 0);
+//        dd($order);
 
+        $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), 32);
         if(!$utilityResponse[0]){
             //logs here
 
@@ -198,7 +198,11 @@ class SimlyController extends AbstractController
         $this->mr->persist($order);
         $this->mr->flush();
 
-        $simlyResponse = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
+        if ($order->getType() == 'esim') {
+            $simlyResponse = $simlyServices->PurchaseTopup($data['planId']);
+        }else {
+            $simlyResponse = $simlyServices->PurchaseTopup($data['planId'], $data['esimId'] );
+        }
 
         if (!isset($simlyResponse['id'])) {
             //logs here with $simlyResponse['message']
@@ -232,17 +236,19 @@ class SimlyController extends AbstractController
             $esim = $this->mr->getRepository(Esim::class)->find($simlyResponse['id']);
         }
 
+//        dd($simlyResponse);
+
         $esim
-            ->setEsimsId($simlyResponse['id'])
+            ->setEsimId($simlyResponse['id'])
             ->setSuyoolUserId($SuyoolUserId)
             ->setStatus('active')
             ->setSmdp($simlyResponse['smdp'])
-            ->setMatchingId($simlyResponse['matchingId'])
+            ->setMatchingId($simlyResponse['matchingID'])
             ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
             ->setQrCodeString($simlyResponse['qrCodeString'])
             ->setTopups(json_encode($simlyResponse['topups']))
             ->setTransaction(json_encode($simlyResponse['transaction']))
-            ->setPlan($data['plan'])
+            ->setPlan($simlyResponse['plan'])
             ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']));
 
 
