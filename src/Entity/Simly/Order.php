@@ -1,0 +1,201 @@
+<?php
+
+namespace App\Entity\Alfa;
+
+use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\SimlyOrdersRepository")
+ * @ORM\Table(name="orders")
+ */
+class Order
+{
+    public static $statusOrder = array("PENDING" => "pending", "HELD" => "held", "PURCHASED" => "purchased", "COMPLETED" => "completed", "CANCELED" => "canceled");
+
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Simly\Esim",fetch="EAGER")
+     * @ORM\JoinColumn(name="esims_id", referencedColumnName="id")
+     */
+    private $esims_id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $fees;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $currency;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $transId;
+
+
+    /**
+     * @ORM\Column(name="errorInfo")
+     */
+    private $error;
+
+    /**
+     * @ORM\Column(name="vouchertypeid")
+     */
+    private $vouchertypeid;
+
+    /**
+     * @ORM\Column(name="created")
+     */
+    private DateTime $created;
+
+    public function __construct()
+    {
+        $this->created = new DateTime();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getsuyoolUserId()
+    {
+        return $this->suyoolUserId;
+    }
+
+    public function setsuyoolUserId($suyoolUserId)
+    {
+        $this->suyoolUserId = $suyoolUserId;
+        return $this;
+    }
+
+    public function getstatus()
+    {
+        return $this->status;
+    }
+
+    public function setstatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getamount()
+    {
+        return $this->amount;
+    }
+
+    public function setamount($amount)
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
+    public function getfees()
+    {
+        return $this->fees;
+    }
+
+    public function setfees($fees)
+    {
+        $this->fees = $fees;
+        return $this;
+    }
+
+    public function setcurrency($currency)
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    public function getcurrency()
+    {
+        return $this->currency;
+    }
+
+    public function getpostpaidId()
+    {
+        if ($this->postpaid) {
+            return $this->postpaid->getId();
+        }
+
+        return null;
+    }
+    public function setpostpaidId(?Postpaid $postpaid_id): self
+    {
+        $this->postpaid = $postpaid_id;
+        return $this;
+    }
+
+    public function getprepaidId()
+    {
+        if ($this->prepaid) {
+            return $this->prepaid->getId();
+        }
+
+        return null;
+    }
+    public function setprepaidId(?Prepaid $prepaid_id): self
+    {
+        $this->prepaid = $prepaid_id;
+        return $this;
+    }
+
+    public function gettransId()
+    {
+        return $this->transId;
+    }
+
+    public function settransId($transId)
+    {
+        $this->transId = $transId;
+        return $this;
+    }
+
+    public function seterror($error)
+    {
+        $this->error = $error;
+        return $this;
+    }
+
+    public function geterror()
+    {
+        return $this->error;
+    }
+
+
+    public function setVoucherTypeId($vouchertypeid)
+    {
+        $this->vouchertypeid = $vouchertypeid;
+        return $this;
+    }
+
+    public function getVoucherTypeId()
+    {
+        return $this->vouchertypeid;
+    }
+
+    public function getCreated(){
+        return $this->created;
+    }
+}
