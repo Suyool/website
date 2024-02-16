@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SimlyController extends AbstractController
 {
@@ -49,17 +50,29 @@ class SimlyController extends AbstractController
      */
     public function API(SimlyServices $simlyServices)
     {
-        // $authenticationResult = $simlyServices->Authentication();
-        // dd($authenticationResult);
+        $res = $simlyServices->IsAuthenticated();
+        dd($res);
+
+        $res = $simlyServices->Authentication();
+        dd($res);
 
         $res = $simlyServices->GetCountriesPlans();
         dd($res);
 
+        $res = $simlyServices->GetPlansUsingISOCode('ME');
+        dd($res);
+    }
 
-        // $response = new Response(json_encode($authenticationResult['data']));
-        // $response->headers->set('Content-Type', 'application/json');
-        // $response->setStatusCode($authenticationResult['code']);
 
-        // return $response;
+    /**
+     * @Route("/simly/getAllAvailableCountries", name="app_simly_getAllAvailableCountries")
+     */
+    public function GetAllAvailableCountries(SimlyServices $simlyServices, Memcached $Memcached)
+    {
+        $filter =  $Memcached->getAllCountriesBySimly($simlyServices);
+        return new JsonResponse([
+            'status' => true,
+            'message' => $filter
+        ], 200);
     }
 }
