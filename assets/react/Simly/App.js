@@ -4,6 +4,7 @@ import Header from "./Header";
 import ErrorModal from "./Modal/ErrorModal";
 import SuccessModal from "./Modal/SuccessModal";
 //import MyBundle from "./MyBundle";
+import Packages from "./packages";
 
 const App = ({parameters}) => {
     const [activeButton, setActiveButton] = useState({name: ""});
@@ -73,7 +74,23 @@ const App = ({parameters}) => {
                                 setDataGetting={setDataGetting}
                             />
                         )}
+                        {activeButton.name === "Packages" && (
+                            <Packages
+                                setDataGetting={setDataGetting}
+                                parameters={parameters}
+                                getDataGetting={getDataGetting}
+                                getPrepaidVoucher={getPrepaidVoucher}
+                                setModalShow={setModalShow}
+                                setModalName={setModalName}
+                                setSuccessModal={setSuccessModal}
+                                setErrorModal={setErrorModal}
+                                setActiveButton={setActiveButton}
+                                setHeaderTitle={setHeaderTitle}
+                                setBackLink={setBackLink}
+                                setTypeID ={parameters.typeID}
 
+                            />
+                        )}
                         {activeButton.name === "MyBundle" && (
                             <MyBundle
                                 setDataGetting={setDataGetting}
