@@ -71,7 +71,6 @@ class SimlyServices
 
             if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
                 $operationsjson = file_get_contents($file);
-                echo "data get from cache\n";
                 return json_decode($operationsjson, true);
             } else {
                 $body = [
@@ -95,7 +94,6 @@ class SimlyServices
                     $myfile = fopen($file, "w") or die("Unable to open file!");
                     fwrite($myfile, $jsonData);
                     fclose($myfile);
-                    echo "data get from api\n";
                     return $token;
                 }
             }
@@ -269,3 +267,4 @@ class SimlyServices
         }
     }
 }
+ 

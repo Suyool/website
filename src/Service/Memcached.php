@@ -36,74 +36,74 @@ class Memcached
                         $item['desc2'] = "$1.37 Credit Only without validity";
                         $item['desc3'] = "Credit Only";
                         // $item['priceUSD']="1.22";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 13:
                         $item['desc1'] = "$3.02 Alfa recharge card";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "Credit and 13 Days Validity";
                         // $item['priceUSD']="3.02";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 4:
                         $item['desc1'] = "$4.50 Alfa recharge card";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "Credit and up to 35 Days";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 35:
                         $item['desc1'] = "$7.58 Alfa recharge card";
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "Credit and 35 Days Validity";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 65:
                         $item['desc1'] = "$15.15 Alfa recharge card";
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "Credit and 65 Days Validity";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 95:
                         $item['desc1'] = "$22.73 Alfa recharge card";
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "Credit and 95 Days Validity";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 32:
                         $item['desc1'] = "$7.50 Alfa recharge card";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
-                        $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
+                        $item['beforeTaxes'] = (float)explode("$", explode(" ", $item['desc'])[1])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 33:
                         $item['desc1'] = "Waffer Credit and 30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "Waffer Credit and 30 Days Validity";
-                        $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
+                        $item['beforeTaxes'] = (float)explode("$", explode(" ", $item['desc'])[1])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     default:
                         $item['desc1'] = "default";
@@ -148,76 +148,76 @@ class Memcached
                         $item['desc2'] = "$1.22 Touch recharge card";
                         $item['desc3'] = "$1.22 Touch recharge card";
                         // $item['priceUSD']="1.22";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 10:
                         $item['desc1'] = "10 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "$3.79 Touch recharge card";
                         // $item['priceUSD']="3.79";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 29:
                         $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "$4.50 Touch recharge card";
                         // $item['priceUSD']="4.50";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 30:
                         $item['desc1'] = "30 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "$7.58 Touch recharge card";
                         // $item['priceUSD']="7.58";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 60:
                         $item['desc1'] = "60 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "$15.15 Touch recharge card";
                         // $item['priceUSD']="15.15";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 90:
                         $item['desc1'] = "90 Days Validity & 5 Days Grace";
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "$22.73 Touch recharge card";
                         // $item['priceUSD']="22.73";
-                        $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
+                        $item['beforeTaxes'] = (float)explode("$", $item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     case 31:
                         $item['desc1'] = "30 Days Validity";
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "$4.50 Touch recharge card";
                         // $item['priceUSD']="4.50";
-                        $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
+                        $item['beforeTaxes'] = (float)explode("$", explode(" ", $item['desc'])[1])[0];
                         // $item['priceUSDaftertaxes']="1.37";
-                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
-                        $item['sayrafa']=$item['priceLBP'] / $item['priceUSD'];
+                        $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'], 2, '.');
+                        $item['sayrafa'] = $item['priceLBP'] / $item['priceUSD'];
                         break;
                     default:
                         $item['desc1'] = "default";
                         $item['desc2'] = "default";
                         $item['desc3'] = "default";
-                        $item['priceUSD']="default";
+                        $item['priceUSD'] = "default";
                         break;
                 }
             }
@@ -231,33 +231,147 @@ class Memcached
         return $filter;
     }
 
-        /**
-     * @throws \Psr\Cache\InvalidArgumentException
-     */
+
+    // public function getAllCountriesBySimly($simlyServices)
+    // {
+    //     $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimly.txt" : "../var/cache/dev/CountriesBySimly.txt";
+
+    //     if (file_exists($file)) {
+    //         $fileModificationTime = filemtime($file);
+    //     } else {
+    //         $fileModificationTime = 0;
+    //     }
+
+    //     $cacheExpiration = 5;
+    //     $currentTime = time();
+
+    //     if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
+    //         $operationsjson = file_get_contents($file);
+    //         $filter = json_decode($operationsjson, true);
+    //     } else {
+    //         $data = $simlyServices->GetCountriesPlans();
+
+    //         // Initialize an empty array to hold the divided arrays
+    //         $dividedArrays = [
+    //             'Europe' => [],
+    //             'Asia' => [],
+    //             'North America' => [],
+    //             'South America' => [],
+    //             'Africa' => [],
+    //             'Oceania' => [],
+    //             // 'Middle East' => [],
+    //             'Default' => [],
+    //         ];
+
+    //         // Define the mappings of ISO codes to regions
+    //         $regionMappings  = [
+    //             'Europe' => ['ALA', 'ALB', 'AND', 'AUT', 'BLR', 'BEL', 'BIH', 'BGR', 'HRV', 'CZE', 'DNK', 'EST', 'FRO', 'FIN', 'FRA', 'DEU', 'GRC', 'GIB', 'GRC', 'GGY', 'VAT', 'HUN', 'ISL', 'IRL', 'IMN', 'ITA', 'JEY', 'LVA', 'LIE', 'LTU', 'LUX', 'MLT', 'MCO', 'MNE', 'NLD', 'MKD', 'NOR', 'POL', 'PRT', 'MDA', 'ROU', 'RUS', 'SMR', 'SRB', 'SVK', 'SVN', 'ESP', 'SJM', 'SWE', 'CHE', 'UKR', 'GBR'],
+    //             'Asia' => ['AFG', 'ARM', 'AZE', 'BHR', 'BGD', 'BTN', 'BRN', 'KHM', 'CHN', 'HKG', 'MAC', 'CYP', 'PRK', 'GEO', 'IND', 'IDN', 'IRN', 'ISR', 'JPN', 'JOR', 'KAZ', 'KWT', 'KGZ', 'LAO', 'LBN', 'MYS', 'MDV', 'MNG', 'MMR', 'NPL', 'OMN', 'PAK', 'PHL', 'QAT', 'KOR', 'SAU', 'SGP', 'LKA', 'PSE', 'SYR', 'TJK', 'THA', 'TLS', 'TUR', 'TKM', 'ARE', 'UZB', 'VNM', 'YEM'],
+    //             'North America' => ['AIA', 'ATG', 'ABW', 'BHS', 'BRB', 'BLZ', 'BMU', 'BES', 'VGB', 'CAN', 'CYM', 'CRI', 'CUB', 'CUW', 'DMA', 'DOM', 'SLV', 'GRL', 'GRD', 'GLP', 'GTM', 'HTI', 'HND', 'JAM', 'MTQ', 'MEX', 'MSR', 'NIC', 'PAN', 'PRI', 'BLM', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'SXM', 'TTO', 'TCA', 'USA', 'VIR'],
+    //             'South America' => ['ARG', 'BOL', 'BVT', 'BRA', 'CHL', 'COL', 'ECU', 'FLK', 'GUF', 'GUY', 'PRY', 'PER', 'SGS', 'SUR', 'URY', 'VEN'],
+    //             'Africa' => ['DZA', 'AGO', 'BEN', 'BWA', 'IOT', 'BFA', 'BDI', 'CPV', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'CIV', 'COD', 'DJI', 'EGY', 'GNQ', 'ERI', 'SWZ', 'ETH', 'ATF', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO', 'LBR', 'LBY', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MYT', 'MAR', 'MOZ', 'NAM', 'NER', 'NGA', 'REU', 'RWA', 'SHN', 'STP', 'SEN', 'SYC', 'SLE', 'SOM', 'ZAF', 'SSD', 'SDN', 'TGO', 'TUN', 'UGA', 'TZA', 'ESH', 'ZMB', 'ZWE'],
+    //             'Oceania' => ['ASM', 'AUS', 'CXR', 'CCK', 'COK', 'FJI', 'PYF', 'GUM', 'HMD', 'KIR', 'MHL', 'FSM', 'NRU', 'NCL', 'NZL', 'NIU', 'NFK', 'MNP', 'PLW', 'PNG', 'PCN', 'WSM', 'SLB', 'TKL', 'TON', 'TUV', 'UMI', 'VUT', 'WLF'],
+    //             // 'Middle East' => [],
+    //             'Default' => ['ATA']
+    //         ];
+
+    //         // Loop through the countries and assign them to the appropriate array
+    //         foreach ($data['local'] as $country) {
+    //             $region = $this->getRegionByCountryCode($country['isoCode'], $regionMappings);
+    //             $dividedArrays[$region][] = $country;
+    //         }
+
+    //         $filter = $dividedArrays;
+
+    //         $jsonData = json_encode($filter);
+    //         file_put_contents($file, $jsonData);
+    //     }
+
+    //     return $filter;
+    // }
+
+    // // Function to get the region by country code
+    // private function getRegionByCountryCode($isoCode, $regionMappings)
+    // {
+    //     foreach ($regionMappings as $region => $isoCodes) {
+    //         if (in_array($isoCode, $isoCodes)) {
+    //             return $region;
+    //         }
+    //     }
+    //     return 'Default';
+    // }
+
     public function getAllCountriesBySimly($simlyServices)
     {
-        if ($_ENV['APP_ENV'] == 'prod') {
-            $file = "../var/cache/prod/simlyCoutries.txt";
+        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimly.txt" : "../var/cache/dev/CountriesBySimly.txt";
+
+        if (file_exists($file)) {
+            $fileModificationTime = filemtime($file);
         } else {
-            $file = "../var/cache/dev/simlyCoutries.txt";
+            $fileModificationTime = 0;
         }
 
-        $clearingTime = time() - (60);
-        $filter = null;
+        $cacheExpiration = 5;
+        $currentTime = time();
 
-        if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
+        if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
             $operationsjson = file_get_contents($file);
-            return json_decode($operationsjson, true);
+            $filter = json_decode($operationsjson, true);
         } else {
-            $filter = $simlyServices->GetCountriesPlans();
+            $data = $simlyServices->GetCountriesPlans();
+
+            // Initialize an empty array to hold the divided arrays
+            $dividedArrays = [
+                'Europe' => [],
+                'Asia' => [],
+                'North America' => [],
+                'South America' => [],
+                'Africa' => [],
+                'Oceania' => [],
+                // 'Middle East' => [],
+                'Default' => [],
+            ];
+
+            // Define the mappings of ISO codes to regions for the local array only
+            $regionMappings  = [
+                'Europe' => ['ALA', 'ALB', 'AND', 'AUT', 'BLR', 'BEL', 'BIH', 'BGR', 'HRV', 'CZE', 'DNK', 'EST', 'FRO', 'FIN', 'FRA', 'DEU', 'GRC', 'GIB', 'GRC', 'GGY', 'VAT', 'HUN', 'ISL', 'IRL', 'IMN', 'ITA', 'JEY', 'LVA', 'LIE', 'LTU', 'LUX', 'MLT', 'MCO', 'MNE', 'NLD', 'MKD', 'NOR', 'POL', 'PRT', 'MDA', 'ROU', 'RUS', 'SMR', 'SRB', 'SVK', 'SVN', 'ESP', 'SJM', 'SWE', 'CHE', 'UKR', 'GBR'],
+                'Asia' => ['AFG', 'ARM', 'AZE', 'BHR', 'BGD', 'BTN', 'BRN', 'KHM', 'CHN', 'HKG', 'MAC', 'CYP', 'PRK', 'GEO', 'IND', 'IDN', 'IRN', 'ISR', 'JPN', 'JOR', 'KAZ', 'KWT', 'KGZ', 'LAO', 'LBN', 'MYS', 'MDV', 'MNG', 'MMR', 'NPL', 'OMN', 'PAK', 'PHL', 'QAT', 'KOR', 'SAU', 'SGP', 'LKA', 'PSE', 'SYR', 'TJK', 'THA', 'TLS', 'TUR', 'TKM', 'ARE', 'UZB', 'VNM', 'YEM'],
+                'North America' => ['AIA', 'ATG', 'ABW', 'BHS', 'BRB', 'BLZ', 'BMU', 'BES', 'VGB', 'CAN', 'CYM', 'CRI', 'CUB', 'CUW', 'DMA', 'DOM', 'SLV', 'GRL', 'GRD', 'GLP', 'GTM', 'HTI', 'HND', 'JAM', 'MTQ', 'MEX', 'MSR', 'NIC', 'PAN', 'PRI', 'BLM', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'SXM', 'TTO', 'TCA', 'USA', 'VIR'],
+                'South America' => ['ARG', 'BOL', 'BVT', 'BRA', 'CHL', 'COL', 'ECU', 'FLK', 'GUF', 'GUY', 'PRY', 'PER', 'SGS', 'SUR', 'URY', 'VEN'],
+                'Africa' => ['DZA', 'AGO', 'BEN', 'BWA', 'IOT', 'BFA', 'BDI', 'CPV', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'CIV', 'COD', 'DJI', 'EGY', 'GNQ', 'ERI', 'SWZ', 'ETH', 'ATF', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO', 'LBR', 'LBY', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MYT', 'MAR', 'MOZ', 'NAM', 'NER', 'NGA', 'REU', 'RWA', 'SHN', 'STP', 'SEN', 'SYC', 'SLE', 'SOM', 'ZAF', 'SSD', 'SDN', 'TGO', 'TUN', 'UGA', 'TZA', 'ESH', 'ZMB', 'ZWE'],
+                'Oceania' => ['ASM', 'AUS', 'CXR', 'CCK', 'COK', 'FJI', 'PYF', 'GUM', 'HMD', 'KIR', 'MHL', 'FSM', 'NRU', 'NCL', 'NZL', 'NIU', 'NFK', 'MNP', 'PLW', 'PNG', 'PCN', 'WSM', 'SLB', 'TKL', 'TON', 'TUV', 'UMI', 'VUT', 'WLF'],
+                // 'Middle East' => [],
+                'Default' => ['ATA']
+            ];
+
+            // Loop through the countries in the local array and assign them to the appropriate array
+            foreach ($data['local'] as $country) {
+                $region = $this->getRegionByCountryCode($country['isoCode'], $regionMappings);
+                $dividedArrays[$region][] = $country;
+            }
+
+            // Keep the 'regional' and 'global' arrays unchanged
+            $filter = [
+                'local' => $dividedArrays,
+                'regional' => $data['regional'],
+                'global' => $data['global']
+            ];
 
             $jsonData = json_encode($filter);
-            // dd($jsonData);
-            $myfile = fopen($file, "w") or die("Unable to open file!");
-            fwrite($myfile, $jsonData);
-            fclose($myfile);
+            file_put_contents($file, $jsonData);
         }
 
         return $filter;
+    }
+
+    // Function to get the region by country code
+    private function getRegionByCountryCode($isoCode, $regionMappings)
+    {
+        foreach ($regionMappings as $region => $isoCodes) {
+            if (in_array($isoCode, $isoCodes)) {
+                return $region;
+            }
+        }
+        return 'Default';
     }
 }
