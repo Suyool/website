@@ -71,13 +71,13 @@ class SimlyController extends AbstractController
         // $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
         // dd($res);
 
-//         $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
+         $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
 
         // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
 //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         // dd($res);
 
-         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+//         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
          dd($res);
     }
 
@@ -109,6 +109,24 @@ class SimlyController extends AbstractController
         $code = strtoupper($code);
 
         $res = $simlyServices->GetPlansUsingISOCode($code);
+        return new JsonResponse([
+            'status' => true,
+            'message' => $res
+        ], 200);
+    }
+
+    /**
+     * @Route("/simly/getNetworksById", name="app_simly_getNetworksById")
+     */
+    public function GetNetworksById(Request $request, SimlyServices $simlyServices)
+    {
+        $planId = $request->get('planId');
+        if(!$planId) return new JsonResponse([
+            'status' => false,
+            'message' => 'planId is required'
+        ], 400);
+
+        $res = $simlyServices->GetAvailableNetworkFromGivenId($planId);
         return new JsonResponse([
             'status' => true,
             'message' => $res
