@@ -69,12 +69,12 @@ class Order
         return $this->id;
     }
 
-    public function getEsimId(): ?int
+    public function getEsimsId(): ?int
     {
         return $this->esims_id;
     }
 
-    public function setEsimId(int $esims_id): self
+    public function setEsimsId(int $esims_id): self
     {
         $this->esims_id = $esims_id;
         return $this;
