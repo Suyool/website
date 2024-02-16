@@ -230,4 +230,34 @@ class Memcached
 
         return $filter;
     }
+
+        /**
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
+    public function getAllCountriesBySimly($simlyServices)
+    {
+        if ($_ENV['APP_ENV'] == 'prod') {
+            $file = "../var/cache/prod/simlyCoutries.txt";
+        } else {
+            $file = "../var/cache/dev/simlyCoutries.txt";
+        }
+
+        $clearingTime = time() - (60);
+        $filter = null;
+
+        if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
+            $operationsjson = file_get_contents($file);
+            return json_decode($operationsjson, true);
+        } else {
+            $filter = $simlyServices->GetCountriesPlans();
+
+            $jsonData = json_encode($filter);
+            // dd($jsonData);
+            $myfile = fopen($file, "w") or die("Unable to open file!");
+            fwrite($myfile, $jsonData);
+            fclose($myfile);
+        }
+
+        return $filter;
+    }
 }
