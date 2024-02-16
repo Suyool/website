@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-const PackagesInfo = () => {
+const PackagesInfo = ({setBackLink}) => {
     useEffect(() => {
         setBackLink("");
     }, []);
+
+    const handlePay = () => {
+        console.log("buy")
+    }
   return (
     <div className="packagesinfo">
       <div className="logo">
@@ -46,7 +50,7 @@ const PackagesInfo = () => {
         networks
       </div>
       <div className="pay">
-        <button className="payactivate">Pay & Activate</button>
+        <button className="payactivate" onClick={handlePay}>Pay & Activate</button>
       </div>
     </div>
   );

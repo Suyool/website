@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 const Account = ({ setHeaderTitle, setBackLink }) => {
+  const [getGegabytes,setGegabytes] = useState();
+  const [getUsedGegabytes,setUsedGegabytes] = useState();
+  
+
   useEffect(() => {
     setHeaderTitle("My eSim Account");
     setBackLink("");
   }, []);
+
   return (
     <div className="accountcomp">
       <div className="accountCard">
