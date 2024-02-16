@@ -54,23 +54,50 @@ class SimlyServices
     public function IsAuthenticated()
     {
         try {
-            $body = [
-                "email" => $this->USERNAME,
-                "password" => $this->PASSWORD,
-            ];
-            $response = $this->helper->clientRequest("POST", $this->SIMLY_API_HOST . 'login', $body);
-            $status = $response->getStatusCode();
-
-            if ($status === 500) {
-                return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
-            }
-
-            $data = json_decode($response->getContent(), true);
-
-            if ($status === 200 && isset($data['data']['token'])) {
-                return $data['data']['token'];
+            if ($_ENV['APP_ENV'] == 'prod') {
+                $file = "../var/cache/prod/SimlyToken.txt";
             } else {
-                return false;
+                $file = "../var/cache/dev/SimlyToken.txt";
+            }
+    
+            if (file_exists($file)) {
+                $fileModificationTime = filemtime($file);
+            } else {
+                $fileModificationTime = 0;
+            }
+    
+            $cacheExpiration = 3600;
+            $currentTime = time();
+    
+            if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
+                $operationsjson = file_get_contents($file);
+                echo "data get from cache\n";
+                return json_decode($operationsjson, true);
+            } else {
+                $body = [
+                    "email" => $this->USERNAME,
+                    "password" => $this->PASSWORD,
+                ];
+                $response = $this->helper->clientRequest("POST", $this->SIMLY_API_HOST . 'login', $body);
+                $status = $response->getStatusCode();
+
+                if ($status === 500) {
+                    return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+                }
+
+                $data = json_decode($response->getContent(), true);
+
+                if ($status !== 200 && !isset($data['data']['token'])) {
+                    return false;
+                } else {
+                    $token = $data['data']['token'];
+                    $jsonData = json_encode($data['data']['token']);
+                    $myfile = fopen($file, "w") or die("Unable to open file!");
+                    fwrite($myfile, $jsonData);
+                    fclose($myfile);
+                    echo "data get from api\n";
+                    return $token;
+                }
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
@@ -92,6 +119,7 @@ class SimlyServices
             }
 
             $data = json_decode($response->getContent(), true);
+            dd($data);
 
             return $this->getResponse($status, 'Successfully authenticated the user.', $data, 'Authentication');
         } catch (Exception $e) {
@@ -115,7 +143,36 @@ class SimlyServices
             ]);
             $data = json_decode($response->getContent(), true);
 
-            dd($data);
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
+        }
+    }
+
+    public function GetPlansUsingISOCode($code = 'GLOBAL')
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'Authentication');
+            }
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $code . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetCountriesPlans');
+            }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             return $this->getResponse(500, 'Internal Server Error', null, 'Authentication');
