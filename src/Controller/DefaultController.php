@@ -1204,4 +1204,22 @@ class DefaultController extends AbstractController
 
         return $this->render('MatBank/index.html.twig', $parameters);
     }
+
+    /**
+     * @Route("/SOA", name="app_soa")
+     */
+    public function soa(Request $request)
+    {
+        $soaids = $request->query->get("Id") ?? $request->query->get("id") ?? null;
+        if($soaids == "soaIds")
+        {
+            $returnUrl = "https://suyooluatstorageaccount.blob.core.windows.net/reports/CorporateSoa/SOA_USD_1707833424.pdf?sv=2023-11-03&st=2024-02-13T14%3A10%3A30Z&se=2024-02-23T14%3A10%3A30Z&sr=c&sp=r&sig=LOOCAvy8CdkvqppsYWwCT7xbntgjZx64V73QeVOuSUA%3D";
+        }
+
+        $parameters = [
+            'returnUrl'=>@$returnUrl
+        ];
+
+        return $this->render('soa/soa.html.twig',$parameters);
+    }
 }
