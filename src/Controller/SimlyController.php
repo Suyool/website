@@ -223,14 +223,14 @@ class SimlyController extends AbstractController
 
             return new JsonResponse([
                 'status' => false,
-                'message' => 'Error in pushing utility'
+                'message' => $utilityResponse
             ], 500);
         }
 
         $transId = $utilityResponse[1];
 
         $order
-            ->setStatus(Order::$statusOrder['HELD'])
+            ->setStatus(Order::$statusOrder['PURCHASED'])
             ->setTransId($transId);
 
         $this->mr->persist($order);
@@ -262,8 +262,18 @@ class SimlyController extends AbstractController
 
             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
             if ($responseUpdateUtilities[0]) {
+                $order
+                    ->setstatus(Order::$statusOrder['CANCELED'])
+                    ->seterror("reversed " . $responseUpdateUtilities[1]);
+                $this->mr->persist($order);
+                $this->mr->flush();
                 $message = "Simly Purchase failed and the money was returned to the user";
             } else {
+                $order
+                    ->setstatus(Order::$statusOrder['CANCELED'])
+                    ->seterror($responseUpdateUtilities[1]);
+                $this->mr->persist($order);
+                $this->mr->flush();
                 $message = "Simly Purchase failed and the money was not returned to the user";
             }
 
@@ -344,7 +354,7 @@ class SimlyController extends AbstractController
         ]);
 
         $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $transId);
-//        dd($responseUpdateUtilities);
+        // dd($responseUpdateUtilities);
         if ($responseUpdateUtilities[0]) {
             $message = "Simly Purchase was successful";
         } else {
