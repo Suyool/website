@@ -267,21 +267,68 @@ class SimlyServices
         }
     }
 
+    public function GetAllAvailableCountriesOfContinent($country)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'GetAllAvailableCountriesOfContinent');
+            }
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'continent/' . $country . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetAllAvailableCountriesOfContinent');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetAllAvailableCountriesOfContinent');
+        }
+    }
+    public function GetPlanHavingSlug($slug)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'GetPlanHavingSlug');
+            }
+            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'plans/' . $slug . '', [
+                'headers' => [
+                    'x-simly-token' => $token
+                ],
+            ]);
+            $data = json_decode($response->getContent(), true);
+            if ($data['code'] == 200) {
+                return $data['data'];
+            } else {
+                return $this->getResponse(500, 'Internal Server Error', null, 'GetPlanHavingSlug');
+            }
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetPlanHavingSlug');
+        }
+    }
+
     public function getPlanById($planId)
     {
         //dummy data
         //{
-        //                "duration": 7,
-        //                "size": 1,
-        //                "price": 7.65,
-        //                "planId": "simly_GLOBAL_1GB_7D",
-        //                "activationPolicy": "The validity period starts when the SIM connects to any supported networks.",
-        //                "topup": true,
-        //                "planType": "Data Only",
-        //                "isManualAPNRequired": false,
-        //                "isKYCRequired": false,
-        //                "apn": "globalData"
-        //            }
+        //     "duration": 7,
+        //     "size": 1,
+        //     "price": 7.65,
+        //     "planId": "simly_GLOBAL_1GB_7D",
+        //     "activationPolicy": "The validity period starts when the SIM connects to any supported networks.",
+        //     "topup": true,
+        //     "planType": "Data Only",
+        //     "isManualAPNRequired": false,
+        //     "isKYCRequired": false,
+        //     "apn": "globalData"
+        // }
 
         return [
             "duration" => 7,
