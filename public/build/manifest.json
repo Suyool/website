@@ -65,8 +65,12 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.32b2f1ad.js",
 >>>>>>> 804d1051 (account)
+=======
+  "build/Simly.js": "/build/Simly.491cc96a.js",
+>>>>>>> 555d0cef (fix issue in memchached)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
