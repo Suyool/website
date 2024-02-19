@@ -1213,7 +1213,7 @@ class DefaultController extends AbstractController
         $soaids = $request->query->get("Id") ?? $request->query->get("id") ?? null;
         if($soaids == "soaIds")
         {
-            $returnUrl = "https://suyooluatstorageaccount.blob.core.windows.net/reports/Soa/SOA_USD_1707755082.pdf?sv=2023-11-03&st=2024-02-12T16%3A24%3A59Z&se=2024-02-22T16%3A24%3A59Z&sr=c&sp=r&sig=%2F6KVgolhPAvGcuwGlrJIenagPjrCw1XqRsd8%2FpImP7A%3D";
+            $returnUrl = "https://suyooluatstorageaccount.blob.core.windows.net/reports/CorporateSoa/SOA_USD_1707833424.pdf?sv=2023-11-03&st=2024-02-13T14%3A10%3A30Z&se=2024-02-23T14%3A10%3A30Z&sr=c&sp=r&sig=LOOCAvy8CdkvqppsYWwCT7xbntgjZx64V73QeVOuSUA%3D";
         }
 
         $parameters = [
