@@ -70,6 +70,7 @@ const PackagesInfo = ({
                 </div>
               ),
               qr:response.data.data.qrCodeImageUrl,
+              qrImg:response.data.data.qrCodeString,
               deviceType: parameters?.deviceType,
             });
             setModalShow(true);
