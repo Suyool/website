@@ -267,14 +267,19 @@ class SimlyServices
         }
     }
 
-    public function GetAllAvailableCountriesOfContinent($country)
+    public function GetAllAvailableCountriesOfContinent($country=null)
     {
         try {
             $token = $this->IsAuthenticated();
             if (!$token) {
                 return $this->getResponse(401, 'Unauthorized', null, 'GetAllAvailableCountriesOfContinent');
             }
-            $response = $this->client->request("GET", $this->SIMLY_API_HOST . 'continent/' . $country . '', [
+            if($country == null){
+                $Url = $this->SIMLY_API_HOST . 'continents';
+            }else{
+                $Url = $this->SIMLY_API_HOST . 'continents?continent=' . $country . '';
+            }
+            $response = $this->client->request("GET", $Url, [
                 'headers' => [
                     'x-simly-token' => $token
                 ],
