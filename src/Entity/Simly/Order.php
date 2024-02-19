@@ -53,7 +53,7 @@ class Order
     private $transId;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $type;
 
