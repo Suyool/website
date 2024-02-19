@@ -33,7 +33,7 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.b8d8be2b.js"
+        "/build/Touch.cd07b4e5.js"
       ]
     },
     "Ogero": {
@@ -69,7 +69,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.09f040c5.js"
+        "/build/Simly.32b2f1ad.js"
       ]
     },
     "styles": {
@@ -165,7 +165,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.dd1d3503.css"
+        "/build/SimlyStyle.565d0947.css"
       ]
     }
   }

@@ -11,7 +11,7 @@ import Account from "./Account";
 const App = ({parameters}) => {
     const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
     const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
-    const [activeButton, setActiveButton] = useState({name: ""});
+    const [activeButton, setActiveButton] = useState({name: "Account"});
     const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
     const [getModalName, setModalName] = useState("");
@@ -86,6 +86,24 @@ const App = ({parameters}) => {
                         )}
                         {activeButton.name === "PackagesInfo" && (
                             <PackagesInfo
+                                setDataGetting={setDataGetting}
+                                parameters={parameters}
+                                getDataGetting={getDataGetting}
+                                setModalShow={setModalShow}
+                                setModalName={setModalName}
+                                setSuccessModal={setSuccessModal}
+                                setErrorModal={setErrorModal}
+                                setActiveButton={setActiveButton}
+                                setHeaderTitle={setHeaderTitle}
+                                setBackLink={setBackLink}
+                                selectedPlan={selectedPlan}
+                                selectedPackage={selectedPackage}
+                                setSpinnerLoader={setSpinnerLoader}
+                                getSpinnerLoader={getSpinnerLoader}
+                            />
+                        )}
+                        {activeButton.name === "Account" && (
+                            <Account
                                 setDataGetting={setDataGetting}
                                 parameters={parameters}
                                 getDataGetting={getDataGetting}

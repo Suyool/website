@@ -22,7 +22,7 @@ const ReCharge = ({ setPrepaidVoucher, getVoucherData, setActiveButton, setHeade
     return order.indexOf(a.vouchertype) - order.indexOf(b.vouchertype);
   });
 
-  // console.log(sortedData);
+  console.log(sortedData);
 
   return (
     <div id="ReCharge">
