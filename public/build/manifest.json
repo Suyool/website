@@ -12,6 +12,64 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
   "build/styles.css": "/build/styles.6dd0f5af.css",
+<<<<<<< HEAD
+=======
+=======
+  "build/Simly.js": "/build/Simly.80e05130.js",
+=======
+  "build/Simly.js": "/build/Simly.5616b9c1.js",
+>>>>>>> 620dd09d (design fist page)
+=======
+  "build/Simly.js": "/build/Simly.63c8c508.js",
+>>>>>>> d189df6b (accounts and packageinfo ui)
+=======
+  "build/Simly.js": "/build/Simly.40a691b4.js",
+>>>>>>> 813591aa (simply ui)
+=======
+  "build/Simly.js": "/build/Simly.cbbadc69.js",
+>>>>>>> eedaf985 (design with pay desing)
+=======
+  "build/Simly.js": "/build/Simly.81daaf76.js",
+>>>>>>> f1dcd99e (details page)
+=======
+  "build/Simly.js": "/build/Simly.987c00bc.js",
+>>>>>>> cf68a705 (packages info)
+=======
+  "build/Simly.js": "/build/Simly.4d024666.js",
+>>>>>>> ed9bf261 (handle bug occured)
+=======
+  "build/Simly.js": "/build/Simly.c50eb779.js",
+>>>>>>> e1af2e4f (purchase simly)
+=======
+  "build/Simly.js": "/build/Simly.09f040c5.js",
+>>>>>>> 846e8d96 (handle object display)
+=======
+<<<<<<< HEAD
+  "build/Alfa.js": "/build/Alfa.676a2730.js",
+  "build/Touch.js": "/build/Touch.2a455c9b.js",
+  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
+=======
+  "build/Alfa.js": "/build/Alfa.dc483ae9.js",
+  "build/Touch.js": "/build/Touch.cd07b4e5.js",
+  "build/Ogero.js": "/build/Ogero.5c85e96d.js",
+>>>>>>> 16ff8d46 (account)
+  "build/Gift2Games.js": "/build/Gift2Games.235249a9.js",
+  "build/iveri.js": "/build/iveri.429e5515.js",
+  "build/TerraNet.js": "/build/TerraNet.4a892938.js",
+  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/Simly.js": "/build/Simly.32b2f1ad.js",
+>>>>>>> 804d1051 (account)
+=======
+  "build/Simly.js": "/build/Simly.491cc96a.js",
+>>>>>>> 555d0cef (fix issue in memchached)
+=======
+  "build/Simly.js": "/build/Simly.ef9ea2dc.js",
+>>>>>>> bd14ff32 (simly add countryImage)
+  "build/styles.css": "/build/styles.eb2df758.css",
+>>>>>>> d29d6287 (set all files for simly)
+>>>>>>> 58db0d42 (simly add countryImage)
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",

@@ -279,6 +279,7 @@ class SimlyController extends AbstractController
                 ->setTransaction(json_encode($simlyResponse['transaction']))
                 ->setPlan($simlyResponse['plan'])
                 ->setCountry($country)
+                ->setCountryImage(@$data['countryImage'])
                 ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']));
         } else {
             $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
@@ -356,6 +357,7 @@ class SimlyController extends AbstractController
             $res['country'] = $esim->getCountry();
             $res['plan'] = $esim->getPlan();
             $res['esimId'] = $esim->getEsimId();
+            $res['countryImage']=$esim->getCountryImage();
 
             if ($res)
                 $usage[] = $res;

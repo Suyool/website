@@ -72,6 +72,15 @@
         "/build/Sodetel.7f47d3e3.js"
       ]
     },
+<<<<<<< HEAD
+=======
+    "Simly": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Simly.ef9ea2dc.js"
+      ]
+    },
+>>>>>>> 58db0d42 (simly add countryImage)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
