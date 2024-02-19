@@ -112,12 +112,14 @@ class SimlyController extends AbstractController
 //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         // dd($res);
 
-         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
-        // dd($res);
-        // $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
+//         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
         // dd($res);
 
 //         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+//        dd($res);
+
+        $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
+        $res = $simlyServices->GetAllAvailableCountriesOfContinent();
         dd($res);
     }
 
@@ -272,6 +274,8 @@ class SimlyController extends AbstractController
         }
 
         if ($order->getType() == 'esim') {
+            if(isset($data['country'])) $country = $data['country'];
+            else $country = "";
             $esim = new Esim();
             $esim
                 ->setEsimId($simlyResponse['id'])
@@ -284,7 +288,7 @@ class SimlyController extends AbstractController
                 ->setTopups(json_encode($simlyResponse['topups']))
                 ->setTransaction(json_encode($simlyResponse['transaction']))
                 ->setPlan($simlyResponse['plan'])
-                ->setCountry($data['country'])
+                ->setCountry($country)
                 ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']));
         } else {
             $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
