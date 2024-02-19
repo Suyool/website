@@ -20,9 +20,7 @@ const Header = ({
   };
 
   return (
-    <div id="MobileHeader"  className={` ${
-      getSpinnerLoader ? "packagesinfo hideBackk" : ""
-    }`}>
+    <div id="MobileHeader">
       <div
         className="back"
         onClick={() => {

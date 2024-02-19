@@ -14,7 +14,7 @@ const PackagesInfo = ({
   setModalName,
   setModalShow,
   setSpinnerLoader,
-  getSpinnerLoader
+  getSpinnerLoader,
 }) => {
   useEffect(() => {
     setDataGetting("");
@@ -47,15 +47,15 @@ const PackagesInfo = ({
 
   useEffect(() => {
     if (getDataGetting == "success") {
-        setDataGetting("")
+      setDataGetting("");
       axios
         .post("/simly/purchaseTopup", {
           planId: selectedPackage.planId,
           country: selectedPlan.name,
-          countryImage: selectedPlan.countryImageURL
+          countryImage: selectedPlan.countryImageURL,
         })
         .then((response) => {
-            const jsonResponse = response.data.message;
+          const jsonResponse = response.data.message;
           if (response.data.status) {
             setSpinnerLoader(false);
             setModalName("SuccessModal");
@@ -64,10 +64,12 @@ const PackagesInfo = ({
               title: "Simly Purchased Successfully",
               desc: (
                 <div>
-                  Please Download the qr<br/>
+                  Please Download the qr
+                  <br />
                   <img src={`${response.data.data.qrCodeImageUrl}`} />
                 </div>
               ),
+              qr:response.data.data.qrCodeImageUrl,
               deviceType: parameters?.deviceType,
             });
             setModalShow(true);

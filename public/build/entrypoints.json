@@ -77,7 +77,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.ef9ea2dc.js"
+        "/build/Simly.3ed5f8cc.js"
       ]
     },
 >>>>>>> 58db0d42 (simly add countryImage)
@@ -176,6 +176,17 @@
       "css": [
         "/build/SodetelStyle.d2e21a6e.css"
       ]
+<<<<<<< HEAD
+=======
+    },
+    "SimlyStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/SimlyStyle.388c51c6.css"
+      ]
+>>>>>>> 63e15385 (add async fct to download)
     }
   }
 }
