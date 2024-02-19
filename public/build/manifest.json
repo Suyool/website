@@ -6,94 +6,11 @@
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/Gift2Games.js": "/build/Gift2Games.f015a3a8.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
-=======
-  "build/Simly.js": "/build/Simly.80e05130.js",
-=======
-  "build/Simly.js": "/build/Simly.5616b9c1.js",
->>>>>>> 620dd09d (design fist page)
-=======
-  "build/Simly.js": "/build/Simly.63c8c508.js",
->>>>>>> d189df6b (accounts and packageinfo ui)
-=======
-  "build/Simly.js": "/build/Simly.40a691b4.js",
->>>>>>> 813591aa (simply ui)
-=======
-  "build/Simly.js": "/build/Simly.cbbadc69.js",
->>>>>>> eedaf985 (design with pay desing)
-=======
-  "build/Simly.js": "/build/Simly.81daaf76.js",
->>>>>>> f1dcd99e (details page)
-=======
-  "build/Simly.js": "/build/Simly.987c00bc.js",
->>>>>>> cf68a705 (packages info)
-=======
-  "build/Simly.js": "/build/Simly.4d024666.js",
->>>>>>> ed9bf261 (handle bug occured)
-=======
-  "build/Simly.js": "/build/Simly.c50eb779.js",
->>>>>>> e1af2e4f (purchase simly)
-=======
-  "build/Simly.js": "/build/Simly.09f040c5.js",
->>>>>>> 846e8d96 (handle object display)
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 3d41d832 (fix search when in diff cat,fix btn navigation, fix backlink)
-  "build/Alfa.js": "/build/Alfa.676a2730.js",
-  "build/Touch.js": "/build/Touch.2d4d4442.js",
-  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
-  "build/Gift2Games.js": "/build/Gift2Games.235249a9.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/TerraNet.js": "/build/TerraNet.4a892938.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Simly.js": "/build/Simly.32b2f1ad.js",
->>>>>>> 804d1051 (account)
-=======
-  "build/Simly.js": "/build/Simly.491cc96a.js",
->>>>>>> 555d0cef (fix issue in memchached)
-=======
-  "build/Simly.js": "/build/Simly.ef9ea2dc.js",
->>>>>>> bd14ff32 (simly add countryImage)
-=======
-  "build/Simly.js": "/build/Simly.3ed5f8cc.js",
->>>>>>> 88234349 (add async fct to download)
-=======
-  "build/Simly.js": "/build/Simly.03025313.js",
->>>>>>> f7fc8a88 (qr download)
-=======
-  "build/Simly.js": "/build/Simly.f492abd5.js",
->>>>>>> 3d41d832 (fix search when in diff cat,fix btn navigation, fix backlink)
-=======
-  "build/Simly.js": "/build/Simly.f492abd5.js",
-=======
-  "build/Simly.js": "/build/Simly.94675d50.js",
->>>>>>> a92b03cd (simly)
->>>>>>> 94bdda41 (simly)
-  "build/styles.css": "/build/styles.eb2df758.css",
->>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
@@ -104,36 +21,7 @@
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/runtime.js": "/build/runtime.cbe92cc0.js",
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.aa74730c.css",
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.2516e728.css",
->>>>>>> 620dd09d (design fist page)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.cce6dfe2.css",
->>>>>>> d189df6b (accounts and packageinfo ui)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.d9798652.css",
->>>>>>> eedaf985 (design with pay desing)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.dd1d3503.css",
->>>>>>> e1af2e4f (purchase simly)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.565d0947.css",
->>>>>>> 804d1051 (account)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.388c51c6.css",
->>>>>>> 88234349 (add async fct to download)
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> d29d6287 (set all files for simly)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",
@@ -796,14 +684,7 @@
   "build/images/topUpSimIcon.svg": "/build/images/topUpSimIcon.svg",
   "build/images/homepage/fresh-mastercard.svg": "/build/images/homepage/fresh-mastercard.svg",
   "build/images/suyool-title-white-mob..svg": "/build/images/suyool-title-white-mob..svg",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/images/soa/excel.svg": "/build/images/soa/excel.svg",
-=======
-  "build/images/topUpSimIcon.svg": "/build/images/topUpSimIcon.svg",
->>>>>>> eedaf985 (design with pay desing)
-=======
->>>>>>> cf68a705 (packages info)
   "build/images/Loto/LotoGrid.png": "/build/images/Loto/LotoGrid.png",
   "build/images/gameicon.svg": "/build/images/gameicon.svg",
   "build/images/alfa_employee/internationally.png": "/build/images/alfa_employee/internationally.png",

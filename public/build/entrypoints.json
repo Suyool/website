@@ -42,27 +42,6 @@
         "/build/LegalEnrollement.2acf5642.js"
       ]
     },
-<<<<<<< HEAD
-=======
-    "Alfa": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.676a2730.js"
-      ]
-    },
-    "Touch": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.2d4d4442.js"
-      ]
-    },
-    "Ogero": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.5fdf7f33.js"
-      ]
-    },
->>>>>>> 804d1051 (account)
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -85,16 +64,6 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/Sodetel.7f47d3e3.js"
-      ]
-    },
-    "Simly": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Simly.f492abd5.js"
-=======
-        "/build/Simly.94675d50.js"
->>>>>>> a92b03cd (simly)
       ]
     },
     "styles": {
@@ -183,14 +152,6 @@
       ],
       "css": [
         "/build/SodetelStyle.d2e21a6e.css"
-      ]
-    },
-    "SimlyStyle": {
-      "js": [
-        "/build/runtime.e40c1cca.js"
-      ],
-      "css": [
-        "/build/SimlyStyle.388c51c6.css"
       ]
     }
   }
