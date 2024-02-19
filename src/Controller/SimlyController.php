@@ -166,7 +166,7 @@ class SimlyController extends AbstractController
     /**
      * @Route("/simly/purchaseTopup", name="app_simly_purchaseTopup", methods="POST")
      */
-    public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices)
+    public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         //        $SuyoolUserId = $this->session->get('suyoolUserId');
         $SuyoolUserId = 218;
@@ -315,6 +315,16 @@ class SimlyController extends AbstractController
         $this->mr->flush();
 
         //logs here
+        //intial notification
+        $params = json_encode([
+            'amount' => $order->getamount(),
+            'currency' => $order->getCurrency(),
+        ]);
+        $additionalData = "";
+        $content = $notificationServices->getContent('AcceptedAlfaPayment');
+        $bulk = 0; //1 for broadcast 0 for unicast
+        $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+
 
         $responseUpdateUtilities = $suyoolServices->UpdateUtilities(1, $order_id, $transId);
         if ($responseUpdateUtilities[0]) {
