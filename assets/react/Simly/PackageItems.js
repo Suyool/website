@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PackagesInfo from './PackagesInfo'; // Import the PackagesInfo component
 
 const PackageItems = ({ country }) => {
+    const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
+
+    // Function to handle click on a card
+    const handleCardClick = (plan) => {
+        setSelectedPlan(plan); // Set the selected plan
+    };
+
     return (
         <div className="container itemsPackageCont">
             <div>
                 <h2>{country.name}</h2>
                 <div className="row">
                     {country.plans.map((packageItem, index) => (
-                        <div key={packageItem.planId} className="col-md-6"> {/* Use packageItem.planId as key */}
-                            <div className={`card mb-3 bg-package${(index % 3) + 1}`}>
+                        <div key={packageItem.planId} className="col-md-6">
+                            <div
+                                className={`card mb-3 bg-package${(index % 3) + 1}`}
+                                onClick={() => handleCardClick(packageItem)} // Handle click event
+                            >
                                 <div className="card-body">
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <div className="itemsList">
@@ -29,6 +40,8 @@ const PackageItems = ({ country }) => {
                     ))}
                 </div>
             </div>
+            {/* Render PackagesInfo component if a plan is selected */}
+            {selectedPlan && <PackagesInfo country={country} plan={selectedPlan} />}
         </div>
     );
 };
