@@ -52,6 +52,7 @@ const PackagesInfo = ({
         .post("/simly/purchaseTopup", {
           planId: selectedPackage.planId,
           country: selectedPlan.name,
+          countryImage: selectedPlan.countryImageURL
         })
         .then((response) => {
             const jsonResponse = response.data.message;

@@ -5,7 +5,7 @@ namespace App\Entity\Simly;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-// * @ORM\Entity(repositoryClass="App\Repository\SimlyOrdersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SimlyOrdersRepository")
  * @ORM\Table(name="esims")
  */
 
@@ -74,6 +74,10 @@ class Esim
      */
     private $country;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $countryImage;
 
     /**
      * @ORM\Column(type="string")
@@ -204,6 +208,17 @@ class Esim
     public function setCountry(string $country): self
     {
         $this->country = $country;
+        return $this;
+    }
+
+    public function getCountryImage(): ?string
+    {
+        return $this->countryImage;
+    }
+
+    public function setCountryImage(string $countryImage): self
+    {
+        $this->countryImage = $countryImage;
         return $this;
     }
 
