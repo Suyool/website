@@ -9,6 +9,18 @@
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/Gift2Games.js": "/build/Gift2Games.fe9ace55.js",
+=======
+=======
+>>>>>>> 319320f1 (fix search when in diff cat,fix btn navigation, fix backlink)
+<<<<<<< HEAD
+  "build/Gift2Games.js": "/build/Gift2Games.f015a3a8.js",
+>>>>>>> fd995541 (account)
+>>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
   "build/styles.css": "/build/styles.6dd0f5af.css",
@@ -45,18 +57,16 @@
 >>>>>>> 846e8d96 (handle object display)
 =======
 <<<<<<< HEAD
-  "build/Alfa.js": "/build/Alfa.676a2730.js",
-  "build/Touch.js": "/build/Touch.2a455c9b.js",
-  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
 =======
-  "build/Alfa.js": "/build/Alfa.dc483ae9.js",
-  "build/Touch.js": "/build/Touch.cd07b4e5.js",
-  "build/Ogero.js": "/build/Ogero.5c85e96d.js",
->>>>>>> 16ff8d46 (account)
+>>>>>>> 3d41d832 (fix search when in diff cat,fix btn navigation, fix backlink)
+  "build/Alfa.js": "/build/Alfa.676a2730.js",
+  "build/Touch.js": "/build/Touch.2d4d4442.js",
+  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
   "build/Gift2Games.js": "/build/Gift2Games.235249a9.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -75,6 +85,9 @@
 =======
   "build/Simly.js": "/build/Simly.03025313.js",
 >>>>>>> f7fc8a88 (qr download)
+=======
+  "build/Simly.js": "/build/Simly.f492abd5.js",
+>>>>>>> 3d41d832 (fix search when in diff cat,fix btn navigation, fix backlink)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
 >>>>>>> 58db0d42 (simly add countryImage)
@@ -921,9 +934,9 @@
   "build/images/Loto/warning.png": "/build/images/Loto/warning.png",
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/platinumMastercard/safety_security.png": "/build/images/platinumMastercard/safety_security.png",
+  "build/images/success.svg": "/build/images/success.svg",
   "build/images/homepage/send-money.svg": "/build/images/homepage/send-money.svg",
   "build/images/medco/arrow.svg": "/build/images/medco/arrow.svg",
-  "build/images/success.svg": "/build/images/success.svg",
   "build/images/tiktok.svg": "/build/images/tiktok.svg",
   "build/images/alfa_employee/payroll.png": "/build/images/alfa_employee/payroll.png",
   "build/images/Payment.png": "/build/images/Payment.png",

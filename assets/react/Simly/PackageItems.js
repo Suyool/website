@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPackage}) => {
-
     // Function to handle click on a card
     const handleCardClick = (plan,packages) => {
         setSelectedPlan(plan); // Set the selected plan

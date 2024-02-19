@@ -60,6 +60,36 @@
         "/build/LegalEnrollement.2acf5642.js"
       ]
     },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    "Alfa": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.676a2730.js"
+      ]
+    },
+    "Touch": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.2d4d4442.js"
+      ]
+    },
+    "Ogero": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.5fdf7f33.js"
+      ]
+    },
+>>>>>>> 804d1051 (account)
+    "Gift2Games": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Gift2Games.fe9ace55.js"
+      ]
+    },
+>>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
     "iveri": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -77,7 +107,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.03025313.js"
+        "/build/Simly.f492abd5.js"
       ]
     },
 >>>>>>> 58db0d42 (simly add countryImage)

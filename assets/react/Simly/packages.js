@@ -3,12 +3,11 @@ import axios from "axios";
 import ContentLoader from "react-content-loader";
 import PackageItems from "./PackageItems";
 
-const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage }) => {
+const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBackLink,isPackageItem,setIsPackageItem}) => {
   const [view, setView] = useState("countries");
   const [selectedData, setSelectedData] = useState([]);
   const [selectedDataLocal, setSelectedDataLocal] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPackageItem, setIsPackageItem] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -53,8 +52,10 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage }) => {
 
   useEffect(() => {
     if (searchQuery.length >= 3) {
+      setView("countries")
       const filtered = filterData(selectedDataLocal, searchQuery);
       setFilteredData(filtered);
+
     } else {
       setFilteredData(selectedDataLocal || {});
     }
@@ -116,17 +117,17 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage }) => {
       </div>
       <div className="row filter-btns-cont">
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "countries" ? "active" : "")} onClick={() => setView("countries")}>
+          <button className={"btn btn-primary " + (view === "countries" ? "active" : "")} onClick={() => { setView("countries"); setIsPackageItem(false); }}>
             Per Country
           </button>
         </div>
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "regions" ? "active" : "")} onClick={() => setView("regions")}>
+          <button className={"btn btn-primary " + (view === "regions" ? "active" : "")} onClick={() => { setView("regions"); setIsPackageItem(false); }}>
             Per Region
           </button>
         </div>
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "global" ? "active" : "")} onClick={() => setView("global")}>
+          <button className={"btn btn-primary " + (view === "global" ? "active" : "")} onClick={() => { setView("global"); setIsPackageItem(false); }}>
             Global
           </button>
         </div>
