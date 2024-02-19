@@ -60,6 +60,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.32b2f1ad.js",
 >>>>>>> 804d1051 (account)
 =======
@@ -71,6 +72,9 @@
 =======
   "build/Simly.js": "/build/Simly.3ed5f8cc.js",
 >>>>>>> 88234349 (add async fct to download)
+=======
+  "build/Simly.js": "/build/Simly.03025313.js",
+>>>>>>> f7fc8a88 (qr download)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
 >>>>>>> 58db0d42 (simly add countryImage)
@@ -917,9 +921,9 @@
   "build/images/Loto/warning.png": "/build/images/Loto/warning.png",
   "build/images/Shopping.png": "/build/images/Shopping.png",
   "build/images/platinumMastercard/safety_security.png": "/build/images/platinumMastercard/safety_security.png",
-  "build/images/success.svg": "/build/images/success.svg",
   "build/images/homepage/send-money.svg": "/build/images/homepage/send-money.svg",
   "build/images/medco/arrow.svg": "/build/images/medco/arrow.svg",
+  "build/images/success.svg": "/build/images/success.svg",
   "build/images/tiktok.svg": "/build/images/tiktok.svg",
   "build/images/alfa_employee/payroll.png": "/build/images/alfa_employee/payroll.png",
   "build/images/Payment.png": "/build/images/Payment.png",

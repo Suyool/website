@@ -344,7 +344,7 @@ class SimlyController extends AbstractController
         ]);
 
         $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $transId);
-        dd($responseUpdateUtilities);
+//        dd($responseUpdateUtilities);
         if ($responseUpdateUtilities[0]) {
             $message = "Simly Purchase was successful";
         } else {
