@@ -63,7 +63,21 @@ const MyBill = ({
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
-          } else if (response.data?.errorCode == "213") {
+          }
+          else if (response.data?.errorCode == "213" && response.data?.errors2 == "Rejection issue, Please Contact BOB Finance : fail - no invoice") {
+            setModalName("ErrorModal");
+            setErrorModal({
+              img: "/build/images/alfa/error.png",
+              title: "No Available Bill",
+              desc: `There is no available bill for ${localStorage.getItem(
+                "billMobileNumber"
+              )} at the moment. 
+                Kindly try again later. `,
+              btn: "OK",
+            });
+            setModalShow(true);
+          } 
+          else if (response.data?.errorCode == "213") {
             setPinWrong(true);
             setPinCode("");
             setSpinnerLoader(false);
@@ -220,14 +234,14 @@ const MyBill = ({
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Amount in L.L (Sayrafa Rate)</div>
+              <div className="label">Amount in L.L</div>
               <div className="value1">
                 L.L {parseInt(getDisplayData.Amount).toLocaleString()}
               </div>
             </div>
 
             <div className="MoreInfo">
-              <div className="label">Fees in L.L (Sayrafa Rate)</div>
+              <div className="label">Fees in L.L</div>
               <div className="value1">
                 L.L {parseInt(getdisplayedFees).toLocaleString()}
               </div>

@@ -156,6 +156,7 @@ class TouchController extends AbstractController
 
         return new JsonResponse([
             'status' => true,
+            'errors2'=> $retrieveResults[2],
             'isSuccess' => $retrieveResults[0],
             'errorCode' => $retrieveResults[3],
             'postpayed' => $invoicesId,
