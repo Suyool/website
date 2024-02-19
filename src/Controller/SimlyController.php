@@ -320,10 +320,15 @@ class SimlyController extends AbstractController
         $params = json_encode([
             'amount' => $order->getamount(),
             'currency' => $order->getCurrency(),
+            'plan' => @$esim->getPlan(),
         ]);
         $additionalData = "";
-        $content = $notificationServices->getContent('AcceptedAlfaPayment');
-        $bulk = 0; //1 for broadcast 0 for unicast
+        if (isset($data['esimId'])) {
+            $content = $notificationServices->getContent('AcceptedSimlyTopupPayment');
+        } else {
+            $content = $notificationServices->getContent('AcceptedSimlyPurshasePayment');
+        }
+        $bulk = 0;
         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
 
