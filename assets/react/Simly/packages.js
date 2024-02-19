@@ -3,7 +3,7 @@ import axios from "axios";
 import ContentLoader from "react-content-loader";
 import PackageItems from "./PackageItems";
 
-const Packages = () => {
+const Packages = ({setSelectedPlan,setActiveButton}) => {
     const [view, setView] = useState('countries');
     const [selectedData, setSelectedData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const Packages = () => {
     useEffect(() => {
         setIsLoading(true);
         // Fetch data using Axios
-        axios.get('http://10.20.80.79/simly/getAllAvailableCountries')
+        axios.get('/simly/getAllAvailableCountries')
             .then(response => {
                 // Set the fetched data to state
                 setSelectedData(response.data.message);
@@ -64,7 +64,7 @@ const Packages = () => {
     const handleClick = (isoCode) => {
         // Call the API to fetch items using the ISO code
         setIsLoading(true);
-        axios.get(`http://10.20.80.74/simly/getPlansUsingISOCode?code=${isoCode}`)
+        axios.get(`/simly/getPlansUsingISOCode?code=${isoCode}`)
             .then(response => {
                 setItems(response.data); // Update the state with fetched items
                 setSelectedCountry(response.data.message);
@@ -124,7 +124,7 @@ const Packages = () => {
             </div>
             {isPackageItem ? (
                 // Render content when isPackageItem is true
-                <PackageItems country={selectedCountry}/>
+                <PackageItems country={selectedCountry} setSelectedPlan={setSelectedPlan} setActiveButton={setActiveButton}/>
             ) : (
                 // Render content when isPackageItem is false
                 <>

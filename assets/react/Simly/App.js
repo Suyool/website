@@ -9,6 +9,7 @@ import PackagesInfo from "./PackagesInfo";
 import Account from "./Account";
 
 const App = ({parameters}) => {
+    const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
     const [activeButton, setActiveButton] = useState({name: ""});
     const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
@@ -76,11 +77,11 @@ const App = ({parameters}) => {
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
-
+                                setSelectedPlan={setSelectedPlan}
                             />
                         )}
-                        {activeButton.name === "MyBundle" && (
-                            <MyBundle
+                        {activeButton.name === "PackagesInfo" && (
+                            <PackagesInfo
                                 setDataGetting={setDataGetting}
                                 parameters={parameters}
                                 getDataGetting={getDataGetting}
@@ -92,7 +93,7 @@ const App = ({parameters}) => {
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
-                                setTypeID ={parameters.typeID}
+                                selectedPlan={selectedPlan}
 
                             />
                         )}
