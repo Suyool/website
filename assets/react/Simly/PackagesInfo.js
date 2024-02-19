@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
-const PackagesInfo = ({ country, plan }) => {
+const PackagesInfo = ({ country, plan,selectedPlan }) => {
     useEffect(() => {
+        console.log(selectedPlan)
     }, []);
 
     const handlePay = () => {

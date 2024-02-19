@@ -17,6 +17,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
 =======
   "build/Simly.js": "/build/Simly.80e05130.js",
@@ -35,6 +36,9 @@
 =======
   "build/Simly.js": "/build/Simly.81daaf76.js",
 >>>>>>> f1dcd99e (details page)
+=======
+  "build/Simly.js": "/build/Simly.987c00bc.js",
+>>>>>>> cf68a705 (packages info)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
@@ -730,13 +734,17 @@
   "build/images/helpCenter/policies-corporate.svg": "/build/images/helpCenter/policies-corporate.svg",
   "build/images/helpCenter/policies-personal.svg": "/build/images/helpCenter/policies-personal.svg",
   "build/images/suyool-Logo.svg": "/build/images/suyool-Logo.svg",
+  "build/images/topUpSimIcon.svg": "/build/images/topUpSimIcon.svg",
   "build/images/homepage/fresh-mastercard.svg": "/build/images/homepage/fresh-mastercard.svg",
   "build/images/suyool-title-white-mob..svg": "/build/images/suyool-title-white-mob..svg",
+<<<<<<< HEAD
 <<<<<<< HEAD
   "build/images/soa/excel.svg": "/build/images/soa/excel.svg",
 =======
   "build/images/topUpSimIcon.svg": "/build/images/topUpSimIcon.svg",
 >>>>>>> eedaf985 (design with pay desing)
+=======
+>>>>>>> cf68a705 (packages info)
   "build/images/Loto/LotoGrid.png": "/build/images/Loto/LotoGrid.png",
   "build/images/gameicon.svg": "/build/images/gameicon.svg",
   "build/images/alfa_employee/internationally.png": "/build/images/alfa_employee/internationally.png",
