@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import PackagesInfo from './PackagesInfo'; // Import the PackagesInfo component
+import { name } from 'file-loader';
 
-const PackageItems = ({ country }) => {
-    const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
+const PackageItems = ({ country , setSelectedPlan,setActiveButton}) => {
 
     // Function to handle click on a card
     const handleCardClick = (plan) => {
         setSelectedPlan(plan); // Set the selected plan
+        setActiveButton({name:"PackagesInfo"})
     };
 
     return (
@@ -40,8 +41,6 @@ const PackageItems = ({ country }) => {
                     ))}
                 </div>
             </div>
-            {/* Render PackagesInfo component if a plan is selected */}
-            {selectedPlan && <PackagesInfo country={country} plan={selectedPlan} />}
         </div>
     );
 };
