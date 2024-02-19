@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import PackagesInfo from './PackagesInfo'; // Import the PackagesInfo component
-import { name } from 'file-loader';
 
-const PackageItems = ({ country , setSelectedPlan,setActiveButton}) => {
+const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPackage}) => {
 
     // Function to handle click on a card
-    const handleCardClick = (plan) => {
+    const handleCardClick = (plan,packages) => {
         setSelectedPlan(plan); // Set the selected plan
+        setSelectedPackage(packages)
         setActiveButton({name:"PackagesInfo"})
     };
 
@@ -19,7 +18,7 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton}) => {
                         <div key={packageItem.planId} className="col-md-6">
                             <div
                                 className={`card mb-3 bg-package${(index % 3) + 1}`}
-                                onClick={() => handleCardClick(packageItem)} // Handle click event
+                                onClick={() => handleCardClick(country,packageItem)} // Handle click event
                             >
                                 <div className="card-body">
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
