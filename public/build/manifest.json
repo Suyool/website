@@ -13,17 +13,21 @@
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Gift2Games.js": "/build/Gift2Games.fe9ace55.js",
 =======
 =======
 >>>>>>> 319320f1 (fix search when in diff cat,fix btn navigation, fix backlink)
 <<<<<<< HEAD
+=======
+>>>>>>> fe8a35bf (handle top up)
   "build/Gift2Games.js": "/build/Gift2Games.f015a3a8.js",
 >>>>>>> fd995541 (account)
 >>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
   "build/styles.css": "/build/styles.6dd0f5af.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -98,6 +102,8 @@
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
 >>>>>>> 58db0d42 (simly add countryImage)
+=======
+>>>>>>> 86fff387 (handle top up)
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
@@ -109,6 +115,7 @@
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.a885ca0f.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
   "build/runtime.js": "/build/runtime.cbe92cc0.js",
 =======
@@ -143,6 +150,9 @@
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> d29d6287 (set all files for simly)
 >>>>>>> 63e15385 (add async fct to download)
+=======
+  "build/runtime.js": "/build/runtime.cbe92cc0.js",
+>>>>>>> 86fff387 (handle top up)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",

@@ -61,6 +61,7 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -83,6 +84,8 @@
       ]
     },
 >>>>>>> 804d1051 (account)
+=======
+>>>>>>> 86fff387 (handle top up)
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -103,6 +106,7 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "Simly": {
       "js": [
@@ -115,6 +119,8 @@
       ]
     },
 >>>>>>> 58db0d42 (simly add countryImage)
+=======
+>>>>>>> 86fff387 (handle top up)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -211,6 +217,7 @@
         "/build/SodetelStyle.d2e21a6e.css"
       ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     },
     "SimlyStyle": {
@@ -221,6 +228,8 @@
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
+=======
+>>>>>>> 86fff387 (handle top up)
     }
   }
 }

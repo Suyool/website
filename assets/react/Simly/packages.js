@@ -111,7 +111,7 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBa
           <img src="/build/images/g2g/search.svg" alt="Search Icon" />
         </div>
         <input type="text" placeholder="Search Destination" value={searchQuery} onChange={handleSearchChange} style={{ fontWeight: "bold", color: "#000000", fontFamily: "PoppinsRegular" }} />
-        <div className="search-icon-right">
+        <div className="search-icon-right" onClick={() => setActiveButton({name:"Account"})}>
           <img src="/build/images/topUpSimIcon.svg" alt="Icon" />
         </div>
       </div>
