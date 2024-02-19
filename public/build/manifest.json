@@ -67,6 +67,7 @@
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.32b2f1ad.js",
 >>>>>>> 804d1051 (account)
 =======
@@ -75,6 +76,9 @@
 =======
   "build/Simly.js": "/build/Simly.ef9ea2dc.js",
 >>>>>>> bd14ff32 (simly add countryImage)
+=======
+  "build/Simly.js": "/build/Simly.3ed5f8cc.js",
+>>>>>>> 88234349 (add async fct to download)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
@@ -87,6 +91,7 @@
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -111,6 +116,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.565d0947.css",
 >>>>>>> 804d1051 (account)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.388c51c6.css",
+>>>>>>> 88234349 (add async fct to download)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> d29d6287 (set all files for simly)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",

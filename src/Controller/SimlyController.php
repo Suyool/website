@@ -169,7 +169,7 @@ class SimlyController extends AbstractController
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
         //        $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 218;
+        $SuyoolUserId = 155;
 
         $data = json_decode($request->getContent(), true);
 
