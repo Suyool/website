@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Simly\Esim;
+use App\Entity\Simly\Logs;
 use App\Entity\Simly\Order;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
@@ -187,7 +188,9 @@ class SimlyController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (!isset($data['planId'])) {
-            //logs here
+            $logs = new Logs();
+
+
             return new JsonResponse([
                 'status' => false,
                 'message' => 'planId and esimid are required'
@@ -222,7 +225,7 @@ class SimlyController extends AbstractController
             //logs here
 
             $order->setStatus(Order::$statusOrder['CANCELED'])
-                ->setError($utilityResponse[1]);
+                ->setError(json_encode($utilityResponse));
 
             $this->mr->persist($order);
             $this->mr->flush();
@@ -356,6 +359,8 @@ class SimlyController extends AbstractController
         foreach ($esims as $esim) {
             $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
             $res['country'] = $esim->getCountry();
+            $res['plan'] = $esim->getPlan();
+            $res['esimId'] = $esim->getEsimId();
 
             if ($res)
                 $usage[] = $res;
