@@ -19,6 +19,7 @@ const App = ({parameters}) => {
     const [categories, setCategories] = useState([]);
     const [getDataGetting, setDataGetting] = useState("");
     const [getPrepaidVoucher, setPrepaidVoucher] = useState(true);
+    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
     const [getSuccessModal, setSuccessModal] = useState({
         imgPath: "/build/images/alfa/SuccessImg.png",
@@ -50,6 +51,7 @@ const App = ({parameters}) => {
                 setActiveButton={setActiveButton}
                 getHeaderTitle={getHeaderTitle}
                 getBackLink={getBackLink}
+                getSpinnerLoader = {getSpinnerLoader}
             />
             <div className="scrolableView">
                 {getModalName === "" && (
@@ -87,7 +89,6 @@ const App = ({parameters}) => {
                                 setDataGetting={setDataGetting}
                                 parameters={parameters}
                                 getDataGetting={getDataGetting}
-                                getPrepaidVoucher={getPrepaidVoucher}
                                 setModalShow={setModalShow}
                                 setModalName={setModalName}
                                 setSuccessModal={setSuccessModal}
@@ -97,6 +98,8 @@ const App = ({parameters}) => {
                                 setBackLink={setBackLink}
                                 selectedPlan={selectedPlan}
                                 selectedPackage={selectedPackage}
+                                setSpinnerLoader={setSpinnerLoader}
+                                getSpinnerLoader={getSpinnerLoader}
                             />
                         )}
                     </>

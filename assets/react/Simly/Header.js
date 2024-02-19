@@ -6,6 +6,7 @@ const Header = ({
   setActiveButton,
   getHeaderTitle,
   getBackLink,
+  getSpinnerLoader
 }) => {
   const handleButtonClick = (getBackLink) => {
     if (activeButton.name == "") {
@@ -19,7 +20,9 @@ const Header = ({
   };
 
   return (
-    <div id="MobileHeader">
+    <div id="MobileHeader"  className={` ${
+      getSpinnerLoader ? "packagesinfo hideBackk" : ""
+    }`}>
       <div
         className="back"
         onClick={() => {

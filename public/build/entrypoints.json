@@ -75,7 +75,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.4d024666.js"
+        "/build/Simly.c50eb779.js"
       ]
     },
     "styles": {
@@ -179,7 +179,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.d9798652.css"
+        "/build/SimlyStyle.dd1d3503.css"
       ]
     }
   }
