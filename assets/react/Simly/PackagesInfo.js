@@ -47,6 +47,7 @@ const PackagesInfo = ({
 
   useEffect(() => {
     if (getDataGetting == "success") {
+        setDataGetting("")
       axios
         .post("/simly/purchaseTopup", {
           planId: selectedPackage.planId,
