@@ -410,4 +410,31 @@ class Memcached
         }
         return 'Default';
     }
+
+    public function getAllCountriesBySimlyFromSimly($simlyServices)
+    {
+        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimlyFromSimly.txt" : "../var/cache/dev/CountriesBySimlyFromSimly.txt";
+
+        if (file_exists($file)) {
+            $fileModificationTime = filemtime($file);
+        } else {
+            $fileModificationTime = 0;
+        }
+
+        $cacheExpiration = 5;
+        $currentTime = time();
+
+        if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
+            $operationsjson = file_get_contents($file);
+            $data = json_decode($operationsjson, true);
+        } else {
+            $data = $simlyServices->GetAllAvailableCountriesOfContinent();
+            // dd($data);
+
+            $jsonData = json_encode($data);
+            file_put_contents($file, $jsonData);
+        }
+
+        return $data;
+    }
 }

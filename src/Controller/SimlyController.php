@@ -129,7 +129,8 @@ class SimlyController extends AbstractController
      */
     public function GetAllAvailableCountries(SimlyServices $simlyServices, Memcached $Memcached)
     {
-        $filter = $Memcached->getAllCountriesBySimly($simlyServices);
+        // $filter = $Memcached->getAllCountriesBySimly($simlyServices);
+        $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
         return new JsonResponse([
             'status' => true,
             'message' => $filter
