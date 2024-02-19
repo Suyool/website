@@ -174,7 +174,15 @@ class SimlyController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (!isset($data['planId'])) {
-            $logs = new Logs();
+            $logs = new Logs;
+            $logs
+                ->setidentifier("simly_purchaseTopup")
+                ->seturl("simly/purchaseTopup")
+                ->setrequest(json_encode($data))
+                ->setresponse("planId and esimid are required")
+                ->seterror("planId and esimid are required");
+            $this->mr->persist($logs);
+            $this->mr->flush();
 
 
             return new JsonResponse([
@@ -204,12 +212,9 @@ class SimlyController extends AbstractController
         $this->mr->persist($order);
         $this->mr->flush();
         $order_id = $simlyMerchId . "-" . $order->getId();
-        //        dd($order);
 
         $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), 32);
         if (!$utilityResponse[0]) {
-            //logs here
-
             $order->setStatus(Order::$statusOrder['CANCELED'])
                 ->setError(json_encode($utilityResponse));
 
@@ -238,7 +243,15 @@ class SimlyController extends AbstractController
         }
 
         if (!isset($simlyResponse['id'])) {
-            //logs here with $simlyResponse['message']
+            $logs = new Logs;
+            $logs
+                ->setidentifier("simly_purchaseTopup")
+                ->seturl("simly/purchaseTopup")
+                ->setrequest(json_encode($data))
+                ->setresponse(json_encode($simlyResponse))
+                ->seterror(json_encode($simlyResponse));
+            $this->mr->persist($logs);
+            $this->mr->flush();
             //return the money to the user
 
             $order->setStatus(Order::$statusOrder['CANCELED'])
@@ -300,11 +313,6 @@ class SimlyController extends AbstractController
                 ->setTransaction(json_encode($simlyResponse['transaction']));
         }
 
-        //        dd($simlyResponse);
-
-
-
-
         $this->mr->persist($esim);
         $this->mr->flush();
 
@@ -315,8 +323,6 @@ class SimlyController extends AbstractController
         $this->mr->persist($order);
         $this->mr->flush();
 
-        //logs here
-        //intial notification
         $params = json_encode([
             'amount' => $order->getamount(),
             'currency' => $order->getCurrency(),
@@ -331,8 +337,14 @@ class SimlyController extends AbstractController
         $bulk = 0;
         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
 
+        $updateUtilitiesAdditionalData = json_encode([
+            'simID' => $order->getEsimsId(),
+            'amount' => $order->getamount(),
+            'currency' => $order->getCurrency(),
+        ]);
 
-        $responseUpdateUtilities = $suyoolServices->UpdateUtilities(1, $order_id, $transId);
+        $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $transId);
+        dd($responseUpdateUtilities);
         if ($responseUpdateUtilities[0]) {
             $message = "Simly Purchase was successful";
         } else {
@@ -362,7 +374,7 @@ class SimlyController extends AbstractController
             $res['country'] = $esim->getCountry();
             $res['plan'] = $esim->getPlan();
             $res['esimId'] = $esim->getEsimId();
-            $res['countryImage']=$esim->getCountryImage();
+            $res['countryImage'] = $esim->getCountryImage();
 
             if ($res)
                 $usage[] = $res;
