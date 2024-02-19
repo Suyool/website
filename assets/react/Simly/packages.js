@@ -3,7 +3,7 @@ import axios from "axios";
 import ContentLoader from "react-content-loader";
 import PackageItems from "./PackageItems";
 
-const Packages = ({setSelectedPlan,setActiveButton}) => {
+const Packages = ({setSelectedPlan,setActiveButton,setSelectedPackage}) => {
     const [view, setView] = useState('countries');
     const [selectedData, setSelectedData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +124,7 @@ const Packages = ({setSelectedPlan,setActiveButton}) => {
             </div>
             {isPackageItem ? (
                 // Render content when isPackageItem is true
-                <PackageItems country={selectedCountry} setSelectedPlan={setSelectedPlan} setActiveButton={setActiveButton}/>
+                <PackageItems country={selectedCountry} setSelectedPlan={setSelectedPlan} setActiveButton={setActiveButton} setSelectedPackage={setSelectedPackage}/>
             ) : (
                 // Render content when isPackageItem is false
                 <>
