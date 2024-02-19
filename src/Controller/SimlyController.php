@@ -39,15 +39,15 @@ class SimlyController extends AbstractController
     /**
      * @Route("/simly", name="app_simly")
      */
-//    public function index(NotificationServices $notificationServices)
-//    {
-//        $parameters['deviceType'] = 'Android';
-//        dd($parameters);
-//
-//        // return $this->render('simly/index.html.twig', [
-//        //     'parameters' => $parameters
-//        // ]);
-//    }
+    //    public function index(NotificationServices $notificationServices)
+    //    {
+    //        $parameters['deviceType'] = 'Android';
+    //        dd($parameters);
+    //
+    //        // return $this->render('simly/index.html.twig', [
+    //        //     'parameters' => $parameters
+    //        // ]);
+    //    }
 
     /**
      * @Route("/simly", name="simly")
@@ -56,9 +56,9 @@ class SimlyController extends AbstractController
     {
         $parameters['deviceType'] = 'Iphone';
 
-         return $this->render('simly/index.html.twig', [
-             'parameters' => $parameters
-         ]);
+        return $this->render('simly/index.html.twig', [
+            'parameters' => $parameters
+        ]);
     }
 
     /**
@@ -81,17 +81,17 @@ class SimlyController extends AbstractController
         // $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
         // dd($res);
 
-//        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
+        //        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
 
         // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
-//         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
+        //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         // dd($res);
 
-//         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
+        //         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
         // dd($res);
 
-//         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
-//        dd($res);
+        //         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+        //        dd($res);
 
         $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
         $res = $simlyServices->GetAllAvailableCountriesOfContinent();
@@ -106,6 +106,18 @@ class SimlyController extends AbstractController
     {
         $filter = $Memcached->getAllCountriesBySimly($simlyServices);
         // $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => $filter
+        ], 200);
+    }
+    /**
+     * @Route("/simly/getLocalAvailableCountries", name="app_simly_getLocalAvailableCountries")
+     */
+    public function GetLocalAvailableCountries(SimlyServices $simlyServices, Memcached $Memcached)
+    {
+        $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
         return new JsonResponse([
             'status' => true,
             'message' => $filter
@@ -156,7 +168,7 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices)
     {
-//        $SuyoolUserId = $this->session->get('suyoolUserId');
+        //        $SuyoolUserId = $this->session->get('suyoolUserId');
         $SuyoolUserId = 218;
 
         $data = json_decode($request->getContent(), true);
@@ -192,7 +204,7 @@ class SimlyController extends AbstractController
         $this->mr->persist($order);
         $this->mr->flush();
         $order_id = $simlyMerchId . "-" . $order->getId();
-//        dd($order);
+        //        dd($order);
 
         $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), 32);
         if (!$utilityResponse[0]) {
@@ -252,7 +264,7 @@ class SimlyController extends AbstractController
         }
 
         if ($order->getType() == 'esim') {
-            if(isset($data['country'])) $country = $data['country'];
+            if (isset($data['country'])) $country = $data['country'];
             else $country = "";
             $esim = new Esim();
             $esim
@@ -287,7 +299,7 @@ class SimlyController extends AbstractController
                 ->setTransaction(json_encode($simlyResponse['transaction']));
         }
 
-//        dd($simlyResponse);
+        //        dd($simlyResponse);
 
 
 
@@ -316,7 +328,6 @@ class SimlyController extends AbstractController
             'message' => $message,
             'data' => $simlyResponse
         ], 200);
-
     }
 
     /**
@@ -351,5 +362,4 @@ class SimlyController extends AbstractController
             'message' => $usage
         ], 200);
     }
-
 }

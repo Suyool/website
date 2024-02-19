@@ -320,39 +320,39 @@ class Memcached
         } else {
             $data = $simlyServices->GetCountriesPlans();
 
-            // Initialize an empty array to hold the divided arrays
-            $dividedArrays = [
-                'Europe' => [],
-                'Asia' => [],
-                'North America' => [],
-                'South America' => [],
-                'Africa' => [],
-                'Oceania' => [],
-                // 'Middle East' => [],
-                'Default' => [],
-            ];
+            // // Initialize an empty array to hold the divided arrays
+            // $dividedArrays = [
+            //     'Europe' => [],
+            //     'Asia' => [],
+            //     'North America' => [],
+            //     'South America' => [],
+            //     'Africa' => [],
+            //     'Oceania' => [],
+            //     // 'Middle East' => [],
+            //     'Default' => [],
+            // ];
 
-            // Define the mappings of ISO codes to regions for the local array only
-            $regionMappings  = [
-                'Europe' => ['ALA', 'ALB', 'AND', 'AUT', 'BLR', 'BEL', 'BIH', 'BGR', 'HRV', 'CZE', 'DNK', 'EST', 'FRO', 'FIN', 'FRA', 'DEU', 'GRC', 'GIB', 'GRC', 'GGY', 'VAT', 'HUN', 'ISL', 'IRL', 'IMN', 'ITA', 'JEY', 'LVA', 'LIE', 'LTU', 'LUX', 'MLT', 'MCO', 'MNE', 'NLD', 'MKD', 'NOR', 'POL', 'PRT', 'MDA', 'ROU', 'RUS', 'SMR', 'SRB', 'SVK', 'SVN', 'ESP', 'SJM', 'SWE', 'CHE', 'UKR', 'GBR', 'IC','XKX'],
-                'Asia' => ['AFG', 'ARM', 'AZE', 'BHR', 'BGD', 'BTN', 'BRN', 'KHM', 'CHN', 'HKG', 'MAC', 'CYP', 'PRK', 'GEO', 'IND', 'IDN', 'IRN', 'ISR', 'JPN', 'JOR', 'KAZ', 'KWT', 'KGZ', 'LAO', 'LBN', 'MYS', 'MDV', 'MNG', 'MMR', 'NPL', 'OMN', 'PAK', 'PHL', 'QAT', 'KOR', 'SAU', 'SGP', 'LKA', 'PSE', 'SYR', 'TJK', 'THA', 'TLS', 'TUR', 'TKM', 'ARE', 'UZB', 'VNM', 'YEM','IRQ','TWN'],
-                'North America' => ['AIA', 'ATG', 'ABW', 'BHS', 'BRB', 'BLZ', 'BMU', 'BES', 'VGB', 'CAN', 'CYM', 'CRI', 'CUB', 'CUW', 'DMA', 'DOM', 'SLV', 'GRL', 'GRD', 'GLP', 'GTM', 'HTI', 'HND', 'JAM', 'MTQ', 'MEX', 'MSR', 'NIC', 'PAN', 'PRI', 'BLM', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'SXM', 'TTO', 'TCA', 'USA', 'VIR','US-HI'],
-                'South America' => ['ARG', 'BOL', 'BVT', 'BRA', 'CHL', 'COL', 'ECU', 'FLK', 'GUF', 'GUY', 'PRY', 'PER', 'SGS', 'SUR', 'URY', 'VEN'],
-                'Africa' => ['DZA', 'AGO', 'BEN', 'BWA', 'IOT', 'BFA', 'BDI', 'CPV', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'CIV', 'COD', 'DJI', 'EGY', 'GNQ', 'ERI', 'SWZ', 'ETH', 'ATF', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO', 'LBR', 'LBY', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MYT', 'MAR', 'MOZ', 'NAM', 'NER', 'NGA', 'REU', 'RWA', 'SHN', 'STP', 'SEN', 'SYC', 'SLE', 'SOM', 'ZAF', 'SSD', 'SDN', 'TGO', 'TUN', 'UGA', 'TZA', 'ESH', 'ZMB', 'ZWE'],
-                'Oceania' => ['ASM', 'AUS', 'CXR', 'CCK', 'COK', 'FJI', 'PYF', 'GUM', 'HMD', 'KIR', 'MHL', 'FSM', 'NRU', 'NCL', 'NZL', 'NIU', 'NFK', 'MNP', 'PLW', 'PNG', 'PCN', 'WSM', 'SLB', 'TKL', 'TON', 'TUV', 'UMI', 'VUT', 'WLF'],
-                // 'Middle East' => [],
-                'Default' => ['ATA']
-            ];
+            // // Define the mappings of ISO codes to regions for the local array only
+            // $regionMappings  = [
+            //     'Europe' => ['ALA', 'ALB', 'AND', 'AUT', 'BLR', 'BEL', 'BIH', 'BGR', 'HRV', 'CZE', 'DNK', 'EST', 'FRO', 'FIN', 'FRA', 'DEU', 'GRC', 'GIB', 'GRC', 'GGY', 'VAT', 'HUN', 'ISL', 'IRL', 'IMN', 'ITA', 'JEY', 'LVA', 'LIE', 'LTU', 'LUX', 'MLT', 'MCO', 'MNE', 'NLD', 'MKD', 'NOR', 'POL', 'PRT', 'MDA', 'ROU', 'RUS', 'SMR', 'SRB', 'SVK', 'SVN', 'ESP', 'SJM', 'SWE', 'CHE', 'UKR', 'GBR', 'IC','XKX'],
+            //     'Asia' => ['AFG', 'ARM', 'AZE', 'BHR', 'BGD', 'BTN', 'BRN', 'KHM', 'CHN', 'HKG', 'MAC', 'CYP', 'PRK', 'GEO', 'IND', 'IDN', 'IRN', 'ISR', 'JPN', 'JOR', 'KAZ', 'KWT', 'KGZ', 'LAO', 'LBN', 'MYS', 'MDV', 'MNG', 'MMR', 'NPL', 'OMN', 'PAK', 'PHL', 'QAT', 'KOR', 'SAU', 'SGP', 'LKA', 'PSE', 'SYR', 'TJK', 'THA', 'TLS', 'TUR', 'TKM', 'ARE', 'UZB', 'VNM', 'YEM','IRQ','TWN'],
+            //     'North America' => ['AIA', 'ATG', 'ABW', 'BHS', 'BRB', 'BLZ', 'BMU', 'BES', 'VGB', 'CAN', 'CYM', 'CRI', 'CUB', 'CUW', 'DMA', 'DOM', 'SLV', 'GRL', 'GRD', 'GLP', 'GTM', 'HTI', 'HND', 'JAM', 'MTQ', 'MEX', 'MSR', 'NIC', 'PAN', 'PRI', 'BLM', 'KNA', 'LCA', 'MAF', 'SPM', 'VCT', 'SXM', 'TTO', 'TCA', 'USA', 'VIR','US-HI'],
+            //     'South America' => ['ARG', 'BOL', 'BVT', 'BRA', 'CHL', 'COL', 'ECU', 'FLK', 'GUF', 'GUY', 'PRY', 'PER', 'SGS', 'SUR', 'URY', 'VEN'],
+            //     'Africa' => ['DZA', 'AGO', 'BEN', 'BWA', 'IOT', 'BFA', 'BDI', 'CPV', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'CIV', 'COD', 'DJI', 'EGY', 'GNQ', 'ERI', 'SWZ', 'ETH', 'ATF', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO', 'LBR', 'LBY', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MYT', 'MAR', 'MOZ', 'NAM', 'NER', 'NGA', 'REU', 'RWA', 'SHN', 'STP', 'SEN', 'SYC', 'SLE', 'SOM', 'ZAF', 'SSD', 'SDN', 'TGO', 'TUN', 'UGA', 'TZA', 'ESH', 'ZMB', 'ZWE'],
+            //     'Oceania' => ['ASM', 'AUS', 'CXR', 'CCK', 'COK', 'FJI', 'PYF', 'GUM', 'HMD', 'KIR', 'MHL', 'FSM', 'NRU', 'NCL', 'NZL', 'NIU', 'NFK', 'MNP', 'PLW', 'PNG', 'PCN', 'WSM', 'SLB', 'TKL', 'TON', 'TUV', 'UMI', 'VUT', 'WLF'],
+            //     // 'Middle East' => [],
+            //     'Default' => ['ATA']
+            // ];
 
-            // Loop through the countries in the local array and assign them to the appropriate array
-            foreach ($data['local'] as $country) {
-                $region = $this->getRegionByCountryCode($country['isoCode'], $regionMappings);
-                $dividedArrays[$region][] = $country;
-            }
+            // // Loop through the countries in the local array and assign them to the appropriate array
+            // foreach ($data['local'] as $country) {
+            //     $region = $this->getRegionByCountryCode($country['isoCode'], $regionMappings);
+            //     $dividedArrays[$region][] = $country;
+            // }
 
             // Keep the 'regional' and 'global' arrays unchanged
             $filter = [
-                'local' => $dividedArrays,
+                // 'local' => $dividedArrays,
                 'regional' => $data['regional'],
                 'global' => $data['global']
             ];
