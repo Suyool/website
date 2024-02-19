@@ -429,20 +429,20 @@ class Memcached
             $data = json_decode($operationsjson, true);
         } else {
             $data = $simlyServices->GetAllAvailableCountriesOfContinent();
-            // dd($data);
-            $blackList = ['ISR'];
             $filteredData = [];
 
             foreach ($data as &$continent) {
-                if (isset($continent['GLOBAL']) || isset($continent['EU'])) {
-                    // Skip processing for the GLOBAL and EU continents
+                if (isset($continent['GLOBAL'])) {
                     continue;
                 } else {
                     $filteredContinent = [];
                     foreach ($continent as $isoCodes => &$countries) {
-                        $filteredCountries = array_filter($countries, function ($country) use ($blackList) {
-                            return !in_array($country['isoCode'], $blackList);
-                        });
+                        $filteredCountries = [];
+                        foreach ($countries as $country) {
+                            if ($country['isoCode'] !== "ISR") {
+                                $filteredCountries[] = $country;
+                            }
+                        }
                         if (!empty($filteredCountries)) {
                             $filteredContinent[$isoCodes] = $filteredCountries;
                         }
@@ -452,6 +452,7 @@ class Memcached
                     }
                 }
             }
+
 
             $jsonData = json_encode($filteredData);
             file_put_contents($file, $jsonData);
