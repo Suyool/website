@@ -54,7 +54,7 @@ class SimlyController extends AbstractController
      */
     public function index(NotificationServices $notificationServices)
     {
-        $parameters['deviceType'] = 'Android';
+        $parameters['deviceType'] = 'Iphone';
 
          return $this->render('simly/index.html.twig', [
              'parameters' => $parameters
@@ -104,8 +104,8 @@ class SimlyController extends AbstractController
      */
     public function GetAllAvailableCountries(SimlyServices $simlyServices, Memcached $Memcached)
     {
-        // $filter = $Memcached->getAllCountriesBySimly($simlyServices);
-        $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+        $filter = $Memcached->getAllCountriesBySimly($simlyServices);
+        // $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
         return new JsonResponse([
             'status' => true,
             'message' => $filter
