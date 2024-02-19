@@ -106,10 +106,15 @@ class SimlyController extends AbstractController
         // $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
         // dd($res);
 
-        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
+//        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
 
         // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
 //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
+        // dd($res);
+
+         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
+        // dd($res);
+        // $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
         // dd($res);
 
 //         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
@@ -187,7 +192,7 @@ class SimlyController extends AbstractController
         }
 
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
-        $simlyPlan = $simlyServices->getPlanById($data['planId']);
+        $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
 
         $order = new Order();
         $order
