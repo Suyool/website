@@ -53,11 +53,7 @@
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Touch.2a455c9b.js"
-=======
-        "/build/Touch.cd07b4e5.js"
->>>>>>> 16ff8d46 (account)
+        "/build/Touch.2d4d4442.js"
       ]
     },
     "Ogero": {
@@ -94,7 +90,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.03025313.js"
+        "/build/Simly.f492abd5.js"
       ]
     },
     "styles": {

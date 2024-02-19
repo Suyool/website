@@ -12,6 +12,7 @@ const App = ({parameters}) => {
     const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
     const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
     const [activeButton, setActiveButton] = useState({name: ""});
+    const [isPackageItem, setIsPackageItem] = useState(false);
     const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
     const [getModalName, setModalName] = useState("");
@@ -48,6 +49,8 @@ const App = ({parameters}) => {
             <Header
                 parameters={parameters}
                 activeButton={activeButton}
+                setIsPackageItem={setIsPackageItem}
+                isPackageItem={isPackageItem}
                 setActiveButton={setActiveButton}
                 getHeaderTitle={getHeaderTitle}
                 getBackLink={getBackLink}
@@ -77,6 +80,8 @@ const App = ({parameters}) => {
                                 setModalName={setModalName}
                                 setSuccessModal={setSuccessModal}
                                 setErrorModal={setErrorModal}
+                                setIsPackageItem={setIsPackageItem}
+                                isPackageItem={isPackageItem}
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
