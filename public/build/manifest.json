@@ -6,6 +6,7 @@
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
+<<<<<<< HEAD
   "build/Gift2Games.js": "/build/Gift2Games.f015a3a8.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
@@ -50,6 +51,22 @@
 =======
   "build/Simly.js": "/build/Simly.09f040c5.js",
 >>>>>>> 846e8d96 (handle object display)
+=======
+<<<<<<< HEAD
+  "build/Alfa.js": "/build/Alfa.676a2730.js",
+  "build/Touch.js": "/build/Touch.2a455c9b.js",
+  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
+=======
+  "build/Alfa.js": "/build/Alfa.dc483ae9.js",
+  "build/Touch.js": "/build/Touch.cd07b4e5.js",
+  "build/Ogero.js": "/build/Ogero.5c85e96d.js",
+>>>>>>> 16ff8d46 (account)
+  "build/Gift2Games.js": "/build/Gift2Games.235249a9.js",
+  "build/iveri.js": "/build/iveri.429e5515.js",
+  "build/TerraNet.js": "/build/TerraNet.4a892938.js",
+  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+  "build/Simly.js": "/build/Simly.32b2f1ad.js",
+>>>>>>> 804d1051 (account)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
@@ -62,6 +79,7 @@
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -82,6 +100,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.dd1d3503.css",
 >>>>>>> e1af2e4f (purchase simly)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.565d0947.css",
+>>>>>>> 804d1051 (account)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> d29d6287 (set all files for simly)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
@@ -445,7 +466,10 @@
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
   "build/images/Touch/bundleImg60h.png": "/build/images/Touch/bundleImg60h.png",
   "build/images/alfa_employee/worldMoney.png": "/build/images/alfa_employee/worldMoney.png",
+<<<<<<< HEAD
   "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
+=======
+>>>>>>> 16ff8d46 (account)
   "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
   "build/images/alfa/bundleImg33h.png": "/build/images/alfa/bundleImg33h.png",
   "build/images/alfa_employee/bobCashin.png": "/build/images/alfa_employee/bobCashin.png",
@@ -468,7 +492,10 @@
   "build/images/g2g/pubgIcon.png": "/build/images/g2g/pubgIcon.png",
   "build/images/sendReceiveMoney/step1Mobile.png": "/build/images/sendReceiveMoney/step1Mobile.png",
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
+<<<<<<< HEAD
   "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
+=======
+>>>>>>> 16ff8d46 (account)
   "build/images/auth.png": "/build/images/auth.png",
   "build/images/help-topSection.jpg": "/build/images/help-topSection.4ef3711e.jpg",
   "build/images/helpCenter/help-topSection.jpg": "/build/images/helpCenter/help-topSection.jpg",
@@ -500,7 +527,10 @@
   "build/images/merchants/loto.png": "/build/images/merchants/loto.png",
   "build/images/homepage/suyool-secure-safety.svg": "/build/images/homepage/suyool-secure-safety.svg",
   "build/images/alfa/bundleImg13x2.png": "/build/images/alfa/bundleImg13x2.png",
+<<<<<<< HEAD
   "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
+=======
+>>>>>>> 16ff8d46 (account)
   "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
   "build/images/suyoolLogoComming.jpg": "/build/images/suyoolLogoComming.jpg",
   "build/images/sendReceiveMoney/step2Mobile.png": "/build/images/sendReceiveMoney/step2Mobile.png",

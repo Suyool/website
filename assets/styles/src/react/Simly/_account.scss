@@ -78,7 +78,7 @@
                     padding-left: 3px;
                 }
 
-                input[type='radio']:after {
+                input[type='checkbox']:after {
                     width: 17px;
                     height: 17px;
                     border-radius: 15px;
@@ -92,7 +92,7 @@
                     border: 2px solid white;
                 }
 
-                input[type='radio']:checked:after {
+                input[type='checkbox']:checked:after {
                     width: 17px;
                     height: 17px;
                     border-radius: 15px;
