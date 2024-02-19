@@ -72,6 +72,12 @@ class Esim
     /**
      * @ORM\Column(type="string")
      */
+    private $country;
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $allowedPlans;
 
     public function getId(): ?int
@@ -81,7 +87,7 @@ class Esim
 
     public function getEsimId(): ?string
     {
-        return $this->esims_id;
+        return $this->esimId;
     }
 
     public function setEsimId(string $esimId): self
@@ -187,6 +193,17 @@ class Esim
     public function setPlan(string $plan): self
     {
         $this->plan = $plan;
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
         return $this;
     }
 
