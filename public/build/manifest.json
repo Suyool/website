@@ -19,6 +19,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
 =======
   "build/Simly.js": "/build/Simly.80e05130.js",
@@ -46,6 +47,9 @@
 =======
   "build/Simly.js": "/build/Simly.c50eb779.js",
 >>>>>>> e1af2e4f (purchase simly)
+=======
+  "build/Simly.js": "/build/Simly.09f040c5.js",
+>>>>>>> 846e8d96 (handle object display)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
