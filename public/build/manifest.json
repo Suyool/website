@@ -18,6 +18,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
 =======
   "build/Simly.js": "/build/Simly.80e05130.js",
@@ -39,6 +40,9 @@
 =======
   "build/Simly.js": "/build/Simly.987c00bc.js",
 >>>>>>> cf68a705 (packages info)
+=======
+  "build/Simly.js": "/build/Simly.4d024666.js",
+>>>>>>> ed9bf261 (handle bug occured)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",

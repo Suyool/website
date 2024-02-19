@@ -10,6 +10,7 @@ import Account from "./Account";
 
 const App = ({parameters}) => {
     const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
+    const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
     const [activeButton, setActiveButton] = useState({name: ""});
     const [getBackLink, setBackLink] = useState({name: ""});
     const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
@@ -78,6 +79,7 @@ const App = ({parameters}) => {
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 setSelectedPlan={setSelectedPlan}
+                                setSelectedPackage={setSelectedPackage}
                             />
                         )}
                         {activeButton.name === "PackagesInfo" && (
@@ -94,7 +96,7 @@ const App = ({parameters}) => {
                                 setHeaderTitle={setHeaderTitle}
                                 setBackLink={setBackLink}
                                 selectedPlan={selectedPlan}
-
+                                selectedPackage={selectedPackage}
                             />
                         )}
                     </>
