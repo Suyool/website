@@ -413,7 +413,7 @@ class Memcached
 
     public function getAllCountriesBySimlyFromSimly($simlyServices)
     {
-        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimlyFromSimly.txt" : ($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/CountriesBySimlyFromSimly.txt" : ($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/CountriesBySimlyFromSimly.txt" : "../var/cache/dev/CountriesBySimlyFromSimly.txt";
+        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimlyFromSimly.txt" : (($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/CountriesBySimlyFromSimly.txt" : (($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/CountriesBySimlyFromSimly.txt" : "../var/cache/dev/CountriesBySimlyFromSimly.txt"));
 
         if (file_exists($file)) {
             $fileModificationTime = filemtime($file);
