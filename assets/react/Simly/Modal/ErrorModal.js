@@ -58,12 +58,22 @@ const ErrorModal = (props) => {
                 {props.getErrorModal.btn}
               </button>
             )}
-            {props.getErrorModal.btn != "OK" && (
-              <>
-                <button className="okiBtnModal" onClick={props.onHide}>
-                  Cancel
-                </button>
-              </>
+            {props.getErrorModal.btn !=
+            "OK" && (
+                <>
+                  <button className="okiBtnModal" onClick={props.onHide}>
+                    Cancel
+                  </button>
+                  {props.getErrorModal.path == "90" ||
+                  props.getErrorModal.path == "84" && (
+                      <button
+                          className="exchangeBtnModal"
+                          onClick={handleExchange}
+                      >
+                        {props.getErrorModal.btn}
+                      </button>
+                  )}
+                </>
             )}
           </div>
         </div>
