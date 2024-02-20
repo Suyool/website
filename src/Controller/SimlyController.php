@@ -50,7 +50,7 @@ class SimlyController extends AbstractController
     //    }
 
     /**
-     * @Route("/simly", name="simly")
+     * @Route("/alfa", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
@@ -223,8 +223,9 @@ class SimlyController extends AbstractController
 
             return new JsonResponse([
                 'status' => false,
-                'message' => $utilityResponse
-            ], 500);
+                'message' => @json_decode($utilityResponse[1],true),
+                'flagCode'=>@$utilityResponse[1]
+            ]);
         }
 
         $transId = $utilityResponse[1];
@@ -283,7 +284,7 @@ class SimlyController extends AbstractController
             return new JsonResponse([
                 'status' => false,
                 'message' => $message
-            ], 500);
+            ]);
         }
 
         if ($order->getType() == 'esim') {

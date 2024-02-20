@@ -90,7 +90,11 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
+=======
+        "/build/Simly.94675d50.js"
+>>>>>>> a92b03cd (simly)
       ]
     },
     "styles": {

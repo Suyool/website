@@ -116,7 +116,6 @@ const PackagesInfo = ({
     } else if (getDataGetting == "failed") {
       setDataGetting("");
       setSpinnerLoader(false);
-      setDisable(false);
     }
   }, [getDataGetting]);
 

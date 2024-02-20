@@ -68,6 +68,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.32b2f1ad.js",
 >>>>>>> 804d1051 (account)
 =======
@@ -85,6 +86,12 @@
 =======
   "build/Simly.js": "/build/Simly.f492abd5.js",
 >>>>>>> 3d41d832 (fix search when in diff cat,fix btn navigation, fix backlink)
+=======
+  "build/Simly.js": "/build/Simly.f492abd5.js",
+=======
+  "build/Simly.js": "/build/Simly.94675d50.js",
+>>>>>>> a92b03cd (simly)
+>>>>>>> 94bdda41 (simly)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> d29d6287 (set all files for simly)
   "build/admin.css": "/build/admin.8fb78dae.css",
