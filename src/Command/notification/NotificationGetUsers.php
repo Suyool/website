@@ -58,32 +58,35 @@ class NotificationGetUsers extends Command
         //         ]
         //     ],
         // ];
-        
+
         // Convert the array to JSON for printing or further use
         // dd($suyoolUsers);
         $output->writeln([
             'Getting All suyool users'
         ]);
         if (is_array($suyoolUsers)) {
-            $users=$this->mr->getRepository(Users::class)->findAll();
-            foreach($users as $users){
+            $users = $this->mr->getRepository(Users::class)->findAll();
+            foreach ($users as $users) {
                 $this->mr->remove($users);
             }
             $this->mr->flush();
             foreach ($suyoolUsers as $types) {
-                foreach($types as $item){
-                    $user = new Users;
-                    $user
-                        ->setsuyoolUserId($item["AccountID"])
-                        ->setfname(@$item["FirstName"])
-                        ->setlname(@$item["LastName"])
-                        ->setMobileNo(@$item['MobileNo'])
-                        ->setlang(@$item["LanguageID"])
-                        ->settype($item['Type'])
-                        ->setCompanyName(@$item['CompanyName']);
-    
-                    $this->mr->persist($user);
-                    $this->mr->flush();
+                foreach ($types as $item) {
+                    $users = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $item["AccountID"]]);
+                    if (is_null($users)) {
+                        $user = new Users;
+                        $user
+                            ->setsuyoolUserId($item["AccountID"])
+                            ->setfname(@$item["FirstName"])
+                            ->setlname(@$item["LastName"])
+                            ->setMobileNo(@$item['MobileNo'])
+                            ->setlang(@$item["LanguageID"])
+                            ->settype($item['Type'])
+                            ->setCompanyName(@$item['CompanyName']);
+
+                        $this->mr->persist($user);
+                        $this->mr->flush();
+                    }
                 }
 
                 // $user = new Users;
