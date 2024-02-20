@@ -90,18 +90,18 @@ class SimlyController extends AbstractController
 
         //        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
 
-        // $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
+//         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
         //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         // dd($res);
 
-        //         $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
+                 $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
         // dd($res);
 
-        //         $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+//                 $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
         //        dd($res);
 
-        $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
-        $res = $simlyServices->GetAllAvailableCountriesOfContinent();
+//        $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
+//        $res = $simlyServices->GetAllAvailableCountriesOfContinent();
         dd($res);
     }
 
@@ -209,13 +209,14 @@ class SimlyController extends AbstractController
 
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
         $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
+        $fees = $simlyPlan['initial_price'] - $simlyPlan['price'];
 
         $order = new Order();
         $order
             ->setEsimsId(0)
             ->setStatus(Order::$statusOrder['PENDING'])
-            ->setAmount($simlyPlan['price'])
-            ->setFees(0)
+            ->setAmount($simlyPlan['initial_price'])
+            ->setFees($fees)
             ->setCurrency('USD')
             ->setTransId(0);
 
@@ -225,11 +226,12 @@ class SimlyController extends AbstractController
             $order->setType('esim');
         }
 
+
         $this->mr->persist($order);
         $this->mr->flush();
         $order_id = $simlyMerchId . "-" . $order->getId();
 
-        $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), 32);
+        $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
         if (!$utilityResponse[0]) {
             $order->setStatus(Order::$statusOrder['CANCELED'])
                 ->setError(json_encode($utilityResponse));
@@ -269,8 +271,8 @@ class SimlyController extends AbstractController
                 ->seterror(json_encode($simlyResponse));
             $this->mr->persist($logs);
             $this->mr->flush();
-            //return the money to the user
 
+            //return the money to the user
             $order->setStatus(Order::$statusOrder['CANCELED'])
                 ->setError($simlyResponse['message']);
 
@@ -318,6 +320,8 @@ class SimlyController extends AbstractController
                 ->setTopups(json_encode($simlyResponse['topups']))
                 ->setTransaction(json_encode($simlyResponse['transaction']))
                 ->setPlan($simlyResponse['plan'])
+                ->setInitialPrice($simlyPlan['initial_price'])
+                ->setPrice($simlyPlan['price'])
                 ->setParentPlanType($parentPlanType)
                 ->setCountry($country)
                 ->setCountryImage(@$data['countryImage'])

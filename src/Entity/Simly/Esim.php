@@ -69,6 +69,17 @@ class Esim
      */
     private $plan;
 
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $initialPrice;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
     /**
      * @ORM\Column(type="string")
      */
@@ -202,6 +213,28 @@ class Esim
     public function setPlan(string $plan): self
     {
         $this->plan = $plan;
+        return $this;
+    }
+
+    public function getInitialPrice(): ?float
+    {
+        return $this->initialPrice;
+    }
+
+    public function setInitialPrice(float $initialPrice): self
+    {
+        $this->initialPrice = $initialPrice;
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
         return $this;
     }
 
