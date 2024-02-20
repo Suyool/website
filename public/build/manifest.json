@@ -10,7 +10,27 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/Simly.js": "/build/Simly.f492abd5.js",
+=======
+  "build/Simly.js": "/build/Simly.94675d50.js",
+>>>>>>> a92b03cd (simly)
+=======
+  "build/Simly.js": "/build/Simly.94675d50.js",
+=======
+  "build/Simly.js": "/build/Simly.ac0ef8c4.js",
+>>>>>>> 2e6bd3d1 (handle top up)
+>>>>>>> c896304e (handle top up)
+=======
+  "build/Simly.js": "/build/Simly.70479d66.js",
+>>>>>>> 57145b6d (yarn encore prod)
+  "build/styles.css": "/build/styles.eb2df758.css",
+>>>>>>> 7ff8d36b (yarn encore prod)
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",

@@ -51,7 +51,7 @@ class AlfaController extends AbstractController
     }
 
     /**
-     * @Route("/simly", name="app_alfa")
+     * @Route("/alfa", name="app_alfa")
      */
     public function index(NotificationServices $notificationServices)
     {

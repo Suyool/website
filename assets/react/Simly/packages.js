@@ -53,6 +53,7 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBa
   useEffect(() => {
     if (searchQuery.length >= 3) {
       setView("countries")
+      setIsPackageItem(false);
       const filtered = filterData(selectedDataLocal, searchQuery);
       setFilteredData(filtered);
 

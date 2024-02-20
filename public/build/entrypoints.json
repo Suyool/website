@@ -66,6 +66,30 @@
         "/build/Sodetel.7f47d3e3.js"
       ]
     },
+<<<<<<< HEAD
+=======
+    "Simly": {
+      "js": [
+        "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        "/build/Simly.f492abd5.js"
+=======
+        "/build/Simly.94675d50.js"
+>>>>>>> a92b03cd (simly)
+=======
+        "/build/Simly.94675d50.js"
+=======
+        "/build/Simly.ac0ef8c4.js"
+>>>>>>> 2e6bd3d1 (handle top up)
+>>>>>>> c896304e (handle top up)
+=======
+        "/build/Simly.70479d66.js"
+>>>>>>> 57145b6d (yarn encore prod)
+      ]
+    },
+>>>>>>> 7ff8d36b (yarn encore prod)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
