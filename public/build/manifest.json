@@ -102,10 +102,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 <<<<<<< HEAD
 >>>>>>> 493e662a (plan type)
+=======
+<<<<<<< HEAD
+>>>>>>> 2d255ca4 (add script to error modal)
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -130,6 +134,9 @@
 =======
   "build/Simly.js": "/build/Simly.d869a7d1.js",
 >>>>>>> 907a4068 (plan type)
+=======
+  "build/Simly.js": "/build/Simly.c5467193.js",
+>>>>>>> 5ac91996 (add script to error modal)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
@@ -547,8 +554,21 @@
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
   "build/images/Touch/bundleImg60h.png": "/build/images/Touch/bundleImg60h.png",
   "build/images/alfa_employee/worldMoney.png": "/build/images/alfa_employee/worldMoney.png",
+<<<<<<< HEAD
   "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
   "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
+  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
+=======
+  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
+>>>>>>> c896304e (handle top up)
+=======
+  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
+>>>>>>> 5ac91996 (add script to error modal)
+>>>>>>> e35265c4 (add script to error modal)
   "build/images/alfa/bundleImg33h.png": "/build/images/alfa/bundleImg33h.png",
   "build/images/alfa_employee/bobCashin.png": "/build/images/alfa_employee/bobCashin.png",
   "build/images/g2g/amazonIcon.png": "/build/images/g2g/amazonIcon.png",
@@ -569,8 +589,21 @@
   "build/images/notifications.png": "/build/images/notifications.png",
   "build/images/g2g/pubgIcon.png": "/build/images/g2g/pubgIcon.png",
   "build/images/sendReceiveMoney/step1Mobile.png": "/build/images/sendReceiveMoney/step1Mobile.png",
+<<<<<<< HEAD
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
   "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
+  "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
+=======
+  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
+>>>>>>> c896304e (handle top up)
+=======
+  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
+>>>>>>> 5ac91996 (add script to error modal)
+>>>>>>> e35265c4 (add script to error modal)
   "build/images/auth.png": "/build/images/auth.png",
   "build/images/help-topSection.jpg": "/build/images/help-topSection.4ef3711e.jpg",
   "build/images/helpCenter/help-topSection.jpg": "/build/images/helpCenter/help-topSection.jpg",
@@ -602,8 +635,21 @@
   "build/images/merchants/loto.png": "/build/images/merchants/loto.png",
   "build/images/homepage/suyool-secure-safety.svg": "/build/images/homepage/suyool-secure-safety.svg",
   "build/images/alfa/bundleImg13x2.png": "/build/images/alfa/bundleImg13x2.png",
+<<<<<<< HEAD
   "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
   "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
+  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
+=======
+  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
+>>>>>>> c896304e (handle top up)
+=======
+  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
+>>>>>>> 5ac91996 (add script to error modal)
+>>>>>>> e35265c4 (add script to error modal)
   "build/images/suyoolLogoComming.jpg": "/build/images/suyoolLogoComming.jpg",
   "build/images/sendReceiveMoney/step2Mobile.png": "/build/images/sendReceiveMoney/step2Mobile.png",
   "build/images/g2g/twitchIcon.png": "/build/images/g2g/twitchIcon.png",
