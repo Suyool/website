@@ -122,6 +122,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -129,6 +130,8 @@
 >>>>>>> 2d255ca4 (add script to error modal)
 =======
 >>>>>>> 5ac3c1eb (fixes some bug)
+=======
+>>>>>>> d4a29d24 (handle cache bug)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -158,6 +161,9 @@
 =======
         "/build/Simly.840e6230.js"
 >>>>>>> e167b92e (fixes some bug)
+=======
+        "/build/Simly.ad4d4d45.js"
+>>>>>>> db145d45 (handle cache bug)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)

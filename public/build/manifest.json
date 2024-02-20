@@ -104,6 +104,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 <<<<<<< HEAD
@@ -114,6 +115,9 @@
 =======
 <<<<<<< HEAD
 >>>>>>> 5ac3c1eb (fixes some bug)
+=======
+<<<<<<< HEAD
+>>>>>>> d4a29d24 (handle cache bug)
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -144,6 +148,9 @@
 =======
   "build/Simly.js": "/build/Simly.840e6230.js",
 >>>>>>> e167b92e (fixes some bug)
+=======
+  "build/Simly.js": "/build/Simly.ad4d4d45.js",
+>>>>>>> db145d45 (handle cache bug)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)

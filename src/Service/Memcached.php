@@ -339,7 +339,8 @@ class Memcached
 
     public function getAllCountriesBySimly($simlyServices)
     {
-        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimly.txt" : "../var/cache/dev/CountriesBySimly.txt";
+        // $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimly.txt" : "../var/cache/dev/CountriesBySimly.txt";
+        $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimly.txt" : (($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/CountriesBySimly.txt" : (($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/CountriesBySimly.txt" : "../var/cache/dev/CountriesBySimly.txt"));
 
         if (file_exists($file)) {
             $fileModificationTime = filemtime($file);
@@ -415,6 +416,7 @@ class Memcached
     {
         $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/CountriesBySimlyFromSimly.txt" : (($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/CountriesBySimlyFromSimly.txt" : (($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/CountriesBySimlyFromSimly.txt" : "../var/cache/dev/CountriesBySimlyFromSimly.txt"));
 
+
         if (file_exists($file)) {
             $fileModificationTime = filemtime($file);
         } else {
@@ -426,7 +428,7 @@ class Memcached
 
         if ($fileModificationTime + $cacheExpiration > $currentTime && filesize($file) > 0) {
             $operationsjson = file_get_contents($file);
-            $data = json_decode($operationsjson, true);
+            $filteredData = json_decode($operationsjson, true);
         } else {
             $data = $simlyServices->GetAllAvailableCountriesOfContinent();
             $filteredData = [];
@@ -456,8 +458,7 @@ class Memcached
 
             $jsonData = json_encode($filteredData);
             file_put_contents($file, $jsonData);
-
-            return $filteredData;
         }
+        return $filteredData;
     }
 }
