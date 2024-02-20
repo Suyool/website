@@ -17,7 +17,7 @@ const MyBill = ({
   getDataGetting,
 }) => {
   console.log(parameters?.deviceType);
-  // console.log(getLandlineDisplayedData)
+  console.log(getLandlineDisplayedData)
   const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
   const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
   const [ getdisplayedFees, setdisplayedFees ] = useState("");
@@ -160,7 +160,7 @@ const MyBill = ({
               <div className="value1">
                 L.L{" "}
                 {parseInt(
-                  getLandlineDisplayedData.OgeroTotalAmount
+                  getLandlineDisplayedData.Amount1
                 ).toLocaleString()}
               </div>
             </div>

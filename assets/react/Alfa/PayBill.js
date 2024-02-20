@@ -175,7 +175,7 @@ const PayBill = ({
 
       <button
         id="ContinueBtn"
-        className={`${!getBtnDesign ? "btnCont" : "btnContFocus"}`}
+        className="btnContFocus"
         onClick={handleContinue}
         disabled={
           mobileNumber.replace(/\s/g, "").length !== 8 || isButtonDisabled

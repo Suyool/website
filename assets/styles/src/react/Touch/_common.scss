@@ -154,7 +154,7 @@
             width: 100%;
             border: none;
             z-index: 1;
-            margin-left: 10px;
+            // margin-left: 10px;
         }
     }
 }
@@ -173,4 +173,9 @@
         width: 100px;
         height: 100px;
     }
+}
+
+.continueSectionFocused{
+    width: 75%;
+    margin-top: 20vh;
 }

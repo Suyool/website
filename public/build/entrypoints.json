@@ -27,19 +27,19 @@
     "Alfa": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Alfa.ccd5f9f7.js"
+        "/build/Alfa.e29d92ed.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Touch.9f16ae4e.js"
+        "/build/Touch.2a455c9b.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Ogero.5c85e96d.js"
+        "/build/Ogero.5fdf7f33.js"
       ]
     },
     "Gift2Games": {
@@ -103,7 +103,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/AlfaStyle.49d0f5bd.css"
+        "/build/AlfaStyle.96b6b53c.css"
       ]
     },
     "TouchStyle": {
@@ -111,7 +111,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/TouchStyle.a98b20c9.css"
+        "/build/TouchStyle.622ce055.css"
       ]
     },
     "OgeroStyle": {
@@ -119,7 +119,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/OgeroStyle.131ea645.css"
+        "/build/OgeroStyle.1e41bdcf.css"
       ]
     },
     "Gift2GamesStyle": {

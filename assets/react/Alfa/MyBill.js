@@ -303,9 +303,7 @@ const MyBill = ({
 
         <div
           id={`${getSpinnerLoader ? "opacityNone" : ""}`}
-          className={`${
-            !getBtnDesign ? "continueSection" : "continueSectionFocused"
-          }`}
+          className="continueSectionFocused"
         >
           <button
             id="ContinueBtn"

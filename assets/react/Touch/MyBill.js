@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
@@ -21,18 +21,23 @@ const MyBill = ({
     setIsButtonDisabled(false);
   }, []);
 
-  const [ pinCode, setPinCode ] = useState([]);
-  const [ getResponseId, setResponseId ] = useState(null);
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
-  const [ getDisplayData, setDisplayData ] = useState([]);
-  const [ getdisplayedFees, setdisplayedFees ] = useState("");
-  const [ getPaymentConfirmation, setPaymentConfirmation ] = useState(false);
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-  const [ getPinWrong, setPinWrong ] = useState(false);
+  const [pinCode, setPinCode] = useState([]);
+  const [getResponseId, setResponseId] = useState(null);
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+  const [getDisplayData, setDisplayData] = useState([]);
+  const [getdisplayedFees, setdisplayedFees] = useState("");
+  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [getPinWrong, setPinWrong] = useState(false);
+  const [getBtnDesign, setBtnDesign] = useState(false);
+
+
+  const inputRef = useRef(null);
+
 
   const handleNbClick = (num) => {
     if (pinCode.length < 4) {
-      setPinCode([ ...pinCode, num ]);
+      setPinCode([...pinCode, num]);
     }
   };
 
@@ -40,6 +45,16 @@ const MyBill = ({
     if (pinCode.length > 0) {
       setPinCode(pinCode.slice(0, -1));
     }
+  };
+
+  const handlePincodeClick = () => {
+    inputRef.current.focus();
+  };
+
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    const newPinCode = inputValue.slice(0, 4).split("");
+    setPinCode(newPinCode);
   };
 
   const handlePayNow = () => {
@@ -63,8 +78,11 @@ const MyBill = ({
             setdisplayedFees(response?.data?.displayedFees);
             setPaymentConfirmation(true);
             setResponseId(response?.data?.postpayed);
-          }
-          else if (response.data?.errorCode == "213" && response.data?.errors2 == "Rejection issue, Please Contact BOB Finance : fail - no invoice") {
+          } else if (
+            response.data?.errorCode == "213" &&
+            response.data?.errors2 ==
+              "Rejection issue, Please Contact BOB Finance : fail - no invoice"
+          ) {
             setModalName("ErrorModal");
             setErrorModal({
               img: "/build/images/alfa/error.png",
@@ -76,8 +94,7 @@ const MyBill = ({
               btn: "OK",
             });
             setModalShow(true);
-          } 
-          else if (response.data?.errorCode == "213") {
+          } else if (response.data?.errorCode == "213") {
             setPinWrong(true);
             setPinCode("");
             setSpinnerLoader(false);
@@ -129,7 +146,9 @@ const MyBill = ({
           const jsonResponse = response?.data?.message;
           setSpinnerLoader(false);
           if (response.data?.IsSuccess) {
-            var TotalAmount = parseInt(response.data?.data.amount)+parseInt(response.data?.data.fees)
+            var TotalAmount =
+              parseInt(response.data?.data.amount) +
+              parseInt(response.data?.data.fees);
             setModalName("SuccessModal");
             setSuccessModal({
               imgPath: "/build/images/alfa/SuccessImg.png",
@@ -188,7 +207,11 @@ const MyBill = ({
       setIsButtonDisabled(false);
       setDataGetting("");
     }
-  }, [ getDataGetting ]);
+  }, [getDataGetting]);
+
+  const handleInputFocus = () => {
+    setBtnDesign(true);
+  };
 
   return (
     <>
@@ -285,7 +308,7 @@ const MyBill = ({
 
         <div className="mainTitle">Insert the PIN you have received by SMS</div>
 
-        <div className="PinSection">
+        {/* <div className="PinSection">
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
             {Array.from({ length: 4 }, (_, index) => (
@@ -348,6 +371,43 @@ const MyBill = ({
               <img src="/build/images/touch/clearNb.png" alt="flag" />
             </button>
           </div>
+        </div> */}
+
+        <div className="PinSection" onClick={handlePincodeClick}>
+          <div className="Pintitle">PIN</div>
+          <div className="Pincode">
+            {Array.from({ length: 4 }, (_, index) => (
+              <div className="code" key={index}>
+                {pinCode[index] !== undefined ? pinCode[index] : ""}
+              </div>
+            ))}
+            <input
+              ref={inputRef}
+              type="text"
+              value={pinCode ? pinCode.join("") : ""}
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              // onBlur={handleInputBlur}
+              style={{ opacity: 0, position: "absolute", left: "-10000px" }}
+            />
+          </div>
+        </div>
+
+        <div
+          id={`${getSpinnerLoader ? "opacityNone" : ""}`}
+          className="continueSectionFocused"
+        >
+          <button
+            id="ContinueBtn"
+            className="btnCont"
+            onClick={handlePayNow}
+            disabled={pinCode.length !== 4}
+          >
+            Continue
+          </button>
+          {getPinWrong && (
+            <p style={{ color: "red",paddingTop: "20px" }}>Unable to proceed, kindly try again.</p>
+          )}
         </div>
       </div>
     </>
