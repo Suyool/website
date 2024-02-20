@@ -181,11 +181,11 @@ class SimlyController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if (isset($data['parentPlanType'])) {
             $parentPlanType = $data['parentPlanType'];
-        }elseif(isset($data['esimId']) && $data['esimId'] != null){
+        } elseif (isset($data['esimId']) && $data['esimId'] != null) {
             $esimRepository = $this->mr->getRepository(Esim::class);
             $esim = $esimRepository->findOneBy(['esimId' => $data['esimId']]);
             $parentPlanType = $esim ? $esim->getParentPlanType() : '';
-        }else {
+        } else {
             $parentPlanType = '';
         }
 
@@ -241,8 +241,8 @@ class SimlyController extends AbstractController
 
             return new JsonResponse([
                 'status' => false,
-                'message' => @json_decode($utilityResponse[1],true),
-                'flagCode'=>@$utilityResponse[2]
+                'message' => @json_decode($utilityResponse[1], true),
+                'flagCode' => @$utilityResponse[2]
             ]);
         }
 
@@ -425,6 +425,32 @@ class SimlyController extends AbstractController
         return new JsonResponse([
             'status' => true,
             'message' => $usage
+        ], 200);
+    }
+
+    /**
+     * @Route("/simly/GetEsimDetails", name="GetEsimDetails")
+     */
+    public function GetEsimDetails(Request $request, SimlyServices $simlyServices)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $esims = $this->mr->getRepository(Esim::class)->findBy(['esimId' => $data['esimId']]);
+        $fetchDataUsage = $simlyServices->FetchUsageOfPurchasedESIM($data['esimId']);
+        $simlyPlan = $simlyServices->GetPlanHavingSlug($esims[0]->getPlan());
+        $NetworkAvailable = $simlyServices->GetAvailableNetworkFromGivenId($esims[0]->getPlan());
+
+        $Details = [
+            'country' => $esims[0]->getCountry(),
+            'countryImage' => $esims[0]->getCountryImage(),
+            'DataUsage' => $fetchDataUsage,
+            'simlyPlan' => $simlyPlan,
+            'NetworkAvailable' => $NetworkAvailable
+        ];
+
+        return new JsonResponse([
+            'status' => true,
+            'message' => $Details
         ], 200);
     }
 }
