@@ -6,6 +6,7 @@ import SuccessModal from "./Modal/SuccessModal";
 import Packages from "./packages";
 import PackagesInfo from "./PackagesInfo";
 import Account from "./Account";
+import PlanDetail from "./PlanDetail";
 
 const App = ({ parameters }) => {
   const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
@@ -110,6 +111,7 @@ const App = ({ parameters }) => {
                 getSpinnerLoader={getSpinnerLoader}
               />
             )}
+            {activeButton.name === "PlanDetail" && <PlanDetail />}
           </>
         )}
       </div>
