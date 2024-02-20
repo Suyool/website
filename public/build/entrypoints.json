@@ -79,6 +79,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -107,6 +108,9 @@
 =======
         "/build/Simly.0197ca86.js"
 >>>>>>> 59986dfe (add loader to topup)
+=======
+        "/build/Simly.8737955b.js"
+>>>>>>> 59179761 (accounts ui and desc charged esim by userid)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -205,7 +209,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.4fd2b75e.css"
+        "/build/SimlyStyle.57ecfcf2.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }

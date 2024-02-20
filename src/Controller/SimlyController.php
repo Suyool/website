@@ -42,7 +42,7 @@ class SimlyController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        // $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             // dd($_POST['infoString']);   
@@ -175,8 +175,8 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
-        //        $SuyoolUserId = $this->session->get('suyoolUserId');
-        $SuyoolUserId = 155;
+               $SuyoolUserId = $this->session->get('suyoolUserId');
+        // $SuyoolUserId = 155;
 
         $data = json_decode($request->getContent(), true);
         if (isset($data['parentPlanType'])) {
@@ -396,9 +396,9 @@ class SimlyController extends AbstractController
     public function GetUsageOfESIM(Request $request, SimlyServices $simlyServices)
     {
         $suyoolUserId = $this->session->get('suyoolUserId');
-        $suyoolUserId = 218;
+        // $suyoolUserId = 218;
 
-        $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId]);
+        $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId],['id'=>'DESC']);
         $usage = [];
 
         foreach ($esims as $esim) {

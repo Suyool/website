@@ -21,6 +21,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -49,6 +50,9 @@
 =======
   "build/Simly.js": "/build/Simly.0197ca86.js",
 >>>>>>> 59986dfe (add loader to topup)
+=======
+  "build/Simly.js": "/build/Simly.8737955b.js",
+>>>>>>> 59179761 (accounts ui and desc charged esim by userid)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
   "build/admin.css": "/build/admin.8fb78dae.css",
@@ -62,9 +66,13 @@
   "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/runtime.js": "/build/runtime.cbe92cc0.js",
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.4fd2b75e.css",
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.57ecfcf2.css",
+>>>>>>> e73cbc93 (accounts ui and desc charged esim by userid)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
