@@ -123,6 +123,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -132,6 +133,8 @@
 >>>>>>> 5ac3c1eb (fixes some bug)
 =======
 >>>>>>> d4a29d24 (handle cache bug)
+=======
+>>>>>>> 65d5ce55 (add loader to topup)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -164,6 +167,9 @@
 =======
         "/build/Simly.ad4d4d45.js"
 >>>>>>> db145d45 (handle cache bug)
+=======
+        "/build/Simly.0197ca86.js"
+>>>>>>> 59986dfe (add loader to topup)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -265,6 +271,9 @@
       ]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 65d5ce55 (add loader to topup)
 =======
     },
     "SimlyStyle": {
@@ -272,11 +281,17 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
 =======
 >>>>>>> 86fff387 (handle top up)
+=======
+        "/build/SimlyStyle.4fd2b75e.css"
+      ]
+>>>>>>> 722c8a70 (add loader to topup)
+>>>>>>> 65d5ce55 (add loader to topup)
     }
   }
 }
