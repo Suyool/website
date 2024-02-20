@@ -63,9 +63,6 @@ const ErrorModal = (props) => {
                 <button className="okiBtnModal" onClick={props.onHide}>
                   Cancel
                 </button>
-                <button className="exchangeBtnModal" onClick={handleExchange}>
-                  {props.getErrorModal.btn}
-                </button>
               </>
             )}
           </div>
