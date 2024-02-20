@@ -36,9 +36,9 @@ class SimlyController extends AbstractController
         $this->Memcached = $memcached;
     }
 
-    /**
-     * @Route("/simly", name="app_simly")
-     */
+    // /**
+    //  * @Route("/simly", name="app_simly")
+    //  */
     //    public function index(NotificationServices $notificationServices)
     //    {
     //        $parameters['deviceType'] = 'Android';
@@ -50,7 +50,7 @@ class SimlyController extends AbstractController
     //    }
 
     /**
-     * @Route("/alfa", name="simly")
+     * @Route("/simly", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
