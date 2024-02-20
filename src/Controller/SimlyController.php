@@ -172,6 +172,15 @@ class SimlyController extends AbstractController
         $SuyoolUserId = 155;
 
         $data = json_decode($request->getContent(), true);
+        if (isset($data['parentPlanType'])) {
+            $parentPlanType = $data['parentPlanType'];
+        }elseif(isset($data['esimId']) && $data['esimId'] != null){
+            $esimRepository = $this->mr->getRepository(Esim::class);
+            $esim = $esimRepository->findOneBy(['esimId' => $data['esimId']]);
+            $parentPlanType = $esim ? $esim->getParentPlanType() : '';
+        }else {
+            $parentPlanType = '';
+        }
 
         if (!isset($data['planId'])) {
             $logs = new Logs;
@@ -302,6 +311,7 @@ class SimlyController extends AbstractController
                 ->setTopups(json_encode($simlyResponse['topups']))
                 ->setTransaction(json_encode($simlyResponse['transaction']))
                 ->setPlan($simlyResponse['plan'])
+                ->setParentPlanType($parentPlanType)
                 ->setCountry($country)
                 ->setCountryImage(@$data['countryImage'])
                 ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']));
@@ -333,11 +343,16 @@ class SimlyController extends AbstractController
 
         $this->mr->persist($order);
         $this->mr->flush();
+        $userDetails = $notificationServices->GetuserDetails($SuyoolUserId);
 
+        $userName = $userDetails[0] . ' ' . $userDetails[1];
         $params = json_encode([
             'amount' => $order->getamount(),
             'currency' => $order->getCurrency(),
             'plan' => @$esim->getPlan(),
+            'fname' => $userName,
+            'type' => $parentPlanType
+
         ]);
         $additionalData = "";
         if (isset($data['esimId'])) {
