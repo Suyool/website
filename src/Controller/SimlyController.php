@@ -454,26 +454,28 @@ class SimlyController extends AbstractController
     public function GetUsageOfESIM(Request $request, SimlyServices $simlyServices)
     {
         $suyoolUserId = $this->session->get('suyoolUserId');
-        // $suyoolUserId = 218;
+        // $suyoolUserId = 89;
 
         $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId],['id'=>'DESC']);
         $usage = [];
-
-        foreach ($esims as $esim) {
-            $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
-            $res['country'] = $esim->getCountry();
-            $res['plan'] = $esim->getPlan();
-            $res['esimId'] = $esim->getEsimId();
-            $res['countryImage'] = $esim->getCountryImage();
-
-            if ($res)
-                $usage[] = $res;
+        // dd($esims);
+        if(!empty($esims)){
+            foreach ($esims as $esim) {
+                $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
+                $res['country'] = $esim->getCountry();
+                $res['plan'] = $esim->getPlan();
+                $res['esimId'] = $esim->getEsimId();
+                $res['countryImage'] = $esim->getCountryImage();
+    
+                if ($res)
+                    $usage[] = $res;
+            }
         }
 
-        if (empty($usage)) return new JsonResponse([
-            'status' => false,
-            'message' => 'No usage found'
-        ], 404);
+        // if (empty($usage)) return new JsonResponse([
+        //     'status' => false,
+        //     'message' => 'No usage found'
+        // ]);
 
 
         return new JsonResponse([

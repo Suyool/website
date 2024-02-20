@@ -110,12 +110,12 @@ const Account = ({ setHeaderTitle, parameters, selectedPlan, setActiveButton, se
         .catch((error) => {
           setSpinnerLoader(false);
           console.log(error);
-          setDisabledBtn(selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0);
+        //   setDisabledBtn(selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0);
         });
     } else if (getDataGetting == "failed") {
       setDataGetting("");
       setSpinnerLoader(false);
-      setDisable(false);
+    //   setDisable(false);
     }
   }, [getDataGetting]);
 
@@ -150,7 +150,7 @@ const Account = ({ setHeaderTitle, parameters, selectedPlan, setActiveButton, se
                     </div>
                     <div className="rechargable">
                       <div class="single-chart">
-                        <svg viewBox="0 0 36 36" className={`circular-chart ${data.sim.size === data.sim.consumed ? 'violet' : 'green'}`}>
+                        <svg viewBox="0 0 36 36" className={`circular-chart ${data.sim.status === "FULLY_USED" ? 'violet' : 'green'}`}>
                           <path
                             class="circle-bg"
                             d="M18 2.0845
@@ -171,10 +171,10 @@ const Account = ({ setHeaderTitle, parameters, selectedPlan, setActiveButton, se
                         <div className="used">used from {data.sim.size} GB</div>
                       </div>
                       <div className="radio">
-                        <input type="checkbox" id="eSim" name="eSim" value="eSim" checked={data.sim.size !== data.sim.consumed} disabled />
+                        <input type="checkbox" id="eSim" name="eSim" value="eSim" checked={data.sim.status !== "FULLY_USED"} disabled />
                         <label className="esim">eSim is still valid</label>
                         <br />
-                        <input type="checkbox" id="plans" name="plans" value="plan" checked={data.sim.size === data.sim.consumed} disabled />
+                        <input type="checkbox" id="plans" name="plans" value="plan" checked={data.sim.status === "FULLY_USED"} disabled />
                         <label className="esim">Plan has been fully used</label>
                       </div>
                     </div>

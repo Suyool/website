@@ -128,6 +128,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -147,6 +148,8 @@
 >>>>>>> 944c78ac (some fixes before working on detail page)
 =======
 >>>>>>> c8d0e60d (details page with api)
+=======
+>>>>>>> 08128141 (plan details)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -194,6 +197,9 @@
 =======
         "/build/Simly.a09bd4c1.js"
 >>>>>>> 05ad7a4c (details page with api)
+=======
+        "/build/Simly.cef9a058.js"
+>>>>>>> f3ae3c84 (plan details)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -351,6 +357,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -364,6 +371,9 @@
 =======
         "/build/SimlyStyle.7f807f7c.css"
 >>>>>>> eb1cfc43 (handle view all network with ui)
+=======
+        "/build/SimlyStyle.d914b5bb.css"
+>>>>>>> 08128141 (plan details)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)

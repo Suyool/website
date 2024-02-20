@@ -110,6 +110,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 <<<<<<< HEAD
@@ -138,6 +139,9 @@
 =======
 <<<<<<< HEAD
 >>>>>>> c8d0e60d (details page with api)
+=======
+<<<<<<< HEAD
+>>>>>>> 08128141 (plan details)
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -186,6 +190,9 @@
 =======
   "build/Simly.js": "/build/Simly.a09bd4c1.js",
 >>>>>>> 05ad7a4c (details page with api)
+=======
+  "build/Simly.js": "/build/Simly.cef9a058.js",
+>>>>>>> f3ae3c84 (plan details)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
@@ -265,8 +272,12 @@
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.82a620c1.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.3972e4fd.css",
+<<<<<<< HEAD
   "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.d914b5bb.css",
+>>>>>>> 35f5fd00 (plan details)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)

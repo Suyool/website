@@ -58,6 +58,11 @@
     }
 
     .accountCard {
+        &.plandetail{
+            box-shadow: none!important ;
+            margin-top: unset!important ;
+            padding: unset!important ;
+        }
         margin-top: 30px;
         margin-bottom: 20px;
         background-color: #fff;

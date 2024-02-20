@@ -96,7 +96,6 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         .catch((error) => {
           setSpinnerLoader(false);
           console.log(error);
-          setDisabledBtn(selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0);
         });
     } else if (getDataGetting == "failed") {
       setDataGetting("");
@@ -138,7 +137,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           <div className="bd"></div>
           <div className="price">
             <div className="price2">Price</div>
-            <div className="info">${selectedPackage.price}</div>
+            <div className="info">${selectedPackage.initial_price}</div>
           </div>
         </div>
         <div className="valid">
