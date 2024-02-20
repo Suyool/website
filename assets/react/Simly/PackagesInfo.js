@@ -2,25 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const PackagesInfo = ({
-  parameters,
-  selectedPlan,
-  selectedPackage,
-  setBackLink,
-  getDataGetting,
-  setDataGetting,
-  setErrorModal,
-  setSuccessModal,
-  setModalName,
-  setModalShow,
-  setSpinnerLoader,
-  getSpinnerLoader,
-}) => {
+const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
   useEffect(() => {
     setDataGetting("");
     console.log(selectedPlan);
     console.log(selectedPackage);
-    setBackLink("Packages");
+    setBackLink("");
   }, []);
 
   const handlePay = () => {
@@ -34,9 +21,7 @@ const PackagesInfo = ({
         }, 2000);
       } else if (parameters?.deviceType === "Iphone") {
         setTimeout(() => {
-          window.webkit.messageHandlers.callbackHandler.postMessage(
-            "fingerprint"
-          );
+          window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
         }, 2000);
       }
       window.handleCheckout = (message) => {
@@ -53,6 +38,7 @@ const PackagesInfo = ({
           planId: selectedPackage.planId,
           country: selectedPlan.name,
           countryImage: selectedPlan.countryImageURL,
+          parentPlanType: localStorage.getItem("parentPlanType"),
         })
         .then((response) => {
           const jsonResponse = response.data.message;
@@ -69,8 +55,8 @@ const PackagesInfo = ({
                   <img src={`${response.data.data.qrCodeImageUrl}`} />
                 </div>
               ),
-              qr:response.data.data.qrCodeImageUrl,
-              qrImg:response.data.data.qrCodeString,
+              qr: response.data.data.qrCodeImageUrl,
+              qrImg: response.data.data.qrCodeString,
               deviceType: parameters?.deviceType,
             });
             setModalShow(true);
@@ -108,10 +94,7 @@ const PackagesInfo = ({
         .catch((error) => {
           setSpinnerLoader(false);
           console.log(error);
-          setDisabledBtn(
-            selectedBallsToShow == null ||
-              JSON.parse(selectedBallsToShow).length === 0
-          );
+          setDisabledBtn(selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0);
         });
     } else if (getDataGetting == "failed") {
       setDataGetting("");
@@ -121,18 +104,10 @@ const PackagesInfo = ({
 
   return (
     <>
-      <div
-        className={` ${
-          getSpinnerLoader ? "packagesinfo hideBackk" : "packagesinfo"
-        }`}
-      >
+      <div className={` ${getSpinnerLoader ? "packagesinfo hideBackk" : "packagesinfo"}`}>
         {getSpinnerLoader && (
           <div id="spinnerLoader">
-            <Spinner
-              className="spinner"
-              animation="border"
-              variant="secondary"
-            />
+            <Spinner className="spinner" animation="border" variant="secondary" />
           </div>
         )}
         <div className="logo">
@@ -166,9 +141,7 @@ const PackagesInfo = ({
           </div>
           <div className="network">
             <div className="info">Top Up</div>
-            <div className="about">
-              {selectedPackage.topup ? "Available" : "Not Available"}
-            </div>
+            <div className="about">{selectedPackage.topup ? "Available" : "Not Available"}</div>
           </div>
         </div>
         <div className="policy">Activation Policy</div>

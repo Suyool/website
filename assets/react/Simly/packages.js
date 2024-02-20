@@ -3,7 +3,7 @@ import axios from "axios";
 import ContentLoader from "react-content-loader";
 import PackageItems from "./PackageItems";
 
-const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBackLink,isPackageItem,setIsPackageItem}) => {
+const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage, setBackLink, isPackageItem, setIsPackageItem }) => {
   const [view, setView] = useState("countries");
   const [selectedData, setSelectedData] = useState([]);
   const [selectedDataLocal, setSelectedDataLocal] = useState([]);
@@ -52,11 +52,10 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBa
 
   useEffect(() => {
     if (searchQuery.length >= 3) {
-      setView("countries")
+      setView("countries");
       setIsPackageItem(false);
       const filtered = filterData(selectedDataLocal, searchQuery);
       setFilteredData(filtered);
-
     } else {
       setFilteredData(selectedDataLocal || {});
     }
@@ -112,23 +111,44 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage,  setBa
           <img src="/build/images/g2g/search.svg" alt="Search Icon" />
         </div>
         <input type="text" placeholder="Search Destination" value={searchQuery} onChange={handleSearchChange} style={{ fontWeight: "bold", color: "#000000", fontFamily: "PoppinsRegular" }} />
-        <div className="search-icon-right" onClick={() => setActiveButton({name:"Account"})}>
+        <div className="search-icon-right" onClick={() => setActiveButton({ name: "Account" })}>
           <img src="/build/images/topUpSimIcon.svg" alt="Icon" />
         </div>
       </div>
       <div className="row filter-btns-cont">
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "countries" ? "active" : "")} onClick={() => { setView("countries"); setIsPackageItem(false); }}>
+          <button
+            className={"btn btn-primary " + (view === "countries" ? "active" : "")}
+            onClick={() => {
+              localStorage.setItem("parentPlanType", "Local");
+              setView("countries");
+              setIsPackageItem(false);
+            }}
+          >
             Per Country
           </button>
         </div>
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "regions" ? "active" : "")} onClick={() => { setView("regions"); setIsPackageItem(false); }}>
+          <button
+            className={"btn btn-primary " + (view === "regions" ? "active" : "")}
+            onClick={() => {
+              localStorage.setItem("parentPlanType", "Regional");
+              setView("regions");
+              setIsPackageItem(false);
+            }}
+          >
             Per Region
           </button>
         </div>
         <div className="col d-flex justify-content-center">
-          <button className={"btn btn-primary " + (view === "global" ? "active" : "")} onClick={() => { setView("global"); setIsPackageItem(false); }}>
+          <button
+            className={"btn btn-primary " + (view === "global" ? "active" : "")}
+            onClick={() => {
+              localStorage.setItem("parentPlanType", "Global");
+              setView("global");
+              setIsPackageItem(false);
+            }}
+          >
             Global
           </button>
         </div>
