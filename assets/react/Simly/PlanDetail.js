@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
+const PlanDetail = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
   const [isViewNetwork, setIsViewNetwork] = useState(false);
   const [getNetwork, setNetwork] = useState(null);
   useEffect(() => {
@@ -11,98 +11,6 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
     console.log(selectedPackage);
     setBackLink("");
   }, []);
-
-  const handlePay = () => {
-    setSpinnerLoader(true);
-    setTimeout(() => {
-      console.log("clicked");
-      setDataGetting("");
-      if (parameters?.deviceType === "Android") {
-        setTimeout(() => {
-          window.AndroidInterface.callbackHandler("message");
-        }, 2000);
-      } else if (parameters?.deviceType === "Iphone") {
-        setTimeout(() => {
-          window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
-        }, 2000);
-      }
-      window.handleCheckout = (message) => {
-        setDataGetting(message);
-      };
-    }, 1000);
-  };
-
-  useEffect(() => {
-    if (getDataGetting == "success") {
-      setDataGetting("");
-      axios
-        .post("/simly/purchaseTopup", {
-          planId: selectedPackage.planId,
-          country: selectedPlan.name,
-          countryImage: selectedPlan.countryImageURL,
-          parentPlanType: localStorage.getItem("parentPlanType"),
-        })
-        .then((response) => {
-          const jsonResponse = response.data.message;
-          if (response.data.status) {
-            setSpinnerLoader(false);
-            setModalName("SuccessModal");
-            setSuccessModal({
-              imgPath: "/build/images/Loto/success.png",
-              title: "Simly Purchased Successfully",
-              desc: (
-                <div>
-                  Please Download the qr
-                  <br />
-                  <img src={`${response.data.data.qrCodeImageUrl}`} />
-                </div>
-              ),
-              qr: response.data.data.qrCodeImageUrl,
-              qrImg: response.data.data.qrCodeString,
-              deviceType: parameters?.deviceType,
-            });
-            setModalShow(true);
-            localStorage.removeItem("selectedBalls");
-          } else if (!response.data.status && response.data.flagCode == 10) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else if (!response.data.status && response.data.flagCode == 11) {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: jsonResponse.Title,
-              desc: jsonResponse.SubTitle,
-              path: jsonResponse.ButtonOne.Flag,
-              btn: jsonResponse.ButtonOne.Text,
-            });
-            setModalShow(true);
-          } else {
-            setModalName("ErrorModal");
-            setErrorModal({
-              img: "/build/images/Loto/error.png",
-              title: "Please Try again",
-              desc: `You cannot purchase now`,
-            });
-            setModalShow(true);
-          }
-        })
-        .catch((error) => {
-          setSpinnerLoader(false);
-          console.log(error);
-          setDisabledBtn(selectedBallsToShow == null || JSON.parse(selectedBallsToShow).length === 0);
-        });
-    } else if (getDataGetting == "failed") {
-      setDataGetting("");
-      setSpinnerLoader(false);
-    }
-  }, [getDataGetting]);
 
   const handleViewNetwork = (plan) => {
     setIsViewNetwork(!isViewNetwork);
@@ -116,7 +24,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
       });
   };
 
-  // console.log(JSON.stringify(getNetwork));
+  console.log(JSON.stringify(getNetwork));
 
   return (
     <>
@@ -224,4 +132,4 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
   );
 };
 
-export default PackagesInfo;
+export default PlanDetail;

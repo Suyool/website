@@ -108,6 +108,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 <<<<<<< HEAD
@@ -130,6 +131,9 @@
 =======
 <<<<<<< HEAD
 >>>>>>> eb1cfc43 (handle view all network with ui)
+=======
+<<<<<<< HEAD
+>>>>>>> 944c78ac (some fixes before working on detail page)
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -172,6 +176,9 @@
 =======
   "build/Simly.js": "/build/Simly.008bdca0.js",
 >>>>>>> aba9ef34 (handle view all network with ui)
+=======
+  "build/Simly.js": "/build/Simly.fa18b2d2.js",
+>>>>>>> 57b34c12 (some fixes before working on detail page)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)

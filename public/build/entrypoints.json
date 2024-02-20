@@ -126,6 +126,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -141,6 +142,8 @@
 >>>>>>> 1f7609b8 (accounts ui and desc charged esim by userid)
 =======
 >>>>>>> eb1cfc43 (handle view all network with ui)
+=======
+>>>>>>> 944c78ac (some fixes before working on detail page)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -182,6 +185,9 @@
 =======
         "/build/Simly.008bdca0.js"
 >>>>>>> aba9ef34 (handle view all network with ui)
+=======
+        "/build/Simly.fa18b2d2.js"
+>>>>>>> 57b34c12 (some fixes before working on detail page)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
