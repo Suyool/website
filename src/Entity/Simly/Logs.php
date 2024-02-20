@@ -33,7 +33,7 @@ class Logs
     private $request;
 
     /**
-     * @ORM\Column(name="response")
+     * @ORM\Column(name="response", nullable=true)
      */
     private $response;
 

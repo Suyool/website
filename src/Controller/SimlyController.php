@@ -175,8 +175,7 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
-               $SuyoolUserId = $this->session->get('suyoolUserId');
-        // $SuyoolUserId = 155;
+        $SuyoolUserId = $this->session->get('suyoolUserId');
 
         $data = json_decode($request->getContent(), true);
         if (isset($data['parentPlanType'])) {
@@ -233,10 +232,28 @@ class SimlyController extends AbstractController
 
         $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
         if (!$utilityResponse[0]) {
+
             $order->setStatus(Order::$statusOrder['CANCELED'])
                 ->setError(json_encode($utilityResponse));
 
             $this->mr->persist($order);
+            $this->mr->flush();
+
+            $logs = new Logs;
+            $logs
+                ->setidentifier("simly_purchaseTopup")
+                ->seturl("PushUtilities")
+                ->setrequest(json_encode(array(
+                    'SuyoolUserId' => $SuyoolUserId,
+                    'order_id' => $order_id,
+                    'amount' => $order->getAmount(),
+                    'currency' => $order->getCurrency(),
+                    'fees' => $order->getFees(),
+                    'simlyMerchId' => $simlyMerchId
+                )))
+                ->seterror(json_encode($utilityResponse));
+
+            $this->mr->persist($logs);
             $this->mr->flush();
 
             return new JsonResponse([
@@ -299,6 +316,24 @@ class SimlyController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
+            try{
+                $logs = new Logs;
+                $logs
+                    ->setidentifier("simly_purchaseTopup")
+                    ->seturl("UpdateUtilities")
+                    ->setrequest(json_encode(array(
+                        'amount' => 0,
+                        'additionalData' => "",
+                        'transId' => $transId
+                    )))
+                    ->setresponse(json_encode($responseUpdateUtilities))
+                    ->seterror($message);
+
+                $this->mr->persist($logs);
+                $this->mr->flush();
+            } catch (\Exception $e) {}
+
+
             return new JsonResponse([
                 'status' => false,
                 'message' => $message
@@ -329,7 +364,13 @@ class SimlyController extends AbstractController
         } else {
             $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
             if (!$esim) {
-                //logs here
+                $logs = new Logs;
+                $logs
+                    ->setidentifier("simly_purchaseTopup")
+                    ->seturl("simly/purchaseTopup")
+                    ->setrequest(json_encode($data['esimId']))
+                    ->seterror("Esim not found");
+
                 return new JsonResponse([
                     'status' => false,
                     'message' => 'Esim not found'
@@ -386,6 +427,19 @@ class SimlyController extends AbstractController
         } else {
             $message = "Simly Purchase was successful but the utilities were not updated";
         }
+
+        try{
+            $logs = new Logs;
+            $logs
+                ->setidentifier("simly_purchaseTopup")
+                ->seturl("simly/purchaseTopup")
+                ->setrequest(json_encode($data))
+                ->setresponse(json_encode($simlyResponse))
+                ->seterror($message);
+
+            $this->mr->persist($logs);
+            $this->mr->flush();
+        } catch (\Exception $e) {}
 
         return new JsonResponse([
             'status' => true,
