@@ -78,6 +78,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -103,6 +104,9 @@
 =======
         "/build/Simly.ad4d4d45.js"
 >>>>>>> db145d45 (handle cache bug)
+=======
+        "/build/Simly.0197ca86.js"
+>>>>>>> 59986dfe (add loader to topup)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -193,6 +197,17 @@
       "css": [
         "/build/SodetelStyle.d2e21a6e.css"
       ]
+<<<<<<< HEAD
+=======
+    },
+    "SimlyStyle": {
+      "js": [
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/SimlyStyle.4fd2b75e.css"
+      ]
+>>>>>>> 722c8a70 (add loader to topup)
     }
   }
 }
