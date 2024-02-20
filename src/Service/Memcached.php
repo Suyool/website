@@ -163,7 +163,7 @@ class Memcached
                         $item['desc1'] = "Credit Only";
                         $item['desc2'] = "$1.22 Touch recharge card";
                         $item['desc3'] = "$1.22 Touch recharge card";
-                        // $item['priceUSD']="1.22";
+                        $item['beforeTaxesPrice']="SOS Start $" . (float)explode("$",$item['desc'])[0];;
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -176,6 +176,7 @@ class Memcached
                         $item['desc2'] = "Credit and 13 Days Validity";
                         $item['desc3'] = "$3.79 Touch recharge card";
                         // $item['priceUSD']="3.79";
+                        $item['beforeTaxesPrice']="$" .(float)explode("$",$item['desc'])[0];
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -188,6 +189,7 @@ class Memcached
                         $item['desc2'] = "Credit and up to 35 Days";
                         $item['desc3'] = "$4.50 Touch recharge card";
                         // $item['priceUSD']="4.50";
+                        $item['beforeTaxesPrice']="$" .(float)explode("$",$item['desc'])[0];
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -200,6 +202,7 @@ class Memcached
                         $item['desc2'] = "Credit and 35 Days Validity";
                         $item['desc3'] = "$7.58 Touch recharge card";
                         // $item['priceUSD']="7.58";
+                        $item['beforeTaxesPrice']="$" .(float)explode("$",$item['desc'])[0];
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -212,6 +215,7 @@ class Memcached
                         $item['desc2'] = "Credit and 65 Days Validity";
                         $item['desc3'] = "$15.15 Touch recharge card";
                         // $item['priceUSD']="15.15";
+                        $item['beforeTaxesPrice']="$" .(float)explode("$",$item['desc'])[0];
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -224,6 +228,7 @@ class Memcached
                         $item['desc2'] = "Credit and 95 Days Validity";
                         $item['desc3'] = "$22.73 Touch recharge card";
                         // $item['priceUSD']="22.73";
+                        $item['beforeTaxesPrice']="$" .(float)explode("$",$item['desc'])[0];
                         $item['beforeTaxes']=(float)explode("$",$item['desc'])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format($item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');
@@ -236,6 +241,7 @@ class Memcached
                         $item['desc2'] = "Waffer Credit and 30 Days Validity";
                         $item['desc3'] = "$4.50 Touch recharge card";
                         // $item['priceUSD']="4.50";
+                        $item['beforeTaxesPrice']="Start $" . (float)explode("$",explode(" ",$item['desc'])[1])[0];
                         $item['beforeTaxes']=(float)explode("$",explode(" ",$item['desc'])[1])[0];
                         // $item['priceUSDaftertaxes']="1.37";
                         $item['fees'] = number_format((float)$item['priceUSD'] - (float)$item['beforeTaxes'],2,'.');

@@ -103,7 +103,7 @@ const PayBill = ({
           <Spinner className="spinner" animation="border" variant="secondary" />
         </div>
       )}
-      <div className="mainTitle">Enter your phone number to recharge</div>
+      <div className="mainTitle">Enter your phone number to pay your mobile bill</div>
 
       <div className="MobileNbContainer mt-3">
         <div className="place">
