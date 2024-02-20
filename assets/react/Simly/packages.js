@@ -39,18 +39,47 @@ const Packages = ({setSelectedPlan, setSpinnerLoader,setActiveButton, setSelecte
       });
   }, []);
 
+  // const filterData = (data, query) => {
+  //   if (!Array.isArray(data)) {
+  //     console.error('Data is not an array');
+  //     return [];
+  //   }
+
+  //   const filtered = data
+  //     .map((continentObj) => {
+  //       const continent = Object.keys(continentObj)[0];
+  //       const countries = continentObj[continent].filter((country) => country.name.toLowerCase().includes(query.toLowerCase()));
+  //       if (countries.length > 0) {
+  //         return { [continent]: countries };
+  //       }
+  //       return null;
+  //     })
+  //     .filter(Boolean);
+  //   return filtered;
+  // };
   const filterData = (data, query) => {
-    const filtered = data
+    if (!Array.isArray(data)) {
+      console.error('Data is not an array');
+      return [];
+    }
+  
+    return data
       .map((continentObj) => {
+        if (typeof continentObj !== 'object' || continentObj === null) {
+          console.error('Invalid continent object:', continentObj);
+          return null;
+        }
+        
         const continent = Object.keys(continentObj)[0];
-        const countries = continentObj[continent].filter((country) => country.name.toLowerCase().includes(query.toLowerCase()));
+        const countries = continentObj[continent]?.filter((country) => country.name.toLowerCase().includes(query.toLowerCase())) || [];
+        
         if (countries.length > 0) {
           return { [continent]: countries };
         }
+        
         return null;
       })
       .filter(Boolean);
-    return filtered;
   };
 
   useEffect(() => {
@@ -60,7 +89,11 @@ const Packages = ({setSelectedPlan, setSpinnerLoader,setActiveButton, setSelecte
       const filtered = filterData(selectedDataLocal, searchQuery);
       setFilteredData(filtered);
     } else {
-      setFilteredData(selectedDataLocal || {});
+      setView("countries");
+      setIsPackageItem(false);
+      const filtered = filterData(selectedDataLocal, "");
+      setFilteredData(filtered || []);
+      // setFilteredData(selectedDataLocal || {});
     }
   }, [searchQuery, selectedDataLocal]);
 
@@ -175,9 +208,9 @@ const Packages = ({setSelectedPlan, setSpinnerLoader,setActiveButton, setSelecte
                 <div className="row ps-3">
                   <div className="col">
                     <div className="card-columns continent-card-container">
-                      {filteredData.map((continentObj, index) => (
+                      {filteredData?.map((continentObj, index) => (
                         <div key={index} className="continent-container">
-                          {Object.keys(continentObj).map((continent) => (
+                          {Object.keys(continentObj)?.map((continent) => (
                             <React.Fragment key={continent}>
                               <h5>{displaycontinent(continent)}</h5>
                               <div className="country-scroll-container">
