@@ -72,6 +72,11 @@ class Esim
     /**
      * @ORM\Column(type="string")
      */
+    private $parentPlanType;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $country;
 
     /**
@@ -197,6 +202,17 @@ class Esim
     public function setPlan(string $plan): self
     {
         $this->plan = $plan;
+        return $this;
+    }
+
+    public function getParentPlanType(): ?string
+    {
+        return $this->parentPlanType;
+    }
+
+    public function setParentPlanType(string $parentPlanType): self
+    {
+        $this->parentPlanType = $parentPlanType;
         return $this;
     }
 
