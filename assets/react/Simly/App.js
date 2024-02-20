@@ -59,7 +59,7 @@ const App = ({parameters}) => {
             <div className="scrolableView">
                 {getModalName === "" && (
                     <>
-                        {activeButton.name === "" && (
+                        {/* {activeButton.name === "" && (
                             <Default
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
@@ -69,8 +69,8 @@ const App = ({parameters}) => {
                                 setTypeID ={parameters.typeID}
                                 setDataGetting={setDataGetting}
                             />
-                        )}
-                        {activeButton.name === "Packages" && (
+                        )} */}
+                        {activeButton.name === "" && (
                             <Packages
                                 setDataGetting={setDataGetting}
                                 parameters={parameters}
