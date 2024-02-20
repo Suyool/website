@@ -1,65 +1,50 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Default from "./Default";
 import Header from "./Header";
 import ErrorModal from "./Modal/ErrorModal";
 import SuccessModal from "./Modal/SuccessModal";
-//import MyBundle from "./MyBundle";
 import Packages from "./packages";
 import PackagesInfo from "./PackagesInfo";
 import Account from "./Account";
 
-const App = ({parameters}) => {
-    const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
-    const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
-    const [activeButton, setActiveButton] = useState({name: ""});
-    const [isPackageItem, setIsPackageItem] = useState(false);
-    const [getBackLink, setBackLink] = useState({name: ""});
-    const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
-    const [getModalName, setModalName] = useState("");
-    const [modalShow, setModalShow] = useState(false);
-    const [categories, setCategories] = useState([]);
-    const [getDataGetting, setDataGetting] = useState("");
-    const [getPrepaidVoucher, setPrepaidVoucher] = useState(true);
-    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
+const App = ({ parameters }) => {
+  const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
+  const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
+  const [activeButton, setActiveButton] = useState({ name: "" });
+  const [isPackageItem, setIsPackageItem] = useState(false);
+  const [getBackLink, setBackLink] = useState({ name: "" });
+  const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
+  const [getModalName, setModalName] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  const [getDataGetting, setDataGetting] = useState("");
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
-    const [getSuccessModal, setSuccessModal] = useState({
-        imgPath: "/build/images/alfa/SuccessImg.png",
-        title: "Success Modal",
-        desc: "Success Modal",
-    });
-    const [getErrorModal, setErrorModal] = useState({
-        img: "/build/images/alfa/error.png",
-        title: "Error Modal",
-        btn: "Top Up",
-        desc: "Error Modal",
-    });
+  const [getSuccessModal, setSuccessModal] = useState({
+    imgPath: "/build/images/alfa/SuccessImg.png",
+    title: "Success Modal",
+    desc: "Success Modal",
+  });
+  const [getErrorModal, setErrorModal] = useState({
+    img: "/build/images/alfa/error.png",
+    title: "Error Modal",
+    btn: "Top Up",
+    desc: "Error Modal",
+  });
 
+  useEffect(() => {
+    setDataGetting("");
+    window.handleCheckout = (message) => {
+      setDataGetting(message);
+    };
+  }, []);
 
-    useEffect(() => {
-        setDataGetting("");
-        window.handleCheckout = (message) => {
-            setDataGetting(message);
-        };
-
-    }, []);
-
-
-    return (
-        <div id="SimlyBody">
-            <Header
-                parameters={parameters}
-                activeButton={activeButton}
-                setIsPackageItem={setIsPackageItem}
-                isPackageItem={isPackageItem}
-                setActiveButton={setActiveButton}
-                getHeaderTitle={getHeaderTitle}
-                getBackLink={getBackLink}
-                getSpinnerLoader = {getSpinnerLoader}
-            />
-            <div className="scrolableView">
-                {getModalName === "" && (
-                    <>
-                        {/* {activeButton.name === "" && (
+  return (
+    <div id="SimlyBody">
+      <Header parameters={parameters} activeButton={activeButton} setIsPackageItem={setIsPackageItem} isPackageItem={isPackageItem} setActiveButton={setActiveButton} getHeaderTitle={getHeaderTitle} getBackLink={getBackLink} getSpinnerLoader={getSpinnerLoader} />
+      <div className="scrolableView">
+        {getModalName === "" && (
+          <>
+            {/* {activeButton.name === "" && (
                             <Default
                                 setActiveButton={setActiveButton}
                                 setHeaderTitle={setHeaderTitle}
@@ -70,91 +55,92 @@ const App = ({parameters}) => {
                                 setDataGetting={setDataGetting}
                             />
                         )} */}
-                        {activeButton.name === "" && (
-                            <Packages
-                                setDataGetting={setDataGetting}
-                                parameters={parameters}
-                                getDataGetting={getDataGetting}
-                                getPrepaidVoucher={getPrepaidVoucher}
-                                setModalShow={setModalShow}
-                                setModalName={setModalName}
-                                setSuccessModal={setSuccessModal}
-                                setErrorModal={setErrorModal}
-                                setIsPackageItem={setIsPackageItem}
-                                isPackageItem={isPackageItem}
-                                setActiveButton={setActiveButton}
-                                setHeaderTitle={setHeaderTitle}
-                                setBackLink={setBackLink}
-                                setSelectedPlan={setSelectedPlan}
-                                setSelectedPackage={setSelectedPackage}
-                            />
-                        )}
-                        {activeButton.name === "PackagesInfo" && (
-                            <PackagesInfo
-                                setDataGetting={setDataGetting}
-                                parameters={parameters}
-                                getDataGetting={getDataGetting}
-                                setModalShow={setModalShow}
-                                setModalName={setModalName}
-                                setSuccessModal={setSuccessModal}
-                                setErrorModal={setErrorModal}
-                                setActiveButton={setActiveButton}
-                                setHeaderTitle={setHeaderTitle}
-                                setBackLink={setBackLink}
-                                selectedPlan={selectedPlan}
-                                selectedPackage={selectedPackage}
-                                setSpinnerLoader={setSpinnerLoader}
-                                getSpinnerLoader={getSpinnerLoader}
-                            />
-                        )}
-                        {activeButton.name === "Account" && (
-                            <Account
-                                setDataGetting={setDataGetting}
-                                parameters={parameters}
-                                getDataGetting={getDataGetting}
-                                setModalShow={setModalShow}
-                                setModalName={setModalName}
-                                setSuccessModal={setSuccessModal}
-                                setErrorModal={setErrorModal}
-                                setActiveButton={setActiveButton}
-                                setHeaderTitle={setHeaderTitle}
-                                setBackLink={setBackLink}
-                                selectedPlan={selectedPlan}
-                                selectedPackage={selectedPackage}
-                                setSpinnerLoader={setSpinnerLoader}
-                                getSpinnerLoader={getSpinnerLoader}
-                            />
-                        )}
-                    </>
-                )}
-            </div>
+            {activeButton.name === "" && (
+              <Packages
+                setDataGetting={setDataGetting}
+                parameters={parameters}
+                getDataGetting={getDataGetting}
+                setModalShow={setModalShow}
+                setModalName={setModalName}
+                setSuccessModal={setSuccessModal}
+                setErrorModal={setErrorModal}
+                setIsPackageItem={setIsPackageItem}
+                isPackageItem={isPackageItem}
+                setActiveButton={setActiveButton}
+                setHeaderTitle={setHeaderTitle}
+                setBackLink={setBackLink}
+                setSelectedPlan={setSelectedPlan}
+                setSelectedPackage={setSelectedPackage}
+                setSpinnerLoader={setSpinnerLoader}
+              />
+            )}
+            {activeButton.name === "PackagesInfo" && (
+              <PackagesInfo
+                setDataGetting={setDataGetting}
+                parameters={parameters}
+                getDataGetting={getDataGetting}
+                setModalShow={setModalShow}
+                setModalName={setModalName}
+                setSuccessModal={setSuccessModal}
+                setErrorModal={setErrorModal}
+                setActiveButton={setActiveButton}
+                setHeaderTitle={setHeaderTitle}
+                setBackLink={setBackLink}
+                selectedPlan={selectedPlan}
+                selectedPackage={selectedPackage}
+                setSpinnerLoader={setSpinnerLoader}
+                getSpinnerLoader={getSpinnerLoader}
+              />
+            )}
+            {activeButton.name === "Account" && (
+              <Account
+                setDataGetting={setDataGetting}
+                parameters={parameters}
+                getDataGetting={getDataGetting}
+                setModalShow={setModalShow}
+                setModalName={setModalName}
+                setSuccessModal={setSuccessModal}
+                setErrorModal={setErrorModal}
+                setActiveButton={setActiveButton}
+                setHeaderTitle={setHeaderTitle}
+                setBackLink={setBackLink}
+                selectedPlan={selectedPlan}
+                selectedPackage={selectedPackage}
+                setSpinnerLoader={setSpinnerLoader}
+                getSpinnerLoader={getSpinnerLoader}
+              />
+            )}
+          </>
+        )}
+      </div>
 
-            {/* Modal */}
-            {getModalName === "SuccessModal" && (
-                <SuccessModal
-                    getSuccessModal={getSuccessModal}
-                    show={modalShow}
-                    onHide={() => {
-                        setModalShow(false);
-                        setModalName("");
-                        setActiveButton({name: ""});
-                    }}
-                />
-            )}
-            {getModalName === "ErrorModal" && (
-                <ErrorModal
-                    parameters={parameters}
-                    getErrorModal={getErrorModal}
-                    show={modalShow}
-                    onHide={() => {
-                        setModalShow(false);
-                        setModalName("");
-                        setActiveButton({name: ""});
-                    }}
-                />
-            )}
-        </div>
-    );
+      {/* Modal */}
+      {getModalName === "SuccessModal" && (
+        <SuccessModal
+          getSuccessModal={getSuccessModal}
+          show={modalShow}
+          onHide={() => {
+            setModalShow(false);
+            setModalName("");
+            setActiveButton({ name: "" });
+          }}
+        />
+      )}
+      {getModalName === "ErrorModal" && (
+        <ErrorModal
+          parameters={parameters}
+          getErrorModal={getErrorModal}
+          show={modalShow}
+          onHide={() => {
+            setSpinnerLoader(false);
+            setModalShow(false);
+            setModalName("");
+            setActiveButton({ name: "" });
+          }}
+        />
+      )}
+    </div>
+  );
 };
 
 export default App;

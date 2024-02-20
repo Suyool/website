@@ -3,7 +3,7 @@ import axios from "axios";
 import ContentLoader from "react-content-loader";
 import PackageItems from "./PackageItems";
 
-const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage, setBackLink, isPackageItem, setIsPackageItem }) => {
+const Packages = ({setSelectedPlan, setSpinnerLoader,setActiveButton, setSelectedPackage, setBackLink, isPackageItem, setIsPackageItem }) => {
   const [view, setView] = useState("countries");
   const [selectedData, setSelectedData] = useState([]);
   const [selectedDataLocal, setSelectedDataLocal] = useState([]);
@@ -13,7 +13,10 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage, setBac
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
+    setBackLink("");
+    localStorage.setItem("parentPlanType", "Local");
     setIsLoading(true);
+    setSpinnerLoader(false);
     axios
       .get("/simly/getAllAvailableCountries")
       .then((response) => {
@@ -153,7 +156,7 @@ const Packages = ({ setSelectedPlan, setActiveButton, setSelectedPackage, setBac
           </button>
         </div>
       </div>
-      {isPackageItem ? (
+      {(isPackageItem && selectedCountry) ? (
         <PackageItems country={selectedCountry} setSelectedPlan={setSelectedPlan} setActiveButton={setActiveButton} setSelectedPackage={setSelectedPackage} />
       ) : (
         <>

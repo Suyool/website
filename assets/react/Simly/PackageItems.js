@@ -11,7 +11,7 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPac
     return (
         <div className="container itemsPackageCont">
             <div>
-                <h2>{country.name}</h2>
+                <h2>{country?.name}</h2>
                 <div className="row">
                     {country.plans.map((packageItem, index) => (
                         <div key={packageItem.planId} className="col-md-6">
@@ -24,7 +24,7 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPac
                                         <div className="itemsList">
                                             <h6 className="card-title">
                                                 <img src={country.countryImageURL} alt={country.name} width={50} />
-                                                <span className="ms-2">{country.name}</span>
+                                                <span className="ms-2">{country?.name}</span>
                                             </h6>
                                             <p className="card-text itemSize">{packageItem.size}GB</p>
                                             <p className="card-text desc">{packageItem.activationPolicy}</p>
