@@ -36,29 +36,36 @@ class SimlyController extends AbstractController
         $this->Memcached = $memcached;
     }
 
-    // /**
-    //  * @Route("/simly", name="app_simly")
-    //  */
-    //    public function index(NotificationServices $notificationServices)
-    //    {
-    //        $parameters['deviceType'] = 'Android';
-    //        dd($parameters);
-    //
-    //        // return $this->render('simly/index.html.twig', [
-    //        //     'parameters' => $parameters
-    //        // ]);
-    //    }
-
     /**
      * @Route("/simly", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
-        $parameters['deviceType'] = 'Iphone';
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
-        return $this->render('simly/index.html.twig', [
-            'parameters' => $parameters
-        ]);
+        if (isset($_POST['infoString'])) {
+            // dd($_POST['infoString']);   
+            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $SuyoolUserId = $suyoolUserInfo[0];
+                $this->session->set('suyoolUserId', $SuyoolUserId);
+                // $this->session->set('suyoolUserId', 155);
+
+                $parameters['deviceType'] = $suyoolUserInfo[1];
+
+                return $this->render('simly/index.html.twig', [
+                    'parameters' => $parameters
+                ]);
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
     }
 
     /**
@@ -233,7 +240,7 @@ class SimlyController extends AbstractController
             return new JsonResponse([
                 'status' => false,
                 'message' => @json_decode($utilityResponse[1],true),
-                'flagCode'=>@$utilityResponse[1]
+                'flagCode'=>@$utilityResponse[2]
             ]);
         }
 

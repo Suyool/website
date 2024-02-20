@@ -147,7 +147,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         <div className="policy">Activation Policy</div>
         <div className="validation">{selectedPackage.activationPolicy}</div>
         <div className="pay">
-          <button className="payactivate" onClick={handlePay}>
+          <button className="payactivate" onClick={()=>{handlePay()}}>
             Pay & Activate
           </button>
         </div>
