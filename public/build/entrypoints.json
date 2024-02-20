@@ -80,6 +80,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -111,6 +112,9 @@
 =======
         "/build/Simly.8737955b.js"
 >>>>>>> 59179761 (accounts ui and desc charged esim by userid)
+=======
+        "/build/Simly.008bdca0.js"
+>>>>>>> aba9ef34 (handle view all network with ui)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -151,7 +155,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/AlfaStyle.a4a047b5.css"
+=======
+<<<<<<< HEAD
+        "/build/AlfaStyle.96b6b53c.css"
+=======
+        "/build/AlfaStyle.716bf853.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "TouchStyle": {
@@ -159,7 +171,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/TouchStyle.a4a047b5.css"
+=======
+<<<<<<< HEAD
+        "/build/TouchStyle.622ce055.css"
+=======
+        "/build/TouchStyle.ba561260.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "OgeroStyle": {
@@ -167,7 +187,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/OgeroStyle.4bb3fdaf.css"
+=======
+<<<<<<< HEAD
+        "/build/OgeroStyle.1e41bdcf.css"
+=======
+        "/build/OgeroStyle.928573b2.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "Gift2GamesStyle": {
@@ -175,7 +203,11 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/Gift2GamesStyle.daba13cf.css"
+=======
+        "/build/Gift2GamesStyle.dbcb3134.css"
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "iveristyles": {
@@ -191,7 +223,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/terraNetstyle.4d489fae.css"
+        "/build/terraNetstyle.82a620c1.css"
       ]
     },
     "SodetelStyle": {
@@ -199,7 +231,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.d2e21a6e.css"
+        "/build/SodetelStyle.3972e4fd.css"
       ]
 <<<<<<< HEAD
 =======
@@ -209,7 +241,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.57ecfcf2.css"
+        "/build/SimlyStyle.7f807f7c.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }

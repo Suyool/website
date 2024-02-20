@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
 const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
+  const [isViewNetwork, setIsViewNetwork] = useState(false);
+  const [getNetwork, setNetwork] = useState(null);
+  const [getIsLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setDataGetting("");
     console.log(selectedPlan);
@@ -102,9 +105,25 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
     }
   }, [getDataGetting]);
 
+  const handleViewNetwork = (plan) => {
+    setIsViewNetwork(!isViewNetwork);
+    axios
+      .get(`/simly/getNetworksById?planId=${plan}`)
+      .then((response) => {
+        setNetwork(response?.data?.message);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      });
+  };
+
+  console.log(JSON.stringify(getNetwork));
+
   return (
     <>
-      <div className={` ${getSpinnerLoader ? "packagesinfo hideBackk" : "packagesinfo"}`}>
+      <div id={isViewNetwork ? "hideBackk" : ""} className={` ${getSpinnerLoader  ? "packagesinfo hideBackk" : "packagesinfo"}`}>
         {getSpinnerLoader && (
           <div id="spinnerLoader">
             <Spinner className="spinner" animation="border" variant="secondary" />
@@ -133,7 +152,9 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         <div className="information">
           <div className="network">
             <div className="info">Network</div>
-            <div className="about">{selectedPackage.apn}</div>
+            <div className="about">
+              <span onClick={() => handleViewNetwork(selectedPackage.planId)}>View All</span>
+            </div>
           </div>
           <div className="network">
             <div className="info">Plan Type</div>
@@ -147,11 +168,61 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         <div className="policy">Activation Policy</div>
         <div className="validation">{selectedPackage.activationPolicy}</div>
         <div className="pay">
-          <button className="payactivate" onClick={()=>{handlePay()}}>
+          <button
+            className="payactivate"
+            onClick={() => {
+              handlePay();
+            }}
+          >
             Pay & Activate
           </button>
         </div>
       </div>
+
+      {isViewNetwork && Array.isArray(getNetwork) && (
+        <>
+          <div id="PaymentConfirmationSection">
+            <div className="topSection">
+              <div className="brBoucket"></div>
+              <div className="titles">
+                <div className="titleGrid">Supported Networks</div>
+                <button
+                  onClick={() => {
+                    setIsViewNetwork(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <div className="bodySection">
+              <div className="cardSec">
+                <img src={getNetwork[0]?.countryImageURL} alt="flag" />
+                <div className="method">
+                  <div className="body">
+                    {getNetwork[0]?.supported_networks?.map((network, index) => (
+                      <div className="plan" key={index}>
+                        <div>{network.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="footSectionPick">
+              <button
+                onClick={() => {
+                  setIsViewNetwork(false);
+                }}
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
