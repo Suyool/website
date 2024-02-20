@@ -6,7 +6,7 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
   const [isViewNetwork, setIsViewNetwork] = useState(false);
   // console.log(getEsimDetail);
   useEffect(() => {
-    setBackLink("");
+    setBackLink("Account");
     axios
       .post("/simly/GetEsimDetails", {
         esimId: getEsimDetail?.esimId,
@@ -26,6 +26,40 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
               <img src={getPlanDetail.countryImage ? getPlanDetail.countryImage : "/build/images/simlyIcon.svg"} alt={getPlanDetail?.country} />
             </div>
             <div className="title">{getPlanDetail?.country} Package</div>
+            <div className="accountcomp">
+              <div className="accountCard plandetail">
+                <div className="rechargable">
+                  <div class="single-chart">
+                    <svg viewBox="0 0 36 36" className={`circular-chart ${getPlanDetail?.DataUsage?.sim?.status === "FULLY_USED" ? "violet" : "green"}`}>
+                      <path
+                        class="circle-bg"
+                        d="M18 2.0845
+       a 15.9155 15.9155 0 0 1 0 31.831
+       a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <path
+                        class="circle"
+                        stroke-dasharray={`${getPlanDetail?.DataUsage?.sim?.consumedPercentage}, 100`}
+                        d="M18 2.0845
+       a 15.9155 15.9155 0 0 1 0 31.831
+       a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <text x="18" y="20.35" class="percentage">
+                        {getPlanDetail?.DataUsage?.sim?.consumed}GB
+                      </text>
+                    </svg>
+                    <div className="used">used from {getPlanDetail?.DataUsage?.sim?.size} GB</div>
+                  </div>
+                  <div className="radio">
+                    <input type="checkbox" id="eSim" name="eSim" value="eSim" checked={getPlanDetail?.DataUsage?.sim?.status !== "FULLY_USED"} disabled />
+                    <label className="esim">eSim is still valid</label>
+                    <br />
+                    <input type="checkbox" id="plans" name="plans" value="plan" checked={getPlanDetail?.DataUsage?.sim?.status === "FULLY_USED"} disabled />
+                    <label className="esim">Plan has been fully used</label>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="card">
               <div className="data">
                 <div className="title2">Data</div>
@@ -38,7 +72,10 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
               </div>
             </div>
             <div className="valid">
-              Valid for <span>{getPlanDetail?.simlyPlan?.duration} Days</span>
+              Initial duration <span>{getPlanDetail?.simlyPlan?.duration} Days</span>
+            </div>
+            <div className="valid">
+              Days left <span>{getPlanDetail?.DataUsage?.plan?.daysLeft} Days</span>
             </div>
             <div className="works">Works in</div>
             <div className="country">{getPlanDetail?.country}</div>

@@ -30,7 +30,7 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPac
                                             <p className="card-text desc">{packageItem.activationPolicy}</p>
                                         </div>
                                         <div>
-                                            <p className="card-text price">${packageItem.price}</p>
+                                            <p className="card-text price">${packageItem.initial_price}</p>
                                         </div>
                                     </div>
                                 </div>
