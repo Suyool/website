@@ -125,6 +125,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -138,6 +139,8 @@
 >>>>>>> 65d5ce55 (add loader to topup)
 =======
 >>>>>>> 1f7609b8 (accounts ui and desc charged esim by userid)
+=======
+>>>>>>> eb1cfc43 (handle view all network with ui)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -176,6 +179,9 @@
 =======
         "/build/Simly.8737955b.js"
 >>>>>>> 59179761 (accounts ui and desc charged esim by userid)
+=======
+        "/build/Simly.008bdca0.js"
+>>>>>>> aba9ef34 (handle view all network with ui)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -217,7 +223,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/AlfaStyle.a4a047b5.css"
+=======
+<<<<<<< HEAD
+        "/build/AlfaStyle.96b6b53c.css"
+=======
+        "/build/AlfaStyle.716bf853.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "TouchStyle": {
@@ -225,7 +239,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/TouchStyle.a4a047b5.css"
+=======
+<<<<<<< HEAD
+        "/build/TouchStyle.622ce055.css"
+=======
+        "/build/TouchStyle.ba561260.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "WindslStyle": {
@@ -241,7 +263,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/OgeroStyle.4bb3fdaf.css"
+=======
+<<<<<<< HEAD
+        "/build/OgeroStyle.1e41bdcf.css"
+=======
+        "/build/OgeroStyle.928573b2.css"
+>>>>>>> aba9ef34 (handle view all network with ui)
+>>>>>>> b90ef454 (handle view all network with ui)
       ]
     },
     "terraNetstyle": {
@@ -257,7 +287,15 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/Gift2GamesStyle.a885ca0f.css"
+=======
+<<<<<<< HEAD
+        "/build/Gift2GamesStyle.daba13cf.css"
+=======
+        "/build/Gift2GamesStyle.dbcb3134.css"
+>>>>>>> b90ef454 (handle view all network with ui)
+>>>>>>> eb1cfc43 (handle view all network with ui)
       ]
     },
     "iveristyles": {
@@ -268,12 +306,23 @@
         "/build/iveristyles.382777e8.css"
       ]
     },
+<<<<<<< HEAD
+=======
+    "terraNetstyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/terraNetstyle.82a620c1.css"
+      ]
+    },
+>>>>>>> 8a97bb02 (handle view all network with ui)
     "SodetelStyle": {
       "js": [
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.d2e21a6e.css"
+        "/build/SodetelStyle.3972e4fd.css"
       ]
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -289,6 +338,7 @@
       "css": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -299,6 +349,9 @@
 =======
         "/build/SimlyStyle.57ecfcf2.css"
 >>>>>>> 1f7609b8 (accounts ui and desc charged esim by userid)
+=======
+        "/build/SimlyStyle.7f807f7c.css"
+>>>>>>> eb1cfc43 (handle view all network with ui)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)

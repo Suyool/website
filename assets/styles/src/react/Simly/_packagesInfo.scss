@@ -103,6 +103,10 @@
 
         .about {
             font-family: $Medium;
+            span{
+                color: #00adff;
+                text-decoration: underline;
+            }
         }
     }
 

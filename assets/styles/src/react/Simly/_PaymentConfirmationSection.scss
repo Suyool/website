@@ -1,10 +1,10 @@
 #PaymentConfirmationSection {
-    position: absolute;
+    position: fixed;
     display: flex;
     width: 100%;
     background-color: white;
     bottom: 0;
-    height: 70vh;
+    max-height: 70vh;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     z-index: 1001;
@@ -62,7 +62,7 @@
         // overflow-y: auto;
         overflow-x: hidden;
         padding-top: 15px;
-        padding-bottom: 80px;
+        padding-bottom: 20px;
 
         .cardSec {
             display: flex;
@@ -76,57 +76,14 @@
             }
 
             .method {
-                padding-left: 15px;
-                font-family: $SemiBold;
-                color: black;
-                font-size: 14px;
-            }
-        }
-
-        .MoreInfo {
-            display: flex;
-            width: 100%;
-            flex-direction: row;
-            justify-content: space-between;
-            padding: 10px 0;
-
-            .label {
-                font-family: $Medium;
-                color: #1C1A32;
-                font-size: 14px;
-            }
-
-            .value {
+                padding-left: 25px;
                 font-family: $Regular;
-                color: #000000;
+                color: #767676;
                 font-size: 14px;
+                width: -webkit-fill-available;
+                display: flex;
+                flex-direction: column;
             }
-
-            .value1 {
-                font-family: $SemiBold;
-                color: #000000;
-                font-size: 14px;
-            }
-
-            .value2 {
-                font-family: $SemiBold;
-                color: #000000;
-                font-size: 20px;
-            }
-        }
-
-        .br {
-            margin: 10px 0;
-            height: 0.5px;
-            width: 100%;
-            background-color: #EBEBEB;
-            width: -webkit-fill-available;
-        }
-
-        .taxes {
-            font-family: $Regular;
-            color: #000000;
-            font-size: 12px;
         }
 
     }
@@ -137,8 +94,6 @@
         flex-direction: column;
         align-items: center;
         padding-bottom: 46px;
-        // position: absolute;
-        // bottom: 0;
         background-color: white;
 
         button {
@@ -146,8 +101,8 @@
             border-radius: 6px;
             font-size: 16px;
             font-family: $Medium;
-            color: white;
-            background-color: #226d96;
+            color: #767676;
+            background-color: #EBEBEB;
             border: none;
             padding: 16px 0;
             text-align: center;
