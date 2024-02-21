@@ -1,8 +1,8 @@
 #RechargeThePayment_simly {
   padding: 30px 12px 20px 12px;
-//   height: 100vh;
-//   overflow: hidden;
-//   overflow-y: scroll;
+  //   height: 100vh;
+  //   overflow: hidden;
+  //   overflow-y: scroll;
   .MainTitle {
     font-family: $Medium;
     font-size: 14px;
@@ -36,7 +36,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 7px;
-      color: #02adff;
+      color: #9c9da2;
       font-family: $SemiBold;
       padding: 9px 0;
       font-size: 12px;
@@ -67,14 +67,14 @@
       border-radius: 13px;
       box-shadow: 0pt 3pt 6pt #00000029;
       padding: 10px 8px;
-      width: 80%;
+      width: 90%;
       .cardNumber {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
         padding: 10px 0;
-        border-bottom: 1px solid #E8E8E8;
+        border-bottom: 1px solid #e8e8e8;
         .text {
           display: flex;
           flex-direction: column;
@@ -92,15 +92,15 @@
             color: black;
           }
         }
-        .text::-webkit-scrollbar{
+        .text::-webkit-scrollbar {
           display: none;
         }
         .copy {
           width: 30px;
           height: 30px;
-        //   background-color: #02ADFF;
+          //   background-color: #02ADFF;
           border-radius: 50%;
-          img{
+          img {
             width: 100%;
             object-fit: contain;
           }
@@ -108,17 +108,23 @@
       }
     }
 
-    .image {
+    .imageBox {
+      background-color: white;
+      border-radius: 13px;
+      box-shadow: 0pt 3pt 6pt #00000029;
       padding-top: 15px;
-      width: 165px;
-      border-radius: 8px;
-      object-fit: contain;
+
+      .image {
+        width: 165px;
+        border-radius: 8px;
+        object-fit: contain;
+      }
     }
 
     .downloadBtn {
       width: 32px;
       height: 32px;
-    //   background-color: #02adff;
+      //   background-color: #02adff;
       position: absolute;
       border-radius: 50%;
       display: flex;
@@ -126,7 +132,7 @@
       align-items: center;
       bottom: 30px;
       right: 12px;
-      img{
+      img {
         width: 100%;
         object-fit: contain;
       }

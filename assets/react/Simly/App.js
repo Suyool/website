@@ -15,7 +15,7 @@ const App = ({ parameters }) => {
   const [activeButton, setActiveButton] = useState({ name: "" });
   const [isPackageItem, setIsPackageItem] = useState(false);
   const [getBackLink, setBackLink] = useState({ name: "" });
-  const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
+  const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSIM");
   const [getModalName, setModalName] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [getDataGetting, setDataGetting] = useState("");

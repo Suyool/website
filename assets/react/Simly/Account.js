@@ -38,7 +38,7 @@ const Account = ({
   });
 
   useEffect(() => {
-    setHeaderTitle("My eSim Account");
+    setHeaderTitle("My eSIM Account");
     setBackLink("");
     setDataGetting("");
     setIsLoading(true);

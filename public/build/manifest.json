@@ -28,6 +28,7 @@
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -260,6 +261,9 @@
 =======
   "build/Simly.js": "/build/Simly.7514688b.js",
 >>>>>>> 0faa7269 (still working on ui)
+=======
+  "build/Simly.js": "/build/Simly.39db1007.js",
+>>>>>>> c44628f0 (handle ui fixes)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
@@ -354,6 +358,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
 >>>>>>> b90ef454 (handle view all network with ui)
 =======
@@ -386,6 +391,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.25436ddc.css",
 >>>>>>> 0faa7269 (still working on ui)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.b3555fd6.css",
+>>>>>>> c44628f0 (handle ui fixes)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
