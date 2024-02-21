@@ -168,7 +168,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         </div>
 
         {(planType == "Regional" || planType == "Global") && (
-          <div className="valid">
+          <div className="valid" style={{paddingTop: "unset"}}>
             <div className="label"></div>
             <div className="value3">
               <span onClick={() => handleViewCountry(selectedPlan.isoCode)}>View Countries</span>
@@ -176,16 +176,6 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           </div>
         )}
         <div className="br"></div>
-
-        <div className="valid">
-          <div className="label">Initial Plan Price</div>
-          <div className="value1">${selectedPackage.initial_price}</div>
-        </div>
-
-        <div className="valid">
-          <div className="label">Initial Plan Size</div>
-          <div className="value1">{selectedPackage.size} GB</div>
-        </div>
 
         <div className="valid">
           <div className="label">Plan Type</div>
@@ -202,6 +192,18 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           <div className="value3">
             <span onClick={() => handleViewNetwork(selectedPackage.planId)}>View All</span>
           </div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Activation Policy</div>
+        </div>
+        <div className="data">{selectedPackage?.activationPolicy}</div>
+
+        <div className="Caution mt-1">
+          <div className="warImg">
+            <img src="/build/images/Loto/warning.png" alt="warning" />
+          </div>
+          <div className="titlee">Before finalizing your order, make sure your device supports eSIM and is unlocked.</div>
         </div>
 
         <div className="pay">
@@ -240,7 +242,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
                   <div className="body">
                     {getNetwork[0]?.supported_networks?.map((network, index) => (
                       <div className="plan" key={index}>
-                        <div>{network.name}</div>
+                        <div  style={{ color: "black" }}>{network.name}</div>
                       </div>
                     ))}
                   </div>

@@ -209,7 +209,7 @@ const Packages = ({
           { (
             <>
               {view === "regions" && (
-                <div className="row">
+                <div className="row" style={{ margin: "0 10px" }}>
                   <div className="col">
                     {selectedData &&
                       selectedData.regional &&
@@ -243,7 +243,7 @@ const Packages = ({
               )}
 
               {view === "global" && (
-                <div className="row">
+                <div className="row" style={{ margin: "0 10px" }}>
                   <div className="col">
                     {selectedData &&
                       selectedData.global &&

@@ -137,6 +137,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -174,6 +175,8 @@
 >>>>>>> 719535aa (fix ui)
 =======
 >>>>>>> 6d2123b6 (fix ui)
+=======
+>>>>>>> 422e02d7 (working with maribelle)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -248,6 +251,9 @@
 =======
         "/build/Simly.63c9e993.js"
 >>>>>>> 240792f0 (fix ui)
+=======
+        "/build/Simly.fea8eeca.js"
+>>>>>>> 9e8f9a01 (working with maribelle)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -413,6 +419,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -450,6 +457,9 @@
 =======
         "/build/SimlyStyle.9918d680.css"
 >>>>>>> 6d2123b6 (fix ui)
+=======
+        "/build/SimlyStyle.8f16383a.css"
+>>>>>>> 422e02d7 (working with maribelle)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)

@@ -133,9 +133,32 @@
       }
     }
   }
+  .data{
+    font-size: 12px;
+    font-family: $Regular;
+    color: #000000;
+  }
+  .Caution {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 20px;
+    .warImg {
+      width: 25px;
+      img {
+        width: 100%;
+      }
+    }
+    .titlee {
+      font-family: $Regular;
+      font-size: 12px;
+      color: #f47a00;
+      padding-left: 8px;
+      text-align: start;
+    }
+  }
   .br {
     margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     height: 2px;
     width: calc(100% - 15px);
     background-color: #e2e2e2;
@@ -191,7 +214,7 @@
       padding: 12px;
       border-radius: 10px;
       font-family: $Medium;
-      margin-top: 30px;
+      margin-top: 20px;
     }
   }
 }

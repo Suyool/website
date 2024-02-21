@@ -243,7 +243,7 @@ const Account = ({
                       </div>
                     </div>
                     <div className="btns">
-                      <div className={data.sim.status !== "PENDING" ? "topup" : "details"}>
+                      <div className={data.sim.status === "PENDING" ? "topup" : "details"}>
                         <button
                           className="btntopup"
                           onClick={() => {
@@ -263,20 +263,20 @@ const Account = ({
                           Top up
                         </button>
                       </div>
-                      <div className={data.sim.status === "PENDING" ? "topup" : "details"}>
+                      <div className={data.sim.status !== "PENDING" ? "topup" : "details"}>
                         <button
                           className="btntopup"
                           onClick={() => {
                             setEsimDetail({});
                             setEsimDetail(data);
-                            setActiveButton({ name: data.sim.status === "PENDING" ? "RechargeThePayment" : "PlanDetail" });
-                            if (data.sim.status === "PENDING") {
+                            setActiveButton({ name: data.sim.status !== "PENDING" ? "RechargeThePayment" : "PlanDetail" });
+                            if (data.sim.status !== "PENDING") {
                                 localStorage.setItem("qrImage", data.qrCodeImage);
                                 localStorage.setItem("qrString", data.qrCodeString);
                               }
                           }}
                         >
-                           {data.sim.status === "PENDING" ? "Install" : "Details"}
+                           {data.sim.status !== "PENDING" ? "Install" : "Details"}
                         </button>
                       </div>
                     </div>
