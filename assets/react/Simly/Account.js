@@ -178,6 +178,7 @@ const Account = ({
         </div>
       ) : (
         <>
+        <div className={isViewNetwork ? "hideBackk" : ""}>
           {getMap && (
             <>
               {getAccountInformation.map((data, index) => (
@@ -285,6 +286,7 @@ const Account = ({
               ))}
             </>
           )}
+          </div>
           {isViewNetwork && !getSpinnerLoader && (
             <>
               <div id="PaymentConfirmationSection">

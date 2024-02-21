@@ -37,12 +37,12 @@ class SimlyController extends AbstractController
     }
 
     /**
-     * @Route("/simly", name="simly")
+     * @Route("/alfa", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        // $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             // dd($_POST['infoString']);   
@@ -487,6 +487,7 @@ class SimlyController extends AbstractController
                 $res['initialPrice'] = $esim->getInitialPrice();
                 $res['qrCodeString'] = $esim->getQrCodeString();
                 $res['qrCodeImage'] = $esim->getQrCodeImageUrl();
+                $res['PlanType'] = $esim->getParentPlanType();
 
                 if ($res)
                     $usage[] = $res;

@@ -29,6 +29,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -264,6 +265,9 @@
 =======
   "build/Simly.js": "/build/Simly.39db1007.js",
 >>>>>>> c44628f0 (handle ui fixes)
+=======
+  "build/Simly.js": "/build/Simly.61426bc8.js",
+>>>>>>> 8ef13798 (fix ui)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
@@ -359,6 +363,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
 >>>>>>> b90ef454 (handle view all network with ui)
 =======
@@ -394,6 +399,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.b3555fd6.css",
 >>>>>>> c44628f0 (handle ui fixes)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.503536c9.css",
+>>>>>>> 8ef13798 (fix ui)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
@@ -764,7 +772,12 @@
   "build/images/alfa_employee/worldMoney.png": "/build/images/alfa_employee/worldMoney.png",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8ef13798 (fix ui)
   "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
+=======
+>>>>>>> de8c8a72 (fix ui)
   "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
 =======
 <<<<<<< HEAD
@@ -868,8 +881,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
+<<<<<<< HEAD
   "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
 =======
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -948,6 +963,9 @@
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
   "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
 >>>>>>> 0faa7269 (still working on ui)
+=======
+>>>>>>> de8c8a72 (fix ui)
+>>>>>>> 8ef13798 (fix ui)
   "build/images/auth.png": "/build/images/auth.png",
   "build/images/help-topSection.jpg": "/build/images/help-topSection.4ef3711e.jpg",
   "build/images/helpCenter/help-topSection.jpg": "/build/images/helpCenter/help-topSection.jpg",
@@ -981,7 +999,12 @@
   "build/images/alfa/bundleImg13x2.png": "/build/images/alfa/bundleImg13x2.png",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8ef13798 (fix ui)
   "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
+=======
+>>>>>>> de8c8a72 (fix ui)
   "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
 =======
 <<<<<<< HEAD

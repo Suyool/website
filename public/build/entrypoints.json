@@ -118,6 +118,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -262,6 +263,9 @@
 =======
         "/build/Simly.39db1007.js"
 >>>>>>> e0a9a1d8 (handle ui fixes)
+=======
+        "/build/Simly.61426bc8.js"
+>>>>>>> 557cb3f9 (fix ui)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -442,6 +446,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -488,6 +493,9 @@
 =======
         "/build/SimlyStyle.b3555fd6.css"
 >>>>>>> e0a9a1d8 (handle ui fixes)
+=======
+        "/build/SimlyStyle.503536c9.css"
+>>>>>>> 557cb3f9 (fix ui)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
