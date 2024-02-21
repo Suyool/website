@@ -37,21 +37,21 @@ class SimlyController extends AbstractController
     }
 
     /**
-     * @Route("/alfa", name="simly")
+     * @Route("/simly", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             // dd($_POST['infoString']);   
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
-            dd($decrypted_string);
+            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -89,20 +89,20 @@ class SimlyController extends AbstractController
         // $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
         // dd($res);
 
-        //        $res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
+        //$res = $simlyServices->GetAvailableNetworkFromGivenId('simly_FRA_1GB_7D');
 
-//         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
-        //         $res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
+        //$res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D');
+        //$res = $simlyServices->PurchaseTopup('simly_FRA_1GB_7D', "65cf183ab08a52056b17017b");
         // dd($res);
 
-                 $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
+        $res = $simlyServices->GetPlanHavingSlug("simly_FRA_1GB_7D");
         // dd($res);
 
-//                 $res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
-        //        dd($res);
+        //$res = $simlyServices->FetchUsageOfPurchasedESIM("65cf183ab08a52056b17017b");
+        //dd($res);
 
-//        $res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
-//        $res = $simlyServices->GetAllAvailableCountriesOfContinent();
+        //$res = $simlyServices->GetAllAvailableCountriesOfContinent("ME");
+        //$res = $simlyServices->GetAllAvailableCountriesOfContinent();
         dd($res);
     }
 
@@ -126,6 +126,23 @@ class SimlyController extends AbstractController
     public function GetLocalAvailableCountries(SimlyServices $simlyServices, Memcached $Memcached)
     {
         $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+        return new JsonResponse([
+            'status' => true,
+            'message' => $filter
+        ], 200);
+    }
+
+    /**
+     * @Route("/simly/getContientAvailableByCountry", name="app_simly_getContientAvailableByCountry")
+     */
+    public function GetContientAvailableByCountry(SimlyServices $simlyServices, Request $request)
+    {
+        $country = $request->get('country');
+        if (!$country) return new JsonResponse([
+            'status' => false,
+            'message' => 'Country code is required'
+        ]);
+        $filter = $simlyServices->GetAllAvailableCountriesOfContinent($country);
         return new JsonResponse([
             'status' => true,
             'message' => $filter
@@ -315,7 +332,7 @@ class SimlyController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            try{
+            try {
                 $logs = new Logs;
                 $logs
                     ->setidentifier("simly_purchaseTopup")
@@ -330,7 +347,8 @@ class SimlyController extends AbstractController
 
                 $this->mr->persist($logs);
                 $this->mr->flush();
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
 
 
             return new JsonResponse([
@@ -427,7 +445,7 @@ class SimlyController extends AbstractController
             $message = "Simly Purchase was successful but the utilities were not updated";
         }
 
-        try{
+        try {
             $logs = new Logs;
             $logs
                 ->setidentifier("simly_purchaseTopup")
@@ -438,7 +456,8 @@ class SimlyController extends AbstractController
 
             $this->mr->persist($logs);
             $this->mr->flush();
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return new JsonResponse([
             'status' => true,
@@ -455,10 +474,10 @@ class SimlyController extends AbstractController
         $suyoolUserId = $this->session->get('suyoolUserId');
         // $suyoolUserId = 89;
 
-        $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId],['id'=>'DESC']);
+        $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId], ['id' => 'DESC']);
         $usage = [];
         // dd($esims);
-        if(!empty($esims)){
+        if (!empty($esims)) {
             foreach ($esims as $esim) {
                 $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
                 $res['country'] = $esim->getCountry();
@@ -466,7 +485,7 @@ class SimlyController extends AbstractController
                 $res['esimId'] = $esim->getEsimId();
                 $res['countryImage'] = $esim->getCountryImage();
                 $res['initialPrice'] = $esim->getInitialPrice();
-    
+
                 if ($res)
                     $usage[] = $res;
             }

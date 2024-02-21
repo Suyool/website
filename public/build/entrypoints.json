@@ -86,6 +86,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -135,6 +136,9 @@
 =======
         "/build/Simly.9def121e.js"
 >>>>>>> 70ac36dc (confirmation topup and sucess modal)
+=======
+        "/build/Simly.e3eb3070.js"
+>>>>>>> 1314c1de (add country display)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -261,7 +265,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.7589ae84.css"
+        "/build/SimlyStyle.24e58156.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }
