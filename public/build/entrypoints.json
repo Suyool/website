@@ -91,6 +91,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -155,6 +156,9 @@
 =======
         "/build/Simly.efaadf22.js"
 >>>>>>> c0b20aad (fix ui)
+=======
+        "/build/Simly.63c9e993.js"
+>>>>>>> 240792f0 (fix ui)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -281,7 +285,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.b39c7353.css"
+        "/build/SimlyStyle.9918d680.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }
