@@ -85,7 +85,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink }) => {
 
           <div className="Caution">
             <div className="warImg">
-              <img src="/build/images/Loto/warning.png" alt="warning" />
+              <img src="/build/images/attentionSign.svg" alt="warning" />
             </div>
             <div className="title">
               Usually, eSIMs can only be installed once. Once removed, you can’t
@@ -204,7 +204,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink }) => {
 
           <div className="Caution">
             <div className="warImg">
-              <img src="/build/images/Loto/warning.png" alt="warning" />
+              <img src="/build/images/attentionSign.svg" alt="warning" />
             </div>
             <div className="title">
               Usually, eSIMs can only be installed once. Once removed, you can’t

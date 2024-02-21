@@ -201,7 +201,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
 
         <div className="Caution mt-1">
           <div className="warImg">
-            <img src="/build/images/Loto/warning.png" alt="warning" />
+            <img src="/build/images/attentionSign.svg" alt="warning" />
           </div>
           <div className="titlee">Before finalizing your order, make sure your device supports eSIM and is unlocked.</div>
         </div>

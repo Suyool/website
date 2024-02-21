@@ -116,6 +116,7 @@
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -254,6 +255,9 @@
 =======
         "/build/Simly.fea8eeca.js"
 >>>>>>> 9e8f9a01 (working with maribelle)
+=======
+        "/build/Simly.7514688b.js"
+>>>>>>> 205ab850 (still working on ui)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -296,6 +300,7 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.a4a047b5.css"
 =======
 <<<<<<< HEAD
@@ -304,6 +309,9 @@
         "/build/AlfaStyle.716bf853.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/AlfaStyle.edadb73f.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "TouchStyle": {
@@ -311,6 +319,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/TouchStyle.a4a047b5.css"
 =======
@@ -320,6 +329,9 @@
         "/build/TouchStyle.ba561260.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/TouchStyle.00f9da67.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "WindslStyle": {
@@ -336,6 +348,7 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/OgeroStyle.4bb3fdaf.css"
 =======
 <<<<<<< HEAD
@@ -344,6 +357,9 @@
         "/build/OgeroStyle.928573b2.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/OgeroStyle.e0500433.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "terraNetstyle": {
@@ -420,6 +436,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -460,6 +477,9 @@
 =======
         "/build/SimlyStyle.8f16383a.css"
 >>>>>>> 422e02d7 (working with maribelle)
+=======
+        "/build/SimlyStyle.25436ddc.css"
+>>>>>>> 205ab850 (still working on ui)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
