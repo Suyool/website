@@ -18,7 +18,6 @@ class Memcached
         } else {
             // $file = "../var/cache/dev/alfaVoucher.txt";
         }
-
         $clearingTime = time() - (60);
         $filter = null;
 

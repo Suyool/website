@@ -71,7 +71,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-        "/build/Simly.39db1007.js"
+        "/build/Simly.61426bc8.js"
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -210,7 +210,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.b3555fd6.css"
+        "/build/SimlyStyle.503536c9.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }

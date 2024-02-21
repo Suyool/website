@@ -286,7 +286,28 @@ class SimlyServices
             ]);
             $data = json_decode($response->getContent(), true);
             if ($data['code'] == 200) {
-                return $data['data'];
+                foreach ($data['data'] as &$continent) {
+                    if (isset($continent['GLOBAL'])) {
+                        return $data['data'];
+                    } else {
+                        $filteredContinent = [];
+                        foreach ($continent as $isoCodes => &$countries) {
+                            $filteredCountries = [];
+                            foreach ($countries as $country) {
+                                if ($country['isoCode'] !== "ISR") {
+                                    $filteredCountries[] = $country;
+                                }
+                            }
+                            if (!empty($filteredCountries)) {
+                                $filteredContinent[$isoCodes] = $filteredCountries;
+                            }
+                        }
+                        if (!empty($filteredContinent)) {
+                            $filteredData[] = $filteredContinent;
+                        }
+                    }
+                }
+                return $filteredData;
             } else {
                 return $this->getResponse(500, 'Internal Server Error', null, 'GetAllAvailableCountriesOfContinent');
             }
