@@ -12,7 +12,7 @@ import RechargeThePayment from "./RechargeThePayment";
 const App = ({ parameters }) => {
   const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
   const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
-  const [activeButton, setActiveButton] = useState({ name: "RechargeThePayment" });
+  const [activeButton, setActiveButton] = useState({ name: "" });
   const [isPackageItem, setIsPackageItem] = useState(false);
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");

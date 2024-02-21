@@ -131,6 +131,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> 493e662a (plan type)
@@ -156,6 +157,8 @@
 >>>>>>> 582a413c (add payment page with new desgn)
 =======
 >>>>>>> 38a232c8 (confirmation topup and sucess modal)
+=======
+>>>>>>> b84ffe18 (add country display)
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -212,6 +215,9 @@
 =======
         "/build/Simly.9def121e.js"
 >>>>>>> 70ac36dc (confirmation topup and sucess modal)
+=======
+        "/build/Simly.e3eb3070.js"
+>>>>>>> 1314c1de (add country display)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -372,6 +378,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/SimlyStyle.388c51c6.css"
       ]
 >>>>>>> 63e15385 (add async fct to download)
@@ -394,6 +401,9 @@
 =======
         "/build/SimlyStyle.7589ae84.css"
 >>>>>>> 38a232c8 (confirmation topup and sucess modal)
+=======
+        "/build/SimlyStyle.24e58156.css"
+>>>>>>> b84ffe18 (add country display)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
