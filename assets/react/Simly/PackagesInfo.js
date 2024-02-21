@@ -47,8 +47,8 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         .then((response) => {
           const jsonResponse = response.data.message;
           if (response.data.status) {
-            localStorage.setItem("qrImage",response.data.data.qrCodeImageUrl)
-            localStorage.setItem("qrString",response.data.data.qrCodeString)
+            localStorage.setItem("qrImage", response.data.data.qrCodeImageUrl);
+            localStorage.setItem("qrString", response.data.data.qrCodeString);
             setSpinnerLoader(false);
             setModalName("SuccessModal");
             setSuccessModal({
@@ -144,49 +144,66 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           <img src={selectedPlan.countryImageURL} alt={selectedPlan.name} />
         </div>
         <div className="title">{selectedPlan.name} Package</div>
-        <div className="card">
+
+        <div className="cardFor">
           <div className="data">
-            <div className="title2">Data</div>
-            <div className="info">{selectedPackage.size} GB</div>
+            <div className="tit">Data</div>
+            <div className="desc">{selectedPackage.size} GB</div>
           </div>
           <div className="bd"></div>
-          <div className="price">
-            <div className="price2">Price</div>
-            <div className="info">${selectedPackage.initial_price}</div>
+          <div className="data">
+            <div className="tit">Price</div>
+            <div className="desc">${selectedPackage.initial_price}</div>
           </div>
         </div>
-        <div className="valid">
-          Valid for <span>{selectedPackage.duration} Days</span>
-        </div>
-        <div className="works">Works in</div>
-        <div className="country">{selectedPlan.name}</div>
-        <div className="information">
-          {(planType == "Regional" || planType == "Global") && (
-            <div className="network">
-              <div className="info">Works in</div>
-              <div className="about">
-                <span onClick={() => handleViewCountry(selectedPlan.isoCode)}>View All</span>
-              </div>
-            </div>
-          )}
 
-          <div className="network">
-            <div className="info">Network</div>
-            <div className="about">
-              <span onClick={() => handleViewNetwork(selectedPackage.planId)}>View All</span>
+        <div className="valid">
+          <div className="label">Valid for</div>
+          <div className="value">{selectedPackage.duration} Days</div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Works in</div>
+          <div className="value">{selectedPlan.name}</div>
+        </div>
+
+        {(planType == "Regional" || planType == "Global") && (
+          <div className="valid">
+            <div className="label"></div>
+            <div className="value3">
+              <span onClick={() => handleViewCountry(selectedPlan.isoCode)}>View Countries</span>
             </div>
           </div>
-          <div className="network">
-            <div className="info">Plan Type</div>
-            <div className="about">{selectedPackage.planType}</div>
-          </div>
-          <div className="network">
-            <div className="info">Top Up</div>
-            <div className="about">{selectedPackage.topup ? "Available" : "Not Available"}</div>
+        )}
+        <div className="br"></div>
+
+        <div className="valid">
+          <div className="label">Initial Plan Price</div>
+          <div className="value1">${selectedPackage.initial_price}</div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Initial Plan Size</div>
+          <div className="value1">{selectedPackage.size} GB</div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Plan Type</div>
+          <div className="value1">{selectedPackage.planType}</div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Top Up</div>
+          <div className="value1">{selectedPackage.topup ? "Available" : "Not Available"}</div>
+        </div>
+
+        <div className="valid">
+          <div className="label">Network</div>
+          <div className="value3">
+            <span onClick={() => handleViewNetwork(selectedPackage.planId)}>View All</span>
           </div>
         </div>
-        <div className="policy">Activation Policy</div>
-        <div className="validation">{selectedPackage.activationPolicy}</div>
+
         <div className="pay">
           <button
             className="payactivate"
