@@ -11,7 +11,7 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPac
     return (
         <div className="container itemsPackageCont">
             <div>
-                <h2>{country?.name}</h2>
+                <div className='subTitle2'>{country?.name}</div>
                 <div className="row">
                     {country.plans.map((packageItem, index) => (
                         <div key={packageItem.planId} className="col-md-6">
@@ -23,11 +23,12 @@ const PackageItems = ({ country , setSelectedPlan,setActiveButton,setSelectedPac
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <div className="itemsList">
                                             <h6 className="card-title">
-                                                <img src={country.countryImageURL} alt={country.name} width={50} />
-                                                <span className="ms-2">{country?.name}</span>
+                                                <img src={country.countryImageURL} alt={country.name} width={17} />
+                                                <span className="ms-2" style={{fontFamily:"PoppinsMedium"}}>{country?.name}</span>
                                             </h6>
                                             <p className="card-text itemSize">{packageItem.size}GB</p>
-                                            <p className="card-text desc">{packageItem.activationPolicy}</p>
+                                            {/* <p className="card-text desc">{packageItem.activationPolicy}</p> */}
+                                            <p className="card-text desc">Valid for {packageItem.duration} Days</p>
                                         </div>
                                         <div>
                                             <p className="card-text price">${packageItem.initial_price}</p>

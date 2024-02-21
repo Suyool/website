@@ -124,7 +124,7 @@ const Packages = ({ setSelectedPlan, setSpinnerLoader, setActiveButton, setSelec
   return (
     <>
       <div className="container">
-        <div className="search-bar mt-3">
+        <div className="search-bar mt-4">
           <div className="search-icon-left">
             <img src="/build/images/g2g/search.svg" alt="Search Icon" />
           </div>
@@ -171,6 +171,54 @@ const Packages = ({ setSelectedPlan, setSpinnerLoader, setActiveButton, setSelec
             </button>
           </div>
         </div>
+
+        {!isPackageItem && !selectedCountry && (
+          <>
+            {view === "regions" && (
+              <div className="row">
+                <div className="col">
+                  {selectedData &&
+                    selectedData.regional &&
+                    selectedData.regional.map((region, index) => (
+                      <div key={index} className="card mb-3" onClick={() => handleClick(region.isoCode)}>
+                        <div className="card-body">
+                          <div id="Topp">
+                            <img src={region.countryImageURL} alt={region.name} width={50} />
+                            <div className="noTopp">
+                              <div className="card-title">{region.name} Packages</div>
+                              <p className="card-text">{region.destinations} destinations</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {view === "global" && (
+              <div className="row">
+                <div className="col">
+                  {selectedData &&
+                    selectedData.global &&
+                    selectedData.global.map((globalItem, index) => (
+                      <div key={index} className="card mb-3" onClick={() => handleClick(globalItem.isoCode)}>
+                        <div className="card-body">
+                          <div id="Topp">
+                            <img src={globalItem.countryImageURL} alt={globalItem.name} width={50} />
+                            <div className="noTopp">
+                              <div className="card-title">{globalItem.name} Packages</div>
+                              <p className="card-text">{globalItem.destinations} destinations</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
       {isPackageItem && selectedCountry ? (
         <PackageItems country={selectedCountry} setSelectedPlan={setSelectedPlan} setActiveButton={setActiveButton} setSelectedPackage={setSelectedPackage} />
@@ -225,42 +273,6 @@ const Packages = ({ setSelectedPlan, setSpinnerLoader, setActiveButton, setSelec
                 </div>
               )}
             </>
-          )}
-
-          {view === "regions" && (
-            <div className="row">
-              <div className="col">
-                {selectedData &&
-                  selectedData.regional &&
-                  selectedData.regional.map((region, index) => (
-                    <div key={index} className="card mb-3" onClick={() => handleClick(region.isoCode)}>
-                      <div className="card-body">
-                        <img src={region.countryImageURL} alt={region.name} width={50} />
-                        <h5 className="card-title mt-2">{region.name} Packages</h5>
-                        <p className="card-text">{region.destinations} destinations</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
-
-          {view === "global" && (
-            <div className="row">
-              <div className="col">
-                {selectedData &&
-                  selectedData.global &&
-                  selectedData.global.map((globalItem, index) => (
-                    <div key={index} className="card mb-3" onClick={() => handleClick(globalItem.isoCode)}>
-                      <div className="card-body">
-                        <img src={globalItem.countryImageURL} alt={globalItem.name} width={50} />
-                        <h5 className="card-title">{globalItem.name} Package</h5>
-                        <p className="card-text">{globalItem.destinations} destinations</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
           )}
         </>
       )}

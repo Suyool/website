@@ -31,7 +31,7 @@
 
     input {
       width: 100%;
-      background-color: #F4F4F4;
+      background-color: #f4f4f4;
       border: unset;
       padding: 14px 13px 14px 40px;
       border-radius: 5px;
@@ -65,8 +65,8 @@
     // padding: 20px 10px;
     padding: 16px 10px 10px 10px;
     border-radius: 6px;
-    border: 1px solid #D8DEE6;
-    box-shadow: 0px 3px 10px #E7EAF0;
+    border: 1px solid #d8dee6;
+    box-shadow: 0px 3px 10px #e7eaf0;
     margin-top: 15px;
     align-items: flex-start;
 
@@ -140,12 +140,12 @@
   }
 
   .active-sub {
-    background-color: #4987A8 !important;
+    background-color: #4987a8 !important;
     font-family: $SemiBold;
     border-color: #4987a8;
 
     .SubTitleCat {
-      color: #FFFFFF !important;
+      color: #ffffff !important;
     }
   }
 
@@ -169,15 +169,15 @@
     margin-right: 25px;
 
     .SubTitleCat {
-      margin: 12px 0
+      margin: 12px 0;
     }
   }
 
   .selected {
-    border-bottom: 3px solid #216D96;
+    border-bottom: 3px solid #216d96;
 
     p {
-      color: #216D96;
+      color: #216d96;
       font-weight: bold;
     }
   }
@@ -191,7 +191,7 @@
 
   .out-of-stock-message {
     text-align: center;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     margin-top: 20px;
     padding: 20px;
 
@@ -210,6 +210,34 @@
   }
 }
 
+#Topp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    width: 50px;
+    border-radius: 50px;
+    object-fit: contain;
+  }
+
+  .noTopp {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    .card-title {
+      font-family: $SemiBold;
+      font-size: 20px;
+      color: black;
+      margin-bottom: unset;
+    }
+    .card-text {
+      font-family: $Regular;
+      font-size: 14px;
+      color: black;
+    }
+  }
+}
 #SimlyBody {
   padding-top: 40px;
 
@@ -244,9 +272,9 @@
       width: 32%;
     }
     .btn-primary {
-      background-color: #FFFFFF;
-      color: #00ADFF;
-      border: 1px solid #00ADFF;
+      background-color: #ffffff;
+      color: #00adff;
+      border: 1px solid #00adff;
       border-radius: 6px;
       font-size: 12px;
       padding: 8px;
@@ -254,14 +282,14 @@
     }
 
     .active {
-      background-color: #00ADFF;
-      color: #FFFFFF;
+      background-color: #00adff;
+      color: #ffffff;
       border: none;
       outline: none;
     }
   }
 
-  .imgText{
+  .imgText {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -277,14 +305,13 @@
       padding-top: 8px;
       min-height: 52px;
     }
-    
   }
   .card {
     // border: 1px solid #707070;
     margin-top: 5px;
     border-radius: 10px;
     border: unset;
-    background-color: #EBEBEB;
+    background-color: #ebebeb;
 
     .card-title {
       font-family: $SemiBold;
@@ -293,13 +320,12 @@
     .card-text {
       color: #767676;
       font-family: $Regular;
-
     }
   }
 
-  .card-columns{
-    .continent-container{
-      .title{
+  .card-columns {
+    .continent-container {
+      .title {
         font-family: $Medium;
         font-size: 16px;
         color: black;
@@ -310,7 +336,6 @@
     overflow-x: auto;
     white-space: nowrap;
     scrollbar-width: none;
-
   }
 
   .continent-container {
@@ -331,7 +356,7 @@
 
     input {
       width: calc(100% - 70px);
-      background-color: #F4F4F4;
+      background-color: #f4f4f4;
       border: unset;
       padding: 20px 14px 14px 40px;
       border-radius: 5px;
@@ -347,8 +372,6 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-
-
     }
 
     .search-icon-left {
@@ -366,6 +389,10 @@
     height: 85px;
   }
   .itemsPackageCont {
+    .subTitle2 {
+      font-family: $Medium;
+      font-size: 18px;
+    }
     .card {
       border: none;
       margin-top: 10px;
@@ -398,14 +425,14 @@
   }
 
   .bg-package1 {
-    background-color: #226D9619; /* Light blue */
+    background-color: #226d9619; /* Light blue */
   }
 
   .bg-package2 {
-    background-color: #E3F4FE; /* Lighter blue */
+    background-color: #e3f4fe; /* Lighter blue */
   }
 
   .bg-package3 {
-    background-color: #E3FCFE; /* Even lighter blue */
+    background-color: #e3fcfe; /* Even lighter blue */
   }
 }
