@@ -485,6 +485,8 @@ class SimlyController extends AbstractController
                 $res['esimId'] = $esim->getEsimId();
                 $res['countryImage'] = $esim->getCountryImage();
                 $res['initialPrice'] = $esim->getInitialPrice();
+                $res['qrCodeString'] = $esim->getQrCodeString();
+                $res['qrCodeImage'] = $esim->getQrCodeImageUrl();
 
                 if ($res)
                     $usage[] = $res;
