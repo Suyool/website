@@ -12,6 +12,7 @@ use App\Service\ShopifyServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,14 +37,22 @@ class ShopifyController extends AbstractController
 
         $hostname = Helper::getHost($domain);
         $merchantCredentials = $shopifyServices->getCredentials(Helper::getHost($domain));
+        if (!$merchantCredentials || !isset($merchantCredentials['appKey']) || !isset($merchantCredentials['appPass'])) {
+            return $this->jsonErrorResponse("Merchant credentials are missing or incomplete.");
+        }
         $appKey = $merchantCredentials['appKey'];
         $appPass = $merchantCredentials['appPass'];
         $checkShopifyOrder = $shopifyServices->getShopifyOrder($orderID, $appKey, $appPass, $hostname);
+
+        if (!$checkShopifyOrder || !isset($checkShopifyOrder['transactions'][0]['amount'])) {
+            return $this->jsonErrorResponse("Unable to retrieve Shopify order information");
+        }
+
         $totalPrice = $checkShopifyOrder['transactions']['0']['amount'];
-        $url = $request->query->get('url');
-        $errorUrl = $request->query->get('error_url');
-        $currency = $request->query->get('currency');
-        $env = $request->query->get('env');
+        $url = $request->query->get('url') ?? null;
+        $errorUrl = $request->query->get('error_url') ?? null;
+        $currency = $request->query->get('currency') ?? null;
+        $env = $request->query->get('env') ?? null;
 
         if($cardpayment) {
             $session->set('shopifyCardPayment', true);
@@ -53,13 +62,18 @@ class ShopifyController extends AbstractController
             $merchantID = $request->query->get('merchantID');
             $callBackURL = $request->query->get('callBackURL');
             $additionalInfo = $request->query->get('additionalInfo');
-
             $secureHash = $request->query->get('secureHash');
             $currentHost = $request->getHost();
+
             $formattedPrice = number_format($totalPrice, 3);
             $merchant = $invoicesServices->findMerchantByMerchId($merchantID);
+            if (!$merchant) {
+                return new Response("Merchant not found. Please contact support.");
+            }
             $certificate = $merchant->getCertificate();
-
+            if (!$certificate) {
+                return new Response("Certificate not found for the merchant. Please contact support.");
+            }
             $secure = $orderID . $merchantID . $currency . $additionalInfo . $certificate;
             $suyoolSecureHash = base64_encode(hash('sha512', $secure, true));
             if($suyoolSecureHash == $secureHash){
@@ -84,14 +98,14 @@ class ShopifyController extends AbstractController
                 return new RedirectResponse($url);
 
             }else {
-                return new Response("Your order cannot be processed. Please contact support.");
+                return $this->jsonErrorResponse("Your order cannot be processed. Please contact support.");
             }
-
         }
 
-        if (!isset($url) || $url == '' || !isset($errorUrl) || $errorUrl == '') {
-            //insert transaction log error of missing url: to be done later
-            return new Response("Your order cannot be processed. Either you have not set error url or success url in your request. Please contact support.You will be redirected back to store in few seconds.");
+        if ($url === null || $errorUrl === null || $currency === null ) {
+            // Handle the error, log it, and return an appropriate response
+            return $this->jsonErrorResponse("Your order cannot be processed.Either you have not set error URL or success URL or currency in your request. Please contact support.");
+
         }
 
         $hostname = $domain;
@@ -138,5 +152,9 @@ class ShopifyController extends AbstractController
         }
 
         return new Response("false");
+    }
+    private function jsonErrorResponse(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): JsonResponse
+    {
+        return new JsonResponse(['error' => $message], $statusCode);
     }
 }

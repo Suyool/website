@@ -102,12 +102,14 @@ class ShopifyServices
         $credential = $credentialsRepository->findOneBy(['domain' => $domain]);
 
         $response = [];
-        $response['certificate'] = $credential->getCertificateKey();
-        $response['merchantId'] = $credential->getMerchantId();
-        $response['appKey'] = $credential->getAppKey();
-        $response['appSecret'] = $credential->getAppSecret();
-        $response['appPass'] = $credential->getAppPass();
-        $response['integrationType'] = $credential->getIntegrationType();
+        if($credential){
+            $response['certificate'] = $credential->getCertificateKey();
+            $response['merchantId'] = $credential->getMerchantId();
+            $response['appKey'] = $credential->getAppKey();
+            $response['appSecret'] = $credential->getAppSecret();
+            $response['appPass'] = $credential->getAppPass();
+            $response['integrationType'] = $credential->getIntegrationType();
+        }
 
         return $response;
     }

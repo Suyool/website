@@ -88,7 +88,7 @@ class Helper
     public static function getHost($domain)
     {
         $parsedUrl = parse_url($domain);
-        $hostname = $parsedUrl['path'];
+        $hostname = isset($parsedUrl['host']) ? $parsedUrl['host'] : $parsedUrl['path'];
         $parts = explode('.', $hostname);
         $partsCount = count($parts);
         if ($partsCount >= 3 && $parts[0] === 'www') {
