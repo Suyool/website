@@ -51,7 +51,24 @@
         }
     }
 
+    
+
     .bodySection {
+        .bodyToTopup{
+            .line{
+                border: 1px solid #eee ;
+            }
+            .data{
+                padding-bottom: 5px;
+                font-family: $SemiBold;
+            }
+            .country{
+                padding-top: 5px;
+                color: #000;
+                font-family: $SemiBold;
+            }
+
+        }
         display: flex;
         flex-direction: row;
         width: 85%;
@@ -81,11 +98,33 @@
                 color: #767676;
                 font-size: 14px;
                 width: -webkit-fill-available;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
             }
         }
 
+    }
+
+    .footSectionPickTopup{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 46px;
+        background-color: white;
+
+        button {
+            width: 90%;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: $Medium;
+            color: #FFFFFF;
+            background-color: #02ADFF;
+            border: none;
+            padding: 16px 0;
+            text-align: center;
+        }
     }
 
     .footSectionPick {

@@ -43,7 +43,16 @@ const App = ({ parameters }) => {
 
   return (
     <div id="SimlyBody">
-      <Header parameters={parameters} activeButton={activeButton} setIsPackageItem={setIsPackageItem} isPackageItem={isPackageItem} setActiveButton={setActiveButton} getHeaderTitle={getHeaderTitle} getBackLink={getBackLink} getSpinnerLoader={getSpinnerLoader} />
+      <Header
+        parameters={parameters}
+        activeButton={activeButton}
+        setIsPackageItem={setIsPackageItem}
+        isPackageItem={isPackageItem}
+        setActiveButton={setActiveButton}
+        getHeaderTitle={getHeaderTitle}
+        getBackLink={getBackLink}
+        getSpinnerLoader={getSpinnerLoader}
+      />
       <div className="scrolableView">
         {getModalName === "" && (
           <>
@@ -117,6 +126,7 @@ const App = ({ parameters }) => {
             {activeButton.name === "PlanDetail" && <PlanDetail getEsimDetail={getEsimDetail} setBackLink={setBackLink} />}
 
             {activeButton.name === "RechargeThePayment" && <RechargeThePayment setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+
           </>
         )}
       </div>
@@ -126,6 +136,12 @@ const App = ({ parameters }) => {
         <SuccessModal
           getSuccessModal={getSuccessModal}
           show={modalShow}
+          onsetActiveButton={() => {
+            setModalShow(false);
+            setModalName("");
+            setActiveButton({ name: "Account" });
+            console.log(activeButton);
+          }}
           onHide={() => {
             setModalShow(false);
             setModalName("");
@@ -138,6 +154,10 @@ const App = ({ parameters }) => {
           parameters={parameters}
           getErrorModal={getErrorModal}
           show={modalShow}
+          setActiveButton={() => {
+            setActiveButton({ name: "Account" });
+            console.log("clicked");
+          }}
           onHide={() => {
             setSpinnerLoader(false);
             setModalShow(false);

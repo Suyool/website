@@ -2,7 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
+const PackagesInfo = ({
+  parameters,
+  selectedPlan,
+  selectedPackage,
+  setBackLink,
+  getDataGetting,
+  setDataGetting,
+  setErrorModal,
+  setSuccessModal,
+  setActiveButton,
+  setModalName,
+  setModalShow,
+  setSpinnerLoader,
+  getSpinnerLoader,
+}) => {
   const [isViewNetwork, setIsViewNetwork] = useState(false);
   const [getNetwork, setNetwork] = useState(null);
   useEffect(() => {
@@ -23,7 +37,9 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         }, 2000);
       } else if (parameters?.deviceType === "Iphone") {
         setTimeout(() => {
-          window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
+          window.webkit.messageHandlers.callbackHandler.postMessage(
+            "fingerprint"
+          );
         }, 2000);
       }
       window.handleCheckout = (message) => {
@@ -49,16 +65,14 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
             setModalName("SuccessModal");
             setSuccessModal({
               imgPath: "/build/images/Loto/success.png",
-              title: "Simly Purchased Successfully",
+              title: "eSIM Payment Successful",
               desc: (
                 <div>
-                  Please Download the qr
-                  <br />
-                  <img src={`${response.data.data.qrCodeImageUrl}`} />
+                  You have successfully purchased the ${selectedPackage.initial_price}{" "}
+                  {selectedPlan.name} eSIM.
                 </div>
               ),
-              qr: response.data.data.qrCodeImageUrl,
-              qrImg: response.data.data.qrCodeString,
+              btn: "Install eSIM",
               deviceType: parameters?.deviceType,
             });
             setModalShow(true);
@@ -119,10 +133,19 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
 
   return (
     <>
-      <div id={isViewNetwork ? "hideBackk" : ""} className={` ${getSpinnerLoader ? "packagesinfo hideBackk" : "packagesinfo"}`}>
+      <div
+        id={isViewNetwork ? "hideBackk" : ""}
+        className={` ${
+          getSpinnerLoader ? "packagesinfo hideBackk" : "packagesinfo"
+        }`}
+      >
         {getSpinnerLoader && (
           <div id="spinnerLoader">
-            <Spinner className="spinner" animation="border" variant="secondary" />
+            <Spinner
+              className="spinner"
+              animation="border"
+              variant="secondary"
+            />
           </div>
         )}
         <div className="logo">
@@ -149,7 +172,9 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           <div className="network">
             <div className="info">Network</div>
             <div className="about">
-              <span onClick={() => handleViewNetwork(selectedPackage.planId)}>View All</span>
+              <span onClick={() => handleViewNetwork(selectedPackage.planId)}>
+                View All
+              </span>
             </div>
           </div>
           <div className="network">
@@ -158,7 +183,9 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           </div>
           <div className="network">
             <div className="info">Top Up</div>
-            <div className="about">{selectedPackage.topup ? "Available" : "Not Available"}</div>
+            <div className="about">
+              {selectedPackage.topup ? "Available" : "Not Available"}
+            </div>
           </div>
         </div>
         <div className="policy">Activation Policy</div>
@@ -197,11 +224,13 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
                 <img src={getNetwork[0]?.countryImageURL} alt="flag" />
                 <div className="method">
                   <div className="body">
-                    {getNetwork[0]?.supported_networks?.map((network, index) => (
-                      <div className="plan" key={index}>
-                        <div>{network.name}</div>
-                      </div>
-                    ))}
+                    {getNetwork[0]?.supported_networks?.map(
+                      (network, index) => (
+                        <div className="plan" key={index}>
+                          <div>{network.name}</div>
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
