@@ -88,6 +88,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -143,6 +144,9 @@
 =======
         "/build/Simly.46bf7e14.js"
 >>>>>>> b9e4e679 (all)
+=======
+        "/build/Simly.0a600836.js"
+>>>>>>> 13576e99 (done with first page)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -269,7 +273,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.a29556e2.css"
+        "/build/SimlyStyle.86bb4955.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }
