@@ -39,7 +39,7 @@ const SuccessModal = (props) => {
             <img src={props.getSuccessModal.imgPath} alt="flag" />
             <div className="title">{props.getSuccessModal.title}</div>
             <div className="desc">{props.getSuccessModal.desc}</div>
-            <button className="okiBtnModal" onClick={props.getSuccessModal.btn === "OK" ? goToPlay() : props.onsetActiveButton} style={{backgroundColor:"#02ADFF",color:"#fff"}}>
+            <button className="okiBtnModal" onClick={props.getSuccessModal.btn === "OK" ? () => goToPlay() : props.onsetActiveButton} style={{backgroundColor:"#02ADFF",color:"#fff"}}>
               {props.getSuccessModal.btn}
             </button>
           </div>

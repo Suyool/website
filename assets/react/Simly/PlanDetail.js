@@ -60,43 +60,47 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
                 </div>
               </div>
             </div>
-            <div className="card">
-              <div className="data">
-                <div className="title2">Data</div>
-                <div className="info">{getPlanDetail?.DataUsage?.sim?.size} GB</div>
-              </div>
-              <div className="bd"></div>
-              <div className="price">
-                <div className="price2">Price</div>
-                <div className="info">${getPlanDetail?.simlyPlan?.initial_price}</div>
-              </div>
-            </div>
+            <div className="br"></div>
+
             <div className="valid">
-              Initial duration <span>{getPlanDetail?.simlyPlan?.duration} Days</span>
+              <div className="label">Valid for</div>
+              {/* <div className="value">{getPlanDetail?.simlyPlan?.duration} Days</div> */}
+              <div className="value">{getPlanDetail?.DataUsage?.plan?.daysLeft} Days</div>
             </div>
+
             <div className="valid">
-              Days left <span>{getPlanDetail?.DataUsage?.plan?.daysLeft} Days</span>
+              <div className="label">Works in</div>
+              <div className="value">{getPlanDetail?.country}</div>
             </div>
-            <div className="works">Works in</div>
-            <div className="country">{getPlanDetail?.country}</div>
-            <div className="information">
-              <div className="network">
-                <div className="info">Network</div>
-                <div className="about">
-                  <span onClick={() => setIsViewNetwork(true)}>View All</span>
-                </div>
-              </div>
-              <div className="network">
-                <div className="info">Plan Type</div>
-                <div className="about">{getPlanDetail?.simlyPlan?.planType}</div>
-              </div>
-              <div className="network">
-                <div className="info">Top Up</div>
-                <div className="about">{getPlanDetail?.simlyPlan?.topup ? "Available" : "Not Available"}</div>
+
+            <div className="br"></div>
+
+            <div className="valid">
+              <div className="label">Initial Plan Price</div>
+              <div className="value1">${getPlanDetail?.simlyPlan?.initial_price}</div>
+            </div>
+
+            <div className="valid">
+              <div className="label">Initial Plan Size</div>
+              <div className="value1">{getPlanDetail?.simlyPlan?.size} GB</div>
+            </div>
+
+            <div className="valid">
+              <div className="label">Plan Type</div>
+              <div className="value1">{getPlanDetail?.simlyPlan?.planType}</div>
+            </div>
+
+            <div className="valid">
+              <div className="label">Top Up</div>
+              <div className="value1">{getPlanDetail?.simlyPlan?.topup ? "Available" : "Not Available"}</div>
+            </div>
+
+            <div className="valid">
+              <div className="label">Network</div>
+              <div className="value3">
+                <span onClick={() => setIsViewNetwork(true)}>View All</span>
               </div>
             </div>
-            <div className="policy">Activation Policy</div>
-            <div className="validation">{getPlanDetail?.simlyPlan?.activationPolicy}</div>
           </div>
 
           {isViewNetwork && (
@@ -123,7 +127,7 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
                       <div className="body">
                         {getPlanDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
                           <div className="plan" key={index}>
-                            <div>{network.name}</div>
+                            <div style={{ color: "black" }}>{network.name}</div>
                           </div>
                         ))}
                       </div>

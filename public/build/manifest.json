@@ -34,6 +34,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -101,6 +102,9 @@
 =======
   "build/Simly.js": "/build/Simly.63c9e993.js",
 >>>>>>> 240792f0 (fix ui)
+=======
+  "build/Simly.js": "/build/Simly.fea8eeca.js",
+>>>>>>> 9e8f9a01 (working with maribelle)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
   "build/admin.css": "/build/admin.8fb78dae.css",
@@ -145,6 +149,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
 >>>>>>> b90ef454 (handle view all network with ui)
 =======
@@ -171,6 +176,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.9918d680.css",
 >>>>>>> bf3fce15 (fix ui)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.8f16383a.css",
+>>>>>>> 915710d6 (working with maribelle)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
