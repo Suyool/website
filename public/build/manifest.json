@@ -111,6 +111,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 <<<<<<< HEAD
@@ -142,6 +143,9 @@
 =======
 <<<<<<< HEAD
 >>>>>>> 08128141 (plan details)
+=======
+<<<<<<< HEAD
+>>>>>>> 582a413c (add payment page with new desgn)
   "build/Simly.js": "/build/Simly.f492abd5.js",
 =======
   "build/Simly.js": "/build/Simly.94675d50.js",
@@ -193,6 +197,9 @@
 =======
   "build/Simly.js": "/build/Simly.cef9a058.js",
 >>>>>>> f3ae3c84 (plan details)
+=======
+  "build/Simly.js": "/build/Simly.8a88fee9.js",
+>>>>>>> b7ebf020 (add payment page with new desgn)
   "build/styles.css": "/build/styles.eb2df758.css",
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
@@ -273,11 +280,15 @@
   "build/terraNetstyle.css": "/build/terraNetstyle.82a620c1.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.3972e4fd.css",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
 >>>>>>> b90ef454 (handle view all network with ui)
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.d914b5bb.css",
 >>>>>>> 35f5fd00 (plan details)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.5c19e853.css",
+>>>>>>> 2392fae3 (add payment page with new desgn)
   "build/runtime.js": "/build/runtime.e40c1cca.js",
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
@@ -1193,6 +1204,8 @@
   "build/images/commingSoon/twitter.png": "/build/images/commingSoon/twitter.png",
   "build/images/payroll/suyool-symbol.svg": "/build/images/payroll/suyool-symbol.svg",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
+  "build/images/install.svg": "/build/images/install.svg",
+  "build/images/copy.svg": "/build/images/copy.svg",
   "build/images/sodetel/2M-cir.svg": "/build/images/sodetel/2M-cir.svg",
   "build/images/sodetel/u2-cir.svg": "/build/images/sodetel/u2-cir.svg",
   "build/images/OnlinePayment.png": "/build/images/OnlinePayment.png",
