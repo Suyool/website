@@ -37,7 +37,7 @@ class SimlyController extends AbstractController
     }
 
     /**
-     * @Route("/alfa", name="simly")
+     * @Route("/simly", name="simly")
      */
     public function index(NotificationServices $notificationServices)
     {
