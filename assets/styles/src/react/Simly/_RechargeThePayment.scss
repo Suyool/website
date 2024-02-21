@@ -78,6 +78,9 @@
         .text {
           display: flex;
           flex-direction: column;
+          width: calc(100% - 40px);
+          overflow: hidden;
+          overflow-x: auto;
           .title {
             font-family: $Regular;
             font-size: 12px;
@@ -89,10 +92,13 @@
             color: black;
           }
         }
+        .text::-webkit-scrollbar{
+          display: none;
+        }
         .copy {
           width: 30px;
           height: 30px;
-        //   background-color: #02adff;
+        //   background-color: #02ADFF;
           border-radius: 50%;
           img{
             width: 100%;
