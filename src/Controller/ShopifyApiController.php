@@ -232,6 +232,8 @@ class ShopifyApiController extends AbstractController
                 $this->saveLog($logs);
 
                 return new JsonResponse($response);
+            }elseif ($flag == 3 || $flag == 7){
+                $order->setStatus(2);
             }
 
             $this->mr->persist($order);
