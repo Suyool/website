@@ -47,6 +47,8 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         .then((response) => {
           const jsonResponse = response.data.message;
           if (response.data.status) {
+            localStorage.setItem("qrImage",response.data.data.qrCodeImageUrl)
+            localStorage.setItem("qrString",response.data.data.qrCodeString)
             setSpinnerLoader(false);
             setModalName("SuccessModal");
             setSuccessModal({

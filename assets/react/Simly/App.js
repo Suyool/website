@@ -139,7 +139,7 @@ const App = ({ parameters }) => {
           onsetActiveButton={() => {
             setModalShow(false);
             setModalName("");
-            setActiveButton({ name: "Account" });
+            setActiveButton({ name: "RechargeThePayment" });
             console.log(activeButton);
           }}
           onHide={() => {

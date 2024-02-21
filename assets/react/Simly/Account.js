@@ -92,10 +92,10 @@ const Account = ({
               title: "eSIM Payment Successful",
               desc: (
                 <div>
-                  You have successfully purchased the ${reqObjOpt.amount} {reqObjOpt.country} eSIM.
+                  You have successfully Topup the eSIM Account.
                 </div>
               ),
-              btn: "Install eSIM",
+              btn: "OK",
               deviceType: parameters?.deviceType,
             });
             setModalShow(true);
