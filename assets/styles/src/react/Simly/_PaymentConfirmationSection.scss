@@ -55,15 +55,16 @@
 
     .bodySection {
         .bodyToTopup{
+            padding-left: 10px;
             .line{
                 border: 1px solid #eee ;
             }
             .data{
-                padding-bottom: 5px;
-                font-family: $SemiBold;
+                padding-bottom: 10px;
+                font-family: $Medium;
             }
             .country{
-                padding-top: 5px;
+                padding-top: 10px;
                 color: #000;
                 font-family: $SemiBold;
             }
