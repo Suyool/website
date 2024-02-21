@@ -7,11 +7,12 @@ import Packages from "./packages";
 import PackagesInfo from "./PackagesInfo";
 import Account from "./Account";
 import PlanDetail from "./PlanDetail";
+import RechargeThePayment from "./RechargeThePayment";
 
 const App = ({ parameters }) => {
   const [selectedPlan, setSelectedPlan] = useState(null); // State to store the selected plan
   const [selectedPackage, setSelectedPackage] = useState(null); // State to store the selected plan
-  const [activeButton, setActiveButton] = useState({ name: "" });
+  const [activeButton, setActiveButton] = useState({ name: "RechargeThePayment" });
   const [isPackageItem, setIsPackageItem] = useState(false);
   const [getBackLink, setBackLink] = useState({ name: "" });
   const [getHeaderTitle, setHeaderTitle] = useState("Suyool eSim");
@@ -114,6 +115,8 @@ const App = ({ parameters }) => {
               />
             )}
             {activeButton.name === "PlanDetail" && <PlanDetail getEsimDetail={getEsimDetail} setBackLink={setBackLink} />}
+
+            {activeButton.name === "RechargeThePayment" && <RechargeThePayment setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
           </>
         )}
       </div>

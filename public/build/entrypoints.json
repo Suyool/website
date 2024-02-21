@@ -84,6 +84,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.f492abd5.js"
 =======
         "/build/Simly.94675d50.js"
@@ -127,6 +128,9 @@
 =======
         "/build/Simly.cef9a058.js"
 >>>>>>> f3ae3c84 (plan details)
+=======
+        "/build/Simly.8a88fee9.js"
+>>>>>>> b7ebf020 (add payment page with new desgn)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -253,7 +257,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.d914b5bb.css"
+        "/build/SimlyStyle.5c19e853.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }
