@@ -71,98 +71,7 @@
     "Simly": {
       "js": [
         "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Simly.f492abd5.js"
-=======
-        "/build/Simly.94675d50.js"
->>>>>>> a92b03cd (simly)
-=======
-        "/build/Simly.94675d50.js"
-=======
-        "/build/Simly.ac0ef8c4.js"
->>>>>>> 2e6bd3d1 (handle top up)
->>>>>>> c896304e (handle top up)
-=======
-        "/build/Simly.70479d66.js"
->>>>>>> 57145b6d (yarn encore prod)
-=======
-        "/build/Simly.d869a7d1.js"
->>>>>>> 907a4068 (plan type)
-=======
-        "/build/Simly.c5467193.js"
->>>>>>> 5ac91996 (add script to error modal)
-=======
-        "/build/Simly.840e6230.js"
->>>>>>> e167b92e (fixes some bug)
-=======
-        "/build/Simly.ad4d4d45.js"
->>>>>>> db145d45 (handle cache bug)
-=======
-        "/build/Simly.0197ca86.js"
->>>>>>> 59986dfe (add loader to topup)
-=======
-        "/build/Simly.8737955b.js"
->>>>>>> 59179761 (accounts ui and desc charged esim by userid)
-=======
-        "/build/Simly.008bdca0.js"
->>>>>>> aba9ef34 (handle view all network with ui)
-=======
-        "/build/Simly.fa18b2d2.js"
->>>>>>> 57b34c12 (some fixes before working on detail page)
-=======
-        "/build/Simly.a09bd4c1.js"
->>>>>>> 05ad7a4c (details page with api)
-=======
-        "/build/Simly.cef9a058.js"
->>>>>>> f3ae3c84 (plan details)
-=======
-        "/build/Simly.8a88fee9.js"
->>>>>>> b7ebf020 (add payment page with new desgn)
-=======
-        "/build/Simly.9def121e.js"
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-=======
-        "/build/Simly.e3eb3070.js"
->>>>>>> 1314c1de (add country display)
-=======
-        "/build/Simly.46bf7e14.js"
->>>>>>> b9e4e679 (all)
-=======
-        "/build/Simly.0a600836.js"
->>>>>>> 13576e99 (done with first page)
-=======
-        "/build/Simly.a5a93881.js"
->>>>>>> e7001ee1 (done with some changes)
-=======
-        "/build/Simly.efaadf22.js"
->>>>>>> c0b20aad (fix ui)
-=======
-        "/build/Simly.63c9e993.js"
->>>>>>> 240792f0 (fix ui)
-=======
-        "/build/Simly.fea8eeca.js"
->>>>>>> 9e8f9a01 (working with maribelle)
+        "/build/Simly.7514688b.js"
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
@@ -204,6 +113,7 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/AlfaStyle.a4a047b5.css"
 =======
 <<<<<<< HEAD
@@ -212,6 +122,9 @@
         "/build/AlfaStyle.716bf853.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/AlfaStyle.edadb73f.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "TouchStyle": {
@@ -219,6 +132,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/TouchStyle.a4a047b5.css"
 =======
@@ -228,6 +142,9 @@
         "/build/TouchStyle.ba561260.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/TouchStyle.00f9da67.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "OgeroStyle": {
@@ -235,6 +152,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/OgeroStyle.4bb3fdaf.css"
 =======
@@ -244,6 +162,9 @@
         "/build/OgeroStyle.928573b2.css"
 >>>>>>> aba9ef34 (handle view all network with ui)
 >>>>>>> b90ef454 (handle view all network with ui)
+=======
+        "/build/OgeroStyle.e0500433.css"
+>>>>>>> 0faa7269 (still working on ui)
       ]
     },
     "Gift2GamesStyle": {
@@ -289,7 +210,7 @@
         "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.8f16383a.css"
+        "/build/SimlyStyle.25436ddc.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }
