@@ -51,7 +51,7 @@ class SimlyController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -377,7 +377,8 @@ class SimlyController extends AbstractController
                 ->setParentPlanType($parentPlanType)
                 ->setCountry($country)
                 ->setCountryImage(@$data['countryImage'])
-                ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']));
+                ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']))
+                ->setIsoCode($data['isoCode']);
         } else {
             $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
             if (!$esim) {
@@ -488,6 +489,7 @@ class SimlyController extends AbstractController
                 $res['qrCodeString'] = $esim->getQrCodeString();
                 $res['qrCodeImage'] = $esim->getQrCodeImageUrl();
                 $res['PlanType'] = $esim->getParentPlanType();
+                $res['isoCode']=$esim->getIsoCode();
 
                 if ($res)
                     $usage[] = $res;

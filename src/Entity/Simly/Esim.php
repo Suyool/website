@@ -100,6 +100,11 @@ class Esim
      */
     private $allowedPlans;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $isoCode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -279,6 +284,17 @@ class Esim
     public function setAllowedPlans(string $allowedPlans): self
     {
         $this->allowedPlans = $allowedPlans;
+        return $this;
+    }
+
+    public function getIsoCode(): ?string
+    {
+        return $this->isoCode;
+    }
+
+    public function setIsoCode(string $isoCode): self
+    {
+        $this->isoCode = $isoCode;
         return $this;
     }
 

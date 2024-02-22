@@ -43,6 +43,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           country: selectedPlan.name,
           countryImage: selectedPlan.countryImageURL,
           parentPlanType: localStorage.getItem("parentPlanType"),
+          isoCode:selectedPlan.isoCode
         })
         .then((response) => {
           const jsonResponse = response.data.message;
