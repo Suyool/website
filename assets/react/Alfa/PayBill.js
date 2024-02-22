@@ -78,6 +78,26 @@ const PayBill = ({
         }
         else if (
           response?.data?.message ==
+          "Customer not allowed to pay invoice at POS"
+        ) {
+          setSpinnerLoader(false);
+          setModalName("ErrorModal");
+          setErrorModal({
+            img: "/build/images/alfa/error.png",
+            title: "Unable To Pay Your Bill",
+            desc: (
+              <div>
+                The bill payment associated with {localStorage.getItem("billMobileNumber")} can only be paid via Alfa
+                <br/>
+                Please contact them for more information.
+              </div>
+            ),
+            btn: "OK",
+          });
+          setModalShow(true);
+        }
+        else if (
+          response?.data?.message ==
           "Internal Error"
         ) {
           setSpinnerLoader(false);

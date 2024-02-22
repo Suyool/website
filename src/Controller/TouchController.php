@@ -621,13 +621,32 @@ class TouchController extends AbstractController
                     if ($sendBill[0]) {
                         $postpaidRequestId = $postpaidRequest->getId();
                     } else {
+                        $message = $sendBill[2];
+                        switch ($message) {
+                            case "Error from Touch":
+                                $title = "Unable To Pay Your Bill";
+                                $body = "We were unable to process your transaction for the bill payment associated with {$data["mobileNumber"]} .<br>Kindly check your internet connection & try again. ";
+                                break;
+                            default:
+                                $title = "Number Not Found";
+                                $body = "The number you entered was not found in the system.<br>Kindly try another number.";
+                                break;
+                        }
                         $postpaidRequestId = -1;
                     }
                     $messageBack = $sendBill[2];
                 }
+                $popup = [
+                    "Title" => @$title,
+                    "globalCode" => 0,
+                    "flagCode" => 800,
+                    "Message" => @$body,
+                    "isPopup" => true
+                ];
                 $parameters = [
                     'isSuccess' => $sendBill[0],
-                    'postpaidRequestId' => $postpaidRequestId
+                    'postpaidRequestId' => $postpaidRequestId,
+                    'Popup'=>@$popup
                 ];
                 return new JsonResponse([
                     'status' => true,
@@ -689,6 +708,23 @@ class TouchController extends AbstractController
                         $invoicesId = -1;
                     }
                     $messageBack = $retrieveResults[2];
+                    switch ($messageBack) {
+                        case "Invalid PIN":
+                            $title = $messageBack;
+                            $body = $messageBack . "<br> Error : " . $messageBack;
+                            break;
+                        default:
+                            $title = "No Available Bill";
+                            $body = "There is no available bill for {$data["mobileNumber"]} at the moment. <br></br>Kindly try again later. ";
+                            break;
+                    }
+                    $popup = [
+                        "Title" => @$title,
+                        "globalCode" => 0,
+                        "flagCode" => 800,
+                        "Message" => @$body,
+                        "isPopup" => true
+                    ];
                 } else {
                     $values = -1;
                     $invoicesId = -1;
@@ -699,6 +735,7 @@ class TouchController extends AbstractController
                     'postpayed' => $invoicesId,
                     'displayData' => $values,
                     'displayedFees' => $displayedFees,
+                    'Popup'=>@$popup
                 ];
 
                 return new JsonResponse([
@@ -785,14 +822,15 @@ class TouchController extends AbstractController
 
                             //intial notification
                             $params = json_encode([
-                                'amount' => $order->getamount(),
+                                'amount' => number_format($order->getamount()),
                                 'currency' => "L.L",
                                 'mobilenumber' => $Postpaid_With_id->getGsmNumber(),
+                                'name'=>$data['PayerName']
                             ]);
                             $additionalData = "";
-                            $content = $notificationServices->getContent('AcceptedTouchPayment');
-                            $bulk = 0; //1 for broadcast 0 for unicast
-                            $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                            $content = $notificationServices->getContent('AcceptedTouchPaymentCorporate');
+                            $bulk = 1; //1 for broadcast 0 for unicast
+                            $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
 
                             $updateUtilitiesAdditionalData = json_encode([
                                 'Amount' => $Postpaid_With_id->getamount(),
