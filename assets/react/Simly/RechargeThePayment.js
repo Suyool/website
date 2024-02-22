@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from "react";
 import QrDownload from "../Components/QrDownload";
 import { async } from "regenerator-runtime";
-const RechargeThePayment = ({ setHeaderTitle, setBackLink }) => {
+import axios from "axios";
+
+const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
   const [getselectedBtn, setselectedBtn] = useState("qr");
   const [qr, setQr] = React.useState(null);
+  const [getPlanDetail, setPlanDetail] = useState(null);
 
   useEffect(() => {
     setHeaderTitle("Suyool eSim");
     setBackLink("Account");
+
+    axios
+      .post("/simly/GetEsimDetails", {
+        esimId: getEsimId,
+      })
+      .then((response) => {
+        setPlanDetail(response.data.message);
+        console.log(response.data.message);
+      });
   }, []);
 
   const handleDownload = async (e) => {
@@ -92,7 +104,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink }) => {
             </div>
             <div className="steps">
               <div className="dot"></div>
-              <div className="textStep">Label the eSIM as ‘Simly - People’s Republic of China’.</div>
+              <div className="textStep">Label the eSIM.</div>
             </div>
             <div className="steps">
               <div className="dot"></div>
@@ -111,7 +123,16 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink }) => {
           <div className="titleDes">Follow these steps to access your eSIM:</div>
 
           <div className="stepsToRecharge mt-4">
-            <div className="subTitle">Network: China Unicom</div>
+            <div id="NetworksubTitle">
+              <div className="title">Network :</div>
+              <div className="bodyy">
+                {getPlanDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
+                  <div className="plan" key={index}>
+                    <div style={{ color: "black" }}>-{" "}{network.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
             <div className="subTitle">APN: The APN is set automatically</div>
             <div className="subTitle">Data Roaming: ON</div>
             <div className="steps mt-2">

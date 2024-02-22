@@ -3,23 +3,7 @@ import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
 import { Spinner } from "react-bootstrap";
 
-const Account = ({
-  setHeaderTitle,
-  parameters,
-  selectedPlan,
-  setActiveButton,
-  selectedPackage,
-  setEsimDetail,
-  setBackLink,
-  getDataGetting,
-  setDataGetting,
-  setErrorModal,
-  setSuccessModal,
-  setModalName,
-  setModalShow,
-  setSpinnerLoader,
-  getSpinnerLoader,
-}) => {
+const Account = ({ setHeaderTitle, parameters, selectedPlan, setActiveButton, selectedPackage, setEsimDetail, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader, setEsimId }) => {
   const [getAccountInformation, setAccountInformation] = useState();
   const [getMap, setMap] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -66,9 +50,7 @@ const Account = ({
         }, 2000);
       } else if (parameters?.deviceType === "Iphone") {
         setTimeout(() => {
-          window.webkit.messageHandlers.callbackHandler.postMessage(
-            "fingerprint"
-          );
+          window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
         }, 2000);
       }
       window.handleCheckout = (message) => {
@@ -90,11 +72,7 @@ const Account = ({
             setSuccessModal({
               imgPath: "/build/images/Loto/success.png",
               title: "eSIM Payment Successful",
-              desc: (
-                <div>
-                  You have successfully Topup the eSIM Account.
-                </div>
-              ),
+              desc: <div>You have successfully Topup the eSIM Account.</div>,
               btn: "OK",
               deviceType: parameters?.deviceType,
             });
@@ -149,143 +127,105 @@ const Account = ({
   return (
     <>
       {getSpinnerLoader && (
-        <div
-          className={` ${
-            getSpinnerLoader ? "accountInfo hideBackk" : "accountInfo"
-          }`}
-        >
+        <div className={` ${getSpinnerLoader ? "accountInfo hideBackk" : "accountInfo"}`}>
           <div id="spinnerLoader">
-            <Spinner
-              className="spinner"
-              animation="border"
-              variant="secondary"
-            />
+            <Spinner className="spinner" animation="border" variant="secondary" />
           </div>
         </div>
       )}
       {isLoading ? (
         <div className="mt-5" style={{ margin: "0 10px" }}>
-          <ContentLoader
-            speed={2}
-            width="100%"
-            height="90vh"
-            backgroundColor="#f3f3f3"
-            foregroundColor="#ecebeb"
-          >
+          <ContentLoader speed={2} width="100%" height="90vh" backgroundColor="#f3f3f3" foregroundColor="#ecebeb">
             <rect x="0" y="0" rx="3" ry="3" width="100%" height="180" />
             <rect x="0" y="210" rx="3" ry="3" width="100%" height="180" />
           </ContentLoader>
         </div>
       ) : (
         <>
-        <div className={isViewNetwork ? "hideBackk" : ""}>
-          {getMap && (
-            <>
-              {getAccountInformation.map((data, index) => (
-                <div key={index} className="accountcomp">
-                  <div className="accountCard">
-                    <div className="titleaccount">
-                      {data.countryImage ? (
-                        <img src={data.countryImage} />
-                      ) : (
-                        <img src="/build/images/simlyIcon.svg" />
-                      )}
-                      <span>{data.country}</span>
-                    </div>
-                    <div className="rechargable">
-                      <div className="single-chart">
-                        <svg
-                          viewBox="0 0 36 36"
-                          className={`circular-chart ${
-                            data.sim.status === "FULLY_USED"
-                              ? "violet"
-                              : "green"
-                          }`}
-                        >
-                          <path
-                            className="circle-bg"
-                            d="M18 2.0845
+          <div className={isViewNetwork ? "hideBackk" : ""}>
+            {getMap && (
+              <>
+                {getAccountInformation.map((data, index) => (
+                  <div key={index} className="accountcomp">
+                    <div className="accountCard">
+                      <div className="titleaccount">
+                        {data.countryImage ? <img src={data.countryImage} /> : <img src="/build/images/simlyIcon.svg" />}
+                        <span>{data.country}</span>
+                      </div>
+                      <div className="rechargable">
+                        <div className="single-chart">
+                          <svg viewBox="0 0 36 36" className={`circular-chart ${data.sim.status !== "FULLY_USED" ? "violet" : "green"}`}>
+                            <path
+                              className="circle-bg"
+                              d="M18 2.0845
        a 15.9155 15.9155 0 0 1 0 31.831
        a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                          <path
-                            className="circle"
-                            strokeDasharray={`${data.sim.consumedPercentage}, 100`}
-                            d="M18 2.0845
+                            />
+                            <path
+                              className="circle"
+                              strokeDasharray={`${data.sim.consumedPercentage}, 100`}
+                              d="M18 2.0845
        a 15.9155 15.9155 0 0 1 0 31.831
        a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                          <text x="18" y="20.35" className="percentage">
-                            {data.sim.consumed}GB
-                          </text>
-                        </svg>
-                        <div className="used">used from {data.sim.size} GB</div>
+                            />
+                            <text x="18" y="20.35" className="percentage">
+                              {data.sim.consumed}GB
+                            </text>
+                          </svg>
+                          <div className="used">used from {data.sim.size} GB</div>
+                        </div>
+                        <div className="radio">
+                          <input type="checkbox" id="eSim" name="eSim" value="eSim" checked={data.sim.status === "FULLY_USED"} disabled />
+                          <label className="esim">eSim is still valid</label>
+                          <br />
+                          <input type="checkbox" id="plans" name="plans" value="plan" checked={data.sim.status !== "FULLY_USED"} disabled />
+                          <label className="esim">Plan has been fully used</label>
+                        </div>
                       </div>
-                      <div className="radio">
-                        <input
-                          type="checkbox"
-                          id="eSim"
-                          name="eSim"
-                          value="eSim"
-                          checked={data.sim.status !== "FULLY_USED"}
-                          disabled
-                        />
-                        <label className="esim">eSim is still valid</label>
-                        <br />
-                        <input
-                          type="checkbox"
-                          id="plans"
-                          name="plans"
-                          value="plan"
-                          checked={data.sim.status === "FULLY_USED"}
-                          disabled
-                        />
-                        <label className="esim">Plan has been fully used</label>
-                      </div>
-                    </div>
-                    <div className="btns">
-                      <div className={data.sim.status === "PENDING" ? "topup" : "details"}>
-                        <button
-                          className="btntopup"
-                          onClick={() => {
-                            setReqObj({
-                              esimId: data?.esimId,
-                              planId: data?.plan,
-                              countryImage: data?.countryImage,
-                            });
-                            setReqObjOpt({
-                              gb: data?.sim?.size,
-                              amount: data?.initialPrice,
-                              country: data.country,
-                            });
-                            setIsViewNetwork(true);
-                          }}
-                        >
-                          Top up
-                        </button>
-                      </div>
-                      <div className={data.sim.status !== "PENDING" ? "topup" : "details"}>
-                        <button
-                          className="btntopup"
-                          onClick={() => {
-                            setEsimDetail({});
-                            setEsimDetail(data);
-                            setActiveButton({ name: data.sim.status !== "PENDING" ? "RechargeThePayment" : "PlanDetail" });
-                            if (data.sim.status !== "PENDING") {
+                      <div className="btns">
+                        <div className={data.sim.status !== "PENDING" ? "topup" : "details"}>
+                          <button
+                            className="btntopup"
+                            onClick={() => {
+                              setReqObj({
+                                esimId: data?.esimId,
+                                planId: data?.plan,
+                                countryImage: data?.countryImage,
+                              });
+                              setReqObjOpt({
+                                gb: data?.sim?.size,
+                                amount: data?.initialPrice,
+                                country: data.country,
+                              });
+                              setIsViewNetwork(true);
+                            }}
+                          >
+                            Top up
+                          </button>
+                        </div>
+                        <div className={data.sim.status === "PENDING" ? "topup" : "details"}>
+                          <button
+                            className="btntopup"
+                            onClick={() => {
+                              setEsimId(data.esimId);
+                              setEsimDetail({});
+                              setEsimDetail(data);
+                              setActiveButton({ name: data.sim.status === "PENDING" ? "RechargeThePayment" : "PlanDetail" });
+                              if (data.sim.status !== "PENDING") {
                                 localStorage.setItem("qrImage", data.qrCodeImage);
                                 localStorage.setItem("qrString", data.qrCodeString);
                               }
-                          }}
-                        >
-                           {data.sim.status !== "PENDING" ? "Install" : "Details"}
-                        </button>
+                            }}
+                          >
+                            {data.sim.status === "PENDING" ? "Install" : "Details"}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </>
-          )}
+                ))}
+              </>
+            )}
           </div>
           {isViewNetwork && !getSpinnerLoader && (
             <>

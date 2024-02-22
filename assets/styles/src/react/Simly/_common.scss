@@ -178,3 +178,22 @@
 #hideBackk{
     opacity: 0.5;
 }
+
+#NetworksubTitle{
+    display: flex;
+    flex-direction: row;
+
+    .title {
+        color: #000;
+        font-family: $SemiBold;
+        font-size: 14px;
+        width: 88px;
+    }
+    .bodyy{
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 150px);
+        font-family: $Medium;
+        font-size: 14px;
+    }
+}

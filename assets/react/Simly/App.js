@@ -21,6 +21,7 @@ const App = ({ parameters }) => {
   const [getDataGetting, setDataGetting] = useState("");
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getEsimDetail, setEsimDetail] = useState({});
+  const [getEsimId, setEsimId] = useState(null);
 
   const [getSuccessModal, setSuccessModal] = useState({
     imgPath: "/build/images/alfa/SuccessImg.png",
@@ -121,11 +122,12 @@ const App = ({ parameters }) => {
                 setSpinnerLoader={setSpinnerLoader}
                 getSpinnerLoader={getSpinnerLoader}
                 setEsimDetail={setEsimDetail}
+                setEsimId={setEsimId}
               />
             )}
             {activeButton.name === "PlanDetail" && <PlanDetail getEsimDetail={getEsimDetail} setBackLink={setBackLink} />}
 
-            {activeButton.name === "RechargeThePayment" && <RechargeThePayment setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} />}
+            {activeButton.name === "RechargeThePayment" && <RechargeThePayment setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} getEsimId={getEsimId} />}
 
           </>
         )}
