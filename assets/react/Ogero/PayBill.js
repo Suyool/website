@@ -13,8 +13,8 @@ const PayBill = ({
   setHeaderTitle,
   setBackLink,
 }) => {
-  const [ mobileNumber, setMobileNumber ] = useState("");
-  const [ getSpinnerLoader, setSpinnerLoader ] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     setHeaderTitle("Pay Landline Bill");
@@ -42,9 +42,9 @@ const PayBill = ({
             setLandlineData({ id: response?.data?.LandlineReqId });
             setLandlineDisplayedData(response?.data?.message);
             setLandlineMobile(response?.data?.mobileNb);
-          }
-          else if (
-            response?.data?.message == 111 || response?.data?.message == 108
+          } else if (
+            response?.data?.message == 111 ||
+            response?.data?.message == 108
           ) {
             setSpinnerLoader(false);
             setModalName("ErrorModal");
@@ -53,9 +53,26 @@ const PayBill = ({
               title: " No Pending Bill",
               desc: (
                 <div>
-                  There is no pending bill on the landline <br/> {mobileNumber}
-                  <br/>
+                  There is no pending bill on the landline <br /> {mobileNumber}
+                  <br />
                   Kindly try again later
+                </div>
+              ),
+              btn: "OK",
+            });
+            setModalShow(true);
+          } else if (response?.data?.message == 113) {
+            setSpinnerLoader(false);
+            setModalName("ErrorModal");
+            setErrorModal({
+              imgPath: "/build/images/alfa/error.png",
+              title: "Unable To Pay Your Bill",
+              desc: (
+                <div>
+                  The bill payment associated with {mobileNumber} can only be
+                  paid via Ogero
+                  <br />
+                  Please contact them for more information.
                 </div>
               ),
               btn: "OK",
