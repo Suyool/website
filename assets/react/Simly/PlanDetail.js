@@ -4,6 +4,9 @@ import React, { useEffect, useState } from "react";
 const PlanDetail = ({ getEsimDetail, setBackLink }) => {
   const [getPlanDetail, setPlanDetail] = useState(null);
   const [isViewNetwork, setIsViewNetwork] = useState(false);
+  const [getCountry, setCountry] = useState(null);
+  const [isViewCountry, setIsViewCountry] = useState(false);
+
   // console.log(getEsimDetail);
   useEffect(() => {
     setBackLink("Account");
@@ -16,7 +19,19 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
         // console.log(response.data.message);
       });
   }, []);
-  console.log(getPlanDetail);
+  console.log(getEsimDetail);
+
+  const handleViewCountry = (country) => {
+    setIsViewCountry(!isViewCountry);
+    axios
+      .get(`/simly/getContientAvailableByCountry?country=${country}`)
+      .then((response) => {
+        setCountry(response?.data?.message);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
 
   return (
     <>
@@ -109,13 +124,14 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
               <div className="label">Works in</div>
               <div className="value">{getPlanDetail?.country}</div>
             </div>
-            {(getEsimDetail?.PlanType != "Local") && (
+            {getEsimDetail?.PlanType != "Local" && (
               <div className="valid" style={{ paddingTop: "unset" }}>
                 <div className="label"></div>
-                <div className="value3">
-                  <span>
-                    View Countries
-                  </span>
+                <div
+                  className="value3"
+                  onClick={() => handleViewCountry(getEsimDetail?.isoCode)}
+                >
+                  <span>View Countries</span>
                 </div>
               </div>
             )}
@@ -214,6 +230,52 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
         </>
       ) : (
         <></>
+      )}
+      {isViewCountry && Array.isArray(getCountry) && (
+        <>
+          <div id="PaymentConfirmationSection">
+            <div className="topSection">
+              <div className="brBoucket"></div>
+              <div className="titles">
+                <div className="titleGrid">Supported Countries</div>
+                <button
+                  onClick={() => {
+                    setIsViewCountry(false);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <div className="bodySection">
+              <div className="cardSec">
+                <div className="method">
+                  <div className="bodyCountry">
+                    {getCountry[0][getEsimDetail?.isoCode]?.map(
+                      (country, index) => (
+                        <div className="plan" key={index}>
+                          <img src={country.countryImageURL} alt="flag" />
+                          <div className="name">{country.name}</div>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="footSectionPick">
+              <button
+                onClick={() => {
+                  setIsViewCountry(false);
+                }}
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </>
   );
