@@ -21,16 +21,22 @@
     "app1": {
       "js": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/app1.1dfb62eb.js"
 =======
         "/build/runtime.js",
         "/build/app1.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/app1.1dfb62eb.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "admin-app": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/admin-app.fd697fc2.js"
@@ -38,10 +44,15 @@
         "/build/runtime.js",
         "/build/admin-app.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/admin-app.fd697fc2.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "Loto": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Loto.ecf58fd2.js"
@@ -49,10 +60,15 @@
         "/build/runtime.js",
         "/build/Loto.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Loto.ecf58fd2.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "LegalEnrollement": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/LegalEnrollement.2acf5642.js"
@@ -65,35 +81,45 @@
 =======
         "/build/runtime.js",
         "/build/LegalEnrollement.js"
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/LegalEnrollement.2acf5642.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "Alfa": {
       "js": [
-        "/build/runtime.js",
-        "/build/Alfa.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Alfa.676a2730.js"
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.js",
-        "/build/Touch.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Touch.2d4d4442.js"
       ]
     },
     "Ogero": {
       "js": [
-        "/build/runtime.js",
-        "/build/Ogero.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Ogero.5fdf7f33.js"
       ]
     },
     "Gift2Games": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/Gift2Games.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Gift2Games.235249a9.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "iveri": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/iveri.429e5515.js"
@@ -101,10 +127,15 @@
         "/build/runtime.js",
         "/build/iveri.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/iveri.429e5515.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "TerraNet": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/TerraNet.4a892938.js"
@@ -112,10 +143,15 @@
         "/build/runtime.js",
         "/build/TerraNet.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/TerraNet.4a892938.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "Sodetel": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Sodetel.7f47d3e3.js"
@@ -123,19 +159,24 @@
         "/build/runtime.js",
         "/build/Sodetel.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js",
+        "/build/Sodetel.7f47d3e3.js"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
 <<<<<<< HEAD
 =======
     "Simly": {
       "js": [
-        "/build/runtime.js",
-        "/build/Simly.js"
+        "/build/runtime.e40c1cca.js",
+        "/build/Simly.da023177.js"
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
     "styles": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
@@ -147,46 +188,65 @@
       "css": [
         "/build/styles.css"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/styles.eb2df758.css"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "admin": {
       "js": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
 =======
         "/build/runtime.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
       ],
       "css": [
-        "/build/admin.css"
+        "/build/admin.8fb78dae.css"
       ]
     },
     "Lotostyles": {
       "js": [
 <<<<<<< HEAD
-        "/build/runtime.cbe92cc0.js"
-=======
-        "/build/runtime.js"
->>>>>>> d178def9 (some changes)
-      ],
-      "css": [
-        "/build/Lotostyles.css"
-      ]
-    },
-    "LegalEnrollementStyle": {
-      "js": [
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
 =======
         "/build/runtime.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/Lotostyles.77b15344.css"
+      ]
+    },
+    "LegalEnrollementStyle": {
+      "js": [
+<<<<<<< HEAD
+<<<<<<< HEAD
+        "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
+      ],
+      "css": [
+        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
     "AlfaStyle": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
@@ -210,10 +270,17 @@
       "css": [
         "/build/AlfaStyle.css"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/AlfaStyle.edadb73f.css"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "TouchStyle": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
@@ -237,10 +304,17 @@
       "css": [
         "/build/TouchStyle.css"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/TouchStyle.00f9da67.css"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "OgeroStyle": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
@@ -264,10 +338,17 @@
       "css": [
         "/build/OgeroStyle.css"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/OgeroStyle.e0500433.css"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "Gift2GamesStyle": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
@@ -283,52 +364,70 @@
       "css": [
         "/build/Gift2GamesStyle.css"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+      ],
+      "css": [
+        "/build/Gift2GamesStyle.dbcb3134.css"
+>>>>>>> 30911976 (handle hassan changes)
       ]
     },
     "iveristyles": {
       "js": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
 =======
         "/build/runtime.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
       ],
       "css": [
-        "/build/iveristyles.css"
+        "/build/iveristyles.382777e8.css"
       ]
     },
     "terraNetstyle": {
       "js": [
 <<<<<<< HEAD
-        "/build/runtime.cbe92cc0.js"
-=======
-        "/build/runtime.js"
->>>>>>> d178def9 (some changes)
-      ],
-      "css": [
-        "/build/terraNetstyle.css"
-      ]
-    },
-    "SodetelStyle": {
-      "js": [
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
 =======
         "/build/runtime.js"
 >>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
       ],
       "css": [
-        "/build/SodetelStyle.css"
+        "/build/terraNetstyle.82a620c1.css"
+      ]
+    },
+    "SodetelStyle": {
+      "js": [
+<<<<<<< HEAD
+<<<<<<< HEAD
+        "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
+=======
+        "/build/runtime.e40c1cca.js"
+>>>>>>> 30911976 (handle hassan changes)
+      ],
+      "css": [
+        "/build/SodetelStyle.3972e4fd.css"
       ]
 <<<<<<< HEAD
 =======
     },
     "SimlyStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.e40c1cca.js"
       ],
       "css": [
-        "/build/SimlyStyle.css"
+        "/build/SimlyStyle.af909b84.css"
       ]
 >>>>>>> 722c8a70 (add loader to topup)
     }

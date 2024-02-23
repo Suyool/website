@@ -43,12 +43,12 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
           country: selectedPlan.name,
           countryImage: selectedPlan.countryImageURL,
           parentPlanType: localStorage.getItem("parentPlanType"),
-          isoCode:selectedPlan.isoCode
+          isoCode: selectedPlan.isoCode,
         })
         .then((response) => {
           const jsonResponse = response.data.message;
           if (response.data.status) {
-            localStorage.setItem("esimId",response.data.data.id);
+            localStorage.setItem("esimId", response.data.data.id);
             setSpinnerLoader(false);
             setModalName("SuccessModal");
             setSuccessModal({
@@ -168,7 +168,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         </div>
 
         {(planType == "Regional" || planType == "Global") && (
-          <div className="valid" style={{paddingTop: "unset"}}>
+          <div className="valid" style={{ paddingTop: "unset" }}>
             <div className="label"></div>
             <div className="value3">
               <span onClick={() => handleViewCountry(selectedPlan.isoCode)}>View Countries</span>
@@ -220,6 +220,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
 
       {isViewNetwork && Array.isArray(getNetwork) && (
         <>
+          <div id="backHid"></div>
           <div id="PaymentConfirmationSection">
             <div className="topSection">
               <div className="brBoucket"></div>
@@ -242,7 +243,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
                   <div className="body">
                     {getNetwork[0]?.supported_networks?.map((network, index) => (
                       <div className="plan" key={index}>
-                        <div  style={{ color: "black" }}>{network.name}</div>
+                        <div style={{ color: "black" }}>{network.name}</div>
                       </div>
                     ))}
                   </div>
@@ -265,6 +266,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
 
       {isViewCountry && Array.isArray(getCountry) && (
         <>
+          <div id="backHid"></div>
           <div id="PaymentConfirmationSection">
             <div className="topSection">
               <div className="brBoucket"></div>
