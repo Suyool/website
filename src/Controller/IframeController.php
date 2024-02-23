@@ -358,4 +358,33 @@ class IframeController extends AbstractController
         }
         return new Response('Invalid request', Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @Route("/check_payment_status/", name="app_check_payment_status")
+     */
+    public function checkPaymentStatus(Request $request)
+    {
+        $data = $request->request->all();
+        $transactionId = $data['transaction_id'];
+        $merchantId = $data['merchant_id'];
+        $secureHash = $data['secureHash'];
+
+        $json = [
+            "transactionID" => $transactionId,
+            "merchantAccountID" => $merchantId,
+            "secureHash" => $secureHash
+        ];
+        $params['data'] = json_encode($json);
+        $params['url'] = '/CheckPaymentStatus';
+
+
+        $response = $this->client->request('POST', $this->SUYOOL_API_HOST . $params['url'], [
+            'body' => $params['data'],
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+        $result = json_decode($response->getContent(), true);
+
+    }
 }
