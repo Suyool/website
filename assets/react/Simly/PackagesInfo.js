@@ -48,8 +48,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         .then((response) => {
           const jsonResponse = response.data.message;
           if (response.data.status) {
-            localStorage.setItem("qrImage", response.data.data.qrCodeImageUrl);
-            localStorage.setItem("qrString", response.data.data.qrCodeString);
+            localStorage.setItem("esimId",response.data.data.id);
             setSpinnerLoader(false);
             setModalName("SuccessModal");
             setSuccessModal({
@@ -57,7 +56,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
               title: "eSIM Payment Successful",
               desc: (
                 <div>
-                  You have successfully purchased the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
+                  You have successfully topped up the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
                 </div>
               ),
               btn: "Install eSIM",
