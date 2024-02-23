@@ -14,7 +14,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
 
     axios
       .post("/simly/GetEsimDetails", {
-        esimId: getEsimId,
+        esimId: localStorage.getItem("esimId"),
       })
       .then((response) => {
         setPlanDetail(response.data.message);
@@ -24,7 +24,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
 
   const handleDownload = async (e) => {
     try {
-      const result = await fetch(localStorage.getItem("qrImage"), {
+      const result = await fetch(getPlanDetail?.qrCodeImage, {
         method: "GET",
         headers: {},
       });
@@ -33,13 +33,12 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
 
       const link = document.createElement("a");
       link.href = url;
-      link.download = localStorage.getItem("qrImage");
+      link.download = getPlanDetail?.qrCodeImage;
       link.click();
     } catch (error) {
       console.error(error);
     }
   };
-
   const copyToClipboard = (data) => {
     // Create a textarea element
     const textarea = document.createElement("textarea");
@@ -72,7 +71,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
           <div className="QrBox">
             <div className="title">This is your purchased eSim!</div>
             <div className="imageBox">
-              <img className="image" src={localStorage.getItem("qrImage")} alt="qrCode" />
+              <img className="image" src={getPlanDetail?.qrCodeImage} alt="qrCode" />
             </div>
 
             <div className="downloadBtn" onClick={handleDownload}>
@@ -165,19 +164,19 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
               <div className="cardNumber">
                 <div className="text">
                   <div className="title">SM-DP+ ADDRESS</div>
-                  <div className="desc">{localStorage.getItem("qrString")}</div>
+                  <div className="desc">{getPlanDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(localStorage.getItem("qrString"))} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(getPlanDetail?.qrCodeString)} />
                 </div>
               </div>
               <div className="cardNumber">
                 <div className="text">
                   <div className="title">ACTIVATION CODE</div>
-                  <div className="desc">{localStorage.getItem("qrString")}</div>
+                  <div className="desc">{getPlanDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(localStorage.getItem("qrString"))} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(getPlanDetail?.qrCodeString)} />
                 </div>
               </div>
             </div>
@@ -226,7 +225,16 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
           <div className="titleDes">Follow these steps to access your eSIM:</div>
 
           <div className="stepsToRecharge mt-4">
-            <div className="subTitle">Network: China Unicom</div>
+          <div id="NetworksubTitle">
+              <div className="title">Network :</div>
+              <div className="bodyy">
+                {getPlanDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
+                  <div className="plan" key={index}>
+                    <div style={{ color: "black" }}>-{" "}{network.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
             <div className="subTitle">APN: The APN is set automatically</div>
             <div className="subTitle">Data Roaming: ON</div>
             <div className="steps mt-2">

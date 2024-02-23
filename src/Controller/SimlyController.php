@@ -525,7 +525,9 @@ class SimlyController extends AbstractController
             'countryImage' => $esims[0]->getCountryImage(),
             'DataUsage' => $fetchDataUsage,
             'simlyPlan' => $simlyPlan,
-            'NetworkAvailable' => $NetworkAvailable
+            'NetworkAvailable' => $NetworkAvailable,
+            'qrCodeImage'=>$esims[0]->getQrCodeImageUrl(),
+            'qrCodeString'=>$esims[0]->getQrCodeString()
         ];
 
         return new JsonResponse([

@@ -112,25 +112,26 @@ const Packages = ({
 
   const displaycontinent = (continent) => {
     switch (continent) {
-      case "AF":
-        return "Africa";
-      case "AS":
-        return "Asia";
       case "EU":
         return "Europe";
       case "NA":
         return "North America";
+      case "ME":
+        return "Middle East";
+      case "AS":
+        return "Asia";
+      case "AF":
+        return "Africa";
       case "SA":
         return "South America";
       case "OC":
         return "Oceania";
-      case "ME":
-        return "Middle East";
 
       default:
         return continent;
     }
   };
+  console.log(selectedData)
 
   return (
     <>
@@ -206,7 +207,7 @@ const Packages = ({
         />
       ) : (
         <>
-          { (
+          {
             <>
               {view === "regions" && (
                 <div className="row" style={{ margin: "0 10px" }}>
@@ -276,7 +277,7 @@ const Packages = ({
                 </div>
               )}
             </>
-          )}
+          }
           {view === "countries" && (
             <>
               {isLoading ? (

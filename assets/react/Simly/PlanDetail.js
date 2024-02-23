@@ -175,7 +175,8 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
           {isViewNetwork && (
             <>
               <div id="PaymentConfirmationSection">
-                <div className="topSection">
+                <div className="backHid">
+                           <div className="topSection">
                   <div className="brBoucket"></div>
                   <div className="titles">
                     <div className="titleGrid">Supported Networks</div>
@@ -224,6 +225,8 @@ const PlanDetail = ({ getEsimDetail, setBackLink }) => {
                     Got it
                   </button>
                 </div>
+                </div>
+       
               </div>
             </>
           )}

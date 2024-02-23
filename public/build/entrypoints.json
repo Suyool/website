@@ -38,24 +38,40 @@
     },
     "app1": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/app1.1dfb62eb.js"
+=======
+        "/build/runtime.js",
+        "/build/app1.js"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "admin-app": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/admin-app.fd697fc2.js"
+=======
+        "/build/runtime.js",
+        "/build/admin-app.js"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "Loto": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Loto.ecf58fd2.js"
+=======
+        "/build/runtime.js",
+        "/build/Loto.js"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "LegalEnrollement": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/LegalEnrollement.2acf5642.js"
       ]
@@ -89,20 +105,76 @@
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
+<<<<<<< HEAD
         "/build/Gift2Games.fe9ace55.js"
+=======
+        "/build/Gift2Games.f015a3a8.js"
+=======
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
+      ]
+    },
+    "Alfa": {
+      "js": [
+        "/build/runtime.js",
+        "/build/Alfa.js"
+      ]
+    },
+    "Touch": {
+      "js": [
+        "/build/runtime.js",
+        "/build/Touch.js"
+      ]
+    },
+    "Ogero": {
+      "js": [
+        "/build/runtime.js",
+        "/build/Ogero.js"
+      ]
+    },
+    "Gift2Games": {
+      "js": [
+        "/build/runtime.js",
+        "/build/Gift2Games.js"
+>>>>>>> d178def9 (some changes)
+>>>>>>> fdc034ff (some changes)
       ]
     },
 >>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
     "iveri": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/iveri.429e5515.js"
+=======
+        "/build/runtime.js",
+        "/build/iveri.js"
+>>>>>>> d178def9 (some changes)
       ]
     },
+<<<<<<< HEAD
+=======
+    "TerraNet": {
+      "js": [
+<<<<<<< HEAD
+        "/build/runtime.cbe92cc0.js",
+        "/build/TerraNet.4a892938.js"
+=======
+        "/build/runtime.js",
+        "/build/TerraNet.js"
+>>>>>>> d178def9 (some changes)
+      ]
+    },
+>>>>>>> fdc034ff (some changes)
     "Sodetel": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Sodetel.7f47d3e3.js"
+=======
+        "/build/runtime.js",
+        "/build/Sodetel.js"
+>>>>>>> d178def9 (some changes)
       ]
     },
 <<<<<<< HEAD
@@ -113,6 +185,7 @@
 =======
     "Simly": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.e40c1cca.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -274,44 +347,68 @@
 =======
         "/build/Simly.181ee008.js"
 >>>>>>> d09b4ae8 (done with display network in install data)
+=======
+        "/build/runtime.js",
+        "/build/Simly.js"
+>>>>>>> c7164b70 (some changes)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
 >>>>>>> 4665fcd1 (yarn encore prod)
     "styles": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
         "/build/styles.6dd0f5af.css"
+=======
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/styles.css"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "admin": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/admin.8fb78dae.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/Lotostyles.77b15344.css"
+        "/build/Lotostyles.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/LegalEnrollementStyle.65484ccf.css"
+        "/build/LegalEnrollementStyle.css"
       ]
     },
     "AlfaStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
@@ -328,10 +425,17 @@
 =======
         "/build/AlfaStyle.edadb73f.css"
 >>>>>>> 0faa7269 (still working on ui)
+=======
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/AlfaStyle.css"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "TouchStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
@@ -348,6 +452,12 @@
 =======
         "/build/TouchStyle.00f9da67.css"
 >>>>>>> 0faa7269 (still working on ui)
+=======
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/TouchStyle.css"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "WindslStyle": {
@@ -360,6 +470,7 @@
     },
     "OgeroStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
@@ -376,6 +487,12 @@
 =======
         "/build/OgeroStyle.e0500433.css"
 >>>>>>> 0faa7269 (still working on ui)
+=======
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/OgeroStyle.css"
+>>>>>>> d178def9 (some changes)
       ]
     },
     "terraNetstyle": {
@@ -388,6 +505,7 @@
     },
     "Gift2GamesStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
@@ -399,34 +517,55 @@
 =======
         "/build/Gift2GamesStyle.dbcb3134.css"
 >>>>>>> b90ef454 (handle view all network with ui)
+<<<<<<< HEAD
 >>>>>>> eb1cfc43 (handle view all network with ui)
+=======
+=======
+        "/build/runtime.js"
+      ],
+      "css": [
+        "/build/Gift2GamesStyle.css"
+>>>>>>> d178def9 (some changes)
+>>>>>>> c7164b70 (some changes)
       ]
     },
     "iveristyles": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/iveristyles.382777e8.css"
+        "/build/iveristyles.css"
       ]
     },
 <<<<<<< HEAD
 =======
     "terraNetstyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/terraNetstyle.82a620c1.css"
+        "/build/terraNetstyle.css"
       ]
     },
 >>>>>>> 8a97bb02 (handle view all network with ui)
     "SodetelStyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
+=======
+        "/build/runtime.js"
+>>>>>>> d178def9 (some changes)
       ],
       "css": [
-        "/build/SodetelStyle.3972e4fd.css"
+        "/build/SodetelStyle.css"
       ]
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -437,9 +576,10 @@
     },
     "SimlyStyle": {
       "js": [
-        "/build/runtime.e40c1cca.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -508,6 +648,9 @@
 =======
         "/build/SimlyStyle.bff32050.css"
 >>>>>>> d09b4ae8 (done with display network in install data)
+=======
+        "/build/SimlyStyle.css"
+>>>>>>> c7164b70 (some changes)
       ]
 >>>>>>> 722c8a70 (add loader to topup)
 >>>>>>> 65d5ce55 (add loader to topup)
