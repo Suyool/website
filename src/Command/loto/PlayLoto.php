@@ -156,6 +156,7 @@ class PlayLoto extends Command
                 $ticketscount = 0;
                 $newsum = 0;
                 foreach ($lotoToBePlayed as $lotoToBePlayed) {
+                    sleep(2);
                     $gridsToBeMerged = [];
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
