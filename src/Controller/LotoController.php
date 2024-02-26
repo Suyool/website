@@ -336,6 +336,7 @@ class LotoController extends AbstractController
     {
         $bulk = 0; //0 if unicast
         $suyoolUserId = $this->session->get('suyoolUserId');
+        $this->loggerInterface->info($suyoolUserId . " Play loto");
         $numGrids = 0;
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
 
@@ -513,7 +514,7 @@ class LotoController extends AbstractController
 
                     $status = true;
                     $message = "You have played your grid , Best of luck :)";
-
+                    $this->loggerInterface->error("{$suyoolUserId} get Success");
                     return new JsonResponse([
                         'status' => $status,
                         'message' => $message,
@@ -534,7 +535,7 @@ class LotoController extends AbstractController
                         $flagCode = $pushutility[2];
                     }
                     $message = json_decode($message);
-
+                    $this->loggerInterface->error("{$suyoolUserId} Error code: {$flagCode}");
                     return new JsonResponse([
                         'status' => $status,
                         'flagCode' => $flagCode,
@@ -542,10 +543,12 @@ class LotoController extends AbstractController
                     ], 200);
                 }
             } else {
+                $this->loggerInterface->error("Doesn't have grid");
                 $status = false;
                 $message = "You dont have grid available";
             }
         } else {
+            $this->loggerInterface->error("Doesn't have suyoolUserId in the session");
             $status = false;
             $message = "Don't have userId in session please contact the administrator or login";
         }
