@@ -26,7 +26,7 @@ const Header = ({
           handleButtonClick(getBackLink);
         }}
       >
-        <img src="/build/images/alfa/Back.png" alt="Back" />
+        <img src="/build/images/back.svg" alt="Back" />
       </div>
       <div className="headerTitle">{getHeaderTitle}</div>
       <div className="empty"></div>
