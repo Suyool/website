@@ -438,6 +438,20 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SAD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SAD" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an S.A.D employee.",
 
+     //thenetglobal
+     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_THE" => "What are the benefits for The Net Global employees?",
+     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_THE" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a The Net Global employee employee.",
+     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_THE" => "Where can I withdraw my payroll in cash?",
+     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_THE" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_THE" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are  a The Net Global employee employee.",
+
+     //itineris
+     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_ITINERIS" => "What are the benefits for Itineris SARL employees?",
+     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_ITINERIS" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Itineris SARL employee employee.",
+     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_ITINERIS" => "Where can I withdraw my payroll in cash?",
+     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_ITINERIS" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_ITINERIS" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Itineris SARL employee employee.",
+
     //GESPASAL
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_GESPASAL" => "What are the benefits for GESPA SAL employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_GESPASAL" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a GESPA SAL employee.",

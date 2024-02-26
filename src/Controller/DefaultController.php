@@ -1228,8 +1228,6 @@ class DefaultController extends AbstractController
             }else{
                 return $this->redirectToRoute("app_ToTheAPP");
             }
-        }else{
-            return $this->redirectToRoute("app_ToTheAPP");
-        }
+        } else return $this->render('ExceptionHandling.html.twig');
     }
 }
