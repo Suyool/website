@@ -33,6 +33,9 @@
         overflow-y: auto;
         overflow-x: hidden;
         align-content: flex-start;
+        scrollbar-color: transparent transparent;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
 
         .bundleGrid {
             width: 100%;
@@ -89,6 +92,12 @@
                 }
             }
         }
+
+    }
+
+    .bundlesSection::-webkit-scrollbar {
+        width: unset;
+        display: none;
 
     }
 }
