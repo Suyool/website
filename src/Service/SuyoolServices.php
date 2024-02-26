@@ -617,8 +617,8 @@ class SuyoolServices
     {
         try {
             $amount = number_format($amount, 3, '.', '');
-//            $Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
-//            dd($Hash);
+        //$Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+        //dd($Hash);
             $body = [
                 'TransactionId' => $mechantOrderId,
                 'merchantAccountID' => $merchantId,
@@ -642,5 +642,25 @@ class SuyoolServices
         } catch (Exception $e) {
             return array(false, null, $e->getMessage(), $e->getMessage());
         }
+    }
+
+    public function getUsersSoa($soaIds)
+    {
+        // dd(strval($soaIds));
+        $Hash = base64_encode(hash($this->hash_algo,   htmlspecialchars($soaIds) . $this->certificate, true));
+        // dd(urlencode($soaIds));
+        // dd($Hash);
+        $body=[
+            "soaIds"=>$soaIds,
+            "secureHash"=>$Hash
+        ];
+        $response = $this->helper->clientRequest($this->METHOD_POST, "http://10.20.80.56/extarnalProxy/api/GlobalAPIs/User/GetUserSOA",  $body);
+        $content = $response->toArray(false);
+        // dd($content);
+        $data = array();
+        if($content['globalCode'] && $content['flagCode']){
+            $data = json_decode($content['data'],true);
+        }
+        return $data;
     }
 }
