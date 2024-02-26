@@ -138,13 +138,7 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                     if (response?.data?.status) {
                         const productData = response?.data?.Payload;
                         setFilteredData(productData);
-                        if (productData.length === 0) {
-                            // Set a message when there are no products
-                            setNoProductsMessage('Products out of stock');
-                        } else {
-                            // Clear the message if products are available
-                            setNoProductsMessage('');
-                        }
+
                     }
                     setLoading(false);
                 })
@@ -279,14 +273,9 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                     ) : (
                         <>
                             {filteredData.map((record, index) => (
-                                <div
+                                <button
                                     className="bundleGrid"
                                     key={index}
-                                    style={
-                                        record.instock == 0
-                                            ? {display: "none"}
-                                            : {display: "flex"}
-                                    }
                                     onClick={() => {
                                         setPrepaidVoucher({
                                             price: record.displayPrice,
@@ -296,21 +285,23 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                                             image: record.image,
                                             productId: record.productId
                                         });
-                                        setActiveButton({name: "MyBundle"});
+                                        setActiveButton({ name: "MyBundle" });
                                     }}
+                                    disabled={!record.inStock}
                                 >
                                     <img
                                         className="GridImg"
                                         src={record?.image || getDefaultImage(setTypeID)}
                                         alt="bundleImg"
                                     />
-                                    <div className="gridDesc">
+                                    <div className="gridDesc" style={{ opacity: record.inStock === false ? 0.5 : 1 }}>
                                         <div className="Price">
                                             ${record?.displayPrice}{" "}
+                                            {!record.inStock && <span className="outstock">Out of Stock</span>}
                                         </div>
                                         <div className="bundleName">{record.title}</div>
                                     </div>
-                                </div>
+                                </button>
                             ))}
                         </>
                     )}
