@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\emailsubscriber;
 use App\Entity\Managers;
 use App\Entity\Rates;
+use App\Service\NotificationServices;
+use App\Service\SuyoolServices;
 use App\Translation\translation;
 use App\Utils\Helper;
 use DateTime;
@@ -58,8 +60,8 @@ class DefaultController extends AbstractController
             'metaimage' => 'build/images/meta-image-website3.png',
             'descmeta' => $desc,
             'barBgColor' => 'barWhite',
-            'chatbot'=>true,
-            'homepage'=>true,
+            'chatbot' => true,
+            'homepage' => true,
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
@@ -313,7 +315,7 @@ class DefaultController extends AbstractController
      */
     public function middleeast(Request $request)
     {
-        $parameters=array();
+        $parameters = array();
         return $this->render('platinum-mastercard/middleeast.html.twig', $parameters);
     }
 
@@ -322,7 +324,7 @@ class DefaultController extends AbstractController
      */
     public function sendReceiveMoney(Request $request)
     {
-        $parameters=array();
+        $parameters = array();
         $title = "Send money instantly to any Lebanese number";
         $desc = "Experience the ease and speed of sending money with Suyool. Simply enter a recipient’s Lebanese phone number, and transfer funds instantly.";
         $parameters = [
@@ -357,28 +359,28 @@ class DefaultController extends AbstractController
                 ],
             ],
         ];
-        $parameters['infoSection']= $infoSection;
+        $parameters['infoSection'] = $infoSection;
 
-        $parameters['faq']=[
-            "ONE"=>[
-                "Title"=>"Can I send money to any phone number?",
-                "Desc"=>"Suyool users can transfer money instantly to any Lebanese mobile number from the comfort of their own home."
+        $parameters['faq'] = [
+            "ONE" => [
+                "Title" => "Can I send money to any phone number?",
+                "Desc" => "Suyool users can transfer money instantly to any Lebanese mobile number from the comfort of their own home."
             ],
-            "TWO"=>[
-                "Title"=>"How long does it take for the money sent to arrive to the recipient?",
-                "Desc"=>"The recipient will receive the money instantly once the amount has been sent."
+            "TWO" => [
+                "Title" => "How long does it take for the money sent to arrive to the recipient?",
+                "Desc" => "The recipient will receive the money instantly once the amount has been sent."
             ],
-            "THREE"=>[
-                "Title"=>"Can I send money to a non Suyool user?",
-                "Desc"=>"Yes, you can send money to a non Suyool user. They will receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash (1.5% fees apply in this case)"
+            "THREE" => [
+                "Title" => "Can I send money to a non Suyool user?",
+                "Desc" => "Yes, you can send money to a non Suyool user. They will receive an SMS with a link which will redirect them to a web page where they will have 2 options. They can either download the Suyool app and receive the amount on it or go to any BOB Finance cashpoint and get the amount in cash (1.5% fees apply in this case)"
             ],
-            "FOUR"=>[
-                "Title"=>"Is there a fee for transferring money in Suyool?",
-                "Desc"=>"Transferring money through Suyool to any Lebanese number is free of charge. However if they are not a Suyool user 1.5% fees be applied."
+            "FOUR" => [
+                "Title" => "Is there a fee for transferring money in Suyool?",
+                "Desc" => "Transferring money through Suyool to any Lebanese number is free of charge. However if they are not a Suyool user 1.5% fees be applied."
             ],
-            "FIVE"=>[
-                "Title"=>"Can I send money to a person without exchanging my personal details with them?",
-                "Desc"=>"Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details."
+            "FIVE" => [
+                "Title" => "Can I send money to a person without exchanging my personal details with them?",
+                "Desc" => "Yes! You can send money to others by scanning their QR code featured on the app, without having to share your mobile number and personal details."
             ],
         ];
 
@@ -393,10 +395,10 @@ class DefaultController extends AbstractController
         $title = "Suyool Visa Card | Suyool";
         $desc = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
-        $metaimage="build/images/platinumMastercard/metavisa.png";
-        $descmeta="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        $metaimage = "build/images/platinumMastercard/metavisa.png";
+        $descmeta = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
-        $visa=true;
+        $visa = true;
         $cardData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/lounge.png',
@@ -446,16 +448,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-//            [
-//                'imagePath' => 'build/images/platinumMastercard/visa.png',
-//                'title' => 'Visa Luxury Hotel Collection',
-//                'points' => [
-//                    'Best available rate guarantee',
-//                    'Automatic room upgrade, and VIP guest status',
-//                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
-//                ],
-//                'learnMoreLink' => '/',
-//            ],
+            //            [
+            //                'imagePath' => 'build/images/platinumMastercard/visa.png',
+            //                'title' => 'Visa Luxury Hotel Collection',
+            //                'points' => [
+            //                    'Best available rate guarantee',
+            //                    'Automatic room upgrade, and VIP guest status',
+            //                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
+            //                ],
+            //                'learnMoreLink' => '/',
+            //            ],
             [
                 'imagePath' => 'build/images/platinumMastercard/sixt.png',
                 'title' => 'Car Rental offers with SIXT',
@@ -478,7 +480,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/six.png',
                 'title' => 'Car Rental discount with Budget',
-                'points'=>[
+                'points' => [
                     'Avis Budget Group offers renowned car rentals globally',
                     'Visa Platinum cardholders receive a 10% discount on Budget rentals worldwide'
                 ],
@@ -487,7 +489,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/medical.png',
                 'title' => 'Medical & travel assistance',
-                'points'=>[
+                'points' => [
                     'Visa Platinum Cardholders have access to comprehensive global assistance services',
                     'Services include medical advice, referrals, and essential medicine delivery',
                     'Also provides legal referrals and interpreter services'
@@ -497,7 +499,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/cart.png',
                 'title' => 'Global Customer Assistance Services',
-                'points'=>[
+                'points' => [
                     'GCAS provides essential support to Platinum Cardholders during travel',
                     'Core services include inquiry assistance, lost/stolen card reporting, and emergency replacements',
                     'Cash disbursement, file updates, and pre-enrollment via banks for Visa BINs'
@@ -526,16 +528,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-//            [
-//                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
-//                'title' => 'Shopping with Global Blue',
-//                'points' => [
-//                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
-//                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-//                    'Offer valid until December 31, 2024',
-//                ],
-//                'learnMoreLink' => '/',
-//            ],
+            //            [
+            //                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+            //                'title' => 'Shopping with Global Blue',
+            //                'points' => [
+            //                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+            //                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+            //                    'Offer valid until December 31, 2024',
+            //                ],
+            //                'learnMoreLink' => '/',
+            //            ],
             // [
             //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
             //     'title' => 'Shopping with Global Blue',
@@ -609,46 +611,46 @@ class DefaultController extends AbstractController
             ],
         ];
 
-        $faq=[
-            "ONE"=>[
-                "Title"=>"How do I request my Suyool Visa Platinum card?",
-                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+        $faq = [
+            "ONE" => [
+                "Title" => "How do I request my Suyool Visa Platinum card?",
+                "Desc" => "Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
             ],
-            "TWO"=>[
-                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
-                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            "TWO" => [
+                "Title" => "What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc" => "The fee for requesting your Suyool Debit Card is $12 to be paid annually."
             ],
-            "THREE"=>[
-                "Title"=>"Can I use the card online?",
-                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            "THREE" => [
+                "Title" => "Can I use the card online?",
+                "Desc" => "Yes, you can use the Suyool Visa Platinum card online."
             ],
-            "FOUR"=>[
-                "Title"=>"Can I use the card internationally",
-                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            "FOUR" => [
+                "Title" => "Can I use the card internationally",
+                "Desc" => "Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
             ],
-            "FIVE"=>[
-                "Title"=>"Is the Suyool Visa Platinum card an international card?",
-                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            "FIVE" => [
+                "Title" => "Is the Suyool Visa Platinum card an international card?",
+                "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "SIX"=>[
-                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
-                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            "SIX" => [
+                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
             ],
         ];
 
         $parameters = [
             'cardData' => $cardData,
             'lifeStyleData' => $lifeStyleData,
-            'protection'=>$protection,
+            'protection' => $protection,
             'title' => $title,
             'desc' => $desc,
             'barBgColor' => 'barWhite',
-            'metaimage'=>$metaimage,
-            'descmeta'=>$descmeta,
-            'visa'=>$visa,
-            'faq'=>$faq,
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue'
+            'metaimage' => $metaimage,
+            'descmeta' => $descmeta,
+            'visa' => $visa,
+            'faq' => $faq,
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue'
         ];
         $parameters['hideLearnMore'] = "";
 
@@ -665,10 +667,10 @@ class DefaultController extends AbstractController
         $title = "Suyool Visa Card | Suyool";
         $desc = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
-        $metaimage="build/images/platinumMastercard/metavisa.png";
-        $descmeta="Start Enjoying Platinum Benefits Instantly, From Travel Discounts
+        $metaimage = "build/images/platinumMastercard/metavisa.png";
+        $descmeta = "Start Enjoying Platinum Benefits Instantly, From Travel Discounts
         to Shopping Perks, and Elevate Your Lifestyle Beyond Imagination.";
-        $visa=true;
+        $visa = true;
         $cardData = [
             [
                 'imagePath' => 'build/images/platinumMastercard/lounge.png',
@@ -718,16 +720,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-//            [
-//                'imagePath' => 'build/images/platinumMastercard/visa.png',
-//                'title' => 'Visa Luxury Hotel Collection',
-//                'points' => [
-//                    'Best available rate guarantee',
-//                    'Automatic room upgrade, and VIP guest status',
-//                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
-//                ],
-//                'learnMoreLink' => '/',
-//            ],
+            //            [
+            //                'imagePath' => 'build/images/platinumMastercard/visa.png',
+            //                'title' => 'Visa Luxury Hotel Collection',
+            //                'points' => [
+            //                    'Best available rate guarantee',
+            //                    'Automatic room upgrade, and VIP guest status',
+            //                    'Offer includes complimentary Wi-Fi, daily continental breakfast, and $25 USD credit; valid until December 31, 2023'
+            //                ],
+            //                'learnMoreLink' => '/',
+            //            ],
             [
                 'imagePath' => 'build/images/platinumMastercard/sixt.png',
                 'title' => 'Car Rental offers with SIXT',
@@ -750,7 +752,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/six.png',
                 'title' => 'Car Rental discount with Budget',
-                'points'=>[
+                'points' => [
                     'Avis Budget Group offers renowned car rentals globally',
                     'Visa Platinum cardholders receive a 10% discount on Budget rentals worldwide'
                 ],
@@ -759,7 +761,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/medical.png',
                 'title' => 'Medical & travel assistance',
-                'points'=>[
+                'points' => [
                     'Visa Platinum Cardholders have access to comprehensive global assistance services',
                     'Services include medical advice, referrals, and essential medicine delivery',
                     'Also provides legal referrals and interpreter services'
@@ -769,7 +771,7 @@ class DefaultController extends AbstractController
             [
                 'imagePath' => 'build/images/platinumMastercard/cart.png',
                 'title' => 'Global Customer Assistance Services',
-                'points'=>[
+                'points' => [
                     'GCAS provides essential support to Platinum Cardholders during travel',
                     'Core services include inquiry assistance, lost/stolen card reporting, and emergency replacements',
                     'Cash disbursement, file updates, and pre-enrollment via banks for Visa BINs'
@@ -798,16 +800,16 @@ class DefaultController extends AbstractController
                 ],
                 'learnMoreLink' => '/',
             ],
-//            [
-//                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
-//                'title' => 'Shopping with Global Blue',
-//                'points' => [
-//                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
-//                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
-//                    'Offer valid until December 31, 2024',
-//                ],
-//                'learnMoreLink' => '/',
-//            ],
+            //            [
+            //                'imagePath' => 'build/images/platinumMastercard/GlobalBlueVisa.png',
+            //                'title' => 'Shopping with Global Blue',
+            //                'points' => [
+            //                    'Visa Cardholders receive 20% Extra Refund (up to €500) with Global Blue tax-free shopping',
+            //                    'Use promocode ‘VISABKNG’ for discounts ranging from 6% to 8%',
+            //                    'Offer valid until December 31, 2024',
+            //                ],
+            //                'learnMoreLink' => '/',
+            //            ],
             // [
             //     'imagePath' => 'build/images/platinumMastercard/GlobalLocalVisa.png',
             //     'title' => 'Shopping with Global Blue',
@@ -881,47 +883,47 @@ class DefaultController extends AbstractController
             ],
         ];
 
-        $faq=[
-            "ONE"=>[
-                "Title"=>"How do I request my Suyool Visa Platinum card?",
-                "Desc"=>"Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+        $faq = [
+            "ONE" => [
+                "Title" => "How do I request my Suyool Visa Platinum card?",
+                "Desc" => "Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
             ],
-            "TWO"=>[
-                "Title"=>"What is the fee of requesting the Suyool Visa Platinum card?",
-                "Desc"=>"The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+            "TWO" => [
+                "Title" => "What is the fee of requesting the Suyool Visa Platinum card?",
+                "Desc" => "The fee for requesting your Suyool Debit Card is $12 to be paid annually."
             ],
-            "THREE"=>[
-                "Title"=>"Can I use the card online?",
-                "Desc"=>"Yes, you can use the Suyool Visa Platinum card online."
+            "THREE" => [
+                "Title" => "Can I use the card online?",
+                "Desc" => "Yes, you can use the Suyool Visa Platinum card online."
             ],
-            "FOUR"=>[
-                "Title"=>"Can I use the card internationally",
-                "Desc"=>"Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+            "FOUR" => [
+                "Title" => "Can I use the card internationally",
+                "Desc" => "Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
             ],
-            "FIVE"=>[
-                "Title"=>"Is the Suyool Visa Platinum card an international card?",
-                "Desc"=>"Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            "FIVE" => [
+                "Title" => "Is the Suyool Visa Platinum card an international card?",
+                "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "SIX"=>[
-                "Title"=>"Can I withdraw cash from an ATM in Lebanon?",
-                "Desc"=>"Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            "SIX" => [
+                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
             ],
         ];
 
         $parameters = [
             'cardData' => $cardData,
             'lifeStyleData' => $lifeStyleData,
-            'protection'=>$protection,
+            'protection' => $protection,
             'title' => $title,
             'desc' => $desc,
             'barBgColor' => 'barWhite',
-            'metaimage'=>$metaimage,
-            'descmeta'=>$descmeta,
-            'visa'=>$visa,
-            'faq'=>$faq,
+            'metaimage' => $metaimage,
+            'descmeta' => $descmeta,
+            'visa' => $visa,
+            'faq' => $faq,
             'canonical_url' => $canonical_url,
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue'
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue'
         ];
         $parameters['hideLearnMore'] = "";
 
@@ -933,26 +935,26 @@ class DefaultController extends AbstractController
      */
     public function spinneysPromotion()
     {
-        $faq=[
-            "ONE"=>[
-                "Title"=>"How can I pay with Suyool at Spinneys?",
-                "Desc"=>"There are three ways to pay at Spinneys with Suyool: Use your Suyool Visa Platinum Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
+        $faq = [
+            "ONE" => [
+                "Title" => "How can I pay with Suyool at Spinneys?",
+                "Desc" => "There are three ways to pay at Spinneys with Suyool: Use your Suyool Visa Platinum Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
             ],
-            "TWO"=>[
-                "Title"=>"How do I double my Spinneys points with Suyool?",
-                "Desc"=>"To double your Spinneys points, use the Suyool QR payment tool. This offer is valid from December 1 to January 6."
+            "TWO" => [
+                "Title" => "How do I double my Spinneys points with Suyool?",
+                "Desc" => "To double your Spinneys points, use the Suyool QR payment tool. This offer is valid from December 1 to January 6."
             ],
-            "THREE"=>[
-                "Title"=>"What is Suyool QR?",
-                "Desc"=>"Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
+            "THREE" => [
+                "Title" => "What is Suyool QR?",
+                "Desc" => "Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
             ],
-            "FOUR"=>[
-                "Title"=>"How to find merchants that have Suyool as a payment method?",
-                "Desc"=>"Discover merchants, like Spinneys, accepting Suyool QR directly on the app’s Discovery tab."
+            "FOUR" => [
+                "Title" => "How to find merchants that have Suyool as a payment method?",
+                "Desc" => "Discover merchants, like Spinneys, accepting Suyool QR directly on the app’s Discovery tab."
             ],
-            "FIVE"=>[
-                "Title"=>"What is the auto-conversion feature?",
-                "Desc"=>"The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
+            "FIVE" => [
+                "Title" => "What is the auto-conversion feature?",
+                "Desc" => "The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
             ]
         ];
 
@@ -975,19 +977,19 @@ class DefaultController extends AbstractController
         ];
         $topButton = "Open Suyool Account";
 
-        $parameters=[
-            'faq'=>$faq,
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue',
-            'metaimage'=>'build/images/spinneys/meta-imagespinneys-min.png',
-            'descmeta'=>'Double your Spinneys points when you pay with Suyool app',
+        $parameters = [
+            'faq' => $faq,
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue',
+            'metaimage' => 'build/images/spinneys/meta-imagespinneys-min.png',
+            'descmeta' => 'Double your Spinneys points when you pay with Suyool app',
             'howToGetTitle' => $howToGetTitle,
             'howToGetDesc' => $howToGetDesc,
             'howToGetText' => $howToGetText,
             'howToGet' => $howToGet,
             'topButton' => $topButton,
         ];
-        return $this->render('spinneys/index.html.twig',$parameters);
+        return $this->render('spinneys/index.html.twig', $parameters);
     }
 
     /**
@@ -995,26 +997,26 @@ class DefaultController extends AbstractController
      */
     public function spinneysPromotionSuyoolers()
     {
-        $faq=[
-            "ONE"=>[
-                "Title"=>"How can I pay with Suyool at Spinneys?",
-                "Desc"=>"There are three ways to pay at Spinneys with Suyool: Use your Suyool Visa Platinum Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
+        $faq = [
+            "ONE" => [
+                "Title" => "How can I pay with Suyool at Spinneys?",
+                "Desc" => "There are three ways to pay at Spinneys with Suyool: Use your Suyool Visa Platinum Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
             ],
-            "TWO"=>[
-                "Title"=>"How do I double my Spinneys points with Suyool?",
-                "Desc"=>"To double your Spinneys points, use the Suyool QR payment tool. This offer is valid from December 1 to January 6."
+            "TWO" => [
+                "Title" => "How do I double my Spinneys points with Suyool?",
+                "Desc" => "To double your Spinneys points, use the Suyool QR payment tool. This offer is valid from December 1 to January 6."
             ],
-            "THREE"=>[
-                "Title"=>"What is Suyool QR?",
-                "Desc"=>"Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
+            "THREE" => [
+                "Title" => "What is Suyool QR?",
+                "Desc" => "Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
             ],
-            "FOUR"=>[
-                "Title"=>"How to find merchants that have Suyool as a payment method?",
-                "Desc"=>"Discover merchants, like Spinneys, accepting Suyool QR directly on the app’s Discovery tab."
+            "FOUR" => [
+                "Title" => "How to find merchants that have Suyool as a payment method?",
+                "Desc" => "Discover merchants, like Spinneys, accepting Suyool QR directly on the app’s Discovery tab."
             ],
-            "FIVE"=>[
-                "Title"=>"What is the auto-conversion feature?",
-                "Desc"=>"The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
+            "FIVE" => [
+                "Title" => "What is the auto-conversion feature?",
+                "Desc" => "The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
             ]
         ];
 
@@ -1043,12 +1045,12 @@ class DefaultController extends AbstractController
             'description' => 'Scan to open the app & pay with Suyool QR at partner merchants!',
         ];
 
-        $parameters=[
-            'faq'=>$faq,
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue',
-            'metaimage'=>'build/images/spinneys/meta-imagespinneys-min.png',
-            'descmeta'=>'Double your Spinneys points when you pay with Suyool app',
+        $parameters = [
+            'faq' => $faq,
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue',
+            'metaimage' => 'build/images/spinneys/meta-imagespinneys-min.png',
+            'descmeta' => 'Double your Spinneys points when you pay with Suyool app',
             'howToGetTitle' => $howToGetTitle,
             'howToGetDesc' => $howToGetDesc,
             'howToGetText' => $howToGetText,
@@ -1056,14 +1058,15 @@ class DefaultController extends AbstractController
             'topButton' => $topButton,
             'suyoolerPopup' => $suyoolerPopup,
         ];
-        return $this->render('spinneys/index.html.twig',$parameters);
+        return $this->render('spinneys/index.html.twig', $parameters);
     }
 
     /**
      * @Route("/2xPoints", name="app_doubleyourpoints", requirements={"_lowercase_path"=true})
      * @Route("/2xpoints", name="app_doubleyourpoints_case_insensitive", requirements={"_lowercase_path"=true})
      */
-    public function doublePoints(){
+    public function doublePoints()
+    {
         return $this->redirectToRoute("app_spinneys");
     }
 
@@ -1072,22 +1075,22 @@ class DefaultController extends AbstractController
      */
     public function medcoSuyoolPayment()
     {
-        $faq=[
-            "ONE"=>[
-                "Title"=>"How can I pay with Suyool at Medco?",
-                "Desc"=>"There are three ways to pay at Medco with Suyool: Use your Suyool Visa Platinum International Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
+        $faq = [
+            "ONE" => [
+                "Title" => "How can I pay with Suyool at Medco?",
+                "Desc" => "There are three ways to pay at Medco with Suyool: Use your Suyool Visa Platinum International Card in USD, utilize the Suyool QR payment tool, or provide your phone number to receive a payment request and accept it directly on your phone."
             ],
-            "TWO"=>[
-                "Title"=>"What is Suyool QR?",
-                "Desc"=>"Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
+            "TWO" => [
+                "Title" => "What is Suyool QR?",
+                "Desc" => "Suyool QR is a secure and convenient payment tool offered by Suyool. It’s a QR code-based payment method that allows users to make transactions by scanning a QR code at participating merchants."
             ],
-            "THREE"=>[
-                "Title"=>"How to find merchants that have Suyool as a payment method?",
-                "Desc"=>"Discover merchants, like Medco, accepting Suyool QR directly on the app’s Discovery tab."
+            "THREE" => [
+                "Title" => "How to find merchants that have Suyool as a payment method?",
+                "Desc" => "Discover merchants, like Medco, accepting Suyool QR directly on the app’s Discovery tab."
             ],
-            "FOUR"=>[
-                "Title"=>"What is the auto-conversion feature?",
-                "Desc"=>"The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
+            "FOUR" => [
+                "Title" => "What is the auto-conversion feature?",
+                "Desc" => "The auto-conversion feature automatically exchanges between the wallets (LBP & USD) while paying in person using the QR code in case the amount is not enough. It only exchanges the needed amount to execute the operation."
             ],
         ];
 
@@ -1115,12 +1118,12 @@ class DefaultController extends AbstractController
         $remoteDesc = "If you’re short on funds to pay at merchants, request payment by providing your friend’s number for them to cover the expense.";
         $remoteImg = "build/images/medco-payment/remote-payment.jpg";
 
-        $parameters=[
-            'faq'=>$faq,
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue',
-            'metaimage'=>'build/images/spinneys/meta-imagespinneys-min.png',
-            'descmeta'=>'Double your Spinneys points when you pay with Suyool app',
+        $parameters = [
+            'faq' => $faq,
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue',
+            'metaimage' => 'build/images/spinneys/meta-imagespinneys-min.png',
+            'descmeta' => 'Double your Spinneys points when you pay with Suyool app',
             'howToGetTitle' => $howToGetTitle,
             'howToGetDesc' => $howToGetDesc,
             'howToGetText' => $howToGetText,
@@ -1132,11 +1135,11 @@ class DefaultController extends AbstractController
             'remoteImg' => $remoteImg,
 
         ];
-        return $this->render('medco-payment/index.html.twig',$parameters);
+        return $this->render('medco-payment/index.html.twig', $parameters);
     }
 
 
-     /**
+    /**
      * @Route("/use-visa-card", name="ma_tBank_card")
      */
     public function MatBankCard()
@@ -1189,12 +1192,13 @@ class DefaultController extends AbstractController
     /**
      * @Route("/money-in-safe-hands-no-bank", name="app_ma_tBank")
      */
-    public function matBank() {
+    public function matBank()
+    {
 
         $parameters = [
             'barBgColor' => 'barWhite',
-            'bgColor'=> 'bg-white',
-            'btnBgColor'=> 'bg-blue',
+            'bgColor' => 'bg-white',
+            'btnBgColor' => 'bg-blue',
             'homepage' => true,
             'matBank' => true,
             'title' => 'Your Money is in Safe Hands, Yours!',
@@ -1208,18 +1212,22 @@ class DefaultController extends AbstractController
     /**
      * @Route("/SOA", name="app_soa")
      */
-    public function soa(Request $request)
+    public function soa(Request $request, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
-        $soaids = $request->query->get("Id") ?? $request->query->get("id") ?? null;
-        if($soaids == "soaIds")
-        {
-            $returnUrl = "https://suyooluatstorageaccount.blob.core.windows.net/reports/CorporateSoa/SOA_USD_1707833424.pdf?sv=2023-11-03&st=2024-02-13T14%3A10%3A30Z&se=2024-02-23T14%3A10%3A30Z&sr=c&sp=r&sig=LOOCAvy8CdkvqppsYWwCT7xbntgjZx64V73QeVOuSUA%3D";
-        }
-
-        $parameters = [
-            'returnUrl'=>@$returnUrl
-        ];
-
-        return $this->render('soa/soa.html.twig',$parameters);
+        if (isset($_POST['infoString'])) {
+            $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($_SERVER['HTTP_USER_AGENT'], $suyoolUserInfo[1]);
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $soaids = $request->query->get("Id") ?? $request->query->get("id") ?? null;
+                $data = $suyoolServices->getUsersSoa($soaids);
+                $parameters = [
+                    'data' => @$data
+                ];
+                return $this->render('soa/soa.html.twig', $parameters);
+            }else{
+                return $this->redirectToRoute("app_ToTheAPP");
+            }
+        } else return $this->render('ExceptionHandling.html.twig');
     }
 }

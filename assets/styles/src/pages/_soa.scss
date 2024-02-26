@@ -1,0 +1,80 @@
+.soa {
+    header {
+        opacity: 1;
+        display: flex;
+        justify-content: space-between;
+        background-color: #226D96;
+        padding: 19px;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        color: #ffffff;
+        // font-weight: bolder;
+
+        .back {
+
+            // font-size: 30px;
+            img {
+                height: auto;
+            }
+        }
+
+        .topup {
+            // font-size: 30px;
+            font-family: $Regular;
+        }
+    }
+
+    .soacontainer {
+        padding: 20px 15px;
+
+        .download{
+            font-family: $Regular;
+            font-size: 18px;
+        }
+
+        .Cards {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            // padding: 20px 10px;
+            justify-content: space-between;
+
+            padding: 23px 10px 23px 10px;
+            border-radius: 6px;
+            border: 1px solid #D8DEE6;
+            box-shadow: 0px 3px 10px #E7EAF0;
+            margin-top: 15px;
+            align-items: center;
+
+            .logoImg {
+                width:44px;
+                height: 44px;
+                margin-left: 8px;
+            }
+
+            .Text {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding-left: 10px;
+                width: 100%;
+                align-items: center;
+                .SubTitle {
+                    font-family: $Regular;
+                    font-size: 15px;
+                    color: black;
+                    span{
+                        font-family: $SemiBold;
+                        font-size: 16px;
+                    }
+                }
+
+                .description {
+                    font-family: $Regular;
+                    font-size: 24px;
+                    color: #226D96;
+                }
+            }
+        }
+    }
+}

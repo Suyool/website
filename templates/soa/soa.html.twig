@@ -1,7 +1,27 @@
 {% extends 'base.html.twig' %}
 
-    {% block body %}
-        <div style="margin-top: 150px;">
-        <a href="{{returnUrl}}">Click here</a>
-        </div>
-    {% endblock %}
+{% block body %}
+	<div class="soa">
+		<header>
+			<div class="back">
+				<img src="{{ asset('/build/images/Loto/Back.png') }}" alt="">
+			</div>
+			<div class="topup">Statement of Accounts</div>
+			<div></div>
+		</header>
+		<div class="soacontainer">
+            <div class="download">Download Statements</div>
+            {% for data in data %}
+			<a href="{{data['SOAURL']}}" class="Cards">
+            <img class="logoImg" {% if data['FileType'] == "Pdf" %}src="{{ asset('/build/images/soa/pdf.svg') }}"{% else %}src="{{ asset('/build/images/soa/excel.svg') }}"{% endif %}/>
+				<div class="Text">
+					<div class="SubTitle"><span>{{data["Currency"]}}</span> Statement of Account</div>
+					<div class="description">
+						>
+					</div>
+				</div>
+			</a>
+            {% endfor %}
+		</div>
+	</div>
+{% endblock %}
