@@ -63,7 +63,7 @@ class UpdateProductsCommand extends Command
                     // If the product exists, update the price, inStock, and image
                     $existingProduct->setPrice($productData['price']);
                     $existingProduct->setInStock($productData['inStock']);
-                    $existingProduct->setImage($productData['image']);
+                    //$existingProduct->setImage($productData['image']);
 
                     $this->mr->persist($existingProduct);
                 }
