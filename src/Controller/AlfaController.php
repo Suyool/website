@@ -10,6 +10,7 @@ use App\Entity\Alfa\PostpaidRequest;
 use App\Entity\Notification\Users;
 use App\Service\LotoServices;
 use App\Service\BobServices;
+use App\Service\LogsService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -94,6 +95,8 @@ class AlfaController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs,"app_alfa_bill",null,$sendBill,"SendPinRequest");
             $sendBillRes = json_decode($sendBill, true);
             if (isset($sendBillRes["ResponseText"])) {
                 if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
@@ -158,6 +161,8 @@ class AlfaController extends AbstractController
 
         if ($data != null) {
             $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs,"app_alfa_RetrieveResults",null,$retrieveResults[1],"RetrieveChannelResults");
             if (isset($retrieveResults) && $retrieveResults[0]) {
                 $jsonResult = json_decode($retrieveResults[1], true);
                 $displayData = $jsonResult["Values"];
@@ -257,7 +262,8 @@ class AlfaController extends AbstractController
 
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $order->getfees());
-
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs,"app_alfa_bill_pay",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -269,6 +275,7 @@ class AlfaController extends AbstractController
 
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPay($Postpaid_With_id);
+                $pushlog->pushLogs(new Logs,"app_alfa_bill_pay",null,json_encode($billPay),"InjectTransactionalPayment");
                 if ($billPay[0] != "") {
                     $billPayArray = json_decode($billPay[0], true);
                     //if payment from loto provider success insert prepaid data to db
@@ -330,6 +337,7 @@ class AlfaController extends AbstractController
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  $updateUtilitiesAdditionalData, $orderupdate->gettransId());
+                    $pushlog->pushLogs(new Logs,"app_alfa_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed
@@ -526,8 +534,7 @@ class AlfaController extends AbstractController
                             ->setidentifier("Prepaid Request")
                             ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
                             ->setrequest($BuyPrePaid[1])
-                            ->setresponse(json_encode($PayResonse))
-                            ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                            ->setresponse(json_encode($PayResonse));
                         $this->mr->persist($logs);
                         $this->mr->flush();
                         $IsSuccess = false;

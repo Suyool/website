@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class Logs {
+class LogsService {
     private $repository;
 
     public function __construct($repository)
@@ -16,6 +16,9 @@ class Logs {
         $class->seturl($url);
         $class->setrequest($request);
         $class->setresponse($response);
-        // $logs = $this->repository->
+        $this->repository->persist($class);
+        $this->repository->flush();
+
+        return true;
     }
 }
