@@ -1,10 +1,11 @@
 import React from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { settingObjectData } from "../Redux/Slices/AppSlice";
+import AppAPI from "../Api/AppAPI";
 
 const Default = () => {
   const dispatch = useDispatch();
+  const { Recharge } = AppAPI();
 
   return (
     <div id="Default">
@@ -27,15 +28,7 @@ const Default = () => {
         className="Cards"
         onClick={() => {
           dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "ReCharge" }));
-
-          axios
-            .post("/alfa/ReCharge")
-            .then((response) => {
-              dispatch(settingObjectData({ mainField: "prepaidData", field: "vouchers", value: response?.data?.message }));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          Recharge();
         }}
       >
         <img className="logoImg" src="/build/images/alfa/alfaLogo.png" alt="alfaLogo" />

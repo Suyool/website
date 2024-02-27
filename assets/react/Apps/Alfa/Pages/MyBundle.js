@@ -1,10 +1,11 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { settingData } from "../Redux/Slices/AppSlice";
+import AppAPI from "../Api/AppAPI";
 
 const MyBundle = () => {
   const dispatch = useDispatch();
+  const { BuyPrePaid } = AppAPI();
   const parameters = useSelector((state) => state.appData.parameters);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
   const getPrepaidVoucher = useSelector((state) => state.appData.prepaidData.prepaidVoucher);
@@ -32,119 +33,7 @@ const MyBundle = () => {
 
   useEffect(() => {
     if (mobileResponse == "success") {
-      axios
-        .post("/alfa/BuyPrePaid", {
-          Token: "",
-          category: "ALFA",
-          desc: getPrepaidVoucher.desc,
-          type: getPrepaidVoucher.vouchertype,
-          amountLBP: getPrepaidVoucher.priceLBP,
-          amountUSD: getPrepaidVoucher.priceUSD,
-        })
-        .then((response) => {
-          dispatch(settingData({ field: "isloading", value: false }));
-          const jsonResponse = response?.data?.message;
-          if (response?.data.IsSuccess) {
-            dispatch(
-              settingData({
-                field: "bottomSlider",
-                value: {
-                  isShow: true,
-                  name: "successPrepaidSlider",
-                  backPage: "MyBundle",
-                  data: {
-                    voucherCode: response?.data?.data?.voucherCode,
-                    voucherCodeClipboard: "*14*" + response?.data?.data?.voucherCode + "#",
-                    priceUSD: getPrepaidVoucher.priceUSD,
-                  },
-                  isButtonDisable: false,
-                },
-              })
-            );
-          } else {
-            console.log(response.data.flagCode);
-            if (response.data.IsSuccess == false && response.data.flagCode == 10) {
-              dispatch(
-                settingData({
-                  field: "modalData",
-                  value: {
-                    isShow: true,
-                    name: "ErrorModal",
-                    img: "/build/images/alfa/error.png",
-                    title: jsonResponse.Title,
-                    desc: jsonResponse.SubTitle,
-                    btn: jsonResponse.ButtonOne.Text,
-                    flag: jsonResponse.ButtonOne.Flag,
-                  },
-                })
-              );
-            } else if (!response.data.IsSuccess && response.data.flagCode == 11) {
-              dispatch(
-                settingData({
-                  field: "modalData",
-                  value: {
-                    isShow: true,
-                    name: "ErrorModal",
-                    img: "/build/images/alfa/error.png",
-                    title: jsonResponse.Title,
-                    desc: jsonResponse.SubTitle,
-                    btn: jsonResponse.ButtonOne.Text,
-                    flag: jsonResponse.ButtonOne.Flag,
-                  },
-                })
-              );
-            } else if (jsonResponse == "19") {
-              dispatch(
-                settingData({
-                  field: "modalData",
-                  value: {
-                    isShow: true,
-                    name: "ErrorModal",
-                    img: "/build/images/alfa/error.png",
-                    title: "Recharge Card Unavailable ",
-                    desc: `The ${getPrepaidVoucher.priceUSD}$ Alfa Recharge card is unavailable. 
-                    Kindly choose another one.`,
-                    btn: "OK",
-                    flag: "",
-                  },
-                })
-              );
-            } else if (!response.data.IsSuccess && response.data.flagCode == 210) {
-              dispatch(
-                settingData({
-                  field: "modalData",
-                  value: {
-                    isShow: true,
-                    name: "ErrorModal",
-                    img: "/build/images/alfa/error.png",
-                    title: response.data.Title,
-                    desc: response.data.message,
-                    btn: "OK",
-                    flag: "",
-                  },
-                })
-              );
-            } else {
-              dispatch(
-                settingData({
-                  field: "modalData",
-                  value: {
-                    isShow: true,
-                    name: "ErrorModal",
-                    img: "/build/images/alfa/error.png",
-                    title: "Please Try again",
-                    desc: "You cannot purchase now",
-                    btn: "OK",
-                    flag: "",
-                  },
-                })
-              );
-            }
-          }
-        })
-        .catch((error) => {
-          dispatch(settingData({ field: "isloading", value: false }));
-        });
+      BuyPrePaid(getPrepaidVoucher);
     } else if (mobileResponse == "failed") {
       dispatch(settingData({ field: "isloading", value: false }));
       setIsButtonDisabled(false);
