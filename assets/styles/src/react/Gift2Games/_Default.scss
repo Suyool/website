@@ -133,7 +133,18 @@
     overflow-x: auto;
     white-space: nowrap;
     scrollbar-color: transparent transparent;
-    scrollbar-width: unset;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .child-categories::-webkit-scrollbar {
+    width: unset;
+    display: none;
+
+  }
+
+  .child-categories::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 
   .active-sub {
