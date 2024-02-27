@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { settingData, settingObjectData } from "./Redux/Slices/AppSlice";
 import PopupModal from "./Component/PopupModal";
 import BottomSlider from "./Component/BottomSlider";
+import { Spinner } from "react-bootstrap";
 
 const App = ({ parameters }) => {
   const headerData = useSelector((state) => state.appData.headerData);
   const modalData = useSelector((state) => state.appData.modalData);
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
+  const isLoading = useSelector((state) => state.appData.isloading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(settingData({ field: "parameters", value: parameters }));
@@ -45,7 +47,12 @@ const App = ({ parameters }) => {
     <div id="PageBody">
       <Header />
 
-      <div className="scrolableView">
+      <div className={`${isLoading === true ? "hideBackk scrolableView" : "scrolableView"}`}>
+        {isLoading === true && (
+          <div id="spinnerLoader">
+            <Spinner className="spinner" animation="border" variant="secondary" />
+          </div>
+        )}
         {headerData.currentPage === "" && <Default />}
         {headerData.currentPage === "PayBill" && <PayBill />}
         {headerData.currentPage === "ReCharge" && <ReCharge />}

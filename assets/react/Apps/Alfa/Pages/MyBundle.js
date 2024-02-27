@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
+import { settingData } from "../Redux/Slices/AppSlice";
 
 const MyBundle = () => {
   const dispatch = useDispatch();
@@ -10,9 +9,7 @@ const MyBundle = () => {
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
   const getPrepaidVoucher = useSelector((state) => state.appData.prepaidData.prepaidVoucher);
 
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
   useEffect(() => {
     dispatch(settingData({ field: "headerData", value: { title: "Re-charge Alfa", backLink: "ReCharge", currentPage: "MyBundle" } }));
@@ -20,7 +17,7 @@ const MyBundle = () => {
   }, []);
 
   const handleConfirmPay = () => {
-    setSpinnerLoader(true);
+    dispatch(settingData({ field: "isloading", value: true }));
     setIsButtonDisabled(true);
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
@@ -45,8 +42,7 @@ const MyBundle = () => {
           amountUSD: getPrepaidVoucher.priceUSD,
         })
         .then((response) => {
-          setSpinnerLoader(false);
-          dispatch(settingData({ field: "isloading", value: true }));
+          dispatch(settingData({ field: "isloading", value: false }));
           const jsonResponse = response?.data?.message;
           if (response?.data.IsSuccess) {
             dispatch(
@@ -147,11 +143,10 @@ const MyBundle = () => {
           }
         })
         .catch((error) => {
-          setSpinnerLoader(false);
-          console.log(error);
+          dispatch(settingData({ field: "isloading", value: false }));
         });
     } else if (mobileResponse == "failed") {
-      setSpinnerLoader(false);
+      dispatch(settingData({ field: "isloading", value: false }));
       setIsButtonDisabled(false);
       dispatch(settingData({ field: "mobileResponse", value: "" }));
     }
@@ -159,13 +154,7 @@ const MyBundle = () => {
 
   return (
     <>
-      <div id="MyBundle" className={`${getSpinnerLoader ? "hideBackk" : ""}`}>
-        {getSpinnerLoader && (
-          <div id="spinnerLoader">
-            <Spinner className="spinner" animation="border" variant="secondary" />
-          </div>
-        )}
-
+      <div id="MyBundle">
         <div className="MyBundleBody">
           <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
           {/* <div className="mainDesc">*All taxes excluded</div> */}

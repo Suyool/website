@@ -1,11 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const parameters = useSelector((state) => state.appData.parameters);
   const headerData = useSelector((state) => state.appData.headerData);
+  const isBottomSlider = useSelector((state) => state.appData.bottomSlider.isShow);
+  const isModalData = useSelector((state) => state.appData.modalData.isShow);
 
   const handleButtonClick = () => {
     if (headerData.currentPage == "") {
@@ -15,7 +17,13 @@ const Header = () => {
         window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
       }
     }
-    dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
+    if (isBottomSlider) {
+      dispatch(settingData({ field: "bottomSlider", value: { isShow: false } }));
+    } else if (isModalData) {
+      dispatch(settingData({ field: "modalData", value: { isShow: false } }));
+    } else {
+      dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: headerData.backLink }));
+    }
   };
 
   return (

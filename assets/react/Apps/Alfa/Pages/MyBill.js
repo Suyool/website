@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
@@ -14,7 +13,6 @@ const MyBill = () => {
 
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
-  const [getSpinnerLoader, setSpinnerLoader] = useState(false);
   const [getPinWrong, setPinWrong] = useState(false);
   const [getBtnDesign, setBtnDesign] = useState(false);
 
@@ -46,7 +44,7 @@ const MyBill = () => {
 
   const handlePayNow = () => {
     if (pinCode.length === PinLength) {
-      setSpinnerLoader(true);
+      dispatch(settingData({ field: "isloading", value: true }));
       axios
         .post("/alfa/bill/RetrieveResults", {
           mobileNumber: localStorage.getItem("billMobileNumber").replace(/\s/g, ""),
@@ -57,10 +55,8 @@ const MyBill = () => {
         .then((response) => {
           console.log(response);
           if (response.data.message == "connected") {
-            setSpinnerLoader(false);
-            // setDisplayData(response?.data?.displayData);
-            // setdisplayedFees(response?.data?.displayedFees);
-            // setPaymentConfirmation(true);
+            dispatch(settingData({ field: "isloading", value: false }));
+
             dispatch(
               settingData({
                 field: "bottomSlider",
@@ -80,7 +76,7 @@ const MyBill = () => {
           } else if (response.data.message == "213") {
             setPinWrong(true);
             setPinCode("");
-            setSpinnerLoader(false);
+            dispatch(settingData({ field: "isloading", value: false }));
           } else {
             dispatch(
               settingData({
@@ -109,7 +105,8 @@ const MyBill = () => {
 
   const handleConfirmPay = () => {
     dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
-    setSpinnerLoader(true);
+    dispatch(settingData({ field: "isloading", value: true }));
+
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
         window.AndroidInterface.callbackHandler("message");
@@ -128,9 +125,8 @@ const MyBill = () => {
           ResponseId: getResponseId,
         })
         .then((response) => {
-          console.log(response.data);
           const jsonResponse = response?.data?.message;
-          setSpinnerLoader(false);
+          dispatch(settingData({ field: "isloading", value: false }));
           if (response.data?.IsSuccess) {
             var TotalAmount = parseInt(response.data?.data.amount) + parseInt(response.data?.data.fees);
             dispatch(
@@ -198,11 +194,11 @@ const MyBill = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
-          setSpinnerLoader(false);
+          dispatch(settingData({ field: "isloading", value: false }));
         });
     } else if (mobileResponse == "failed") {
-      setSpinnerLoader(false);
+      dispatch(settingData({ field: "isloading", value: false }));
+
       dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: false }));
       dispatch(settingData({ field: "mobileResponse", value: "" }));
     }
@@ -214,13 +210,7 @@ const MyBill = () => {
 
   return (
     <>
-      <div id={`MyBill`} className={`${getSpinnerLoader ? "hideBackk" : ""}`}>
-        {getSpinnerLoader && (
-          <div id="spinnerLoader">
-            <Spinner className="spinner" animation="border" variant="secondary" />
-          </div>
-        )}
-
+      <div id="MyBill">
         <div className="mainTitle">Insert the PIN you have received by SMS</div>
 
         <div className="PinSection" onClick={handlePincodeClick}>
@@ -243,7 +233,7 @@ const MyBill = () => {
           </div>
         </div>
 
-        <div id={`${getSpinnerLoader ? "opacityNone" : ""}`} className={`${!getBtnDesign ? "continueSection" : "continueSectionFocused"}`}>
+        <div className={`${!getBtnDesign ? "continueSection" : "continueSectionFocused"}`}>
           <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={pinCode.length !== PinLength}>
             Continue
           </button>
