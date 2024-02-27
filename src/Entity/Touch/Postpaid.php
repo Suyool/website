@@ -127,6 +127,11 @@ class Postpaid
      */
     private $paymentId;
 
+    /**
+     * @ORM\Column(name="response")
+     */
+    private $response;
+
 
     public function getId()
     {
@@ -374,6 +379,17 @@ class Postpaid
     function setTransactionId($transactionId)
     {
         $this->transactionId = $transactionId;
+        return $this;
+    }
+
+    function getResponse()
+    {
+        return $this->response;
+    }
+
+    function setResponse($response)
+    {
+        $this->response = $response;
         return $this;
     }
 }

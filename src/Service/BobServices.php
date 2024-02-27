@@ -288,8 +288,9 @@ class BobServices
             ]
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
-
         $content = $response->getContent();
+        $this->logger->info(("Bill pay Touch TransId {$Postpaid_With_id_Res->gettransactionId()} Response {$content} "));
+
         $ApiResponse = json_decode($content, true);
 
         if ($ApiResponse["ErrorCode"] == 100) {
@@ -303,7 +304,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription);
+        return array($isSuccess, $decodedString, $ErrorDescription,$content);
     }
 
     //Ogero

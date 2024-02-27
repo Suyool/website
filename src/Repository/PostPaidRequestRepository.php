@@ -43,7 +43,7 @@ class PostPaidRequestRepository extends EntityRepository
         return $postpaidrequest;
     }
 
-    public function insertBillPay($postpaid, $SuyoolUserId = null, $setGsmNumber = null, $settoken = null, $settransactionDescription = null, $settransactionReference = null, $setPin = null, $setTransactionId = null, $setcurrency = null, $setfees = null, $setfees1 = null, $setamount = null, $setamount1 = null, $setamount2 = null, $setreferenceNumber = null, $setinformativeOriginalWSamount = null, $settotalamount = null, $setrounding = null, $setadditionalfees = null, $setinvoiceNumber = null, $setpaymentId = null, $seterror = null)
+    public function insertBillPay($postpaid, $SuyoolUserId = null, $setGsmNumber = null, $settoken = null, $settransactionDescription = null, $settransactionReference = null, $setPin = null, $setTransactionId = null, $setcurrency = null, $setfees = null, $setfees1 = null, $setamount = null, $setamount1 = null, $setamount2 = null, $setreferenceNumber = null, $setinformativeOriginalWSamount = null, $settotalamount = null, $setrounding = null, $setadditionalfees = null, $setinvoiceNumber = null, $setpaymentId = null, $seterror = null,$responseBill=null)
     {
         $postpaid
             ->setSuyoolUserId($SuyoolUserId)
@@ -66,7 +66,8 @@ class PostPaidRequestRepository extends EntityRepository
             ->setadditionalfees($setadditionalfees)
             ->setinvoiceNumber($setinvoiceNumber)
             ->setpaymentId($setpaymentId)
-            ->seterror($seterror);
+            ->seterror($seterror)
+            ->setResponse($responseBill);
 
         return $postpaid;
     }
