@@ -18,6 +18,13 @@ const initialState = {
     btn: null,
     flag: "",
   },
+  bottomSlider: {
+    isShow: false,
+    name: "default",
+    backPage: "",
+    data: {},
+    isButtonDisable: false,
+  },
 
   postpaidData: {
     id: "",
@@ -46,27 +53,11 @@ const AppSlice = createSlice({
     resetData: (state) => {
       state.isloading = "idle";
       state.mobileResponse = "";
-      (state.headerData = {
-        title: "Alfa",
-        backLink: "",
-        currentPage: "",
-      }),
-        (state.modalData = {
-          isShow: false,
-          name: "",
-          img: "",
-          title: "",
-          desc: "",
-          btn: null,
-          flag: "",
-        }),
-        (state.postpaidData = {
-          id: "",
-        }),
-        (state.prepaidData = {
-          vouchers: null,
-          prepaidVoucher: {},
-        });
+      state.headerData = { title: "Alfa", backLink: "", currentPage: "" };
+      state.modalData = { isShow: false, name: "", img: "", title: "", desc: "", btn: null, flag: "" };
+      state.bottomSlider = { isShow: false, name: "", data: {} };
+      state.postpaidData = { id: "" };
+      state.prepaidData = { vouchers: null, prepaidVoucher: {} };
     },
   },
 });

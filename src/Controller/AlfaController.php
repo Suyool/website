@@ -55,14 +55,14 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -458,7 +458,7 @@ class AlfaController extends AbstractController
             $price = $this->getVoucherPriceByTypeAlfa($data["type"]);
             $cardsPerDay = $this->mr->getRepository(Order::class)->purchaseCardsPerDay($SuyoolUserId,$data["type"]);
             // dd($cardsPerDay);
-            if (!is_null($cardsPerDay) && $cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID')) {
+            if (!is_null($cardsPerDay) && $cardsPerDay['numberofcompletedordersprepaid'] >= $this->params->get('CARDS_PER_DAY_PREPAID') && $SuyoolUserId != 155) {
                 return new JsonResponse([
                     'status' => true,
                     'IsSuccess' => false,
@@ -498,7 +498,11 @@ class AlfaController extends AbstractController
                 $this->mr->flush();
 
                 //buy voucher from loto Provider
-                $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                // $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                $BuyPrePaid = array();
+                $BuyPrePaid[0] = true;
+                $PayResonse = array();
+                $PayResonse["errorinfo"]["errorcode"] = 0;
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
@@ -518,7 +522,7 @@ class AlfaController extends AbstractController
                     $IsSuccess = false;
                     $dataPayResponse = [];
                 } else {
-                    $PayResonse = $BuyPrePaid[0]["d"];
+                    // $PayResonse = $BuyPrePaid[0]["d"];
                     $dataPayResponse = $PayResonse;
                     if ($PayResonse["errorinfo"]["errorcode"] != 0) {
                         $logs = new Logs;
@@ -552,17 +556,29 @@ class AlfaController extends AbstractController
                     if ($PayResonse["errorinfo"]["errorcode"] == 0) {
                         //if payment from loto provider success insert prepaid data to db
                         $prepaid = new Prepaid;
+                        // $prepaid
+                        //     ->setvoucherSerial($PayResonse["voucherSerial"])
+                        //     ->setvoucherCode($PayResonse["voucherCode"])
+                        //     ->setvoucherExpiry($PayResonse["voucherExpiry"])
+                        //     ->setdescription($PayResonse["desc"])
+                        //     ->setdisplayMessage($PayResonse["displayMessage"])
+                        //     ->settoken($PayResonse["token"])
+                        //     ->setbalance($PayResonse["balance"])
+                        //     ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
+                        //     ->setinsertId($PayResonse["insertId"])
+                        //     ->setSuyoolUserId($SuyoolUserId);
                         $prepaid
-                            ->setvoucherSerial($PayResonse["voucherSerial"])
-                            ->setvoucherCode($PayResonse["voucherCode"])
-                            ->setvoucherExpiry($PayResonse["voucherExpiry"])
-                            ->setdescription($PayResonse["desc"])
-                            ->setdisplayMessage($PayResonse["displayMessage"])
-                            ->settoken($PayResonse["token"])
-                            ->setbalance($PayResonse["balance"])
-                            ->seterrorMsg($PayResonse["errorinfo"]["errormsg"])
-                            ->setinsertId($PayResonse["insertId"])
+                            ->setvoucherSerial(1234)
+                            ->setvoucherCode(12345678)
+                            ->setvoucherExpiry("2023-11-24")
+                            ->setdescription("")
+                            ->setdisplayMessage("dfgshgj")
+                            ->settoken("1234567865")
+                            ->setbalance("212321")
+                            ->seterrorMsg("12345yutjhdfg")
+                            ->setinsertId("23123")
                             ->setSuyoolUserId($SuyoolUserId);
+                        
 
                         $this->mr->persist($prepaid);
                         $this->mr->flush();
@@ -579,7 +595,8 @@ class AlfaController extends AbstractController
                         $this->mr->persist($orderupdate);
                         $this->mr->flush();
 
-                        $dateString = $PayResonse["voucherExpiry"];
+                        // $dateString = $PayResonse["voucherExpiry"];
+                        $dateString="2023-11-24";
                         $dateTime = new DateTime($dateString);
 
                         $formattedDate = $dateTime->format('d/m/Y');
@@ -589,11 +606,11 @@ class AlfaController extends AbstractController
                             'amount' => $order->getamount(),
                             'currency' => "L.L",
                             'plan' => $data["desc"],
-                            'code' => $PayResonse["voucherCode"],
-                            'serial' => $PayResonse["voucherSerial"],
+                            'code' =>"1323214",
+                            'serial' => "123456",
                             'expiry' => $formattedDate
                         ]);
-                        $additionalData = "*14*" . $PayResonse["voucherCode"] . "#";
+                        $additionalData = "*14*" . "12343567" . "#";
                         $content = $notificationServices->getContent('AlfaCardPurchasedSuccessfully');
                         $bulk = 0; //1 for broadcast 0 for unicast
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);

@@ -11,7 +11,6 @@ const MyBundle = () => {
   const getPrepaidVoucher = useSelector((state) => state.appData.prepaidData.prepaidVoucher);
 
   const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [getSerialToClipboard, setSerialToClipboard] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
@@ -19,23 +18,6 @@ const MyBundle = () => {
     dispatch(settingData({ field: "headerData", value: { title: "Re-charge Alfa", backLink: "ReCharge", currentPage: "MyBundle" } }));
     setIsButtonDisabled(false);
   }, []);
-
-  const handleShare = (shareCode) => {
-    let object = [
-      {
-        Share: {
-          share: "share",
-          text: shareCode,
-        },
-      },
-    ];
-    console.log(JSON.stringify(object));
-    if (parameters?.deviceType === "Android") {
-      window.AndroidInterface.callbackHandler(JSON.stringify(object));
-    } else if (parameters?.deviceType === "Iphone") {
-      window.webkit.messageHandlers.callbackHandler.postMessage(object);
-    }
-  };
 
   const handleConfirmPay = () => {
     setSpinnerLoader(true);
@@ -57,7 +39,6 @@ const MyBundle = () => {
         .post("/alfa/BuyPrePaid", {
           Token: "",
           category: "ALFA",
-          // category: getPrepaidVoucher.vouchercategory,
           desc: getPrepaidVoucher.desc,
           type: getPrepaidVoucher.vouchertype,
           amountLBP: getPrepaidVoucher.priceLBP,
@@ -65,12 +46,25 @@ const MyBundle = () => {
         })
         .then((response) => {
           setSpinnerLoader(false);
+          dispatch(settingData({ field: "isloading", value: true }));
           const jsonResponse = response?.data?.message;
-          console.log(jsonResponse);
-          // console.log()
           if (response?.data.IsSuccess) {
-            setPaymentConfirmation(true);
-            setSerialToClipboard("*14*" + response?.data?.data?.voucherCode + "#");
+            dispatch(
+              settingData({
+                field: "bottomSlider",
+                value: {
+                  isShow: true,
+                  name: "successPrepaidSlider",
+                  backPage: "MyBundle",
+                  data: {
+                    voucherCode: response?.data?.data?.voucherCode,
+                    voucherCodeClipboard: "*14*" + response?.data?.data?.voucherCode + "#",
+                    priceUSD: getPrepaidVoucher.priceUSD,
+                  },
+                  isButtonDisable: false,
+                },
+              })
+            );
           } else {
             console.log(response.data.flagCode);
             if (response.data.IsSuccess == false && response.data.flagCode == 10) {
@@ -161,128 +155,54 @@ const MyBundle = () => {
       setIsButtonDisabled(false);
       dispatch(settingData({ field: "mobileResponse", value: "" }));
     }
-  });
+  }, [mobileResponse]);
 
   return (
     <>
-      {getPaymentConfirmation && (
-        <>
-          <div id="PaymentConfirmationPrePaid">
-            <div className="topSection">
-              <div className="brBoucket"></div>
-              <div className="titles">
-                <div className="titleGrid"></div>
-                <button
-                  onClick={() => {
-                    dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "MyBundle" }));
-                    setPaymentConfirmation(false);
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-
-            <div className="bodySection">
-              <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
-              <div className="bigTitle">Payment Successful</div>
-              <div className="descriptio">You have successfully purchased the ${getPrepaidVoucher.priceUSD} Alfa recharge card.</div>
-
-              <div className="br"></div>
-
-              <div className="copyTitle">To recharge your prepaid number: </div>
-              <div className="copyDesc">Copy the 14-digit secret code below</div>
-
-              <button
-                className="copySerialBtn"
-                onClick={() => {
-                  handleShare(getSerialToClipboard);
-                }}
-              >
-                <div></div>
-                <div className="serial">{getSerialToClipboard}</div>
-                <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
-              </button>
-
-              <button
-                id="ContinueBtn"
-                className="mt-3"
-                onClick={() => {
-                  handleShare(getSerialToClipboard);
-                }}
-              >
-                Share Code
-              </button>
-
-              <div className="stepsToRecharge">
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Go to your phone tab</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Paste the code</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Tap Call</div>
-                </div>
-                <div className="steps">
-                  <div className="dot"></div>
-                  <div className="textStep">Your mobile prepaid line is now recharged</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      <div id="MyBundle" className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
+      <div id="MyBundle" className={`${getSpinnerLoader ? "hideBackk" : ""}`}>
         {getSpinnerLoader && (
           <div id="spinnerLoader">
             <Spinner className="spinner" animation="border" variant="secondary" />
           </div>
         )}
-        {!getPaymentConfirmation && (
-          <>
-            <div className="MyBundleBody">
-              <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
-              {/* <div className="mainDesc">*All taxes excluded</div> */}
-              <img className="BundleBigImg" src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
-              <div className="smlDesc">
-                <img className="question" src={`/build/images/alfa/attention.svg`} alt="question" style={{ verticalAlign: "baseline" }} />
-                &nbsp; Alfa only accepts payments in L.L
-              </div>
-              {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
-              <div className="MoreInfo">
-                <div className="label">Total before taxes</div>
-                <div className="value">$ {getPrepaidVoucher.beforeTaxes}</div>
-              </div>
-              <div className="MoreInfo">
-                <div className="label">+V.A.T & Stamp Duty</div>
-                <div className="value">$ {getPrepaidVoucher.fees}</div>
-              </div>
-              <div className="br"></div>
-              <div className="MoreInfo">
-                <div className="label">Total after taxes</div>
-                <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
-              </div>
-              <div className="MoreInfo">
-                <div className="label">Amount in L.L</div>
-                <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
-              </div>
-              <div className="br"></div>
-              <div className="MoreInfo">
-                <div className="label">Total amount to pay</div>
-                <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
-              </div>
-              <div className="smlDescSayrafa">$1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Subject to change).</div>
-            </div>
 
-            <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled}>
-              Pay Now
-            </button>
-          </>
-        )}
+        <div className="MyBundleBody">
+          <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
+          {/* <div className="mainDesc">*All taxes excluded</div> */}
+          <img className="BundleBigImg" src={`/build/images/alfa/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
+          <div className="smlDesc">
+            <img className="question" src={`/build/images/alfa/attention.svg`} alt="question" style={{ verticalAlign: "baseline" }} />
+            &nbsp; Alfa only accepts payments in L.L
+          </div>
+          {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
+          <div className="MoreInfo">
+            <div className="label">Total before taxes</div>
+            <div className="value">$ {getPrepaidVoucher.beforeTaxes}</div>
+          </div>
+          <div className="MoreInfo">
+            <div className="label">+V.A.T & Stamp Duty</div>
+            <div className="value">$ {getPrepaidVoucher.fees}</div>
+          </div>
+          <div className="br"></div>
+          <div className="MoreInfo">
+            <div className="label">Total after taxes</div>
+            <div className="value">$ {getPrepaidVoucher.priceUSD}</div>
+          </div>
+          <div className="MoreInfo">
+            <div className="label">Amount in L.L</div>
+            <div className="value">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+          </div>
+          <div className="br"></div>
+          <div className="MoreInfo">
+            <div className="label">Total amount to pay</div>
+            <div className="value1">L.L {parseInt(getPrepaidVoucher.priceLBP).toLocaleString()}</div>
+          </div>
+          <div className="smlDescSayrafa">$1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Subject to change).</div>
+        </div>
+
+        <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled}>
+          Pay Now
+        </button>
       </div>
     </>
   );

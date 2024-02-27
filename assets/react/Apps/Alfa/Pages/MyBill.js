@@ -15,10 +15,6 @@ const MyBill = () => {
   const [pinCode, setPinCode] = useState([]);
   const [getResponseId, setResponseId] = useState(null);
   const [getSpinnerLoader, setSpinnerLoader] = useState(false);
-  const [getDisplayData, setDisplayData] = useState([]);
-  const [getdisplayedFees, setdisplayedFees] = useState("");
-  const [getPaymentConfirmation, setPaymentConfirmation] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [getPinWrong, setPinWrong] = useState(false);
   const [getBtnDesign, setBtnDesign] = useState(false);
 
@@ -35,7 +31,7 @@ const MyBill = () => {
         },
       })
     );
-    setIsButtonDisabled(false);
+    dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: false }));
   }, []);
 
   const handlePincodeClick = () => {
@@ -62,9 +58,24 @@ const MyBill = () => {
           console.log(response);
           if (response.data.message == "connected") {
             setSpinnerLoader(false);
-            setDisplayData(response?.data?.displayData);
-            setdisplayedFees(response?.data?.displayedFees);
-            setPaymentConfirmation(true);
+            // setDisplayData(response?.data?.displayData);
+            // setdisplayedFees(response?.data?.displayedFees);
+            // setPaymentConfirmation(true);
+            dispatch(
+              settingData({
+                field: "bottomSlider",
+                value: {
+                  isShow: true,
+                  name: "successPostpaidSlider",
+                  backPage: "MyBill",
+                  data: {
+                    displayData: response?.data?.displayData,
+                    displayedFees: response?.data?.displayedFees,
+                  },
+                  isButtonDisable: false,
+                },
+              })
+            );
             setResponseId(response?.data?.postpayed);
           } else if (response.data.message == "213") {
             setPinWrong(true);
@@ -97,7 +108,7 @@ const MyBill = () => {
   };
 
   const handleConfirmPay = () => {
-    setIsButtonDisabled(true);
+    dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
     setSpinnerLoader(true);
     if (parameters?.deviceType === "Android") {
       setTimeout(() => {
@@ -192,7 +203,7 @@ const MyBill = () => {
         });
     } else if (mobileResponse == "failed") {
       setSpinnerLoader(false);
-      setIsButtonDisabled(false);
+      dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: false }));
       dispatch(settingData({ field: "mobileResponse", value: "" }));
     }
   });
@@ -203,66 +214,7 @@ const MyBill = () => {
 
   return (
     <>
-      {getPaymentConfirmation && (
-        <div id="PaymentConfirmationSection" className={`${getSpinnerLoader ? "opacityNone" : ""}`}>
-          <div className="topSection">
-            <div className="brBoucket"></div>
-            <div className="titles">
-              <div className="titleGrid">Payment Confirmation</div>
-              <button
-                onClick={() => {
-                  dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "" }));
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-
-          <div className="bodySection">
-            <div className="cardSec">
-              <img src="/build/images/alfa/alfaLogo.png" alt="flag" />
-              <div className="method">Alfa Bill Payment</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Phone Number</div>
-              <div className="value">+961 {localStorage.getItem("billMobileNumber")}</div>
-            </div>
-
-            <div className="br"></div>
-
-            <div className="MoreInfo">
-              <div className="label">Amount in $</div>
-              <div className="value1">$ {getDisplayData.InformativeOriginalWSAmount}</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Amount in L.L (Sayrafa Rate)</div>
-              <div className="value1">L.L {parseInt(getDisplayData.Amount).toLocaleString()}</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Fees in L.L (Sayrafa Rate)</div>
-              <div className="value1">L.L {parseInt(getdisplayedFees).toLocaleString()}</div>
-            </div>
-            <div className="br"></div>
-
-            <div className="MoreInfo">
-              <div className="label">Total</div>
-              <div className="value2">L.L {parseInt(getDisplayData.TotalAmount).toLocaleString()}</div>
-            </div>
-          </div>
-
-          <div className="footSectionPick">
-            <button onClick={handleConfirmPay} disabled={isButtonDisabled}>
-              Confirm & Pay
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div id={`MyBill`} className={`${getPaymentConfirmation || getSpinnerLoader ? "hideBackk" : ""}`}>
+      <div id={`MyBill`} className={`${getSpinnerLoader ? "hideBackk" : ""}`}>
         {getSpinnerLoader && (
           <div id="spinnerLoader">
             <Spinner className="spinner" animation="border" variant="secondary" />
