@@ -397,8 +397,12 @@
 >>>>>>> c7164b70 (some changes)
 =======
         "/build/runtime.e40c1cca.js",
+<<<<<<< HEAD
         "/build/Simly.da023177.js"
 >>>>>>> a22a3fd5 (handle hassan changes)
+=======
+        "/build/Simly.1c748f1b.js"
+>>>>>>> 7fc3c334 (disable toup on terminated)
       ]
     },
 >>>>>>> 7ff8d36b (yarn encore prod)
