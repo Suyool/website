@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import BottomNav from "./components/BottomNav";
-import LLDJ from "./components/LLDJ";
-import Play from "./components/Play";
-import Result from "./components/Result.js";
-import PickYourGrid from "./components/PickYourGrid";
-import SuccessModal from "./Modal/Modal/SuccessModal";
-import ErrorModal from "./Modal/Modal/ErrorModal";
-import Buy from "./components/Buy";
-import WarningModal from "./Modal/Modal/WarningModal";
-import Header from "./Header";
+import BottomNav from "./components/BottomNav.js";
+import LLDJ from "./components/LLDJ.js";
+import Play from "./components/Play.js";
+import Result from "./components/Result.js.js";
+import PickYourGrid from "./components/PickYourGrid.js";
+import SuccessModal from "./Modal/Modal/SuccessModal.js";
+import ErrorModal from "./Modal/Modal/ErrorModal.js";
+import Buy from "./components/Buy.js";
+import WarningModal from "./Modal/Modal/WarningModal.js";
+import Header from "./Header.js";
 
 const App = ({ parameters }) => {
   const [getBackLink, setBackLink] = useState({ name: "" });

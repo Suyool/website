@@ -55,7 +55,7 @@ class AlfaController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
@@ -417,7 +417,7 @@ class AlfaController extends AbstractController
         if ($_ENV['APP_ENV'] == "prod") {
             $filter =  $Memcached->getVouchers($lotoServices);
         } else {
-            // $filter =  $Memcached->getVouchers($lotoServices);
+            $filter =  $Memcached->getVouchers($lotoServices);
         }
         // dd($filter);
 
