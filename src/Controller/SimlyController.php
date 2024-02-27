@@ -42,7 +42,7 @@ class SimlyController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             // dd($_POST['infoString']);   
@@ -51,7 +51,7 @@ class SimlyController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -193,9 +193,17 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
-        $SuyoolUserId = $this->session->get('suyoolUserId');
-
+        $SuyoolUserId = $this->session->get('suyoolUserId');        
         $data = json_decode($request->getContent(), true);
+        if(isset($data['esimId'])){
+            $res = $simlyServices->FetchUsageOfPurchasedESIM($data['esimId']);
+            if($res['sim']['status'] == "TERMINATED"){
+                return new JsonResponse([
+                    'status'=>false,
+                    'message'=>'You cannot topup your plan'
+                ],200);
+            }
+        }
         if (isset($data['parentPlanType'])) {
             $parentPlanType = $data['parentPlanType'];
         } elseif (isset($data['esimId']) && $data['esimId'] != null) {
