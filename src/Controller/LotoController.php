@@ -202,6 +202,11 @@ class LotoController extends AbstractController
                 ];
                 $suyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $suyoolUserId);
+
+                if(!$this->session->has('suyoolUserId')){
+                    $this->session->set('suyoolUserId',$suyoolUserId);
+                }
+
                 $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
                 $loto_numbers = $this->mr->getRepository(LOTO_numbers::class)->findPriceByNumbers(11);
                 $loto_prize_result = $this->mr->getRepository(LOTO_draw::class)->findBy([], ['drawdate' => 'desc']);
