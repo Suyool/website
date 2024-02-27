@@ -28,6 +28,9 @@ const initialState = {
 
   postpaidData: {
     id: "",
+    pinCode: [],
+    isPinWrong: false,
+    ResponseId: "",
   },
 
   prepaidData: {

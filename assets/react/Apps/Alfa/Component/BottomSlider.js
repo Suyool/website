@@ -8,6 +8,20 @@ const BottomSlider = () => {
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const parameters = useSelector((state) => state.appData.parameters);
 
+  const handleConfirmPay = () => {
+    dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
+    dispatch(settingData({ field: "isloading", value: true }));
+
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      setTimeout(() => {
+        window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
+      }, 2000);
+    }
+  };
   return (
     <div id="BottomSliderContainer">
       <div className="topSection">
@@ -115,7 +129,7 @@ const BottomSlider = () => {
             <div className="footSectionPick">
               <button
                 onClick={() => {
-                  console.log("clicked");
+                  handleConfirmPay();
                 }}
                 disabled={bottomSlider.isButtonDisable}
               >
