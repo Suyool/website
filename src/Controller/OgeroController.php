@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\BobServices;
 use App\Service\DecryptService;
+use App\Service\LogsService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Exception;
@@ -77,6 +78,8 @@ class OgeroController extends AbstractController
 
         if ($data != null) {
             $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs,"app_ogero_landline",null,@$RetrieveChannel[3],"RetrieveChannelResults");
             // dd($RetrieveChannel);
             if ($RetrieveChannel[0] == true) {
                 $resp = $RetrieveChannel[1]["Values"];
@@ -286,8 +289,8 @@ class OgeroController extends AbstractController
                     }
                 } else {
                     $logs = new Logs;
-                    $logs->setidentifier("ogero error");
-                    $logs->seterror($BillPayOgero[2]);
+                    $logs->setidentifier("app_ogero_landline_pay");
+                    $logs->setresponse($BillPayOgero[2]);
 
                     $this->mr->persist($logs);
                     $this->mr->flush();
