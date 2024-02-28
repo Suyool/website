@@ -18,7 +18,7 @@ class LogsService {
     public function pushLogs($class,$identifier,$request,$response,$url)
     {
         try{
-            $class->setidentifier($identifiers);
+            $class->setidentifier($identifier);
             $class->seturl($url);
             $class->setrequest($request);
             $class->setresponse($response);
