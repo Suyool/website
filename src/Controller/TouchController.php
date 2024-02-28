@@ -17,6 +17,7 @@ use App\Service\SuyoolServices;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,9 +38,9 @@ class TouchController extends AbstractController
     private $lotoServices;
     private $memcached;
     private $not;
+    private $loggerInterface;
 
-
-    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $session, LotoServices $lotoServices, Memcached $memcached)
+    public function __construct(ManagerRegistry $mr, $certificate, $hash_algo, ParameterBagInterface $params, SessionInterface $session, LotoServices $lotoServices, Memcached $memcached,LoggerInterface $loggerInterface)
     {
         $this->mr = $mr->getManager('touch');
         $this->hash_algo = $hash_algo;
@@ -49,6 +50,7 @@ class TouchController extends AbstractController
         $this->session = $session;
         $this->lotoServices = $lotoServices;
         $this->memcached = $memcached;
+        $this->loggerInterface=$loggerInterface;
     }
 
     /**
@@ -94,7 +96,7 @@ class TouchController extends AbstractController
 
         if ($data != null) {
             $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
-            $pushlog = new LogsService($this->mr);
+            $pushlog = new LogsService($this->mr,$this->loggerInterface);
             $pushlog->pushLogs(new Logs,"app_touch_bill",null,json_encode($sendBill),"SendTouchPinRequest");
             if (isset($sendBill[1]['TouchResponse'])) {
                 $sendBill[1] = "Invalid Number";
