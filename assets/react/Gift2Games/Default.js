@@ -293,6 +293,9 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                                         className="GridImg"
                                         src={record?.image || getDefaultImage(setTypeID)}
                                         alt="bundleImg"
+                                        onError={(e) => {
+                                            e.target.src = '../build/images/gameicon.svg';
+                                        }}
                                     />
                                     <div className="gridDesc" style={{ opacity: record.inStock === false ? 0.5 : 1 }}>
                                         <div className="Price">
