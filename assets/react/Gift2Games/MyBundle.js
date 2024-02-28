@@ -237,6 +237,9 @@ const MyBundle = ({
                 className="BundleBigImg"
                 src={getPrepaidVoucher.image || getDefaultImage(setTypeID)}
                 alt="Bundle"
+                onError={(e) => {
+                  e.target.src = '../build/images/gameicon.svg';
+              }}
               />
               <div className="smlDesc">
                 <img

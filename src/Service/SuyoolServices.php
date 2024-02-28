@@ -587,11 +587,9 @@ class SuyoolServices
                 'flag' => $flag,
                 'channelID' => $channelID
             ];
-            // dd(json_encode($body));
 
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=" . $Hash,  $body);
             $content = $response->toArray(false);
-            
             if ($this->winning) {
                 $this->winning->info(json_encode($content));
             } else {
