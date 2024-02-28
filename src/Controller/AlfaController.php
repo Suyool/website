@@ -364,6 +364,7 @@ class AlfaController extends AbstractController
                     $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                    $pushlog->pushLogs(new Logs,"app_alfa_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
