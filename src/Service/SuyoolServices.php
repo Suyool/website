@@ -476,6 +476,10 @@ class SuyoolServices
                 'listWinners' => $listWinners,
                 'secureHash' => $Hash
             ], JSON_PRESERVE_ZERO_FRACTION));
+            $body = json_encode([
+                'listWinners' => $listWinners,
+                'secureHash' => $Hash
+            ], JSON_PRESERVE_ZERO_FRACTION);
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
                 'body' => json_encode([
                     'listWinners' => $listWinners,
@@ -489,9 +493,9 @@ class SuyoolServices
             $content = $response->toArray(false);
 
             if ($content['globalCode'] == 1) {
-                return array(true, $content['data']);
+                return array(true, $content['data'],$body,$content);
             } else {
-                return array(false);
+                return array(false,"",$body,$content);
             }
         } catch (Exception $e) {
             $this->winning->error($e->getMessage());

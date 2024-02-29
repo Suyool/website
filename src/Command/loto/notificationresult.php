@@ -2,12 +2,14 @@
 
 namespace App\Command\loto;
 
+use App\Entity\Loto\Logs;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
+use App\Service\LogsService;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\sendEmail;
@@ -50,6 +52,8 @@ class notificationresult extends Command
         ]);
 
         $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
+        $pushlog = new LogsService($this->mr);
+        $pushlog->pushLogs(new Logs ,"get price from loto",null,json_encode($GetFullGridPriceMatrix),"GetFullGridPriceMatrix");
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
         if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J'], 'zeed' => $GetFullGridPriceMatrix['d']['zeedprice']])) {
@@ -66,6 +70,7 @@ class notificationresult extends Command
             }
         }
         $results = $this->lotoServices->getDrawsResult();
+        $pushlog->pushLogs(new Logs ,"getDrawsResult",null,json_encode($results),"GetDrawsInformation");
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');
         } else {
@@ -108,6 +113,7 @@ class notificationresult extends Command
         // dd($notifyUser);
 
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
+        $pushlog->pushLogs(new Logs ,"fetchDrawDetails",null,json_encode($detailsnextdraw[1]),"GetInPlayAndNextDrawInformation");
 
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');

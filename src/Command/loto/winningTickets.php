@@ -2,12 +2,14 @@
 
 namespace App\Command\loto;
 
+use App\Entity\Loto\Logs;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_results;
 use App\Entity\Loto\order;
 use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
+use App\Service\LogsService;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\sendEmail;
@@ -67,7 +69,7 @@ class winningTickets extends Command
         $winningBallsZeed['prize2'] = $getLastResults->getzeednumber2();
         $winningBallsZeed['prize3'] = $getLastResults->getzeednumber3();
         $winningBallsZeed['prize4'] = $getLastResults->getzeednumber4();
-
+        // dd($drawId);
         $getGridsinThisDraw = $this->mr->getRepository(loto::class)->findgridsInThisDraw($drawId);
         // dd($getGridsinThisDraw);
         $body = [];
@@ -202,6 +204,8 @@ class winningTickets extends Command
             }
 
             $response = $this->suyoolServices->PushUserPrize($listWinners);
+            $pushlogs = new LogsService($this->mr);
+            $pushlogs->pushLogs(new Logs,"PushUserPrize",@$response[2],@json_encode($response[3]),"Utilities/PushUserPrize");
             if ($response[0]) {
                 $data = json_decode($response[1], true);
                 $this->logger->debug(json_encode($data));
