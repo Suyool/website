@@ -549,24 +549,41 @@ class SuyoolServices
         }
     }
 
-    public function sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID)
+    public function sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName = null, $attachmentsBase64 = null, $fromEmail, $fromName, $flag, $channelID)
     {
         try {
             $Hash = "0e9Q6zJLdoKty9U6OuDZHVas9GisPCfGUFWpFrUq9sfLBgaaY6";
             $to = explode(',', $to);
-            foreach ($to as $to) {
-                $emailMessage[] = [
-                    'subject' => $subject,
-                    'to' => $to,
-                    'plainTextContent' => $plainTextContent,
-                    'attachment' => [
-                        [
-                        'name' => $attachmentName,
-                        'attachmentsBase64' => $attachmentsBase64
+            if($attachmentName == null || $attachmentName == ""){
+                foreach ($to as $to) {
+                    $emailMessage[] = [
+                        'subject' => $subject,
+                        'to' => $to,
+                        'plainTextContent' => $plainTextContent,
+                        'attachment' => [
+                            // [
+                            // 'name' => $attachmentName,
+                            // 'attachmentsBase64' => $attachmentsBase64
+                            // ]
                         ]
-                    ]
-                ];
+                    ];
+                }
+            }else{
+                foreach ($to as $to) {
+                    $emailMessage[] = [
+                        'subject' => $subject,
+                        'to' => $to,
+                        'plainTextContent' => $plainTextContent,
+                        'attachment' => [
+                            [
+                            'name' => $attachmentName,
+                            'attachmentsBase64' => $attachmentsBase64
+                            ]
+                        ]
+                    ];
+                }
             }
+            
             // dd($emailMessage);
             // $emailMessage = [
             //     'subject' => $subject,

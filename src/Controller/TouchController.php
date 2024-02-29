@@ -252,9 +252,12 @@ class TouchController extends AbstractController
                         'PaymentId' => $Postpaid_With_id->getpaymentId(),
                         'AdditionalFees' => $Postpaid_With_id->getadditionalfees(),
                     ]);
-                    $date = new DateTime('now');
-                    $text = "The mobile number {$Postpaid_With_id->getGsmNumber()} has paid the bill, receiving a response {$billPay[2]} at {$date->format('Y-m-d H:i:s')}";
-                    $suyoolServices->sendDotNetEmail('Touch postpaid bill','Anthony.Saliba@elbarid.com',$text,"","","no-reply@suyool.com","no-reply",1,0);
+                    $text = "To whom it may concern the touch bill for {$Postpaid_With_id->getGsmNumber()} was settled via Suyool App.<br>Please confirm via replying to this email that the bill is settled with Touch";
+                    if($_ENV['APP_ENV'] == 'prod'){
+                    $suyoolServices->sendDotNetEmail('Touch postpaid bill','aya.j@suyool.com,Anthony.Saliba@elbarid.com',$text,null,null,"no-reply@suyool.com","no-reply",1,0);
+                    }else{
+                        $suyoolServices->sendDotNetEmail('Touch postpaid bill','anthony.saliban@gmail.com,Anthony.Saliba@elbarid.com',$text,"","","no-reply@suyool.com","no-reply",1,0);
+                    }
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
                     if ($responseUpdateUtilities) {
