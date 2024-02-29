@@ -3,7 +3,7 @@ import QrDownload from "../Components/QrDownload";
 import { async } from "regenerator-runtime";
 import axios from "axios";
 
-const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
+const RechargeThePayment = ({parameters, setHeaderTitle, setBackLink, getEsimId }) => {
   const [getselectedBtn, setselectedBtn] = useState("qr");
   const [qr, setQr] = React.useState(null);
   const [getPlanDetail, setPlanDetail] = useState(null);
@@ -14,7 +14,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
 
     axios
       .post("/simly/GetEsimDetails", {
-        esimId: localStorage.getItem("esimId"),
+        esimId: getEsimId,
       })
       .then((response) => {
         setPlanDetail(response.data.message);
@@ -22,21 +22,36 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
       });
   }, []);
 
-  const handleDownload = async (e) => {
-    try {
-      const result = await fetch(getPlanDetail?.qrCodeImage, {
-        method: "GET",
-        headers: {},
-      });
-      const blob = await result.blob();
-      const url = URL.createObjectURL(blob);
+  const handleDownload = async (qrString) => {
+    // try {
+    //   const result = await fetch(getPlanDetail?.qrCodeImage, {
+    //     method: "GET",
+    //     headers: {},
+    //   });
+    //   const blob = await result.blob();
+    //   const url = URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = getPlanDetail?.qrCodeImage;
-      link.click();
-    } catch (error) {
-      console.error(error);
+    //   const link = document.createElement("a");
+    //   link.href = url;
+    //   link.download = getPlanDetail?.qrCodeImage;
+    //   link.click();
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    let object = [
+      {
+        QR: {
+          share: "qr",
+          text: qrString,
+        },
+      },
+    ];
+    console.log(JSON.stringify(object));
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler(JSON.stringify(object));
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
     }
   };
   const copyToClipboard = (data) => {
@@ -74,7 +89,7 @@ const RechargeThePayment = ({ setHeaderTitle, setBackLink, getEsimId }) => {
               <img className="image" src={getPlanDetail?.qrCodeImage} alt="qrCode" />
             </div>
 
-            <div className="downloadBtn" onClick={handleDownload}>
+            <div className="downloadBtn" onClick={()=>{handleDownload(getPlanDetail?.qrCodeString)}}>
               <img src="/build/images/install.svg" alt="download" />
             </div>
           </div>
