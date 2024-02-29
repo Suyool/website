@@ -2,11 +2,13 @@
 
 namespace App\Command\loto;
 
+use App\Entity\Loto\Logs;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\order;
 use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
+use App\Service\LogsService;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -66,7 +68,8 @@ class PlayLoto extends Command
         $output->writeln([
             'Successfully Playing Loto'
         ]);
-
+        
+        $pushlogs=new LogsService($this->mr);
         $play  = 1;
         $newsum = 0;
         $drawNumber = 0;
@@ -119,6 +122,7 @@ class PlayLoto extends Command
                 }
                 $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
+                $pushlogs->pushLogs(new Logs,"PlayLoto",@$updateutility[3],@$updateutility[2],"Utilities/UpdateUtilityPayment");
                 if ($updateutility[0]) {
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")
@@ -149,7 +153,7 @@ class PlayLoto extends Command
                 $userId = $held->getsuyoolUserId();
                 $sum = $held->getamount();
                 $lotoToBePlayed = $this->mr->getRepository(loto::class)->lotoToBePlayed($held->getId());
-                dd($lotoToBePlayed);
+                // dd($lotoToBePlayed);
                 $additionaldata = [];
                 $newElement = [];
                 $grids = [];
@@ -162,7 +166,9 @@ class PlayLoto extends Command
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
                     $newElement = [];
-                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    // $submit = [true,null,"",["success"],["token"=>123123]];
+                    $pushlogs->pushLogs(new Logs,"PlayLoto",@json_encode($submit[4]),json_encode($submit[3]),"SubmitLotoPlayOrderWithPhoneNumber");
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(2);
@@ -240,6 +246,7 @@ class PlayLoto extends Command
                         if ($submit[0]) {
                             sleep(2);
                             $ticketId = $this->lotoServices->GetTicketId();
+                            // $ticketId="1234";
                             $lotoToBePlayed->setticketId($ticketId);
                             if ($submit[1] != null || $submit[1] != "") {
                                 $lotoToBePlayed->setzeednumber(str_pad($submit[1], 5, "0", STR_PAD_LEFT));
@@ -321,28 +328,28 @@ class PlayLoto extends Command
                     $newsum += $lotoidcompletedsum->getprice();
                 }
 
-                // $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
+                $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
+                $pushlogs->pushLogs(new Logs,"PlayLoto",@$updateutility[3],@$updateutility[2],"Utilities/UpdateUtilityPayment");
+                if ($updateutility[0]) {
+                    $held->setamount($newsum)
+                        ->setcurrency("LBP")
+                        ->setstatus(order::$statusOrder['COMPLETED']);
 
-                // if ($updateutility[0]) {
-                //     $held->setamount($newsum)
-                //         ->setcurrency("LBP")
-                //         ->setstatus(order::$statusOrder['COMPLETED']);
+                    $this->mr->persist($held);
+                    $this->mr->flush();
+                    if ($newsum != $sum) {
+                        $diff = $sum - $newsum;
+                        $params = json_encode(['currency' => "L.L", 'amount' => $diff, 'draw' => $drawNumber], true);
+                        $content = $this->notificationService->getContent('Payment reversed loto');
+                        $this->notificationService->addNotification($userId, $content, $params, $bulk);
+                    }
+                } else {
+                    $held->setstatus(order::$statusOrder['CANCELED']);
+                    $held->seterror($updateutility[1]);
 
-                //     $this->mr->persist($held);
-                //     $this->mr->flush();
-                //     if ($newsum != $sum) {
-                //         $diff = $sum - $newsum;
-                //         $params = json_encode(['currency' => "L.L", 'amount' => $diff, 'draw' => $drawNumber], true);
-                //         $content = $this->notificationService->getContent('Payment reversed loto');
-                //         $this->notificationService->addNotification($userId, $content, $params, $bulk);
-                //     }
-                // } else {
-                //     $held->setstatus(order::$statusOrder['CANCELED']);
-                //     $held->seterror($updateutility[1]);
-
-                //     $this->mr->persist($held);
-                //     $this->mr->flush();
-                // }
+                    $this->mr->persist($held);
+                    $this->mr->flush();
+                }
             }
         }
         $lock->release();

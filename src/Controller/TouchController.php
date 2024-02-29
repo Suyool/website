@@ -626,7 +626,8 @@ class TouchController extends AbstractController
                 $SuyoolUserId = $webkeyDecrypted['merchantId'];
                 if ($data != null) {
                     $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
-
+                    $pushlog = new LogsService($this->mr,$this->loggerInterface);
+                    $pushlog->pushLogs(new Logs,"ap2_touch_bill",null,json_encode($sendBill),"SendTouchPinRequest");
                     if (isset($sendBill[1]['TouchResponse'])) {
                         $sendBill[1] = "Invalid Number";
                     }
@@ -705,7 +706,8 @@ class TouchController extends AbstractController
                     $postpaidRequestId = $data["invoicesId"];
                     $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
                     $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
-
+                    $pushlog = new LogsService($this->mr);
+                    $pushlog->pushLogs(new Logs,"ap3_touch_RetrieveResults",null,json_encode($retrieveResults),"RetrieveChannelResults");
                     $Pin = implode("", $data["Pin"]);
                     if ($retrieveResults[0]) {
                         $values = $retrieveResults[1]["Values"];
@@ -806,7 +808,8 @@ class TouchController extends AbstractController
 
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Postpaid_With_id->getfees());
-
+                    $pushlog = new LogsService($this->mr);
+                    $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
                     if ($response[0]) {
                         //set order status to held
                         $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -818,6 +821,7 @@ class TouchController extends AbstractController
 
                         //paid postpaid from bob Provider
                         $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
+                        $pushlog->pushLogs(new Logs,"ap4_touch_bill",null,$billPay[3],"InjectTransactionalPayment");
                         if ($billPay[0]) {
                             //if payment from loto provider success insert prepaid data to db
                             $postpaid = new Postpaid;
@@ -867,6 +871,7 @@ class TouchController extends AbstractController
 
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
+                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
                             if ($responseUpdateUtilities) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -900,6 +905,7 @@ class TouchController extends AbstractController
                             $dataPayResponse = -1;
                             //if not purchase return money
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4
