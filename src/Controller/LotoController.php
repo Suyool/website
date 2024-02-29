@@ -60,7 +60,7 @@ class LotoController extends AbstractController
     }
 
     /**
-     * @Route("/alfa", name="app_loto")
+     * @Route("/loto", name="app_loto")
      */
     public function index(Request $request)
     {

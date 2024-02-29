@@ -913,7 +913,13 @@ class TouchController extends AbstractController
                                     ->seterror("Not found BillPayTouch");
                                 $this->mr->persist($orderupdate4);
                                 $this->mr->flush();
-
+                                $popup = [
+                                    "Title" => "An error has occured",
+                                    "globalCode" => 0,
+                                    "flagCode" => 435,
+                                    "Message" => "Please try again",
+                                    "isPopup" => true
+                                ];
                                 $messageBack = "Success return money!!";
                                 $message = "Success return money!!";
                             } else {
