@@ -11,6 +11,7 @@ use App\Entity\Invoices\test_invoices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,10 +25,11 @@ class IframeController extends AbstractController
     private $mr;
     private $SUYOOL_API_HOST;
 
-    public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session)
+    public function __construct(HttpClientInterface $client,ManagerRegistry $mr,SessionInterface $session,Helper $helper)
     {
         $this->client = $client;
         $this->mr = $mr->getManager('invoices');
+        $this->helper = $helper;
 
         $this->session = $session;
         if ($session!=null && $session->has('simulation')) {
@@ -357,5 +359,49 @@ class IframeController extends AbstractController
             return $response;
         }
         return new Response('Invalid request', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route("/check_payment_status", name="app_check_payment_status",methods="POST")
+     */
+    public function checkPaymentStatus(Request $request)
+    {
+
+        $jsonData = json_decode($request->getContent(), true);
+
+        // Check if JSON decoding was successful
+        if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
+            return new Response('Invalid JSON data', Response::HTTP_BAD_REQUEST);
+        }
+        // Extract data from JSON
+        $transactionId = $jsonData['TransactionID'] ?? null;
+        $ts = $jsonData['TS'] ?? null;
+        $merchantId = $jsonData['MerchantAccountID'] ?? null;
+        $secureHash = $jsonData['SecureHash'] ?? null;
+
+        // Handle missing required fields
+        if ($transactionId === null || $ts === null || $merchantId === null || $secureHash === null) {
+            return new Response('Missing required fields', Response::HTTP_BAD_REQUEST);
+        }
+
+        // Construct JSON payload
+        $json = [
+            "TransactionID" => $transactionId,
+            "MerchantAccountID" => $merchantId,
+            "TS" => $ts,
+            "SecureHash" => $secureHash
+        ];
+        $params['data'] = $json;
+        $params['url'] = '/CheckPaymentStatus';
+
+        // Make request to external API
+        $response = $this->helper->clientRequest('POST', $this->SUYOOL_API_HOST  . $params['url'], $params['data']);
+
+        // Process response
+        $result = json_decode($response->getContent(), true);
+
+        return new JsonResponse([
+            'message' => $result
+        ]);
     }
 }
