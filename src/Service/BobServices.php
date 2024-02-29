@@ -386,6 +386,6 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription);
+        return array($isSuccess, $decodedString, $ErrorDescription,$content);
     }
 }
