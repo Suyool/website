@@ -62,7 +62,7 @@ class AlfaController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);

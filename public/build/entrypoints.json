@@ -2,72 +2,72 @@
   "entrypoints": {
     "Alfa": {
       "js": [
-        "/build/runtime.js",
-        "/build/Alfa.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/Alfa.1b71d735.js"
       ]
     },
     "app1": {
       "js": [
-        "/build/runtime.js",
-        "/build/app1.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/app1.1dfb62eb.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.js",
-        "/build/admin-app.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/admin-app.fd697fc2.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/Loto.ecf58fd2.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/LegalEnrollement.2acf5642.js"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/AlfaStyle.css"
+        "/build/AlfaStyle.4444988f.css"
       ]
     },
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.eb2df758.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/admin.css"
+        "/build/admin.8fb78dae.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.77b15344.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     }
   }

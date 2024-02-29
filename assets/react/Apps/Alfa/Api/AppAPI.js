@@ -6,6 +6,7 @@ const AppAPI = () => {
   const dispatch = useDispatch();
   const axiosClient = useAxiosClient();
 
+  //Get Phone Bill
   const Bill = ({ mobileNumber, currency }) => {
     dispatch(settingData({ field: "isloading", value: true }));
 
@@ -109,6 +110,7 @@ const AppAPI = () => {
     }
   };
 
+  //Get Phone Result Bill
   const BillRetrieveResult = ({ mobileNumber, currency, Pin, invoicesId }) => {
     dispatch(settingData({ field: "isloading", value: true }));
     try {
@@ -168,6 +170,7 @@ const AppAPI = () => {
     }
   };
 
+  //Purchase Postpaid Bill
   const BillPay = (getResponseId) => {
     dispatch(settingData({ field: "isloading", value: true }));
 
@@ -251,17 +254,18 @@ const AppAPI = () => {
     }
   };
 
+  //Get Prepaid Vouchers
   const Recharge = () => {
     try {
       return axiosClient.post(`/ReCharge`).then((response) => {
         dispatch(settingObjectData({ mainField: "prepaidData", field: "vouchers", value: response?.data?.message }));
       });
     } catch (e) {
-      dispatch(settingData({ field: "isloading", value: false }));
       console.log(e);
     }
   };
 
+  //Purchase Prepaid Voucher
   const BuyPrePaid = (getPrepaidVoucher) => {
     dispatch(settingData({ field: "isloading", value: true }));
 
