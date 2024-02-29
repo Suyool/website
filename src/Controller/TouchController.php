@@ -1100,8 +1100,7 @@ class TouchController extends AbstractController
                                 ->setidentifier("Prepaid Request")
                                 ->seturl("https://backbone.lebaneseloto.com/Service.asmx/PurchaseVoucher")
                                 ->setrequest($BuyPrePaid[1])
-                                ->setresponse(json_encode($PayResonse))
-                                ->seterror($PayResonse["errorinfo"]["errormsg"]);
+                                ->setresponse(json_encode($PayResonse));
                             $this->mr->persist($logs);
                             $this->mr->flush();
                             $IsSuccess = false;
