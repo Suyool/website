@@ -127,7 +127,7 @@ const App = ({ parameters }) => {
             )}
             {activeButton.name === "PlanDetail" && <PlanDetail getEsimDetail={getEsimDetail} setBackLink={setBackLink} />}
 
-            {activeButton.name === "RechargeThePayment" && <RechargeThePayment setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} getEsimId={getEsimId} />}
+            {activeButton.name === "RechargeThePayment" && <RechargeThePayment parameters={parameters} setHeaderTitle={setHeaderTitle} setBackLink={setBackLink} getEsimId={getEsimId} />}
 
           </>
         )}
