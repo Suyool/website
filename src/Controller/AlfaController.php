@@ -510,7 +510,7 @@ class AlfaController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $pushlog->pushLogs(new Logs, "app_alfa_BuyPrePaid", @$BuyPrePaid[1], @$BuyPrePaid[2], "PurchaseVoucher");
+                $pushlog->pushLogs(new Logs, "app_alfa_BuyPrePaid", @json_encode($BuyPrePaid[1]), @json_encode($BuyPrePaid[0]), "PurchaseVoucher");
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
