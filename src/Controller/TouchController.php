@@ -439,6 +439,7 @@ class TouchController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
+                $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$BuyPrePaid[1],@$BuyPrePaid[2],"PurchaseVoucher");
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
