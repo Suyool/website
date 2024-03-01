@@ -36,7 +36,13 @@ const App = ({ parameters }) => {
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get("comp");
     if (idParam) {
-      dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: idParam }));
+      dispatch(
+        settingObjectData({
+          mainField: "headerData",
+          field: "currentPage",
+          value: idParam,
+        })
+      );
     }
     window.handleCheckout = (message) => {
       dispatch(settingData({ field: "mobileResponse", value: message }));
@@ -47,10 +53,18 @@ const App = ({ parameters }) => {
     <div id="PageBody">
       <Header />
 
-      <div className={`${isLoading === true ? "hideBackk scrolableView" : "scrolableView"}`}>
+      <div
+        className={`${
+          isLoading === true ? "hideBackk scrolableView" : "scrolableView"
+        }`}
+      >
         {isLoading === true && (
           <div id="spinnerLoader">
-            <Spinner className="spinner" animation="border" variant="secondary" />
+            <Spinner
+              className="spinner"
+              animation="border"
+              variant="secondary"
+            />
           </div>
         )}
         {headerData.currentPage === "" && <Default />}
@@ -58,10 +72,9 @@ const App = ({ parameters }) => {
         {headerData.currentPage === "ReCharge" && <ReCharge />}
         {headerData.currentPage === "MyBill" && <MyBill />}
         {headerData.currentPage === "MyBundle" && <MyBundle />}
+        {bottomSlider.isShow && <BottomSlider />}
+        {modalData.isShow && <PopupModal />}
       </div>
-
-      {bottomSlider.isShow && <BottomSlider />}
-      {modalData.isShow && <PopupModal />}
     </div>
   );
 };

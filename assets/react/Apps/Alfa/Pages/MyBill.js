@@ -10,7 +10,7 @@ const MyBill = () => {
   const parameters = useSelector((state) => state.appData.parameters);
   const getPostpaidData = useSelector((state) => state.appData.postpaidData);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
-  const bottomSlider = useSelector((state) => state.appData.bottomSlider);
+
   const PinLength = 4;
   const [getBtnDesign, setBtnDesign] = useState(false);
   const inputRef = useRef(null);
@@ -77,7 +77,7 @@ const MyBill = () => {
           </div>
         </div>
 
-        <div className="continueSectionFocused" style={{ display: bottomSlider.isShow ? "none" : "block" }}>
+        <div className="continueSectionFocused">
           <button id="ContinueBtn" className="btnCont" onClick={handlePayNow} disabled={getPostpaidData.pinCode.length !== PinLength}>
             Continue
           </button>

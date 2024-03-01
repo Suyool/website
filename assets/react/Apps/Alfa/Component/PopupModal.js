@@ -7,6 +7,7 @@ const PopupModal = () => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.appData.modalData);
   const parameters = useSelector((state) => state.appData.parameters);
+  const headerData = useSelector((state) => state.appData.headerData);
 
   const onHide = () => {
     dispatch(
@@ -29,7 +30,7 @@ const PopupModal = () => {
         value: {
           title: "Alfa",
           backLink: "",
-          currentPage: "",
+          currentPage: headerData.currentPage,
         },
       })
     );
@@ -69,12 +70,13 @@ const PopupModal = () => {
   };
 
   const goToPlay = () => {
+    console.log(parameters);
     if (parameters?.deviceType === "Android") {
       window.AndroidInterface.callbackHandler("GoToApp");
-    } else if (parameters?.deviceType.deviceType === "Iphone") {
+    } else if (parameters?.deviceType === "Iphone") {
       window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
     }
-    onHide();
+    // onHide();
   };
 
   return (
