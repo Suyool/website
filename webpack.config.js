@@ -47,11 +47,18 @@ Encore
     "LegalEnrollementStyle",
     "./assets/styles/src/react/LegalEnrollement.scss"
   )
-  // .addStyleEntry('AlfaStyle', './assets/styles/src/react/Alfa.scss')
+
   //Alfa
   .addStyleEntry("AlfaStyle", "./assets/react/Apps/Alfa/Style/Alfa.scss")
   .addEntry("Alfa", "./assets/react/Apps/Alfa/index.js")
-  .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
+
+  //Touch
+  .addStyleEntry("TouchStyle", "./assets/react/Apps/Touch/Style/Touch.scss")
+  .addEntry("Touch", "./assets/react/Apps/Touch/index.js")
+
+  // .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
+  // .addEntry("Touch", "./assets/react/Touch/index.js")
+
   .addStyleEntry("OgeroStyle", "./assets/styles/src/react/Ogero.scss")
   .addStyleEntry("Gift2GamesStyle", "./assets/styles/src/react/Gift2Games.scss")
   .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
@@ -65,7 +72,6 @@ Encore
   .addEntry("Loto", "./assets/react/Loto/index.js")
   .addEntry("LegalEnrollement", "./assets/react/LegalEnrollement/index.js")
 //   .addEntry("Alfa", "./assets/react/Alfa/index.js")
-  .addEntry("Touch", "./assets/react/Touch/index.js")
   .addEntry("Ogero", "./assets/react/Ogero/index.js")
   .addEntry("Gift2Games", "./assets/react/Gift2Games/index.js")
   .addEntry("iveri", "./assets/react/Iveri/index.js")
