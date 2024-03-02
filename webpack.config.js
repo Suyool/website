@@ -53,11 +53,11 @@ Encore
   .addEntry("Alfa", "./assets/react/Apps/Alfa/index.js")
 
   //Touch
-  .addStyleEntry("TouchStyle", "./assets/react/Apps/Touch/Style/Touch.scss")
-  .addEntry("Touch", "./assets/react/Apps/Touch/index.js")
+  // .addStyleEntry("TouchStyle", "./assets/react/Apps/Touch/Style/Touch.scss")
+  // .addEntry("Touch", "./assets/react/Apps/Touch/index.js")
 
-  // .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
-  // .addEntry("Touch", "./assets/react/Touch/index.js")
+  .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
+  .addEntry("Touch", "./assets/react/Touch/index.js")
 
   .addStyleEntry("OgeroStyle", "./assets/styles/src/react/Ogero.scss")
   .addStyleEntry("Gift2GamesStyle", "./assets/styles/src/react/Gift2Games.scss")

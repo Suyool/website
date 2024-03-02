@@ -619,6 +619,24 @@ class TouchController extends AbstractController
     public function RestAlfaBillApi(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
         try {
+            $popup = [
+                    "Title" => "Services not available",
+                    "globalCode" => 0,
+                    "flagCode" => 800,
+                    "Message" => "This service is not available at this moment.
+                    Kindly try again",
+                    "isPopup" => true
+                ];
+                $parameters = [
+                    'isSuccess' => false,
+                    'postpaidRequestId' => -1,
+                    'Popup'=>@$popup
+                ];
+                return new JsonResponse([
+                    'status' => true,
+                    'message' => "not available",
+                    'data' => $parameters
+                ], 200);
             $data = json_decode($request->getContent(), true);
             $webkey = apache_request_headers();
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);

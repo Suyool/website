@@ -3,17 +3,13 @@
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-<<<<<<< Updated upstream
         "/build/Alfa.5e165994.js"
-=======
-        "/build/Alfa.a1368d18.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Touch.8e017b5f.js"
->>>>>>> Stashed changes
+        "/build/Touch.28e2870e.js"
       ]
     },
     "app1": {
@@ -115,7 +111,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/TouchStyle.a4a047b5.css"
+        "/build/TouchStyle.622ce055.css"
       ]
     },
     "OgeroStyle": {
