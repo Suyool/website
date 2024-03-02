@@ -16,6 +16,10 @@ const Default = ({
   }, []);
 
   const handleButtonClick = (name) => {
+    setActiveButton({ name: name });
+  };
+
+  const handleButtonClickNotAvailable = (name) => {
     setModalName("ErrorModal");
     setErrorModal({
       img: "/build/images/alfa/error.png",
@@ -35,7 +39,7 @@ const Default = ({
       <div
         className="Cards"
         onClick={() => {
-          handleButtonClick("PayBill");
+          handleButtonClickNotAvailable("PayBill");
         }}
       >
         <img
