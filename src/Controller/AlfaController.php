@@ -1416,11 +1416,8 @@ class AlfaController extends AbstractController
                                 'amount' => $order->getamount(),
                                 'currency' => "L.L",
                                 'plan' => $data["desc"],
-                                'plan' => 1233,
                                 'code' => $PayResonse["voucherCode"],
-                                // 'code' => 1231223425,
                                 'serial' => $PayResonse["voucherSerial"],
-                                // 'serial' => 23455,
                                 'expiry' => $formattedDate,
                                 'name' => $data['PayerName']
                             ]);
