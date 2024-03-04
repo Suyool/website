@@ -65,9 +65,11 @@ class LotoServices
                 ];
                 // dd($body);
                 $response = $this->helper->clientRequest($this->METHOD_POST,  $this->LOTO_API_HOST . '/PurchaseVoucher',  $body);
-
+                $status = $response->getStatusCode(); // Get the status code
+                // $status=null;
                 $content = $response->getContent();
                 $content = $response->toArray();
+                // $content=json_decode('{"d":{"voucherSerial":"8230148466815","voucherCode":"211070872867078","voucherExpiry":"2024-05-29","desc":"7.58$ 35 Days","displayMessage":"Testing You have successfully purchased a 7.58$ 35 Days Voucher code. Please recharge it using the code 211070872867078 before 2024-05-29","token":"fd56a656-42e5-442f-b429-9c8b92c95e46","balance":1373278637.8,"errorinfo":{"errorcode":0,"errormsg":"SUCCESS"},"insertId":null}}',true);
 
                 if ($content['d']['errorinfo']['errorcode'] == 0) {
                     $submit = 0;
@@ -78,14 +80,14 @@ class LotoServices
                 }
 
                 if ($submit == 0) {
-                    return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
+                    return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type]),$this->LOTO_API_HOST . '/PurchaseVoucher',@$status);
                 } else {
                     sleep(3);
                     $retryattempt++;
                 }
             }
 
-            return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type,]));
+            return array($content,  json_encode(["Token" => $login, "category" => $category, "type" => $type]),$this->LOTO_API_HOST . '/PurchaseVoucher',@$status);
         } catch (Exception $e) {
             return array(false, $e->getMessage());
         }

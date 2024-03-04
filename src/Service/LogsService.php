@@ -15,7 +15,7 @@ class LogsService {
         $this->loggerInterface = $loggerInterface;
     }
 
-    public function pushLogs($class,$identifier,$request,$response,$url,$status)
+    public function pushLogs($class,$identifier,$request,$response,$url = null,$status = null)
     {
         try{
             $class->setidentifier($identifier);
