@@ -97,7 +97,7 @@ class TouchController extends AbstractController
         if ($data != null) {
             $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
             $pushlog = new LogsService($this->mr,$this->loggerInterface);
-            $pushlog->pushLogs(new Logs,"app_touch_bill",null,json_encode($sendBill),"SendTouchPinRequest");
+            $pushlog->pushLogs(new Logs,"app_touch_bill",null,json_encode($sendBill),@$sendBill[3],@$sendBill[4]);
             if (isset($sendBill[1]['TouchResponse'])) {
                 $sendBill[1] = "Invalid Number";
             }
@@ -136,7 +136,7 @@ class TouchController extends AbstractController
             $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
             $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",null,json_encode($retrieveResults),"RetrieveChannelResults");
+            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",null,json_encode($retrieveResults),$retrieveResults[5],$retrieveResults[6]);
 
             $Pin = implode("", $data["Pin"]);
             if ($retrieveResults[0]) {
