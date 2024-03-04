@@ -1,0 +1,94 @@
+#successLandlineSlider {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: center;
+  .cardSec {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 15px;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .method {
+      padding-left: 15px;
+      font-family: $SemiBold;
+      color: black;
+      font-size: 14px;
+    }
+  }
+
+  .MoreInfo {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0;
+
+    .label {
+      font-family: $Medium;
+      color: #1c1a32;
+      font-size: 14px;
+    }
+
+    .value {
+      font-family: $Regular;
+      color: #000000;
+      font-size: 14px;
+    }
+
+    .value1 {
+      font-family: $SemiBold;
+      color: #000000;
+      font-size: 14px;
+    }
+
+    .value2 {
+      font-family: $SemiBold;
+      color: #000000;
+      font-size: 20px;
+    }
+  }
+
+  .br {
+    margin: 10px 0;
+    height: 0.5px;
+    width: 100%;
+    background-color: #ebebeb;
+    width: -webkit-fill-available;
+  }
+
+  .taxes {
+    font-family: $Regular;
+    color: #000000;
+    font-size: 12px;
+  }
+  .footSectionPick {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 46px;
+    background-color: white;
+
+    button {
+      width: 90%;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: $Medium;
+      color: white;
+      background-color: #226d96;
+      border: none;
+      padding: 16px 0;
+      text-align: center;
+    }
+  }
+}

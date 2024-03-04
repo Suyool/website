@@ -43,10 +43,7 @@ Encore
   .addStyleEntry("styles", "./assets/styles/app.scss")
   .addStyleEntry("admin", "./assets/styles/admin.scss")
   .addStyleEntry("Lotostyles", "./assets/styles/src/react/Loto.scss")
-  .addStyleEntry(
-    "LegalEnrollementStyle",
-    "./assets/styles/src/react/LegalEnrollement.scss"
-  )
+  .addStyleEntry("LegalEnrollementStyle", "./assets/styles/src/react/LegalEnrollement.scss")
 
   //Alfa
   .addStyleEntry("AlfaStyle", "./assets/react/Apps/Alfa/Style/Alfa.scss")
@@ -55,11 +52,15 @@ Encore
   //Touch
   .addStyleEntry("TouchStyle", "./assets/react/Apps/Touch/Style/Touch.scss")
   .addEntry("Touch", "./assets/react/Apps/Touch/index.js")
-
   // .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
   // .addEntry("Touch", "./assets/react/Touch/index.js")
 
-  .addStyleEntry("OgeroStyle", "./assets/styles/src/react/Ogero.scss")
+  //Ogero
+  .addStyleEntry("OgeroStyle", "./assets/react/Apps/Ogero/Style/Ogero.scss")
+  .addEntry("Ogero", "./assets/react/Apps/Ogero/index.js")
+  // .addStyleEntry("OgeroStyle", "./assets/styles/src/react/Ogero.scss")
+  // .addEntry("Ogero", "./assets/react/Ogero/index.js")
+
   .addStyleEntry("Gift2GamesStyle", "./assets/styles/src/react/Gift2Games.scss")
   .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
   .addStyleEntry("terraNetstyle", "./assets/styles/src/react/TerraNet.scss")
@@ -71,8 +72,7 @@ Encore
   .addEntry("admin-app", "./assets/admin-app.js")
   .addEntry("Loto", "./assets/react/Loto/index.js")
   .addEntry("LegalEnrollement", "./assets/react/LegalEnrollement/index.js")
-//   .addEntry("Alfa", "./assets/react/Alfa/index.js")
-  .addEntry("Ogero", "./assets/react/Ogero/index.js")
+  //   .addEntry("Alfa", "./assets/react/Alfa/index.js")
   .addEntry("Gift2Games", "./assets/react/Gift2Games/index.js")
   .addEntry("iveri", "./assets/react/Iveri/index.js")
   .addEntry("TerraNet", "./assets/react/TerraNet/index.js")

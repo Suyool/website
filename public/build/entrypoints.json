@@ -12,6 +12,12 @@
         "/build/Touch.a14171fb.js"
       ]
     },
+    "Ogero": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Ogero.aec17851.js"
+      ]
+    },
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -34,12 +40,6 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/LegalEnrollement.2acf5642.js"
-      ]
-    },
-    "Ogero": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.b57158e0.js"
       ]
     },
     "Gift2Games": {
@@ -119,7 +119,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/OgeroStyle.1e41bdcf.css"
+        "/build/OgeroStyle.4bb3fdaf.css"
       ]
     },
     "Gift2GamesStyle": {
