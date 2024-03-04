@@ -1,288 +1,27 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.89954fac.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
-=======
-=======
->>>>>>> dc25feb0 (handle hassan changes)
-<<<<<<< HEAD
-  "build/Alfa.js": "/build/Alfa.3ac32c1d.js",
-  "build/Touch.js": "/build/Touch.a14171fb.js",
->>>>>>> 834ac336 (some changes)
   "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
-=======
->>>>>>> 30911976 (handle hassan changes)
   "build/app1.js": "/build/app1.1dfb62eb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-<<<<<<< HEAD
   "build/Gift2Games.js": "/build/Gift2Games.f015a3a8.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/styles.css": "/build/styles.6dd0f5af.css",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Simly.js": "/build/Simly.f492abd5.js",
-=======
-  "build/Simly.js": "/build/Simly.94675d50.js",
->>>>>>> a92b03cd (simly)
-=======
-  "build/Simly.js": "/build/Simly.94675d50.js",
-=======
-  "build/Simly.js": "/build/Simly.ac0ef8c4.js",
->>>>>>> 2e6bd3d1 (handle top up)
->>>>>>> c896304e (handle top up)
-=======
-  "build/Simly.js": "/build/Simly.70479d66.js",
->>>>>>> 57145b6d (yarn encore prod)
-=======
-  "build/Simly.js": "/build/Simly.d869a7d1.js",
->>>>>>> 907a4068 (plan type)
-=======
-  "build/Simly.js": "/build/Simly.c5467193.js",
->>>>>>> 5ac91996 (add script to error modal)
-=======
-  "build/Simly.js": "/build/Simly.840e6230.js",
->>>>>>> e167b92e (fixes some bug)
-=======
-  "build/Simly.js": "/build/Simly.ad4d4d45.js",
->>>>>>> db145d45 (handle cache bug)
-=======
-  "build/Simly.js": "/build/Simly.0197ca86.js",
->>>>>>> 59986dfe (add loader to topup)
-=======
-  "build/Simly.js": "/build/Simly.8737955b.js",
->>>>>>> 59179761 (accounts ui and desc charged esim by userid)
-=======
-  "build/Simly.js": "/build/Simly.008bdca0.js",
->>>>>>> aba9ef34 (handle view all network with ui)
-=======
-  "build/Simly.js": "/build/Simly.fa18b2d2.js",
->>>>>>> 57b34c12 (some fixes before working on detail page)
-=======
-  "build/Simly.js": "/build/Simly.a09bd4c1.js",
->>>>>>> 05ad7a4c (details page with api)
-=======
-  "build/Simly.js": "/build/Simly.cef9a058.js",
->>>>>>> f3ae3c84 (plan details)
-=======
-  "build/Simly.js": "/build/Simly.8a88fee9.js",
->>>>>>> b7ebf020 (add payment page with new desgn)
-=======
-  "build/Simly.js": "/build/Simly.9def121e.js",
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-=======
-  "build/Simly.js": "/build/Simly.e3eb3070.js",
->>>>>>> 1314c1de (add country display)
-=======
-  "build/Simly.js": "/build/Simly.46bf7e14.js",
->>>>>>> b9e4e679 (all)
-=======
-  "build/Simly.js": "/build/Simly.0a600836.js",
->>>>>>> 13576e99 (done with first page)
-=======
-  "build/Simly.js": "/build/Simly.a5a93881.js",
->>>>>>> e7001ee1 (done with some changes)
-=======
-  "build/Simly.js": "/build/Simly.efaadf22.js",
->>>>>>> c0b20aad (fix ui)
-=======
-  "build/Simly.js": "/build/Simly.63c9e993.js",
->>>>>>> 240792f0 (fix ui)
-=======
-  "build/Simly.js": "/build/Simly.fea8eeca.js",
->>>>>>> 9e8f9a01 (working with maribelle)
-=======
-  "build/Simly.js": "/build/Simly.7514688b.js",
->>>>>>> 0faa7269 (still working on ui)
-=======
-  "build/Simly.js": "/build/Simly.39db1007.js",
->>>>>>> c44628f0 (handle ui fixes)
-=======
-  "build/Simly.js": "/build/Simly.61426bc8.js",
->>>>>>> 8ef13798 (fix ui)
-=======
-  "build/Simly.js": "/build/Simly.76ee3fa6.js",
->>>>>>> 9ad7070e (isocode)
-=======
-  "build/Simly.js": "/build/Simly.181ee008.js",
->>>>>>> 516ab88e (done with display network in install data)
-  "build/styles.css": "/build/styles.eb2df758.css",
->>>>>>> 7ff8d36b (yarn encore prod)
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/AlfaStyle.css": "/build/AlfaStyle.a4a047b5.css",
   "build/TouchStyle.css": "/build/TouchStyle.a4a047b5.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.4bb3fdaf.css",
-  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.daba13cf.css",
-  "build/iveristyles.css": "/build/iveristyles.382777e8.css",
-  "build/terraNetstyle.css": "/build/terraNetstyle.4d489fae.css",
-  "build/SodetelStyle.css": "/build/SodetelStyle.d2e21a6e.css",
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/runtime.js": "/build/runtime.cbe92cc0.js",
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.4fd2b75e.css",
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.57ecfcf2.css",
->>>>>>> e73cbc93 (accounts ui and desc charged esim by userid)
-=======
-<<<<<<< HEAD
-  "build/AlfaStyle.css": "/build/AlfaStyle.96b6b53c.css",
-  "build/TouchStyle.css": "/build/TouchStyle.622ce055.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.1e41bdcf.css",
-  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.aa74730c.css",
-=======
-  "build/AlfaStyle.css": "/build/AlfaStyle.716bf853.css",
-  "build/TouchStyle.css": "/build/TouchStyle.ba561260.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.928573b2.css",
-=======
-  "build/AlfaStyle.css": "/build/AlfaStyle.edadb73f.css",
-  "build/TouchStyle.css": "/build/TouchStyle.00f9da67.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.e0500433.css",
->>>>>>> 0faa7269 (still working on ui)
-=======
-  "build/Alfa.js": "/build/Alfa.676a2730.js",
-  "build/Touch.js": "/build/Touch.2d4d4442.js",
-  "build/Ogero.js": "/build/Ogero.5fdf7f33.js",
-  "build/Gift2Games.js": "/build/Gift2Games.235249a9.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/TerraNet.js": "/build/TerraNet.4a892938.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-  "build/Simly.js": "/build/Simly.d846a20d.js",
-  "build/styles.css": "/build/styles.eb2df758.css",
-  "build/admin.css": "/build/admin.8fb78dae.css",
-  "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
-  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.edadb73f.css",
-  "build/TouchStyle.css": "/build/TouchStyle.00f9da67.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.e0500433.css",
->>>>>>> 30911976 (handle hassan changes)
-  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.dbcb3134.css",
+  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.4fb6d273.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.82a620c1.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.3972e4fd.css",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/SimlyStyle.css": "/build/SimlyStyle.7f807f7c.css",
->>>>>>> b90ef454 (handle view all network with ui)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.d914b5bb.css",
->>>>>>> 35f5fd00 (plan details)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.5c19e853.css",
->>>>>>> 2392fae3 (add payment page with new desgn)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.7589ae84.css",
->>>>>>> 33ad0e1d (confirmation topup and sucess modal)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.24e58156.css",
->>>>>>> fb20cd65 (add country display)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.a29556e2.css",
->>>>>>> 5d49b2ca (all)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.86bb4955.css",
->>>>>>> c3ecc24e (done with first page)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.b39c7353.css",
->>>>>>> f20f7db2 (done with some changes)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.9918d680.css",
->>>>>>> bf3fce15 (fix ui)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.8f16383a.css",
->>>>>>> 915710d6 (working with maribelle)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.25436ddc.css",
->>>>>>> 0faa7269 (still working on ui)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.b3555fd6.css",
->>>>>>> c44628f0 (handle ui fixes)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.503536c9.css",
->>>>>>> 8ef13798 (fix ui)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.bff32050.css",
->>>>>>> 516ab88e (done with display network in install data)
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> 722c8a70 (add loader to topup)
-=======
-  "build/app1.js": "/build/app1.js",
-  "build/admin-app.js": "/build/admin-app.js",
-  "build/Loto.js": "/build/Loto.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
-  "build/Alfa.js": "/build/Alfa.js",
-  "build/Touch.js": "/build/Touch.js",
-  "build/Ogero.js": "/build/Ogero.js",
-  "build/Gift2Games.js": "/build/Gift2Games.js",
-  "build/iveri.js": "/build/iveri.js",
-  "build/TerraNet.js": "/build/TerraNet.js",
-  "build/Sodetel.js": "/build/Sodetel.js",
-  "build/Simly.js": "/build/Simly.js",
-  "build/styles.css": "/build/styles.css",
-  "build/admin.css": "/build/admin.css",
-  "build/Lotostyles.css": "/build/Lotostyles.css",
-  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
-  "build/AlfaStyle.css": "/build/AlfaStyle.css",
-  "build/TouchStyle.css": "/build/TouchStyle.css",
-  "build/OgeroStyle.css": "/build/OgeroStyle.css",
-  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.css",
-  "build/iveristyles.css": "/build/iveristyles.css",
-  "build/terraNetstyle.css": "/build/terraNetstyle.css",
-  "build/SodetelStyle.css": "/build/SodetelStyle.css",
-  "build/SimlyStyle.css": "/build/SimlyStyle.css",
-  "build/runtime.js": "/build/runtime.js",
->>>>>>> d178def9 (some changes)
-=======
-  "build/SimlyStyle.css": "/build/SimlyStyle.af909b84.css",
-  "build/runtime.js": "/build/runtime.e40c1cca.js",
->>>>>>> 30911976 (handle hassan changes)
+  "build/runtime.js": "/build/runtime.cbe92cc0.js",
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",
@@ -552,7 +291,7 @@
   "build/images/platinumMastercard/GlobalBlueVisa.png": "/build/images/platinumMastercard/GlobalBlueVisa.png",
   "build/images/alfa/Bundle65h.png": "/build/images/alfa/Bundle65h.png",
   "build/images/droguerie/pharmob2.png": "/build/images/droguerie/pharmob2.png",
-  "build/images/touch/Bundle1h.png": "/build/images/touch/Bundle1h.png",
+  "build/images/Touch/Bundle1h.png": "/build/images/Touch/Bundle1h.png",
   "build/images/platinumMastercard/deux.png": "/build/images/platinumMastercard/deux.png",
   "build/images/ma-tbank/top-image.png": "/build/images/ma-tbank/top-image.png",
   "build/images/platinumMastercard/two.png": "/build/images/platinumMastercard/two.png",
@@ -566,7 +305,7 @@
   "build/fonts/Poppins-Bold.ttf": "/build/fonts/Poppins-Bold.cdb29a5d.ttf",
   "build/images/alfa/Bundle13h.png": "/build/images/alfa/Bundle13h.png",
   "build/images/alfa/Bundle35h.png": "/build/images/alfa/Bundle35h.png",
-  "build/images/touch/Bundle29h.png": "/build/images/touch/Bundle29h.png",
+  "build/images/Touch/Bundle29h.png": "/build/images/Touch/Bundle29h.png",
   "build/images/elnashra/nashra-top-mobile.jpg": "/build/images/elnashra/nashra-top-mobile.jpg",
   "build/images/platinumMastercard/GlobalLocalVisa.png": "/build/images/platinumMastercard/GlobalLocalVisa.png",
   "build/images/payroll/nds-logo.png": "/build/images/payroll/nds-logo.png",
@@ -580,27 +319,27 @@
   "build/images/platinumMastercard/topSection.png": "/build/images/platinumMastercard/topSection.png",
   "build/images/meta-image-website2.png": "/build/images/meta-image-website2.png",
   "build/images/platinumMastercard/sixt.png": "/build/images/platinumMastercard/sixt.png",
-  "build/images/touch/Bundle31h.png": "/build/images/touch/Bundle31h.png",
+  "build/images/Touch/Bundle31h.png": "/build/images/Touch/Bundle31h.png",
   "build/images/commingSoon/mobile.png": "/build/images/commingSoon/mobile.png",
   "build/images/alfa/Bundle33h.png": "/build/images/alfa/Bundle33h.png",
   "build/images/alfa/Bundle1h.png": "/build/images/alfa/Bundle1h.png",
   "build/images/meta-image-website.png": "/build/images/meta-image-website.png",
   "build/images/payroll/indevcoTablet-min.png": "/build/images/payroll/indevcoTablet-min.png",
   "build/images/digital_corporate/corporate-plat-visa.png": "/build/images/digital_corporate/corporate-plat-visa.png",
-  "build/images/touch/Bundle90h.png": "/build/images/touch/Bundle90h.png",
-  "build/images/touch/Bundle60h.png": "/build/images/touch/Bundle60h.png",
+  "build/images/Touch/Bundle90h.png": "/build/images/Touch/Bundle90h.png",
+  "build/images/Touch/Bundle60h.png": "/build/images/Touch/Bundle60h.png",
   "build/images/ma-tbank/ma-tBank-card-metaimage-min.png": "/build/images/ma-tbank/ma-tBank-card-metaimage-min.png",
   "build/images/alfa/Bundle32h.png": "/build/images/alfa/Bundle32h.png",
   "build/images/alfa/Bundle13.png": "/build/images/alfa/Bundle13.png",
   "build/images/middleEast/mobile_top_section.png": "/build/images/middleEast/mobile_top_section.png",
   "build/images/mobile_top_section.png": "/build/images/mobile_top_section.78de921e.png",
   "build/images/ma-tbank/ma-tBank-metaimage2-min.png": "/build/images/ma-tbank/ma-tBank-metaimage2-min.png",
-  "build/images/touch/Bundle30h.png": "/build/images/touch/Bundle30h.png",
+  "build/images/Touch/Bundle30h.png": "/build/images/Touch/Bundle30h.png",
   "build/images/alfa/Bundle65.png": "/build/images/alfa/Bundle65.png",
   "build/images/alfa_employee/merchants.png": "/build/images/alfa_employee/merchants.png",
   "build/images/platinumMastercard/top-section-visa-mob.png": "/build/images/platinumMastercard/top-section-visa-mob.png",
   "build/images/homepage/notifications.png": "/build/images/homepage/notifications.png",
-  "build/images/touch/Bundle10h.png": "/build/images/touch/Bundle10h.png",
+  "build/images/Touch/Bundle10h.png": "/build/images/Touch/Bundle10h.png",
   "build/images/corporate-mob.jpg": "/build/images/corporate-mob.53bb2b4d.jpg",
   "build/images/homepage/corporate-mob.jpg": "/build/images/homepage/corporate-mob.jpg",
   "build/images/homepage/account-security.png": "/build/images/homepage/account-security.png",
@@ -642,117 +381,10 @@
   "build/images/login.png": "/build/images/login.png",
   "build/images/g2g/blizzardIcon.png": "/build/images/g2g/blizzardIcon.png",
   "build/images/payment/Capture.PNG": "/build/images/payment/Capture.PNG",
-  "build/images/touch/bundleImg60h.png": "/build/images/touch/bundleImg60h.png",
+  "build/images/Touch/bundleImg60h.png": "/build/images/Touch/bundleImg60h.png",
   "build/images/alfa_employee/worldMoney.png": "/build/images/alfa_employee/worldMoney.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8ef13798 (fix ui)
-=======
->>>>>>> 779fe07f (yarn encore prod)
   "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
-<<<<<<< HEAD
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> c896304e (handle top up)
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> 5ac91996 (add script to error modal)
-<<<<<<< HEAD
->>>>>>> e35265c4 (add script to error modal)
-=======
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> e167b92e (fixes some bug)
-<<<<<<< HEAD
->>>>>>> 8837742f (fixes some bug)
-=======
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> 59986dfe (add loader to topup)
-<<<<<<< HEAD
->>>>>>> 722c8a70 (add loader to topup)
-=======
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> aba9ef34 (handle view all network with ui)
-<<<<<<< HEAD
->>>>>>> b90ef454 (handle view all network with ui)
-=======
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-<<<<<<< HEAD
->>>>>>> 33ad0e1d (confirmation topup and sucess modal)
-=======
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 1314c1de (add country display)
-<<<<<<< HEAD
->>>>>>> fb20cd65 (add country display)
-=======
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> b9e4e679 (all)
-<<<<<<< HEAD
->>>>>>> 5d49b2ca (all)
-=======
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 13576e99 (done with first page)
-<<<<<<< HEAD
->>>>>>> c3ecc24e (done with first page)
-=======
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> c0b20aad (fix ui)
-<<<<<<< HEAD
->>>>>>> a36fac11 (fix ui)
-=======
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 240792f0 (fix ui)
->>>>>>> bf3fce15 (fix ui)
-=======
-  "build/images/g2g/itunesIcon.png": "/build/images/g2g/itunesIcon.png",
-<<<<<<< HEAD
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> 0faa7269 (still working on ui)
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 516ab88e (done with display network in install data)
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> d178def9 (some changes)
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 30911976 (handle hassan changes)
-=======
-  "build/images/Touch/bundleImg10h.png": "/build/images/Touch/bundleImg10h.png",
->>>>>>> 3609cae6 (disable toup on terminated)
-=======
-  "build/images/touch/bundleImg10h.png": "/build/images/touch/bundleImg10h.png",
->>>>>>> 60448c0c (handle download qr)
   "build/images/alfa/bundleImg33h.png": "/build/images/alfa/bundleImg33h.png",
   "build/images/alfa_employee/bobCashin.png": "/build/images/alfa_employee/bobCashin.png",
   "build/images/g2g/amazonIcon.png": "/build/images/g2g/amazonIcon.png",
@@ -765,124 +397,16 @@
   "build/images/alfa_employee/requestMoneyMobile.svg": "/build/images/alfa_employee/requestMoneyMobile.svg",
   "build/images/alfa/bundleImg32h.png": "/build/images/alfa/bundleImg32h.png",
   "build/images/alfa_employee/prepaid.png": "/build/images/alfa_employee/prepaid.png",
-  "build/images/touch/bundleImg1h.png": "/build/images/touch/bundleImg1h.png",
-  "build/images/touch/bundleImg31h.png": "/build/images/touch/bundleImg31h.png",
+  "build/images/Touch/bundleImg1h.png": "/build/images/Touch/bundleImg1h.png",
+  "build/images/Touch/bundleImg31h.png": "/build/images/Touch/bundleImg31h.png",
   "build/images/digital_corporate/payrollGlance.png": "/build/images/digital_corporate/payrollGlance.png",
-  "build/images/touch/bundleImg90h.png": "/build/images/touch/bundleImg90h.png",
+  "build/images/Touch/bundleImg90h.png": "/build/images/Touch/bundleImg90h.png",
   "build/images/Group 5987.png": "/build/images/Group 5987.png",
   "build/images/notifications.png": "/build/images/notifications.png",
   "build/images/g2g/pubgIcon.png": "/build/images/g2g/pubgIcon.png",
   "build/images/sendReceiveMoney/step1Mobile.png": "/build/images/sendReceiveMoney/step1Mobile.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 516ab88e (done with display network in install data)
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> d178def9 (some changes)
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> 3609cae6 (disable toup on terminated)
   "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 30911976 (handle hassan changes)
-  "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> c896304e (handle top up)
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> 5ac91996 (add script to error modal)
-<<<<<<< HEAD
->>>>>>> e35265c4 (add script to error modal)
-=======
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> e167b92e (fixes some bug)
-<<<<<<< HEAD
->>>>>>> 8837742f (fixes some bug)
-=======
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> 59986dfe (add loader to topup)
-<<<<<<< HEAD
->>>>>>> 722c8a70 (add loader to topup)
-=======
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> aba9ef34 (handle view all network with ui)
-<<<<<<< HEAD
->>>>>>> b90ef454 (handle view all network with ui)
-=======
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-<<<<<<< HEAD
->>>>>>> 33ad0e1d (confirmation topup and sucess modal)
-=======
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 1314c1de (add country display)
-<<<<<<< HEAD
->>>>>>> fb20cd65 (add country display)
-=======
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> b9e4e679 (all)
-<<<<<<< HEAD
->>>>>>> 5d49b2ca (all)
-=======
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 13576e99 (done with first page)
-<<<<<<< HEAD
->>>>>>> c3ecc24e (done with first page)
-=======
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
->>>>>>> c0b20aad (fix ui)
-<<<<<<< HEAD
->>>>>>> a36fac11 (fix ui)
-=======
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 240792f0 (fix ui)
->>>>>>> bf3fce15 (fix ui)
-=======
-  "build/images/Touch/bundleImg30h.png": "/build/images/Touch/bundleImg30h.png",
-=======
-  "build/images/touch/bundleImg30h.png": "/build/images/touch/bundleImg30h.png",
->>>>>>> 60448c0c (handle download qr)
-  "build/images/g2g/fortniteIcon.png": "/build/images/g2g/fortniteIcon.png",
->>>>>>> 0faa7269 (still working on ui)
-=======
->>>>>>> de8c8a72 (fix ui)
->>>>>>> 8ef13798 (fix ui)
-=======
->>>>>>> 779fe07f (yarn encore prod)
   "build/images/auth.png": "/build/images/auth.png",
   "build/images/help-topSection.jpg": "/build/images/help-topSection.4ef3711e.jpg",
   "build/images/helpCenter/help-topSection.jpg": "/build/images/helpCenter/help-topSection.jpg",
@@ -914,115 +438,8 @@
   "build/images/merchants/loto.png": "/build/images/merchants/loto.png",
   "build/images/homepage/suyool-secure-safety.svg": "/build/images/homepage/suyool-secure-safety.svg",
   "build/images/alfa/bundleImg13x2.png": "/build/images/alfa/bundleImg13x2.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8ef13798 (fix ui)
-=======
->>>>>>> 779fe07f (yarn encore prod)
   "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
-<<<<<<< HEAD
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> c896304e (handle top up)
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> 5ac91996 (add script to error modal)
-<<<<<<< HEAD
->>>>>>> e35265c4 (add script to error modal)
-=======
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> e167b92e (fixes some bug)
-<<<<<<< HEAD
->>>>>>> 8837742f (fixes some bug)
-=======
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> 59986dfe (add loader to topup)
-<<<<<<< HEAD
->>>>>>> 722c8a70 (add loader to topup)
-=======
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> aba9ef34 (handle view all network with ui)
-<<<<<<< HEAD
->>>>>>> b90ef454 (handle view all network with ui)
-=======
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-<<<<<<< HEAD
->>>>>>> 33ad0e1d (confirmation topup and sucess modal)
-=======
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 1314c1de (add country display)
-<<<<<<< HEAD
->>>>>>> fb20cd65 (add country display)
-=======
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> b9e4e679 (all)
-<<<<<<< HEAD
->>>>>>> 5d49b2ca (all)
-=======
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 13576e99 (done with first page)
-<<<<<<< HEAD
->>>>>>> c3ecc24e (done with first page)
-=======
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> c0b20aad (fix ui)
-<<<<<<< HEAD
->>>>>>> a36fac11 (fix ui)
-=======
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 240792f0 (fix ui)
->>>>>>> bf3fce15 (fix ui)
-=======
-  "build/images/g2g/playstationIcon.png": "/build/images/g2g/playstationIcon.png",
-<<<<<<< HEAD
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> 0faa7269 (still working on ui)
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 516ab88e (done with display network in install data)
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> d178def9 (some changes)
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 30911976 (handle hassan changes)
-=======
-  "build/images/Touch/bundleImg29h.png": "/build/images/Touch/bundleImg29h.png",
->>>>>>> 3609cae6 (disable toup on terminated)
-=======
-  "build/images/touch/bundleImg29h.png": "/build/images/touch/bundleImg29h.png",
->>>>>>> 60448c0c (handle download qr)
   "build/images/suyoolLogoComming.jpg": "/build/images/suyoolLogoComming.jpg",
   "build/images/sendReceiveMoney/step2Mobile.png": "/build/images/sendReceiveMoney/step2Mobile.png",
   "build/images/g2g/twitchIcon.png": "/build/images/g2g/twitchIcon.png",
@@ -1164,8 +581,8 @@
   "build/images/digital_corporate/localSuppliers.svg": "/build/images/digital_corporate/localSuppliers.svg",
   "build/images/sodetel/sodetel-bundle.png": "/build/images/sodetel/sodetel-bundle.png",
   "build/images/commingSoon/appstore.png": "/build/images/commingSoon/appstore.png",
-  "build/images/alfa_employee/usdcard.png": "/build/images/alfa_employee/usdcard.png",
   "build/images/simly/AsiaIcon.svg": "/build/images/simly/AsiaIcon.svg",
+  "build/images/alfa_employee/usdcard.png": "/build/images/alfa_employee/usdcard.png",
   "build/images/sodetel/f4-cir.svg": "/build/images/sodetel/f4-cir.svg",
   "build/images/pay_with_suyool.jpg": "/build/images/pay_with_suyool.jpg",
   "build/images/payment/pay_with_suyool.jpg": "/build/images/payment/pay_with_suyool.jpg",
@@ -1202,8 +619,8 @@
   "build/images/terraNet/circle_product_-836.png": "/build/images/terraNet/circle_product_-836.png",
   "build/images/terraNet/circle_product_-837.png": "/build/images/terraNet/circle_product_-837.png",
   "build/images/terraNet/circle_product_-838.png": "/build/images/terraNet/circle_product_-838.png",
-  "build/images/sodetel/f3-cir.svg": "/build/images/sodetel/f3-cir.svg",
   "build/images/simly/North_America_Icon.svg": "/build/images/simly/North_America_Icon.svg",
+  "build/images/sodetel/f3-cir.svg": "/build/images/sodetel/f3-cir.svg",
   "build/images/middleEast/validity.svg": "/build/images/middleEast/validity.svg",
   "build/images/envelope.png": "/build/images/envelope.png",
   "build/images/sodetel/4p3-cir.svg": "/build/images/sodetel/4p3-cir.svg",
@@ -1221,15 +638,15 @@
   "build/images/homepage/leb-map1.svg": "/build/images/homepage/leb-map1.svg",
   "build/images/showIcon.png": "/build/images/showIcon.png",
   "build/images/suyoolPaymentLogo.png": "/build/images/suyoolPaymentLogo.png",
+  "build/images/simly/Global_Icon.svg": "/build/images/simly/Global_Icon.svg",
   "build/images/homepage/pay-bill.svg": "/build/images/homepage/pay-bill.svg",
-  "build/images/touch/touchLogo.png": "/build/images/touch/touchLogo.png",
+  "build/images/Touch/TouchLogo.png": "/build/images/Touch/TouchLogo.png",
   "build/images/helpCenter/tables-of-fees-corporate.svg": "/build/images/helpCenter/tables-of-fees-corporate.svg",
   "build/images/helpCenter/tables-of-fees-personal.svg": "/build/images/helpCenter/tables-of-fees-personal.svg",
-  "build/images/simly/Global_Icon.svg": "/build/images/simly/Global_Icon.svg",
   "build/images/sodetel/2G8-cir.svg": "/build/images/sodetel/2G8-cir.svg",
   "build/images/sodetel/U2M-cir.svg": "/build/images/sodetel/U2M-cir.svg",
-  "build/images/usd.svg": "/build/images/usd.svg",
   "build/images/alfa_employee/allowance1.svg": "/build/images/alfa_employee/allowance1.svg",
+  "build/images/usd.svg": "/build/images/usd.svg",
   "build/images/homepage/cash-out1.svg": "/build/images/homepage/cash-out1.svg",
   "build/images/Loto/zeedLogo.png": "/build/images/Loto/zeedLogo.png",
   "build/images/zeedLogo.png": "/build/images/zeedLogo.37ea31e5.png",
@@ -1246,11 +663,11 @@
   "build/images/digital_corporate/instantAvailb.svg": "/build/images/digital_corporate/instantAvailb.svg",
   "build/images/spinneys/secure.svg": "/build/images/spinneys/secure.svg",
   "build/images/platinumMastercard/relevance..svg": "/build/images/platinumMastercard/relevance..svg",
+  "build/images/simly/Middle_East_Icon.svg": "/build/images/simly/Middle_East_Icon.svg",
   "build/images/terraNet/circle_product_-803.png": "/build/images/terraNet/circle_product_-803.png",
   "build/images/alfa_employee/suyool.png": "/build/images/alfa_employee/suyool.png",
   "build/images/main-logo.png": "/build/images/main-logo.png",
   "build/images/suyool-title-white.png": "/build/images/suyool-title-white.png",
-  "build/images/simly/Middle_East_Icon.svg": "/build/images/simly/Middle_East_Icon.svg",
   "build/images/terraNet/circle_product_-807.png": "/build/images/terraNet/circle_product_-807.png",
   "build/images/terraNet/circle_product_-808.png": "/build/images/terraNet/circle_product_-808.png",
   "build/images/terraNet/circle_product_-809.png": "/build/images/terraNet/circle_product_-809.png",
@@ -1283,15 +700,15 @@
   "build/images/terraNet/circle_product_-831.png": "/build/images/terraNet/circle_product_-831.png",
   "build/images/sodetel/vs2-cir.svg": "/build/images/sodetel/vs2-cir.svg",
   "build/images/homepage/leb-map.svg": "/build/images/homepage/leb-map.svg",
+  "build/images/simly/AfricaIcon.svg": "/build/images/simly/AfricaIcon.svg",
   "build/images/sodetel/16M-cir.svg": "/build/images/sodetel/16M-cir.svg",
   "build/images/sodetel/4M1-cir.svg": "/build/images/sodetel/4M1-cir.svg",
   "build/images/sodetel/4M2-cir.svg": "/build/images/sodetel/4M2-cir.svg",
   "build/images/alfa_employee/convenience.png": "/build/images/alfa_employee/convenience.png",
   "build/images/alfa_employee/card3.svg": "/build/images/alfa_employee/card3.svg",
-  "build/images/simly/AfricaIcon.svg": "/build/images/simly/AfricaIcon.svg",
+  "build/images/simly/South_America_Icon.svg": "/build/images/simly/South_America_Icon.svg",
   "build/images/terraNet/circle_product_-810.png": "/build/images/terraNet/circle_product_-810.png",
   "build/images/Ogero/OgeroLogo.png": "/build/images/Ogero/OgeroLogo.png",
-  "build/images/simly/South_America_Icon.svg": "/build/images/simly/South_America_Icon.svg",
   "build/images/platinumMastercard/peace_of_mind.svg": "/build/images/platinumMastercard/peace_of_mind.svg",
   "build/images/alfa_employee/payroll.svg": "/build/images/alfa_employee/payroll.svg",
   "build/images/alfa_employee/request-money.svg": "/build/images/alfa_employee/request-money.svg",
@@ -1338,18 +755,18 @@
   "build/images/suyool-icon.svg": "/build/images/suyool-icon.svg",
   "build/images/Loto/error.png": "/build/images/Loto/error.png",
   "build/images/Ogero/ErrorImg.png": "/build/images/Ogero/ErrorImg.png",
+  "build/images/Touch/ErrorImg.png": "/build/images/Touch/ErrorImg.png",
+  "build/images/Touch/error.png": "/build/images/Touch/error.png",
   "build/images/alfa/ErrorImg.png": "/build/images/alfa/ErrorImg.png",
   "build/images/alfa/error.png": "/build/images/alfa/error.png",
   "build/images/decline.png": "/build/images/decline.png",
-  "build/images/touch/ErrorImg.png": "/build/images/touch/ErrorImg.png",
-  "build/images/touch/error.png": "/build/images/touch/error.png",
   "build/images/homepage/globe.png": "/build/images/homepage/globe.png",
   "build/images/favicon/suyool-favicon.png": "/build/images/favicon/suyool-favicon.png",
   "build/images/Loto/success.png": "/build/images/Loto/success.png",
   "build/images/Ogero/SuccessImg.png": "/build/images/Ogero/SuccessImg.png",
+  "build/images/Touch/SuccessImg.png": "/build/images/Touch/SuccessImg.png",
   "build/images/alfa/SuccessImg.png": "/build/images/alfa/SuccessImg.png",
   "build/images/approved.png": "/build/images/approved.png",
-  "build/images/touch/SuccessImg.png": "/build/images/touch/SuccessImg.png",
   "build/images/favicon/fav-transparent-bg.png": "/build/images/favicon/fav-transparent-bg.png",
   "build/images/sodetel/fr2-cir.svg": "/build/images/sodetel/fr2-cir.svg",
   "build/images/soa/pdf.svg": "/build/images/soa/pdf.svg",
@@ -1453,11 +870,8 @@
   "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",
   "build/images/medco/play.svg": "/build/images/medco/play.svg",
-<<<<<<< HEAD
-  "build/images/back.svg": "/build/images/back.svg",
-=======
   "build/images/arrowBack.svg": "/build/images/arrowBack.svg",
->>>>>>> 0faa7269 (still working on ui)
+  "build/images/back.svg": "/build/images/back.svg",
   "build/images/helpCenter/view.svg": "/build/images/helpCenter/view.svg",
   "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/minusadmin.svg": "/build/images/minusadmin.svg",
@@ -1466,19 +880,19 @@
   "build/images/Loto/goNext.png": "/build/images/Loto/goNext.png",
   "build/images/Loto/trash.png": "/build/images/Loto/trash.png",
   "build/images/Ogero/flag.png": "/build/images/Ogero/flag.png",
+  "build/images/Touch/flag.png": "/build/images/Touch/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
-  "build/images/touch/flag.png": "/build/images/touch/flag.png",
   "build/images/removeName.png": "/build/images/removeName.png",
   "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
+  "build/images/Touch/clearNb.png": "/build/images/Touch/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
-  "build/images/touch/clearNb.png": "/build/images/touch/clearNb.png",
   "build/images/payment/cardtopupreq.svg": "/build/images/payment/cardtopupreq.svg",
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
+  "build/images/Touch/question.png": "/build/images/Touch/question.png",
   "build/images/alfa/question.png": "/build/images/alfa/question.png",
-  "build/images/touch/question.png": "/build/images/touch/question.png",
   "build/images/Loto/Back.png": "/build/images/Loto/Back.png",
   "build/images/Ogero/Back.png": "/build/images/Ogero/Back.png",
+  "build/images/Touch/Back.png": "/build/images/Touch/Back.png",
   "build/images/alfa/Back.png": "/build/images/alfa/Back.png",
-  "build/images/touch/Back.png": "/build/images/touch/Back.png",
   "build/images/menu.png": "/build/images/menu.png"
 }
