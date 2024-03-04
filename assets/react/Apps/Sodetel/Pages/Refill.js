@@ -1,39 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
 import AppAPI from "../Api/AppAPI";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {settingData} from "../../Alfa/Redux/Slices/AppSlice";
 
-const Refill = ({
-                    setDataGetting,
-                    getDataGetting,
-                    parameters,
-                }) => {
+const Refill = (\) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
-    const {planData, credential} = useSelector((state) => state.appData);
+    const {planData, credential, mobileResponse, parameters} = useSelector((state) => state.appData);
 
     const {Recharge} = AppAPI();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setIsButtonDisabled(false);
     }, []);
-
-    const handleShare = (shareCode) => {
-        let object = [
-            {
-                Share: {
-                    share: "share",
-                    text: shareCode,
-                },
-            },
-        ];
-        if (parameters?.deviceType === "Android") {
-            window.AndroidInterface.callbackHandler(JSON.stringify(object));
-        } else if (parameters?.deviceType === "Iphone") {
-            window.webkit.messageHandlers.callbackHandler.postMessage(object);
-        }
-    };
 
     const handleConfirmPay = () => {
         setSpinnerLoader(true);
@@ -52,23 +34,14 @@ const Refill = ({
     };
 
     useEffect(() => {
-        if (getDataGetting === "success") {
+        if (mobileResponse === "success") {
             Recharge();
-        } else if (getDataGetting === "failed") {
+        } else if (mobileResponse === "failed") {
             setSpinnerLoader(false);
             setIsButtonDisabled(false);
-            setDataGetting("");
+            dispatch(settingData({ field: "mobileResponse", value: "" }));
         }
     });
-
-    const copyToClipboard = (value) => {
-        const tempInput = document.createElement("input");
-        tempInput.value = value;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-    };
 
     return (
         <>

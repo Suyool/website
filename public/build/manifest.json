@@ -22,11 +22,15 @@
 =======
   "build/TerraNet.js": "/build/TerraNet.4a892938.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Sodetel.js": "/build/Sodetel.8d14601e.js",
 >>>>>>> ae22bdc0 (working on bundle credentials)
 =======
   "build/Sodetel.js": "/build/Sodetel.ab32addd.js",
 >>>>>>> 39edac38 (refill api)
+=======
+  "build/Sodetel.js": "/build/Sodetel.3afd678d.js",
+>>>>>>> 73a40d4d (anthony 3emel push)
   "build/styles.css": "/build/styles.6dd0f5af.css",
   "build/admin.css": "/build/admin.8fb78dae.css",
   "build/Lotostyles.css": "/build/Lotostyles.77b15344.css",
