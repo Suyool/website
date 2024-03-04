@@ -68,6 +68,22 @@ const RechargeThePayment = ({parameters, setHeaderTitle, setBackLink, getEsimId 
     // Remove the textarea from the document body
     document.body.removeChild(textarea);
   };
+  const handleShare = (shareCode) => {
+    let object = [
+      {
+        Share: {
+          share: "share",
+          text: shareCode,
+        },
+      },
+    ];
+    console.log(JSON.stringify(object));
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler(JSON.stringify(object));
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
+    }
+  };
 
   return (
     <div id="RechargeThePayment_simly">
@@ -182,7 +198,7 @@ const RechargeThePayment = ({parameters, setHeaderTitle, setBackLink, getEsimId 
                   <div className="desc">{getPlanDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(getPlanDetail?.qrCodeString)} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(getPlanDetail?.qrCodeString)} />
                 </div>
               </div>
               <div className="cardNumber">
@@ -191,7 +207,7 @@ const RechargeThePayment = ({parameters, setHeaderTitle, setBackLink, getEsimId 
                   <div className="desc">{getPlanDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => copyToClipboard(getPlanDetail?.qrCodeString)} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(getPlanDetail?.qrCodeString)} />
                 </div>
               </div>
             </div>
