@@ -192,7 +192,7 @@ class OgeroController extends AbstractController
 
                 //paid landline from bob Provider
                 $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
-                $pushlog->pushLogs(new Logs,"app_ogero_landline_pay",null,$BillPayOgero[3],"InjectTransactionalPayment");
+                $pushlog->pushLogs(new Logs,"app_ogero_landline_pay",@$BillPayOgero[4],@$BillPayOgero[3],"InjectTransactionalPayment");
                 if ($BillPayOgero[0]) {
                     //if payment from Bob provider success insert landline data to db
                     $landline = new Landline;

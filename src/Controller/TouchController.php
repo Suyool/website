@@ -214,7 +214,7 @@ class TouchController extends AbstractController
 
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
-                $pushlog->pushLogs(new Logs,"app_touch_bill_pay",null,$billPay[3],"InjectTransactionalPayment");
+                $pushlog->pushLogs(new Logs,"app_touch_bill_pay",$billPay[4],$billPay[3],"InjectTransactionalPayment");
                 if ($billPay[0]) {
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
