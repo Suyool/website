@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 import AppAPI from "../Api/AppAPI";
 
 const Default = () => {
@@ -14,7 +14,19 @@ const Default = () => {
       <div
         className="Cards"
         onClick={() => {
-          dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "PayBill" }));
+          // dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "PayBill" }));
+          dispatch(settingData({
+            field: "modalData",
+            value: {
+              isShow: true,
+              name: "ErrorModal",
+              img: "/build/images/alfa/error.png",
+              title: "Service is not available .",
+              desc: "This service is not available at this moment. Kindly try again later.",
+              btn: "OK",
+              flag: "",
+            },
+          }))
         }}
       >
         <img className="logoImg" src="/build/images/touch/touchLogo.png" alt="touchLogo" />

@@ -3,13 +3,13 @@
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.5e165994.js"
+        "/build/Alfa.3ac32c1d.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Touch.1ea08cef.js"
+        "/build/Touch.c4a95b67.js"
       ]
     },
     "app1": {
@@ -111,7 +111,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/TouchStyle.622ce055.css"
+        "/build/TouchStyle.a4a047b5.css"
       ]
     },
     "OgeroStyle": {
