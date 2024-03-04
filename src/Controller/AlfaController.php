@@ -96,8 +96,8 @@ class AlfaController extends AbstractController
         if ($data != null) {
             $sendBill = $bobServices->Bill($data["mobileNumber"]);
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs, "app_alfa_bill", null, $sendBill, "SendPinRequest");
-            $sendBillRes = json_decode($sendBill, true);
+            $pushlog->pushLogs(new Logs, "app_alfa_bill", null, $sendBill[0], $sendBill[2],$sendBill[1]);
+            $sendBillRes = json_decode($sendBill[0], true);
             if (isset($sendBillRes["ResponseText"])) {
                 if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
                     $invoices = new PostpaidRequest;
