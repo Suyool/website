@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 
-const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setActiveButton, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader }) => {
+const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, getDataGetting, setDataGetting, setErrorModal, setSuccessModal, setActiveButton, setModalName, setModalShow, setSpinnerLoader, getSpinnerLoader, setEsimId }) => {
   const [isViewNetwork, setIsViewNetwork] = useState(false);
   const [isViewCountry, setIsViewCountry] = useState(false);
   const [getNetwork, setNetwork] = useState(null);
@@ -48,6 +48,7 @@ const PackagesInfo = ({ parameters, selectedPlan, selectedPackage, setBackLink, 
         .then((response) => {
           const jsonResponse = response.data.message;
           if (response.data.status) {
+            setEsimId(response.data.data.id);
             localStorage.setItem("esimId", response.data.data.id);
             setSpinnerLoader(false);
             setModalName("SuccessModal");
