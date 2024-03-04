@@ -85,6 +85,9 @@ Encore
   .addEntry("iveri", "./assets/react/Iveri/index.js")
   //.addEntry("TerraNet", "./assets/react/TerraNet/index.js")
   .addEntry("Sodetel", "./assets/react/Sodetel/index.js")
+  .addEntry("TerraNet", "./assets/react/TerraNet/index.js")
+  .addEntry("Sodetel", "./assets/react/Apps/Sodetel/index.js")
+
   // .addEntry('admin', './assets/admin.js')
   //    .addEntry('app', ['./assets/js/common.js','./assets/js/breakingNews.js','./assets/js/adCounter.js'])
   // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
