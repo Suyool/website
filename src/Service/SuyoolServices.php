@@ -137,9 +137,9 @@ class SuyoolServices
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
-            if ($status == 500) {
-                return array(false, 'Internal Server Error');
-            }
+            // if ($status == 500) {
+            //     return array(false, 'Internal Server Error');
+            // }
 
             $push_utility_response = $response->toArray(false);
 
@@ -166,9 +166,9 @@ class SuyoolServices
             }
             if ($globalCode) {
                 $transId = $push_utility_response['data'];
-                return array(true, $transId,"","",json_encode($body),json_encode($push_utility_response));
+                return array(true, $transId,"","",json_encode($body),json_encode($push_utility_response),$status,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
             } else {
-                return array(false, $message, $flagCode, $error,json_encode($body),json_encode($push_utility_response));
+                return array(false, $message, $flagCode, $error,json_encode($body),json_encode($push_utility_response),$status,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
             }
         } catch (Exception $e) {
             return array(false, "", "", "","",$e->getMessage());
@@ -194,17 +194,17 @@ class SuyoolServices
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",  $body);
 
             $status = $response->getStatusCode(); // Get the status code
-            if ($status == 500) {
-                return array(false, 'Internal Server Error');
-            }
+            // if ($status == 500) {
+            //     return array(false, 'Internal Server Error');
+            // }
 
             $update_utility_response = $response->toArray(false);
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
-                return array(true, "success",json_encode($update_utility_response),json_encode($body));
+                return array(true, "success",json_encode($update_utility_response),json_encode($body), "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",$status);
             } else {
-                return array(false, $message,json_encode($update_utility_response),json_encode($body));
+                return array(false, $message,json_encode($update_utility_response),json_encode($body),"{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",$status);
             }
         } catch (Exception $e) {
             return array(false,"", $e->getMessage());

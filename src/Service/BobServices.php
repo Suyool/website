@@ -71,10 +71,10 @@ class BobServices
             $url = $this->BOB_API_HOST . 'SendPinRequest';
             $status = $response->getStatusCode(); // Get the status code
             $this->logger->error("Alfa postpaid status: {$status}");
-            if ($status == 500) {
-                $decodedString = "not connected";
-                return $decodedString;
-            }
+            // if ($status == 500) {
+            //     $decodedString = "not connected";
+            //     return $decodedString;
+            // }
             $content = $response->getContent();
 
 
@@ -116,19 +116,20 @@ class BobServices
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
             $status = $response->getStatusCode(); // Get the status code
-            if ($status == 500) {
-                return array(false, "error 500 timeout", 255, "error 500 timeout");
-            }
+            $url=$this->BOB_API_HOST . 'RetrieveChannelResults';
+            // if ($status == 500) {
+            //     return array(false, "error 500 timeout", 255, "error 500 timeout");
+            // }
             $content = $response->getContent();
             $reponse = json_encode($content);
             $ApiResponse = json_decode($content, true);
             $res = $ApiResponse['Response'];
             if ($res == "") {
-                return array(false, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+                return array(false,"", $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse,$url,$status,json_encode($body));
             }
             $decodedString = $this->_decodeGzipString(base64_decode($res));
 
-            return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse);
+            return array(true, $decodedString, $ApiResponse['ErrorDescription'], $ApiResponse['ErrorCode'], $reponse,$url,$status,json_encode($body));
         } catch (Exception $e) {
             $this->logger->error("Alfa postpaid error retrieve: {$e->getMessage()}");
             return array(false, $e->getMessage(), 255, $e->getMessage());
@@ -167,9 +168,9 @@ class BobServices
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
             $status = $response->getStatusCode(); // Get the status code
 
-            if ($status == 500) {
-                return array("", "211", "timeout");
-            }
+            // if ($status == 500) {
+            //     return array("", "211", "timeout");
+            // }
             $content = $response->getContent();
 
             $txt = json_encode(['response' => $response, 'content' => $content]);
@@ -180,7 +181,7 @@ class BobServices
             $ErrorCode = $ApiResponse['ErrorCode'];
             $decodedString = $this->_decodeGzipString(base64_decode($res));
 
-            return array($decodedString, $ErrorCode, $ErrorDescription);
+            return array($decodedString, $ErrorCode, $ErrorDescription,$this->BOB_API_HOST . 'InjectTransactionalPayment',$status,json_encode($body));
         } catch (Exception $e) {
             $this->logger->error("Alfa postpaid error: {$e->getMessage()}");
             return array("", "211", $e->getMessage());
