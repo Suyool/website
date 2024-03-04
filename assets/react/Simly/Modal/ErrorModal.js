@@ -64,8 +64,8 @@ const ErrorModal = (props) => {
                   <button className="okiBtnModal" onClick={props.onHide}>
                     Cancel
                   </button>
-                  {props.getErrorModal.path == "90" ||
-                  props.getErrorModal.path == "84" && (
+                  {(props.getErrorModal.path == "90" ||
+                  props.getErrorModal.path == "84") && (
                       <button
                           className="exchangeBtnModal"
                           onClick={handleExchange}
