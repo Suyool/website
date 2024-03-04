@@ -40,12 +40,12 @@ function BundleCredentials() {
         setBtnDesign(true);
     };
 
-    const handleContinue = async () => {
+    const handleContinue = () => {
         setIsButtonDisabled(true);
         localStorage.setItem(credential.name, credential[credential.name]);
         localStorage.setItem("billCurrency", currency);
 
-        await GetBundles(bundle, credential[credential.name]?.replace(/\s/g, ''), credential);
+        GetBundles(bundle, credential[credential.name]?.replace(/\s/g, ''), credential);
     };
 
     return (

@@ -28,7 +28,7 @@ const PopupModal = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "Alfa",
+          title: "Sodetel",
           backLink: "",
           currentPage: headerData.currentPage,
         },

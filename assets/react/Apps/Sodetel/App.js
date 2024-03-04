@@ -7,6 +7,8 @@ import PopupModal from "./Component/PopupModal";
 import BottomSlider from "./Component/BottomSlider";
 import { Spinner } from "react-bootstrap";
 import BundleCredentials from "./Pages/BundleCredentials";
+import ReCharge from "./Pages/ReCharge";
+import Refill from "./Pages/Refill";
 
 const App = ({ parameters }) => {
   const headerData = useSelector((state) => state.appData.headerData);
@@ -66,9 +68,8 @@ const App = ({ parameters }) => {
         )}
         {headerData.currentPage === "" && <Default />}
         {headerData.currentPage === "BundleCredentials" && <BundleCredentials />}
-        {/*{headerData.currentPage === "ReCharge" && <ReCharge />}*/}
-        {/*{headerData.currentPage === "MyBill" && <MyBill />}*/}
-        {/*{headerData.currentPage === "MyBundle" && <MyBundle />}*/}
+        {headerData.currentPage === "ReCharge" && <ReCharge />}
+        {headerData.currentPage === "Refill" && <Refill />}
         {bottomSlider.isShow && <BottomSlider />}
         {modalData.isShow && <PopupModal />}
       </div>

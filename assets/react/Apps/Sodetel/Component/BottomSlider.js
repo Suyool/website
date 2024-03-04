@@ -2,11 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleShare } from "../Utils/functions";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
+import {capitalizeFirstLetters} from "../../../functions";
 
 const BottomSlider = () => {
   const dispatch = useDispatch();
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const parameters = useSelector((state) => state.appData.parameters);
+  const {bundle} = useSelector((state) => state.appData);
 
   const handleConfirmPay = () => {
     dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
@@ -44,12 +46,14 @@ const BottomSlider = () => {
           <div id={bottomSlider?.name}>
             <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
             <div className="bigTitle">Payment Successful</div>
-            <div className="descriptio">You have successfully purchased the ${bottomSlider?.data?.priceUSD} Alfa recharge card.</div>
+            <div className="descriptio">
+              You have successfully purchased the {capitalizeFirstLetters(bundle)} {getPrepaidVoucher.plandescription} package.
+            </div>
 
             <div className="br"></div>
 
-            <div className="copyTitle">To recharge your prepaid number: </div>
-            <div className="copyDesc">Copy the 14-digit secret code below</div>
+            <div className="copyTitle">To recharge your package:</div>
+            <div className="copyDesc">Use the credentials below</div>
 
             <button
               className="copySerialBtn"

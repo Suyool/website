@@ -1,10 +1,12 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import useAxiosClient from "../Utils/axios";
-import {settingData} from "../Redux/Slices/AppSlice";
+import {settingData, settingObjectData} from "../Redux/Slices/AppSlice";
 
 const AppAPI = () => {
     const dispatch = useDispatch();
     const axiosClient = useAxiosClient();
+
+    const {planData, bundle, identifier, requestId} = useSelector((state) => state.appData);
 
     const GetBundles = (service, identifier, credential) => {
         dispatch(settingData({field: "isloading", value: true}));
@@ -25,6 +27,8 @@ const AppAPI = () => {
                                 value: response?.data[1]
                             })
                         );
+                        dispatch(settingObjectData({mainField: "headerData", field: "currentPage", value: "ReCharge"}));
+                        dispatch(settingData({mainField: "requestId", value: response?.data[2]}));
                     } else if (response?.data?.message === "Maximum allowed number of PIN requests is reached") {
                         dispatch(settingData({field: "isloading", value: false}));
                         dispatch(settingData({
@@ -80,12 +84,12 @@ const AppAPI = () => {
         }
     };
 
-    const Recharge = ({refillData, bundle, identifier, requestId}) => {
+    const Recharge = () => {
         dispatch(settingData({field: "isloading", value: true}));
         try {
             return axiosClient
                 .post("/refill", {
-                    refillData: refillData,
+                    refillData: planData,
                     bundle: bundle,
                     identifier: identifier,
                     requestId: requestId,

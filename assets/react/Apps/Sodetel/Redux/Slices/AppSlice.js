@@ -34,7 +34,9 @@ const initialState = {
         type: ""
     },
     credentialsArray: [],
-    bundle: ""
+    bundle: "",
+
+    planData: {},
 };
 
 const AppSlice = createSlice({

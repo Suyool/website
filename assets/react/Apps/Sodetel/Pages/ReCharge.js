@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
 import ContentLoader from "react-content-loader";
-import {capitalizeFirstLetters} from "../../functions";
+import {capitalizeFirstLetters} from "../../../functions";
+import {useDispatch, useSelector} from "react-redux";
+import {settingData} from "../Redux/Slices/AppSlice";
 
-const ReCharge = ({
-  setPrepaidVoucher,
-  getVoucherData, activeButton,
-  setActiveButton,
-  setHeaderTitle,
-  setBackLink,
-  setIdentifier
-}) => {
+const ReCharge = () => {
   const [ filteredData, setFilteredData ] = useState([]);
   const [ getLoading, setLoading ] = useState(true);
 
+  const {sodetelData, bundle} = useSelector((state) => state.appData);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setHeaderTitle(`Re-charge ${capitalizeFirstLetters(activeButton?.bundle)} Package`);
-    setBackLink("BundleCredentials");
-    setFilteredData(Object.values(getVoucherData));
+    dispatch(settingData({ field: "headerData", value: { title: `Re-charge ${capitalizeFirstLetters(bundle)} Package`, backLink: "BundleCredentials", currentPage: "ReCharge" } }));
+    setFilteredData(Object.values(sodetelData));
 
-    // const values = getVoucherData?.id? Object.values(getVoucherData.id)?.filter(item => typeof item !== 'string') : [];
+    console.log("sodetelData", sodetelData);
 
-    if (getVoucherData?.id) {
-      const dataObj = JSON.parse(getVoucherData.id);
-      setIdentifier(dataObj?.customerid);
+    if (sodetelData) {
+      const dataObj = JSON.parse(sodetelData);
+      dispatch(settingData({ field: "identifier", value: dataObj?.customerid }));
     }
-    const values = getVoucherData?.id? Object.values(JSON.parse(getVoucherData.id))?.filter(item => typeof item !== 'string') : [];
+    const values = sodetelData? Object.values(JSON.parse(sodetelData))?.filter(item => typeof item !== 'string') : [];
     setFilteredData(values);
 
-  }, [ getVoucherData ]);
+  }, [ sodetelData ]);
 
   useEffect(() => {
     if (filteredData.length > 0) {
@@ -38,7 +35,7 @@ const ReCharge = ({
   return (
     <div id="ReCharge">
       <div className="bundlesSection">
-        <div className="mainTitle">Available ${capitalizeFirstLetters(activeButton?.bundle)} Re-charge Packages</div>
+        <div className="mainTitle">Available ${capitalizeFirstLetters(bundle)} Re-charge Packages</div>
         <div className="mainDesc">* Excluding Taxes</div>
         {getLoading ? (
           <ContentLoader
@@ -62,8 +59,8 @@ const ReCharge = ({
                 className="bundleGrid"
                 key={index}
                 onClick={() => {
-                  setActiveButton({ ...activeButton, name: "MyBundle" });
-                  setPrepaidVoucher(record);
+                  dispatch(settingData({ field: "headerData", value: { title: `Re-charge ${capitalizeFirstLetters(bundle)} Package`, backLink: "ReCharge", currentPage: "Refill" } }));
+                  dispatch(settingData({ field: "planData", value: record }));
                 }}
               >
                 <img
