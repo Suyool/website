@@ -171,7 +171,7 @@ class PlayLoto extends Command
                     $pushlogs->pushLogs(new Logs,"PlayLoto",@json_encode($submit[4]),json_encode($submit[3]),"SubmitLotoPlayOrderWithPhoneNumber");
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
-                            sleep(2);
+                            sleep(5);
                             $ticketId = $this->lotoServices->GetTicketId();
                             sleep(2);
                             $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
@@ -244,7 +244,7 @@ class PlayLoto extends Command
                         }
                     } else {
                         if ($submit[0]) {
-                            sleep(2);
+                            sleep(5);
                             $ticketId = $this->lotoServices->GetTicketId();
                             // $ticketId="1234";
                             $lotoToBePlayed->setticketId($ticketId);
