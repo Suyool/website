@@ -49,7 +49,7 @@ const MyBundle = () => {
           {/* <div className="mainDesc">*All taxes excluded</div> */}
           <img className="BundleBigImg" src={`/build/images/touch/Bundle${getPrepaidVoucher.vouchertype}h.png`} alt="Bundle" />
           <div className="smlDesc">
-            <img className="question" src={`/build/images/touch/attention.svg`} alt="question" style={{ verticalAlign: "baseline" }} />
+            <img className="question" src={`/build/images/alfa/attention.svg`} alt="question" style={{ verticalAlign: "baseline" }} />
             &nbsp; Touch only accepts payments in L.L
           </div>
           {/* <div className="relatedInfo">{getPrepaidVoucher.desc2}</div> */}
