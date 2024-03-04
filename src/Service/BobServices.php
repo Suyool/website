@@ -87,7 +87,7 @@ class BobServices
                 $decodedString = $this->_decodeGzipString(base64_decode($res));
             }
 
-            return array($decodedString,$status,$url);
+            return array($decodedString,@$status,$url);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
             $decodedString = "not connected";
