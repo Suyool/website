@@ -103,6 +103,7 @@ const App = ({ parameters }) => {
                 selectedPackage={selectedPackage}
                 setSpinnerLoader={setSpinnerLoader}
                 getSpinnerLoader={getSpinnerLoader}
+                setEsimId={setEsimId}
               />
             )}
             {activeButton.name === "Account" && (

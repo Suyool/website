@@ -388,6 +388,13 @@ class Memcached
 
             // dd($dividedArrays);
 
+            $data['global'][0]['countryImageURL'] = "/build/images/simly/Global_Icon.svg";
+            $data['regional'][0]['countryImageURL'] = "/build/images/simly/AfricaIcon.svg";
+            $data['regional'][1]['countryImageURL'] = "/build/images/simly/AsiaIcon.svg";
+            $data['regional'][2]['countryImageURL'] = "/build/images/simly/EuropeIcon.svg";
+            $data['regional'][3]['countryImageURL'] = "/build/images/simly/Middle_East_Icon.svg";
+            $data['regional'][4]['countryImageURL'] = "/build/images/simly/North_America_Icon.svg";
+            $data['regional'][5]['countryImageURL'] = "/build/images/simly/South_America_Icon.svg";
             // Keep the 'regional' and 'global' arrays unchanged
             $filter = [
                 'local' => $dividedArrays,
