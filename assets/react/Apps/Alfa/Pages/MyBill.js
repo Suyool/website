@@ -11,7 +11,7 @@ const MyBill = () => {
   const getPostpaidData = useSelector((state) => state.appData.postpaidData);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
 
-  const PinLength = 4;
+  const PinLength = 6;
   const [getBtnDesign, setBtnDesign] = useState(false);
   const inputRef = useRef(null);
 
