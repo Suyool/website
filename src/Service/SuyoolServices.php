@@ -243,7 +243,6 @@ class SuyoolServices
             "secureHash" => $Hash,
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}MasterAccount/GetMasterAccount",  $body);
-
         $status = $response->getStatusCode(); // Get the status code
         if ($status === 400) {
             $push_get_response = $response->toArray(false);

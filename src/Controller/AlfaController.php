@@ -701,8 +701,8 @@ class AlfaController extends AbstractController
                 if ($data != null) {
                     $sendBill = $bobServices->Bill($data["mobileNumber"]);
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs, "ap2_alfa_bill", null, $sendBill, "SendPinRequest");
-                    $sendBillRes = json_decode($sendBill, true);
+                    $pushlog->pushLogs(new Logs, "ap2_alfa_bill", null, @$sendBill[0], @$sendBill[2],@$sendBill[1]);
+                    $sendBillRes = json_decode($sendBill[0], true);
                     if (isset($sendBillRes["ResponseText"])) {
                         if (isset($sendBillRes["ResponseText"]) && $sendBillRes["ResponseText"] == "Success") {
                             $invoices = new PostpaidRequest;
@@ -853,7 +853,7 @@ class AlfaController extends AbstractController
             if ($data != null) {
                 $retrieveResults = $bobServices->RetrieveResults($data["currency"], $data["mobileNumber"], $data["Pin"]);
                 $pushlog = new LogsService($this->mr);
-                $pushlog->pushLogs(new Logs, "ap3_alfa_RetrieveResults", null, $retrieveResults[1], "RetrieveChannelResults");
+                $pushlog->pushLogs(new Logs, "ap3_alfa_RetrieveResults", @$retrieveResults[7], @$retrieveResults[4], @$retrieveResults[5], @$retrieveResults[6]);
                 if (isset($retrieveResults) && $retrieveResults[0]) {
                     $jsonResult = json_decode($retrieveResults[1], true);
                     $displayData = $jsonResult["Values"];
@@ -991,7 +991,7 @@ class AlfaController extends AbstractController
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $order->getfees());
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$response[4], @$response[5], "Utilities/PushUtilityPayment");
+                    $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$response[4], @$response[5], @$response[7], @$response[6]);
                     if ($response[0]) {
                         //set order status to held
                         $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -1003,6 +1003,7 @@ class AlfaController extends AbstractController
 
                         //paid postpaid from bob Provider
                         $billPay = $bobServices->BillPay($Postpaid_With_id);
+                        $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$billPay[5], json_encode($billPay), @$billPay[3], @$billPay[4]);
                         if ($billPay[0] != "") {
                             $billPayArray = json_decode($billPay[0], true);
                             //if payment from loto provider success insert prepaid data to db
@@ -1075,7 +1076,7 @@ class AlfaController extends AbstractController
 
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(),  $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                            $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], "Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                                 //update te status from purshased to completed
@@ -1111,7 +1112,7 @@ class AlfaController extends AbstractController
                             $dataPayResponse = -1;
                             //if not purchase return money
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                            $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], "Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs, "ap4_alfa_bill", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4
