@@ -385,7 +385,7 @@ class OgeroController extends AbstractController
                 if ($data != null) {
                     $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap2_ogero_bill",null,@$RetrieveChannel[3],"RetrieveChannelResults");
+                    $pushlog->pushLogs(new Logs,"ap2_ogero_bill",@$RetrieveChannel[6],@$RetrieveChannel[3],@$RetrieveChannel[4],@$RetrieveChannel[5]);
                     // dd($RetrieveChannel);
                     if ($RetrieveChannel[0] == true) {
                         $resp = $RetrieveChannel[1]["Values"];
@@ -533,7 +533,7 @@ class OgeroController extends AbstractController
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Landline_With_id->getfees());
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
+                    $pushlog->pushLogs(new Logs,"PushUtility",@$response[4],@$response[5],@$response[7], @$response[6]);
                     if ($response[0]) {
                         //set order status to held
                         $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -545,7 +545,7 @@ class OgeroController extends AbstractController
 
                         //paid landline from bob Provider
                         $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
-                        $pushlog->pushLogs(new Logs,"ap3_ogero_bill",null,$BillPayOgero[3],"InjectTransactionalPayment");
+                        $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$BillPayOgero[4],@$BillPayOgero[3],@$BillPayOgero[5],@$BillPayOgero[6]);
                         if ($BillPayOgero[0]) {
                             //if payment from Bob provider success insert landline data to db
                             $landline = new Landline;
@@ -632,7 +632,7 @@ class OgeroController extends AbstractController
                             $messageBack = "Success";
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                            $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -661,7 +661,7 @@ class OgeroController extends AbstractController
                             $dataPayResponse = -1;
                             //if not purchase return money
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0, "", $orderupdate1->gettransId());
-                            $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4
