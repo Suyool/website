@@ -53,7 +53,8 @@ class notificationresult extends Command
 
         $GetFullGridPriceMatrix = $this->lotoServices->GetFullGridPriceMatrix();
         $pushlog = new LogsService($this->mr);
-        $pushlog->pushLogs(new Logs ,"get price from loto",null,json_encode($GetFullGridPriceMatrix),"GetFullGridPriceMatrix");
+        $pushlog->pushLogs(new Logs ,"get price from loto",$GetFullGridPriceMatrix[1],json_encode($GetFullGridPriceMatrix[0]),$GetFullGridPriceMatrix[2],$GetFullGridPriceMatrix[3]);
+        $GetFullGridPriceMatrix = $GetFullGridPriceMatrix[0];
         $loto_numbers = $GetFullGridPriceMatrix['d']['pricematrix'];
         $numbers = 6;
         if (!$this->mr->getRepository(LOTO_numbers::class)->findOneBy(['price' => $GetFullGridPriceMatrix['d']['pricematrix'][0]['price0J'], 'zeed' => $GetFullGridPriceMatrix['d']['zeedprice']])) {
@@ -70,7 +71,8 @@ class notificationresult extends Command
             }
         }
         $results = $this->lotoServices->getDrawsResult();
-        $pushlog->pushLogs(new Logs ,"getDrawsResult",null,json_encode($results),"GetDrawsInformation");
+        $pushlog->pushLogs(new Logs ,"getDrawsResult",$results[1],json_encode($results[0]),$results[2],$results[3]);
+        $results = $results[0];
         if (!$results) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com', 'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching results');
         } else {
@@ -113,7 +115,7 @@ class notificationresult extends Command
         // dd($notifyUser);
 
         $detailsnextdraw = $this->lotoServices->fetchDrawDetails();
-        $pushlog->pushLogs(new Logs ,"fetchDrawDetails",null,json_encode($detailsnextdraw[1]),"GetInPlayAndNextDrawInformation");
+        $pushlog->pushLogs(new Logs ,"fetchDrawDetails",@$detailsnextdraw[2],json_encode($detailsnextdraw[1]),@$detailsnextdraw[3],@$detailsnextdraw[4]);
 
         if (!$detailsnextdraw) {
             $this->sendEmail->sendEmail('contact@suyool.com', 'anthony.saliban@gmail.com',  'charbel.ghadban@gmail.com', 'Warning Email', 'An error occured while fetching draws info');

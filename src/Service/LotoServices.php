@@ -170,15 +170,16 @@ class LotoServices
                 'PhoneNumber' => $mobileNo
             ];
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",  $body);
-
+            $status=$response->getStatusCode();
+            // $status=null;
             $content = $response->toArray();
+            // $content=json_decode('{"d":{"token":"076048ab-9719-4aab-8eab-f22e6e0f6556","balance":1299626477,"errorinfo":{"errorcode":0,"errormsg":"SUCCESS"},"insertId":null}}',true);
             $submit = $content['d']['errorinfo']['errorcode'];
-
             if ($submit == 0) {
-                return array(true, $content['d']['insertId'],"",$content,$body);
+                return array(true, $content['d']['insertId'],"",$content,$body,"{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",@$status);
             } else if ($submit == 4 || $submit == 6 || $submit == 9) {
                 $error = $content['d']['errorinfo']['errormsg'];
-                return array(false, $submit, $error,$content,$body);
+                return array(false, $submit, $error,$content,$body,"{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",@$status);
             } else {
                 sleep(10);
                 $this->loggerInterface->info("attemp " . $retryattempt);
@@ -187,7 +188,7 @@ class LotoServices
             }
         }
         $error = $content['d']['errorinfo']['errormsg'];
-        return array(false, $submit, $error,$content,$body);
+        return array(false, $submit, $error,$content,$body,"{$this->LOTO_API_HOST}SubmitLotoPlayOrderWithPhoneNumber",@$status);
     }
 
     public function getDrawsResult()
@@ -204,7 +205,7 @@ class LotoServices
             return false;
         }
         $content = $response->toArray(false);
-        return $content['d']['draws'];
+        return array($content['d']['draws'],json_encode($body), "{$this->LOTO_API_HOST}GetDrawsInformation",$response->getStatusCode());
     }
 
     public function fetchDrawDetails()
@@ -220,7 +221,7 @@ class LotoServices
         $date = $content['d']['draws'][0]['drawdate'];
         $nextdrawdetails = $content['d']['draws'][1];
 
-        return array($date, $nextdrawdetails);
+        return array($date, $nextdrawdetails,json_encode($body),"{$this->LOTO_API_HOST}GetInPlayAndNextDrawInformation",$status);
     }
 
     public function GetFullGridPriceMatrix()
@@ -235,7 +236,7 @@ class LotoServices
         $content = $response->toArray(false);
 
 
-        return $content;
+        return array($content,json_encode($body),"{$this->LOTO_API_HOST}GetFullGridPriceMatrix",$status);
     }
 
     public function GetWinTicketsPrize($ticketId)

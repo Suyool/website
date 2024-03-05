@@ -489,13 +489,13 @@ class SuyoolServices
                     'Content-Type' => 'application/json'
                 ]
             ]);
-
+            $status=$response->getStatusCode();
             $content = $response->toArray(false);
 
             if ($content['globalCode'] == 1) {
-                return array(true, $content['data'],$body,$content);
+                return array(true, $content['data'],$body,$content,"{$this->SUYOOL_API_HOST}Utilities/PushUserPrize",$status);
             } else {
-                return array(false,"",$body,$content);
+                return array(false,"",$body,$content,"{$this->SUYOOL_API_HOST}Utilities/PushUserPrize",$status);
             }
         } catch (Exception $e) {
             $this->winning->error($e->getMessage());
