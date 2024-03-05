@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\LogsService;
 
 class TerranetController extends AbstractController
 {
@@ -174,6 +175,7 @@ class TerranetController extends AbstractController
                 $checkBalance = $this->checkBalance($suyoolUserId, $order->getId(), $amount, $currency);
                 $checkBalance = json_decode($checkBalance->getContent(), true);
                 $checkBalance = $checkBalance['response'];
+                $pushlog = new LogsService($this->mr);
 
                 if ($checkBalance[0]) {
                     $transID = $checkBalance[1];
@@ -205,6 +207,8 @@ class TerranetController extends AbstractController
                         $notificationServices->addNotification($suyoolUserId, $content, $params, $bulk, '');
 
                         $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transID);
+                        $pushlog->pushLogs(new Logs, "terraNet_Update_utilities", @$updateUtility[3], @$updateUtility[2], "Utilities/UpdateUtilityPayment");
+
                         if ($updateUtility) {
                             $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                             //update te status from purshased to completed
@@ -228,6 +232,8 @@ class TerranetController extends AbstractController
                         $IsSuccess = false;
                         //if not purchase return money
                         $responseUpdateUtilities = $this->suyoolServices->UpdateUtilities(0, "", $transID);
+                        $pushlog->pushLogs(new Logs, "terraNet_Update_utilities", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], "Utilities/UpdateUtilityPayment");
+
                         if ($responseUpdateUtilities[0]) {
                             $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                             $orderupdate4
@@ -283,7 +289,8 @@ class TerranetController extends AbstractController
         $order_id = $merchantId . "-" . $orderId;
         $fees = 0;
         $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees);
-
+        $pushlog = new LogsService($this->mr);
+        $pushlog->pushLogs(new Logs, "terraNet_pushUtilities", @$pushutility[4], @$pushutility[5], @$pushutility[7], @$pushutility[6]);
         return new JsonResponse([
             'response' => $pushutility
         ], 200);
@@ -545,6 +552,7 @@ class TerranetController extends AbstractController
                         $checkBalance = $this->checkBalance($suyoolUserId, $order->getId(), $amount, $currency);
                         $checkBalance = json_decode($checkBalance->getContent(), true);
                         $checkBalance = $checkBalance['response'];
+                        $pushlog = new LogsService($this->mr);
 
                         if ($checkBalance[0]) {
                             $transID = $checkBalance[1];
@@ -583,6 +591,8 @@ class TerranetController extends AbstractController
                                 }
 
                                 $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transID);
+                                $pushlog->pushLogs(new Logs, "terraNet_Update_utilities", @$updateUtility[3], @$updateUtility[2], "Utilities/UpdateUtilityPayment");
+
                                 if ($updateUtility) {
                                     $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                     //update te status from purshased to completed
@@ -615,6 +625,8 @@ class TerranetController extends AbstractController
                                 $IsSuccess = false;
                                 //if not purchase return money
                                 $responseUpdateUtilities = $this->suyoolServices->UpdateUtilities(0, "", $transID);
+                                $pushlog->pushLogs(new Logs, "terraNet_Update_utilities", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], "Utilities/UpdateUtilityPayment");
+
                                 if ($responseUpdateUtilities[0]) {
                                     $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                     $orderupdate4

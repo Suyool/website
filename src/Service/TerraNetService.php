@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\TerraNet\Logs;
+use App\Service\LogsService;
 use Doctrine\Persistence\ManagerRegistry;
 use GuzzleHttp\Client;
 use App\Utils\Helper;
@@ -51,16 +52,19 @@ class TerraNetService
         try {
 
             $response = $this->soapClient->GetAccounts($params);
+            $pushlog = new LogsService($this->mr);
+            $url = "https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccounts";
+            $pushlog->pushLogs(new Logs, "Get_Accounts", json_encode($params),json_encode($response),$url,"");
 
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Bundle Purchase")
-                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccounts")
-                ->setrequest(json_encode($params))
-                ->setresponse(json_encode($response))
-                ->seterror($response->errorMessage);
-            $this->mr->persist($logs);
-            $this->mr->flush();
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Bundle Purchase")
+//                ->seturl($url)
+//                ->setrequest(json_encode($params))
+//                ->setresponse(json_encode($response))
+//                ->seterror($response->errorMessage);
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
 
             if ($response->errorCode == 0) {
                 $anyData = $response->accounts->any;
@@ -142,16 +146,20 @@ class TerraNetService
             $errorCode = (int) $xml->xpath('//errorCode');
             $errorMessage = (int) $xml->xpath('//errorMessage');
 
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Bundle Purchase")
-                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccountProduct")
-                ->setrequest(json_encode($params))
-                ->setresponse(json_encode($response))
-                ->seterror($errorMessage);
+            $pushlog = new LogsService($this->mr);
+            $url = "https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccountProduct";
+            $pushlog->pushLogs(new Logs, "Get_Account_Product", json_encode($params),json_encode($response),$url,"");
 
-            $this->mr->persist($logs);
-            $this->mr->flush();
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Bundle Purchase")
+//                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetAccountProduct")
+//                ->setrequest(json_encode($params))
+//                ->setresponse(json_encode($response))
+//                ->seterror($errorMessage);
+//
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
 
             if ($errorCode == 0) {
                 return $products;
@@ -178,15 +186,19 @@ class TerraNetService
         try {
 
             $response = $this->soapClient->GetProducts($params);
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Bundle Purchase")
-                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetProducts")
-                ->setrequest(json_encode($params))
-                ->setresponse(json_encode($response))
-                ->seterror($response->errorMessage);
-            $this->mr->persist($logs);
-            $this->mr->flush();
+            $pushlog = new LogsService($this->mr);
+            $url = "https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetProducts";
+            $pushlog->pushLogs(new Logs, "Get_Products", json_encode($params),json_encode($response),$url,"");
+
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Bundle Purchase")
+//                ->seturl("https://psp.terra.net.lb/TerraRefill.asmx?WSDL~GetProducts")
+//                ->setrequest(json_encode($params))
+//                ->setresponse(json_encode($response))
+//                ->seterror($response->errorMessage);
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
             if ($response->errorCode == 0) {
 
                 $anyData = $response->products->any;
@@ -245,6 +257,9 @@ class TerraNetService
             $response = $this->soapClient->RefillCustomerTerranet($params);
             $RefillCustomerTerranetResult = $response->RefillCustomerTerranetResult;
 
+            $pushlog = new LogsService($this->mr);
+            $url = "https://psp.terra.net.lb/TerraRefill.asmx?WSDL~RefillCustomerTerranet";
+            $pushlog->pushLogs(new Logs, "TerraNet_refillCustomer", json_encode($params),json_encode($RefillCustomerTerranetResult),$url,"");
 
             return $RefillCustomerTerranetResult;
         } catch (\SoapFault $fault) {
@@ -266,6 +281,10 @@ class TerraNetService
         try {
             $response = $this->soapClient->CheckTransactionStatus($params);
             $checkTransactionStatusResult = $response->CheckTransactionStatusResult;
+
+            $pushlog = new LogsService($this->mr);
+            $url = "https://psp.terra.net.lb/TerraRefill.asmx?WSDL~CheckTransactionStatus";
+            $pushlog->pushLogs(new Logs, "TerraNet_CheckTransactionStatus", json_encode($params),json_encode($checkTransactionStatusResult),$url,"");
 
             return $checkTransactionStatusResult;
         } catch (\SoapFault $fault) {
