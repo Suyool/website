@@ -245,7 +245,7 @@ class BobServices
             ]
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-        $status=$response->getStatusCode();
+        $status = $response->getStatusCode();
         $content = $response->getContent();
         $response = json_encode($content);
         $ApiResponse = json_decode($content, true);
@@ -261,7 +261,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response,$this->BOB_API_HOST . 'RetrieveChannelResults',@$status);
+        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', @$status);
     }
 
     public function BillPayTouch($Postpaid_With_id_Res)
@@ -295,7 +295,7 @@ class BobServices
         ];
 
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
-        $status=$response->getStatusCode();
+        $status = $response->getStatusCode();
         $content = $response->getContent();
         $this->logger->info(("Bill pay Touch TransId {$Postpaid_With_id_Res->gettransactionId()} Response {$content} "));
 
@@ -312,7 +312,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body),$this->BOB_API_HOST . 'InjectTransactionalPayment',$status);
+        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment', $status);
     }
 
     //Ogero
@@ -332,9 +332,10 @@ class BobServices
             ]
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
-
+        $status = $response->getStatusCode();
         $content = $response->getContent();
         $response = json_encode($content);
+
         $ApiResponse = json_decode($content, true);
 
         if ($ApiResponse["ErrorCode"] == 100) {
@@ -348,7 +349,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $response);
+        return array($isSuccess, $decodedString, $ErrorDescription, $response, $this->BOB_API_HOST . 'RetrieveChannelResults',$status,json_encode($body));
     }
 
     public function BillPayOgero($Landline_With_id)
@@ -376,7 +377,7 @@ class BobServices
             ]
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
-
+        $status=$response->getStatusCode();
         $myfile = fopen("../var/cache/ogerologs.txt", "a");
         $content = $response->getContent();
         $txt = json_encode(['response' => $response, 'content' => $content]) . " " . date('Y/m/d H:i:s ', time()) . " \n";
@@ -393,6 +394,6 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body));
+        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment',$status);
     }
 }
