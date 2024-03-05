@@ -43,7 +43,7 @@ class SimlyController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        // $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        $_POST['infoString']="Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             // dd($_POST['infoString']);   
@@ -52,7 +52,7 @@ class SimlyController extends AbstractController
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
