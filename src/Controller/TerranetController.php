@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Notification\Users;
+use App\Entity\TerraNet\Logs;
 use App\Entity\TerraNet\Order;
 use App\Entity\TerraNet\Product;
 use App\Service\DecryptService;

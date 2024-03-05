@@ -42,6 +42,11 @@ class Logs
      */
     private $error;
 
+    /**
+     * @ORM\Column(name="responseStatusCode")
+     */
+    private $responseStatusCode;
+
     public function getId()
     {
         return $this->id;
@@ -100,5 +105,16 @@ class Logs
     {
         $this->error = $error;
         return $this;
+    }
+
+    public function setresponseStatusCode($responseStatusCode)
+    {
+        $this->responseStatusCode = $responseStatusCode;
+        return $this;
+    }
+
+    public function getresponseStatusCode()
+    {
+        return $this->responseStatusCode;
     }
 }
