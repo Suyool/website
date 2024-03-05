@@ -31,6 +31,9 @@ const initialState = {
     AvailableCountries: null,
     AvailableCountriesLocal: null,
     SelectedCountry: null,
+    SelectedPlan: null,
+    SelectedPackage: null,
+    esimId: null,
   },
 };
 

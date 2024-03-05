@@ -2,32 +2,37 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/app1.1dfb62eb.js"
+        "/build/runtime.js",
+        "/build/app1.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/admin-app.fd697fc2.js"
+        "/build/runtime.js",
+        "/build/admin-app.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Loto.ecf58fd2.js"
+        "/build/runtime.js",
+        "/build/Loto.js"
       ]
     },
     "Alfa": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Alfa.2a9f0590.js"
+=======
+        "/build/runtime.js",
+        "/build/Alfa.js"
+>>>>>>> d0e6d868 (working on v2 of simly)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Touch.8f43a038.js"
+        "/build/runtime.js",
+        "/build/Touch.js"
       ]
     },
     "Windsl": {
@@ -38,8 +43,13 @@
     },
     "Ogero": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Ogero.971c4fbb.js"
+=======
+        "/build/runtime.js",
+        "/build/Ogero.js"
+>>>>>>> b408a954 (working on v2 of simly)
       ]
     },
 <<<<<<< HEAD
@@ -60,14 +70,14 @@
     "Simly": {
 >>>>>>> 6133b0f6 (simly v2 . 2)
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Simly.80b4c64b.js"
+        "/build/runtime.js",
+        "/build/Simly.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.2acf5642.js"
+        "/build/runtime.js",
+        "/build/LegalEnrollement.js"
       ]
     },
 <<<<<<< HEAD
@@ -98,6 +108,7 @@
 >>>>>>> 86fff387 (handle top up)
     "Gift2Games": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
 <<<<<<< HEAD
         "/build/Gift2Games.fe9ace55.js"
@@ -147,28 +158,32 @@
 >>>>>>> 01703872 (handle hassan changes)
 =======
 >>>>>>> 3fbcd0f4 (handle share in copy btn)
+=======
+        "/build/runtime.js",
+        "/build/Gift2Games.js"
+>>>>>>> d0e6d868 (working on v2 of simly)
       ]
     },
 >>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
     "iveri": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/iveri.429e5515.js"
+        "/build/runtime.js",
+        "/build/iveri.js"
       ]
     },
 <<<<<<< HEAD
 =======
     "TerraNet": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.4a892938.js"
+        "/build/runtime.js",
+        "/build/TerraNet.js"
       ]
     },
 >>>>>>> fdc034ff (some changes)
     "Sodetel": {
       "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.7f47d3e3.js"
+        "/build/runtime.js",
+        "/build/Sodetel.js"
       ]
     },
 <<<<<<< HEAD
@@ -387,42 +402,42 @@
 >>>>>>> bdd706c4 (simly v2 . 2)
     "styles": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/styles.6dd0f5af.css"
+        "/build/styles.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/admin.8fb78dae.css"
+        "/build/admin.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/Lotostyles.77b15344.css"
+        "/build/Lotostyles.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/AlfaStyle.a4a047b5.css"
+        "/build/AlfaStyle.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/TouchStyle.a4a047b5.css"
+        "/build/TouchStyle.css"
       ]
     },
     "WindslStyle": {
@@ -435,10 +450,10 @@
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/OgeroStyle.4bb3fdaf.css"
+        "/build/OgeroStyle.css"
       ]
     },
 <<<<<<< HEAD
@@ -447,29 +462,38 @@
     "SimlyStyle": {
 >>>>>>> 6133b0f6 (simly v2 . 2)
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/terraNetstyle.b67454e5.css"
 =======
         "/build/SimlyStyle.b0bdc6fb.css"
+=======
+        "/build/SimlyStyle.css"
+>>>>>>> d0e6d868 (working on v2 of simly)
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/LegalEnrollementStyle.65484ccf.css"
 >>>>>>> 6133b0f6 (simly v2 . 2)
+=======
+        "/build/LegalEnrollementStyle.css"
+>>>>>>> d0e6d868 (working on v2 of simly)
       ]
     },
     "Gift2GamesStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "/build/Gift2GamesStyle.a885ca0f.css"
@@ -501,20 +525,24 @@
 =======
         "/build/Gift2GamesStyle.4fb6d273.css"
 >>>>>>> f6048fee (handle share in copy btn)
+=======
+        "/build/Gift2GamesStyle.css"
+>>>>>>> 4436ef4c (working on v2 of simly)
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/iveristyles.382777e8.css"
+        "/build/iveristyles.css"
       ]
     },
 <<<<<<< HEAD
 =======
     "terraNetstyle": {
       "js": [
+<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js"
 <<<<<<< HEAD
 =======
@@ -540,17 +568,20 @@
 >>>>>>> 30911976 (handle hassan changes)
 =======
 >>>>>>> 3fbcd0f4 (handle share in copy btn)
+=======
+        "/build/runtime.js"
+>>>>>>> d0e6d868 (working on v2 of simly)
       ],
       "css": [
-        "/build/terraNetstyle.82a620c1.css"
+        "/build/terraNetstyle.css"
       ]
     },
     "SodetelStyle": {
       "js": [
-        "/build/runtime.cbe92cc0.js"
+        "/build/runtime.js"
       ],
       "css": [
-        "/build/SodetelStyle.3972e4fd.css"
+        "/build/SodetelStyle.css"
       ]
 <<<<<<< HEAD
 <<<<<<< HEAD

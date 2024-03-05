@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
 =======
 =======
@@ -551,7 +552,37 @@
 =======
 >>>>>>> bdd706c4 (simly v2 . 2)
   "build/runtime.js": "/build/runtime.cbe92cc0.js",
+<<<<<<< HEAD
 >>>>>>> f6048fee (handle share in copy btn)
+=======
+=======
+  "build/app1.js": "/build/app1.js",
+  "build/admin-app.js": "/build/admin-app.js",
+  "build/Loto.js": "/build/Loto.js",
+  "build/Alfa.js": "/build/Alfa.js",
+  "build/Touch.js": "/build/Touch.js",
+  "build/Ogero.js": "/build/Ogero.js",
+  "build/Simly.js": "/build/Simly.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.js",
+  "build/Gift2Games.js": "/build/Gift2Games.js",
+  "build/iveri.js": "/build/iveri.js",
+  "build/TerraNet.js": "/build/TerraNet.js",
+  "build/Sodetel.js": "/build/Sodetel.js",
+  "build/styles.css": "/build/styles.css",
+  "build/admin.css": "/build/admin.css",
+  "build/Lotostyles.css": "/build/Lotostyles.css",
+  "build/AlfaStyle.css": "/build/AlfaStyle.css",
+  "build/TouchStyle.css": "/build/TouchStyle.css",
+  "build/OgeroStyle.css": "/build/OgeroStyle.css",
+  "build/SimlyStyle.css": "/build/SimlyStyle.css",
+  "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.css",
+  "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.css",
+  "build/iveristyles.css": "/build/iveristyles.css",
+  "build/terraNetstyle.css": "/build/terraNetstyle.css",
+  "build/SodetelStyle.css": "/build/SodetelStyle.css",
+  "build/runtime.js": "/build/runtime.js",
+>>>>>>> d0e6d868 (working on v2 of simly)
+>>>>>>> 4436ef4c (working on v2 of simly)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",

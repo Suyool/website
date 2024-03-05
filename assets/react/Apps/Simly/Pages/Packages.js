@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AppAPI from "../Api/AppAPI";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
-const Packages = ({ setSelectedPlan, setSelectedPackage, isPackageItem }) => {
+const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
   const dispatch = useDispatch();
   const { GetAllAvailableCountries, GetLocalAvailableCountries, GetPlansUsingISOCode } = AppAPI();
   useEffect(() => {
@@ -158,14 +158,14 @@ const Packages = ({ setSelectedPlan, setSelectedPackage, isPackageItem }) => {
           </div>
         </div>
       </div>
-      {isPackageItem && simlyData?.SelectedCountry ? (
-        <PackageItems country={simlyData?.SelectedCountry} setSelectedPlan={setSelectedPlan} setSelectedPackage={setSelectedPackage} />
+      {simlyData.isPackageItem && simlyData?.SelectedCountry ? (
+        <PackageItems country={simlyData?.SelectedCountry} />
       ) : (
         <>
           {
             <>
               {view === "regions" && (
-                <div className="row" style={{ margin: "0 10px" }}>
+                <div className="row" style={{ margin: "0 10px", width: "100%" }}>
                   <div className="col">
                     {simlyData?.AvailableCountries &&
                       simlyData?.AvailableCountries.regional &&
@@ -187,7 +187,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage, isPackageItem }) => {
               )}
 
               {view === "global" && (
-                <div className="row" style={{ margin: "0 10px" }}>
+                <div className="row" style={{ margin: "0 10px", width: "100%" }}>
                   <div className="col">
                     {simlyData?.AvailableCountries &&
                       simlyData?.AvailableCountries.global &&
