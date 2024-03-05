@@ -238,7 +238,7 @@ const MyBundle = ({
                 src={getPrepaidVoucher.image || getDefaultImage(setTypeID)}
                 alt="Bundle"
                 onError={(e) => {
-                  e.target.src = '../build/images/gameicon.svg';
+                  e.target.src = '../build/images/g2g/freefire.png';
               }}
               />
               <div className="smlDesc">

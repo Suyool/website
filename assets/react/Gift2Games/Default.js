@@ -294,7 +294,7 @@ const Default = ({setActiveButton, setPrepaidVoucher, setTypeID, setHeaderTitle,
                                         src={record?.image || getDefaultImage(setTypeID)}
                                         alt="bundleImg"
                                         onError={(e) => {
-                                            e.target.src = '../build/images/gameicon.svg';
+                                            e.target.src = '../build/images/g2g/freefireicon2.png';
                                         }}
                                     />
                                     <div className="gridDesc" style={{ opacity: record.inStock === false ? 0.5 : 1 }}>
