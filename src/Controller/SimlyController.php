@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Simly\Esim;
 use App\Entity\Simly\Logs;
 use App\Entity\Simly\Order;
+use App\Service\LogsService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use App\Service\SimlyServices;
@@ -234,6 +235,9 @@ class SimlyController extends AbstractController
 
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
         $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
+        $pushlog=new LogsService($this->mr);
+        $pushlog->pushLogs(new Logs,"app_simly_purchaseTopup",null,$simlyPlan[1],$simlyPlan[2],$simlyPlan[3]);
+        $simlyPlan = $simlyPlan[0];
         $fees = $simlyPlan['initial_price'] - $simlyPlan['price'];
 
         $order = new Order();
@@ -255,6 +259,7 @@ class SimlyController extends AbstractController
         $order_id = $simlyMerchId . "-" . $order->getId();
 
         $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
+        $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
         if (!$utilityResponse[0]) {
 
             $order->setStatus(Order::$statusOrder['CANCELED'])
@@ -301,7 +306,8 @@ class SimlyController extends AbstractController
         } else {
             $simlyResponse = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
         }
-
+        $pushlog->pushLogs(new Logs,"PurchaseTopup",$simlyResponse[1],$simlyResponse[2],$simlyResponse[3],$simlyResponse[4]);
+        $simlyResponse=$simlyResponse[0];
         if (!isset($simlyResponse['id'])) {
             $logs = new Logs;
             $logs
@@ -313,6 +319,9 @@ class SimlyController extends AbstractController
             $this->mr->persist($logs);
             $this->mr->flush();
 
+            $pushlog->pushLogs(new Logs, "PurchaseTopup",json_encode($data), json_encode($simlyResponse), "simly/purchaseTopup",null);
+
+
             //return the money to the user
             $order->setStatus(Order::$statusOrder['CANCELED'])
                 ->setError($simlyResponse['message']);
@@ -321,6 +330,7 @@ class SimlyController extends AbstractController
             $this->mr->flush();
 
             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
+            $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
             if ($responseUpdateUtilities[0]) {
                 $order
                     ->setstatus(Order::$statusOrder['CANCELED'])
@@ -340,23 +350,23 @@ class SimlyController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            try {
-                $logs = new Logs;
-                $logs
-                    ->setidentifier("simly_purchaseTopup")
-                    ->seturl("UpdateUtilities")
-                    ->setrequest(json_encode(array(
-                        'amount' => 0,
-                        'additionalData' => "",
-                        'transId' => $transId
-                    )))
-                    ->setresponse(json_encode($responseUpdateUtilities))
-                    ->seterror($message);
+            // try {
+            //     $logs = new Logs;
+            //     $logs
+            //         ->setidentifier("simly_purchaseTopup")
+            //         ->seturl("UpdateUtilities")
+            //         ->setrequest(json_encode(array(
+            //             'amount' => 0,
+            //             'additionalData' => "",
+            //             'transId' => $transId
+            //         )))
+            //         ->setresponse(json_encode($responseUpdateUtilities))
+            //         ->seterror($message);
 
-                $this->mr->persist($logs);
-                $this->mr->flush();
-            } catch (\Exception $e) {
-            }
+            //     $this->mr->persist($logs);
+            //     $this->mr->flush();
+            // } catch (\Exception $e) {
+            // }
 
 
             return new JsonResponse([
@@ -448,25 +458,26 @@ class SimlyController extends AbstractController
         ]);
 
         $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $transId);
+        $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
         if ($responseUpdateUtilities[0]) {
             $message = "Simly Purchase was successful";
         } else {
             $message = "Simly Purchase was successful but the utilities were not updated";
         }
 
-        try {
-            $logs = new Logs;
-            $logs
-                ->setidentifier("simly_purchaseTopup")
-                ->seturl("simly/purchaseTopup")
-                ->setrequest(json_encode($data))
-                ->setresponse(json_encode($simlyResponse))
-                ->seterror($message);
+        // try {
+        //     $logs = new Logs;
+        //     $logs
+        //         ->setidentifier("simly_purchaseTopup")
+        //         ->seturl("simly/purchaseTopup")
+        //         ->setrequest(json_encode($data))
+        //         ->setresponse(json_encode($simlyResponse))
+        //         ->seterror($message);
 
-            $this->mr->persist($logs);
-            $this->mr->flush();
-        } catch (\Exception $e) {
-        }
+        //     $this->mr->persist($logs);
+        //     $this->mr->flush();
+        // } catch (\Exception $e) {
+        // }
 
         return new JsonResponse([
             'status' => true,
