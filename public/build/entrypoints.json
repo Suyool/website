@@ -165,6 +165,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
@@ -363,6 +364,14 @@
 >>>>>>> 4665fcd1 (yarn encore prod)
 =======
 >>>>>>> f6048fee (handle share in copy btn)
+=======
+    "Simly": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Simly.55d6f268.js"
+      ]
+    },
+>>>>>>> f4c31749 (yarn encore prod)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -526,6 +535,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 65d5ce55 (add loader to topup)
 =======
@@ -616,6 +626,16 @@
 >>>>>>> 65d5ce55 (add loader to topup)
 =======
 >>>>>>> f6048fee (handle share in copy btn)
+=======
+    },
+    "SimlyStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/SimlyStyle.af909b84.css"
+      ]
+>>>>>>> f4c31749 (yarn encore prod)
     }
   }
 }
