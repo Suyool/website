@@ -1,5 +1,23 @@
 {
   "entrypoints": {
+    "app1": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/app1.1dfb62eb.js"
+      ]
+    },
+    "admin-app": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/admin-app.fd697fc2.js"
+      ]
+    },
+    "Loto": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Loto.ecf58fd2.js"
+      ]
+    },
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -24,6 +42,7 @@
         "/build/Ogero.971c4fbb.js"
       ]
     },
+<<<<<<< HEAD
     "TerraNet": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -37,21 +56,12 @@
       ]
     },
     "app1": {
+=======
+    "Simly": {
+>>>>>>> 6133b0f6 (simly v2 . 2)
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.1dfb62eb.js"
-      ]
-    },
-    "admin-app": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/admin-app.fd697fc2.js"
-      ]
-    },
-    "Loto": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Loto.ecf58fd2.js"
+        "/build/Simly.80b4c64b.js"
       ]
     },
     "LegalEnrollement": {
@@ -161,6 +171,7 @@
         "/build/Sodetel.7f47d3e3.js"
       ]
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -372,6 +383,8 @@
       ]
     },
 >>>>>>> f4c31749 (yarn encore prod)
+=======
+>>>>>>> bdd706c4 (simly v2 . 2)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -394,14 +407,6 @@
       ],
       "css": [
         "/build/Lotostyles.77b15344.css"
-      ]
-    },
-    "LegalEnrollementStyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
     "AlfaStyle": {
@@ -436,12 +441,28 @@
         "/build/OgeroStyle.4bb3fdaf.css"
       ]
     },
+<<<<<<< HEAD
     "terraNetstyle": {
+=======
+    "SimlyStyle": {
+>>>>>>> 6133b0f6 (simly v2 . 2)
       "js": [
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/terraNetstyle.b67454e5.css"
+=======
+        "/build/SimlyStyle.b0bdc6fb.css"
+      ]
+    },
+    "LegalEnrollementStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/LegalEnrollementStyle.65484ccf.css"
+>>>>>>> 6133b0f6 (simly v2 . 2)
       ]
     },
     "Gift2GamesStyle": {
@@ -531,6 +552,7 @@
       "css": [
         "/build/SodetelStyle.3972e4fd.css"
       ]
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -636,6 +658,8 @@
         "/build/SimlyStyle.af909b84.css"
       ]
 >>>>>>> f4c31749 (yarn encore prod)
+=======
+>>>>>>> bdd706c4 (simly v2 . 2)
     }
   }
 }
