@@ -166,12 +166,12 @@ class SuyoolServices
             }
             if ($globalCode) {
                 $transId = $push_utility_response['data'];
-                return array(true, $transId);
+                return array(true, $transId,"","",json_encode($body),json_encode($push_utility_response));
             } else {
-                return array(false, $message, $flagCode, $error);
+                return array(false, $message, $flagCode, $error,json_encode($body),json_encode($push_utility_response));
             }
         } catch (Exception $e) {
-            return array(false, "", "", $e->getMessage());
+            return array(false, "", "", "","",$e->getMessage());
         }
     }
 
@@ -202,12 +202,12 @@ class SuyoolServices
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
-                return array(true, "success");
+                return array(true, "success",json_encode($update_utility_response),json_encode($body));
             } else {
-                return array(false, $message);
+                return array(false, $message,json_encode($update_utility_response),json_encode($body));
             }
         } catch (Exception $e) {
-            return array(false, $e->getMessage());
+            return array(false,"", $e->getMessage());
         }
     }
 
@@ -476,6 +476,10 @@ class SuyoolServices
                 'listWinners' => $listWinners,
                 'secureHash' => $Hash
             ], JSON_PRESERVE_ZERO_FRACTION));
+            $body = json_encode([
+                'listWinners' => $listWinners,
+                'secureHash' => $Hash
+            ], JSON_PRESERVE_ZERO_FRACTION);
             $response = $this->client->request('POST', "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", [
                 'body' => json_encode([
                     'listWinners' => $listWinners,
@@ -489,9 +493,9 @@ class SuyoolServices
             $content = $response->toArray(false);
 
             if ($content['globalCode'] == 1) {
-                return array(true, $content['data']);
+                return array(true, $content['data'],$body,$content);
             } else {
-                return array(false);
+                return array(false,"",$body,$content);
             }
         } catch (Exception $e) {
             $this->winning->error($e->getMessage());

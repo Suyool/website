@@ -67,6 +67,9 @@ const App = ({ parameters }) => {
                 setActiveButton={setActiveButton}
                 setHeaderTitle={setHeaderTitle}
                 setBackLink={setBackLink}
+                setModalShow={setModalShow}
+                setErrorModal={setErrorModal}
+                setModalName={setModalName}
               />
             )}
 

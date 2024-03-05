@@ -264,9 +264,9 @@ class BobServices
             "ChannelType" => "API",
             "ItemId" => "1",
             "VenId" => "2",
-            "ProductId" => "2",
+            "ProductId" => "1",
             "TransactionId" => strval($Postpaid_With_id_Res->gettransactionId()),
-            "TouchAdvancedResult" => [
+            "TouchDueResult" => [
                 "Fees" => strval($Postpaid_With_id_Res->getfees()),
                 "transactionId" => $Postpaid_With_id_Res->gettransactionId(),
                 "Amount" => strval($Postpaid_With_id_Res->getamount()),
@@ -305,7 +305,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription,$content);
+        return array($isSuccess, $decodedString, $ErrorDescription,$content,json_encode($body));
     }
 
     //Ogero
@@ -386,6 +386,6 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription);
+        return array($isSuccess, $decodedString, $ErrorDescription,$content,json_encode($body));
     }
 }

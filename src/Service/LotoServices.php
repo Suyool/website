@@ -173,10 +173,10 @@ class LotoServices
             $submit = $content['d']['errorinfo']['errorcode'];
 
             if ($submit == 0) {
-                return array(true, $content['d']['insertId']);
+                return array(true, $content['d']['insertId'],"",$content,$body);
             } else if ($submit == 4 || $submit == 6 || $submit == 9) {
                 $error = $content['d']['errorinfo']['errormsg'];
-                return array(false, $submit, $error);
+                return array(false, $submit, $error,$content,$body);
             } else {
                 sleep(10);
                 $this->loggerInterface->info("attemp " . $retryattempt);
@@ -185,7 +185,7 @@ class LotoServices
             }
         }
         $error = $content['d']['errorinfo']['errormsg'];
-        return array(false, $submit, $error);
+        return array(false, $submit, $error,$content,$body);
     }
 
     public function getDrawsResult()

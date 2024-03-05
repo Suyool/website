@@ -37,11 +37,6 @@ class Logs
      */
     private $response;
 
-    /**
-     * @ORM\Column(name="error")
-     */
-    private $error;
-
     public function getId()
     {
         return $this->id;
@@ -89,16 +84,5 @@ class Logs
     public function getresponse()
     {
         return $this->response;
-    }
-
-    public function geterror()
-    {
-        return $this->error;
-    }
-
-    public function seterror($error)
-    {
-        $this->error = $error;
-        return $this;
     }
 }

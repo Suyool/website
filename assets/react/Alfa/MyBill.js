@@ -38,12 +38,12 @@ const MyBill = ({
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
-    const newPinCode = inputValue.slice(0, 6).split("");
+    const newPinCode = inputValue.slice(0, 4).split("");
     setPinCode(newPinCode);
   };
 
   const handlePayNow = () => {
-    if (pinCode.length === 6) {
+    if (pinCode.length === 4) {
       setSpinnerLoader(true);
       axios
         .post("/alfa/bill/RetrieveResults", {
@@ -284,7 +284,7 @@ const MyBill = ({
         <div className="PinSection" onClick={handlePincodeClick}>
           <div className="Pintitle">PIN</div>
           <div className="Pincode">
-            {Array.from({ length: 6 }, (_, index) => (
+            {Array.from({ length: 4 }, (_, index) => (
               <div className="code" key={index}>
                 {pinCode[index] !== undefined ? pinCode[index] : ""}
               </div>
@@ -309,7 +309,7 @@ const MyBill = ({
             id="ContinueBtn"
             className="btnCont"
             onClick={handlePayNow}
-            disabled={pinCode.length !== 6}
+            disabled={pinCode.length !== 4}
           >
             Continue
           </button>

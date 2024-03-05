@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Loto\Logs;
 use App\Entity\Loto\loto;
 use App\Entity\Loto\LOTO_draw;
 use App\Entity\Loto\LOTO_numbers;
@@ -11,6 +12,7 @@ use App\Entity\Loto\notification;
 use App\Entity\Loto\order;
 use App\Entity\Notification\content;
 use App\Entity\Notification\Template;
+use App\Service\LogsService;
 use App\Service\LotoServices;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
@@ -516,6 +518,8 @@ class LotoController extends AbstractController
                 $order_id = $merchantId . "-" . $id;
                 $sum = $sum * $numDraws;
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP, 0);
+                $pushlog = new LogsService($this->mr);
+                $pushlog->pushLogs(new Logs,"app_loto_play",@$pushutility[4],@$pushutility[5],"Utilities/PushUtilityPayment");
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
