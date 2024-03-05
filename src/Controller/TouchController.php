@@ -620,24 +620,6 @@ class TouchController extends AbstractController
     public function RestAlfaBillApi(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
         try {
-            $popup = [
-                    "Title" => "Services not available",
-                    "globalCode" => 0,
-                    "flagCode" => 800,
-                    "Message" => "This service is not available at this moment.
-                    Kindly try again",
-                    "isPopup" => true
-                ];
-                $parameters = [
-                    'isSuccess' => false,
-                    'postpaidRequestId' => -1,
-                    'Popup'=>@$popup
-                ];
-                return new JsonResponse([
-                    'status' => true,
-                    'message' => "not available",
-                    'data' => $parameters
-                ], 200);
             $data = json_decode($request->getContent(), true);
             $webkey = apache_request_headers();
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
@@ -647,7 +629,7 @@ class TouchController extends AbstractController
                 if ($data != null) {
                     $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
                     $pushlog = new LogsService($this->mr,$this->loggerInterface);
-                    $pushlog->pushLogs(new Logs,"ap2_touch_bill",null,json_encode($sendBill),"SendTouchPinRequest");
+                    $pushlog->pushLogs(new Logs,"ap2_touch_bill",null,json_encode($sendBill),@$sendBill[3],@$sendBill[4]);
                     if (isset($sendBill[1]['TouchResponse'])) {
                         $sendBill[1] = "Invalid Number";
                     }
@@ -727,7 +709,7 @@ class TouchController extends AbstractController
                     $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
                     $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap3_touch_RetrieveResults",null,json_encode($retrieveResults),"RetrieveChannelResults");
+                    $pushlog->pushLogs(new Logs,"ap3_touch_RetrieveResults",null,json_encode($retrieveResults),$retrieveResults[5],$retrieveResults[6]);
                     $Pin = implode("", $data["Pin"]);
                     if ($retrieveResults[0]) {
                         $values = $retrieveResults[1]["Values"];
@@ -829,7 +811,7 @@ class TouchController extends AbstractController
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Postpaid_With_id->getfees());
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
+                    $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$response[4],@$response[5], @$response[7], @$response[6]);
                     if ($response[0]) {
                         //set order status to held
                         $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -841,7 +823,7 @@ class TouchController extends AbstractController
 
                         //paid postpaid from bob Provider
                         $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
-                        $pushlog->pushLogs(new Logs,"ap4_touch_bill",null,$billPay[3],"InjectTransactionalPayment");
+                        $pushlog->pushLogs(new Logs,"ap4_touch_bill",$billPay[4],$billPay[3],$billPay[5],$billPay[6]);
                         if ($billPay[0]) {
                             //if payment from loto provider success insert prepaid data to db
                             $postpaid = new Postpaid;
@@ -891,7 +873,7 @@ class TouchController extends AbstractController
 
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -925,7 +907,7 @@ class TouchController extends AbstractController
                             $dataPayResponse = -1;
                             //if not purchase return money
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                            $pushlog->pushLogs(new Logs,"ap4_touch_bill",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4
