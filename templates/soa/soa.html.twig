@@ -12,7 +12,7 @@
 		<div class="soacontainer">
             <div class="download">Download Statements</div>
             {% for data in data %}
-			<a href="{{data['SOAURL']}}" class="Cards">
+			<div class="Cards" style="cursor: pointer;" onclick="onClickSoa('{{data['SOAURL']}}','{{device}}')">
             <img class="logoImg" {% if data['FileType'] == "Pdf" %}src="{{ asset('/build/images/soa/pdf.svg') }}"{% else %}src="{{ asset('/build/images/soa/excel.svg') }}"{% endif %}/>
 				<div class="Text">
 					<div class="SubTitle"><span>{{data["Currency"]}}</span> Statement of Account</div>
@@ -20,8 +20,26 @@
 						>
 					</div>
 				</div>
-			</a>
+			</div>
             {% endfor %}
 		</div>
 	</div>
+	<script>
+		function onClickSoa(shareCode,device){
+				let object = [
+				{
+					Share: {
+						share: "document",
+						text: shareCode,
+					},
+				},
+				];
+				console.log(JSON.stringify(object))
+				if (device === "Android") {
+				window.AndroidInterface.callbackHandler(JSON.stringify(object));
+				} else if (device=== "Iphone") {
+				window.webkit.messageHandlers.callbackHandler.postMessage(object);
+				}
+			}
+		</script>
 {% endblock %}

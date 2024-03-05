@@ -1222,7 +1222,8 @@ class DefaultController extends AbstractController
                 $soaids = $request->query->get("Id") ?? $request->query->get("id") ?? null;
                 $data = $suyoolServices->getUsersSoa($soaids);
                 $parameters = [
-                    'data' => @$data
+                    'data' => @$data,
+                    'device'=>$suyoolUserInfo[1]
                 ];
                 return $this->render('soa/soa.html.twig', $parameters);
             }else{
