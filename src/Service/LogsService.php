@@ -15,13 +15,14 @@ class LogsService {
         $this->loggerInterface = $loggerInterface;
     }
 
-    public function pushLogs($class,$identifier,$request,$response,$url)
+    public function pushLogs($class,$identifier,$request,$response,$url = null,$status = null)
     {
         try{
             $class->setidentifier($identifier);
             $class->seturl($url);
             $class->setrequest($request);
             $class->setresponse($response);
+            $class->setresponseStatusCode($status);
             $this->repository->persist($class);
             $this->repository->flush();
     

@@ -205,7 +205,7 @@ class winningTickets extends Command
 
             $response = $this->suyoolServices->PushUserPrize($listWinners);
             $pushlogs = new LogsService($this->mr);
-            $pushlogs->pushLogs(new Logs,"PushUserPrize",@$response[2],@json_encode($response[3]),"Utilities/PushUserPrize");
+            $pushlogs->pushLogs(new Logs,"PushUserPrize",@$response[2],@json_encode($response[3]),@$response[4],@$response[5]);
             if ($response[0]) {
                 $data = json_decode($response[1], true);
                 $this->logger->debug(json_encode($data));

@@ -122,7 +122,7 @@ class PlayLoto extends Command
                 }
                 $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
-                $pushlogs->pushLogs(new Logs,"PlayLoto",@$updateutility[3],@$updateutility[2],"Utilities/UpdateUtilityPayment");
+                $pushlogs->pushLogs(new Logs,"UpdateUtility",@$updateutility[3],@$updateutility[2],@$updateutility[4],@$updateutility[5]);
                 if ($updateutility[0]) {
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")
@@ -168,7 +168,7 @@ class PlayLoto extends Command
                     $newElement = [];
                     $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
                     // $submit = [true,null,"",["success"],["token"=>123123]];
-                    $pushlogs->pushLogs(new Logs,"PlayLoto",@json_encode($submit[4]),json_encode($submit[3]),"SubmitLotoPlayOrderWithPhoneNumber");
+                    $pushlogs->pushLogs(new Logs,"PlayLoto",@json_encode($submit[4]),json_encode($submit[3]),@$submit[5],@$submit[6]);
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(5);
@@ -329,7 +329,7 @@ class PlayLoto extends Command
                 }
 
                 $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
-                $pushlogs->pushLogs(new Logs,"PlayLoto",@$updateutility[3],@$updateutility[2],"Utilities/UpdateUtilityPayment");
+                $pushlogs->pushLogs(new Logs,"UpdateUtility",@$updateutility[3],@$updateutility[2],@$updateutility[4],@$updateutility[5]);
                 if ($updateutility[0]) {
                     $held->setamount($newsum)
                         ->setcurrency("LBP")

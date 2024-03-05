@@ -97,7 +97,7 @@ class TouchController extends AbstractController
         if ($data != null) {
             $sendBill = $bobServices->SendTouchPinRequest($data["mobileNumber"]);
             $pushlog = new LogsService($this->mr,$this->loggerInterface);
-            $pushlog->pushLogs(new Logs,"app_touch_bill",null,json_encode($sendBill),"SendTouchPinRequest");
+            $pushlog->pushLogs(new Logs,"app_touch_bill",null,json_encode($sendBill),@$sendBill[3],@$sendBill[4]);
             if (isset($sendBill[1]['TouchResponse'])) {
                 $sendBill[1] = "Invalid Number";
             }
@@ -136,7 +136,7 @@ class TouchController extends AbstractController
             $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
             $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",null,json_encode($retrieveResults),"RetrieveChannelResults");
+            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",null,json_encode($retrieveResults),$retrieveResults[5],$retrieveResults[6]);
 
             $Pin = implode("", $data["Pin"]);
             if ($retrieveResults[0]) {
@@ -202,7 +202,7 @@ class TouchController extends AbstractController
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Postpaid_With_id->getfees());
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
+            $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$response[4],@$response[5], @$response[7], @$response[6]);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -214,7 +214,7 @@ class TouchController extends AbstractController
 
                 //paid postpaid from bob Provider
                 $billPay = $bobServices->BillPayTouch($Postpaid_With_id);
-                $pushlog->pushLogs(new Logs,"app_touch_bill_pay",$billPay[4],$billPay[3],"InjectTransactionalPayment");
+                $pushlog->pushLogs(new Logs,"app_touch_bill_pay",$billPay[4],$billPay[3],$billPay[5],$billPay[6]);
                 if ($billPay[0]) {
                     //if payment from loto provider success insert prepaid data to db
                     $postpaid = new Postpaid;
@@ -268,7 +268,7 @@ class TouchController extends AbstractController
                     }
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                    $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                    $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                     if ($responseUpdateUtilities) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -295,7 +295,7 @@ class TouchController extends AbstractController
                     $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                    $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                    $pushlog->pushLogs(new Logs,"app_touch_bill_pay",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -427,7 +427,7 @@ class TouchController extends AbstractController
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getamount(), $order->getcurrency(), 0);
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$response[4],@$response[5],"Utilities/PushUtilityPayment");
+            $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$response[4],@$response[5], @$response[7], @$response[6]);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -439,10 +439,11 @@ class TouchController extends AbstractController
 
                 //buy voucher from loto Provider
                 $BuyPrePaid = $lotoServices->BuyPrePaid($data["Token"], $data["category"], $data["type"]);
-                $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@json_encode($BuyPrePaid[1]), @json_encode($BuyPrePaid[0]),"PurchaseVoucher");
+                $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@json_encode($BuyPrePaid[1]), @json_encode($BuyPrePaid[0]), @$BuyPrePaid[2], @$BuyPrePaid[3]);
                 if ($BuyPrePaid[0] == false) {
                     $message = $BuyPrePaid[1];
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
+                    $pushlog->pushLogs(new Logs, "app_touch_BuyPrePaid", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -474,7 +475,7 @@ class TouchController extends AbstractController
 
                         //if not purchase return money
                         $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $orderupdate1->gettransId());
-                        $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                        $pushlog->pushLogs(new Logs, "app_touch_BuyPrePaid", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                         if ($responseUpdateUtilities[0]) {
                             $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                             $orderupdate4
@@ -541,7 +542,7 @@ class TouchController extends AbstractController
                         $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "*200*" . $PayResonse["voucherCode"] . "#");
                         //tell the .net that total amount is paid
                         $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), "", $orderupdate->gettransId());
-                        $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],"Utilities/UpdateUtilityPayment");
+                        $pushlog->pushLogs(new Logs,"app_touch_BuyPrePaid",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2],@$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                         if ($responseUpdateUtilities[0]) {
                             $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                             //update te status from purshased to completed

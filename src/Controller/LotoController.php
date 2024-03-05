@@ -519,7 +519,7 @@ class LotoController extends AbstractController
                 $sum = $sum * $numDraws;
                 $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $sum, $this->CURRENCY_LBP, 0);
                 $pushlog = new LogsService($this->mr);
-                $pushlog->pushLogs(new Logs,"app_loto_play",@$pushutility[4],@$pushutility[5],"Utilities/PushUtilityPayment");
+                $pushlog->pushLogs(new Logs,"app_loto_play",@$pushutility[4],@$pushutility[5],@$pushutility[7], @$pushutility[6]);
                 if ($pushutility[0]) {
                     $orderid->setamount($sum)
                         ->setcurrency($lotoid->getcurrency())
