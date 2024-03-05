@@ -3,7 +3,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.a5e874ab.js"
+        "/build/Alfa.2a9f0590.js"
       ]
     },
     "Touch": {
@@ -16,6 +16,12 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/Ogero.ad64b1fe.js"
+      ]
+    },
+    "TerraNet": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/TerraNet.9d7a4bee.js"
       ]
     },
     "app1": {
@@ -52,12 +58,6 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/iveri.429e5515.js"
-      ]
-    },
-    "TerraNet": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.4a892938.js"
       ]
     },
     "Sodetel": {
@@ -122,6 +122,14 @@
         "/build/OgeroStyle.4bb3fdaf.css"
       ]
     },
+    "terraNetstyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/terraNetstyle.b67454e5.css"
+      ]
+    },
     "Gift2GamesStyle": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -136,14 +144,6 @@
       ],
       "css": [
         "/build/iveristyles.382777e8.css"
-      ]
-    },
-    "terraNetstyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-        "/build/terraNetstyle.4d489fae.css"
       ]
     },
     "SodetelStyle": {
