@@ -66,6 +66,12 @@
         "/build/Sodetel.7f47d3e3.js"
       ]
     },
+    "Simly": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Simly.55d6f268.js"
+      ]
+    },
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -152,6 +158,14 @@
       ],
       "css": [
         "/build/SodetelStyle.3972e4fd.css"
+      ]
+    },
+    "SimlyStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/SimlyStyle.af909b84.css"
       ]
     }
   }
