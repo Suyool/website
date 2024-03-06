@@ -24,6 +24,12 @@
         "/build/TerraNet.9d7a4bee.js"
       ]
     },
+    "Gift2Games": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Gift2Games.e317a421.js"
+      ]
+    },
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -46,12 +52,6 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/LegalEnrollement.2acf5642.js"
-      ]
-    },
-    "Gift2Games": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.fe9ace55.js"
       ]
     },
     "iveri": {
@@ -135,7 +135,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/Gift2GamesStyle.daba13cf.css"
+        "/build/Gift2GamesStyle.4a24cd99.css"
       ]
     },
     "iveristyles": {
