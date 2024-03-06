@@ -34,6 +34,9 @@ const initialState = {
     SelectedPlan: null,
     SelectedPackage: null,
     esimId: null,
+    mapData: null,
+    accountInformation : null,
+    eSimDetail : null
   },
 };
 

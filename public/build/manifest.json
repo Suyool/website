@@ -71,7 +71,7 @@
   "build/Alfa.js": "/build/Alfa.a5e874ab.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
   "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
-  "build/Simly.js": "/build/Simly.b7d4e20a.js",
+  "build/Simly.js": "/build/Simly.50aa19c0.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -360,6 +360,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/terraNetstyle.css": "/build/terraNetstyle.b67454e5.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.a885ca0f.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
@@ -443,6 +444,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.6765213e.css",
 >>>>>>> 60633fd0 (simly redux)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.75b57144.css",
+>>>>>>> 8f1f8270 (simly redux)
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.4fb6d273.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",

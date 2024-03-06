@@ -185,6 +185,93 @@ const AppAPI = () => {
     } catch (e) {}
   };
 
+  const GetUsageOfEsim = () => {
+    dispatch(settingData({ field: "isLoadingData", value: true }));
+    try {
+      return axiosClient.post("/getUsageOfEsim").then((response) => {
+        dispatch(settingData({ field: "isLoadingData", value: false }));
+        dispatch(settingObjectData({ mainField: "simlyData", field: "mapData", value: true }));
+        dispatch(settingObjectData({ mainField: "simlyData", field: "accountInformation", value: response.data.message }));
+      });
+    } catch (e) {
+      dispatch(settingData({ field: "isLoadingData", value: false }));
+    }
+  };
+
+  const PurchaseTopupEsim = (reqObj) => {
+    dispatch(settingData({ field: "isloading", value: true }));
+
+    try {
+      return axiosClient.get(`/purchaseTopup`, reqObj).then((response) => {
+        const jsonResponse = response.data.message;
+        dispatch(settingData({ field: "isloading", value: false }));
+        if (response.data.status) {
+          dispatch(
+            settingData({
+              field: "modalData",
+              value: {
+                isShow: true,
+                name: "SuccessModal",
+                img: "/build/images/alfa/SuccessImg.png",
+                title: "eSIM Payment Successful",
+                desc: <div>You have successfully Topup the eSIM Account.</div>,
+                btn: "OK",
+                flag: "",
+              },
+            })
+          );
+        } else if (!response.data.status && response.data.flagCode == 10) {
+          dispatch(
+            settingData({
+              field: "modalData",
+              value: {
+                isShow: true,
+                name: "ErrorModal",
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                btn: jsonResponse.ButtonOne.Text,
+                flag: jsonResponse.ButtonOne.Flag,
+              },
+            })
+          );
+        } else if (!response.data.status && response.data.flagCode == 11) {
+          dispatch(
+            settingData({
+              field: "modalData",
+              value: {
+                isShow: true,
+                name: "ErrorModal",
+                img: "/build/images/alfa/error.png",
+                title: jsonResponse.Title,
+                desc: jsonResponse.SubTitle,
+                btn: jsonResponse.ButtonOne.Text,
+                flag: jsonResponse.ButtonOne.Flag,
+              },
+            })
+          );
+        } else {
+          dispatch(
+            settingData({
+              field: "modalData",
+              value: {
+                isShow: true,
+                name: "ErrorModal",
+                img: "/build/images/alfa/error.png",
+                title: "Please Try again",
+                desc: `You cannot purchase now`,
+                btn: "OK",
+                flag: "",
+              },
+            })
+          );
+        }
+      });
+    } catch (e) {
+      dispatch(settingData({ field: "isloading", value: false }));
+    }
+  };
+
   return {
     GetAllAvailableCountries,
     GetLocalAvailableCountries,
@@ -192,6 +279,8 @@ const AppAPI = () => {
     PurchaseTopup,
     GetNetworksById,
     GetCountriesById,
+    GetUsageOfEsim,
+    PurchaseTopupEsim,
   };
 };
 

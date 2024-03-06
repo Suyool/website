@@ -66,9 +66,10 @@ const App = ({ parameters }) => {
         {headerData.currentPage === "PlanDetail" && <PlanDetail />}
         {headerData.currentPage === "RechargeThePayment" && <RechargeThePayment />}
 
-        {bottomSlider.isShow && <BottomSlider />}
+        
         {modalData.isShow && <PopupModal />}
       </div>
+      {bottomSlider.isShow && <BottomSlider />}
     </div>
   );
 };
