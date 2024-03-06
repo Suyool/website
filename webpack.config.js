@@ -43,13 +43,6 @@ Encore.setOutputPath("public/build/")
    .addEntry("Gift2Games", "./assets/react/Apps/Gift2Games/index.js")
    .addStyleEntry("Gift2GamesStyle", "./assets/react/Apps/Gift2Games/Style/Gift2Games.scss")
 
-  .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
-  .addStyleEntry("SodetelStyle", "./assets/styles/src/react/Sodetel.scss")
-
-  .addEntry("app1", "./assets/app.js")
-  .addEntry("admin-app", "./assets/admin-app.js")
-
-
    //Simly
   .addStyleEntry("SimlyStyle", "./assets/react/Apps/Simly/Style/Simly.scss")
   .addEntry("Simly", "./assets/react/Apps/Simly/index.js")

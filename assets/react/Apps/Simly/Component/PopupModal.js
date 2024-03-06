@@ -79,6 +79,34 @@ const PopupModal = () => {
     // onHide();
   };
 
+  const onInstall = () => {
+    dispatch(
+      settingData({
+        field: "headerData",
+        value: {
+          title: "",
+          backLink: "",
+          currentPage: "RechargeThePayment",
+        },
+      })
+    );
+    dispatch(
+      settingData({
+        field: "modalData",
+        value: {
+          isShow: false,
+          name: "",
+          img: "",
+          title: "",
+          desc: "",
+          btn: null,
+          flag: "",
+        },
+      })
+    );
+
+  }
+
   return (
     <Modal show={modalData.isShow} size="md" aria-labelledby="contained-modal-title-vcenter" centered id="modalRadius">
       <Modal.Body>
@@ -87,9 +115,16 @@ const PopupModal = () => {
             <img src={modalData.img} alt="flag" />
             <div className="title">{modalData.title}</div>
             <div className="desc">{modalData.desc}</div>
-            <button className="okiBtnModal" onClick={() => goToPlay()}>
-              OK
-            </button>
+            {modalData.btn == "OK" && (
+                <button className="okiBtnModal" onClick={() => goToPlay()}>
+                OK
+              </button>
+              )}
+              {modalData.btn != "OK" && (
+                <button className="okiBtnModal" onClick={() => onInstall()}>
+                 {modalData.btn}
+              </button>
+              )}
           </div>
         )}
         {modalData.name == "ErrorModal" && (

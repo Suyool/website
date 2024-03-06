@@ -53,7 +53,7 @@ const App = ({ parameters }) => {
     <div id="PageBody">
       <Header />
 
-      <div className={`${isLoading === true ? "hideBackk scrolableView" : "scrolableView"}`}>
+      <div className={`${(isLoading === true || bottomSlider.isShow === true) ? "hideBackk scrolableView" : "scrolableView"}`}>
         {isLoading === true && (
           <div id="spinnerLoader">
             <Spinner className="spinner" animation="border" variant="secondary" />

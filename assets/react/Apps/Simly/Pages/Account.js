@@ -148,7 +148,7 @@ const Account = () => {
                               dispatch(settingObjectData({ mainField: "simlyData", field: "esimId", value: data.esimId }));
                               dispatch(settingObjectData({ mainField: "simlyData", field: "eSimDetail", value: data }));
                               dispatch(settingObjectData({ mainField: "simlyData", field: "SelectedPackage", value: data?.plan }));
-                              dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: data.sim.status !== "PENDING" ? "RechargeThePayment" : "PlanDetail" }));
+                              dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: data.sim.status === "PENDING" ? "RechargeThePayment" : "PlanDetail" }));
                               // if (data.sim.status !== "PENDING") {
                               //   localStorage.setItem("qrImage", data.qrCodeImage);
                               //   localStorage.setItem("qrString", data.qrCodeString);

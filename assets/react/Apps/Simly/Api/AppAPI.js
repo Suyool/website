@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 import useAxiosClient from "../Utils/axios";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
@@ -57,7 +58,7 @@ const AppAPI = () => {
 
     try {
       return axiosClient
-        .get(`/purchaseTopup`, {
+        .post(`/purchaseTopup`, {
           planId: selectedPackage.planId,
           country: selectedPlan.name,
           countryImage: selectedPlan.countryImageURL,
@@ -202,7 +203,7 @@ const AppAPI = () => {
     dispatch(settingData({ field: "isloading", value: true }));
 
     try {
-      return axiosClient.get(`/purchaseTopup`, reqObj).then((response) => {
+      return axiosClient.post(`/purchaseTopup`, reqObj).then((response) => {
         const jsonResponse = response.data.message;
         dispatch(settingData({ field: "isloading", value: false }));
         if (response.data.status) {

@@ -17,6 +17,7 @@ const PackagesInfo = () => {
   }, []);
 
   const handlePay = () => {
+    dispatch(settingData({ field: "isloading", value: true }));
     setTimeout(() => {
       dispatch(settingData({ field: "mobileResponse", value: "" }));
       if (parameters?.deviceType === "Android") {

@@ -21,7 +21,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.a5e874ab.js"
+        "/build/Alfa.2a9f0590.js"
       ]
     },
     "Touch": {
@@ -62,13 +62,9 @@
 >>>>>>> 2589788b (simly redux)
       ]
     },
-    "Simly": {
+    "TerraNet": {
       "js": [
-<<<<<<< HEAD
-<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "/build/TerraNet.9d7a4bee.js"
       ]
     },
@@ -78,98 +74,22 @@
         "/build/Gift2Games.6b16d93d.js"
       ]
     },
-    "app1": {
-=======
     "Simly": {
->>>>>>> 6133b0f6 (simly v2 . 2)
       "js": [
-        "/build/runtime.js",
-        "/build/Simly.js"
-=======
-        "/build/Simly.b7d4e20a.js"
->>>>>>> 60633fd0 (simly redux)
-=======
-        "/build/Simly.50aa19c0.js"
->>>>>>> 8f1f8270 (simly redux)
-=======
-        "/build/runtime.js",
-        "/build/Simly.js"
->>>>>>> 5204c9f8 (handle flow)
-=======
         "/build/runtime.cbe92cc0.js",
-        "/build/Simly.1f0f9521.js"
->>>>>>> 17520169 (simly redux)
+        "/build/Simly.0aeeb388.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
-=======
         "/build/runtime.cbe92cc0.js",
         "/build/LegalEnrollement.2acf5642.js"
->>>>>>> 17520169 (simly redux)
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-    "Alfa": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Alfa.676a2730.js"
-      ]
-    },
-    "Touch": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Touch.2d4d4442.js"
-      ]
-    },
-    "Ogero": {
-      "js": [
-        "/build/runtime.e40c1cca.js",
-        "/build/Ogero.5fdf7f33.js"
-      ]
-    },
->>>>>>> 804d1051 (account)
-=======
->>>>>>> 86fff387 (handle top up)
-    "Gift2Games": {
-      "js": [
-<<<<<<< HEAD
-=======
->>>>>>> 60633fd0 (simly redux)
-        "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.2acf5642.js"
-=======
-        "/build/runtime.js",
-        "/build/LegalEnrollement.js"
->>>>>>> 5204c9f8 (handle flow)
-      ]
-    },
-    "Gift2Games": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.fe9ace55.js"
-      ]
-    },
->>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
     "iveri": {
       "js": [
         "/build/runtime.cbe92cc0.js",
         "/build/iveri.429e5515.js"
-      ]
-    },
-    "TerraNet": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.4a892938.js"
       ]
     },
     "Sodetel": {
@@ -178,220 +98,6 @@
         "/build/Sodetel.7f47d3e3.js"
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4665fcd1 (yarn encore prod)
-=======
-    "Simly": {
-      "js": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 4665fcd1 (yarn encore prod)
-=======
->>>>>>> 493e662a (plan type)
-=======
->>>>>>> 2d255ca4 (add script to error modal)
-=======
->>>>>>> 5ac3c1eb (fixes some bug)
-=======
->>>>>>> d4a29d24 (handle cache bug)
-=======
->>>>>>> 65d5ce55 (add loader to topup)
-=======
->>>>>>> 1f7609b8 (accounts ui and desc charged esim by userid)
-=======
->>>>>>> eb1cfc43 (handle view all network with ui)
-=======
->>>>>>> 944c78ac (some fixes before working on detail page)
-=======
->>>>>>> c8d0e60d (details page with api)
-=======
->>>>>>> 08128141 (plan details)
-=======
->>>>>>> 582a413c (add payment page with new desgn)
-=======
->>>>>>> 38a232c8 (confirmation topup and sucess modal)
-=======
->>>>>>> b84ffe18 (add country display)
-=======
->>>>>>> 32ce2011 (all)
-=======
->>>>>>> 71337af6 (done with first page)
-=======
->>>>>>> a9eeafa7 (done with some changes)
-=======
->>>>>>> 719535aa (fix ui)
-=======
->>>>>>> 6d2123b6 (fix ui)
-=======
->>>>>>> 422e02d7 (working with maribelle)
-        "/build/Simly.f492abd5.js"
-=======
-        "/build/Simly.94675d50.js"
->>>>>>> a92b03cd (simly)
-<<<<<<< HEAD
-      ]
-    },
->>>>>>> 58db0d42 (simly add countryImage)
-=======
->>>>>>> 86fff387 (handle top up)
-=======
-=======
-        "/build/Simly.94675d50.js"
-=======
-        "/build/Simly.ac0ef8c4.js"
->>>>>>> 2e6bd3d1 (handle top up)
->>>>>>> c896304e (handle top up)
-=======
-        "/build/Simly.70479d66.js"
->>>>>>> 57145b6d (yarn encore prod)
-=======
-        "/build/Simly.d869a7d1.js"
->>>>>>> 907a4068 (plan type)
-=======
-        "/build/Simly.c5467193.js"
->>>>>>> 5ac91996 (add script to error modal)
-=======
-        "/build/Simly.840e6230.js"
->>>>>>> e167b92e (fixes some bug)
-=======
-        "/build/Simly.ad4d4d45.js"
->>>>>>> db145d45 (handle cache bug)
-=======
-        "/build/Simly.0197ca86.js"
->>>>>>> 59986dfe (add loader to topup)
-=======
-        "/build/Simly.8737955b.js"
->>>>>>> 59179761 (accounts ui and desc charged esim by userid)
-=======
-        "/build/Simly.008bdca0.js"
->>>>>>> aba9ef34 (handle view all network with ui)
-=======
-        "/build/Simly.fa18b2d2.js"
->>>>>>> 57b34c12 (some fixes before working on detail page)
-=======
-        "/build/Simly.a09bd4c1.js"
->>>>>>> 05ad7a4c (details page with api)
-=======
-        "/build/Simly.cef9a058.js"
->>>>>>> f3ae3c84 (plan details)
-=======
-        "/build/Simly.8a88fee9.js"
->>>>>>> b7ebf020 (add payment page with new desgn)
-=======
-        "/build/Simly.9def121e.js"
->>>>>>> 70ac36dc (confirmation topup and sucess modal)
-=======
-        "/build/Simly.e3eb3070.js"
->>>>>>> 1314c1de (add country display)
-=======
-        "/build/Simly.46bf7e14.js"
->>>>>>> b9e4e679 (all)
-=======
-        "/build/Simly.0a600836.js"
->>>>>>> 13576e99 (done with first page)
-=======
-        "/build/Simly.a5a93881.js"
->>>>>>> e7001ee1 (done with some changes)
-=======
-        "/build/Simly.efaadf22.js"
->>>>>>> c0b20aad (fix ui)
-=======
-        "/build/Simly.63c9e993.js"
->>>>>>> 240792f0 (fix ui)
-=======
-        "/build/Simly.fea8eeca.js"
->>>>>>> 9e8f9a01 (working with maribelle)
-=======
-        "/build/Simly.7514688b.js"
->>>>>>> 205ab850 (still working on ui)
-=======
-        "/build/Simly.39db1007.js"
->>>>>>> e0a9a1d8 (handle ui fixes)
-=======
-        "/build/Simly.61426bc8.js"
->>>>>>> 557cb3f9 (fix ui)
-=======
-        "/build/Simly.76ee3fa6.js"
->>>>>>> 24833184 (isocode)
-=======
-        "/build/Simly.181ee008.js"
->>>>>>> d09b4ae8 (done with display network in install data)
-=======
-        "/build/runtime.js",
-        "/build/Simly.js"
->>>>>>> c7164b70 (some changes)
-=======
-        "/build/runtime.e40c1cca.js",
-<<<<<<< HEAD
-        "/build/Simly.da023177.js"
->>>>>>> a22a3fd5 (handle hassan changes)
-=======
-        "/build/Simly.1c748f1b.js"
->>>>>>> 7fc3c334 (disable toup on terminated)
-=======
-        "/build/Simly.3db07456.js"
->>>>>>> 65674a46 (handle download qr)
-=======
-        "/build/Simly.25b823e1.js"
->>>>>>> 49782c1d (sum fixes)
-=======
-        "/build/Simly.d846a20d.js"
->>>>>>> 90458c0a (exchange topup btn)
-      ]
-    },
->>>>>>> 7ff8d36b (yarn encore prod)
->>>>>>> 4665fcd1 (yarn encore prod)
-=======
->>>>>>> f6048fee (handle share in copy btn)
-=======
-    "Simly": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Simly.55d6f268.js"
-      ]
-    },
->>>>>>> f4c31749 (yarn encore prod)
-=======
->>>>>>> bdd706c4 (simly v2 . 2)
     "styles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -448,6 +154,22 @@
         "/build/OgeroStyle.4bb3fdaf.css"
       ]
     },
+    "terraNetstyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/terraNetstyle.b67454e5.css"
+      ]
+    },
+    "Gift2GamesStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/Gift2GamesStyle.a885ca0f.css"
+      ]
+    },
     "SimlyStyle": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -464,74 +186,12 @@
         "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
-    "Gift2GamesStyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Gift2GamesStyle.a885ca0f.css"
-=======
-<<<<<<< HEAD
-        "/build/Gift2GamesStyle.daba13cf.css"
-=======
-        "/build/Gift2GamesStyle.dbcb3134.css"
->>>>>>> b90ef454 (handle view all network with ui)
-<<<<<<< HEAD
->>>>>>> eb1cfc43 (handle view all network with ui)
-=======
-=======
-        "/build/runtime.js"
-      ],
-      "css": [
-        "/build/Gift2GamesStyle.css"
->>>>>>> d178def9 (some changes)
-<<<<<<< HEAD
->>>>>>> c7164b70 (some changes)
-=======
-=======
-        "/build/runtime.e40c1cca.js"
-      ],
-      "css": [
-        "/build/Gift2GamesStyle.dbcb3134.css"
->>>>>>> 30911976 (handle hassan changes)
->>>>>>> a22a3fd5 (handle hassan changes)
-=======
-        "/build/Gift2GamesStyle.4fb6d273.css"
->>>>>>> f6048fee (handle share in copy btn)
-=======
-        "/build/Gift2GamesStyle.css"
->>>>>>> 4436ef4c (working on v2 of simly)
-=======
-        "/build/Gift2GamesStyle.4fb6d273.css"
->>>>>>> 60633fd0 (simly redux)
-=======
-        "/build/Gift2GamesStyle.css"
->>>>>>> 5204c9f8 (handle flow)
-=======
-        "/build/Gift2GamesStyle.4fb6d273.css"
->>>>>>> 17520169 (simly redux)
-      ]
-    },
     "iveristyles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
         "/build/iveristyles.382777e8.css"
-      ]
-    },
-    "terraNetstyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-        "/build/terraNetstyle.82a620c1.css"
       ]
     },
     "SodetelStyle": {
@@ -541,114 +201,6 @@
       "css": [
         "/build/SodetelStyle.3972e4fd.css"
       ]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 65d5ce55 (add loader to topup)
-=======
-    },
-    "SimlyStyle": {
-      "js": [
-        "/build/runtime.e40c1cca.js"
-      ],
-      "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/SimlyStyle.388c51c6.css"
-      ]
->>>>>>> 63e15385 (add async fct to download)
-=======
->>>>>>> 86fff387 (handle top up)
-=======
-        "/build/SimlyStyle.4fd2b75e.css"
-=======
-        "/build/SimlyStyle.57ecfcf2.css"
->>>>>>> 1f7609b8 (accounts ui and desc charged esim by userid)
-=======
-        "/build/SimlyStyle.7f807f7c.css"
->>>>>>> eb1cfc43 (handle view all network with ui)
-=======
-        "/build/SimlyStyle.d914b5bb.css"
->>>>>>> 08128141 (plan details)
-=======
-        "/build/SimlyStyle.5c19e853.css"
->>>>>>> 582a413c (add payment page with new desgn)
-=======
-        "/build/SimlyStyle.7589ae84.css"
->>>>>>> 38a232c8 (confirmation topup and sucess modal)
-=======
-        "/build/SimlyStyle.24e58156.css"
->>>>>>> b84ffe18 (add country display)
-=======
-        "/build/SimlyStyle.a29556e2.css"
->>>>>>> 32ce2011 (all)
-=======
-        "/build/SimlyStyle.86bb4955.css"
->>>>>>> 71337af6 (done with first page)
-=======
-        "/build/SimlyStyle.b39c7353.css"
->>>>>>> a9eeafa7 (done with some changes)
-=======
-        "/build/SimlyStyle.9918d680.css"
->>>>>>> 6d2123b6 (fix ui)
-=======
-        "/build/SimlyStyle.8f16383a.css"
->>>>>>> 422e02d7 (working with maribelle)
-=======
-        "/build/SimlyStyle.25436ddc.css"
->>>>>>> 205ab850 (still working on ui)
-=======
-        "/build/SimlyStyle.b3555fd6.css"
->>>>>>> e0a9a1d8 (handle ui fixes)
-=======
-        "/build/SimlyStyle.503536c9.css"
->>>>>>> 557cb3f9 (fix ui)
-=======
-        "/build/SimlyStyle.bff32050.css"
->>>>>>> d09b4ae8 (done with display network in install data)
-=======
-        "/build/SimlyStyle.css"
->>>>>>> c7164b70 (some changes)
-=======
-        "/build/SimlyStyle.af909b84.css"
->>>>>>> a22a3fd5 (handle hassan changes)
-      ]
->>>>>>> 722c8a70 (add loader to topup)
->>>>>>> 65d5ce55 (add loader to topup)
-=======
->>>>>>> f6048fee (handle share in copy btn)
-=======
-    },
-    "SimlyStyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-        "/build/SimlyStyle.af909b84.css"
-      ]
->>>>>>> f4c31749 (yarn encore prod)
-=======
->>>>>>> bdd706c4 (simly v2 . 2)
     }
   }
 }
