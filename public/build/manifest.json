@@ -1,7 +1,12 @@
 {
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
+<<<<<<< HEAD
   "build/Ogero.js": "/build/Ogero.971c4fbb.js",
+=======
+  "build/Windsl.js": "/build/Windsl.e7ac6fb5.js",
+  "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
+>>>>>>> 42e5f571 (windsl structure)
   "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
   "build/Gift2Games.js": "/build/Gift2Games.6b16d93d.js",
   "build/app1.js": "/build/app1.1dfb62eb.js",
@@ -16,6 +21,7 @@
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.a4a047b5.css",
   "build/TouchStyle.css": "/build/TouchStyle.a4a047b5.css",
+  "build/WindslStyle.css": "/build/WindslStyle.a4a047b5.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.4bb3fdaf.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.b67454e5.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.a885ca0f.css",
@@ -534,6 +540,7 @@
   "build/images/terraNet/product_-846.svg": "/build/images/terraNet/product_-846.svg",
   "build/images/terraNet/product_-834.svg": "/build/images/terraNet/product_-834.svg",
   "build/images/terraNet/product_-803.svg": "/build/images/terraNet/product_-803.svg",
+  "build/images/windsl/windsl.png": "/build/images/windsl/windsl.png",
   "build/images/alfa/bundleImg35.png": "/build/images/alfa/bundleImg35.png",
   "build/images/terraNet/product_-833.svg": "/build/images/terraNet/product_-833.svg",
   "build/images/terraNet/product_-800.svg": "/build/images/terraNet/product_-800.svg",
