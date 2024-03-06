@@ -2,7 +2,7 @@
 
 {% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "prod" 
     ? 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyool/session.js'
-    : 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js' %}
+    : 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyoolpg/session.js' %}
 
 {% block body %}
     <script src="{{ checkoutScriptUrl }}"></script>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "dev"
-? 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyool/session.js'
+? 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyoolpg/session.js'
 : 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyool/session.js' %}
 
 {% block body %}

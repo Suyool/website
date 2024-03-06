@@ -52,16 +52,16 @@ class BobPaymentServices
 
         if ($_ENV['APP_ENV'] == "test") {
             // dd("here1");
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyool/";
-            $this->username = "merchant.TESTSUYOOL";
-            $this->password = "002bcc643011b3cef6967ff40d140d71";
-            $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/testsuyoolpg/";
+            $this->username = "merchant.TESTSUYOOLPG";
+            $this->password = "cc1e891e97c017cd62a95a13db792877";
+            $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyoolpg/";
         } else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
             // dd("here");
-            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
-            $this->username = "merchant.TESTSUYOOL";
-            $this->password = "002bcc643011b3cef6967ff40d140d71";
-            $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyool/";
+            $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyoolpg/";
+            $this->username = "merchant.TESTSUYOOLPG";
+            $this->password = "cc1e891e97c017cd62a95a13db792877";
+            $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyoolpg/";
         } else {
             $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/suyool/";
             $this->username = "merchant.SUYOOL";

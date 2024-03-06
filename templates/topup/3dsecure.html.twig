@@ -6,7 +6,7 @@
 
 	{% set merchantId = app.request.server.get('APP_ENV') == "prod" and app.session.get('simulation') is  defined and app.session.get('simulation')=="false" 
 	? 'suyool'
-	: 'testsuyool' %}
+	: 'testsuyoolpg' %}
 
 	{% block body %}
 	<script src="{{checkoutScriptUrl}}" data-error="errorCallback" data-cancel="cancelCallback"></script>
