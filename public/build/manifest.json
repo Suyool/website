@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
 =======
 =======
@@ -68,13 +69,15 @@
 >>>>>>> 60633fd0 (simly redux)
 =======
 >>>>>>> 5204c9f8 (handle flow)
+=======
+>>>>>>> 17520169 (simly redux)
   "build/app1.js": "/build/app1.1dfb62eb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/Alfa.js": "/build/Alfa.a5e874ab.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
   "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
-  "build/Simly.js": "/build/Simly.50aa19c0.js",
+  "build/Simly.js": "/build/Simly.1f0f9521.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -364,6 +367,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/terraNetstyle.css": "/build/terraNetstyle.b67454e5.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.a885ca0f.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
@@ -450,6 +454,9 @@
 =======
   "build/SimlyStyle.css": "/build/SimlyStyle.75b57144.css",
 >>>>>>> 8f1f8270 (simly redux)
+=======
+  "build/SimlyStyle.css": "/build/SimlyStyle.cb6f913b.css",
+>>>>>>> 17520169 (simly redux)
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.4fb6d273.css",
   "build/iveristyles.css": "/build/iveristyles.382777e8.css",
@@ -563,6 +570,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f6048fee (handle share in copy btn)
 =======
 =======
@@ -601,6 +609,8 @@
 =======
 >>>>>>> d397f862 (handle flow)
 >>>>>>> 5204c9f8 (handle flow)
+=======
+>>>>>>> 17520169 (simly redux)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",

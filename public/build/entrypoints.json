@@ -2,37 +2,32 @@
   "entrypoints": {
     "app1": {
       "js": [
-        "/build/runtime.js",
-        "/build/app1.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/app1.1dfb62eb.js"
       ]
     },
     "admin-app": {
       "js": [
-        "/build/runtime.js",
-        "/build/admin-app.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/admin-app.fd697fc2.js"
       ]
     },
     "Loto": {
       "js": [
-        "/build/runtime.js",
-        "/build/Loto.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/Loto.ecf58fd2.js"
       ]
     },
     "Alfa": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Alfa.a5e874ab.js"
-=======
-        "/build/runtime.js",
-        "/build/Alfa.js"
->>>>>>> d397f862 (handle flow)
       ]
     },
     "Touch": {
       "js": [
-        "/build/runtime.js",
-        "/build/Touch.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/Touch.8f43a038.js"
       ]
     },
     "Windsl": {
@@ -43,6 +38,7 @@
     },
     "Ogero": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -60,10 +56,15 @@
         "/build/runtime.js",
         "/build/Ogero.js"
 >>>>>>> 93fcad92 (handle flow)
+=======
+        "/build/runtime.cbe92cc0.js",
+        "/build/Ogero.ad64b1fe.js"
+>>>>>>> 2589788b (simly redux)
       ]
     },
     "Simly": {
       "js": [
+<<<<<<< HEAD
 <<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
 <<<<<<< HEAD
@@ -94,14 +95,23 @@
         "/build/runtime.js",
         "/build/Simly.js"
 >>>>>>> 5204c9f8 (handle flow)
+=======
+        "/build/runtime.cbe92cc0.js",
+        "/build/Simly.1f0f9521.js"
+>>>>>>> 17520169 (simly redux)
       ]
     },
     "LegalEnrollement": {
       "js": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/runtime.js",
         "/build/LegalEnrollement.js"
+=======
+        "/build/runtime.cbe92cc0.js",
+        "/build/LegalEnrollement.2acf5642.js"
+>>>>>>> 17520169 (simly redux)
       ]
     },
 <<<<<<< HEAD
@@ -145,32 +155,27 @@
     },
     "Gift2Games": {
       "js": [
-<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Gift2Games.fe9ace55.js"
-=======
-        "/build/runtime.js",
-        "/build/Gift2Games.js"
->>>>>>> d397f862 (handle flow)
       ]
     },
 >>>>>>> df89441a (fix search when in diff cat,fix btn navigation, fix backlink)
     "iveri": {
       "js": [
-        "/build/runtime.js",
-        "/build/iveri.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/iveri.429e5515.js"
       ]
     },
     "TerraNet": {
       "js": [
-        "/build/runtime.js",
-        "/build/TerraNet.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/TerraNet.4a892938.js"
       ]
     },
     "Sodetel": {
       "js": [
-        "/build/runtime.js",
-        "/build/Sodetel.js"
+        "/build/runtime.cbe92cc0.js",
+        "/build/Sodetel.7f47d3e3.js"
       ]
     },
 <<<<<<< HEAD
@@ -389,42 +394,42 @@
 >>>>>>> bdd706c4 (simly v2 . 2)
     "styles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.css"
+        "/build/styles.6dd0f5af.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/admin.css"
+        "/build/admin.8fb78dae.css"
       ]
     },
     "Lotostyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/Lotostyles.css"
+        "/build/Lotostyles.77b15344.css"
       ]
     },
     "AlfaStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/AlfaStyle.css"
+        "/build/AlfaStyle.a4a047b5.css"
       ]
     },
     "TouchStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/TouchStyle.css"
+        "/build/TouchStyle.a4a047b5.css"
       ]
     },
     "WindslStyle": {
@@ -437,33 +442,34 @@
     },
     "OgeroStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/OgeroStyle.css"
+        "/build/OgeroStyle.4bb3fdaf.css"
       ]
     },
     "SimlyStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SimlyStyle.css"
+        "/build/SimlyStyle.cb6f913b.css"
       ]
     },
     "LegalEnrollementStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/LegalEnrollementStyle.css"
+        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
     "Gift2GamesStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -507,30 +513,33 @@
 =======
         "/build/Gift2GamesStyle.css"
 >>>>>>> 5204c9f8 (handle flow)
+=======
+        "/build/Gift2GamesStyle.4fb6d273.css"
+>>>>>>> 17520169 (simly redux)
       ]
     },
     "iveristyles": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/iveristyles.css"
+        "/build/iveristyles.382777e8.css"
       ]
     },
     "terraNetstyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/terraNetstyle.css"
+        "/build/terraNetstyle.82a620c1.css"
       ]
     },
     "SodetelStyle": {
       "js": [
-        "/build/runtime.js"
+        "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.css"
+        "/build/SodetelStyle.3972e4fd.css"
       ]
 <<<<<<< HEAD
 <<<<<<< HEAD

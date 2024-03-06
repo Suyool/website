@@ -7,6 +7,7 @@ const BottomSlider = () => {
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const parameters = useSelector((state) => state.appData.parameters);
   const SelectedPlan = useSelector((state) => state.appData.simlyData.SelectedPlan);
+  const eSimDetail = useSelector((state) => state.appData.simlyData.eSimDetail);
   const Topup = () => {
     dispatch(settingData({ field: "isloading", value: true }));
     dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
@@ -26,6 +27,7 @@ const BottomSlider = () => {
       };
     }, 1000);
   };
+  const isocode = SelectedPlan ? SelectedPlan.isoCode : eSimDetail.isoCode
   return (
     <div id="BottomSliderContainer">
       <div className="topSection">
@@ -77,7 +79,7 @@ const BottomSlider = () => {
             <div className="cardSec">
               <div className="method">
                 <div className="bodyCountry">
-                  {bottomSlider?.data.countryInfo[0][SelectedPlan.isoCode]?.map((country, index) => (
+                  {bottomSlider?.data.countryInfo[0][isocode]?.map((country, index) => (
                     <div className="plan" key={index}>
                       <img src={country.countryImageURL} alt="flag" />
                       <div className="name">{country.name}</div>
