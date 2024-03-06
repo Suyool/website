@@ -27,7 +27,7 @@
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.9b60c48b.js"
+        "/build/Gift2Games.6b16d93d.js"
       ]
     },
     "app1": {
@@ -135,7 +135,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/Gift2GamesStyle.03b1849e.css"
+        "/build/Gift2GamesStyle.a885ca0f.css"
       ]
     },
     "iveristyles": {

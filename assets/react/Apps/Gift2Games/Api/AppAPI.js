@@ -67,7 +67,7 @@ const AppAPI = () => {
         }
     };
 
-    const pay = ({productId, title , displayPrice}) => {
+    const pay = ({productId}) => {
 
         dispatch(settingData({field: "isloading", value: true}));
         try {
@@ -77,25 +77,21 @@ const AppAPI = () => {
                 })
                 .then((response) => {
                     const jsonResponse = response?.data?.message;
+                    dispatch(settingData({field: "SerialToClipboard", value: response?.data?.data?.data?.serialCode}));
 
-                    dispatch(settingData({ field: "isloading", value: false }));
+                    dispatch(settingData({field: "isloading", value: false}));
                     if (response.data?.IsSuccess) {
                         var TotalAmount = parseInt(response.data?.data.amount) + parseInt(response.data?.data.fees);
-                        dispatch(
-                            settingData({
-                                field: "modalData",
-                                value: {
-                                    isShow: true,
-                                    name: "SuccessModal",
-                                    img: "/build/images/alfa/SuccessImg.png",
-                                    title: "Payment Successful",
-                                    desc: `You have successfully purchased the ${title} for $
-                ${displayPrice}.`,
-                                    btn: null,
-                                    flag: "",
-                                },
-                            })
-                        );
+                        dispatch(settingData({
+                            field: "bottomSlider", value: {
+                                isShow: true,
+                                name: "PaymentDoneG2G",
+                                backPage: "",
+                                data: response?.data?.data,
+                                isButtonDisable: false,
+                            }
+                        }));
+
                     } else {
                         if (response.data.IsSuccess == false && response.data.flagCode == 10) {
                             dispatch(

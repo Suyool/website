@@ -28,7 +28,7 @@ const PopupModal = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "Touch",
+          title: "Gift2Games",
           backLink: "",
           currentPage: headerData.currentPage,
         },

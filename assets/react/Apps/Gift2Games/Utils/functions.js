@@ -13,4 +13,3 @@ export const handleShare = (shareCode, deviceType) => {
     window.webkit.messageHandlers.callbackHandler.postMessage(object);
   }
 };
-
