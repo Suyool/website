@@ -235,7 +235,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
                                 <div className="country-scroll-container">
                                   <div className="row flex-nowrap">
                                     {continentObj[continent].map((country, idx) => (
-                                      <div className="imgText">
+                                      <div className="imgText" key={idx}>
                                         <div key={idx} className="">
                                           <div className="card countryCard" onClick={() => handleClick(country.isoCode)}>
                                             <div className="card-body">

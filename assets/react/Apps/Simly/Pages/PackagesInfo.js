@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import AppAPI from "../Api/AppAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
-const PackagesInfo = ({ selectedPlan, selectedPackage, setSpinnerLoader }) => {
+const PackagesInfo = () => {
   const dispatch = useDispatch();
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
+  const selectedPlan = useSelector((state) => state.appData.simlyData.SelectedPlan);
+  const selectedPackage = useSelector((state) => state.appData.simlyData.SelectedPackage);
   const parameters = useSelector((state) => state.appData.parameters);
   const { PurchaseTopup, GetNetworksById, GetCountriesById } = AppAPI();
 
   useEffect(() => {
     dispatch(settingData({ field: "mobileResponse", value: "" }));
-    dispatch(settingObjectData({ mainField: "headerData", field: "backLink", value: "" }));
+    dispatch(settingObjectData({ mainField: "headerData", field: "backLink", value: "Packages" }));
   }, []);
 
   const handlePay = () => {
-    setSpinnerLoader(true);
     setTimeout(() => {
       dispatch(settingData({ field: "mobileResponse", value: "" }));
       if (parameters?.deviceType === "Android") {

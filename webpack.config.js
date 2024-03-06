@@ -49,7 +49,8 @@ Encore.setOutputPath("public/build/")
   .addEntry("app1", "./assets/app.js")
   .addEntry("admin-app", "./assets/admin-app.js")
 
-  // //Simly
+
+   //Simly
   .addStyleEntry("SimlyStyle", "./assets/react/Apps/Simly/Style/Simly.scss")
   .addEntry("Simly", "./assets/react/Apps/Simly/index.js")
 
@@ -60,6 +61,7 @@ Encore.setOutputPath("public/build/")
   //Iveri
   .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
   .addEntry("iveri", "./assets/react/Iveri/index.js")
+
 
   //Sodetel
   .addStyleEntry("SodetelStyle", "./assets/styles/src/react/Sodetel.scss")

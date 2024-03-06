@@ -6,16 +6,19 @@ const BottomSlider = () => {
   const dispatch = useDispatch();
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const parameters = useSelector((state) => state.appData.parameters);
+  const SelectedPlan = useSelector((state) => state.appData.simlyData.SelectedPlan);
 
   return (
     <div id="BottomSliderContainer">
       <div className="topSection">
         <div className="brBoucket"></div>
         <div className="titles">
-          <div className="titleGrid"></div>
+          <div className="titleGrid">
+            {bottomSlider?.name == "availableNetworks" && <>Supported Networks</>}
+            {bottomSlider?.name == "availableCountries" && <>Supported Countries</>}
+          </div>
           <button
             onClick={() => {
-              dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: bottomSlider?.backPage }));
               dispatch(settingData({ field: "bottomSlider", value: { isShow: false, name: "", data: {} } }));
             }}
           >
@@ -28,10 +31,10 @@ const BottomSlider = () => {
         {bottomSlider?.name == "availableNetworks" && (
           <div id={bottomSlider?.name}>
             <div className="cardSec">
-              <img src={bottomSlider?.networks[0]?.countryImageURL} alt="flag" />
+              <img src={bottomSlider?.data.networks[0]?.countryImageURL} alt="flag" />
               <div className="method">
                 <div className="body">
-                  {bottomSlider?.networks[0]?.supported_networks?.map((network, index) => (
+                  {bottomSlider?.data.networks[0]?.supported_networks?.map((network, index) => (
                     <div className="plan" key={index}>
                       <div style={{ color: "black" }}>{network.name}</div>
                     </div>
@@ -55,7 +58,7 @@ const BottomSlider = () => {
             <div className="cardSec">
               <div className="method">
                 <div className="bodyCountry">
-                  {getCountry[0][selectedPlan.isoCode]?.map((country, index) => (
+                  {bottomSlider?.data.countryInfo[0][SelectedPlan.isoCode]?.map((country, index) => (
                     <div className="plan" key={index}>
                       <img src={country.countryImageURL} alt="flag" />
                       <div className="name">{country.name}</div>

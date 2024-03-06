@@ -1,0 +1,221 @@
+.packagesinfo {
+    padding-left: 15px;
+    &.hideBackk {
+      opacity: 0.5;
+      // background: #9696963d;
+    }
+    .logo {
+      margin: 20px auto 10px auto;
+      border-radius: 10px;
+      height: 80px;
+      width: 80px;
+  
+      img {
+        width: 100%;
+      }
+    }
+  
+    .title {
+      text-align: center;
+      font-size: 24px;
+      padding-bottom: 30px;
+      font-family: $SemiBold;
+    }
+  
+    .card {
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      margin-right: 15px;
+      border-radius: 13px !important;
+      height: 130px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.125) !important;
+      background-color: white !important;
+  
+      .data {
+        padding-top: 25px;
+  
+        .title2 {
+          padding-left: 15px;
+          font-size: 12px;
+        }
+  
+        .info {
+          font-size: 25px;
+          font-family: $SemiBold;
+        }
+      }
+  
+      .bd {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+      }
+  
+      .price {
+        padding-top: 25px;
+        font-size: 12px;
+  
+        /* padding-left: 16px; */
+        /* width: 47px; */
+        .price2 {
+          padding-left: 12px;
+        }
+  
+        .info {
+          font-size: 25px;
+          font-family: $SemiBold;
+        }
+      }
+    }
+  
+    .cardFor {
+      width: calc(100% - 15px);
+      border: 1px solid #e2e2e2;
+      height: 92px;
+      border-radius: 12px;
+      // max-width: 325px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 10px;
+      .bd {
+        height: 80px;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+      }
+      .data {
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 1px);
+        align-items: center;
+        justify-content: center;
+  
+        .tit {
+          font-family: $Regular;
+          font-size: 13px;
+          color: #767676;
+        }
+        .desc {
+          font-family: $SemiBold;
+          font-size: 27px;
+          color: black;
+        }
+      }
+    }
+    .valid {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(100% - 15px);
+      padding-top: 15px;
+      // border-bottom: 2px solid #e2e2e2;
+      .label {
+        font-family: $Regular;
+        font-size: 14px;
+        color: #767676;
+      }
+      .value {
+        font-family: $SemiBold;
+        font-size: 20px;
+        color: black;
+      }
+      .value1 {
+        font-family: $Medium;
+        font-size: 14px;
+        color: black;
+      }
+      .value3 {
+        span {
+          font-family: $SemiBold;
+          font-size: 15px;
+          color: #00adff;
+          text-decoration: underline;
+        }
+      }
+    }
+    .data{
+      font-size: 12px;
+      font-family: $Regular;
+      color: #000000;
+    }
+    .Caution {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 20px;
+      .warImg {
+        width: 25px;
+        img {
+          width: 100%;
+        }
+      }
+      .titlee {
+        font-family: $Regular;
+        font-size: 12px;
+        color: #f47a00;
+        padding-left: 8px;
+        text-align: start;
+      }
+    }
+    .br {
+      margin-top: 20px;
+      margin-bottom: 15px;
+      height: 2px;
+      width: calc(100% - 15px);
+      background-color: #e2e2e2;
+    }
+  
+    .country {
+      color: #767676;
+      padding-top: 20px;
+      padding-bottom: 40px;
+    }
+  
+    .works {
+      font-size: 25px;
+      font-family: "PoppinsSemiBold";
+    }
+  
+    .network {
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 15px;
+  
+      .info {
+        color: #767676;
+      }
+  
+      .about {
+        font-family: $Medium;
+        span {
+          color: #00adff;
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    .policy {
+      padding-bottom: 8px;
+      color: #767676;
+    }
+  
+    .validation {
+      padding-bottom: 20px;
+    }
+  
+    .pay {
+      text-align: center;
+  
+      .payactivate {
+        background-color: #00adff;
+        border: none;
+        width: 90%;
+        color: #fff;
+        padding: 12px;
+        border-radius: 5px;
+        font-family: $Medium;
+        margin-top: 20px;
+      }
+    }
+  }
+  

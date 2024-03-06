@@ -41,6 +41,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
+      padding-left: 10px;
       .bodyCountry {
         height: 50vh;
         overflow-y: scroll;
@@ -63,6 +64,26 @@
           }
         }
       }
+    }
+  }
+
+  .footSectionPick {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+    background-color: white;
+    button {
+      width: 90%;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: $Medium;
+      color: #767676;
+      background-color: #ebebeb;
+      border: none;
+      padding: 16px 0;
+      text-align: center;
     }
   }
 }

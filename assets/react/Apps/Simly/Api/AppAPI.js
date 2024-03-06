@@ -174,7 +174,7 @@ const AppAPI = () => {
                 name: "availableCountries",
                 backPage: "",
                 data: {
-                  networks: response.data?.message,
+                  countryInfo: response.data?.message,
                 },
                 isButtonDisable: false,
               },
