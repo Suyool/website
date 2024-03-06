@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
 =======
 =======
@@ -65,6 +66,8 @@
 >>>>>>> bdd706c4 (simly v2 . 2)
 =======
 >>>>>>> 60633fd0 (simly redux)
+=======
+>>>>>>> 5204c9f8 (handle flow)
   "build/app1.js": "/build/app1.1dfb62eb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
@@ -559,8 +562,11 @@
   "build/runtime.js": "/build/runtime.cbe92cc0.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f6048fee (handle share in copy btn)
 =======
+=======
+>>>>>>> 5204c9f8 (handle flow)
 =======
   "build/app1.js": "/build/app1.js",
   "build/admin-app.js": "/build/admin-app.js",
@@ -587,10 +593,14 @@
   "build/terraNetstyle.css": "/build/terraNetstyle.css",
   "build/SodetelStyle.css": "/build/SodetelStyle.css",
   "build/runtime.js": "/build/runtime.js",
+<<<<<<< HEAD
 >>>>>>> d0e6d868 (working on v2 of simly)
 >>>>>>> 4436ef4c (working on v2 of simly)
 =======
 >>>>>>> 60633fd0 (simly redux)
+=======
+>>>>>>> d397f862 (handle flow)
+>>>>>>> 5204c9f8 (handle flow)
   "build/images/homepage/home-top-section.png": "/build/images/homepage/home-top-section.png",
   "build/images/loaderSuyool.gif": "/build/images/loaderSuyool.gif",
   "build/images/ndj/topImage2.png": "/build/images/ndj/topImage2.png",

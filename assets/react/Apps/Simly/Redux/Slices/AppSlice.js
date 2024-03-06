@@ -36,8 +36,10 @@ const initialState = {
     esimId: null,
     mapData: null,
     accountInformation : null,
-    eSimDetail : null
+    eSimDetail : null,
   },
+  planDetail : null
+
 };
 
 const AppSlice = createSlice({

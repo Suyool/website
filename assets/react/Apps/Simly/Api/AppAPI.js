@@ -272,6 +272,16 @@ const AppAPI = () => {
     }
   };
 
+  const GetEsimDetails = (esimId) => {
+    try{
+      return axiosClient.post(`/GetEsimDetails`,{
+        esimId: esimId,
+      }).then((response) => {
+        dispatch(settingData({ field: "planDetail", value: response.data.message }));
+      })
+    }catch(e){}
+  }
+
   return {
     GetAllAvailableCountries,
     GetLocalAvailableCountries,
@@ -281,6 +291,7 @@ const AppAPI = () => {
     GetCountriesById,
     GetUsageOfEsim,
     PurchaseTopupEsim,
+    GetEsimDetails
   };
 };
 

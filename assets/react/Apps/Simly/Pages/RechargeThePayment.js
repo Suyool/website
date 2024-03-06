@@ -1,56 +1,28 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import AppAPI from "../Api/AppAPI";
+import { settingData } from "../Redux/Slices/AppSlice";
 
-const RechargeThePayment = ({ parameters, setHeaderTitle, setBackLink, getEsimId }) => {
+const RechargeThePayment = () => {
+  const dispatch = useDispatch();
+  const { GetEsimDetails } = AppAPI();
+  const simlyData = useSelector((state) => state.appData.simlyData);
+  const planDetail = useSelector((state) => state.appData.planDetail);
   const [getselectedBtn, setselectedBtn] = useState("qr");
-  const [getPlanDetail, setPlanDetail] = useState(null);
 
   useEffect(() => {
-    setHeaderTitle("Suyool eSim");
-    setBackLink("Account");
-
-    axios
-      .post("/simly/GetEsimDetails", {
-        esimId: getEsimId,
+    dispatch(
+      settingData({
+        field: "headerData",
+        value: {
+          title: "Suyool eSim",
+          backLink: "Account",
+          currentPage: "RechargeThePayment",
+        },
       })
-      .then((response) => {
-        setPlanDetail(response.data.message);
-        console.log(response.data.message);
-      });
+    );
+    GetEsimDetails(simlyData.esimId);
   }, []);
-
-  const handleDownload = async (qrString) => {
-    let object = [
-      {
-        QR: {
-          share: "qr",
-          text: qrString,
-        },
-      },
-    ];
-    console.log(JSON.stringify(object));
-    if (parameters?.deviceType === "Android") {
-      window.AndroidInterface.callbackHandler(JSON.stringify(object));
-    } else if (parameters?.deviceType === "Iphone") {
-      window.webkit.messageHandlers.callbackHandler.postMessage(object);
-    }
-  };
-  const handleShare = (shareCode) => {
-    let object = [
-      {
-        Share: {
-          share: "share",
-          text: shareCode,
-        },
-      },
-    ];
-    console.log(JSON.stringify(object));
-    if (parameters?.deviceType === "Android") {
-      window.AndroidInterface.callbackHandler(JSON.stringify(object));
-    } else if (parameters?.deviceType === "Iphone") {
-      window.webkit.messageHandlers.callbackHandler.postMessage(object);
-    }
-  };
 
   return (
     <div id="RechargeThePayment_simly">
@@ -69,13 +41,13 @@ const RechargeThePayment = ({ parameters, setHeaderTitle, setBackLink, getEsimId
           <div className="QrBox">
             <div className="title">This is your purchased eSim!</div>
             <div className="imageBox">
-              <img className="image" src={getPlanDetail?.qrCodeImage} alt="qrCode" />
+              <img className="image" src={planDetail?.qrCodeImage}/>
             </div>
 
             <div
               className="downloadBtn"
               onClick={() => {
-                handleDownload(getPlanDetail?.qrCodeString);
+                handleDownload(planDetail?.qrCodeString);
               }}
             >
               <img src="/build/images/install.svg" alt="download" />
@@ -128,7 +100,7 @@ const RechargeThePayment = ({ parameters, setHeaderTitle, setBackLink, getEsimId
             <div id="NetworksubTitle">
               <div className="title">Network :</div>
               <div className="bodyy">
-                {getPlanDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
+                {planDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
                   <div className="plan" key={index}>
                     <div style={{ color: "black" }}>- {network.name}</div>
                   </div>
@@ -167,19 +139,19 @@ const RechargeThePayment = ({ parameters, setHeaderTitle, setBackLink, getEsimId
               <div className="cardNumber">
                 <div className="text">
                   <div className="title">SM-DP+ ADDRESS</div>
-                  <div className="desc">{getPlanDetail?.qrCodeString}</div>
+                  <div className="desc">{planDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(getPlanDetail?.qrCodeString)} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(planDetail?.qrCodeString)} />
                 </div>
               </div>
               <div className="cardNumber">
                 <div className="text">
                   <div className="title">ACTIVATION CODE</div>
-                  <div className="desc">{getPlanDetail?.qrCodeString}</div>
+                  <div className="desc">{planDetail?.qrCodeString}</div>
                 </div>
                 <div className="copy">
-                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(getPlanDetail?.qrCodeString)} />
+                  <img src="/build/images/copy.svg" alt="copy" onClick={() => handleShare(planDetail?.qrCodeString)} />
                 </div>
               </div>
             </div>
@@ -231,7 +203,7 @@ const RechargeThePayment = ({ parameters, setHeaderTitle, setBackLink, getEsimId
             <div id="NetworksubTitle">
               <div className="title">Network :</div>
               <div className="bodyy">
-                {getPlanDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
+                {planDetail?.NetworkAvailable[0]?.supported_networks?.map((network, index) => (
                   <div className="plan" key={index}>
                     <div style={{ color: "black" }}>- {network.name}</div>
                   </div>

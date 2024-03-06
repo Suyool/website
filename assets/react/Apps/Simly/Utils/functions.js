@@ -28,3 +28,20 @@ export const formatMobileNumber = (value) => {
   }
   return truncatedValue;
 };
+
+export const handleDownload = async (qrString,deviceType) => {
+  let object = [
+    {
+      QR: {
+        share: "qr",
+        text: qrString,
+      },
+    },
+  ];
+  console.log(JSON.stringify(object));
+  if (deviceType === "Android") {
+    window.AndroidInterface.callbackHandler(JSON.stringify(object));
+  } else if (deviceType === "Iphone") {
+    window.webkit.messageHandlers.callbackHandler.postMessage(object);
+  }
+};
