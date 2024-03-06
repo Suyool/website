@@ -90,7 +90,7 @@ const AppAPI = () => {
                                     img: "/build/images/alfa/SuccessImg.png",
                                     title: "Payment Successful",
                                     desc: `You have successfully purchased the ${title} for $
-                ${displayPrice}}.`,
+                ${displayPrice}.`,
                                     btn: null,
                                     flag: "",
                                 },

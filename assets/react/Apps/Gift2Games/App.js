@@ -49,7 +49,7 @@ const App = ({ parameters }) => {
   });
 
   return (
-    <div id="PageBody">
+    <div id="PageBody" className="G2GBody">
       <Header />
 
       <div

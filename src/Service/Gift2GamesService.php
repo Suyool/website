@@ -62,16 +62,17 @@ class Gift2GamesService
 
             $content = $response->getContent();
             $data = json_decode($content, true);
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Get Categories")
-                ->seturl($this->G2G_API_HOST . "categories")
-                ->setrequest(json_encode($formData))
-                ->setresponse(json_encode($data));
-
-            $this->mr->persist($logs);
-            $this->mr->flush();
-
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Get Categories")
+//                ->seturl($this->G2G_API_HOST . "categories")
+//                ->setrequest(json_encode($formData))
+//                ->setresponse(json_encode($data));
+//
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs, "TerraNet_CheckTransactionStatus", json_encode($formData),$content,$this->G2G_API_HOST . "categories","");
             if ($data['status'] == 1) {
                 return array(
                     'status'=>true,
@@ -104,16 +105,17 @@ class Gift2GamesService
 
             $content = $response->getContent();
             $data = json_decode($content, true);
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Get Products")
-                ->seturl($this->G2G_API_HOST . "products")
-                ->setrequest(json_encode($formData))
-                ->setresponse(json_encode($data));
-
-            $this->mr->persist($logs);
-            $this->mr->flush();
-
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Get Products")
+//                ->seturl($this->G2G_API_HOST . "products")
+//                ->setrequest(json_encode($formData))
+//                ->setresponse(json_encode($data));
+//
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs, "TerraNet_CheckTransactionStatus", json_encode($formData),$content,$this->G2G_API_HOST . "products","");
             if ($data['status'] == 1) {
                 return array(
                     'status'=>true,
@@ -145,15 +147,18 @@ class Gift2GamesService
             );
             $content = $response->getContent();
             $data = json_decode($content, true);
-            $logs = new Logs();
-            $logs
-                ->setidentifier("Create Order")
-                ->seturl($this->G2G_API_HOST . "create_order")
-                ->setrequest(json_encode($formData))
-                ->setresponse(json_encode($data));
 
-            $this->mr->persist($logs);
-            $this->mr->flush();
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs, "Gif2Games_create_order", json_encode($formData),$content,$this->G2G_API_HOST . "create_order","");
+//            $logs = new Logs();
+//            $logs
+//                ->setidentifier("Create Order")
+//                ->seturl($this->G2G_API_HOST . "create_order")
+//                ->setrequest(json_encode($formData))
+//                ->setresponse(json_encode($data));
+//
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
 
             if ($data['status'] == 1) {
                 return array(
@@ -183,7 +188,8 @@ class Gift2GamesService
                 $headers
             );
             $content = $response->getContent();
-
+            $pushlog = new LogsService($this->mr);
+            $pushlog->pushLogs(new Logs, "TerraNet_CheckTransactionStatus", json_encode($formData),$content,$this->G2G_API_HOST . "check_balance","");
             return array(true, $content);
         } catch (Exception $e) {
             $this->logger->error("Balance error: {$e->getMessage()}");
