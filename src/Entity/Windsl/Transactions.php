@@ -139,7 +139,7 @@ class Transactions
 
         return null;
     }
-    public function setpostpaidId(?Users $users): self
+    public function setUserId(?Users $users): self
     {
         $this->users = $users;
         return $this;
