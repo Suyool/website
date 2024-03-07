@@ -125,11 +125,16 @@ class OgeroController extends AbstractController
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
                 $error = explode("-", $RetrieveChannel[2]);
-                $errorcode = $error[1];
-                // if($errorcode == 113){
-                //     dd("ok");
-                // }
-                $message = $errorcode;
+                if(isset($error[1])){
+                    $errorcode = @$error[1];
+                    // if($errorcode == 113){
+                    //     dd("ok");
+                    // }
+                    $message = $errorcode;
+                }else{
+                    $message="No available fees for this amount";
+                }
+                
                 $LandlineReqId = -1;
                 $mobileNb = $data["mobileNumber"];
             }

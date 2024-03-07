@@ -38,7 +38,7 @@ const AppAPI = () => {
             );
             // dispatch(settingData({ field: "headerData", value: { title: "Pay Mobile Bill", backLink: "", currentPage: "MyBill" } }));
             dispatch(settingData({ field: "landlineData", value: { landData: { id: response?.data?.LandlineReqId }, landDisplayData: response?.data?.message, landlineMobile: response?.data?.mobileNb } }));
-          } else if (response?.data?.message == 111 || response?.data?.message == 108) {
+          } else if (response?.data?.message == 111 || response?.data?.message == 108 || response?.data?.message == "No available fees for this amount") {
             dispatch(
               settingData({
                 field: "modalData",

@@ -28,7 +28,7 @@ const PopupModal = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "Touch",
+          title: "Ogero",
           backLink: "",
           currentPage: headerData.currentPage,
         },
