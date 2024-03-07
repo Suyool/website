@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Gift2Games\Categories;
+use App\Entity\Gift2Games\Logs;
 use App\Entity\Gift2Games\Order;
 use App\Entity\Gift2Games\Product;
 use App\Entity\Gift2Games\Products;
@@ -19,6 +20,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
 use Psr\Log\LoggerInterface;
+use App\Service\LogsService;
 
 class Gift2GamesController extends AbstractController
 {
@@ -180,6 +182,8 @@ class Gift2GamesController extends AbstractController
             $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency,$merchantId,$fees);
             $checkBalance = json_decode($checkBalance->getContent(), true);
             $checkBalance = $checkBalance['response'];
+            $pushlog = new LogsService($this->mr);
+
 //            $checkBalance =array(true,123123,1);
             $transactionID = $checkBalance[1];
             $purchaseData = -1;
@@ -243,6 +247,8 @@ class Gift2GamesController extends AbstractController
                     $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $purchaseData['data']['serialCode']);
 
                     $updateUtility = $this->suyoolServices->UpdateUtilities($amount, $additionalData, $transactionID);
+                    $pushlog->pushLogs(new Logs, "Gift2Games_Update_utilities", @$updateUtility[3], @$updateUtility[2], "Utilities/UpdateUtilityPayment");
+
                     if ($updateUtility) {
                         $orderupdate3 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
                         //update te status from purshased to completed
@@ -266,6 +272,8 @@ class Gift2GamesController extends AbstractController
                     $IsSuccess = false;
                     //if not purchase return money
                     $responseUpdateUtilities = $this->suyoolServices->UpdateUtilities(0, "", $transactionID);
+                    $pushlog->pushLogs(new Logs, "Gift2Games_Update_utilities", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], "Utilities/UpdateUtilityPayment");
+
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $SuyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -319,6 +327,8 @@ class Gift2GamesController extends AbstractController
     {
         $order_id = $merchantId . "-" . $orderId;
         $pushutility = $this->suyoolServices->PushUtilities($suyoolUserId, $order_id, $amount, $currency, $fees, $merchantId);
+        $pushlog = new LogsService($this->mr);
+        $pushlog->pushLogs(new Logs, "Gift2Games_pushUtilities", @$pushutility[4], @$pushutility[5], @$pushutility[7], @$pushutility[6]);
 
         return new JsonResponse([
             'response' => $pushutility
