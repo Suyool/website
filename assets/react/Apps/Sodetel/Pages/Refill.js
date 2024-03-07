@@ -6,7 +6,6 @@ import {settingData} from "../../Alfa/Redux/Slices/AppSlice";
 
 const Refill = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
     const {planData, credential, mobileResponse, parameters} = useSelector((state) => state.appData);
 
@@ -18,7 +17,7 @@ const Refill = () => {
     }, []);
 
     const handleConfirmPay = () => {
-        setSpinnerLoader(true);
+        dispatch(settingData({field: "isloading", value: true}));
         setIsButtonDisabled(true);
         if (parameters?.deviceType === "Android") {
             setTimeout(() => {
@@ -37,7 +36,7 @@ const Refill = () => {
         if (mobileResponse === "success") {
             Recharge();
         } else if (mobileResponse === "failed") {
-            setSpinnerLoader(false);
+            dispatch(settingData({field: "isloading", value: false}));
             setIsButtonDisabled(false);
             dispatch(settingData({ field: "mobileResponse", value: "" }));
         }
@@ -48,15 +47,6 @@ const Refill = () => {
             <div
                 id="MyBundle"
             >
-                {getSpinnerLoader && (
-                    <div id="spinnerLoader">
-                        <Spinner
-                            className="spinner"
-                            animation="border"
-                            variant="secondary"
-                        />
-                    </div>
-                )}
                 <>
                     <div className="MyBundleBody">
                         <div className="mainTitle">The package related to your {credential.label} is:</div>

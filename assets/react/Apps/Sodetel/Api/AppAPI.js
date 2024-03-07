@@ -95,6 +95,7 @@ const AppAPI = () => {
                     requestId: requestId,
                 })
                 .then((response) => {
+                    console.log("response", response);
                     dispatch(settingData({field: "isloading", value: false}));
                     if (response?.data.IsSuccess) {
                         dispatch(settingData({field: "isloading", value: false}));
@@ -105,7 +106,7 @@ const AppAPI = () => {
                                     isShow: true,
                                     name: "successSlider",
                                     backPage: "ReCharge",
-                                    data: response?.data[1],
+                                    data: response?.data.data,
                                     isButtonDisable: false,
                                 },
                             })
@@ -130,7 +131,7 @@ const AppAPI = () => {
                             }));
                         } else if (
                             !response.data.IsSuccess &&
-                            response.data.flagCode === 11
+                            response.data.flagCode == 11
                         ) {
                             dispatch(settingData({
                                 field: "modalData",
@@ -145,7 +146,7 @@ const AppAPI = () => {
                                 },
                             }));
                         } else if (!response.data.IsSuccess &&
-                            response.data.data === -1) {
+                            response.data.data == -1) {
                             dispatch(settingData({
                                 field: "modalData",
                                 value: {

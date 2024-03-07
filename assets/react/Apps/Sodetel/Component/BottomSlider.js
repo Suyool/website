@@ -7,8 +7,7 @@ import {capitalizeFirstLetters} from "../../../functions";
 const BottomSlider = () => {
   const dispatch = useDispatch();
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
-  const parameters = useSelector((state) => state.appData.parameters);
-  const {bundle} = useSelector((state) => state.appData);
+  const {bundle, planData, parameters} = useSelector((state) => state.appData);
 
   const handleConfirmPay = () => {
     dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
@@ -47,7 +46,7 @@ const BottomSlider = () => {
             <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
             <div className="bigTitle">Payment Successful</div>
             <div className="descriptio">
-              You have successfully purchased the {capitalizeFirstLetters(bundle)} {getPrepaidVoucher.plandescription} package.
+              You have successfully purchased the {capitalizeFirstLetters(bundle)} {planData.plandescription} package.
             </div>
 
             <div className="br"></div>
@@ -58,63 +57,25 @@ const BottomSlider = () => {
             <button
               className="copySerialBtn"
               onClick={() => {
-                handleShare(bottomSlider?.data?.data?.id, parameters?.deviceType);
+                handleShare(bottomSlider?.data?.id, parameters?.deviceType);
               }}
             >
               <div></div>
-              <div className="serial">{bottomSlider?.data?.voucherCodeClipboard}</div>
+              <div className="serial">{bottomSlider?.data?.id}</div>
               <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
-            </button>
-
-            <button
-              id="ContinueBtn"
-              className="mt-3"
-              onClick={() => {
-                handleShare(bottomSlider?.data?.data?.id, parameters?.deviceType);
-              }}
-            >
-              Share Code
             </button>
 
             <button
                 className="copySerialBtn"
                 onClick={() => {
-                  handleShare(bottomSlider?.data?.data?.password, parameters?.deviceType);
+                  handleShare(bottomSlider?.data?.password, parameters?.deviceType);
                 }}
             >
               <div></div>
-              <div className="serial">{bottomSlider?.data?.data?.password}</div>
+              <div className="serial">{bottomSlider?.data?.password}</div>
               <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
             </button>
 
-            <button
-                id="ContinueBtn"
-                className="mt-3"
-                onClick={() => {
-                  handleShare(bottomSlider?.data?.data?.password, parameters?.deviceType);
-                }}
-            >
-              Share Code
-            </button>
-
-            <div className="stepsToRecharge">
-              <div className="steps">
-                <div className="dot"></div>
-                <div className="textStep">Go to your phone tab</div>
-              </div>
-              <div className="steps">
-                <div className="dot"></div>
-                <div className="textStep">Paste the code</div>
-              </div>
-              <div className="steps">
-                <div className="dot"></div>
-                <div className="textStep">Tap Call</div>
-              </div>
-              <div className="steps">
-                <div className="dot"></div>
-                <div className="textStep">Your mobile prepaid line is now recharged</div>
-              </div>
-            </div>
           </div>
         )}
       </div>

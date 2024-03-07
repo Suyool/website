@@ -63,7 +63,7 @@
     "Sodetel": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.8d71743a.js"
+        "/build/Sodetel.96da2465.js"
       ]
     },
     "styles": {
@@ -151,7 +151,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.b85eb71d.css"
+        "/build/SodetelStyle.4e3ab36a.css"
       ]
     }
   }
