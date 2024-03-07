@@ -3,11 +3,7 @@
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-<<<<<<< HEAD
         "/build/Alfa.2a9f0590.js"
-=======
-        "/build/Alfa.ec93b73b.js"
->>>>>>> ae22bdc0 (working on bundle credentials)
       ]
     },
     "Touch": {
@@ -67,7 +63,7 @@
     "Sodetel": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.7c608008.js"
+        "/build/Sodetel.8d71743a.js"
       ]
     },
     "styles": {
@@ -155,7 +151,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.d2e21a6e.css"
+        "/build/SodetelStyle.b85eb71d.css"
       ]
     }
   }

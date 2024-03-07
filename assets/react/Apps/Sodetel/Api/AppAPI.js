@@ -27,8 +27,8 @@ const AppAPI = () => {
                                 value: response?.data[1]
                             })
                         );
+                        dispatch(settingData({field: "requestId", value: response?.data[2]}));
                         dispatch(settingObjectData({mainField: "headerData", field: "currentPage", value: "ReCharge"}));
-                        dispatch(settingData({mainField: "requestId", value: response?.data[2]}));
                     } else if (response?.data?.message === "Maximum allowed number of PIN requests is reached") {
                         dispatch(settingData({field: "isloading", value: false}));
                         dispatch(settingData({
@@ -98,14 +98,13 @@ const AppAPI = () => {
                     dispatch(settingData({field: "isloading", value: false}));
                     if (response?.data.IsSuccess) {
                         dispatch(settingData({field: "isloading", value: false}));
-                        dispatch(settingData({field: "isloading", value: false}));
                         dispatch(
                             settingData({
                                 field: "bottomSlider",
                                 value: {
                                     isShow: true,
                                     name: "successSlider",
-                                    backPage: "MyBill",
+                                    backPage: "ReCharge",
                                     data: response?.data[1],
                                     isButtonDisable: false,
                                 },
@@ -153,12 +152,13 @@ const AppAPI = () => {
                                     name: "ErrorModal",
                                     img: "/build/images/alfa/error.png",
                                     title: "Recharge Card Unavailable ",
-                                    desc: `The ${refillData?.plandescription} Sodetel Recharge Service is unavailable.`,
+                                    desc: `The ${planData?.plandescription} Sodetel Recharge Service is unavailable.`,
                                     show: true,
                                     btn: "OK",
                                 },
                             }));
                         } else {
+                            console.log(response.data);
                             dispatch(settingData({
                                 field: "modalData",
                                 value: {
@@ -173,7 +173,7 @@ const AppAPI = () => {
                         }
                     }
                 })
-                .catch((error) => {
+                .finally((error) => {
                     dispatch(settingData({field: "isloading", value: false}));
                     console.log(error);
                 });

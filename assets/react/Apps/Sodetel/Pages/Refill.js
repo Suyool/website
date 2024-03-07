@@ -4,7 +4,7 @@ import AppAPI from "../Api/AppAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {settingData} from "../../Alfa/Redux/Slices/AppSlice";
 
-const Refill = (\) => {
+const Refill = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [getSpinnerLoader, setSpinnerLoader] = useState(false);
 
@@ -41,7 +41,7 @@ const Refill = (\) => {
             setIsButtonDisabled(false);
             dispatch(settingData({ field: "mobileResponse", value: "" }));
         }
-    });
+    }, [mobileResponse]);
 
     return (
         <>

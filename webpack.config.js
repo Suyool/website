@@ -71,8 +71,7 @@ Encore
 
   //.addStyleEntry("Gift2GamesStyle", "./assets/styles/src/react/Gift2Games.scss")
   .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
-  //.addStyleEntry("terraNetstyle", "./assets/styles/src/react/TerraNet.scss")
-  .addStyleEntry("SodetelStyle", "./assets/styles/src/react/Sodetel.scss")
+  .addStyleEntry("SodetelStyle", "./assets/react/Apps/Sodetel/Style/Sodetel.scss")
   // .addStyleEntry('adminStyles', './assets/styles/admin.scss')
   // .addEntry('app', './assets/app.js')
   // .addEntry('app', './assets/react/index.js')
@@ -84,8 +83,7 @@ Encore
   //.addEntry("Gift2Games", "./assets/react/Gift2Games/index.js")
   .addEntry("iveri", "./assets/react/Iveri/index.js")
   //.addEntry("TerraNet", "./assets/react/TerraNet/index.js")
-  .addEntry("Sodetel", "./assets/react/Sodetel/index.js")
-  .addEntry("TerraNet", "./assets/react/TerraNet/index.js")
+
   .addEntry("Sodetel", "./assets/react/Apps/Sodetel/index.js")
 
   // .addEntry('admin', './assets/admin.js')

@@ -42,7 +42,7 @@ const BottomSlider = () => {
       </div>
 
       <div className="bodySection">
-        {bottomSlider?.name == "successPrepaidSlider" && (
+        {bottomSlider?.name === "successSlider" && (
           <div id={bottomSlider?.name}>
             <img className="SuccessImg" src="/build/images/alfa/SuccessImg.png" alt="Bundle" />
             <div className="bigTitle">Payment Successful</div>
@@ -58,7 +58,7 @@ const BottomSlider = () => {
             <button
               className="copySerialBtn"
               onClick={() => {
-                handleShare(bottomSlider?.data?.voucherCodeClipboard, parameters?.deviceType);
+                handleShare(bottomSlider?.data?.data?.id, parameters?.deviceType);
               }}
             >
               <div></div>
@@ -70,8 +70,29 @@ const BottomSlider = () => {
               id="ContinueBtn"
               className="mt-3"
               onClick={() => {
-                handleShare(bottomSlider?.data?.voucherCodeClipboard, parameters?.deviceType);
+                handleShare(bottomSlider?.data?.data?.id, parameters?.deviceType);
               }}
+            >
+              Share Code
+            </button>
+
+            <button
+                className="copySerialBtn"
+                onClick={() => {
+                  handleShare(bottomSlider?.data?.data?.password, parameters?.deviceType);
+                }}
+            >
+              <div></div>
+              <div className="serial">{bottomSlider?.data?.data?.password}</div>
+              <img className="copySerial" src="/build/images/alfa/copySerial.png" alt="copySerial" />
+            </button>
+
+            <button
+                id="ContinueBtn"
+                className="mt-3"
+                onClick={() => {
+                  handleShare(bottomSlider?.data?.data?.password, parameters?.deviceType);
+                }}
             >
               Share Code
             </button>
@@ -93,52 +114,6 @@ const BottomSlider = () => {
                 <div className="dot"></div>
                 <div className="textStep">Your mobile prepaid line is now recharged</div>
               </div>
-            </div>
-          </div>
-        )}
-        {bottomSlider?.name == "successPostpaidSlider" && (
-          <div id={bottomSlider?.name}>
-            <div className="cardSec">
-              <img src="/build/images/alfa/alfaLogo.png" alt="flag" />
-              <div className="method">Alfa Bill Payment</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Phone Number</div>
-              <div className="value">+961 {localStorage.getItem("billMobileNumber")}</div>
-            </div>
-
-            <div className="br"></div>
-
-            <div className="MoreInfo">
-              <div className="label">Amount in $</div>
-              <div className="value1">$ {bottomSlider.data.displayData.InformativeOriginalWSAmount}</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Amount in L.L (Sayrafa Rate)</div>
-              <div className="value1">L.L {parseInt(bottomSlider.data.displayData.Amount).toLocaleString()}</div>
-            </div>
-
-            <div className="MoreInfo">
-              <div className="label">Fees in L.L (Sayrafa Rate)</div>
-              <div className="value1">L.L {parseInt(bottomSlider.data.displayedFees).toLocaleString()}</div>
-            </div>
-            <div className="br"></div>
-
-            <div className="MoreInfo">
-              <div className="label">Total</div>
-              <div className="value2">L.L {parseInt(bottomSlider.data.displayData.TotalAmount).toLocaleString()}</div>
-            </div>
-            <div className="footSectionPick">
-              <button
-                onClick={() => {
-                  handleConfirmPay();
-                }}
-                disabled={bottomSlider.isButtonDisable}
-              >
-                Confirm & Pay
-              </button>
             </div>
           </div>
         )}

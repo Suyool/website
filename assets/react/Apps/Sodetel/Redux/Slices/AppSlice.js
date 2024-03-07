@@ -37,6 +37,7 @@ const initialState = {
     bundle: "",
 
     planData: {},
+    requestId: "",
 };
 
 const AppSlice = createSlice({
@@ -61,6 +62,12 @@ const AppSlice = createSlice({
             state.bottomSlider = {isShow: false, name: "", data: {}};
             state.postpaidData = {id: ""};
             state.prepaidData = {vouchers: null, prepaidVoucher: {}};
+            state.sodetelData = {};
+            state.credential = {name: "", label: "", type: ""};
+            state.credentialsArray = [];
+            state.bundle = "";
+            state.planData = {};
+            state.requestId = "";
         },
     },
 });
