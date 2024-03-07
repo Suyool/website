@@ -276,8 +276,7 @@ class IframeController extends AbstractController
 
         if ($transactionId != '' && $merchantId != '') {
             $timestamp = date("ymdHis"); //Format: 180907071749 = 07/09/2018 7:17:49am - UTC time
-            $certificate = "6eEimt2ffGTy2Jps3T7XS9aKzl1Rjwut0vk8q3byk1ERUAosAppdzaLorUVEfmMP0ip33aoiWpwKX9iSsFTfX19FqT9WiYPou1tX4KkaZYIJBzdaIPhD49NRsm1JXW8ZJMmTYKsqw7zeYeUjgA9JDc";
-
+            $certificate = $_ENV['IFRAME_CERTIFICATE'];
             $secure = $timestamp . $transactionId . $certificate;
             $secureHash = base64_encode(hash('sha512', $secure, true));
             $json = [

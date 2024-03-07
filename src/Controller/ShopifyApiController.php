@@ -18,8 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ShopifyServices;
 use ReCaptcha\ReCaptcha;
 
-//const CERTIFICATE_PAYMENT_SUYOOL = "GVkCbD9ghQIPzfNrI5HX3GpkAI60HjUaqV2FIPpXN6IB6ZioUbcAeKJVATY6X74s2DNAE5N3T70nCPszxF8gpfUGSU2ity69c2fA";
-
 class ShopifyApiController extends AbstractController
 {
     private $mr;
