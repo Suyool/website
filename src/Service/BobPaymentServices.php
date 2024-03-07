@@ -63,10 +63,10 @@ class BobPaymentServices
             $this->password = "cc1e891e97c017cd62a95a13db792877";
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/testsuyoolpg/";
         } else {
-            $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/suyool/";
-            $this->username = "merchant.SUYOOL";
-            $this->password = "652cdf87fd1c82530b7bfdd0c36662f3";
-            $this->BASE_API_HOSTED_SESSION = "https://bobsal.gateway.mastercard.com/api/rest/version/72/merchant/suyool/";
+            $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/suyoolpg/";
+            $this->username = "merchant.SUYOOLPG";
+            $this->password = "f9656a7c0a13daf9350359ae821459e7";
+            $this->BASE_API_HOSTED_SESSION = "https://bobsal.gateway.mastercard.com/api/rest/version/72/merchant/suyoolpg/";
         }
         $this->session = $session;
         $this->mr = $mr->getManager('topup');
