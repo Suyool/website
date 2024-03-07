@@ -1,0 +1,25 @@
+.form {
+    width: 100%;
+    text-align: left;
+
+    input {
+        width: 100%;
+        border: 1px solid #7588A034;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .button {
+        button {
+            background-color: #226d96;
+            border: none;
+            width: 100%;
+            padding: 13px;
+            color: #fff;
+            font-family: 'PoppinsRegular';
+            border-radius: 5px;
+            position: relative;
+            margin-top: 50px;
+        }
+    }
+}

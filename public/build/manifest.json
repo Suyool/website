@@ -2,9 +2,13 @@
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/Ogero.js": "/build/Ogero.971c4fbb.js",
 =======
   "build/Windsl.js": "/build/Windsl.e7ac6fb5.js",
+=======
+  "build/Windsl.js": "/build/Windsl.4efba424.js",
+>>>>>>> 96856850 (windsl interface)
   "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
 >>>>>>> 42e5f571 (windsl structure)
   "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
@@ -21,7 +25,7 @@
   "build/LegalEnrollementStyle.css": "/build/LegalEnrollementStyle.65484ccf.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.a4a047b5.css",
   "build/TouchStyle.css": "/build/TouchStyle.a4a047b5.css",
-  "build/WindslStyle.css": "/build/WindslStyle.a4a047b5.css",
+  "build/WindslStyle.css": "/build/WindslStyle.0536fe34.css",
   "build/OgeroStyle.css": "/build/OgeroStyle.4bb3fdaf.css",
   "build/terraNetstyle.css": "/build/terraNetstyle.b67454e5.css",
   "build/Gift2GamesStyle.css": "/build/Gift2GamesStyle.a885ca0f.css",

@@ -7,6 +7,7 @@ import PopupModal from "./Component/PopupModal";
 import BottomSlider from "./Component/BottomSlider";
 import { Spinner } from "react-bootstrap";
 import Login from "./Pages/Login";
+import Topup from "./Pages/Topup";
 
 const App = ({ parameters }) => {
   const headerData = useSelector((state) => state.appData.headerData);
@@ -30,7 +31,6 @@ const App = ({ parameters }) => {
 
   useEffect(() => {
     dispatch(settingData({ field: "mobileResponse", value: "" }));
-    const searchParams = new URLSearchParams(window.location.search);
     window.handleCheckout = (message) => {
       dispatch(settingData({ field: "mobileResponse", value: message }));
     };
@@ -56,6 +56,9 @@ const App = ({ parameters }) => {
         )}
         {headerData.currentPage === "" && <Default />}
         {headerData.currentPage === "Login" && <Login />}
+        {headerData.currentPage === "Topup" && <Topup />}
+        {bottomSlider.isShow && <BottomSlider />}
+        {modalData.isShow && <PopupModal />}
       </div>
     </div>
   );

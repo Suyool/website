@@ -27,7 +27,8 @@ const initialState = {
   },
 
   StoredData: {
-    
+      amount:"",
+      username : null
   },
 };
 
