@@ -60,6 +60,16 @@ class Transactions
      * @ORM\Column(name="errorInfo")
      */
     private $error;
+
+      /**
+     * @ORM\Column(name="oldBalance")
+     */
+    private $oldBalance;
+
+      /**
+     * @ORM\Column(name="newBalance")
+     */
+    private $newBalance;
     
     /**
      * @ORM\Column(name="created")
@@ -165,5 +175,27 @@ class Transactions
     public function geterror()
     {
         return $this->error;
+    }
+
+    public function setOldBalance($oldBalance)
+    {
+        $this->oldBalance = $oldBalance;
+        return $this;
+    }
+
+    public function getOldBalance()
+    {
+        return $this->oldBalance;
+    }
+
+    public function setnewBalance($newBalance)
+    {
+        $this->newBalance = $newBalance;
+        return $this;
+    }
+
+    public function getnewBalance()
+    {
+        return $this->newBalance;
     }
 }

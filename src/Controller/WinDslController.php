@@ -12,6 +12,7 @@ use App\Service\WindslService;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -25,13 +26,15 @@ class WinDslController extends AbstractController
     private $windslService;
     private $session;
     private $suyoolServices;
+    private $params;
 
-    public function __construct(ManagerRegistry $managerRegistry, WindslService $windslService, SessionInterface $session, SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $managerRegistry, WindslService $windslService, SessionInterface $session, SuyoolServices $suyoolServices, ParameterBagInterface $params)
     {
         $this->mr = $managerRegistry->getManager("windsl");
         $this->windslService = $windslService;
         $this->session = $session;
-        $this->suyoolServices = $suyoolServices;
+        $this->suyoolServices =  new SuyoolServices($params->get('WINDSL_MERCHANT_ID'));
+        $this->params=$params;
     }
 
     /**
@@ -127,51 +130,118 @@ class WinDslController extends AbstractController
      */
     public function topup(Request $request)
     {
-        $log = new LogsService($this->mr);
         try {
+            $data=json_decode($request->getContent(false),true);
+            $log = new LogsService($this->mr);
             if (isset($data)) {
                 $this->session->set('userid', 407860731284928);
                 $user = $this->mr->getRepository(Users::class)->findOneBy(['winDslUserId' => $this->session->get('userid')]);
+                $SuyoolUserId = $this->session->set('suyoolUserId',155);
                 $SuyoolUserId = $this->session->get('suyoolUserId');
                 $data = json_decode($request->getContent(false), true);
                 $transaction = new Transactions();
                 $transaction->setUserId($user)
-                    ->setsuyoolUserId(12)
+                    ->setsuyoolUserId($SuyoolUserId)
                     ->setamount($data['amount'])
                     ->setfees(0)
                     ->setcurrency($data['currency'])
                     ->setstatus(Transactions::$statusOrder['PENDING']);
                 $this->mr->persist($transaction);
                 $this->mr->flush();
-                // $pushutility = $this->suyoolServices->PushUtilities($SuyoolUserId,,$data['amount'],$data['currency'],0);
+                $pushutility = $this->suyoolServices->PushUtilities($SuyoolUserId,$this->params->get('WINDSL_MERCHANT_ID')."-".$transaction->getId(),$data['amount'],$data['currency'],0);
+                $log->pushLogs(new Logs, "PushUtility", @$pushutility[4], @$pushutility[5], @$pushutility[7], @$pushutility[6]);
+                if($pushutility[0]){
                 $topup = $this->windslService->topup($this->session->get('userid'), $data['amount'], $data['currency']);
                 $log->pushLogs(new Logs, "app_windsl_topup", $topup[1], $topup[2], $topup[3], $topup[4]);
                 if ($topup) {
                     $transactionPending = $this->mr->getRepository(Transactions::class)->findOneBy(['users'=>$user->getId(),'status'=>Transactions::$statusOrder['PENDING']],['id'=>'desc']);
                     $transactionPending
                         ->setstatus(Transactions::$statusOrder['PURCHASED'])
-                        ->settransId(123)
-                        ->seterror("success");
+                        ->settransId($pushutility[1])
+                        ->seterror("success")
+                        ->setnewBalance(@$topup[6])
+                        ->setOldBalance(@$topup[5]);
                     $this->mr->persist($transaction);
                     $isSuccess = true;
                     //update by the amount
+                    $updateutility = $this->suyoolServices->UpdateUtilities($transaction->getamount(),"",$transaction->gettransId());
+                    $log->pushLogs(new Logs, "UpdateUtility", @$updateutility[3], @$updateutility[2], @$updateutility[4],@$updateutility[5]);
+                    if ($updateutility[0]) {
+                        $transactionPurchased = $this->mr->getRepository(Transactions::class)->findOneBy(['id' => $transaction->getId(), 'suyoolUserId' => $SuyoolUserId,'users'=>$user->getId(),'status'=>Transactions::$statusOrder['PURCHASED']],['id'=>'desc']);
+                        //update te status from purshased to completed
+                        $transactionPurchased
+                            ->setstatus(Transactions::$statusOrder['COMPLETED'])
+                            ->seterror("SUCCESS");
+                        $this->mr->persist($transactionPurchased);
+                        $this->mr->flush();
+                        $message = "Success";
+                    } else {
+                        $transactionPurchased = $this->mr->getRepository(Transactions::class)->findOneBy(['id' => $transaction->getId(), 'suyoolUserId' => $SuyoolUserId,'users'=>$user->getId(),'status'=>Transactions::$statusOrder['PURCHASED']],['id'=>'desc']);
+                        $transactionPurchased
+                            ->setstatus(Transactions::$statusOrder['CANCELED'])
+                            ->seterror($updateutility[1]);
+                        $this->mr->persist($transactionPurchased);
+                        $this->mr->flush();
+                        $message = "something wrong while UpdateUtilities";
+                    }
+
                 } else {
-                    //update amount to 0
-                    $transactionPending = $this->mr->getRepository(Transactions::class)->findOneBy(['users'=>$user->getId(),'status'=>Transactions::$statusOrder['PENDING']],['id'=>'desc']);
-                    $transactionPending
-                        ->setstatus(Transactions::$statusOrder['CANCELED'])
-                        ->seterror("ERROR IN TOPUP");
-                    $this->mr->persist($transactionPending);
                     $isSuccess=false;
+                    $updateutility = $this->suyoolServices->UpdateUtilities(0,"",$transaction->gettransId());
+                    $log->pushLogs(new Logs, "UpdateUtility", @$updateutility[3], @$updateutility[2], @$updateutility[4],@$updateutility[5]);
+                    if ($updateutility[0]) {
+                        $transactionPurchased = $this->mr->getRepository(Transactions::class)->findOneBy(['id' => $transaction->getId(), 'suyoolUserId' => $SuyoolUserId,'users'=>$user->getId(),'status'=>Transactions::$statusOrder['PENDING']],['id'=>'desc']);
+                        //update te status from purshased to completed
+                        $transactionPurchased
+                            ->setstatus(Transactions::$statusOrder['CANCELED'])
+                            ->seterror("SUCCESS");
+                        $this->mr->persist($transactionPurchased);
+                        $this->mr->flush();
+                        $message = "Success";
+                    } else {
+                        $transactionPurchased = $this->mr->getRepository(Transactions::class)->findOneBy(['id' => $transaction->getId(), 'suyoolUserId' => $SuyoolUserId,'users'=>$user->getId(),'status'=>Transactions::$statusOrder['PENDING']],['id'=>'desc']);
+                        $transactionPurchased
+                            ->setstatus(Transactions::$statusOrder['CANCELED'])
+                            ->seterror($updateutility[1]);
+                        $this->mr->persist($transactionPurchased);
+                        $this->mr->flush();
+                        $message = "something wrong while UpdateUtilities";
+                    }
                 }
                 $this->mr->flush();
                 return new JsonResponse([
                     'status'=>true,
-                    'isSuccess'=>$isSuccess
+                    'isSuccess'=>$isSuccess,
+                    'message'=>$message,
+                    'data'=>[
+                          'oldbalance' => @$topup[5],
+                          'newbalance' => @$topup[6]
+                    ]
                 ]);
+            }else{
+                $transactionPending = $this->mr->getRepository(Transactions::class)->findOneBy(['id' => $transaction->getId(), 'suyoolUserId' => $SuyoolUserId,'users'=>$user->getId(),'status'=>Transactions::$statusOrder['PENDING']],['id'=>'desc']);
+                $transactionPending
+                        ->setstatus(Transactions::$statusOrder['CANCELED'])
+                        ->seterror($pushutility[1]);
+                    $this->mr->persist($transactionPending);
+                    $isSuccess=false;
+                    $this->mr->flush();
+                    $IsSuccess = false;
+                    $message = json_decode($pushutility[1], true);
+                    if (isset($pushutility[2])) {
+                        $flagCode = $pushutility[2];
+                    }
+                    return new JsonResponse([
+                        'status' => true,
+                        'message' => $message,
+                        'IsSuccess' => $IsSuccess,
+                        'flagCode' => $flagCode,
+                    ], 200);
+            }
             }
         } catch (Exception $e) {
-            $log->pushLogs(new Logs, "app_windsl_topup", "", $e->getMessage(), "", 500);
+            $log = new LogsService($this->mr);
+            $log->pushLogs(new Logs, "app_windsl_topup", null, json_encode($e->getMessage()), "/windsl/topup", 500);
             return new JsonResponse([
                 'status'=>false,
                 'isSuccess'=>false,

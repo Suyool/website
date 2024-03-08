@@ -77,7 +77,7 @@ class WindslService
             'amount'=>$amount,
             'method'=>'cash',
         ];
-
+        $oldbalance = $this->checkBalance($userid);
         $response = $this->client->request('POST', $this->WIN_DSL_HOST . "make_payment", [
             'body' => $body,
             'auth_basic' => [$this->username, $this->password],
@@ -86,7 +86,7 @@ class WindslService
         $content = $response->toArray(false);
         if($content['status'] == "success"){
             $checkbalance = $this->checkBalance($userid);
-            return array(true,json_encode($body),json_encode($content),$this->WIN_DSL_HOST . "make_payment",$response->getStatusCode(),$checkbalance[1]);
+            return array(true,json_encode($body),json_encode($content),$this->WIN_DSL_HOST . "make_payment",$response->getStatusCode(),$oldbalance[1],$checkbalance[1]);
         }
 
             return array(false,json_encode($body),json_encode($content),$this->WIN_DSL_HOST . "make_payment",$response->getStatusCode());
