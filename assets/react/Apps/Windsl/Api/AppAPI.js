@@ -72,7 +72,7 @@ const AppAPI = () => {
                   name: "SuccessModal",
                   img: "/build/images/alfa/SuccessImg.png",
                   title: "Win DSL Top Up Successful",
-                  desc: `You have successfully topped up your Win DSL account with ${currency === "USD" ? "$" : "LL"} ${amount}.`,
+                  desc: `You have successfully topped up your Win DSL account with ${currency === "USD" ? "$" : "LL"} ${amount}`,
                   btn: null,
                   flag: "",
                 },

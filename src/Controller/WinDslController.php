@@ -27,14 +27,16 @@ class WinDslController extends AbstractController
     private $session;
     private $suyoolServices;
     private $params;
+    private $notificationServices;
 
-    public function __construct(ManagerRegistry $managerRegistry, WindslService $windslService, SessionInterface $session, SuyoolServices $suyoolServices, ParameterBagInterface $params)
+    public function __construct(ManagerRegistry $managerRegistry, WindslService $windslService, SessionInterface $session, SuyoolServices $suyoolServices, ParameterBagInterface $params,NotificationServices $notificationServices)
     {
         $this->mr = $managerRegistry->getManager("windsl");
         $this->windslService = $windslService;
         $this->session = $session;
         $this->suyoolServices =  new SuyoolServices($params->get('WINDSL_MERCHANT_ID'));
         $this->params=$params;
+        $this->notificationServices=$notificationServices;
     }
 
     /**
@@ -167,6 +169,13 @@ class WinDslController extends AbstractController
                         ->setOldBalance(@$topup[5]);
                     $this->mr->persist($transaction);
                     $isSuccess = true;
+                    $params = json_encode([
+                        'amount' => number_format($data['amount']),
+                        'currency' => $data['currency'] == "USD" ? "$" : "LL",
+                    ]);
+                    $content = $this->notificationServices->getContent('WindslTopup');
+                    $bulk = 0; //1 for broadcast 0 for unicast
+                    $this->notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, "");
                     //update by the amount
                     $updateutility = $this->suyoolServices->UpdateUtilities($transaction->getamount(),"",$transaction->gettransId());
                     $log->pushLogs(new Logs, "UpdateUtility", @$updateutility[3], @$updateutility[2], @$updateutility[4],@$updateutility[5]);

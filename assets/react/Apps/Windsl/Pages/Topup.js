@@ -70,7 +70,7 @@ const Topup = () => {
               placeholder="0.00"
               value={amount}
               onChange={handleInputChange}
-            />
+              inputMode="decimal"            />
           </div>
         <div className="button">
             <button type="submit" className="btnsubmit" id={amount.length === 0 ? 'hidden' : ''} disabled={bottomSlider?.isShow || amount.length === 0} onClick={onSubmit}>Continue</button>
