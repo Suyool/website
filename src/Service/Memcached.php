@@ -462,12 +462,20 @@ class Memcached
                     }
                 }
             }
-
-            $b = array(2, 4, 3, 1, 0, 5);
-            $filteredDatInOrder = array();
-            foreach ($b as $index) {
-                $filteredDatInOrder[$index] = $filteredData[$index];
+            if (isset($filteredData[2]) && isset($filteredData[4]) && isset($filteredData[3]) && isset($filteredData[1]) && isset($filteredData[0]) && isset($filteredData[5])) {
+                $b = array(2, 4, 3, 1, 0, 5);
+                $filteredDatInOrder = array();
+                foreach ($b as $index) {
+                    $filteredDatInOrder[$index] = $filteredData[$index];
+                }
+            }else{
+                $filteredDatInOrder = $filteredData;
             }
+//            $b = array(2, 4, 3, 1, 0, 5);
+//            $filteredDatInOrder = array();
+//            foreach ($b as $index) {
+//                $filteredDatInOrder[$index] = $filteredData[$index];
+//            }
             // dd(array_merge($c));
             // dd($filteredData);
             $jsonData = json_encode(array_merge($filteredDatInOrder));
