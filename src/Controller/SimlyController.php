@@ -235,6 +235,7 @@ class SimlyController extends AbstractController
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
         $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
         $pushlog=new LogsService($this->mr);
+        // dd($simlyPlan);
         $pushlog->pushLogs(new Logs,"app_simly_purchaseTopup",null,$simlyPlan[1],$simlyPlan[2],$simlyPlan[3]);
         $simlyPlan = $simlyPlan[0];
         $fees = $simlyPlan['initial_price'] - $simlyPlan['price'];

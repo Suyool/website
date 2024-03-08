@@ -328,15 +328,17 @@ class SimlyServices
                     'x-simly-token' => $token
                 ],
             ]);
-            $data = json_decode($response->getContent(), true);
+            // $data = json_decode($response->getContent(), true);
+            $data = $response->toArray(false);
+            // dd($data);
             if ($data['code'] == 200) {
                 return array($data['data'],json_encode($data),$this->SIMLY_API_HOST . 'plans/' . $slug . '',$response->getStatusCode());
             } else {
-                return $this->getResponse(500, json_encode(@$data), $this->SIMLY_API_HOST . 'plans/' . $slug . '', $response->getStatusCode());
+                return array("", json_encode(@$data), $this->SIMLY_API_HOST . 'plans/' . $slug . '', $response->getStatusCode());
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'GetPlanHavingSlug');
+            return array(500, 'Internal Server Error', null, 'GetPlanHavingSlug');
         }
     }
 
