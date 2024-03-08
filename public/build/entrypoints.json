@@ -15,7 +15,7 @@
     "Windsl": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Windsl.05ca0d56.js"
+        "/build/Windsl.0d01bcc0.js"
       ]
     },
     "Ogero": {
@@ -125,7 +125,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/WindslStyle.0536fe34.css"
+        "/build/WindslStyle.261040ae.css"
       ]
     },
     "OgeroStyle": {

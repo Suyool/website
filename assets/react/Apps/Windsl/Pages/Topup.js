@@ -8,6 +8,8 @@ const Topup = () => {
   const amount = useSelector((state) => state.appData.StoredData.amount);
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
+  const [formattedNumber, setFormattedNumber] = useState('');
+  const [userInput, setUserInput] = useState('');
 
   const [gethidden,sethidden]= useState(false)
   const { Topup } = AppAPI();
@@ -56,21 +58,22 @@ const Topup = () => {
     
     
   return (
-    <div id="Default" style={{ opacity: bottomSlider?.isShow ? "0.4" : "" }}>
-      <div className="topup">
+    <div id="Default" style={{ opacity: bottomSlider?.isShow ? "0.5" : "" , background: bottomSlider?.isShow ? "#8c8686" : ""}}>
+      <div className="topup" style={{ opacity: bottomSlider?.isShow ? "0.5" : "" }}>
         <form>
         <div className="MainTitle">How much do you want to top up?</div>
         {/* <input type="number" className="number" name="number" placeholder="$0.00" value={<sup>$</sup>} onChange={handleInputChange}/> */}
         <div className="input-wrapper">
             <sup className="superscript">$</sup>
             <input
-              type="number"
+              type="text"
               className="number"
               name="number"
               placeholder="0.00"
               value={amount}
               onChange={handleInputChange}
-              inputMode="decimal"            />
+              inputMode="decimal" 
+              disabled={bottomSlider?.isShow}           />
           </div>
         <div className="button">
             <button type="submit" className="btnsubmit" id={amount.length === 0 ? 'hidden' : ''} disabled={bottomSlider?.isShow || amount.length === 0} onClick={onSubmit}>Continue</button>
