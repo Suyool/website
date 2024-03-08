@@ -80,7 +80,7 @@ const PopupModal = () => {
   };
 
   return (
-    <Modal show={modalData.isShow} size="md" aria-labelledby="contained-modal-title-vcenter" centered id="modalRadius">
+    <Modal show={modalData.isShow || modalData.show} size="md" aria-labelledby="contained-modal-title-vcenter" centered id="modalRadius">
       <Modal.Body>
         {modalData.name == "SuccessModal" && (
           <div id="SuccessModal">

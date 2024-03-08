@@ -71,7 +71,7 @@ const App = ({ parameters }) => {
         {headerData.currentPage === "ReCharge" && <ReCharge />}
         {headerData.currentPage === "Refill" && <Refill />}
         {bottomSlider.isShow && <BottomSlider />}
-        {modalData.isShow && <PopupModal />}
+        <PopupModal />
       </div>
     </div>
   );
