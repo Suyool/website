@@ -31,7 +31,20 @@ const BottomSlider = () => {
       }, 2000);
     }
   };
-  const Topup = () => {};
+  const Topup = () => {
+    dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
+    dispatch(settingData({ field: "isloading", value: true }));
+
+    if (parameters?.deviceType === "Android") {
+      setTimeout(() => {
+        window.AndroidInterface.callbackHandler("message");
+      }, 2000);
+    } else if (parameters?.deviceType === "Iphone") {
+      setTimeout(() => {
+        window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
+      }, 2000);
+    }
+  };
   return (
     <div id="BottomSliderContainer">
       <div className="topSection">

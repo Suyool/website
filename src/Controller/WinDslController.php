@@ -43,14 +43,14 @@ class WinDslController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        // $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
 
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']); //['device'=>"aad", asdfsd]
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
 
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
                 // $this->session->set('suyoolUserId', 155);
@@ -76,6 +76,7 @@ class WinDslController extends AbstractController
         $log = new LogsService($this->mr);
         try {
             $data = json_decode($request->getContent(false), true);
+            // dd($data);
             if (isset($data['username']) && isset($data['password'])) {
                 $login = $this->windslService->login($data['username'], $data['password']);
                 $log->pushLogs(new Logs, "app_windsl_login", $login[3], $login[2], $login[4], $login[5]);
@@ -101,11 +102,13 @@ class WinDslController extends AbstractController
                         return new JsonResponse([
                             'status' => true,
                             'userid' => $login[1],
+                            'isSuccess'=>$login[0],
                             'balance' => $balance[1]
                         ]);
                     }
                     return new JsonResponse([
                         'status' => true,
+                        'isSuccess'=>$login[0],
                         'userid' => $login[1]
                     ]);
                 }
@@ -132,11 +135,12 @@ class WinDslController extends AbstractController
     {
         try {
             $data=json_decode($request->getContent(false),true);
+            // dd($data);
             $log = new LogsService($this->mr);
             if (isset($data)) {
-                $this->session->set('userid', 407860731284928);
+                // $this->session->set('userid', 407860731284928);
                 $user = $this->mr->getRepository(Users::class)->findOneBy(['winDslUserId' => $this->session->get('userid')]);
-                $SuyoolUserId = $this->session->set('suyoolUserId',155);
+                // $SuyoolUserId = $this->session->set('suyoolUserId',155);
                 $SuyoolUserId = $this->session->get('suyoolUserId');
                 $data = json_decode($request->getContent(false), true);
                 $transaction = new Transactions();
@@ -234,7 +238,7 @@ class WinDslController extends AbstractController
                     return new JsonResponse([
                         'status' => true,
                         'message' => $message,
-                        'IsSuccess' => $IsSuccess,
+                        'isSuccess' => $IsSuccess,
                         'flagCode' => $flagCode,
                     ], 200);
             }

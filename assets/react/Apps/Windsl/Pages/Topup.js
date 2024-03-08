@@ -7,7 +7,10 @@ const Topup = () => {
   const dispatch = useDispatch();
   const amount = useSelector((state) => state.appData.StoredData.amount);
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
+  const mobileResponse = useSelector((state) => state.appData.mobileResponse);
+
   const [gethidden,sethidden]= useState(false)
+  const { Topup } = AppAPI();
     useEffect(()=>{
         dispatch(settingData({field:"headerData",value:{
             title:"WinDSL Topup",
@@ -40,6 +43,16 @@ const Topup = () => {
         sethidden(true)
       console.log(amount)
     }
+
+    useEffect(() => {
+      if (mobileResponse == "success") {
+        Topup( { amount , currency: "USD" } )
+      } else if (mobileResponse == "failed") {
+        dispatch(settingData({ field: "isloading", value: false }));
+        dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: false }));
+        dispatch(settingData({ field: "mobileResponse", value: "" }));
+      }
+    },[mobileResponse]);
     
     
   return (

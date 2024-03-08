@@ -28,7 +28,8 @@ const initialState = {
 
   StoredData: {
       amount:"",
-      username : null
+      username : null,
+      oldBalance: null
   },
 };
 
