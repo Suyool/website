@@ -245,6 +245,7 @@ class SimlyController extends AbstractController
         $order
             ->setStatus(Order::$statusOrder['PENDING'])
             ->setAmount($simlyPlan['initial_price'])
+            ->setSuyoolUserId($SuyoolUserId)
             ->setFees($fees)
             ->setCurrency('USD');
 
@@ -502,9 +503,11 @@ class SimlyController extends AbstractController
                 $res['qrCodeImage'] = $esim->getQrCodeImageUrl();
                 $res['PlanType'] = $esim->getParentPlanType();
                 $res['isoCode']=$esim->getIsoCode();
-
-                if ($res)
+                if(!isset($res[0])){
+                    if ($res)
                     $usage[] = $res;
+                }
+                
             }
         }
 

@@ -254,16 +254,16 @@ class SimlyServices
                     'x-simly-token' => $token
                 ],
             ]);
-            $data = json_decode($response->getContent(), true);
-
+            $data = $response->toArray(false);
+            
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
-                return $this->getResponse(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
+                return array($response->getStatusCode(), json_encode($data), null, 'FetchUsageOfPurchasedESIM');
             }
         } catch (Exception $e) {
-            $this->logger->error($e->getMessage());
-            return $this->getResponse(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
+            // $this->logger->error($e->getMessage());
+            return array(500, 'Internal Server Error', null, 'FetchUsageOfPurchasedESIM');
         }
     }
 

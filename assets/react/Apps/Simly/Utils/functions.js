@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime";
+
 export const handleShare = (shareCode, deviceType) => {
   let object = [
     {

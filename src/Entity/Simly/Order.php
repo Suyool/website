@@ -63,6 +63,11 @@ class Order
      */
     private $error;
 
+    /**
+     * @ORM\Column(name="suyoolUserId")
+     */
+    private $suyoolUserId;
+
 
     public function getId(): ?int
     {
@@ -154,6 +159,17 @@ class Order
     public function setError(string $error): self
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function getSuyoolUserId(): ?string
+    {
+        return $this->suyoolUserId;
+    }
+
+    public function setSuyoolUserId(string $suyoolUserId): self
+    {
+        $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
 }

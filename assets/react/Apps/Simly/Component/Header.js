@@ -10,7 +10,7 @@ const Header = () => {
   const isModalData = useSelector((state) => state.appData.modalData.isShow);
 
   const handleButtonClick = () => {
-    if (headerData.currentPage == "") {
+    if (headerData.currentPage == "Packages") {
       if (parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler("GoToApp");
       } else if (parameters?.deviceType === "Iphone") {

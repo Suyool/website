@@ -26,7 +26,7 @@ const Account = () => {
         field: "headerData",
         value: {
           title: "My eSIM Account",
-          backLink: "",
+          backLink: "Packages",
           currentPage: "Account",
         },
       })

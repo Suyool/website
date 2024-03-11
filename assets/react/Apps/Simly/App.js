@@ -33,17 +33,6 @@ const App = ({ parameters }) => {
 
   useEffect(() => {
     dispatch(settingData({ field: "mobileResponse", value: "" }));
-    const searchParams = new URLSearchParams(window.location.search);
-    const idParam = searchParams.get("comp");
-    if (idParam) {
-      dispatch(
-        settingObjectData({
-          mainField: "headerData",
-          field: "currentPage",
-          value: idParam,
-        })
-      );
-    }
     window.handleCheckout = (message) => {
       dispatch(settingData({ field: "mobileResponse", value: message }));
     };
