@@ -8,76 +8,119 @@ const Topup = () => {
   const amount = useSelector((state) => state.appData.StoredData.amount);
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
-  const [formattedNumber, setFormattedNumber] = useState('');
-  const [userInput, setUserInput] = useState('');
+  const [formattedNumber, setFormattedNumber] = useState("");
+  const [userInput, setUserInput] = useState("");
 
-  const [gethidden,sethidden]= useState(false)
+  const [gethidden, sethidden] = useState(false);
   const { Topup } = AppAPI();
-    useEffect(()=>{
-        dispatch(settingData({field:"headerData",value:{
-            title:"WinDSL Topup",
-            backLink:"",
-            currentPage:"Topup"
-        }}))
-    },[])
+  useEffect(() => {
+    dispatch(
+      settingData({
+        field: "headerData",
+        value: {
+          title: "WinDSL Topup",
+          backLink: "",
+          currentPage: "Topup",
+        },
+      })
+    );
+  }, []);
+  const [value, setValue] = useState('');
 
-    const handleInputChange = (event) => {
-      const amount = event.target.value
-      dispatch(settingObjectData({mainField:'StoredData',field:'amount',value: amount }))
-    }
+  const handleInputChange = (event) => {
+    const amount = event.target.value;
+    dispatch(
+      settingObjectData({
+        mainField: "StoredData",
+        field: "amount",
+        value: amount,
+      })
+    );
+  };
 
-    const onSubmit = (e) => {
-      e.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      settingData({
+        field: "bottomSlider",
+        value: {
+          isShow: true,
+          name: "SliderTopup",
+          backPage: "",
+          data: {},
+          isButtonDisable: false,
+        },
+      })
+    );
+    sethidden(true);
+    console.log(amount);
+  };
+
+  useEffect(() => {
+    if (mobileResponse == "success") {
+      Topup({ amount, currency: "USD" });
+    } else if (mobileResponse == "failed") {
+      dispatch(settingData({ field: "isloading", value: false }));
       dispatch(
-        settingData({
-          field: "bottomSlider",
-          value: {
-            isShow: true,
-            name: "SliderTopup",
-            backPage: "",
-            data: {
-              
-            },
-            isButtonDisable: false,
-          },
+        settingObjectData({
+          mainField: "bottomSlider",
+          field: "isButtonDisable",
+          value: false,
         })
       );
-        sethidden(true)
-      console.log(amount)
+      dispatch(settingData({ field: "mobileResponse", value: "" }));
     }
+  }, [mobileResponse]);
 
-    useEffect(() => {
-      if (mobileResponse == "success") {
-        Topup( { amount , currency: "USD" } )
-      } else if (mobileResponse == "failed") {
-        dispatch(settingData({ field: "isloading", value: false }));
-        dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: false }));
-        dispatch(settingData({ field: "mobileResponse", value: "" }));
-      }
-    },[mobileResponse]);
-    
-    
+  const handleBlur = (e) => {
+    const amount = e.target.value;
+
+    // Format the value to have two decimal places after the comma
+    let formattedValue = parseFloat(amount).toFixed(2);
+
+    e.target.value = formattedValue;
+
+  };
+
   return (
-    <div id="Default" style={{ opacity: bottomSlider?.isShow ? "0.5" : "" , background: bottomSlider?.isShow ? "#8c8686" : ""}}>
-      <div className="topup" style={{ opacity: bottomSlider?.isShow ? "0.5" : "" }}>
+    <div
+      id="Default"
+      style={{
+        opacity: bottomSlider?.isShow ? "0.5" : "",
+        background: bottomSlider?.isShow ? "#8c8686" : "",
+      }}
+    >
+      <div
+        className="topup"
+        style={{ opacity: bottomSlider?.isShow ? "0.5" : "" }}
+      >
         <form>
-        <div className="MainTitle">How much do you want to top up?</div>
-        {/* <input type="number" className="number" name="number" placeholder="$0.00" value={<sup>$</sup>} onChange={handleInputChange}/> */}
-        <div className="input-wrapper">
+          <div className="MainTitle">How much do you want to top up?</div>
+          {/* <input type="number" className="number" name="number" placeholder="$0.00" value={<sup>$</sup>} onChange={handleInputChange}/> */}
+          <div className="input-wrapper">
             <sup className="superscript">$</sup>
             <input
-              type="text"
+              type="number"
               className="number"
               name="number"
               placeholder="0.00"
-              value={amount}
+              onBlur={handleBlur}
               onChange={handleInputChange}
-              inputMode="decimal" 
-              disabled={bottomSlider?.isShow}           />
+              inputMode="decimal"
+              disabled={bottomSlider?.isShow}
+            />
           </div>
-        <div className="button">
-            <button type="submit" className="btnsubmit" id={amount.length === 0 ? 'hidden' : ''} disabled={bottomSlider?.isShow || amount.length === 0} onClick={onSubmit}>Continue</button>
-        </div>
+          <div className="button">
+            <button
+              type="submit"
+              className="btnsubmit"
+              id={amount.length === 0 ? "hidden" : ""}
+              disabled={bottomSlider?.isShow || amount.length === 0}
+              onClick={onSubmit}
+            >
+              Continue
+            </button>
+          </div>
         </form>
       </div>
     </div>
