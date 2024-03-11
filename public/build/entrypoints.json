@@ -38,28 +38,8 @@
     },
     "Ogero": {
       "js": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         "/build/runtime.cbe92cc0.js",
         "/build/Ogero.971c4fbb.js"
-=======
-        "/build/runtime.js",
-        "/build/Ogero.js"
->>>>>>> b408a954 (working on v2 of simly)
-=======
-        "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.ad64b1fe.js"
->>>>>>> 43b0dcc9 (simly redux)
-=======
-        "/build/runtime.js",
-        "/build/Ogero.js"
->>>>>>> 93fcad92 (handle flow)
-=======
-        "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.ad64b1fe.js"
->>>>>>> 2589788b (simly redux)
       ]
     },
     "TerraNet": {

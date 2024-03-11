@@ -1,85 +1,11 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Alfa.js": "/build/Alfa.2a9f0590.js",
-=======
-=======
->>>>>>> 01703872 (handle hassan changes)
-<<<<<<< HEAD
-=======
->>>>>>> 3fbcd0f4 (handle share in copy btn)
-  "build/Alfa.js": "/build/Alfa.89954fac.js",
->>>>>>> fdc034ff (some changes)
-  "build/Touch.js": "/build/Touch.8f43a038.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Windsl.js": "/build/Windsl.02bf2d08.js",
-=======
-<<<<<<< HEAD
->>>>>>> 95d30bc5 (some changes)
-=======
-<<<<<<< HEAD
->>>>>>> 62383c3d (handle share in copy btn)
-  "build/Ogero.js": "/build/Ogero.971c4fbb.js",
-=======
-=======
-=======
->>>>>>> dc25feb0 (handle hassan changes)
-<<<<<<< HEAD
-  "build/Alfa.js": "/build/Alfa.3ac32c1d.js",
-  "build/Touch.js": "/build/Touch.a14171fb.js",
->>>>>>> 834ac336 (some changes)
-  "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
-<<<<<<< HEAD
->>>>>>> cf327a4f (some changes)
-=======
-<<<<<<< HEAD
->>>>>>> dd0315b7 (handle hassan changes)
-=======
-  "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 5b3893b7 (handle share in copy btn)
-  "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
-<<<<<<< HEAD
-  "build/Gift2Games.js": "/build/Gift2Games.6b16d93d.js",
-=======
-=======
-=======
->>>>>>> 30911976 (handle hassan changes)
->>>>>>> 01703872 (handle hassan changes)
-<<<<<<< HEAD
->>>>>>> a22a3fd5 (handle hassan changes)
-=======
-=======
->>>>>>> 3fbcd0f4 (handle share in copy btn)
-<<<<<<< HEAD
->>>>>>> f6048fee (handle share in copy btn)
-=======
-=======
->>>>>>> 6133b0f6 (simly v2 . 2)
->>>>>>> bdd706c4 (simly v2 . 2)
-=======
->>>>>>> 60633fd0 (simly redux)
-=======
->>>>>>> 5204c9f8 (handle flow)
-=======
->>>>>>> 17520169 (simly redux)
-=======
->>>>>>> cc8ea5d2 (simly)
   "build/app1.js": "/build/app1.1dfb62eb.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.ecf58fd2.js",
   "build/Alfa.js": "/build/Alfa.2a9f0590.js",
   "build/Touch.js": "/build/Touch.8f43a038.js",
-  "build/Ogero.js": "/build/Ogero.ad64b1fe.js",
+  "build/Windsl.js": "/build/Windsl.02bf2d08.js",
+  "build/Ogero.js": "/build/Ogero.971c4fbb.js",
   "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
   "build/Gift2Games.js": "/build/Gift2Games.6b16d93d.js",
   "build/Simly.js": "/build/Simly.b0c00136.js",
