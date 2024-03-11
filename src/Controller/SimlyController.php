@@ -193,6 +193,7 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
+        $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID'));
         $SuyoolUserId = $this->session->get('suyoolUserId');        
         $data = json_decode($request->getContent(), true);
         if(isset($data['esimId'])){
@@ -302,29 +303,21 @@ class SimlyController extends AbstractController
         $this->mr->flush();
 
         if ($order->getType() == 'esim') {
-            $simlyResponse = $simlyServices->PurchaseTopup($data['planId']);
+            $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
         } else {
-            $simlyResponse = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
+            $simlyResponses = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
         }
-        $pushlog->pushLogs(new Logs,"PurchaseTopup",$simlyResponse[1],$simlyResponse[2],$simlyResponse[3],$simlyResponse[4]);
-        $simlyResponse=$simlyResponse[0];
+        // dd($simlyResponse);
+        $pushlog->pushLogs(new Logs,"PurchaseTopup",$simlyResponses[1],$simlyResponses[2],$simlyResponses[3],$simlyResponses[4]);
+        $simlyResponse=$simlyResponses[0];
         if (!isset($simlyResponse['id'])) {
-            $logs = new Logs;
-            $logs
-                ->setidentifier("simly_purchaseTopup")
-                ->seturl("simly/purchaseTopup")
-                ->setrequest(json_encode($data))
-                ->setresponse(json_encode($simlyResponse))
-                ->seterror(json_encode($simlyResponse));
-            $this->mr->persist($logs);
-            $this->mr->flush();
 
-            $pushlog->pushLogs(new Logs, "PurchaseTopup",json_encode($data), json_encode($simlyResponse), "simly/purchaseTopup",null);
+            $pushlog->pushLogs(new Logs, "PurchaseTopup",json_encode($data),json_encode($simlyResponses[2]), "simly/purchaseTopup",null);
 
 
             //return the money to the user
             $order->setStatus(Order::$statusOrder['CANCELED'])
-                ->setError($simlyResponse['message']);
+                ->setError($simlyResponses[2]);
 
             $this->mr->persist($order);
             $this->mr->flush();
