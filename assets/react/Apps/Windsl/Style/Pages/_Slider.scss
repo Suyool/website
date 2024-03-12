@@ -1,0 +1,98 @@
+#SliderTopup {
+  .bodyToTopup {
+    .flex{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    padding-left: 10px;
+    .line {
+      border: 1px solid #eee;
+    }
+    .data {
+      font-family: $Regular;
+      font-size: 14px;
+      color: #000;
+    }
+    .data2{
+      color: #000;
+      font-family: $SemiBold;
+      font-size: 23px;
+    }
+    .country {
+      color: #000;
+      font-family: $SemiBold;
+      font-size: 16px;
+    }
+  }
+  width: 95%;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-x: hidden;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  .cardSec {
+    span{
+      font-family: $SemiBold;
+    }
+    width: 100%;
+    padding-bottom: 15px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+    .method {
+      font-family: $Regular;
+      color: #767676;
+      font-size: 14px;
+      width: -webkit-fill-available;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+      .bodyCountry {
+        height: 50vh;
+        overflow-y: scroll;
+        .plan {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          color: black;
+          img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: contain;
+            padding-right: 13px;
+          }
+          .name {
+            font-family: $Regular;
+            font-size: 14px;
+            color: #000000;
+          }
+        }
+      }
+    }
+  }
+  .footSectionPick {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 15px;
+    background-color: white;
+    button {
+      width: 90%;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: $Medium;
+      color: #fff;
+      background-color: #226d96;
+      border: none;
+      padding: 16px 0;
+      text-align: center;
+    }
+  }
+}

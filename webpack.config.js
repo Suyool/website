@@ -54,6 +54,9 @@ Encore
   .addEntry("Touch", "./assets/react/Apps/Touch/index.js")
   // .addStyleEntry("TouchStyle", "./assets/styles/src/react/Touch.scss")
   // .addEntry("Touch", "./assets/react/Touch/index.js")
+  //windsl
+  .addStyleEntry("WindslStyle", "./assets/react/Apps/Windsl/Style/Windsl.scss")
+  .addEntry("Windsl", "./assets/react/Apps/Windsl/index.js")
 
   //Ogero
   .addStyleEntry("OgeroStyle", "./assets/react/Apps/Ogero/Style/Ogero.scss")

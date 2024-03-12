@@ -171,7 +171,7 @@ class SuyoolServices
                 return array(false, $message, $flagCode, $error,json_encode($body),json_encode($push_utility_response),$status,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
             }
         } catch (Exception $e) {
-            return array(false, "", "", "","",$e->getMessage());
+            return array(false, "", "", "",@json_encode($body),$e->getMessage(),500,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
         }
     }
 

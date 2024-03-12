@@ -12,6 +12,12 @@
         "/build/Touch.8f43a038.js"
       ]
     },
+    "Windsl": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Windsl.02bf2d08.js"
+      ]
+    },
     "Ogero": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -112,6 +118,14 @@
       ],
       "css": [
         "/build/TouchStyle.a4a047b5.css"
+      ]
+    },
+    "WindslStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/WindslStyle.261040ae.css"
       ]
     },
     "OgeroStyle": {

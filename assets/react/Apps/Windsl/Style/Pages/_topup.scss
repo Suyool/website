@@ -1,0 +1,45 @@
+.topup {
+    width: 100%;
+    text-align: left;
+
+    .input-wrapper {
+        position: relative;
+      }
+      
+      .superscript {
+        position: absolute;
+        top: 20%;
+        left: 5px; /* Adjust as needed */
+        transform: translateY(-50%);
+        font-size: smaller; /* Adjust the font size as needed */
+      }
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        border: none;
+        font-size: 30px;
+        border-bottom: 1px solid rgba(117, 136, 160, 0.2039215686);
+        outline: none;
+        /* Remove default focus outline */
+
+    }
+
+    .button {
+        button {
+            background-color: #226d96;
+            border: none;
+            width: 100%;
+            padding: 13px;
+            color: #fff;
+            font-family: 'PoppinsRegular';
+            border-radius: 5px;
+            position: relative;
+            margin-top: 50px;
+            &#hidden{
+                opacity: .5;
+            }
+        }
+    }
+}
