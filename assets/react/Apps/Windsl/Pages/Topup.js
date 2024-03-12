@@ -95,7 +95,18 @@ const Topup = () => {
         style={{ opacity: bottomSlider?.isShow ? "0.5" : "" }}
       >
         <form>
-          <div className="MainTitle">How much do you want to top up?</div>
+          <div className="header row align-items-center">
+            <div className="col-3">
+              <img className="logoImg" src="/build/images/windsl/windsl.png" alt="WinDSL Logo" />
+            </div>
+            <div className="col">
+              <div className="headerTitle">
+                <h5 className="titleMain">Top Up WinDSL Account</h5>
+                <p className="headerDesc">Choose top up amount</p>
+              </div>
+            </div>
+          </div>
+          <div className="MainTitle text-center">How much do you want to top up?</div>
           {/* <input type="number" className="number" name="number" placeholder="$0.00" value={<sup>$</sup>} onChange={handleInputChange}/> */}
           <div className="input-wrapper">
             <sup className="superscript">$</sup>

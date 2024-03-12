@@ -1,3 +1,14 @@
 @import 'Slider';
 @import 'login';
 @import 'topup';
+
+.headerTitle {
+  .titleMain {
+    font-family: $SemiBold;
+    font-size: 18px;
+    margin: 2px;
+  }
+  .headerDesc {
+    font-family: $Medium;
+  }
+}

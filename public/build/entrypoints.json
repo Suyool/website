@@ -33,7 +33,7 @@
     "Windsl": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Windsl.02bf2d08.js"
+        "/build/Windsl.7f6e487c.js"
       ]
     },
     "Ogero": {
@@ -123,7 +123,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/WindslStyle.19fb936f.css"
+        "/build/WindslStyle.7fe94045.css"
       ]
     },
     "OgeroStyle": {
