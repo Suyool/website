@@ -82,9 +82,9 @@ const PackagesInfo = () => {
             <div className="label"></div>
             <div className="value3">
               <span
-                onClick={() => {
-                  GetCountriesById(selectedPlan?.isoCode);
-                }}
+                // onClick={() => {
+                //   GetCountriesById(selectedPlan?.isoCode);
+                // }}
               >
                 View Countries
               </span>
