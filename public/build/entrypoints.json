@@ -1,5 +1,23 @@
 {
   "entrypoints": {
+    "app1": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/app1.1dfb62eb.js"
+      ]
+    },
+    "admin-app": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/admin-app.fd697fc2.js"
+      ]
+    },
+    "Loto": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Loto.ecf58fd2.js"
+      ]
+    },
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -36,22 +54,10 @@
         "/build/Gift2Games.6b16d93d.js"
       ]
     },
-    "app1": {
+    "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.1dfb62eb.js"
-      ]
-    },
-    "admin-app": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/admin-app.fd697fc2.js"
-      ]
-    },
-    "Loto": {
-      "js": [
-        "/build/runtime.cbe92cc0.js",
-        "/build/Loto.ecf58fd2.js"
+        "/build/Simly.1a6bb438.js"
       ]
     },
     "LegalEnrollement": {
@@ -94,14 +100,6 @@
       ],
       "css": [
         "/build/Lotostyles.77b15344.css"
-      ]
-    },
-    "LegalEnrollementStyle": {
-      "js": [
-        "/build/runtime.cbe92cc0.js"
-      ],
-      "css": [
-        "/build/LegalEnrollementStyle.65484ccf.css"
       ]
     },
     "AlfaStyle": {
@@ -152,6 +150,22 @@
         "/build/Gift2GamesStyle.a885ca0f.css"
       ]
     },
+    "SimlyStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/SimlyStyle.cb6f913b.css"
+      ]
+    },
+    "LegalEnrollementStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/LegalEnrollementStyle.65484ccf.css"
+      ]
+    },
     "iveristyles": {
       "js": [
         "/build/runtime.cbe92cc0.js"
@@ -165,7 +179,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SodetelStyle.d2e21a6e.css"
+        "/build/SodetelStyle.3972e4fd.css"
       ]
     }
   }

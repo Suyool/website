@@ -24,13 +24,14 @@ doctrine:
                 url: '%env(resolve:TERRANET_DATABASE_URL)%'
             invoices:
                 url: '%env(resolve:INVOICES_DATABASE_URL)%'
-
             sodetel:
                 url: '%env(resolve:SODETEL_DATABASE_URL)%'
             gift2games:
                 url: '%env(resolve:GIFT2GAMES_DATABASE_URL)%'
             windsl:
                 url: '%env(resolve:WINDSL_DATABASE_URL)%'
+            simly:
+                url: '%env(resolve:SIMLY_DATABASE_URL)%'
 
         default_connection: default
         # charset: UTF8
@@ -184,3 +185,13 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Windsl'
                         prefix: 'App\Entity\Windsl'
                         alias: windsl
+
+            simly:
+                connection: simly
+                mappings:
+                    Simly:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Simly'
+                        prefix: 'App\Entity\Simly'
+                        alias: Simly

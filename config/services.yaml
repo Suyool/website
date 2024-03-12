@@ -24,6 +24,7 @@ parameters:
     SODETEL_4G_MERCHANT_ID: '9'
     GIFT2GAMES_MERCHANT_ID: '9'
     WINDSL_MERCHANT_ID: '33'
+    SIMLY_MERCHANT_ID: '32'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
     METHOD_POST: 'POST'
@@ -145,6 +146,10 @@ services:
     App\Service\SodetelService:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Sodetel' }
+
+    App\Service\SimlyServices:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'simly' }
 
     App\Controller\Gift2GamesController:
         tags:
