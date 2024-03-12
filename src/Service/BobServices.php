@@ -440,4 +440,34 @@ class BobServices
             return array(false,$e->getMessage(),"","",$this->BOB_API_HOST . 'RetrieveTransactionReceipt',500);
         }
     }
+
+    //Tax
+
+    public function RetrieveReqResults($requestData)
+    {
+        $body = $requestData;
+        $body["Credentials"] = [
+            "User" => $this->USERNAME,
+            "Password" => $this->PASSWORD
+        ];
+
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveChannelResults',  $body);
+        $status = $response->getStatusCode();
+        $content = $response->getContent();
+        $response = json_encode($content);
+        $ApiResponse = json_decode($content, true);
+
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['RequestId'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', @$status);
+    }
 }

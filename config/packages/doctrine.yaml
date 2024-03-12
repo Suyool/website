@@ -32,7 +32,8 @@ doctrine:
                 url: '%env(resolve:WINDSL_DATABASE_URL)%'
             simly:
                 url: '%env(resolve:SIMLY_DATABASE_URL)%'
-
+            tax:
+                url: '%env(resolve:TAX_DATABASE_URL)%'
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -187,11 +188,11 @@ doctrine:
                         alias: windsl
 
             simly:
-                connection: simly
+                connection: tax
                 mappings:
                     Simly:
                         is_bundle: false
                         type: annotation
-                        dir: '%kernel.project_dir%/src/Entity/Simly'
-                        prefix: 'App\Entity\Simly'
-                        alias: Simly
+                        dir: '%kernel.project_dir%/src/Entity/Tax'
+                        prefix: 'App\Entity\Tax'
+                        alias: tax
