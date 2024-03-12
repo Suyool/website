@@ -6,11 +6,19 @@ const BottomSlider = () => {
   const dispatch = useDispatch();
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const parameters = useSelector((state) => state.appData.parameters);
-  const SelectedPlan = useSelector((state) => state.appData.simlyData.SelectedPlan);
+  const SelectedPlan = useSelector(
+    (state) => state.appData.simlyData.SelectedPlan
+  );
   const eSimDetail = useSelector((state) => state.appData.simlyData.eSimDetail);
   const Topup = () => {
     dispatch(settingData({ field: "isloading", value: true }));
-    dispatch(settingObjectData({ mainField: "bottomSlider", field: "isButtonDisable", value: true }));
+    dispatch(
+      settingObjectData({
+        mainField: "bottomSlider",
+        field: "isButtonDisable",
+        value: true,
+      })
+    );
     setTimeout(() => {
       dispatch(settingData({ field: "mobileResponse", value: "" }));
       if (parameters?.deviceType === "Android") {
@@ -19,7 +27,9 @@ const BottomSlider = () => {
         }, 2000);
       } else if (parameters?.deviceType === "Iphone") {
         setTimeout(() => {
-          window.webkit.messageHandlers.callbackHandler.postMessage("fingerprint");
+          window.webkit.messageHandlers.callbackHandler.postMessage(
+            "fingerprint"
+          );
         }, 2000);
       }
       window.handleCheckout = (message) => {
@@ -27,8 +37,8 @@ const BottomSlider = () => {
       };
     }, 1000);
   };
-  if(SelectedPlan){
-      const isocode = SelectedPlan ? SelectedPlan.isoCode : eSimDetail.isoCode
+  if (SelectedPlan) {
+    const isocode = SelectedPlan ? SelectedPlan.isoCode : eSimDetail.isoCode;
   }
   return (
     <div id="BottomSliderContainer">
@@ -36,13 +46,23 @@ const BottomSlider = () => {
         <div className="brBoucket"></div>
         <div className="titles">
           <div className="titleGrid">
-            {bottomSlider?.name == "availableNetworks" && <>Supported Networks</>}
-            {bottomSlider?.name == "availableCountries" && <>Supported Countries</>}
+            {bottomSlider?.name == "availableNetworks" && (
+              <>Supported Networks</>
+            )}
+            {bottomSlider?.name == "availableCountries" && (
+              <>Supported Countries</>
+            )}
             {bottomSlider?.name == "isViewNetwork" && <>Top Up E-Sim</>}
+            {bottomSlider?.name == "isExpired" && <>Expired E-SIM</>}
           </div>
           <button
             onClick={() => {
-              dispatch(settingData({ field: "bottomSlider", value: { isShow: false, name: "", data: {} } }));
+              dispatch(
+                settingData({
+                  field: "bottomSlider",
+                  value: { isShow: false, name: "", data: {} },
+                })
+              );
             }}
           >
             Cancel
@@ -54,21 +74,31 @@ const BottomSlider = () => {
         {bottomSlider?.name == "availableNetworks" && (
           <div id={bottomSlider?.name}>
             <div className="cardSec">
-              <img src={bottomSlider?.data.networks[0]?.countryImageURL} alt="flag" />
+              <img
+                src={bottomSlider?.data.networks[0]?.countryImageURL}
+                alt="flag"
+              />
               <div className="method">
                 <div className="body">
-                  {bottomSlider?.data.networks[0]?.supported_networks?.map((network, index) => (
-                    <div className="plan" key={index}>
-                      <div style={{ color: "black" }}>{network.name}</div>
-                    </div>
-                  ))}
+                  {bottomSlider?.data.networks[0]?.supported_networks?.map(
+                    (network, index) => (
+                      <div className="plan" key={index}>
+                        <div style={{ color: "black" }}>{network.name}</div>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             </div>
             <div className="footSectionPick">
               <button
                 onClick={() => {
-                  dispatch(settingData({ field: "bottomSlider", value: { isShow: false, name: "", data: {} } }));
+                  dispatch(
+                    settingData({
+                      field: "bottomSlider",
+                      value: { isShow: false, name: "", data: {} },
+                    })
+                  );
                 }}
               >
                 Got it
@@ -81,19 +111,26 @@ const BottomSlider = () => {
             <div className="cardSec">
               <div className="method">
                 <div className="bodyCountry">
-                  {bottomSlider?.data.countryInfo[0][isocode]?.map((country, index) => (
-                    <div className="plan" key={index}>
-                      <img src={country.countryImageURL} alt="flag" />
-                      <div className="name">{country.name}</div>
-                    </div>
-                  ))}
+                  {bottomSlider?.data.countryInfo[0][isocode]?.map(
+                    (country, index) => (
+                      <div className="plan" key={index}>
+                        <img src={country.countryImageURL} alt="flag" />
+                        <div className="name">{country.name}</div>
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             </div>
             <div className="footSectionPick">
               <button
                 onClick={() => {
-                  dispatch(settingData({ field: "bottomSlider", value: { isShow: false, name: "", data: {} } }));
+                  dispatch(
+                    settingData({
+                      field: "bottomSlider",
+                      value: { isShow: false, name: "", data: {} },
+                    })
+                  );
                 }}
               >
                 Got it
@@ -119,7 +156,7 @@ const BottomSlider = () => {
                 </div>
               </div>
             </div>
-            <div className="footSectionPick" style={{color: "#00ADFF"}} >
+            <div className="footSectionPick" style={{ color: "#00ADFF" }}>
               <button
                 onClick={() => {
                   Topup();
@@ -127,6 +164,38 @@ const BottomSlider = () => {
                 disabled={bottomSlider.isButtonDisable}
               >
                 Confirm & TopUp
+              </button>
+            </div>
+          </div>
+        )}
+        {bottomSlider?.name == "isExpired" && (
+          <div id={bottomSlider?.name}>
+            <div className="cardSec">
+              <img src={bottomSlider?.expiredimage} alt="flag" />
+              <div className="method">
+                <div className="body">
+                  You can’t top up the ${bottomSlider?.data.amount} {bottomSlider?.data.country} eSIM
+                  because it has expired. Kindly purchase a new one to stay
+                  connected.
+                </div>
+              </div>
+            </div>
+            <div className="footSectionPick">
+              <button
+                onClick={() => {
+                  dispatch(
+                    settingData({
+                      field: "headerData",
+                      value: {
+                        title: "Simly",
+                        backLink: "Packages",
+                        currentPage: "",
+                      },
+                    })
+                  );
+                }}
+              >
+                Purchase New E-SIM
               </button>
             </div>
           </div>

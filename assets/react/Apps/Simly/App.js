@@ -18,24 +18,24 @@ const App = ({ parameters }) => {
   const isLoading = useSelector((state) => state.appData.isloading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      settingData({
-        field: "modalData",
-        value: {
-          isShow: true,
-          name: "WarningModal",
-          img: "/build/images/Loto/warning.png",
-          title: "eSIM Payment Successful",
-          desc: (
-            <div>
-              You have successfully topped up the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
-            </div>
-          ),
-          btn: "Install eSIM",
-          flag: "",
-        },
-      })
-    );
+    // dispatch(
+    //   settingData({
+    //     field: "modalData",
+    //     value: {
+    //       isShow: true,
+    //       name: "WarningModal",
+    //       img: "/build/images/Loto/warning.png",
+    //       title: "eSIM Payment Successful",
+    //       desc: (
+    //         <div>
+    //           You have successfully topped up the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
+    //         </div>
+    //       ),
+    //       btn: "Install eSIM",
+    //       flag: "",
+    //     },
+    //   })
+    // );
     dispatch(settingData({ field: "parameters", value: parameters }));
     dispatch(
       settingData({

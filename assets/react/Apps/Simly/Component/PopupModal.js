@@ -161,6 +161,23 @@ const PopupModal = () => {
             </div>
           </div>
         )}
+        {modalData.name == "WarningModal" && (
+          <div id="SuccessModal">
+            <img src={modalData.img} alt="flag" />
+            <div className="title">{modalData.title}</div>
+            <div className="desc">{modalData.desc}</div>
+            {modalData.btn == "OK" && (
+                <button className="okiBtnModal" onClick={() => goToPlay()}>
+                OK
+              </button>
+              )}
+              {modalData.btn != "OK" && (
+                <button className="okiBtnModal" onClick={() => onInstall()}>
+                 {modalData.btn}
+              </button>
+              )}
+          </div>
+        )}
       </Modal.Body>
     </Modal>
   );
