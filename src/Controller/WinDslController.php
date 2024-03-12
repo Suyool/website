@@ -158,7 +158,12 @@ class WinDslController extends AbstractController
                     ->setstatus(Transactions::$statusOrder['PENDING']);
                 $this->mr->persist($transaction);
                 $this->mr->flush();
-                $pushutility = $this->suyoolServices->PushUtilities($SuyoolUserId,$this->params->get('WINDSL_MERCHANT_ID')."-".$transaction->getId(),$data['amount'],$data['currency'],0);
+                if($_ENV['APP_ENV'] =='prod' ){
+                    $windslmerchantid = $this->params->get('WINDSL_MERCHANT_ID_PROD');
+                }else{
+                    $windslmerchantid = $this->params->get('WINDSL_MERCHANT_ID');
+                }
+                $pushutility = $this->suyoolServices->PushUtilities($SuyoolUserId,$windslmerchantid."-".$transaction->getId(),$data['amount'],$data['currency'],0);
                 $log->pushLogs(new Logs, "PushUtility", @$pushutility[4], @$pushutility[5], @$pushutility[7], @$pushutility[6]);
                 if($pushutility[0]){
                 $topup = $this->windslService->topup($this->session->get('userid'), $data['amount'], $data['currency']);
