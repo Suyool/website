@@ -387,7 +387,6 @@ class Memcached
             }
 
             // dd($dividedArrays);
-
             $data['global'][0]['countryImageURL'] = "/build/images/simly/Global_Icon.svg";
             $data['regional'][0]['countryImageURL'] = "/build/images/simly/AfricaIcon.svg";
             $data['regional'][1]['countryImageURL'] = "/build/images/simly/AsiaIcon.svg";
@@ -395,6 +394,27 @@ class Memcached
             $data['regional'][3]['countryImageURL'] = "/build/images/simly/Middle_East_Icon.svg";
             $data['regional'][4]['countryImageURL'] = "/build/images/simly/North_America_Icon.svg";
             $data['regional'][5]['countryImageURL'] = "/build/images/simly/South_America_Icon.svg";
+
+            foreach ($data['regional'] as $index => $regionalData) {
+                // Check if 'isoCode' is not set, then assign an empty array
+                if (!isset($regionalData['isoCode'])) {
+                    $data['regional'][$index] = [];
+                }
+            }
+
+            // Loop through 'global' array
+            foreach ($data['global'] as $index => $globalData) {
+                // Check if 'isoCode' is not set, then assign an empty array
+                if (!isset($globalData['isoCode'])) {
+                    $data['global'][$index] = [];
+                }
+            }
+
+            // Remove empty arrays from 'regional'
+            $data['regional'] = array_filter($data['regional']);
+
+            // Remove empty arrays from 'global'
+            $data['global'] = array_filter($data['global']);
             // Keep the 'regional' and 'global' arrays unchanged
             $filter = [
                 'local' => $dividedArrays,
@@ -468,14 +488,14 @@ class Memcached
                 foreach ($b as $index) {
                     $filteredDatInOrder[$index] = $filteredData[$index];
                 }
-            }else{
+            } else {
                 $filteredDatInOrder = $filteredData;
             }
-//            $b = array(2, 4, 3, 1, 0, 5);
-//            $filteredDatInOrder = array();
-//            foreach ($b as $index) {
-//                $filteredDatInOrder[$index] = $filteredData[$index];
-//            }
+            //            $b = array(2, 4, 3, 1, 0, 5);
+            //            $filteredDatInOrder = array();
+            //            foreach ($b as $index) {
+            //                $filteredDatInOrder[$index] = $filteredData[$index];
+            //            }
             // dd(array_merge($c));
             // dd($filteredData);
             $jsonData = json_encode(array_merge($filteredDatInOrder));

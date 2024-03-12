@@ -28,8 +28,8 @@ const PopupModal = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "Alfa",
-          backLink: "",
+          title: "eSim",
+          backLink: "Packages",
           currentPage: headerData.currentPage,
         },
       })

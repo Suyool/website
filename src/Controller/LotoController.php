@@ -64,6 +64,7 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
+        // dd($this->suyoolServices->UpdateUtilities(0,"",121768));
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 

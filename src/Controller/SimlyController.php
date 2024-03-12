@@ -162,11 +162,14 @@ class SimlyController extends AbstractController
         ], 400);
 
         $code = strtoupper($code);
+      
 
         $res = $simlyServices->GetPlansUsingISOCode($code);
+        $res['plans'] = array_filter($res['plans']);
+        $res['plans'] = array_merge($res['plans']);
         return new JsonResponse([
             'status' => true,
-            'message' => $res
+            'message' => array_merge($res)
         ], 200);
     }
 
