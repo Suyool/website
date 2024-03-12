@@ -289,7 +289,7 @@ const RechargeThePayment = () => {
             <div className="steps mt-2">
               <div className="dot"></div>
               <div className="textStep">
-                Select your Simly eSIM under ‘Cellular Plans’.
+                Select your Suyool eSIM under ‘Cellular Plans’.
               </div>
             </div>
             <div className="steps">
