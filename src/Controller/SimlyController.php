@@ -193,7 +193,11 @@ class SimlyController extends AbstractController
      */
     public function PurchaseTopup(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
     {
-        $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID'));
+        if($_ENV['APP_ENV'] == "prod"){
+            $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID_PROD'));
+        }else{
+            $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID'));
+        }
         $SuyoolUserId = $this->session->get('suyoolUserId');        
         $data = json_decode($request->getContent(), true);
         if(isset($data['esimId'])){
@@ -234,6 +238,11 @@ class SimlyController extends AbstractController
         }
 
         $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
+        if($_ENV['APP_ENV'] == "prod"){
+            $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID_PROD');
+        }else{
+            $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
+        }
         $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
         $pushlog=new LogsService($this->mr);
         // dd($simlyPlan);
