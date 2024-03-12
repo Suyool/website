@@ -56,7 +56,7 @@ class SimlyController extends AbstractController
                 // $this->session->set('suyoolUserId', 155);
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-                $parameters['deviceType'] = "Android";
+                // $parameters['deviceType'] = "Android";
 
 
                 return $this->render('simly/index.html.twig', [
