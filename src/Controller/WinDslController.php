@@ -34,7 +34,11 @@ class WinDslController extends AbstractController
         $this->mr = $managerRegistry->getManager("windsl");
         $this->windslService = $windslService;
         $this->session = $session;
-        $this->suyoolServices =  new SuyoolServices($params->get('WINDSL_MERCHANT_ID'));
+        if($_ENV['APP_ENV'] == 'prod'){
+            $this->suyoolServices =  new SuyoolServices($params->get('WINDSL_MERCHANT_ID_PROD'));
+        }else{
+            $this->suyoolServices =  new SuyoolServices($params->get('WINDSL_MERCHANT_ID'));
+        }
         $this->params=$params;
         $this->notificationServices=$notificationServices;
     }
