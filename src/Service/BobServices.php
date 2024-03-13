@@ -468,6 +468,35 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', @$status);
+        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse['ErrorCode'], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', $status, json_encode($body));
+    }
+
+    public function BillTranPayment($requestData)
+    {
+        $body = $requestData;
+        $body["Credentials"] = [
+            "User" => $this->USERNAME,
+            "Password" => $this->PASSWORD
+        ];
+
+        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
+        $status=$response->getStatusCode();
+        $myfile = fopen("../var/cache/ogerologs.txt", "a");
+        $content = $response->getContent();
+        $txt = json_encode(['response' => $response, 'content' => $content]) . " " . date('Y/m/d H:i:s ', time()) . " \n";
+        fwrite($myfile, $txt);
+        $ApiResponse = json_decode($content, true);
+        if ($ApiResponse["ErrorCode"] == 100) {
+            $res = $ApiResponse['Response'];
+            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+            $isSuccess = true;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        } else {
+            $decodedString = $ApiResponse['Response'];
+            $isSuccess = false;
+            $ErrorDescription = $ApiResponse['ErrorDescription'];
+        }
+
+        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment',$status);
     }
 }

@@ -187,7 +187,7 @@ doctrine:
                         prefix: 'App\Entity\Windsl'
                         alias: windsl
 
-            simly:
+            tax:
                 connection: tax
                 mappings:
                     Simly:

@@ -27,6 +27,7 @@ parameters:
     WINDSL_MERCHANT_ID_PROD: '32'
     SIMLY_MERCHANT_ID: '32'
     SIMLY_MERCHANT_ID_PROD: '31'
+    TAX_MERCHANT_ID_PROD: '34'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
     METHOD_POST: 'POST'
@@ -166,8 +167,11 @@ services:
     
     App\Controller\TerranetController:
         tags:
-            - { 'name': 'monolog.logger', 'channel': 'Alfa' }
-        
+            - { 'name': 'monolog.logger', 'channel': 'TerraNet' }
+
+    App\Controller\TaxController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Tax' }
 
     # App\Controller\LotoController:
     #     arguments:
