@@ -144,8 +144,8 @@ const Account = () => {
                         </div>
                       </div>
                       <div className="btns">
-                        {data.sim.status !== "TERMINATED" ||
-                          (data.sim.status !== "REFUNDED" && (
+                        {
+                          data.sim.status !== "REFUNDED" && (
                             <div
                               className={
                                 data.sim.status !== "PENDING"
@@ -199,13 +199,13 @@ const Account = () => {
                                     
                                 }}
                                 disabled={
-                                  data.sim.status === "REFUNDED"
+                                  data.sim.status !== "REFUNDED"
                                 }
                               >
                                 Top up
                               </button>
                             </div>
-                          ))}
+                          )}
 
                         <div
                           className={
