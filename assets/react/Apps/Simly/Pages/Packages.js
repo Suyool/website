@@ -7,7 +7,11 @@ import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
 const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
   const dispatch = useDispatch();
-  const { GetAllAvailableCountries, GetLocalAvailableCountries, GetPlansUsingISOCode } = AppAPI();
+  const {
+    GetAllAvailableCountries,
+    GetLocalAvailableCountries,
+    GetPlansUsingISOCode,
+  } = AppAPI();
   useEffect(() => {
     dispatch(
       settingData({
@@ -46,7 +50,10 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
         }
 
         const continent = Object.keys(continentObj)[0];
-        const countries = continentObj[continent]?.filter((country) => country.name.toLowerCase().includes(query.toLowerCase())) || [];
+        const countries =
+          continentObj[continent]?.filter((country) =>
+            country.name.toLowerCase().includes(query.toLowerCase())
+          ) || [];
 
         if (countries.length > 0) {
           return { [continent]: countries };
@@ -60,12 +67,27 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
   useEffect(() => {
     if (searchQuery.length >= 3) {
       setView("countries");
-      dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: false }));
-      const filtered = filterData(simlyData?.AvailableCountriesLocal, searchQuery);
+      // dispatch(
+      //   settingObjectData({
+      //     mainField: "simlyData",
+      //     field: "isPackageItem",
+      //     value: false,
+      //   })
+      // );
+      const filtered = filterData(
+        simlyData?.AvailableCountriesLocal,
+        searchQuery
+      );
       setFilteredData(filtered);
     } else {
       setView("countries");
-      dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: false }));
+      // dispatch(
+      //   settingObjectData({
+      //     mainField: "simlyData",
+      //     field: "isPackageItem",
+      //     value: false,
+      //   })
+      // );
       const filtered = filterData(simlyData?.AvailableCountriesLocal, "");
       setFilteredData(filtered || []);
     }
@@ -109,11 +131,36 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           <div className="search-icon-left">
             <img src="/build/images/g2g/search.svg" alt="Search Icon" />
           </div>
-          <input type="text" placeholder="Search Destination" value={searchQuery} onChange={handleSearchChange} />
+          <input
+            type="text"
+            placeholder="Search Destination"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
           <div
             className="search-icon-right"
             onClick={() => {
-              dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: "Account" }));
+              dispatch(
+                settingObjectData({
+                  mainField: "headerData",
+                  field: "currentPage",
+                  value: "Account",
+                })
+              );
+              dispatch(
+                settingObjectData({
+                  mainField: "simlyData",
+                  field: "isPackageItem",
+                  value: false,
+                })
+              );
+              dispatch(
+                settingObjectData({
+                  mainField: "simlyData",
+                  field: "SelectedCountry",
+                  value: null,
+                })
+              );
             }}
           >
             <img src="/build/images/topUpSimIcon.svg" alt="Icon" />
@@ -122,11 +169,19 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
         <div className="filter-btns-cont">
           <div className="btnCon  d-flex justify-content-center">
             <button
-              className={"btn btn-primary " + (view === "countries" ? "active" : "")}
+              className={
+                "btn btn-primary " + (view === "countries" ? "active" : "")
+              }
               onClick={() => {
                 localStorage.setItem("parentPlanType", "Local");
                 setView("countries");
-                dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: false }));
+                dispatch(
+                  settingObjectData({
+                    mainField: "simlyData",
+                    field: "isPackageItem",
+                    value: false,
+                  })
+                );
               }}
             >
               Per Country
@@ -134,11 +189,19 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           </div>
           <div className="btnCon  d-flex justify-content-center">
             <button
-              className={"btn btn-primary " + (view === "regions" ? "active" : "")}
+              className={
+                "btn btn-primary " + (view === "regions" ? "active" : "")
+              }
               onClick={() => {
                 localStorage.setItem("parentPlanType", "Regional");
                 setView("regions");
-                dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: false }));
+                dispatch(
+                  settingObjectData({
+                    mainField: "simlyData",
+                    field: "isPackageItem",
+                    value: false,
+                  })
+                );
               }}
             >
               Per Region
@@ -146,11 +209,19 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           </div>
           <div className="btnCon d-flex justify-content-center">
             <button
-              className={"btn btn-primary " + (view === "global" ? "active" : "")}
+              className={
+                "btn btn-primary " + (view === "global" ? "active" : "")
+              }
               onClick={() => {
                 localStorage.setItem("parentPlanType", "Global");
                 setView("global");
-                dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: false }));
+                dispatch(
+                  settingObjectData({
+                    mainField: "simlyData",
+                    field: "isPackageItem",
+                    value: false,
+                  })
+                );
               }}
             >
               Global
@@ -158,52 +229,88 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           </div>
         </div>
       </div>
-      {simlyData.isPackageItem && simlyData?.SelectedCountry ? (
+      {simlyData.isPackageItem && simlyData?.SelectedCountry && (
         <PackageItems country={simlyData?.SelectedCountry} />
-      ) : (
+      )}
+
+      {!simlyData.isPackageItem && (
         <>
           {
             <>
               {view === "regions" && (
-                <div className="row" style={{ margin: "0 10px", width: "100%" }}>
+                <div
+                  className="row"
+                  style={{ margin: "0 10px", width: "100%" }}
+                >
                   <div className="col">
                     {simlyData?.AvailableCountries &&
                       simlyData?.AvailableCountries.regional &&
-                      simlyData?.AvailableCountries.regional.map((region, index) => (
-                        <div key={index} className="card mb-3" onClick={() => handleClick(region.isoCode)}>
-                          <div className="card-body">
-                            <div id="Topp">
-                              <img src={region.countryImageURL} alt={region.name} width={50} />
-                              <div className="noTopp">
-                                <div className="card-title">{region.name} Packages</div>
-                                <p className="card-text">{region.destinations} destinations</p>
+                      simlyData?.AvailableCountries.regional.map(
+                        (region, index) => (
+                          <div
+                            key={index}
+                            className="card mb-3"
+                            onClick={() => handleClick(region.isoCode)}
+                          >
+                            <div className="card-body">
+                              <div id="Topp">
+                                <img
+                                  src={region.countryImageURL}
+                                  alt={region.name}
+                                  width={50}
+                                />
+                                <div className="noTopp">
+                                  <div className="card-title">
+                                    {region.name} Packages
+                                  </div>
+                                  <p className="card-text">
+                                    {region.destinations} destinations
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                   </div>
                 </div>
               )}
 
               {view === "global" && (
-                <div className="row" style={{ margin: "0 10px", width: "100%" }}>
+                <div
+                  className="row"
+                  style={{ margin: "0 10px", width: "100%" }}
+                >
                   <div className="col">
                     {simlyData?.AvailableCountries &&
                       simlyData?.AvailableCountries.global &&
-                      simlyData?.AvailableCountries.global.map((globalItem, index) => (
-                        <div key={index} className="card mb-3" onClick={() => handleClick(globalItem.isoCode)}>
-                          <div className="card-body">
-                            <div id="Topp">
-                              <img src={globalItem.countryImageURL} alt={globalItem.name} width={50} />
-                              <div className="noTopp">
-                                <div className="card-title">{globalItem.name} Packages</div>
-                                <p className="card-text">{globalItem.destinations} destinations</p>
+                      simlyData?.AvailableCountries.global.map(
+                        (globalItem, index) => (
+                          <div
+                            key={index}
+                            className="card mb-3"
+                            onClick={() => handleClick(globalItem.isoCode)}
+                          >
+                            <div className="card-body">
+                              <div id="Topp">
+                                <img
+                                  src={globalItem.countryImageURL}
+                                  alt={globalItem.name}
+                                  width={50}
+                                />
+                                <div className="noTopp">
+                                  <div className="card-title">
+                                    {globalItem.name} Packages
+                                  </div>
+                                  <p className="card-text">
+                                    {globalItem.destinations} destinations
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      )}
                   </div>
                 </div>
               )}
@@ -212,14 +319,51 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           {view === "countries" && (
             <>
               {isLoadingData ? (
-                <div className="row ps-3" style={{ width: "100%", overflow: "hidden" }}>
-                  <ContentLoader speed={2} width="100%" height="90vh" backgroundColor="#f3f3f3" foregroundColor="#ecebeb">
+                <div
+                  className="row ps-3"
+                  style={{ width: "100%", overflow: "hidden" }}
+                >
+                  <ContentLoader
+                    speed={2}
+                    width="100%"
+                    height="90vh"
+                    backgroundColor="#f3f3f3"
+                    foregroundColor="#ecebeb"
+                  >
                     <rect x="0" y="0" rx="3" ry="3" width="100%" height="80" />
                     <rect x="0" y="90" rx="3" ry="3" width="100%" height="80" />
-                    <rect x="0" y="180" rx="3" ry="3" width="100%" height="80" />
-                    <rect x="0" y="270" rx="3" ry="3" width="100%" height="80" />
-                    <rect x="0" y="360" rx="3" ry="3" width="100%" height="80" />
-                    <rect x="0" y="450" rx="3" ry="3" width="100%" height="80" />
+                    <rect
+                      x="0"
+                      y="180"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="80"
+                    />
+                    <rect
+                      x="0"
+                      y="270"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="80"
+                    />
+                    <rect
+                      x="0"
+                      y="360"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="80"
+                    />
+                    <rect
+                      x="0"
+                      y="450"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="80"
+                    />
                   </ContentLoader>
                 </div>
               ) : (
@@ -231,21 +375,36 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
                           <div key={index} className="continent-container">
                             {Object.keys(continentObj)?.map((continent) => (
                               <React.Fragment key={continent}>
-                                <div className="title">{displaycontinent(continent)}</div>
+                                <div className="title">
+                                  {displaycontinent(continent)}
+                                </div>
                                 <div className="country-scroll-container">
                                   <div className="row flex-nowrap">
-                                    {continentObj[continent].map((country, idx) => (
-                                      <div className="imgText" key={idx}>
-                                        <div key={idx} className="">
-                                          <div className="card countryCard" onClick={() => handleClick(country.isoCode)}>
-                                            <div className="card-body">
-                                              <img src={country.countryImageURL} alt={country.name} width={50} />
+                                    {continentObj[continent].map(
+                                      (country, idx) => (
+                                        <div className="imgText" key={idx}>
+                                          <div key={idx} className="">
+                                            <div
+                                              className="card countryCard"
+                                              onClick={() =>
+                                                handleClick(country.isoCode)
+                                              }
+                                            >
+                                              <div className="card-body">
+                                                <img
+                                                  src={country.countryImageURL}
+                                                  alt={country.name}
+                                                  width={50}
+                                                />
+                                              </div>
                                             </div>
                                           </div>
+                                          <h5 className="card-title">
+                                            {country.name}
+                                          </h5>
                                         </div>
-                                        <h5 className="card-title">{country.name}</h5>
-                                      </div>
-                                    ))}
+                                      )
+                                    )}
                                   </div>
                                 </div>
                               </React.Fragment>

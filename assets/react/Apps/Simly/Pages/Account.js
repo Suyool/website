@@ -12,7 +12,12 @@ const Account = () => {
   const isLoading = useSelector((state) => state.appData.isloading);
   const simlyData = useSelector((state) => state.appData.simlyData);
 
-  const { GetUsageOfEsim, PurchaseTopupEsim, GetNetworksById } = AppAPI();
+  const {
+    GetUsageOfEsim,
+    PurchaseTopupEsim,
+    GetNetworksById,
+    GetPlansUsingISOCode,
+  } = AppAPI();
 
   const [reqObj, setReqObj] = useState({
     planId: "",
@@ -55,27 +60,44 @@ const Account = () => {
         </div>
       )} */}
       {isLoadingData ? (
-        <div className="mt-5" style={{ margin: "0 10px",width:"100%" }}>
-          <ContentLoader speed={2} width="100%" height="90vh" backgroundColor="#f3f3f3" foregroundColor="#ecebeb">
+        <div className="mt-5" style={{ margin: "0 10px", width: "100%" }}>
+          <ContentLoader
+            speed={2}
+            width="100%"
+            height="90vh"
+            backgroundColor="#f3f3f3"
+            foregroundColor="#ecebeb"
+          >
             <rect x="0" y="0" rx="3" ry="3" width="100%" height="180" />
             <rect x="0" y="210" rx="3" ry="3" width="100%" height="180" />
           </ContentLoader>
         </div>
       ) : (
         <>
-          <div style={{width:"100%"}}>
+          <div style={{ width: "100%" }}>
             {simlyData.mapData && (
               <>
                 {simlyData.accountInformation.map((data, index) => (
                   <div key={index} className="accountcomp">
                     <div className="accountCard">
                       <div className="titleaccount">
-                        {data.countryImage ? <img src={data.countryImage} /> : <img src="/build/images/simlyIcon.svg" />}
+                        {data.countryImage ? (
+                          <img src={data.countryImage} />
+                        ) : (
+                          <img src="/build/images/simlyIcon.svg" />
+                        )}
                         <span>{data.country}</span>
                       </div>
                       <div className="rechargable">
                         <div className="single-chart">
-                          <svg viewBox="0 0 36 36" className={`circular-chart ${data.sim.status === "FULLY_USED" ? "violet" : "green"}`}>
+                          <svg
+                            viewBox="0 0 36 36"
+                            className={`circular-chart ${
+                              data.sim.status === "FULLY_USED"
+                                ? "violet"
+                                : "green"
+                            }`}
+                          >
                             <path
                               className="circle-bg"
                               d="M18 2.0845
@@ -93,69 +115,142 @@ const Account = () => {
                               {data.sim.consumed}GB
                             </text>
                           </svg>
-                          <div className="used">used from {data.sim.size} GB</div>
+                          <div className="used">
+                            used from {data.sim.size} GB
+                          </div>
                         </div>
                         <div className="radio">
-                          <input type="checkbox" id="eSim" name="eSim" value="eSim" checked={data.sim.status !== "FULLY_USED"} disabled />
+                          <input
+                            type="checkbox"
+                            id="eSim"
+                            name="eSim"
+                            value="eSim"
+                            checked={data.sim.status !== "FULLY_USED"}
+                            disabled
+                          />
                           <label className="esim">eSim is still valid</label>
                           <br />
-                          <input type="checkbox" id="plans" name="plans" value="plan" checked={data.sim.status === "FULLY_USED"} disabled />
-                          <label className="esim">Plan has been fully used</label>
+                          <input
+                            type="checkbox"
+                            id="plans"
+                            name="plans"
+                            value="plan"
+                            checked={data.sim.status === "FULLY_USED"}
+                            disabled
+                          />
+                          <label className="esim">
+                            Plan has been fully used
+                          </label>
                         </div>
                       </div>
                       <div className="btns">
-                        {data.sim.status !== "TERMINATED" && (
-                          <div className={data.sim.status !== "PENDING" ? "topup" : "details"}>
-                            <button
-                              className="btntopup"
-                              onClick={() => {
-                                setReqObj({
-                                  esimId: data?.esimId,
-                                  planId: data?.plan,
-                                  countryImage: data?.countryImage,
-                                });
-                                dispatch(
-                                  settingData({
-                                    field: "bottomSlider",
-                                    value: {
-                                      isShow: true,
-                                      name: "isViewNetwork",
-                                      backPage: "",
-                                      data: {
-                                        gb: data?.sim?.size,
-                                        amount: data?.initialPrice,
-                                        country: data.country,
-                                        esimId: data?.esimId,
-                                        planId: data?.plan,
-                                        countryImage: data?.countryImage,
-                                      },
-                                      isButtonDisable: false,
-                                    },
-                                  })
-                                );
-                              }}
-                              disabled={data.sim.status === "TERMINATED" || data.sim.status === "EXPIRED"}
+                        {data.sim.status !== "TERMINATED" ||
+                          (data.plan.status !== "EXPIRED" && (
+                            <div
+                              className={
+                                data.sim.status !== "PENDING"
+                                  ? "topup"
+                                  : "details"
+                              }
                             >
-                              Top up
-                            </button>
-                          </div>
-                        )}
+                              <button
+                                className="btntopup"
+                                onClick={() => {
+                                  GetPlansUsingISOCode(data?.isoCode);
+                                  dispatch(
+                                    settingData({
+                                      field: "headerData",
+                                      value: {
+                                        title: "Simly",
+                                        backLink: "Packages",
+                                        currentPage: "Packages",
+                                      },
+                                    })
+                                  );
+                                  // setReqObj({
+                                  //   esimId: data?.esimId,
+                                  //   planId: data?.plans,
+                                  //   countryImage: data?.countryImage,
+                                  // });
+                                  // dispatch(
+                                  //   settingData({
+                                  //     field: "bottomSlider",
+                                  //     value: {
+                                  //       isShow: true,
+                                  //       name: "isViewNetwork",
+                                  //       backPage: "",
+                                  //       data: {
+                                  //         gb: data?.sim?.size,
+                                  //         amount: data?.initialPrice,
+                                  //         country: data.country,
+                                  //         esimId: data?.esimId,
+                                  //         planId: data?.plans,
+                                  //         countryImage: data?.countryImage,
+                                  //       },
+                                  //       isButtonDisable: false,
+                                  //     },
+                                  //   })
+                                  // );
+                                }}
+                                disabled={
+                                  data.sim.status === "TERMINATED" ||
+                                  data.plan.status === "EXPIRED"
+                                }
+                              >
+                                Top up
+                              </button>
+                            </div>
+                          ))}
 
-                        <div className={data.sim.status === "PENDING" ? "topup" : "details"}>
+                        <div
+                          className={
+                            data.sim.status === "PENDING" ? "topup" : "details"
+                          }
+                        >
                           <button
                             className="btntopup"
                             onClick={() => {
-                              dispatch(settingObjectData({ mainField: "simlyData", field: "esimId", value: data.esimId }));
-                              dispatch(settingObjectData({ mainField: "simlyData", field: "eSimDetail", value: data }));
-                              dispatch(settingObjectData({ mainField: "simlyData", field: "SelectedPackage", value: data?.plan }));
-                              dispatch(settingObjectData({ mainField: "headerData", field: "currentPage", value: data.sim.status === "PENDING" ? "RechargeThePayment" : "PlanDetail" }));
+                              dispatch(
+                                settingObjectData({
+                                  mainField: "simlyData",
+                                  field: "esimId",
+                                  value: data.esimId,
+                                })
+                              );
+                              dispatch(
+                                settingObjectData({
+                                  mainField: "simlyData",
+                                  field: "eSimDetail",
+                                  value: data,
+                                })
+                              );
+                              dispatch(
+                                settingObjectData({
+                                  mainField: "simlyData",
+                                  field: "SelectedPackage",
+                                  value: data?.plans,
+                                })
+                              );
+                              dispatch(
+                                settingObjectData({
+                                  mainField: "headerData",
+                                  field: "currentPage",
+                                  value:
+                                    data.sim.status === "PENDING"
+                                      ? "RechargeThePayment"
+                                      : "PlanDetail",
+                                })
+                              );
                               // if (data.sim.status !== "PENDING") {
                               //   localStorage.setItem("qrImage", data.qrCodeImage);
                               //   localStorage.setItem("qrString", data.qrCodeString);
                               // }
                             }}
+                            disabled={data.plan.status === "EXPIRED"}
                           >
-                            {data.sim.status === "PENDING" ? "Install" : "Details"}
+                            {data.sim.status === "PENDING"
+                              ? "Install"
+                              : "Details"}
                           </button>
                         </div>
                       </div>

@@ -507,7 +507,7 @@ class SimlyController extends AbstractController
             foreach ($esims as $esim) {
                 $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
                 $res['country'] = $esim->getCountry();
-                $res['plan'] = $esim->getPlan();
+                $res['plans'] = $esim->getPlan();
                 $res['esimId'] = $esim->getEsimId();
                 $res['countryImage'] = $esim->getCountryImage();
                 $res['initialPrice'] = $esim->getInitialPrice();
