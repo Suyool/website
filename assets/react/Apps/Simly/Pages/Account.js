@@ -134,7 +134,7 @@ const Account = () => {
                                   })
                                 );
                               }}
-                              disabled={data.sim.status === "TERMINATED"}
+                              disabled={data.sim.status === "TERMINATED" || data.sim.status === "EXPIRED"}
                             >
                               Top up
                             </button>
