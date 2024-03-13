@@ -199,6 +199,7 @@ class TaxController extends AbstractController
                     $orderTst = $this->params->get('TAX_MERCHANT_ID_PROD') . "-" . $order->getId();
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $tax_With_id->getfees());
+
                     $pushlog = new LogsService($this->mr);
                     $pushlog->pushLogs(new Logs,"PushUtility",@$response[4],@$response[5],@$response[7], @$response[6]);
                     if ($response[0]) {
@@ -212,9 +213,9 @@ class TaxController extends AbstractController
 
                         $requestData = [
                             "ChannelType" => "API",
-                            "ItemId" => 1,
-                            "VenId" => 3,
-                            "ProductId" => 16,
+                            "ItemId" => 2497,
+                            "VenId" => 20,
+                            "ProductId" => 25,
                             "TransactionId" => strval($tax_With_id->gettransactionId()),
                             "TaxResult" => [
                                 "Amount" => strval($tax_With_id->getamount()),
@@ -225,7 +226,7 @@ class TaxController extends AbstractController
                             ],
                         ];
                         $BillTranPayment = $bobServices->BillTranPayment($requestData);
-                        $pushlog->pushLogs(new Logs,"ap3_tax_bill",@$BillTranPayment[4],@$BillTranPayment[3],@$BillTranPayment[5],@$BillTranPayment[6]);
+                        $pushlog->pushLogs(new Logs,"ap3_tax_bill_inject",@$BillTranPayment[4],@$BillTranPayment[3],@$BillTranPayment[5],@$BillTranPayment[6]);
                         if ($BillTranPayment[0]) {
                             //if payment from Bob provider success insert tax data to db
                             $tax = new Tax();
@@ -299,6 +300,7 @@ class TaxController extends AbstractController
                             $messageBack = "Success";
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
+
                             $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
