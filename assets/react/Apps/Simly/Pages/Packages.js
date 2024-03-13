@@ -321,7 +321,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
               {isLoadingData ? (
                 <div
                   className="row ps-3"
-                  style={{ width: "100%", overflow: "hidden" }}
+                  style={{ width: "100%" }}
                 >
                   <ContentLoader
                     speed={2}
@@ -367,7 +367,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
                   </ContentLoader>
                 </div>
               ) : (
-                <div style={{ width: "100%", overflow: "hidden" }}>
+                <div style={{ width: "100%" }}>
                   <div className="row ps-3">
                     <div className="col">
                       <div className="card-columns continent-card-container">

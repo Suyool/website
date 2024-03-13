@@ -18,6 +18,24 @@ const App = ({ parameters }) => {
   const isLoading = useSelector((state) => state.appData.isloading);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(
+      settingData({
+        field: "modalData",
+        value: {
+          isShow: true,
+          name: "WarningModal",
+          img: "/build/images/Loto/warning.png",
+          title: "eSIM Compatibility",
+          desc: (
+            <div>
+              Dial *#06# on your phone to verify eSIM compatibility. If you see the EID barcode, your device is compatible
+            </div>
+          ),
+          btn: "Dial *#06#",
+          flag: "",
+        },
+      })
+    );
     dispatch(settingData({ field: "parameters", value: parameters }));
     dispatch(
       settingData({

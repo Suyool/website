@@ -25,6 +25,7 @@ const initialState = {
     backPage: "",
     data: {},
     isButtonDisable: false,
+    expiredimage: null
   },
   simlyData: {
     isPackageItem: false,

@@ -52,7 +52,10 @@ class NotificationServices
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
                 if (is_null($suyoolUser)) return false;
-
+                if(isset($suyoolUser['IsCardRequested']) && $suyoolUser['IsCardRequested'] == false){
+                    // dd("ok");
+                    $suyoolUser['IsCardRequested'] = 0;
+                }
                 $user = new Users;
                 $user
                     ->setsuyoolUserId($suyoolUser["AccountID"])
@@ -61,7 +64,8 @@ class NotificationServices
                     ->setMobileNo(@$suyoolUser['MobileNo'])
                     ->setlang(@$suyoolUser["LanguageID"])
                     ->settype($suyoolUser['Type'])
-                    ->setCompanyName(@$suyoolUser['CompanyName']);
+                    ->setCompanyName(@$suyoolUser['CompanyName'])
+                    ->setIsHavingCard(@$suyoolUser["IsCardRequested"]);
                 $this->mr->persist($user);
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
