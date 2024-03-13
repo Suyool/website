@@ -156,7 +156,7 @@ const Account = () => {
                               <button
                                 className="btntopup"
                                 onClick={() => {
-                                  if (data.sim.status === "TERMINATED") {
+                                  if (data.sim.status !== "TERMINATED") {
                                     GetPlansUsingISOCode(data?.isoCode);
                                     dispatch(
                                       settingData({
@@ -199,7 +199,6 @@ const Account = () => {
                                     
                                 }}
                                 disabled={
-                                  data.sim.status === "TERMINATED" ||
                                   data.sim.status === "REFUNDED"
                                 }
                               >
