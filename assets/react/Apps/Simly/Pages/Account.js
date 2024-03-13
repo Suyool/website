@@ -145,7 +145,7 @@ const Account = () => {
                       </div>
                       <div className="btns">
                         {data.sim.status !== "TERMINATED" ||
-                          (data.plan.status !== "EXPIRED" && (
+                          (data.sim.status !== "REFUNDED" && (
                             <div
                               className={
                                 data.sim.status !== "PENDING"
@@ -156,45 +156,51 @@ const Account = () => {
                               <button
                                 className="btntopup"
                                 onClick={() => {
-                                  GetPlansUsingISOCode(data?.isoCode);
-                                  dispatch(
-                                    settingData({
-                                      field: "headerData",
-                                      value: {
-                                        title: "Simly",
-                                        backLink: "Packages",
-                                        currentPage: "Packages",
-                                      },
-                                    })
-                                  );
+                                  if (data.sim.status === "TERMINATED") {
+                                    GetPlansUsingISOCode(data?.isoCode);
+                                    dispatch(
+                                      settingData({
+                                        field: "headerData",
+                                        value: {
+                                          title: "Simly",
+                                          backLink: "Packages",
+                                          currentPage: "Packages",
+                                        },
+                                      })
+                                    );
+                                  }else{
+                                    dispatch(
+                                      settingData({
+                                        field: "bottomSlider",
+                                        value: {
+                                          isShow: true,
+                                          name: "isExpired",
+                                          backPage: "",
+                                          data: {
+                                            // gb: data?.sim?.size,
+                                            // amount: data?.initialPrice,
+                                            // country: data.country,
+                                            // esimId: data?.esimId,
+                                            // planId: data?.plans,
+                                            // countryImage: data?.countryImage,
+                                          },
+                                          isButtonDisable: false,
+                                          expiredimage: "/build/images/simly/expired.svg"
+                                        },
+                                      })
+                                    );
+                                  }
+
                                   // setReqObj({
                                   //   esimId: data?.esimId,
                                   //   planId: data?.plans,
                                   //   countryImage: data?.countryImage,
                                   // });
-                                  // dispatch(
-                                  //   settingData({
-                                  //     field: "bottomSlider",
-                                  //     value: {
-                                  //       isShow: true,
-                                  //       name: "isViewNetwork",
-                                  //       backPage: "",
-                                  //       data: {
-                                  //         gb: data?.sim?.size,
-                                  //         amount: data?.initialPrice,
-                                  //         country: data.country,
-                                  //         esimId: data?.esimId,
-                                  //         planId: data?.plans,
-                                  //         countryImage: data?.countryImage,
-                                  //       },
-                                  //       isButtonDisable: false,
-                                  //     },
-                                  //   })
-                                  // );
+                                    
                                 }}
                                 disabled={
                                   data.sim.status === "TERMINATED" ||
-                                  data.plan.status === "EXPIRED"
+                                  data.sim.status === "REFUNDED"
                                 }
                               >
                                 Top up
@@ -246,10 +252,12 @@ const Account = () => {
                               //   localStorage.setItem("qrString", data.qrCodeString);
                               // }
                             }}
-                            disabled={data.plan.status === "EXPIRED"}
+                            disabled={data.sim.status === "REFUNDED"}
                           >
                             {data.sim.status === "PENDING"
                               ? "Install"
+                              : data.sim.status === "REFUNDED"
+                              ? "Refunded"
                               : "Details"}
                           </button>
                         </div>

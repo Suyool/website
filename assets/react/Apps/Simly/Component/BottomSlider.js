@@ -189,7 +189,15 @@ const BottomSlider = () => {
                       value: {
                         title: "Simly",
                         backLink: "Packages",
-                        currentPage: "",
+                        currentPage: "Packages",
+                      },
+                    })
+                  );
+                  dispatch(
+                    settingData({
+                      field: "bottomSlider",
+                      value: {
+                        isShow: false,
                       },
                     })
                   );

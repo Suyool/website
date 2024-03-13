@@ -46,6 +46,11 @@ class Users
      */
     private $mobileNo;
 
+    /**
+     * @ORM\Column(name="isHavingCard")
+     */
+    private $isHavingCard = 0;
+
     public function getsuyoolUserId()
     {
         return $this->suyoolUserId;
@@ -120,6 +125,17 @@ class Users
     public function setType($type)
     {
         $this->type = $type;
+        return $this;
+    }
+
+    public function getIsHavingCard()
+    {
+        return $this->isHavingCard;
+    }
+
+    public function setIsHavingCard($isHavingCard)
+    {
+        $this->isHavingCard = $isHavingCard;
         return $this;
     }
 }

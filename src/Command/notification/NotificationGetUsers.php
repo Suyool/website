@@ -73,7 +73,12 @@ class NotificationGetUsers extends Command
             foreach ($suyoolUsers as $types) {
                 foreach ($types as $item) {
                     $users = $this->mr->getRepository(Users::class)->findOneBy(['suyoolUserId' => $item["AccountID"]]);
-                    if (is_null($users)) {
+                    if (is_null($users)) {       
+                        if(isset($item['IsCardRequested']) && $item['IsCardRequested'] == false){
+                            // dd("ok");
+                            $item['IsCardRequested'] = 0;
+                        }
+                        // dd($item);
                         $user = new Users;
                         $user
                             ->setsuyoolUserId($item["AccountID"])
@@ -82,7 +87,8 @@ class NotificationGetUsers extends Command
                             ->setMobileNo(@$item['MobileNo'])
                             ->setlang(@$item["LanguageID"])
                             ->settype($item['Type'])
-                            ->setCompanyName(@$item['CompanyName']);
+                            ->setCompanyName(@$item['CompanyName'])
+                            ->setIsHavingCard(@$item['IsCardRequested']);
 
                         $this->mr->persist($user);
                         $this->mr->flush();

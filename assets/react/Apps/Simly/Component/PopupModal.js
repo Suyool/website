@@ -107,6 +107,21 @@ const PopupModal = () => {
 
   }
 
+  const handleDial = (string) => {
+    let object = [
+      {
+        Dial: {
+          Dial: string,
+        },
+      },
+    ];
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler(JSON.stringify(object));
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
+    }
+  }
+
   return (
     <Modal show={modalData.isShow} size="md" aria-labelledby="contained-modal-title-vcenter" centered id="modalRadius">
       <Modal.Body>
@@ -162,20 +177,38 @@ const PopupModal = () => {
           </div>
         )}
         {modalData.name == "WarningModal" && (
-          <div id="SuccessModal">
+          <div id="ErrorModal">
             <img src={modalData.img} alt="flag" />
             <div className="title">{modalData.title}</div>
-            <div className="desc">{modalData.desc}</div>
-            {modalData.btn == "OK" && (
-                <button className="okiBtnModal" onClick={() => goToPlay()}>
-                OK
-              </button>
+            <div className="desc">{typeof modalData.desc === "string" ? <div dangerouslySetInnerHTML={{ __html: modalData.desc }} /> : modalData.desc}</div>
+            <div className="buttonsDesign">
+              {modalData.btn == "OK" && (
+                <button
+                  className="exchangeBtnModal"
+                  onClick={() => {
+                    onHide();
+                  }}
+                >
+                  {modalData.btn}
+                </button>
               )}
               {modalData.btn != "OK" && (
-                <button className="okiBtnModal" onClick={() => onInstall()}>
-                 {modalData.btn}
-              </button>
+                <>
+                  
+                  <button className="okiBtnModal" onClick={()=>handleDial("*#06#")}>
+                    {modalData.btn}
+                  </button>
+                  <button
+                    className="exchangeBtnModal"
+                    onClick={() => {
+                      onHide();
+                    }}
+                  >
+                    Continue
+                  </button>
+                </>
               )}
+            </div>
           </div>
         )}
       </Modal.Body>
