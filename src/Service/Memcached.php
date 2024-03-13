@@ -498,6 +498,18 @@ class Memcached
             //            }
             // dd(array_merge($c));
             // dd($filteredData);
+            // dd($filteredDatInOrder);
+
+            foreach($filteredDatInOrder as $index=>&$value){
+               foreach($value as $index2=>$values){
+                // dd($index2);
+                usort($values, function($a, $b) {
+                    return strcmp($a['name'],$b['name']);
+                });
+               }
+                $filteredDatInOrder[$index][$index2] = $values;
+            }
+            // dd($filteredDatInOrder);
             $jsonData = json_encode(array_merge($filteredDatInOrder));
             // dd($jsonData);
             file_put_contents($file, $jsonData);
