@@ -6,7 +6,7 @@
       // background: #9696963d;
     }
     .logo {
-      margin: 20px auto 10px auto;
+      margin: 7px auto 7px auto;
       border-radius: 10px;
       height: 80px;
       width: 80px;
@@ -142,7 +142,7 @@
     .Caution {
       display: flex;
       align-items: flex-start;
-      padding-top: 20px;
+      padding-top: 5px;
       .warImg {
         width: 25px;
         img {
@@ -215,7 +215,8 @@
         padding: 12px;
         border-radius: 5px;
         font-family: $Medium;
-        margin-top: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     }
   }

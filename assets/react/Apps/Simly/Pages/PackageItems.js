@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { settingObjectData } from "../Redux/Slices/AppSlice";
+import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
 
 const PackageItems = ({ country }) => {
   const dispatch = useDispatch();
