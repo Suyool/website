@@ -86,8 +86,9 @@ const App = ({ parameters }) => {
         >
           <img
             className="mt-5"
-            src="/build/images/Loto/LibanaiseJeux.png"
+            src="/build/images/Loto/LibanaiseJeux2.svg"
             alt="La Libanaise des Jeux"
+            height={'70px'}
           />
 
           {activeButton.name === "LLDJ" && (

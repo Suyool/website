@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Sodetel\Order;
+use App\Entity\Simly\Order;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,4 +17,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SimlyOrdersRepository extends EntityRepository
 {
+
+    public function refundedEsims()
+    {
+        $qb = $this->createQueryBuilder('e')
+        ->select('t.transId,t.status,e.status as statusEsim, e.esimId,t.suyoolUserId,t')
+        ->leftJoin(Order::class,'t','WITH','t.esims_id = e.id')
+        ->where("e.status = 'REFUNDED' and t.status != 'canceled'")
+        ->getQuery()
+        ->getResult();
+
+        return $qb;
+    }
+
 }

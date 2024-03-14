@@ -529,6 +529,11 @@ class SimlyController extends AbstractController
                 $res['PlanType'] = $esim->getParentPlanType();
                 $res['isoCode'] = $esim->getIsoCode();
                 if (!isset($res[0])) {
+                    if($res['sim']['status'] == "REFUNDED"){
+                        $esim->setStatus($res['sim']['status']);
+                        $this->mr->persist($esim);
+                        $this->mr->flush();
+                    }
                     if ($res)
                         $usage[] = $res;
                 }
