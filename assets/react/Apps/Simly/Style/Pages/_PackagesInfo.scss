@@ -155,6 +155,10 @@
         color: #f47a00;
         padding-left: 8px;
         text-align: start;
+        span{
+          cursor: pointer;
+          text-decoration: underline;
+        }
       }
     }
     .br {

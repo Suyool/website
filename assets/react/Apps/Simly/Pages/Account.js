@@ -30,7 +30,7 @@ const Account = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "My eSIM Account",
+          title: "My Global eSIM Account",
           backLink: "Packages",
           currentPage: "Account",
         },
@@ -75,6 +75,19 @@ const Account = () => {
       ) : (
         <>
           <div style={{ width: "100%" }}>
+          {simlyData.accountInformation == null || simlyData.accountInformation.length === 0 && (
+                <>
+                <div className="ifempty card">
+                  <div className="title">
+                    <img src="/build/images/simly/card.svg" /><br/>
+                    You have no eSIM yet
+                  </div>
+                  <div className="desc">
+                  Once you purchase an eSIM it will appear here.
+                  </div>
+                </div>
+                </>
+              )}
             {simlyData.mapData && (
               <>
                 {simlyData.accountInformation.map((data, index) => (
@@ -162,7 +175,7 @@ const Account = () => {
                                       settingData({
                                         field: "headerData",
                                         value: {
-                                          title: "Simly",
+                                          title: "Global eSIM",
                                           backLink: "Packages",
                                           currentPage: "Packages",
                                         },

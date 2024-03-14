@@ -18,13 +18,15 @@ const App = ({ parameters }) => {
   const isLoading = useSelector((state) => state.appData.isloading);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(settingData({ field: "parameters", value: parameters }));
+    if(parameters?.isPopup){
     dispatch(
       settingData({
         field: "modalData",
         value: {
           isShow: true,
           name: "WarningModal",
-          img: "/build/images/Loto/warning.png",
+          img: "/build/images/simly/warning.svg",
           title: "eSIM Compatibility",
           desc: (
             <div>
@@ -36,12 +38,12 @@ const App = ({ parameters }) => {
         },
       })
     );
-    dispatch(settingData({ field: "parameters", value: parameters }));
+    }
     dispatch(
       settingData({
         field: "headerData",
         value: {
-          title: "Simly",
+          title: "Global eSIM",
           backLink: "",
           currentPage: "Packages",
         },

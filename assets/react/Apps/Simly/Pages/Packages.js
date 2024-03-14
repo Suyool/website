@@ -17,7 +17,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
       settingData({
         field: "headerData",
         value: {
-          title: "Simly",
+          title: "Global eSIM",
           backLink: "",
           currentPage: "Packages",
         },

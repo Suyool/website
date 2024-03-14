@@ -28,7 +28,7 @@ const PopupModal = () => {
       settingData({
         field: "headerData",
         value: {
-          title: "Simly",
+          title: "Global eSIM",
           backLink: "Packages",
           currentPage: headerData.currentPage,
         },

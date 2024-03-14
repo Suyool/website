@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Simly\Esim;
 use App\Entity\Simly\Logs;
 use App\Entity\Simly\Order;
+use App\Entity\Simly\Visitors;
 use App\Service\LogsService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
@@ -55,11 +56,22 @@ class SimlyController extends AbstractController
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $this->session->set('suyoolUserId', 155);
+                // $this->session->set('suyoolUserId', 1);
+                $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId'=>$suyoolUserInfo[0],'isPopup'=>true]);
+                if(is_null($visitor)){
+                    $visitors = new Visitors();
+                    $visitors->setSuyoolUserId($suyoolUserInfo[0])
+                    ->setWebKey($_POST['infoString'])
+                    ->setPopup(true);
+
+                    $this->mr->persist($visitors);
+                    $this->mr->flush();
+                    $parameters['isPopup'] = true;
+                }else{
+                    $parameters['isPopup'] = false;
+                }
 
                 $parameters['deviceType'] = $suyoolUserInfo[1];
-                // $parameters['deviceType'] = "Android";
-
 
                 return $this->render('simly/index.html.twig', [
                     'parameters' => $parameters

@@ -47,6 +47,21 @@ const PackagesInfo = () => {
 
   const planType = localStorage.getItem("parentPlanType");
 
+  const handleDial = (string) => {
+    let object = [
+      {
+        Dial: {
+          Dial: string,
+        },
+      },
+    ];
+    if (parameters?.deviceType === "Android") {
+      window.AndroidInterface.callbackHandler(JSON.stringify(object));
+    } else if (parameters?.deviceType === "Iphone") {
+      window.webkit.messageHandlers.callbackHandler.postMessage(object);
+    }
+  }
+
   return (
     <>
       <div className="packagesinfo">
@@ -67,6 +82,13 @@ const PackagesInfo = () => {
           </div>
         </div>
 
+        <div className="Caution mt-1">
+          <div className="warImg">
+            <img src="/build/images/attentionSign.svg" alt="warning" />
+          </div>
+          <div className="titlee">Before finalizing your order, make sure your device supports eSIM <span onClick={()=>handleDial("*#06#")}>by dialing *#06#</span>.</div>
+        </div>
+        
         <div className="valid">
           <div className="label">Valid for</div>
           <div className="value">{selectedPackage.duration} Days</div>
@@ -120,13 +142,6 @@ const PackagesInfo = () => {
           <div className="label">Activation Policy</div>
         </div>
         <div className="data">{selectedPackage?.activationPolicy}</div>
-
-        <div className="Caution mt-1">
-          <div className="warImg">
-            <img src="/build/images/attentionSign.svg" alt="warning" />
-          </div>
-          <div className="titlee">Before finalizing your order, make sure your device supports eSIM and is unlocked.</div>
-        </div>
 
         <div className="pay">
           <button
