@@ -68,15 +68,15 @@ class PlayLoto extends Command
         $output->writeln([
             'Successfully Playing Loto'
         ]);
-        
-        $pushlogs=new LogsService($this->mr);
+
+        $pushlogs = new LogsService($this->mr);
         $play  = 1;
         $newsum = 0;
         $drawNumber = 0;
         $bulk = 0; // 0 for unicast
         while ($play) {
             set_time_limit(0);
-            $purchaseOrder=[];
+            $purchaseOrder = [];
             $purchaseOrder = $this->mr->getRepository(loto::class)->CheckPurchasedStatus();
             // dd($purchaseOrder);
             foreach ($purchaseOrder as $purchaseOrder) {
@@ -85,15 +85,15 @@ class PlayLoto extends Command
                 $GetPurchasedOrder = $this->mr->getRepository(order::class)->findOneBy(['id' => $purchaseOrder['orderId']]);
                 $ticketDataArray = [];
                 foreach ($purchaseOrder['additionalData'] as $addData) {
-                    if($addData['ticketId']!=0){
+                    if ($addData['ticketId'] != 0) {
                         $ticketDataArray[] = $addData;
                         if ($addData['withZeed'] && $addData['bouquet']) {
-                            $gridsBouquetAsString=count(explode("|",$addData['grids']));
+                            $gridsBouquetAsString = count(explode("|", $addData['grids']));
                             $content = $this->notificationService->getContent('bouquet with zeed');
                             $params = json_encode(['draw' =>  $purchaseOrder['drawNumber'], 'bouquetgrids' => $gridsBouquetAsString, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId'], 'zeed' => $addData['zeed']], true);
                             $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
                         } else if (!$addData['withZeed'] && $addData['bouquet']) {
-                            $gridsBouquetAsString=count(explode("|",$addData['grids']));
+                            $gridsBouquetAsString = count(explode("|", $addData['grids']));
                             $content = $this->notificationService->getContent('bouquet without zeed');
                             $params = json_encode(['draw' => $purchaseOrder['drawNumber'], 'bouquetgrids' => $gridsBouquetAsString, 'result' => $purchaseOrder['result'], 'ticket' => $addData['ticketId']], true);
                             $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
@@ -115,14 +115,14 @@ class PlayLoto extends Command
                         }
                     }
                 }
-                if($purchaseOrder['TotalPrice'] > 0){
+                if ($purchaseOrder['TotalPrice'] > 0) {
                     $additionalDataArray[] = $ticketDataArray;
                     $ticket = count($ticketDataArray);
                     $additionalDataArray[] = ['count' => $ticket];
                 }
                 $additionalData = json_encode($additionalDataArray, true);
                 $updateutility = $this->suyoolServices->UpdateUtilities($purchaseOrder['TotalPrice'], $additionalData, $purchaseOrder['transId']);
-                $pushlogs->pushLogs(new Logs,"UpdateUtility",@$updateutility[3],@$updateutility[2],@$updateutility[4],@$updateutility[5]);
+                $pushlogs->pushLogs(new Logs, "UpdateUtility", @$updateutility[3], @$updateutility[2], @$updateutility[4], @$updateutility[5]);
                 if ($updateutility[0]) {
                     $GetPurchasedOrder->setamount($purchaseOrder['TotalPrice'])
                         ->setcurrency("LBP")
@@ -134,8 +134,8 @@ class PlayLoto extends Command
                         $this->notificationService->addNotification($purchaseOrder['userId'], $content, $params, $bulk);
                     }
                 } else {
-                        $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
-                        $GetPurchasedOrder->seterror($updateutility[1]);
+                    $GetPurchasedOrder->setstatus(order::$statusOrder['CANCELED']);
+                    $GetPurchasedOrder->seterror($updateutility[1]);
                 }
                 $this->mr->persist($GetPurchasedOrder);
                 $this->mr->flush();
@@ -167,14 +167,20 @@ class PlayLoto extends Command
                     $ticketscount++;
                     $newElement = [];
                     $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
-                    // $submit = [true,null,"",["success"],["token"=>123123]];
-                    $pushlogs->pushLogs(new Logs,"PlayLoto",@json_encode($submit[4]),json_encode($submit[3]),@$submit[5],@$submit[6]);
+                    // $submit = [true, null, "", ["success"], ["token" => 123123]];
+                    $pushlogs->pushLogs(new Logs, "PlayLoto", @json_encode($submit[4]), json_encode($submit[3]), @$submit[5], @$submit[6]);
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
                             sleep(5);
-                            $ticketId = $this->lotoServices->GetTicketId();
+                            do {
+                                sleep(5);
+                                $ticketId = $this->lotoServices->GetTicketId();
+                                $ticketIdAvoid = $this->mr->getRepository(loto::class)->findOneBy(['ticketId' => $ticketId, 'drawNumber' => $lotoToBePlayed->getdrawnumber()]);
+                            } while (!is_null($ticketIdAvoid));
+                            // echo "continue bouquet \n";
                             sleep(2);
                             $BouquetGrids = $this->lotoServices->BouquetGrids($ticketId);
+                            // $BouquetGrids = "1 2 3 4 5 6";
                             $lotoToBePlayed->setticketId($ticketId);
                             if ($submit[1] != null || $submit[1] != "") {
                                 $lotoToBePlayed->setzeednumber(str_pad($submit[1], 5, "0", STR_PAD_LEFT));
@@ -245,8 +251,12 @@ class PlayLoto extends Command
                     } else {
                         if ($submit[0]) {
                             sleep(5);
-                            $ticketId = $this->lotoServices->GetTicketId();
-                            // $ticketId="1234";
+                            do {
+                                sleep(5);
+                                $ticketId = $this->lotoServices->GetTicketId();
+                                $ticketIdAvoid = $this->mr->getRepository(loto::class)->findOneBy(['ticketId' => $ticketId, 'drawNumber' => $lotoToBePlayed->getdrawnumber()]);
+                            } while (!is_null($ticketIdAvoid));
+                            // echo "continue grid \n";
                             $lotoToBePlayed->setticketId($ticketId);
                             if ($submit[1] != null || $submit[1] != "") {
                                 $lotoToBePlayed->setzeednumber(str_pad($submit[1], 5, "0", STR_PAD_LEFT));
@@ -329,7 +339,7 @@ class PlayLoto extends Command
                 }
 
                 $updateutility = $this->suyoolServices->UpdateUtilities($newsum, $additionalData, $held->gettransId());
-                $pushlogs->pushLogs(new Logs,"UpdateUtility",@$updateutility[3],@$updateutility[2],@$updateutility[4],@$updateutility[5]);
+                $pushlogs->pushLogs(new Logs, "UpdateUtility", @$updateutility[3], @$updateutility[2], @$updateutility[4], @$updateutility[5]);
                 if ($updateutility[0]) {
                     $held->setamount($newsum)
                         ->setcurrency("LBP")
