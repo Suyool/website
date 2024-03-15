@@ -43,6 +43,7 @@ const AppAPI = () => {
     try {
       return axiosClient.get(`/getPlansUsingISOCode?code=${isoCode}`).then((response) => {
         if (response.data.status == true) {
+          dispatch(settingObjectData({ mainField: "headerData", field: "backLink", value: "Packages" }));
           dispatch(settingObjectData({ mainField: "simlyData", field: "SelectedCountry", value: response.data.message }));
           dispatch(settingObjectData({ mainField: "simlyData", field: "isPackageItem", value: true }));
         }

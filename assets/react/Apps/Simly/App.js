@@ -69,7 +69,7 @@ const App = ({ parameters }) => {
           </div>
         )}
 
-        {headerData.currentPage === "Packages" && <Packages />}
+        {(headerData.currentPage === "Packages") && <Packages />}
         {headerData.currentPage === "PackagesInfo" && <PackagesInfo />}
         {headerData.currentPage === "Account" && <Account />}
         {headerData.currentPage === "PlanDetail" && <PlanDetail />}

@@ -18,7 +18,8 @@ const PackageItems = ({ country }) => {
         <div className="row">
           {country.plans.map((packageItem, index) => (
             <div key={packageItem.planId} className="col-md-6">
-              <div className={`card mb-3 bg-package${(index % 3) + 1}`} onClick={() => handleCardClick(country, packageItem)}>
+              {/* <div className={`card mb-3 bg-package${(index % 3) + 1}`} onClick={() => handleCardClick(country, packageItem)}> */}
+              <div className={`card mb-3 bg-package1`} onClick={() => handleCardClick(country, packageItem)}>
                 <div className="card-body">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div className="itemsList">
