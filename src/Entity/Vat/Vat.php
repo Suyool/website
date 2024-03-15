@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Entity\Tax;
+namespace App\Entity\Vat;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="tax")
+ * @ORM\Table(name="vat")
  */
-class Tax
+class Vat
 {
     /**
      * @ORM\Id

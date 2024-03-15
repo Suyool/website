@@ -34,6 +34,8 @@ doctrine:
                 url: '%env(resolve:SIMLY_DATABASE_URL)%'
             tax:
                 url: '%env(resolve:TAX_DATABASE_URL)%'
+            vat:
+                url: '%env(resolve:VAT_DATABASE_URL)%'
         default_connection: default
         # charset: UTF8
         # logging: true
@@ -196,3 +198,13 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Entity/Tax'
                         prefix: 'App\Entity\Tax'
                         alias: tax
+
+            vat:
+                connection: vat
+                mappings:
+                    Simly:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity/Vat'
+                        prefix: 'App\Entity\Vat'
+                        alias: vat

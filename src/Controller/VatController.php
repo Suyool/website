@@ -3,11 +3,10 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Tax\Logs;
-use App\Entity\Tax\Order;
-use App\Entity\Tax\Tax;
-use App\Entity\Tax\TaxRequest;
+use App\Entity\Vat\Logs;
+use App\Entity\Vat\Order;
+use App\Entity\Vat\Vat;
+use App\Entity\Vat\VatRequest;
 use App\Service\BobServices;
 use App\Service\LogsService;
 use App\Service\NotificationServices;
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TaxController extends AbstractController
+class VatController extends AbstractController
 {
     private $mr;
     private $params;
@@ -28,13 +27,13 @@ class TaxController extends AbstractController
 
     public function __construct(ManagerRegistry $mr, ParameterBagInterface $params, SessionInterface $sessionInterface)
     {
-        $this->mr = $mr->getManager('tax');
+        $this->mr = $mr->getManager('vat');
         $this->params = $params;
         $this->session = $sessionInterface;
     }
 
     /**
-     * @Route("api/tax/retrieve", name="app_tax_retrieve")
+     * @Route("api/vat/retrieve", name="app_vat_retrieve")
      */
     public function index(Request $request, BobServices $bobServices, NotificationServices $notificationServices): Response
     {
@@ -50,24 +49,25 @@ class TaxController extends AbstractController
                     $requestData = [
                         "ChannelType" => "API",
                         "ItemId" => 2497,
-                        "VenId" => 20,
-                        "ProductId" => 25,
-                        "TaxMeta" => [
+                        "VenId" => 21,
+                        "ProductId" => 17,
+                        "TvaV1Meta" => [
                             "Amount" => $data["amount"],
                             "DocumentNumber" => $data['documentNumber']
                         ]
                     ];
 
                     $RetrieveChannel = $bobServices->RetrieveReqResults($requestData);
+
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap2_tax_bill",@$RetrieveChannel[7],@$RetrieveChannel[4],@$RetrieveChannel[5],@$RetrieveChannel[6]);
+                    $pushlog->pushLogs(new Logs,"ap2_vat_bill",@$RetrieveChannel[7],@$RetrieveChannel[4],@$RetrieveChannel[5],@$RetrieveChannel[6]);
 
                     if ($RetrieveChannel[0] == true) {
                         $resp = $RetrieveChannel[1]["Values"];
                         $displayedFees = intval($resp["Fees"]) + intval($resp["Fees1"]) + intval($resp["AdditionalFees"]);
 
-                        $taxReq = new TaxRequest();
-                        $taxReq
+                        $vatReq = new VatRequest();
+                        $vatReq
                             ->setsuyoolUserId($suyoolUserId)
                             ->setDocumentNumber($data["documentNumber"])
                             ->setresponse($RetrieveChannel[4])
@@ -86,27 +86,27 @@ class TaxController extends AbstractController
                             ->setdisplayedFees($displayedFees)
                             ->setrounding($resp["Rounding"]);
 
-                        $this->mr->persist($taxReq);
+                        $this->mr->persist($vatReq);
                         $this->mr->flush();
 
-                        $taxReqId = $taxReq->getId();
+                        $vatReqId = $vatReq->getId();
                         $messageBack = "Success";
                         $message = $resp;
                         $documentNumber = $data["documentNumber"];
                         $parameters = [
                             'documentNumber' => $documentNumber,
                             'displayBill' => $message,
-                            'TaxReqId' => $taxReqId,
+                            'VatReqId' => $vatReqId,
                             'displayedFees' => $displayedFees,
                         ];
                     } else {
-                        $taxReq = new TaxRequest;
-                        $taxReq
+                        $vatReq = new VatRequest;
+                        $vatReq
                             ->setsuyoolUserId($suyoolUserId)
                             ->setDocumentNumber($data["documentNumber"])
                             ->setresponse($RetrieveChannel[4])
                             ->seterrordesc($RetrieveChannel[2]);
-                        $this->mr->persist($taxReq);
+                        $this->mr->persist($vatReq);
                         $this->mr->flush();
                         $error = explode("-", $RetrieveChannel[2]);
 
@@ -142,7 +142,7 @@ class TaxController extends AbstractController
                     }
                 } else {
                     $message = "not connected";
-                    $TaxReqId = -1;
+                    $VatReqId = -1;
                     $documentNumber = -1;
                 }
 
@@ -166,7 +166,7 @@ class TaxController extends AbstractController
     }
 
     /**
-     * @Route("/api/tax/pay", name="ap3_tax_bill", methods="POST")
+     * @Route("/api/vat/pay", name="ap3_vat_bill", methods="POST")
      */
     public function billPayApi(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {
@@ -176,9 +176,9 @@ class TaxController extends AbstractController
             $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
             if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) &&  $webkeyDecrypted['devicesType'] == "CORPORATE") {
-                $suyoolServices = new SuyoolServices($this->params->get('TAX_MERCHANT_ID_PROD'));
+                $suyoolServices = new SuyoolServices($this->params->get('VAT_MERCHANT_ID_PROD'));
                 $suyoolUserId = $webkeyDecrypted['merchantId'];
-                $tax_With_id = $this->mr->getRepository(TaxRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
+                $vat_With_id = $this->mr->getRepository(VatRequest::class)->findOneBy(['id' => $data["ResponseId"]]);
                 $flagCode = null;
 
                 if ($data != null) {
@@ -187,17 +187,17 @@ class TaxController extends AbstractController
                     $order
                         ->setsuyoolUserId($suyoolUserId)
                         ->settransId(null)
-                        ->setTaxId(null)
+                        ->setVatId(null)
                         ->setstatus(Order::$statusOrder['PENDING'])
-                        ->setamount($tax_With_id->getamount() + $tax_With_id->getfees())
-                        ->setfees($tax_With_id->getfees())
+                        ->setamount($vat_With_id->getamount() + $vat_With_id->getfees())
+                        ->setfees($vat_With_id->getfees())
                         ->setcurrency("LBP");
                     $this->mr->persist($order);
                     $this->mr->flush();
 
-                    $orderTst = $this->params->get('TAX_MERCHANT_ID_PROD') . "-" . $order->getId();
+                    $orderTst = $this->params->get('VAT_MERCHANT_ID_PROD') . "-" . $order->getId();
                     //Take amount from .net
-                    $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $tax_With_id->getfees());
+                    $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $vat_With_id->getfees());
 
                     $pushlog = new LogsService($this->mr);
                     $pushlog->pushLogs(new Logs,"PushUtility",@$response[4],@$response[5],@$response[7], @$response[6]);
@@ -213,51 +213,52 @@ class TaxController extends AbstractController
                         $requestData = [
                             "ChannelType" => "API",
                             "ItemId" => 2497,
-                            "VenId" => 20,
-                            "ProductId" => 25,
-                            "TransactionId" => strval($tax_With_id->gettransactionId()),
-                            "TaxResult" => [
-                                "Amount" => strval($tax_With_id->getamount()),
-                                "DocumentNumber" => strval($tax_With_id->getDocumentNumber()),
-                                "Fees" => strval($tax_With_id->getfees()),
-                                "TotalAmount" => strval($tax_With_id->gettotalAmount()),
-                                "AdditionalFees" => strval($tax_With_id->getadditionalFees()),
+                            "VenId" => 21,
+                            "ProductId" => 17,
+                            "TransactionId" => strval($vat_With_id->gettransactionId()),
+                            "TvaV1Result" => [
+                                "Amount" => strval($vat_With_id->getamount()),
+                                "DocumentNumber" => strval($vat_With_id->getDocumentNumber()),
+                                "Fees" => strval($vat_With_id->getfees()),
+                                "TotalAmount" => strval($vat_With_id->gettotalAmount()),
+                                "AdditionalFees" => strval($vat_With_id->getadditionalFees()),
                             ],
                         ];
                         $BillTranPayment = $bobServices->BillTranPayment($requestData);
-                        $pushlog->pushLogs(new Logs,"ap3_tax_bill_inject",@$BillTranPayment[4],@$BillTranPayment[3],@$BillTranPayment[5],@$BillTranPayment[6]);
+
+                        $pushlog->pushLogs(new Logs,"ap3_vat_bill_inject",@$BillTranPayment[4],@$BillTranPayment[3],@$BillTranPayment[5],@$BillTranPayment[6]);
                         if ($BillTranPayment[0]) {
-                            //if payment from Bob provider success insert tax data to db
-                            $tax = new Tax();
-                            $tax
+                            //if payment from Bob provider success insert vat data to db
+                            $vat = new Vat();
+                            $vat
                                 ->setsuyoolUserId($suyoolUserId)
-                                ->setDocumentNumber($tax_With_id->getDocumentNumber())
-                                ->settransactionId($tax_With_id->gettransactionId())
+                                ->setDocumentNumber($vat_With_id->getDocumentNumber())
+                                ->settransactionId($vat_With_id->gettransactionId())
                                 ->setreferenceNumber($BillTranPayment[1]["TransactionReference"])
                                 ->setPayerName($data['PayerName'])
-                                ->setdisplayedFees($tax_With_id->getdisplayedFees())
-                                ->setcurrency($tax_With_id->getcurrency())
-                                ->setamount($tax_With_id->getamount())
-                                ->setamount1($tax_With_id->getamount1())
-                                ->setamount2($tax_With_id->getamount2())
-                                ->settotalAmount($tax_With_id->gettotalAmount())
-                                ->setMoFTotalAmount($tax_With_id->getMoFTotalAmount())
-                                ->setadditionalFees($tax_With_id->getadditionalFees())
-                                ->setfees($tax_With_id->getfees())
-                                ->setfees1($tax_With_id->getfees1())
-                                ->setrounding($tax_With_id->getrounding());
-                            $this->mr->persist($tax);
+                                ->setdisplayedFees($vat_With_id->getdisplayedFees())
+                                ->setcurrency($vat_With_id->getcurrency())
+                                ->setamount($vat_With_id->getamount())
+                                ->setamount1($vat_With_id->getamount1())
+                                ->setamount2($vat_With_id->getamount2())
+                                ->settotalAmount($vat_With_id->gettotalAmount())
+                                ->setMoFTotalAmount($vat_With_id->getMoFTotalAmount())
+                                ->setadditionalFees($vat_With_id->getadditionalFees())
+                                ->setfees($vat_With_id->getfees())
+                                ->setfees1($vat_With_id->getfees1())
+                                ->setrounding($vat_With_id->getrounding());
+                            $this->mr->persist($vat);
                             $this->mr->flush();
 
                             $IsSuccess = true;
 
-                            $taxId = $tax->getId();
-                            $tax = $this->mr->getRepository(Tax::class)->findOneBy(['id' => $taxId]);
+                            $vatId = $vat->getId();
+                            $vat = $this->mr->getRepository(Vat::class)->findOneBy(['id' => $vatId]);
 
                             //update order by passing prepaidId to order and set status to purshased
                             $orderupdate = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                             $orderupdate
-                                ->setTaxId($tax)
+                                ->setVatId($vat)
                                 ->setstatus(Order::$statusOrder['PURCHASED']);
                             $this->mr->persist($orderupdate);
                             $this->mr->flush();
@@ -266,15 +267,15 @@ class TaxController extends AbstractController
                             $params = json_encode([
                                 'amount' => number_format($order->getamount()),
                                 'currency' => "L.L",
-                                'documentNumber' => $tax_With_id->getDocumentNumber(),
+                                'documentNumber' => $vat_With_id->getDocumentNumber(),
                                 'name' => $data['PayerName']
                             ]);
                             $additionalData = "";
                             $popup = [
-                                "Title" => "Tax Bill Paid Successfully",
+                                "Title" => "VAT Bill Paid Successfully",
                                 "globalCode" => 0,
                                 "flagCode" => 0,
-                                "Message" => "You have successfully paid your Tax bill of L.L " . number_format($order->getamount()) . ".",
+                                "Message" => "You have successfully paid your VAT bill of L.L " . number_format($order->getamount()) . ".",
                                 "isPopup" => true
                             ];
                             $content = $notificationServices->getContent('AcceptedOgeroPaymentCorporate');
@@ -282,17 +283,17 @@ class TaxController extends AbstractController
                             $notificationServices->addNotification($data["getUsersToReceiveNotification"], $content, $params, $bulk, $additionalData);
 
                             $updateUtilitiesAdditionalData = json_encode([
-                                'Amount' => $tax_With_id->getamount(),
-                                'Amount1' => $tax_With_id->getamount1(),
-                                'Amount2' => $tax_With_id->getamount2(),
-                                'TransactionId' => $tax_With_id->gettransactionId(),
-                                'Fees' => $tax_With_id->getfees(),
-                                'Fees1' => $tax_With_id->getfees1(),
-                                'TotalAmount' => $tax_With_id->gettotalAmount(),
-                                'Currency' => $tax_With_id->getcurrency(),
-                                'Rounding' => $tax_With_id->getrounding(),
-                                'AdditionalFees' => $tax_With_id->getadditionalFees(),
-                                'documentNumber' => $tax_With_id->getDocumentNumber()
+                                'Amount' => $vat_With_id->getamount(),
+                                'Amount1' => $vat_With_id->getamount1(),
+                                'Amount2' => $vat_With_id->getamount2(),
+                                'TransactionId' => $vat_With_id->gettransactionId(),
+                                'Fees' => $vat_With_id->getfees(),
+                                'Fees1' => $vat_With_id->getfees1(),
+                                'TotalAmount' => $vat_With_id->gettotalAmount(),
+                                'Currency' => $vat_With_id->getcurrency(),
+                                'Rounding' => $vat_With_id->getrounding(),
+                                'AdditionalFees' => $vat_With_id->getadditionalFees(),
+                                'documentNumber' => $vat_With_id->getDocumentNumber()
                             ]);
 
                             $message = "Success";
@@ -320,7 +321,7 @@ class TaxController extends AbstractController
                             }
                         } else {
                             $logs = new Logs;
-                            $logs->setidentifier("Tax error");
+                            $logs->setidentifier("VAT error");
 
                             $this->mr->persist($logs);
                             $this->mr->flush();
@@ -439,7 +440,7 @@ class TaxController extends AbstractController
         }
     }
     /**
-     * @Route("api/tax", name="ap1_tax_bill_pay",methods="GET")
+     * @Route("api/vat", name="ap1_vat_bill_pay",methods="GET")
      */
     public function checkWebkey(Request $request, BobServices $bobServices, NotificationServices $notificationServices)
     {

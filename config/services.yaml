@@ -28,6 +28,7 @@ parameters:
     SIMLY_MERCHANT_ID: '32'
     SIMLY_MERCHANT_ID_PROD: '31'
     TAX_MERCHANT_ID_PROD: '34'
+    VAT_MERCHANT_ID_PROD: '6'
     CURRENCY_LBP: 'LBP'
     CURRENCY_USD: 'USD'
     METHOD_POST: 'POST'
@@ -172,6 +173,10 @@ services:
     App\Controller\TaxController:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Tax' }
+
+    App\Controller\VatController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'Vat' }
 
     # App\Controller\LotoController:
     #     arguments:
