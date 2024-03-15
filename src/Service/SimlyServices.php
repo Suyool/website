@@ -59,11 +59,7 @@ class SimlyServices
     public function IsAuthenticated()
     {
         try {
-            if ($_ENV['APP_ENV'] == 'prod') {
-                $file = "../var/cache/prod/SimlyToken.txt";
-            } else {
-                $file = "../var/cache/dev/SimlyToken.txt";
-            }
+            $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/SimlyToken.txt" : (($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/SimlyToken.txt" : (($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/SimlyToken.txt" : "../var/cache/dev/SimlyToken.txt"));
 
             if (file_exists($file)) {
                 $fileModificationTime = filemtime($file);

@@ -9,6 +9,7 @@ const initialState = {
     title: "Simly",
     backLink: "",
     currentPage: "Packages",
+    view: "countries"
   },
   modalData: {
     isShow: false,

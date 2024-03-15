@@ -17,10 +17,7 @@ const PackageItems = ({ country }) => {
         <div className="subTitle2">{country?.name}</div>
         <div className="row">
           {country.plans.map((packageItem, index) => (
-            <>
-            {packageItem?.isbought && (
-             <></>
-            )}
+            <div key={index}>
             {!packageItem?.isbought && (
                <div key={packageItem.planId} className="col-md-6">
                {/* <div className={`card mb-3 bg-package${(index % 3) + 1}`} onClick={() => handleCardClick(country, packageItem)}> */}
@@ -45,7 +42,7 @@ const PackageItems = ({ country }) => {
                </div>
              </div>
             )}
-            </>
+            </div>
           ))}
         </div>
       </div>
