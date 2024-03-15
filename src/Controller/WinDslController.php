@@ -141,7 +141,6 @@ class WinDslController extends AbstractController
     {
         try {
             $data=json_decode($request->getContent(false),true);
-            // dd($data);
             $log = new LogsService($this->mr);
             if (isset($data)) {
                 // $this->session->set('userid', 407860731284928);
@@ -179,7 +178,7 @@ class WinDslController extends AbstractController
                     $this->mr->persist($transaction);
                     $isSuccess = true;
                     $params = json_encode([
-                        'amount' => number_format($data['amount']),
+                        'amount' => number_format($data['amount'], 2),
                         'currency' => $data['currency'] == "USD" ? "$" : "LL",
                     ]);
                     $content = $this->notificationServices->getContent('WindslTopup');
