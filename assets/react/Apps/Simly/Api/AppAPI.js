@@ -81,7 +81,7 @@ const AppAPI = () => {
                   title: "eSIM Payment Successful",
                   desc: (
                     <div>
-                      You have successfully topped up the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
+                      You have successfully topped up the {selectedPackage?.offre ? `${selectedPackage.initial_price_free}` : `$ ${selectedPackage.initial_price}`} {selectedPlan.name} eSIM.
                     </div>
                   ),
                   btn: "Install eSIM",

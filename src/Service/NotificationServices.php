@@ -70,9 +70,11 @@ class NotificationServices
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
                 $this->session->set('mobileNo', $suyoolUser['MobileNo']);
+                $this->session->set('isHavingCard',@$suyoolUser["IsCardRequested"]);
             } else {
                 $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
                 $this->session->set('mobileNo', $singleUser->getMobileNo());
+                $this->session->set('isHavingCard',$singleUser->getIsHavingCard());
             }
             return true;
         } catch (Exception $e) {

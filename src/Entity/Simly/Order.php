@@ -6,7 +6,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SimlyOrdersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SimlyOrders2Repository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -68,6 +68,10 @@ class Order
      */
     private $suyoolUserId;
 
+    /**
+     * @ORM\Column(name="isOffre")
+     */
+    private $isOffre = 0;
 
     public function getId(): ?int
     {
@@ -172,4 +176,16 @@ class Order
         $this->suyoolUserId = $suyoolUserId;
         return $this;
     }
+
+    public function getIsOffre()
+    {
+        return $this->isOffre;
+    }
+
+    public function setIsOffre($isOffre)
+    {
+        $this->isOffre = $isOffre;
+        return $this;
+    }
+
 }

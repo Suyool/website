@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Simly\Order;
+use App\Entity\topup\orders;
 use App\Utils\Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -20,8 +23,9 @@ class SimlyServices
     private $METHOD_GET;
     private $METHOD_POST;
     private $logger;
+    private $mr;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger,ManagerRegistry $mr)
     {
         $this->client = $client;
         $this->METHOD_POST = $params->get('METHOD_POST');
@@ -37,6 +41,7 @@ class SimlyServices
             $this->USERNAME = "it@suyool.com";
             $this->PASSWORD = "nu7sq7F2CYcWPTIO";
         }
+        $this->mr=$mr->getManager('simly');
     }
 
     private function getResponse($status, $message, $data, $functionName)
@@ -152,7 +157,7 @@ class SimlyServices
         }
     }
 
-    public function GetPlansUsingISOCode($code = 'GLOBAL')
+    public function GetPlansUsingISOCode($code = 'GLOBAL',$suyoolUserId,$HavingCard)
     {
         try {
             $token = $this->IsAuthenticated();
@@ -165,13 +170,34 @@ class SimlyServices
                 ],
             ]);
             $data = json_decode($response->getContent(), true);
-
+            // dd($data);
+            foreach($data['data']['plans'] as $index1=>$data1){
+                    if(!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1){
+                        if($HavingCard){
+                        $data['data']['plans'][$index1]['offre']=true;
+                        $data['data']['plans'][$index1]['duration']="24 hrs";
+                        $data['data']['plans'][$index1]['initial_price']=0;
+                        $data['data']['plans'][$index1]['initial_price_free']="Free";
+                        $data['data']['plans'][$index1]['price']=0;
+                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId,$data['data']['plans'][$index1]['planId']);
+                        if(!empty($isCompletedPerUser)){
+                            $data['data']['plans'][$index1]['isbought']=true;
+                        }
+                        }
+                        else
+                        {
+                            $data['data']['plans'][$index1] = null;
+                        }
+                    }
+            }
+            // dd($data);
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
                 return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
             }
         } catch (Exception $e) {
+            // dd($e->getMessage());
             $this->logger->error($e->getMessage());
             return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
         }
@@ -331,6 +357,11 @@ class SimlyServices
             // $data = json_decode($response->getContent(), true);
             $data = $response->toArray(false);
             // dd($data);
+            if(!is_null($data['data']) && $data['data']['duration'] == 1 && $data['data']['price'] == 1){
+                $data['data']['price'] = 0;
+                $data['data']['initial_price'] = 0;
+                $data['data']['offre'] = true;
+            }
             if ($data['code'] == 200) {
                 return array($data['data'],json_encode($data),$this->SIMLY_API_HOST . 'plans/' . $slug . '',$response->getStatusCode());
             } else {

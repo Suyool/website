@@ -31,6 +31,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
 
   const simlyData = useSelector((state) => state.appData.simlyData);
   const isLoadingData = useSelector((state) => state.appData.isLoadingData);
+  const parameters = useSelector((state) => state.appData.parameters);
 
   const [view, setView] = useState("countries");
   const [searchQuery, setSearchQuery] = useState("");
@@ -165,6 +166,13 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           >
             <img src="/build/images/topUpSimIcon.svg" alt="Icon" />
           </div>
+        </div>
+        <div className="banner" style={{textAlign:'center'}}>
+          {parameters?.havingCard ? (
+            <img src="build/images/simly/activate.png"/>
+          ) : (
+            <img src="build/images/simly/request.png" />
+          )}
         </div>
         <div className="filter-btns-cont">
           <div className="btnCon  d-flex justify-content-center">
@@ -319,10 +327,7 @@ const Packages = ({ setSelectedPlan, setSelectedPackage }) => {
           {view === "countries" && (
             <>
               {isLoadingData ? (
-                <div
-                  className="row ps-3"
-                  style={{ width: "100%" }}
-                >
+                <div className="row ps-3" style={{ width: "100%" }}>
                   <ContentLoader
                     speed={2}
                     width="100%"
