@@ -207,49 +207,47 @@ class SimlyServices
         }
     }
 
-    public function GetOffres($suyoolUserId,$HavingCard)
+    public function GetOffres($suyoolUserId, $HavingCard)
     {
-        // try {
+        try {
             $token = $this->IsAuthenticated();
             if (!$token) {
                 return $this->getResponse(401, 'Unauthorized', null, 'GetPlansUsingISOCode');
             }
             $offres = [];
-            if($HavingCard){
-            if (isset($this->cache)) {
-                $item = $this->cache->getItem('getoffres');
-                if (!$item->isHit()) {
-                    $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
-                        'headers' => [
-                            'x-simly-token' => $token
-                        ],
-                    ]);
-                    $offres = [];
-                    $content1 = $response1->toArray(false);
-                    foreach ($content1['data'] as $index => $value) {
-                        foreach ($value as $index2 => $value) {
-                            // dd($value);
-                            $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
-                                'headers' => [
-                                    'x-simly-token' => $token
-                                ],
-                            ]);
-                            $content2 = $response2->toArray(false);
-                            foreach ($content2['data']['plans'] as $plans) {
-                                $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
-                                if(!empty($isCompletedPerUser)){
+            if ($HavingCard) {
+                if (isset($this->cache)) {
+                    $item = $this->cache->getItem('getoffres');
+                    if (!$item->isHit()) {
+                        $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
+                            'headers' => [
+                                'x-simly-token' => $token
+                            ],
+                        ]);
+                        $offres = [];
+                        $content1 = $response1->toArray(false);
+                        foreach ($content1['data'] as $index => $value) {
+                            foreach ($value as $index2 => $value) {
+                                // dd($value);
+                                $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
+                                    'headers' => [
+                                        'x-simly-token' => $token
+                                    ],
+                                ]);
+                                $content2 = $response2->toArray(false);
+                                foreach ($content2['data']['plans'] as $plans) {
+                                    // dd($plans['planId']);
+                                    // dd($isCompletedPerUser);
                                     if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
-                                        $plans['image'] = $value['countryImageURL'];
-                                        $plans['offre'] = true;
-                                        $plans['duration'] = "24 hrs";
-                                        $plans['initial_price'] = 0;
-                                        $plans['initial_price_free'] = "Free";
-                                        $plans['price'] = 0;
-                                        $plans['bought'] = true;
-                                        $offres[] = $plans;
-                                    }
-                                }else{
-                                    if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
+                                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
+                                        // dd($isCompletedPerUser);
+                                        if ($isCompletedPerUser != []) {
+                                            // dd("ok");
+                                            $plans['bought'] = true;
+                                        } else {
+                                            $plans['bought'] = false;
+                                        }
+                                        $plans['country'] = $value['name'];
                                         $plans['image'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
                                         $plans['duration'] = "24 hrs";
@@ -259,107 +257,105 @@ class SimlyServices
                                         $offres[] = $plans;
                                     }
                                 }
-
-                                
                             }
                         }
+                        $item->set($offres)
+                            ->expiresAfter(86400);
+                        $this->cache->save($item);
+                    } else {
+                        $offres = $item->get();
                     }
-                    $item->set($offres)
-                        ->expiresAfter(86400);
-                    $this->cache->save($item);
                 } else {
-                    $offres = $item->get();
-                }
-            } else {
-                if ($_ENV['APP_ENV'] == 'prod') {
-                    $file = "../var/cache/prod/offresimly.txt";
-                } else {
-                    $file = "../var/cache/test/offresimly.txt";
-                }
-                $clearingTime = time() - (60);
-                if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
-                    $offres = file_get_contents($file);
-                    dd("");
-                    return json_decode($offres,true);
-                } else{
-                $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
-                    'headers' => [
-                        'x-simly-token' => $token
-                    ],
-                ]);
-                $offres = [];
-                $content1 = $response1->toArray(false);
-                foreach ($content1['data'] as $index => $value) {
-                    foreach ($value as $index2 => $value) {
-                        // dd($value);
-                        $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
+                    if ($_ENV['APP_ENV'] == 'prod') {
+                        $file = "../var/cache/prod/offresimly.txt";
+                    } else {
+                        $file = "../var/cache/test/offresimly.txt";
+                    }
+                    $clearingTime = time() - (60);
+                    if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
+                        $offres = file_get_contents($file);
+                        dd("");
+                        return json_decode($offres, true);
+                    } else {
+                        $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
                             'headers' => [
                                 'x-simly-token' => $token
                             ],
                         ]);
-                        $content2 = $response2->toArray(false);
-                        foreach ($content2['data']['plans'] as $plans) {
-                            // dd($plans['planId']);
-                            // dd($isCompletedPerUser);
-                                if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
-                                    $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
+                        $offres = [];
+                        $content1 = $response1->toArray(false);
+                        foreach ($content1['data'] as $index => $value) {
+                            foreach ($value as $index2 => $value) {
+                                $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
+                                    'headers' => [
+                                        'x-simly-token' => $token
+                                    ],
+                                ]);
+                                $content2 = $response2->toArray(false);
+                                foreach ($content2['data']['plans'] as $plans) {
+                                    // dd($plans['planId']);
                                     // dd($isCompletedPerUser);
-                                    if($isCompletedPerUser != []){
-                                        dd("ok");
-                                        $plans['bought'] = true;
-                                    }else{
-                                        $plans['bought'] = false;
+                                    if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
+                                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
+                                        // dd($isCompletedPerUser);
+                                        if ($isCompletedPerUser != []) {
+                                            // dd("ok");
+                                            $plans['bought'] = true;
+                                        } else {
+                                            $plans['bought'] = false;
+                                        }
+                                        $plans['country'] = $value['name'];
+                                        $plans['image'] = $value['countryImageURL'];
+                                        $plans['offre'] = true;
+                                        $plans['duration'] = "24 hrs";
+                                        $plans['initial_price'] = 0;
+                                        $plans['initial_price_free'] = "Free";
+                                        $plans['price'] = 0;
+                                        $offres[] = $plans;
                                     }
-                                    $plans['image'] = $value['countryImageURL'];
-                                    $plans['offre'] = true;
-                                    $plans['duration'] = "24 hrs";
-                                    $plans['initial_price'] = 0;
-                                    $plans['initial_price_free'] = "Free";
-                                    $plans['price'] = 0;
-                                    $plans['bought'] = true;
-                                    $offres[] = $plans;
+                                }
+                            }
                         }
+                        $myfile = fopen($file, "w");
+                        fwrite($myfile, json_encode($offres));
+                        fclose($myfile);
                     }
+                    return $offres;
+                    // $data = json_decode($response->getContent(), true);
+                    // // dd($data);
+                    // foreach($data['data']['plans'] as $index1=>$data1){
+                    //         if(!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1){
+                    //             if($HavingCard){
+                    //             $data['data']['plans'][$index1]['offre']=true;
+                    //             $data['data']['plans'][$index1]['duration']="24 hrs";
+                    //             $data['data']['plans'][$index1]['initial_price']=0;
+                    //             $data['data']['plans'][$index1]['initial_price_free']="Free";
+                    //             $data['data']['plans'][$index1]['price']=0;
+                    //             $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId,$data['data']['plans'][$index1]['planId']);
+                    //             if(!empty($isCompletedPerUser)){
+                    //                 $data['data']['plans'][$index1]['isbought']=true;
+                    //             }
+                    //             }
+                    //             else
+                    //             {
+                    //                 $data['data']['plans'][$index1] = null;
+                    //             }
+                    //         }
+                    // }
+                    // // dd($data);
+                    // if ($data['code'] == 200) {
+                    //     return $data['data'];
+                    // } else {
+                    //     return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
+                    // }
+
+                }
             }
-            $myfile = fopen($file,"w");
-            fwrite($myfile,json_encode($offres));
-            fclose($myfile);
-        }
-    }
-    dd($offres);
-    return $offres;
-            // $data = json_decode($response->getContent(), true);
-            // // dd($data);
-            // foreach($data['data']['plans'] as $index1=>$data1){
-            //         if(!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1){
-            //             if($HavingCard){
-            //             $data['data']['plans'][$index1]['offre']=true;
-            //             $data['data']['plans'][$index1]['duration']="24 hrs";
-            //             $data['data']['plans'][$index1]['initial_price']=0;
-            //             $data['data']['plans'][$index1]['initial_price_free']="Free";
-            //             $data['data']['plans'][$index1]['price']=0;
-            //             $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId,$data['data']['plans'][$index1]['planId']);
-            //             if(!empty($isCompletedPerUser)){
-            //                 $data['data']['plans'][$index1]['isbought']=true;
-            //             }
-            //             }
-            //             else
-            //             {
-            //                 $data['data']['plans'][$index1] = null;
-            //             }
-            //         }
-            // }
-            // // dd($data);
-            // if ($data['code'] == 200) {
-            //     return $data['data'];
-            // } else {
-            //     return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
-            // }
-        // } catch (Exception $e) {
+        } catch (Exception $e) {
             // dd($e->getMessage());
-            // $this->logger->error($e->getMessage());
-            // return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
-        // }
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
+        }
     }
 
     public function GetAvailableNetworkFromGivenId($planId)
