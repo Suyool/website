@@ -51,7 +51,7 @@ class SimlyController extends AbstractController
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
-            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
+            if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 // dd($this->session->get('isHavingCard'));
                 $this->session->set('suyoolUserId', $SuyoolUserId);
