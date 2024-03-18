@@ -364,6 +364,7 @@ class SimlyServices
 
                     return $offres;
             }
+            return array();
         } catch (Exception $e) {
             // dd($e->getMessage());
             $this->logger->error($e->getMessage());

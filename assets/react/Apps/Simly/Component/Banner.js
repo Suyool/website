@@ -10,13 +10,19 @@ const Banner = ({havingCard}) => {
 
 
     const requestCard = () => {
-        if (headerData.currentPage === "") {
-            if (parameters?.deviceType === "Android") {
-                window.AndroidInterface.callbackHandler("GoToApp");
-            } else if (parameters?.deviceType === "Iphone") {
-                window.webkit.messageHandlers.callbackHandler.postMessage("GoToApp");
-            }
-        }
+        let object = [
+            {
+              exchange: {
+                flag: 93,
+                url: "",
+              },
+            },
+          ];
+          if (parameters?.deviceType === "Android") {
+            window.AndroidInterface.callbackHandler(JSON.stringify(object));
+          } else if (parameters?.deviceType === "Iphone") {
+            window.webkit.messageHandlers.callbackHandler.postMessage(object);
+          }
     };
 
     const activateEsim = () => {
