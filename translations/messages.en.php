@@ -177,7 +177,7 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH" => "Where can I withdraw cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700" => "In Lebanon, at over 700 BOB Finance offices.<br>Abroad, from any ATM compatible with Visa.",
 
-    //USJ Faq
+    //hdf Faq
     "FAQ" => "FAQ",
     "FREQUENTLY_ASKED_QUESTIONS" => "Frequently Asked Questions",
     "WHAT_IS_SUYOOL" => "What is Suyool?",
@@ -185,9 +185,9 @@ return [
     "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT" => "Can anyone open a Suyool account?",
     "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT" => "Anyone 18 years old and above can open a Suyool account with just their Lebanese mobile number & Lebanese identification. (Regulations apply)",
     "WHAT_ARE_THE_BENEFITS_FOR_HDF_EMPLOYEES" => "What are the benefits for HDF employees?",
-    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_HDF" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are a HDF employee.",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_HDF" => "You will benefit from a free Visa Platinum debit card & free cash withdrawal of your monthly salary as long as you are an HDF employee.",
     "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD" => "Is there any fee to get my Suyool Visa Platinum debit card?",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_HDF" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a HDF employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_HDF" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an HDF employee.",
     "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD" => "Where can I use my Suyool Visa Platinum debit card?",
     "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS" => "You can use your Suyool Visa Platinum debit card at any POS, online, in Lebanon & abroad.",
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH" => "Where can I withdraw cash?",
