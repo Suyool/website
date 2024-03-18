@@ -182,6 +182,59 @@ class MerchantsController extends AbstractController
     }
 
     /**
+     * @Route("/hdf", name="app_hdf")
+     */
+    public function hotel_dieu(Request $request, TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        //        $translatorInterface->setLocale("en");
+
+        if ($parameters['lang'] == "en") {
+            $parameters['metaimage'] = "build/images/payroll/hdfMeta.png";
+            $parameters['descmeta'] = "Your Payroll is now on Suyool";
+        } else if ($parameters['lang'] == "fr") {
+            $parameters['metaimage'] = "build/images/usj/hdfMetafr.png";
+            $parameters['descmeta'] = "Votre salaire est désormais sur Suyool";
+        } else {
+            $parameters['metaimage'] = "build/images/usj/hdfMeta.png";
+            $parameters['descmeta'] = "الأن راتبك على سيول!";
+        }
+        $parameters['faq'] = [
+            "ONE" => [
+                "Title" => "WHAT_IS_SUYOOL",
+                "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES"
+            ],
+            "TWO" => [
+                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT",
+                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"
+            ],
+            "THREE" => [
+                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES",
+                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"
+            ],
+            "FOUR" => [
+                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD",
+                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"
+            ],
+            "FIVE" => [
+                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD",
+                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS"
+            ],
+            "SIX" => [
+                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH",
+                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700"
+            ],
+        ];
+
+
+        $parameters['title'] = "Hôtel-Dieu De France | Suyool";
+        $parameters['desc'] = "Facing today’s financial challenges, we moved our payroll to Suyool.
+        You will get your own digital dual-currency account, a complete payment tool
+        with the best rates and a Platinum Debit Card linked to the account.";
+        return $this->render('merchants/hdf.html.twig', $parameters);
+    }
+
+    /**
      * @Route("/ndj", name="app_NDj")
      */
     public function ndj(Request $request, TranslatorInterface $translatorInterface): Response

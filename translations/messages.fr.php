@@ -21,6 +21,8 @@ return [
     "NDJ_YOU_CAN_SEND_SOMEONE_TO_CASH_OUT_ON_YOUR_BEHALF"=>"Retirez des espèces de n’importe quel distributeur compatible Visa partout au monde.",
 
     "NDJ_DOUBLE_YOUR_POINTS_WITH_SPINNEYS"=>"Doublez vos points chez Spinneys en payant simplement avec le QR Suyool. Offre valable jusqu’au 6 janvier.",
+    //hdf
+    "HDF_IS_BRINGING_YOUR_PAY" => "Toujours à la pointe de la technologie,<br class='desktopMode'>Hôtel-Dieu De France digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",
 
     //usj
     "USJ_IS_BRINGING_YOUR_PAY"=>"Toujours à la pointe de la technologie,<br class='desktopMode'>l’ USJ digitalise votre salaire avec le 1er compte<br class='desktopMode'> en ligne sécurisé et indépendant libanais!",

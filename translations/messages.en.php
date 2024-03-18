@@ -74,6 +74,9 @@ return [
     "IF_THEY_ARE_A_SUYOOL_USER_THEY_WILL_BE_NOTIFIED" => "If they are a Suyool user they will be notified instantly via notification.",
     "IF_THEY_DON_T_HAVE_AN_ACCOUNT_THEY_WILL_HAVE_3_OPTION" => "If they don't have an account, they will have 3 options to pay you: Open a Suyool account, deposit the amount at BOB Finance using a code generated, or settle the amount via card payment",
 
+    //hdf
+    "HDF_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, Hôtel-Dieu De France is bringing your pay to the ultimate digital account: the first secure and independent Lebanese online platform!",
+
     //usj
     "USJ_IS_BRINGING_YOUR_PAY" => "Always at the forefront of technology, USJ is bringing your pay to the ultimate digital account: the first secure and independent Lebanese online platform!",
     "FACING_TODAY_FINANCIAL_CHALLENGES" => "Facing today’s financial challenges, we moved our payroll to Suyool.<br class='desktopMode'> You will get your own digital dual-currency account, a complete payment tool <br class='desktopMode'>with the best rates and a Visa Platinum card linked to the account.",
