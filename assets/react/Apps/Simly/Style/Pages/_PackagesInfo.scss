@@ -224,4 +224,28 @@
       }
     }
   }
-  
+.offersCont {
+  &.itemsPackageCont {
+    .title {
+      font-family: $Medium;
+      font-size: 18px;
+      color: black;
+      margin-bottom: 20px;
+    }
+    .card {
+      border: 2px solid #00ADFF;
+      margin-top: 10px;
+      background-color: #02ADFF2E;
+
+      .itemSize,.price {
+        font-family: $SemiBold;
+        font-size: 22px;
+      }
+      .desc {
+        color: #000000;
+        font-family: $Regular;
+        font-size: 14px;
+      }
+    }
+  }
+}

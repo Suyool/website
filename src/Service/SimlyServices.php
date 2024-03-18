@@ -2,9 +2,14 @@
 
 namespace App\Service;
 
+use App\Entity\Simly\Order;
+use App\Entity\topup\orders;
 use App\Utils\Helper;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -20,8 +25,10 @@ class SimlyServices
     private $METHOD_GET;
     private $METHOD_POST;
     private $logger;
+    private $mr;
+    private $cache;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger, ManagerRegistry $mr,AdapterInterface $cache)
     {
         $this->client = $client;
         $this->METHOD_POST = $params->get('METHOD_POST');
@@ -37,6 +44,17 @@ class SimlyServices
             $this->USERNAME = "it@suyool.com";
             $this->PASSWORD = "nu7sq7F2CYcWPTIO";
         }
+        $this->mr = $mr->getManager('simly');
+
+        // if (MemcachedAdapter::isSupported()) {
+        //     try {
+        //         $client = MemcachedAdapter::createConnection('memcached://localhost');
+        //         $this->cache = new MemcachedAdapter($client);
+        //     } catch (\ErrorException $e) {;
+        //     }
+        // }
+
+        $this->cache = $cache;
     }
 
     private function getResponse($status, $message, $data, $functionName)
@@ -54,11 +72,7 @@ class SimlyServices
     public function IsAuthenticated()
     {
         try {
-            if ($_ENV['APP_ENV'] == 'prod') {
-                $file = "../var/cache/prod/SimlyToken.txt";
-            } else {
-                $file = "../var/cache/dev/SimlyToken.txt";
-            }
+            $file = ($_ENV['APP_ENV'] == 'prod') ? "../var/cache/prod/SimlyToken.txt" : (($_ENV['APP_ENV'] == 'test') ? "../var/cache/test/SimlyToken.txt" : (($_ENV['APP_ENV'] == 'sandbox') ? "../var/cache/sandbox/SimlyToken.txt" : "../var/cache/dev/SimlyToken.txt"));
 
             if (file_exists($file)) {
                 $fileModificationTime = filemtime($file);
@@ -152,7 +166,7 @@ class SimlyServices
         }
     }
 
-    public function GetPlansUsingISOCode($code = 'GLOBAL')
+    public function GetPlansUsingISOCode($code = 'GLOBAL', $suyoolUserId, $HavingCard)
     {
         try {
             $token = $this->IsAuthenticated();
@@ -165,13 +179,194 @@ class SimlyServices
                 ],
             ]);
             $data = json_decode($response->getContent(), true);
-
+            // dd($data);
+            foreach ($data['data']['plans'] as $index1 => $data1) {
+                if (!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1) {
+                    if ($HavingCard) {
+                        $data['data']['plans'][$index1]['offre'] = true;
+                        $data['data']['plans'][$index1]['duration'] = "24 hr";
+                        $data['data']['plans'][$index1]['initial_price'] = 0;
+                        $data['data']['plans'][$index1]['initial_price_free'] = "Free";
+                        $data['data']['plans'][$index1]['price'] = 0;
+                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $data['data']['plans'][$index1]['planId']);
+                        if (!empty($isCompletedPerUser)) {
+                            $data['data']['plans'][$index1]['isbought'] = true;
+                        }
+                    } else {
+                        $data['data']['plans'][$index1] = null;
+                    }
+                }
+            }
+            // dd($data);
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
                 return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
             }
         } catch (Exception $e) {
+            // dd($e->getMessage());
+            $this->logger->error($e->getMessage());
+            return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
+        }
+    }
+
+    public function GetOffres($suyoolUserId, $HavingCard)
+    {
+        try {
+            $token = $this->IsAuthenticated();
+            if (!$token) {
+                return $this->getResponse(401, 'Unauthorized', null, 'GetPlansUsingISOCode');
+            }
+            $offres = [];
+            if ($HavingCard) {
+                if (isset($this->cache)) {
+                    $item = $this->cache->getItem('getoffres');
+                    if (!$item->isHit()) {
+                        $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
+                            'headers' => [
+                                'x-simly-token' => $token
+                            ],
+                        ]);
+                        $offres = [];
+                        $content1 = $response1->toArray(false);
+                        foreach ($content1['data'] as $index => $value) {
+                            foreach ($value as $index2 => $value) {
+                                // dd($value);
+                                $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
+                                    'headers' => [
+                                        'x-simly-token' => $token
+                                    ],
+                                ]);
+                                $content2 = $response2->toArray(false);
+                                foreach ($content2['data']['plans'] as $plans) {
+                                    // dd($plans['planId']);
+                                    // dd($isCompletedPerUser);
+                                    if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
+                                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
+                                        // dd($isCompletedPerUser);
+                                        if ($isCompletedPerUser != []) {
+                                            // dd("ok");
+                                            $plans['bought'] = true;
+                                        } else {
+                                            $plans['bought'] = false;
+                                        }
+                                        $plans['name'] = $value['name'];
+                                        $plans['countryImageURL'] = $value['countryImageURL'];
+                                        $plans['offre'] = true;
+                                        $plans['isoCode'] = $value['isoCode'];
+                                        $plans['duration'] = "24 hr";
+                                        $plans['initial_price'] = 0;
+                                        $plans['initial_price_free'] = "Free";
+                                        $plans['price'] = 0;
+                                        $offres[] = $plans;
+                                    }
+                                }
+                            }
+                        }
+                        $item->set($offres);
+                        $this->cache->save($item);
+                    } else {
+                        $offres = $item->get();
+                    }
+                } else {
+                    if ($_ENV['APP_ENV'] == 'prod') {
+                        $file = "../var/cache/prod/offresimly.txt";
+                    } else {
+                        $file = "../var/cache/test/offresimly.txt";
+                    }
+                    $clearingTime = time() - (3600);
+                    if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
+                        $offres = file_get_contents($file);
+                        $offres = json_decode($offres, true);
+                    } else {
+                        $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
+                            'headers' => [
+                                'x-simly-token' => $token
+                            ],
+                        ]);
+                        $offres = [];
+                        $content1 = $response1->toArray(false);
+                        foreach ($content1['data'] as $index => $value) {
+                            foreach ($value as $index2 => $value) {
+                                $response2 = $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/' . $value['isoCode'] . '', [
+                                    'headers' => [
+                                        'x-simly-token' => $token
+                                    ],
+                                ]);
+                                $content2 = $response2->toArray(false);
+                                foreach ($content2['data']['plans'] as $plans) {
+                                    // dd($plans['planId']);
+                                    // dd($isCompletedPerUser);
+                                    if (!is_null($plans) && $plans['duration'] == 1 && $plans['price'] == 1) {
+                                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $plans['planId']);
+                                        // dd($isCompletedPerUser);
+                                        if ($isCompletedPerUser != []) {
+                                            // dd("ok");
+                                            $plans['bought'] = true;
+                                        } else {
+                                            $plans['bought'] = false;
+                                        }
+                                        $plans['name'] = $value['name'];
+                                        $plans['isoCode'] = $value['isoCode'];
+                                        $plans['countryImageURL'] = $value['countryImageURL'];
+                                        $plans['offre'] = true;
+                                        $plans['duration'] = "24 hr";
+                                        $plans['initial_price'] = 0;
+                                        $plans['initial_price_free'] = "Free";
+                                        $plans['price'] = 0;
+                                        $offres[] = $plans;
+                                    }
+                                }
+                            }
+                        }
+                        $myfile = fopen($file, "w");
+                        fwrite($myfile, json_encode($offres));
+                        fclose($myfile);
+                    }
+                    
+                    // $data = json_decode($response->getContent(), true);
+                    // // dd($data);
+                    // foreach($data['data']['plans'] as $index1=>$data1){
+                    //         if(!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1){
+                    //             if($HavingCard){
+                    //             $data['data']['plans'][$index1]['offre']=true;
+                    //             $data['data']['plans'][$index1]['duration']="24 hrs";
+                    //             $data['data']['plans'][$index1]['initial_price']=0;
+                    //             $data['data']['plans'][$index1]['initial_price_free']="Free";
+                    //             $data['data']['plans'][$index1]['price']=0;
+                    //             $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId,$data['data']['plans'][$index1]['planId']);
+                    //             if(!empty($isCompletedPerUser)){
+                    //                 $data['data']['plans'][$index1]['isbought']=true;
+                    //             }
+                    //             }
+                    //             else
+                    //             {
+                    //                 $data['data']['plans'][$index1] = null;
+                    //             }
+                    //         }
+                    // }
+                    // // dd($data);
+                    // if ($data['code'] == 200) {
+                    //     return $data['data'];
+                    // } else {
+                    //     return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
+                    // }
+
+                }
+                foreach($offres as $index=>$offress)
+                    {
+                        // dd($offres);
+                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $offress['planId']);
+                        if(!empty($isCompletedPerUser)){
+                            $offres[$index]['bought'] = true;
+                        }
+                    }
+
+                    return $offres;
+            }
+            return array();
+        } catch (Exception $e) {
+            // dd($e->getMessage());
             $this->logger->error($e->getMessage());
             return $this->getResponse(500, 'Internal Server Error', null, 'GetPlansUsingISOCode');
         }
@@ -231,13 +426,13 @@ class SimlyServices
             $data = json_decode($response->getContent(), true);
 
             if ($data['code'] == 200) {
-                return array($data['data'],json_encode($body),json_encode($data), $this->SIMLY_API_HOST . 'esims/purchase',$response->getStatusCode());
+                return array($data['data'], json_encode($body), json_encode($data), $this->SIMLY_API_HOST . 'esims/purchase', $response->getStatusCode());
             } else {
-                return array(500, 'Internal Server Error', json_encode($data), 'PurchaseTopup',$response->getStatusCode());
+                return array(500, 'Internal Server Error', json_encode($data), 'PurchaseTopup', $response->getStatusCode());
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            return array(500, 'Internal Server Error', $e->getMessage(), 'PurchaseTopup',500);
+            return array(500, 'Internal Server Error', $e->getMessage(), 'PurchaseTopup', 500);
         }
     }
 
@@ -255,7 +450,7 @@ class SimlyServices
                 ],
             ]);
             $data = $response->toArray(false);
-            
+
             if ($data['code'] == 200) {
                 return $data['data'];
             } else {
@@ -267,16 +462,16 @@ class SimlyServices
         }
     }
 
-    public function GetAllAvailableCountriesOfContinent($country=null)
+    public function GetAllAvailableCountriesOfContinent($country = null)
     {
         try {
             $token = $this->IsAuthenticated();
             if (!$token) {
                 return $this->getResponse(401, 'Unauthorized', null, 'GetAllAvailableCountriesOfContinent');
             }
-            if($country == null){
+            if ($country == null) {
                 $Url = $this->SIMLY_API_HOST . 'continents';
-            }else{
+            } else {
                 $Url = $this->SIMLY_API_HOST . 'continents?continent=' . $country . '';
             }
             $response = $this->client->request("GET", $Url, [
@@ -331,8 +526,13 @@ class SimlyServices
             // $data = json_decode($response->getContent(), true);
             $data = $response->toArray(false);
             // dd($data);
+            if (!is_null($data['data']) && $data['data']['duration'] == 1 && $data['data']['price'] == 1) {
+                $data['data']['price'] = 0;
+                $data['data']['initial_price'] = 0;
+                $data['data']['offre'] = true;
+            }
             if ($data['code'] == 200) {
-                return array($data['data'],json_encode($data),$this->SIMLY_API_HOST . 'plans/' . $slug . '',$response->getStatusCode());
+                return array($data['data'], json_encode($data), $this->SIMLY_API_HOST . 'plans/' . $slug . '', $response->getStatusCode());
             } else {
                 return array("", json_encode(@$data), $this->SIMLY_API_HOST . 'plans/' . $slug . '', $response->getStatusCode());
             }
@@ -372,4 +572,3 @@ class SimlyServices
         ];
     }
 }
- 

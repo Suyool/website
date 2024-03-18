@@ -78,7 +78,7 @@ const PackagesInfo = () => {
           <div className="bd"></div>
           <div className="data">
             <div className="tit">Price</div>
-            <div className="desc">${selectedPackage.initial_price}</div>
+            <div className="desc">{selectedPackage?.offre ? `${selectedPackage.initial_price_free}` : `$ ${selectedPackage.initial_price}`}</div>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ const PackagesInfo = () => {
         
         <div className="valid">
           <div className="label">Valid for</div>
-          <div className="value">{selectedPackage.duration} Days</div>
+          <div className="value">{selectedPackage?.offre ? `${selectedPackage.duration}` : `${selectedPackage.duration} Days`}</div>
         </div>
 
         <div className="valid">

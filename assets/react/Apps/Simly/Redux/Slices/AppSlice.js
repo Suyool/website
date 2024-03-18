@@ -9,6 +9,7 @@ const initialState = {
     title: "Simly",
     backLink: "",
     currentPage: "Packages",
+    view: "countries"
   },
   modalData: {
     isShow: false,
@@ -39,6 +40,7 @@ const initialState = {
     accountInformation : null,
     eSimDetail : null,
   },
+  offre: null,
   planDetail : null
 
 };

@@ -81,7 +81,7 @@ const AppAPI = () => {
                   title: "eSIM Payment Successful",
                   desc: (
                     <div>
-                      You have successfully topped up the ${selectedPackage.initial_price} {selectedPlan.name} eSIM.
+                      You have successfully topped up the {selectedPackage?.offre ? `${selectedPackage.initial_price_free}` : `$ ${selectedPackage.initial_price}`} {selectedPlan.name} eSIM.
                     </div>
                   ),
                   btn: "Install eSIM",
@@ -284,6 +284,14 @@ const AppAPI = () => {
     }catch(e){}
   }
 
+  const GetOffres = () => {
+    try{
+      return axiosClient.get(`/getOffres`).then((response) => {
+        dispatch(settingData({ field: "offre", value: response.data.message }));
+      })
+    }catch(e){}
+  }
+
   return {
     GetAllAvailableCountries,
     GetLocalAvailableCountries,
@@ -293,7 +301,8 @@ const AppAPI = () => {
     GetCountriesById,
     GetUsageOfEsim,
     PurchaseTopupEsim,
-    GetEsimDetails
+    GetEsimDetails,
+    GetOffres
   };
 };
 

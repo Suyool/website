@@ -14,6 +14,16 @@ const Header = () => {
 
 
   const handleButtonClick = () => {
+      if(headerData?.view === "offers") {
+          dispatch(
+              settingObjectData({
+                  mainField: "headerData",
+                  field: "view",
+                  value: "countries",
+              })
+          );
+      }
+
     if (headerData.currentPage == "Packages" && !simlyData.isPackageItem) {
       if (parameters?.deviceType === "Android") {
         window.AndroidInterface.callbackHandler("GoToApp");
