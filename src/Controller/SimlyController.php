@@ -197,7 +197,7 @@ class SimlyController extends AbstractController
      */
     public function GetOffres(Request $request, SimlyServices $simlyServices)
     {
-        $res = $simlyServices->GetOffres();
+        $res = $simlyServices->GetOffres($this->session->get('suyoolUserId'), $this->session->get('isHavingCard'));
         $res = array_filter($res);
         $res = array_merge($res);
         return new JsonResponse([
