@@ -9,6 +9,8 @@ const MyBundle = () => {
   const parameters = useSelector((state) => state.appData.parameters);
   const mobileResponse = useSelector((state) => state.appData.mobileResponse);
   const getPrepaidVoucher = useSelector((state) => state.appData.prepaidData.prepaidVoucher);
+  const bottomSlider = useSelector((state) => state.appData.bottomSlider);
+  const isLoading = useSelector((state) => state.appData.isloading);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -43,7 +45,7 @@ const MyBundle = () => {
 
   return (
     <>
-      <div id="MyBundle">
+      <div id="MyBundle" style={bottomSlider?.isShow ? {opacity: "0.5" } : {opacity: "1"} }>
         <div className="MyBundleBody">
           <div className="mainTitle">{getPrepaidVoucher.desc1}</div>
           {/* <div className="mainDesc">*All taxes excluded</div> */}
@@ -78,7 +80,7 @@ const MyBundle = () => {
           <div className="smlDescSayrafa">$1 = {parseInt(getPrepaidVoucher.sayrafa).toLocaleString()} L.L (Subject to change).</div>
         </div>
 
-        <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={isButtonDisabled}>
+        <button id="ContinueBtn" className="btnCont" onClick={handleConfirmPay} disabled={(isLoading === true)}>
           Pay Now
         </button>
       </div>
