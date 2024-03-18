@@ -8,6 +8,7 @@ use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\MemcachedAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -27,7 +28,7 @@ class SimlyServices
     private $mr;
     private $cache;
 
-    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger, ManagerRegistry $mr)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $params, Helper $helper, LoggerInterface $logger, ManagerRegistry $mr,AdapterInterface $cache)
     {
         $this->client = $client;
         $this->METHOD_POST = $params->get('METHOD_POST');
@@ -45,13 +46,15 @@ class SimlyServices
         }
         $this->mr = $mr->getManager('simly');
 
-        if (MemcachedAdapter::isSupported()) {
-            try {
-                $client = MemcachedAdapter::createConnection('memcached://localhost');
-                $this->cache = new MemcachedAdapter($client, '', 0);
-            } catch (\ErrorException $e) {;
-            }
-        }
+        // if (MemcachedAdapter::isSupported()) {
+        //     try {
+        //         $client = MemcachedAdapter::createConnection('memcached://localhost');
+        //         $this->cache = new MemcachedAdapter($client);
+        //     } catch (\ErrorException $e) {;
+        //     }
+        // }
+
+        $this->cache = $cache;
     }
 
     private function getResponse($status, $message, $data, $functionName)
@@ -260,8 +263,7 @@ class SimlyServices
                                 }
                             }
                         }
-                        $item->set($offres)
-                            ->expiresAfter(86400);
+                        $item->set($offres);
                         $this->cache->save($item);
                     } else {
                         $offres = $item->get();
