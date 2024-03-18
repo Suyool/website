@@ -23,8 +23,8 @@ const Banner = ({havingCard}) => {
         dispatch(
             settingObjectData({
                 mainField: "headerData",
-                field: "view",
-                value: "offers",
+                field: "currentPage",
+                value: "Offers",
             })
         );
     };
@@ -36,13 +36,13 @@ const Banner = ({havingCard}) => {
                     src="build/images/simly/activate.png"
                     alt="Activate"
                     style={{cursor: "pointer"}}
-                    onClick={activateEsim}
+                    onClick={()=>activateEsim()}
                 />
             ) : (
                 <img
                     src="build/images/simly/request.png"
                     alt="Request"
-                    onClick={requestCard}
+                    onClick={()=>requestCard()}
                     style={{cursor: "pointer"}}
                 />
             )}

@@ -40,6 +40,7 @@ const initialState = {
     accountInformation : null,
     eSimDetail : null,
   },
+  offre: null,
   planDetail : null
 
 };

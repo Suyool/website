@@ -169,7 +169,6 @@ class SimlyController extends AbstractController
         ], 200);
     }
 
-
     /**
      * @Route("/simly/getPlansUsingISOCode", name="app_simly_getPlansUsingISOCode")
      */
@@ -187,6 +186,20 @@ class SimlyController extends AbstractController
         $res = $simlyServices->GetPlansUsingISOCode($code, $this->session->get('suyoolUserId'), $this->session->get('isHavingCard'));
         $res['plans'] = array_filter($res['plans']);
         $res['plans'] = array_merge($res['plans']);
+        return new JsonResponse([
+            'status' => true,
+            'message' => array_merge($res)
+        ], 200);
+    }
+
+    /**
+     * @Route("/simly/getOffres", name="app_simly_getOffres")
+     */
+    public function GetOffres(Request $request, SimlyServices $simlyServices)
+    {
+        $res = $simlyServices->GetOffres();
+        $res = array_filter($res);
+        $res = array_merge($res);
         return new JsonResponse([
             'status' => true,
             'message' => array_merge($res)

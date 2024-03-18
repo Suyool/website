@@ -284,6 +284,14 @@ const AppAPI = () => {
     }catch(e){}
   }
 
+  const GetOffres = () => {
+    try{
+      return axiosClient.get(`/getOffres`).then((response) => {
+        dispatch(settingData({ field: "offre", value: response.data.message }));
+      })
+    }catch(e){}
+  }
+
   return {
     GetAllAvailableCountries,
     GetLocalAvailableCountries,
@@ -293,7 +301,8 @@ const AppAPI = () => {
     GetCountriesById,
     GetUsageOfEsim,
     PurchaseTopupEsim,
-    GetEsimDetails
+    GetEsimDetails,
+    GetOffres
   };
 };
 

@@ -10,6 +10,8 @@ import { settingData, settingObjectData } from "./Redux/Slices/AppSlice";
 import PopupModal from "./Component/PopupModal";
 import BottomSlider from "./Component/BottomSlider";
 import { Spinner } from "react-bootstrap";
+import Offers from "./Pages/Offers";
+import AppAPI from "./Api/AppAPI";
 
 const App = ({ parameters }) => {
   const headerData = useSelector((state) => state.appData.headerData);
@@ -17,7 +19,10 @@ const App = ({ parameters }) => {
   const bottomSlider = useSelector((state) => state.appData.bottomSlider);
   const isLoading = useSelector((state) => state.appData.isloading);
   const dispatch = useDispatch();
+  const { GetOffres } = AppAPI();
+
   useEffect(() => {
+    GetOffres();
     dispatch(settingData({ field: "parameters", value: parameters }));
     if(parameters?.isPopup){
     dispatch(
@@ -74,6 +79,7 @@ const App = ({ parameters }) => {
         {headerData.currentPage === "Account" && <Account />}
         {headerData.currentPage === "PlanDetail" && <PlanDetail />}
         {headerData.currentPage === "RechargeThePayment" && <RechargeThePayment />}
+        {headerData.currentPage === "Offers" && <Offers/>}
 
         
         {modalData.isShow && <PopupModal />}
