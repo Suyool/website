@@ -45,6 +45,7 @@ class OgeroController extends AbstractController
     {
         // HTML content
         print_r($bobServices->RetrieveTransactionReceipt());
+        dd();
         // $bobServices->RetrieveTransactionReceipt();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";

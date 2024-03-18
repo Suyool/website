@@ -416,7 +416,6 @@ class BobServices
 
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveTransactionReceipt',  $body);
         $content = $response->toArray(false);
-        // dd($content);
         $ApiResponse = $content;
         if ($ApiResponse["ErrorCode"] == 100) {
             $res = $ApiResponse['Response'];
@@ -428,9 +427,10 @@ class BobServices
             $isSuccess = false;
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
-
+        // dd($decodedString);
         // return $decodedString['PrintReceiptResponse'];
-         print_r(str_replace(["\\r\\n","< "],["","<"],$decodedString['PrintReceiptResponse']));
+        // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
+         print_r(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
         // return $decodedString['PrintReceiptResponse'];
     }
 }
