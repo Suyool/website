@@ -463,6 +463,10 @@ class OgeroController extends AbstractController
                                 $title = "Number Not Found";
                                 $body = "The number you entered was not found in the system.<br>Kindly try another number.";
                                 break;
+                            case 203:
+                                $title = "No Pending Bill";
+                                $body = "There is no pending bill on the mobile number {$data["mobileNumber"]}<br/>Kindly try again later";
+                                break;
                             default:
                                 $title = "Number Not Found";
                                 $body = "The number you entered was not found in the system.<br>Kindly try another number.";
