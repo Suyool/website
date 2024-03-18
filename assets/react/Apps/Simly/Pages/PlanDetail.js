@@ -62,7 +62,13 @@ const PlanDetail = () => {
             <div className="valid">
               <div className="label">Valid for</div>
               {/* <div className="value">{getPlanDetail?.simlyPlan?.duration} Days</div> */}
-              <div className="value">{planDetail?.DataUsage?.plan?.daysLeft} Days</div>
+              <div className="value">
+                {planDetail?.simlyPlan[0].offre ? (
+                    "24h"
+                ) : (
+                    `${planDetail?.DataUsage?.plan?.daysLeft} Days`
+                )}
+              </div>
             </div>
 
             <div className="valid">
@@ -82,7 +88,13 @@ const PlanDetail = () => {
 
             <div className="valid">
               <div className="label">Initial Plan Price</div>
-              <div className="value1">${planDetail?.simlyPlan[0]?.initial_price}</div>
+              <div className="value1">
+                {planDetail?.simlyPlan[0].offre ? (
+                    "Free"
+                ) : (
+                    `${planDetail?.simlyPlan[0]?.initial_price}`
+                )}
+              </div>
             </div>
 
             <div className="valid">

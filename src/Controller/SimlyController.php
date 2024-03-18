@@ -46,18 +46,15 @@ class SimlyController extends AbstractController
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
+        //$_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
         if (isset($_POST['infoString'])) {
-            // dd($_POST['infoString']);   
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
-            // dd($decrypted_string);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
             $devicetype = stripos($useragent, $suyoolUserInfo[1]);
             if ($notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && !$devicetype) {
                 $SuyoolUserId = $suyoolUserInfo[0];
                 // dd($this->session->get('isHavingCard'));
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                // $this->session->set('suyoolUserId', 1);
                 $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId' => $suyoolUserInfo[0], 'isPopup' => true]);
                 if (is_null($visitor)) {
                     $visitors = new Visitors();
@@ -315,7 +312,7 @@ class SimlyController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            if ($_ENV['APP_ENV'] == "test") {
+            if ($_ENV['APP_ENV'] == "prod") {
                 if ($order->getType() == 'esim') {
                     $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
                 } else {
