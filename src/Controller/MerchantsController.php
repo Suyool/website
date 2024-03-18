@@ -1828,7 +1828,7 @@ class MerchantsController extends AbstractController
             ],
         ];
 
-        $parameters['title'] = "Interform | Suyool";
+        $parameters['title'] = "Interform Group SAL | Suyool";
         $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
 
         $parameters['infoSection'] = $this->infoSection2;
