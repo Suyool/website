@@ -553,4 +553,10 @@ return [
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_BCL" => "What are the benefits for BCL S.A.L employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_BCL" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a BCL S.A.L employee.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_BCL" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a BCL S.A.L employee.",
+
+    //Interform
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INTERFROM" => "What are the benefits for Interform Group employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INTERFROM" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Interform Group employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INTERFROM" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Interform Group employee.",
+
 ];

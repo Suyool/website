@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+    {% block title %}Suyool
+    {% endblock %}
+
+    {% block body %}
+        <div class="alfa">
+            {% include 'interform/topSection.html.twig' %}
+            {% include 'medco-payroll/medco-steps.html.twig' %}
+            {% include 'elements/alfa_employee/alfa_mastercard.html.twig' %}
+            {% include 'medco-payroll/use-money.html.twig' %}
+            {% include 'elements/payrolls/solution.html.twig' %}
+            {% include 'elements/payrolls/exchange.html.twig' %}
+            {% include 'elements/faq/faqSuyool.html.twig' %}
+            {% include 'elements/payrolls/questions.html.twig' %}
+            {% include 'elements/get-suyool.html.twig' %}
+        </div>
+        {% include 'elements/footer.html.twig' %}
+    {% endblock %}
