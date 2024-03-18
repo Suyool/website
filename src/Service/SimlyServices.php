@@ -271,10 +271,9 @@ class SimlyServices
                     } else {
                         $file = "../var/cache/test/offresimly.txt";
                     }
-                    $clearingTime = time() - (60);
+                    $clearingTime = time() - (3600);
                     if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
                         $offres = file_get_contents($file);
-                        dd("");
                         return json_decode($offres, true);
                     } else {
                         $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
@@ -304,8 +303,8 @@ class SimlyServices
                                         } else {
                                             $plans['bought'] = false;
                                         }
-                                        $plans['country'] = $value['name'];
-                                        $plans['image'] = $value['countryImageURL'];
+                                        $plans['name'] = $value['name'];
+                                        $plans['countryImageURL'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
                                         $plans['duration'] = "24 hrs";
                                         $plans['initial_price'] = 0;
