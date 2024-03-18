@@ -193,10 +193,10 @@ class MerchantsController extends AbstractController
             $parameters['metaimage'] = "build/images/payroll/hdfMeta.png";
             $parameters['descmeta'] = "Your Payroll is now on Suyool";
         } else if ($parameters['lang'] == "fr") {
-            $parameters['metaimage'] = "build/images/usj/hdfMetafr.png";
+            $parameters['metaimage'] = "build/images/payroll/hdfMetafr.png";
             $parameters['descmeta'] = "Votre salaire est désormais sur Suyool";
         } else {
-            $parameters['metaimage'] = "build/images/usj/hdfMeta.png";
+            $parameters['metaimage'] = "build/images/payroll/hdfMeta.png";
             $parameters['descmeta'] = "الأن راتبك على سيول!";
         }
         $parameters['faq'] = [
@@ -209,12 +209,12 @@ class MerchantsController extends AbstractController
                 "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT"
             ],
             "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES",
-                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD"
+                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_HDF_EMPLOYEES",
+                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_HDF"
             ],
             "FOUR" => [
                 "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE"
+                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_HDF"
             ],
             "FIVE" => [
                 "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD",
