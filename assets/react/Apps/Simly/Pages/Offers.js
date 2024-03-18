@@ -48,7 +48,7 @@ const Offers = ({country}) => {
             <div className="title">Special Offers</div>
             {filteredOffers?.map((item, index) => (
                 <div key={index} className="offerItem">
-                    {item?.bought && (
+                    {!item?.bought && (
                         <div className="card mb-3 bg-package1" onClick={() => handleCardClick(filteredOffers, item)}>
                             <div className="card-body">
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>

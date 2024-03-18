@@ -212,7 +212,7 @@ const Account = () => {
                                     
                                 }}
                                 disabled={
-                                  data.sim.status !== "REFUNDED"
+                                  data.sim.status === "REFUNDED"
                                 }
                               >
                                 Top up

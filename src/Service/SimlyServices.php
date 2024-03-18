@@ -247,9 +247,10 @@ class SimlyServices
                                         } else {
                                             $plans['bought'] = false;
                                         }
-                                        $plans['country'] = $value['name'];
-                                        $plans['image'] = $value['countryImageURL'];
+                                        $plans['name'] = $value['name'];
+                                        $plans['countryImageURL'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
+                                        $plans['isoCode'] = $value['isoCode'];
                                         $plans['duration'] = "24 hrs";
                                         $plans['initial_price'] = 0;
                                         $plans['initial_price_free'] = "Free";
@@ -274,7 +275,7 @@ class SimlyServices
                     $clearingTime = time() - (3600);
                     if (file_exists($file) && (filemtime($file) > $clearingTime) && (filesize($file) > 0)) {
                         $offres = file_get_contents($file);
-                        return json_decode($offres, true);
+                        $offres = json_decode($offres, true);
                     } else {
                         $response1 =  $this->client->request("GET", $this->SIMLY_API_HOST . 'countries/', [
                             'headers' => [
@@ -304,6 +305,7 @@ class SimlyServices
                                             $plans['bought'] = false;
                                         }
                                         $plans['name'] = $value['name'];
+                                        $plans['isoCode'] = $value['isoCode'];
                                         $plans['countryImageURL'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
                                         $plans['duration'] = "24 hrs";
@@ -319,7 +321,7 @@ class SimlyServices
                         fwrite($myfile, json_encode($offres));
                         fclose($myfile);
                     }
-                    return $offres;
+                    
                     // $data = json_decode($response->getContent(), true);
                     // // dd($data);
                     // foreach($data['data']['plans'] as $index1=>$data1){
@@ -349,6 +351,16 @@ class SimlyServices
                     // }
 
                 }
+                foreach($offres as $index=>$offress)
+                    {
+                        // dd($offres);
+                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $offress['planId']);
+                        if(!empty($isCompletedPerUser)){
+                            $offres[$index]['bought'] = true;
+                        }
+                    }
+
+                    return $offres;
             }
         } catch (Exception $e) {
             // dd($e->getMessage());

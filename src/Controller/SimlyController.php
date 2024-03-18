@@ -315,7 +315,7 @@ class SimlyController extends AbstractController
             $this->mr->persist($order);
             $this->mr->flush();
 
-            if ($_ENV['APP_ENV'] == "prod") {
+            if ($_ENV['APP_ENV'] == "test") {
                 if ($order->getType() == 'esim') {
                     $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
                 } else {
