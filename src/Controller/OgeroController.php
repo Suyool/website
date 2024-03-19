@@ -590,7 +590,8 @@ class OgeroController extends AbstractController
                                 ->setadditionalFees($Landline_With_id->getadditionalFees())
                                 ->setfees($Landline_With_id->getfees())
                                 ->setfees1($Landline_With_id->getfees1())
-                                ->setrounding($Landline_With_id->getrounding());
+                                ->setrounding($Landline_With_id->getrounding())
+                                ->setReceipt(@$retrieveReceipt[1]);
                             $this->mr->persist($landline);
                             $this->mr->flush();
 
