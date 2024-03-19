@@ -473,7 +473,7 @@ class SimlyController extends AbstractController
                 // } catch (\Exception $e) {
                 // }
 
-                    $message="An error have occured";
+                $message = "An error have occured";
                 return new JsonResponse([
                     'status' => false,
                     'message' => $message
@@ -825,33 +825,6 @@ class SimlyController extends AbstractController
                     ]
                 ]
             ], 401);
-
-            $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $suyoolUserId], ['id' => 'DESC']);
-            $usage = [];
-            // dd($esims);
-            if (!empty($esims)) {
-                foreach ($esims as $esim) {
-                    $res = $simlyServices->FetchUsageOfPurchasedESIM($esim->getEsimId());
-                    $res['country'] = $esim->getCountry();
-                    $res['plans'] = $esim->getPlan();
-                    $res['esimId'] = $esim->getEsimId();
-                    $res['countryImage'] = $esim->getCountryImage();
-                    $res['initialPrice'] = $esim->getInitialPrice();
-                    $res['qrCodeString'] = $esim->getQrCodeString();
-                    $res['qrCodeImage'] = $esim->getQrCodeImageUrl();
-                    $res['PlanType'] = $esim->getParentPlanType();
-                    $res['isoCode'] = $esim->getIsoCode();
-                    if (!isset($res[0])) {
-                        if ($res['sim']['status'] == "REFUNDED") {
-                            $esim->setStatus($res['sim']['status']);
-                            $this->mr->persist($esim);
-                            $this->mr->flush();
-                        }
-                        if ($res)
-                            $usage[] = $res;
-                    }
-                }
-            }
         }
     }
 
@@ -931,6 +904,7 @@ class SimlyController extends AbstractController
      */
     public function GetPlansUsingISOCodeApi(Request $request, SimlyServices $simlyServices, NotificationServices $notificationServices)
     {
+        $data = json_decode($request->getContent(false), true);
         $auth = $this->authenticate($notificationServices);
         if ($auth !== true) return $auth;
 
@@ -942,7 +916,7 @@ class SimlyController extends AbstractController
 
         $code = strtoupper($code);
 
-        $res = $simlyServices->GetPlansUsingISOCode($code);
+        $res = $simlyServices->GetPlansUsingISOCode($code, $data['suyoolUserId'], 1);
         $res['plans'] = array_filter($res['plans']);
         $res['plans'] = array_merge($res['plans']);
         return new JsonResponse([
@@ -1030,7 +1004,7 @@ class SimlyController extends AbstractController
     }
 
     /**
-     * @Route("/api/esim/getEsimDetails", name="api_GetEsimDetails")
+     * @Route("/api/esim/getEsimDetails", name="api_GetEsimDetails", methods="POST")
      */
     public function GetEsimDetailsApi(Request $request, SimlyServices $simlyServices, NotificationServices $notificationServices)
     {
@@ -1062,6 +1036,40 @@ class SimlyController extends AbstractController
     }
 
     /**
+     * @Route("/api/simly/getOffres", name="api_simly_getOffres", methods="POST")
+     */
+    public function GetOffresApi(Request $request, SimlyServices $simlyServices, NotificationServices $notificationServices)
+    {
+        $webkey = apache_request_headers();
+        $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
+
+        if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) && $webkeyDecrypted['devicesType'] == "CORPORATE") {
+            $data = json_decode($request->getContent(false), true);
+            $res = $simlyServices->GetOffres($data['suyoolUserId'], 1);
+            $res = array_filter($res);
+            $res = array_merge($res);
+            return new JsonResponse([
+                'status' => true,
+                'message' => array_merge($res)
+            ], 200);
+        } else {
+            return new JsonResponse([
+                'status' => false,
+                'message' => "Unauthorize",
+                'data' => [
+                    'Popup' => [
+                        "Title" => "Unauthorize",
+                        "globalCode" => 0,
+                        "flagCode" => 801,
+                        "Message" => "You have been unauthorized",
+                        "isPopup" => true
+                    ]
+                ]
+            ], 401);
+        }
+    }
+
+    /**
      * @Route("/api/esim/purchaseTopup", name="api_simly_purchaseTopup", methods="POST")
      */
     public function PurchaseTopupApi(Request $request, SimlyServices $simlyServices, SuyoolServices $suyoolServices, NotificationServices $notificationServices)
@@ -1070,13 +1078,12 @@ class SimlyController extends AbstractController
         $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) && $webkeyDecrypted['devicesType'] == "CORPORATE") {
-            $SuyoolUserId = $webkeyDecrypted['merchantId'];
-
             if ($_ENV['APP_ENV'] == "prod") {
                 $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID_PROD'));
             } else {
                 $suyoolServices = new SuyoolServices($this->params->get('SIMLY_MERCHANT_ID'));
             }
+            $SuyoolUserId = $webkeyDecrypted['merchantId'];
             $data = json_decode($request->getContent(), true);
             if (isset($data['esimId'])) {
                 $res = $simlyServices->FetchUsageOfPurchasedESIM($data['esimId']);
@@ -1121,6 +1128,7 @@ class SimlyController extends AbstractController
                 $simlyMerchId = $this->params->get('SIMLY_MERCHANT_ID');
             }
             $simlyPlan = $simlyServices->GetPlanHavingSlug($data['planId']);
+            // dd($simlyPlan);
             $pushlog = new LogsService($this->mr);
             // dd($simlyPlan);
             $pushlog->pushLogs(new Logs, "app_simly_purchaseTopup", null, $simlyPlan[1], $simlyPlan[2], $simlyPlan[3]);
@@ -1133,7 +1141,8 @@ class SimlyController extends AbstractController
                 ->setAmount($simlyPlan['initial_price'])
                 ->setSuyoolUserId($SuyoolUserId)
                 ->setFees($fees)
-                ->setCurrency('USD');
+                ->setCurrency('USD')
+                ->setIsOffre(@$simlyPlan['offre'] ? true : 0);
 
             if (isset($data['esimId'])) {
                 $order->setType('topup');
@@ -1144,230 +1153,384 @@ class SimlyController extends AbstractController
 
             $this->mr->persist($order);
             $this->mr->flush();
+
+            // dd($order);
             $order_id = $simlyMerchId . "-" . $order->getId();
-
-            $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
-            $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
-            if (!$utilityResponse[0]) {
-
-                $order->setStatus(Order::$statusOrder['CANCELED'])
-                    ->setError(json_encode($utilityResponse));
+            // dd($simlyPlan);
+            if (isset($simlyPlan['offre']) && $simlyPlan['offre']) {
+                $order
+                    ->setStatus(Order::$statusOrder['PURCHASED']);
 
                 $this->mr->persist($order);
                 $this->mr->flush();
 
-                $logs = new Logs;
-                $logs
-                    ->setidentifier("simly_purchaseTopup")
-                    ->seturl("PushUtilities")
-                    ->setrequest(json_encode(array(
-                        'SuyoolUserId' => $SuyoolUserId,
-                        'order_id' => $order_id,
-                        'amount' => $order->getAmount(),
-                        'currency' => $order->getCurrency(),
-                        'fees' => $order->getFees(),
-                        'simlyMerchId' => $simlyMerchId
-                    )))
-                    ->seterror(json_encode($utilityResponse));
+                if ($_ENV['APP_ENV'] == "prod") {
+                    if ($order->getType() == 'esim') {
+                        $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
+                    } else {
+                        $simlyResponses = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
+                    }
+                    $simlyResponse = $simlyResponses[0];
+                } else {
+                    // dd($simlyResponse);
+                    $simlyResponses = [
+                        '{"id":"65f06d8a089930a73eea174c","smdp":"thales3.prod.ondemandconnectivity.com","matchingID":"441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","qrCodeImageUrl":"https:\/\/api.qrserver.com\/v1\/create-qr-code\/?data=LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD&size=500x500","qrCodeString":"LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","dateCreated":"2024-03-12T14:58:18.777Z","providerPackageId":"812301","topups":[],"transaction":{"uuid":"7ac2a082-e34d-4f4d-9986-a27f52aca0dc","processed":true,"initial_price":3.5,"paid_amount":1.45,"dateCreated":"2024-03-12T14:58:16.730Z","refunded":false,"dev_mode":false,"source":"PARTNER"},"plan":"simly_CYP_1GB_7D","allowedPlans":["simly_CYP_10GB_30D","simly_CYP_1GB_7D","simly_CYP_20GB_30D","simly_CYP_2GB_15D","simly_CYP_3GB_30D","simly_CYP_5GB_30D"]}',
+                        "",
+                        "",
+                        "",
+                        200
+                    ];
+                    $simlyResponse = json_decode($simlyResponses[0], true);
+                }
 
-                $this->mr->persist($logs);
-                $this->mr->flush();
+                $pushlog->pushLogs(new Logs, "PurchaseTopup", $simlyResponses[1], $simlyResponses[2], $simlyResponses[3], $simlyResponses[4]);
+                if (!isset($simlyResponse['id'])) {
 
-                return new JsonResponse([
-                    'status' => false,
-                    'message' => @json_decode($utilityResponse[1], true),
-                    'flagCode' => @$utilityResponse[2]
-                ]);
-            }
+                    $pushlog->pushLogs(new Logs, "PurchaseTopup", json_encode($data), json_encode($simlyResponses[2]), "simly/purchaseTopup", null);
 
-            $transId = $utilityResponse[1];
 
-            $order
-                ->setStatus(Order::$statusOrder['PURCHASED'])
-                ->setTransId($transId);
+                    //return the money to the user
+                    $order->setStatus(Order::$statusOrder['CANCELED'])
+                        ->setError($simlyResponses[2]);
 
-            $this->mr->persist($order);
-            $this->mr->flush();
+                    $this->mr->persist($order);
+                    $this->mr->flush();
 
-            if ($_ENV['APP_ENV'] == "prod") {
+                    // try {
+                    //     $logs = new Logs;
+                    //     $logs
+                    //         ->setidentifier("simly_purchaseTopup")
+                    //         ->seturl("UpdateUtilities")
+                    //         ->setrequest(json_encode(array(
+                    //             'amount' => 0,
+                    //             'additionalData' => "",
+                    //             'transId' => $transId
+                    //         )))
+                    //         ->setresponse(json_encode($responseUpdateUtilities))
+                    //         ->seterror($message);
+
+                    //     $this->mr->persist($logs);
+                    //     $this->mr->flush();
+                    // } catch (\Exception $e) {
+                    // }
+
+                    $message = "An error have occured";
+                    return new JsonResponse([
+                        'status' => false,
+                        'message' => $message
+                    ]);
+                }
+
                 if ($order->getType() == 'esim') {
-                    $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
+                    if (isset($data['country'])) $country = $data['country'];
+                    else $country = "";
+                    $esim = new Esim();
+                    $esim
+                        ->setEsimId($simlyResponse['id'])
+                        ->setSuyoolUserId($SuyoolUserId)
+                        ->setStatus('active')
+                        ->setSmdp($simlyResponse['smdp'])
+                        ->setMatchingId($simlyResponse['matchingID'])
+                        ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
+                        ->setQrCodeString($simlyResponse['qrCodeString'])
+                        ->setTopups(json_encode($simlyResponse['topups']))
+                        ->setTransaction(json_encode($simlyResponse['transaction']))
+                        ->setPlan($simlyResponse['plan'])
+                        ->setInitialPrice($simlyPlan['initial_price'])
+                        ->setPrice($simlyPlan['price'])
+                        ->setParentPlanType($parentPlanType)
+                        ->setCountry($country)
+                        ->setCountryImage(@$data['countryImage'])
+                        ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']))
+                        ->setIsoCode($data['isoCode']);
                 } else {
-                    $simlyResponses = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
+                    $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
+                    if (!$esim) {
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("simly_purchaseTopup")
+                            ->seturl("simly/purchaseTopup")
+                            ->setrequest(json_encode($data['esimId']))
+                            ->seterror("Esim not found");
+
+                        return new JsonResponse([
+                            'status' => false,
+                            'message' => 'Esim not found'
+                        ], 404);
+                    }
+
+                    $esim
+                        ->setStatus('active')
+                        ->setMatchingId($simlyResponse['matchingID'])
+                        ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
+                        ->setQrCodeString($simlyResponse['qrCodeString'])
+                        ->setTopups(json_encode($simlyResponse['topups']))
+                        ->setTransaction(json_encode($simlyResponse['transaction']));
                 }
-                $simlyResponse = $simlyResponses[0];
-            } else {
-                // dd($simlyResponse);
-                $simlyResponses = [
-                    '{"id":"65f06d8a089930a73eea174c","smdp":"thales3.prod.ondemandconnectivity.com","matchingID":"441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","qrCodeImageUrl":"https:\/\/api.qrserver.com\/v1\/create-qr-code\/?data=LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD&size=500x500","qrCodeString":"LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","dateCreated":"2024-03-12T14:58:18.777Z","providerPackageId":"812301","topups":[],"transaction":{"uuid":"7ac2a082-e34d-4f4d-9986-a27f52aca0dc","processed":true,"initial_price":3.5,"paid_amount":1.45,"dateCreated":"2024-03-12T14:58:16.730Z","refunded":false,"dev_mode":false,"source":"PARTNER"},"plan":"simly_CYP_1GB_7D","allowedPlans":["simly_CYP_10GB_30D","simly_CYP_1GB_7D","simly_CYP_20GB_30D","simly_CYP_2GB_15D","simly_CYP_3GB_30D","simly_CYP_5GB_30D"]}',
-                    "",
-                    "",
-                    "",
-                    200
-                ];
-                $simlyResponse = json_decode($simlyResponses[0], true);
-            }
 
+                $this->mr->persist($esim);
+                $this->mr->flush();
 
-            $pushlog->pushLogs(new Logs, "PurchaseTopup", $simlyResponses[1], $simlyResponses[2], $simlyResponses[3], $simlyResponses[4]);
-            // dd($simlyResponse);
-            if (!isset($simlyResponse['id'])) {
-
-                $pushlog->pushLogs(new Logs, "PurchaseTopup", json_encode($data), json_encode($simlyResponses[2]), "simly/purchaseTopup", null);
-
-
-                //return the money to the user
-                $order->setStatus(Order::$statusOrder['CANCELED'])
-                    ->setError($simlyResponses[2]);
+                $order
+                    ->setStatus(Order::$statusOrder['COMPLETED'])
+                    ->setEsimsId($esim->getId());
 
                 $this->mr->persist($order);
                 $this->mr->flush();
+                $userDetails = $notificationServices->GetuserDetails($SuyoolUserId);
 
-                $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
-                $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
-                if ($responseUpdateUtilities[0]) {
-                    $order
-                        ->setstatus(Order::$statusOrder['CANCELED'])
-                        ->seterror("reversed " . $responseUpdateUtilities[1]);
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-                    $message = "Simly Purchase failed and the money was returned to the user";
-                } else {
-                    $order
-                        ->setstatus(Order::$statusOrder['CANCELED'])
-                        ->seterror($responseUpdateUtilities[1]);
-                    $this->mr->persist($order);
-                    $this->mr->flush();
-                    $message = "Simly Purchase failed and the money was not returned to the user";
-                }
+                $userName = $userDetails[0] . ' ' . $userDetails[1];
+                $params = json_encode([
+                    'amount' => $order->getamount(),
+                    'currency' => $order->getCurrency(),
+                    'plan' => @$esim->getPlan(),
+                    'fname' => $userName,
+                    'type' => $parentPlanType
 
-                $this->mr->persist($order);
-                $this->mr->flush();
-
-                return new JsonResponse([
-                    'status' => false,
-                    'message' => $message
                 ]);
-            }
-
-            if ($order->getType() == 'esim') {
-                if (isset($data['country'])) $country = $data['country'];
-                else $country = "";
-                $esim = new Esim();
-                $esim
-                    ->setEsimId($simlyResponse['id'])
-                    ->setSuyoolUserId($SuyoolUserId)
-                    ->setStatus('active')
-                    ->setSmdp($simlyResponse['smdp'])
-                    ->setMatchingId($simlyResponse['matchingID'])
-                    ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
-                    ->setQrCodeString($simlyResponse['qrCodeString'])
-                    ->setTopups(json_encode($simlyResponse['topups']))
-                    ->setTransaction(json_encode($simlyResponse['transaction']))
-                    ->setPlan($simlyResponse['plan'])
-                    ->setInitialPrice($simlyPlan['initial_price'])
-                    ->setPrice($simlyPlan['price'])
-                    ->setParentPlanType($parentPlanType)
-                    ->setCountry($country)
-                    ->setCountryImage(@$data['countryImage'])
-                    ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']))
-                    ->setIsoCode($data['isoCode']);
+                $additionalData = "";
+                if (isset($data['esimId'])) {
+                    $content = $notificationServices->getContent('AcceptedSimlyTopupPayment');
+                } else {
+                    $content = $notificationServices->getContent('AcceptedSimlyPurshasePayment');
+                }
+                $bulk = 0;
+                $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+                $message = "Your free esim card";
+                return new JsonResponse([
+                    'status' => true,
+                    'message' => $message,
+                    'data' => $simlyResponse
+                ], 200);
             } else {
-                $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
-                if (!$esim) {
+                $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
+                $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
+                if (!$utilityResponse[0]) {
+
+                    $order->setStatus(Order::$statusOrder['CANCELED'])
+                        ->setError(json_encode($utilityResponse));
+
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+
                     $logs = new Logs;
                     $logs
                         ->setidentifier("simly_purchaseTopup")
-                        ->seturl("simly/purchaseTopup")
-                        ->setrequest(json_encode($data['esimId']))
-                        ->seterror("Esim not found");
+                        ->seturl("PushUtilities")
+                        ->setrequest(json_encode(array(
+                            'SuyoolUserId' => $SuyoolUserId,
+                            'order_id' => $order_id,
+                            'amount' => $order->getAmount(),
+                            'currency' => $order->getCurrency(),
+                            'fees' => $order->getFees(),
+                            'simlyMerchId' => $simlyMerchId
+                        )))
+                        ->seterror(json_encode($utilityResponse));
+
+                    $this->mr->persist($logs);
+                    $this->mr->flush();
 
                     return new JsonResponse([
                         'status' => false,
-                        'message' => 'Esim not found',
-
-                    ], 404);
+                        'message' => @json_decode($utilityResponse[1], true),
+                        'flagCode' => @$utilityResponse[2]
+                    ]);
                 }
 
-                $esim
-                    ->setStatus('active')
-                    ->setMatchingId($simlyResponse['matchingID'])
-                    ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
-                    ->setQrCodeString($simlyResponse['qrCodeString'])
-                    ->setTopups(json_encode($simlyResponse['topups']))
-                    ->setTransaction(json_encode($simlyResponse['transaction']));
+                $transId = $utilityResponse[1];
+
+                $order
+                    ->setStatus(Order::$statusOrder['PURCHASED'])
+                    ->setTransId($transId);
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+
+                if ($_ENV['APP_ENV'] == "prod") {
+                    if ($order->getType() == 'esim') {
+                        $simlyResponses = $simlyServices->PurchaseTopup($data['planId']);
+                    } else {
+                        $simlyResponses = $simlyServices->PurchaseTopup($data['planId'], $data['esimId']);
+                    }
+                    $simlyResponse = $simlyResponses[0];
+                } else {
+                    // dd($simlyResponse);
+                    $simlyResponses = [
+                        '{"id":"65f06d8a089930a73eea174c","smdp":"thales3.prod.ondemandconnectivity.com","matchingID":"441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","qrCodeImageUrl":"https:\/\/api.qrserver.com\/v1\/create-qr-code\/?data=LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD&size=500x500","qrCodeString":"LPA:1$thales3.prod.ondemandconnectivity.com$441A0DB8342A4621B596DE7EC74BBFA1D13271350F0C3A1A245DFA609CC080CD","dateCreated":"2024-03-12T14:58:18.777Z","providerPackageId":"812301","topups":[],"transaction":{"uuid":"7ac2a082-e34d-4f4d-9986-a27f52aca0dc","processed":true,"initial_price":3.5,"paid_amount":1.45,"dateCreated":"2024-03-12T14:58:16.730Z","refunded":false,"dev_mode":false,"source":"PARTNER"},"plan":"simly_CYP_1GB_7D","allowedPlans":["simly_CYP_10GB_30D","simly_CYP_1GB_7D","simly_CYP_20GB_30D","simly_CYP_2GB_15D","simly_CYP_3GB_30D","simly_CYP_5GB_30D"]}',
+                        "",
+                        "",
+                        "",
+                        200
+                    ];
+                    $simlyResponse = json_decode($simlyResponses[0], true);
+                }
+
+
+                $pushlog->pushLogs(new Logs, "PurchaseTopup", $simlyResponses[1], $simlyResponses[2], $simlyResponses[3], $simlyResponses[4]);
+                // dd($simlyResponse);
+                if (!isset($simlyResponse['id'])) {
+
+                    $pushlog->pushLogs(new Logs, "PurchaseTopup", json_encode($data), json_encode($simlyResponses[2]), "simly/purchaseTopup", null);
+
+
+                    //return the money to the user
+                    $order->setStatus(Order::$statusOrder['CANCELED'])
+                        ->setError($simlyResponses[2]);
+
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+
+                    $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
+                    $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
+                    if ($responseUpdateUtilities[0]) {
+                        $order
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror("reversed " . $responseUpdateUtilities[1]);
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+                        $message = "Simly Purchase failed and the money was returned to the user";
+                    } else {
+                        $order
+                            ->setstatus(Order::$statusOrder['CANCELED'])
+                            ->seterror($responseUpdateUtilities[1]);
+                        $this->mr->persist($order);
+                        $this->mr->flush();
+                        $message = "Simly Purchase failed and the money was not returned to the user";
+                    }
+
+                    $this->mr->persist($order);
+                    $this->mr->flush();
+
+                    // try {
+                    //     $logs = new Logs;
+                    //     $logs
+                    //         ->setidentifier("simly_purchaseTopup")
+                    //         ->seturl("UpdateUtilities")
+                    //         ->setrequest(json_encode(array(
+                    //             'amount' => 0,
+                    //             'additionalData' => "",
+                    //             'transId' => $transId
+                    //         )))
+                    //         ->setresponse(json_encode($responseUpdateUtilities))
+                    //         ->seterror($message);
+
+                    //     $this->mr->persist($logs);
+                    //     $this->mr->flush();
+                    // } catch (\Exception $e) {
+                    // }
+
+
+                    return new JsonResponse([
+                        'status' => false,
+                        'message' => $message
+                    ]);
+                }
+
+                if ($order->getType() == 'esim') {
+                    if (isset($data['country'])) $country = $data['country'];
+                    else $country = "";
+                    $esim = new Esim();
+                    $esim
+                        ->setEsimId($simlyResponse['id'])
+                        ->setSuyoolUserId($SuyoolUserId)
+                        ->setStatus('active')
+                        ->setSmdp($simlyResponse['smdp'])
+                        ->setMatchingId($simlyResponse['matchingID'])
+                        ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
+                        ->setQrCodeString($simlyResponse['qrCodeString'])
+                        ->setTopups(json_encode($simlyResponse['topups']))
+                        ->setTransaction(json_encode($simlyResponse['transaction']))
+                        ->setPlan($simlyResponse['plan'])
+                        ->setInitialPrice($simlyPlan['initial_price'])
+                        ->setPrice($simlyPlan['price'])
+                        ->setParentPlanType($parentPlanType)
+                        ->setCountry($country)
+                        ->setCountryImage(@$data['countryImage'])
+                        ->setAllowedPlans(json_encode($simlyResponse['allowedPlans']))
+                        ->setIsoCode($data['isoCode']);
+                } else {
+                    $esim = $this->mr->getRepository(Esim::class)->findOneBy(['esimId' => $data['esimId']]);
+                    if (!$esim) {
+                        $logs = new Logs;
+                        $logs
+                            ->setidentifier("simly_purchaseTopup")
+                            ->seturl("simly/purchaseTopup")
+                            ->setrequest(json_encode($data['esimId']))
+                            ->seterror("Esim not found");
+
+                        return new JsonResponse([
+                            'status' => false,
+                            'message' => 'Esim not found'
+                        ], 404);
+                    }
+
+                    $esim
+                        ->setStatus('active')
+                        ->setMatchingId($simlyResponse['matchingID'])
+                        ->setQrCodeImageUrl($simlyResponse['qrCodeImageUrl'])
+                        ->setQrCodeString($simlyResponse['qrCodeString'])
+                        ->setTopups(json_encode($simlyResponse['topups']))
+                        ->setTransaction(json_encode($simlyResponse['transaction']));
+                }
+
+                $this->mr->persist($esim);
+                $this->mr->flush();
+
+                $order
+                    ->setStatus(Order::$statusOrder['COMPLETED'])
+                    ->setEsimsId($esim->getId());
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+                $userDetails = $notificationServices->GetuserDetails($SuyoolUserId);
+
+                $userName = $userDetails[0] . ' ' . $userDetails[1];
+                $params = json_encode([
+                    'amount' => $order->getamount(),
+                    'currency' => $order->getCurrency(),
+                    'plan' => @$esim->getPlan(),
+                    'fname' => $userName,
+                    'type' => $parentPlanType
+
+                ]);
+                $additionalData = "";
+                if (isset($data['esimId'])) {
+                    $content = $notificationServices->getContent('AcceptedSimlyTopupPayment');
+                } else {
+                    $content = $notificationServices->getContent('AcceptedSimlyPurshasePayment');
+                }
+                $bulk = 0;
+                $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
+
+                $updateUtilitiesAdditionalData = @explode("_", $simlyResponse['plan'])[2];
+
+                $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), @$updateUtilitiesAdditionalData, $transId);
+                $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
+                if ($responseUpdateUtilities[0]) {
+                    $message = "Simly Purchase was successful";
+                } else {
+                    $message = "Simly Purchase was successful but the utilities were not updated";
+                }
+
+                // try {
+                //     $logs = new Logs;
+                //     $logs
+                //         ->setidentifier("simly_purchaseTopup")
+                //         ->seturl("simly/purchaseTopup")
+                //         ->setrequest(json_encode($data))
+                //         ->setresponse(json_encode($simlyResponse))
+                //         ->seterror($message);
+
+                //     $this->mr->persist($logs);
+                //     $this->mr->flush();
+                // } catch (\Exception $e) {
+                // }
             }
-
-            $this->mr->persist($esim);
-            $this->mr->flush();
-
-            $order
-                ->setStatus(Order::$statusOrder['COMPLETED'])
-                ->setEsimsId($esim->getId());
-
-            $this->mr->persist($order);
-            $this->mr->flush();
-            $userDetails = $notificationServices->GetuserDetails($SuyoolUserId);
-
-            $userName = $userDetails[0] . ' ' . $userDetails[1];
-            $params = json_encode([
-                'amount' => $order->getamount(),
-                'currency' => $order->getCurrency(),
-                'plan' => @$esim->getPlan(),
-                'fname' => $userName,
-                'type' => $parentPlanType
-
-            ]);
-            $additionalData = "";
-            if (isset($data['esimId'])) {
-                $content = $notificationServices->getContent('AcceptedSimlyTopupPayment');
-            } else {
-                $content = $notificationServices->getContent('AcceptedSimlyPurshasePayment');
-            }
-            $bulk = 0;
-            $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
-
-            $updateUtilitiesAdditionalData = @explode("_", $simlyResponse['plan'])[2];
-
-            $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), @$updateUtilitiesAdditionalData, $transId);
-            $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
-            if ($responseUpdateUtilities[0]) {
-                $message = "Simly Purchase was successful";
-            } else {
-                $message = "Simly Purchase was successful but the utilities were not updated";
-            }
-
-            // try {
-            //     $logs = new Logs;
-            //     $logs
-            //         ->setidentifier("simly_purchaseTopup")
-            //         ->seturl("simly/purchaseTopup")
-            //         ->setrequest(json_encode($data))
-            //         ->setresponse(json_encode($simlyResponse))
-            //         ->seterror($message);
-
-            //     $this->mr->persist($logs);
-            //     $this->mr->flush();
-            // } catch (\Exception $e) {
-            // }
-
             return new JsonResponse([
                 'status' => true,
                 'message' => $message,
-                'data' => [
-                    'plan' => $simlyResponse,
-                    'Popup' => [
-                        "Title" => "eSIM Payment Successful",
-                        "globalCode" => 0,
-                        "flagCode" => 0,
-                        "Message" => "You have successfully purchased the $ {$simlyPlan['initial_price']} {$data['country']} eSIM.",
-                        "InstallEsim" => true,
-                        "isPopup" => true
-                    ]
-                ]
+                'data' => $simlyResponse
             ], 200);
-
-
         } else {
             return new JsonResponse([
                 'status' => false,
@@ -1383,8 +1546,5 @@ class SimlyController extends AbstractController
                 ]
             ], 401);
         }
-
     }
-
-
 }
