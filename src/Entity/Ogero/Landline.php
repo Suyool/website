@@ -127,6 +127,11 @@ class Landline
      */
     private $rounding;
 
+     /**
+     * @ORM\Column(name="receipt",type="string")
+     */
+    private $receipt;
+
     public function getId()
     {
         return $this->id;
@@ -371,6 +376,17 @@ class Landline
     function setogeroPenalty($ogeroPenalty)
     {
         $this->ogeroPenalty = $ogeroPenalty;
+        return $this;
+    }
+
+    function getReceipt()
+    {
+        return $this->receipt;
+    }
+
+    function setReceipt($receipt)
+    {
+        $this->receipt = $receipt;
         return $this;
     }
 }

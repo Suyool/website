@@ -349,7 +349,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $response, $this->BOB_API_HOST . 'RetrieveChannelResults',$status,json_encode($body));
+        return array($isSuccess, $decodedString, $ErrorDescription, $response, $this->BOB_API_HOST . 'RetrieveChannelResults', $status, json_encode($body));
     }
 
     public function BillPayOgero($Landline_With_id)
@@ -377,7 +377,7 @@ class BobServices
             ]
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'InjectTransactionalPayment',  $body);
-        $status=$response->getStatusCode();
+        $status = $response->getStatusCode();
         $myfile = fopen("../var/cache/ogerologs.txt", "a");
         $content = $response->getContent();
         $txt = json_encode(['response' => $response, 'content' => $content]) . " " . date('Y/m/d H:i:s ', time()) . " \n";
@@ -394,43 +394,49 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment',$status);
+        return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment', $status);
     }
 
-    public function RetrieveTransactionReceipt()
+    public function RetrieveTransactionReceipt($transactionId,$referenceNumber)
     {
-        $body = [
-            "TransactionId" => 1738115,
-            "ItemId" => 1,
-            "VenId" => 3,
-            "OgeroPrintCancelPRM" => [
-                "ReferenceNumber" => "20240200000232"
-            ],
-            "ChannelType" => "API",
-            "ProductId" => 16,
-            "Credentials" => [
-                "User" => $this->USERNAME,
-                "Password" => $this->PASSWORD
-            ]
-        ];
+        try {
+            $body = [
+                "TransactionId" => $transactionId,
+                "ItemId" => 1,
+                "VenId" => 3,
+                "OgeroPrintCancelPRM" => [
+                    "ReferenceNumber" => "{$referenceNumber}"
+                ],
+                "ChannelType" => "API",
+                "ProductId" => 16,
+                "Credentials" => [
+                    "User" => $this->USERNAME,
+                    "Password" => $this->PASSWORD
+                ]
+            ];
 
-        $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveTransactionReceipt',  $body);
-        $content = $response->toArray(false);
-        $ApiResponse = $content;
-        if ($ApiResponse["ErrorCode"] == 100) {
-            $res = $ApiResponse['Response'];
-            $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
-            $isSuccess = true;
-            $ErrorDescription = $ApiResponse['ErrorDescription'];
-        } else {
-            $decodedString = $ApiResponse['Response'];
-            $isSuccess = false;
-            $ErrorDescription = $ApiResponse['ErrorDescription'];
+            $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveTransactionReceipt',  $body);
+            $content = $response->toArray(false);
+            $ApiResponse = $content;
+            if ($ApiResponse["ErrorCode"] == 100) {
+                $res = $ApiResponse['Response'];
+                $decodedString = json_decode($this->_decodeGzipString(base64_decode($res)), true);
+                $isSuccess = true;
+                $ErrorDescription = $ApiResponse['ErrorDescription'];
+            } else {
+                $decodedString = $ApiResponse['Response'];
+                $isSuccess = false;
+                $ErrorDescription = $ApiResponse['ErrorDescription'];
+            }
+
+            return array(true,@$res,json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
+            // dd($decodedString);
+            // return $decodedString['PrintReceiptResponse'];
+            // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
+            //  print_r(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
+            // return $decodedString['PrintReceiptResponse'];
+        } catch (Exception $e) {
+            return array(false,$e->getMessage(),"","",$this->BOB_API_HOST . 'RetrieveTransactionReceipt',500);
         }
-        // dd($decodedString);
-        // return $decodedString['PrintReceiptResponse'];
-        // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
-         print_r(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
-        // return $decodedString['PrintReceiptResponse'];
     }
 }
