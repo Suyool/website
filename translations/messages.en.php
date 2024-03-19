@@ -559,4 +559,9 @@ return [
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INTERFROM" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Interform Group employee.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INTERFROM" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Interform Group employee.",
 
+    //Inventures
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_INVENTURES" => "What are the benefits for Inventures employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INVENTURES" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Inventures employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INVENTURES" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Inventures employee.",
+
 ];
