@@ -15,6 +15,7 @@ use App\Service\DecryptService;
 use App\Service\LogsService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use Dompdf\Dompdf;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -40,8 +41,12 @@ class OgeroController extends AbstractController
     /**
      * @Route("/ogero", name="app_ogero")
      */
-    public function index(NotificationServices $notificationServices): Response
+    public function index(NotificationServices $notificationServices, BobServices $bobServices): Response
     {
+        // HTML content
+        // print_r($bobServices->RetrieveTransactionReceipt());
+        // dd();
+        // $bobServices->RetrieveTransactionReceipt();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
 
@@ -199,6 +204,8 @@ class OgeroController extends AbstractController
                 $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
                 $pushlog->pushLogs(new Logs,"app_ogero_landline_pay",@$BillPayOgero[4],@$BillPayOgero[3],@$BillPayOgero[5],@$BillPayOgero[6]);
                 if ($BillPayOgero[0]) {
+                    $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(),$BillPayOgero[1]["ReferenceNumber"]);
+                    $pushlog->pushLogs(new Logs,"app_ogero_landline_pay_retrieve_receipt",@$retrieveReceipt[2],@$retrieveReceipt[3],@$retrieveReceipt[4],@$retrieveReceipt[5]);
                     //if payment from Bob provider success insert landline data to db
                     $landline = new Landline;
                     $landline
@@ -223,7 +230,8 @@ class OgeroController extends AbstractController
                         ->setadditionalFees($Landline_With_id->getadditionalFees())
                         ->setfees($Landline_With_id->getfees())
                         ->setfees1($Landline_With_id->getfees1())
-                        ->setrounding($Landline_With_id->getrounding());
+                        ->setrounding($Landline_With_id->getrounding())
+                        ->setReceipt(@$retrieveReceipt[1]);
                     $this->mr->persist($landline);
                     $this->mr->flush();
 
@@ -556,6 +564,8 @@ class OgeroController extends AbstractController
                         $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
                         $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$BillPayOgero[4],@$BillPayOgero[3],@$BillPayOgero[5],@$BillPayOgero[6]);
                         if ($BillPayOgero[0]) {
+                            $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(),$BillPayOgero[1]["ReferenceNumber"]);
+                            $pushlog->pushLogs(new Logs,"app_ogero_landline_pay_retrieve_receipt_corporate",@$retrieveReceipt[2],@$retrieveReceipt[3],@$retrieveReceipt[4],@$retrieveReceipt[5]);
                             //if payment from Bob provider success insert landline data to db
                             $landline = new Landline;
                             $landline
@@ -580,7 +590,8 @@ class OgeroController extends AbstractController
                                 ->setadditionalFees($Landline_With_id->getadditionalFees())
                                 ->setfees($Landline_With_id->getfees())
                                 ->setfees1($Landline_With_id->getfees1())
-                                ->setrounding($Landline_With_id->getrounding());
+                                ->setrounding($Landline_With_id->getrounding())
+                                ->setReceipt(@$retrieveReceipt[1]);
                             $this->mr->persist($landline);
                             $this->mr->flush();
 
