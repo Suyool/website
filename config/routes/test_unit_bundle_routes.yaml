@@ -1,0 +1,2 @@
+test_unit_bundle.routes:
+  resource: '@HelloWorldBundle/config/routes.yaml'

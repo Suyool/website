@@ -1,0 +1,27 @@
+{
+    "name":"TestUnit",
+    "version":"1.0.0",
+    "type":"symfony-bundle",
+    "description":"This bundle renders a template with the 'Hello world!' message.",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "TestUnit\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TestUnit\\":"src/"
+        }
+    },
+    "authors": [
+        {
+            "name":"Anthony Saliba",
+            "email": "anthony.saliban@gmail.com",
+            "role": "Developer"
+        }
+    ]
+}

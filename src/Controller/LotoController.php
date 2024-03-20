@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use TestUnit\Hello;
 use TypeError;
 
 class LotoController extends AbstractController
@@ -64,6 +65,8 @@ class LotoController extends AbstractController
      */
     public function index(Request $request)
     {
+        $test = new Hello;
+        $test->test();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $data = json_decode($request->getContent(), true);
 
