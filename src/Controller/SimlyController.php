@@ -974,7 +974,7 @@ class SimlyController extends AbstractController
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) && $webkeyDecrypted['devicesType'] == "CORPORATE") {
             $SuyoolUserId = $webkeyDecrypted['merchantId'];
-            $SuyoolUserId = 155;
+            // $SuyoolUserId = 155;
             $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId' => $SuyoolUserId], ['id' => 'DESC']);
             $usage = [];
             if (!empty($esims)) {
