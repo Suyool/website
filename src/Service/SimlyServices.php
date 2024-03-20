@@ -254,7 +254,7 @@ class SimlyServices
                                         $plans['countryImageURL'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
                                         $plans['isoCode'] = $value['isoCode'];
-                                        $plans['duration'] = "24 hr";
+                                        $plans['duration'] = "24 hrs";
                                         $plans['initial_price'] = 0;
                                         $plans['initial_price_free'] = "Free";
                                         $plans['price'] = 0;
@@ -310,7 +310,7 @@ class SimlyServices
                                         $plans['isoCode'] = $value['isoCode'];
                                         $plans['countryImageURL'] = $value['countryImageURL'];
                                         $plans['offre'] = true;
-                                        $plans['duration'] = "24 hr";
+                                        $plans['duration'] = "24 hrs";
                                         $plans['initial_price'] = 0;
                                         $plans['initial_price_free'] = "Free";
                                         $plans['price'] = 0;
