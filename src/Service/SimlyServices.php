@@ -527,8 +527,8 @@ class SimlyServices
             $data = $response->toArray(false);
             // dd($data);
             if (!is_null($data['data']) && $data['data']['duration'] == 1 && $data['data']['price'] == 1) {
-                $data['data']['price'] = 0;
-                $data['data']['initial_price'] = 0;
+                // $data['data']['price'] = 0;
+                // $data['data']['initial_price'] = 0;
                 $data['data']['offre'] = true;
             }
             if ($data['code'] == 200) {

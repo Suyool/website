@@ -306,6 +306,9 @@ class SimlyController extends AbstractController
         // dd($order);
         $order_id = $simlyMerchId . "-" . $order->getId();
         if (isset($simlyPlan['offre']) && $simlyPlan['offre']) {
+            $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
+            $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
+
             $order
                 ->setStatus(Order::$statusOrder['PURCHASED']);
 
@@ -445,6 +448,15 @@ class SimlyController extends AbstractController
             $bulk = 0;
             $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
             $message = "Your free esim card";
+
+            $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $utilityResponse[1]);
+            $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
+            if ($responseUpdateUtilities[0]) {
+                $message = "Simly Purchase was successful";
+            } else {
+                $message = "Simly Purchase was successful but the utilities were not updated";
+            }
+
             return new JsonResponse([
                 'status' => true,
                 'message' => $message,
