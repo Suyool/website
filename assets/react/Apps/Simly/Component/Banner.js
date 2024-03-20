@@ -39,17 +39,17 @@ const Banner = ({havingCard}) => {
         <div className="banner" style={{textAlign: "center"}}>
             {havingCard ? (
                 <img
-                    src="build/images/simly/activate.png"
+                    src="build/images/simly/activate1.png"
                     alt="Activate"
-                    style={{cursor: "pointer"}}
+                    style={{cursor: "pointer",width:"100%"}}
                     onClick={()=>activateEsim()}
                 />
             ) : (
                 <img
-                    src="build/images/simly/request.png"
+                    src="build/images/simly/request1.png"
                     alt="Request"
                     onClick={()=>requestCard()}
-                    style={{cursor: "pointer"}}
+                    style={{cursor: "pointer",width:"100%"}}
                 />
             )}
         </div>

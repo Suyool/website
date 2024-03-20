@@ -38,7 +38,7 @@ const BottomSlider = () => {
     }, 1000);
   };
   if (SelectedPlan) {
-    const isocode = SelectedPlan ? SelectedPlan.isoCode : eSimDetail.isoCode;
+    var isocode = SelectedPlan ? SelectedPlan.isoCode : eSimDetail.isoCode;
   }
   return (
     <div id="BottomSliderContainer">
