@@ -194,6 +194,8 @@ class SimlyServices
                         $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId);
                         if (!empty($isCompletedPerUser)) {
                             $data['data']['plans'][$index1]['isbought'] = true;
+                        }else{
+                            $data['data']['plans'][$index1]['isbought'] = false;
                         }
                     } else {
                         $data['data']['plans'][$index1] = null;
@@ -362,6 +364,8 @@ class SimlyServices
                         $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $offress['planId']);
                         if(!empty($isCompletedPerUser)){
                             $offres[$index]['bought'] = true;
+                        }else{
+                            $offres[$index]['bought'] = false;
                         }
                     }
 

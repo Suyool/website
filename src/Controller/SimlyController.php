@@ -904,25 +904,43 @@ class SimlyController extends AbstractController
      */
     public function GetPlansUsingISOCodeApi(Request $request, SimlyServices $simlyServices, NotificationServices $notificationServices)
     {
-        $data = json_decode($request->getContent(false), true);
-        $auth = $this->authenticate($notificationServices);
-        if ($auth !== true) return $auth;
+        $webkey = apache_request_headers();
+        $webkeyDecrypted = SuyoolServices::decryptWebKey($webkey);
+        if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) && $webkeyDecrypted['devicesType'] == "CORPORATE") {
+            $data = json_decode($request->getContent(false), true);
+            // $auth = $this->authenticate($notificationServices);
+            // if ($auth !== true) return $auth;
 
-        $code = $request->get('code');
-        if (!$code) return new JsonResponse([
-            'status' => false,
-            'message' => 'Country code is required'
-        ], 400);
+            $code = $request->get('code');
+            if (!$code) return new JsonResponse([
+                'status' => false,
+                'message' => 'Country code is required'
+            ], 400);
 
-        $code = strtoupper($code);
+            $code = strtoupper($code);
 
-        $res = $simlyServices->GetPlansUsingISOCode($code, $data['suyoolUserId'], 1);
-        $res['plans'] = array_filter($res['plans']);
-        $res['plans'] = array_merge($res['plans']);
-        return new JsonResponse([
-            'status' => true,
-            'data' => array_merge($res)
-        ], 200);
+            $res = $simlyServices->GetPlansUsingISOCode($code, $webkeyDecrypted['merchantId'], 1);
+            $res['plans'] = array_filter($res['plans']);
+            $res['plans'] = array_merge($res['plans']);
+            return new JsonResponse([
+                'status' => true,
+                'data' => array_merge($res)
+            ], 200);
+        } else {
+            return new JsonResponse([
+                'status' => false,
+                'message' => "Unauthorize",
+                'data' => [
+                    'Popup' => [
+                        "Title" => "Unauthorize",
+                        "globalCode" => 0,
+                        "flagCode" => 801,
+                        "Message" => "You have been unauthorized",
+                        "isPopup" => true
+                    ]
+                ]
+            ], 401);
+        }
     }
 
     /**
@@ -1045,7 +1063,7 @@ class SimlyController extends AbstractController
 
         if ($notificationServices->checkUser($webkeyDecrypted['merchantId'], $webkeyDecrypted['lang']) && $webkeyDecrypted['devicesType'] == "CORPORATE") {
             $data = json_decode($request->getContent(false), true);
-            $res = $simlyServices->GetOffres($data['suyoolUserId'], 1);
+            $res = $simlyServices->GetOffres($webkeyDecrypted['merchantId'], 1);
             $res = array_filter($res);
             $res = array_merge($res);
             return new JsonResponse([
@@ -1297,11 +1315,38 @@ class SimlyController extends AbstractController
                 $bulk = 0;
                 $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
                 $message = "Your free esim card";
-                return new JsonResponse([
-                    'status' => true,
-                    'message' => $message,
-                    'data' => $simlyResponse
-                ], 200);
+                if (isset($data['esimId'])) {
+                    return new JsonResponse([
+                        'status' => true,
+                        'message' => $message,
+                        'data' => [
+                            'plan' => $simlyResponse,
+                            'Popup' => [
+                                "Title" => "eSIM Payment Successful",
+                                "globalCode" => 0,
+                                "flagCode" => 0,
+                                "Message" => "You have successfully topped up the $ {$simlyPlan['initial_price']} {$data['country']} eSIM.",
+                                "isPopup" => true
+                            ]
+                        ]
+                    ], 200);
+                } else {
+                    return new JsonResponse([
+                        'status' => true,
+                        'message' => $message,
+                        'data' => [
+                            'plan' => $simlyResponse,
+                            'Popup' => [
+                                "Title" => "eSIM Payment Successful",
+                                "globalCode" => 0,
+                                "flagCode" => 0,
+                                "Message" => "You have successfully purchased the Free {$data['country']} eSIM.",
+                                "InstallEsim" => true,
+                                "isPopup" => true
+                            ]
+                        ]
+                    ], 200);
+                }
             } else {
                 $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id, $order->getAmount(), $order->getCurrency(), $order->getFees(), $simlyMerchId);
                 $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
@@ -1329,14 +1374,41 @@ class SimlyController extends AbstractController
 
                     $this->mr->persist($logs);
                     $this->mr->flush();
-
+                    $message = json_decode($utilityResponse[1], true);
+                    if (isset($message['Title'])) {
+                        $popup = [
+                            "Title" => @$message['Title'],
+                            "globalCode" => 0,
+                            "flagCode" => @$message['ButtonOne']['Flag'],
+                            "Message" => @$message['SubTitle'],
+                            "isPopup" => true
+                        ];
+                    } else {
+                        $popup = [
+                            "Title" => "Error has occured",
+                            "globalCode" => 0,
+                            "flagCode" => 800,
+                            "Message" => "Please try again <br> Error: {$utilityResponse[3]}",
+                            "isPopup" => true
+                        ];
+                    }
+                    if (isset($response[2])) {
+                        $flagCode = $utilityResponse[2];
+                    }
+                    $dataPayResponse = -1;
+                    $messageBack = $utilityResponse[3];
+                    $parameters = [
+                        'message' => $message,
+                        'IsSuccess' => false,
+                        'flagCode' => $flagCode,
+                        'Popup' => @$popup,
+                    ];
                     return new JsonResponse([
-                        'status' => false,
-                        'message' => @json_decode($utilityResponse[1], true),
-                        'flagCode' => @$utilityResponse[2]
-                    ]);
+                        'status' => true,
+                        'message' => @$messageBack,
+                        'data' => $parameters
+                    ], 200);
                 }
-
                 $transId = $utilityResponse[1];
 
                 $order
@@ -1526,11 +1598,38 @@ class SimlyController extends AbstractController
                 // } catch (\Exception $e) {
                 // }
             }
-            return new JsonResponse([
-                'status' => true,
-                'message' => $message,
-                'data' => $simlyResponse
-            ], 200);
+            if (isset($data['esimId'])) {
+                return new JsonResponse([
+                    'status' => true,
+                    'message' => $message,
+                    'data' => [
+                        'plan' => $simlyResponse,
+                        'Popup' => [
+                            "Title" => "eSIM Payment Successful",
+                            "globalCode" => 0,
+                            "flagCode" => 0,
+                            "Message" => "You have successfully topped up the $ {$simlyPlan['initial_price']} {$data['country']} eSIM.",
+                            "isPopup" => true
+                        ]
+                    ]
+                ], 200);
+            } else {
+                return new JsonResponse([
+                    'status' => true,
+                    'message' => $message,
+                    'data' => [
+                        'plan' => $simlyResponse,
+                        'Popup' => [
+                            "Title" => "eSIM Payment Successful",
+                            "globalCode" => 0,
+                            "flagCode" => 0,
+                            "Message" => "You have successfully purchased the Free {$data['country']} eSIM.",
+                            "InstallEsim" => true,
+                            "isPopup" => true
+                        ]
+                    ]
+                ], 200);
+            }
         } else {
             return new JsonResponse([
                 'status' => false,
