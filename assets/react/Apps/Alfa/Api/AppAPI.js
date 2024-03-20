@@ -147,21 +147,7 @@ const AppAPI = () => {
             dispatch(settingObjectData({ mainField: "postpaidData", field: "pinCode", value: [] }));
             dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
           } else {
-            dispatch(
-              settingData({
-                field: "modalData",
-                value: {
-                  isShow: true,
-                  name: "ErrorModal",
-                  img: "/build/images/alfa/error.png",
-                  title: "No Available Bill",
-                  desc: `There is no available bill for ${localStorage.getItem("billMobileNumber")} at the moment.
-                Kindly try again later. `,
-                  btn: "OK",
-                  flag: "",
-                },
-              })
-            );
+            dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
             dispatch(settingObjectData({ mainField: "postpaidData", field: pinCode, value: [] }));
           }
         });
