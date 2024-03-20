@@ -184,7 +184,7 @@ class SimlyServices
                 if (!is_null($data1) && $data1['duration'] == 1 && $data1['price'] == 1) {
                     if ($HavingCard) {
                         $data['data']['plans'][$index1]['offre'] = true;
-                        $data['data']['plans'][$index1]['duration'] = "24 hr";
+                        $data['data']['plans'][$index1]['duration'] = "24 hrs";
                         $data['data']['plans'][$index1]['initial_price'] = 0;
                         $data['data']['plans'][$index1]['initial_price_free'] = "Free";
                         $data['data']['plans'][$index1]['price'] = 0;
