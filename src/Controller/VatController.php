@@ -109,7 +109,7 @@ class VatController extends AbstractController
             //Initial order with status pending
             $order = $this->initializeOrder($suyoolUserId, $vatReq);
 
-            $orderTst = $this->params->get('VAT_MERCHANT_ID_PROD') . $order->getId();
+            $orderTst = $this->params->get('VAT_MERCHANT_ID_PROD') ."-".  $order->getId();
             //Take amount from .net
             $response = $this->suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $vatReq->getfees());
             $pushlog = new LogsService($this->mr);

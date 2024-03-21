@@ -109,7 +109,7 @@ class TaxController extends AbstractController
             $flagCode = null;
             // Initialize order
             $order = $this->initializeOrder($suyoolUserId, $taxReq);
-            $orderTst = $this->params->get('TAX_MERCHANT_ID_PROD') . $order->getId() ;
+            $orderTst = $this->params->get('TAX_MERCHANT_ID_PROD') ."-". $order->getId() ;
 
             //Take amount from .net
             $response = $this->suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $taxReq->getfees());
