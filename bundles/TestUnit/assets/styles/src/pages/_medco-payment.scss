@@ -1,0 +1,181 @@
+.medcoPayment {
+  .top-section-medco {
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+    .top-section-details {
+      position: absolute;
+      top: 150px;
+
+      h1 {
+        color: $white;
+        margin-bottom: 30px;
+        font-size: 50px;
+      }
+      p {
+        color: $white;
+        font-size: 20px;
+        margin-bottom: 60px;
+        font-family: $InterRegular;
+      }
+    }
+    .buttons-cont {
+      button {
+        background-color: #fff;
+        border-radius: 10px;
+        color: #226d96;
+        font-family: PoppinsSemiBold;
+        padding: 16px 37px;
+      }
+      button:hover {
+        background-color:  #fff;
+        border-radius: 10px;
+        color: #226d96;
+        font-family: PoppinsSemiBold;
+        padding: 16px 37px;
+      }
+    }
+  }
+  .litrePlus {
+    .title {
+      color: #373464;
+      font-size: 22px;
+      font-family: PoppinsBold;
+    }
+    .desc {
+      font-size: 40px;
+      color: #202020;
+      font-family: PoppinsRegular;
+    }
+    span {
+      font-size: 22px;
+      font-family: PoppinsRegular;
+      color: #6B6B6B;
+    }
+  }
+  .remote-payment {
+    margin: 100px 0;
+    text-align: center;
+
+    .title {
+      color: #373464;
+      font-family: PoppinsBold;
+      font-size: 22px;
+      letter-spacing: 2px;
+      word-spacing: 1px;
+    }
+    .subTitle {
+      color: #202020;
+      font-family: PoppinsRegular;
+      font-size: 52px;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .desc {
+      color: rgba(0,0,0,.502);
+      font-family: PoppinsRegular;
+      font-size: 20px;
+      margin-bottom: 50px;
+    }
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  @media(min-width: 769px) and (max-width: 1200px) {
+    .top-section-medco {
+      .top-section-details {
+        top: 100px;
+      }
+    }
+  }
+  @media screen and (max-width: 992px) {
+    .remote-payment {
+      margin: 100px 0;
+      text-align: center;
+
+      .title {
+        font-size: 16px;
+        letter-spacing: 0px;
+        word-spacing: 1px;
+      }
+      .subTitle {
+        font-size: 25px;
+      }
+      .desc {
+        font-size: 18px;
+      }
+    }
+    .top-section-medco {
+      .top-section-details {
+        h1 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .remote-payment {
+      margin: 100px 0;
+      text-align: center;
+
+      .title {
+        font-size: 16px;
+        letter-spacing: 0px;
+        word-spacing: 1px;
+      }
+      .subTitle {
+        font-size: 25px;
+      }
+      .desc {
+        font-size: 18px;
+      }
+    }
+    .top-section-medco{
+      .top-section-details {
+        position: absolute;
+        top: 520px;
+
+        h1 {
+          font-size: 30px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+    .three_steps {
+      display: block !important;
+    }
+    .litrePlus {
+      .title {
+        font-size: 18px;
+      }
+
+      .desc {
+        font-size: 30px;
+      }
+
+      span {
+        font-size: 18px;
+      }
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .top-section-medco{
+      .top-section-details {
+        position: absolute;
+        top: 405px;
+        p {
+          margin-bottom: 30px;
+        }
+      }
+    }
+  }
+}
+

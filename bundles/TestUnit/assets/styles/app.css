@@ -1,0 +1,1101 @@
+* {
+  margin: 0;
+}
+
+.ar {
+  text-align: right;
+  direction: rtl;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+a:hover {
+  text-decoration: none;
+  color: unset;
+}
+
+.button-primary {
+  background-color: #226D96;
+  padding: 8px 80px;
+  color: unset;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #226D96;
+}
+
+.displayNone {
+  display: none;
+}
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url("../../../fonts/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: PoppinsMedium;
+  src: url("../../../fonts/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url("../../../fonts/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: PoppinsItalic;
+  src: url("../../../fonts/Poppins-Italic.ttf");
+}
+
+header {
+  text-align: left;
+  direction: ltr;
+  background-color: #226D96;
+  /* For browsers that do not support gradients */
+  background-image: -webkit-gradient(linear, left top, right top, from(#226D96), to(#373464));
+  background-image: linear-gradient(to right, #226D96, #373464);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 18px;
+}
+
+header .right_header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header .right_header .suyool_header_link {
+  font-family: PoppinsBold;
+  font-size: 12px;
+  color: white;
+  padding-left: 15px;
+}
+
+header img {
+  max-width: 40px;
+}
+
+header .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment_landingPage {
+  background-color: #F1F3F5;
+}
+
+.payment_landingPage .how_to_send_money {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.payment_landingPage .how_to_send_money .user_img {
+  padding: 20px;
+  width: 175px;
+  border-radius: 50%;
+  height: 175px;
+}
+
+.payment_landingPage .how_to_send_money .user_name {
+  font-size: 21px;
+  font-family: PoppinsBold;
+  font-weight: bold;
+}
+
+.payment_landingPage .how_to_send_money .methode {
+  font-size: 21px;
+  font-family: PoppinsRegular;
+  padding-top: 5px;
+}
+
+.payment_landingPage .how_to_send_money .amount {
+  font-size: 40px;
+  font-family: PoppinsBold;
+  font-weight: bold;
+  padding: 0 20px;
+}
+
+.payment_landingPage .how_to_send_money .desc {
+  font-size: 18px;
+  font-family: PoppinsRegular;
+}
+
+.payment_landingPage .how_to_pay {
+  margin-top: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 500px;
+}
+
+.payment_landingPage .how_to_pay .title {
+  font-size: 12px;
+  font-family: PoppinsBold;
+  width: 80%;
+  padding-bottom: 10px;
+}
+
+.payment_landingPage .how_to_pay .choose_way {
+  cursor: pointer;
+  padding: 15px;
+  border: 1px solid #DEDEDE;
+  margin-bottom: 25px;
+  background-color: white;
+}
+
+.payment_landingPage .how_to_pay .choose_way .logo_container .logo {
+  width: 46px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment_landingPage .how_to_pay .choose_way .text_container .sub_title {
+  font-size: 12px;
+  font-family: PoppinsBold;
+  font-weight: bold;
+}
+
+.payment_landingPage .how_to_pay .choose_way .text_container .desc {
+  font-size: 10px;
+  font-family: PoppinsRegular;
+  max-width: 70%;
+}
+
+.payment_landingPage .how_to_pay .lear_abou_suyool {
+  margin-top: 100px;
+  color: #373464;
+  font-family: PoppinsBold;
+  font-weight: bold;
+}
+
+.payment_landingPage .modal .modal-dialog .modal-content .modal-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.payment_landingPage .modal .modal-dialog .modal-content .modal-container .logo {
+  margin: 45px 0 20px 0;
+}
+
+.payment_landingPage .modal .modal-dialog .modal-content .modal-container .title {
+  font-size: 15px;
+  font-family: PoppinsBold;
+  font-weight: bold;
+}
+
+.payment_landingPage .modal .modal-dialog .modal-content .modal-container .desc {
+  font-size: 12px;
+  font-family: PoppinsRegular;
+  margin: 15px 0 20px 0;
+  text-align: center;
+}
+
+.payment_landingPage .modal .modal-dialog .modal-content .modal-container .btnDone {
+  padding: 15px 120px;
+  background-color: #F4F4F4;
+  color: black;
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 45px 0 20px 0;
+}
+
+.generate_Code {
+  background-color: #F1F3F5;
+}
+
+.generate_Code .generatecode {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.generate_Code .generatecode .error {
+  display: none;
+}
+
+.generate_Code .generatecode .title {
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 30px 0 20px 0;
+}
+
+.generate_Code .generatecode .desc {
+  font-family: PoppinsRegular;
+  font-size: 16px;
+}
+
+.generate_Code .generatecode .btn {
+  padding: 15px 80px;
+  background-color: #226D96;
+  color: white;
+  font-family: PoppinsBold;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 65px 0 200px 0;
+}
+
+.GenerateCode2 {
+  background-color: #F1F3F5;
+}
+
+.GenerateCode2 .generatecode2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.GenerateCode2 .generatecode2 .title {
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 30px 0 80px 0;
+  width: 80%;
+}
+
+.GenerateCode2 .generatecode2 .code {
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 60px;
+}
+
+.GenerateCode2 .generatecode2 .btn {
+  padding: 15px 80px;
+  background-color: white;
+  color: #226D96;
+  font-family: PoppinsBold;
+  font-weight: bold;
+  border: 1px solid #226D96;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 45px 0 20px 0;
+}
+
+.GenerateCode2 .generatecode2 .note {
+  font-family: PoppinsRegular;
+  font-size: 12px;
+  margin: 0 0 280px 0;
+}
+
+.GenerateCode2 .modal .modal-dialog .modal-content .modal-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.GenerateCode2 .modal .modal-dialog .modal-content .modal-container .logo {
+  margin: 45px 0 20px 0;
+}
+
+.GenerateCode2 .modal .modal-dialog .modal-content .modal-container .title {
+  font-size: 15px;
+  font-family: PoppinsBold;
+  font-weight: bold;
+}
+
+.GenerateCode2 .modal .modal-dialog .modal-content .modal-container .desc {
+  font-size: 12px;
+  font-family: PoppinsRegular;
+  margin: 15px 0 20px 0;
+  text-align: center;
+}
+
+.GenerateCode2 .modal .modal-dialog .modal-content .modal-container .btn {
+  padding: 15px 120px;
+  background-color: #F4F4F4;
+  color: black;
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 45px 0 20px 0;
+}
+
+.visaCard {
+  background-color: #F1F3F5;
+}
+
+.visaCard .landingpage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.visaCard .landingpage .title {
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 100px 0;
+  color: #FF0000;
+}
+
+.visaCard .landingpage img {
+  width: auto;
+}
+
+.visaCard .landingpage .btn {
+  padding: 15px 80px;
+  background-color: #226D96;
+  color: white;
+  font-family: PoppinsBold;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 125px 0;
+}
+
+.emailVerificationCont {
+  margin-top: 50px;
+}
+
+.emailVerificationCont .openModel {
+  padding: 10px 40px;
+  color: #ffffff;
+  border: none;
+  background-color: #226D96;
+}
+
+.emailVerificationCont .modal img {
+  width: 35px;
+}
+
+.emailVerificationCont .logoImg {
+  width: 150px;
+}
+
+.emailVerificationCont .message-logo {
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.emailVerificationCont .message-logo img {
+  width: 70px;
+}
+
+.emailVerificationCont h1 {
+  font-size: 20px;
+  font-family: PoppinsBold;
+}
+
+.emailVerificationCont p {
+  font-size: 16px;
+  font-family: PoppinsMedium;
+}
+
+.emailVerificationCont .error-check {
+  display: block;
+  margin-top: 70px;
+}
+
+.emailVerificationCont .modal-content {
+  text-align: center;
+}
+
+.emailVerificationCont .modal-content h1 {
+  font-size: 20px;
+  font-family: PoppinsBold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.emailVerificationCont .modal-content p {
+  font-size: 16px;
+  font-family: PoppinsMedium;
+}
+
+.emailVerificationCont .modal-content .modal-footer {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.emailVerificationCont .congrats, .emailVerificationCont .verified {
+  color: #008000;
+}
+
+.emailVerificationCont .unverified {
+  color: #dc2129;
+}
+
+.invitation-card .carousel {
+  background-color: #ffffff;
+}
+
+.invitation-card .carousel .left {
+  background: unset !important;
+}
+
+.invitation-card .carousel .right {
+  background: unset !important;
+}
+
+.invitation-card .as-seen-on {
+  background-color: #ffffff;
+}
+
+.invitation-card .invitation-title-top {
+  text-align: center;
+  margin: 0;
+}
+
+.invitation-card .invitation-title-top h1 {
+  color: #495666 !important;
+  font-size: 40px;
+  font-family: 'libreFranklinBold';
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+}
+
+.invitation-card .input-cont {
+  /*    float: left;
+        padding-left: 5px;
+        margin-right: 4%;
+        margin-left: 4%;*/
+}
+
+.invitation-card .pay-save-repeat-container .benefits-image {
+  text-align: center;
+}
+
+.invitation-card .pay-save-repeat-container .benefits-image img {
+  width: 100px;
+}
+
+.invitation-card .pay-save-repeat-container .benefits-details {
+  text-align: left !important;
+}
+
+.invitation-card .pay-save-repeat-container .benefits-details span {
+  font-size: 18px !important;
+}
+
+.invitation-card .invitation-top-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  width: 57%;
+  background-size: cover;
+}
+
+.invitation-card .download-app {
+  color: #5A5A5A;
+  text-decoration: none;
+  font-family: libreFranklin;
+}
+
+.invitation-card .download-app .title, .invitation-card .download-app .form-title {
+  font-family: LibreFranklinBold;
+}
+
+.invitation-card .download-app.bottom {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  background-color: #F5F4F2;
+}
+
+.invitation-card .displayNone {
+  display: none;
+}
+
+.invitation-card .top-content {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding: 0 3%;
+}
+
+.invitation-card .top-content .title {
+  color: #D32227;
+  font-family: LibreFranklinBold;
+  font-size: 22px;
+}
+
+.invitation-top-section {
+  position: relative;
+}
+
+.invitation-top-section .noticeMessage {
+  color: #ffffff;
+}
+
+.invitation-top-section .image-back-1 {
+  background-image: url("../../../images/invitation/top-section-invitation-image-1.png");
+  background-size: cover;
+}
+
+.invitation-top-section .image-back-1 .description {
+  margin-top: 80px;
+  margin-left: 16%;
+  font-family: 'libreFranklin';
+  max-width: 68%;
+  font-weight: bold;
+  color: white;
+  font-size: 32px;
+}
+
+.invitation-top-section .image-back-1 .sub-description {
+  margin-bottom: 40px;
+  margin-left: 16%;
+  font-family: 'libreFranklin';
+  color: white;
+  font-size: 15px;
+}
+
+.invitation-top-section .image-back-1 .phone-submit {
+  padding-left: 16%;
+  max-width: 650px;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form {
+  display: none;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .gray-section {
+  background-color: unset;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .gray-section .download-app {
+  background-color: unset;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .country-code {
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+  font-size: 13px;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .input-phone {
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .input-phone .phone-holder {
+  border: none;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .input-phone .phone-holder:focus {
+  outline: none;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .send-button {
+  background-color: #D32127;
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .send-button .getAppBtn {
+  border: none;
+  color: white;
+  font-size: 16px;
+  opacity: 1;
+  font-family: "helvetica bold";
+}
+
+.invitation-top-section .image-back-1 .phone-submit .invitation-form .send-button:hover {
+  opacity: 0.8;
+}
+
+.invitation-top-section .image-back-1 .conclusion {
+  font-size: 10px;
+  color: white;
+  font-family: 'libreFranklin';
+  margin-top: 25px;
+  margin-left: 18%;
+  margin-bottom: 200px;
+}
+
+.invitation-top-section .image-back {
+  background-image: url("../../../images/invitation/top-section-invitation-image.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.invitation-container-main .text-sales-challenge {
+  display: none;
+}
+
+.invitation-container-main .how-to-get-started {
+  background-size: cover;
+  background-color: white;
+  padding-bottom: 60px;
+  margin-bottom: 60px;
+}
+
+.invitation-container-main .how-to-get-started .how-to-get-started-container h4 {
+  font-family: 'Helvetica Neue, Condensed Black';
+  font-size: 40px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.invitation-container-main .how-to-get-started .how-to-get-started-container .benefits-details .number b {
+  color: #D32127;
+  border-radius: 50%;
+  padding: 3px 10px;
+  border: #D32127 2px solid;
+  font-size: 20px;
+}
+
+.invitation-container-main .how-to-get-started .how-to-get-started-container .benefits-details span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #D32127;
+}
+
+.invitation-container-main .how-to-get-started .how-to-get-started-container .benefits-details p {
+  font-size: 14px;
+  max-width: 85%;
+}
+
+.invitation-container-main .faq-cont {
+  max-width: 800px;
+  margin-bottom: 100px;
+}
+
+@media screen and (max-width: 992px) {
+  .invitation-container-main .how-to-get-started .how-to-get-started-container h4 {
+    font-family: 'Helvetica Neue, Condensed Black';
+    font-size: 28px;
+    color: black;
+  }
+  .invitation-top-section {
+    position: relative;
+    background-image: url("../../../images/invitation/top-section-invitation-image-1.png");
+    background-size: cover;
+  }
+  .invitation-top-section .mobile-invite-img {
+    text-align: center;
+    padding-top: 50px;
+  }
+  .invitation-top-section .image-back-1 {
+    background-image: unset;
+    background-size: cover;
+  }
+  .invitation-top-section .image-back-1 .description {
+    color: #D32227;
+    font-size: 16px;
+    padding-top: 30px;
+    margin-top: 0;
+  }
+  .invitation-top-section .image-back-1 .sub-description {
+    color: #5A5A5A;
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-form {
+    display: none;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form {
+    margin-right: 17%;
+    display: block;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .phone-label {
+    border: 1px #ddd1d1 solid;
+    width: 100%;
+    overflow: hidden;
+    height: 54px;
+    border-radius: 10px;
+    margin-left: 1px;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .country-code {
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: black;
+    font-size: 13px;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .input-phone {
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .input-phone .phone-holder {
+    border: none;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .input-phone .phone-holder:focus {
+    outline: none;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .send-button {
+    background-color: #D32127;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .send-button .getAppBtn {
+    border: none;
+    color: white;
+    font-size: 16px;
+    opacity: 1;
+    font-family: "helvetica bold";
+  }
+  .invitation-top-section .image-back-1 .phone-submit .invitation-mobile-form .send-button:hover {
+    opacity: 0.8;
+  }
+  .invitation-top-section .image-back-1 .conclusion {
+    display: none;
+  }
+}
+
+.send-link-form-cont {
+  float: left;
+}
+
+.send-link-form-cont .form-title {
+  font-size: 14px !important;
+}
+
+.send-link-form-cont .form-title.gr {
+  font-family: 'Futura' !important;
+  font-size: 17px !important;
+}
+
+.send-link-form-cont .send-link-form {
+  padding: 0;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.send-link-form-cont .send-link-form .input-main-cont {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont {
+  background-color: #FFFFFF;
+  padding: 0;
+  margin: 18px 0;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .cyprus-flag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .cyprus-flag img {
+  width: 26px;
+  padding-bottom: 3px;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .country-code {
+  padding-left: 10px;
+  color: #000000;
+  font-family: 'LibreFranklinMedium';
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .input-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .input-cont ::-webkit-input-placeholder {
+  color: #000000;
+  font-family: 'LibreFranklinMedium';
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .input-cont input {
+  border: 0 !important;
+  background-color: transparent;
+  width: 100%;
+  padding: 5px 5px 16px;
+}
+
+.send-link-form-cont .send-link-form .input-sub-cont .input-cont input.gr {
+  font-family: 'futura';
+}
+
+.send-link-form-cont .send-link-form .get-the-app {
+  background-color: #226D96;
+}
+
+.send-link-form-cont .send-link-form .get-the-app button {
+  margin-top: 5px;
+  border: unset;
+  opacity: 1;
+}
+
+.send-link-form-cont .send-link-form .text {
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  font-size: 12px;
+  color: #7588A0;
+  padding: 6px;
+  width: auto;
+}
+
+.send-link-form-cont .send-link-form .note {
+  padding-left: 0;
+  margin-top: 187px;
+  color: #717B87;
+  padding-right: 0;
+  font-size: 10px;
+}
+
+.send-link-form-cont .send-link-form .note .privacy {
+  padding: 5px;
+}
+
+.download-app {
+  border-radius: 10px;
+}
+
+.download-app .title {
+  font-size: 28px;
+  width: 65%;
+  margin: auto;
+  text-align: center;
+}
+
+.download-app .btns-cont {
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.download-app .btns-cont .appstore {
+  padding-right: 8px;
+}
+
+.download-app .btns-cont .appstore img {
+  float: right;
+}
+
+.download-app .btns-cont .playstore {
+  padding-left: 8px;
+}
+
+.download-app .btns-cont .playstore img {
+  float: left;
+}
+
+.download-app .btns-cont .btn {
+  width: 50%;
+  float: left;
+}
+
+.download-app .btns-cont .btn img {
+  margin: auto;
+  display: table;
+}
+
+.download-app .send-link-form-cont {
+  text-align: center;
+  clear: both;
+  padding-top: 10px;
+  float: none;
+}
+
+.download-app .send-link-form-cont .subtitle {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.download-app .send-link-form-cont .send-link-form {
+  float: none;
+  margin: auto;
+}
+
+.invitation-download-btm-section:before {
+  background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, red), color-stop(49.9%, red), color-stop(50.1%, transparent));
+  background-image: linear-gradient(to left bottom, red 0, red 49.9%, transparent 50.1%);
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  z-index: 1;
+}
+
+.small-note {
+  color: #000000;
+  font-family: 'LibreFranklinMedium';
+  font-size: 12px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.bottom-container {
+  position: relative;
+  margin-top: 50px;
+}
+
+.bottom-container #triangle {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #f1f3f5), color-stop(49.9%, #f1f3f5), color-stop(50.1%, transparent));
+  background-image: linear-gradient(to right top, #f1f3f5 0, #f1f3f5 49.9%, transparent 50.1%);
+  height: 98px !important;
+  top: -98px;
+}
+
+.get-the-app button {
+  background-color: #226D96 !important;
+  color: #FFFFFF !important;
+  font-size: 12px !important;
+  border-radius: 10px;
+  font-family: 'libreFranklinBold' !important;
+}
+
+.small-note-invitation-mobile {
+  padding-top: 30px;
+  margin-right: 45px;
+}
+
+.invitation-card-main-cont-bottom {
+  padding-bottom: 100px;
+}
+
+.invitation-card-section-bottom {
+  width: 300px !important;
+}
+
+.animated-banner {
+  display: none;
+}
+
+@media all and (max-width: 768px) {
+  .small-note-invitation-mobile {
+    font-size: 13px;
+    text-align: left;
+  }
+  .send-link-form-cont .send-link-form .get-the-app button {
+    padding: 16px 40px;
+  }
+  .invitation-top-section .send-link-form-cont {
+    float: unset;
+    text-align: center;
+  }
+}
+
+@media all and (max-width: 991px) {
+  .send-link-form-cont .send-link-form .input-sub-cont {
+    border-radius: 10px;
+    max-width: 80%;
+  }
+  .get-the-app {
+    border-radius: 10px;
+    max-width: 80%;
+  }
+  .get-the-app button {
+    padding: 16px 10px;
+  }
+  .animated-banner {
+    display: block;
+  }
+}
+/*# sourceMappingURL=app.css.map */

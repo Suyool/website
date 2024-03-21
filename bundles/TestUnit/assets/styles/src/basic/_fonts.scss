@@ -1,0 +1,41 @@
+$Bold: PoppinsBold;
+$Medium: PoppinsMedium;
+$Regular: PoppinsRegular;
+$SemiBold: PoppinsSemiBold;
+$Italic: PoppinsItalic;
+
+$grey: rgb(69, 72, 69);
+
+$InterRegular: InterRegular;
+
+@font-face {
+    font-family: PoppinsBold;
+    src: url('../../../fonts/Poppins-Bold.ttf');
+}
+@font-face {
+    font-family: PoppinsMedium;
+    src: url('../../../fonts/Poppins-Medium.ttf');
+}
+@font-face {
+    font-family: PoppinsRegular;
+    src: url('../../../fonts/Poppins-Regular.ttf');
+}
+@font-face {
+    font-family: PoppinsSemiBold;
+    src: url('../../../fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: OpenSansRegular;
+    src: url('../../../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: PoppinsItalic;
+    src: url('../../../fonts/Poppins-Italic.ttf');
+}
+
+@font-face {
+    font-family: InterRegular;
+    src: url('../../../fonts/Inter-Regular.ttf');
+}

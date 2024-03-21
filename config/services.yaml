@@ -177,4 +177,6 @@ services:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'
     TestUnit\Controller\DefaultController:
         autowire: true
+    TestUnit\Controller\SimlyController:
+        autowire: true
         

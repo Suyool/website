@@ -1,0 +1,194 @@
+.supportBody {
+  background-color: #E8F0F3;
+  min-height: 110vh;
+  padding-bottom: 50px;
+
+  .myModaldesign {
+    text-align: center;
+
+    .modal-content {
+      border-radius: 30px;
+
+      .modal-header{
+        padding: 0;
+        .btn-close{
+          margin: .5rem 0.5rem -.5rem auto;
+        }
+      }
+
+      .icon {
+        padding-bottom: 20px;
+        margin-top: -25px;
+      }
+
+      .modal-body {
+        .modal-title {
+          font-family: $SemiBold;
+          color: #216D96;
+          font-size: 18px;
+          padding-bottom: 10px;
+        }
+
+        p {
+          font-family: $Regular;
+          font-size: 15px;
+        }
+      }
+
+
+      .modal-footer {
+        justify-content: center;
+        padding-top: 0;
+        button {
+          background: #216d96;
+          font-family: $SemiBold;
+          font-size: 15px;
+          width: 150px;
+          border-radius: 8px;
+        }
+      }
+
+    }
+  }
+
+  .formMain {
+    background: #FFFFFF;
+    padding: 20px 15%;
+    font-family: $Regular;
+    color: #6B6B6B;
+    width: 90%;
+    margin: auto;
+
+    .formTitle {
+      font-size: 35px;
+      color: #202020;
+    }
+
+    .formText {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .form-card {
+      margin: 20px 0;
+
+      .form-group {
+        label {
+          font-size: 15px;
+        }
+
+        textarea {
+          font-family: $Regular;
+          padding: 13px;
+          min-height: 170px;
+        }
+
+        input, textarea {
+          font-family: $Regular;
+          border: none;
+          border-radius: 8px;
+          background: #E8F0F3;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .btn-wrap {
+      .crtAcc {
+        border-radius: 8px;
+        background-color: #216D96;
+        color: #FFFFFF;
+        padding: 8px 50px;
+      }
+    }
+  }
+
+  .contact-info {
+    padding: 10%;
+    font-family: $Regular;
+    font-size: 18px;
+    color: #202020;
+
+    .title {
+      font-size: 35px;
+    }
+
+    .contact-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .info {
+      display: flex;
+      margin: 40px 0;
+
+      img {
+        padding-right: 10px;
+      }
+
+      a {
+        font-family: $SemiBold;
+        text-decoration: underline;
+        color: #387EA5;
+      }
+    }
+  }
+
+}
+
+
+@media screen and (max-width: 768px) {
+  .supportBody {
+    .formMain {
+      padding: 20px 10%;
+      width: 100%;
+
+      .formTitle {
+        font-size: 25px;
+      }
+
+      .formText {
+        font-size: 16px;
+      }
+
+      .form-card {
+        .form-group {
+          label {
+            font-size: 16px;
+            padding: 20px 0 6px 0;
+          }
+
+          input {
+            font-size: 14px;
+            padding: 12px;
+          }
+
+          textarea {
+            font-size: 16px;
+            padding: 12px;
+            min-height: 150px;
+          }
+        }
+      }
+
+      .btn-wrap {
+        padding: 25px 0;
+      }
+    }
+
+    .contact-info {
+      padding: 10%;
+      font-family: $Regular;
+      font-size: 16px;
+      color: #202020;
+
+      .title {
+        font-size: 25px;
+      }
+
+      .info {
+        margin: 30px 0;
+      }
+    }
+  }
+}

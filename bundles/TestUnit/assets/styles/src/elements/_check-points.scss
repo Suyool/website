@@ -1,0 +1,61 @@
+.card-desc {
+  width: 75%;
+  margin: auto;
+
+  .title {
+    color: #202020;
+    font-size: 35px !important;
+    font-family: $Regular;
+    margin-bottom: 30px;
+  }
+
+  .sub-title {
+    margin: 20px 0 70px 0 !important;
+    font-size: 18px;
+    font-family: $InterRegular;
+  }
+
+  .text {
+    margin: 30px 0;
+    color: $grey;
+
+    span {
+      font-family: $SemiBold;
+      text-decoration: underline;
+      color: #226D96;
+    }
+  }
+
+  .check {
+    display: flex;
+    font-size: 17px;
+    font-family: $InterRegular;
+
+    img {
+      margin-right: 20px;
+      height: 25px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-desc {
+    width: 95%;
+
+    .main_title {
+      font-size: 22px;
+    }
+
+    .title {
+      margin-bottom: 25px;
+    }
+
+    .sub-title {
+      margin: 20px 0 70px 0 ;
+    }
+
+    .text {
+      margin: 10px 0;
+    }
+  }
+}

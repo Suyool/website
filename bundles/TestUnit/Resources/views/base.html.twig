@@ -13,7 +13,7 @@
             Bundle
 		</title>
 		{% block stylesheets %}
-			{% for file in encore_entry_css_files('styles') %}
+			{% for file in encore_entry_css_files('stylesBundle') %}
 				<link rel="stylesheet" href="{{ asset(file|substr(1)) }}">
 			{% endfor %}
 		{% endblock %}

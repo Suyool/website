@@ -6,3 +6,5 @@ services:
     autoconfigure: true
 
   TestUnit\Controller\HelloWorldController: ~
+  TestUnit\Controller\SimlyController: ~
+

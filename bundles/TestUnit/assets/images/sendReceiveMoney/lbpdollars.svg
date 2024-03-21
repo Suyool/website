@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="66.999" height="73" viewBox="0 0 66.999 73">
+  <g id="Group_40077" data-name="Group 40077" transform="translate(-677.501 -747.083)">
+    <g id="Group_40076" data-name="Group 40076">
+      <path id="Subtraction_1" data-name="Subtraction 1" d="M22,0A22,22,0,1,1,0,22,22,22,0,0,1,22,0Z" transform="translate(700 775.583)" fill="#373464" stroke="#fff" stroke-width="1"/>
+      <path id="Subtraction_2" data-name="Subtraction 2" d="M22,44a22.005,22.005,0,0,1-8.563-42.27A22.005,22.005,0,0,1,30.564,42.27,21.862,21.862,0,0,1,22,44Zm-.04-17.976a1.679,1.679,0,1,0,0,3.358,1.6,1.6,0,0,0,1.174-.483,1.724,1.724,0,0,0,0-2.392A1.607,1.607,0,0,0,21.961,26.024Zm4.486-12.788V29.22h8.027V27.1H29.068V13.235Zm-15.755,0V29.22h8.027V27.1H13.313V13.235Z" transform="translate(678 747.583)" fill="#373464" stroke="#fff" stroke-width="1"/>
+    </g>
+    <text id="Full_Customizable" data-name="Full Customizable" transform="translate(721.916 804.804)" fill="#f0f0f3" font-size="23" font-family="Poppins-Medium, Poppins" font-weight="500"><tspan x="-7" y="0">$</tspan></text>
+  </g>
+</svg>

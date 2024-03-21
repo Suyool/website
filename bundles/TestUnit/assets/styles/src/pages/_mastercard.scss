@@ -1,0 +1,785 @@
+.top_section_mastercard-container {
+  background-image: url("../../../images/platinumMastercard/top-section-mastercard.jpg");
+  background-size: cover;
+  padding-bottom: 396px;
+}
+
+.top_section_visa-container {
+  // background-image: url("../../../images/platinumMastercard/top-section-visa.png");
+  // background-size: 100% 100%;
+  background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+  color: #fff;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.home-mastercard {
+  margin: 100px 0;
+
+  .card-img-mobile {
+    display: none;
+  }
+
+  .blue-btn {
+    margin-left: 40px;
+
+    &:hover {
+      border: 2px solid #202020;
+    }
+  }
+
+  .card-img-desk {
+    img {
+      width: 80%;
+    }
+  }
+}
+
+.top_section_mastercard {
+  .personal-underline {
+    border-bottom: 2px solid #fff;
+    color: #fff;
+  }
+
+  .business-underline {
+    color: #fff;
+  }
+
+  .navbar_v3 {
+    font-family: $Regular;
+
+    .navbar-brand {
+      img {
+        width: 85%;
+      }
+    }
+
+    .navbar-nav {
+      li {
+        margin-right: 50px;
+
+        .nav-link {
+          color: #ffffff !important;
+        }
+
+        .button-primary {
+          padding: 8px 30px;
+          border-radius: 8px;
+
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  //background: linear-gradient(119deg, #373464 6%, #005c8a 50%, #fff 88%);
+  // padding-top: 20px;
+  // padding-bottom: 220px;
+  color: #ffffff;
+
+  .navbar {
+    margin-bottom: 20px;
+
+    .right {
+      display: flex;
+      justify-content: space-around;
+      font-size: 18px;
+      font-family: $Regular;
+
+      .link {
+        padding-top: 6px;
+      }
+
+      .nav-button {
+        background: #48a6d9;
+        border-radius: 5px;
+        height: 40px;
+        text-align: center;
+        width: 170px;
+      }
+    }
+  }
+
+  .top-info {
+    h1 {
+      &.mastercard {
+        color: #373464;
+        font-family: PoppinsRegular;
+        font-size: 62px;
+        padding-top: 55px;
+      }
+
+      font-size: 40px;
+      padding-top: 55px;
+      font-family: $Regular;
+      color: #fff;
+      line-height: 60px;
+
+    }
+
+    p {
+      &.mastercard-2 {
+        color: #373464;
+        font-size: 20px;
+        width: 80%;
+      }
+
+      font-family: $InterRegular;
+      font-size: 18px;
+      width: 80%;
+      color: #fff;
+
+    }
+
+    .getthecard {
+      padding: 13px 59px;
+      background-color: #fff;
+      color:  #004C79;
+      font-family: 'PoppinsSemiBold';
+      border-radius: 10px;
+      margin-top: 50px;
+      border: 2px solid #fff !important;
+      margin-bottom: 20px;
+
+      &:hover {
+        color: #fff;
+        background-color: #226d96 !important;
+        border: 2px solid #fff !important;
+      }
+    }
+
+    .buttons-cont {
+      font-family: $Regular;
+      margin-top: 70px;
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        &:hover {
+          color: #ffffff;
+          background-color: #005c8a;
+        }
+      }
+
+      .button-primary {
+        margin-right: 10px;
+        font-size: 18px;
+        border: 2px solid #ffffff;
+      }
+
+      .button-primary:hover {
+        background: #226d96;
+        border: 2px solid #ffffff;
+      }
+
+      .button-primary,
+      .btn-outline-secondary {
+        border-radius: 12px;
+        padding: 10px 30px;
+        background: #ffffff;
+        color: #226d96;
+      }
+    }
+  }
+
+  .right-section {
+    .img-cont {
+      max-width: 615px;
+      margin: auto;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.four_steps {
+  background-color: #d7d7e2;
+  margin: 0;
+
+  .stp-top {
+    text-align: center;
+    margin-top: 80px;
+
+    .stp-top-title {
+      color: #373464;
+      font-size: 20px;
+      font-family: $Bold;
+      margin-bottom: 10px;
+    }
+
+    .stp-title {
+      font-size: 35px;
+      font-family: $Regular;
+    }
+  }
+
+  .dis-flex {
+    display: flex;
+  }
+
+  .stp-num {
+    color: #373464;
+    font-size: 50px;
+    font-family: $SemiBold;
+    padding-right: 15px;
+  }
+
+  .stp-desc {
+    padding-top: 26px;
+    margin-bottom: 20px;
+
+    .title {
+      font-family: $SemiBold !Important;
+    }
+
+    .description{
+      font-family: $InterRegular !Important;
+    }
+  }
+
+  .stp-cont {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+  }
+
+  .step {
+    padding: 20px 0;
+
+    .title {
+      font-size: 25px;
+      font-family: $Regular;
+      color: #373464;
+      padding: 10px 0;
+    }
+
+    .description {
+      font-size: 17px;
+      font-family: $InterRegular;
+      //font-family: $Regular;
+      color: #5a5a5a;
+    }
+  }
+}
+
+.three_steps {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  margin-top: 70px;
+
+  .step {
+    width: 30%;
+
+    .sub {
+      background-color: #fff;
+      border-radius: 3px;
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.18);
+      margin: auto;
+      min-height: 300px;
+      padding: 20px 5%;
+      position: relative;
+      display: flex;
+      width: 90%;
+      flex-direction: column;
+      justify-content: space-between;
+
+      img {
+        position: absolute;
+        right: 20px;
+        width: 17%;
+      }
+
+      .title {
+        font-size: 25px;
+        font-family: $SemiBold;
+        color: #000000;
+        width: calc(100% - var(66px));
+      }
+
+      .description {
+        padding-top: 70px;
+        font-size: 17px;
+        font-family: $InterRegular;
+        color: $grey;
+        letter-spacing: 0;
+      }
+    }
+  }
+}
+
+.mastercard_page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //margin-top: 100px;
+  align-items: center;
+
+  .ligne {
+    width: 100%;
+    position: relative;
+    height: 300px;
+
+    .coat {
+      color: #373464;
+      font-family: PoppinsItalic;
+      font-size: 18px;
+      max-width: 500px;
+      position: absolute;
+      right: 80px;
+      top: 30px;
+      padding-left: 20px;
+    }
+  }
+
+  .title {
+    font-family: $Bold;
+    font-size: 20px;
+    color: #373464;
+  }
+
+  .descri {
+    margin-top: 20px;
+    font-family: $Regular;
+    font-size: 35px;
+    color: #202020;
+    margin-bottom: 20px;
+  }
+
+  .cards {
+    display: flex;
+    width: 90%;
+    margin: 0;
+
+    .big_card_coat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .card_coat {
+        width: 95%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        overflow: hidden;
+        margin: 20px 0;
+
+        @media screen and (min-width: 998px) {
+          height: -webkit-fill-available;
+
+        }
+
+        padding-bottom: 50px;
+
+        .coat {
+          font-size: 18px;
+          color: #373464;
+          font-family: $Italic;
+          position: absolute;
+          bottom: 15px;
+          text-align: justify;
+        }
+      }
+    }
+
+    .big_card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+
+      .card {
+        width: 100%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0px 10px 60px #0000002e;
+        overflow: hidden;
+        margin: 20px 0;
+
+        @media screen and (min-width: 998px) {
+          height: -webkit-fill-available;
+
+        }
+
+        img {
+          width: 100%;
+          height: 300px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          object-fit: cover;
+        }
+
+        .text {
+          padding: 30px;
+
+          .title {
+            font-size: 17px;
+            color: #373464;
+            font-family: $Bold;
+            padding-bottom: 20px;
+          }
+
+          .points {
+            display: flex;
+
+            a {
+              color: #226d96 !important;
+              font-family: $SemiBold;
+            }
+
+            .dot {
+              margin-top: 5px;
+              min-width: 12px;
+              height: 12px;
+              background-color: #373464;
+              border-radius: 50%;
+            }
+
+            .desc {
+              font-family: $InterRegular;
+              font-size: 15px;
+              color: #373464;
+              padding-left: 15px;
+              padding-bottom: 10px;
+            }
+          }
+        }
+
+        .lear_more {
+          position: absolute;
+          right: 30px;
+          bottom: 30px;
+
+          a {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            span {
+              color: #005c8a;
+              font-size: 15px;
+              font-family: $SemiBold;
+            }
+
+            i {
+              color: #005c8a;
+              padding-left: 10px;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.home-mastercard {
+  overflow: hidden;
+  width: 100%;
+  margin: 150px 0 70px 0;
+
+  .blue-btn {
+    margin-left: 40px;
+  }
+
+  .card-img-desk {
+    img {
+      width: 80%;
+    }
+  }
+}
+
+.blue-btn {
+  color: #ffffff;
+  background: #226d96;
+  font-family: $SemiBold;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 20px 0;
+  width: 200px;
+}
+
+@media screen and (max-width: 1400px) {
+  .four_steps {
+    padding-top: 20px;
+
+    .step {
+      padding: 18px 5%;
+
+      .title {
+        font-size: 22px;
+        min-height: 53px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .three_steps {
+    margin-top: 70px;
+
+    .step {
+      .sub {
+        min-height: 435px;
+        width: 100%;
+
+        img {
+          position: initial;
+          width: fit-content;
+        }
+
+        .title {
+          font-size: 24px;
+        }
+
+        .description {
+          padding-top: 55px;
+          font-size: 18px;
+          font-family: $InterRegular;
+          color: $grey;
+          letter-spacing: 0;
+          text-align: justify;
+        }
+      }
+    }
+  }
+
+  .home-mastercard {
+
+    .blue-btn {
+      margin-left: 10px;
+    }
+
+    .card-img-desk {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home-mastercard {
+    .card-img-mobile {
+      display: block;
+      text-align: center;
+
+      .notification {
+        width: 100% !important;
+      }
+
+      img {
+        width: 90%;
+        margin-bottom: 50px;
+      }
+    }
+
+    .card-img-desk {
+      display: none;
+    }
+
+    .blue-btn {
+      margin: auto;
+    }
+  }
+
+  .top_section_mastercard-container {
+    background-image: url("../../../images/platinumMastercard/top-section-mastercard-mob.png");
+  }
+
+  .top_section_mastercard {
+    // padding-bottom: 360px;
+
+    .navbar {
+      margin-bottom: 20px;
+
+      .right {
+        font-size: 18px;
+
+        .nav-button {
+          border-radius: 5px;
+          height: 40px;
+          width: 170px;
+        }
+      }
+    }
+
+    .top-info {
+      text-align: -webkit-center;
+
+      h1 {
+        font-size: 27px;
+        // padding-top: 55px;
+        padding-top: 0px;
+      }
+
+      p {
+        font-size: 18px;
+        font-family: $InterRegular;
+        width: 100%;
+      }
+    }
+  }
+
+  .mastercard_page {
+    margin-top: 50px;
+
+    .cards {
+      .big_card_coat {
+        .card_coat {
+          .coat {
+            position: initial;
+          }
+        }
+      }
+    }
+
+    .title {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .descri {
+      font-size: 35px;
+      text-align: center;
+    }
+
+    .cards {
+      width: 100%;
+
+      .big_card {
+        .card {
+          width: 100%;
+          margin: 20px 0;
+
+          .text {
+            padding: 15px;
+
+            .title {
+              font-size: 20px;
+              padding-bottom: 20px;
+            }
+
+            .points {
+              .dot {
+                margin-top: 5px;
+                min-width: 10px;
+                height: 10px;
+              }
+
+              .desc {
+                font-size: 15px;
+                padding-left: 12px;
+                font-family: $InterRegular;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .three_steps {
+    .step {
+      width: 100%;
+
+      .sub {
+        margin-top: 20px;
+
+        img {
+          position: initial;
+          width: fit-content;
+        }
+
+        .title {
+          font-size: 20px;
+        }
+
+        .description {
+          padding-top: 20px;
+          font-size: 16px;
+          text-align: unset;
+        }
+      }
+    }
+  }
+
+  .home-mastercard {
+    .card-img-desk {
+      text-align: center;
+
+      img {
+        width: 80%;
+      }
+    }
+  }
+}
+
+// @media (min-width: 767px) and (max-width: 992px) {
+//   .top_section_mastercard-container {
+//     background-image: url("../../../images/platinumMastercard/visaIpad.png");
+//   }
+// }
+
+@media (min-width: 768px) and (max-width: 1450px) {
+  .home-mastercard {
+    .blue-btn {
+      margin-left: 40px;
+    }
+
+    .card-img-desk {
+      img {
+        width: 80%;
+      }
+    }
+  }
+
+}
+
+.buttons-cont-visa {
+  font-family: $SemiBold;
+  margin-top: 85px;
+  text-align: -webkit-center !important;
+
+  button {
+    &:hover {
+      background-color: #fff;
+      color: #4886a8;
+      border: 1px solid #005c8a;
+    }
+  }
+
+}
+
+// @media screen and (min-width: 2401px) {
+//   body {
+//     transform: scale(0.8);
+//     transform-origin: top center;
+//   }
+// }
+
+// @supports (-webkit-touch-callout: none) {
+//   @media
+// (-webkit-min-device-pixel-ratio: 2),
+// (min-resolution: 192dpi) {
+//     body{
+//       zoom: 0.8;
+//     }
+// }
+// }
+
+@supports (-webkit-hyphens:none) {
+  body {
+    zoom: 0.8;
+  }
+}

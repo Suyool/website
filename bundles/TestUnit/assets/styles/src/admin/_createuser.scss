@@ -1,0 +1,13 @@
+.password-field {
+    position: relative;
+
+    #togglePassword {
+        position: absolute;
+        right: 0;
+        top: 27px;
+        width: 35px;
+        border: 1px solid;
+        cursor: pointer;
+        background-color: cornsilk;
+    }
+}

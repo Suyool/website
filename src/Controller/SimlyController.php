@@ -40,9 +40,9 @@ class SimlyController extends AbstractController
         $this->Memcached = $memcached;
     }
 
-    /**
-     * @Route("/simly", name="simly")
-     */
+    // /**
+    //  * @Route("/simly", name="simly")
+    //  */
     public function index(NotificationServices $notificationServices)
     {
         $useragent = $_SERVER['HTTP_USER_AGENT'];

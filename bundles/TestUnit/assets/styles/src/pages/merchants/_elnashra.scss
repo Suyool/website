@@ -1,0 +1,156 @@
+.topSectionElNashraEmp {
+  img {
+    width: 100%;
+    min-height: 500px;
+  }
+
+  .logos {
+    padding-top: 30px;
+    text-align: center;
+
+    span {
+      color: #fff;
+      font-size: 41px;
+      margin-left: 13px;
+      position: relative;
+      margin-right: 13px;
+      top: 8px;
+      font-weight: 300;
+    }
+
+    img {
+      width: 112px;
+    }
+  }
+
+  .info-cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 9pc;
+    text-align: center;
+  }
+
+  .information {
+    width: 50%;
+    margin: auto;
+
+    @media screen and (max-width: 1200px) and (min-width: 998px) {
+      padding-top: 5pc;
+    }
+
+    .title {
+      color: #fff;
+      font-size: 40px;
+      font-family: $Regular;
+    }
+
+    .desc {
+      margin-top: 30px;
+      font-family: 'PoppinsRegular';
+      font-size: 17px;
+      color: #fff;
+    }
+
+    .OpenSuyoolAccount {
+      margin-top: 30px;
+
+      .OpenYourSuyoolAccount {
+        padding: 10px 30px;
+        border-radius: 12px;
+        border: none;
+        color: #226D96;
+        font-family: $SemiBold;
+        background: #ffffff;
+
+        &:hover {
+          background: #226d96;
+          border: 2px solid #fff;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 998px) and (max-width: 1400px) {
+  .topSectionElNashraEmp {
+    .tabletMode {
+      img {
+        max-height: 98vh;
+      }
+    }
+
+    .info-cont {
+      padding-top: 0;
+    }
+
+    .information {
+      padding-top: 100px;
+      width: 75%;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 997px) {
+  .topSectionElNashraEmp {
+    .tabletMode {
+      img {
+        max-height: 98vh;
+      }
+    }
+
+    .information {
+      width: 100%;
+    }
+  }
+}
+
+@media (min-width: 500px) and (max-width: 990px) {
+  .topSectionElNashraEmp {
+    .tabletMode {
+      display: block;
+    }
+
+    .mobileMode {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .topSectionElNashraEmp {
+
+    .information {
+      width: 100%;
+      padding-top: 0;
+
+      .title, .desc {
+        text-align: center;
+      }
+
+      .title {
+        font-size: 25px;
+      }
+
+      .desc {
+        font-size: 15px;
+        line-height: 21px;
+      }
+
+      .OpenSuyoolAccount {
+        margin-top: 80px;
+
+        .OpenYourSuyoolAccount {
+          font-size: 15px;
+          padding: 8px 10px;
+        }
+      }
+    }
+
+
+  }
+}

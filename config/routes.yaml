@@ -53,3 +53,7 @@ app_requesttopay:
 bundle_test:
   path: /TestUnit
   controller: TestUnit\Controller\DefaultController::index
+simly:
+  path: /simly
+  controller: TestUnit\Controller\SimlyController::index
+

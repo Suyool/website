@@ -1,0 +1,128 @@
+$image-path: '../../../images/';
+.faq{
+    .title{
+        text-align: center;
+        margin-bottom: 30px;
+        color: #216D96;
+        margin-top: 70px;
+        font-family: $Medium;
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+    .subtitle{
+        text-align: center;
+        margin-bottom: 40px;
+        color: #364A59;
+        font-size: 35px;
+        font-family: $SemiBold;
+    }
+    .FAQaccordion{
+        .accordion-item{
+            margin-bottom: 20px;
+            border: none;
+        }
+        .accordion-button{
+            font-size: 20px;
+            color: #226D96;
+            font-family: $Regular;
+            background-color: #C4D9E495;
+            padding: 22px;
+            &:not(.collapsed){
+                box-shadow:none;
+            }
+            &:focus{
+                box-shadow:none;
+                background-color: #C4D9E495;
+            }
+            &::after{
+                color: #226D96;
+                background-image:url($image-path+"arrowfaq.svg") ;
+            }
+        }
+        .accordion-collapse{
+             background-color: #C4D9E495;
+        }
+        .accordion-body{
+           position: relative;
+           top: -20px;
+            color: #000;
+            font-family: $InterRegular;
+            padding-left: 25px;
+            font-size: 15px;
+        }
+    }
+    @media screen and (max-width:768px) {
+        .subtitle{
+            font-size: 25px;
+        }
+        .title{
+            font-size: 16px;
+        }
+        .FAQaccordion{
+            .accordion-body{
+                font-size: 14px;
+            }
+            .accordion-button{
+                font-size: 16px;
+            }
+        }
+        
+    }
+}
+.quest-send-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #387ea5;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: #FFFFFF;
+}
+.ans-bg{
+    border-radius: 25px;
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    padding: 6px;
+    p {
+        padding-top: 7px;
+    }
+}
+
+.bg-light-blue{
+    background: #DBFCFF;
+}
+
+.bg-light-red{
+    background: #FFDCDB;
+}
+
+.bg-light-yellow{
+    background: #FFF1DB;
+}
+
+.quest-edit-icon{
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #004B71;
+    width: 40px;
+    height: 40px;
+    padding: 8px 12px;
+}
+
+.answers-steps{
+    padding-left: 50px;
+}
+
+.center-div{
+    width: 100%;
+    text-align: center;
+}
+
+.ans-styled-button{
+    padding: 8px 20px;
+    color: #FFFFFF;
+    border-radius: 25px;
+}

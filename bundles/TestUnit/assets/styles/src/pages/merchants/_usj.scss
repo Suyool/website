@@ -1,0 +1,372 @@
+$image-path: '../../../../images/usj/';
+
+.usj {
+    .topSectionUsjEmp {
+        img {
+            width: 100%;
+            min-height: 370px;
+        }
+
+        // background-color: #e41e2c;
+        // background-image: url($image-path+"topImagelarge.png");
+        // @media screen and (max-width:1440px) {
+        //     background-image: url($image-path+"topImageMed.png");
+        //     padding: 0px;
+        //     height: 70vh;
+        // }
+        // @media screen and (max-width:998px) {
+        //     background-image: url($image-path+"topImageTablet.png");
+        //     padding: 0px;
+        //     height: 70vh;
+        // }
+        // background-size: 100% 100%;
+        // // background-position: center;
+        // background-repeat: no-repeat;
+        // // padding: 206px;
+        // height: 697px;
+
+        .logos {
+            padding-top: 30px;
+            text-align: center;
+
+            span {
+                color: #fff;
+                font-size: 41px;
+                margin-left: 13px;
+                position: relative;
+                margin-right: 13px;
+                top: 8px;
+                font-weight: 300;
+            }
+
+            img {
+                width: 112px;
+            }
+        }
+
+        .information {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding-top: 120px;
+            text-align: center;
+
+            @media screen and (max-width:1400px) and (min-width:998px) {
+                padding-top: 90px;
+            }
+
+            .title {
+                color: #fff;
+                font-size: 17px;
+                font-family: $Regular;
+                width: 35%;
+                margin: auto;
+            }
+
+            .desc {
+                margin-top: 17px;
+                font-family: 'PoppinsRegular';
+                font-size: 17px;
+                color: #fff;
+            }
+
+            .OpenSuyoolAccount {
+                margin-top: 30px;
+
+                .OpenYourSuyoolAccount {
+                    padding: 10px 30px;
+                    @media screen and (max-width:768px) {
+                        padding: 10px 50px; 
+                    }
+                    border-radius: 9px;
+                    border: none;
+                    color: #226D96;
+                    font-family: $SemiBold;
+                    background: #ffffff;
+
+                    &:hover {
+                        background: #226d96;
+                        border: 2px solid #fff;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .InfoSection {
+        background-color: #F0F0F3;
+        text-align: center;
+        padding-top: 26px;
+        margin-bottom: 20px;
+
+        .easy_steps_top {
+            font-size: 22px;
+            font-family: $Bold;
+            color: #373464;
+            word-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .MasterCard {
+            text-align: center;
+            color: #373464;
+            font-family: $Regular ;
+            font-size: 18px;
+            margin-bottom: 24px;
+
+            img {
+                // max-height: 50px;
+            }
+
+            .desc {
+                font-family: $Regular;
+                font-size: 20px;
+                margin-top: 10px;
+            }
+
+            .sub-desc {
+                text-align: center;
+                font-family: $Regular;
+                font-size: 17px;
+                color: #5A5A5A;
+            }
+        }
+    }
+
+    .alfa-steps {
+        .home_body_desktop {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+
+            .how_suyool_work {
+                font-size: 22px;
+                font-family: $Bold;
+                color: #373464;
+                letter-spacing: 2px;
+            }
+
+            .easy_steps {
+                font-size: 52px;
+                font-family: $Regular;
+                color: #202020;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            .manage_spend {
+                font-size: 20px;
+                font-family: $Regular;
+                color: #6B6B6B;
+            }
+        }
+
+        .home-steps {
+            margin: 30px 0;
+            justify-content: center;
+
+            .step {
+                padding: 19px 34px 0px;
+                margin: 0 10px 50px 10px;
+                border-radius: 10px;
+                border: none;
+
+                .head {
+                    display: flex;
+                    justify-content: space-between;
+                    font-family: $Bold;
+                    font-size: 52px;
+                    margin-bottom: 30px;
+
+                    img {
+                        max-height: 90px;
+                    }
+                }
+
+                .title {
+                    font-family: $SemiBold;
+                    font-size: 22px;
+                    margin-bottom: 20px;
+                }
+
+                .text {
+                    font-family: $Regular;
+                    font-size: 17px;
+                    color: #6B6B6B;
+                    margin-bottom: 30px;
+                }
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .home-steps {
+                .step {
+                    padding: 20px 40px;
+
+                    .head {
+                        font-size: 52px;
+                        margin-bottom: 30px;
+
+                        img {
+                            width: 100px;
+                        }
+                    }
+
+                    .title {
+                        font-size: 18px;
+                        margin-bottom: 15px;
+                    }
+
+                    .text {
+                        font-size: 14px;
+                        margin-bottom: 20px;
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    .alfa-mastercard {
+        .main_title {
+            color: #373464;
+            font-size: 23px;
+            font-family: $Bold;
+        }
+
+        margin: 100px 0;
+        overflow-x: hidden;
+
+        .card-img-mobile {
+            display: none;
+        }
+
+        .blue-btn {
+            margin-left: 40px;
+        }
+
+        .card-img-desk {
+            @media screen and (max-width:998px) {
+                text-align: center;
+            }
+
+            img {
+                max-width: 600px;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width:768px) {
+
+            .card-img-desk {
+                text-align: center;
+
+                img {
+                    width: 100%;
+                    margin-bottom: 95px;
+                }
+            }
+
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .topSectionUsjEmp {
+            // padding: 0px;
+            // // background-color: #E41E2C;
+            // // background-image: none;
+            // background-image: url($image-path+"alfamobilesize1.png");
+            // @media screen and (max-width:375px) {
+            //     background-image: url($image-path+"alfamobilesize375.png");
+            // }
+            // @media screen and (max-width:360px) {
+            //     background-image: url($image-path+"alfamobilesize375.png");
+            // }
+            // padding-top: 1px;
+            // height: 80vh;
+
+            .information {
+                padding-top: 8pc;
+                // left: 16px;
+                left: 30px;
+                right: 30px;
+
+                .title {
+                    font-size: 25px;
+                    text-align: left;
+                    width: unset;
+                }
+
+                .desc {
+                    font-size: 14px;
+                    line-height: 30px;
+                    text-align: left;
+                }
+
+                .OpenSuyoolAccount {
+                    .OpenYourSuyoolAccount {
+                        margin: auto;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+
+        }
+
+        .InfoSection {
+            background-color: #F0F0F3;
+
+            .MasterCard {
+                margin-bottom: 80px;
+
+                .sub-desc {
+                    font-size: 17px;
+                    text-align: left;
+                }
+
+                .desc {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .alfa-steps {
+
+            .home_body_desktop {
+                text-align: center;
+                padding-left: 40px;
+                padding-right: 40px;
+
+                .how_suyool_work {
+                    font-size: 14px;
+                }
+
+                .easy_steps {
+                    font-size: 25px;
+                }
+
+                .manage_spend {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .alfa-mastercard {
+            .main_title {
+                font-size: 22px;
+            }
+
+            margin: 0;
+        }
+
+    }
+}

@@ -1,0 +1,328 @@
+.invitation-card {
+  .carousel {
+    background-color: #ffffff;
+
+    .left {
+      background: unset !important;
+    }
+
+    .right {
+      background: unset !important;
+    }
+  }
+
+  .as-seen-on {
+    background-color: #ffffff;
+  }
+  .invitation-title-top {
+    text-align: center;
+    margin: 0;
+    h1 {
+      color: #495666!important;
+      font-size: 40px;
+      font-family: 'libreFranklinBold';
+      margin-bottom: 10px!important;
+      margin-top: 10px!important;
+    }
+  }
+  .input-cont {
+    /*    float: left;
+        padding-left: 5px;
+        margin-right: 4%;
+        margin-left: 4%;*/
+  }
+
+  .pay-save-repeat-container {
+    .benefits-image {
+      text-align: center;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    .benefits-details {
+      text-align: left !important;
+
+      span {
+        font-size: 18px !important;
+      }
+    }
+  }
+
+
+  .invitation-top-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    width: 57%;
+    background-size: cover;
+  }
+
+  .download-app {
+    color: #5A5A5A;
+    text-decoration: none;
+    font-family: libreFranklin;
+
+    .title, .form-title {
+      font-family: LibreFranklinBold;
+    }
+
+    &.bottom {
+      padding-top: 40px;
+      padding-bottom: 50px;
+      background-color: #F5F4F2;
+    }
+  }
+
+  .displayNone {
+    display: none;
+  }
+
+  .top-content {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 0 3%;
+
+    .title {
+      color: #D32227;
+      font-family: LibreFranklinBold;
+      font-size: 22px;
+    }
+  }
+}
+
+.invitation-top-section {
+  .noticeMessage{
+    color: #ffffff;
+  } 
+  position: relative;
+  .image-back-1{
+    background-image: url('../../../images/invitation/top-section-invitation-image-1.png');
+    background-size: cover ;
+    .description{
+      margin-top: 80px;
+      margin-left: 16%;
+      font-family: 'libreFranklin';
+      max-width: 68%;
+      font-weight: bold;
+      color: white;
+      font-size: 32px;
+    }
+    .sub-description{
+      margin-bottom: 40px;
+      margin-left: 16%;
+      font-family: 'libreFranklin';
+      color: white;
+      font-size: 15px;
+    }
+    .phone-submit{
+      padding-left: 16%;
+      max-width: 650px;
+      .invitation-mobile-form{
+        display: none;
+      }
+      .gray-section{
+        background-color: unset;
+        .download-app{
+          background-color: unset;
+        }
+      }
+      .invitation-form{
+        .country-code{
+          background-color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black;
+          font-size: 13px;
+        }
+        .input-phone{
+          background-color: white;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          .phone-holder{
+            border: none;
+          }
+          .phone-holder:focus{
+            outline:none;
+          }
+        }
+        .send-button{
+          background-color: #D32127;
+          .getAppBtn{
+            border: none;
+            color: white;
+            font-size: 16px;
+            opacity: 1;
+            font-family: "helvetica bold";
+          }
+        }
+        .send-button:hover{
+          opacity: 0.8;
+        }
+      }
+    }
+    .conclusion{
+      font-size: 10px;
+      color: white;
+      font-family: 'libreFranklin';
+      margin-top: 25px;
+      margin-left: 18%;
+      margin-bottom: 200px;
+    }
+  }
+  .image-back{
+    background-image: url('../../../images/invitation/top-section-invitation-image.png');
+    background-repeat: no-repeat ;
+    background-size: cover ;
+  }
+
+
+}
+
+.invitation-container-main{
+  .text-sales-challenge{
+    display: none;
+  }
+  .how-to-get-started{
+    background-size: cover;
+    background-color: white ;
+    padding-bottom: 60px;
+    margin-bottom: 60px;
+    .how-to-get-started-container{
+      h4{
+        font-family: 'Helvetica Neue, Condensed Black';
+        font-size: 40px;
+        text-align: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      .benefits-details{
+        .number{
+          b{
+            color: #D32127;
+            border-radius: 50%;
+            padding: 3px 10px;
+            border: #D32127 2px solid;
+            font-size: 20px;
+          }
+        }
+        span{
+          font-size: 20px;
+          font-weight: bold;
+          color: #D32127;
+        }
+        p{
+          font-size: 14px;
+          max-width: 85%;
+        }
+      }
+    }
+  }
+
+  .faq-cont{
+    max-width: 800px;
+    margin-bottom: 100px;
+  }
+
+}
+
+@media screen and (max-width: 992px) {
+  .invitation-container-main {
+    .how-to-get-started {
+      .how-to-get-started-container {
+        h4 {
+          font-family: 'Helvetica Neue, Condensed Black';
+          font-size: 28px;
+          color: black;
+        }
+      }
+    }
+  }
+  .invitation-top-section {
+    .mobile-invite-img{
+      text-align: center;
+      padding-top: 50px;
+    }
+    position: relative;
+    background-image: url('../../../images/invitation/top-section-invitation-image-1.png');
+    background-size: cover;
+    .image-back-1{
+      background-image: unset;
+      background-size: cover ;
+      .description{
+        color: #D32227;
+        font-size: 16px;
+        padding-top: 30px;
+        margin-top: 0;
+      }
+      .sub-description{
+        color: #5A5A5A;
+        font-size: 12px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .phone-submit{
+        .invitation-form{
+          display: none;
+        }
+        .invitation-mobile-form{
+          margin-right: 17%;
+          display: block;
+          .phone-label{
+            border: 1px #ddd1d1 solid;
+            width: 100%;
+            overflow: hidden;
+            height:54px ;
+            border-radius: 10px;
+            margin-left: 1px;
+          }
+          .country-code{
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 13px;
+          }
+          .input-phone{
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            .phone-holder{
+              border: none;
+            }
+            .phone-holder:focus{
+              outline:none;
+            }
+          }
+          .send-button{
+            background-color: #D32127;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            .getAppBtn{
+              border: none;
+              color: white;
+              font-size: 16px;
+              opacity: 1;
+              font-family: "helvetica bold";
+            }
+          }
+          .send-button:hover{
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .conclusion{
+        display: none;
+      }
+    }
+  }
+}

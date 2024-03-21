@@ -1,0 +1,105 @@
+#MyBundle {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px 15px;
+
+    .MyBundleBody {
+        // height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .mainTitle {
+            font-family: $Medium;
+            font-size: 16px;
+            color: black;
+            width: 100%;
+        }
+
+        .mainDesc {
+            font-family: $Regular;
+            font-size: 12px;
+            color: black;
+            width: 100%;
+        }
+
+        .BundleBigImg {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 22px;
+        }
+
+        .smlDesc {
+            font-family: $Regular;
+            font-size: 12px;
+            width: 100%;
+            color: #F47A00;
+        }
+        .smlDescSayrafa {
+            font-family: $Regular;
+            font-size: 10px;
+            width: 100%;
+            color: #F47A00;
+        }
+
+        .relatedInfo {
+            font-family: $Regular;
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 4px;
+            padding: 10px 0;
+            color: black;
+        }
+
+        .MoreInfo {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px 0;
+
+            .label {
+                font-family: $Medium;
+                color: #1C1A32;
+                font-size: 14px;
+            }
+
+            .value {
+                font-family: $SemiBold;
+                color: #000000;
+                font-size: 14px;
+            }
+
+            .value1 {
+                font-family: $SemiBold;
+                color: #000000;
+                font-size: 20px;
+            }
+        }
+
+        .br {
+            margin: 10px 0;
+            height: 0.5px;
+            width: 100%;
+            background-color: #EBEBEB;
+            width: -webkit-fill-available;
+        }
+
+        .btnCont {
+            // position: absolute;
+            // bottom: 10px;
+            margin-top: 60vh;
+            width: 90%;
+        }
+    }
+}

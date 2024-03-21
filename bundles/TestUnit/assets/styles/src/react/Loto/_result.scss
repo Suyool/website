@@ -1,0 +1,301 @@
+#Result {
+    width: 100%;
+
+    .resultTopSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .title {
+            font-family: $SemiBold;
+            font-size: 10px;
+            color: black;
+        }
+
+        .ballSection {
+            display: flex;
+            flex-direction: row;
+            width: 75%;
+            justify-content: space-evenly;
+
+            span {
+                font-family: $SemiBold;
+                font-size: 15px;
+                color: white;
+                background-color: #C82F2A;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+            }
+        }
+
+        .ballSectionZeed {
+            display: flex;
+            flex-direction: row;
+            width: 75%;
+            justify-content: space-evenly;
+
+            span {
+                font-family: $SemiBold;
+                font-size: 15px;
+                color: white;
+                background-color: #FFB800;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &.nouse {
+                    background-color: unset;
+                }
+
+            }
+        }
+    }
+
+    .nextDrawSection {
+        background-color: #E9E9E9;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .filter-section {
+            .selectDesign {
+                background-color: unset;
+                border: none;
+                color: #C82F2A;
+                font-size: 16px;
+                font-family: $Regular;
+            }
+        }
+
+        .dayDrow {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding-top: 20px;
+
+            .items {
+                width: 80%;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                direction: rtl;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    background-color: white;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 10px;
+                    width: 17%;
+                    padding: 10px 0;
+                    cursor: pointer;
+
+                    &.clicked {
+                        background-color: #C82F2A;
+                        color: #ffffff !important;
+                    }
+
+                    .time {
+                        font-family: $Regular;
+                        font-size: 15px;
+                    }
+
+                    .day {
+                        font-family: $Regular;
+                        font-size: 13px;
+                        color: #AAAAAA;
+                    }
+                }
+            }
+
+            .goNext {
+                width: 10%;
+                margin: auto;
+                text-align: center;
+            }
+        }
+    }
+
+    .winnweSection {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid #37346461;
+        box-shadow: 2px 3px 10px #00000029;
+        width: 90%;
+        margin-top: 20px;
+        overflow: hidden;
+
+        .winnweHeader {
+            // display: flex;
+            flex-direction: row;
+            padding: 8px 25px;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+                width: 35px;
+                height: 35px;
+            }
+
+            span {
+                font-family: $Bold;
+                font-size: 11px;
+                padding-left: 15px;
+            }
+
+            button {
+                background: #C82F2A;
+                border: none;
+                float: right;
+                padding: 8px 23px;
+                border-radius: 5px;
+                color: #fff;
+                font-family: $Regular;
+                font-size: 12px;
+            }
+        }
+
+        .winnweBody {
+            display: flex;
+            flex-direction: row;
+            padding: 0px 25px 20px 25px;
+            justify-content: space-between;
+
+            .ballSection {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: $SemiBold;
+                    font-size: 15px;
+                    color: #676767;
+                    background-color: white;
+                    border-radius: 50%;
+                    border: 1px solid #676767;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 5px;
+
+                }
+
+                .win {
+                    background-color: #C82F2A;
+                    border: 1px solid #C82F2A;
+                    color: white;
+                }
+
+                .lastBall {
+                    background-color: #8D0500;
+                    border: 1px solid #8D0500;
+                    color: white;
+                }
+
+                .lastBallNone {
+                    background-color: white;
+                    border: 1px solid #676767;
+                    color: #676767;
+                }
+            }
+
+            .ballSectionZeed {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-start;
+
+                span {
+                    font-family: $SemiBold;
+                    font-size: 15px;
+                    color: #676767;
+                    background-color: white;
+                    border-radius: 50%;
+                    border: 1px solid #676767;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 5px;
+
+                }
+
+                .win {
+                    background-color: #FFB800;
+                    border: 1px solid #FFB800;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .winnweFooter {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px;
+            justify-content: space-between;
+            background-color: #BC2D29;
+
+            .price {
+                font-size: $SemiBold;
+                font-size: 20px;
+                color: white;
+
+                span {
+                    font-size: 14px;
+                }
+            }
+
+
+        }
+
+        .winnweFooterZeed {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px;
+            justify-content: space-between;
+            background-color: #F2B341;
+
+            .price {
+                font-size: $SemiBold;
+                font-size: 20px;
+                color: white;
+
+                span {
+                    font-size: 14px;
+                }
+            }
+
+
+        }
+
+        .NoWinnweFooter {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 25px;
+            justify-content: space-between;
+            background-color: #F7F7F7;
+            border-top: 1px solid #373464;
+            justify-content: center;
+            font-family: $SemiBold;
+
+        }
+    }
+}

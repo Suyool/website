@@ -6,6 +6,12 @@
         "/build/app1.1dfb62eb.js"
       ]
     },
+    "app1bundle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/app1bundle.ffd0bd24.js"
+      ]
+    },
     "admin-app": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -60,6 +66,12 @@
         "/build/Simly.183c4f62.js"
       ]
     },
+    "SimlyBundle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/SimlyBundle.e75753e2.js"
+      ]
+    },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -84,6 +96,14 @@
       ],
       "css": [
         "/build/styles.6dd0f5af.css"
+      ]
+    },
+    "stylesBundle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/stylesBundle.d8f30851.css"
       ]
     },
     "admin": {
@@ -156,6 +176,14 @@
       ],
       "css": [
         "/build/SimlyStyle.13e68d8b.css"
+      ]
+    },
+    "SimlyStyleBundle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/SimlyStyleBundle.13e68d8b.css"
       ]
     },
     "LegalEnrollementStyle": {

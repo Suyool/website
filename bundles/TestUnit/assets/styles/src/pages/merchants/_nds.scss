@@ -1,0 +1,142 @@
+.topSectionNdsPayrollEmp{
+    .tabletMode {
+        img {
+          max-height: 98vh;
+          width: 100%;
+        }
+      }
+    .ndsimage{
+        min-height: 497px;
+        width: 100%;
+    }
+    .ndslogo{
+        position: absolute;
+        margin: auto;
+        left: 0;
+        width: 100px;
+        right: 0;
+        text-align: center;
+        z-index: 1;
+        top: 20px;
+    }
+    .suyoolsymbol{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    .information {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding-top: 9pc;
+        text-align: center;
+    
+        @media screen and (max-width: 1400px) and (min-width: 993px) {
+          padding-top: 80px;
+        }
+    
+        .title {
+          color: #fff;
+          font-size: 40px;
+          font-family: $Regular;
+          text-transform: capitalize;
+        }
+    
+        .desc {
+          max-width: 600px;
+          margin: 28px auto;
+          font-family: $InterRegular;
+          font-size: 17px;
+          color: #fff;
+        }
+    
+        .OpenSuyoolAccount {
+          margin-top: 75px;
+    
+          .OpenYourSuyoolAccount {
+            padding: 10px 30px;
+    
+            @media screen and (max-width: 768px) {
+              padding: 10px 50px;
+            }
+    
+            border-radius: 9px;
+            border: none;
+            color: #226d96;
+            font-family: $SemiBold;
+            background: #ffffff;
+    
+            &:hover {
+              background: #226d96;
+              border: 2px solid #fff;
+              color: #ffffff;
+            }
+          }
+        }
+      }
+}
+
+@media (min-width: 998px) and (max-width: 1400px) {
+    .topSectionNdsPayrollEmp {
+        
+      .tabletMode {
+        .img{
+            width: 100%;
+        }
+        img {
+          max-height: 98vh;
+        }
+      }
+  
+      .info-cont {
+        padding-top: 0;
+      }
+  
+      .information {
+        padding-top: 100px;
+  
+        .title {
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .topSectionNdsPayrollEmp {
+        img{
+            width: 100%;
+            // min-height: 750px;
+        }
+        .information {
+          padding-top: 80px;
+          left: 30px;
+          right: 30px;
+    
+          .title {
+            font-size: 30px !important;
+            text-align: left !important;
+            width: unset !important;
+            padding-left: 10px;
+          }
+    
+          .desc {
+            font-size: 16px;
+            line-height: 30px;
+            text-align: left;
+            padding-left: 10px;
+          }
+    
+          .OpenSuyoolAccount {
+            .OpenYourSuyoolAccount {
+              margin: auto;
+              font-size: 15px;
+              width: 90%;
+              // box-shadow: 1px 1px 10px rgb(53, 52, 52);
+              padding: 8px unset;
+            }
+          }
+        }
+      }
+  }

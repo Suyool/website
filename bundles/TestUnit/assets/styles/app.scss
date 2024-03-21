@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+@import 'src/basic/fonts';
+@import 'src/basic/common';
+@import 'src/basic/variables';
+// @import 'src/basic/bootstarp-grid';
+// @import 'src/basic/bootstrap-carousel';
+// @import 'src/basic/bootstrap-modal';
+
+@import 'src/elements/header';
+@import 'src/elements/footer';
+@import 'src/elements/top-sections-steps';
+@import 'src/elements/3easy-steps';
+@import 'src/elements/transaction-anywhere';
+@import 'src/elements/should-to-know';
+@import 'src/elements/home_bottom_section';
+@import 'src/elements/home_merchant';
+@import 'src/elements/info_sections.scss';
+@import 'src/elements/support.scss';
+@import 'src/elements/faq.scss';
+@import 'src/elements/help_top_section';
+@import 'src/elements/digital-corporate.scss';
+@import 'src/elements/download-app-modal';
+@import 'src/elements/get-suyool';
+@import 'src/elements/three-titles';
+@import 'src/elements/check-points';
+@import 'src/elements/payment-gateway';
+@import 'src/elements/use-money';
+@import 'src/elements/solution';
+@import 'src/elements/questions';
+@import 'src/elements/top-section';
+@import 'src/pages/payment';
+@import 'src/pages/emailVerification';
+@import 'src/pages/invitation';
+@import 'src/pages/invitation-sections';
+@import 'src/pages/homepage';
+@import 'src/pages/maTbanikCard';
+@import 'src/pages/homepage_old';
+@import 'src/pages/areebapayment.scss';
+@import 'src/pages/commingSoon.scss';
+@import 'src/pages/mastercard.scss';
+@import 'src/pages/help-center.scss';
+@import 'src/pages/terms_and_conditions';
+@import 'src/pages/personal-fees';
+@import 'src/pages/topup.scss';
+@import 'src/pages/insidemastercard';
+@import 'src/pages/sendReceiveMoney';
+@import 'src/pages/medco-payroll';
+@import 'src/pages/ma-tbank';
+@import 'src/admin/loto.scss';
+
+//merchants
+@import 'src/pages/merchants/alfa.scss';
+@import 'src/pages/merchants/usj.scss';
+@import 'src/pages/merchants/ndj.scss';
+@import 'src/pages/merchants/elnashra.scss';
+@import 'src/pages/merchants/nds.scss';
+@import 'src/pages/spinneysPromotions.scss';
+@import 'src/pages/medco-payment.scss';
+
+//soa
+@import 'src/pages/soa';
+
+
+
+
+
+
