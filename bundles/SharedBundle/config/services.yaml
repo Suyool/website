@@ -1,0 +1,8 @@
+parameters:
+  name: 'anthony'
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  SharedBundle\Service\SharedService: ~
