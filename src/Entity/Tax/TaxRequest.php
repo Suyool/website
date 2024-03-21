@@ -23,9 +23,30 @@ class TaxRequest
     private $suyoolUserId;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $companyName;
+
+    /**
      * @ORM\Column(type="string", length=30)
      */
     private $documentNumber;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $uploadedFile;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $pickerName;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $pickerNumber;
+
 
     /**
      * @ORM\Column(type="text")
@@ -128,6 +149,61 @@ class TaxRequest
     public function setDocumentNumber(string $documentNumber): self
     {
         $this->documentNumber = $documentNumber;
+        return $this;
+    }
+
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(string $companyName): self
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    // Getter and Setter for Uploaded File
+
+    public function getUploadedFile(): ?string
+    {
+        return $this->uploadedFile;
+    }
+
+    public function setUploadedFile(string $uploadedFile): self
+    {
+        $this->uploadedFile = $uploadedFile;
+
+        return $this;
+    }
+
+    // Getter and Setter for Picker Name
+
+    public function getPickerName(): ?string
+    {
+        return $this->pickerName;
+    }
+
+    public function setPickerName(string $pickerName): self
+    {
+        $this->pickerName = $pickerName;
+
+        return $this;
+    }
+
+    // Getter and Setter for Picker Number
+
+    public function getPickerNumber(): ?string
+    {
+        return $this->pickerNumber;
+    }
+
+    public function setPickerNumber(string $pickerNumber): self
+    {
+        $this->pickerNumber = $pickerNumber;
+
         return $this;
     }
 

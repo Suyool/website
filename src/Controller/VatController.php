@@ -24,12 +24,16 @@ class VatController extends AbstractController
     private $mr;
     private $params;
     private $session;
+    private $bobServices;
+    private $notificationServices;
 
-    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params, SessionInterface $sessionInterface)
+    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params, SessionInterface $sessionInterface,BobServices $bobServices, NotificationServices $notificationServices)
     {
         $this->mr = $mr->getManager('vat');
         $this->params = $params;
         $this->session = $sessionInterface;
+        $this->bobServices = $bobServices;
+        $this->notificationServices = $notificationServices;
     }
 
     /**
@@ -65,11 +69,16 @@ class VatController extends AbstractController
                     if ($RetrieveChannel[0] == true) {
                         $resp = $RetrieveChannel[1]["Values"];
                         $displayedFees = intval($resp["Fees"]) + intval($resp["Fees1"]) + intval($resp["AdditionalFees"]);
+                        $file="file";
 
                         $vatReq = new VatRequest();
                         $vatReq
                             ->setsuyoolUserId($suyoolUserId)
+                            ->setCompanyName($data["companyName"])
                             ->setDocumentNumber($data["documentNumber"])
+                            ->setUploadedFile($file)
+                            ->setPickerName($data['pickerName'])
+                            ->setPickerNumber($data['pickerNumber'])
                             ->setresponse($RetrieveChannel[4])
                             ->seterrordesc($RetrieveChannel[2])
                             ->settransactionId($resp["TransactionId"])
