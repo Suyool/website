@@ -62,8 +62,8 @@ services:
             - '../src/Tests/'
             - '../src/Form/'
     
-    Bundles\:
-        resource: '../bundles/'
+    # Bundles\:
+    #     resource: '../bundles/'
 
     ReCaptcha\ReCaptcha:
         arguments:
@@ -175,4 +175,6 @@ services:
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'
+    TestUnit\Controller\DefaultController:
+        autowire: true
         

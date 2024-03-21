@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HelloWorldController extends AbstractController
+class DefaultController extends AbstractController
 {
     private $params;
 
@@ -18,6 +18,6 @@ class HelloWorldController extends AbstractController
         //     'status'=>true,
         //     'message'=>'My first bundle'
         // ],200);
-        return $this->render('views/hello_world.html.twig');
+        return $this->render('@TestUnitBundle/hello_world.html.twig');
     }
 }

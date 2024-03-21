@@ -1,2 +1,2 @@
-test_unit_bundle.routes:
-  resource: '@HelloWorldBundle/config/routes.yaml'
+# test_unit_bundle.routes:
+#   resource: '../bundles/TestUnit/config/routes.yaml'

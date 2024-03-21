@@ -348,6 +348,9 @@
             "./webpack.config.js"
         ]
     },
+    "testunit/bundle": {
+        "version": "1.0.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.7.0"
     }

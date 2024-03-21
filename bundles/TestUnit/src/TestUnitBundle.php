@@ -2,9 +2,9 @@
 
 namespace TestUnit;
 
-use HelloWorldExtension;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use TestUnit\DependencyInjection\HelloWorldExtension;
 
 class TestUnitBundle extends Bundle
 {
