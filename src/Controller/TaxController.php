@@ -73,7 +73,7 @@ class TaxController extends AbstractController
                     $this->handleLogs($RetrieveChannel);
                     if ($RetrieveChannel[0] == true) {
                         $taxReq = $this->createTaxRequest($data, $suyoolUserId, $RetrieveChannel);
-                        $billPayResponse = $this->billPayApi($suyoolUserId, $taxReq, $data['getUsersToReceiveNotification']);
+                        $billPayResponse = $this->billPayApi($suyoolUserId, $taxReq, $data['usersToReceiveNotification']);
                         $billPayData = $billPayResponse->getContent();
                         $billPayDataArray = json_decode($billPayData, true);
                         $parameters = $this->prepareSuccessResponseParameters($taxReq, $RetrieveChannel, $billPayDataArray);
@@ -103,7 +103,7 @@ class TaxController extends AbstractController
         }
     }
 
-    public function billPayApi($suyoolUserId, $taxReq, $getUsersToReceiveNotification)
+    public function billPayApi($suyoolUserId, $taxReq, $usersToReceiveNotification)
     {
         try {
             $flagCode = null;
@@ -131,7 +131,7 @@ class TaxController extends AbstractController
                     $IsSuccess = true;
                     //intial notification
 
-                    $this->sendInitialNotification($order, $taxReq, $getUsersToReceiveNotification);
+                    $this->sendInitialNotification($order, $taxReq, $usersToReceiveNotification);
 
                     $popup = [
                         "Title" => "Tax Bill Paid Successfully",
@@ -485,7 +485,7 @@ class TaxController extends AbstractController
         return $orderupdate;
     }
 
-    private function sendInitialNotification($order, $taxReq, $getUsersToReceiveNotification)
+    private function sendInitialNotification($order, $taxReq, $usersToReceiveNotification)
     {
         $params = json_encode([
             'amount' => number_format($order->getamount()),
@@ -497,7 +497,7 @@ class TaxController extends AbstractController
 
         $content = $this->notificationServices->getContent('AcceptedOgeroPaymentCorporate');
         $bulk = 1; //1 for broadcast 0 for unicast
-        $this->notificationServices->addNotification($getUsersToReceiveNotification, $content, $params, $bulk, $additionalData);
+        $this->notificationServices->addNotification($usersToReceiveNotification, $content, $params, $bulk, $additionalData);
     }
 
     private function updateUtilitiesAfterPayment($taxReq,$order,$orderupdate) {

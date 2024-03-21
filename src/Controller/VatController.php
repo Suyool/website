@@ -70,7 +70,7 @@ class VatController extends AbstractController
                     $this->handleLogs($RetrieveChannel);
                     if ($RetrieveChannel[0] == true) {
                         $vatReq = $this->createVatRequest($data, $suyoolUserId, $RetrieveChannel);
-                        $billPayResponse = $this->billPayApi($suyoolUserId, $vatReq, $data['getUsersToReceiveNotification']);
+                        $billPayResponse = $this->billPayApi($suyoolUserId, $vatReq, $data['usersToReceiveNotification']);
                         $billPayData = $billPayResponse->getContent();
                         $billPayDataArray = json_decode($billPayData, true);
                         $parameters = $this->prepareSuccessResponseParameters($vatReq, $RetrieveChannel, $billPayDataArray);
@@ -101,7 +101,7 @@ class VatController extends AbstractController
     }
 
 
-    public function billPayApi($suyoolUserId, $vatReq, $getUsersToReceiveNotification)
+    public function billPayApi($suyoolUserId, $vatReq, $usersToReceiveNotification)
     {
         try {
 
@@ -131,7 +131,7 @@ class VatController extends AbstractController
                     $IsSuccess = true;
 
                     //intial notification
-                    $this->sendInitialNotification($order, $vatReq, $getUsersToReceiveNotification);
+                    $this->sendInitialNotification($order, $vatReq, $usersToReceiveNotification);
 
                     $popup = [
                         "Title" => "VAT Bill Paid Successfully",
@@ -485,7 +485,7 @@ class VatController extends AbstractController
         return $orderupdate;
     }
 
-    private function sendInitialNotification($order, $vatReq, $getUsersToReceiveNotification)
+    private function sendInitialNotification($order, $vatReq, $usersToReceiveNotification)
     {
         $params = json_encode([
             'amount' => number_format($order->getamount()),
@@ -497,7 +497,7 @@ class VatController extends AbstractController
 
         $content = $this->notificationServices->getContent('AcceptedOgeroPaymentCorporate');
         $bulk = 1; //1 for broadcast 0 for unicast
-        $this->notificationServices->addNotification($getUsersToReceiveNotification, $content, $params, $bulk, $additionalData);
+        $this->notificationServices->addNotification($usersToReceiveNotification, $content, $params, $bulk, $additionalData);
     }
 
     private function updateUtilitiesAfterPayment($vatReq, $order, $orderupdate)
