@@ -632,10 +632,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "SIX" => [
-                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-            ],
+//            "SIX" => [
+//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+//            ],
         ];
 
         $parameters = [
@@ -904,10 +904,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "SIX" => [
-                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-            ],
+//            "SIX" => [
+//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+//            ],
         ];
 
         $parameters = [
@@ -1169,10 +1169,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-            "Seven" => [
-                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-            ],
+//            "Seven" => [
+//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+//            ],
         ];
 
 
