@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useDispatch } from "react-redux";
 import useAxiosClient from "../Utils/axios";
 import { settingData, settingObjectData } from "../Redux/Slices/AppSlice";
@@ -21,9 +21,27 @@ const AppAPI = () => {
           dispatch(settingData({ field: "isloading", value: false }));
 
           if (response?.data?.message == "connected") {
-            dispatch(settingData({ field: "headerData", value: { title: "Pay Mobile Bill", backLink: "", currentPage: "MyBill" } }));
-            dispatch(settingObjectData({ mainField: "postpaidData", field: "id", value: response?.data?.invoicesId }));
-          } else if (response?.data?.message == "Maximum allowed number of PIN requests is reached") {
+            dispatch(
+              settingData({
+                field: "headerData",
+                value: {
+                  title: "Pay Mobile Bill",
+                  backLink: "",
+                  currentPage: "MyBill",
+                },
+              })
+            );
+            dispatch(
+              settingObjectData({
+                mainField: "postpaidData",
+                field: "id",
+                value: response?.data?.invoicesId,
+              })
+            );
+          } else if (
+            response?.data?.message ==
+            "Maximum allowed number of PIN requests is reached"
+          ) {
             dispatch(
               settingData({
                 field: "modalData",
@@ -43,7 +61,9 @@ const AppAPI = () => {
                 },
               })
             );
-          } else if (response?.data?.message == "Not Enough Balance Amount to be paid") {
+          } else if (
+            response?.data?.message == "Not Enough Balance Amount to be paid"
+          ) {
             dispatch(
               settingData({
                 field: "modalData",
@@ -54,7 +74,8 @@ const AppAPI = () => {
                   title: "No Pending Bill",
                   desc: (
                     <div>
-                      There is no pending bill on the mobile number {localStorage.getItem("billMobileNumber")}
+                      There is no pending bill on the mobile number{" "}
+                      {localStorage.getItem("billMobileNumber")}
                       <br />
                       Kindly try again later
                     </div>
@@ -75,7 +96,9 @@ const AppAPI = () => {
                   title: "Unable To Pay Your Bill",
                   desc: (
                     <div>
-                      We were unable to process your transaction for the bill payment associated with {localStorage.getItem("billMobileNumber")} .
+                      We were unable to process your transaction for the bill
+                      payment associated with{" "}
+                      {localStorage.getItem("billMobileNumber")} .
                       <br />
                       Kindly check your internet connection & try again
                     </div>
@@ -142,13 +165,61 @@ const AppAPI = () => {
                 },
               })
             );
-            dispatch(settingObjectData({ mainField: "postpaidData", field: "ResponseId", value: response?.data?.postpayed }));
+            dispatch(
+              settingObjectData({
+                mainField: "postpaidData",
+                field: "ResponseId",
+                value: response?.data?.postpayed,
+              })
+            );
           } else if (response.data.message == "213") {
-            dispatch(settingObjectData({ mainField: "postpaidData", field: "pinCode", value: [] }));
-            dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
+            // dispatch(settingObjectData({ mainField: "postpaidData", field: "pinCode", value: [] }));
+            // dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
+            dispatch(
+              settingData({
+                field: "modalData",
+                value: {
+                  isShow: true,
+                  name: "ErrorModal",
+                  img: "/build/images/alfa/error.png",
+                  title: "Incorrect PIN",
+                  desc: `The PIN entered doesn't match the one sent via SMS.
+                  Kindly try again.`,
+                  btn: null,
+                  flag: "",
+                },
+              })
+            );
           } else {
-            dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
-            dispatch(settingObjectData({ mainField: "postpaidData", field: pinCode, value: [] }));
+            // dispatch(
+            //   settingObjectData({
+            //     mainField: "postpaidData",
+            //     field: "isPinWrong",
+            //     value: true,
+            //   })
+            // );
+            // dispatch(
+            //   settingObjectData({
+            //     mainField: "postpaidData",
+            //     field: pinCode,
+            //     value: [],
+            //   })
+            // );
+            dispatch(
+              settingData({
+                field: "modalData",
+                value: {
+                  isShow: true,
+                  name: "ErrorModal",
+                  img: "/build/images/alfa/error.png",
+                  title: "Incorrect PIN",
+                  desc: `The PIN entered doesn't match the one sent via SMS.
+                  Kindly try again.`,
+                  btn: "OK",
+                  flag: "",
+                },
+              })
+            );
           }
         });
     } catch (e) {
@@ -171,7 +242,9 @@ const AppAPI = () => {
 
           dispatch(settingData({ field: "isloading", value: false }));
           if (response.data?.IsSuccess) {
-            var TotalAmount = parseInt(response.data?.data.amount) + parseInt(response.data?.data.fees);
+            var TotalAmount =
+              parseInt(response.data?.data.amount) +
+              parseInt(response.data?.data.fees);
             dispatch(
               settingData({
                 field: "modalData",
@@ -180,14 +253,19 @@ const AppAPI = () => {
                   name: "SuccessModal",
                   img: "/build/images/alfa/SuccessImg.png",
                   title: "Alfa Bill Paid Successfully",
-                  desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(TotalAmount).toLocaleString()}.`,
+                  desc: `You have successfully paid your Alfa bill of L.L ${" "} ${parseInt(
+                    TotalAmount
+                  ).toLocaleString()}.`,
                   btn: null,
                   flag: "",
                 },
               })
             );
           } else {
-            if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            if (
+              response.data.IsSuccess == false &&
+              response.data.flagCode == 10
+            ) {
               dispatch(
                 settingData({
                   field: "modalData",
@@ -202,7 +280,10 @@ const AppAPI = () => {
                   },
                 })
               );
-            } else if (!response.data.IsSuccess && response.data.flagCode == 11) {
+            } else if (
+              !response.data.IsSuccess &&
+              response.data.flagCode == 11
+            ) {
               dispatch(
                 settingData({
                   field: "modalData",
@@ -245,7 +326,13 @@ const AppAPI = () => {
   const Recharge = () => {
     try {
       return axiosClient.post(`/ReCharge`).then((response) => {
-        dispatch(settingObjectData({ mainField: "prepaidData", field: "vouchers", value: response?.data?.message }));
+        dispatch(
+          settingObjectData({
+            mainField: "prepaidData",
+            field: "vouchers",
+            value: response?.data?.message,
+          })
+        );
       });
     } catch (e) {
       console.log(e);
@@ -279,7 +366,8 @@ const AppAPI = () => {
                   backPage: "MyBundle",
                   data: {
                     voucherCode: response?.data?.data?.voucherCode,
-                    voucherCodeClipboard: "*14*" + response?.data?.data?.voucherCode + "#",
+                    voucherCodeClipboard:
+                      "*14*" + response?.data?.data?.voucherCode + "#",
                     priceUSD: getPrepaidVoucher.priceUSD,
                   },
                   isButtonDisable: false,
@@ -288,7 +376,10 @@ const AppAPI = () => {
             );
           } else {
             console.log(response.data.flagCode);
-            if (response.data.IsSuccess == false && response.data.flagCode == 10) {
+            if (
+              response.data.IsSuccess == false &&
+              response.data.flagCode == 10
+            ) {
               dispatch(
                 settingData({
                   field: "modalData",
@@ -303,7 +394,10 @@ const AppAPI = () => {
                   },
                 })
               );
-            } else if (!response.data.IsSuccess && response.data.flagCode == 11) {
+            } else if (
+              !response.data.IsSuccess &&
+              response.data.flagCode == 11
+            ) {
               dispatch(
                 settingData({
                   field: "modalData",
@@ -334,7 +428,10 @@ const AppAPI = () => {
                   },
                 })
               );
-            } else if (!response.data.IsSuccess && response.data.flagCode == 210) {
+            } else if (
+              !response.data.IsSuccess &&
+              response.data.flagCode == 210
+            ) {
               dispatch(
                 settingData({
                   field: "modalData",
