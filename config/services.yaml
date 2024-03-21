@@ -175,9 +175,7 @@ services:
     # App\Controller\LotoController:
     #     arguments:
     #         $LOTO_MERCHANT_ID: '%LOTO_MERCHANT_ID%'
-    TestUnit\Controller\DefaultController:
-        autowire: true
-    TestUnit\Controller\SimlyController:
+    Simly\Controller\SimlyController:
         autowire: true
     SharedBundle\Service\SharedService:
         autowire: true

@@ -1,0 +1,84 @@
+.ma-tbank {
+  .top-section {
+    background-image: url('../../../images/ma-tbank/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 225px;
+
+    .top-title {
+      font-family: $Bold;
+      font-size: 40px;
+      color: #fff;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .iframe {
+      position: relative;
+      bottom: -300px;
+      right: 50px;
+
+      iframe {
+        border-radius: 19px;
+      }
+    }
+  }
+
+  .home-steps {
+    text-align: center;
+    margin-top: 80px;
+
+    .header {
+      margin: 20px 0;
+    }
+
+    .title {
+      margin: 20px 0;
+    }
+
+    .yes-text {
+      font-family: $Bold;
+      font-size: 60px;
+      color: #005C8A;
+    }
+  }
+
+
+  @media screen and (max-width: 991px) {
+    .mobileMode {
+      display: block !important;
+    }
+
+    .top-section {
+      background-image: url('../../../images/ma-tbank/backgorund-mobile.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      .top-info {
+        text-align: left !important;
+        padding-left: 10px !important;
+
+        .buttons-cont {
+          margin-bottom: 25px;
+        }
+      }
+
+      .top-title {
+        font-family: $Bold;
+        font-size: 40px;
+        color: #fff;
+      }
+
+      .iframe {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+
+        iframe {
+          border-radius: 19px;
+        }
+
+      }
+    }
+  }
+}

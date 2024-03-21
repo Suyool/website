@@ -6,7 +6,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./bundles/TestUnit"
+            "url": "./bundles/Simly"
         },
         {
             "type": "path",
@@ -36,6 +36,7 @@
         "scheb/2fa-bundle": "*",
         "scheb/2fa-email": "*",
         "sensio/framework-extra-bundle": "^5.1",
+        "simly/bundle": "^1.0",
         "symfony/asset": "5.2.*",
         "symfony/cache": "5.2.*",
         "symfony/console": "5.2.*",
@@ -66,7 +67,6 @@
         "symfony/web-link": "5.2.*",
         "symfony/webpack-encore-bundle": "^1.17",
         "symfony/yaml": "5.2.*",
-        "testunit/bundle": "^1.0",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },

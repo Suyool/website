@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="355" height="228" viewBox="0 0 355 228">
+  <defs>
+    <filter id="Rectangle_21899" x="0" y="0" width="355" height="228" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="video-game_1_Background_Mask_" data-name="video-game 1 (Background/Mask)" width="126.856" height="126.856" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Group_39827" data-name="Group 39827" transform="translate(-10 -145)">
+    <g transform="matrix(1, 0, 0, 1, 10, 145)" filter="url(#Rectangle_21899)">
+      <rect id="Rectangle_21899-2" data-name="Rectangle 21899" width="337" height="210" rx="15" transform="translate(9 6)" fill="#216d95"/>
+    </g>
+    <g id="video-game_1" data-name="video-game 1" transform="translate(124 193)">
+      <rect id="video-game_1_Background_Mask_2" data-name="video-game 1 (Background/Mask)" width="126.856" height="126.856" transform="translate(0 0)" fill="none"/>
+      <g id="video-game_1-2" data-name="video-game 1" transform="translate(0 0)" clip-path="url(#clip-path)">
+        <g id="Group" transform="translate(0 5.142)">
+          <path id="Vector" d="M79.581,55.163c-33.839,0-32.3-.016-32.3.032A23.8,23.8,0,0,1,22.708,79,23.7,23.7,0,0,1,.391,51.132l5.22-28.387A26.133,26.133,0,0,1,31.487,0H95.371a26.135,26.135,0,0,1,25.875,22.745l5.217,28.387A23.694,23.694,0,0,1,104.146,79q-.483.019-.962.019A23.815,23.815,0,0,1,79.581,55.163Z" transform="translate(0 35.789)" fill="#fff"/>
+          <path id="Vector-2" data-name="Vector" d="M1.092,9.268a3.728,3.728,0,0,0,5.271,0,6.209,6.209,0,0,1,8.785,0A3.727,3.727,0,1,0,20.419,4,13.682,13.682,0,0,0,1.092,4h0A3.727,3.727,0,0,0,1.092,9.268Z" transform="translate(52.672 15.917)" fill="#fff"/>
+          <path id="Vector-3" data-name="Vector" d="M37.639,13.939A3.727,3.727,0,0,0,42.91,8.667a29.554,29.554,0,0,0-41.818,0,3.727,3.727,0,0,0,5.271,5.271A22.1,22.1,0,0,1,37.639,13.939Z" transform="translate(41.427 0)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

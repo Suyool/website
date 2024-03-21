@@ -1,0 +1,273 @@
+.send-link-form-cont {
+  float: left;
+
+  .form-title {
+    font-size: 14px !important;
+
+    &.gr {
+      font-family: 'Futura' !important;
+      font-size: 17px !important;
+    }
+  }
+
+  .send-link-form {
+    padding: 0;
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+    .input-main-cont {
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    .input-sub-cont {
+      background-color: $white;
+      padding: 0;
+      margin: 18px 0;
+
+      .cyprus-flag {
+        display: flex;
+        align-items: center;
+
+        img {
+          width: 26px;
+          padding-bottom: 3px;
+        }
+      }
+
+      .country-code {
+        padding-left: 10px;
+        color: $black;
+        font-family: 'LibreFranklinMedium';
+      }
+
+      .input-cont {
+        display: flex;
+        align-items: flex-end;
+
+        ::-webkit-input-placeholder {
+          color: $black;
+          font-family: 'LibreFranklinMedium';
+        }
+
+        input {
+          border: 0 !important;
+          background-color: transparent;
+          width: 100%;
+          padding: 5px 5px 16px;
+
+          &.gr {
+            font-family: 'futura';
+          }
+        }
+      }
+    }
+
+    .get-the-app {
+      background-color: $pr-color;
+
+      button {
+        margin-top: 5px;
+        border: unset;
+        opacity: 1;
+      }
+    }
+
+    .text {
+      border-left: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      font-size: 12px;
+      color: #7588A0;
+      padding: 6px;
+      width: auto;
+    }
+
+    .note {
+      padding-left: 0;
+      margin-top: 187px;
+      color: #717B87;
+      padding-right: 0;
+      font-size: 10px;
+
+      .privacy {
+        padding: 5px;
+      }
+    }
+  }
+}
+
+
+.download-app {
+  border-radius: 10px;
+
+  .title {
+    font-size: 28px;
+    width: 65%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .btns-cont {
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+
+    .appstore {
+      padding-right: 8px;
+
+      img {
+        float: right;
+      }
+    }
+
+    .playstore {
+      padding-left: 8px;
+
+      img {
+        float: left;
+      }
+    }
+
+    .btn {
+      width: 50%;
+      float: left;
+
+      img {
+        margin: auto;
+        display: table;
+      }
+    }
+  }
+
+  .send-link-form-cont {
+    text-align: center;
+    clear: both;
+    padding-top: 10px;
+    float: none;
+
+    .subtitle {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .send-link-form {
+      float: none;
+      margin: auto;
+    }
+  }
+}
+
+.invitation-download-btm-section {
+  &:before {
+    background-image: linear-gradient(to left bottom, red 0, red 49.9%, transparent 50.1%);
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    z-index: 1;
+  }
+}
+
+.small-note {
+  color: $black;
+  font-family: 'LibreFranklinMedium';
+  font-size: 12px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.bottom-container {
+  position: relative;
+  margin-top: 50px;
+
+  #triangle {
+    background-image: linear-gradient(to right top, #f1f3f5 0, #f1f3f5 49.9%, transparent 50.1%);
+    height: 98px !important;
+    top: -98px;
+  }
+}
+
+.get-the-app {
+  button {
+    background-color: $pr-color !important;
+    color: $white !important;
+    font-size: 12px !important;
+    border-radius: 10px;
+    font-family: 'libreFranklinBold' !important;
+  }
+}
+
+.small-note-invitation-mobile {
+  padding-top: 30px;
+  margin-right: 45px;
+}
+
+.invitation-card-main-cont-bottom {
+  padding-bottom: 100px;
+
+  //.send-link-form-cont {
+  //  .send-link-form {
+  //    .input-sub-cont {
+  //      .input-cont {
+  //        input {
+  //          border: 1px solid black!important;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
+}
+
+.invitation-card-section-bottom {
+  width: 300px !important;
+}
+
+.animated-banner {
+  display: none;
+}
+
+@media all and (max-width: 768px) {
+  .small-note-invitation-mobile {
+    font-size: 13px;
+    text-align: left;
+  }
+  .send-link-form-cont {
+    .send-link-form {
+      .get-the-app {
+        button {
+          padding: 16px 40px;
+        }
+      }
+    }
+  }
+  .invitation-top-section {
+    .send-link-form-cont {
+      float: unset;
+      text-align: center;
+    }
+  }
+}
+
+@media all and (max-width: 991px) {
+  .send-link-form-cont {
+    .send-link-form {
+      .input-sub-cont {
+        border-radius: 10px;
+        max-width: 80%;
+      }
+    }
+  }
+
+  .get-the-app {
+    button {
+      padding: 16px 10px;
+    }
+
+    border-radius: 10px;
+    max-width: 80%;
+  }
+
+  .animated-banner {
+    display: block;
+  }
+}

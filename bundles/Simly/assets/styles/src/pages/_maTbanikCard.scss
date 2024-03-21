@@ -1,0 +1,197 @@
+.maTbanikCard {
+  .top-section {
+    min-height: 470px;
+    background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+    color: #fff;
+    padding-bottom: 100px;
+    padding-top: 20px;
+
+    .left-section {
+      width: 70vw;
+      padding-top: 65px;
+      .header-text {
+        font-size: 40px;
+        font-family: $Regular;
+      }
+      p {
+        padding-top: 10px;
+        font-size: 18px;
+        font-family: $InterRegular;
+      }
+
+      .buttons-cont {
+        font-family: $SemiBold;
+        margin-top: 54px;
+
+        @media (min-width: 768px) {
+          .btn {
+            &:hover {
+              border: 2px solid #fff!important;
+              color: #fff;
+              opacity: 1!important;
+            }
+          }
+        }
+
+        .button-primary {
+          font-size: 16px;
+          border: 2px solid #ffffff;
+        }
+
+
+        .button-primary,
+        .btn-outline-secondary {
+          border-radius: 12px;
+          padding: 10px 30px;
+          background: #ffffff;
+          color: #226d96;
+        }
+
+        .btn-outline-secondary {
+          border-color: #226d96;
+          color: #226d96;
+
+          &:hover {
+            background-color: unset;
+            color: #226d96;
+          }
+        }
+      }
+    }
+
+    .right-section {
+      position: absolute;
+      right: 6%;
+      top: 50px;
+      width: 30vw;
+
+      .img-contt {
+        position: relative;
+        max-width: 615px;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        .maTbanikCard {
+          margin-top: 30px;
+          width: 500px;
+        }
+        .maTbanik {
+          position: absolute;
+          bottom: 120px;
+          right: 310px;
+        }
+      }
+    }
+
+    @media(min-width: 1400px) {
+      .top-container{
+        width: 80%;
+        margin: auto;
+
+        .right-section{
+          width: 55vw;
+        }
+      }
+    }
+  }
+  .mobileCardImage {
+    display: none;
+  }
+
+  .four_steps {
+    margin-top: 100px !important;
+    .stp-top {
+      margin-top: 30px;
+    }
+  }
+  .card-desc {
+    #openSuyoolAccount {
+      width: 300px;
+    }
+  }
+  .corporate-section {
+    background-image: url("../../../images/backgoundImagematbanik.jpg");
+    padding: 80px 0;
+  }
+  @media (max-width: 768px) {
+    .button-primary {
+      border: none;
+      border-radius: 30px;
+      margin: auto;
+      padding: 15px 0;
+      width: 90%;
+    }
+  }
+}
+
+
+@media screen and (max-width: 991px) {
+  .maTbanikCard {
+    .top-section {
+      padding-top: 20px;
+      min-height: 860px;
+
+      .left-section {
+        width: 100%;
+        padding-top: 65px;
+        .header-text {
+          font-size: 40px;
+        }
+        p {
+          padding-top: 10px;
+        }
+
+        .buttons-cont {
+          margin-top: 54px;
+        }
+      }
+
+      .right-section {
+        position: relative;
+        width: 100%;
+        text-align: center;
+
+        .img-contt {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+
+          .maTbanikCard {
+            margin-top: 0px;
+            display: none;
+          }
+          .maTbanik {
+            position: static;
+            top: unset;
+            right: unset;
+            margin-top:  -30px;
+
+          }
+        }
+      }
+    }
+
+    .mobileCardImage {
+      text-align: center;
+      display: block;
+      .maTbanikCard2 {
+        margin-top: -320px;
+        margin-left: -55px;
+      }
+    }
+
+    .next-section {
+      padding-top: 45px;
+      .why_Suyool {
+        font-size: 20px;
+      }
+      .adv_make {
+        margin-top: 20px;
+      }
+    }
+  }
+}

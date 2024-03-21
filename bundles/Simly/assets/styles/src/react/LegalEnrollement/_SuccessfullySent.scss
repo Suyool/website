@@ -1,0 +1,38 @@
+.SuccessfullySent {
+    background-color: #F7F9FB;
+    padding-top: 30px;
+    padding-right: calc(72px + 4%);
+    padding-left: calc(72px + 4%);
+    padding-bottom: 30px;
+
+    .SuccessfullySentCont {
+        background-color: white;
+        box-shadow: 0px 3px 6px #D1D0D0;
+        padding-bottom: 30px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 80vh;
+
+        .addImgs {
+            padding-top: 80px;
+        }
+
+        .approvedTitle {
+            font-family: $Bold;
+            color: #495666;
+            font-size: 16px;
+            padding-top: 10px;
+        }
+
+        .approvedDesc {
+            font-family: $Regular;
+            font-size: 14px;
+            color: #7588A0;
+            max-width: 500px;
+            text-align: center;
+            padding-top: 12px;
+        }
+    }
+
+}

@@ -1,0 +1,74 @@
+.register-section{
+    text-align: center;
+    padding: 80px;
+    .register{
+        color: #226D96;
+        font-family: $Medium;
+        font-size: 24px;
+        line-height: 50px;
+    }
+    .adopters{
+        color: #374A5A;
+        font-family: $SemiBold;
+        font-size: 53px;
+        padding-bottom: 56px;
+    }
+    form{
+        label{
+            img{
+                width: 50px;
+            }
+
+        }
+        margin: auto;
+        background-color:#EFEEF6 ;
+        max-width: 700px;
+        padding: 20px;
+        border-radius: 10px;
+        input[type=email]{
+            border: none;
+            background: no-repeat;
+            font-size: 18px;
+        }
+        input[type=submit]{
+            color: #FFFFFF;
+            border: none;
+            background: #226D96;
+            padding: 20px 30px;
+            font-family: $Medium;
+            border-radius: 10px;
+            margin-left: 200px;
+            @media screen and (max-width: 768px) {
+                margin-left: 0px;
+
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        padding: 100px 0;
+        margin-bottom: 50px;
+        .register{
+            font-family: $Medium;
+        }
+        .adopters{
+            font-size: 40px;
+            padding-bottom: 40px;
+        }
+
+        form{
+            max-width: 90%;
+            input[type=email]{
+                font-size: 16px;
+            }
+            input[type=submit]{
+                border-radius: 5px;
+                left: -31%;
+                margin-left: 0;
+                padding: 5px 20px;
+                position: relative;
+                top: 75px;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 {
     "name":"testunit/bundle",
-    "version":"1.0.0",
+    "version":"1.0.1",
     "type":"symfony-bundle",
     "description":"This bundle renders a template with the 'Hello world!' message.",
     "license": "MIT",
@@ -10,12 +10,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TestUnit\\":"src/"
+            "Simly\\":"src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TestUnit\\":"src/"
+            "Simly\\":"src/"
         }
     },
     "authors": [

@@ -8,4 +8,4 @@ twig:
         app_name: '%app.name%'
         base_url: '%router.request_context.base_url%'
     paths:
-        '%kernel.project_dir%/bundles/TestUnit/Resources/views': TestUnitBundle
+        '%kernel.project_dir%/bundles/Simly/Resources/views': SimlyBundle

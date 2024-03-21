@@ -1,0 +1,326 @@
+#LotoBody {
+    // height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: hidden;
+    user-select: none;
+
+    .scrolableView {
+        width: 100%;
+        // height: 100vh;
+        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 120px;
+    }
+
+    .resultScroll {
+        padding-bottom: 80px;
+    }
+
+    .hideBackk {
+        opacity: 0.5;
+    }
+}
+
+
+.isHideBack {
+    opacity: 0.4;
+}
+
+#Total {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C2676;
+    border-radius: 25px;
+    padding: 10px 0;
+    margin-top: 30px;
+    width: 90%;
+    justify-content: space-around;
+    letter-spacing: 0.9pt;
+
+    span {
+        color: white;
+        font-size: 15px;
+        font-family: $SemiBold;
+        padding-left: 20px;
+        margin: auto;
+        width: 30%;
+    }
+
+    .thePrice {
+        display: flex;
+        color: white;
+        align-items: center;
+        font-size: 15px;
+        font-family: $SemiBold;
+        width: 70%;
+
+        .big {
+            font-size: 21px;
+            padding-left: 5px;
+        }
+    }
+}
+
+#TotalPlay {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C2676;
+    border-radius: 7px;
+    padding: 10px 0;
+    margin-top: 30px;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    letter-spacing: 0.9pt;
+
+    span {
+        color: white;
+        font-size: 15px;
+        font-family: $SemiBold;
+        padding-left: 20px;
+    }
+
+    .thePrice {
+        display: flex;
+        color: white;
+        align-items: center;
+        font-size: 15px;
+        font-family: $SemiBold;
+        padding-right: 20px;
+
+        .big {
+            font-size: 21px;
+            padding-left: 5px;
+        }
+    }
+}
+
+#modalRadius {
+    .modal-content {
+        border-radius: 13px;
+        border: none;
+    }
+
+    #SuccessModal {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .title {
+            font-family: $SemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 33px;
+        }
+
+        .desc {
+            font-family: $Medium;
+            font-size: 15px;
+            color: black;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .okiBtnModal {
+            margin-top: 40px;
+            padding: 15px;
+            font-family: $Medium;
+            font-size: 15px;
+            color: black;
+            background-color: #F4F4F4;
+            border-radius: 7px;
+            width: 100%;
+            border: none;
+        }
+    }
+
+    #ErrorModal {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .title {
+            font-family: $SemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 15px;
+        }
+
+        .desc {
+            font-family: $Medium;
+            font-size: 15px;
+            color: black;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .buttonsDesign {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .okiBtnModal2 {
+                margin-top: 10px;
+                padding: 15px 36px;
+                font-family: $Medium;
+                font-size: 15px;
+                color: black;
+                background-color: #F4F4F4;
+                border-radius: 7px;
+                border: none;
+                width: 100%;
+            }
+
+            .okiBtnModal {
+                margin-top: 10px;
+                padding: 15px 36px;
+                font-family: $Medium;
+                font-size: 15px;
+                color: black;
+                background-color: #F4F4F4;
+                border-radius: 7px;
+                border: none;
+                width: 45%;
+            }
+
+            .exchangeBtnModal {
+                margin-top: 10px;
+                padding: 15px 36px;
+                font-family: $Medium;
+                font-size: 15px;
+                color: #FFFFFF;
+                background-color: #226D96;
+                border-radius: 7px;
+                border: none;
+                width: 45%;
+            }
+        }
+
+    }
+
+    #WarningModal {
+        display: flex;
+        flex-direction: column;
+        padding: 15px 10px 10px 10px;
+        align-items: center;
+
+        img {
+            width: 54px;
+            height: 45px;
+        }
+
+        .title {
+            font-family: $SemiBold;
+            font-size: 15px;
+            color: black;
+            padding-top: 33px;
+        }
+
+        .desc {
+            font-family: $Medium;
+            font-size: 15px;
+            color: #767676;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .buttonsDesign {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            .okiBtnModal {
+                margin-top: 40px;
+                padding: 15px 36px;
+                font-family: $Medium;
+                font-size: 15px;
+                color: black;
+                background-color: #F4F4F4;
+                border-radius: 7px;
+                width: 45%;
+                border: none;
+
+            }
+
+            .exchangeBtnModal {
+                margin-top: 40px;
+                padding: 15px 36px;
+                font-family: $Medium;
+                font-size: 15px;
+                color: #FFFFFF;
+                background-color: #226D96;
+                border-radius: 7px;
+                width: 45%;
+                border: none;
+                margin-left: 10px;
+            }
+        }
+
+    }
+}
+
+
+
+#MobileHeader {
+    background-image: linear-gradient(to bottom, #353A6A, #246992);
+    height: 46px;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+
+    .back {
+        padding-left: 30px;
+    }
+
+    .headerTitle {
+        font-family: $SemiBold;
+        font-size: 15px;
+        color: white;
+    }
+
+    .empty {
+        padding-right: 50px;
+    }
+}
+
+#spinnerLoader {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    z-index: 1002;
+    position: absolute;
+    justify-content: center;
+
+    .spinner {
+        width: 100px;
+        height: 100px;
+    }
+}

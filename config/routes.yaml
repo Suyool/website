@@ -50,10 +50,7 @@ app_requesttopay:
   path: /requestToPay
   controller: App\Controller\IveriController::requestToPay
 
-bundle_test:
-  path: /TestUnit
-  controller: TestUnit\Controller\DefaultController::index
 simly:
   path: /simly
-  controller: TestUnit\Controller\SimlyController::index
+  controller: Simly\Controller\SimlyController::index
 

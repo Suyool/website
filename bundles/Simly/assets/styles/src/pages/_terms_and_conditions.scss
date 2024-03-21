@@ -1,0 +1,109 @@
+.terms-top-section {
+  text-align: center;
+  padding-top: 40px;
+  color: #FFFFFF;
+  .title{
+    font-size: 40px;
+    font-family: $Regular;
+    padding: 20px 0;
+  }
+  .sub-title{
+    font-size: 18px;
+    font-family: $Bold;
+  }
+  .text {
+    font-size: 18px;
+    font-family: $Regular;
+  }
+}
+
+.terms-and-conditions-page{
+  .business-underline {
+    border-bottom: 2px solid #216d96;
+  }
+  .white-navbar{
+    .navbar_v2 {
+      .navbar-nav li {
+        .nav-link {
+          color: #216d96;
+        }
+      }
+    }
+  }
+  .terms-and-conditions{
+    margin-bottom: 100px;
+    font-size: 18px;
+    .header{
+      display: flex;
+      margin-top: 40px;
+      justify-content: space-between;
+      .head-title{
+        font-family: $Bold;
+      }
+      button {
+        background-color: #226d96;
+        max-width: 250px;
+        color: #FFFFFF;
+        text-align: center;
+        border-radius: 8px;
+        font-family: $Regular;
+        border: none;
+        padding: 0 15px;
+      }
+    }
+
+    .title, .listing-title{
+      margin: 40px 0;
+      font-family: $Bold;
+    }
+    .listing-title{
+      border-top: 3px solid #216D96;
+      border-bottom: 3px solid #216D96;
+      padding: 20px 0;
+    }
+    p{
+      font-family: $Regular;
+    }
+    span{
+      font-family: $Bold;
+    }
+
+    table, td {
+      border: 3px solid #216D96;
+      padding: 10px;
+    }
+
+    .table-listing{
+      display: flex;
+      align-items: flex-start;
+
+      img {
+        padding-top: 6px;
+        padding-right: 10px;
+      }
+    }
+
+    @media(max-width: 768px){
+      font-size: 16px;
+
+      .desktopMode{
+        display: none;
+      }
+    }
+    @media(min-width: 769px){
+      .mobileMode {
+        display: none;
+      }
+    }
+  }
+}
+.personal-terms {
+  .business-underline {
+    border-bottom: none!important;
+    color: #fff;
+  }
+  .personal-underline {
+    border-bottom: 2px solid #216d96;
+    color: #fff;
+  }
+}

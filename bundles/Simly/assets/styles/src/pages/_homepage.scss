@@ -1,0 +1,584 @@
+.homepage {
+  .video-section-ads{
+      text-align: center;
+      iframe {
+        border-radius: 20px;
+      }
+
+      @media screen and (max-width: 768px) {
+          padding: 0 10px;
+          h1 {
+            font-size: 24px;
+          }
+          iframe {
+            width: 95%;
+            height: 300px;
+          }
+      }
+    }
+  .personal-underline {
+    border-bottom: 2px solid #fff;
+    color: #FFFFFF;
+  }
+  .business-underline{
+    color: #FFFFFF;
+  }
+  .row {
+    margin: 0;
+  }
+  .button-primary {
+    font-family: PoppinsSemiBold;
+    border: 2px solid #FFFFFF;
+  }
+  .button-primary:hover {
+    color: #fff !important;
+  }
+  .top-section {
+    background: linear-gradient(90deg,#226d96 6%,#373464 76%);
+    color: #fff;
+    padding-bottom: 52px;
+    padding-top: 20px;
+
+    .navbar {
+      padding-left: 12px;
+      .right {
+        display: flex;
+        justify-content: space-around;
+        font-size: 18px;
+        font-family: $Regular;
+
+        .link {
+          padding-top: 6px;
+        }
+
+        .nav-button {
+          background: #48a6d9;
+          border-radius: 5px;
+          height: 40px;
+          text-align: center;
+          width: 170px;
+        }
+      }
+
+    }
+
+    .top-info {
+      padding-top: 65px;
+      .header-text {
+        font-size: 40px;
+        margin-bottom: 40px;
+        font-family: $Regular;
+
+        span {
+          font-family: $Bold;
+        }
+      }
+
+      p {
+        //font-size: 17px;
+        //font-family: "OpenSansRegular";
+        width: 80%;
+        line-height: 1.8;
+        font-size: 18px;
+        font-family: $InterRegular
+      }
+
+      .buttons-cont {
+        font-family: $SemiBold;
+        margin-top: 70px;
+
+        @media(min-width: 768px) {
+          .btn {
+            &:hover {
+              color: #ffffff;
+            }
+          }
+        }
+
+        .button-primary {
+          margin-right: 10px;
+          font-size: 16px;
+          border: 2px solid #ffffff;
+        }
+
+        @media(min-width: 768px) {
+          .button-primary:hover {
+            background: #226D96 !important;
+            border: 2px solid #ffffff !important;
+          }
+        }
+
+
+        .button-primary, .btn-outline-secondary {
+          border-radius: 12px;
+          padding: 10px 30px;
+          background: #FFFFFF;
+          color: #226D96;
+        }
+
+        .btn-outline-secondary {
+          border-color: #226D96;
+          color: #226D96;
+
+          @media(min-width: 768px) {
+            &:hover {
+              background-color: unset;
+              color: #226d96;
+            }
+          }
+        }
+      }
+    }
+
+    #openSuyoolAccount{
+      border: 2px solid #fff;
+    }
+
+    #openSuyoolAccount:hover {
+      opacity: 1;
+    }
+
+    .right-section {
+      .img-cont {
+        position: relative;
+        max-width: 615px;
+        margin: auto;
+
+        img {
+          width: 80%;
+        }
+
+        .img-desc {
+          background-color: #fff;
+          border-radius: 70px;
+          bottom: 30px;
+          font-family: $SemiBold;
+          font-size: 20px;
+          padding: 20px 75px;
+          position: absolute;
+          right: 24px;
+          box-shadow: 0px 0 4px -2px #888;
+
+          i {
+            color: #858585;
+            display: block;
+            position: absolute;
+            top: 50px;
+            left: 30px;
+            font-size: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .home_body_desktop, .home_body_mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    margin-top: 70px;
+
+    .easy_steps {
+      font-size: 52px;
+      font-family: $Regular;
+      color: #202020;
+      padding: 20px 0;
+    }
+
+    .manage_spend {
+      font-size: 20px;
+      font-family: $Regular;
+      color: #6B6B6B;
+    }
+  }
+
+  .home_body_mobile {
+    display: none;
+  }
+
+  .home-steps {
+    margin: 30px 0;
+    justify-content: center;
+
+    .step {
+      padding: 30px;
+      margin: 0 10px 50px 10px;
+      border-radius: 10px;
+      border: none;
+
+      .head {
+        display: flex;
+        justify-content: space-between;
+        font-family: $Bold;
+        font-size: 52px;
+        margin-bottom: 30px;
+      }
+
+      .title {
+        font-family: $SemiBold;
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .text {
+        font-family: $InterRegular;
+        font-size: 18px;
+        color: $grey;
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  .home-mastercard {
+    margin: 100px 0;
+
+    .card-img-mobile {
+      display: none;
+    }
+
+
+
+    .blue-btn {
+      margin-left: 40px;
+      &:hover{
+        border: 2px solid #202020;
+      }
+    }
+
+    .card-img-desk {
+      img {
+        width: 70%;
+      }
+    }
+  }
+
+  .blue-btn {
+    background: #226d96;
+    border-radius: 12px;
+    color: #fff;
+    display: block;
+    font-family: PoppinsSemiBold;
+    font-size: 16px;
+    padding: 12px 0;
+    text-align: center;
+    width: 200px;
+    cursor: pointer;
+
+    @media(min-width: 768px) {
+      &:hover {
+        background-color: #fff;
+        color: #226d96;
+      }
+    }
+  }
+
+  .use-money {
+    margin-bottom: 50px;
+
+    .use-row {
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      margin: auto;
+
+      .item {
+        width: 25%;
+        margin: 40px;
+
+        .head {
+          display: flex;
+
+          p {
+            color: #202020;
+            font-size: 20px;
+            font-family: $SemiBold;
+            padding-left: 10px;
+          }
+        }
+
+        .text {
+          font-size: 18px;
+          font-family: $InterRegular;
+          color: $grey;
+          padding-left: 72px;
+          margin-top: -10px;
+        }
+      }
+    }
+  }
+
+  .corporate-section {
+    background-image: url("../../../images/homepage/corporate-desk.jpg");
+    display: flex;
+    align-items: center;
+    padding: 60px 0px;
+    width: 100%;
+    background-size: cover;
+    margin-top: 90px;
+
+    .content {
+      color: #FFFFFF;
+      font-family: $Regular;
+      width: 52%;
+      margin-left: 15%;
+      .top-title {
+        font-size: 20px!important;
+        letter-spacing: 2px;
+        font-family: $Bold !important;
+      }
+      .title {
+        font-size: 35px;
+        margin: 40px 0;
+        line-height: 1.5;
+      }
+
+      .text {
+        font-size: 17px;
+        font-family: $InterRegular;
+      }
+
+      .blue-btn {
+        width: 300px;
+        margin-top: 50px;
+        background: #FFFFFF;
+        color: #226d96;
+        border: 2px solid #FFF !important;
+      }
+
+      @media(min-width: 768px) {
+        .blue-btn:hover {
+          background: #226d96;
+          color: #FFF;
+          border: 2px solid #FFF !important;
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1450px) and (max-width: 1800px) {
+    .top-section{
+      .top-info {
+        padding-top: 65px;
+        .header-text {
+          font-size: 40px;
+          margin-bottom: 40px;
+          font-family: $Regular;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1450px) {
+    .blue-btn {
+      padding: 10px 0;
+      font-size: 16px;
+    }
+
+    .top-section {
+      .top-info {
+        .header-text {
+          font-size: 40px;
+        }
+
+      }
+    }
+
+    .home-mastercard {
+      .blue-btn {
+        margin-left: 40px;
+      }
+
+      .card-img-desk {
+        img {
+          width: 90%;
+        }
+      }
+    }
+
+  }
+
+  @media (min-width: 769px) {
+    .mobile {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .desktop {
+      display: none !important;
+    }
+
+    .top-section {
+      .navbar{
+        margin-bottom: 0;
+      }
+      .top-info {
+        padding: 0;
+        text-align: center;
+
+        .buttons-cont {
+          text-align: center;
+        }
+
+        .header-text {
+          margin-top: 20px;
+          text-align: left;
+        }
+
+        p {
+          font-size: 18px;
+          line-height: 1.8;
+          text-align: left;
+          width: 100%;
+        }
+      }
+
+      .right-section {
+        .img-cont {
+            text-align: center !important;
+
+          img{
+            width: 100%;
+            margin-top: 25px;
+          }
+        }
+      }
+    }
+
+    .home_body_mobile {
+      display: block;
+      width: 80%;
+      margin: auto;
+      text-align: center;
+      margin-top: 20px;
+
+      .how_suyool_work, .manage_spend {
+        font-size: 14px;
+      }
+
+      .easy_steps {
+        font-size: 35px;
+      }
+    }
+
+    .home_body_desktop {
+      display: none;
+    }
+
+    .use-money {
+      margin-bottom: 50px;
+      .use-row {
+        display: block;
+        .item {
+          width: 100%;
+          margin: 45px 0;
+          .head {
+            display: block;
+            text-align: center;
+            img{
+              margin-bottom: 15px;
+            }
+            p{
+              font-size: 20px;
+            }
+          }
+          .text {
+            text-align: center;
+            padding: 0;
+            font-size: 17px;
+          }
+        }
+      }
+    }
+
+    .home-steps {
+      .step {
+        padding: 20px 30px;
+
+        .head {
+          font-size: 45px;
+          margin-bottom: 30px;
+          img{
+            max-width: 100px;
+          }
+        }
+
+        .text {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .corporate-section {
+      background-image: url("../../../images/homepage/corporate-mob.jpg");
+      padding: 50px 0;
+
+      .content {
+        font-family: $Regular;
+        width: 90%;
+        margin: auto;
+
+        .title {
+          font-size: 35px;
+          margin: 40px 0;
+          color: #FFFFFF;
+          line-height: 1.5;
+        }
+
+        .top-title {
+          color: #FFFFFF !important;
+          font-family: $Bold;
+        }
+
+        .text {
+          font-size: 17px;
+          color: #FFFFFF;
+        }
+
+        .blue-btn {
+          width: 90%;
+          margin:  45px auto;
+          font-size: 15px;
+          padding: 20px 0;
+        }
+
+        #openSuyoolAccount {
+          margin-top: 45px;
+        }
+      }
+    }
+
+    .home-mastercard {
+      .card-img-mobile {
+        display: block;
+        text-align: center;
+
+        .notification{
+          width: 100% !important;
+        }
+        img {
+          width: 90%;
+          margin-bottom: 50px;
+        }
+      }
+
+      .card-img-desk {
+        display: none;
+      }
+
+      .blue-btn {
+        margin: auto;
+      }
+    }
+
+    .blue-btn {
+      font-size: 16px;
+      padding: 10px 0;
+      width: 180px;
+    }
+  }
+
+}

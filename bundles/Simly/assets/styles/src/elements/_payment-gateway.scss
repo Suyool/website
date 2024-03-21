@@ -1,0 +1,40 @@
+.payment-gateway-cont {
+  .payment-content {
+    max-width: 600px;
+    border-radius: 20px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6 !important;
+
+    h3 {
+      font-family: $Regular;
+      font-size: 25px;
+    }
+
+    h5 {
+      font-size: 20px;
+      font-family: $Bold;
+    }
+
+    p {
+      font-family: $Regular;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .payment-content {
+      h3 {
+        font-size: 22px;
+      }
+
+      h5 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}

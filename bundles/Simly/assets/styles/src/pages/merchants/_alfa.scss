@@ -1,0 +1,391 @@
+$image-path: '../../../../images/usj/';
+
+.alfa {
+    .topSectionAlfaEmp {
+        img {
+            width: 100%;
+            min-height: 497px;
+        }
+
+        .logos {
+            padding-top: 30px;
+            text-align: center;
+
+            span {
+                color: #fff;
+                font-size: 41px;
+                margin-left: 13px;
+                position: relative;
+                margin-right: 13px;
+                top: 8px;
+                font-weight: 300;
+            }
+
+            img {
+                width: 112px;
+            }
+        }
+
+        .lldj {
+            .title {
+                color: #287094 !important;
+            }
+
+            .desc {
+                color: #287094 !important;
+            }
+        }
+
+        .web-addicts {
+            .title {
+                color: #000 !important;
+            }
+
+            .desc {
+                color: #000 !important;
+            }
+        }
+
+        .information {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding-top: 9pc;
+            text-align: center;
+
+            @media screen and (max-width:1400px) and (min-width:993px) {
+                padding-top: 80px;
+            }
+
+            .title {
+                color: #fff;
+                font-size: 40px;
+                font-family: $Regular;
+                width: 45%;
+                margin: auto;
+            }
+
+            .desc {
+                max-width: 600px;
+                margin: 40px auto;
+                font-family: 'PoppinsRegular';
+                font-size: 17px;
+                color: #fff;
+            }
+
+            .OpenSuyoolAccount {
+                margin-top: 30px;
+
+                .OpenYourSuyoolAccount {
+                    padding: 10px 30px;
+
+                    @media screen and (max-width:768px) {
+                        padding: 10px 50px;
+                    }
+
+                    border-radius: 9px;
+                    border: none;
+                    color: #226D96;
+                    font-family: $SemiBold;
+                    background: #ffffff;
+
+                    &:hover {
+                        background: #226d96;
+                        border: 2px solid #fff;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .InfoSection {
+        background-color: #F0F0F3;
+        text-align: center;
+        padding-top: 26px;
+        margin-bottom: 20px;
+
+        .easy_steps_top {
+            font-size: 22px;
+            font-family: $Bold;
+            color: #373464;
+            word-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .MasterCard {
+            text-align: center;
+            color: #373464;
+            font-family: $Regular ;
+            font-size: 18px;
+            margin-bottom: 24px;
+
+            img {
+                // max-height: 50px;
+            }
+
+            .desc {
+                font-family: $Regular;
+                font-size: 20px;
+                margin-top: 10px;
+            }
+
+            .sub-desc {
+                text-align: center;
+                font-family: $Regular;
+                font-size: 17px;
+                color: #5A5A5A;
+            }
+        }
+    }
+
+}
+
+.alfa-steps {
+    margin-top: 80px;
+    .home_body_desktop {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+
+        .how_suyool_work {
+            font-size: 20px;
+            font-family: $Bold;
+            color: #373464;
+            letter-spacing: 2px;
+        }
+
+        .easy_steps {
+            font-size: 25px;
+            font-family: $Regular;
+            color: #202020;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .manage_spend {
+            font-size: 18px;
+            font-family: $InterRegular;
+            color: #6B6B6B;
+        }
+    }
+
+    .home-steps {
+        margin: 30px 0;
+        justify-content: center;
+
+        .step {
+            padding: 19px 34px 0px;
+            margin: 0 10px 50px 10px;
+            border-radius: 10px;
+            border: none;
+
+            .head {
+                display: flex;
+                justify-content: space-between;
+                font-family: $Bold;
+                font-size: 52px;
+                margin-bottom: 30px;
+
+                img {
+                    max-height: 90px;
+                }
+            }
+
+            .title {
+                font-family: $SemiBold;
+                font-size: 17px;
+                margin-bottom: 20px;
+            }
+
+            .text {
+                font-family: $InterRegular;
+                font-size: 15px;
+                color: #6B6B6B;
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .home-steps {
+            .step {
+                padding: 20px 40px;
+
+                .head {
+                    font-size: 52px;
+                    margin-bottom: 30px;
+
+                    img {
+                        width: 100px;
+                    }
+                }
+
+                .title {
+                    font-size: 18px;
+                    margin-bottom: 15px;
+                }
+
+                .text {
+                    font-size: 14px;
+                    margin-bottom: 20px;
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+}
+
+.alfa-mastercard {
+    .main_title {
+        color: #373464;
+        font-size: 23px;
+        font-family: $Bold;
+    }
+
+    margin: 100px 0;
+    overflow-x: hidden;
+
+    .card-img-mobile {
+        display: none;
+    }
+
+    .blue-btn {
+        margin-left: 40px;
+    }
+
+    .card-img-desk {
+        @media screen and (max-width:998px) {
+            text-align: center;
+        }
+
+        img {
+            max-width: 600px;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .card-img-desk {
+            text-align: center;
+
+            img {
+                width: 90%;
+                margin-bottom: 95px;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 998px) and (max-width: 1400px) {
+    .topSectionAlfaEmp {
+        .tabletMode {
+            img {
+                max-height: 98vh;
+            }
+        }
+
+        .info-cont {
+            padding-top: 0;
+        }
+
+        .information {
+            padding-top: 100px;
+
+            .title {
+                width: 50%;
+                margin: auto;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:768px) {
+    .topSectionAlfaEmp {
+        .information {
+            padding-top: 8pc;
+            left: 30px;
+            right: 30px;
+
+            .title {
+                font-size: 25px!important;
+                text-align: left!important;
+                width: unset!important;
+                padding-left: 10px;
+            }
+
+            .desc {
+                font-size: 14px;
+                line-height: 30px;
+                text-align: left;
+                padding-left: 10px;
+            }
+
+            .OpenSuyoolAccount {
+                .OpenYourSuyoolAccount {
+                    margin: auto;
+                    font-size: 15px;
+                    padding: 8px 10px;
+                }
+            }
+        }
+
+
+    }
+
+    .InfoSection {
+        background-color: #F0F0F3;
+
+        .MasterCard {
+            margin-bottom: 80px;
+
+            .sub-desc {
+                font-size: 17px;
+                text-align: left;
+            }
+
+            .desc {
+                font-size: 18px;
+            }
+        }
+    }
+
+    .alfa-steps {
+
+        .home_body_desktop {
+            text-align: center;
+            padding-left: 40px;
+            padding-right: 40px;
+
+            .how_suyool_work {
+                font-size: 16px!important;
+            }
+
+            .easy_steps {
+                font-size: 25px;
+            }
+
+            .manage_spend {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .alfa-mastercard {
+        .main_title {
+            font-size: 22px;
+        }
+
+        margin: 0;
+        padding-bottom: 60px;
+    }
+
+}

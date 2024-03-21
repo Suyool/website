@@ -1,0 +1,28 @@
+{
+    "name":"simly/bundle",
+    "version":"1.0.1",
+    "type":"symfony-bundle",
+    "description":"This bundle renders a template with the 'Hello world!' message.",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "symfony/twig-bundle": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Simly\\":"src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Simly\\":"src/"
+        }
+    },
+    "authors": [
+        {
+            "name":"Anthony Saliba",
+            "email": "anthony.saliban@gmail.com",
+            "role": "Developer"
+        }
+    ]
+}

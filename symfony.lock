@@ -109,6 +109,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "simly/bundle": {
+        "version": "1.0.1"
+    },
     "symfony/console": {
         "version": "5.2",
         "recipe": {
@@ -347,9 +350,6 @@
             "./package.json",
             "./webpack.config.js"
         ]
-    },
-    "testunit/bundle": {
-        "version": "1.0.0"
     },
     "twig/extra-bundle": {
         "version": "v3.7.0"
