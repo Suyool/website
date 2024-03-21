@@ -261,23 +261,33 @@ class TaxController extends AbstractController
         }
     }
 
-    private function handleFileUpload($file): ?string
+    private function handleFileUpload($companyName,$file): ?string
     {
-        if ($file instanceof UploadedFile) {
+        if (strpos($file, 'base64,') !== false) {
+
+            // Extract the base64 content from the data URI
+            $fileContent = explode(',', $file)[1];
+
+            // Decode the base64 content
+            $decodedContent = base64_decode($fileContent);
+
             // Check if the directory exists, if not, create it
             $uploadDirectory = $this->getParameter('kernel.project_dir') . '/resources/TAX';
             if (!$this->filesystem->exists($uploadDirectory)) {
                 $this->filesystem->mkdir($uploadDirectory);
             }
 
-            // Move the file to the upload directory
-            $newFilename = uniqid() . '.' . $file->guessExtension();
-            $file->move($uploadDirectory, $newFilename);
+            $currentDate = new \DateTime();
+            $formattedDate = $currentDate->format('Ymd_His');
+            $newFilename = $companyName . '_' . $formattedDate . '.pdf'; // Assuming the file type is PDF
+
+
+            // Save the file to the upload directory
             $filePath = $uploadDirectory . '/' . $newFilename;
+            file_put_contents($filePath, $decodedContent);
 
-            return $filePath;
+            return $newFilename;
         }
-
         return null;
     }
 
@@ -325,7 +335,7 @@ class TaxController extends AbstractController
             ->setrounding($resp["Rounding"]);
 
         if (isset($data['uploadedFile'])) {
-            $file = $this->handleFileUpload($data['uploadedFile']);
+            $file = $this->handleFileUpload($data["companyName"],$data['uploadedFile']);
             if ($file) {
                 $taxReq->setUploadedFile($file);
             }
