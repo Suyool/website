@@ -4,6 +4,9 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+  Simly\Controller\SimlyController:
+    arguments:
+      - '@doctrine.orm.entity_manager.simly'
 
-  Simly\Controller\SimlyController: ~
+#  Simly\Controller\SimlyController: ~
 

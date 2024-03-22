@@ -16,6 +16,22 @@ class SimlyExtension extends Extension
             new FileLocator(__DIR__.'/../../config')
         );
 
+        $loader->load('doctrine.yaml');
         $loader->load('services.yaml');
+
+        // Add your custom compiler pass here (if applicable)
+//        if (class_exists(YourCustomDoctrineCompilerPass::class)) {
+//            $container->addCompilerPass(new YourCustomDoctrineCompilerPass());
+//        }
+
     }
+
+//    private function configureDoctrine(ContainerBuilder $container)
+//    {
+//        $mappings = [
+//            \Doctrine\Persistence\Mapping\ClassMetadataFactory::createDefaultMappingDirectories(__DIR__ . '/../../Entity')
+//        ];
+//
+//        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDiscovery($mappings));
+//    }
 }

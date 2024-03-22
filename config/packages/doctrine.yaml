@@ -30,8 +30,8 @@ doctrine:
                 url: '%env(resolve:GIFT2GAMES_DATABASE_URL)%'
             windsl:
                 url: '%env(resolve:WINDSL_DATABASE_URL)%'
-            simly:
-                url: '%env(resolve:SIMLY_DATABASE_URL)%'
+#            simly:
+#                url: '%env(resolve:SIMLY_DATABASE_URL)%'
 
         default_connection: default
         # charset: UTF8
@@ -186,12 +186,12 @@ doctrine:
                         prefix: 'App\Entity\Windsl'
                         alias: windsl
 
-            simly:
-                connection: simly
-                mappings:
-                    Simly:
-                        is_bundle: false
-                        type: annotation
-                        dir: '%kernel.project_dir%/src/Entity/Simly'
-                        prefix: 'App\Entity\Simly'
-                        alias: Simly
+#            simly:
+#                connection: simly
+#                mappings:
+#                    Simly:
+#                        is_bundle: false
+#                        type: annotation
+#                        dir: '%kernel.project_dir%/src/Entity/Simly'
+#                        prefix: 'App\Entity\Simly'
+#                        alias: Simly

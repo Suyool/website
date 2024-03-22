@@ -1,0 +1,40 @@
+doctrine:
+  dbal:
+    # wrapper_class: App\Doctrine\DynamicConnection
+    connections:
+      simly:
+        url: '%env(resolve:SIMLY_DATABASE_URL)%'
+
+    default_connection: simly
+    # charset: UTF8
+    # logging: true
+    # profiling: false
+    # IMPORTANT: You MUST configure your server version,
+    # either here or in the DATABASE_URL env var (see .env file)
+    #server_version: '13'
+  orm:
+    default_entity_manager: simly
+    auto_generate_proxy_classes: true
+    # naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    # auto_mapping: true
+    entity_managers:
+      default:
+        connection: simly
+        mappings:
+          App:
+            is_bundle: false
+            type: annotation
+            dir: '%kernel.project_dir%/bundles/Simly/src/Entity'
+            prefix: 'Simly\Entity'
+            alias: Simly
+        dql:
+          datetime_functions:
+            UNIX_TIMESTAMP: DoctrineExtensions\Query\Mysql\UnixTimestamp
+            NOW: DoctrineExtensions\Query\Mysql\Now
+            DATEDIFF: DoctrineExtensions\Query\Mysql\DateDiff
+            FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+            JSON_CONTAINS: DoctrineExtensions\Query\Mysql\JsonContains
+          string_functions:
+            MATCH: DoctrineExtensions\Query\Mysql\MatchAgainst
+            GREATEST: DoctrineExtensions\Query\Mysql\Greatest
+            COLLATE: DoctrineExtensions\Query\Mysql\Collate

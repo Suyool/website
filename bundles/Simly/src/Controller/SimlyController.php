@@ -3,14 +3,15 @@
 namespace Simly\Controller;
 
 
-use App\Entity\Simly\Esim;
-use App\Entity\Simly\Logs;
-use App\Entity\Simly\Order;
-use App\Entity\Simly\Visitors;
+use Doctrine\ORM\EntityManagerInterface;
+use \Simly\Entity\Simly\Esim;
+use Simly\Entity\Simly\Logs;
+use Simly\Entity\Simly\Order;
+//use Simly\Entity\Simly\Visitors;
 use App\Service\LogsService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
-use App\Service\SimlyServices;
+use Simly\Service\SimlyServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,13 +32,16 @@ class SimlyController extends AbstractController
     public $iv = "fgu26y9e43wc8dj2";
     private $session;
     private $Memcached;
+    private $em;
 
-    public function __construct(ManagerRegistry $mr, ParameterBagInterface $params, SessionInterface $sessionInterface, Memcached $memcached)
+    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface, Memcached $memcached, EntityManagerInterface $mr)
     {
-        $this->mr = $mr->getManager('simly');
+        dd($this->mr);
+//        $this->mr = $mr->getManager('simly');
         $this->params = $params;
         $this->session = $sessionInterface;
         $this->Memcached = $memcached;
+        $this->mr = $mr;
     }
 
     /**
@@ -56,15 +60,16 @@ class SimlyController extends AbstractController
                 $SuyoolUserId = $suyoolUserInfo[0];
                 // dd($this->session->get('isHavingCard'));
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-                $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId' => $suyoolUserInfo[0], 'isPopup' => true]);
+//                $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId' => $suyoolUserInfo[0], 'isPopup' => true]);
+                $visitor = null;
                 if (is_null($visitor)) {
-                    $visitors = new Visitors();
-                    $visitors->setSuyoolUserId($suyoolUserInfo[0])
-                        ->setWebKey($_POST['infoString'])
-                        ->setPopup(true);
-
-                    $this->mr->persist($visitors);
-                    $this->mr->flush();
+//                    $visitors = new Visitors();
+//                    $visitors->setSuyoolUserId($suyoolUserInfo[0])
+//                        ->setWebKey($_POST['infoString'])
+//                        ->setPopup(true);
+//
+//                    $this->mr->persist($visitors);
+//                    $this->mr->flush();
                     $parameters['isPopup'] = true;
                 } else {
                     $parameters['isPopup'] = false;
