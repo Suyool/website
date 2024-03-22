@@ -1,0 +1,57 @@
+<div class="container exchangeContainer">
+    <h3 class="mb-4">Check Suyool Exchange Rate</h3>
+    <p class="subTitle">Powered by Dimes Middle-East SAL</p>
+    <form>
+        <div class="row mb-3 align-items-end">
+            <div class="col-md-3">
+                <label for="amount" class="form-label">Amount</label>
+                <div class="amountContInput">
+                    <input type="number" class="form-control" id="amount" aria-describedby="amountHelp">
+                    <span class="input-symbol" id="currencySymbol">$</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="fromCurrency" class="form-label">From</label>
+                <select id="fromCurrency" class="form-select">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="LBP">LBP - Lebanese Pound</option>
+                </select>
+            </div>
+            <div class="col-md-1 align-self-end imageCont">
+                <img src="/build/images/exchangeIcon.svg" class="img-fluid" alt="Exchange Icon" onclick="swapCurrencies()">
+            </div>
+            <div class="col-md-3">
+                <label for="toCurrency" class="form-label">To</label>
+                <select id="toCurrency" class="form-select">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="LBP">LBP - Lebanese Pound</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="buttonCont">
+                    <button type="button" id="convertButton" class="btn btn-primary">Convert ></button>
+                </div>
+            </div>
+            <div class="row exchangeDisplayCont">
+                <div class="col-md-4">
+                    <span class="buy">Buy USD</span>
+                    {% if buyRate is defined %}
+                        <span id="buyAmountDes" class="buyAmountDes" value="{{ buyRate }}">$1 = L.L <span id="buyAmountDesVal">{{buyRate | number_format }}</span></span>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 sellCont">
+                    <span class="sell">Sell LBP</span>
+                    {% if sellRate is defined %}
+                        <span id="sellAmountDes" class="sellAmountDes">$1 = L.L <span id="sellAmountDesVal">{{sellRate | number_format }}</span></span>
+                    {% endif %}
+                </div>
+                <div class="col-md-4 timeCont">{{ updatedTime }}</div>
+            </div>
+            <div class="row exchangeResultCont">
+                <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">89,700</span> <span class="currencyConverted">LBP</span></div>
+                <div class="col-md-4 sellCont"><span class="sell">SELL = </span> <span id="sellAmount" class="sellAmount">89,400 </span> <span class="currencyConverted">LBP</span></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </form>
+</div>

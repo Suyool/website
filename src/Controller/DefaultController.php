@@ -54,6 +54,9 @@ class DefaultController extends AbstractController
         is designed to address your cash-handling challenges. Whether it’s seamlessly cashing out, 
         sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, 
         Suyool empowers you with full control over your finances.";
+        $buyRate = 89700;
+        $sellRate = 89400;
+        $updatedTime = "Updated 9 min ago";
         $parameters = [
             'title' => $title,
             'desc' => $desc,
@@ -62,6 +65,9 @@ class DefaultController extends AbstractController
             'barBgColor' => 'barWhite',
             'chatbot' => true,
             'homepage' => true,
+            'buyRate' => $buyRate,
+            'sellRate' => $sellRate,
+            'updatedTime' => $updatedTime
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
