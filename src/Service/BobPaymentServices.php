@@ -44,7 +44,7 @@ class BobPaymentServices
     private $invoicesServices;
 
 
-    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices,InvoiceServices $invoicesServices)
+    public function __construct(HttpClientInterface $client, LoggerInterface $logger, SessionInterface $session, ManagerRegistry $mr, SuyoolServices $suyoolServices, NotificationServices $notificationServices, InvoiceServices $invoicesServices)
     {
         $this->client = $client;
         $simulation = $session->get('simulation');
@@ -760,7 +760,7 @@ class BobPaymentServices
         }
     }
 
-    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId,$attempts=null)
+    public function RetrievePaymentDetailsOnCheck($order, $suyoolUserId, $attempts = null)
     {
         try {
             $response = $this->client->request('GET', $this->BASE_API . "order/" . $order, [
@@ -778,8 +778,8 @@ class BobPaymentServices
             // dd($content);
             // $this->logger->error(json_encode($content));
             // dd($content['authenticationStatus']);
-        if ($content['result'] != 'ERROR') {
-               $attempts == null ? $attempts = new attempts() : $attempts = $attempts;
+            if ($content['result'] != 'ERROR') {
+                $attempts == null ? $attempts = new attempts() : $attempts = $attempts;
                 $attempts->setResponse(json_encode($content))
                     ->setSuyoolUserId($suyoolUserId)
                     ->setTransactionId($content['id'])
@@ -897,7 +897,7 @@ class BobPaymentServices
         }
     }
 
-    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code, $type, $merchantId = null,$merchantOrderId = null)
+    public function hostedsession($amount, $currency, $transId, $suyoolUserId, $code, $type, $merchantId = null, $merchantOrderId = null)
     {
         if ($this->session->get('simulation') == 'true') {
             $order = $this->mr->getRepository(test_orders::class)->findTestTransactionsThatIsNotCompleted($transId);
@@ -990,7 +990,7 @@ class BobPaymentServices
                     "redirectResponseUrl" => $url . "/pay2"
                 ],
                 "order" => [
-                    "id" => $_ENV['APP_ENV']. "_" . $transId,
+                    "id" => $_ENV['APP_ENV'] . "_" . $transId,
                     "amount" => $amount,
                     "currency" => $currency
                 ],
@@ -998,7 +998,7 @@ class BobPaymentServices
                     "id" => "trans-" . $attempts
                 ]
             ];
-            $this->session->set('orderidhostedsession', $_ENV['APP_ENV']. "_" . $transId);
+            $this->session->set('orderidhostedsession', $_ENV['APP_ENV'] . "_" . $transId);
         } else {
             $body = [
                 "authentication" => [
@@ -1031,7 +1031,7 @@ class BobPaymentServices
         return array($session, $transId, $attempts);
     }
 
-    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code, $type,$details)
+    public function hostedsessionRTP($amount, $currency, $transId, $suyoolUserId, $code, $type, $details)
     {
         $orderSession = $this->mr->getRepository(orders::class)->findTransactionsThatIsNotCompleted($transId);
         // dd($orderSession);
@@ -1268,16 +1268,16 @@ class BobPaymentServices
     }
     //
 
-    public function updatedTransactionInHostedSessionToPay($orderid,$trans,$suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $simulation = null)
+    public function updatedTransactionInHostedSessionToPay($orderid, $trans, $suyooler = null, $receiverPhone = null, $senderPhone = null, $senderInitials = null, $merchantName = null, $simulation = null)
     {
         $getTheSession = $this->mr->getRepository(orders::class)->getTheSession($orderid);
         // dd($getTheSession);
         $suyooler = $getTheSession['suyoolUserId'];
         $details = $getTheSession['details'];
-        $details = json_decode($details,true);
-        if(!is_null($details)){
+        $details = json_decode($details, true);
+        if (!is_null($details)) {
             $senderInitials = $details['SendarInitials'];
-            $receiverPhone=$details['ReceiverPhone'];
+            $receiverPhone = $details['ReceiverPhone'];
             $senderPhone = $details['SenderPhone'];
         }
         $body = [
@@ -1305,7 +1305,7 @@ class BobPaymentServices
         if (isset($content['error'])) {
             $this->logger->info("enter to the error field popup");
             $title = "Please Try Again";
-            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+            $description = "An error has occurred with your card payment. <br>Please try again later or use another payment method.";
             $imgsrc = "build/images/Loto/error.png";
             $button = "Try Again";
             $parameters = [
@@ -1320,14 +1320,14 @@ class BobPaymentServices
         // Check if attempt exists
         if (is_null($suyooler)) {
             $attempts = $this->mr->getRepository(attempts::class)->findOneBy(['transactionId' => $orderid]);
-        }else {
+        } else {
             $attempts = $this->mr->getRepository(attempts::class)->getTransactionPerStatus($orderid);
         }
         // Create a new attempt object
         if ($attempts === null) {
             $attempts = new attempts();
         }
-
+        // dd($attempts);
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1339,7 +1339,8 @@ class BobPaymentServices
             ->setResult($content['result'])
             ->setAuthStatus($content['order']['authenticationStatus'])
             ->setCard($content['sourceOfFunds']['provided']['card']['number'])
-            ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
+            ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard'])
+            ->setErrorMessage(@$content['response']['acquirerMessage']);
         $this->mr->persist($attempts);
         $this->mr->flush();
 
@@ -1400,16 +1401,16 @@ class BobPaymentServices
                     $this->mr->flush();
 
                     $refNumb = $session->getOrders()->getCode();
-                    if($refNumb) {
+                    if ($refNumb) {
                         $firstFPosition = strpos($refNumb, 'G');
                         $refnumber = substr($refNumb, $firstFPosition + 1);
                         $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
-                        if($invoice){
+                        if ($invoice) {
                             $this->invoicesServices->updateOrderStatus($refnumber, 'Completed');
                         }
                     }
 
-                    
+
                     return $parameters;
                 } else {
                     $this->logger->error(json_encode($topup));
@@ -1431,18 +1432,18 @@ class BobPaymentServices
                         $order->setstatus('Canceled');
                         $this->mr->persist($order);
                         $this->mr->flush();
-                    }else{
+                    } else {
                         $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
                         $order->setstatus('Canceled');
                         $this->mr->persist($order);
                         $this->mr->flush();
                     }
                     $refNumb = $session->getOrders()->getCode();
-                    if($refNumb) {
+                    if ($refNumb) {
                         $firstFPosition = strpos($refNumb, 'G');
                         $refnumber = substr($refNumb, $firstFPosition + 1);
                         $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
-                        if($invoice){
+                        if ($invoice) {
                             $this->invoicesServices->updateOrderStatus($refnumber, 'Canceled');
                         }
                     }
@@ -1545,7 +1546,7 @@ class BobPaymentServices
                 } else {
                     $imgsrc = "build/images/Loto/error.png";
                     $title = "Please Try Again";
-                    $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                    $description = "An error has occurred with your card payment. <br>Please try again later or use another payment method.";
                     $button = "Try Again";
                     $parameters = [
                         'title' => $title,
@@ -1570,24 +1571,29 @@ class BobPaymentServices
                     $order->setstatus('Canceled');
                     $this->mr->persist($order);
                     $this->mr->flush();
-                }else{
+                } else {
                     $order = $this->mr->getRepository(orders::class)->findOneBy(['transId' => $session->getOrders()->gettransId()]);
                     $order->setstatus('Canceled');
                     $this->mr->persist($order);
                     $this->mr->flush();
                 }
                 $refNumb = $session->getOrders()->getCode();
-                if($refNumb) {
+                if ($refNumb) {
                     $firstFPosition = strpos($refNumb, 'G');
                     $refnumber = substr($refNumb, $firstFPosition + 1);
                     $invoice = $this->invoicesServices->findInvoiceByRefNumber($refnumber);
-                    if($invoice){
+                    if ($invoice) {
                         $this->invoicesServices->updateOrderStatus($refnumber, 'Canceled');
                     }
                 }
             } else {
-                $title = "Please Try Again";
-                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                if (isset($content['response']['acquirerMessage']) && ($content['response']['acquirerMessage'] == "Transaction not permitted to cardholder" || $content['response']['acquirerMessage'] == "Do not honor")) {
+                    $title = "Payment Unsuccessfull";
+                    $description = "An error has occurred with your card payment. <br>Please call your issued bank for more information or try again later.";
+                } else {
+                    $title = "Please Try Again";
+                    $description = "An error has occurred with your card payment. <br>Please try again later or use another payment method.";
+                }
             }
 
 
@@ -1606,7 +1612,7 @@ class BobPaymentServices
     }
 
     //
-    public function updatedTransactionInHostedSessionToPayTopup($orderid,$trans,$suyooler=null, $receiverPhone = null, $senderPhone = null)
+    public function updatedTransactionInHostedSessionToPayTopup($orderid, $trans, $suyooler = null, $receiverPhone = null, $senderPhone = null)
     {
         $getTheSession = $this->mr->getRepository(orders::class)->getTheSession($orderid);
         $suyooler = $getTheSession['suyoolUserId'];
@@ -1615,7 +1621,7 @@ class BobPaymentServices
         $body = [
             "apiOperation" => "PAY",
             "authentication" => [
-                "transactionId" =>$trans
+                "transactionId" => $trans
             ],
             "session" => [
                 "id" => "{$getTheSession['session']}"
@@ -1655,6 +1661,7 @@ class BobPaymentServices
         if ($attempts === null) {
             $attempts = new attempts();
         }
+        // $content['response']['acquirerMessage'] = "Do not honor";
         $attempts->setSuyoolUserId($suyooler)
             ->setReceiverPhone($receiverPhone)
             ->setSenderPhone($senderPhone)
@@ -1666,10 +1673,11 @@ class BobPaymentServices
             ->setResult($content['result'])
             ->setAuthStatus($content['order']['authenticationStatus'])
             ->setCard($content['sourceOfFunds']['provided']['card']['number'])
-            ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard']);
+            ->setName(@$content['sourceOfFunds']['provided']['card']['nameOnCard'])
+            ->setErrorMessage(@$content['response']['acquirerMessage']);
         $this->mr->persist($attempts);
         $this->mr->flush();
-        $session = $this->mr->getRepository(session::class)->findOneBy(['session' =>$getTheSession['session']]);
+        $session = $this->mr->getRepository(session::class)->findOneBy(['session' => $getTheSession['session']]);
         if ($content['order']['status'] == 'CAPTURED') {
             $attemptsPerCard = $this->mr->getRepository(attempts::class)->GetTransactionsPerCard($content['sourceOfFunds']['provided']['card']['number']);
             $attemptsPerCardSum = $this->mr->getRepository(attempts::class)->GetTransactionPerCardSum($content['sourceOfFunds']['provided']['card']['number']);
@@ -1780,18 +1788,35 @@ class BobPaymentServices
                 return $parameters;
             }
         } else {
-            $imgsrc = "build/images/Loto/error.png";
-            $title = "Please Try Again";
-            $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
-            $button = "Try Again";
-            $parameters = [
-                'title' => $title,
-                'imgsrc' => $imgsrc,
-                'description' => $description,
-                'button' => $button,
-                'infoFailed' => true
-            ];
-            return $parameters;
+            if (isset($content['response']['acquirerMessage']) && ($content['response']['acquirerMessage'] == "Transaction not permitted to cardholder" || $content['response']['acquirerMessage'] == "Do not honor")) {
+                $imgsrc = "build/images/Loto/error.png";
+                $title = "Payment Unsuccessfull";
+                $description = "An error has occurred with your top up. <br>Please call your issued bank for more information or try again later.";
+                $button = "Try Again";
+                $parameters = [
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'topup' => true,
+                    'infoFailed' => true
+                ];
+                return $parameters;
+            } else {
+                $imgsrc = "build/images/Loto/error.png";
+                $title = "Please Try Again";
+                $description = "An error has occurred with your top up. <br>Please try again later or use another top up method.";
+                $button = "Try Again";
+                $parameters = [
+                    'title' => $title,
+                    'imgsrc' => $imgsrc,
+                    'description' => $description,
+                    'button' => $button,
+                    'topup' => true,
+                    'infoFailed' => true
+                ];
+                return $parameters;
+            }
         }
         return true;
     }

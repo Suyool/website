@@ -77,6 +77,11 @@ class attempts
      */
     private $name;
 
+     /**
+     * @ORM\Column(name="errorMessage")
+     */
+    private $errorMessage;
+
     /**
      * @ORM\Column(name="created",type="datetime",nullable=true)
      */
@@ -221,6 +226,17 @@ class attempts
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getErrorMessage()
+    {
+        return $this->errorMessage;
+    }
+
+    public function setErrorMessage($errorMessage)
+    {
+        $this->errorMessage = $errorMessage;
         return $this;
     }
 

@@ -447,6 +447,7 @@ class TopupController extends AbstractController
     {
 
         $cardDetails = $bobPaymentServices->checkCardNumber();
+        // dd($cardDetails);
         $cardnumber = $cardDetails['number'];
         $cardHolderName = $cardDetails['nameOnCard'];
         $tranId = $sessionInterface->get('orderidhostedsession');
@@ -456,6 +457,7 @@ class TopupController extends AbstractController
             ->setTransactionId($tranId)
             ->setCard($cardnumber)
             ->setName($cardHolderName);
+            // ->setErrorMessage();
 
         $this->mr->persist($attempts);
         $this->mr->flush();
