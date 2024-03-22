@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use metaService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,13 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class DefaultController extends AbstractController
 {
     private $trans;
+    private $memcachedCache;
 
-    public function __construct(translation $trans)
+    public function __construct(translation $trans,AdapterInterface  $memcachedCache)
     {
         $this->trans = $trans;
+        $this->memcachedCache = $memcachedCache;
+
     }
 
     /**
@@ -54,9 +58,18 @@ class DefaultController extends AbstractController
         is designed to address your cash-handling challenges. Whether it’s seamlessly cashing out, 
         sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, 
         Suyool empowers you with full control over your finances.";
-        $buyRate = 89700;
-        $sellRate = 89400;
-        $updatedTime = "Updated 9 min ago";
+        $buyRate = '';
+        $sellRate = '';
+        $updatedTime = '';
+        $cacheKey = 'exchangeRates';
+        $cachedRates = $this->memcachedCache->getItem($cacheKey);
+        $cachedRates = $cachedRates->get();
+
+        if(!empty($cachedRates)){
+            $buyRate =  $cachedRates['buyRate'];
+            $sellRate = $cachedRates ['sellRate'];
+            $updatedTime = $cachedRates ['date'];
+        }
         $parameters = [
             'title' => $title,
             'desc' => $desc,
@@ -1236,5 +1249,28 @@ class DefaultController extends AbstractController
                 return $this->redirectToRoute("app_ToTheAPP");
             }
         } else return $this->render('ExceptionHandling.html.twig');
+    }
+    /**
+     * @Route("/api/exchange-rates", name="api_exchange_rates")
+     */
+    public function exchangeRates(Request $request): Response
+    {
+        $data = $request->request->all();
+        if (empty($data)) {
+            // If the data is empty, return an empty data response
+            return new JsonResponse(['message' => 'Empty data'], Response::HTTP_BAD_REQUEST);
+        }
+        $responseData = [
+            'buyRate' => $data['buyRate'],
+            'sellRate' => $data['sellRate'],
+            'date' => $data['date']
+        ];
+        $cacheKey = 'exchangeRates';
+        $cacheItem = $this->memcachedCache->getItem($cacheKey);
+        $cacheItem->set($responseData);
+        $this->memcachedCache->save($cacheItem);
+
+        return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
+
     }
 }
