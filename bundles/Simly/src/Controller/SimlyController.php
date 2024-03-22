@@ -2,18 +2,15 @@
 
 namespace Simly\Controller;
 
-
-use Doctrine\ORM\EntityManagerInterface;
-use \Simly\Entity\Simly\Esim;
-use Simly\Entity\Simly\Logs;
-use Simly\Entity\Simly\Order;
-//use Simly\Entity\Simly\Visitors;
 use App\Service\LogsService;
 use App\Service\Memcached;
 use App\Service\NotificationServices;
 use Simly\Service\SimlyServices;
 use App\Service\SuyoolServices;
 use Doctrine\Persistence\ManagerRegistry;
+use Simly\Entity\Esim;
+use Simly\Entity\Logs;
+use Simly\Entity\Visitors;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +31,10 @@ class SimlyController extends AbstractController
     private $Memcached;
     private $em;
 
-    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface, Memcached $memcached, EntityManagerInterface $mr)
+    public function __construct( ParameterBagInterface $params, SessionInterface $sessionInterface, Memcached $memcached, ManagerRegistry $mr)
     {
-        dd($this->mr);
-//        $this->mr = $mr->getManager('simly');
+        // dd($this->mr);
+       $this->mr = $mr->getManager('simly');
         $this->params = $params;
         $this->session = $sessionInterface;
         $this->Memcached = $memcached;
@@ -49,6 +46,7 @@ class SimlyController extends AbstractController
      */
     public function index(NotificationServices $notificationServices)
     {
+        // dd($this->mr->getRepository(EntityEsim::class)->findAll());
         // dd("ok");
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         $_POST['infoString'] = "Mwx9v3bq3GNGIWBYFJ1f1PcdL3j8SjmsS6y+Hc76TEtMxwGjwZQJHlGv0+EaTI7c";
@@ -60,8 +58,8 @@ class SimlyController extends AbstractController
                 $SuyoolUserId = $suyoolUserInfo[0];
                 // dd($this->session->get('isHavingCard'));
                 $this->session->set('suyoolUserId', $SuyoolUserId);
-//                $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId' => $suyoolUserInfo[0], 'isPopup' => true]);
-                $visitor = null;
+               $visitor = $this->mr->getRepository(Visitors::class)->findOneBy(['suyoolUserId' => $suyoolUserInfo[0], 'isPopup' => true]);
+                // $visitor = null;
                 if (is_null($visitor)) {
 //                    $visitors = new Visitors();
 //                    $visitors->setSuyoolUserId($suyoolUserInfo[0])

@@ -6,7 +6,7 @@ services:
     autoconfigure: true
   Simly\Controller\SimlyController:
     arguments:
-      - '@doctrine.orm.entity_manager.simly'
+      - '@doctrine.orm.simly_entity_manager'
 
 #  Simly\Controller\SimlyController: ~
 
