@@ -88,16 +88,17 @@ class PlaysRepository extends EntityRepository
             ->getQuery()
             ->getResult();
         $response = [];
+        $chunks = array_chunk($userid, 100);
         $responseArray = [];
 
-        foreach ($userid as $userid) {
+        foreach ($chunks as $chunk) {
             $responseArray = [];
             $result = $this->createQueryBuilder('l')
                 ->select('o.suyoolUserId, o.id')
                 ->innerJoin(order::class, 'o')
-                ->where("o.suyoolUserId = :userid and (l.created < :week_start and o.created < :week_start ) or (l.drawNumber != :lastdraw)  and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId from App\Entity\Loto\loto l2 , App\Entity\Loto\order o2 where l2.ticketId != 0 and l2.drawNumber = :lastdraw and o2.id = l2.order) and o.suyoolUserId IN (SELECT o3.suyoolUserId from App\Entity\Loto\order o3 where  o3.status = 'completed')   and o.created < :sixmonth ")
+                ->where("o.suyoolUserId IN (:userid) and (l.created < :week_start and o.created < :week_start ) or (l.drawNumber != :lastdraw)  and o.id=l.order and o.suyoolUserId NOT IN (SELECT o2.suyoolUserId from App\Entity\Loto\loto l2 , App\Entity\Loto\order o2 where l2.ticketId != 0 and l2.drawNumber = :lastdraw and o2.id = l2.order) and o.suyoolUserId IN (SELECT o3.suyoolUserId from App\Entity\Loto\order o3 where  o3.status = 'completed')   and o.created < :sixmonth ")
                 ->setParameter('week_start', $week_start)
-                ->setParameter('userid', $userid)
+                ->setParameter('userid', $chunk)
                 ->setParameter('sixmonth', $sixmonth)
                 ->setParameter('lastdraw', $lastdraw)
                 ->groupBy('o.suyoolUserId')
@@ -108,6 +109,7 @@ class PlaysRepository extends EntityRepository
                 $responseArray[] = array_merge($response, $result);
             }
         }
+        // dd($responseArray);
         return $responseArray;
     }
 
@@ -121,7 +123,7 @@ class PlaysRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getResultsPerUser($session, $drawNumber, $lotoServices,$currentDraw)
+    public function getResultsPerUser($session, $drawNumber, $lotoServices, $currentDraw)
     {
         $rawResults = $this->createQueryBuilder('l')
             ->select('l.gridSelected, r.drawdate, r.drawId,l.zeednumbers,l.ticketId')
@@ -157,20 +159,18 @@ class PlaysRepository extends EntityRepository
                     ->where("l.gridSelected like '%{$gridSelectedString}%' and l.ticketId != 0 and l.drawNumber = {$currentDraw}")
                     ->getQuery()
                     ->getResult();
-                    if(empty($grids)){
-                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'],'flag'=>true];
-
-                    }else{
-                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'],'flag'=>false];
-
-                    }
+                if (empty($grids)) {
+                    $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'], 'flag' => true];
+                } else {
+                    $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'winLoto' => $gridSelectedArray['lotoWinnings'], 'winZeed' => $gridSelectedArray['zeedWinnings'], 'flag' => false];
+                }
             }
         }
 
         return array_values($groupedResults); // Return the grouped results as indexed array
     }
 
-    public function getfetchhistory($session, $drawNumber,$currentDraw)
+    public function getfetchhistory($session, $drawNumber, $currentDraw)
     {
         $rawResults = $this->createQueryBuilder('l')
             ->select('l.gridSelected, d.drawdate, d.drawId,l.zeednumbers')
@@ -204,11 +204,11 @@ class PlaysRepository extends EntityRepository
                     ->where("l.gridSelected like '%{$gridSelectedString}%' and l.ticketId != 0 and l.drawNumber = {$currentDraw}")
                     ->getQuery()
                     ->getResult();
-                    if(empty($grids)){
-                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'flag'=>true];
-                    }else{
-                        $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'],'flag'=>false];
-                    }
+                if (empty($grids)) {
+                    $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'flag' => true];
+                } else {
+                    $groupedResults[$drawdate]['gridSelected'][] = ['gridSelected' => $gridSelectedString, 'zeedSelected' => $result['zeednumbers'], 'flag' => false];
+                }
             }
         }
         return array_values($groupedResults); // Return the grouped results as indexed array

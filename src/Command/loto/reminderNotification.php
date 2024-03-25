@@ -44,12 +44,15 @@ class reminderNotification extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $date=new DateTime();
         $output->writeln([
-            'Notification reminder send'
+            "Notification reminder send ON " . $date->format('H:i:s')
         ]);
         $bulk = 1;
         $lastdraw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
         $notify = $this->mr->getRepository(loto::class)->findPlayedUserAndDontPlayThisWeek($lastdraw->getdrawid());
+        
+        // dd($notify);
 
         if ($notify != null) {
             foreach ($notify as $notify) {
@@ -79,7 +82,10 @@ class reminderNotification extends Command
                 $this->notifMr->flush();
             }
         }
-
+        $newDate = new DateTime();
+        $output->writeln([
+            "Notification finish  ON " . $newDate->format('H:i:s')
+        ]);
         return 1;
     }
 }
