@@ -417,6 +417,7 @@ class BobServices
 
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'RetrieveTransactionReceipt',  $body);
             $content = $response->toArray(false);
+            // dd($content);
             $ApiResponse = $content;
             if ($ApiResponse["ErrorCode"] == 100) {
                 $res = $ApiResponse['Response'];
@@ -429,11 +430,11 @@ class BobServices
                 $ErrorDescription = $ApiResponse['ErrorDescription'];
             }
 
-            return array(true,@$res,json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
+            return array(true,@str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']),json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
             // dd($decodedString);
             // return $decodedString['PrintReceiptResponse'];
             // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
-            //  print_r(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
+            //  return str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']);
             // return $decodedString['PrintReceiptResponse'];
         } catch (Exception $e) {
             return array(false,$e->getMessage(),"","",$this->BOB_API_HOST . 'RetrieveTransactionReceipt',500);

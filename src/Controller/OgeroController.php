@@ -16,6 +16,7 @@ use App\Service\LogsService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
 use Dompdf\Dompdf;
+use Dompdf\FontMetrics;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,12 +45,23 @@ class OgeroController extends AbstractController
     public function index(NotificationServices $notificationServices, BobServices $bobServices): Response
     {
         // HTML content
-        // print_r($bobServices->RetrieveTransactionReceipt());
+        // print_r($bobServices->RetrieveTransactionReceipt(10108524,20240300052374));
+        // $html = $bobServices->RetrieveTransactionReceipt(10108524,20240300052374);
+        // print_r($html);
+        // dd();
+        // dd($html);
+        // define("DOMPDF_DEFAULT_FONT", "dejavu sans");
+        // // $html = "<h1>\\n\\ranthony</h1>"
+        // $dompdf = new Dompdf();
+        // $dompdf->loadHtml($html);
+        // $dompdf->setPaper('A4', 'portrait');
+        // $dompdf->getOptions()->setDefaultFont('Arial');
+        // $dompdf->render();
+        // $dompdf->stream("receipt.pdf");
         // dd();
         // $bobServices->RetrieveTransactionReceipt();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
-
         if (isset($_POST['infoString'])) {
             $decrypted_string = SuyoolServices::decrypt($_POST['infoString']);
             $suyoolUserInfo = explode("!#!", $decrypted_string);
