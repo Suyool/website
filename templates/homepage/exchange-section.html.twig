@@ -48,8 +48,8 @@
                 <div class="col-md-4 timeCont">{{ updatedTime }}</div>
             </div>
             <div class="row exchangeResultCont">
-                <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">89,700</span> <span class="currencyConverted">LBP</span></div>
-                <div class="col-md-4 sellCont"><span class="sell">SELL = </span> <span id="sellAmount" class="sellAmount">89,400 </span> <span class="currencyConverted">LBP</span></div>
+                <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">{{buyRate | number_format }}</span> <span class="currencyConverted">LBP</span></div>
+                <div class="col-md-4 sellCont"><span class="sell">SELL = </span> <span id="sellAmount" class="sellAmount">{{sellRate | number_format }} </span> <span class="currencyConverted">LBP</span></div>
                 <div class="col-md-4"></div>
             </div>
         </div>

@@ -1262,15 +1262,37 @@ class DefaultController extends AbstractController
         }
         $buyRate = $data->buyRate;
         $sellRate = $data->sellRate;
-
+        $date =  $data->date;
         $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
         $secureHash = base64_encode(hash('sha512', $concat, true));
         if($secureHash ==  $data->secureHash) {
+
+            $serverTimeZone = new \DateTimeZone('Asia/Beirut');  // Replace with your server's time zone
+            $currentTimestamp = time() + $serverTimeZone->getOffset(new DateTime());
+            $lastUpdate = strtotime($date);
+            $timeDifference = $currentTimestamp - $lastUpdate;
+
+            $seconds = $timeDifference % 60;
+            $minutes = floor(($timeDifference % 3600) / 60);
+            $hours = floor(($timeDifference % (60 * 60 * 24)) / (60 * 60));
+            $days = floor($timeDifference / (60 * 60 * 24));
+
+            if ($days > 0) {
+                $timeDifferenceString = "Updated $days day" . ($days > 1 ? 's' : '') . " ago";
+            } elseif ($hours > 0) {
+                $timeDifferenceString = "Updated $hours hr" . ($hours > 1 ? 's' : '') . " ago";
+            } elseif ($minutes > 0) {
+                $timeDifferenceString = "Updated $minutes min ago";
+            } else {
+                $timeDifferenceString = "Updated $seconds sec ago";
+            }
+
             $responseData = [
                 'buyRate' => $buyRate,
                 'sellRate' => $sellRate,
-                'date' => $data->date
+                'date' => $timeDifferenceString
             ];
+
             $cacheKey = 'exchangeRates';
             $cacheItem = $this->memcachedCache->getItem($cacheKey);
             $cacheItem->set($responseData);
