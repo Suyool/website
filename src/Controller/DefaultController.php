@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use metaService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,13 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 class DefaultController extends AbstractController
 {
     private $trans;
+    private $memcachedCache;
 
-    public function __construct(translation $trans)
+    public function __construct(translation $trans,AdapterInterface  $memcachedCache)
     {
         $this->trans = $trans;
+        $this->memcachedCache = $memcachedCache;
+
     }
 
     /**
@@ -54,6 +58,18 @@ class DefaultController extends AbstractController
         is designed to address your cash-handling challenges. Whether it’s seamlessly cashing out, 
         sending money to anyone in Lebanon, or making local and international payments with your Platinum Debit Card, 
         Suyool empowers you with full control over your finances.";
+        $buyRate = '';
+        $sellRate = '';
+        $updatedTime = '';
+        $cacheKey = 'exchangeRates';
+        $cachedRates = $this->memcachedCache->getItem($cacheKey);
+        $cachedRates = $cachedRates->get();
+
+        if(!empty($cachedRates)){
+            $buyRate =  $cachedRates['buyRate'];
+            $sellRate = $cachedRates ['sellRate'];
+            $updatedTime = $cachedRates ['date'];
+        }
         $parameters = [
             'title' => $title,
             'desc' => $desc,
@@ -62,6 +78,9 @@ class DefaultController extends AbstractController
             'barBgColor' => 'barWhite',
             'chatbot' => true,
             'homepage' => true,
+            'buyRate' => $buyRate,
+            'sellRate' => $sellRate,
+            'updatedTime' => $updatedTime
         ];
 
         $content = $this->render('homepage/homepage.html.twig', $parameters);
@@ -1230,5 +1249,57 @@ class DefaultController extends AbstractController
                 return $this->redirectToRoute("app_ToTheAPP");
             }
         } else return $this->render('ExceptionHandling.html.twig');
+    }
+    /**
+     * @Route("/api/exchange-rates", name="api_exchange_rates")
+     */
+    public function exchangeRates(Request $request): Response
+    {
+        $data = json_decode($request->getContent());
+        if (empty($data)) {
+            // If the data is empty, return an empty data response
+            return new JsonResponse(['message' => 'Empty data'], Response::HTTP_BAD_REQUEST);
+        }
+        $buyRate = $data->buyRate;
+        $sellRate = $data->sellRate;
+        $date =  $data->date;
+        $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
+        $secureHash = base64_encode(hash('sha512', $concat, true));
+        if($secureHash ==  $data->secureHash) {
+
+            $serverTimeZone = new \DateTimeZone('Asia/Beirut');  // Replace with your server's time zone
+            $currentTimestamp = time() + $serverTimeZone->getOffset(new DateTime());
+            $lastUpdate = strtotime($date);
+            $timeDifference = $currentTimestamp - $lastUpdate;
+
+            $seconds = $timeDifference % 60;
+            $minutes = floor(($timeDifference % 3600) / 60);
+            $hours = floor(($timeDifference % (60 * 60 * 24)) / (60 * 60));
+            $days = floor($timeDifference / (60 * 60 * 24));
+
+            if ($days > 0) {
+                $timeDifferenceString = "Updated $days day" . ($days > 1 ? 's' : '') . " ago";
+            } elseif ($hours > 0) {
+                $timeDifferenceString = "Updated $hours hr" . ($hours > 1 ? 's' : '') . " ago";
+            } elseif ($minutes > 0) {
+                $timeDifferenceString = "Updated $minutes min ago";
+            } else {
+                $timeDifferenceString = "Updated $seconds sec ago";
+            }
+
+            $responseData = [
+                'buyRate' => $buyRate,
+                'sellRate' => $sellRate,
+                'date' => $timeDifferenceString
+            ];
+
+            $cacheKey = 'exchangeRates';
+            $cacheItem = $this->memcachedCache->getItem($cacheKey);
+            $cacheItem->set($responseData);
+            $this->memcachedCache->save($cacheItem);
+            return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
+        }else{
+            return new JsonResponse(['message' => 'Forbidden incorrect secureHash'], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
