@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFromCurrency();
     changeCurrencySymbol();
 
+    document.getElementById('exchangeIcon').addEventListener('click', function() {
+        swapCurrencies();
+    });
+
     document.getElementById('fromCurrency').addEventListener('change', function() {
         updateToCurrency();
         changeCurrencySymbol();
