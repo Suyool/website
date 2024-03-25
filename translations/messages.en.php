@@ -564,9 +564,14 @@ return [
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_INVENTURES" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Inventures employee.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_INVENTURES" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Inventures employee.",
 
-    //Inventures
+    //ima
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_IMA" => "What are the benefits for International Maritime Academy employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_IMA" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an International Maritime Academy employee.",
-    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_IMA" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an International Maritime Academy  employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_IMA" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an International Maritime Academy employee.",
+
+    //pma
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PMA" => "What are the benefits for Phoenician Manning Agency employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PMA" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Phoenician Manning Agency employee.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PMA" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Phoenician Manning Agency employee.",
 
 ];
