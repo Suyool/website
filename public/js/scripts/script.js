@@ -426,26 +426,28 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function () {
+    // Your JavaScript/jQuery code goes here
+
     updateToCurrency();
     updateFromCurrency();
     changeCurrencySymbol();
 
-    document.getElementById('exchangeIcon').addEventListener('click', function() {
+    $('#exchangeIcon').click(function () {
         swapCurrencies();
     });
 
-    document.getElementById('fromCurrency').addEventListener('change', function() {
+    $('#fromCurrency').change(function () {
         updateToCurrency();
         changeCurrencySymbol();
     });
 
-    document.getElementById('toCurrency').addEventListener('change', function() {
+    $('#toCurrency').change(function () {
         updateFromCurrency();
         changeCurrencySymbol();
     });
 
-    document.getElementById('convertButton').addEventListener('click', function() {
+    $('#convertButton').click(function () {
         convert();
     });
 });
