@@ -62,12 +62,12 @@ $(document).ready(function () {
         var buyAmount, sellAmount, currency;
 
         if (fromCurrency === 'USD' && toCurrency === 'LBP') {
-            buyAmount = (amount * buyRate).toFixed(2);
-            sellAmount = (amount * sellRate).toFixed(2);
+            buyAmount = (amount * buyRate).toFixed(0);
+            sellAmount = (amount * sellRate).toFixed(0);
             currency = 'LBP';
         } else {
-            buyAmount = (amount / buyRate).toFixed(2);
-            sellAmount = (amount / sellRate).toFixed(2);
+            buyAmount = (amount / buyRate).toFixed(0);
+            sellAmount = (amount / sellRate).toFixed(0);
             currency = 'USD';
         }
 
@@ -103,4 +103,10 @@ $(document).ready(function () {
     $('#convertButton').click(function () {
         convert();
     });
+    // Format the amount input on input change
+    // $('#amount').on('input', function () {
+    //     var value = $(this).val().replace(/[^\d.]/g, ''); // Remove non-numeric characters except for dot (.)
+    //     $(this).val(numberWithCommas(value)); // Format the value with commas
+    // });
+
 });
