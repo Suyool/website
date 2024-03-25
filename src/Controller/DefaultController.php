@@ -1255,22 +1255,29 @@ class DefaultController extends AbstractController
      */
     public function exchangeRates(Request $request): Response
     {
-        $data = $request->request->all();
+        $data = json_decode($request->getContent());
         if (empty($data)) {
             // If the data is empty, return an empty data response
             return new JsonResponse(['message' => 'Empty data'], Response::HTTP_BAD_REQUEST);
         }
-        $responseData = [
-            'buyRate' => $data['buyRate'],
-            'sellRate' => $data['sellRate'],
-            'date' => $data['date']
-        ];
-        $cacheKey = 'exchangeRates';
-        $cacheItem = $this->memcachedCache->getItem($cacheKey);
-        $cacheItem->set($responseData);
-        $this->memcachedCache->save($cacheItem);
+        $buyRate = $data->buyRate;
+        $sellRate = $data->sellRate;
 
-        return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
-
+        $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
+        $secureHash = base64_encode(hash('sha512', $concat, true));
+        if($secureHash ==  $data->secureHash) {
+            $responseData = [
+                'buyRate' => $buyRate,
+                'sellRate' => $sellRate,
+                'date' => $data->date
+            ];
+            $cacheKey = 'exchangeRates';
+            $cacheItem = $this->memcachedCache->getItem($cacheKey);
+            $cacheItem->set($responseData);
+            $this->memcachedCache->save($cacheItem);
+            return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
+        }else{
+            return new JsonResponse(['message' => 'Forbidden incorrect secureHash'], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
