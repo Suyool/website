@@ -1274,7 +1274,7 @@ class DefaultController extends AbstractController
             $this->loggerInterface->info("The secure hash from our side is : {$secureHash}");
             if($secureHash ==  $data->secureHash) {
     
-                $serverTimeZone = new \DateTimeZone('Asia/Beirut');  // Replace with your server's time zone
+                $serverTimeZone = new \DateTimeZone('UTC');  // Replace with your server's time zone
                 $currentTimestamp = time() + $serverTimeZone->getOffset(new DateTime());
                 $lastUpdate = strtotime($date);
                 $timeDifference = $currentTimestamp - $lastUpdate;

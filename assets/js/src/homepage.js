@@ -63,11 +63,11 @@ $(document).ready(function () {
 
         if (fromCurrency === 'USD' && toCurrency === 'LBP') {
             buyAmount = (amount * buyRate).toFixed(0);
-            sellAmount = (amount * sellRate).toFixed(0);
+            sellAmount = (amount * sellRate).toFixed( 0);
             currency = 'LBP';
         } else {
-            buyAmount = (amount / buyRate).toFixed(0);
-            sellAmount = (amount / sellRate).toFixed(0);
+            buyAmount = (amount / buyRate).toFixed(2);
+            sellAmount = (amount / sellRate).toFixed(2);
             currency = 'USD';
         }
 

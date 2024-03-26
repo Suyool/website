@@ -62,4 +62,6 @@ public/excel
 # /public/build/
 npm-debug.log
 yarn-error.log
+resources/TAX/
+resources/VAT/
 ###< symfony/webpack-encore-bundle ###
