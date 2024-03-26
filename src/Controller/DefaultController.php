@@ -1191,10 +1191,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-//            "Seven" => [
-//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-//            ],
+           "SEVEN" => [
+               "Title" => "What currencies does the Suyool Visa Card accept?",
+               "Desc" => "You can pay in any currency with Suyool Visa card (including LBP)."
+           ],
         ];
 
 

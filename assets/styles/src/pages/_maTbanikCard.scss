@@ -116,6 +116,37 @@
     background-image: url("../../../images/backgoundImagematbanik.jpg");
     padding: 80px 0;
   }
+
+  .airport-section{
+    margin-top: 30px;
+    h2{
+      font-size: 20px;
+      font-family: $Bold;
+      color: #373464;
+    }
+    h3{
+      font-family: $Regular;
+      font-size: 35px;
+      color: #202020;
+    }
+
+    .subdesc{
+      p{
+        font-family: $Bold;
+        font-size: 17px;
+        color:#202020 ;
+        text-align: center;
+      }
+    }
+    .textimage{
+      p{
+        padding-top: 10px;
+        font-family: $Regular;
+        font-size: 18px;
+        color: #202020;
+      }
+    }
+  }
   @media (max-width: 768px) {
     .button-primary {
       border: none;
