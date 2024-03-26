@@ -15,8 +15,10 @@ use App\Service\DecryptService;
 use App\Service\LogsService;
 use App\Service\NotificationServices;
 use App\Service\SuyoolServices;
+use ArPHP\I18N\Arabic;
 use Dompdf\Dompdf;
 use Dompdf\FontMetrics;
+use Dompdf\Options;
 use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,19 +48,40 @@ class OgeroController extends AbstractController
     {
         // HTML content
         // print_r($bobServices->RetrieveTransactionReceipt(10108524,20240300052374));
-        // $html = $bobServices->RetrieveTransactionReceipt(10108524,20240300052374);
+        $html = $bobServices->RetrieveTransactionReceipt(10113435, 20240300054012);
         // print_r($html);
         // dd();
         // dd($html);
         // define("DOMPDF_DEFAULT_FONT", "dejavu sans");
-        // // $html = "<h1>\\n\\ranthony</h1>"
-        // $dompdf = new Dompdf();
-        // $dompdf->loadHtml($html);
-        // $dompdf->setPaper('A4', 'portrait');
-        // $dompdf->getOptions()->setDefaultFont('Arial');
-        // $dompdf->render();
-        // $dompdf->stream("receipt.pdf");
-        // dd();
+        // $html = "<h1>\\n\\ranthony</h1>"
+        $options = new Options();
+        $options->set('defaultFont', 'dejavu sans');
+        $options->set('chroot', realpath(''));
+        $dompdf = new Dompdf($options);
+        $arabic = new Arabic();
+        $p = $arabic->arIdentify($html);
+        for ($i = count($p) - 1; $i >= 0; $i -= 2) {
+            $utf8ar = $arabic->utf8Glyphs(substr($html, $p[$i - 1], $p[$i] - $p[$i - 1]));
+            $html   = substr_replace($html, $utf8ar, $p[$i - 1], $p[$i] - $p[$i - 1]);
+        }
+        // dd($html);
+        $dompdf->loadHtml('
+<!DOCTYPE html>
+<head><style>
+body{
+    font-size:13px;
+	text-align:right;
+}
+
+</style></head>
+<body>
+ ' . $html . '
+</body></html>
+	');
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $dompdf->stream("NEXAMPLE");
+        dd();
         // $bobServices->RetrieveTransactionReceipt();
         $useragent = $_SERVER['HTTP_USER_AGENT'];
         // $_POST['infoString']="3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
@@ -96,7 +119,7 @@ class OgeroController extends AbstractController
         if ($data != null) {
             $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_ogero_landline",@$RetrieveChannel[6],@$RetrieveChannel[3],@$RetrieveChannel[4],@$RetrieveChannel[5]);
+            $pushlog->pushLogs(new Logs, "app_ogero_landline", @$RetrieveChannel[6], @$RetrieveChannel[3], @$RetrieveChannel[4], @$RetrieveChannel[5]);
             // dd($RetrieveChannel);
             if ($RetrieveChannel[0] == true) {
                 $resp = $RetrieveChannel[1]["Values"];
@@ -142,16 +165,16 @@ class OgeroController extends AbstractController
                 $this->mr->persist($LandlineReq);
                 $this->mr->flush();
                 $error = explode("-", $RetrieveChannel[2]);
-                if(isset($error[1])){
+                if (isset($error[1])) {
                     $errorcode = @$error[1];
                     // if($errorcode == 113){
                     //     dd("ok");
                     // }
                     $message = $errorcode;
-                }else{
-                    $message="No available fees for this amount";
+                } else {
+                    $message = "No available fees for this amount";
                 }
-                
+
                 $LandlineReqId = -1;
                 $mobileNb = $data["mobileNumber"];
             }
@@ -202,7 +225,7 @@ class OgeroController extends AbstractController
             //Take amount from .net
             $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Landline_With_id->getfees());
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"PushUtility",@$response[4],@$response[5],@$response[7], @$response[6]);
+            $pushlog->pushLogs(new Logs, "PushUtility", @$response[4], @$response[5], @$response[7], @$response[6]);
             if ($response[0]) {
                 //set order status to held
                 $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -214,10 +237,10 @@ class OgeroController extends AbstractController
 
                 //paid landline from bob Provider
                 $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
-                $pushlog->pushLogs(new Logs,"app_ogero_landline_pay",@$BillPayOgero[4],@$BillPayOgero[3],@$BillPayOgero[5],@$BillPayOgero[6]);
+                $pushlog->pushLogs(new Logs, "app_ogero_landline_pay", @$BillPayOgero[4], @$BillPayOgero[3], @$BillPayOgero[5], @$BillPayOgero[6]);
                 if ($BillPayOgero[0]) {
-                    $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(),$BillPayOgero[1]["ReferenceNumber"]);
-                    $pushlog->pushLogs(new Logs,"app_ogero_landline_pay_retrieve_receipt",@$retrieveReceipt[2],@$retrieveReceipt[3],@$retrieveReceipt[4],@$retrieveReceipt[5]);
+                    $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(), $BillPayOgero[1]["ReferenceNumber"]);
+                    $pushlog->pushLogs(new Logs, "app_ogero_landline_pay_retrieve_receipt", @$retrieveReceipt[2], @$retrieveReceipt[3], @$retrieveReceipt[4], @$retrieveReceipt[5]);
                     //if payment from Bob provider success insert landline data to db
                     $landline = new Landline;
                     $landline
@@ -294,7 +317,7 @@ class OgeroController extends AbstractController
 
                     //tell the .net that total amount is paid
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                    $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
+                    $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -327,7 +350,7 @@ class OgeroController extends AbstractController
                     $dataPayResponse = -1;
                     //if not purchase return money
                     $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0, "", $orderupdate1->gettransId());
-                    $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
+                    $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
                     if ($responseUpdateUtilities[0]) {
                         $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                         $orderupdate4
@@ -410,7 +433,7 @@ class OgeroController extends AbstractController
                 if ($data != null) {
                     $RetrieveChannel = $bobServices->RetrieveChannelResults($data["mobileNumber"]);
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"ap2_ogero_bill",@$RetrieveChannel[6],@$RetrieveChannel[3],@$RetrieveChannel[4],@$RetrieveChannel[5]);
+                    $pushlog->pushLogs(new Logs, "ap2_ogero_bill", @$RetrieveChannel[6], @$RetrieveChannel[3], @$RetrieveChannel[4], @$RetrieveChannel[5]);
                     // dd($RetrieveChannel);
                     if ($RetrieveChannel[0] == true) {
                         $resp = $RetrieveChannel[1]["Values"];
@@ -562,7 +585,7 @@ class OgeroController extends AbstractController
                     //Take amount from .net
                     $response = $suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $Landline_With_id->getfees());
                     $pushlog = new LogsService($this->mr);
-                    $pushlog->pushLogs(new Logs,"PushUtility",@$response[4],@$response[5],@$response[7], @$response[6]);
+                    $pushlog->pushLogs(new Logs, "PushUtility", @$response[4], @$response[5], @$response[7], @$response[6]);
                     if ($response[0]) {
                         //set order status to held
                         $orderupdate1 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PENDING']]);
@@ -574,10 +597,10 @@ class OgeroController extends AbstractController
 
                         //paid landline from bob Provider
                         $BillPayOgero = $bobServices->BillPayOgero($Landline_With_id);
-                        $pushlog->pushLogs(new Logs,"ap3_ogero_bill",@$BillPayOgero[4],@$BillPayOgero[3],@$BillPayOgero[5],@$BillPayOgero[6]);
+                        $pushlog->pushLogs(new Logs, "ap3_ogero_bill", @$BillPayOgero[4], @$BillPayOgero[3], @$BillPayOgero[5], @$BillPayOgero[6]);
                         if ($BillPayOgero[0]) {
-                            $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(),$BillPayOgero[1]["ReferenceNumber"]);
-                            $pushlog->pushLogs(new Logs,"app_ogero_landline_pay_retrieve_receipt_corporate",@$retrieveReceipt[2],@$retrieveReceipt[3],@$retrieveReceipt[4],@$retrieveReceipt[5]);
+                            $retrieveReceipt = $bobServices->RetrieveTransactionReceipt($Landline_With_id->gettransactionId(), $BillPayOgero[1]["ReferenceNumber"]);
+                            $pushlog->pushLogs(new Logs, "app_ogero_landline_pay_retrieve_receipt_corporate", @$retrieveReceipt[2], @$retrieveReceipt[3], @$retrieveReceipt[4], @$retrieveReceipt[5]);
                             //if payment from Bob provider success insert landline data to db
                             $landline = new Landline;
                             $landline
@@ -664,7 +687,7 @@ class OgeroController extends AbstractController
                             $messageBack = "Success";
                             //tell the .net that total amount is paid
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities($order->getamount(), $updateUtilitiesAdditionalData, $orderupdate->gettransId());
-                            $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
+                            $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate5 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['PURCHASED']]);
 
@@ -693,7 +716,7 @@ class OgeroController extends AbstractController
                             $dataPayResponse = -1;
                             //if not purchase return money
                             $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0.0, "", $orderupdate1->gettransId());
-                            $pushlog->pushLogs(new Logs,"UpdateUtility",@$responseUpdateUtilities[3],@$responseUpdateUtilities[2], @$responseUpdateUtilities[4],@$responseUpdateUtilities[5]);
+                            $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
                             if ($responseUpdateUtilities[0]) {
                                 $orderupdate4 = $this->mr->getRepository(Order::class)->findOneBy(['id' => $order->getId(), 'suyoolUserId' => $suyoolUserId, 'status' => Order::$statusOrder['HELD']]);
                                 $orderupdate4

@@ -28,7 +28,7 @@ class BobServices
         $this->METHOD_POST = $params->get('METHOD_POST');
         $this->helper = $helper;
         $this->logger = $logger;
-        if ($_ENV['APP_ENV'] == 'prod') {
+        if ($_ENV['APP_ENV'] == 'test') {
             $this->BOB_API_HOST = 'https://services.bob-finance.com:8445/BoBFinanceAPI/WS/';
             $this->USERNAME = "suyool";
             $this->PASSWORD = "p@123123";
@@ -430,11 +430,11 @@ class BobServices
                 $ErrorDescription = $ApiResponse['ErrorDescription'];
             }
 
-            return array(true,@str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']),json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
+            // return array(true,@str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']),json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
             // dd($decodedString);
             // return $decodedString['PrintReceiptResponse'];
             // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
-            //  return str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']);
+             return str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']);
             // return $decodedString['PrintReceiptResponse'];
         } catch (Exception $e) {
             return array(false,$e->getMessage(),"","",$this->BOB_API_HOST . 'RetrieveTransactionReceipt',500);
