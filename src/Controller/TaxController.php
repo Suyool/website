@@ -115,14 +115,14 @@ class TaxController extends AbstractController
             $response = $this->suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $taxReq->getfees());
             $pushlog = new LogsService($this->mr);
             $pushlog->pushLogs(new Logs, "PushUtility", @$response[4], @$response[5], @$response[7], @$response[6]);
-
+            $utilityTranID = '';
             if ($response[0]) {
                 // Set order status to held
                 $orderupdate1 = $this->updateOrderStatus($order, $suyoolUserId, $response);
                 $requestData = $this->prepareRequestData($taxReq);
                 $BillTranPayment = $this->bobServices->BillTranPayment($requestData);
                 $pushlog->pushLogs(new Logs, "ap3_tax_bill_inject", @$BillTranPayment[4], @$BillTranPayment[3], @$BillTranPayment[5], @$BillTranPayment[6]);
-
+                $utilityTranID = $response[1];
                 if ($BillTranPayment[0]) {
                     //if payment from Bob provider success insert tax data to db
                     $tax = $this->createTaxData($suyoolUserId, $taxReq, $BillTranPayment);
@@ -237,6 +237,7 @@ class TaxController extends AbstractController
                 'IsSuccess' => $IsSuccess,
                 'flagCode' => $flagCode,
                 'Popup' => @$popup,
+                'utilityTranID' => $utilityTranID,
             ];
             return new JsonResponse([
                 'status' => true,
@@ -370,6 +371,7 @@ class TaxController extends AbstractController
                 'IsSuccess' => $isSuccess,
                 'flagCode' => $flagCode,
                 'Popup' => $popup, // Include the Popup in the data array
+                'utilityTranID' =>$billPayDataArray['data']['utilityTranID']
             ]
         ];
     }
@@ -522,7 +524,10 @@ class TaxController extends AbstractController
             'Currency' => $taxReq->getcurrency(),
             'Rounding' => $taxReq->getrounding(),
             'AdditionalFees' => $taxReq->getadditionalFees(),
-            'documentNumber' => $taxReq->getDocumentNumber()
+            'documentNumber' => $taxReq->getDocumentNumber(),
+            'companyName'=> $taxReq->getCompanyName(),
+            'fullName' => $taxReq->getPickerName(),
+            'phoneNumber' => $taxReq->getPickerNumber()
         ]);
 
         //tell the .net that total amount is paid

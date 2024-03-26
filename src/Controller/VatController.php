@@ -114,6 +114,7 @@ class VatController extends AbstractController
             $response = $this->suyoolServices->PushUtilities($suyoolUserId, $orderTst, $order->getamount(), $this->params->get('CURRENCY_LBP'), $vatReq->getfees());
             $pushlog = new LogsService($this->mr);
             $pushlog->pushLogs(new Logs, "PushUtility", @$response[4], @$response[5], @$response[7], @$response[6]);
+            $utilityTranID = '';
 
             if ($response[0]) {
                 //set order status to held
@@ -122,6 +123,7 @@ class VatController extends AbstractController
                 $BillTranPayment = $this->bobServices->BillTranPayment($requestData);
 
                 $pushlog->pushLogs(new Logs, "ap3_vat_bill_inject", @$BillTranPayment[4], @$BillTranPayment[3], @$BillTranPayment[5], @$BillTranPayment[6]);
+                $utilityTranID = $response[1];
 
                 if ($BillTranPayment[0]) {
                     //if payment from Bob provider success insert vat data to db
@@ -237,6 +239,7 @@ class VatController extends AbstractController
                 'IsSuccess' => $IsSuccess,
                 'flagCode' => $flagCode,
                 'Popup' => @$popup,
+                'utilityTranID' => $utilityTranID,
             ];
             return new JsonResponse([
                 'status' => true,
@@ -370,6 +373,8 @@ class VatController extends AbstractController
                 'IsSuccess' => $isSuccess,
                 'flagCode' => $flagCode,
                 'Popup' => $popup, // Include the Popup in the data array
+                'utilityTranID' =>$billPayDataArray['data']['utilityTranID']
+
             ]
         ];
     }
@@ -523,7 +528,11 @@ class VatController extends AbstractController
             'Currency' => $vatReq->getcurrency(),
             'Rounding' => $vatReq->getrounding(),
             'AdditionalFees' => $vatReq->getadditionalFees(),
-            'documentNumber' => $vatReq->getDocumentNumber()
+            'documentNumber' => $vatReq->getDocumentNumber(),
+            'companyName'=> $vatReq->getCompanyName(),
+            'fullName' => $vatReq->getPickerName(),
+            'phoneNumber' => $vatReq->getPickerNumber()
+
         ]);
 
         //tell the .net that total amount is paid
