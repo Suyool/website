@@ -11,6 +11,7 @@ monolog:
         - topup
         - Alfa
         - simly
+        - exchange
     handlers:
         users:
             type: stream
@@ -62,6 +63,11 @@ monolog:
             path: "%kernel.logs_dir%/simly.log"
             level: debug
             channels: ['simly']
+        exchange:
+            type: stream
+            path: "%kernel.logs_dir%/exchange.log"
+            level: debug
+            channels: ['exchange']
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

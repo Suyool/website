@@ -11,7 +11,9 @@ use App\Translation\translation;
 use App\Utils\Helper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use metaService;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -32,12 +34,13 @@ class DefaultController extends AbstractController
 {
     private $trans;
     private $memcachedCache;
+    private $loggerInterface;
 
-    public function __construct(translation $trans,AdapterInterface  $memcachedCache)
+    public function __construct(translation $trans,AdapterInterface  $memcachedCache,LoggerInterface $loggerInterface)
     {
         $this->trans = $trans;
         $this->memcachedCache = $memcachedCache;
-
+        $this->loggerInterface = $loggerInterface;
     }
 
     /**
@@ -1255,51 +1258,65 @@ class DefaultController extends AbstractController
      */
     public function exchangeRates(Request $request): Response
     {
-        $data = json_decode($request->getContent());
-        if (empty($data)) {
-            // If the data is empty, return an empty data response
-            return new JsonResponse(['message' => 'Empty data'], Response::HTTP_BAD_REQUEST);
-        }
-        $buyRate = $data->buyRate;
-        $sellRate = $data->sellRate;
-        $date =  $data->date;
-        $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
-        $secureHash = base64_encode(hash('sha512', $concat, true));
-        if($secureHash ==  $data->secureHash) {
-
-            $serverTimeZone = new \DateTimeZone('Asia/Beirut');  // Replace with your server's time zone
-            $currentTimestamp = time() + $serverTimeZone->getOffset(new DateTime());
-            $lastUpdate = strtotime($date);
-            $timeDifference = $currentTimestamp - $lastUpdate;
-
-            $seconds = $timeDifference % 60;
-            $minutes = floor(($timeDifference % 3600) / 60);
-            $hours = floor(($timeDifference % (60 * 60 * 24)) / (60 * 60));
-            $days = floor($timeDifference / (60 * 60 * 24));
-
-            if ($days > 0) {
-                $timeDifferenceString = "Updated $days day" . ($days > 1 ? 's' : '') . " ago";
-            } elseif ($hours > 0) {
-                $timeDifferenceString = "Updated $hours hr" . ($hours > 1 ? 's' : '') . " ago";
-            } elseif ($minutes > 0) {
-                $timeDifferenceString = "Updated $minutes min ago";
-            } else {
-                $timeDifferenceString = "Updated $seconds sec ago";
+        try{
+            $data = json_decode($request->getContent());
+            if (empty($data)) {
+                // If the data is empty, return an empty data response
+                $this->loggerInterface->error('Empty body');
+                return new JsonResponse(['message' => 'Empty data'], Response::HTTP_BAD_REQUEST);
             }
-
-            $responseData = [
-                'buyRate' => $buyRate,
-                'sellRate' => $sellRate,
-                'date' => $timeDifferenceString
-            ];
-
-            $cacheKey = 'exchangeRates';
-            $cacheItem = $this->memcachedCache->getItem($cacheKey);
-            $cacheItem->set($responseData);
-            $this->memcachedCache->save($cacheItem);
-            return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
-        }else{
-            return new JsonResponse(['message' => 'Forbidden incorrect secureHash'], Response::HTTP_BAD_REQUEST);
+            $this->loggerInterface->info(json_encode($data));
+            $buyRate = $data->buyRate;
+            $sellRate = $data->sellRate;
+            $date =  $data->date;
+            $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
+            $secureHash = base64_encode(hash('sha512', $concat, true));
+            $this->loggerInterface->info("The secure hash from our side is : {$secureHash}");
+            if($secureHash ==  $data->secureHash) {
+    
+                $serverTimeZone = new \DateTimeZone('Asia/Beirut');  // Replace with your server's time zone
+                $currentTimestamp = time() + $serverTimeZone->getOffset(new DateTime());
+                $lastUpdate = strtotime($date);
+                $timeDifference = $currentTimestamp - $lastUpdate;
+    
+                $seconds = $timeDifference % 60;
+                $minutes = floor(($timeDifference % 3600) / 60);
+                $hours = floor(($timeDifference % (60 * 60 * 24)) / (60 * 60));
+                $days = floor($timeDifference / (60 * 60 * 24));
+    
+                if ($days > 0) {
+                    $timeDifferenceString = "Updated $days day" . ($days > 1 ? 's' : '') . " ago";
+                } elseif ($hours > 0) {
+                    $timeDifferenceString = "Updated $hours hr" . ($hours > 1 ? 's' : '') . " ago";
+                } elseif ($minutes > 0) {
+                    $timeDifferenceString = "Updated $minutes min ago";
+                } else {
+                    $timeDifferenceString = "Updated $seconds sec ago";
+                }
+    
+                $responseData = [
+                    'buyRate' => $buyRate,
+                    'sellRate' => $sellRate,
+                    'date' => $timeDifferenceString
+                ];
+    
+                $cacheKey = 'exchangeRates';
+                $cacheItem = $this->memcachedCache->getItem($cacheKey);
+                $cacheItem->set($responseData);
+                $this->memcachedCache->save($cacheItem);
+                $this->loggerInterface->info('Success');
+                return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
+            }else{
+                $this->loggerInterface->info('Forbidden incorrect secureHash');
+                return new JsonResponse(['message' => 'Forbidden incorrect secureHash'], Response::HTTP_BAD_REQUEST);
+            }
+        }catch(Exception $e)
+        {
+            $this->loggerInterface->error($e->getMessage());
+            return new JsonResponse([
+                'status'=>false,
+                'message'=>$e->getMessage()
+            ],500);
         }
     }
 }

@@ -167,6 +167,10 @@ services:
     App\Controller\TerranetController:
         tags:
             - { 'name': 'monolog.logger', 'channel': 'Alfa' }
+    
+    App\Controller\DefaultController:
+        tags:
+            - { 'name': 'monolog.logger', 'channel': 'exchange' }
         
 
     # App\Controller\LotoController:

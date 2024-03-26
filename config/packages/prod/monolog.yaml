@@ -11,6 +11,7 @@ monolog:
         - topup
         - Alfa
         - Loto
+        - exchange
     handlers:
         main:
             type: fingers_crossed
@@ -76,3 +77,8 @@ monolog:
             path: "%kernel.logs_dir%/loto.log"
             level: debug
             channels: ['Loto']
+        exchange:
+            type: stream
+            path: "%kernel.logs_dir%/exchange.log"
+            level: debug
+            channels: ['exchange']
