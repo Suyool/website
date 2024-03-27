@@ -1357,7 +1357,7 @@ class DefaultController extends AbstractController
     public function payAbroad_1()
     {
         $parameters = [
-            'title'=> "<span>Pay Abroad</span> With Suyool Card",
+            'titleHead'=> "<span>Pay Abroad</span> With Suyool Card",
             'desc'=> "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad1',
             'btnColor' => 'btn-white',
@@ -1374,7 +1374,7 @@ class DefaultController extends AbstractController
     public function payAbroad_2()
     {
         $parameters = [
-            'title' => "<span>Pay Abroad</span> With Suyool Card",
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad2',
             'btnColor' => 'btn-blue',
@@ -1393,7 +1393,7 @@ class DefaultController extends AbstractController
     public function payAbroad_3()
     {
         $parameters = [
-            'title' => "<span>Pay Abroad</span> With Suyool Card",
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad3',
             'btnColor' => 'btn-white',
@@ -1411,7 +1411,7 @@ class DefaultController extends AbstractController
     public function payAbroad_4()
     {
         $parameters = [
-            'title' => "<span>Pay Abroad</span> With Suyool Card",
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad4',
             'btnColor' => 'btn-white',
@@ -1429,7 +1429,7 @@ class DefaultController extends AbstractController
     public function payAbroad_5()
     {
         $parameters = [
-            'title' => "<span>Pay Online</span> With Suyool Card",
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline1',
             'btnColor' => 'btn-white',
@@ -1447,7 +1447,7 @@ class DefaultController extends AbstractController
     public function payAbroad_6()
     {
         $parameters = [
-            'title' => "<span>Pay Online</span> With Suyool Card",
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline2',
             'btnColor' => 'btn-white',
@@ -1465,7 +1465,7 @@ class DefaultController extends AbstractController
     public function payAbroad_7()
     {
         $parameters = [
-            'title' => "<span>Pay Online</span> With Suyool Card",
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline3',
             'btnColor' => 'btn-white',
@@ -1483,7 +1483,7 @@ class DefaultController extends AbstractController
     public function payAbroad_8()
     {
         $parameters = [
-            'title' => "<span>Pay In LBP</span> With Suyool Card",
+            'titleHead' => "<span>Pay In LBP</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
             'className' => 'payLbp1',
             'btnColor' => 'btn-white',
@@ -1501,7 +1501,7 @@ class DefaultController extends AbstractController
     public function payAbroad_9()
     {
         $parameters = [
-            'title' => "<span>Pay In LBP</span> With Suyool Card",
+            'titleHead' => "<span>Pay In LBP</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
             'className' => 'payLbp2',
             'btnColor' => 'btn-white',
@@ -1519,7 +1519,7 @@ class DefaultController extends AbstractController
     public function payAbroad_10()
     {
         $parameters = [
-            'title' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge1',
             'btnColor' => 'btn-white',
@@ -1537,7 +1537,7 @@ class DefaultController extends AbstractController
     public function payAbroad_11()
     {
         $parameters = [
-            'title' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge2',
             'btnColor' => 'btn-white',
@@ -1555,7 +1555,7 @@ class DefaultController extends AbstractController
     public function payAbroad_12()
     {
         $parameters = [
-            'title' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge3',
             'btnColor' => 'btn-white',
