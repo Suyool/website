@@ -166,8 +166,8 @@ class PlayLoto extends Command
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
                     $newElement = [];
-                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
-                    $submit = [true, null, "", ["success"], ["token" => 123123]];
+                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    // $submit = [true, null, "", ["success"], ["token" => 123123]];
                     $pushlogs->pushLogs(new Logs, "PlayLoto", @json_encode($submit[4]), json_encode($submit[3]), @$submit[5], @$submit[6]);
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
