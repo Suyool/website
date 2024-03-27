@@ -166,8 +166,8 @@ class PlayLoto extends Command
                     $gridsBouquetToBeMerged = [];
                     $ticketscount++;
                     $newElement = [];
-                    $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
-                    // $submit = [true, null, "", ["success"], ["token" => 123123]];
+                    // $submit = $this->lotoServices->playLoto($lotoToBePlayed->getdrawnumber(), $lotoToBePlayed->getwithZeed(), $lotoToBePlayed->getgridSelected(), $lotoToBePlayed->getnumdraws(),SuyoolServices::aesDecryptString($held->getMobileNo()));
+                    $submit = [true, null, "", ["success"], ["token" => 123123]];
                     $pushlogs->pushLogs(new Logs, "PlayLoto", @json_encode($submit[4]), json_encode($submit[3]), @$submit[5], @$submit[6]);
                     if ($lotoToBePlayed->getbouquet()) {
                         if ($submit[0]) {
@@ -195,7 +195,12 @@ class PlayLoto extends Command
                             $gridsBouquetAsString = sizeof($gridsBouquet);
                             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoToBePlayed->getdrawnumber()]);
                             $drawNumber = $lotoToBePlayed->getdrawnumber();
-                            $result = $draw->getdrawdate()->format('d/m/Y');
+                            if(!is_null($draw)){
+                                $result = $draw->getdrawdate()->format('d/m/Y');
+                            }else{
+                                $result = "";
+                            }
+                            // $result = $draw->getdrawdate()->format('d/m/Y');
                             sleep(1);
                             $retryCountToCatchTheError = 3;
 
@@ -253,7 +258,8 @@ class PlayLoto extends Command
                             sleep(5);
                             do {
                                 sleep(5);
-                                $ticketId = $this->lotoServices->GetTicketId();
+                                // $ticketId = $this->lotoServices->GetTicketId();
+                                $ticketId = "11122";
                                 $ticketIdAvoid = $this->mr->getRepository(loto::class)->findOneBy(['ticketId' => $ticketId, 'drawNumber' => $lotoToBePlayed->getdrawnumber()]);
                             } while (!is_null($ticketIdAvoid));
                             // echo "continue grid \n";
@@ -271,7 +277,11 @@ class PlayLoto extends Command
                             $gridsAsString = implode(" \n", $grids);
                             $draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy(['drawId' => $lotoToBePlayed->getdrawnumber()]);
                             $drawNumber = $lotoToBePlayed->getdrawnumber();
-                            $result = $draw->getdrawdate()->format('d/m/Y');
+                            if(!is_null($draw)){
+                                $result = $draw->getdrawdate()->format('d/m/Y');
+                            }else{
+                                $result = "";
+                            }
                             sleep(1);
                             $retryCountToCatchTheError = 3;
 
@@ -284,7 +294,7 @@ class PlayLoto extends Command
                                         $newElement = ['ticketId' => $ticketId, 'zeed' => $lotoToBePlayed->getwithZeed()];
                                     } else if (!$lotoToBePlayed->getwithZeed() && !$lotoToBePlayed->getbouquet()) {
                                         $content = $this->notificationService->getContent('without zeed & without bouquet');
-                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => $result, 'ticket' => $ticketId], true);
+                                        $params = json_encode(['draw' => $lotoToBePlayed->getdrawnumber(), 'grids' => $gridsAsString, 'result' => @$result, 'ticket' => $ticketId], true);
                                         $this->notificationService->addNotification($userId, $content, $params, $bulk, "https://www.suyool.com/loto?goto=Result");
                                         $newElement = ['ticketId' => $ticketId];
                                     }
