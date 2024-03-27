@@ -161,7 +161,7 @@ const Account = () => {
                           data.sim.status !== "REFUNDED" && (
                             <div
                               className={
-                                data.sim.status !== "PENDING"
+                                data.sim.status !== "PENDING" || data.sim.status !== "PENDING_INSTALLATION"
                                   ? "topup"
                                   : "details"
                               }
@@ -222,7 +222,7 @@ const Account = () => {
 
                         <div
                           className={
-                            data.sim.status === "PENDING" ? "topup" : "details"
+                            data.sim.status === "PENDING" || data.sim.status === "PENDING_INSTALLATION" ? "topup" : "details"
                           }
                         >
                           <button
@@ -254,7 +254,7 @@ const Account = () => {
                                   mainField: "headerData",
                                   field: "currentPage",
                                   value:
-                                    data.sim.status === "PENDING"
+                                    data.sim.status === "PENDING" || data.sim.status === "PENDING_INSTALLATION"
                                       ? "RechargeThePayment"
                                       : "PlanDetail",
                                 })
@@ -266,7 +266,7 @@ const Account = () => {
                             }}
                             disabled={data.sim.status === "REFUNDED"}
                           >
-                            {data.sim.status === "PENDING"
+                            {data.sim.status === "PENDING" || data.sim.status === "PENDING_INSTALLATION"
                               ? "Install"
                               : data.sim.status === "REFUNDED"
                               ? "Refunded"
