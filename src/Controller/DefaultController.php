@@ -1362,6 +1362,7 @@ class DefaultController extends AbstractController
             'className' => 'payAbroad1',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1378,8 +1379,9 @@ class DefaultController extends AbstractController
             'className' => 'payAbroad2',
             'btnColor' => 'btn-blue',
             'faq'=> $this->paySuyoolFaq,
-            'barBgColor' => 'barWhite',
             'visa' => true,
+            'greyBack' => true,
+            'barBgColor' => 'barBlue'
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1447,7 +1449,7 @@ class DefaultController extends AbstractController
         $parameters = [
             'title' => "<span>Pay Online</span> With Suyool Card",
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
-            'className' => 'payOnline1',
+            'className' => 'payOnline2',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',

@@ -1,4 +1,8 @@
 .pay-suyool {
+  .greyBack{
+    background: #d3d3d3 !important;
+    color: #226E95 !important;
+  }
   .top-section {
     padding: 0 40px;
 
@@ -19,10 +23,18 @@
       font-family: $InterRegular;
       margin: 20px 0;
     }
-  }
 
-  .payAbroad1 {
-    background-image: url("../../../images/payAbroad/payAbroad1.png") !important;
+    @media (min-width: 1200px){
+      .img-cont{
+        display: flex;
+        align-items: flex-end;
+
+        img {
+          height: 75%;
+        }
+      }
+    }
+
   }
 
 }
