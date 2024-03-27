@@ -258,8 +258,8 @@ class PlayLoto extends Command
                             sleep(5);
                             do {
                                 sleep(5);
-                                // $ticketId = $this->lotoServices->GetTicketId();
-                                $ticketId = "11122";
+                                $ticketId = $this->lotoServices->GetTicketId();
+                                // $ticketId = "11122";
                                 $ticketIdAvoid = $this->mr->getRepository(loto::class)->findOneBy(['ticketId' => $ticketId, 'drawNumber' => $lotoToBePlayed->getdrawnumber()]);
                             } while (!is_null($ticketIdAvoid));
                             // echo "continue grid \n";
