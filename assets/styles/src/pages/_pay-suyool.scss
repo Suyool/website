@@ -1,4 +1,58 @@
 .pay-suyool {
+  .button-primary {
+    font-size: 16px;
+    border: 2px solid #ffffff;
+  }
+
+
+  .button-primary,
+  .btn-outline-secondary {
+    border-radius: 12px;
+    padding: 10px 30px;
+    background: #ffffff;
+    color: #226d96;
+  }
+
+  .btn-outline-secondary {
+    border-color: #226d96;
+    color: #226d96;
+
+    &:hover {
+      background-color: unset;
+      color: #226d96;
+    }
+  }
+  .airport-section{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    h2{
+      font-size: 20px;
+      font-family: $Bold;
+      color: #373464;
+    }
+    h3{
+      font-family: $Regular;
+      font-size: 35px;
+      color: #202020;
+    }
+
+    .subdesc{
+      p{
+        font-family: $InterBold;
+        font-size: 17px;
+        color:#202020 ;
+        text-align: center;
+      }
+    }
+    .textimage{
+      p{
+        padding-top: 10px;
+        font-family: $InterRegular;
+        font-size: 18px;
+        color: #202020;
+      }
+    }
+  }
   .greyBack{
     background: #d3d3d3 !important;
     color: #226E95 !important;
@@ -29,6 +83,7 @@
     .top-desc {
       font-family: $InterRegular;
       margin: 20px 0;
+      padding-bottom: 80px;
     }
 
     @media (min-width: 1200px){

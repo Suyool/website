@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
         ],
         "SIX" => [
             "Title" => "Is the Suyool Visa Platinum card an international card?",
-            "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
+            "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD and LBP debit card."
         ],
         "SEVEN" => [
             "Title" => "What currencies does the Suyool Visa Card accept?",
