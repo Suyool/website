@@ -1231,8 +1231,8 @@ class DefaultController extends AbstractController
 
         $parameters = [
             'barBgColor' => 'barWhite',
-            'faq' => $faq,
             'visa' => true,
+            'faq' => $faq,
             'title' => 'Use Suyool Visa Card',
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
@@ -1378,6 +1378,8 @@ class DefaultController extends AbstractController
             'className' => 'payAbroad2',
             'btnColor' => 'btn-blue',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1394,6 +1396,8 @@ class DefaultController extends AbstractController
             'className' => 'payAbroad3',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1410,6 +1414,8 @@ class DefaultController extends AbstractController
             'className' => 'payAbroad4',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1426,6 +1432,8 @@ class DefaultController extends AbstractController
             'className' => 'payOnline1',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1442,6 +1450,8 @@ class DefaultController extends AbstractController
             'className' => 'payOnline1',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1458,6 +1468,8 @@ class DefaultController extends AbstractController
             'className' => 'payOnline3',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1474,6 +1486,8 @@ class DefaultController extends AbstractController
             'className' => 'payLbp1',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1490,6 +1504,8 @@ class DefaultController extends AbstractController
             'className' => 'payLbp2',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1506,6 +1522,8 @@ class DefaultController extends AbstractController
             'className' => 'payLounge1',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1522,6 +1540,8 @@ class DefaultController extends AbstractController
             'className' => 'payLounge2',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
@@ -1538,6 +1558,8 @@ class DefaultController extends AbstractController
             'className' => 'payLounge3',
             'btnColor' => 'btn-white',
             'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);

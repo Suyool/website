@@ -1,6 +1,28 @@
 .pay-suyool {
-  .top-section{
+  .top-section {
+    padding: 0 40px;
 
+    .top-container {
+      margin-bottom: 50px
+    }
+    .top-title {
+      font-size: 40px;
+      font-family: $SemiBold;
+      margin: 40px 0;
+
+      span {
+        font-family: $Bold;
+      }
+    }
+
+    .top-desc {
+      font-family: $InterRegular;
+      margin: 20px 0;
+    }
+  }
+
+  .payAbroad1 {
+    background-image: url("../../../images/payAbroad/payAbroad1.png") !important;
   }
 
 }

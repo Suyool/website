@@ -1,3 +1,24 @@
-<div class="top-section {{className}}">
+<div class="top-section {{ className }}">
+    {% set barBgColor = "barWhite" %}
+    {% include 'elements/header-v2.html.twig' %}
+
+    <div class="top-container">
+        <div class="top-title">{{ title | raw }}</div>
+        <div class="top-desc">{{ desc }}</div>
+
+        <div class="{{ btnColor }}">
+            <div class="buttons-cont desktopMode">
+                <button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD"
+                        id="openSuyoolAccount">Get The Card
+                </button>
+            </div>
+            <div class="buttons-cont mobileMode">
+                <button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount"
+                        onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card
+                </button>
+            </div>
+        </div>
+    </div>
+
 
 </div>
