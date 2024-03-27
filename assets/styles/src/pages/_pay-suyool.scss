@@ -3,6 +3,13 @@
     background: #d3d3d3 !important;
     color: #226E95 !important;
   }
+  @media (min-width: 998px){
+  .payLbp2 {
+    background-image: url('../../../images/payAbroad/payLbp2-background.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+}
   .top-section {
     padding: 0 40px;
 
@@ -28,6 +35,19 @@
       .img-cont{
         display: flex;
         align-items: flex-end;
+        justify-content: center;
+
+        img {
+          // height: 75%;
+        }
+      }
+    }
+
+    @media (max-width: 1200px){
+      .img-cont{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
 
         img {
           height: 75%;
