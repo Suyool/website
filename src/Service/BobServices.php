@@ -33,7 +33,7 @@ class BobServices
             $this->USERNAME = "suyool";
             $this->PASSWORD = "p@123123";
         } else {
-            $this->BOB_API_HOST = 'https://185.174.240.230:8445/BoBFinanceAPI/WS/';
+            $this->BOB_API_HOST = 'https://uat.bob-finance.com:8445/BoBFinanceAPI/WS/';
             $this->USERNAME = "bobfn";
             $this->PASSWORD = "bobfn";
         }
