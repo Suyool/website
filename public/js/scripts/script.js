@@ -346,7 +346,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    document.getElementById("amount").addEventListener("keyup", function() {
+    document.getElementById("amount").addEventListener("change", function() {
         var nameInput = document.getElementById('amount').value;
         if (nameInput != "") {
             document.getElementById('convertButton').removeAttribute("disabled");
