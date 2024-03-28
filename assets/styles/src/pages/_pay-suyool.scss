@@ -1,36 +1,36 @@
 .pay-suyool {
-  @media (max-width: 768px) {
-    .button-primary {
-      border: none;
-      border-radius: 30px;
-      margin: auto;
-      padding: 15px 0;
-      width: 90%;
-    }
-  }
-  .button-primary {
-    font-size: 16px;
-    border: 2px solid #ffffff;
-  }
-
-
-  // .button-primary,
-  // .btn-outline-secondary {
-  //   border-radius: 12px;
-  //   padding: 10px 30px;
-  //   background: #ffffff;
-  //   color: #226d96;
+  // @media (max-width: 768px) {
+  //   .button-primary {
+  //     border: none;
+  //     border-radius: 30px;
+  //     margin: auto;
+  //     padding: 15px 0;
+  //     width: 90%;
+  //   }
+  // }
+  // .button-primary {
+  //   font-size: 16px;
+  //   border: 2px solid #ffffff;
   // }
 
-  .btn-outline-secondary {
-    border-color: #226d96;
-    color: #226d96;
 
-    &:hover {
-      background-color: unset;
-      color: #226d96;
-    }
+  .button-primary,
+  .btn-outline-secondary {
+    border-radius: 30px !important;
+    // padding: 10px 30px;
+    // background: #ffffff;
+    // color: #226d96;
   }
+
+  // .btn-outline-secondary {
+  //   border-color: #226d96;
+  //   color: #226d96;
+
+  //   &:hover {
+  //     background-color: unset;
+  //     color: #226d96;
+  //   }
+  // }
   .airport-section{
     margin-top: 100px;
     margin-bottom: 100px;

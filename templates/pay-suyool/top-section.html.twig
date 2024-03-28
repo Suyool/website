@@ -12,12 +12,12 @@
                 <div class="{{ btnColor }}">
                     <div class="buttons-cont desktopMode">
                         <button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD"
-    id="openSuyoolAccount" {% if greyBack is defined %} style="border:none ;"{% endif %}>Get The Card
+    id="openSuyoolAccount" {% if greyBack is defined %} style="border:none ;"{% endif %}  {% if greyBack is not  defined %} style="background-color:#ffffff"{% endif %}>Get The Card
                         </button>
                     </div>
                     <div class="buttons-cont mobileMode">
                         <button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount"
-                                onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")'>Get The Card
+                                onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")' {% if greyBack is defined %} style="border:none ;"{% endif %}  {% if greyBack is not  defined %} style="background-color:#ffffff;color:#226d96"{% endif %}>Get The Card
                         </button>
                     </div>
                 </div>
