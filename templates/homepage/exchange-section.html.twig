@@ -1,4 +1,4 @@
-<div class="container exchangeContainer">
+<div class="container-fluid exchangeContainer">
     <h3 class="mb-4">Check Suyool Exchange Rate</h3>
     <p class="subTitle">Powered by Dimes Middle-East SAL</p>
     <form>
@@ -6,7 +6,7 @@
             <div class="col-md-3 ps-0">
                 <label for="amount" class="form-label">Amount</label>
                 <div class="amountContInput">
-                    <input type="text" class="form-control" value="1" id="amount" aria-describedby="amountHelp">
+                    <input type="number" class="form-control" value="1" id="amount" aria-describedby="amountHelp">
                     <span class="input-symbol" id="currencySymbol">$</span>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-2">
                 <div class="buttonCont">
-                    <button type="button" id="convertButton" class="btn btn-primary">Convert ></button>
+                    <button type="button" id="convertButton" class="btn btn-primary" disabled>Convert ></button>
                 </div>
             </div>
             <div class="row exchangeDisplayCont ps-0">
@@ -48,8 +48,8 @@
                 <div class="col-md-4 timeCont">{{ updatedTime }}</div>
             </div>
             <div class="row exchangeResultCont ps-0">
-                <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">{{buyRate | number_format }}</span> <span class="currencyConverted">LBP</span></div>
-                <div class="col-md-4 sellCont"><span class="sell">SELL = </span> <span id="sellAmount" class="sellAmount">{{sellRate | number_format }} </span> <span class="currencyConverted">LBP</span></div>
+                <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">{{buyRate | number_format }}</span> <span class="currencyConvertedLBP">LBP</span></div>
+                <div class="col-md-4 sellCont"><span class="sell">SELL = </span> <span id="sellAmount" class="sellAmount">{{sellRate | number_format }} </span> <span class="currencyConvertedUSD">LBP</span></div>
                 <div class="col-md-4"></div>
             </div>
         </div>

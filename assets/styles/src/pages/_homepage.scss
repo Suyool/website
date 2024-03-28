@@ -610,7 +610,11 @@
   }
 
   .exchangeContainer {
-    margin: 70px auto;
+    // margin: 70px auto;
+    margin: 87px auto;
+    width: 82%;
+    background-color: #fff;
+    padding: 63px;
 
     h3 {
       font-family: $Regular;
@@ -712,7 +716,7 @@
           color: #376C92;
         }
 
-        .buyAmount, .sellAmount,.currencyConverted {
+        .buyAmount, .sellAmount,.currencyConvertedLBP,.currencyConvertedUSD {
           color: #C5C5C7;
         }
       }
