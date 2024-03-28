@@ -429,7 +429,8 @@ $(document).ready(function () {
             currency = 'USD';
         }
 
-        $('.currencyConverted').text(currency);
+        $('.currencyConvertedLBP').text(currency);
+        $('.currencyConvertedUSD').text(currency);
         buyAmountElement.text(numberWithCommas(buyAmount));
         buyAmountElement.css("color","#376c92");
         sellAmountElement.css("color","#376c92");

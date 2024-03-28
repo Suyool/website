@@ -92,7 +92,10 @@ gtag('config', 'G-THTNTVC33Y');
 		{% block javascripts %}
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			<script src={{asset('js/scripts/script.js')}}></script>
+			{# <script src={{asset('js/scripts/script.js')}}></script> #}
+			{% for file in encore_entry_js_files('app1') %}
+				<script src="{{ asset(file|substr(1)) }}"></script>
+			{% endfor %}
 			{% if visa is defined %}
 				<div class="download-app-modal">
 					<div class="modal fade modal-design" id="DownloadAppCARD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

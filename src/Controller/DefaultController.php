@@ -36,6 +36,37 @@ class DefaultController extends AbstractController
     private $memcachedCache;
     private $loggerInterface;
 
+    private $paySuyoolFaq = [
+        "ONE" => [
+            "Title" => "Can anyone request the Suyool Visa platinum card?",
+            "Desc" => "Once successfully registered on the Suyool app, anyone can request the Suyool Visa Platinum card and enjoy its privileges."
+        ],
+        "TWO" => [
+            "Title" => "How do I request my Suyool Visa Platinum card?",
+            "Desc" => "Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to your address for free."
+        ],
+        "THREE" => [
+            "Title" => "What is the fee of requesting the Suyool Visa Platinum card?",
+            "Desc" => "The fee for requesting your Suyool Debit Card is $12 to be paid annually."
+        ],
+        "FOUR" => [
+            "Title" => "Can I use the card online?",
+            "Desc" => "Yes, you can use the Suyool Visa Platinum card online."
+        ],
+        "FIVE" => [
+            "Title" => "Can I use the card internationally",
+            "Desc" => "Yes, you can use your Suyool Visa Platinum card anywhere Visa is accepted."
+        ],
+        "SIX" => [
+            "Title" => "Is the Suyool Visa Platinum card an international card?",
+            "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD and LBP debit card."
+        ],
+        "SEVEN" => [
+            "Title" => "What currencies does the Suyool Visa Card accept?",
+            "Desc" => "You can pay in any currency with Suyool Visa card (including LBP)."
+        ],
+    ];
+
     public function __construct(translation $trans,AdapterInterface  $memcachedCache,LoggerInterface $loggerInterface)
     {
         $this->trans = $trans;
@@ -1200,8 +1231,8 @@ class DefaultController extends AbstractController
 
         $parameters = [
             'barBgColor' => 'barWhite',
-            'faq' => $faq,
             'visa' => true,
+            'faq' => $faq,
             'title' => 'Use Suyool Visa Card',
             'desc' => 'In Lebanon & abroad, in-store & online',
             'descmeta' => 'In Lebanon & abroad, in-store & online',
@@ -1319,4 +1350,221 @@ class DefaultController extends AbstractController
             ],500);
         }
     }
+
+    /**
+     * @Route("/pay-abroad-1", name="app_payAbroad_1")
+     */
+    public function payAbroad_1()
+    {
+        $parameters = [
+            'titleHead'=> "<span>Pay Abroad</span> With Suyool Card",
+            'desc'=> "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
+            'className' => 'payAbroad1',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-abroad-2", name="app_payAbroad_2")
+     */
+    public function payAbroad_2()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
+            'className' => 'payAbroad2',
+            'btnColor' => 'btn-blue',
+            'faq'=> $this->paySuyoolFaq,
+            'visa' => true,
+            'greyBack' => true,
+            'barBgColor' => 'barBlue'
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-abroad-3", name="app_payAbroad_3")
+     */
+    public function payAbroad_3()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
+            'className' => 'payAbroad3',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-abroad-4", name="app_payAbroad_4")
+     */
+    public function payAbroad_4()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
+            'className' => 'payAbroad4',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-online-1", name="app_payAbroad_5")
+     */
+    public function payAbroad_5()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
+            'className' => 'payOnline1',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-online-2", name="app_payAbroad_6")
+     */
+    public function payAbroad_6()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
+            'className' => 'payOnline2',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-online-3", name="app_payAbroad_7")
+     */
+    public function payAbroad_7()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay Online</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
+            'className' => 'payOnline3',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-even-lbp-1", name="app_payAbroad_8")
+     */
+    public function payAbroad_8()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay In LBP</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
+            'className' => 'payLbp1',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/pay-even-lbp-2", name="app_payAbroad_9")
+     */
+    public function payAbroad_9()
+    {
+        $parameters = [
+            'titleHead' => "<span>Pay In LBP</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
+            'className' => 'payLbp2',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/access-airport-lounge-1", name="app_payAbroad_10")
+     */
+    public function payAbroad_10()
+    {
+        $parameters = [
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
+            'className' => 'payLounge1',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/access-airport-lounge-2", name="app_payAbroad_11")
+     */
+    public function payAbroad_11()
+    {
+        $parameters = [
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
+            'className' => 'payLounge2',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route("/access-airport-lounge-3", name="app_payAbroad_12")
+     */
+    public function payAbroad_12()
+    {
+        $parameters = [
+            'titleHead' => "Enjoy <span>Free Lounge Access</span> With Suyool Card",
+            'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
+            'className' => 'payLounge3',
+            'btnColor' => 'btn-white',
+            'faq'=> $this->paySuyoolFaq,
+            'barBgColor' => 'barWhite',
+            'visa' => true,
+        ];
+
+        return $this->render('pay-suyool/index.html.twig', $parameters);
+    }
+
 }

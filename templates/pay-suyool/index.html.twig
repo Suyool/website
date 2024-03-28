@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="homepage pay-suyool ">
+    {% include 'pay-suyool/top-section.html.twig' %}
+
+    <div class="mb-5">
+        {% include 'ma-tBank-card/threeBoxTemplate.html.twig' %}
+        {% include 'ma-tBank-card/threeEasySteps.html.twig' %}
+        {% set buttonName = 'Explore Exclusive Privileges' %}
+        {% include 'homepage/home-visa.html.twig' with {'buttonName': buttonName} %}
+        {% include 'ma-tBank-card/backgroundSection.html.twig' %}
+        {% include 'ma-tBank-card/access-airport.html.twig' %}
+        {% include 'elements/faq/faqSuyool.html.twig' %}
+        {% include 'elements/get-suyool-visa.html.twig' %}
+
+    </div>
+    {% include 'elements/footer.html.twig' %}
+</div>
+
+{% endblock %}

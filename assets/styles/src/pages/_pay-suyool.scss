@@ -1,0 +1,160 @@
+.pay-suyool {
+  .buttons-cont{
+    &.mobileMode{
+      text-align: center;
+    }
+  }
+  @media (max-width: 768px) {
+  //   .button-primary {
+  //     border: none;
+  //     border-radius: 30px;
+  //     margin: auto;
+  //     padding: 15px 0;
+  //     width: 90%;
+  //   }
+  }
+  // .button-primary {
+  //   font-size: 16px;
+  //   border: 2px solid #ffffff;
+  // }
+
+
+  .button-primary,
+  .btn-outline-secondary {
+    border-radius: 30px !important;
+    margin: auto;
+    // padding: 10px 30px;
+    // background: #ffffff;
+    // color: #226d96;
+  }
+
+  // .btn-outline-secondary {
+  //   border-color: #226d96;
+  //   color: #226d96;
+
+  //   &:hover {
+  //     background-color: unset;
+  //     color: #226d96;
+  //   }
+  // }
+  .airport-section{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    h2{
+      font-size: 20px;
+      font-family: $Bold;
+      color: #373464;
+    }
+    h3{
+      font-family: $Regular;
+      font-size: 35px;
+      color: #202020;
+    }
+
+    .subdesc{
+      p{
+        font-family: $InterRegular;
+        font-size: 17px;
+        color:#202020 ;
+        text-align: center;
+        a{
+          font-family: $InterBold;
+          color: #0d6efd;
+          text-decoration: underline;
+        }
+      }
+    }
+    .textimage{
+      p{
+        padding-top: 10px;
+        font-family: $InterRegular;
+        font-size: 18px;
+        color: #202020;
+      }
+    }
+  }
+  .greyBack{
+    background: #d3d3d3 !important;
+    color: #226E95 !important;
+    padding: 0px;
+    .button-primary,
+    .btn-outline-secondary {
+      border-radius: 12px;
+      padding: 10px 30px;
+      background: #ffffff;
+      color: #226d96;
+    }
+  }
+  @media (min-width: 998px){
+  .payLbp2 {
+    background-image: url('../../../images/payAbroad/payLbp2-background.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+}
+  .top-section {
+    @media screen and (max-width:768px) {
+      padding: unset;
+    }
+    padding: 0 40px;
+
+    .top-container {
+      margin-bottom: 50px
+    }
+    .top-title {
+      font-size: 40px;
+      font-family: $SemiBold;
+      margin: 40px 0;
+
+      span {
+        font-family: $Bold;
+      }
+    }
+
+    .top-desc {
+      font-family: $InterRegular;
+      margin: 20px 0;
+      padding-bottom: 80px;
+    }
+
+    @media (min-width: 1200px){
+      .img-cont{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        img {
+          // height: 75%;
+          // max-width: 534px;
+        }
+      }
+    }
+
+    @media (max-width: 1200px){
+      .img-cont{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        img {
+          height: 75%;
+          max-width: 534px;
+        }
+      }
+    }
+    @media (max-width: 768px){
+      .img-cont{
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        img {
+          // height: 75%;
+          max-width: 750px;
+        }
+      }
+    }
+
+  }
+
+}

@@ -1,4 +1,12 @@
 $(document).ready(function () {
+    document.getElementById("amount").addEventListener("change", function() {
+        var nameInput = document.getElementById('amount').value;
+        if (nameInput != "") {
+            document.getElementById('convertButton').removeAttribute("disabled");
+        } else {
+            document.getElementById('convertButton').setAttribute("disabled", null);
+        }
+    });
     function updateToCurrency() {
         var fromCurrency = $('#fromCurrency').val();
         var toCurrency = $('#toCurrency');
@@ -58,6 +66,9 @@ $(document).ready(function () {
         var toCurrency = $('#toCurrency').val();
         var buyAmountElement = $('#buyAmount');
         var sellAmountElement = $('#sellAmount');
+        var currencylbp = $('.currencyConvertedLBP');
+        var currencyusd = $('.currencyConvertedUSD');
+
 
         var buyAmount, sellAmount, currency;
 
@@ -71,8 +82,17 @@ $(document).ready(function () {
             currency = 'USD';
         }
 
-        $('.currencyConverted').text(currency);
+        $('.currencyConvertedLBP').text(currency);
+        $('.currencyConvertedUSD').text(currency);
         buyAmountElement.text(numberWithCommas(buyAmount));
+        buyAmountElement.css("color","#376c92");
+        sellAmountElement.css("color","#376c92");
+        buyAmountElement.css("font-weight","bolder");
+        sellAmountElement.css("font-weight","bolder");
+        currencylbp.css("font-weight","bolder");
+        currencylbp.css("color","#376c92");
+        currencyusd.css("font-weight","bolder");
+        currencyusd.css("color","#376c92");
         sellAmountElement.text(numberWithCommas(sellAmount));
     }
 
@@ -85,6 +105,7 @@ $(document).ready(function () {
     updateFromCurrency();
     changeCurrencySymbol();
 
+   
     // Attach event handlers using jQuery
     $('#exchangeIcon').click(function () {
         swapCurrencies();
@@ -108,5 +129,5 @@ $(document).ready(function () {
     //     var value = $(this).val().replace(/[^\d.]/g, ''); // Remove non-numeric characters except for dot (.)
     //     $(this).val(numberWithCommas(value)); // Format the value with commas
     // });
-
 });
+

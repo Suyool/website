@@ -1,0 +1,36 @@
+<div class="top-section {{ className }} {% if greyBack is defined %}greyBack{%endif%}">
+    {% set barBgColor = barBgColor is defined ? barBgColor : "barWhite" %}
+
+    {% include 'elements/header-v2.html.twig' %}
+
+    <div class="row" style="overflow-x: hidden;position: relative;">
+        <div class="col-md-6">
+            <div class="top-container">
+                <div class="top-title">{{ titleHead | raw }}</div>
+                <div class="top-desc">{{ desc }}</div>
+
+                <div class="{{ btnColor }}">
+                    <div class="buttons-cont desktopMode">
+                        <button class="btn button-primary mr-5" data-bs-toggle="modal" data-bs-target="#DownloadAppCARD"
+    id="openSuyoolAccount" {% if greyBack is defined %} style="border:none ;"{% endif %}  {% if greyBack is not  defined %} style="background-color:#ffffff;color:#226d96"{% endif %}>Get The Card
+                        </button>
+                    </div>
+                    <div class="buttons-cont mobileMode">
+                        <button class="btn button-primary mr-5 OpenYourSuyoolAccount" id="openSuyoolAccount"
+                                onclick='googleFacebookEvents("visaCard", "Get The Card", "Top Section")' {% if greyBack is defined %} style="border:none ;"{% endif %}  {% if greyBack is not  defined %} style="background-color:#ffffff;color:#226d96"{% endif %}>Get The Card
+                        </button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="col-md-6  img-cont">
+{#            <img src="{{asset("/build/images/payAbroad/"+className+"png")}}" alt="">#}
+            <img class="desktopMode" src="{{ asset('/build/images/payAbroad/') ~ className ~ '.png' }}" alt="">
+            <img class="tabletmobileMode" src="{{ asset('/build/images/payAbroad/') ~ className ~ '-mobile.png' }}" alt="">
+
+        </div>
+    </div>
+    
+
+
+</div>

@@ -1,17 +1,17 @@
 <div class="navbar navbar-expand-lg navbar_v2">
-    <a class="navbar-brand" href="/"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"></a>
+<a class="navbar-brand" href="/">{% if greyBack is defined %} <img src="{{ asset('build/images/suyool-Logo.png') }}" alt="Suyool"> {% else %}<img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"> {% endif %} </a>
     <a class="navbar-brand-blue" style="display: none" href="/"><img src="{{ asset('build/images/suyool-Logo.png') }}"
                                                                      alt="Suyool"></a>
 
     <!-- Desktop Navbar Menu -->
     <div class="collapse navbar-collapse" id="navbarNav">
-        {% if matBank is not defined %}
+        {% if matBank is not defined and titleHead is not defined %}
         <ul class="navbar-nav ms-5">
             <li class="nav-item">
-                <a class="nav-link personal-underline" href="{{ path('homepage') }}">Personal</a>
+        <a class="nav-link personal-underline {% if greyBack is defined %} personal-underline-grey {% endif %}" href="{{ path('homepage') }}">Personal</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link business-underline" href="{{ path('app_digital_corporate') }}">Business</a>
+                <a class="nav-link business-underline {% if greyBack is defined %} business-underline-grey {% endif %}" href="{{ path('app_digital_corporate') }}">Business</a>
             </li>
         </ul>
         {% endif %}
@@ -33,7 +33,7 @@
             <li class="nav-item">
                 <div class="calluson py-2">
                     <div>
-                        <div class="desktopMode">Available 24/7 on our hotline:<span><a href="tel:+96101290900"><img
+                        <div class="desktopMode" {% if greyBack is defined %} style="color: #216D96;" {% endif %}>Available 24/7 on our hotline:<span><a href="tel:+96101290900"><img
                                             src="{{ asset('build/images/mobile.svg') }}"/> 01 290 900</a></span></div>
                         <div class="tabletmobileMode"><span><a href="tel:+96101290900"><img
                                             src="{{ asset('build/images/mobile.svg') }}"/>01 290 900</a></span></div>
