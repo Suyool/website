@@ -7,14 +7,28 @@ $(document).ready(function () {
             document.getElementById('convertButton').setAttribute("disabled", null);
         }
     });
+
     const cachedDataInput = document.getElementById('cachedData').value;
-    setInterval(updateTimeDifference, 60000);
+    updateTimeDifference();
+    const currentTime = new Date().getTime();
+    const lastUpdateTime = new Date(cachedDataInput).getTime();
+    const timeDifference = currentTime - lastUpdateTime;
+
+    let intervalTime;
+    if (timeDifference < 60000) { // Less than 1 minute
+        intervalTime = 1000; // Set interval to 1 second
+    } else if (timeDifference < 3600000) { // Less than 1 hour
+        intervalTime = 60000; // Set interval to 1 minute
+    } else { // More than 1 hour
+        intervalTime = 3600000; // Set interval to 1 hour
+    }
+
+    setInterval(updateTimeDifference, intervalTime);
 
     function updateTimeDifference() {
         if (cachedDataInput ) {
             const currentTime = new Date().getTime();
             const lastUpdateTime = new Date(cachedDataInput).getTime();
-
             const timeDifference = currentTime - lastUpdateTime;
 
             const seconds = Math.floor(timeDifference / 1000) % 60;
