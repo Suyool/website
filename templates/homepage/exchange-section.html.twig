@@ -45,7 +45,9 @@
                         <span id="sellAmountDes" class="sellAmountDes">$1 = L.L <span id="sellAmountDesVal">{{sellRate | number_format }}</span></span>
                     {% endif %}
                 </div>
-                <div class="col-md-4 timeCont">{{ updatedTime }}</div>
+                <div class="col-md-4 timeCont"></div>
+                <input type="hidden" id="cachedData" value="{{ updatedTime }}">
+
             </div>
             <div class="row exchangeResultCont ps-0">
                 <div class="col-md-4 buyCont me-5"><span class="buy">BUY = </span> <span id="buyAmount" class="buyAmount">{{buyRate | number_format }}</span> <span class="currencyConvertedLBP">LBP</span></div>

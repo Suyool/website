@@ -7,6 +7,37 @@ $(document).ready(function () {
             document.getElementById('convertButton').setAttribute("disabled", null);
         }
     });
+    const cachedDataInput = document.getElementById('cachedData').value;
+    setInterval(updateTimeDifference, 60000);
+
+    function updateTimeDifference() {
+        if (cachedDataInput ) {
+            const currentTime = new Date().getTime();
+            const lastUpdateTime = new Date(cachedDataInput).getTime();
+
+            const timeDifference = currentTime - lastUpdateTime;
+
+            const seconds = Math.floor(timeDifference / 1000) % 60;
+            const minutes = Math.floor(timeDifference / (1000 * 60)) % 60;
+            const hours = Math.floor(timeDifference / (1000 * 60 * 60)) % 24;
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+            let timeDifferenceString;
+
+            if (days > 0) {
+                timeDifferenceString = `Updated ${days} day${days !== 1 ? 's' : ''} ago`;
+            } else if (hours > 0) {
+                timeDifferenceString = `Updated ${hours} hr${hours !== 1 ? 's' : ''} ago`;
+            } else if (minutes > 0) {
+                timeDifferenceString = `Updated ${minutes} min ago`;
+            } else {
+                timeDifferenceString = `Updated ${seconds} sec ago`;
+            }
+            document.querySelector('.timeCont').textContent = timeDifferenceString;
+
+        }
+    }
+
     function updateToCurrency() {
         var fromCurrency = $('#fromCurrency').val();
         var toCurrency = $('#toCurrency');
