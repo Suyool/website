@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.de014b1d.js"
+        "/build/app1.20aaa58d.js"
       ]
     },
     "admin-app": {
@@ -58,10 +58,14 @@
       "js": [
         "/build/runtime.cbe92cc0.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.9450f3de.js"
 =======
         "/build/Simly.2186ad2c.js"
 >>>>>>> 5755b992 (rank in rally paper and images)
+=======
+        "/build/Simly.20d26532.js"
+>>>>>>> a41e9a26 (top-section)
       ]
     },
     "LegalEnrollement": {
@@ -88,10 +92,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.2e3d1365.css"
 =======
         "/build/styles.a59daee3.css"
 >>>>>>> 5755b992 (rank in rally paper and images)
+=======
+        "/build/styles.0820f611.css"
+>>>>>>> a41e9a26 (top-section)
       ]
     },
     "admin": {
