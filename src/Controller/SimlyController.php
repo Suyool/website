@@ -747,7 +747,8 @@ class SimlyController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $esims = $this->mr->getRepository(Esim::class)->findBy(['esimId' => $data['esimId']]);
+        $esims = $this->mr->getRepository(Esim::class)->findBy(['suyoolUserId'=> $this->session->get('suyoolUserId'),'esimId' => $data['esimId']],['id'=>'DESC']);
+        // dd($esims);
         $fetchDataUsage = $simlyServices->FetchUsageOfPurchasedESIM($data['esimId']);
         $simlyPlan = $simlyServices->GetPlanHavingSlug($esims[0]->getPlan());
         $NetworkAvailable = $simlyServices->GetAvailableNetworkFromGivenId($esims[0]->getPlan());

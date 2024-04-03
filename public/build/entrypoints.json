@@ -57,7 +57,7 @@
     "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Simly.20d26532.js"
+        "/build/Simly.9450f3de.js"
       ]
     },
     "LegalEnrollement": {
@@ -155,7 +155,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/SimlyStyle.1f01a845.css"
+        "/build/SimlyStyle.0a66069b.css"
       ]
     },
     "LegalEnrollementStyle": {

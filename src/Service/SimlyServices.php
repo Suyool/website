@@ -525,7 +525,7 @@ class SimlyServices
             ]);
             // $data = json_decode($response->getContent(), true);
             $data = $response->toArray(false);
-            // dd($data);
+            // dd($this->SIMLY_API_HOST . 'plans/' . $slug . '');
             if (!is_null($data['data']) && $data['data']['duration'] == 1 && $data['data']['price'] == 1) {
                 // $data['data']['price'] = 0;
                 // $data['data']['initial_price'] = 0;
