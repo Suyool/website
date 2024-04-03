@@ -464,6 +464,13 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_CTNET" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_CTNET" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a CTNet employee.",
 
+    //CTNET
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_FIELD" => "What are the benefits for Blue Field Group employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_FIELD" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Blue Field Group employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_FIELD" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_FIELD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_FIELD" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Blue Field Group employee.",
+
     //bluebase
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_BLUE" => "What are the benefits for Blue Base employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_BLUE" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Blue Base employee.",
