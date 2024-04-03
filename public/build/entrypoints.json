@@ -63,7 +63,7 @@
     "LegalEnrollement": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.d2669fbf.js"
+        "/build/LegalEnrollement.b07db060.js"
       ]
     },
     "iveri": {
@@ -83,7 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.2e3d1365.css"
+        "/build/styles.16758d43.css"
       ]
     },
     "admin": {
