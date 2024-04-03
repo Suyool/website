@@ -29,6 +29,8 @@
 @import 'src/elements/solution';
 @import 'src/elements/questions';
 @import 'src/elements/top-section';
+@import "src/elements/timerCountDown";
+
 @import 'src/pages/payment';
 @import 'src/pages/emailVerification';
 @import 'src/pages/invitation';
@@ -50,7 +52,7 @@
 @import 'src/pages/pay-suyool';
 @import 'src/pages/aubrallypaper';
 @import 'src/admin/loto.scss';
-
+@import "src/pages/aubInvitation";
 //merchants
 @import 'src/pages/merchants/alfa.scss';
 @import 'src/pages/merchants/usj.scss';
