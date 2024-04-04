@@ -27,8 +27,12 @@
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.0820f611.css",
 >>>>>>> a41e9a26 (top-section)
+=======
+  "build/styles.css": "/build/styles.6d407515.css",
+>>>>>>> 570830c1 (invitation design and respon)
   "build/admin.css": "/build/admin.a5306bd9.css",
   "build/Lotostyles.css": "/build/Lotostyles.36aad504.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8994c006.css",
@@ -734,6 +738,7 @@
   "build/images/terraNet/circle_product_-840.png": "/build/images/terraNet/circle_product_-840.png",
   "build/images/terraNet/circle_product_-839.png": "/build/images/terraNet/circle_product_-839.png",
   "build/images/sodetel/f3.svg": "/build/images/sodetel/f3.svg",
+  "build/images/suyoolBlueLogo.svg": "/build/images/suyoolBlueLogo.svg",
   "build/images/aub/Group 40427.svg": "/build/images/aub/Group 40427.svg",
   "build/images/digital_corporate/noHiddFees.svg": "/build/images/digital_corporate/noHiddFees.svg",
   "build/images/terraNet/circle_product_-836.png": "/build/images/terraNet/circle_product_-836.png",
@@ -794,6 +799,7 @@
   "build/images/terraNet/circle_product_-811.png": "/build/images/terraNet/circle_product_-811.png",
   "build/images/terraNet/circle_product_-830.png": "/build/images/terraNet/circle_product_-830.png",
   "build/images/terraNet/circle_product_-832.png": "/build/images/terraNet/circle_product_-832.png",
+  "build/images/aub/suyoolCardIcon.svg": "/build/images/aub/suyoolCardIcon.svg",
   "build/images/platinumMastercard/convenience_control.svg": "/build/images/platinumMastercard/convenience_control.svg",
   "build/images/alfa_employee/safe.png": "/build/images/alfa_employee/safe.png",
   "build/images/platinumMastercard/peace_of_mind.png": "/build/images/platinumMastercard/peace_of_mind.png",
@@ -912,6 +918,7 @@
   "build/images/Loto/bouquet.png": "/build/images/Loto/bouquet.png",
   "build/images/payment/cash_input.jpg": "/build/images/payment/cash_input.jpg",
   "build/images/payment/pay_with_card.jpg": "/build/images/payment/pay_with_card.jpg",
+  "build/images/aub/suyoolUserIcon.svg": "/build/images/aub/suyoolUserIcon.svg",
   "build/images/alfa_employee/arrow.png": "/build/images/alfa_employee/arrow.png",
   "build/images/payment/IBAN.jpg": "/build/images/payment/IBAN.jpg",
   "build/images/outOfStock.svg": "/build/images/outOfStock.svg",
@@ -988,6 +995,7 @@
   "build/images/favicon/suyool-FAVICON.jpg": "/build/images/favicon/suyool-FAVICON.jpg",
   "build/images/Loto/trueStick.png": "/build/images/Loto/trueStick.png",
   "build/images/Suyool-S-White-Logo.png": "/build/images/Suyool-S-White-Logo.png",
+  "build/images/aub/redStar.svg": "/build/images/aub/redStar.svg",
   "build/images/Loto/trofie.png": "/build/images/Loto/trofie.png",
   "build/images/payment/person.png": "/build/images/payment/person.png",
   "build/images/plusadmin.svg": "/build/images/plusadmin.svg",
