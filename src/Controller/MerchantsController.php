@@ -1388,7 +1388,50 @@ class MerchantsController extends AbstractController
     }
 
 
+    /**
+     * @Route("/phoenix-machinery", name="phoenix-machinery")
+     */
+    public function phoenixMachinery(Request $request, TranslatorInterface $translatorInterface): Response
+    {
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
+        $parameters['lang'] = "en";
+        $parameters['metaimage'] = "build/images/payroll/phoenixMachineryMeta.png";
+        $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
+        $parameters['faq'] = [
+            "ONE" => [
+                "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
+                "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+            ],
+            "TWO" => [
+                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
+                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+            ],
+            "THREE" => [
+                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PHOENIX_MACHINERY",
+                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PHOENIX_MACHINERY"
+            ],
+            "FOUR" => [
+                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PHOENIX_MACHINERY"
+            ],
+            "FIVE" => [
+                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
+            ],
+            "SIX" => [
+                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
+                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+            ],
+        ];
 
+        $parameters['title'] = "Phoenix Machinery | Suyool";
+        $parameters['desc'] = "Facing today's financial challenges, we moved our payroll to Suyool. You will get your own digital dual-currency account,a Platinum Debit Card & a payment tool with the best rates available.";
+
+        $parameters['infoSection'] = $this->infoSection2;
+
+        return $this->render('phoenix-machinery/index.html.twig', $parameters);
+    }
 
 
     /**
