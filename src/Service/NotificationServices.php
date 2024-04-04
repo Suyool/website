@@ -125,10 +125,12 @@ class NotificationServices
                 $this->mr->persist($user);
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
+                setcookie('mobileNo', $suyoolUser['MobileNo'], time() + (86400 * 30), "/"); // 86400 = 1 day
                 $this->session->set('mobileNo', $suyoolUser['MobileNo']);
                 $this->session->set('isHavingCard', @$suyoolUser["IsCardRequested"]);
             } else {
                 $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
+                setcookie('mobileNo', $singleUser->getMobileNo(), time() + (86400 * 30), "/"); // 86400 = 1 day
                 $this->session->set('mobileNo', $singleUser->getMobileNo());
                 $this->session->set('isHavingCard', $singleUser->getIsHavingCard());
             }

@@ -203,6 +203,7 @@ class LotoController extends AbstractController
                     $PlayOnce, $OneWeek, $OneMonth, $SixMonth, $OneYear
                 ];
                 $suyoolUserId = $suyoolUserInfo[0];
+                setcookie('suyoolUserId', $suyoolUserId, time() + (86400 * 30), "/"); // 86400 = 1 day
                 $this->session->set('suyoolUserId', $suyoolUserId);
 
                 if (!$this->session->has('suyoolUserId')) {
@@ -342,7 +343,17 @@ class LotoController extends AbstractController
     public function play(Request $request)
     {
         $bulk = 0; //0 if unicast
-        $suyoolUserId = $this->session->get('suyoolUserId');
+        if (!$this->session->has('suyoolUserId')) {
+            $suyoolUserId = $_COOKIE['suyoolUserId'];
+        }else{
+            $suyoolUserId = $this->session->get('suyoolUserId');
+        }
+
+        if (!$this->session->has('mobileNo')) {
+            $mobileNo = $_COOKIE['mobileNo'];
+        }else{
+            $mobileNo = $this->session->get('mobileNo');
+        }
         $this->loggerInterface->info($suyoolUserId . " Play loto");
         $numGrids = 0;
         $loto_draw = $this->mr->getRepository(LOTO_draw::class)->findOneBy([], ['drawdate' => 'DESC']);
@@ -350,7 +361,7 @@ class LotoController extends AbstractController
         $today = new DateTime();
         $grids = [];
 
-        if (isset($suyoolUserId)) {
+        if (isset($suyoolUserId) && isset($mobileNo)) {
             $data = json_decode($request->getContent(), true);
             $getPlayedBalls = $data['selectedBalls'];
             $getPlayedBalls = json_decode($getPlayedBalls, true);
@@ -388,7 +399,7 @@ class LotoController extends AbstractController
                 $order = new order;
                 $order->setsuyoolUserId($suyoolUserId)
                     ->setstatus(order::$statusOrder['PENDING'])
-                    ->setMobileNo($this->session->get('mobileNo'));
+                    ->setMobileNo($mobileNo);
 
                 $this->mr->persist($order);
                 $this->mr->flush();
