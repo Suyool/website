@@ -131,14 +131,17 @@
       }
     }
   }
+
   .pointSystem {
     .noteSection {
       max-width: 830px;
       margin: auto;
       margin-top: 60px;
+
       img {
         float: right;
       }
+
       p {
         text-align: left;
         color: $black;
@@ -147,41 +150,49 @@
         font-weight: 600;
       }
     }
+
     .pointsBox {
       justify-content: center;
+
       .pointsContent {
         width: 400px;
+
         .box-section {
           border: 2px solid #216d96;
           padding: 0 0 20px;
           position: relative;
           border-radius: 10px;
 
-          .userIcon,.cardIcon {
+          .userIcon, .cardIcon {
             position: absolute;
             top: -53px;
             left: 0;
             right: 0;
+
             img {
               width: 120px;
             }
           }
+
           .redIcon {
             position: absolute;
             top: -16px;
             right: 0px;
+
             img {
               width: 30px;
             }
           }
+
           .desc {
             font-family: $InterRegular;
             font-size: 24px;
             padding-top: 70px;
           }
+
           .point {
             font-family: $SemiBold;
-            color:#216D96;
+            color: #216D96;
             font-size: 45px;
           }
         }
@@ -231,6 +242,7 @@
       .desc {
         font-size: 18px;
       }
+
       .point {
         font-size: 28px;
       }
@@ -243,5 +255,112 @@
     .noteSection {
       margin: unset;
     }
+  }
+}
+
+.aubLoginPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  .left-section {
+    height: 100vh;
+    width: 70%;
+    background-image: url("../../../images/aub/aubLoginWallpaper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .right-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    position: relative;
+
+    .timerContainer {
+      background-color: unset;
+
+      p {
+        font-family: $Bold;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+    #loginError {
+      margin-top: 7px;
+      font-family: $Medium;
+    }
+    #password, #teamName {
+      font-family: $Regular;
+    }
+
+    .buttonCont {
+      text-align: center;
+
+      button {
+        width: 100%;
+        background-color: #226D96;
+        border-radius: 10px;
+      }
+    }
+
+    .supportSection {
+      position: absolute;
+      bottom: 0;
+      left: 101px;
+
+      span {
+        padding-left: 10px;
+        color: #226D96;
+        font-family: $Bold;
+      }
+
+      p {
+        font-family: $Medium;
+        color: #576271;
+        font-size: 14px;
+      }
+    }
+
+    @media (min-width: 320px) and (max-width: 1200px) {
+      .timerContainer {
+        .sections {
+          img {
+            width: 85px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .left-section {
+      display: none;
+    }
+    .right-section {
+      background-image: url("../../../images/aub/loginMobile.png");
+      height: 100vh;
+      width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      .form-control {
+        padding: 0.675rem 0.75rem;
+      }
+      .buttonCont {
+        bottom: 27px;
+        position: fixed;
+        width: 94%;
+      }
+
+      .supportSection {
+        bottom: 59px;
+        left: 15px;
+        position: absolute;
+      }
+    }
+
   }
 }
