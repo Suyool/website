@@ -35,31 +35,38 @@ Encore.setOutputPath("public/build/")
   .addStyleEntry("OgeroStyle", "./assets/react/Apps/Ogero/Style/Ogero.scss")
   .addEntry("Ogero", "./assets/react/Apps/Ogero/index.js")
 
- //TerraNet
+  //TerraNet
   .addEntry("TerraNet", "./assets/react/Apps/TerraNet/index.js")
-  .addStyleEntry("terraNetstyle", "./assets/react/Apps/TerraNet/Style/TerraNet.scss")
+  .addStyleEntry(
+    "terraNetstyle",
+    "./assets/react/Apps/TerraNet/Style/TerraNet.scss"
+  )
 
   //Gift2Games
-   .addEntry("Gift2Games", "./assets/react/Apps/Gift2Games/index.js")
-   .addStyleEntry("Gift2GamesStyle", "./assets/react/Apps/Gift2Games/Style/Gift2Games.scss")
+  .addEntry("Gift2Games", "./assets/react/Apps/Gift2Games/index.js")
+  .addStyleEntry(
+    "Gift2GamesStyle",
+    "./assets/react/Apps/Gift2Games/Style/Gift2Games.scss"
+  )
 
-   //Simly
+  //Simly
   .addStyleEntry("SimlyStyle", "./assets/react/Apps/Simly/Style/Simly.scss")
   .addEntry("Simly", "./assets/react/Apps/Simly/index.js")
 
   //Legal Enrollement
-  .addStyleEntry("LegalEnrollementStyle", "./assets/styles/src/react/LegalEnrollement.scss")
+  .addStyleEntry(
+    "LegalEnrollementStyle",
+    "./assets/styles/src/react/LegalEnrollement.scss"
+  )
   .addEntry("LegalEnrollement", "./assets/react/LegalEnrollement/index.js")
 
   //Iveri
   .addStyleEntry("iveristyles", "./assets/styles/src/react/Iveri.scss")
   .addEntry("iveri", "./assets/react/Iveri/index.js")
 
-
   //Sodetel
   .addStyleEntry("SodetelStyle", "./assets/styles/src/react/Sodetel.scss")
   .addEntry("Sodetel", "./assets/react/Sodetel/index.js")
-
 
   .copyFiles({
     from: "./assets/images",

@@ -67,6 +67,7 @@ class BobServices
                     "Password" => $this->PASSWORD
                 ]
             ];
+
             $response = $this->helper->clientRequest($this->METHOD_POST, $this->BOB_API_HOST . 'SendPinRequest',  $body);
             $url = $this->BOB_API_HOST . 'SendPinRequest';
             $status = $response->getStatusCode(); // Get the status code
@@ -79,6 +80,7 @@ class BobServices
 
 
             $ApiResponse = json_decode($content, true);
+            dd($ApiResponse);
             // $this->logger->error("Alfa postpaid error: {$ApiResponse}");
             if ($ApiResponse['Response'] == "") {
                 $decodedString = $ApiResponse['ErrorDescription'];
@@ -397,7 +399,7 @@ class BobServices
         return array($isSuccess, $decodedString, $ErrorDescription, $content, json_encode($body), $this->BOB_API_HOST . 'InjectTransactionalPayment', $status);
     }
 
-    public function RetrieveTransactionReceipt($transactionId,$referenceNumber)
+    public function RetrieveTransactionReceipt($transactionId, $referenceNumber)
     {
         try {
             $body = [
@@ -430,14 +432,14 @@ class BobServices
                 $ErrorDescription = $ApiResponse['ErrorDescription'];
             }
 
-            return array(true,@str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']),json_encode($body),json_encode($content),$this->BOB_API_HOST . 'RetrieveTransactionReceipt',$response->getStatusCode());
+            return array(true, @str_replace(["\\r\\n", "< ", "\t"], ["", "<", ""], $decodedString['PrintReceiptResponse']), json_encode($body), json_encode($content), $this->BOB_API_HOST . 'RetrieveTransactionReceipt', $response->getStatusCode());
             // dd($decodedString);
             // return $decodedString['PrintReceiptResponse'];
             // dd(str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']));
             //  return str_replace(["\\r\\n","< ","\t"],["","<",""],$decodedString['PrintReceiptResponse']);
             // return $decodedString['PrintReceiptResponse'];
         } catch (Exception $e) {
-            return array(false,$e->getMessage(),"","",$this->BOB_API_HOST . 'RetrieveTransactionReceipt',500);
+            return array(false, $e->getMessage(), "", "", $this->BOB_API_HOST . 'RetrieveTransactionReceipt', 500);
         }
     }
 }

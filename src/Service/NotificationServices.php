@@ -52,7 +52,7 @@ class NotificationServices
             if ($singleUser == null) {
                 $suyoolUser = $this->suyoolServices->GetUser($userid, $this->hash_algo, $this->certificate);
                 if (is_null($suyoolUser)) return false;
-                if(isset($suyoolUser['IsCardRequested']) && $suyoolUser['IsCardRequested'] == false){
+                if (isset($suyoolUser['IsCardRequested']) && $suyoolUser['IsCardRequested'] == false) {
                     // dd("ok");
                     $suyoolUser['IsCardRequested'] = 0;
                 }
@@ -70,11 +70,11 @@ class NotificationServices
                 $this->mr->flush();
                 $this->logger->debug("New User: {$suyoolUser['FirstName']}, {$suyoolUser['LastName']}, {$suyoolUser['LanguageID']}");
                 $this->session->set('mobileNo', $suyoolUser['MobileNo']);
-                $this->session->set('isHavingCard',@$suyoolUser["IsCardRequested"]);
+                $this->session->set('isHavingCard', @$suyoolUser["IsCardRequested"]);
             } else {
                 $this->logger->debug("Existing User: " . $singleUser->getsuyoolUserId() . " " . $singleUser->getfname() . " " . $singleUser->getlname());
                 $this->session->set('mobileNo', $singleUser->getMobileNo());
-                $this->session->set('isHavingCard',$singleUser->getIsHavingCard());
+                $this->session->set('isHavingCard', $singleUser->getIsHavingCard());
             }
             return true;
         } catch (Exception $e) {
