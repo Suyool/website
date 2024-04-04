@@ -465,6 +465,13 @@ return [
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SAD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PHOENIX_TECHNOLOGY" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Phoenix Technology employee.",
 
+    //phoenix-energy
+    "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_PHOENIX_ENERGY" => "What are the benefits for Phoenix Energy employees?",
+    "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_PHOENIX_ENERGY" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Phoenix Energy employee.",
+    "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_SAD" => "Where can I withdraw my payroll in cash?",
+    "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SAD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+    "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_PHOENIX_ENERGY" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Phoenix Energy employee.",
+
     //CTNET
     "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_CTNET" => "What are the benefits for CTNet employees?",
     "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_CTNET" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a CTNet employee.",
