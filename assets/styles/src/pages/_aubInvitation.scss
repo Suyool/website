@@ -13,10 +13,235 @@
       line-height: 1.3;
       padding-bottom: 80px;
     }
+
     .small-note {
       font-family: $InterRegular;
       color: $white;
-      padding-top: 0!important;
+      padding-top: 0 !important;
+      font-size: 13px;
+    }
+  }
+
+  .timerContainer {
+    max-width: 600px;
+    background-color: $white;
+    padding: 44px 0px;
+    border-radius: 20px;
+
+    .sections {
+      text-align: center;
+
+      img {
+        width: 130px;
+      }
+    }
+
+    .xsymbole {
+      font-size: 55px;
+      font-weight: 900;
+      font-family: $SemiBold;
+      align-content: center;
+    }
+
+  }
+
+  .send-link-form-cont {
+    padding-bottom: 60px;
+
+    .send-link-form {
+      .get-the-app {
+        border-radius: 10px;
+        background-color: $white;
+        border: 1px solid #216D95;
+
+        button {
+          font-family: $SemiBold !important;
+          font-size: 14px !important;
+          color: #226d96 !important;
+          background-color: $white !important;
+        }
+      }
+
+      .input-sub-cont {
+        border-radius: 10px;
+
+        .country-code {
+          font-family: $Regular;
+        }
+      }
+    }
+  }
+
+  .help3Steps {
+    text-align: center;
+
+    .title {
+      color: #373464;
+      font-family: $Bold;
+      margin-bottom: 40px;
+    }
+
+    .subtitle {
+      margin-bottom: 40px;
+      font-family: $Regular;
+    }
+
+    .description {
+      max-width: 850px;
+      font-size: 14px;
+      font-family: $InterRegular;
+      color: #6B6B6B;
+      margin: auto auto 60px;
+    }
+
+    .steps {
+      .content {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px #00000029;
+        text-align: left;
+        padding: 20px 18px 62px 20px;
+        height: 100%;
+
+        span {
+          width: 50px;
+          height: 50px;
+          background-color: #216D95;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+          font-size: 24px;
+          color: white;
+          font-family: $Bold;
+        }
+
+        h4 {
+          padding-top: 25px;
+          font-family: $Bold;
+        }
+
+        p {
+          padding-top: 25px;
+          color: #6B6B6B;
+          font-family: $InterRegular;
+
+        }
+      }
+    }
+  }
+  .pointSystem {
+    .noteSection {
+      max-width: 830px;
+      margin: auto;
+      margin-top: 60px;
+      img {
+        float: right;
+      }
+      p {
+        text-align: left;
+        color: $black;
+        font-family: $InterRegular;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+    .pointsBox {
+      justify-content: center;
+      .pointsContent {
+        width: 400px;
+        .box-section {
+          border: 2px solid #216d96;
+          padding: 0 0 20px;
+          position: relative;
+          border-radius: 10px;
+
+          .userIcon,.cardIcon {
+            position: absolute;
+            top: -53px;
+            left: 0;
+            right: 0;
+            img {
+              width: 120px;
+            }
+          }
+          .redIcon {
+            position: absolute;
+            top: -16px;
+            right: 0px;
+            img {
+              width: 30px;
+            }
+          }
+          .desc {
+            font-family: $InterRegular;
+            font-size: 24px;
+            padding-top: 70px;
+          }
+          .point {
+            font-family: $SemiBold;
+            color:#216D96;
+            font-size: 45px;
+          }
+        }
+      }
+    }
+  }
+
+  .openSuyoolCont {
+    text-align: center;
+    margin: 90px 0;
+
+    button {
+      font-family: $SemiBold;
+    }
+  }
+
+  @media(max-width: 768px) {
+    .top-section {
+      .title {
+        font-size: 30px;
+      }
+
+      .timerContainer {
+        padding: 44px 15px;
+        margin-bottom: 30px;
+      }
+    }
+    .send-link-form-cont {
+      float: none;
+      padding-bottom: 0;
+
+      .input-sub-cont {
+        max-width: 100%;
+        padding: 8px 0;
+      }
+    }
+    .get-the-app {
+      text-align: center;
+      margin: auto;
+      max-width: 100%;
+
+      button {
+        padding: 10px 35px !important;
+      }
+    }
+    .box-section {
+      .desc {
+        font-size: 18px;
+      }
+      .point {
+        font-size: 28px;
+      }
+    }
+  }
+  @media(max-width: 991px) {
+    .pointsContentMobile {
+      margin-top: 70px;
+    }
+    .noteSection {
+      margin: unset;
     }
   }
 }

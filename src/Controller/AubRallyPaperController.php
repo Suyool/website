@@ -39,10 +39,36 @@ class AubRallyPaperController extends AbstractController
     }
 
      /**
-      * @Route("/{code}", name="aub_invitation")
+      * @Route("/aubInvitation", name="aub_invitation")
       */
-     public function index($code, Request $request): Response
+     public function aubInvitation(Request $request): Response
      {
+         $parameters['faq'] = [
+             "ONE" => [
+                 "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
+                 "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+             ],
+             "TWO" => [
+                 "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
+                 "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+             ],
+             "THREE" => [
+                 "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_IMA",
+                 "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_IMA"
+             ],
+             "FOUR" => [
+                 "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                 "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_IMA"
+             ],
+             "FIVE" => [
+                 "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
+                 "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
+             ],
+             "SIX" => [
+                 "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
+                 "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+             ],
+         ];
 //          $hash = base64_encode(hash($this->hash_algo, $code  . $this->certificate, true));
 //
 //         $form_data = [
@@ -55,10 +81,9 @@ class AubRallyPaperController extends AbstractController
 //         $invitation_card_details_response = json_decode($response, true);
 //         $invitation_card_details_response = str_replace("{Name}", $invitation_card_details_response['InviterName'], $invitation_card_details_response['RespTitle']);
 
-         return $this->render('aubRallyPaper/invitation.html.twig', [
-//             'inviterDetails' => $invitation_card_details_response,
-             'code' => $code,
-         ]);
+
+         return $this->render('aubRallyPaper/invitation.html.twig', $parameters);
+
      }
 
     /**
