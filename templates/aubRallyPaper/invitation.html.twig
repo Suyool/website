@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="aubInvitation">
+        {% include 'aubRallyPaper/invitationTopSection.html.twig' %}
+        <div class="container-fluid mt-5">
+            {% include 'aubRallyPaper/help3Steps.html.twig' %}
+            <div class="openSuyoolCont">
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Earn Points With Suyool</button>
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">Open Your Suyool Account</button>
+            </div>
+            {% include 'aubRallyPaper/pointSystem.html.twig' %}
+            <div class="openSuyoolCont">
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 desktopMode" data-bs-toggle="modal" data-bs-target="#DownloadApp">Earn Points With Suyool</button>
+                <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">Open Your Suyool Account</button>
+            </div>
+        </div>
+        {% include 'elements/faq/faqSuyool.html.twig' %}
+    </div>
+    {% include 'elements/footer.html.twig' %}
+
+{% endblock %}
