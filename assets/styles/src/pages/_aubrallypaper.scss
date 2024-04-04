@@ -453,30 +453,159 @@
         }
 
     }
+
     .send-link-form-cont {
         padding-bottom: 60px;
-    
+
         .send-link-form {
-          .get-the-app {
-            border-radius: 10px;
-            background-color: $white;
-            border: 1px solid #216D95;
-    
-            button {
-              font-family: $SemiBold !important;
-              font-size: 14px !important;
-              color: #226d96 !important;
-              background-color: $white !important;
+            .get-the-app {
+                border-radius: 10px;
+                background-color: $white;
+                border: 1px solid #216D95;
+
+                button {
+                    font-family: $SemiBold !important;
+                    font-size: 14px !important;
+                    color: #226d96 !important;
+                    background-color: $white !important;
+                }
             }
-          }
-    
-          .input-sub-cont {
-            border-radius: 10px;
-    
-            .country-code {
-              font-family: $Regular;
+
+            .input-sub-cont {
+                border-radius: 10px;
+
+                .country-code {
+                    font-family: $Regular;
+                }
             }
-          }
         }
-      }
+    }
+
+    .info {
+        text-align: center;
+        margin-top: 40px;
+        background-color: #fff;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        box-shadow: 2px 2px #00000029;
+        border-radius: 10px;
+
+        .userIcon {
+            img {
+                width: 100px;
+            }
+        }
+
+        .title {
+            color: #000000;
+            font-family: 'PoppinsSemiBold';
+            font-size: 26px;
+        }
+
+        .number {
+            color: #216D96;
+            font-family: 'PoppinsSemiBold';
+            font-size: 40px;
+        }
+    }
+
+    .overview {
+        text-align: center;
+        margin-top: 40px;
+
+        h1 {
+            font-family: $Bold;
+            font-size: 30px;
+            color: #373464;
+            padding-bottom: 30px;
+        }
+
+        h2 {
+            font-family: $Regular;
+            color: #202020;
+            font-size: 20px;
+            padding-bottom: 30px;
+        }
+
+        h3 {
+            color: #6B6B6B;
+            font-size: 15px;
+            padding-bottom: 30px;
+        }
+    }
+
+    .status {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 120px;
+
+        h1 {
+            font-family: $Bold;
+            font-size: 30px;
+            color: #373464;
+            padding-bottom: 30px;
+        }
+
+        h2 {
+            font-family: $Regular;
+            color: #202020;
+            font-size: 20px;
+            padding-bottom: 30px;
+        }
+
+        h3 {
+            color: #6B6B6B;
+            font-size: 15px;
+            padding-bottom: 30px;
+        }
+
+        .diffstatus {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            .st {
+                &.pending {
+                    color: #ffc815;
+                    background-color: #fff3cc;
+                }
+
+                &.requested {
+                    color: #1f39d6;
+                    background-color: #d1d5f7;
+                }
+
+                &.fully {
+                    color: #367aa0;
+                    background-color: #d3e1ea;
+                }
+
+                &.activated {
+                    color: #6bce4a;
+                    background-color: #e0f5d9;
+                }
+
+                &.card {
+                    color: #373464;
+                    background-color: #d7d6e0;
+                }
+
+                border-radius: 50px;
+                padding: 8px;
+                height: 38px;
+                font-size: 13px;
+                padding-bottom: 16px;
+                font-family: 'PoppinsBold';
+                width: 20%;
+            }
+
+            .desc {
+                width: 80%;
+                font-family: 'InterRegular';
+                font-size: 13px;
+                text-align: left;
+                padding-left: 10px;
+            }
+        }
+
+    }
 }
