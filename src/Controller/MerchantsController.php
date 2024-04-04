@@ -1479,7 +1479,6 @@ class MerchantsController extends AbstractController
         return $this->render('hopital-saint-charles/index.html.twig', $parameters);
     }
 
-
     /**
      * @Route("/bluefield", name="bluefield-payroll")
      */
