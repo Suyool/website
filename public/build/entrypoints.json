@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.20aaa58d.js"
+        "/build/app1.b5087446.js"
       ]
     },
     "admin-app": {
@@ -101,6 +101,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.2e3d1365.css"
 =======
         "/build/styles.a59daee3.css"
@@ -114,7 +115,13 @@
 =======
         "/build/styles.6d407515.css"
 >>>>>>> 570830c1 (invitation design and respon)
+<<<<<<< HEAD
 >>>>>>> 1864f052 (invitation design and respon)
+=======
+=======
+        "/build/styles.192a9513.css"
+>>>>>>> 117c3e1e (login page with db and sessions full flow)
+>>>>>>> 62f6f72e (login page with db and sessions full flow)
       ]
     },
     "admin": {
