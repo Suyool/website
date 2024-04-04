@@ -62,6 +62,7 @@
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.9450f3de.js"
 =======
         "/build/Simly.2186ad2c.js"
@@ -69,7 +70,13 @@
 =======
         "/build/Simly.20d26532.js"
 >>>>>>> a41e9a26 (top-section)
+<<<<<<< HEAD
 >>>>>>> 92a04f17 (top-section)
+=======
+=======
+        "/build/Simly.2186ad2c.js"
+>>>>>>> 7660f8d7 (rally landing page ranking)
+>>>>>>> b3654f4e (rally landing page ranking)
       ]
     },
     "LegalEnrollement": {
@@ -102,6 +109,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.2e3d1365.css"
 =======
         "/build/styles.a59daee3.css"
@@ -121,7 +129,16 @@
 =======
         "/build/styles.192a9513.css"
 >>>>>>> 117c3e1e (login page with db and sessions full flow)
+<<<<<<< HEAD
 >>>>>>> 62f6f72e (login page with db and sessions full flow)
+=======
+=======
+        "/build/styles.192a9513.css"
+=======
+        "/build/styles.6093fdb1.css"
+>>>>>>> 2d746495 (rally landing page ranking)
+>>>>>>> 7660f8d7 (rally landing page ranking)
+>>>>>>> b3654f4e (rally landing page ranking)
       ]
     },
     "admin": {
