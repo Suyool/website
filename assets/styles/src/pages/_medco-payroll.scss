@@ -136,6 +136,13 @@
 
       .OpenYourSuyoolAccount {
         padding: 10px 30px;
+        &.blueButtonForDesk{
+        @media screen and (min-width: 992px) {
+          color: #fff;
+          background-color: #226d96 ;
+          
+        }
+      }
 
         @media screen and (max-width: 768px) {
           padding: 10px 50px;
@@ -147,11 +154,11 @@
         font-family: $SemiBold;
         background: #ffffff;
 
-        &:hover {
-          background: #226d96;
-          border: 2px solid #fff;
-          color: #ffffff;
-        }
+        // &:hover {
+        //   background: #226d96;
+        //   border: 2px solid #fff;
+        //   color: #ffffff;
+        // }
       }
     }
   }
