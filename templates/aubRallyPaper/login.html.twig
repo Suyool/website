@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="aubLoginPage aubInvitation">
+        <div class="left-section"></div>
+        <div class="right-section">
+            <div class="timerContainer">
+                <div class="row">
+                    <div class="col-5 sections"><img src="{{ asset('build/images/aub/rallypaper.svg') }}" alt="rally paper"></div>
+                    <div class="col-2 sections xsymbole">X</div>
+                    <div class="col-5 sections"><img src="{{ asset('build/images/suyoolBlueLogo.svg') }}" alt="Suyool"></div>
+                </div>
+                <p>Rally Paper AUB 2024</p>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-8">
+                        <form id="loginForm" method="post">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="_username" id="username" placeholder="Team Name" required>
+                            </div>
+                            <div class="my-4">
+                                <input type="password" class="form-control" name="_password" id="password" placeholder="Password" required>
+                            </div>
+                            <div class="buttonCont">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                            <div id="loginError" class="text-danger"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="supportSection">
+                <img src="{{ asset('build/images/aub/support.svg') }}"> <span>24h Support</span>
+                <p>+961 1 290 900</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,5 @@
 {
-  "build/app1.js": "/build/app1.20aaa58d.js",
+  "build/app1.js": "/build/app1.b5087446.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.1f1ec46f.js",
   "build/Alfa.js": "/build/Alfa.ff0b819e.js",
@@ -28,11 +28,15 @@
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.0820f611.css",
 >>>>>>> a41e9a26 (top-section)
 =======
   "build/styles.css": "/build/styles.6d407515.css",
 >>>>>>> 570830c1 (invitation design and respon)
+=======
+  "build/styles.css": "/build/styles.192a9513.css",
+>>>>>>> 117c3e1e (login page with db and sessions full flow)
   "build/admin.css": "/build/admin.a5306bd9.css",
   "build/Lotostyles.css": "/build/Lotostyles.36aad504.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8994c006.css",
@@ -71,6 +75,8 @@
   "build/images/payroll/MediapakDesk.png": "/build/images/payroll/MediapakDesk.png",
   "build/images/payroll/sadDesk.png": "/build/images/payroll/sadDesk.png",
   "build/images/payroll/aramexDesk.png": "/build/images/payroll/aramexDesk.png",
+  "build/images/aub/aubLoginWallpaper.png": "/build/images/aub/aubLoginWallpaper.png",
+  "build/images/aubLoginWallpaper.png": "/build/images/aubLoginWallpaper.511cd595.png",
   "build/images/medco/medco-payroll-desktop.png": "/build/images/medco/medco-payroll-desktop.png",
   "build/images/payroll/climateDesk.png": "/build/images/payroll/climateDesk.png",
   "build/images/payroll/mikeDesk.png": "/build/images/payroll/mikeDesk.png",
@@ -115,6 +121,8 @@
   "build/images/sendReceiveMoney/sendReceiveIPad.png": "/build/images/sendReceiveMoney/sendReceiveIPad.png",
   "build/images/aramex/aramexDesk.png": "/build/images/aramex/aramexDesk.png",
   "build/images/medco/medco-payroll-meta.png": "/build/images/medco/medco-payroll-meta.png",
+  "build/images/aub/loginMobile.png": "/build/images/aub/loginMobile.png",
+  "build/images/loginMobile.png": "/build/images/loginMobile.35e98a6d.png",
   "build/images/payroll/ecmMeta.png": "/build/images/payroll/ecmMeta.png",
   "build/images/payroll/zpDesk.png": "/build/images/payroll/zpDesk.png",
   "build/images/payroll/ndsMobile.png": "/build/images/payroll/ndsMobile.png",
@@ -737,8 +745,8 @@
   "build/images/sodetel/f1-cir.svg": "/build/images/sodetel/f1-cir.svg",
   "build/images/terraNet/circle_product_-840.png": "/build/images/terraNet/circle_product_-840.png",
   "build/images/terraNet/circle_product_-839.png": "/build/images/terraNet/circle_product_-839.png",
-  "build/images/sodetel/f3.svg": "/build/images/sodetel/f3.svg",
   "build/images/suyoolBlueLogo.svg": "/build/images/suyoolBlueLogo.svg",
+  "build/images/sodetel/f3.svg": "/build/images/sodetel/f3.svg",
   "build/images/aub/Group 40427.svg": "/build/images/aub/Group 40427.svg",
   "build/images/digital_corporate/noHiddFees.svg": "/build/images/digital_corporate/noHiddFees.svg",
   "build/images/terraNet/circle_product_-836.png": "/build/images/terraNet/circle_product_-836.png",
@@ -901,6 +909,7 @@
   "build/images/sodetel/frz-cir.svg": "/build/images/sodetel/frz-cir.svg",
   "build/images/platinumMastercard/convenience_control.png": "/build/images/platinumMastercard/convenience_control.png",
   "build/images/payment/pay_with_card.svg": "/build/images/payment/pay_with_card.svg",
+  "build/images/aub/support.svg": "/build/images/aub/support.svg",
   "build/images/terraNet/circle_product_-801.png": "/build/images/terraNet/circle_product_-801.png",
   "build/images/terraNet/circle_product_-846.png": "/build/images/terraNet/circle_product_-846.png",
   "build/images/ma-tbank/global.svg": "/build/images/ma-tbank/global.svg",
