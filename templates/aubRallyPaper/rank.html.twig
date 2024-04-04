@@ -18,9 +18,7 @@
                         </h3>
                     </div>
                     <div class="col-md-6">
-                        <div class="timer">
-                            <span>00:00:00:00</span>
-                        </div>
+                        <div id="countdownRallyPaper" class="mt-4" style="background-color: #FFFFFF;color: #2D72A1;"></div>
                         <div class="desc">
                             Pre-Challenge Countdown
                         </div>
@@ -80,8 +78,64 @@
                                 Pts Collected
                             </div>
                         </div>
+                        <div class="body">
+                            <div class="nmb">
+                                4
+                            </div>
+                            <div class="name">
+                                SOPHOMIX
+                            </div>
+                            <div class="pts">
+                                xx
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="nmb">
+                                5
+                            </div>
+                            <div class="name">
+                                SOPHOMIX
+                            </div>
+                            <div class="pts">
+                                xx
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="nmb">
+                                6
+                            </div>
+                            <div class="name">
+                                SOPHOMIX
+                            </div>
+                            <div class="pts">
+                                xx
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="container">
+                {% include 'aubRallyPaper/challenge.html.twig' %}      
+            </div>
+            <div class="points aubInvitation"> 
+                {% include 'aubRallyPaper/pointSystemrank.html.twig' %}
+                <div class="howtoenroll">
+                    <button class="howtoenrollbtn">Earn Points With Suyool</button>
+                    <br>
+                    <a  href="https://www.youtube.com/watch?si=Yw1YKOFIBicYfld6&v=iXIqNHBy6-o&feature=youtu.be" class="yt"> https://youtu.be/iXIqNHBy6-o?si=Yw1YKOFIBicYfld6</a>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="container">
+                    {% include 'aubRallyPaper/faq.html.twig' %}
+                </div>
+            </div>
+            <div class="tc">
+                <div class="container">
+                        {% include 'aubRallyPaper/tc.html.twig' %}
+                </div>
+            </div>
         </div>
+        {% include 'elements/get-suyool.html.twig' %}
+        {% include 'elements/footer.html.twig' %}
     {% endblock %}
