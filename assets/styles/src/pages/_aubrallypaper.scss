@@ -1,6 +1,196 @@
-.rank{
-    .header{
+.rank {
+    .header {
         background: linear-gradient(90deg, #226d96 6%, #373464 76%);
+        padding-top: 44px;
         text-align: center;
+        min-height: 600px;
+
+        .headernav {
+            padding-bottom: 40px;
+
+            span {
+                color: #fff;
+                font-size: 46px;
+                padding-left: 20px;
+                padding-right: 20px;
+                position: relative;
+                top: 16px;
+            }
+        }
+
+        .descriptionComp {
+            h1 {
+                text-align: left;
+                font-family: $Bold;
+                color: #fff;
+
+                span {
+                    color: #02FF62;
+                }
+
+                margin-bottom: 60px;
+            }
+
+            h3 {
+                text-align: left;
+                font-family: $InterRegular;
+                color: #fff;
+
+                span {
+                    color: #02FF62;
+                }
+            }
+        }
+
+       
+    }
+    .preboard{
+        min-height: 500px;
+        position: relative;
+    .board {
+        .inboard{
+            height: 286px;
+        }
+        .sprint{
+            .head{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+        background: #fff;
+        height: 122px;
+        margin: auto;
+        width: 30%;
+        display: block;
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+        box-shadow: 3px 3px #00000029;
+        border-radius: 25px;
+        text-align: center;
+        height: 100%;
+        padding-left: 60px;
+        padding-right: 60px;
+
+        .inboard {
+            .stars {
+                width: 100%;
+                position: relative;
+                top: -91px;
+            }
+            .desc{
+                span{
+                    display: block;
+                }
+            }
+
+            .prize1 {
+                position: absolute;
+                top: -75px;
+                left: 0;
+                margin: auto;
+                right: 0;
+                .border{
+                    position: relative;
+                    top: -20px;
+                    width: 25%;
+                    margin: auto;
+                    border: none!important;
+                }
+
+                .yellowborder {
+                    margin: auto;
+                    // position: relative;
+                    background: #FABF2D;
+                    // top: -20px;
+                    border-radius: 4px;
+                    padding: 10px;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        /* background-color: #FABF2D; */
+                        width: 100%;
+                        height: 40px;
+                        border: 1px solid #FABF2D;
+                        right: -5px;
+                        border-radius: 3px;
+                        top: -4px;
+                    }
+                }
+
+            }
+            .prize2 {
+                position: absolute;
+                top: 95px;
+                left: 20px;
+                margin: auto;
+                .border{
+                    position: relative;
+                    top: -20px;
+                    // width: 25%;
+                    // margin: auto;
+                    border: none!important;
+                }
+                .yellowborder {
+                    margin: auto;
+                    // position: relative;
+                    background: #FABF2D;
+                    // top: -20px;
+                    border-radius: 4px;
+                    padding: 10px;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        /* background-color: #FABF2D; */
+                        width: 100%;
+                        height: 40px;
+                        border: 1px solid #FABF2D;
+                        right: -5px;
+                        border-radius: 3px;
+                        top: -4px;
+                    }
+                }
+
+            }
+            .prize3 {
+                position: absolute;
+                top: 95px;
+                margin: auto;
+                right: 20px;
+
+                .border{
+                    position: relative;
+                    top: -20px;
+                    // width: 25%;
+                    // margin: auto;
+                    border: none!important;
+                }
+                .yellowborder {
+                    margin: auto;
+                    // position: relative;
+                    background: #FABF2D;
+                    // top: -20px;
+                    border-radius: 4px;
+                    padding: 10px;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        /* background-color: #FABF2D; */
+                        width: 100%;
+                        height: 40px;
+                        border: 1px solid #FABF2D;
+                        right: -5px;
+                        border-radius: 3px;
+                        top: -4px;
+                    }
+                }
+
+            }
+        }
+    }
     }
 }
