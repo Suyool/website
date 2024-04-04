@@ -263,7 +263,7 @@ class SimlyServices
                                 }
                             }
                         }
-                        $item->set($offres);
+                        $item->set($offres)->expiresAfter(86400);
                         $this->cache->save($item);
                     } else {
                         $offres = $item->get();
