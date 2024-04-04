@@ -1,0 +1,100 @@
+<div class="faq">
+    <div class="container">
+    <div class="title">{{'FAQ'|trans}}</div>
+    <div class="subtitle">
+      {{'FREQUENTLY_ASKED_QUESTIONS'|trans}}
+    </div>
+    <div class="FAQaccordion" id="accordionFAQ">
+  <div class="accordion-item">
+    <h2 class="accordion-header headerTitle" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{faq.ONE.Title|trans}}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
+      <div class="accordion-body bodyOne">
+        {{faq.ONE.Desc|trans|raw}}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header headerTitle" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        {{faq.TWO.Title|trans}}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
+      <div class="accordion-body bodyTwo">
+        {{faq.TWO.Desc|trans|raw}}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header headerTitle" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        {{faq.THREE.Title|trans}}
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
+      <div class="accordion-body bodyThree">
+        {{faq.THREE.Desc|trans|raw}}
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header headerTitle" id="headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        {{faq.FOUR.Title|trans}}
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
+      <div class="accordion-body bodyFour">
+        {{faq.FOUR.Desc|trans|raw}}
+      </div>
+    </div>
+  </div>
+  {% if faq.FIVE is defined %}
+  <div class="accordion-item">
+    <h2 class="accordion-header headerTitle" id="headingFive">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        {{faq.FIVE.Title|trans}}
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionFAQ">
+      <div class="accordion-body bodyFive">
+        {{faq.FIVE.Desc|trans|raw}}
+      </div>
+    </div>
+  </div>
+{% endif %}
+      {% if faq.SIX is defined %}
+        <div class="accordion-item">
+          <h2 class="accordion-header headerTitle" id="headingSix">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            {{faq.SIX.Title|trans}}
+            </button>
+          </h2>
+          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body bodySix">
+              {{faq.SIX.Desc|trans|raw}}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% if faq.SEVEN is defined %}
+      <div class="accordion-item">
+        <h2 class="accordion-header headerTitle" id="headingSeven">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          {{faq.SEVEN.Title|trans}}
+          </button>
+        </h2>
+        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionFAQ">
+          <div class="accordion-body bodySeven">
+            {{faq.SEVEN.Desc|trans|raw}}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+    </div>
+</div>
+</div>
