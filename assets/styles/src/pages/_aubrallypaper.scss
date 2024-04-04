@@ -1,9 +1,20 @@
 .rank {
     .header {
+        .desc {
+            color: #fff;
+            padding-right: 28px;
+            font-family: 'InterRegular';
+            font-size: 13px;
+            padding-top: 10px;
+        }
+
         background: linear-gradient(90deg, #226d96 6%, #373464 76%);
         padding-top: 44px;
         text-align: center;
         min-height: 600px;
+        @media screen and (max-width:992px) {
+            min-height:765px ;
+        }
 
         .headernav {
             padding-bottom: 40px;
@@ -42,155 +53,334 @@
             }
         }
 
-       
+
     }
-    .preboard{
+
+    .preboard {
         min-height: 500px;
         position: relative;
-    .board {
-        .inboard{
-            height: 286px;
-        }
-        .sprint{
-            .head{
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-        background: #fff;
-        height: 122px;
-        margin: auto;
-        width: 30%;
-        display: block;
-        position: absolute;
-        top: -60px;
-        left: 0;
-        right: 0;
-        box-shadow: 3px 3px #00000029;
-        border-radius: 25px;
-        text-align: center;
-        height: 100%;
-        padding-left: 60px;
-        padding-right: 60px;
 
-        .inboard {
-            .stars {
+        .board {
+            .inboard {
+                height: 286px;
+            }
+
+            .sprint {
+                .head {
+                    display: flex;
+                    justify-content: space-between;
+                    color: #2D72A1;
+                    font-family: 'PoppinsBold';
+                    font-size: 20px;
+                }
+
+                .body {
+                    display: flex;
+                    justify-content: space-between;
+                    border: 1px solid #2B74A2;
+                    background-color: #E5EFF2;
+                    border-radius: 22px;
+                    border-top-left-radius: 32px;
+                    border-bottom-left-radius: 32px;
+                    margin-top: 10px;
+
+                    .nmb {
+                        background-color: #fff;
+                        padding: 19px;
+                        border-radius: 50px;
+                        width: 68px;
+                        border: 1px solid #2D72A1;
+                        box-shadow: 5px 2px #454066;
+                        color: #2D72A1;
+                        font-family: "PoppinsBold";
+                        font-size: 20px;
+                    }
+
+                    .name {
+                        font-family: 'PoppinsBold';
+                        font-size: 20px;
+                        padding-top: 15px;
+                        padding-right: 70px;
+                    }
+
+                    .pts {
+                        font-family: 'PoppinsBold';
+                        font-size: 20px;
+                        padding: 15px;
+                    }
+                }
+            }
+
+            background: #fff;
+            margin: auto;
+            width: 50%;
+            display: block;
+            position: absolute;
+            top: -60px;
+            left: 0;
+            right: 0;
+            box-shadow: 3px 3px #00000029;
+            border-radius: 25px;
+            text-align: center;
+            min-height: 614px;
+            padding-left: 60px;
+            padding-right: 60px;
+
+            @media screen and (max-width:992px) {
+                padding-left: 6px;
+                padding-right: 6px;
                 width: 100%;
-                position: relative;
-                top: -91px;
-            }
-            .desc{
-                span{
-                    display: block;
-                }
+                top: -50px;
             }
 
-            .prize1 {
-                position: absolute;
-                top: -75px;
-                left: 0;
-                margin: auto;
-                right: 0;
-                .border{
+            .inboard {
+                .stars {
+                    width: 100%;
                     position: relative;
-                    top: -20px;
-                    width: 25%;
-                    margin: auto;
-                    border: none!important;
+                    top: -91px;
                 }
 
-                .yellowborder {
-                    margin: auto;
-                    // position: relative;
-                    background: #FABF2D;
-                    // top: -20px;
-                    border-radius: 4px;
-                    padding: 10px;
-
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        /* background-color: #FABF2D; */
-                        width: 100%;
-                        height: 40px;
-                        border: 1px solid #FABF2D;
-                        right: -5px;
-                        border-radius: 3px;
-                        top: -4px;
+                .desc {
+                    span {
+                        display: block;
                     }
                 }
 
-            }
-            .prize2 {
-                position: absolute;
-                top: 95px;
-                left: 20px;
-                margin: auto;
-                .border{
-                    position: relative;
-                    top: -20px;
-                    // width: 25%;
-                    // margin: auto;
-                    border: none!important;
-                }
-                .yellowborder {
+                .prize1 {
+                    position: absolute;
+                    top: -75px;
+                    left: 0;
                     margin: auto;
-                    // position: relative;
-                    background: #FABF2D;
-                    // top: -20px;
-                    border-radius: 4px;
-                    padding: 10px;
+                    right: 0;
 
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        /* background-color: #FABF2D; */
-                        width: 100%;
-                        height: 40px;
-                        border: 1px solid #FABF2D;
-                        right: -5px;
-                        border-radius: 3px;
-                        top: -4px;
+                    .border {
+                        position: relative;
+                        top: -20px;
+                        width: 25%;
+                        margin: auto;
+                        border: none !important;
                     }
+
+                    .yellowborder {
+                        margin: auto;
+                        // position: relative;
+                        background: #FABF2D;
+                        // top: -20px;
+                        border-radius: 4px;
+                        padding: 10px;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            /* background-color: #FABF2D; */
+                            width: 100%;
+                            height: 40px;
+                            border: 1px solid #FABF2D;
+                            right: -5px;
+                            border-radius: 3px;
+                            top: -4px;
+                        }
+                    }
+
                 }
 
-            }
-            .prize3 {
-                position: absolute;
-                top: 95px;
-                margin: auto;
-                right: 20px;
-
-                .border{
-                    position: relative;
-                    top: -20px;
-                    // width: 25%;
-                    // margin: auto;
-                    border: none!important;
-                }
-                .yellowborder {
+                .prize2 {
+                    position: absolute;
+                    top: 95px;
+                    left: 20px;
                     margin: auto;
-                    // position: relative;
-                    background: #FABF2D;
-                    // top: -20px;
-                    border-radius: 4px;
-                    padding: 10px;
 
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        /* background-color: #FABF2D; */
-                        width: 100%;
-                        height: 40px;
-                        border: 1px solid #FABF2D;
-                        right: -5px;
-                        border-radius: 3px;
-                        top: -4px;
+                    .border {
+                        position: relative;
+                        top: -20px;
+                        // width: 25%;
+                        // margin: auto;
+                        border: none !important;
                     }
+
+                    .yellowborder {
+                        margin: auto;
+                        // position: relative;
+                        background: #FABF2D;
+                        // top: -20px;
+                        border-radius: 4px;
+                        padding: 10px;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            /* background-color: #FABF2D; */
+                            width: 100%;
+                            height: 40px;
+                            border: 1px solid #FABF2D;
+                            right: -5px;
+                            border-radius: 3px;
+                            top: -4px;
+                        }
+                    }
+
                 }
 
+                .prize3 {
+                    position: absolute;
+                    top: 95px;
+                    margin: auto;
+                    right: 20px;
+
+                    .border {
+                        position: relative;
+                        top: -20px;
+                        // width: 25%;
+                        // margin: auto;
+                        border: none !important;
+                    }
+
+                    .yellowborder {
+                        margin: auto;
+                        // position: relative;
+                        background: #FABF2D;
+                        // top: -20px;
+                        border-radius: 4px;
+                        padding: 10px;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            /* background-color: #FABF2D; */
+                            width: 100%;
+                            height: 40px;
+                            border: 1px solid #FABF2D;
+                            right: -5px;
+                            border-radius: 3px;
+                            top: -4px;
+                        }
+                    }
+
+                }
             }
         }
     }
+
+    .challenge {
+        h3 {
+            text-align: center;
+            margin-top: 125px;
+            color: #373464;
+            font-size: 30px;
+            font-family: $Bold;
+        }
+
+        h4 {
+            text-align: center;
+            font-size: 30px;
+            font-family: $Regular;
+        }
+
+        h5 {
+            text-align: center;
+            color: #6B6B6B;
+            font-family: $InterRegular;
+        }
+
+        .steps {
+            margin-top: 40px;
+
+            .step1 {
+                background-color: #fff;
+                box-shadow: 3px 3px #00000029;
+                border-radius: 14px;
+                min-height: 100%;
+                padding-left: 20px;
+                padding-bottom: 20px;
+
+                .step {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 20px;
+
+                    img {
+                        position: relative;
+                        top: -28px;
+                    }
+
+                    .b1 {
+                        color: #fff;
+                        background-color: #216D95;
+                        border-radius: 63px;
+                        width: 60px;
+                        height: 60px;
+                        text-align: center;
+                        padding-top: 5px;
+                        font-family: 'PoppinsBold';
+                        /* margin: auto; */
+                        /* display: block; */
+                        font-size: 35px;
+                        margin-right: 23px;
+                    }
+
+                }
+
+                .title {
+                    font-family: $Bold;
+                    color: #202020;
+                    font-size: 30px;
+                }
+
+                .desc {
+                    font-family: $InterRegular;
+                    color: #6B6B6B;
+                    font-size: 20px;
+                }
+
+            }
+        }
+
+        .howtoenroll {
+            text-align: center;
+            padding-top: 30px;
+
+            .howtoenrollbtn {
+                color: #fff;
+                border: none;
+                background-color: #216D96;
+                padding: 10px 65px;
+                font-family: $SemiBold;
+                font-size: 20px;
+                border-radius: 17px;
+                margin-bottom: 18px;
+            }
+
+            a {
+                color: #707070;
+                font-family: $Regular;
+            }
+        }
+    }
+
+    .points {
+        margin-top: 40px;
+        background-color: #F7FCFF;
+        padding-top: 44px;
+        padding-bottom: 50px;
+        .howtoenroll {
+            text-align: center;
+            padding-top: 30px;
+
+            .howtoenrollbtn {
+                color: #fff;
+                border: none;
+                background-color: #216D96;
+                padding: 10px 65px;
+                font-family: $SemiBold;
+                font-size: 20px;
+                border-radius: 17px;
+                margin-bottom: 18px;
+            }
+
+            a {
+                color: #707070;
+                font-family: $Regular;
+            }
+        }
     }
 }
