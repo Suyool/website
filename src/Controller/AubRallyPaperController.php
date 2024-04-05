@@ -80,18 +80,23 @@ class AubRallyPaperController extends AbstractController
                         switch ($statused['status']) {
                             case 0:
                                 $displayedStatus = 'Pending Modification';
+                                $class = 'pending';
                                 break;
                             case 1:
                                 $displayedStatus = 'Requested Card';
+                                $class = 'requested';
                                 break;
                             case 2:
                                 $displayedStatus = 'Fully Enrolled';
+                                $class = 'fully';
                                 break;
                             case 3:
                                 $displayedStatus = 'Activated Card';
+                                $class = 'activated';
                                 break;
                             case 4:
                                 $displayedStatus = 'Card Payment';
+                                $class = 'card';
                                 break;
                         }
                         $toBeDisplayedItem[] = [
@@ -99,7 +104,8 @@ class AubRallyPaperController extends AbstractController
                             'fullyname' => $statused['fullName'],
                             'mobileNo' => $statused['mobileNo'],
                             'id' => $statused['id'],
-                            'status2' => $statused['status']
+                            'status2' => $statused['status'],
+                            'class'=>$class
                         ];
                     }
                 }
@@ -112,7 +118,7 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
                             ];
                         } else if ($status == 'pending') {
                             $toBeDisplayedItem[] = [
@@ -170,7 +176,7 @@ class AubRallyPaperController extends AbstractController
             $pagination = $paginatorInterface->paginate(
                 $toBeDisplayedItem,  // Query to paginate
                 $request->get('page', 1),   // Current page number
-                2              // Records per page
+                4             // Records per page
             );
             // dd($pagination);
             $data['toBeDisplayed'][] = $pagination;

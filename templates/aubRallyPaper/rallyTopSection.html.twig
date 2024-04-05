@@ -1,10 +1,10 @@
 <div class="container-fluid top-section teamRankingTop">
-    <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"><span class="team">E4THESHOW ({{ app.session.get('username') }})</span></div>
+    <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"><span class="team">{{ app.session.get('username') }}</span></div>
     <div class="row">
         <div class="col-12 col-lg-6 image-back-1">
             <h1 class="title col-md-9">
                 {# {{ app.session.get('username') }} is inviting you to help them in The Suyool Pre- Challenge #}
-                You're Currently <span>Top 1</span> in the Suyool Challenge!
+                You're Currently <span>Top {{body.rank}}</span> in the Suyool Challenge!
             </h1>
 
             <p class="description"> Your team is on track to win 100,000 points! Keep inviting and activating users so they can start using their cards and earning more points. The Suyool Online Challenge offers a quick and easy way to accumulate points!</p>
