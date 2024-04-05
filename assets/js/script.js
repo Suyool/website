@@ -43,14 +43,14 @@ $(document).ready(function() {
                 var imageUrl = '/build/images/' + imagePath;
                 $('#popupModalBody .imgTop').attr('src', imageUrl);
 
-                if (response.globalCode === 1 || (response.globalCode === 0 && response.flagCode ===4)) {
+                if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
                     $('#popupModalBody .modalPopupTitle').text(response.title);
                     $('#popupModalBody .modalPopupText').text(response.body);
                     $('.qrSection').css('display', 'block');
                     $('#popupModalBody .modalPopupBtn').css('display', 'none');
                     $('#popupModalBody .closeBtn').css('display', 'none');
 
-                } else if (response.globalCode === 0 && response.flagCode !=4) {
+                } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
                     $('#popupModalBody .modalPopupTitle').text(response.title);
                     $('#popupModalBody .modalPopupText').text(response.body);
                     $('#popupModalBody .modalPopupBtn').css('display', 'block');
@@ -67,7 +67,7 @@ $(document).ready(function() {
             }
         });
     });
-    $('#popupModalBody .modalPopupBtn').on('click', function() {
+    $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
         if (flagCode === 5) {
             var codeValue = $('#codeID').val();
             $.ajax({
@@ -78,14 +78,14 @@ $(document).ready(function() {
                     switch: 1
                 },
                 success: function(response) {
-                    if (response.globalCode === 1 || (response.globalCode === 0 && response.flagCode ===4)) {
+                    if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
                         $('#popupModalBody .modalPopupTitle').text(response.title);
                         $('#popupModalBody .modalPopupText').text(response.body);
                         $('.qrSection').css('display', 'block');
                         $('#popupModalBody .modalPopupBtn').css('display', 'none');
                         $('#popupModalBody .closeBtn').css('display', 'none');
 
-                    } else if (response.globalCode === 0 && response.flagCode !=4) {
+                    } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
                         $('#popupModalBody .modalPopupTitle').text(response.title);
                         $('#popupModalBody .modalPopupText').text(response.body);
                         $('#popupModalBody .modalPopupBtn').css('display', 'block');
@@ -98,9 +98,8 @@ $(document).ready(function() {
                     console.error(error);
                 }
             });
-        }else if (flagCode === 2) {
-            var linkToCopy = window.location.href;
-            navigator.clipboard.writeText(linkToCopy)
+        }else if (globalCode === 0 && flagCode === 2) {
+            navigator.clipboard.writeText(window.location.href)
                 .then(function() {
                     console.log('Link copied successfully!');
                 })
@@ -109,8 +108,11 @@ $(document).ready(function() {
                 });
         }
         if (globalCode === 1 && flagCode === 2) {
-            window.location.href = '';
+            window.open('https://youtu.be/ccdq3A01Cyw', '_blank');
         }
+    });
+    $('#popupModal .closeBtn button').on('click', function() {
+        $('#popupModal').modal('hide'); // Close the modal
     });
 });
 
