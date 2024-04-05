@@ -1,32 +1,18 @@
-<div class="container-fluid top-section">
+<div class="container-fluid top-section teamRankingTop">
     <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"><span class="team">E4THESHOW ({{ app.session.get('username') }})</span></div>
     <div class="row">
         <div class="col-12 col-lg-6 image-back-1">
             <h1 class="title col-md-9">
-                {{ app.session.get('username') }} is inviting you to help them in The Suyool Pre- Challenge
+                {# {{ app.session.get('username') }} is inviting you to help them in The Suyool Pre- Challenge #}
+                You're Currently <span>Top 1</span> in the Suyool Challenge!
             </h1>
+
+            <p class="description"> Your team is on track to win 100,000 points! Keep inviting and activating users so they can start using their cards and earning more points. The Suyool Online Challenge offers a quick and easy way to accumulate points!</p>
             <div class="phone-submit">
                 <div class="send-link-form-cont">
                     <div class="send-link-form invitation-card-section-top">
                         <div class="input-main-cont">
-                            <div class="row input-sub-cont invitation-top-button">
-                                <div class="col-lg-2 col-3 cyprus-flag">
-                                    <span class="country-code">+961</span>
-                                </div>
-                                <div class="col-lg-6 col-9 input-cont ">
-                                    <input class="phoneNumberGetApp mobileTextDownloadApp" name="mobile" type="number"/>
-                                </div>
-                                <div class="get-the-app get-the-app-invitation btn-float col-4 d-none d-lg-block">
-                                    <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn submitTextDownloadAppBtn" disabled="disabled" >GET THE APP
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="get-the-app get-the-app-invitation btn-float d-lg-none my-5">
-                                <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn submitTextDownloadAppBtn" disabled="disabled">GET THE APP</button>
-                            </div>
-                            <div class="small-note">
-                                {{'18_AND_ABOVE'|trans}}
-                            </div>
+                            <a class="sendLink"  href="/rallypaperinvitation/{{teamCode}}">Share Invite Link</a> 
                         </div>
                     </div>
                 </div>
