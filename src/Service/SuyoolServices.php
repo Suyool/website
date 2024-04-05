@@ -698,4 +698,56 @@ class SuyoolServices
 
         return $content;
     }
+    
+    public function rallyPaperOverview($form_data)
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamOverView",  $form_data);
+        $content = $response->toArray(false);
+        // dd($content);
+        $data = [];
+        if ($content['globalCode'] && $content['flagCode']) {
+            foreach ($content['invitationData'] as $invitationData) {
+                switch ($invitationData['status']) {
+                    case 0:
+                        $status = 'pending';
+                        break;
+                    case 1:
+                        $status = 'requested';
+                        break;
+                    case 2:
+                        $status = 'fully';
+                        break;
+                    case 3:
+                        $status = 'activated';
+                        break;
+                    case 4:
+                        $status = 'card';
+                        break;
+                }
+                $data['status'][$status][] = $invitationData;
+            }
+            foreach ($data['status'] as $key => $value) {
+                switch ($key) {
+                    case 'pending':
+                        $data['count']['pending'] = count($data['status']['pending']);
+                        break;
+                    case 'requested':
+                        $data['count']['requested'] = count($data['status']['requested']);
+                        break;
+                    case 'fully':
+                        $data['count']['fully'] = count($data['status']['fully']);
+                        break;
+                    case 'activated':
+                        $data['count']['activated'] = count($data['status']['activated']);
+                        break;
+                    case 'card':
+                        $data['count']['card'] = count($data['status']['card']);
+                        break;
+                }
+            }
+            $data['rank'] = $content['rank'];
+            $data['allmembers'] = count($content['invitationData']);
+        }
+        return $data;
+    }
 }
