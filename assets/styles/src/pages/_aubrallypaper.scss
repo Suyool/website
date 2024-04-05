@@ -141,11 +141,19 @@
                 }
 
                 .desc {
+                    font-family: $Bold;
+                    font-size: 18px;
                     span {
                         display: block;
+                        font-family: $Regular;
+                        font-size: 16px;
                     }
                 }
-
+                .yellowborder {
+                    color: #2D72A1;
+                    font-family: $Bold;
+                    font-size: 26px;
+                }
                 .prize1 {
                     position: absolute;
                     top: -75px;
@@ -167,7 +175,7 @@
                         background: #FABF2D;
                         // top: -20px;
                         border-radius: 4px;
-                        padding: 10px;
+                        padding: 7px;
 
                         &::before {
                             content: "";
@@ -204,7 +212,7 @@
                         background: #FABF2D;
                         // top: -20px;
                         border-radius: 4px;
-                        padding: 10px;
+                        padding: 7px;
 
                         &::before {
                             content: "";
@@ -241,7 +249,7 @@
                         background: #FABF2D;
                         // top: -20px;
                         border-radius: 4px;
-                        padding: 10px;
+                        padding: 7px;
 
                         &::before {
                             content: "";

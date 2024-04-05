@@ -108,6 +108,8 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubRallyPaperRanking(Request $request)
     {
+        $response = $this->suyoolServices->getTeamsRankings();
+
         $parameters['faq'] = [
             "ONE" => [
                 "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
@@ -146,6 +148,7 @@ class AubRallyPaperController extends AbstractController
                 "Desc" => "YOU_CAN_TRACK_YOUR_TEAM"
             ],
         ];
+        $parameters['rankingsData'] = $response['rankingsData'];
         return $this->render('aubRallyPaper/rank.html.twig', $parameters);
     }
 
