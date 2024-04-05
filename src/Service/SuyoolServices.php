@@ -38,8 +38,8 @@ class SuyoolServices
 
         if ($_ENV['APP_ENV'] == "test") {
              // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-             $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+              $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
+             //$this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
              $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
@@ -683,5 +683,12 @@ class SuyoolServices
             $data = json_decode($content['data'],true);
         }
         return $data;
+    }
+    public function rallyPaperInvite($form_data)
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/AddRallyPaperInvitee",  $form_data);
+        $content = $response->toArray(false);
+
+        return $content;
     }
 }

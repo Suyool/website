@@ -1,5 +1,5 @@
 {
-  "build/app1.js": "/build/app1.b5087446.js",
+  "build/app1.js": "/build/app1.e9977530.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
   "build/Loto.js": "/build/Loto.1f1ec46f.js",
   "build/Alfa.js": "/build/Alfa.ff0b819e.js",
@@ -15,6 +15,7 @@
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
+<<<<<<< HEAD
   "build/styles.css": "/build/styles.2e3d1365.css",
 =======
   "build/Simly.js": "/build/Simly.2186ad2c.js",
@@ -52,6 +53,9 @@
 =======
   "build/styles.css": "/build/styles.7c705425.css",
 >>>>>>> 35941a7a (rally rank page)
+=======
+  "build/styles.css": "/build/styles.25f0ccd6.css",
+>>>>>>> 80a6ad9a (invitation with apis flow)
   "build/admin.css": "/build/admin.a5306bd9.css",
   "build/Lotostyles.css": "/build/Lotostyles.36aad504.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8994c006.css",
@@ -994,6 +998,7 @@
   "build/images/commingSoon/twitter.png": "/build/images/commingSoon/twitter.png",
   "build/images/payroll/suyool-symbol.svg": "/build/images/payroll/suyool-symbol.svg",
   "build/images/simly/warning.svg": "/build/images/simly/warning.svg",
+  "build/images/warning.svg": "/build/images/warning.svg",
   "build/images/install.svg": "/build/images/install.svg",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
   "build/images/copy.svg": "/build/images/copy.svg",
@@ -1036,6 +1041,7 @@
   "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",
   "build/images/medco/play.svg": "/build/images/medco/play.svg",
+  "build/images/checkGreen.svg": "/build/images/checkGreen.svg",
   "build/images/arrowBack.svg": "/build/images/arrowBack.svg",
   "build/images/back.svg": "/build/images/back.svg",
   "build/images/helpCenter/view.svg": "/build/images/helpCenter/view.svg",
