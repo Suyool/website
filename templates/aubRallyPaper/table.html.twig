@@ -1,0 +1,37 @@
+<div class="container tableoverview">
+    <div class="search">
+        <img src="{{ asset('build/images/aub/search.svg') }}">
+        <input type="text" name="search" placeholder="Search Member">
+    </div>
+    <div class="thetable">
+        <div class="nameoftheteam">
+            {{ app.session.get('username') }}
+        </div>
+        <div class="theborders">
+            <div class="theborder">
+                <div class="info1">All Members</div>
+                <div class="count">1000</div>
+            </div>
+            <div class="theborder">
+                <div class="info1">Pending Modification</div>
+                <div class="count">50</div>
+            </div>
+            <div class="theborder">
+                <div class="info1">Fully Enrolled</div>
+                <div class="count">200</div>
+            </div>
+            <div class="theborder">
+                <div class="info1">Requested Card</div>
+                <div class="count">150</div>
+            </div>
+            <div class="theborder">
+                <div class="info1">Activated Card</div>
+                <div class="count">100</div>
+            </div>
+            <div class="theborder">
+                <div class="info1">Card Payment</div>
+                <div class="count">50</div>
+            </div>
+        </div>
+    </div>
+</div>
