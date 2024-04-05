@@ -35,10 +35,12 @@
                 font-family: $Bold;
                 color: #fff;
 
-                span {
+                .number {
                     color: #02FF62;
                 }
-
+                .pre {
+                    font-family: $Regular;
+                }
                 margin-bottom: 60px;
             }
 
