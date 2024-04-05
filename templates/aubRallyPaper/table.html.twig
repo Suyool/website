@@ -3,17 +3,18 @@
         <img src="{{ asset('build/images/aub/search.svg') }}">
         <input type="text" name="search" placeholder="Search Member">
     </div>
-    {# <div class="thetable">
+    <div class="thetable">
+        <img src="{{ asset('build/images/aub/cercle1.svg') }}" class="inlineCercle1"/>
         <div class="nameoftheteam">
             {{ app.session.get('username') }}
         </div>
-        <div class="theborders">
-            <div class="theborder" id="active-tab">
+        <div class="theborders" >
+            <div class="theborder "  >
                 <div class="info1">All Members</div>
                 <div class="count">1000</div>
             </div>
-            <div class="theborder">
-                <div class="info1">Pending Modification</div>
+            <div class="theborder" id="active-tab">
+                <div class="info1">Entered Phone Number</div>
                 <div class="count">50</div>
             </div>
             <div class="theborder">
@@ -28,31 +29,47 @@
                 <div class="info1">Activated Card</div>
                 <div class="count">100</div>
             </div>
-            <div class="theborder">
-                <div class="info1">Card Payment</div>
+            <div class="theborder"  >
+                <div class="info1">1<sup>st</sup> Card Payment</div>
                 <div class="count">50</div>
             </div>
         </div>
         <div class="tab-information">
+            <div class="marginForHeader"></div>
             <div class="member-number-name"> 
                 <div class="member-number-name-left">
                     <div> Member #</div>
                     <div> Phone Number</div>
                     <div> Full Name</div>
                 </div>
-                <div class="member-number-name-right">
+                <div class="member-number-name-right ">
                     <div> Status</div>
                 </div>
             </div>
-            <div class="testing-names" > 
-                <p>1</p>
+            <div class="marginForHeader"></div>
+
+            <div class=" member-number-name greyBackground">
+                <div class="member-number-name-left" >
+                    <div class="fixedWidthMember">1</div>
+                    <div class="fixedWidthPhone" >+961 3453277</div>
+                    <div>Ramy Saber</div>
+                </div>
+                <div class="member-number-name-right st pending ">
+                    <div> Pending Modification</div>
+                </div>
             </div>
-            <div class="testing-names" > 
-                <p>1</p>
+            <div class=" member-number-name ">
+                <div class="member-number-name-left" >
+                    <div class="fixedWidthMember">1</div>
+                    <div class="fixedWidthPhone" >+961 3453277</div>
+                    <div>Ramy Saber</div>
+                </div>
+                <div class="member-number-name-right st card ">
+                    <div> Requested Card</div>
+                </div>
             </div>
-            <div class="testing-names" > 
-                <p>1</p>
-            </div>
+            
         </div>
-    </div> #}
+    </div>
+    
 </div>
