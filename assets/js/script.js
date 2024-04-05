@@ -99,13 +99,21 @@ $(document).ready(function() {
                 }
             });
         }else if (globalCode === 0 && flagCode === 2) {
-            navigator.clipboard.writeText(window.location.href)
-                .then(function() {
-                    console.log('Link copied successfully!');
-                })
-                .catch(function(error) {
-                    console.error('Error copying link: ', error);
-                });
+            // console.log('Copying link:', window.location.href);
+            // const tempInput = document.createElement("input");
+            // tempInput.value = window.location.href;
+            // document.body.appendChild(tempInput);
+            // tempInput.select();
+            // const copySuccess = document.execCommand("copy");
+            // document.body.removeChild(tempInput);
+            // console.log('Link copied successfully:', copySuccess);
+            var tempInput = document.createElement("input");
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Link copied");
         }
         if (globalCode === 1 && flagCode === 2) {
             window.open('https://youtu.be/ccdq3A01Cyw', '_blank');
@@ -464,31 +472,41 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    document.getElementById("amount").addEventListener("change", function() {
-        var nameInput = document.getElementById('amount').value;
-        if (nameInput != "") {
-            document.getElementById('convertButton').removeAttribute("disabled");
-        } else {
-            document.getElementById('convertButton').setAttribute("disabled", null);
+    var cachedDataInput;
+    var amountInput = document.getElementById("amount");
+    var convertButton = document.getElementById("convertButton");
+
+    if (amountInput && convertButton) {
+        amountInput.addEventListener("change", function() {
+            var nameInput = amountInput.value;
+            if (nameInput.trim() !== "") {
+                convertButton.removeAttribute("disabled");
+            } else {
+                convertButton.setAttribute("disabled", true);
+            }
+        });
+    }
+    const cachedData = document.getElementById('cachedData');
+    if (cachedData){
+         cachedDataInput = cachedData.value;
+
+        updateTimeDifference();
+        const currentTime = new Date().getTime();
+        const lastUpdateTime = new Date(cachedDataInput).getTime();
+        const timeDifference = currentTime - lastUpdateTime;
+
+        let intervalTime;
+        if (timeDifference < 60000) { // Less than 1 minute
+            intervalTime = 1000; // Set interval to 1 second
+        } else if (timeDifference < 3600000) { // Less than 1 hour
+            intervalTime = 60000; // Set interval to 1 minute
+        } else { // More than 1 hour
+            intervalTime = 3600000; // Set interval to 1 hour
         }
-    });
 
-    const cachedDataInput = document.getElementById('cachedData').value;
-    updateTimeDifference();
-    const currentTime = new Date().getTime();
-    const lastUpdateTime = new Date(cachedDataInput).getTime();
-    const timeDifference = currentTime - lastUpdateTime;
-
-    let intervalTime;
-    if (timeDifference < 60000) { // Less than 1 minute
-        intervalTime = 1000; // Set interval to 1 second
-    } else if (timeDifference < 3600000) { // Less than 1 hour
-        intervalTime = 60000; // Set interval to 1 minute
-    } else { // More than 1 hour
-        intervalTime = 3600000; // Set interval to 1 hour
+        setInterval(updateTimeDifference, intervalTime);
     }
 
-    setInterval(updateTimeDifference, intervalTime);
 
     function updateTimeDifference() {
         if (cachedDataInput ) {
@@ -824,16 +842,19 @@ var x = setInterval(function() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Output the result in an element with id="demo"
-    document.getElementById("countdownRallyPaper").innerHTML = days + ":" + hours + ":"
-        + minutes + ":" + seconds;
+    // Output the result in an element with id="countdownRallyPaper"
+    var countdownElement = document.getElementById("countdownRallyPaper");
+    if (countdownElement) {
+        countdownElement.innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
 
-    // If the count down is over, write some text
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdownRallyPaper").innerHTML = "EXPIRED";
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            countdownElement.innerHTML = "EXPIRED";
+        }
     }
 }, 1000);
+
 // if (document.querySelector(".loaderTopUp")) {
 //   setInterval(function () {
 //     document.getElementById("submitTopUp").style.display = "block";
