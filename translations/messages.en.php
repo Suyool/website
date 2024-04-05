@@ -672,4 +672,20 @@ return [
         For any inquiries or concerns regarding the Suyool Pre-Challenge, please contact the AUB Rally Paper organizers.<br>
     ",
 
-];
+    'HOW_CAN_MY_TEAM_EARN_POINTS_WITH_SUYOOL_PRE_CHALLENGE' => 'How can my team earn points with Suyool Pre-Challenge?',
+    'YOUR_TEAM_CAN_SCORE' => 'Your team can score points with the Suyool Pre-Challenge by inviting members to enroll to Suyool through a designated link (xxx pts) and motivating them to request the Suyool Visa Platinum card. Once they’ve got their card, all it takes is making one transaction to get xxx pts!',
+    'WHAT_ACTION_WILL_GIVE_POINTS' => 'What action will give my team more points?',
+    'WHEN_ONE_OF_YOUR_MEMBERS' => 'When one of your team members, who registered to Suyool through your unique link, makes their first payment with the Suyool Visa Platinum card, it will earn your team xxx points!',
+    'HOW_TO_INVITE_MEMBERS_TO'=> 'How to invite members to enroll to Suyool under my team?',
+    'ALL_YOU_HAVE_TO_DO_IS' => 'All you have to do is share the unique link associated with your team. This link will direct your members to a landing page where they need to enter their phone number and click on “Get The App”',
+    'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',
+    'TO_ENROLL_IN_SUYOOL' => 'To enroll in Suyool, you must be at least 18 years old and possess a Lebanese mobile number and identification. Simply complete the identification process and provide your details. Our agents will grant approval within minutes, and you’ll be all set to start using Suyool. For further details, please visit our <a href="https://helpcenter.suyool.com/category/14/24/how-to-enroll" target="_blank" style="text-decoration: underline; color: #226d96">help center.</a>',
+    'IF_THEY_ALREADY_HAVE' => 'If they already have a Suyool wallet, are they eligible to get us points?',
+    'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet but haven’t yet made a transaction with the card, they can input their number into your team’s unique landing page to link them to your team. Once linked, all they need to do is obtain the card and make their first payment with it to earn your team xxx points. Please note that they are not eligible to receive enrollment points for your team as they were registered with Suyool before the challenge began.',
+    'HOW_TO_ORDER_CARD' => 'How to order the Suyool Visa Platinum card?',
+    'ONCE_YOUR_INFORMATION_IS_VALIDATED' => 'Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to AUB for free.',
+    'CAN_I_ALSO_PAY_ONLINE' => 'Can I also pay online with Suyool Visa card?',
+    'YES_YOU_CAN_USE_CARD_ONLINE' => 'Yes, you can use the Suyool Visa Platinum card online.',
+    'HOW_CAN_I_KNOW_RANK' => 'How can I know my team’s ranking?',
+    'YOU_CAN_TRACK_YOUR_TEAM' => 'You can track your team’s ranking during the Suyool Challenge <a href="/rallypaper-team-ranking" target="_blank" style="text-decoration: underline; color: #226d96">here.</a>',
+    ];

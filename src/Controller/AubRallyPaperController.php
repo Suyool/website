@@ -81,24 +81,20 @@ class AubRallyPaperController extends AbstractController
                 "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
             ],
             "TWO" => [
-                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
-                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+                "Title" => "HOW_CAN_MY_TEAM_EARN_POINTS_WITH_SUYOOL_PRE_CHALLENGE",
+                "Desc" => "YOUR_TEAM_CAN_SCORE"
             ],
             "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_IMA",
-                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_IMA"
+                "Title" => "WHAT_ACTION_WILL_GIVE_POINTS",
+                "Desc" => "WHEN_ONE_OF_YOUR_MEMBERS"
             ],
             "FOUR" => [
-                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_IMA"
+                "Title" => "HOW_TO_INVITE_MEMBERS_TO",
+                "Desc" => "ALL_YOU_HAVE_TO_DO_IS"
             ],
             "FIVE" => [
-                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
-            ],
-            "SIX" => [
-                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
-                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+                "Title" => "HOW_CAN_I_KNOW_RANK",
+                "Desc" => "YOU_CAN_TRACK_YOUR_TEAM"
             ],
         ];
         $parameters['code'] = $code;
@@ -118,24 +114,36 @@ class AubRallyPaperController extends AbstractController
                 "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
             ],
             "TWO" => [
-                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
-                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+                "Title" => "HOW_CAN_MY_TEAM_EARN_POINTS_WITH_SUYOOL_PRE_CHALLENGE",
+                "Desc" => "YOUR_TEAM_CAN_SCORE"
             ],
             "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_SAD",
-                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_SAD"
+                "Title" => "WHAT_ACTION_WILL_GIVE_POINTS",
+                "Desc" => "WHEN_ONE_OF_YOUR_MEMBERS"
             ],
             "FOUR" => [
-                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SAD"
+                "Title" => "HOW_TO_INVITE_MEMBERS_TO",
+                "Desc" => "ALL_YOU_HAVE_TO_DO_IS"
             ],
             "FIVE" => [
-                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
+                "Title" => "HOW_TO_ENROLL_TO_SUYOOL",
+                "Desc" => "TO_ENROLL_IN_SUYOOL"
             ],
             "SIX" => [
-                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
-                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+                "Title" => "IF_THEY_ALREADY_HAVE",
+                "Desc" => "IF_THEY_ALREADY_HAVE_A_SUYOOL"
+            ],
+            "SEVEN" => [
+                "Title" => "HOW_TO_ORDER_CARD",
+                "Desc" => "ONCE_YOUR_INFORMATION_IS_VALIDATED"
+            ],
+            "EIGHT" => [
+                "Title" => "CAN_I_ALSO_PAY_ONLINE",
+                "Desc" => "YES_YOU_CAN_USE_CARD_ONLINE"
+            ],
+            "NINE" => [
+                "Title" => "HOW_CAN_I_KNOW_RANK",
+                "Desc" => "YOU_CAN_TRACK_YOUR_TEAM"
             ],
         ];
         return $this->render('aubRallyPaper/rank.html.twig', $parameters);
