@@ -1,29 +1,39 @@
 $(document).ready(function () {
-    document.getElementById("amount").addEventListener("change", function() {
-        var nameInput = document.getElementById('amount').value;
-        if (nameInput != "") {
-            document.getElementById('convertButton').removeAttribute("disabled");
-        } else {
-            document.getElementById('convertButton').setAttribute("disabled", null);
+    var cachedDataInput;
+    var amountInput = document.getElementById("amount");
+    var convertButton = document.getElementById("convertButton");
+
+    if (amountInput && convertButton) {
+        amountInput.addEventListener("change", function() {
+            var nameInput = amountInput.value;
+            if (nameInput.trim() !== "") {
+                convertButton.removeAttribute("disabled");
+            } else {
+                convertButton.setAttribute("disabled", true);
+            }
+        });
+    }
+    const cachedData = document.getElementById('cachedData');
+    if (cachedData){
+         cachedDataInput = cachedData.value;
+
+        updateTimeDifference();
+        const currentTime = new Date().getTime();
+        const lastUpdateTime = new Date(cachedDataInput).getTime();
+        const timeDifference = currentTime - lastUpdateTime;
+
+        let intervalTime;
+        if (timeDifference < 60000) { // Less than 1 minute
+            intervalTime = 1000; // Set interval to 1 second
+        } else if (timeDifference < 3600000) { // Less than 1 hour
+            intervalTime = 60000; // Set interval to 1 minute
+        } else { // More than 1 hour
+            intervalTime = 3600000; // Set interval to 1 hour
         }
-    });
 
-    const cachedDataInput = document.getElementById('cachedData').value;
-    updateTimeDifference();
-    const currentTime = new Date().getTime();
-    const lastUpdateTime = new Date(cachedDataInput).getTime();
-    const timeDifference = currentTime - lastUpdateTime;
-
-    let intervalTime;
-    if (timeDifference < 60000) { // Less than 1 minute
-        intervalTime = 1000; // Set interval to 1 second
-    } else if (timeDifference < 3600000) { // Less than 1 hour
-        intervalTime = 60000; // Set interval to 1 minute
-    } else { // More than 1 hour
-        intervalTime = 3600000; // Set interval to 1 hour
+        setInterval(updateTimeDifference, intervalTime);
     }
 
-    setInterval(updateTimeDifference, intervalTime);
 
     function updateTimeDifference() {
         if (cachedDataInput ) {

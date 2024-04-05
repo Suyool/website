@@ -188,7 +188,7 @@ class AubRallyPaperController extends AbstractController
                 $session->set('username', $user->getUsername());
                 $session->set('team_code', $user->getCode());
 
-                $session->set('expire_time', time() + 60);
+                $session->set('expire_time', time() + 1800);
 
                 return new JsonResponse(['success' => true]);
             } else {
