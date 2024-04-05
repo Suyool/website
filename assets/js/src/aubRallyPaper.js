@@ -99,14 +99,13 @@ $(document).ready(function() {
                 }
             });
         }else if (globalCode === 0 && flagCode === 2) {
-            console.log('Copying link:', window.location.href);
-            const tempInput = document.createElement("input");
+            var tempInput = document.createElement("input");
             tempInput.value = window.location.href;
             document.body.appendChild(tempInput);
             tempInput.select();
-            const copySuccess = document.execCommand("copy");
+            document.execCommand("copy");
             document.body.removeChild(tempInput);
-            console.log('Link copied successfully:', copySuccess);
+            alert("Link copied");
         }
         if (globalCode === 1 && flagCode === 2) {
             window.open('https://youtu.be/ccdq3A01Cyw', '_blank');
