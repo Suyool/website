@@ -691,4 +691,11 @@ class SuyoolServices
 
         return $content;
     }
+    public function getTeamsRankings()
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamRankings",  '');
+        $content = $response->toArray(false);
+
+        return $content;
+    }
 }
