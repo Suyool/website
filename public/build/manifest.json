@@ -8,74 +8,11 @@
   "build/Ogero.js": "/build/Ogero.971c4fbb.js",
   "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
   "build/Gift2Games.js": "/build/Gift2Games.6b16d93d.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/Simly.js": "/build/Simly.9450f3de.js",
+  "build/Simly.js": "/build/Simly.9a8c2ff0.js",
   "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
   "build/iveri.js": "/build/iveri.429e5515.js",
   "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.2e3d1365.css",
-=======
-  "build/Simly.js": "/build/Simly.2186ad2c.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.a59daee3.css",
->>>>>>> 5755b992 (rank in rally paper and images)
-=======
-  "build/Simly.js": "/build/Simly.20d26532.js",
-=======
-  "build/Simly.js": "/build/Simly.2186ad2c.js",
->>>>>>> 7660f8d7 (rally landing page ranking)
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.0820f611.css",
->>>>>>> a41e9a26 (top-section)
-=======
-  "build/styles.css": "/build/styles.6d407515.css",
->>>>>>> 570830c1 (invitation design and respon)
-=======
-  "build/styles.css": "/build/styles.192a9513.css",
->>>>>>> 117c3e1e (login page with db and sessions full flow)
-=======
-  "build/styles.css": "/build/styles.192a9513.css",
-=======
-  "build/styles.css": "/build/styles.6093fdb1.css",
->>>>>>> 2d746495 (rally landing page ranking)
->>>>>>> 7660f8d7 (rally landing page ranking)
-=======
-  "build/styles.css": "/build/styles.7c705425.css",
->>>>>>> 35941a7a (rally rank page)
-=======
-  "build/styles.css": "/build/styles.25f0ccd6.css",
->>>>>>> 80a6ad9a (invitation with apis flow)
-=======
-  "build/styles.css": "/build/styles.4ad5e4d7.css",
->>>>>>> f9ef7f45 (invitation cases without copy)
-=======
-  "build/styles.css": "/build/styles.25e969c4.css",
->>>>>>> cd0fea00 (api and some design modification for teams ranking)
-=======
-  "build/styles.css": "/build/styles.cb9c0983.css",
->>>>>>> 7068441e (fix responsive in teams ranking)
-=======
-  "build/styles.css": "/build/styles.47afb438.css",
->>>>>>> 28d47f10 (page3)
-=======
-  "build/styles.css": "/build/styles.dd69c03c.css",
->>>>>>> 0b399d84 (all sections without the table)
+  "build/styles.css": "/build/styles.95bda87a.css",
   "build/admin.css": "/build/admin.a5306bd9.css",
   "build/Lotostyles.css": "/build/Lotostyles.36aad504.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8994c006.css",
@@ -1060,10 +997,11 @@
   "build/images/attentionSign.svg": "/build/images/attentionSign.svg",
   "build/images/alfa/copySerial.png": "/build/images/alfa/copySerial.png",
   "build/images/commingSoon/linkedin.png": "/build/images/commingSoon/linkedin.png",
-  "build/images/medco/play.svg": "/build/images/medco/play.svg",
   "build/images/checkGreen.svg": "/build/images/checkGreen.svg",
+  "build/images/medco/play.svg": "/build/images/medco/play.svg",
   "build/images/arrowBack.svg": "/build/images/arrowBack.svg",
   "build/images/back.svg": "/build/images/back.svg",
+  "build/images/aub/search.svg": "/build/images/aub/search.svg",
   "build/images/helpCenter/view.svg": "/build/images/helpCenter/view.svg",
   "build/images/Loto/goPrevious.png": "/build/images/Loto/goPrevious.png",
   "build/images/minusadmin.svg": "/build/images/minusadmin.svg",
