@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\AubUser;
 use App\Entity\AubUsers;
+use App\Service\SuyoolServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,15 +25,18 @@ class AubRallyPaperController extends AbstractController
     private $helper;
     private $client;
     private $mr;
+    private $suyoolServices;
 
 
-    public function __construct(ManagerRegistry $mr)
+    public function __construct(ManagerRegistry $mr,SuyoolServices $suyoolServices)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->client = HttpClient::create();
         $this->helper = new Helper($this->client);
         $this->mr = $mr->getManager('default');
+        $this->suyoolServices = $suyoolServices;
+
     }
 
     /**
@@ -49,11 +53,28 @@ class AubRallyPaperController extends AbstractController
     }
 
     /**
-     * @Route("/rallyPaperInvitation/{code}", name="aub_invitation")
+     * @Route("/rallypaperinvitation/{code}", name="aub_invitation")
      */
-    public function aubInvitation(Request $request, $code): Response
+    public function aubInvitation(Request $request, $code =null): Response
     {
-        dd($code);
+        if ($request->isXmlHttpRequest()) {
+            $requestParam = $request->request->all();
+
+            $switch = isset($requestParam['switch']) ?$requestParam['switch'] : 0;
+            $mobile = $requestParam['mobile'];
+            $hash = base64_encode(hash($this->hash_algo, $mobile . $code . $switch . $this->certificate, true));
+
+            $form_data = [
+                'mobileNo' => $mobile,
+                'teamCode' => $code,
+                'switchTeam' => $switch,
+                'secureHash' => $hash
+
+            ];
+            $response = $this->suyoolServices->rallyPaperInvite($form_data);
+            return new JsonResponse($response);
+
+        }
         $parameters['faq'] = [
             "ONE" => [
                 "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
@@ -80,18 +101,7 @@ class AubRallyPaperController extends AbstractController
                 "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
             ],
         ];
-//          $hash = base64_encode(hash($this->hash_algo, $code  . $this->certificate, true));
-//
-//         $form_data = [
-//             'Code' => $code,
-//             'Hash' => $hash,
-//         ];
-//
-//         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $form_data);
-
-//         $invitation_card_details_response = json_decode($response, true);
-//         $invitation_card_details_response = str_replace("{Name}", $invitation_card_details_response['InviterName'], $invitation_card_details_response['RespTitle']);
-
+        $parameters['code'] = $code;
 
         return $this->render('aubRallyPaper/invitation.html.twig', $parameters);
 

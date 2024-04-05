@@ -248,6 +248,72 @@
       }
     }
   }
+  #popupModal {
+    .modalPopupTitle {
+      font-family: $Bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .modalPopupText {
+      font-family: $Regular;
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .qrSection {
+      display: none;
+      padding: 30px;
+
+      .download-text {
+        font-size: 22px;
+        margin: 30px 0;
+        font-family: $Medium;
+      }
+      .mod-title {
+        color: #216d96;
+        font-family: PoppinsBold;
+        font-size: 20px;
+        line-height: 1.4;
+        padding-top: 10px;
+      }
+      .suyoolIcon {
+        width: 70px;
+      }
+      .qr-image {
+        width: 80%;
+      }
+      .download-links {
+        img {
+          margin-bottom: 18px;
+          width: 90%;
+        }
+      }
+    }
+    .modalPopupBtn {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+
+      button {
+        font-family: $Regular;
+        font-size: 14px;
+      }
+    }
+    .closeBtn {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+
+      button {
+        border: none;
+        background-color: unset;
+        font-family: $Regular;
+        font-size: 14px;
+        color: #226D96;
+      }
+    }
+
+  }
   @media(max-width: 991px) {
     .pointsContentMobile {
       margin-top: 70px;
