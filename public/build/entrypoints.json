@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.b5087446.js"
+        "/build/app1.e9977530.js"
       ]
     },
     "admin-app": {
@@ -57,7 +57,7 @@
     "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Simly.2186ad2c.js"
+        "/build/Simly.20d26532.js"
       ]
     },
     "LegalEnrollement": {
@@ -83,7 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.7c705425.css"
+        "/build/styles.e1b8ddde.css"
       ]
     },
     "admin": {
