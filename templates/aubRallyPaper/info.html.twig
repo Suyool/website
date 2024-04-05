@@ -4,21 +4,21 @@
             <div class="info">
                 <div class="userIcon"><img src="{{ asset('build/images/aub/suyoolUserIcon.svg') }}" alt="rally paper"></div>
                 <div class="title">Fully Enrolled</div>
-                <div class="number">1000</div>
-            </div>
+                    <div class="number">{% if body.count.fully is defined %}{{body.count.fully}}{% else %} 0 {% endif %}</div>
+                </div>
         </div>
         <div class="col-md-4">
             <div class="info">
                 <div class="userIcon"><img src="{{ asset('build/images/aub/suyoolCardIcon.svg') }}" alt="rally paper"></div>
                 <div class="title">Cards Activated</div>
-                <div class="number">700</div>
+                <div class="number">{% if body.count.activated is defined %}{{body.count.activated}}{% else %} 0 {% endif %}</div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="info">
                 <div class="userIcon"><img src="{{ asset('build/images/aub/suyoolCardIcon.svg') }}" alt="rally paper"></div>
                 <div class="title">Card Payments</div>
-                <div class="number">500</div>
+                <div class="number">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>
             </div>
         </div>
     </div>
