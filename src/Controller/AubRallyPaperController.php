@@ -28,7 +28,7 @@ class AubRallyPaperController extends AbstractController
     private $suyoolServices;
 
 
-    public function __construct(ManagerRegistry $mr,SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -36,7 +36,6 @@ class AubRallyPaperController extends AbstractController
         $this->helper = new Helper($this->client);
         $this->mr = $mr->getManager('default');
         $this->suyoolServices = $suyoolServices;
-
     }
 
     /**
@@ -48,19 +47,19 @@ class AubRallyPaperController extends AbstractController
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
-
-        return $this->render('aubRallyPaper/index.html.twig');
+        $parameters['teamCode'] = $teamCode;
+        return $this->render('aubRallyPaper/index.html.twig', $parameters);
     }
 
     /**
      * @Route("/rallypaperinvitation/{code}", name="aub_invitation")
      */
-    public function aubInvitation(Request $request, $code =null): Response
+    public function aubInvitation(Request $request, $code = null): Response
     {
         if ($request->isXmlHttpRequest()) {
             $requestParam = $request->request->all();
 
-            $switch = isset($requestParam['switch']) ?$requestParam['switch'] : 0;
+            $switch = isset($requestParam['switch']) ? $requestParam['switch'] : 0;
             $mobile = $requestParam['mobile'];
             $hash = base64_encode(hash($this->hash_algo, $mobile . $code . $switch . $this->certificate, true));
 
@@ -73,7 +72,6 @@ class AubRallyPaperController extends AbstractController
             ];
             $response = $this->suyoolServices->rallyPaperInvite($form_data);
             return new JsonResponse($response);
-
         }
         $parameters['faq'] = [
             "ONE" => [
@@ -100,7 +98,6 @@ class AubRallyPaperController extends AbstractController
         $parameters['code'] = $code;
 
         return $this->render('aubRallyPaper/invitation.html.twig', $parameters);
-
     }
 
     /**
@@ -174,8 +171,10 @@ class AubRallyPaperController extends AbstractController
                 $session->set('team_code', $user->getCode());
                 return new JsonResponse(['success' => true]);
             } else {
-                return new JsonResponse(['flagCode' => 2,
-                    'error' => 'Invalid credentials. Please try again.'], 200);
+                return new JsonResponse([
+                    'flagCode' => 2,
+                    'error' => 'Invalid credentials. Please try again.'
+                ], 200);
             }
         }
         return $this->render('aubRallyPaper/login.html.twig');

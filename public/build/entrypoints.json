@@ -108,6 +108,7 @@
       "css": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.16758d43.css"
 =======
 <<<<<<< HEAD
@@ -196,6 +197,9 @@
 =======
         "/build/styles.95bda87a.css"
 >>>>>>> eeac32f3 (table structure)
+=======
+        "/build/styles.1e99151d.css"
+>>>>>>> c1267b1e (fixed in the design in top and status section, and table structure)
       ]
     },
     "admin": {
