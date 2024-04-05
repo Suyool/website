@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.e2cc9c29.js"
+        "/build/app1.1abc6582.js"
       ]
     },
     "admin-app": {
@@ -59,6 +59,7 @@
         "/build/runtime.cbe92cc0.js",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/Simly.26ff59aa.js"
 =======
 <<<<<<< HEAD
@@ -81,6 +82,9 @@
 =======
         "/build/Simly.9a8c2ff0.js"
 >>>>>>> eeac32f3 (table structure)
+=======
+        "/build/Simly.9450f3de.js"
+>>>>>>> 6b7240e8 (change to 62 and copy clipboard)
       ]
     },
     "LegalEnrollement": {
