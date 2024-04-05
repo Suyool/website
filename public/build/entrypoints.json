@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.b5087446.js"
+        "/build/app1.e9977530.js"
       ]
     },
     "admin-app": {
@@ -111,6 +111,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.2e3d1365.css"
 =======
         "/build/styles.a59daee3.css"
@@ -145,7 +146,13 @@
 =======
         "/build/styles.7c705425.css"
 >>>>>>> 35941a7a (rally rank page)
+<<<<<<< HEAD
 >>>>>>> bad5353b (rally rank page)
+=======
+=======
+        "/build/styles.25f0ccd6.css"
+>>>>>>> 80a6ad9a (invitation with apis flow)
+>>>>>>> bd1853f5 (invitation with apis flow)
       ]
     },
     "admin": {
