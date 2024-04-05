@@ -646,26 +646,35 @@
             }
         }
         .thetable{
+            position: relative;
             .nameoftheteam{
                 text-align: left;
+                margin-bottom: 2rem;
             }
             .theborders {
                 display: flex;
                 justify-content: space-between;
             }
 
-            .theborders:active {
-                & #active-tab:active {
+            .theborders {
+                & #active-tab {
                 border: 2px solid #2C73A2;
-                border-radius: 26px 26px 26px 0px;
+                border-radius: 26px 26px 0  0px;
                 opacity: 1;
                 top: 1780px;
                 left: 150px;
                 width: 238px;
-                height: 118px;
+                height: 68px;
             }
         }
-            
+        .inlineCercle1 {
+            position: absolute;
+            display: block;
+            z-index: 999;
+            top: 4rem; 
+            left: -5%; 
+            width: 8%;
+        }
         .tab-information {
             display: flex;
             flex-direction: column; 
@@ -676,40 +685,110 @@
             left: 150px;
             // width: 1620px;
             height: 904px;
-            
-            p {
+            row-gap: 1%;
+            background-color: #F7FCFF ;
+
+
+
+            div {
                 text-align: left;
-                font: normal normal normal 18px/27px Poppins;
+                font: normal normal normal 18px/27px ;                
                 letter-spacing: 0px;
+                font-family: 'PoppinsRegular';
                 color: #000000;
                 opacity: 1;
+            }
+
+            .marginForHeader {
+                margin-top: 3rem ;
             }
 
             .member-number-name {
                 display: flex;
                 justify-content: space-between;
-                width: 94.9%;               
-                margin: 2rem 2rem;
+                width: 94.9%;          
+                height: 2.8rem;     
+                // margin: 2rem 2rem;
                 background: #FFFFFF 0% 0% no-repeat padding-box;
                 box-shadow: 0px 2px 5px #0000001A;
                 border-radius: 3px;
                 opacity: 1;
                 align-items: center; 
+                margin-left: 2rem;
 
+                &.greyBackground {
+                    background-color: #FAFAFA;
+                }
+
+                @media only screen and (max-width: 992px) {
+                    flex-wrap: wrap;
+                }
 
                 .member-number-name-left {
                     display: flex;
                     justify-content: flex-start; 
+                    padding-left: 2rem;
                     gap: 9rem; 
                     align-items: center;
+
+                    .fixedWidthMember{
+                        width: 5.3rem;
+                    }
+
+                    .fixedWidthPhone{
+                        width: 7.4rem;
+                    }
                 }
         
                 .member-number-name-right {
                     display: flex;
-                    justify-content: flex-end; 
+                    justify-content: center; 
                     align-items: center; 
                     margin-right: 3rem;
+                    
+                    @media only screen and (max-width: 992px) {
+                            font-size: x-small;
+                    }
+                    
+
                 }
+                .st {
+                    &.pending {
+                        color: #ffc815;
+                        background-color: #fff3cc;
+                    }
+    
+                    &.requested {
+                        color: #1f39d6;
+                        background-color: #d1d5f7;
+                    }
+    
+                    &.fully {
+                        color: #367aa0;
+                        background-color: #d3e1ea;
+                    }
+    
+                    &.activated {
+                        color: #6bce4a;
+                        background-color: #e0f5d9;
+                    }
+    
+                    &.card {
+                        color: #373464;
+                        background-color: #d7d6e0;
+                    }
+    
+                    border-radius: 50px;
+                    padding: 8px;
+                    height: 31px;
+                    font-size: 16px;
+                    padding-bottom: 16px;
+                    font-family: 'PoppinsBold';
+                    width: 18%;
+                    align-items: cemter;
+    
+                }
+                
             }
         }
     }
