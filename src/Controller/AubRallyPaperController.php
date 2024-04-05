@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\AubLogs;
 use App\Entity\AubUser;
 use App\Entity\AubUsers;
 use App\Service\SuyoolServices;
@@ -79,6 +80,15 @@ class AubRallyPaperController extends AbstractController
 
             ];
             $response = $this->suyoolServices->rallyPaperInvite($form_data);
+
+            $logs = new AubLogs();
+            $logs
+                ->setidentifier($mobile)
+                ->setrequest(json_encode($form_data))
+                ->setresponse(json_encode($response));
+            $this->mr->persist($logs);
+            $this->mr->flush();
+
             return new JsonResponse($response);
         }
         $parameters['faq'] = [
