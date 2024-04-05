@@ -28,7 +28,7 @@ class AubRallyPaperController extends AbstractController
     private $suyoolServices;
 
 
-    public function __construct(ManagerRegistry $mr,SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -36,7 +36,6 @@ class AubRallyPaperController extends AbstractController
         $this->helper = new Helper($this->client);
         $this->mr = $mr->getManager('default');
         $this->suyoolServices = $suyoolServices;
-
     }
 
     /**
@@ -44,23 +43,178 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubRallyPaper(Request $request, SessionInterface $session)
     {
+        $status = $request->query->get('status');
         if (!$session->has('username')) {
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
+        $hash = base64_encode(hash($this->hash_algo,  'code2' . $this->certificate, true));
+        $body = [
+            'code' => 'code2',
+            'secureHash' => $hash
+        ];
+        $data = $this->suyoolServices->rallyPaperOverview($body);
+        /*
+        0 pending
+        1 requested
+        2 fully
+        3 activated
+        4 card payment
+        */
+        // dd($data);
+        if (!empty($data)) {
+            $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
+            if (is_null($status)) {
+                foreach ($data['status'] as $status => $statused) {
+                    foreach ($data['status'][$status] as $statused) {
+                        switch ($statused['status']) {
+                            case 0:
+                                $displayedStatus = 'Pending Modification';
+                                break;
+                            case 1:
+                                $displayedStatus = 'Requested Card';
+                                break;
+                            case 2:
+                                $displayedStatus = 'Fully Enrolled';
+                                break;
+                            case 3:
+                                $displayedStatus = 'Activated Card';
+                                break;
+                            case 4:
+                                $displayedStatus = 'Card Payment';
+                                break;
+                        }
+                        $toBeDisplayedItem[] = [
+                            'status' => $displayedStatus,
+                            'fullyname' => $statused['fullName'],
+                            'mobileNo' => $statused['mobileNo'],
+                            'id' => $statused['id'],
+                            'status2' => $statused['status']
+                        ];
+                    }
+                }
+            } else {
+                if (isset($data['status'][$status])) {
+                    foreach ($data['status'][$status] as $statused) {
+                        if (is_null($status)) {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'All Members',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        } else if ($status == 'pending') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Pending modification',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        } else if ($status == 'requested') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Requested Card',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        } else if ($status == 'fully') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Fully Enrolled',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        } else if ($status == 'activated') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Activated Card',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        } else if ($status == 'card') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Card Payment',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status']
+                            ];
+                        }
+                    }
+                } else {
+                    $toBeDisplayedItem = [];
+                }
+            }
+            $data['toBeDisplayed'][] = $toBeDisplayedItem;
+            // switch ($status) {
+            //     case 0:
+            //         $data[]['toBeDisplayed'] = [
+            //             'status' => 'Pending modification',
+            //         ];
+            //         break;
+            //     case 1:
+            //         $data[]['toBeDisplayed'] = [
+            //             'status' => 'Requested Card',
+            //             'fullyname' => $data['status']['requested']['fullName'],
+            //             'mobileNo' => $data['status']['requested']['mobileNo'],
+            //             'id' => $data['status']['requested']['id']
+            //         ];
+            //         break;
+            //     case 2:
+            //         $data[]['toBeDisplayed'] = [
+            //             'status' => 'Fully Enrolled',
+            //             'fullyname' => $data['status']['fully']['fullName'],
+            //             'mobileNo' => $data['status']['fully']['mobileNo'],
+            //             'id' => $data['status']['fully']['id']
+            //         ];
+            //         break;
+            //     case 3:
+            //         $data[]['toBeDisplayed'] = [
+            //             'status' => 'Activated Card',
+            //             'fullyname' => $data['status']['activated']['fullName'],
+            //             'mobileNo' => $data['status']['activated']['mobileNo'],
+            //             'id' => $data['status']['activated']['id']
+            //         ];
+            //         break;
+            //     case 4:
+            //         $data[]['toBeDisplayed'] = [
+            //             'status' => 'Card Payment',
+            //             'fullyname' => $data['status']['card']['fullName'],
+            //             'mobileNo' => $data['status']['card']['mobileNo'],
+            //             'id' => $data['status']['card']['id']
+            //         ];
+            //         break;
+            // }
+            $parameters = [
+                'status' => true,
+                'message' => 'Returning Data',
+                'body' => $data
+            ];
+        } else {
+            $parameters['status'] = false;
+            $parameters['message'] = 'Empty Data';
+        }
 
-        return $this->render('aubRallyPaper/index.html.twig');
+
+        // dd($parameters);
+
+        return $this->render('aubRallyPaper/index.html.twig', $parameters);
     }
 
     /**
      * @Route("/rallypaperinvitation/{code}", name="aub_invitation")
      */
-    public function aubInvitation(Request $request, $code =null): Response
+    public function aubInvitation(Request $request, $code = null): Response
     {
         if ($request->isXmlHttpRequest()) {
             $requestParam = $request->request->all();
 
-            $switch = isset($requestParam['switch']) ?$requestParam['switch'] : 0;
+            $switch = isset($requestParam['switch']) ? $requestParam['switch'] : 0;
             $mobile = $requestParam['mobile'];
             $hash = base64_encode(hash($this->hash_algo, $mobile . $code . $switch . $this->certificate, true));
 
@@ -73,7 +227,6 @@ class AubRallyPaperController extends AbstractController
             ];
             $response = $this->suyoolServices->rallyPaperInvite($form_data);
             return new JsonResponse($response);
-
         }
         $parameters['faq'] = [
             "ONE" => [
@@ -100,7 +253,6 @@ class AubRallyPaperController extends AbstractController
         $parameters['code'] = $code;
 
         return $this->render('aubRallyPaper/invitation.html.twig', $parameters);
-
     }
 
     /**
@@ -171,8 +323,10 @@ class AubRallyPaperController extends AbstractController
                 $session->set('team_code', $user->getCode());
                 return new JsonResponse(['success' => true]);
             } else {
-                return new JsonResponse(['flagCode' => 2,
-                    'error' => 'Invalid credentials. Please try again.'], 200);
+                return new JsonResponse([
+                    'flagCode' => 2,
+                    'error' => 'Invalid credentials. Please try again.'
+                ], 200);
             }
         }
         return $this->render('aubRallyPaper/login.html.twig');

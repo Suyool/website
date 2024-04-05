@@ -10,28 +10,31 @@
         <div class="theborders">
             <div class="theborder">
                 <div class="info1">All Members</div>
-                <div class="count">1000</div>
+                <div class="count">{% if body.allmembers is defined %}{{body.allmembers}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder">
                 <div class="info1">Pending Modification</div>
-                <div class="count">50</div>
+                <div class="count">{% if body.count.pending is defined %}{{body.count.pending}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder">
                 <div class="info1">Fully Enrolled</div>
-                <div class="count">200</div>
+                <div class="count">{% if body.count.fully is defined %}{{body.count.fully}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder">
                 <div class="info1">Requested Card</div>
-                <div class="count">150</div>
+                <div class="count">{% if body.count.requested is defined %}{{body.count.requested}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder">
                 <div class="info1">Activated Card</div>
-                <div class="count">100</div>
+                <div class="count">{% if body.count.activated is defined %}{{body.count.activated}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder">
                 <div class="info1">Card Payment</div>
-                <div class="count">50</div>
+                <div class="count">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>
             </div>
+        </div>
+        <div class="data">
+                    
         </div>
     </div>
 </div>
