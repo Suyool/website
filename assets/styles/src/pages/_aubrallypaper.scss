@@ -436,7 +436,12 @@
         background-color: $white;
         padding: 44px 0px;
         border-radius: 20px;
-
+        @media screen and (max-width:768px) {
+            width: 100%;
+            padding: 44px 15px;
+            position: relative;
+            top: 17px;
+        }
         .sections {
             text-align: center;
 
@@ -509,6 +514,14 @@
 
         .number {
             color: #216D96;
+            font-family: 'PoppinsSemiBold';
+            font-size: 40px;
+        }
+    }
+
+    .points{
+        .number {
+            color: #000;
             font-family: 'PoppinsSemiBold';
             font-size: 40px;
         }
@@ -645,7 +658,7 @@
         .search {
             border: 1px solid #226D9698;
             margin: auto;
-            width: 30%;
+            width: 42%;
             border-radius: 55px;
             text-align: left;
             padding: 17px;

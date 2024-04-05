@@ -10,6 +10,7 @@ use App\Entity\AubUsers;
 use App\Service\SuyoolServices;
 use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +43,7 @@ class AubRallyPaperController extends AbstractController
     /**
      * @Route("/aub-rally-paper", name="app_aub_rally_paper")
      */
-    public function aubRallyPaper(Request $request, SessionInterface $session)
+    public function aubRallyPaper(Request $request, SessionInterface $session,PaginatorInterface $paginatorInterface)
     {
         if ($session->has('expire_time') && time() > $session->get('expire_time')) {
             // Session has expired, invalidate the session
@@ -119,7 +120,8 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
+                                'class'=>$status
                             ];
                         } else if ($status == 'requested') {
                             $toBeDisplayedItem[] = [
@@ -127,7 +129,8 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
+                                'class'=>$status
                             ];
                         } else if ($status == 'fully') {
                             $toBeDisplayedItem[] = [
@@ -135,7 +138,8 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
+                                'class'=>$status
                             ];
                         } else if ($status == 'activated') {
                             $toBeDisplayedItem[] = [
@@ -143,7 +147,8 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
+                                'class'=>$status
                             ];
                         } else if ($status == 'card') {
                             $toBeDisplayedItem[] = [
@@ -151,7 +156,8 @@ class AubRallyPaperController extends AbstractController
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
-                                'status2' => $statused['status']
+                                'status2' => $statused['status'],
+                                'class'=>$status
                             ];
                         }
                     }
@@ -159,46 +165,15 @@ class AubRallyPaperController extends AbstractController
                     $toBeDisplayedItem = [];
                 }
             }
-            $data['toBeDisplayed'][] = $toBeDisplayedItem;
-            // switch ($status) {
-            //     case 0:
-            //         $data[]['toBeDisplayed'] = [
-            //             'status' => 'Pending modification',
-            //         ];
-            //         break;
-            //     case 1:
-            //         $data[]['toBeDisplayed'] = [
-            //             'status' => 'Requested Card',
-            //             'fullyname' => $data['status']['requested']['fullName'],
-            //             'mobileNo' => $data['status']['requested']['mobileNo'],
-            //             'id' => $data['status']['requested']['id']
-            //         ];
-            //         break;
-            //     case 2:
-            //         $data[]['toBeDisplayed'] = [
-            //             'status' => 'Fully Enrolled',
-            //             'fullyname' => $data['status']['fully']['fullName'],
-            //             'mobileNo' => $data['status']['fully']['mobileNo'],
-            //             'id' => $data['status']['fully']['id']
-            //         ];
-            //         break;
-            //     case 3:
-            //         $data[]['toBeDisplayed'] = [
-            //             'status' => 'Activated Card',
-            //             'fullyname' => $data['status']['activated']['fullName'],
-            //             'mobileNo' => $data['status']['activated']['mobileNo'],
-            //             'id' => $data['status']['activated']['id']
-            //         ];
-            //         break;
-            //     case 4:
-            //         $data[]['toBeDisplayed'] = [
-            //             'status' => 'Card Payment',
-            //             'fullyname' => $data['status']['card']['fullName'],
-            //             'mobileNo' => $data['status']['card']['mobileNo'],
-            //             'id' => $data['status']['card']['id']
-            //         ];
-            //         break;
-            // }
+            // $data['toBeDisplayed'][] = $toBeDisplayedItem;
+
+            $pagination = $paginatorInterface->paginate(
+                $toBeDisplayedItem,  // Query to paginate
+                $request->get('page', 1),   // Current page number
+                2              // Records per page
+            );
+            // dd($pagination);
+            $data['toBeDisplayed'][] = $pagination;
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
@@ -210,7 +185,7 @@ class AubRallyPaperController extends AbstractController
             $parameters['message'] = 'Empty Data';
         }
 
-
+      
         // dd($parameters);
 
         return $this->render('aubRallyPaper/index.html.twig', $parameters);
