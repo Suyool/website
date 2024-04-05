@@ -43,7 +43,15 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubRallyPaper(Request $request, SessionInterface $session)
     {
+        if ($session->has('expire_time') && time() > $session->get('expire_time')) {
+            // Session has expired, invalidate the session
+            $session->invalidate();
+            // Optionally, redirect to login page or perform other actions
+            return $this->redirectToRoute('app_aub_login');
+        }
+        // Check if the user is not logged in
         if (!$session->has('username')) {
+            // Redirect to login page
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
@@ -154,7 +162,7 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubLogin(Request $request, SessionInterface $session)
     {
-        if ($session->has('username')) {
+        if ($session->has('expire_time')) {
             return $this->redirectToRoute('app_aub_rally_paper');
         }
         if ($request->isXmlHttpRequest()) {
@@ -169,6 +177,9 @@ class AubRallyPaperController extends AbstractController
             if ($user->getPassword() === $hashedPassword) {
                 $session->set('username', $user->getUsername());
                 $session->set('team_code', $user->getCode());
+
+                $session->set('expire_time', time() + 60);
+
                 return new JsonResponse(['success' => true]);
             } else {
                 return new JsonResponse([
