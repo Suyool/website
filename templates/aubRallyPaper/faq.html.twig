@@ -95,6 +95,34 @@
       </div>
     </div>
   {% endif %}
+      {% if faq.EIGHT is defined %}
+        <div class="accordion-item">
+          <h2 class="accordion-header headerTitle" id="headingEight">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+              {{faq.EIGHT.Title|trans}}
+            </button>
+          </h2>
+          <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body bodyEight">
+              {{faq.EIGHT.Desc|trans|raw}}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      {% if faq.NINE is defined %}
+        <div class="accordion-item">
+          <h2 class="accordion-header headerTitle" id="headingNine">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+              {{faq.NINE.Title|trans}}
+            </button>
+          </h2>
+          <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionFAQ">
+            <div class="accordion-body bodyNine">
+              {{faq.NINE.Desc|trans|raw}}
+            </div>
+          </div>
+        </div>
+      {% endif %}
     </div>
 </div>
 </div>
