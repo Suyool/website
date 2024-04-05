@@ -99,19 +99,21 @@ $(document).ready(function() {
                 }
             });
         }else if (globalCode === 0 && flagCode === 2) {
-            const clipboard = navigator.clipboard;
-            console.log(clipboard)
-            var copyText = document.getElementById("myInput");
-
-            // Select the text field
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-
-            // Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-
-            // Alert the copied text
-            alert("Copied the text: " + copyText.value);
+            // console.log('Copying link:', window.location.href);
+            // const tempInput = document.createElement("input");
+            // tempInput.value = window.location.href;
+            // document.body.appendChild(tempInput);
+            // tempInput.select();
+            // const copySuccess = document.execCommand("copy");
+            // document.body.removeChild(tempInput);
+            // console.log('Link copied successfully:', copySuccess);
+            var tempInput = document.createElement("input");
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Link copied");
         }
         if (globalCode === 1 && flagCode === 2) {
             window.open('https://youtu.be/ccdq3A01Cyw', '_blank');
