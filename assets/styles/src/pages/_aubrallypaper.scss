@@ -460,14 +460,19 @@
         .send-link-form {
             .get-the-app {
                 border-radius: 10px;
-                background-color: $white;
-                border: 1px solid #216D95;
+                // background-color: $white;
+                // border: 1px solid #216D95;
 
                 button {
+                    top: 583px;
+                    left: 82px;
+                    width: 267px;
+                    height: 69px;
                     font-family: $SemiBold !important;
                     font-size: 14px !important;
                     color: #226d96 !important;
                     background-color: $white !important;
+                    opacity: 1;
                 }
             }
 
@@ -558,12 +563,19 @@
             font-size: 15px;
             padding-bottom: 30px;
         }
-
+        .diffstatusCont {
+            margin-top: 60px;
+        }
         .diffstatus {
             display: flex;
             justify-content: space-between;
             padding-top: 16px;
+            margin-bottom: 40px;
 
+            a {
+                text-decoration: underline;
+                color: #216D95;
+            }
             .st {
                 &.pending {
                     color: #ffc815;
@@ -593,10 +605,12 @@
                 border-radius: 50px;
                 padding: 8px;
                 height: 38px;
-                font-size: 13px;
+                font-size: 16px;
                 padding-bottom: 16px;
                 font-family: 'PoppinsBold';
                 width: 20%;
+                
+
             }
 
             .desc {
@@ -605,6 +619,7 @@
                 font-size: 13px;
                 text-align: left;
                 padding-left: 10px;
+                font-weight: bold;
             }
         }
 
@@ -634,10 +649,99 @@
             .nameoftheteam{
                 text-align: left;
             }
-            .theborders{
+            .theborders {
                 display: flex;
                 justify-content: space-between;
             }
+
+            .theborders:active {
+                & #active-tab:active {
+                border: 2px solid #2C73A2;
+                border-radius: 26px 26px 26px 0px;
+                opacity: 1;
+                top: 1780px;
+                left: 150px;
+                width: 238px;
+                height: 118px;
+            }
+        }
+            
+        .tab-information {
+            display: flex;
+            flex-direction: column; 
+            border: 2px solid #2B74A2;
+            border-radius: 0px 43px 43px 43px;
+            opacity: 1;
+            top: 1869px;
+            left: 150px;
+            // width: 1620px;
+            height: 904px;
+            
+            p {
+                text-align: left;
+                font: normal normal normal 18px/27px Poppins;
+                letter-spacing: 0px;
+                color: #000000;
+                opacity: 1;
+            }
+
+            .member-number-name {
+                display: flex;
+                justify-content: space-between;
+                width: 94.9%;               
+                margin: 2rem 2rem;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow: 0px 2px 5px #0000001A;
+                border-radius: 3px;
+                opacity: 1;
+                align-items: center; 
+
+
+                .member-number-name-left {
+                    display: flex;
+                    justify-content: flex-start; 
+                    gap: 9rem; 
+                    align-items: center;
+                }
+        
+                .member-number-name-right {
+                    display: flex;
+                    justify-content: flex-end; 
+                    align-items: center; 
+                    margin-right: 3rem;
+                }
+            }
         }
     }
+
+    }
+
+    .teamRankingTop{
+        .image-back-1 {
+            .title {
+                font-family: $Regular;
+                span {
+                    font-family: $Bold;
+                }
+            }
+        }
+        .description {
+            font-family: $InterRegular;
+            color: $white;
+        }
+        .input-main-cont {
+            margin-top: 100px;
+        
+        .sendLink {
+            background-color: #fff;
+            color: #287094;
+            padding: 10px 36px;
+            margin-right: 7px;
+            border-radius: 17px;
+            white-space: nowrap;
+            font-family: $SemiBold;
+        }
+    }
+    }
+
 }
