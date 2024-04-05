@@ -16,13 +16,15 @@ var x = setInterval(function() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Output the result in an element with id="demo"
-    document.getElementById("countdownRallyPaper").innerHTML = days + ":" + hours + ":"
-        + minutes + ":" + seconds;
+    // Output the result in an element with id="countdownRallyPaper"
+    var countdownElement = document.getElementById("countdownRallyPaper");
+    if (countdownElement) {
+        countdownElement.innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
 
-    // If the count down is over, write some text
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdownRallyPaper").innerHTML = "EXPIRED";
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            countdownElement.innerHTML = "EXPIRED";
+        }
     }
 }, 1000);
