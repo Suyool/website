@@ -1,151 +1,18 @@
 {
-  "build/app1.js": "/build/app1.1abc6582.js",
+  "build/app1.js": "/build/app1.b07d8685.js",
   "build/admin-app.js": "/build/admin-app.fd697fc2.js",
-<<<<<<< HEAD
-  "build/Loto.js": "/build/Loto.1746a0f1.js",
-  "build/Alfa.js": "/build/Alfa.4d63177f.js",
-  "build/Touch.js": "/build/Touch.f7f2821d.js",
-  "build/Windsl.js": "/build/Windsl.1de1c152.js",
-  "build/Ogero.js": "/build/Ogero.65ddfb22.js",
-  "build/TerraNet.js": "/build/TerraNet.e3967e23.js",
-  "build/Gift2Games.js": "/build/Gift2Games.a8f2e1bd.js",
-  "build/Simly.js": "/build/Simly.26ff59aa.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.b07db060.js",
-  "build/iveri.js": "/build/iveri.0491d859.js",
-  "build/Sodetel.js": "/build/Sodetel.1456c8d7.js",
-  "build/styles.css": "/build/styles.16758d43.css",
-=======
-  "build/Loto.js": "/build/Loto.1f1ec46f.js",
-  "build/Alfa.js": "/build/Alfa.ff0b819e.js",
-  "build/Touch.js": "/build/Touch.3aebce91.js",
-  "build/Windsl.js": "/build/Windsl.7f6e487c.js",
-  "build/Ogero.js": "/build/Ogero.971c4fbb.js",
-  "build/TerraNet.js": "/build/TerraNet.9d7a4bee.js",
-  "build/Gift2Games.js": "/build/Gift2Games.6b16d93d.js",
-  "build/Simly.js": "/build/Simly.9450f3de.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.2e3d1365.css",
-=======
-  "build/Simly.js": "/build/Simly.2186ad2c.js",
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.a59daee3.css",
->>>>>>> 5755b992 (rank in rally paper and images)
-=======
-  "build/Simly.js": "/build/Simly.20d26532.js",
-=======
-  "build/Simly.js": "/build/Simly.2186ad2c.js",
->>>>>>> 7660f8d7 (rally landing page ranking)
-  "build/LegalEnrollement.js": "/build/LegalEnrollement.2acf5642.js",
-  "build/iveri.js": "/build/iveri.429e5515.js",
-  "build/Sodetel.js": "/build/Sodetel.7f47d3e3.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "build/styles.css": "/build/styles.0820f611.css",
->>>>>>> a41e9a26 (top-section)
-<<<<<<< HEAD
->>>>>>> 92a04f17 (top-section)
-=======
-=======
-  "build/styles.css": "/build/styles.6d407515.css",
->>>>>>> 570830c1 (invitation design and respon)
-<<<<<<< HEAD
->>>>>>> 1864f052 (invitation design and respon)
-=======
-=======
-  "build/styles.css": "/build/styles.192a9513.css",
->>>>>>> 117c3e1e (login page with db and sessions full flow)
-<<<<<<< HEAD
->>>>>>> 62f6f72e (login page with db and sessions full flow)
-=======
-=======
-  "build/styles.css": "/build/styles.192a9513.css",
-=======
-  "build/styles.css": "/build/styles.6093fdb1.css",
->>>>>>> 2d746495 (rally landing page ranking)
->>>>>>> 7660f8d7 (rally landing page ranking)
-<<<<<<< HEAD
->>>>>>> b3654f4e (rally landing page ranking)
-=======
-=======
-  "build/styles.css": "/build/styles.7c705425.css",
->>>>>>> 35941a7a (rally rank page)
-<<<<<<< HEAD
->>>>>>> bad5353b (rally rank page)
-=======
-=======
-  "build/styles.css": "/build/styles.25f0ccd6.css",
->>>>>>> 80a6ad9a (invitation with apis flow)
-<<<<<<< HEAD
->>>>>>> bd1853f5 (invitation with apis flow)
-=======
-=======
-  "build/styles.css": "/build/styles.4ad5e4d7.css",
->>>>>>> f9ef7f45 (invitation cases without copy)
-<<<<<<< HEAD
->>>>>>> ca555a76 (invitation cases without copy)
-=======
-=======
-  "build/styles.css": "/build/styles.25e969c4.css",
->>>>>>> cd0fea00 (api and some design modification for teams ranking)
-<<<<<<< HEAD
->>>>>>> ed0936bc (api and some design modification for teams ranking)
-=======
-=======
-  "build/styles.css": "/build/styles.cb9c0983.css",
->>>>>>> 7068441e (fix responsive in teams ranking)
-<<<<<<< HEAD
->>>>>>> 7f7722cd (fix responsive in teams ranking)
-=======
-=======
-  "build/styles.css": "/build/styles.47afb438.css",
->>>>>>> 28d47f10 (page3)
-<<<<<<< HEAD
->>>>>>> 5f70adc1 (page3)
-=======
-=======
-  "build/styles.css": "/build/styles.dd69c03c.css",
->>>>>>> 0b399d84 (all sections without the table)
->>>>>>> caa006d6 (all sections without the table)
-=======
-  "build/styles.css": "/build/styles.95bda87a.css",
->>>>>>> eeac32f3 (table structure)
-=======
-  "build/styles.css": "/build/styles.1e99151d.css",
->>>>>>> c1267b1e (fixed in the design in top and status section, and table structure)
-=======
-  "build/styles.css": "/build/styles.0bff779c.css",
->>>>>>> ccfb5e86 (modifying the table of all members)
-=======
-  "build/styles.css": "/build/styles.5dd4b960.css",
->>>>>>> cd5f61fe (modifying to mobile mode)
-=======
-  "build/styles.css": "/build/styles.163643dc.css",
->>>>>>> f07e1f11 (Modifying the responsiveness of the table)
-=======
-  "build/styles.css": "/build/styles.2e001786.css",
->>>>>>> f6745bea (change sections and api pagination)
-=======
-  "build/styles.css": "/build/styles.95f09ebc.css",
->>>>>>> 8ebbd975 (apis listing mobile and desktop)
+  "build/Loto.js": "/build/Loto.e3dc162b.js",
+  "build/Alfa.js": "/build/Alfa.53cb0270.js",
+  "build/Touch.js": "/build/Touch.cf0ee170.js",
+  "build/Windsl.js": "/build/Windsl.a058b200.js",
+  "build/Ogero.js": "/build/Ogero.271889d8.js",
+  "build/TerraNet.js": "/build/TerraNet.b53b7fda.js",
+  "build/Gift2Games.js": "/build/Gift2Games.4898f7e0.js",
+  "build/Simly.js": "/build/Simly.3c1bc188.js",
+  "build/LegalEnrollement.js": "/build/LegalEnrollement.c40b0069.js",
+  "build/iveri.js": "/build/iveri.8d5539c4.js",
+  "build/Sodetel.js": "/build/Sodetel.6f4184f0.js",
+  "build/styles.css": "/build/styles.0f03f80e.css",
   "build/admin.css": "/build/admin.a5306bd9.css",
   "build/Lotostyles.css": "/build/Lotostyles.36aad504.css",
   "build/AlfaStyle.css": "/build/AlfaStyle.8994c006.css",
@@ -926,11 +793,7 @@
   "build/images/platinumMastercard/peace_of_mind.png": "/build/images/platinumMastercard/peace_of_mind.png",
   "build/images/middleEast/travel.svg": "/build/images/middleEast/travel.svg",
   "build/images/terraNet/circle_product_-834.png": "/build/images/terraNet/circle_product_-834.png",
-<<<<<<< HEAD
-  "build/images/aub/Group 40633.svg": "/build/images/aub/Group 40633.svg",
-=======
   "build/images/aub/stars.svg": "/build/images/aub/stars.svg",
->>>>>>> 2c9708e3 (name images)
   "build/images/g2g/g2g-logo.png": "/build/images/g2g/g2g-logo.png",
   "build/images/terraNet/circle_product_-833.png": "/build/images/terraNet/circle_product_-833.png",
   "build/images/terraNet/circle_product_-804.png": "/build/images/terraNet/circle_product_-804.png",
@@ -1096,11 +959,7 @@
   "build/images/install.svg": "/build/images/install.svg",
   "build/images/payment/doneImage.svg": "/build/images/payment/doneImage.svg",
   "build/images/copy.svg": "/build/images/copy.svg",
-<<<<<<< HEAD
-  "build/images/aub/Group 40634.svg": "/build/images/aub/Group 40634.svg",
-=======
   "build/images/aub/cercle4.svg": "/build/images/aub/cercle4.svg",
->>>>>>> 2c9708e3 (name images)
   "build/images/sodetel/2M-cir.svg": "/build/images/sodetel/2M-cir.svg",
   "build/images/sodetel/u2-cir.svg": "/build/images/sodetel/u2-cir.svg",
   "build/images/OnlinePayment.png": "/build/images/OnlinePayment.png",
@@ -1154,16 +1013,9 @@
   "build/images/Touch/flag.png": "/build/images/Touch/flag.png",
   "build/images/alfa/flag.png": "/build/images/alfa/flag.png",
   "build/images/removeName.png": "/build/images/removeName.png",
-  "build/images/aub/Path 44295.svg": "/build/images/aub/Path 44295.svg",
   "build/images/Ogero/clearNb.png": "/build/images/Ogero/clearNb.png",
   "build/images/Touch/clearNb.png": "/build/images/Touch/clearNb.png",
   "build/images/alfa/clearNb.png": "/build/images/alfa/clearNb.png",
-<<<<<<< HEAD
-  "build/images/aub/Path 44296.svg": "/build/images/aub/Path 44296.svg",
-  "build/images/aub/Path 44297.svg": "/build/images/aub/Path 44297.svg",
-  "build/images/aub/Path 44395.svg": "/build/images/aub/Path 44395.svg",
-=======
->>>>>>> 2c9708e3 (name images)
   "build/images/payment/cardtopupreq.svg": "/build/images/payment/cardtopupreq.svg",
   "build/images/Loto/radioFalse.svg": "/build/images/Loto/radioFalse.svg",
   "build/images/Touch/question.png": "/build/images/Touch/question.png",

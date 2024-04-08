@@ -1,3 +1,5 @@
+import ClipboardJS from 'clipboard';
+
 $(document).ready(function() {
     var flagCode;
     var globalCode;
@@ -58,6 +60,9 @@ $(document).ready(function() {
                     $('.qrSection').css('display', 'none');
                     $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
                 }
+                if (response.globalCode === 0 && response.flagCode === 2) {
+                    $('#textToCopy').text(window.location.href);
+                }
                 flagCode = response.flagCode;
                 globalCode = response.globalCode;
                 $('#popupModal').modal('show');
@@ -67,6 +72,7 @@ $(document).ready(function() {
             }
         });
     });
+
     $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
         if (flagCode === 5) {
             var codeValue = $('#codeID').val();
@@ -99,13 +105,7 @@ $(document).ready(function() {
                 }
             });
         }else if (globalCode === 0 && flagCode === 2) {
-            var tempInput = document.createElement("input");
-            tempInput.value = window.location.href;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            alert("Link copied");
+            $('#textToCopy').css('display', 'none');
         }
         if (globalCode === 1 && flagCode === 2) {
             window.open('https://youtu.be/ccdq3A01Cyw', '_blank');

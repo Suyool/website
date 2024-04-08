@@ -216,16 +216,22 @@ class AubRallyPaperController extends AbstractController
                 'secureHash' => $hash
 
             ];
-            $response = $this->suyoolServices->rallyPaperInvite($form_data);
-
-            $logs = new AubLogs();
-            $logs
-                ->setidentifier($mobile)
-                ->setrequest(json_encode($form_data))
-                ->setresponse(json_encode($response));
-            $this->mr->persist($logs);
-            $this->mr->flush();
-
+//            $response = $this->suyoolServices->rallyPaperInvite($form_data);
+//
+//            $logs = new AubLogs();
+//            $logs
+//                ->setidentifier($mobile)
+//                ->setrequest(json_encode($form_data))
+//                ->setresponse(json_encode($response));
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
+            $response = [
+                "globalCode" => 0,
+                "flagCode" => 2,
+                "title" => "Number Already Linked",
+                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
+                "buttonText" => "copy link"
+            ];
             return new JsonResponse($response);
         }
         $parameters['faq'] = [

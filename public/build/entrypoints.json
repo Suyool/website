@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.1abc6582.js"
+        "/build/app1.b07d8685.js"
       ]
     },
     "admin-app": {
@@ -15,94 +15,67 @@
     "Loto": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Loto.1746a0f1.js"
+        "/build/Loto.e3dc162b.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.4d63177f.js"
+        "/build/Alfa.53cb0270.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Touch.f7f2821d.js"
+        "/build/Touch.cf0ee170.js"
       ]
     },
     "Windsl": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Windsl.1de1c152.js"
+        "/build/Windsl.a058b200.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.65ddfb22.js"
+        "/build/Ogero.271889d8.js"
       ]
     },
     "TerraNet": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.e3967e23.js"
+        "/build/TerraNet.b53b7fda.js"
       ]
     },
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.a8f2e1bd.js"
+        "/build/Gift2Games.4898f7e0.js"
       ]
     },
     "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Simly.26ff59aa.js"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/Simly.9450f3de.js"
-=======
-        "/build/Simly.2186ad2c.js"
->>>>>>> 5755b992 (rank in rally paper and images)
-=======
-        "/build/Simly.20d26532.js"
->>>>>>> a41e9a26 (top-section)
-<<<<<<< HEAD
->>>>>>> 92a04f17 (top-section)
-=======
-=======
-        "/build/Simly.2186ad2c.js"
->>>>>>> 7660f8d7 (rally landing page ranking)
->>>>>>> b3654f4e (rally landing page ranking)
-=======
-        "/build/Simly.9a8c2ff0.js"
->>>>>>> eeac32f3 (table structure)
-=======
-        "/build/Simly.9450f3de.js"
->>>>>>> 6b7240e8 (change to 62 and copy clipboard)
+        "/build/Simly.3c1bc188.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.b07db060.js"
+        "/build/LegalEnrollement.c40b0069.js"
       ]
     },
     "iveri": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/iveri.0491d859.js"
+        "/build/iveri.8d5539c4.js"
       ]
     },
     "Sodetel": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.1456c8d7.js"
+        "/build/Sodetel.6f4184f0.js"
       ]
     },
     "styles": {
@@ -110,120 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.16758d43.css"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.2e3d1365.css"
-=======
-        "/build/styles.a59daee3.css"
->>>>>>> 5755b992 (rank in rally paper and images)
-=======
-        "/build/styles.0820f611.css"
->>>>>>> a41e9a26 (top-section)
-<<<<<<< HEAD
->>>>>>> 92a04f17 (top-section)
-=======
-=======
-        "/build/styles.6d407515.css"
->>>>>>> 570830c1 (invitation design and respon)
-<<<<<<< HEAD
->>>>>>> 1864f052 (invitation design and respon)
-=======
-=======
-        "/build/styles.192a9513.css"
->>>>>>> 117c3e1e (login page with db and sessions full flow)
-<<<<<<< HEAD
->>>>>>> 62f6f72e (login page with db and sessions full flow)
-=======
-=======
-        "/build/styles.192a9513.css"
-=======
-        "/build/styles.6093fdb1.css"
->>>>>>> 2d746495 (rally landing page ranking)
->>>>>>> 7660f8d7 (rally landing page ranking)
-<<<<<<< HEAD
->>>>>>> b3654f4e (rally landing page ranking)
-=======
-=======
-        "/build/styles.7c705425.css"
->>>>>>> 35941a7a (rally rank page)
-<<<<<<< HEAD
->>>>>>> bad5353b (rally rank page)
-=======
-=======
-        "/build/styles.25f0ccd6.css"
->>>>>>> 80a6ad9a (invitation with apis flow)
-<<<<<<< HEAD
->>>>>>> bd1853f5 (invitation with apis flow)
-=======
-=======
-        "/build/styles.4ad5e4d7.css"
->>>>>>> f9ef7f45 (invitation cases without copy)
-<<<<<<< HEAD
->>>>>>> ca555a76 (invitation cases without copy)
-=======
-=======
-        "/build/styles.25e969c4.css"
->>>>>>> cd0fea00 (api and some design modification for teams ranking)
-<<<<<<< HEAD
->>>>>>> ed0936bc (api and some design modification for teams ranking)
-=======
-=======
-        "/build/styles.cb9c0983.css"
->>>>>>> 7068441e (fix responsive in teams ranking)
-<<<<<<< HEAD
->>>>>>> 7f7722cd (fix responsive in teams ranking)
-=======
-=======
-        "/build/styles.47afb438.css"
->>>>>>> 28d47f10 (page3)
-<<<<<<< HEAD
->>>>>>> 5f70adc1 (page3)
-=======
-=======
-        "/build/styles.dd69c03c.css"
->>>>>>> 0b399d84 (all sections without the table)
->>>>>>> caa006d6 (all sections without the table)
-=======
-        "/build/styles.95bda87a.css"
->>>>>>> eeac32f3 (table structure)
-=======
-        "/build/styles.1e99151d.css"
->>>>>>> c1267b1e (fixed in the design in top and status section, and table structure)
-=======
-        "/build/styles.0bff779c.css"
->>>>>>> ccfb5e86 (modifying the table of all members)
-=======
-        "/build/styles.5dd4b960.css"
->>>>>>> cd5f61fe (modifying to mobile mode)
-=======
-        "/build/styles.163643dc.css"
->>>>>>> f07e1f11 (Modifying the responsiveness of the table)
-=======
-        "/build/styles.2e001786.css"
->>>>>>> f6745bea (change sections and api pagination)
-=======
-        "/build/styles.95f09ebc.css"
->>>>>>> 8ebbd975 (apis listing mobile and desktop)
+        "/build/styles.0f03f80e.css"
       ]
     },
     "admin": {

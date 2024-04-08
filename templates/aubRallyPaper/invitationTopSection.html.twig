@@ -53,8 +53,9 @@
                     <h6 class="modalPopupTitle"></h6>
                     <p class="modalPopupText"></p>
                     <div class="modalPopupBtn">
-                        <button class="btn button-primary"></button>
+                        <button class="btn button-primary" id="copyButton" data-clipboard-target="#textToCopy" ></button>
                     </div>
+                    <p style="color: #FFFFFF;margin-bottom: 0" id="textToCopy"></p>
                     <div class="closeBtn">
                         <button type="button">
                             Cancel
@@ -84,3 +85,28 @@
     </div>
 </div>
 
+<script>
+    // Initialize clipboard.js when the text is not empty
+    function initializeClipboard() {
+        var textToCopy = document.getElementById('textToCopy').value;
+        if (textToCopy !== '') {
+            var clipboard = new ClipboardJS('#copyButton');
+
+            clipboard.on('success', function(e) {
+                console.log('Text copied successfully:', e.text);
+            });
+
+            clipboard.on('error', function(e) {
+                console.error('Unable to copy text:', e.action);
+            });
+        }
+    }
+
+    // Check if the text is initially not empty
+    initializeClipboard();
+
+    // Event listener to check when the text changes
+    document.getElementById('textToCopy').addEventListener('input', function() {
+        initializeClipboard(); // Recheck and initialize clipboard
+    });
+</script>
