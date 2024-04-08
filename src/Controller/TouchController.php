@@ -136,7 +136,7 @@ class TouchController extends AbstractController
             $postpaidRequest =  $this->mr->getRepository(PostpaidRequest::class)->findOneBy(['id' => $postpaidRequestId]);
             $retrieveResults = $bobServices->RetrieveResultsTouch($data["currency"], $data["mobileNumber"], $data["Pin"], $postpaidRequest->gettoken());
             $pushlog = new LogsService($this->mr);
-            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",null,json_encode($retrieveResults),$retrieveResults[5],$retrieveResults[6]);
+            $pushlog->pushLogs(new Logs,"app_touch_RetrieveResults",$retrieveResults[7],json_encode($retrieveResults),$retrieveResults[5],$retrieveResults[6]);
 
             $Pin = implode("", $data["Pin"]);
             if ($retrieveResults[0]) {

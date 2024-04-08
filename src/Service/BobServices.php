@@ -261,7 +261,7 @@ class BobServices
             $ErrorDescription = $ApiResponse['ErrorDescription'];
         }
 
-        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', @$status);
+        return array($isSuccess, $decodedString, $ErrorDescription, $ApiResponse["ErrorCode"], $response, $this->BOB_API_HOST . 'RetrieveChannelResults', @$status,@json_encode($body));
     }
 
     public function BillPayTouch($Postpaid_With_id_Res)
