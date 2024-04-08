@@ -254,7 +254,7 @@ const Account = () => {
                                   mainField: "headerData",
                                   field: "currentPage",
                                   value:
-                                    data.sim.status === "PENDING_INSTALLATION"
+                                    (data.sim.status === "PENDING_INSTALLATION") || (data.sim.status === "PENDING")
                                       ? "RechargeThePayment"
                                       : "PlanDetail",
                                 })
@@ -266,7 +266,7 @@ const Account = () => {
                             }}
                             disabled={data.sim.status === "REFUNDED"}
                           >
-                            {data.sim.status === "PENDING_INSTALLATION"
+                            {(data.sim.status === "PENDING_INSTALLATION") || (data.sim.status === "PENDING") 
                               ? "Install"
                               : data.sim.status === "REFUNDED"
                               ? "Refunded"
