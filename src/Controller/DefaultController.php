@@ -67,7 +67,7 @@ class DefaultController extends AbstractController
         ],
     ];
 
-    public function __construct(translation $trans,AdapterInterface  $memcachedCache,LoggerInterface $loggerInterface)
+    public function __construct(translation $trans, AdapterInterface  $memcachedCache, LoggerInterface $loggerInterface)
     {
         $this->trans = $trans;
         $this->memcachedCache = $memcachedCache;
@@ -99,10 +99,10 @@ class DefaultController extends AbstractController
         $cachedRates = $this->memcachedCache->getItem($cacheKey);
         $cachedRates = $cachedRates->get();
 
-        if(!empty($cachedRates)){
+        if (!empty($cachedRates)) {
             $buyRate =  $cachedRates['buyRate'];
-            $sellRate = $cachedRates ['sellRate'];
-            $updatedTime = $cachedRates ['date'];
+            $sellRate = $cachedRates['sellRate'];
+            $updatedTime = $cachedRates['date'];
         }
         $parameters = [
             'title' => $title,
@@ -685,10 +685,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-//            "SIX" => [
-//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-//            ],
+            //            "SIX" => [
+            //                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+            //                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            //            ],
         ];
 
         $parameters = [
@@ -957,10 +957,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-//            "SIX" => [
-//                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
-//                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
-//            ],
+            //            "SIX" => [
+            //                "Title" => "Can I withdraw cash from an ATM in Lebanon?",
+            //                "Desc" => "Yes, you can withdraw cash from specific ATMs (fresh usd ones) in Lebanon with a fee of 3.75$ + 0.5% of the amount withdrawn. Some banks might charge additional fees."
+            //            ],
         ];
 
         $parameters = [
@@ -1222,10 +1222,10 @@ class DefaultController extends AbstractController
                 "Title" => "Is the Suyool Visa Platinum card an international card?",
                 "Desc" => "Yes! The Suyool Visa Platinum card is an international fresh USD debit card."
             ],
-           "SEVEN" => [
-               "Title" => "What currencies does the Suyool Visa Card accept?",
-               "Desc" => "You can pay in any currency with Suyool Visa card (including LBP)."
-           ],
+            "SEVEN" => [
+                "Title" => "What currencies does the Suyool Visa Card accept?",
+                "Desc" => "You can pay in any currency with Suyool Visa card (including LBP)."
+            ],
         ];
 
 
@@ -1276,10 +1276,10 @@ class DefaultController extends AbstractController
                 $data = $suyoolServices->getUsersSoa($soaids);
                 $parameters = [
                     'data' => @$data,
-                    'device'=>$suyoolUserInfo[1]
+                    'device' => $suyoolUserInfo[1]
                 ];
                 return $this->render('soa/soa.html.twig', $parameters);
-            }else{
+            } else {
                 return $this->redirectToRoute("app_ToTheAPP");
             }
         } else return $this->render('ExceptionHandling.html.twig');
@@ -1289,7 +1289,7 @@ class DefaultController extends AbstractController
      */
     public function exchangeRates(Request $request): Response
     {
-        try{
+        try {
             $data = json_decode($request->getContent());
             if (empty($data)) {
                 // If the data is empty, return an empty data response
@@ -1300,34 +1300,33 @@ class DefaultController extends AbstractController
             $buyRate = $data->buyRate;
             $sellRate = $data->sellRate;
             $date =  $data->date;
-            $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'] ;
+            $concat = $buyRate . $sellRate . $_ENV['CERTIFICATE'];
             $secureHash = base64_encode(hash('sha512', $concat, true));
             $this->loggerInterface->info("The secure hash from our side is : {$secureHash}");
-            if($secureHash ==  $data->secureHash) {
+            if ($secureHash ==  $data->secureHash) {
 
                 $responseData = [
                     'buyRate' => $buyRate,
                     'sellRate' => $sellRate,
                     'date' => $date
                 ];
-    
+
                 $cacheKey = 'exchangeRates';
                 $cacheItem = $this->memcachedCache->getItem($cacheKey);
                 $cacheItem->set($responseData);
                 $this->memcachedCache->save($cacheItem);
                 $this->loggerInterface->info('Success');
                 return new JsonResponse(['message' => 'Success: Data updated'], Response::HTTP_OK);
-            }else{
+            } else {
                 $this->loggerInterface->info('Forbidden incorrect secureHash');
                 return new JsonResponse(['message' => 'Forbidden incorrect secureHash'], Response::HTTP_BAD_REQUEST);
             }
-        }catch(Exception $e)
-        {
+        } catch (Exception $e) {
             $this->loggerInterface->error($e->getMessage());
             return new JsonResponse([
-                'status'=>false,
-                'message'=>$e->getMessage()
-            ],500);
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -1337,11 +1336,11 @@ class DefaultController extends AbstractController
     public function payAbroad_1()
     {
         $parameters = [
-            'titleHead'=> "<span>Pay Abroad</span> With Suyool Card",
-            'desc'=> "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
+            'titleHead' => "<span>Pay Abroad</span> With Suyool Card",
+            'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad1',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'visa' => true,
         ];
 
@@ -1358,7 +1357,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad2',
             'btnColor' => 'btn-blue',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'visa' => true,
             'greyBack' => true,
             'barBgColor' => 'barBlue'
@@ -1377,7 +1376,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad3',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1395,7 +1394,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card accepts all currencies and can be used worldwide wherever Visa is accepted.",
             'className' => 'payAbroad4',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1413,7 +1412,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline1',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1431,7 +1430,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline2',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1449,7 +1448,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card is your ticket to seamless online payments. Whether it’s a Netflix subscription, online shopping, ordering food online, or booking flights, we’ve got you covered!",
             'className' => 'payOnline3',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1467,7 +1466,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
             'className' => 'payLbp1',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1485,7 +1484,7 @@ class DefaultController extends AbstractController
             'desc' => "AKID YOU CAN! The Suyool Visa Platinum Card works in all currencies even in LBP! Feel free to select your preferred currency when making payments.",
             'className' => 'payLbp2',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1503,7 +1502,7 @@ class DefaultController extends AbstractController
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge1',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1521,7 +1520,7 @@ class DefaultController extends AbstractController
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge2',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
@@ -1539,12 +1538,11 @@ class DefaultController extends AbstractController
             'desc' => "Access over 25+ airport lounges worldwide simply by presenting your boarding pass and Suyool Visa Platinum card to the lounge attendant!",
             'className' => 'payLounge3',
             'btnColor' => 'btn-white',
-            'faq'=> $this->paySuyoolFaq,
+            'faq' => $this->paySuyoolFaq,
             'barBgColor' => 'barWhite',
             'visa' => true,
         ];
 
         return $this->render('pay-suyool/index.html.twig', $parameters);
     }
-
 }
