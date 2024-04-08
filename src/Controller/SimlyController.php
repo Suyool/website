@@ -307,6 +307,38 @@ class SimlyController extends AbstractController
         $order_id = $simlyMerchId . "-" . $order->getId();
         if (isset($simlyPlan['offre']) && $simlyPlan['offre']) {
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id,3, $order->getCurrency(), $order->getFees(), $simlyMerchId);
+            if (!$utilityResponse[0]) {
+
+                $order->setStatus(Order::$statusOrder['CANCELED'])
+                    ->setError(json_encode($utilityResponse));
+
+                $this->mr->persist($order);
+                $this->mr->flush();
+
+                $logs = new Logs;
+                $logs
+                    ->setidentifier("simly_purchaseTopup")
+                    ->seturl("PushUtilities")
+                    ->setrequest(json_encode(array(
+                        'SuyoolUserId' => $SuyoolUserId,
+                        'order_id' => $order_id,
+                        'amount' => $order->getAmount(),
+                        'currency' => $order->getCurrency(),
+                        'fees' => $order->getFees(),
+                        'simlyMerchId' => $simlyMerchId
+                    )))
+                    ->seterror(json_encode($utilityResponse));
+
+                $this->mr->persist($logs);
+                $this->mr->flush();
+
+                return new JsonResponse([
+                    'status' => false,
+                    'message' => @json_decode($utilityResponse[1], true),
+                    'flagCode' => @$utilityResponse[2]
+                ]);
+            }
+
             $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
 
             $order
