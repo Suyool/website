@@ -56,7 +56,7 @@
                 <div class="member-number-name-left" >
                     <div class="fixedWidthMember">1</div>
                     <div class="fixedWidthPhone" >+961 3453277</div>
-                    <div>Ramy Saber</div>
+                    <div class="fixedWidthName">Ramy Saber</div>
                 </div>
                 <div class="member-number-name-right st pending ">
                     <div> Pending Modification</div>
@@ -66,7 +66,7 @@
                 <div class="member-number-name-left" >
                     <div class="fixedWidthMember">1</div>
                     <div class="fixedWidthPhone" >+961 3453277</div>
-                    <div>Ramy Saber</div>
+                    <div class="fixedWidthName">Ramy Saber</div>
                 </div>
                 <div class="member-number-name-right st card ">
                     <div> Requested Card</div>
@@ -76,11 +76,18 @@
         </div>
     </div>
     
-    <div class="thetable mobileMode">
-        {# <img src="{{ asset('build/images/aub/cercle1.svg') }}" class="inlineCercle1"/> #}
-        <div class="nameoftheteam">
-            {{ app.session.get('username') }}
+        <div class="mobileMode logoAndTeamMember">
+            {# <img src="{{ asset('build/images/aub/cercle1.svg') }}" class="inlineCercle1"/> #}
+            <div class="inlineCercle1">
+                    {# {{body.rank}} #}
+                    1
+                </div>
+            <div class="nameoftheteam">
+                {# {{ app.session.get('username') }} #}
+                e4theshow
+            </div>
         </div>
+    <div class="thetable mobileMode">
         <div class="theborders" >
             <div class="theborder "  >
                 <div class="info1">All Members</div>
@@ -114,7 +121,7 @@
                 <div class="member-number-name-left" >
                     <div class="fixedWidthMember">1</div>
                     <div class="fixedWidthPhone" >+961 3453277</div>
-                    <div>Ramy Saber</div>
+                    <div class="fixedWidthName">Ramy Saber</div>
                 </div>
                 <div class="member-number-name-right st pending ">
                     <div> Pending Modification</div>
@@ -124,7 +131,7 @@
                 <div class="member-number-name-left" >
                     <div class="fixedWidthMember">1</div>
                     <div class="fixedWidthPhone" >+961 3453277</div>
-                    <div>Ramy Saber</div>
+                    <div class="fixedWidthName">Ramy Saber</div>
                 </div>
                 <div class="member-number-name-right st card ">
                     <div> Requested Card</div>
