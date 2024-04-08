@@ -1,10 +1,5 @@
-<div class="container tableoverview" id="normalTable">
-    <div class="search">
-        <img src="{{ asset('build/images/aub/search.svg') }}">
-        <input type="text" name="search" placeholder="Search Member">
-    </div>
-
-    <div class="thetable desktopMode">
+<div class="container tableoverview" id="tableSearch" style="display: none;">
+   <div class="thetable desktopMode">
         <div class="inlineCercle1">
                 {{body.rank}} 
                 {# 1 #}
@@ -64,9 +59,6 @@
                 </div>
             </div>
             {% endfor %}
-            <div class="pagination justify-content-center">
-                {{ knp_pagination_render(body.toBeDisplayed[0]) }}
-            </div>
         </div>
     </div>
     
@@ -144,34 +136,7 @@
                 </div>
             </div>
             {% endfor %}
-            <div class="pagination justify-content-center">
-                {{ knp_pagination_render(body.toBeDisplayed[0]) }}
-            </div>
         </div>          
         </div>
     {# </div> #}
 </div>
-
-<script>
-    var search = document.getElementsByName("search")[0];
-    search.addEventListener('input',()=>{
-        const xhttp = new XMLHttpRequest();
-        let postObj = { 
-            char : search.value
-            }
-    let post = JSON.stringify(postObj)
-    console.log(postObj)
-    xhttp.open('POST', "/aub-search", true)
-    xhttp.send(post);
-        xhttp.onload = function() {
-            if(xhttp.status === 200) {
-                document.getElementById("normalTable").style.display = "none"
-                document.getElementById("myList").appendChild(node);
-            }else{
-                document.getElementById("normalTable").style.display = "block"
-                document.getElementById("tableSearch").style.display = "none"
-            }
-        }
-    })
-  
-</script>
