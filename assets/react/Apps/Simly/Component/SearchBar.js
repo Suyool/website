@@ -29,6 +29,7 @@ const SearchBar = ({
               position: "relative",
               right: "27px",
               cursor: "pointer",
+              top:"-3px"
             }}
             onClick={() => setSearchQuery("")}
           />
