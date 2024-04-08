@@ -351,11 +351,12 @@ class AubRallyPaperController extends AbstractController
       {
           $status = null;
           $datacharacter = json_decode($request->getContent(false),true);
+        //   dd($datacharacter);
           $teamCode = $session->get('team_code');
           // dd($teamCode);
-          $hash = base64_encode(hash($this->hash_algo,  'code2' . $this->certificate, true));
+          $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
           $body = [
-              'code' => 'code2',
+              'code' => $teamCode,
               'secureHash' => $hash
           ];
           $data = $this->suyoolServices->rallyPaperOverview($body);
@@ -434,13 +435,15 @@ class AubRallyPaperController extends AbstractController
           }
           if(empty($foundResults)){
               return new JsonResponse([
-                  'empty'
-              ],201);
+                  'data'=>[]
+              ],200);
           }
           $parameters['body']['toBeDisplayed'][0] = $foundResults;
-          dd($parameters);
+         return new JsonResponse([
+            'status'=>true,
+            'data'=>$parameters['body']['toBeDisplayed'][0]
+         ]);
   
-          return $this->render('aubRallyPaper/tableSearch.html.twig', $parameters);
       //    return new JsonResponse([
       //     'char'=>$data['char']
       //    ]);
