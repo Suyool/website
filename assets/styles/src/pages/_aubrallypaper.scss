@@ -632,8 +632,7 @@
                 padding-bottom: 16px;
                 font-family: $Bold;
                 width: 20%;
-                
-
+                padding-top: 8px;
             }
 
             .desc {
@@ -735,7 +734,7 @@
                 
             .info1 , .count {
                 font-family: $Bold;
-                &.active {
+                &#active {
                     color: #216D96;
                 }
             }
@@ -951,6 +950,7 @@
                     font-family: 'PoppinsBold';
                     width: 18%;
                     align-items: center;
+                    padding-top: 14px;
     
                 }
                 
@@ -998,13 +998,23 @@
     }
     }
     .mobileMode {
-        display: none; 
+        display: none!important; 
+        
+    }
+    .mobileMode3{
+        display: none!important;
+    }
+    .mobileMode2 {
+        display: none!important; 
         
     }
     @media only screen and (max-width: 992px) { 
-        .mobileMode {
-            display: block; 
+        .mobileMode2 {
+            display: block!important; 
             
+        }
+        .mobileMode3{
+            display: flex!important;
         }
     }
 }
