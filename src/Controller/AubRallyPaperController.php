@@ -343,4 +343,106 @@ class AubRallyPaperController extends AbstractController
         }
         return $this->render('aubRallyPaper/login.html.twig');
     }
+
+      /**
+       * @Route("/aub-search", name="app_search",methods="POST")
+       */
+      public function search(Request $request,SessionInterface $session)
+      {
+          $status = null;
+          $datacharacter = json_decode($request->getContent(false),true);
+          $teamCode = $session->get('team_code');
+          // dd($teamCode);
+          $hash = base64_encode(hash($this->hash_algo,  'code2' . $this->certificate, true));
+          $body = [
+              'code' => 'code2',
+              'secureHash' => $hash
+          ];
+          $data = $this->suyoolServices->rallyPaperOverview($body);
+          /*
+          0 pending
+          1 requested
+          2 fully
+          3 activated
+          4 card payment
+          */
+          // dd($data);
+          if (!empty($data)) {
+              $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
+              if (is_null($status)) {
+                  foreach ($data['status'] as $status => $statused) {
+                      foreach ($data['status'][$status] as $statused) {
+                          switch ($statused['status']) {
+                              case 0:
+                                  $displayedStatus = 'Pending Modification';
+                                  $class = 'pending';
+                                  break;
+                              case 1:
+                                  $displayedStatus = 'Requested Card';
+                                  $class = 'requested';
+                                  break;
+                              case 2:
+                                  $displayedStatus = 'Fully Enrolled';
+                                  $class = 'fully';
+                                  break;
+                              case 3:
+                                  $displayedStatus = 'Activated Card';
+                                  $class = 'activated';
+                                  break;
+                              case 4:
+                                  $displayedStatus = 'Card Payment';
+                                  $class = 'card';
+                                  break;
+                          }
+                          $toBeDisplayedItem[] = [
+                              'status' => $displayedStatus,
+                              'fullyname' => $statused['fullName'],
+                              'mobileNo' => $statused['mobileNo'],
+                              'id' => $statused['id'],
+                              'status2' => $statused['status'],
+                              'class'=>$class
+                          ];
+                      }
+                  }
+              } 
+              $data['toBeDisplayed'][] = $toBeDisplayedItem;
+              $parameters = [
+                  'status' => true,
+                  'message' => 'Returning Data',
+                  'body' => $data,
+                  'teamCode'=>$teamCode
+              ];
+          } else {
+              $parameters['status'] = false;
+              $parameters['message'] = 'Empty Data';
+          }
+          // dd($parameters);
+         
+          foreach ($parameters['body']['toBeDisplayed'][0] as $body) {
+              // if ($body['fullyname'] === $datacharacter['char']) {
+              //     // Value found, do something with it
+              //     // For example, you can add it to a new array
+              //     $foundResults[] = $body;
+              // }else{
+              //     // $foundResults=[];
+              // }
+              $input = $datacharacter['char'] ;
+              if (stripos($body['fullyname'], $input) !== false) {
+                  // Partial match found, add it to the result array
+                  $foundResults[] = $body;
+              }
+          }
+          if(empty($foundResults)){
+              return new JsonResponse([
+                  'empty'
+              ],201);
+          }
+          $parameters['body']['toBeDisplayed'][0] = $foundResults;
+          dd($parameters);
+  
+          return $this->render('aubRallyPaper/tableSearch.html.twig', $parameters);
+      //    return new JsonResponse([
+      //     'char'=>$data['char']
+      //    ]);
+      }
 }
