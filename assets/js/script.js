@@ -1,3 +1,121 @@
+import ClipboardJS from 'clipboard';
+
+$(document).ready(function() {
+    var flagCode;
+    var globalCode;
+    var mobileValue;
+
+    $('#loginForm').on('submit', function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            url: '/aub-login',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                console.log(response);
+                if(response.flagCode === 2){
+                    $('#loginError').text('Invalid credentials. Please try again.');
+                }else {
+                    window.location.href = '/aub-rally-paper';
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                $('#loginError').text('An error has occurred.');
+            }
+        });
+    });
+
+
+    $('#inviteForm').on('submit', function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        var formDataParts = formData.split("=");
+        mobileValue = formDataParts[1];
+
+        var codeValue = $('#codeID').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/rallypaperinvitation/' + codeValue,
+            data: formData,
+            success: function(response) {
+                var imagePath = response.globalCode === 1 ? 'checkGreen.svg' : 'warning.svg';
+                var imageUrl = '/build/images/' + imagePath;
+                $('#popupModalBody .imgTop').attr('src', imageUrl);
+
+                if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
+                    $('#popupModalBody .modalPopupTitle').text(response.title);
+                    $('#popupModalBody .modalPopupText').text(response.body);
+                    $('.qrSection').css('display', 'block');
+                    $('#popupModalBody .modalPopupBtn').css('display', 'none');
+                    $('#popupModalBody .closeBtn').css('display', 'none');
+
+                } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
+                    $('#popupModalBody .modalPopupTitle').text(response.title);
+                    $('#popupModalBody .modalPopupText').text(response.body);
+                    $('#popupModalBody .modalPopupBtn').css('display', 'block');
+                    $('#popupModalBody .closeBtn').css('display', 'block');
+                    $('.qrSection').css('display', 'none');
+                    $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
+                }
+                if (response.globalCode === 0 && response.flagCode === 2) {
+                    $('#textToCopy').text(window.location.href);
+                }
+                flagCode = response.flagCode;
+                globalCode = response.globalCode;
+                $('#popupModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
+        if (flagCode === 5) {
+            var codeValue = $('#codeID').val();
+            $.ajax({
+                type: 'POST',
+                url: '/rallypaperinvitation/' + codeValue,
+                data: {
+                    mobile: mobileValue,
+                    switch: 1
+                },
+                success: function(response) {
+                    if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
+                        $('#popupModalBody .modalPopupTitle').text(response.title);
+                        $('#popupModalBody .modalPopupText').text(response.body);
+                        $('.qrSection').css('display', 'block');
+                        $('#popupModalBody .modalPopupBtn').css('display', 'none');
+                        $('#popupModalBody .closeBtn').css('display', 'none');
+
+                    } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
+                        $('#popupModalBody .modalPopupTitle').text(response.title);
+                        $('#popupModalBody .modalPopupText').text(response.body);
+                        $('#popupModalBody .modalPopupBtn').css('display', 'block');
+                        $('#popupModalBody .closeBtn').css('display', 'block');
+                        $('.qrSection').css('display', 'none');
+                        $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }else if (globalCode === 0 && flagCode === 2) {
+            $('#textToCopy').css('display', 'none');
+        }
+        if (globalCode === 1 && flagCode === 2) {
+            window.open('https://youtu.be/ccdq3A01Cyw', '_blank');
+        }
+    });
+    $('#popupModal .closeBtn button').on('click', function() {
+        $('#popupModal').modal('hide'); // Close the modal
+    });
+});
+
 if(document.getElementById("emailForm")){
 // Get the form element
   const form = document.getElementById("emailForm");
@@ -346,31 +464,41 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    document.getElementById("amount").addEventListener("change", function() {
-        var nameInput = document.getElementById('amount').value;
-        if (nameInput != "") {
-            document.getElementById('convertButton').removeAttribute("disabled");
-        } else {
-            document.getElementById('convertButton').setAttribute("disabled", null);
+    var cachedDataInput;
+    var amountInput = document.getElementById("amount");
+    var convertButton = document.getElementById("convertButton");
+
+    if (amountInput && convertButton) {
+        amountInput.addEventListener("change", function() {
+            var nameInput = amountInput.value;
+            if (nameInput.trim() !== "") {
+                convertButton.removeAttribute("disabled");
+            } else {
+                convertButton.setAttribute("disabled", true);
+            }
+        });
+    }
+    const cachedData = document.getElementById('cachedData');
+    if (cachedData){
+         cachedDataInput = cachedData.value;
+
+        updateTimeDifference();
+        const currentTime = new Date().getTime();
+        const lastUpdateTime = new Date(cachedDataInput).getTime();
+        const timeDifference = currentTime - lastUpdateTime;
+
+        let intervalTime;
+        if (timeDifference < 60000) { // Less than 1 minute
+            intervalTime = 1000; // Set interval to 1 second
+        } else if (timeDifference < 3600000) { // Less than 1 hour
+            intervalTime = 60000; // Set interval to 1 minute
+        } else { // More than 1 hour
+            intervalTime = 3600000; // Set interval to 1 hour
         }
-    });
 
-    const cachedDataInput = document.getElementById('cachedData').value;
-    updateTimeDifference();
-    const currentTime = new Date().getTime();
-    const lastUpdateTime = new Date(cachedDataInput).getTime();
-    const timeDifference = currentTime - lastUpdateTime;
-
-    let intervalTime;
-    if (timeDifference < 60000) { // Less than 1 minute
-        intervalTime = 1000; // Set interval to 1 second
-    } else if (timeDifference < 3600000) { // Less than 1 hour
-        intervalTime = 60000; // Set interval to 1 minute
-    } else { // More than 1 hour
-        intervalTime = 3600000; // Set interval to 1 hour
+        setInterval(updateTimeDifference, intervalTime);
     }
 
-    setInterval(updateTimeDifference, intervalTime);
 
     function updateTimeDifference() {
         if (cachedDataInput ) {
@@ -687,6 +815,37 @@ if(document.getElementById("termsPdfDownloadButton")){
         window.location.href = "/download-pdf";
     });
 }
+
+// Set the date we're counting down to
+var countDownDate = new Date("April 20, 2024 10:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="countdownRallyPaper"
+    var countdownElement = document.getElementById("countdownRallyPaper");
+    if (countdownElement) {
+        countdownElement.innerHTML = days + ":" + hours + ":" + minutes + ":" + seconds;
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            countdownElement.innerHTML = "EXPIRED";
+        }
+    }
+}, 1000);
 
 // if (document.querySelector(".loaderTopUp")) {
 //   setInterval(function () {

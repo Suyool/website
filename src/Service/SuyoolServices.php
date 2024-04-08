@@ -38,7 +38,7 @@ class SuyoolServices
 
         if ($_ENV['APP_ENV'] == "test") {
              // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            //  $this->SUYOOL_API_HOST = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            //   $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
              $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
              $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
@@ -681,6 +681,72 @@ class SuyoolServices
         $data = array();
         if($content['globalCode'] && $content['flagCode']){
             $data = json_decode($content['data'],true);
+        }
+        return $data;
+    }
+    public function rallyPaperInvite($form_data)
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/AddRallyPaperInvitee",  $form_data);
+        $content = $response->toArray(false);
+
+        return $content;
+    }
+    public function getTeamsRankings()
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamRankings",  '');
+        $content = $response->toArray(false);
+
+        return $content;
+    }
+    
+    public function rallyPaperOverview($form_data)
+    {
+        $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamOverView",  $form_data);
+        $content = $response->toArray(false);
+        // dd($content);
+        $data = [];
+        if ($content['globalCode'] && $content['flagCode']) {
+            foreach ($content['invitationData'] as $invitationData) {
+                switch ($invitationData['status']) {
+                    case 0:
+                        $status = 'pending';
+                        break;
+                    case 1:
+                        $status = 'requested';
+                        break;
+                    case 2:
+                        $status = 'fully';
+                        break;
+                    case 3:
+                        $status = 'activated';
+                        break;
+                    case 4:
+                        $status = 'card';
+                        break;
+                }
+                $data['status'][$status][] = $invitationData;
+            }
+            foreach ($data['status'] as $key => $value) {
+                switch ($key) {
+                    case 'pending':
+                        $data['count']['pending'] = count($data['status']['pending']);
+                        break;
+                    case 'requested':
+                        $data['count']['requested'] = count($data['status']['requested']);
+                        break;
+                    case 'fully':
+                        $data['count']['fully'] = count($data['status']['fully']);
+                        break;
+                    case 'activated':
+                        $data['count']['activated'] = count($data['status']['activated']);
+                        break;
+                    case 'card':
+                        $data['count']['card'] = count($data['status']['card']);
+                        break;
+                }
+            }
+            $data['rank'] = $content['rank'];
+            $data['allmembers'] = count($content['invitationData']);
         }
         return $data;
     }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="aubInvitationRanks">
+            {% include 'aubRallyPaper/rallyTopSection.html.twig' %}
+            {% include 'aubRallyPaper/info.html.twig' %}
+            {% include 'aubRallyPaper/overview.html.twig' %}
+            {% include 'aubRallyPaper/table.html.twig' %}
+            {% include 'aubRallyPaper/status.html.twig' %}
+        </div>
+        {% include 'elements/footer.html.twig' %}
+    
+    {% endblock %}

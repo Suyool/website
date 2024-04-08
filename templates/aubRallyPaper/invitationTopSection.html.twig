@@ -1,0 +1,112 @@
+<div class="container-fluid top-section">
+    <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"></div>
+    <div class="row">
+        <div class="col-12 col-lg-6 image-back-1">
+            <h1 class="title col-md-9">
+                Team Name is inviting you to help them in The Suyool Pre- Challenge
+            </h1>
+            <div class="phone-submit">
+                <form id="inviteForm">
+                    <div class="send-link-form-cont">
+                        <div class="send-link-form invitation-card-section-top">
+                            <div class="input-main-cont">
+                                <div class="row input-sub-cont invitation-top-button">
+                                    <div class="col-lg-2 col-3 cyprus-flag">
+                                        <span class="country-code">+961</span>
+                                    </div>
+                                    <div class="col-lg-6 col-9 input-cont ">
+                                        <input class="phoneNumberGetApp mobileTextDownloadApp" name="mobile" type="number" required/>
+                                    </div>
+                                    <input id="codeID" type="hidden" value="{{ code }}">
+                                    <div class="get-the-app get-the-app-invitation btn-float col-4 d-none d-lg-block">
+                                        <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn">GET THE APP</button>
+                                    </div>
+                                </div>
+                                <div class="get-the-app get-the-app-invitation btn-float d-lg-none my-5">
+                                    <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn">GET THE APP</button>
+                                </div>
+                                <div class="small-note">
+                                    {{'18_AND_ABOVE'|trans}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="timerContainer">
+                <div class="row">
+                    <div class="col-5 sections"><img src="{{ asset('build/images/aub/rallypaper.svg') }}" alt="rally paper"></div>
+                    <div class="col-2 sections xsymbole">X</div>
+                    <div class="col-5 sections"><img src="{{ asset('build/images/suyoolBlueLogo.svg') }}" alt="Suyool"></div>
+                </div>
+                <div id="countdownRallyPaper" class="mt-4" style="background-color: #216D95;color: #fff;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="popupModal" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="popupModalBody">
+                    <div class="text-center"><img class="imgTop" src="" alt="rally paper"></div>
+                    <h6 class="modalPopupTitle"></h6>
+                    <p class="modalPopupText"></p>
+                    <div class="modalPopupBtn">
+                        <button class="btn button-primary" id="copyButton" data-clipboard-target="#textToCopy" ></button>
+                    </div>
+                    <p style="color: #FFFFFF;margin-bottom: 0" id="textToCopy"></p>
+                    <div class="closeBtn">
+                        <button type="button">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="qrSection">
+                        <button id="openSuyoolAccount" class="btn button-primary mr-5 mobileMode">Open Suyool Account</button>
+                        <div class="row">
+                            <div class="icon col-4">
+                                <img class="suyoolIcon" src="{{ asset('build/images/suyool-icon.svg') }}" alt="">
+                            </div>
+                                <div class="mod-title col-8">{{'OPEN_YOUR_SUYOOL_ACCOUNT_CAP'|trans}}</div>
+                            <h5 class="download-text">{{'SCAN_AND_DOWNLOAD'|trans}}</h5>
+                            <div class="col-6">
+                                <img class="qr-image" src="{{ asset('build/images/qr-blue.svg') }}" alt="">
+                            </div>
+                            <div class="col-6 download-links">
+                                <img class="googleICon" src="{{ asset('build/images/download-playstore.png') }}" alt="">
+                                <img class="appleIcon" src="{{ asset('build/images/download-appstore.png') }}" alt="">
+                                <img class="huaweiIcon" src="{{ asset('build/images/download-appgallery.png') }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize clipboard.js when the text is not empty
+    function initializeClipboard() {
+        var textToCopy = document.getElementById('textToCopy').value;
+        if (textToCopy !== '') {
+            var clipboard = new ClipboardJS('#copyButton');
+
+            clipboard.on('success', function(e) {
+                console.log('Text copied successfully:', e.text);
+            });
+
+            clipboard.on('error', function(e) {
+                console.error('Unable to copy text:', e.action);
+            });
+        }
+    }
+
+    // Check if the text is initially not empty
+    initializeClipboard();
+
+    // Event listener to check when the text changes
+    document.getElementById('textToCopy').addEventListener('input', function() {
+        initializeClipboard(); // Recheck and initialize clipboard
+    });
+</script>

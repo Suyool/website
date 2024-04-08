@@ -1,0 +1,33 @@
+<div class="container-fluid top-section teamRankingTop">
+    <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"><span class="team">{{ app.session.get('username') }}</span></div>
+    <div class="row">
+        <div class="col-12 col-lg-6 image-back-1">
+            <h1 class="title col-md-9">
+                {# {{ app.session.get('username') }} is inviting you to help them in The Suyool Pre- Challenge #}
+                You're Currently <span>Top {{body.rank}}</span> in the Suyool Challenge!
+            </h1>
+
+            <p class="description"> Your team is on track to win 100,000 points! Keep inviting and activating users so they can start using their cards and earning more points. The Suyool Online Challenge offers a quick and easy way to accumulate points!</p>
+            <div class="phone-submit">
+                <div class="send-link-form-cont">
+                    <div class="send-link-form invitation-card-section-top">
+                        <div class="input-main-cont">
+                            <a class="sendLink"  href="/rallypaperinvitation/{{teamCode}}">Share Invite Link</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="timerContainer">
+                <div class="row">
+                    <div class="col-5 sections"><img src="{{ asset('build/images/aub/rallypaper.svg') }}" alt="rally paper"></div>
+                    <div class="col-2 sections xsymbole">X</div>
+                    <div class="col-5 sections"><img src="{{ asset('build/images/suyoolBlueLogo.svg') }}" alt="Suyool"></div>
+                </div>
+                <div id="countdownRallyPaper" class="mt-4" style="background-color: #216D95;color: #fff;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -18,6 +18,7 @@
 @import 'src/elements/info_sections.scss';
 @import 'src/elements/support.scss';
 @import 'src/elements/faq.scss';
+@import 'src/elements/tc.scss';
 @import 'src/elements/help_top_section';
 @import 'src/elements/digital-corporate.scss';
 @import 'src/elements/download-app-modal';
@@ -29,6 +30,8 @@
 @import 'src/elements/solution';
 @import 'src/elements/questions';
 @import 'src/elements/top-section';
+@import "src/elements/timerCountDown";
+
 @import 'src/pages/payment';
 @import 'src/pages/emailVerification';
 @import 'src/pages/invitation';
@@ -48,8 +51,9 @@
 @import 'src/pages/medco-payroll';
 @import 'src/pages/ma-tbank';
 @import 'src/pages/pay-suyool';
+@import 'src/pages/aubrallypaper';
 @import 'src/admin/loto.scss';
-
+@import "src/pages/aubInvitation";
 //merchants
 @import 'src/pages/merchants/alfa.scss';
 @import 'src/pages/merchants/usj.scss';

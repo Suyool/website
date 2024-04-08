@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="rank">
+            <div class="header">
+                <div class="headernav">
+                    <img src="{{ asset('build/images/aub/rallypaper.svg') }}" width="100px">
+                    <span>X</span>
+                    <img src="{{ asset('build/images/aub/suyool.svg') }}" width="110px">
+                </div>
+                <div class="descriptionComp container-fluid row">
+                    <div class="col-md-6">
+                        <h1>
+                            The <span class="number">xxx</span> Points Suyool <span class="pre">Pre-</span> Challenge
+                        </h1>
+                        <h3>
+                            Win <span>xxx</span> points just by inviting your peers, friends & family to join Suyool.
+                            It’s that simple.
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="countdownRallyPaper" class="mt-4"
+                             style="background-color: #FFFFFF;color: #2D72A1;"></div>
+                        <div class="desc">
+                            Pre-Challenge Countdown
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="preboard">
+                <div class="board">
+                    <div class="inboard">
+                        <img src="{{ asset('build/images/aub/stars.svg') }}" class="stars">
+                        <div class="prize1">
+                            <img src="{{ asset('build/images/aub/cercle1.svg') }}" width="100px">
+                            <div class="border">
+                                {% if rankingsData[0] is defined %}
+                                    <div class="yellowborder">
+                                        <span>{{ rankingsData[0].points }}</span>
+                                    </div>
+                                    <div class="desc">
+                                        {{ rankingsData[0].name }}
+                                        <span>{{ rankingsData[0].points }} Pts</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="prize2">
+                            <img src="{{ asset('build/images/aub/cercle2.svg') }}" width="100px">
+                            <div class="border">
+                                {% if rankingsData[1] is defined %}
+                                    <div class="yellowborder">
+                                        <span>{{ rankingsData[1].points }}</span>
+                                    </div>
+                                    <div class="desc">
+                                        {{ rankingsData[1].name }}
+                                        <span>{{ rankingsData[1].points }} Pts</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="prize3">
+                            <img src="{{ asset('build/images/aub/cercle3.svg') }}" width="100px">
+                            <div class="border">
+                                {% if rankingsData[2] is defined %}
+                                    <div class="yellowborder">
+                                        <span>{{ rankingsData[2].points }}</span>
+                                    </div>
+                                    <div class="desc">
+                                        {{ rankingsData[2].name }}
+                                        <span>{{ rankingsData[2].points }} Pts</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sprint">
+                        <div class="head">
+                            <div class="title">
+                                Rank
+                            </div>
+                            <div class="title">
+                                Team
+                                Name
+                            </div>
+                            <div class="title">
+                                Pts
+                                Collected
+                            </div>
+                        </div>
+                        {% if rankingsData[3] is defined %}
+                            {% for index in range(3, rankingsData|length - 1) %}
+                                <div class="body">
+                                    <div class="nmb">
+                                        {{ rankingsData[index].rank }}
+                                    </div>
+                                    <div class="name">
+                                        {{ rankingsData[index].name }}
+                                    </div>
+                                    <div class="pts">
+                                        {{ rankingsData[index].points }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                {% include 'aubRallyPaper/challenge.html.twig' %}
+            </div>
+            <div class="points aubInvitation">
+                {% include 'aubRallyPaper/pointSystemrank.html.twig' %}
+                <div class="howtoenroll">
+                    <button class="howtoenrollbtn">Earn Points With Suyool</button>
+                    <br>
+                    <a href="https://www.youtube.com/watch?si=Yw1YKOFIBicYfld6&v=iXIqNHBy6-o&feature=youtu.be"
+                       class="yt" target="_blank"> https://youtu.be/iXIqNHBy6-o?si=Yw1YKOFIBicYfld6</a>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="container">
+                    {% include 'aubRallyPaper/faq.html.twig' %}
+                </div>
+            </div>
+            <div class="tc">
+                <div class="container">
+                    {% include 'aubRallyPaper/tc.html.twig' %}
+                </div>
+            </div>
+        </div>
+        {% include 'elements/get-suyool.html.twig' %}
+        {% include 'elements/footer.html.twig' %}
+    {% endblock %}
