@@ -342,7 +342,8 @@ class SimlyController extends AbstractController
             $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
 
             $order
-                ->setStatus(Order::$statusOrder['PURCHASED']);
+                ->setStatus(Order::$statusOrder['PURCHASED'])
+                ->setTransId($utilityResponse[1]);
 
             $this->mr->persist($order);
             $this->mr->flush();
@@ -480,8 +481,9 @@ class SimlyController extends AbstractController
             $bulk = 0;
             $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
             $message = "Your free esim card";
+            $updateUtilitiesAdditionalData = @explode("_", $simlyResponse['plan'])[2];
 
-            $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $utilityResponse[1]);
+            $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, $updateUtilitiesAdditionalData, $utilityResponse[1]);
             $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
             if ($responseUpdateUtilities[0]) {
                 $message = "Simly Purchase was successful";
@@ -571,7 +573,6 @@ class SimlyController extends AbstractController
 
                 $this->mr->persist($order);
                 $this->mr->flush();
-
                 $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $transId);
                 $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
                 if ($responseUpdateUtilities[0]) {
