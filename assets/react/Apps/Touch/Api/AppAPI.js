@@ -102,7 +102,26 @@ const AppAPI = () => {
               })
             );
             dispatch(settingObjectData({ mainField: "postpaidData", field: "ResponseId", value: response?.data?.postpayed }));
-          } else if (response.data.message == "213") {
+          } 
+          else if(response.data.errors2 == "The GSM Number has already been generated in the last 5 minutes. Please try again later."){
+            dispatch(
+              settingData({
+                field: "modalData",
+                value: {
+                  isShow: true,
+                  name: "ErrorModal",
+                  img: "/build/images/alfa/error.png",
+                  title: "Too Many Trials",
+                  desc: `Too many trials have been attempted on this mobile number.
+                  Kindly wait 5 minutes to try again. `,
+                  btn: "OK",
+                  flag: "",
+                },
+              })
+            );
+            dispatch(settingObjectData({ mainField: "postpaidData", field: pinCode, value: [] }));
+          }
+          else if (response.data.errorCode == "213") {
             dispatch(settingObjectData({ mainField: "postpaidData", field: "pinCode", value: [] }));
             dispatch(settingObjectData({ mainField: "postpaidData", field: "isPinWrong", value: true }));
           } else {

@@ -163,6 +163,7 @@ class TouchController extends AbstractController
         return new JsonResponse([
             'status' => true,
             'errors2'=> $retrieveResults[2],
+            // 'errors2'=> 'The GSM Number has already been generated in the last 5 minutes. Please try again later.',
             'isSuccess' => $retrieveResults[0],
             'errorCode' => $retrieveResults[3],
             'postpayed' => $invoicesId,
