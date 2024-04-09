@@ -1,0 +1,37 @@
+<div class="topSectionMedcoPayrollEmp ">
+    {# <img src="{{ asset('build/images/payroll/logo-indevco.png')}}"/> #}
+    <div class="desktopMode fullViewPort"><img src="{{ asset('build/images/global-esim/backgroundHero.svg') }}"/></div>
+    <div class="tabletMode"><img src="{{ asset('build/images/global-esim/backgroundHero.svg') }}"></div>
+    <div class="mobileMode"><img src="{{ asset('build/images/global-esim/backgroundHero.svg') }}"></div>
+    <div class="container">
+        <div class="information">
+
+            <div class="desc planningATrip" >
+                <div class="planningATrip" style="text-align: start;font-size: 1.5rem;margin-left: -50%;margin-top: 11%;">Planning a trip soon?<br>
+                Stay connected with <span class="boldName">Suyool Global eSIM! </span><br>
+                Purchase your international eSIM in just a few taps directly on the Suyool app. With over 100 destinations available, it connects to the country’s network and is ready to use upon landing.</div>
+            </div>
+        <div class="OpenSuyoolAccount ">
+                <div class="desktopMode ">
+                    <button class="OpenYourSuyoolAccount OpenYourSuyoolAccountMargin " data-bs-toggle="modal" data-bs-target="#DownloadApp">
+                        Purchase Suyool eSIM
+                    </button>
+                </div>
+                <div class="mobileMode">
+                    <button class="OpenYourSuyoolAccount">
+                        Purchase Suyool eSIM
+                    </button>
+                </div>
+                <div class="tabletMode">
+                    <button class="OpenYourSuyoolAccount">
+                        Purchase Suyool eSIM
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<img src="{{ asset('build/images/global-esim/gsim_phone.png') }}" class="phoneImage"/>
+{# {% include 'medco-payroll/infoSection.html.twig' %} #}
+    {% include 'global-esim/inWhichDestiantions.twig' %}

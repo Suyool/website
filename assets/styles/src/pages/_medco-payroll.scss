@@ -60,6 +60,7 @@
     min-height: 497px;
   }
 
+  
   .logos {
     padding-top: 30px;
     text-align: center;
@@ -87,6 +88,7 @@
     .desc {
       color: #287094 !important;
     }
+
   }
 
   .web-addicts {
@@ -96,6 +98,12 @@
 
     .desc {
       color: #000 !important;
+
+    }
+
+    .planningATrip{
+      font-size: 14px;
+
     }
   }
 
@@ -160,8 +168,21 @@
         //   color: #ffffff;
         // }
       }
+      .OpenYourSuyoolAccountMargin{
+        margin-right: 62%;
+        margin-top: 10%;
+      }
     }
+    
   }
+}
+
+.phoneImage{
+  z-index: 999;
+  margin-top: -28%;
+  margin-left: 64%;
+  // scale: 0.55;
+  margin-bottom: -14%;
 }
 
 .medcoPayrollWhyChooseSuyool {
@@ -197,6 +218,10 @@
         font-size: 18px;
       }
     }
+  }
+  .eSimDestination{
+    display: flex;
+    justify-content: space-between;
   }
 }
 
