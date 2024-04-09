@@ -21,7 +21,7 @@
   .purchaseBtnCont {
     margin: 100px 0;
     text-align: center;
-    button {
+    .btnPurchase {
 
       background-color: #226d96;
       width: 250px;
@@ -40,8 +40,15 @@
       -webkit-overflow-scrolling: touch;
 
       .flagsbyregion {
+        @media screen and (max-width: 768px) {
+          display: flex;
+          gap: 45px;
+          flex-wrap: nowrap;
+        }
         display: flex;
-        gap: 45px;
+        gap: 34px;
+        flex-wrap: wrap;
+        justify-content: center;
 
         .countryImgCont {
           background-color: #ebebeb;

@@ -3,11 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-<<<<<<< HEAD
-        "/build/app1.1b9fab35.js"
-=======
-        "/build/app1.980c72f5.js"
->>>>>>> 358570a0 (fix responsive and search design)
+        "/build/app1.d75379e6.js"
       ]
     },
     "admin-app": {
@@ -87,23 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.4c7a16c5.css"
-=======
-        "/build/styles.d9d0da35.css"
->>>>>>> c4de3835 (2 sections with btn and faq)
-=======
-        "/build/styles.2c3284a6.css"
->>>>>>> b4edbc61 (Working on the global esim)
-=======
-        "/build/styles.8f98d5a6.css"
->>>>>>> 9dde5a1e (Finalizing the esim mobile)
-=======
-        "/build/styles.353d37fe.css"
->>>>>>> 358570a0 (fix responsive and search design)
+        "/build/styles.79a7a1e0.css"
       ]
     },
     "admin": {
