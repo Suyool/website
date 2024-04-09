@@ -428,7 +428,7 @@ class SimlyServices
             if ($data['code'] == 200) {
                 return array($data['data'], json_encode($body), json_encode($data), $this->SIMLY_API_HOST . 'esims/purchase', $response->getStatusCode());
             } else {
-                return array(500, 'Internal Server Error', json_encode($data), 'PurchaseTopup', $response->getStatusCode());
+                return array(500, json_encode($body), json_encode($data), 'PurchaseTopup', $response->getStatusCode());
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
