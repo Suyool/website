@@ -85,6 +85,7 @@
       "css": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.4c7a16c5.css"
 =======
         "/build/styles.d9d0da35.css"
@@ -92,6 +93,9 @@
 =======
         "/build/styles.2c3284a6.css"
 >>>>>>> b4edbc61 (Working on the global esim)
+=======
+        "/build/styles.8f98d5a6.css"
+>>>>>>> 9dde5a1e (Finalizing the esim mobile)
       ]
     },
     "admin": {

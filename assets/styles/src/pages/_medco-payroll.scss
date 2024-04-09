@@ -101,8 +101,6 @@
 
     }
 
-    .planningATrip{
-      font-size: 14px;
 
     }
   }
@@ -175,15 +173,7 @@
     }
     
   }
-}
 
-.phoneImage{
-  z-index: 999;
-  margin-top: -28%;
-  margin-left: 64%;
-  // scale: 0.55;
-  margin-bottom: -10%;
-}
 
 .medcoPayrollWhyChooseSuyool {
 
@@ -219,75 +209,6 @@
       }
     }
   }
-  .eSimDestination {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 12%;
-    margin-left: 12%;
-  
-    .eSimSearchBar {
-      position: relative; 
-      flex: 1; 
-      max-width: 200px; 
-
-      img {
-        position: absolute; 
-        left: 10px; 
-        top: 85% ;
-        transform: translateY(-50%); 
-        width: 20px;
-        height: auto; 
-      }
-  
-      .searchbarstyle {
-        background: transparent 0% 0% no-repeat padding-box;
-        border: 2px solid #226D9698;
-        border-radius: 10px;
-        opacity: 1;
-        padding-left: 35px;  
-        width: 112%;
-        height: 170%;
-      }
-    }
-    .eSimSearchBarFilter{
-      position: relative; 
-      flex: 1; 
-      max-width: 200px; 
-
-      img {
-        position: absolute; 
-        right: -9px;
-        top: 84% ;
-        transform: translateY(-50%); 
-        width: 20px;
-        height: auto; 
-        cursor: pointer;
-      }      
-      .searchbarstyle {
-        background: transparent 0% 0% no-repeat padding-box;
-        border: 2px solid #226D9698;
-        border-radius: 10px;
-        opacity: 1;
-        // padding-left: 35px;  
-        width: 112%;
-        height: 170%;
-      }
-    }
-  }
-  
-
-  .flagsbyregion{
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 5%;
-    margin-left: 1%;
-    margin-right: 1%;
-    gap: 1rem;
-    flex-wrap: wrap;
-    p {
-      text-align: center;
-    }
-  }
 }
 
 .use-money {
@@ -320,8 +241,7 @@
     .information {
       padding-top: 100px;
 
-      .title {
-      }
+
     }
   }
 }
