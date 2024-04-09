@@ -12,6 +12,7 @@ use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,9 +29,10 @@ class AubRallyPaperController extends AbstractController
     private $client;
     private $mr;
     private $suyoolServices;
+    private $cache;
 
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices,AdapterInterface $cache)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -38,6 +40,7 @@ class AubRallyPaperController extends AbstractController
         $this->helper = new Helper($this->client);
         $this->mr = $mr->getManager('default');
         $this->suyoolServices = $suyoolServices;
+        $this->cache = $cache;
     }
 
     /**
@@ -64,6 +67,9 @@ class AubRallyPaperController extends AbstractController
             'secureHash' => $hash
         ];
         $data = $this->suyoolServices->rallyPaperOverview($body);
+        $item = $this->cache->getItem('rallyPaperOverview');
+        $item->set($data)->expiresAfter(1800);
+        $this->cache->save($item);
         /*
         0 pending
         1 requested
@@ -176,7 +182,7 @@ class AubRallyPaperController extends AbstractController
             $pagination = $paginatorInterface->paginate(
                 $toBeDisplayedItem,  // Query to paginate
                 $request->get('page', 1),   // Current page number
-                4             // Records per page
+                20             // Records per page
             );
             // dd($pagination);
             $data['toBeDisplayed'][] = $pagination;
@@ -216,22 +222,22 @@ class AubRallyPaperController extends AbstractController
                 'secureHash' => $hash
 
             ];
-            $response = $this->suyoolServices->rallyPaperInvite($form_data);
-
-            $logs = new AubLogs();
-            $logs
-                ->setidentifier($mobile)
-                ->setrequest(json_encode($form_data))
-                ->setresponse(json_encode($response));
-            $this->mr->persist($logs);
-            $this->mr->flush();
-//            $response = [
-//                "globalCode" => 0,
-//                "flagCode" => 2,
-//                "title" => "Number Already Linked",
-//                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
-//                "buttonText" => "copy link"
-//            ];
+//            $response = $this->suyoolServices->rallyPaperInvite($form_data);
+//
+//            $logs = new AubLogs();
+//            $logs
+//                ->setidentifier($mobile)
+//                ->setrequest(json_encode($form_data))
+//                ->setresponse(json_encode($response));
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
+            $response = [
+                "globalCode" => 0,
+                "flagCode" => 2,
+                "title" => "Number Already Linked",
+                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
+                "buttonText" => "copy link"
+            ];
             return new JsonResponse($response);
         }
         $parameters['faq'] = [
@@ -343,4 +349,111 @@ class AubRallyPaperController extends AbstractController
         }
         return $this->render('aubRallyPaper/login.html.twig');
     }
+
+      /**
+       * @Route("/aub-search", name="app_search",methods="POST")
+       */
+      public function search(Request $request,SessionInterface $session)
+      {
+          $status = null;
+          $datacharacter = json_decode($request->getContent(false),true);
+        //   dd($datacharacter);
+          $teamCode = $session->get('team_code');
+          // dd($teamCode);
+          $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
+          $body = [
+              'code' => $teamCode,
+              'secureHash' => $hash
+          ];
+        //   $data = $this->suyoolServices->rallyPaperOverview($body);
+        $item = $this->cache->getItem('rallyPaperOverview');
+          $data = $item->get();
+          /*
+          0 pending
+          1 requested
+          2 fully
+          3 activated
+          4 card payment
+          */
+          // dd($data);
+          if (!empty($data)) {
+              $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
+              if (is_null($status)) {
+                  foreach ($data['status'] as $status => $statused) {
+                      foreach ($data['status'][$status] as $statused) {
+                          switch ($statused['status']) {
+                              case 0:
+                                  $displayedStatus = 'Pending Modification';
+                                  $class = 'pending';
+                                  break;
+                              case 1:
+                                  $displayedStatus = 'Requested Card';
+                                  $class = 'requested';
+                                  break;
+                              case 2:
+                                  $displayedStatus = 'Fully Enrolled';
+                                  $class = 'fully';
+                                  break;
+                              case 3:
+                                  $displayedStatus = 'Activated Card';
+                                  $class = 'activated';
+                                  break;
+                              case 4:
+                                  $displayedStatus = 'Card Payment';
+                                  $class = 'card';
+                                  break;
+                          }
+                          $toBeDisplayedItem[] = [
+                              'status' => $displayedStatus,
+                              'fullyname' => $statused['fullName'],
+                              'mobileNo' => $statused['mobileNo'],
+                              'id' => $statused['id'],
+                              'status2' => $statused['status'],
+                              'class'=>$class
+                          ];
+                      }
+                  }
+              } 
+              $data['toBeDisplayed'][] = $toBeDisplayedItem;
+              $parameters = [
+                  'status' => true,
+                  'message' => 'Returning Data',
+                  'body' => $data,
+                  'teamCode'=>$teamCode
+              ];
+          } else {
+              $parameters['status'] = false;
+              $parameters['message'] = 'Empty Data';
+          }
+          // dd($parameters);
+         
+          foreach ($parameters['body']['toBeDisplayed'][0] as $body) {
+              // if ($body['fullyname'] === $datacharacter['char']) {
+              //     // Value found, do something with it
+              //     // For example, you can add it to a new array
+              //     $foundResults[] = $body;
+              // }else{
+              //     // $foundResults=[];
+              // }
+              $input = $datacharacter['char'] ;
+              if (stripos($body['fullyname'], $input) !== false) {
+                  // Partial match found, add it to the result array
+                  $foundResults[] = $body;
+              }
+          }
+          if(empty($foundResults)){
+              return new JsonResponse([
+                  'data'=>[]
+              ],200);
+          }
+          $parameters['body']['toBeDisplayed'][0] = $foundResults;
+         return new JsonResponse([
+            'status'=>true,
+            'data'=>$parameters['body']['toBeDisplayed'][0]
+         ]);
+  
+      //    return new JsonResponse([
+      //     'char'=>$data['char']
+      //    ]);
+      }
 }
