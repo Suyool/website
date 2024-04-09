@@ -1,4 +1,4 @@
-<div class="container tableoverview">
+<div class="container tableoverview" id="here">
     <div class="search">
         <img src="{{ asset('build/images/aub/search.svg') }}">
         <input type="text" name="search" placeholder="Search Member">
@@ -151,3 +151,18 @@
         </div>
     {# </div> #}
 </div>
+
+<script>
+    window.addEventListener('load', function() {
+        var status = '{{ app.request.get('status') }}';
+        if (status) {
+            // Scroll to the table element
+            var tableElement = document.getElementsByClassName('tab-information');
+            for (let j = 0; j < tableElement.length; j++) {
+            if (tableElement[j]) {
+                tableElement[j].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            }
+        }
+    });
+</script>
