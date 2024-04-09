@@ -39,13 +39,21 @@ class PaymentController extends AbstractController
         $parameters = $this->trans->translation($request, $translator);
         $parameters['currentPage'] = "payment_landingPage";
         $parameters['payment_details_response'] = $this->suyoolServices->PaymentDetails($code, $parameters['lang']);
-        $parameters['payment_details_response']['allowCashOut']="true";
+        // dd($parameters);
+        $amount = explode(" ", $parameters['payment_details_response']['amount']);
+        $amount = str_replace(",", "", $amount);
+        $parameters['amount'] = $amount[1];
+        $parameters['currencyInAbb'] = $amount[0];
+        // $parameters['payment_details_response']['allowCashOut']="true";
         if ($parameters['payment_details_response'] != null) {
             if ($parameters['payment_details_response']['respCode'] == 2 || $parameters['payment_details_response']['respCode'] == -1 ||  $parameters['payment_details_response']['transactionID'] == 0) {
                 return $this->redirectToRoute("homepage");
             }
             $this->session->set("pequest_details_response", $parameters['payment_details_response']);
             $this->session->set("code", $code);
+            $this->session->set('amountwcurrency', $parameters['payment_details_response']['amount']);
+            $this->session->set('amount', $parameters['amount']);
+            $this->session->set('currencyInAbb', $parameters['currencyInAbb']);
             $this->session->set(
                 "image",
                 isset($parameters['payment_details_response']['image'])
@@ -74,6 +82,12 @@ class PaymentController extends AbstractController
                 "allowExternal",
                 isset($parameters['payment_details_response']['allowExternal'])
                     ? $parameters['payment_details_response']['allowExternal']
+                    : ''
+            );
+            $this->session->set(
+                "isSenderUser",
+                isset($parameters['payment_details_response']['isSenderUser'])
+                    ? $parameters['payment_details_response']['isSenderUser']
                     : ''
             );
             if (isset($parameters['payment_details_response']['additionalData'])) {
@@ -106,6 +120,18 @@ class PaymentController extends AbstractController
                         : ''
                 );
             }
+            $this->session->set(
+                "fee",
+                isset($parameters['payment_details_response']['paymentDetailCashOutAdd']['fees'])
+                    ? $parameters['payment_details_response']['paymentDetailCashOutAdd']['fees']
+                    : ''
+            );
+            $this->session->set(
+                "totalAmount",
+                isset($parameters['payment_details_response']['paymentDetailCashOutAdd']['fees'])
+                    ? $parameters['amount'] - $parameters['payment_details_response']['paymentDetailCashOutAdd']['fees']
+                    : ''
+            );
         }
         return $this->render('payment/index.html.twig', $parameters);
     }

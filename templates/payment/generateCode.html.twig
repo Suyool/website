@@ -33,6 +33,35 @@
 			<div class="generatecode container ">
 				<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
 				<div class="title">Withdraw cash BoB Finance cashpoint:</div>
+				{% if app.session.get('isSenderUser') is defined and app.session.get('isSenderUser') == false %}
+					<div class="infoForm">
+						<div class="amount">
+							<div class="ti">
+								Amount
+							</div>
+							<div class="nm">
+								{{ app.session.get('amountwcurrency') }}
+							</div>
+						</div>
+						<div class="amount">
+							<div class="ti">
+								Card Withdrawal Fee
+							</div>
+							<div class="nm">
+								{{ app.session.get('currencyInAbb') }} {{ app.session.get('fee')|number_format(2, '.', ',') }} 
+							</div>
+						</div>
+						<hr>
+						<div class="amount">
+							<div class="ti">
+								Total Amount Withdrawn
+							</div>
+							<div class="nm">
+								{{ app.session.get('currencyInAbb') }} {{ app.session.get('totalAmount')|number_format(2, '.', ',') }}
+							</div>
+						</div>
+					</div>
+				{% endif %}
 				<form method="post">
 					<input type="hidden" name="token" value="{{ csrf_token('payment') }}"/>
 					<label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>

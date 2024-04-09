@@ -348,8 +348,8 @@ class SuyoolServices
         $body = [
             'transactionId' => $TranSimId,
             'receiverFname' => $fname,
-            'hash' => $Hash,
             'receiverLname' => $lname,
+            'hash' => $Hash,
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}NonSuyooler/NonSuyoolerCashOut",  $body);
 
@@ -359,6 +359,7 @@ class SuyoolServices
         } else {
             $payment_details_response = $response->toArray();
         }
+        $this->cashout->info(json_encode($body));
         $this->cashout->info(json_encode($payment_details_response));
         return $payment_details_response;
     }
