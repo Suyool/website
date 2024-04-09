@@ -12,6 +12,7 @@ use App\Utils\Helper;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,9 +29,10 @@ class AubRallyPaperController extends AbstractController
     private $client;
     private $mr;
     private $suyoolServices;
+    private $cache;
 
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices,AdapterInterface $cache)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -38,6 +40,7 @@ class AubRallyPaperController extends AbstractController
         $this->helper = new Helper($this->client);
         $this->mr = $mr->getManager('default');
         $this->suyoolServices = $suyoolServices;
+        $this->cache = $cache;
     }
 
     /**
@@ -64,6 +67,9 @@ class AubRallyPaperController extends AbstractController
             'secureHash' => $hash
         ];
         $data = $this->suyoolServices->rallyPaperOverview($body);
+        $item = $this->cache->getItem('rallyPaperOverview');
+        $item->set($data)->expiresAfter(1800);
+        $this->cache->save($item);
         /*
         0 pending
         1 requested
@@ -216,22 +222,22 @@ class AubRallyPaperController extends AbstractController
                 'secureHash' => $hash
 
             ];
-            $response = $this->suyoolServices->rallyPaperInvite($form_data);
-
-            $logs = new AubLogs();
-            $logs
-                ->setidentifier($mobile)
-                ->setrequest(json_encode($form_data))
-                ->setresponse(json_encode($response));
-            $this->mr->persist($logs);
-            $this->mr->flush();
-//            $response = [
-//                "globalCode" => 0,
-//                "flagCode" => 2,
-//                "title" => "Number Already Linked",
-//                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
-//                "buttonText" => "copy link"
-//            ];
+//            $response = $this->suyoolServices->rallyPaperInvite($form_data);
+//
+//            $logs = new AubLogs();
+//            $logs
+//                ->setidentifier($mobile)
+//                ->setrequest(json_encode($form_data))
+//                ->setresponse(json_encode($response));
+//            $this->mr->persist($logs);
+//            $this->mr->flush();
+            $response = [
+                "globalCode" => 0,
+                "flagCode" => 2,
+                "title" => "Number Already Linked",
+                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
+                "buttonText" => "copy link"
+            ];
             return new JsonResponse($response);
         }
         $parameters['faq'] = [
@@ -359,7 +365,9 @@ class AubRallyPaperController extends AbstractController
               'code' => $teamCode,
               'secureHash' => $hash
           ];
-          $data = $this->suyoolServices->rallyPaperOverview($body);
+        //   $data = $this->suyoolServices->rallyPaperOverview($body);
+        $item = $this->cache->getItem('rallyPaperOverview');
+          $data = $item->get();
           /*
           0 pending
           1 requested
