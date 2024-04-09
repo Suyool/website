@@ -188,7 +188,7 @@ class SimlyServices
                         $data['data']['plans'][$index1]['initial_price'] = 0;
                         $data['data']['plans'][$index1]['initial_price_free'] = "Free";
                         $data['data']['plans'][$index1]['price'] = 0;
-                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId, $data['data']['plans'][$index1]['planId']);
+                        $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId);
                         if (!empty($isCompletedPerUser)) {
                             $data['data']['plans'][$index1]['isbought'] = true;
                         }

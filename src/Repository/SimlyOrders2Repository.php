@@ -19,12 +19,12 @@ use Doctrine\Persistence\ManagerRegistry;
 class SimlyOrders2Repository extends EntityRepository
 {
 
-    public function fetchIfUserHasBoughtThisEsim($suyoolUserId,$planId)
+    public function fetchIfUserHasBoughtThisEsim($suyoolUserId)
     {
         $qb = $this->createQueryBuilder('t')
         ->select('t')
         ->leftJoin(Esim::class,'e','WITH','t.esims_id = e.id')
-        ->where("t.status = 'completed' and e.status != 'REFUNDED' and t.suyoolUserId = {$suyoolUserId} and e.plan = '{$planId}'")
+        ->where("t.status = 'completed' and e.status != 'REFUNDED' and t.suyoolUserId = {$suyoolUserId} and t.isOffre = 1")
         ->getQuery()
         ->getResult();
 
