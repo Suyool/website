@@ -114,73 +114,75 @@ $(document).ready(function() {
     $('#popupModal .closeBtn button').on('click', function() {
         $('#popupModal').modal('hide'); // Close the modal
     });
+
+    if(document.getElementsByName("search")[0]){
+        const headerHTML = `
+        <div class="desktopMode marginForHeader"></div>
+        <div class="desktopMode member-number-name"> 
+            <div class="member-number-name-left">
+                <div> Member #</div>
+                <div> Phone Number</div>
+                <div> Full Name</div>
+            </div>
+            <div class="member-number-name-right">
+                <div> Status</div>
+            </div>
+        </div>
+    `;
+        var search = document.getElementsByName("search")[0]
+       
+        search.addEventListener("input",()=>{   
+            let postObj = { 
+                char : search.value
+        }
+        document.getElementsByClassName("tab-information")[0].innerHTML = '';
+    
+        let post = JSON.stringify(postObj)
+            $.ajax({
+                url: '/aub-search',
+                type: 'POST',
+                data: post,
+                success: function(response) {
+                    console.log(response);
+                    console.log(response.data.length)
+                     // Loop through each element with the class 'tab-information'
+                let tabInformations = document.getElementsByClassName("tab-information");
+                for (let j = 0; j < tabInformations.length; j++) {
+                    // Clear the content of each 'tab-information' element before appending new content
+                    tabInformations[j].innerHTML = '';
+                    if (j === 0) {
+                        tabInformations[j].insertAdjacentHTML('beforeend', headerHTML);
+                    }
+                    // Append content for each entity to the current 'tab-information' element
+                    for (let i = 0; i < response.data.length; i++) {
+                        let entity = response.data[i];
+                         let html = `
+                    <div class=" member-number-name greyBackground">
+    
+                            <div class="member-number-name-left">
+                                <div class="fixedWidthMember">${entity.id}</div>
+                                <div class="fixedWidthPhone">+${entity.mobileNo}</div>
+                                <div class="fixedWidthName">${entity.fullyname}</div>
+                            </div>
+                            <div class="member-number-name-right st ${entity.class}">
+                                <div>${entity.status}</div>
+                            </div>
+                            </div>
+                        `;
+                        // Append 'html' to the current 'tab-information' element
+                        tabInformations[j].insertAdjacentHTML('beforeend', html);
+                    }
+                }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        })
+    }
 });
 
-if(document.getElementsByClassName("search")){
-    const headerHTML = `
-    <div class="desktopMode marginForHeader"></div>
-    <div class="desktopMode member-number-name"> 
-        <div class="member-number-name-left">
-            <div> Member #</div>
-            <div> Phone Number</div>
-            <div> Full Name</div>
-        </div>
-        <div class="member-number-name-right">
-            <div> Status</div>
-        </div>
-    </div>
-`;
-    var search = document.getElementsByName("search")[0]
-   
-    search.addEventListener("input",()=>{   
-        let postObj = { 
-            char : search.value
-    }
-    document.getElementsByClassName("tab-information")[0].innerHTML = '';
 
-    let post = JSON.stringify(postObj)
-        $.ajax({
-            url: '/aub-search',
-            type: 'POST',
-            data: post,
-            success: function(response) {
-                console.log(response);
-                console.log(response.data.length)
-                 // Loop through each element with the class 'tab-information'
-            let tabInformations = document.getElementsByClassName("tab-information");
-            for (let j = 0; j < tabInformations.length; j++) {
-                // Clear the content of each 'tab-information' element before appending new content
-                tabInformations[j].innerHTML = '';
-                if (j === 0) {
-                    tabInformations[j].insertAdjacentHTML('beforeend', headerHTML);
-                }
-                // Append content for each entity to the current 'tab-information' element
-                for (let i = 0; i < response.data.length; i++) {
-                    let entity = response.data[i];
-                     let html = `
-                <div class=" member-number-name greyBackground">
-
-                        <div class="member-number-name-left">
-                            <div class="fixedWidthMember">${entity.id}</div>
-                            <div class="fixedWidthPhone">+${entity.mobileNo}</div>
-                            <div class="fixedWidthName">${entity.fullyname}</div>
-                        </div>
-                        <div class="member-number-name-right st ${entity.class}">
-                            <div>${entity.status}</div>
-                        </div>
-                        </div>
-                    `;
-                    // Append 'html' to the current 'tab-information' element
-                    tabInformations[j].insertAdjacentHTML('beforeend', html);
-                }
-            }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    })
-}
 
 if(document.getElementById("emailForm")){
 // Get the form element

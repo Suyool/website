@@ -182,7 +182,7 @@ class AubRallyPaperController extends AbstractController
             $pagination = $paginatorInterface->paginate(
                 $toBeDisplayedItem,  // Query to paginate
                 $request->get('page', 1),   // Current page number
-                4             // Records per page
+                20             // Records per page
             );
             // dd($pagination);
             $data['toBeDisplayed'][] = $pagination;
