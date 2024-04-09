@@ -188,6 +188,9 @@ class SimlyServices
                         $data['data']['plans'][$index1]['initial_price'] = 0;
                         $data['data']['plans'][$index1]['initial_price_free'] = "Free";
                         $data['data']['plans'][$index1]['price'] = 0;
+                        if($data['data']['plans'][$index1]['planId'] == "simly_TUR_1GB_1D"){
+                            $data['data']['plans'][$index1] = null;
+                        }
                         $isCompletedPerUser = $this->mr->getRepository(Order::class)->fetchIfUserHasBoughtThisEsim($suyoolUserId);
                         if (!empty($isCompletedPerUser)) {
                             $data['data']['plans'][$index1]['isbought'] = true;
