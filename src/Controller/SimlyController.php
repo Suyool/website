@@ -380,6 +380,9 @@ class SimlyController extends AbstractController
                 $this->mr->persist($order);
                 $this->mr->flush();
 
+                $responseUpdateUtilities = $suyoolServices->UpdateUtilities(0, "", $utilityResponse[1]);
+                $pushlog->pushLogs(new Logs, "UpdateUtility", @$responseUpdateUtilities[3], @$responseUpdateUtilities[2], @$responseUpdateUtilities[4], @$responseUpdateUtilities[5]);
+
                 // try {
                 //     $logs = new Logs;
                 //     $logs
