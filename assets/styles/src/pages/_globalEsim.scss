@@ -1,0 +1,36 @@
+.globalEsim {
+  .sectionsInfo {
+    text-align: center;
+    h4 {
+      color: #373464;
+      font-family: $Bold;
+    }
+    h1 {
+      font-family: $Regular;
+      margin: 30px 0;
+    }
+    p {
+      font-family: $InterRegular;
+      margin-bottom: 50px;
+    }
+  }
+  .purchaseBtnCont {
+    margin: 100px 0;
+    text-align: center;
+    button {
+
+      background-color: #226d96;
+      width: 250px;
+      padding: 10px 0;
+      border-radius: 30px !important;
+      border: none;
+      font-family: $SemiBold;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .video-section-ads iframe {
+      width: 95%;
+      height: 300px;
+    }
+  }
+}

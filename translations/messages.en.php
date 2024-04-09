@@ -688,4 +688,21 @@ return [
     'YES_YOU_CAN_USE_CARD_ONLINE' => 'Yes, you can use the Suyool Visa Platinum card online.',
     'HOW_CAN_I_KNOW_RANK' => 'How can I know my team’s ranking?',
     'YOU_CAN_TRACK_YOUR_TEAM' => 'You can track your team’s ranking during the Suyool Challenge <a href="/rallypaper-team-ranking" target="_blank" style="text-decoration: underline; color: #226d96">here.</a>',
-    ];
+
+    //esim
+    'WHAT_IS_ESIM'=>'What is an eSIM and how does it work?',
+    'AN_ESIM_IS'=>'An eSIM is a digital SIM card built into devices. You buy and activate it online, then set it up in your device’s settings. Once activated, the eSIM connects to a foreign carrier network, letting you call, text, and use data anywhere you go.',
+    'HOW_ACTIVATE'=>'How do I activate and set up my Suyool Global eSIM?',
+    'AFTER_PURCHASING'=>'After purchasing your Suyool Global eSIM, please follow the instructions provided carefully, as they may vary depending on your device. Your eSIM will only function once it successfully connects to the foreign carrier network.',
+    'WHICH_dEVICE'=>'Which devices are compatible with Suyool Global eSIM?',
+    'EACH_DEVICE'=>'Each device is different, and not all are compatible with eSIMs. To check if your device can use eSIMs, simply dial *#06# on your phone. If you see an EID barcode, then your phone is indeed compatible with eSIMs.',
+    'WHAT_COUNTRIES'=>'What countries and destinations does Suyool Global eSIM cover?',
+    'SUYOOL_GLOBAL_ESIM'=>'Suyool Global eSIM covers more than 100 countries, all 6 continents & a global package. For the full list check out the Global eSIM section on your Suyool app.',
+    'HOW_DO_I_TRACK'=>'How do I track my purchased eSIM usability during my trip?',
+    'TRACKING_YOUR'=>'Suyool Global eSIM provides the convenience of tracking your purchased eSIM’s usage on the go. Simply navigate to the ‘My eSIM Account’ section in your Suyool app, where you can view the amount of data you’ve used from your package and the remaining days available for usage.',
+
+];
+
+
+
+

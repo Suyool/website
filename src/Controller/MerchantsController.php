@@ -2347,28 +2347,24 @@ class MerchantsController extends AbstractController
         $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
         $parameters['faq'] = [
             "ONE" => [
-                "Title" => "WHAT_IS_SUYOOL_DrogueriePhenicia",
-                "Desc" => "SUYOOL_IS_A_CASHLESS_ECOSYSTEM_THAT_INCORPORATES_DrogueriePhenicia"
+                "Title" => "WHAT_IS_ESIM",
+                "Desc" => "AN_ESIM_IS"
             ],
             "TWO" => [
-                "Title" => "CAN_ANYONE_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia",
-                "Desc" => "ANY_LEBANESE_CITIZEN_CAN_OPEN_A_SUYOOL_ACCOUNT_DrogueriePhenicia"
+                "Title" => "HOW_ACTIVATE",
+                "Desc" => "AFTER_PURCHASING"
             ],
             "THREE" => [
-                "Title" => "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_EMILE",
-                "Desc" => "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_EMILE"
+                "Title" => "WHICH_dEVICE",
+                "Desc" => "EACH_DEVICE"
             ],
             "FOUR" => [
-                "Title" => "IS_THERE_ANY_FEE_TO_GET_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_EMILE"
+                "Title" => "WHAT_COUNTRIES",
+                "Desc" => "SUYOOL_GLOBAL_ESIM"
             ],
             "FIVE" => [
-                "Title" => "WHERE_CAN_I_USE_MY_SUYOOL_PLATINUM_MASTERCARD_DrogueriePhenicia",
-                "Desc" => "YOU_CAN_USE_YOUR_SUYOOL_MASTERCARD_AT_ANY_POS_DrogueriePhenicia"
-            ],
-            "SIX" => [
-                "Title" => "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_MEDCOPAYROLL",
-                "Desc" => "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_MEDCOPAYROLL"
+                "Title" => "HOW_DO_I_TRACK",
+                "Desc" => "TRACKING_YOUR"
             ],
         ];
 

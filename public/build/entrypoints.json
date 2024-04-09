@@ -83,7 +83,11 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
+<<<<<<< HEAD
         "/build/styles.4c7a16c5.css"
+=======
+        "/build/styles.d9d0da35.css"
+>>>>>>> c4de3835 (2 sections with btn and faq)
       ]
     },
     "admin": {
