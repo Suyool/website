@@ -84,10 +84,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.4c7a16c5.css"
 =======
         "/build/styles.d9d0da35.css"
 >>>>>>> c4de3835 (2 sections with btn and faq)
+=======
+        "/build/styles.2c3284a6.css"
+>>>>>>> b4edbc61 (Working on the global esim)
       ]
     },
     "admin": {
