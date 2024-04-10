@@ -264,7 +264,7 @@ const Account = () => {
                               //   localStorage.setItem("qrString", data.qrCodeString);
                               // }
                             }}
-                            disabled={data.sim.status === "REFUNDED"}
+                            disabled={(data.sim.status === "REFUNDED") || (data.plan.status === "EXPIRED")}
                           >
                             {(data.sim.status === "PENDING_INSTALLATION") || (data.sim.status === "PENDING") 
                               ? "Install"
