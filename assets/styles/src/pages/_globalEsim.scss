@@ -38,7 +38,7 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch;
-
+      display: grid;
       .flagsbyregion {
         @media screen and (max-width: 768px) {
           display: flex;
@@ -144,7 +144,7 @@
         bottom: -48%;
       }
       @media screen and (max-width: 405px ) {
-        bottom: -28rem;
+        bottom: -19rem;
         right: 3.1rem;
       }
 
@@ -173,7 +173,7 @@
 
     }
     @media screen and (max-width: 405px ) {
-      margin-top: 530px;
+      margin-top: 420px;
 
     }
 

@@ -15,67 +15,67 @@
     "Loto": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Loto.e3dc162b.js"
+        "/build/Loto.e0cb67d1.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.53cb0270.js"
+        "/build/Alfa.6939028d.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Touch.f827b432.js"
+        "/build/Touch.e0be7e6d.js"
       ]
     },
     "Windsl": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Windsl.a058b200.js"
+        "/build/Windsl.2e78d401.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.271889d8.js"
+        "/build/Ogero.50f4e6af.js"
       ]
     },
     "TerraNet": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.b53b7fda.js"
+        "/build/TerraNet.71a9dfe7.js"
       ]
     },
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.4898f7e0.js"
+        "/build/Gift2Games.839b5d0f.js"
       ]
     },
     "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Simly.98a7a1de.js"
+        "/build/Simly.29a56b8a.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.c40b0069.js"
+        "/build/LegalEnrollement.e6cda81f.js"
       ]
     },
     "iveri": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/iveri.8d5539c4.js"
+        "/build/iveri.cf1e21da.js"
       ]
     },
     "Sodetel": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.6f4184f0.js"
+        "/build/Sodetel.65cf651c.js"
       ]
     },
     "styles": {
@@ -83,7 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.79a7a1e0.css"
+        "/build/styles.91b811ff.css"
       ]
     },
     "admin": {
