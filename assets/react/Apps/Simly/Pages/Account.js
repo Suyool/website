@@ -138,7 +138,7 @@ const Account = () => {
                             id="eSim"
                             name="eSim"
                             value="eSim"
-                            checked={(data.sim.status !== "FULLY_USED") || (data.plan.status !== "EXPIRED") }
+                            checked={(data.sim.status !== "FULLY_USED") && (data.plan.status !== "EXPIRED") }
                             disabled
                           />
                           <label className="esim">eSim is still valid</label>

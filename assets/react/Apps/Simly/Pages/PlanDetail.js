@@ -27,7 +27,7 @@ const PlanDetail = () => {
               <div className="accountCard plandetail">
                 <div className="rechargable">
                   <div className="single-chart">
-                    <svg viewBox="0 0 36 36" className={`circular-chart ${planDetail?.DataUsage?.sim?.status === "FULLY_USED" ? "violet" : "green"}`}>
+                    <svg viewBox="0 0 36 36" className={`circular-chart ${(planDetail?.DataUsage?.sim?.status === "FULLY_USED") || ((planDetail?.DataUsage?.plan?.status === "EXPIRED")) ? "violet" : "green"}`}>
                       <path
                         className="circle-bg"
                         d="M18 2.0845
