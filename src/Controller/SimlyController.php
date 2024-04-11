@@ -305,6 +305,7 @@ class SimlyController extends AbstractController
 
         // dd($order);
         $order_id = $simlyMerchId . "-" . $order->getId();
+
         if (isset($simlyPlan['offre']) && $simlyPlan['offre']) {
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id,3, $order->getCurrency(), $order->getFees(), $simlyMerchId);
             if (!$utilityResponse[0]) {
@@ -470,7 +471,8 @@ class SimlyController extends AbstractController
             $params = json_encode([
                 'amount' => $order->getamount(),
                 'currency' => $order->getCurrency(),
-                'plan' => @$esim->getPlan(),
+                // 'plan' => @$esim->getPlan(),
+                'plan' => @trim($esim->getPlan(),"simly_"),
                 'fname' => $userName,
                 'type' => $parentPlanType
 
@@ -684,7 +686,8 @@ class SimlyController extends AbstractController
             $params = json_encode([
                 'amount' => $order->getamount(),
                 'currency' => $order->getCurrency(),
-                'plan' => @$esim->getPlan(),
+                // 'plan' => @$esim->getPlan(),
+                'plan' => @trim($esim->getPlan(),"simly_"),
                 'fname' => $userName,
                 'type' => $parentPlanType
 
