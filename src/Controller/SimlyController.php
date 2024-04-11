@@ -308,6 +308,7 @@ class SimlyController extends AbstractController
 
         if (isset($simlyPlan['offre']) && $simlyPlan['offre']) {
             $utilityResponse = $suyoolServices->PushUtilities($SuyoolUserId, $order_id,3, $order->getCurrency(), $order->getFees(), $simlyMerchId);
+            $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
             if (!$utilityResponse[0]) {
 
                 $order->setStatus(Order::$statusOrder['CANCELED'])
@@ -339,9 +340,6 @@ class SimlyController extends AbstractController
                     'flagCode' => @$utilityResponse[2]
                 ]);
             }
-
-            $pushlog->pushLogs(new Logs, "PushUtility", @$utilityResponse[4], @$utilityResponse[5], @$utilityResponse[7], @$utilityResponse[6]);
-
             $order
                 ->setStatus(Order::$statusOrder['PURCHASED'])
                 ->setTransId($utilityResponse[1]);
