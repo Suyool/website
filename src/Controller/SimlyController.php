@@ -481,7 +481,7 @@ class SimlyController extends AbstractController
             if (isset($data['esimId'])) {
                 $content = $notificationServices->getContent('AcceptedSimlyTopupPayment');
             } else {
-                $content = $notificationServices->getContent('AcceptedSimlyPurshasePayment');
+                $content = $notificationServices->getContent('AcceptedSimlyPurshasePaymentFree');
             }
             $bulk = 0;
             $notificationServices->addNotification($SuyoolUserId, $content, $params, $bulk, $additionalData);
