@@ -313,7 +313,7 @@ class AubRallyPaperController extends AbstractController
     }
 
     /**
-     * @Route("/aub-rally-paper-ranking", name="app_aub_rally_paper_ranking")
+     * @Route("/https://suyool.com/aub-rally-paper", name="app_aub_rally_paper_ranking")
      */
     public function aubRallyPaperRanking(Request $request)
     {
