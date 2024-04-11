@@ -106,7 +106,7 @@ const Account = () => {
                           <svg
                             viewBox="0 0 36 36"
                             className={`circular-chart ${
-                              data.sim.status === "FULLY_USED"
+                              (data.sim.status === "FULLY_USED") || (data.plan.status === "EXPIRED")
                                 ? "violet"
                                 : "green"
                             }`}
@@ -138,7 +138,7 @@ const Account = () => {
                             id="eSim"
                             name="eSim"
                             value="eSim"
-                            checked={data.sim.status !== "FULLY_USED"}
+                            checked={(data.sim.status !== "FULLY_USED") && (data.plan.status !== "EXPIRED") }
                             disabled
                           />
                           <label className="esim">eSim is still valid</label>
@@ -148,7 +148,7 @@ const Account = () => {
                             id="plans"
                             name="plans"
                             value="plan"
-                            checked={data.sim.status === "FULLY_USED"}
+                            checked={(data.sim.status === "FULLY_USED") || (data.plan.status === "EXPIRED")}
                             disabled
                           />
                           <label className="esim">
@@ -264,7 +264,7 @@ const Account = () => {
                               //   localStorage.setItem("qrString", data.qrCodeString);
                               // }
                             }}
-                            disabled={data.sim.status === "REFUNDED"}
+                            disabled={(data.sim.status === "REFUNDED") || (data.plan.status === "EXPIRED")}
                           >
                             {(data.sim.status === "PENDING_INSTALLATION") || (data.sim.status === "PENDING") 
                               ? "Install"

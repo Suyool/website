@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <div class="alfa globalEsim">
+            {% include 'global-esim/topSection.html.twig' %}
+            <div class="purchaseBtnCont"><a class="btn btn-primary btnPurchase" href="https://suyool.com/app?flag=91&a=https://suyool.com/simly">Purchase Suyool eSIM</a></div>
+            <div class="sectionsInfo">
+                <h4>IS GLOBAL eSIM USAGE TRACKABLE?</h4>
+                <h1>Track your eSIM usage</h1>
+                <p>Gain complete control over your connectivity!Easily track usage and top up your purchased eSIMs, even after their plan expires.</p>
+                <div class="container"><img class="w-100" src="/build/images/global-esim/trackEsim.png"/></div>
+            </div>
+            <div class="purchaseBtnCont"><a class="btn btn-primary btnPurchase" href="https://suyool.com/app?flag=91&a=https://suyool.com/simly">Purchase Suyool eSIM</a></div>
+            <div class="sectionsInfo">
+                <h4>HOW TO PURCHASE & ACTIVATE SUYOOL GLOBAL eSIM?</h4>
+                <h1>Step by Step Tutorial</h1>
+                <p>Learn how to purchase & activate your Global eSIM with our step by step video.</p>
+                <div class="video-section-ads">
+                    <div><iframe width="760" height="515" src="https://www.youtube.com/embed/rDVxebEQMB4?si=tBFs1w0MPiRjY_sl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+                </div>
+
+            </div>
+            {% include 'elements/faq/faqSuyool.html.twig' %}
+
+            {% include 'elements/get-suyool.html.twig' %}
+        </div>
+        {% include 'elements/footer.html.twig' %}
+    {% endblock %}

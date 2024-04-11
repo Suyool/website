@@ -1,0 +1,49 @@
+<div class="inWhichDestinations countriesSimlyListing">
+    <div class="three-titles">
+        <div class="title-one">IN WHICH DESTINATIONS ARE GLOBAL eSIMS AVAILABLE?</div>
+        <div class="title-two">🌍 eSIMs all over the world 🌎 </div>
+        <div class="title-three">Explore and purchase eSIMs tailored to specific countries, continents, or global
+            coverage, </br>with access to over 100 destinations!
+        </div>
+    </div>
+
+    <div class="eSimDestination">
+        <div class="eSimSearchBar">
+            <img src="{{ asset('build/images/global-esim/searchicon.svg') }}"/>
+            <input
+                    placeholder="Search"
+                    class="searchbarstyle"
+                    type="search"
+                    id="searchInput"
+                    id="filterInput"
+            />
+        </div>
+
+        <div class="eSimSearchBarFilter">
+            <select
+                    class="searchbarstyle"
+                    id="filterInput"
+            >
+                <option value="">Filter by region</option>
+                {% for regionCode, regionName in regions %}
+                    <option value="{{ regionCode }}">{{ regionName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="flags-container">
+        <div class="flagsbyregion">
+            {% for countryGroup in countriesArray %}
+                {% for countryCode, countries in countryGroup %}
+                    {% for country in countries %}
+                        <div class="countriesCont">
+                            <div class="countryImgCont"><img src="{{ country.countryImageURL }}" alt="{{ country.name }}"/></div>
+                            <div><p class="countryName">{{ country.name }}</p></div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

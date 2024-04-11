@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\Memcached;
+use App\Service\SimlyServices;
 use App\Translation\translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -2332,5 +2334,87 @@ class MerchantsController extends AbstractController
         $parameters['infoSection'] = $this->infoSection2;
 
         return $this->render('emilerassam/index.html.twig', $parameters);
+    }
+
+
+    /**
+     * @Route("/global-esim", name="global-esim")
+     */
+    public function globalEsim(Request $request, TranslatorInterface $translatorInterface,SimlyServices $simlyServices,Memcached $Memcached): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $region = $request->request->get('region');
+            $filteredCountries = [];
+
+            // Check if the region is empty, indicating the "Filter by region" option
+            if (empty($region)) {
+                // If empty, return all countries
+                $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+                foreach ($filter as $regionGroup) {
+                    foreach ($regionGroup as $regionKey => $countries) {
+                        $filteredCountries = array_merge($filteredCountries, $countries);
+                    }
+                }
+            } else {
+                // If not empty, filter countries based on the selected region
+                $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+                foreach ($filter as $regionGroup) {
+                    foreach ($regionGroup as $regionKey => $countries) {
+                        if ($regionKey === $region) {
+                            $filteredCountries = $countries;
+                            break 2; // Break both foreach loops
+                        }
+                    }
+                }
+            }
+
+            // Return the filtered countries as JSON
+            return $this->json($filteredCountries);
+        }
+        $parameters = $this->trans->translation($request, $translatorInterface);
+        $translatorInterface->setLocale("en");
+        $parameters['lang'] = "en";
+        $parameters['metaimage'] = "build/images/simly/metaEsim.png";
+        $parameters['descmeta'] = "Why is Suyool the best option for your payroll?";
+        $parameters['faq'] = [
+            "ONE" => [
+                "Title" => "WHAT_IS_ESIM",
+                "Desc" => "AN_ESIM_IS"
+            ],
+            "TWO" => [
+                "Title" => "HOW_ACTIVATE",
+                "Desc" => "AFTER_PURCHASING"
+            ],
+            "THREE" => [
+                "Title" => "WHICH_dEVICE",
+                "Desc" => "EACH_DEVICE"
+            ],
+            "FOUR" => [
+                "Title" => "WHAT_COUNTRIES",
+                "Desc" => "SUYOOL_GLOBAL_ESIM"
+            ],
+            "FIVE" => [
+                "Title" => "HOW_DO_I_TRACK",
+                "Desc" => "TRACKING_YOUR"
+            ],
+        ];
+        $filter = $Memcached->getAllCountriesBySimlyFromSimly($simlyServices);
+
+        $regionsArray = [
+            "EU" => "Europe",
+            "NA" => "North America",
+            "ME" => "Middle East",
+            "AS" => "Asia",
+            "AF" => "Africa",
+            "SA" => "South America",
+        ];
+        $parameters['regions'] =$regionsArray;
+        $parameters['countriesArray'] = $filter;
+        $parameters['title'] = "Global eSim | Suyool";
+        $parameters['desc'] = " ";
+
+        $parameters['infoSection'] = $this->infoSection2;
+
+        return $this->render('global-esim/index.html.twig', $parameters);
     }
 }
