@@ -460,3 +460,23 @@
 
   }
 }
+.howtoenroll {
+  text-align: center;
+  padding-top: 30px;
+
+  .howtoenrollbtn {
+    color: #fff;
+    border: none;
+    background-color: #216D96;
+    padding: 10px 65px;
+    font-family: $SemiBold;
+    font-size: 20px;
+    border-radius: 17px;
+    margin-bottom: 18px;
+  }
+
+  a {
+    color: #707070;
+    font-family: $Regular;
+  }
+}

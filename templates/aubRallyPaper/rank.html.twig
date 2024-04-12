@@ -87,6 +87,9 @@
                                 Pts
                                 Collected
                             </div>
+                            <div class="title">
+                                Prize
+                            </div>
                         </div>
                         {% if rankingsData[3] is defined %}
                             {% for index in range(3, rankingsData|length - 1) %}
@@ -99,6 +102,9 @@
                                     </div>
                                     <div class="pts">
                                         {{ rankingsData[index].points }}
+                                    </div>
+                                    <div class="pts">
+                                        {{ rankingsData[index].prizes }}
                                     </div>
                                 </div>
                             {% endfor %}
