@@ -196,7 +196,6 @@ class AubRallyPaperController extends AbstractController
         } else {
             $parameters['status'] = false;
             $parameters['message'] = 'Empty Data';
-            $parameters['body'] = 
         }
 
       
