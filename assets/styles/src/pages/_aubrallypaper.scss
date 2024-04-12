@@ -39,9 +39,11 @@
                 .number {
                     color: #02FF62;
                 }
+
                 .pre {
                     font-family: $Regular;
                 }
+
                 margin-bottom: 60px;
             }
 
@@ -70,6 +72,14 @@
 
             .sprint {
                 .head {
+                    .text {
+                        @media screen and (max-width:768px) {
+                            font-size: 11px;
+                            padding-right: 30px;
+                            padding-left: 7px;
+                        }
+                    }
+
                     display: flex;
                     justify-content: space-between;
                     color: #2D72A1;
@@ -97,6 +107,10 @@
                         color: #2D72A1;
                         font-family: "PoppinsBold";
                         font-size: 20px;
+                        @media screen and (max-width:768px) {
+                            font-size: 11px;
+                            width: 54px;
+                        }
                     }
 
                     .name {
@@ -104,12 +118,20 @@
                         font-size: 20px;
                         padding-top: 15px;
                         padding-right: 70px;
+                        @media screen and (max-width:768px) {
+                            font-size: 11px;
+                            // width: 54px;
+                        }
                     }
 
                     .pts {
                         font-family: 'PoppinsBold';
                         font-size: 20px;
                         padding: 15px;
+                        @media screen and (max-width:768px) {
+                            font-size: 11px;
+                            // width: 54px;
+                        }
                     }
                 }
             }
@@ -146,17 +168,20 @@
                 .desc {
                     font-family: $Bold;
                     font-size: 18px;
+
                     span {
                         display: block;
                         font-family: $Regular;
                         font-size: 16px;
                     }
                 }
+
                 .yellowborder {
                     color: #2D72A1;
                     font-family: $Bold;
                     font-size: 26px;
                 }
+
                 .prize1 {
                     position: absolute;
                     top: -75px;
@@ -168,6 +193,11 @@
                         position: relative;
                         top: -20px;
                         width: 25%;
+
+                        @media screen and (max-width:768px) {
+                            width: 44%;
+                        }
+
                         margin: auto;
                         border: none !important;
                     }
@@ -199,6 +229,11 @@
                     position: absolute;
                     top: 95px;
                     left: 20px;
+
+                    @media screen and (max-width:768px) {
+                        left: 0px;
+                    }
+
                     margin: auto;
 
                     .border {
@@ -237,6 +272,10 @@
                     top: 95px;
                     margin: auto;
                     right: 20px;
+
+                    @media screen and (max-width:768px) {
+                        right: 0px;
+                    }
 
                     .border {
                         position: relative;
@@ -438,12 +477,14 @@
         background-color: $white;
         padding: 44px 0px;
         border-radius: 20px;
+
         @media screen and (max-width:768px) {
             width: 100%;
             padding: 44px 15px;
             position: relative;
             top: 17px;
         }
+
         .sections {
             text-align: center;
 
@@ -457,6 +498,7 @@
             font-weight: 900;
             font-family: $SemiBold;
             align-content: center;
+
             @media screen and (max-width:992px) {
                 color: $white;
             }
@@ -524,7 +566,7 @@
         }
     }
 
-    .points{
+    .points {
         .number {
             color: #000;
             font-family: 'PoppinsSemiBold';
@@ -581,14 +623,17 @@
             font-size: 18px;
             padding-bottom: 30px;
         }
+
         .diffstatusCont {
             margin-top: 60px;
         }
+
         .diffstatus {
             display: flex;
             justify-content: space-between;
             padding-top: 16px;
             margin-bottom: 40px;
+
             @media screen and (max-width:992px) {
                 justify-content: center;
                 flex-wrap: wrap;
@@ -599,6 +644,7 @@
                 text-decoration: underline;
                 color: #216D95;
             }
+
             .st {
                 &.pending {
                     color: #ffc815;
@@ -629,7 +675,7 @@
                     width: 100%;
                 }
 
-    
+
                 border-radius: 50px;
                 padding: 8px;
                 height: 38px;
@@ -647,10 +693,11 @@
                 text-align: left;
                 padding-left: 10px;
                 font-weight: bold;
+
                 @media screen and (max-width:340px) {
                     width: 100%;
                 }
-    
+
             }
         }
 
@@ -666,9 +713,11 @@
             border-radius: 55px;
             text-align: left;
             padding: 17px;
+
             @media screen and (max-width:991px) {
                 width: 100%;
             }
+
             input[type=text] {
                 border: none;
                 background: transparent;
@@ -684,7 +733,8 @@
             margin-top: 30px;
             justify-content: center;
             gap: 1rem;
-            .inlineCercle1{ 
+
+            .inlineCercle1 {
 
                 /* display: block; */
                 left: -6%;
@@ -708,7 +758,7 @@
                 color: #2C73A1;
             }
 
-            .nameoftheteam{
+            .nameoftheteam {
                 // text-align: left;
                 // margin-bottom: 2rem;
                 font-family: $Bold;
@@ -718,14 +768,16 @@
 
             }
         }
-        .thetable{
+
+        .thetable {
             @media only screen and (max-width: 991px) {
                 border-top: 1px solid #216D96;
                 padding-top: 20px;
             }
 
             position: relative;
-            .nameoftheteam{
+
+            .nameoftheteam {
                 text-align: left;
                 margin-bottom: 2rem;
                 font-family: $Bold;
@@ -733,53 +785,60 @@
                 margin-top: 30px;
 
             }
+
             .theborders {
                 display: flex;
                 justify-content: space-between;
-                
-            .info1 , .count {
-                font-family: $Bold;
-                &#active {
-                    color: #216D96;
+
+                .info1,
+                .count {
+                    font-family: $Bold;
+
+                    &#active {
+                        color: #216D96;
+                    }
                 }
-            }
-            @media only screen and (max-width: 991px) {
-                   
-                white-space: nowrap;
-                position: relative;
-                overflow-x: scroll;
-                overflow-y: hidden;
-                -webkit-overflow-scrolling: touch;
-                padding-left: 0;
-                &::-webkit-scrollbar {
-                    display: none;
+
+                @media only screen and (max-width: 991px) {
+
+                    white-space: nowrap;
+                    position: relative;
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+                    -webkit-overflow-scrolling: touch;
+                    padding-left: 0;
+
+                    &::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                    .theborder {
+                        margin-left: 30px;
+                        font-family: $SemiBold;
+                    }
                 }
-                .theborder {
-                    margin-left: 30px;
-                    font-family: $SemiBold;
-                }
-        }
             }
 
             .theborders {
                 & #active-tab {
-                border: 2px solid #2C73A2;
-                border-radius: 26px 26px 0  0px;
-                opacity: 1;
-                top: 1780px;
-                left: 150px;
-                width: 238px;
-                height: 68px;
+                    border: 2px solid #2C73A2;
+                    border-radius: 26px 26px 0 0px;
+                    opacity: 1;
+                    top: 1780px;
+                    left: 150px;
+                    width: 238px;
+                    height: 68px;
 
-                @media only screen and (max-width: 991px) {
-                   width: unset;
-                   height: unset;
-                   border-radius: 10px;
-                   padding: 5px;
+                    @media only screen and (max-width: 991px) {
+                        width: unset;
+                        height: unset;
+                        border-radius: 10px;
+                        padding: 5px;
+                    }
+                }
             }
-            }
-        }
-        .inlineCercle1 {
+
+            .inlineCercle1 {
                 display: block;
                 left: -6%;
                 position: absolute;
@@ -800,167 +859,174 @@
                 font-size: 63px;
                 font-family: 'PoppinsBold';
                 color: #2C73A1;
-        }
-        .tab-information {
-            @media only screen and (max-width: 991px) {
-                border: unset;
-                padding: 0 10px;
-                
-
-        }
-
-        @media screen and (max-width:340px) {
-            margin-top: 10px;
-        }
-            display: flex;
-            flex-direction: column; 
-            border: 2px solid #2B74A2;
-            border-radius: 0px 43px 43px 43px;
-            opacity: 1;
-            top: 1869px;
-            left: 150px;
-            // width: 1620px;
-            height: 904px;
-            row-gap: 1%;
-            background-color: #F7FCFF ;
-
-
-
-            div {
-                text-align: left;            
-                letter-spacing: 0px;
-                font-family: $Medium;
-
-                opacity: 1;
             }
 
-            .marginForHeader {
-                margin-top: 3rem ;
-            }
+            .tab-information {
+                @media only screen and (max-width: 991px) {
+                    border: unset;
+                    padding: 0 10px;
 
-            .member-number-name {
+
+                }
+
+                @media screen and (max-width:340px) {
+                    margin-top: 10px;
+                }
+
                 display: flex;
-                justify-content: space-between;
-                width: 94.9%;          
-                height: 2.8rem;     
-                // margin: 2rem 2rem;
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                box-shadow: 0px 2px 5px #0000001A;
-                border-radius: 3px;
+                flex-direction: column;
+                border: 2px solid #2B74A2;
+                border-radius: 0px 43px 43px 43px;
                 opacity: 1;
-                align-items: center; 
-                margin-left: 2rem;
+                top: 1869px;
+                left: 150px;
+                // width: 1620px;
+                height: 904px;
+                row-gap: 1%;
+                background-color: #F7FCFF;
 
 
-                &.greyBackground {
-                    background-color: #FAFAFA;
-                }
 
-
-
-                .member-number-name-left {
-
-                    @media only screen and (max-width: 991px) {
-                   
-                        gap: 1rem;
-                        padding-left: 10px;
-                        margin-top: 10px;
-                        font-size: 14px;
-                }
-                    display: flex;
-                    justify-content: flex-start; 
-                    padding-left: 2rem;
-                    gap: 9rem; 
-                    align-items: center;
+                div {
+                    text-align: left;
+                    letter-spacing: 0px;
                     font-family: $Medium;
 
-
-                    .fixedWidthMember{
-                        width: 5.3rem;
-                        font-family: $Medium;
-
-
-                    }
-
-                    .fixedWidthPhone{
-                        width: 7.4rem;
-                        font-family: $Medium;
-
-
-                    }
-                    .fixedWidthName{
-                        // width: 7.4rem;
-                        font-family: $Medium;
-
-
-                    }
+                    opacity: 1;
                 }
-        
-                .member-number-name-right {
+
+                .marginForHeader {
+                    margin-top: 3rem;
+                }
+
+                .member-number-name {
                     display: flex;
-                    justify-content: center; 
-                    align-items: center; 
-                    margin-right: 3rem;
-                font-family: $Medium;
-                    
-                    @media only screen and (max-width: 992px) {
+                    justify-content: space-between;
+                    width: 94.9%;
+                    height: 2.8rem;
+                    // margin: 2rem 2rem;
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 0px 2px 5px #0000001A;
+                    border-radius: 3px;
+                    opacity: 1;
+                    align-items: center;
+                    margin-left: 2rem;
+
+
+                    &.greyBackground {
+                        background-color: #FAFAFA;
+                    }
+
+
+
+                    .member-number-name-left {
+
+                        @media only screen and (max-width: 991px) {
+
+                            gap: 1rem;
+                            padding-left: 10px;
+                            margin-top: 10px;
+                            font-size: 14px;
+                        }
+
+                        display: flex;
+                        justify-content: flex-start;
+                        padding-left: 2rem;
+                        gap: 9rem;
+                        align-items: center;
+                        font-family: $Medium;
+
+
+                        .fixedWidthMember {
+                            width: 5.3rem;
+                            font-family: $Medium;
+
+
+                        }
+
+                        .fixedWidthPhone {
+                            width: 7.4rem;
+                            font-family: $Medium;
+
+
+                        }
+
+                        .fixedWidthName {
+                            // width: 7.4rem;
+                            font-family: $Medium;
+
+
+                        }
+                    }
+
+                    .member-number-name-right {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-right: 3rem;
+                        font-family: $Medium;
+
+                        @media only screen and (max-width: 992px) {
                             font-size: x-small;
                             margin-bottom: 10px;
 
-                    }
-                    @media screen and (max-width:340px) {
-                        margin:auto;
+                        }
+
+                        @media screen and (max-width:340px) {
+                            margin: auto;
+                        }
+
                     }
 
-                }
-                .st {
-                    &.pending {
-                        color: #ffc815;
-                        background-color: #fff3cc;
+                    .st {
+                        &.pending {
+                            color: #ffc815;
+                            background-color: #fff3cc;
+                        }
+
+                        &.requested {
+                            color: #1f39d6;
+                            background-color: #d1d5f7;
+                        }
+
+                        &.fully {
+                            color: #367aa0;
+                            background-color: #d3e1ea;
+                        }
+
+                        &.activated {
+                            color: #6bce4a;
+                            background-color: #e0f5d9;
+                        }
+
+                        &.card {
+                            color: #373464;
+                            background-color: #d7d6e0;
+                        }
+
+                        @media only screen and (max-width: 991px) {
+
+                            width: 50%
+                        }
+
+                        @media screen and (max-width:425px) {
+                            width: 70%;
+                        }
+
+                        border-radius: 50px;
+                        padding: 8px;
+                        height: 31px;
+                        font-size: 16px;
+                        padding-bottom: 16px;
+                        font-family: 'PoppinsBold';
+                        width: 18%;
+                        align-items: center;
+                        padding-top: 14px;
+
                     }
-    
-                    &.requested {
-                        color: #1f39d6;
-                        background-color: #d1d5f7;
-                    }
-    
-                    &.fully {
-                        color: #367aa0;
-                        background-color: #d3e1ea;
-                    }
-    
-                    &.activated {
-                        color: #6bce4a;
-                        background-color: #e0f5d9;
-                    }
-    
-                    &.card {
-                        color: #373464;
-                        background-color: #d7d6e0;
-                    }
+
                     @media only screen and (max-width: 991px) {
-                   
-                        width: 50%
-                    }
 
-                    @media screen and (max-width:425px) {
-                        width: 70%;
-                    }
-    
-                    border-radius: 50px;
-                    padding: 8px;
-                    height: 31px;
-                    font-size: 16px;
-                    padding-bottom: 16px;
-                    font-family: 'PoppinsBold';
-                    width: 18%;
-                    align-items: center;
-                    padding-top: 14px;
-    
-                }
-                
-            @media only screen and (max-width: 991px) {
-                   
                         margin-left: 0;
                         margin-top: 2rem;
                         flex-direction: column;
@@ -968,63 +1034,72 @@
                         height: 7rem;
 
 
+                    }
                 }
             }
         }
-    }
 
     }
 
-    .teamRankingTop{
+    .teamRankingTop {
         .image-back-1 {
             .title {
                 font-family: $Regular;
+
                 span {
                     font-family: $Bold;
                 }
             }
         }
+
         .description {
             font-family: $InterRegular;
             color: $white;
         }
+
         .input-main-cont {
             margin-top: 100px;
-        
-        .sendLink {
-            background-color: #fff;
-            color: #287094;
-            padding: 10px 36px;
-            margin-right: 7px;
-            border-radius: 17px;
-            white-space: nowrap;
-            font-family: $SemiBold;
-            &:hover {
-                color: #fff;
-                background: #226D96;
-                border: 2px solid #ffffff;
+
+            .sendLink {
+                background-color: #fff;
+                color: #287094;
+                padding: 10px 36px;
+                margin-right: 7px;
+                border-radius: 17px;
+                white-space: nowrap;
+                font-family: $SemiBold;
+
+                &:hover {
+                    color: #fff;
+                    background: #226D96;
+                    border: 2px solid #ffffff;
+                }
             }
         }
     }
-    }
+
     .mobileMode {
-        display: none!important; 
-        
+        display: none !important;
+
     }
-    .mobileMode3{
-        display: none!important;
+
+    .mobileMode3 {
+        display: none !important;
     }
+
     .mobileMode2 {
-        display: none!important; 
-        
+        display: none !important;
+
     }
-    @media only screen and (max-width: 992px) { 
+
+    @media only screen and (max-width: 992px) {
         .mobileMode2 {
-            display: block!important; 
-            
+            display: block !important;
+
         }
-        .mobileMode3{
-            display: flex!important;
+
+        .mobileMode3 {
+            display: flex !important;
         }
     }
 }
