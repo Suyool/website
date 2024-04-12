@@ -998,8 +998,6 @@ $(document).ready(function () {
   const searchInput = $("#searchInput");
   const countries = $(".countriesCont");
   const filterInput = $("#filterInput");
-  const showbutton = $("#buttonshowmore");
-  const flagsByRegion = $(".flagsbyregion");
 
   searchInput.on("input", function () {
     const searchTerm = $(this).val().toLowerCase();
@@ -1013,46 +1011,34 @@ $(document).ready(function () {
     });
   });
 
-  filterInput.on("change", function () {
-    const selectedRegion = filterInput.val();
+  // filterInput.on("change", function () {
+  //   const selectedRegion = filterInput.val();
 
-    $.ajax({
-      type: "POST",
-      url: "/global-esim",
-      data: { region: selectedRegion },
-      success: function (response) {
-        let html = "";
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "/global-esim",
+  //     data: { region: selectedRegion },
+  //     success: function (response) {
+  //       let html = "";
 
-        response.forEach(function (country) {
-          html += '<div class="countriesCont">';
-          html +=
-            '<div class="countryImgCont"><img src="' +
-            country.countryImageURL +
-            '" alt="' +
-            country.name +
-            '"/></div>';
-          html += '<div><p class="countryName">' + country.name + "</p></div>";
-          html += "</div>";
-        });
-        $(".flagsbyregion").html(html);
-      },
-      error: function () {
-        console.log("Error fetching filtered countries.");
-      },
-    });
-  });
-
-  showbutton.on("click", function (e) {
-    e.preventDefault();
-    console.log("button");
-    var currentFlexWrap = flagsByRegion.css("flex-wrap");
-
-    // Toggle the flex-wrap property
-    flagsByRegion.css(
-      "flex-wrap",
-      currentFlexWrap === "wrap" ? "nowrap" : "wrap"
-    );
-  });
+  //       response.forEach(function (country) {
+  //         html += '<div class="countriesCont">';
+  //         html +=
+  //           '<div class="countryImgCont"><img src="' +
+  //           country.countryImageURL +
+  //           '" alt="' +
+  //           country.name +
+  //           '"/></div>';
+  //         html += '<div><p class="countryName">' + country.name + "</p></div>";
+  //         html += "</div>";
+  //       });
+  //       $(".flagsbyregion").html(html);
+  //     },
+  //     error: function () {
+  //       console.log("Error fetching filtered countries.");
+  //     },
+  //   });
+  // });
 });
 
 if(document.getElementById("contactusForm")){
