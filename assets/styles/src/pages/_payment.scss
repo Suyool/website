@@ -113,6 +113,9 @@
                 .descfees {
                     font-family: 'PoppinsSemiBold';
                     font-size: 18px;
+                    @media screen and (max-width:768px) {
+                        font-size: 13px;
+                    }
                     max-width: 100%;
                     color: #226D96;
                 }

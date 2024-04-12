@@ -50,11 +50,36 @@ if (document.querySelector(".generate-code")) {
 //   })
 
 // }
+// if (document.getElementById("submit")) {
+//   var submitButton = document.getElementById("submit");
+//   if(document.getElementById("receiverlname").value==="" && document.getElementById("receiverfname").value==="" ) { 
+//     console.log("hi")
+//     document.getElementById('submit').disabled = true; 
+// } else { 
+//   console.log("hi")
+//     document.getElementById('submit').disabled = false;
+// }
+//   submitButton.addEventListener("click", function () {
+//     setTimeout(function () {
+//       submitButton.disabled = true;
+//     }, 1); // Delay in milliseconds (adjust as needed)
+//   });
+// }
 if (document.getElementById("submit")) {
   var submitButton = document.getElementById("submit");
-  submitButton.addEventListener("click", function () {
-    setTimeout(function () {
-      submitButton.disabled = true;
-    }, 1); // Delay in milliseconds (adjust as needed)
-  });
+
+
+  document.querySelector("form").addEventListener('input', ()=>{
+	console.log(document.getElementById("receiverfname").value)
+		if(document.getElementById("receiverfname").value.length === 0 && document.getElementById("receiverlname").value.length === 0){
+			submitButton.disabled = true;
+		}else if(document.getElementById("receiverfname").value.length > 0 && document.getElementById("receiverlname").value.length > 0){
+			submitButton.disabled = false;
+		}
+	})
+	submitButton.addEventListener("click", function () {
+		     setTimeout(function () {
+		       submitButton.disabled = true;
+		     }, 1); // Delay in milliseconds (adjust as needed)
+		   });
 }

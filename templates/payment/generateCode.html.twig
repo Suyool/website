@@ -30,6 +30,9 @@
 				<img src="{{asset('build/images/payment/nonsuyooler-flow-suyool-cover-desktop.svg')}}" alt="" width="100%">
 
 			</div>
+			<div class="mobileMode mobile-logo">
+                <img src="{{ asset('build/images/payment/mobiletop.svg') }}" alt="" width="100%">
+            </div>
 			<div class="generatecode container ">
 				<img class="logo" src="{{ asset('build/images/BOBIcon.png') }}">
 				<div class="title">Withdraw cash BoB Finance cashpoint:</div>
@@ -67,13 +70,12 @@
 					<label for='receiverfname' class='required innerLabel'>Receiver Name</label><br>
 					<input type="text" name="receiverfname" id="receiverfname" required><br>
 					<label for='receiverlname' class='required innerLabel'>Receiver Family Name</label><br>
-					<input type="text" name="receiverlname" id="" required><br>
+					<input type="text" name="receiverlname" id="receiverlname" required><br>
 					<label for='mobile' class='required innerLabel'>Mobile Numer</label><br>
 					<input type="tel" name="mobile" id="" pattern="[0-9]{8}" value="+{{ ReceiverPhone }}" disabled><br>
 
 					<div class="desc">
-						Go to the nearest branch & show them the code to receive your money.<span>
-							This code is valid for 7 days.</span>
+						Go to the nearest BOB Finance cashpoint & show them the code to receive your money.<span>Kindly note the code is only available for 7 days.</span>
 					</div>
 					<div class="center">
 						<input type="submit" id="submit" name="submit" value="{{ 'GENERATE_CODE'|trans|raw }}" {% if cashout.data is defined and cashout.data != null %} data-code="{{ cashout.data }}" {% endif %} class="generate-code btn"></input>
@@ -85,3 +87,4 @@
 	{% endif %}
 	{# </div> #}
 {% endblock %}
+

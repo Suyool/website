@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.1b9fab35.js"
+        "/build/app1.75f0617a.js"
       ]
     },
     "admin-app": {
@@ -83,7 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.ed5e6b14.css"
+        "/build/styles.9ed28c98.css"
       ]
     },
     "admin": {

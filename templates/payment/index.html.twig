@@ -66,6 +66,9 @@
 		</div>
 	</div>
 	<div class="tabletmobileMode">
+		<div class="mobileMode mobile-logo">
+                <img src="{{ asset('build/images/payment/mobiletop.svg') }}" alt="" width="100%">
+            </div>
 		<div class="container how_to_send_money">
 			{% if payment_details_response.image is defined and payment_details_response.image is not null %}
 				<img class="user_img" src="{{ payment_details_response.image }}" onerror="this.src='{{asset('build/images/avatar.png')}}'">
@@ -91,7 +94,9 @@
 						<img class="logo" src="{{ asset('build/images/payment/pay_with_suyool.jpg') }}">
 					</div>
 					<div class="col-10 text_container">
-						<div class="sub_title">{{'OPEN_SYYOOL_ACCOUNT'|trans}}</div>
+						<div class="sub_title">
+		{% if payment_details_response.isSenderUser is defined and payment_details_response.isSenderUser == false %} Open Suyool corporate account {% else %} {{'OPEN_SYYOOL_ACCOUNT'|trans}}  {% endif %}
+						</div>
 						<div class="desc">{{'ENROLL_TO_SUYOOL_IN_3_MINUTES'|trans}}</div>
 					</div>
 				</div>
