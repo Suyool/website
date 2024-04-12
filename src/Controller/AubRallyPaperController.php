@@ -82,6 +82,7 @@ class AubRallyPaperController extends AbstractController
         if (!empty($data)) {
             $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
             if (is_null($status)) {
+                if(isset($data['status'])){
                 foreach ($data['status'] as $status => $statused) {
                     foreach ($data['status'][$status] as $statused) {
                         switch ($statused['status']) {
@@ -116,6 +117,9 @@ class AubRallyPaperController extends AbstractController
                         ];
                     }
                 }
+            }else{
+                $toBeDisplayedItem = [];
+            }
             } else {
                 if (isset($data['status'][$status])) {
                     foreach ($data['status'][$status] as $statused) {

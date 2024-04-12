@@ -702,6 +702,14 @@ class SuyoolServices
     public function rallyPaperOverview($form_data)
     {
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamOverView",  $form_data);
+        // $response = '{
+        //     "globalCode": 1,
+        //     "flagCode": 1,
+        //     "errorMessage": "No data to display.",
+        //     "invitationData": [],
+        //     "rank": 0
+        //   }';
+        // $content = json_decode($response,true);
         $content = $response->toArray(false);
         // dd($content);
         $data = [];
@@ -726,6 +734,7 @@ class SuyoolServices
                 }
                 $data['status'][$status][] = $invitationData;
             }
+            if(isset($data['status'])){
             foreach ($data['status'] as $key => $value) {
                 switch ($key) {
                     case 'pending':
@@ -745,6 +754,7 @@ class SuyoolServices
                         break;
                 }
             }
+        }
             $data['rank'] = $content['rank'];
             $data['allmembers'] = count($content['invitationData']);
         }
