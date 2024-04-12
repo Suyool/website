@@ -459,17 +459,17 @@ return [
 
              //georgesN
         "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_Georges_Frem_Foundation" => "What are the benefits for Georges N. Frem Foundation employees?",
-        "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Georges_Frem_Foundation" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Georges N. Frem Foundation employee.",
+        "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Georges_Frem_Foundation" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Georges N. Frem Foundation employee.",
         "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_Georges_Frem_Foundation" => "Where can I withdraw my payroll in cash?",
         "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_Georges_Frem_Foundation" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-        "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_Georges_Frem_Foundation" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Georges N. Frem Foundation employee.",
+        "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_Georges_Frem_Foundation" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Georges N. Frem Foundation employee.",
     
                //sanitaPersona
              "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_Sanita_Persona" => "What are the benefits for Sanita Persona SAL employees?",
-             "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Sanita_Persona" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Sanita Persona SAL employee.",
+             "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Sanita_Persona" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Sanita Persona SAL employee.",
              "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_Sanita_Persona" => "Where can I withdraw my payroll in cash?",
              "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_Sanita_Persona" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
-             "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_Sanita_Persona" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Sanita Persona SAL employee.",
+             "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_Sanita_Persona" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are a Sanita Persona SAL employee.",
          
      
 
