@@ -656,11 +656,11 @@ return [
         <b>Eligibility</b>
         The xxx Points Suyool Pre-Challenge is open only to the participating teams to invite users<br>
         Participants who already initiated their enrollment but haven’t completed it are eligible. Just make sure they add their mobile number to the team link BEFORE they complete their enrollment.<br>
-        Participants who already have Suyool wallets but haven’t used their Suyool Visa card yet, are eligible for the “first transaction” points. Just make sure they add their mobile number to the team link BEFORE their transaction in order to be rewarded.<br>
+        Participants who already have Suyool wallets but haven’t requested their Suyool Visa card yet, are eligible for the “requested Suyool card” points. Just make sure they add their mobile number to the team link BEFORE their transaction in order to be rewarded.<br>
         <br><b>Enrollment in 3 steps</b>
         Step 1: Participants must enter their Lebanese mobile number in the unique team invitation link provided by the team they want to support.<br>
         Step 2: Participants must successfully enroll to Suyool with their Lebanese ID, Lebanese Passport, or a Lebanese biometric driving license.<br>
-        Step 3: Teams will get rewarded; earning +xx points for successfully enrolled participants and additional +xx points when they do their first card payment<br> 
+        Step 3: Teams will get rewarded; earning +xx points for successfully enrolled participants and additional +xx points when they request their Suyool Visa Platinum card.<br> 
         <br><b>Card Request and Activation</b>
         After enrollment, participants can request their Suyool Visa Platinum card and activate it through the Suyool app. <br>
         If the card was requested before 1PM Beirut Time, the card will be delivered the next business day <br>
@@ -669,12 +669,16 @@ return [
         <br><b>Point Accumulation</b> 
         Points will be awarded to teams based on 2 actions completed by participants: <br>
         Successful enrollment to Suyool (+xx points) <br>
-        1st card payment for any transactions online or in-store in Lebanon or abroad (+xx points)* <br><br>
+        Request of Suyoll Platinum Visa card (+xx points)* <br><br>
         *Note that to make a card payment users will need to request the Suyool Visa Platinum card by having $12 in their account, get it delivered the next day*, activate it and then it will be ready to be used. 
       <br> <br> <b>Prizes</b>
-        XXX Points will be added to the Winner, at the end of the rally paper <br>
-        xx points will be added to 2nd place, at the end of the rally paper <br>
-        xx Points will be added to 3rd place, at the end of the rally paper <br>
+        At the end of the rally paper:<br>
+         The winner receives a hefty 50,000 points.<br>
+         Second place earns 25,000 points.<br>
+         Third place takes home 10,000 points.<br>
+         Fourth place gets 5,000 points.<br>
+         Fifth place receives 3,000 points.<br>
+         Sixth place unfortunately does not earn any points.<br>
       <br>  <b>Challenge Period</b> 
         The Suyool Pre-Challenge will start on April 18 and end at the end of the rally on April 21. <br>
         The official challenge will commence on April 20 until the end of the rally on April 21. <br>

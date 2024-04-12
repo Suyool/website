@@ -312,6 +312,7 @@
                     img {
                         position: relative;
                         top: -28px;
+                        width: 100px;
                     }
 
                     .b1 {
@@ -334,13 +335,13 @@
                 .title {
                     font-family: $Bold;
                     color: #202020;
-                    font-size: 30px;
+                    font-size: 20px;
                 }
 
                 .desc {
                     font-family: $InterRegular;
                     color: #6B6B6B;
-                    font-size: 20px;
+                    font-size: 18px;
                 }
 
             }
@@ -455,6 +456,9 @@
             font-weight: 900;
             font-family: $SemiBold;
             align-content: center;
+            @media screen and (max-width:992px) {
+                color: $white;
+            }
         }
 
     }
@@ -533,7 +537,7 @@
 
         h1 {
             font-family: $Bold;
-            font-size: 30px;
+            font-size: 20px;
             color: #373464;
             padding-bottom: 30px;
         }
@@ -541,13 +545,13 @@
         h2 {
             font-family: $Regular;
             color: #202020;
-            font-size: 20px;
+            font-size: 35px;
             padding-bottom: 30px;
         }
 
         h3 {
             color: #6B6B6B;
-            font-size: 15px;
+            font-size: 18px;
             padding-bottom: 30px;
         }
     }
@@ -559,7 +563,7 @@
 
         h1 {
             font-family: $Bold;
-            font-size: 30px;
+            font-size: 20px;
             color: #373464;
             padding-bottom: 30px;
         }
@@ -567,13 +571,13 @@
         h2 {
             font-family: $Regular;
             color: #202020;
-            font-size: 20px;
+            font-size: 35px;
             padding-bottom: 30px;
         }
 
         h3 {
             color: #6B6B6B;
-            font-size: 15px;
+            font-size: 18px;
             padding-bottom: 30px;
         }
         .diffstatusCont {
@@ -621,7 +625,7 @@
                 }
 
                 @media screen and (max-width:991px) {
-                    width: 80%;
+                    width: 100%;
                 }
 
     
@@ -638,7 +642,7 @@
             .desc {
                 width: 80%;
                 font-family: $InterRegular;
-                font-size: 13px;
+                font-size: 16px;
                 text-align: left;
                 padding-left: 10px;
                 font-weight: bold;
@@ -994,6 +998,11 @@
             border-radius: 17px;
             white-space: nowrap;
             font-family: $SemiBold;
+            &:hover {
+                color: #fff;
+                background: #226D96;
+                border: 2px solid #ffffff;
+            }
         }
     }
     }
