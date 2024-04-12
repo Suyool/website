@@ -8,8 +8,8 @@
     </div>
 
     <div class="eSimDestination">
-        <div class="eSimSearchBar">
-            <img src="{{ asset('build/images/global-esim/searchicon.svg') }}"/>
+        <div class="eSimSearchBar mobileMode">
+            <img src="{{ asset('build/images/global-esim/searchicon.svg') }}" class='searchiconesim'/>
             <input
                     placeholder="Search"
                     class="searchbarstyle"
@@ -19,9 +19,9 @@
             />
         </div>
 
-        <div class="eSimSearchBarFilter">
+        <div class="eSimSearchBarFilter mobileMode">
             <select
-                    class="searchbarstyle"
+                    class="searchbarstyle mobileMode"
                     id="filterInput"
             >
                 <option value="">Filter by region</option>
@@ -29,10 +29,14 @@
                     <option value="{{ regionCode }}">{{ regionName }}</option>
                 {% endfor %}
             </select>
+             <img src="{{ asset('build/images/global-esim/Down_Arrow_3_.svg') }}" class="downarrow"/>
         </div>
+            {# <button class="showmorebutton" id="buttonshowmore"> show more </button> #}
     </div>
 
-    <div class="flags-container">
+
+
+    <div class="flags-container ">
         <div class="flagsbyregion">
             {% for countryGroup in countriesArray %}
                 {% for countryCode, countries in countryGroup %}
