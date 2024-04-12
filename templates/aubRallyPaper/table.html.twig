@@ -29,14 +29,14 @@
                 <a class="info1" href="/aub-rally-paper?status=requested" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}id="active"{% endif %}>Requested Card</a>
                 <div class="count">{% if body.count.requested is defined %}{{body.count.requested}}{% else %} 0 {% endif %}</div>
             </div>
-            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active-tab"{% endif %}>
-                <a class="info1" href="/aub-rally-paper?status=activated" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active"{% endif %}>Activated Card</a>
-                <div class="count">{% if body.count.activated is defined %}{{body.count.activated}}{% else %} 0 {% endif %}</div>
-            </div>
-            <div class="theborder"  {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}id="active-tab"{% endif %}>
-                <a class="info1" href="/aub-rally-paper?status=card" {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}id="active"{% endif %}>1<sup>st</sup> Card Payment</a>
-                <div class="count">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>
-            </div>
+{#            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active-tab"{% endif %}>#}
+{#                <a class="info1" href="/aub-rally-paper?status=activated" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active"{% endif %}>Activated Card</a>#}
+{#                <div class="count">{% if body.count.activated is defined %}{{body.count.activated}}{% else %} 0 {% endif %}</div>#}
+{#            </div>#}
+{#            <div class="theborder"  {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}id="active-tab"{% endif %}>#}
+{#                <a class="info1" href="/aub-rally-paper?status=card" {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}id="active"{% endif %}>1<sup>st</sup> Card Payment</a>#}
+{#                <div class="count">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>#}
+{#            </div>#}
         </div>
         <div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}style = " border-radius: 0px 0px 43px 43px;"{% endif %}>
             <div class="marginForHeader"></div>
