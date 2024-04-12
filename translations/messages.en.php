@@ -696,7 +696,7 @@ return [
     'HOW_CAN_MY_TEAM_EARN_POINTS_WITH_SUYOOL_PRE_CHALLENGE' => 'How can my team earn points with Suyool Pre-Challenge?',
     'YOUR_TEAM_CAN_SCORE' => 'Your team can score points with the Suyool Pre-Challenge by inviting members to enroll to Suyool through a designated link (+10 pts) and motivating them to request the Suyool Visa Platinum card. Once they’ve got their card, all it takes is making one transaction to get +50 pts!',
     'WHAT_ACTION_WILL_GIVE_POINTS' => 'What action will give my team more points?',
-    'WHEN_ONE_OF_YOUR_MEMBERS' => 'When one of your team members, who registered to Suyool through your unique link, makes their first payment with the Suyool Visa Platinum card, it will earn your team xxx points!',
+    'WHEN_ONE_OF_YOUR_MEMBERS' => 'When one of your team members, who registered to Suyool through your unique link, makes their first payment with the Suyool Visa Platinum card, it will earn your team 50 points!',
     'HOW_TO_INVITE_MEMBERS_TO'=> 'How to invite members to enroll to Suyool under my team?',
     'ALL_YOU_HAVE_TO_DO_IS' => 'All you have to do is share the unique link associated with your team. This link will direct your members to a landing page where they need to enter their phone number and click on “Get The App”',
     'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',
@@ -708,7 +708,7 @@ return [
     'CAN_I_ALSO_PAY_ONLINE' => 'Can I also pay online with Suyool Visa card?',
     'YES_YOU_CAN_USE_CARD_ONLINE' => 'Yes, you can use the Suyool Visa Platinum card online.',
     'HOW_CAN_I_KNOW_RANK' => 'How can I know my team’s ranking?',
-    'YOU_CAN_TRACK_YOUR_TEAM' => 'You can track your team’s ranking during the Suyool Challenge <a href="/rallypaper-team-ranking" target="_blank" style="text-decoration: underline; color: #226d96">here.</a>',
+    'YOU_CAN_TRACK_YOUR_TEAM' => 'You can track your team’s ranking during the Suyool Challenge <a href="/aub-rally-paper-ranking" target="_blank" style="text-decoration: underline; color: #226d96">here.</a>',
 
     //esim
     'WHAT_IS_ESIM'=>'What is an eSIM and how does it work?',
