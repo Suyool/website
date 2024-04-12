@@ -25,6 +25,15 @@
       margin: 25px auto 50px;
       max-width: 60%;
     }
+    .phonescale {
+      @media screen and (max-width: 655px) {
+        scale: 1.4;
+        margin-top: 35px;
+      }
+      @media screen and (max-width: 385px) {
+        scale: 1.58;
+      }
+    }
     .video-section-ads {
       iframe {
         border: 3px solid #226d96;

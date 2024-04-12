@@ -486,7 +486,7 @@ class Memcached
                 $b = array(2, 4, 3, 1, 0, 5);
                 $filteredDatInOrder = array();
                 foreach ($b as $index) {
-                    $filteredDatInOrder[$index] = $filteredData[$index];
+                    $filteredDatInOrder[$index] = $filteredData[$index]; 
                 }
             } else {
                 $filteredDatInOrder = $filteredData;
@@ -500,13 +500,13 @@ class Memcached
             // dd($filteredData);
             // dd($filteredDatInOrder);
 
-            foreach($filteredDatInOrder as $index=>&$value){
-               foreach($value as $index2=>$values){
-                // dd($index2);
-                usort($values, function($a, $b) {
-                    return strcmp($a['name'],$b['name']);
-                });
-               }
+            foreach ($filteredDatInOrder as $index => &$value) {
+                foreach ($value as $index2 => $values) {
+                    // dd($index2);
+                    usort($values, function ($a, $b) {
+                        return strcmp($a['name'], $b['name']);
+                    });
+                }
                 $filteredDatInOrder[$index][$index2] = $values;
             }
             // dd($filteredDatInOrder);
