@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% set checkoutScriptUrl = app.request.server.get('APP_ENV') == "prod" 
-    ? 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/suyoolpg/session.js'
-    : 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/testsuyoolpg/session.js' %}
+? 'https://bobsal.gateway.mastercard.com/form/version/72/merchant/{{ app.request.server.get("MERCHANT_ID_PROD") }}/session.js'
+: 'https://test-bobsal.gateway.mastercard.com/form/version/72/merchant/{{ app.request.server.get("MERCHANT_ID_TEST") }}/session.js' %}
 
 {% block body %}
     <script src="{{ checkoutScriptUrl }}"></script>
