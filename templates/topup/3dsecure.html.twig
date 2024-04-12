@@ -5,8 +5,8 @@
 	: 'https://test-bobsal.gateway.mastercard.com/static/threeDS/1.3.0/three-ds.min.js' %}
 
 	{% set merchantId = app.request.server.get('APP_ENV') == "prod" and app.session.get('simulation') is  defined and app.session.get('simulation')=="false" 
-	? {{ app.request.server.get('MERCHANT_ID_PROD') }} 
-	: {{ app.request.server.get('MERCHANT_ID_TEST') }} %}
+	?  app.request.server.get('MERCHANT_ID_PROD') 
+	:  app.request.server.get('MERCHANT_ID_TEST') %}
 
 	{% block body %}
 	<script src="{{checkoutScriptUrl}}" data-error="errorCallback" data-cancel="cancelCallback"></script>

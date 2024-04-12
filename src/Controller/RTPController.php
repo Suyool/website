@@ -80,7 +80,7 @@ class RTPController extends AbstractController
         $parameters['request_details_response'] = $this->suyoolServices->RequestDetails($code, $parameters['lang']);
         $parameters['currency'] = "LBP";
         // $parameters['request_details_response']['allowCardTopup']=null;
-        dd($parameters['request_details_response']);
+        // dd($parameters['request_details_response']);
 
         if (strpos($parameters['request_details_response']['amount'], "$") !== false) $parameters['currency'] = "USD";
 
