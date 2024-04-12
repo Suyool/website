@@ -66,7 +66,7 @@ class AubRallyPaperController extends AbstractController
             'code' => $teamCode,
             'secureHash' => $hash
         ];
-        dd($body);
+        // dd($body);
         $data = $this->suyoolServices->rallyPaperOverview($body);
         $item = $this->cache->getItem('rallyPaperOverview');
         $item->set($data)->expiresAfter(1800);
