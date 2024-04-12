@@ -209,6 +209,10 @@ class AubRallyPaperController extends AbstractController
     public function aubInvitation(Request $request, $code = null): Response
     {
         if ($request->isXmlHttpRequest()) {
+            $recaptchaResponse = $request->request->get('g-recaptcha-response');
+            if (empty($recaptchaResponse)) {
+                return new JsonResponse(['error' => 'Missing reCAPTCHA'], Response::HTTP_BAD_REQUEST);
+            }
             $requestParam = $request->request->all();
 
             $switch = isset($requestParam['switch']) ? $requestParam['switch'] : 0;
@@ -222,22 +226,22 @@ class AubRallyPaperController extends AbstractController
                 'secureHash' => $hash
 
             ];
-//            $response = $this->suyoolServices->rallyPaperInvite($form_data);
-//
-//            $logs = new AubLogs();
-//            $logs
-//                ->setidentifier($mobile)
-//                ->setrequest(json_encode($form_data))
-//                ->setresponse(json_encode($response));
-//            $this->mr->persist($logs);
-//            $this->mr->flush();
-            $response = [
-                "globalCode" => 0,
-                "flagCode" => 2,
-                "title" => "Number Already Linked",
-                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
-                "buttonText" => "copy link"
-            ];
+            $response = $this->suyoolServices->rallyPaperInvite($form_data);
+
+            $logs = new AubLogs();
+            $logs
+                ->setidentifier($mobile)
+                ->setrequest(json_encode($form_data))
+                ->setresponse(json_encode($response));
+            $this->mr->persist($logs);
+            $this->mr->flush();
+//            $response = [
+//                "globalCode" => 0,
+//                "flagCode" => 2,
+//                "title" => "Number Already Linked",
+//                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
+//                "buttonText" => "copy link"
+//            ];
             return new JsonResponse($response);
         }
         $parameters['faq'] = [

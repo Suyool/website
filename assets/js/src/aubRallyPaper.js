@@ -30,47 +30,57 @@ $(document).ready(function() {
 
     $('#inviteForm').on('submit', function(e) {
         e.preventDefault();
-        var formData = $(this).serialize();
-        var formDataParts = formData.split("=");
-        mobileValue = formDataParts[1];
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse.length == 0) {
+            var imageUrl = '/build/images/warning.svg';
+            $('#popupModalBody .imgTop').attr('src', imageUrl);
+            $('#popupModalBody .modalPopupTitle').text('Missing Recaptcha');
+            $('#popupModalBody .modalPopupText').text('Please complete the reCAPTCHA.');
+            $('#popupModalBody .closeBtn').css('display', 'block');
+            $('#popupModal').modal('show');
+        }else{
+            var formData = $(this).serialize();
+            var formDataParts = formData.split("=");
+            mobileValue = formDataParts[1];
 
-        var codeValue = $('#codeID').val();
+            var codeValue = $('#codeID').val();
 
-        $.ajax({
-            type: 'POST',
-            url: '/rallypaperinvitation/' + codeValue,
-            data: formData,
-            success: function(response) {
-                var imagePath = response.globalCode === 1 ? 'checkGreen.svg' : 'warning.svg';
-                var imageUrl = '/build/images/' + imagePath;
-                $('#popupModalBody .imgTop').attr('src', imageUrl);
+            $.ajax({
+                type: 'POST',
+                url: '/rallypaperinvitation/' + codeValue,
+                data: formData,
+                success: function(response) {
+                    var imagePath = response.globalCode === 1 ? 'checkGreen.svg' : 'warning.svg';
+                    var imageUrl = '/build/images/' + imagePath;
+                    $('#popupModalBody .imgTop').attr('src', imageUrl);
 
-                if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
-                    $('#popupModalBody .modalPopupTitle').text(response.title);
-                    $('#popupModalBody .modalPopupText').text(response.body);
-                    $('.qrSection').css('display', 'block');
-                    $('#popupModalBody .modalPopupBtn').css('display', 'none');
-                    $('#popupModalBody .closeBtn').css('display', 'none');
+                    if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
+                        $('#popupModalBody .modalPopupTitle').text(response.title);
+                        $('#popupModalBody .modalPopupText').text(response.body);
+                        $('.qrSection').css('display', 'block');
+                        $('#popupModalBody .modalPopupBtn').css('display', 'none');
+                        $('#popupModalBody .closeBtn').css('display', 'none');
 
-                } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
-                    $('#popupModalBody .modalPopupTitle').text(response.title);
-                    $('#popupModalBody .modalPopupText').text(response.body);
-                    $('#popupModalBody .modalPopupBtn').css('display', 'block');
-                    $('#popupModalBody .closeBtn').css('display', 'block');
-                    $('.qrSection').css('display', 'none');
-                    $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
+                    } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
+                        $('#popupModalBody .modalPopupTitle').text(response.title);
+                        $('#popupModalBody .modalPopupText').text(response.body);
+                        $('#popupModalBody .modalPopupBtn').css('display', 'block');
+                        $('#popupModalBody .closeBtn').css('display', 'block');
+                        $('.qrSection').css('display', 'none');
+                        $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
+                    }
+                    if (response.globalCode === 0 && response.flagCode === 2) {
+                        $('#textToCopy').text(window.location.href);
+                    }
+                    flagCode = response.flagCode;
+                    globalCode = response.globalCode;
+                    $('#popupModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-                if (response.globalCode === 0 && response.flagCode === 2) {
-                    $('#textToCopy').text(window.location.href);
-                }
-                flagCode = response.flagCode;
-                globalCode = response.globalCode;
-                $('#popupModal').modal('show');
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
+            });
+        }
     });
 
     $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
