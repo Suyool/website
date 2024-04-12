@@ -34,45 +34,43 @@
                         <div class="prize1">
                             <img src="{{ asset('build/images/aub/cercle1.svg') }}" width="100px">
                             <div class="border">
-
+                                {% if rankingsData[0] is defined %}
                                     <div class="yellowborder">
-                                        {% if rankingsData[0] is defined %} <span>{{ rankingsData[0].points }}</span>{% endif %}
+                                        <span>{{ rankingsData[0].points }}</span>
                                     </div>
                                     <div class="desc">
-                                        {% if rankingsData[0] is defined %}
                                         {{ rankingsData[0].name }}
                                         <span>{{ rankingsData[0].points }} Pts</span>
-                                        {% endif %}
                                     </div>
-
+                                {% endif %}
                             </div>
                         </div>
                         <div class="prize2">
                             <img src="{{ asset('build/images/aub/cercle2.svg') }}" width="100px">
                             <div class="border">
-
+                                {% if rankingsData[1] is defined %}
                                     <div class="yellowborder">
-                                        {% if rankingsData[1] is defined %} <span>{{ rankingsData[1].points }}</span>{% endif %}
+                                        <span>{{ rankingsData[1].points }}</span>
                                     </div>
                                     <div class="desc">
-                                        {% if rankingsData[1] is defined %}   {{ rankingsData[1].name }}
-                                        <span>{{ rankingsData[1].points }} Pts</span>{% endif %}
+                                        {{ rankingsData[1].name }}
+                                        <span>{{ rankingsData[1].points }} Pts</span>
                                     </div>
-
+                                {% endif %}
                             </div>
                         </div>
                         <div class="prize3">
                             <img src="{{ asset('build/images/aub/cercle3.svg') }}" width="100px">
                             <div class="border">
-
+                                {% if rankingsData[2] is defined %}
                                     <div class="yellowborder">
-                                        {% if rankingsData[2] is defined %}   <span>{{ rankingsData[2].points }}</span>{% endif %}
+                                        <span>{{ rankingsData[2].points }}</span>
                                     </div>
                                     <div class="desc">
-                                        {% if rankingsData[2] is defined %}    {{ rankingsData[2].name }}
-                                        <span>{{ rankingsData[2].points }} Pts</span>{% endif %}
+                                        {{ rankingsData[2].name }}
+                                        <span>{{ rankingsData[2].points }} Pts</span>
                                     </div>
-
+                                {% endif %}
                             </div>
                         </div>
                     </div>
