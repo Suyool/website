@@ -667,7 +667,11 @@ return [
         <br><b>Point Accumulation</b> 
         Points will be awarded to teams based on 2 actions completed by participants: <br>
         Successful enrollment to Suyool (+10 points) <br>
-        Request of Suyoll Platinum Visa card (+50 points)* <br><br>
+        Request of Platinum Visa card (+50 points)* <br><br>
+        
+       *Note that to make a card payment users will need to request the Suyool Visa Platinum card by having $12 in their account, get it delivered the <br>
+       next day, activate it and then it will be ready to be used. 
+        
       <br> <br> <b>Prizes</b>
         At the end of the rally paper:<br>
          The winner receives a hefty 35,000 points.<br>
