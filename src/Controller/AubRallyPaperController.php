@@ -69,6 +69,7 @@ class AubRallyPaperController extends AbstractController
         ];
         // dd($body);
         $data = $this->suyoolServices->rallyPaperOverview($body);
+        // dd($data);
         $item = $this->cache->getItem('rallyPaperOverview');
         $item->set($data)->expiresAfter(1800);
         $this->cache->save($item);

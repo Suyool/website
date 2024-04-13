@@ -38,7 +38,7 @@
 {#                <div class="count">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>#}
 {#            </div>#}
         </div>
-        <div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'card' %}style = " border-radius: 0px 0px 43px 43px;"{% endif %}>
+        <div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}style = " border-radius: 0px 0px 43px 43px;"{% endif %}>
             <div class="marginForHeader"></div>
             <div class="member-number-name"> 
                 <div class="member-number-name-left">
