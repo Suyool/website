@@ -30,17 +30,17 @@ $(document).ready(function() {
 
     $('#inviteForm').on('submit', function(e) {
         e.preventDefault();
-        var recaptchaResponse = grecaptcha.getResponse();
-        if (recaptchaResponse.length == 0) {
-            var imageUrl = '/build/images/warning.svg';
-            $('#popupModalBody .imgTop').attr('src', imageUrl);
-            $('#popupModalBody .modalPopupTitle').text('Missing Recaptcha');
-            $('#popupModalBody .modalPopupText').text('Please complete the reCAPTCHA.');
-            $('#popupModalBody .closeBtn').css('display', 'block');
-            $('#popupModalBody .modalPopupBtn').css('display', 'none');
-            $('#popupModalBody .closeBtn').css('display', 'none');
-            $('#popupModal').modal('show');
-        }else{
+        // var recaptchaResponse = grecaptcha.getResponse();
+        // if (recaptchaResponse.length == 0) {
+        //     var imageUrl = '/build/images/warning.svg';
+        //     $('#popupModalBody .imgTop').attr('src', imageUrl);
+        //     $('#popupModalBody .modalPopupTitle').text('Missing Recaptcha');
+        //     $('#popupModalBody .modalPopupText').text('Please complete the reCAPTCHA.');
+        //     $('#popupModalBody .closeBtn').css('display', 'block');
+        //     $('#popupModalBody .modalPopupBtn').css('display', 'none');
+        //     $('#popupModalBody .closeBtn').css('display', 'none');
+        //     $('#popupModal').modal('show');
+        // }else{
             var formData = $(this).serialize();
             var formDataParts = formData.split("=");
             mobileValue = formDataParts[1];
@@ -83,7 +83,7 @@ $(document).ready(function() {
                     console.error(error);
                 }
             });
-        }
+        // }
     });
 
     $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
