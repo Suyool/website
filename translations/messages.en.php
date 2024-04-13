@@ -702,7 +702,7 @@ return [
     'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',
     'TO_ENROLL_IN_SUYOOL' => 'To enroll in Suyool, you must be at least 18 years old and possess a Lebanese mobile number and identification. Simply complete the identification process and provide your details. Our agents will grant approval within minutes, and you’ll be all set to start using Suyool. For further details, please visit our <a href="https://helpcenter.suyool.com/category/14/24/how-to-enroll" target="_blank" style="text-decoration: underline; color: #226d96">help center.</a>',
     'IF_THEY_ALREADY_HAVE' => 'If they already have a Suyool wallet, are they eligible to get us points?',
-    'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet but haven’t yet made a transaction with the card, they can input their number into your team’s unique landing page to link them to your team. Once linked, all they need to do is obtain the card and make their first payment with it to earn your team xxx points. Please note that they are not eligible to receive enrollment points for your team as they were registered with Suyool before the challenge began.',
+    'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet and is a registered user they cannot join your team nor get your team points.',
     'HOW_TO_ORDER_CARD' => 'How to order the Suyool Visa Platinum card?',
     'ONCE_YOUR_INFORMATION_IS_VALIDATED' => 'Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to AUB for free.',
     'CAN_I_ALSO_PAY_ONLINE' => 'Can I also pay online with Suyool Visa card?',

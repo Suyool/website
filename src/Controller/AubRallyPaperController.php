@@ -61,6 +61,7 @@ class AubRallyPaperController extends AbstractController
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
+
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
             'code' => $teamCode,
@@ -191,6 +192,7 @@ class AubRallyPaperController extends AbstractController
             );
             // dd($pagination);
             $data['toBeDisplayed'][] = $pagination;
+
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
@@ -198,6 +200,9 @@ class AubRallyPaperController extends AbstractController
                 'teamCode'=>$teamCode
             ];
         } else {
+            $parameters = [
+                'teamCode'=>$teamCode,
+            ];
             $parameters['status'] = false;
             $parameters['message'] = 'Empty Data';
         }
@@ -214,10 +219,6 @@ class AubRallyPaperController extends AbstractController
     public function aubInvitation(Request $request, $code = null): Response
     {
         if ($request->isXmlHttpRequest()) {
-            $recaptchaResponse = $request->request->get('g-recaptcha-response');
-            if (empty($recaptchaResponse)) {
-                return new JsonResponse(['error' => 'Missing reCAPTCHA'], Response::HTTP_BAD_REQUEST);
-            }
             $requestParam = $request->request->all();
 
             $switch = isset($requestParam['switch']) ? $requestParam['switch'] : 0;

@@ -37,6 +37,8 @@ $(document).ready(function() {
             $('#popupModalBody .modalPopupTitle').text('Missing Recaptcha');
             $('#popupModalBody .modalPopupText').text('Please complete the reCAPTCHA.');
             $('#popupModalBody .closeBtn').css('display', 'block');
+            $('#popupModalBody .modalPopupBtn').css('display', 'none');
+            $('#popupModalBody .closeBtn').css('display', 'none');
             $('#popupModal').modal('show');
         }else{
             var formData = $(this).serialize();
@@ -75,6 +77,7 @@ $(document).ready(function() {
                     flagCode = response.flagCode;
                     globalCode = response.globalCode;
                     $('#popupModal').modal('show');
+                    grecaptcha.reset();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -91,7 +94,8 @@ $(document).ready(function() {
                 url: '/rallypaperinvitation/' + codeValue,
                 data: {
                     mobile: mobileValue,
-                    switch: 1
+                    switch: 1,
+
                 },
                 success: function(response) {
                     if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
