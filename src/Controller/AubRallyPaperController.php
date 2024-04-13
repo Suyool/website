@@ -88,11 +88,11 @@ class AubRallyPaperController extends AbstractController
                     foreach ($data['status']['pending'] as $statused) {
                         switch ($statused['status']) {
                             case 0:
-                                $displayedStatus = 'Pending Enrollement';
+                                $displayedStatus = 'Pending Enrollment';
                                 $class = 'pending';
                                 break;
                             case 1:
-                                $displayedStatus = 'Pending Enrollement';
+                                $displayedStatus = 'Pending Enrollment';
                                 $class = 'pending';
                                 break;
                             case 2:
@@ -134,7 +134,7 @@ class AubRallyPaperController extends AbstractController
                             ];
                         } else if ($status == 'pending') {
                             $toBeDisplayedItem[] = [
-                                'status' => 'Pending enrollement',
+                                'status' => 'Pending enrollment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
@@ -143,7 +143,7 @@ class AubRallyPaperController extends AbstractController
                             ];
                         } else if ($status == 'downloaded') {
                             $toBeDisplayedItem[] = [
-                                'status' => 'Pending Enrollement',
+                                'status' => 'Pending Enrollment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
