@@ -377,7 +377,7 @@ class AubRallyPaperController extends AbstractController
               'secureHash' => $hash
           ];
         //   $data = $this->suyoolServices->rallyPaperOverview($body);
-        $item = $this->cache->getItem('rallyPaperOverview');
+        $item = $this->cache->getItem($teamCode);
           $data = $item->get();
           /*
           0 pending
