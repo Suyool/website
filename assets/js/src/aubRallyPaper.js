@@ -52,7 +52,15 @@ $(document).ready(function() {
                 url: '/rallypaperinvitation/' + codeValue,
                 data: formData,
                 success: function(response) {
-                    var imagePath = response.globalCode === 1 ? 'checkGreen.svg' : 'warning.svg';
+                    var imagePath = '';
+
+                    if (response.globalCode === 1) {
+                        imagePath = 'checkGreen.svg';
+                    } else if (response.globalCode === 0 && response.flagCode === 2) {
+                        imagePath = 'decline.png';
+                    } else {
+                        imagePath = 'warning.svg';
+                    }
                     var imageUrl = '/build/images/' + imagePath;
                     $('#popupModalBody .imgTop').attr('src', imageUrl);
 
