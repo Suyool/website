@@ -142,6 +142,7 @@ class PaymentController extends AbstractController
     public function generateCode(Request $request, TranslatorInterface $translator)
     {
         $code = $this->session->get('codeGenerated');
+        $code = "123-123-123-123";
         if (isset($code)) {
             $parameters['cashout']['data'] = $code;
             return $this->render('payment/codeGenerated.html.twig', $parameters);
