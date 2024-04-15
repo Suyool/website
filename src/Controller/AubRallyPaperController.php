@@ -247,6 +247,11 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubInvitation(Request $request, $code = null): Response
     {
+        $group = $this->mr->getRepository(AubUsers::class)->findBy(['username' => $code]);
+        if (empty($group)){
+            return $this->redirectToRoute("homepage");
+
+        }
         if ($request->isXmlHttpRequest()) {
             $requestParam = $request->request->all();
 
