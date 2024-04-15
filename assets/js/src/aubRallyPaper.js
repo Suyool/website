@@ -77,7 +77,7 @@ $(document).ready(function() {
                     flagCode = response.flagCode;
                     globalCode = response.globalCode;
                     $('#popupModal').modal('show');
-                    grecaptcha.reset();
+                    // grecaptcha.reset();
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -88,36 +88,7 @@ $(document).ready(function() {
 
     $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
         if (flagCode === 5) {
-            var codeValue = $('#codeID').val();
-            $.ajax({
-                type: 'POST',
-                url: '/rallypaperinvitation/' + codeValue,
-                data: {
-                    mobile: mobileValue,
-                    switch: 1,
-
-                },
-                success: function(response) {
-                    if ((response.globalCode === 1 && response.flagCode !=2 ) || (response.globalCode === 0 && response.flagCode ===4)) {
-                        $('#popupModalBody .modalPopupTitle').text(response.title);
-                        $('#popupModalBody .modalPopupText').text(response.body);
-                        $('.qrSection').css('display', 'block');
-                        $('#popupModalBody .modalPopupBtn').css('display', 'none');
-                        $('#popupModalBody .closeBtn').css('display', 'none');
-
-                    } else if (response.globalCode === 0 && response.flagCode !=4 || (response.globalCode === 1 && response.flagCode === 2)) {
-                        $('#popupModalBody .modalPopupTitle').text(response.title);
-                        $('#popupModalBody .modalPopupText').text(response.body);
-                        $('#popupModalBody .modalPopupBtn').css('display', 'block');
-                        $('#popupModalBody .closeBtn').css('display', 'block');
-                        $('.qrSection').css('display', 'none');
-                        $('#popupModalBody .modalPopupBtn button').text(response.buttonText);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
+            $('#popupModal').modal('hide');
         }else if (globalCode === 0 && flagCode === 2) {
             $('#textToCopy').css('display', 'none');
         }
