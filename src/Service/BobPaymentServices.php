@@ -53,19 +53,21 @@ class BobPaymentServices
         if ($_ENV['APP_ENV'] == "test") {
             // dd("here1");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/73/merchant/{$_ENV['MERCHANT_ID_TEST']}/";
-            $this->username = "merchant.TESTSUYOOLPG";
-            $this->password = "cc1e891e97c017cd62a95a13db792877";
+            $this->username = $_ENV['BANKOFBEIRUT_MERCHANTID_TEST'];
+            $this->password = $_ENV['BANKOFBEIRUT_PASSWORD_TEST'];
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/{$_ENV['MERCHANT_ID_TEST']}/";
         } else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == "dev" || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
             // dd("here");
             $this->BASE_API = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/{$_ENV['MERCHANT_ID_TEST']}/";
-            $this->username = "merchant.TESTSUYOOLPG";
-            $this->password = "cc1e891e97c017cd62a95a13db792877";
+            $this->username = $_ENV['BANKOFBEIRUT_MERCHANTID_TEST'];
+            $this->password = $_ENV['BANKOFBEIRUT_PASSWORD_TEST'];
             $this->BASE_API_HOSTED_SESSION = "https://test-bobsal.gateway.mastercard.com/api/rest/version/72/merchant/{$_ENV['MERCHANT_ID_TEST']}/";
         } else {
             $this->BASE_API = "https://bobsal.gateway.mastercard.com/api/rest/version/73/merchant/{$_ENV['MERCHANT_ID_PROD']}/";
-            $this->username = "merchant.SUYOOLPG";
-            $this->password = "f9656a7c0a13daf9350359ae821459e7";
+            // $this->username = "merchant.SUYOOLPG";
+            $this->username = $_ENV['BANKOFBEIRUT_MERCHANTID_PROD'];
+            // $this->password = "f9656a7c0a13daf9350359ae821459e7";
+            $this->password = $_ENV['BANKOFBEIRUT_PASSWORD_PROD'];
             $this->BASE_API_HOSTED_SESSION = "https://bobsal.gateway.mastercard.com/api/rest/version/72/merchant/{$_ENV['MERCHANT_ID_PROD']}/";
         }
         $this->session = $session;
