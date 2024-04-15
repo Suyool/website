@@ -709,9 +709,18 @@ return [
     ",
 
     'HOW_CAN_MY_TEAM_EARN_POINTS_WITH_SUYOOL_PRE_CHALLENGE' => 'How can my team earn points with Suyool Pre-Challenge?',
-    'YOUR_TEAM_CAN_SCORE' => 'Your team can score points with the Suyool Pre-Challenge by inviting members to enroll to Suyool through a designated link (+10 pts) and motivating them to request the Suyool Visa Platinum card to get +50 pts!',
+    'YOUR_TEAM_CAN_SCORE' => 'Your team needs to get the maximum number of people to download Suyool, enroll and order a Suyool Visa platinum card.<br>
+For every person who completes their enrollment, your team will earn 10 points.<br>
+For every person who orders their Suyool Visa Platinum card, your team will earn extra 50 points (Total 60 points per person).<br>
+If your team is the team who gets the maximum points, your team will earn a bonus of 35.000 points to be added to the total number of points accumulated.',
     'WHAT_ACTION_WILL_GIVE_POINTS' => 'What action will give my team more points?',
-    'WHEN_ONE_OF_YOUR_MEMBERS' => 'When one of your team members, who registered to Suyool through your unique link, requests their Suyool Visa Platinum card , it will earn your team 50 points!',
+    'WHEN_ONE_OF_YOUR_MEMBERS' => 'Help your team get more people to enroll through your team’s invitation page:<br>
+The team that accumulates the maximum number of points will get a bonus 35.000 points<br>
+The 2nd will get 25.000 bonus points<br>
+The 3rd will get 10.000 bonus points<br>
+The 4th will get 5.000 bonus points<br>
+the 5th will get 3.000 bonus points<br><br>
+Hint: To get more users, you can share the invitation link through whatsapp to all your contact and through your social media pages',
     'HOW_TO_INVITE_MEMBERS_TO'=> 'How to invite members to enroll to Suyool under my team?',
     'ALL_YOU_HAVE_TO_DO_IS' => 'All you have to do is share the unique link associated with your team. This link will direct your members to a landing page where they need to enter their phone number and click on “Get The App”',
     'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',
