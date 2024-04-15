@@ -61,6 +61,7 @@ class AubRallyPaperController extends AbstractController
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
+
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
             'code' => $teamCode,
@@ -68,39 +69,39 @@ class AubRallyPaperController extends AbstractController
         ];
         // dd($body);
         $data = $this->suyoolServices->rallyPaperOverview($body);
-        $item = $this->cache->getItem('rallyPaperOverview');
+        // dd($data);
+        $item = $this->cache->getItem($teamCode);
         $item->set($data)->expiresAfter(1800);
         $this->cache->save($item);
         /*
         0 pending
-        1 requested
+        1 downoaded the app
         2 fully
-        3 activated
-        4 card payment
+        3 requested
         */
         // dd($data);
         if (!empty($data)) {
             $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
             if (is_null($status)) {
                 if(isset($data['status'])){
-                foreach ($data['status'] as $status => $statused) {
-                    foreach ($data['status'][$status] as $statused) {
+                // foreach ($data['status'] as $status => $statused) {
+                    foreach ($data['status']['pending'] as $statused) {
                         switch ($statused['status']) {
                             case 0:
-                                $displayedStatus = 'Pending Modification';
+                                $displayedStatus = 'Pending Enrollment';
                                 $class = 'pending';
                                 break;
                             case 1:
-                                $displayedStatus = 'Requested Card';
-                                $class = 'requested';
+                                $displayedStatus = 'Pending Enrollment';
+                                $class = 'pending';
                                 break;
                             case 2:
                                 $displayedStatus = 'Fully Enrolled';
                                 $class = 'fully';
                                 break;
                             case 3:
-                                $displayedStatus = 'Activated Card';
-                                $class = 'activated';
+                                $displayedStatus = 'Requested Card';
+                                $class = 'requested';
                                 break;
                             case 4:
                                 $displayedStatus = 'Card Payment';
@@ -116,7 +117,7 @@ class AubRallyPaperController extends AbstractController
                             'class'=>$class
                         ];
                     }
-                }
+                // }
             }else{
                 $toBeDisplayedItem = [];
             }
@@ -133,7 +134,25 @@ class AubRallyPaperController extends AbstractController
                             ];
                         } else if ($status == 'pending') {
                             $toBeDisplayedItem[] = [
-                                'status' => 'Pending modification',
+                                'status' => 'Pending enrollment',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status'],
+                                'class'=>$status
+                            ];
+                        } else if ($status == 'downloaded') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Pending Enrollment',
+                                'fullyname' => $statused['fullName'],
+                                'mobileNo' => $statused['mobileNo'],
+                                'id' => $statused['id'],
+                                'status2' => $statused['status'],
+                                'class'=>'pending'
+                            ];
+                        } else if ($status == 'fully') {
+                            $toBeDisplayedItem[] = [
+                                'status' => 'Fully Enrolled',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
@@ -149,26 +168,8 @@ class AubRallyPaperController extends AbstractController
                                 'status2' => $statused['status'],
                                 'class'=>$status
                             ];
-                        } else if ($status == 'fully') {
-                            $toBeDisplayedItem[] = [
-                                'status' => 'Fully Enrolled',
-                                'fullyname' => $statused['fullName'],
-                                'mobileNo' => $statused['mobileNo'],
-                                'id' => $statused['id'],
-                                'status2' => $statused['status'],
-                                'class'=>$status
-                            ];
-                        } else if ($status == 'activated') {
-                            $toBeDisplayedItem[] = [
-                                'status' => 'Activated Card',
-                                'fullyname' => $statused['fullName'],
-                                'mobileNo' => $statused['mobileNo'],
-                                'id' => $statused['id'],
-                                'status2' => $statused['status'],
-                                'class'=>$status
-                            ];
                         } else if ($status == 'card') {
-                            $toBeDisplayedItem[] = [
+                          $toBeDisplayedItem[] = [
                                 'status' => 'Card Payment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
@@ -191,6 +192,7 @@ class AubRallyPaperController extends AbstractController
             );
             // dd($pagination);
             $data['toBeDisplayed'][] = $pagination;
+
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
@@ -198,6 +200,9 @@ class AubRallyPaperController extends AbstractController
                 'teamCode'=>$teamCode
             ];
         } else {
+            $parameters = [
+                'teamCode'=>$teamCode,
+            ];
             $parameters['status'] = false;
             $parameters['message'] = 'Empty Data';
         }
@@ -214,10 +219,6 @@ class AubRallyPaperController extends AbstractController
     public function aubInvitation(Request $request, $code = null): Response
     {
         if ($request->isXmlHttpRequest()) {
-            $recaptchaResponse = $request->request->get('g-recaptcha-response');
-            if (empty($recaptchaResponse)) {
-                return new JsonResponse(['error' => 'Missing reCAPTCHA'], Response::HTTP_BAD_REQUEST);
-            }
             $requestParam = $request->request->all();
 
             $switch = isset($requestParam['switch']) ? $requestParam['switch'] : 0;
@@ -375,7 +376,7 @@ class AubRallyPaperController extends AbstractController
               'secureHash' => $hash
           ];
         //   $data = $this->suyoolServices->rallyPaperOverview($body);
-        $item = $this->cache->getItem('rallyPaperOverview');
+        $item = $this->cache->getItem($teamCode);
           $data = $item->get();
           /*
           0 pending
@@ -392,20 +393,20 @@ class AubRallyPaperController extends AbstractController
                       foreach ($data['status'][$status] as $statused) {
                           switch ($statused['status']) {
                               case 0:
-                                  $displayedStatus = 'Pending Modification';
+                                  $displayedStatus = 'Pending Enrollment';
                                   $class = 'pending';
                                   break;
                               case 1:
-                                  $displayedStatus = 'Requested Card';
-                                  $class = 'requested';
+                                  $displayedStatus = 'Pending Enrollment';
+                                  $class = 'pending';
                                   break;
                               case 2:
                                   $displayedStatus = 'Fully Enrolled';
                                   $class = 'fully';
                                   break;
                               case 3:
-                                  $displayedStatus = 'Activated Card';
-                                  $class = 'activated';
+                                  $displayedStatus = 'Requested Card';
+                                  $class = 'requested';
                                   break;
                               case 4:
                                   $displayedStatus = 'Card Payment';
@@ -447,6 +448,9 @@ class AubRallyPaperController extends AbstractController
               $input = $datacharacter['char'] ;
               if (stripos($body['fullyname'], $input) !== false) {
                   // Partial match found, add it to the result array
+                  if(is_null($body['fullyname'])){
+                    $body ['fullyname'] = "";
+                  }
                   $foundResults[] = $body;
               }
           }

@@ -1,13 +1,14 @@
 <div class="container-fluid top-section">
-    <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+{#    <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>#}
 
     <div class="pt-3"><img src="{{ asset('build/images/suyool-Logo.svg') }}" alt="Suyool"></div>
     <div class="row">
         <div class="col-12 col-lg-6 image-back-1">
-            <h1 class="title col-md-9">
-                {{code}} is inviting you to help them in The Suyool Pre- Challenge
+            <h1 class="title col-lg-9 col-md-12">
+                {{code}} is inviting you to help them in <span>The Suyool Pre- Challenge</span>
             </h1>
             <div class="phone-submit">
+                <p class="text-earn">Lets them earn points just by enrolling to Suyool</p>
                 <form id="inviteForm">
                     <div class="send-link-form-cont">
                         <div class="send-link-form invitation-card-section-top">
@@ -27,7 +28,7 @@
                                 <div class="get-the-app get-the-app-invitation btn-float d-lg-none my-5">
                                     <button type="submit" class="btn btn-outline-secondary default-btn getAppBtn">GET THE APP</button>
                                 </div>
-                                <div class="g-recaptcha" data-sitekey="6LfFZI0nAAAAAH9-GSKhurD-cqLTIVjYUTjB3Hja"></div>
+{#                                <div class="g-recaptcha" data-sitekey="6LfFZI0nAAAAAH9-GSKhurD-cqLTIVjYUTjB3Hja"></div>#}
 
                                 <div class="small-note">
                                     {{'18_AND_ABOVE'|trans}}

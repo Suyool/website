@@ -655,8 +655,7 @@ return [
         By participating in The 35,000 Points Suyool Pre-Challenge as part of the AUB Rally Paper 2024, you agree to abide by the following terms and conditions:<br><br>
         <b>Eligibility</b>
         The 35,000 Points Suyool Pre-Challenge is open only to the participating teams to invite users<br>
-        Participants who already initiated their enrollment but haven’t completed it are eligible. Just make sure they add their mobile number to the team link BEFORE they complete their enrollment.<br>
-        Participants who already have Suyool wallets but haven’t requested their Suyool Visa card yet, are eligible for the “requested Suyool card” points. Just make sure they add their mobile number to the team link BEFORE their transaction in order to be rewarded.<br>
+        Participants who already have Suyool wallets are NOT eligible to participate in the 35,000 Points Suyool Pre-Challenge.<br>
         <br><b>Enrollment in 3 steps</b>
         Step 1: Participants must enter their Lebanese mobile number in the unique team invitation link provided by the team they want to support.<br>
         Step 2: Participants must successfully enroll to Suyool with their Lebanese ID, Lebanese Passport, or a Lebanese biometric driving license.<br>
@@ -665,12 +664,14 @@ return [
         After enrollment, participants can request their Suyool Visa Platinum card and activate it through the Suyool app. <br>
         If the card was requested before 1PM Beirut Time, the card will be delivered the next business day <br>
         If the card was requested after 1PM Beirut Time, the card will be delivered the day after next<br>
-        Upon the first accepted transaction (transaction should be above 20$), the team will earn instantly extra +xx points.<br>
         <br><b>Point Accumulation</b> 
         Points will be awarded to teams based on 2 actions completed by participants: <br>
         Successful enrollment to Suyool (+10 points) <br>
-        Request of Suyoll Platinum Visa card (+50 points)* <br><br>
-        *Note that to make a card payment users will need to request the Suyool Visa Platinum card by having $12 in their account, get it delivered the next day*, activate it and then it will be ready to be used. 
+        Request of Platinum Visa card (+50 points)* <br><br>
+        
+       *Note that to make a card payment users will need to request the Suyool Visa Platinum card by having $12 in their account, get it delivered the <br>
+       next day, activate it and then it will be ready to be used. 
+        
       <br> <br> <b>Prizes</b>
         At the end of the rally paper:<br>
          The winner receives a hefty 35,000 points.<br>
@@ -702,7 +703,7 @@ return [
     'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',
     'TO_ENROLL_IN_SUYOOL' => 'To enroll in Suyool, you must be at least 18 years old and possess a Lebanese mobile number and identification. Simply complete the identification process and provide your details. Our agents will grant approval within minutes, and you’ll be all set to start using Suyool. For further details, please visit our <a href="https://helpcenter.suyool.com/category/14/24/how-to-enroll" target="_blank" style="text-decoration: underline; color: #226d96">help center.</a>',
     'IF_THEY_ALREADY_HAVE' => 'If they already have a Suyool wallet, are they eligible to get us points?',
-    'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet but haven’t yet made a transaction with the card, they can input their number into your team’s unique landing page to link them to your team. Once linked, all they need to do is obtain the card and make their first payment with it to earn your team xxx points. Please note that they are not eligible to receive enrollment points for your team as they were registered with Suyool before the challenge began.',
+    'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet and is a registered user they cannot join your team nor get your team points.',
     'HOW_TO_ORDER_CARD' => 'How to order the Suyool Visa Platinum card?',
     'ONCE_YOUR_INFORMATION_IS_VALIDATED' => 'Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to AUB for free.',
     'CAN_I_ALSO_PAY_ONLINE' => 'Can I also pay online with Suyool Visa card?',

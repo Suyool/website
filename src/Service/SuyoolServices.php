@@ -40,6 +40,8 @@ class SuyoolServices
              // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
             //   $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
              $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
+            // $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+
              $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         }
         else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
@@ -720,13 +722,13 @@ class SuyoolServices
                         $status = 'pending';
                         break;
                     case 1:
-                        $status = 'requested';
+                        $status = 'downloaded';
                         break;
                     case 2:
                         $status = 'fully';
                         break;
                     case 3:
-                        $status = 'activated';
+                        $status = 'requested';
                         break;
                     case 4:
                         $status = 'card';
@@ -740,14 +742,14 @@ class SuyoolServices
                     case 'pending':
                         $data['count']['pending'] = count($data['status']['pending']);
                         break;
-                    case 'requested':
-                        $data['count']['requested'] = count($data['status']['requested']);
+                    case 'downloaded':
+                        $data['count']['downloaded'] = count($data['status']['downloaded']);
                         break;
                     case 'fully':
                         $data['count']['fully'] = count($data['status']['fully']);
                         break;
-                    case 'activated':
-                        $data['count']['activated'] = count($data['status']['activated']);
+                    case 'requested':
+                        $data['count']['requested'] = count($data['status']['requested']);
                         break;
                     case 'card':
                         $data['count']['card'] = count($data['status']['card']);
