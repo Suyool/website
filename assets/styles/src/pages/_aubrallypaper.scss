@@ -415,9 +415,6 @@
                 font-size: 20px;
                 border-radius: 17px;
                 margin-bottom: 18px;
-                @media screen and (max-width:425px) {
-                    padding: 14px 20px;
-                }
             }
 
             a {
@@ -458,6 +455,9 @@
 
 .aubInvitationRanks {
     .top-section {
+        .g-recaptcha {
+            width: 100% !important;
+        }
         .team {
             color: #fff;
             padding-left: 10px;
@@ -1149,6 +1149,13 @@
 
         .mobileMode3 {
             display: flex !important;
+        }
+    }
+}
+@media screen and (max-width:425px) {
+    .howtoenroll {
+        .howtoenrollbtn {
+            padding: 14px 20px!important;
         }
     }
 }
