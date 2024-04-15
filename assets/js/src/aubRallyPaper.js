@@ -87,7 +87,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#popupModalBody .modalPopupBtn button', function() {
-        if (flagCode === 5) {
+        if (flagCode === 5 || (globalCode ===0 && flagCode ===0)) {
             $('#popupModal').modal('hide');
         }else if (globalCode === 0 && flagCode === 2) {
             $('#textToCopy').css('display', 'none');
