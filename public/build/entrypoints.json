@@ -3,7 +3,7 @@
     "app1": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/app1.139bc740.js"
+        "/build/app1.9e72b1de.js"
       ]
     },
     "admin-app": {
@@ -15,67 +15,67 @@
     "Loto": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Loto.1746a0f1.js"
+        "/build/Loto.e3dc162b.js"
       ]
     },
     "Alfa": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Alfa.4d63177f.js"
+        "/build/Alfa.53cb0270.js"
       ]
     },
     "Touch": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Touch.94a01d50.js"
+        "/build/Touch.f827b432.js"
       ]
     },
     "Windsl": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Windsl.1de1c152.js"
+        "/build/Windsl.a058b200.js"
       ]
     },
     "Ogero": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Ogero.65ddfb22.js"
+        "/build/Ogero.271889d8.js"
       ]
     },
     "TerraNet": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/TerraNet.e3967e23.js"
+        "/build/TerraNet.b53b7fda.js"
       ]
     },
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Gift2Games.a8f2e1bd.js"
+        "/build/Gift2Games.4898f7e0.js"
       ]
     },
     "Simly": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Simly.526f5196.js"
+        "/build/Simly.98a7a1de.js"
       ]
     },
     "LegalEnrollement": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/LegalEnrollement.d2669fbf.js"
+        "/build/LegalEnrollement.c40b0069.js"
       ]
     },
     "iveri": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/iveri.0491d859.js"
+        "/build/iveri.8d5539c4.js"
       ]
     },
     "Sodetel": {
       "js": [
         "/build/runtime.cbe92cc0.js",
-        "/build/Sodetel.1456c8d7.js"
+        "/build/Sodetel.6f4184f0.js"
       ]
     },
     "styles": {
@@ -83,7 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-        "/build/styles.5a5b9f7a.css"
+        "/build/styles.9c3eb2be.css"
       ]
     },
     "admin": {
