@@ -134,6 +134,7 @@ class TopupController extends AbstractController
     {
         try {
             if (isset($_POST['infoString'])) {
+                // dd(($_POST['infoString']));
                 if ($_POST['infoString'] == "")
                     return $this->render('ExceptionHandling.html.twig');
                 $suyoolUserInfoForTopUp = explode("!#!", $_POST['infoString']);
