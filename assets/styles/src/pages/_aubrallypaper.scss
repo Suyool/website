@@ -53,7 +53,7 @@
                 text-align: left;
                 font-family: $InterRegular;
                 color: #fff;
-                font-size: 22px;
+                font-size: 18px;
 
                 span {
                     color: #02FF62;
@@ -832,6 +832,7 @@
                     }
 
                     .theborder {
+                        cursor: pointer;
                         margin-left: 30px;
                         font-family: $SemiBold;
                     }
