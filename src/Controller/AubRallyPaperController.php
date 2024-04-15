@@ -32,7 +32,7 @@ class AubRallyPaperController extends AbstractController
     private $cache;
 
 
-    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices,AdapterInterface $cache)
+    public function __construct(ManagerRegistry $mr, SuyoolServices $suyoolServices, AdapterInterface $cache)
     {
         $this->hash_algo = $_ENV['ALGO'];
         $this->certificate = $_ENV['CERTIFICATE'];
@@ -46,7 +46,7 @@ class AubRallyPaperController extends AbstractController
     /**
      * @Route("/aub-rally-paper", name="app_aub_rally_paper")
      */
-    public function aubRallyPaper(Request $request, SessionInterface $session,PaginatorInterface $paginatorInterface)
+    public function aubRallyPaper(Request $request, SessionInterface $session, PaginatorInterface $paginatorInterface)
     {
         if ($session->has('expire_time') && time() > $session->get('expire_time')) {
             // Session has expired, invalidate the session
@@ -83,8 +83,8 @@ class AubRallyPaperController extends AbstractController
         if (!empty($data)) {
             $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
             if (is_null($status)) {
-                if(isset($data['status'])){
-                // foreach ($data['status'] as $status => $statused) {
+                if (isset($data['status'])) {
+                    // foreach ($data['status'] as $status => $statused) {
                     foreach ($data['status']['pending'] as $statused) {
                         switch ($statused['status']) {
                             case 0:
@@ -108,23 +108,29 @@ class AubRallyPaperController extends AbstractController
                                 $class = 'card';
                                 break;
                         }
+                        if (is_null($statused['fullName'])) {
+                            $statused['fullName'] = "";
+                        }
                         $toBeDisplayedItem[] = [
                             'status' => $displayedStatus,
                             'fullyname' => $statused['fullName'],
                             'mobileNo' => $statused['mobileNo'],
                             'id' => $statused['id'],
                             'status2' => $statused['status'],
-                            'class'=>$class
+                            'class' => $class
                         ];
                     }
-                // }
-            }else{
-                $toBeDisplayedItem = [];
-            }
+                    // }
+                } else {
+                    $toBeDisplayedItem = [];
+                }
             } else {
                 if (isset($data['status'][$status])) {
                     foreach ($data['status'][$status] as $statused) {
                         if (is_null($status)) {
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
                             $toBeDisplayedItem[] = [
                                 'status' => 'All Members',
                                 'fullyname' => $statused['fullName'],
@@ -133,49 +139,64 @@ class AubRallyPaperController extends AbstractController
                                 'status2' => $statused['status'],
                             ];
                         } else if ($status == 'pending') {
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
                             $toBeDisplayedItem[] = [
                                 'status' => 'Pending enrollment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
                                 'status2' => $statused['status'],
-                                'class'=>$status
+                                'class' => $status
                             ];
                         } else if ($status == 'downloaded') {
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
                             $toBeDisplayedItem[] = [
                                 'status' => 'Pending Enrollment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
                                 'status2' => $statused['status'],
-                                'class'=>'pending'
+                                'class' => 'pending'
                             ];
                         } else if ($status == 'fully') {
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
                             $toBeDisplayedItem[] = [
                                 'status' => 'Fully Enrolled',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
                                 'status2' => $statused['status'],
-                                'class'=>$status
+                                'class' => $status
                             ];
                         } else if ($status == 'requested') {
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
                             $toBeDisplayedItem[] = [
                                 'status' => 'Requested Card',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
                                 'status2' => $statused['status'],
-                                'class'=>$status
+                                'class' => $status
                             ];
                         } else if ($status == 'card') {
-                          $toBeDisplayedItem[] = [
+                            if (is_null($statused['fullName'])) {
+                                $statused['fullName'] = "";
+                            }
+                            $toBeDisplayedItem[] = [
                                 'status' => 'Card Payment',
                                 'fullyname' => $statused['fullName'],
                                 'mobileNo' => $statused['mobileNo'],
                                 'id' => $statused['id'],
                                 'status2' => $statused['status'],
-                                'class'=>$status
+                                'class' => $status
                             ];
                         }
                     }
@@ -183,31 +204,39 @@ class AubRallyPaperController extends AbstractController
                     $toBeDisplayedItem = [];
                 }
             }
-            // $data['toBeDisplayed'][] = $toBeDisplayedItem;
 
+            // dd($toBeDisplayedItem);
             $pagination = $paginatorInterface->paginate(
                 $toBeDisplayedItem,  // Query to paginate
                 $request->get('page', 1),   // Current page number
                 20             // Records per page
             );
             // dd($pagination);
-            $data['toBeDisplayed'][] = $pagination;
 
+
+            if ($request->isXmlHttpRequest()) {
+                $data['toBeDisplayed2'] = $toBeDisplayedItem;
+                return new JsonResponse([
+                    'response' =>  $data,
+                    'error' => 'Success.'
+                ], 200);
+            }
+            $data['toBeDisplayed'][] = $pagination;
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
                 'body' => $data,
-                'teamCode'=>$teamCode
+                'teamCode' => $teamCode
             ];
         } else {
             $parameters = [
-                'teamCode'=>$teamCode,
+                'teamCode' => $teamCode,
             ];
             $parameters['status'] = false;
             $parameters['message'] = 'Empty Data';
         }
 
-      
+
         // dd($parameters);
 
         return $this->render('aubRallyPaper/index.html.twig', $parameters);
@@ -241,13 +270,13 @@ class AubRallyPaperController extends AbstractController
                 ->setresponse(json_encode($response));
             $this->mr->persist($logs);
             $this->mr->flush();
-//            $response = [
-//                "globalCode" => 0,
-//                "flagCode" => 2,
-//                "title" => "Number Already Linked",
-//                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
-//                "buttonText" => "copy link"
-//            ];
+            //            $response = [
+            //                "globalCode" => 0,
+            //                "flagCode" => 2,
+            //                "title" => "Number Already Linked",
+            //                "body" => "Your phone number is already linked to this team Team2. You're eligible to help them earn points. What are you waiting for?",
+            //                "buttonText" => "copy link"
+            //            ];
             return new JsonResponse($response);
         }
         $parameters['faq'] = [
@@ -360,113 +389,113 @@ class AubRallyPaperController extends AbstractController
         return $this->render('aubRallyPaper/login.html.twig');
     }
 
-      /**
-       * @Route("/aub-search", name="app_search",methods="POST")
-       */
-      public function search(Request $request,SessionInterface $session)
-      {
-          $status = null;
-          $datacharacter = json_decode($request->getContent(false),true);
+    /**
+     * @Route("/aub-search", name="app_search",methods="POST")
+     */
+    public function search(Request $request, SessionInterface $session)
+    {
+        $status = null;
+        $datacharacter = json_decode($request->getContent(false), true);
         //   dd($datacharacter);
-          $teamCode = $session->get('team_code');
-          // dd($teamCode);
-          $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
-          $body = [
-              'code' => $teamCode,
-              'secureHash' => $hash
-          ];
+        $teamCode = $session->get('team_code');
+        // dd($teamCode);
+        $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
+        $body = [
+            'code' => $teamCode,
+            'secureHash' => $hash
+        ];
         //   $data = $this->suyoolServices->rallyPaperOverview($body);
         $item = $this->cache->getItem($teamCode);
-          $data = $item->get();
-          /*
+        $data = $item->get();
+        /*
           0 pending
           1 requested
           2 fully
           3 activated
           4 card payment
           */
-          // dd($data);
-          if (!empty($data)) {
-              $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
-              if (is_null($status)) {
-                  foreach ($data['status'] as $status => $statused) {
-                      foreach ($data['status'][$status] as $statused) {
-                          switch ($statused['status']) {
-                              case 0:
-                                  $displayedStatus = 'Pending Enrollment';
-                                  $class = 'pending';
-                                  break;
-                              case 1:
-                                  $displayedStatus = 'Pending Enrollment';
-                                  $class = 'pending';
-                                  break;
-                              case 2:
-                                  $displayedStatus = 'Fully Enrolled';
-                                  $class = 'fully';
-                                  break;
-                              case 3:
-                                  $displayedStatus = 'Requested Card';
-                                  $class = 'requested';
-                                  break;
-                              case 4:
-                                  $displayedStatus = 'Card Payment';
-                                  $class = 'card';
-                                  break;
-                          }
-                          $toBeDisplayedItem[] = [
-                              'status' => $displayedStatus,
-                              'fullyname' => $statused['fullName'],
-                              'mobileNo' => $statused['mobileNo'],
-                              'id' => $statused['id'],
-                              'status2' => $statused['status'],
-                              'class'=>$class
-                          ];
-                      }
-                  }
-              } 
-              $data['toBeDisplayed'][] = $toBeDisplayedItem;
-              $parameters = [
-                  'status' => true,
-                  'message' => 'Returning Data',
-                  'body' => $data,
-                  'teamCode'=>$teamCode
-              ];
-          } else {
-              $parameters['status'] = false;
-              $parameters['message'] = 'Empty Data';
-          }
-          // dd($parameters);
-         
-          foreach ($parameters['body']['toBeDisplayed'][0] as $body) {
-              // if ($body['fullyname'] === $datacharacter['char']) {
-              //     // Value found, do something with it
-              //     // For example, you can add it to a new array
-              //     $foundResults[] = $body;
-              // }else{
-              //     // $foundResults=[];
-              // }
-              $input = $datacharacter['char'] ;
-              if (stripos($body['fullyname'], $input) !== false) {
-                  // Partial match found, add it to the result array
-                  if(is_null($body['fullyname'])){
-                    $body ['fullyname'] = "";
-                  }
-                  $foundResults[] = $body;
-              }
-          }
-          if(empty($foundResults)){
-              return new JsonResponse([
-                  'data'=>[]
-              ],200);
-          }
-          $parameters['body']['toBeDisplayed'][0] = $foundResults;
-         return new JsonResponse([
-            'status'=>true,
-            'data'=>$parameters['body']['toBeDisplayed'][0]
-         ]);
-  
-      //    return new JsonResponse([
-      //     'char'=>$data['char']
-      //    ]);
-      }
+        // dd($data);
+        if (!empty($data)) {
+            $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
+            if (is_null($status)) {
+                foreach ($data['status'] as $status => $statused) {
+                    foreach ($data['status'][$status] as $statused) {
+                        switch ($statused['status']) {
+                            case 0:
+                                $displayedStatus = 'Pending Enrollment';
+                                $class = 'pending';
+                                break;
+                            case 1:
+                                $displayedStatus = 'Pending Enrollment';
+                                $class = 'pending';
+                                break;
+                            case 2:
+                                $displayedStatus = 'Fully Enrolled';
+                                $class = 'fully';
+                                break;
+                            case 3:
+                                $displayedStatus = 'Requested Card';
+                                $class = 'requested';
+                                break;
+                            case 4:
+                                $displayedStatus = 'Card Payment';
+                                $class = 'card';
+                                break;
+                        }
+                        $toBeDisplayedItem[] = [
+                            'status' => $displayedStatus,
+                            'fullyname' => $statused['fullName'],
+                            'mobileNo' => $statused['mobileNo'],
+                            'id' => $statused['id'],
+                            'status2' => $statused['status'],
+                            'class' => $class
+                        ];
+                    }
+                }
+            }
+            $data['toBeDisplayed'][] = $toBeDisplayedItem;
+            $parameters = [
+                'status' => true,
+                'message' => 'Returning Data',
+                'body' => $data,
+                'teamCode' => $teamCode
+            ];
+        } else {
+            $parameters['status'] = false;
+            $parameters['message'] = 'Empty Data';
+        }
+        // dd($parameters);
+
+        foreach ($parameters['body']['toBeDisplayed'][0] as $body) {
+            // if ($body['fullyname'] === $datacharacter['char']) {
+            //     // Value found, do something with it
+            //     // For example, you can add it to a new array
+            //     $foundResults[] = $body;
+            // }else{
+            //     // $foundResults=[];
+            // }
+            $input = $datacharacter['char'];
+            if (stripos($body['fullyname'], $input) !== false) {
+                // Partial match found, add it to the result array
+                if (is_null($body['fullyname'])) {
+                    $body['fullyname'] = "";
+                }
+                $foundResults[] = $body;
+            }
+        }
+        if (empty($foundResults)) {
+            return new JsonResponse([
+                'data' => []
+            ], 200);
+        }
+        $parameters['body']['toBeDisplayed'][0] = $foundResults;
+        return new JsonResponse([
+            'status' => true,
+            'data' => $parameters['body']['toBeDisplayed'][0]
+        ]);
+
+        //    return new JsonResponse([
+        //     'char'=>$data['char']
+        //    ]);
+    }
 }
