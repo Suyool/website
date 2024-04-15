@@ -767,6 +767,10 @@
                 padding-left: 17px;
                 color: #226D9680;
                 outline: none;
+                @media screen and (min-width:1000px) {
+                    width: 87%;
+                }
+                width: 75%;
             }
         }
 

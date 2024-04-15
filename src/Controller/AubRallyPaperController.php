@@ -393,20 +393,20 @@ class AubRallyPaperController extends AbstractController
                       foreach ($data['status'][$status] as $statused) {
                           switch ($statused['status']) {
                               case 0:
-                                  $displayedStatus = 'Pending Modification';
+                                  $displayedStatus = 'Pending Enrollment';
                                   $class = 'pending';
                                   break;
                               case 1:
-                                  $displayedStatus = 'Requested Card';
-                                  $class = 'requested';
+                                  $displayedStatus = 'Pending Enrollment';
+                                  $class = 'pending';
                                   break;
                               case 2:
                                   $displayedStatus = 'Fully Enrolled';
                                   $class = 'fully';
                                   break;
                               case 3:
-                                  $displayedStatus = 'Activated Card';
-                                  $class = 'activated';
+                                  $displayedStatus = 'Requested Card';
+                                  $class = 'requested';
                                   break;
                               case 4:
                                   $displayedStatus = 'Card Payment';
@@ -448,6 +448,9 @@ class AubRallyPaperController extends AbstractController
               $input = $datacharacter['char'] ;
               if (stripos($body['fullyname'], $input) !== false) {
                   // Partial match found, add it to the result array
+                  if(is_null($body['fullyname'])){
+                    $body ['fullyname'] = "";
+                  }
                   $foundResults[] = $body;
               }
           }
