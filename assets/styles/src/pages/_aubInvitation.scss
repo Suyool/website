@@ -5,6 +5,10 @@
     background-size: cover;
     background-repeat: no-repeat;
 
+    .g-recaptcha {
+      width: 100% !important;
+    }
+
     .title {
       font-family: $Regular;
       padding-top: 80px;
