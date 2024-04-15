@@ -168,19 +168,19 @@
 
                 .desc {
                     font-family: $Bold;
-                    font-size: 18px;
+                    font-size: 22px;
 
                     span {
                         display: block;
                         font-family: $Regular;
-                        font-size: 16px;
+                        font-size: 21px;
                     }
                 }
 
                 .yellowborder {
                     color: #2D72A1;
                     font-family: $Bold;
-                    font-size: 26px;
+                    font-size: 20px;
                 }
 
                 .prize1 {
@@ -415,6 +415,9 @@
                 font-size: 20px;
                 border-radius: 17px;
                 margin-bottom: 18px;
+                @media screen and (max-width:425px) {
+                    padding: 14px 20px;
+                }
             }
 
             a {

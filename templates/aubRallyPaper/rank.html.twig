@@ -12,11 +12,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h1>
-                                The 35,000 Points Suyool <span class="pre">Pre-</span> Challenge
+                               Invite more, earn more!
                             </h1>
                             <h3>
-                                Win 35,000 points just by inviting your peers, friends & family to join Suyool.
-                                It’s that simple.
+                         The more people enroll & order their cards, the more points you get. And if you invite the most, you win the top prize of 35,000 additional points. It's that simple!
                             </h3>
                         </div>
                         <div class="col-md-6">
@@ -38,11 +37,13 @@
                             <div class="border">
                                 {% if rankingsData[0] is defined %}
                                     <div class="yellowborder">
-                                        <span>{{ rankingsData[0].points }}</span>
+                                      <span> 35,000 Pts</span>
+                                       
                                     </div>
                                     <div class="desc">
                                         {{ rankingsData[0].name }}
-                                        <span> 35,000 Pts</span>
+                                         <span>{{ rankingsData[0].points }}</span>
+                                      
                                     </div>
                                 {% endif %}
                             </div>
@@ -52,11 +53,13 @@
                             <div class="border">
                                 {% if rankingsData[1] is defined %}
                                     <div class="yellowborder">
-                                        <span>{{ rankingsData[1].points }}</span>
+                                      <span>25,000 Pts</span>
+                                      
                                     </div>
                                     <div class="desc">
                                         {{ rankingsData[1].name }}
-                                        <span>25,000 Pts</span>
+                                          <span>{{ rankingsData[1].points }}</span>
+                                      
                                     </div>
                                 {% endif %}
                             </div>
@@ -66,11 +69,13 @@
                             <div class="border">
                                 {% if rankingsData[2] is defined %}
                                     <div class="yellowborder">
-                                        <span>{{ rankingsData[2].points }}</span>
+                                       <span>10,000 Pts</span>
+                               
                                     </div>
                                     <div class="desc">
                                         {{ rankingsData[2].name }}
-                                        <span>10,000 Pts</span>
+                                                 <span>{{ rankingsData[2].points }}</span>
+                                     
                                     </div>
                                 {% endif %}
                             </div>
