@@ -720,8 +720,8 @@ return [
     'IF_THEY_ALREADY_HAVE_A_SUYOOL' => 'If they already have a Suyool wallet and is a registered user they cannot join your team nor get your team points.',
     'HOW_TO_ORDER_CARD' => 'How to order the Suyool Visa Platinum card?',
     'ONCE_YOUR_INFORMATION_IS_VALIDATED' => 'Once your information is validated & confirmed, you can directly request your Suyool Visa Platinum debit card from your app. Once your request is approved, your card will be delivered to AUB for free.',
-    'CAN_I_ALSO_PAY_ONLINE' => 'Can I also pay online with Suyool Visa card?',
-    'YES_YOU_CAN_USE_CARD_ONLINE' => 'Yes, you can use the Suyool Visa Platinum card online.',
+    'CAN_I_ALSO_PAY_ONLINE' => 'How can I add money to my Suyool account?',
+    'YES_YOU_CAN_USE_CARD_ONLINE' => 'You can add money to your Suyool account by depositing cash at any BOB Finance branch or toping up your account using another debit or credit card. For further details, please visit our help center.',
     'HOW_CAN_I_KNOW_RANK' => 'How can I know my team’s ranking?',
     'YOU_CAN_TRACK_YOUR_TEAM' => 'You can track your team’s ranking during the Suyool Challenge <a href="/aub-rally-paper-ranking" target="_blank" style="text-decoration: underline; color: #226d96">here.</a>',
 
