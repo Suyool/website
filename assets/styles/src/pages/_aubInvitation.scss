@@ -413,8 +413,11 @@
       button {
         width: 100%;
         background-color: #226D96;
-        border-radius: 10px;
+        border-radius: 30px;
         padding: 10px 0;
+        font-size: 16px;
+        font-family: $SemiBold;
+
       }
     }
 
@@ -470,7 +473,7 @@
 
       .buttonCont {
         bottom: 60px;
-        position: fixed;
+        position: absolute;
         width: 94%;
       }
 
@@ -493,7 +496,7 @@
     background-color: #216D96;
     padding: 14px 65px;
     font-family: $SemiBold;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 25px;
     margin-bottom: 18px;
   }
