@@ -216,6 +216,7 @@ class AubRallyPaperController extends AbstractController
 
             if ($request->isXmlHttpRequest()) {
                 $data['toBeDisplayed2'] = $toBeDisplayedItem;
+
                 return new JsonResponse([
                     'response' =>  $data,
                     'error' => 'Success.'
@@ -401,7 +402,7 @@ class AubRallyPaperController extends AbstractController
     {
         $status = null;
         $datacharacter = json_decode($request->getContent(false), true);
-        //   dd($datacharacter);
+        // dd($datacharacter);
         $teamCode = $session->get('team_code');
         // dd($teamCode);
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
