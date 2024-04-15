@@ -54,13 +54,20 @@
 //     }
 //   }
 // }
+
 .topSectionMedcoPayrollEmp {
   img {
     width: 100%;
     min-height: 497px;
   }
 
+  &.rimtopsection{
+    .information {
+      .title{font-size: 22px !important; }
+    
+    }
   
+   }
   .logos {
     padding-top: 30px;
     text-align: center;
@@ -103,6 +110,7 @@
 
 
     }
+    
   }
 
   .information {
@@ -252,7 +260,7 @@
   }
   .topSectionMedcoPayrollEmp {
     .information {
-      padding-top: 8pc;
+      padding-top: 7pc;
       left: 30px;
       right: 30px;
 
