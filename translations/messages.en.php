@@ -456,7 +456,14 @@ return [
     "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_SAD" => "Where can I withdraw my payroll in cash?",
     "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_SAD" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
     "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_SAD" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an S.A.D employee.",
-
+     
+        //cuisineMatters
+        "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_Cuisine_Matters" => "What are the benefits for Cuisine Matters SAL employees?",
+        "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Cuisine_Matters" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are an Cuisine Matters SAL employee.",
+        "WHERE_CAN_I_WITHDRAW_MY_SALARY_IN_CASH_DrogueriePhenicia_Cuisine_Matters" => "Where can I withdraw my payroll in cash?",
+        "USERS_CAN_ACCESS_THEIR_MONEY_FROM_MORE_THAN_700_DrogueriePhenicia_Cuisine_Matters" => "In Lebanon, at over 700 BOB Finance offices. Abroad, from any ATM compatible with Visa.",
+        "YOUR_SUYOOL_MASTERCARD_WILL_BE_FREE_OF_CHARGE_ADDICTS_Cuisine_Matters" => "Your Suyool Visa Platinum debit card will be free-of-charge as long as you are an Cuisine Matters SAL employee.",
+    
              //georgesN
         "WHAT_ARE_THE_BENEFITS_FOR_USJ_EMPLOYEES_Georges_Frem_Foundation" => "What are the benefits for Georges N. Frem Foundation employees?",
         "YOU_WILL_BENEFIT_FROM_A_FREE_PLATINUM_MASTERCARD_Georges_Frem_Foundation" => "They will benefit from a free Visa Platinum debit card the first year & free cash withdrawal of their monthly salary as long as they are a Georges N. Frem Foundation employee.",
