@@ -13,22 +13,40 @@
             {{ app.session.get('username') }}
         </div>
         <div class="theborders" >
-            <div class="theborder" {% if app.request.get('status') is defined and (app.request.get('status') is null or app.request.get('status') == 'pending')  %}id="active-tab"{% endif %} >
+            {# <div class="theborder" {% if app.request.get('status') is defined and (app.request.get('status') is null or app.request.get('status') == 'pending')  %}id="active-tab"{% endif %} >
                 <a class="info1" href="/aub-rally-paper?status=pending" {% if app.request.get('status') is defined and (app.request.get('status') is null or app.request.get('status') == 'pending')  %}id="active"{% endif %} >Entered Phone Number</a>
                 <div class="count">{% if body.count.pending is defined %}{{body.count.pending}}{% else %} 0 {% endif %}</div>
+            </div> #}
+            <div class="theborder" id="active-tab">
+                <a class="info1"  id="pending">Entered Phone Number</a>
+                <div class="count">{% if body.count.pending is defined %}{{body.count.pending}}{% else %} 0 {% endif %}</div>
             </div>
-            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'downloaded'  %}id="active-tab"{% endif %}>
-                <a class="info1" href="/aub-rally-paper?status=downloaded" {% if app.request.get('status') is defined and app.request.get('status') == 'downloaded'  %}id="active"{% endif %}>Downloaded App</a>
+            <div class="theborder"  >
+                <a class="info1"  id="downloaded">Downloaded App</a>
                 <div class="count">{% if body.count.downloaded is defined %}{{body.count.downloaded}}{% else %} 0 {% endif %}</div>
             </div>
-            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'fully' %}id="active-tab"{% endif %}>
+
+            <div class="theborder"  >
+                <a class="info1"  id="fully">Fully Enrolled</a>
+            <div class="count">{% if body.count.fully is defined %}{{body.count.fully}}{% else %} 0 {% endif %}</div>
+            </div>
+
+            <div class="theborder" >
+                <a class="info1"  id="requested">Requested the Card</a>
+            <div class="count">{% if body.count.requested is defined %}{{body.count.requested}}{% else %} 0 {% endif %}</div>
+            </div>
+            {# <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'downloaded'  %}id="active-tab"{% endif %}>
+                <a class="info1" href="/aub-rally-paper?status=downloaded" {% if app.request.get('status') is defined and app.request.get('status') == 'downloaded'  %}id="active"{% endif %}>Downloaded App</a>
+                <div class="count">{% if body.count.downloaded is defined %}{{body.count.downloaded}}{% else %} 0 {% endif %}</div>
+            </div> #}
+            {# <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'fully' %}id="active-tab"{% endif %}>
                 <a class="info1" href="/aub-rally-paper?status=fully" {% if app.request.get('status') is defined and app.request.get('status') == 'fully' %}id="active"{% endif %}>Fully Enrolled</a>
                 <div class="count">{% if body.count.fully is defined %}{{body.count.fully}}{% else %} 0 {% endif %}</div>
             </div>
             <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}id="active-tab"{% endif %}>
                 <a class="info1" href="/aub-rally-paper?status=requested" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}id="active"{% endif %}>Requested the Card</a>
                 <div class="count">{% if body.count.requested is defined %}{{body.count.requested}}{% else %} 0 {% endif %}</div>
-            </div>
+            </div> #}
 {#            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active-tab"{% endif %}>#}
 {#                <a class="info1" href="/aub-rally-paper?status=activated" {% if app.request.get('status') is defined and app.request.get('status') == 'activated' %}id="active"{% endif %}>Activated Card</a>#}
 {#                <div class="count">{% if body.count.activated is defined %}{{body.count.activated}}{% else %} 0 {% endif %}</div>#}
@@ -38,9 +56,9 @@
 {#                <div class="count">{% if body.count.card is defined %}{{body.count.card}}{% else %} 0 {% endif %}</div>#}
 {#            </div>#}
         </div>
-        <div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}style = " border-radius: 0px 0px 43px 43px;"{% endif %}>
-            <div class="marginForHeader"></div>
-            <div class="member-number-name"> 
+        <div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}style = " border-radius: 0px 0px 43px 43px;"{% endif %}  >
+            <div class="marginForHeader" id="normal"></div>
+            <div class="member-number-name" id="normal"> 
                 <div class="member-number-name-left">
                     <div> Member #</div>
                     <div> Phone Number</div>
@@ -53,7 +71,7 @@
             <div class="marginForHeader"></div>
             {% for key,toBeDisplayed in body.toBeDisplayed[0] %}
                 {% set index = key % 2  %}
-                <div {% if index == 1 %}class=" member-number-name greyBackground"{% elseif key == 0 %}class=" member-number-name "{% else %}class=" member-number-name "{% endif %}>
+                <div {% if index == 1 %}class=" member-number-name greyBackground"{% elseif key == 0 %}class=" member-number-name "{% else %}class=" member-number-name "{% endif %} id="normal">
                 <div class="member-number-name-left" >
                     <div class="fixedWidthMember">{{ toBeDisplayed.id }}</div>
                     <div class="fixedWidthPhone" >+{{ toBeDisplayed.mobileNo }}</div>
@@ -84,19 +102,19 @@
     <div class="thetable mobileMode2">
         <div class="theborders" >
             <div class="theborder "  {% if app.request.get('status') is defined and (app.request.get('status') is null or app.request.get('status') == 'pending')  %}id="active-tab"{% endif %} >
-                <a class="info1" href="/aub-rally-paper?status=pending" {% if app.request.get('status') is defined and (app.request.get('status') is null or app.request.get('status') == 'pending')  %}id="active"{% endif %}>Entered Phone Number</a>
+                <div class="info1" id="pending" >Entered Phone Number</div>
                 <div class="count">{% if body.count.pending is defined %}{{body.count.pending}}{% else %} 0 {% endif %}</div>
             </div>
-            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'pending'  %}id="active-tab"{% endif %}>
-                <a class="info1" href="/aub-rally-paper?status=downloaded" {% if app.request.get('status') is defined and app.request.get('status') == 'pending'  %}id="active"{% endif %}>Downloaded App</a>
+            <div class="theborder" >
+                <div class="info1" id="downloaded">Downloaded App</div>
                 <div class="count">{% if body.count.downloaded is defined %}{{body.count.downloaded}}{% else %} 0 {% endif %}</div>
             </div>
-            <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'fully' %}id="active-tab"{% endif %}>
-                <a class="info1" href="/aub-rally-paper?status=fully" {% if app.request.get('status') is defined and app.request.get('status') == 'fully' %}id="active"{% endif %}>Fully Enrolled</a>
+            <div class="theborder">
+                <div class="info1" id="fully">Fully Enrolled</div>
                 <div class="count">{% if body.count.fully is defined %}{{body.count.fully}}{% else %} 0 {% endif %}</div>
             </div>
-        <div class="theborder" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}id="active-tab"{% endif %}>
-        <a class="info1" href="/aub-rally-paper?status=requested" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %}id="active"{% endif %}>Requested the Card</a>
+        <div class="theborder" >
+        <div class="info1" id="requested">Requested the Card</div>
         <div class="count">{% if body.count.requested is defined %}{{body.count.requested}}{% else %} 0 {% endif %}</div>
     </div>
         </div>

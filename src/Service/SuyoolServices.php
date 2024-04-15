@@ -27,28 +27,26 @@ class SuyoolServices
     private $helper;
     private $userlog;
 
-    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null,SessionInterface $sessionInterface = null)
+    public function __construct($merchantAccountID = null, LoggerInterface $winning = null, LoggerInterface $cashout = null, LoggerInterface $cashin = null, LoggerInterface $userlog = null, SessionInterface $sessionInterface = null)
     {
         $this->certificate = $_ENV['CERTIFICATE'];
         $this->hash_algo = $_ENV['ALGO'];
         $this->merchantAccountID = $merchantAccountID;
-        if ($sessionInterface!=null && $sessionInterface->has('simulation')) {
+        if ($sessionInterface != null && $sessionInterface->has('simulation')) {
             $simulation = $sessionInterface->get('simulation');
         }
 
         if ($_ENV['APP_ENV'] == "test") {
-             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-              $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
+            // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
+            $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
             //  $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
             // $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
 
-             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
-        }
-        else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation']=="true")){
+            $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
+        } else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
             $this->SUYOOL_API_HOST = 'https://externalservices.suyool.money/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://externalservices.suyool.money/NotificationServiceApi/";
-        }
-        else {
+        } else {
             $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
             $this->NOTIFICATION_SUYOOL_HOST = "https://suyoolnotificationservice.proudhill-9ff36be4.francecentral.azurecontainerapps.io/";
         }
@@ -60,13 +58,13 @@ class SuyoolServices
         $this->userlog = $userlog;
     }
 
-//    public function test(){
-//        echo "SUYOOL_API_HOST: ";
-//        echo $this->SUYOOL_API_HOST;
-//        echo "<br />";
-//        echo "APP_ENV in suyool service is:";
-//        dd($_ENV['APP_ENV']);
-//    }
+    //    public function test(){
+    //        echo "SUYOOL_API_HOST: ";
+    //        echo $this->SUYOOL_API_HOST;
+    //        echo "<br />";
+    //        echo "APP_ENV in suyool service is:";
+    //        dd($_ENV['APP_ENV']);
+    //    }
     public static function decrypt($stringToDecrypt)
     {
         $decrypted_string = openssl_decrypt($stringToDecrypt, $_ENV['CIPHER_ALGORITHME'], $_ENV['DECRYPT_KEY'], 0, $_ENV['INITIALLIZATION_VECTOR']);
@@ -117,7 +115,7 @@ class SuyoolServices
     /**
      * Push Utility Api
      */
-    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees,$merchantId = null)
+    public function PushUtilities($SuyoolUserId, $id, $sum, $currency, $fees, $merchantId = null)
     {
         $sum = number_format((float) $sum, 1, '.', '');
         $fees = number_format((float) $fees, 3, '.', '');
@@ -135,7 +133,7 @@ class SuyoolServices
                 'currency' => $currency,
                 'secureHash' =>  $Hash,
             ];
-//            dd(json_encode($body));
+            //            dd(json_encode($body));
 
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment",  $body);
 
@@ -145,7 +143,7 @@ class SuyoolServices
             // }
 
             $push_utility_response = $response->toArray(false);
-//            dd($push_utility_response);
+            //            dd($push_utility_response);
 
             if ($this->userlog) {
                 $this->userlog->info(json_encode($body));
@@ -170,12 +168,12 @@ class SuyoolServices
             }
             if ($globalCode) {
                 $transId = $push_utility_response['data'];
-                return array(true, $transId,"","",json_encode($body),json_encode($push_utility_response),$status,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
+                return array(true, $transId, "", "", json_encode($body), json_encode($push_utility_response), $status, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
             } else {
-                return array(false, $message, $flagCode, $error,json_encode($body),json_encode($push_utility_response),$status,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
+                return array(false, $message, $flagCode, $error, json_encode($body), json_encode($push_utility_response), $status, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
             }
         } catch (Exception $e) {
-            return array(false, "", "", "",@json_encode($body),$e->getMessage(),500,"{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
+            return array(false, "", "", "", @json_encode($body), $e->getMessage(), 500, "{$this->SUYOOL_API_HOST}Utilities/PushUtilityPayment");
         }
     }
 
@@ -206,12 +204,12 @@ class SuyoolServices
             $globalCode = $update_utility_response['globalCode'];
             $message = $update_utility_response['message'];
             if ($globalCode) {
-                return array(true, "success",json_encode($update_utility_response),json_encode($body), "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",$status);
+                return array(true, "success", json_encode($update_utility_response), json_encode($body), "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", $status);
             } else {
-                return array(false, $message,json_encode($update_utility_response),json_encode($body),"{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment",$status);
+                return array(false, $message, json_encode($update_utility_response), json_encode($body), "{$this->SUYOOL_API_HOST}Utilities/UpdateUtilityPayment", $status);
             }
         } catch (Exception $e) {
-            return array(false,"", $e->getMessage());
+            return array(false, "", $e->getMessage());
         }
     }
 
@@ -493,13 +491,13 @@ class SuyoolServices
                     'Content-Type' => 'application/json'
                 ]
             ]);
-            $status=$response->getStatusCode();
+            $status = $response->getStatusCode();
             $content = $response->toArray(false);
 
             if ($content['globalCode'] == 1) {
-                return array(true, $content['data'],$body,$content,"{$this->SUYOOL_API_HOST}Utilities/PushUserPrize",$status);
+                return array(true, $content['data'], $body, $content, "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", $status);
             } else {
-                return array(false,"",$body,$content,"{$this->SUYOOL_API_HOST}Utilities/PushUserPrize",$status);
+                return array(false, "", $body, $content, "{$this->SUYOOL_API_HOST}Utilities/PushUserPrize", $status);
             }
         } catch (Exception $e) {
             $this->winning->error($e->getMessage());
@@ -562,7 +560,7 @@ class SuyoolServices
         try {
             $Hash = "0e9Q6zJLdoKty9U6OuDZHVas9GisPCfGUFWpFrUq9sfLBgaaY6";
             $to = explode(',', $to);
-            if($attachmentName == null || $attachmentName == ""){
+            if ($attachmentName == null || $attachmentName == "") {
                 foreach ($to as $to) {
                     $emailMessage[] = [
                         'subject' => $subject,
@@ -576,7 +574,7 @@ class SuyoolServices
                         ]
                     ];
                 }
-            }else{
+            } else {
                 foreach ($to as $to) {
                     $emailMessage[] = [
                         'subject' => $subject,
@@ -584,14 +582,14 @@ class SuyoolServices
                         'plainTextContent' => $plainTextContent,
                         'attachment' => [
                             [
-                            'name' => $attachmentName,
-                            'attachmentsBase64' => $attachmentsBase64
+                                'name' => $attachmentName,
+                                'attachmentsBase64' => $attachmentsBase64
                             ]
                         ]
                     ];
                 }
             }
-            
+
             // dd($emailMessage);
             // $emailMessage = [
             //     'subject' => $subject,
@@ -637,12 +635,12 @@ class SuyoolServices
             return array(false);
         }
     }
-    public function PushCardToMerchantTransaction($mechantOrderId,$amount, $currency, $additionalInfo,$merchantId,$callbackURL = null,$Hash)
+    public function PushCardToMerchantTransaction($mechantOrderId, $amount, $currency, $additionalInfo, $merchantId, $callbackURL = null, $Hash)
     {
         try {
             $amount = number_format($amount, 3, '.', '');
-        //$Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
-        //dd($Hash);
+            //$Hash = base64_encode(hash($this->hash_algo,   $mechantOrderId .$merchantId . $amount . $currency . $additionalInfo . $this->certificate, true));
+            //dd($Hash);
             $body = [
                 'TransactionId' => $mechantOrderId,
                 'merchantAccountID' => $merchantId,
@@ -674,16 +672,16 @@ class SuyoolServices
         $Hash = base64_encode(hash($this->hash_algo,   htmlspecialchars($soaIds) . $this->certificate, true));
         // dd(urlencode($soaIds));
         // dd($Hash);
-        $body=[
-            "soaIds"=>$soaIds,
-            "secureHash"=>$Hash
+        $body = [
+            "soaIds" => $soaIds,
+            "secureHash" => $Hash
         ];
         $response = $this->helper->clientRequest($this->METHOD_POST, "http://10.20.80.56/extarnalProxy/api/GlobalAPIs/User/GetUserSOA",  $body);
         $content = $response->toArray(false);
         // dd($content);
         $data = array();
-        if($content['globalCode'] && $content['flagCode']){
-            $data = json_decode($content['data'],true);
+        if ($content['globalCode'] && $content['flagCode']) {
+            $data = json_decode($content['data'], true);
         }
         return $data;
     }
@@ -701,7 +699,7 @@ class SuyoolServices
 
         return $content;
     }
-    
+
     public function rallyPaperOverview($form_data)
     {
         $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->SUYOOL_API_HOST}RallyPaperAUB/GetTeamOverView",  $form_data);
@@ -737,27 +735,27 @@ class SuyoolServices
                 }
                 $data['status'][$status][] = $invitationData;
             }
-            if(isset($data['status'])){
-            foreach ($data['status'] as $key => $value) {
-                switch ($key) {
-                    case 'pending':
-                        $data['count']['pending'] = count($data['status']['pending']);
-                        break;
-                    case 'downloaded':
-                        $data['count']['downloaded'] = count($data['status']['downloaded']);
-                        break;
-                    case 'fully':
-                        $data['count']['fully'] = count($data['status']['fully']);
-                        break;
-                    case 'requested':
-                        $data['count']['requested'] = count($data['status']['requested']);
-                        break;
-                    case 'card':
-                        $data['count']['card'] = count($data['status']['card']);
-                        break;
+            if (isset($data['status'])) {
+                foreach ($data['status'] as $key => $value) {
+                    switch ($key) {
+                        case 'pending':
+                            $data['count']['pending'] = count($data['status']['pending']);
+                            break;
+                        case 'downloaded':
+                            $data['count']['downloaded'] = count($data['status']['downloaded']);
+                            break;
+                        case 'fully':
+                            $data['count']['fully'] = count($data['status']['fully']);
+                            break;
+                        case 'requested':
+                            $data['count']['requested'] = count($data['status']['requested']);
+                            break;
+                        case 'card':
+                            $data['count']['card'] = count($data['status']['card']);
+                            break;
+                    }
                 }
             }
-        }
             $data['rank'] = $content['rank'];
             $data['allmembers'] = count($content['invitationData']);
         }
