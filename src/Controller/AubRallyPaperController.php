@@ -314,8 +314,8 @@ class AubRallyPaperController extends AbstractController
     }
 
     /**
-     * @Cache(smaxage="60", public=true)
      * @Route("/aub-rally-paper-ranking", name="app_aub_rally_paper_ranking")
+     * @Cache(smaxage="60", public=true)
      */
     public function aubRallyPaperRanking(Request $request)
     {
