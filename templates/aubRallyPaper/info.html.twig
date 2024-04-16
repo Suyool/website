@@ -31,7 +31,7 @@
                 <div class="box-section">
                     <div class="userIcon"><img src="{{ asset('build/images/aub/suyoolUserIcon.svg') }}" alt="rally paper"></div>
                     <p class="desc">User fully enrolls to Suyool:</p>
-                    <div class="number">{% if body.count.requested is defined and body.count.requested > body.count.fully %}{{body.count.requested}}{% elseif body.count.fully is defined and body.count.fully is defined and body.count.requested > 0  %}{{body.count.fully + body.count.requested}} {% elseif body.count.fully is defined %}{{body.count.fully }} {% else %} 0 {% endif %}</div>
+                    <div class="number">{% if body.count.requested is defined and body.count.fully is defined and body.count.requested > body.count.fully %}{{body.count.requested}}{% elseif body.count.fully is defined and body.count.fully is defined and body.count.requested > 0  %}{{body.count.fully + body.count.requested}} {% elseif body.count.fully is defined %}{{body.count.fully }} {% else %} 0 {% endif %}</div>
                     <p class="point">+10pts</p>
                 </div>
             </div>
