@@ -4,39 +4,7 @@ $(document).ready(function () {
   var mobileValue;
   localStorage.setItem("status", "pending");
   currentStatus = localStorage.getItem("status");
-
-  // changes
-  var show_per_page = 4;
-  var number_of_items = $("#pagingBox").children().size();
-  var number_of_pages = Math.ceil(number_of_items / show_per_page);
-
-  $("#current_page").val(0);
-  $("#show_per_page").val(show_per_page);
-
-  var navigation_html =
-    '<a class="previous_link" href="javascript:previous();">Prev</a>';
-  var current_link = 0;
-  while (number_of_pages > current_link) {
-    navigation_html +=
-      '<a class="page_link" href="javascript:go_to_page(' +
-      current_link +
-      ')" longdesc="' +
-      current_link +
-      '">' +
-      (current_link + 1) +
-      "</a>";
-    current_link++;
-  }
-  navigation_html += '<a class="next_link" href="javascript:next();">Next</a>';
-
-  $("#page_navigation").html(navigation_html);
-
-  $("#page_navigation .page_link:first").addClass("active_page");
-
-  $("#pagingBox").children().css("display", "none");
-
-  $("#pagingBox").children().slice(0, show_per_page).css("display", "block");
-
+  callingpagination();
   //   console.log("current status outside", currentStatus);
   $("#loginForm").on("submit", function (e) {
     e.preventDefault();
@@ -227,8 +195,10 @@ $(document).ready(function () {
   }
   handleStatus();
 });
+
 function handleStatus(currentStatus = null) {
   $(".theborder").on("click", function () {
+    callingpagination();
     $(".theborder").removeAttr("id");
 
     $(this).attr("id", "active-tab");
@@ -294,6 +264,8 @@ function handleStatus(currentStatus = null) {
 
             tabInformations[j].insertAdjacentHTML("beforeend", html);
           }
+
+          callingpagination(response.response.count[status]);
         }
       },
       error: function (xhr, status, error) {
@@ -340,7 +312,8 @@ function handleChangeStatus(currentStatus) {
       console.log("tobedisplayed2", response?.response?.toBeDisplayed2);
       console.log("length", response?.response?.toBeDisplayed2?.length);
 
-      let tabInformations = document.getElementsByClassName("tab-information");
+      // let tabInformations = document.getElementsByClassName("tab-information");
+      let tabInformations = document.getElementById("pagingBox");
       for (let j = 0; j < tabInformations.length; j++) {
         tabInformations[j].innerHTML = "";
         if (j === 0) {
@@ -365,6 +338,7 @@ function handleChangeStatus(currentStatus) {
           tabInformations[j].insertAdjacentHTML("beforeend", html);
         }
       }
+      callingpagination(response.count[currentStatus]);
     },
     error: function (xhr, status, error) {
       console.error(xhr.responseText);
@@ -372,48 +346,49 @@ function handleChangeStatus(currentStatus) {
   });
 }
 
-function previous() {
-  new_page = parseInt($("#current_page").val()) - 1;
-  //if there is an item before the current active link run the function
-  if ($(".active_page").prev(".page_link").length == true) {
-    go_to_page(new_page);
+function callingpagination(number_of_items = null) {
+  //Pagination JS
+  var show_per_page = 10;
+
+  if (number_of_items == null) {
+    var number_of_items = $("#pagingBox").children().length;
   }
-}
 
-function next() {
-  new_page = parseInt($("#current_page").val()) + 1;
-  //if there is an item after the current active link run the function
-  if ($(".active_page").next(".page_link").length == true) {
-    go_to_page(new_page);
+  var number_of_pages = Math.ceil(number_of_items / show_per_page);
+
+  $("#current_page").val(0);
+  $("#show_per_page").val(show_per_page);
+  console.log("number of items", number_of_items);
+  console.log("number of pages", number_of_pages);
+
+  var navigation_html =
+    '<a class="previous_link astylefixing" href="javascript:previous();">Prev</a>';
+  var current_link = 0;
+  while (number_of_pages > current_link) {
+    navigation_html +=
+      '<a class="page_link astylefixing" href="javascript:gotopage(' +
+      current_link +
+      ')" longdesc="' +
+      current_link +
+      '">' +
+      (current_link + 1) +
+      "</a>";
+    current_link++;
   }
+  navigation_html +=
+    '<a class="next_link astylefixing" href="javascript:next();">Next</a>';
+  $("#page_navigation").html(navigation_html);
+
+  //add active_page class to the first page links
+  $("#page_navigation .page_link:first").addClass("active_page");
+
+  //hide all the elements inside pagingBox div
+  $("#pagingBox").children().css("display", "none");
+
+  //and show the first n (show_per_page) elements
+  $("#pagingBox").children().slice(0, show_per_page).css("display", "flex");
 }
-function go_to_page(page_num) {
-  //get the number of items shown per page
-  var show_per_page = parseInt($("#show_per_page").val());
-
-  //get the element number where to start the slice from
-  start_from = page_num * show_per_page;
-
-  //get the element number where to end the slice
-  end_on = start_from + show_per_page;
-
-  //hide all children elements of pagingBox div, get specific items and show them
-  $("#pagingBox")
-    .children()
-    .css("display", "none")
-    .slice(start_from, end_on)
-    .css("display", "block");
-
-  /*get the page link that has longdesc attribute of the current page and add active_page class to it
-	and remove that class from previously active page link*/
-  $(".page_link[longdesc=" + page_num + "]")
-    .addClass("active_page")
-    .siblings(".active_page")
-    .removeClass("active_page");
-
-  //update the current page input field
-  $("#current_page").val(page_num);
-}
+//Pagination JS
 
 if(document.getElementById("emailForm")){
 // Get the form element
