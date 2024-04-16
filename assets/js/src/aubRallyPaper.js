@@ -348,7 +348,7 @@ function handleChangeStatus(currentStatus) {
 
 function callingpagination(number_of_items = null) {
   //Pagination JS
-  var show_per_page = 10;
+  var show_per_page = 20;
 
   if (number_of_items == null) {
     var number_of_items = $("#pagingBox").children().length;
