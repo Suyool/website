@@ -150,6 +150,7 @@ class TopupController extends AbstractController
                     $sessionInterface->set('SenderId', $suyoolUserInfo[0]);
                     if (isset($suyoolUserInfoForTopUp[4])) {
                         $parameters = [
+                            'latopup'=>true,
                             'topup' => true,
                             'session' => $bobpayment[0],
                             'orderId' => $bobpayment[1],
@@ -161,6 +162,7 @@ class TopupController extends AbstractController
                         ];
                     } else {
                         $parameters = [
+                            'latopup'=>true,
                             'topup' => true,
                             'session' => $bobpayment[0],
                             'orderId' => $bobpayment[1],
@@ -208,6 +210,7 @@ class TopupController extends AbstractController
                     return $this->redirectToRoute("homepage");
                 }
                 $parameters = [
+                    'latopup'=>true,
                     // 'topup'=>true,
                     'session' => $bobpayment[1],
                     'sender' => $senderName,
@@ -317,6 +320,7 @@ class TopupController extends AbstractController
             }
             ($transactionDetails->Currency == "USD") ? $currency = "$" : $currency = "LL";
             $parameters = [
+                'latopup'=>true,
                 'session' => $bobpayment[0],
                 'orderId' => $bobpayment[1],
                 'transactionId' => $bobpayment[2],
@@ -329,7 +333,7 @@ class TopupController extends AbstractController
             $sessionInterface->remove('payment_data');
             return $this->render('topup/topupinvoice.html.twig', $parameters);
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             if ($request->headers->get('referer') == null) {
                 return $this->redirectToRoute("homepage");
             } else {
@@ -352,6 +356,7 @@ class TopupController extends AbstractController
             'SenderId'=> $sessionInterface->get('SenderId')
         ]));
         $parameters = [
+            'latopup'=>true,
             'session' => $bobpayment[0],
             'orderId' => $bobpayment[1],
             'transactionId' => $bobpayment[2],
