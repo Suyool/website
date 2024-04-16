@@ -73,11 +73,12 @@
 				</div>
 			</div>
 			<div class="marginForHeader"></div>
+            <input type='hidden' id='current_page'/>
+				<input type='hidden' id='show_per_page'/>
+				<div id="pagingBox">
 			{% for key,toBeDisplayed in body.toBeDisplayed[0] %}
 				{% set index = key % 2  %}
-				<input type='hidden' id='current_page'/>
-				<input type='hidden' id='show_per_page'/>
-				<ul id="pagingBox">
+				
 					<div {% if index == 1 %} class=" member-number-name greyBackground" {% elseif key == 0 %} class=" member-number-name " {% else %} class=" member-number-name " {% endif %} id="normal">
 						<div class="member-number-name-left">
 							<div class="fixedWidthMember">{{ toBeDisplayed.id }}</div>
@@ -88,13 +89,14 @@
 							<div>{{ toBeDisplayed.status }}</div>
 						</div>
 					</div>
-				</ul>
+				
 			{% endfor %}
-			<div class="pagination justify-content-center">
+        </div>
+			{# <div class="pagination justify-content-center">
 				{{ knp_pagination_render(body.toBeDisplayed[0]) }}
-			</div>
-			<div id='page_navigation'></div>
+			</div> #}
 		</div>
+    <div id='page_navigation'></div>
 
 	</div>
 
@@ -175,3 +177,47 @@
 	</div>
 	{# </div> #}
 </div>
+<script>
+    function previous() {
+  new_page = parseInt($("#current_page").val()) - 1;
+  //if there is an item before the current active link run the function
+  if ($(".active_page").prev(".page_link").length == true) {
+    go_to_page(new_page);
+  }
+}
+
+function next() {
+  new_page = parseInt($("#current_page").val()) + 1;
+  //if there is an item after the current active link run the function
+  if ($(".active_page").next(".page_link").length == true) {
+    go_to_page(new_page);
+  }
+}
+function gotopage(page_num) {
+  //get the number of items shown per page
+  var show_per_page = parseInt($("#show_per_page").val());
+
+  //get the element number where to start the slice from
+  start_from = page_num * show_per_page;
+
+  //get the element number where to end the slice
+  end_on = start_from + show_per_page;
+
+  //hide all children elements of pagingBox div, get specific items and show them
+  $("#pagingBox")
+    .children()
+    .css("display", "none")
+    .slice(start_from, end_on)
+    .css("display", "flex");
+
+  /*get the page link that has longdesc attribute of the current page and add active_page class to it
+and remove that class from previously active page link*/
+  $(".page_link[longdesc=" + page_num + "]")
+    .addClass("active_page")
+    .siblings(".active_page")
+    .removeClass("active_page");
+
+  //update the current page input field
+  $("#current_page").val(page_num);
+}
+</script>
