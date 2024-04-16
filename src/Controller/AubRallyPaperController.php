@@ -313,18 +313,19 @@ class AubRallyPaperController extends AbstractController
     }
 
     /**
+     * @Cache(smaxage="120", public=true)
      * @Route("/aub-rally-paper-ranking", name="app_aub_rally_paper_ranking")
      */
     public function aubRallyPaperRanking(Request $request)
     {
-        $cacheKey = 'teamRanking';
-        $cachedRanking = $this->cache->getItem($cacheKey);
-        $cachedRankings = $cachedRanking->get();
-        if(!empty($cachedRankings['rankingsData'])) {
-            $response = $cachedRanking->get();
-        }else {
+        // $cacheKey = 'teamRanking';
+        // $cachedRanking = $this->cache->getItem($cacheKey);
+        // $cachedRankings = $cachedRanking->get();
+        // if(!empty($cachedRankings['rankingsData'])) {
+        //     $response = $cachedRanking->get();
+        // }else {
             $response = $this->suyoolServices->getTeamsRankings();
-        }
+        // }
 
         $parameters['faq'] = [
             "ONE" => [
