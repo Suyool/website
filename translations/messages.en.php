@@ -720,7 +720,7 @@ The 2nd will get 25.000 bonus points<br>
 The 3rd will get 10.000 bonus points<br>
 The 4th will get 5.000 bonus points<br>
 the 5th will get 3.000 bonus points<br><br>
-Hint: To get more users, you can share the invitation link through whatsapp to all your contact and through your social media pages',
+Hint: To get more users, you can share the invitation link through whatsapp to all your contacts and through your social media pages',
     'HOW_TO_INVITE_MEMBERS_TO'=> 'How to invite members to enroll to Suyool under my team?',
     'ALL_YOU_HAVE_TO_DO_IS' => 'All you have to do is share the unique link associated with your team. This link will direct your members to a landing page where they need to enter their phone number and click on “Get The App”',
     'HOW_TO_ENROLL_TO_SUYOOL' => 'How to enroll to Suyool?',

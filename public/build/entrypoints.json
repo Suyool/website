@@ -84,10 +84,14 @@
       ],
       "css": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "/build/styles.8818366a.css"
 =======
         "/build/styles.e6d82215.css"
 >>>>>>> efdef812 (fixxes in ranking page)
+=======
+        "/build/styles.02073f66.css"
+>>>>>>> 597729e6 (add s to faq, media mobile changes)
       ]
     },
     "admin": {
