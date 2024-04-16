@@ -33,6 +33,11 @@ class AubUsers
     private $code;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $displayName;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created;
@@ -74,6 +79,18 @@ class AubUsers
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(string $displayName): self
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }

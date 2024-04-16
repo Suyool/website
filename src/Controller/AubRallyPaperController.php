@@ -248,7 +248,7 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubInvitation(Request $request, $code = null): Response
     {
-        $group = $this->mr->getRepository(AubUsers::class)->findBy(['username' => $code]);
+        $group = $this->mr->getRepository(AubUsers::class)->findOneBy(['username' => $code]);
         if (empty($group)) {
             return $this->redirectToRoute("homepage");
         }
@@ -307,6 +307,7 @@ class AubRallyPaperController extends AbstractController
             ],
         ];
         $parameters['code'] = $code;
+        $parameters['displayName'] = $group->getDisplayName();
 
         return $this->render('aubRallyPaper/invitation.html.twig', $parameters);
     }
@@ -381,6 +382,8 @@ class AubRallyPaperController extends AbstractController
             $username = $request->request->get('_username');
             $password = $request->request->get('_password');
             $user = $this->mr->getRepository(AubUsers::class)->findOneBy(['username' => $username]);
+            $session->set('team_displayName', $user->getDisplayName());
+
             if (!$user) {
                 return new JsonResponse(['error' => 'User not found.'], 400);
             }
