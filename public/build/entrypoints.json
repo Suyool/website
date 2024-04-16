@@ -83,15 +83,7 @@
         "/build/runtime.cbe92cc0.js"
       ],
       "css": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "/build/styles.8818366a.css"
-=======
-        "/build/styles.e6d82215.css"
->>>>>>> efdef812 (fixxes in ranking page)
-=======
-        "/build/styles.02073f66.css"
->>>>>>> 597729e6 (add s to faq, media mobile changes)
+        "/build/styles.e6d9af47.css"
       ]
     },
     "admin": {
