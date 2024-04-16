@@ -63,9 +63,9 @@ class AubRallyPaperController extends AbstractController
         }
         $teamCode = $session->get('team_code');
 
-        $hash = base64_encode(hash($this->hash_algo,  "code2" . $this->certificate, true));
+        $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
-            'code' =>  "code2",
+            'code' =>  $teamCode,
             'secureHash' => $hash
         ];
         // dd($body);
