@@ -1056,6 +1056,21 @@
 
                     }
                 }
+                #page_navigation {
+                    clear:both;
+                    margin: 20px 0;
+                    a{
+                        padding:3px 6px;
+                        border:1px solid #2e6da4;
+                        margin:2px;
+                        color:black;
+                        text-decoration:none
+                    }
+                    .active_page{
+                        background:#337ab7;
+                        color:white !important;
+                    }
+                }
             }
         }
 
