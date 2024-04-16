@@ -317,7 +317,14 @@ class AubRallyPaperController extends AbstractController
      */
     public function aubRallyPaperRanking(Request $request)
     {
-        $response = $this->suyoolServices->getTeamsRankings();
+        $cacheKey = 'teamRanking';
+        $cachedRanking = $this->cache->getItem($cacheKey);
+        $cachedRankings = $cachedRanking->get();
+        if(!empty($cachedRankings['rankingsData'])) {
+            $response = $cachedRanking->get();
+        }else {
+            $response = $this->suyoolServices->getTeamsRankings();
+        }
 
         $parameters['faq'] = [
             "ONE" => [
