@@ -146,8 +146,10 @@
       color: #286d96;
     }
     .OpenSuyoolAccount {
-      margin-top: 75px;
-
+      margin-top: 125px;
+      @media screen and (max-width:768px) {
+        margin-top: 40px;
+      }
       .OpenYourSuyoolAccount {
         padding: 10px 30px;
         &.blueButtonForDesk{
