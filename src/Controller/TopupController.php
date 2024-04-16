@@ -174,10 +174,12 @@ class TopupController extends AbstractController
                     }
                     return $this->render('topup/hostedsessiontopup.html.twig', $parameters);
                 } else {
-                    return $this->render('ExceptionHandling.html.twig');
+                    return $this->redirectToRoute("app_ToTheAPP");
+                    // return $this->render('ExceptionHandling.html.twig');
                 }
             } else {
-                return $this->render('ExceptionHandling.html.twig');
+                return $this->redirectToRoute("app_ToTheAPP");
+                // return $this->render('ExceptionHandling.html.twig');
             }
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
