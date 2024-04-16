@@ -62,9 +62,9 @@ class AubRallyPaperController extends AbstractController
         }
         $teamCode = $session->get('team_code');
 
-        $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
+        $hash = base64_encode(hash($this->hash_algo, "code2" . $this->certificate, true));
         $body = [
-            'code' => $teamCode,
+            'code' => "code2",
             'secureHash' => $hash
         ];
         // dd($body);
@@ -249,9 +249,8 @@ class AubRallyPaperController extends AbstractController
     public function aubInvitation(Request $request, $code = null): Response
     {
         $group = $this->mr->getRepository(AubUsers::class)->findBy(['username' => $code]);
-        if (empty($group)){
+        if (empty($group)) {
             return $this->redirectToRoute("homepage");
-
         }
         if ($request->isXmlHttpRequest()) {
             $requestParam = $request->request->all();
@@ -324,7 +323,7 @@ class AubRallyPaperController extends AbstractController
         // if(!empty($cachedRankings['rankingsData'])) {
         //     $response = $cachedRanking->get();
         // }else {
-            $response = $this->suyoolServices->getTeamsRankings();
+        $response = $this->suyoolServices->getTeamsRankings();
         // }
 
         $parameters['faq'] = [
@@ -408,31 +407,22 @@ class AubRallyPaperController extends AbstractController
      */
     public function search(Request $request, SessionInterface $session)
     {
-        $status = null;
         $datacharacter = json_decode($request->getContent(false), true);
-        // dd($datacharacter);
+        $status = $datacharacter["status"];
         $teamCode = $session->get('team_code');
-        // dd($teamCode);
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
             'code' => $teamCode,
             'secureHash' => $hash
         ];
-        //   $data = $this->suyoolServices->rallyPaperOverview($body);
         $item = $this->cache->getItem($teamCode);
         $data = $item->get();
-        /*
-          0 pending
-          1 requested
-          2 fully
-          3 activated
-          4 card payment
-          */
-        // dd($data);
+
         if (!empty($data)) {
             $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
-            if (is_null($status)) {
-                foreach ($data['status'] as $status => $statused) {
+            if (!is_null($status)) {
+                // Check if the requested status exists in the data
+                if (array_key_exists($status, $data['status'])) {
                     foreach ($data['status'][$status] as $statused) {
                         switch ($statused['status']) {
                             case 0:
@@ -465,9 +455,14 @@ class AubRallyPaperController extends AbstractController
                             'class' => $class
                         ];
                     }
+                    $data['toBeDisplayed'][] = $toBeDisplayedItem;
+                } else {
+                    // If the requested status doesn't exist in the data, return empty result
+                    return new JsonResponse([
+                        'data' => []
+                    ], 200);
                 }
             }
-            $data['toBeDisplayed'][] = $toBeDisplayedItem;
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
@@ -478,16 +473,10 @@ class AubRallyPaperController extends AbstractController
             $parameters['status'] = false;
             $parameters['message'] = 'Empty Data';
         }
-        // dd($parameters);
 
+        // Filter the results based on the search character
+        $foundResults = [];
         foreach ($parameters['body']['toBeDisplayed'][0] as $body) {
-            // if ($body['fullyname'] === $datacharacter['char']) {
-            //     // Value found, do something with it
-            //     // For example, you can add it to a new array
-            //     $foundResults[] = $body;
-            // }else{
-            //     // $foundResults=[];
-            // }
             $input = $datacharacter['char'];
             if (stripos($body['fullyname'], $input) !== false) {
                 // Partial match found, add it to the result array
@@ -497,19 +486,17 @@ class AubRallyPaperController extends AbstractController
                 $foundResults[] = $body;
             }
         }
+
         if (empty($foundResults)) {
             return new JsonResponse([
                 'data' => []
             ], 200);
         }
+
         $parameters['body']['toBeDisplayed'][0] = $foundResults;
         return new JsonResponse([
             'status' => true,
             'data' => $parameters['body']['toBeDisplayed'][0]
         ]);
-
-        //    return new JsonResponse([
-        //     'char'=>$data['char']
-        //    ]);
     }
 }
