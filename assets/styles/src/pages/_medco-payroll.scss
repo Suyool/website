@@ -63,7 +63,10 @@
 
   &.rimtopsection{
     .information {
-      .title{font-size: 22px !important; }
+      @media screen and (max-width:768px) {
+        .title{font-size: 22px !important; }  
+      }
+      
     
     }
   
@@ -146,9 +149,9 @@
       color: #286d96;
     }
     .OpenSuyoolAccount {
-      margin-top: 135px;
+      margin-top: 155px!important;
       @media screen and (max-width:768px) {
-        margin-top: 50px;
+        margin-top: 50px!important;
       }
       .OpenYourSuyoolAccount {
         padding: 10px 30px;
