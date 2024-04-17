@@ -23,6 +23,7 @@
 					{% endif %}
 				</div>
 			</div>
+
 			<div class="theborder">
 				<a class="info1" id="downloaded">Downloaded App</a>
 				<div class="count">
@@ -57,8 +58,8 @@
 			</div>
 		</div>
 		<div class="tab-information" {% if app.request.get('status') is defined and app.request.get('status') == 'requested' %} style=" border-radius: 0px 0px 43px 43px;" {% endif %}>
-			<div class="marginForHeader" id="normal"></div>
-			<div class="member-number-name" id="normal">
+			<div class="marginForHeader" ></div>
+			<div class="member-number-name">
 				<div class="member-number-name-left">
 					<div>
 						Member #</div>
@@ -92,11 +93,12 @@
 				
 			{% endfor %}
         </div>
+	<div id='page_navigation'></div>
+
 			{# <div class="pagination justify-content-center">
 				{{ knp_pagination_render(body.toBeDisplayed[0]) }}
 			</div> #}
 		</div>
-    <div id='page_navigation'></div>
 
 	</div>
 
@@ -170,30 +172,14 @@
 					</div>
 				</div>
 			{% endfor %}
-			<div class="pagination justify-content-center">
-				{{ knp_pagination_render(body.toBeDisplayed[0]) }}
-			</div>
+		<div id='page_navigation'></div>
+
 		</div>
 	</div>
 	{# </div> #}
 </div>
 <script>
-    function previous() {
-  new_page = parseInt($("#current_page").val()) - 1;
-  //if there is an item before the current active link run the function
-  if ($(".active_page").prev(".page_link").length == true) {
-    go_to_page(new_page);
-  }
-}
-
-function next() {
-  new_page = parseInt($("#current_page").val()) + 1;
-  //if there is an item after the current active link run the function
-  if ($(".active_page").next(".page_link").length == true) {
-    go_to_page(new_page);
-  }
-}
-function gotopage(page_num) {
+	function gotopage(page_num) {
   //get the number of items shown per page
   var show_per_page = parseInt($("#show_per_page").val());
 
@@ -220,4 +206,20 @@ and remove that class from previously active page link*/
   //update the current page input field
   $("#current_page").val(page_num);
 }
+    function previous() {
+  new_page = parseInt($("#current_page").val()) - 1;
+  //if there is an item before the current active link run the function
+  if ($(".active_page").prev(".page_link").length == true) {
+    gotopage(new_page);
+  }
+}
+
+function next() {
+  new_page = parseInt($("#current_page").val()) + 1;
+  //if there is an item after the current active link run the function
+  if ($(".active_page").next(".page_link").length == true) {
+    gotopage(new_page);
+  }
+}
+
 </script>
