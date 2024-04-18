@@ -76,7 +76,7 @@ class SupportController extends AbstractController
                 $channelID = 0;
 
                 $suyoolServices = new SuyoolServices();
-                $response = $suyoolServices->sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID);
+                $response = $suyoolServices->sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, "no-reply@suyool.com", "no-reply", $flag, $channelID);
                 if ($response == true) {
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($support);

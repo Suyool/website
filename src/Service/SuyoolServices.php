@@ -613,6 +613,9 @@ class SuyoolServices
 
             $response = $this->helper->clientRequest($this->METHOD_POST, "{$this->NOTIFICATION_SUYOOL_HOST}Email/SendEmail?Hash=" . $Hash,  $body);
             $content = $response->toArray(false);
+            // dd (json_encode($body) . "\n" . json_encode($content));
+            // echo (json_encode($content));
+            // dd("here");
             if ($this->winning) {
                 $this->winning->info(json_encode($body));
                 $this->winning->info(json_encode($content));
