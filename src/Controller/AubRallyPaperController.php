@@ -62,6 +62,7 @@ class AubRallyPaperController extends AbstractController
             return $this->redirectToRoute('app_aub_login');
         }
         $teamCode = $session->get('team_code');
+        // $teamCode = "code2";
 
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
@@ -414,6 +415,7 @@ class AubRallyPaperController extends AbstractController
         $datacharacter = json_decode($request->getContent(false), true);
         $status = $datacharacter["status"];
         $teamCode = $session->get('team_code');
+        // $teamCode = $session->get('code2');
         $hash = base64_encode(hash($this->hash_algo,  $teamCode . $this->certificate, true));
         $body = [
             'code' => $teamCode,

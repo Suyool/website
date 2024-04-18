@@ -38,9 +38,9 @@ class SuyoolServices
 
         if ($_ENV['APP_ENV'] == "test") {
             // $this->SUYOOL_API_HOST_PUSH_CARD = 'http://10.20.80.46/SuyoolGlobalAPI/api/';
-            $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
+            // $this->SUYOOL_API_HOST = 'http://10.20.80.46/Suyoolglobalapi/api/';
             //  $this->SUYOOL_API_HOST = 'http://10.20.80.62/SuyoolGlobalAPIs/api/';
-            // $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
+            $this->SUYOOL_API_HOST = 'https://externalservices.nicebeach-895ccbf8.francecentral.azurecontainerapps.io/api/GlobalAPIs/';
 
             $this->NOTIFICATION_SUYOOL_HOST = "http://10.20.80.62/NotificationServiceApi/";
         } else if ($_ENV['APP_ENV'] == "sandbox" || $_ENV['APP_ENV'] == 'dev' || (isset($simulation) && $simulation == "true") || (isset($_COOKIE['simulation']) && $_COOKIE['simulation'] == "true")) {
