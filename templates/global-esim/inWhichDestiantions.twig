@@ -42,10 +42,10 @@
             {% for countryGroup in countriesArray %}
                 {% for countryCode, countries in countryGroup %}
                     {% for country in countries %}
-                        {# <div class="countriesCont carousel-item">
+                        <div class="countriesCont carousel-item">
                             <div class="countryImgCont"><img src="{{ country.countryImageURL }}" alt="{{ country.name }}"/></div>
                             <div><p class="countryName">{{ country.name }}</p></div>
-                        </div> #}
+                        </div>
                     {% endfor %}
                 {% endfor %}
             {% endfor %}
