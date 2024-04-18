@@ -4,7 +4,7 @@ $(document).ready(function () {
   var mobileValue;
   localStorage.setItem("status", "pending");
   currentStatus = localStorage.getItem("status");
-  callingpagination();
+  // callingpagination();
   //   console.log("current status outside", currentStatus);
   $("#loginForm").on("submit", function (e) {
     e.preventDefault();
@@ -133,6 +133,10 @@ $(document).ready(function () {
                 <div> Status</div>
             </div>
         </div>
+        <div class="desktopMode marginForHeader"></div>
+        <input type='hidden' id='current_page'/>
+				<input type='hidden' id='show_per_page'/>
+        
     `;
     var search = document.getElementsByName("search")[0];
 
@@ -141,7 +145,6 @@ $(document).ready(function () {
         char: search.value,
         status: localStorage.getItem("status"),
       };
-      document.getElementsByClassName("tab-information")[0].innerHTML = "";
 
       let post = JSON.stringify(postObj);
       $.ajax({
@@ -149,27 +152,21 @@ $(document).ready(function () {
         type: "POST",
         data: post,
         success: function (response) {
-          if (search.value === "") {
+
+          let tabInformations = document.getElementById("pagingBox");
+          tabInformations.innerHTML = "";
+
+
+          if (search.value == "") {
             currentStatus = localStorage.getItem("status");
             console.log("current status in search", currentStatus);
+
             handleChangeStatus(currentStatus);
-            return;
+            return 0;
           }
-          //   console.log(response);
-          //   console.log(response.data.length);
-          // Loop through each element with the class 'tab-information'
-          let tabInformations =
-            document.getElementsByClassName("tab-information");
-          for (let j = 0; j < tabInformations.length; j++) {
-            // Clear the content of each 'tab-information' element before appending new content
-            tabInformations[j].innerHTML = "";
-            if (j === 0) {
-              tabInformations[j].insertAdjacentHTML("beforeend", headerHTML);
-            }
-            // Append content for each entity to the current 'tab-information' element
-            for (let i = 0; i < response.data.length; i++) {
-              let entity = response.data[i];
-              let html = `
+          for (let i = 0; i < response.data.length; i++) {
+            let entity = response.data[i];
+            let html = `
                     <div class=" member-number-name greyBackground">
     
                             <div class="member-number-name-left">
@@ -182,10 +179,9 @@ $(document).ready(function () {
                             </div>
                             </div>
                         `;
-              // Append 'html' to the current 'tab-information' element
-              tabInformations[j].insertAdjacentHTML("beforeend", html);
-            }
+            tabInformations.innerHTML += html;
           }
+
         },
         error: function (xhr, status, error) {
           console.error(xhr.responseText);
@@ -194,11 +190,11 @@ $(document).ready(function () {
     });
   }
   handleStatus();
+  callingpagination();
 });
 
 function handleStatus(currentStatus = null) {
   $(".theborder").on("click", function () {
-    callingpagination();
     $(".theborder").removeAttr("id");
 
     $(this).attr("id", "active-tab");
@@ -207,10 +203,7 @@ function handleStatus(currentStatus = null) {
       document.getElementsByClassName("tab-information")[0].style.borderRadius =
         "0px 0px 43px 43px";
     }
-    var normal = document.querySelectorAll("#normal");
-    normal.forEach((n) => {
-      n.style.display = "none";
-    });
+
     const headerHTML = `
         <div class="desktopMode marginForHeader"></div>
         <div class="desktopMode member-number-name"> 
@@ -226,31 +219,28 @@ function handleStatus(currentStatus = null) {
         <div class="marginForHeader"></div>
         
     `;
-    console.log("clicked on");
+
     let status = $(this).find(".info1").attr("id");
     localStorage.setItem("status", status);
-    console.log(status);
+
     $.ajax({
       url: `/aub-rally-paper?status=${status}`,
       type: "GET",
       success: function (response) {
-        console.log(response);
-        console.log("before");
-        console.log("tobedisplayed2", response?.response?.toBeDisplayed2);
-        console.log("length", response?.response?.toBeDisplayed2?.length);
+        rowlength = response?.response?.toBeDisplayed2?.length;
+        console.log("ELIOOOOO", response?.response?.toBeDisplayed2);
+        let tabInformations = document.getElementById("pagingBox");
 
-        let tabInformations =
-          document.getElementsByClassName("tab-information");
-        for (let j = 0; j < tabInformations.length; j++) {
-          tabInformations[j].innerHTML = "";
-          if (j === 0) {
-            tabInformations[j].insertAdjacentHTML("beforeend", headerHTML);
-          }
-          for (let i = 0; i < response?.response?.toBeDisplayed2?.length; i++) {
-            let entity = response?.response?.toBeDisplayed2[i];
-            console.log(entity);
-            let html = `
-                    <div class=" member-number-name">
+        let childrenDivs = tabInformations?.children.length;
+        tabInformations.innerHTML = "";
+
+        let countText = $("#active-tab .count").text().trim();
+        console.log("--------------------------------", countText);
+
+        for (let i = 0; i < rowlength; i++) {
+          let entity = response?.response?.toBeDisplayed2[i];
+          let html = `
+          <div class="member-number-name">
                         <div class="member-number-name-left">
                             <div class="fixedWidthMember">${entity.id}</div>
                             <div class="fixedWidthPhone">+${entity.mobileNo}</div>
@@ -259,15 +249,14 @@ function handleStatus(currentStatus = null) {
                         <div class="member-number-name-right st ${entity.class}">
                             <div>${entity.status}</div>
                         </div>
-                    </div>
+                        </div>
                 `;
-
-            tabInformations[j].insertAdjacentHTML("beforeend", html);
-          }
-
-          callingpagination(response.response.count[status]);
+          tabInformations.innerHTML += html; 
         }
+        localStorage.setItem("count", response.response.count[status]);
+        callingpagination(response.response.count[status]);
       },
+
       error: function (xhr, status, error) {
         console.error(xhr.responseText);
       },
@@ -277,8 +266,7 @@ function handleStatus(currentStatus = null) {
 
 function handleChangeStatus(currentStatus) {
   console.log("inside change", currentStatus);
-  //   $(".theborder").removeAttr("id");
-
+  let childrenDivs;
   if (document.getElementsByClassName("theborder")[3].hasAttribute("id")) {
     document.getElementsByClassName("tab-information")[0].style.borderRadius =
       "0px 0px 43px 43px";
@@ -289,7 +277,7 @@ function handleChangeStatus(currentStatus) {
   });
   const headerHTML = `
           <div class="desktopMode marginForHeader"></div>
-          <div class="desktopMode member-number-name"> 
+           
               <div class="member-number-name-left">
                   <div> Member #</div>
                   <div> Phone Number</div>
@@ -298,7 +286,7 @@ function handleChangeStatus(currentStatus) {
               <div class="member-number-name-right">
                   <div> Status</div>
               </div>
-          </div>
+          
           <div class="marginForHeader"></div>
           
       `;
@@ -307,22 +295,48 @@ function handleChangeStatus(currentStatus) {
     url: `/aub-rally-paper?status=${currentStatus}`,
     type: "GET",
     success: function (response) {
-      console.log(response);
-      console.log("before");
-      console.log("tobedisplayed2", response?.response?.toBeDisplayed2);
-      console.log("length", response?.response?.toBeDisplayed2?.length);
-
-      // let tabInformations = document.getElementsByClassName("tab-information");
+      rowlength = response?.response?.toBeDisplayed2?.length;
+      console.log("row length again -----------------", rowlength);
       let tabInformations = document.getElementById("pagingBox");
-      for (let j = 0; j < tabInformations.length; j++) {
-        tabInformations[j].innerHTML = "";
-        if (j === 0) {
-          tabInformations[j].insertAdjacentHTML("beforeend", headerHTML);
-        }
-        for (let i = 0; i < response?.response?.toBeDisplayed2?.length; i++) {
+ 
+      if (tabInformations.children.length === 0) {
+        console.warn("Element with id 'pagingBox' has no children.");
+        let html = "";
+        for (let i = 0; i < rowlength; i++) {
           let entity = response?.response?.toBeDisplayed2[i];
-          console.log(entity);
-          let html = `
+          html += `
+                        <div class=" member-number-name">
+                            <div class="member-number-name-left">
+                                <div class="fixedWidthMember">${entity.id}</div>
+                                <div class="fixedWidthPhone">+${entity.mobileNo}</div>
+                                <div class="fixedWidthName">${entity.fullyname}</div>
+                            </div>
+                            <div class="member-number-name-right st ${entity.class}">
+                                <div>${entity.status}</div>
+                            </div>
+                            </div>
+                    `;
+
+        }
+        html += "<div id='page_navigation'></div>";
+        tabInformations.innerHTML = html;
+        // callingpagination(localStorage.getItem("count"));
+        return 0; 
+      }
+      for (let j = 0; j < rowlength; j++) {
+        tabInformations.children[j].innerHTML = "";
+
+        if (j === 0) {
+          tabInformations.children[j].insertAdjacentHTML(
+            "beforeend",
+            headerHTML
+          );
+          tabInformations[j].innerHTML = "";
+        }
+      }
+      for (let i = 0; i < rowlength; i++) {
+        let entity = response?.response?.toBeDisplayed2[i];
+        let html = `
                       <div class=" member-number-name">
                           <div class="member-number-name-left">
                               <div class="fixedWidthMember">${entity.id}</div>
@@ -335,8 +349,7 @@ function handleChangeStatus(currentStatus) {
                       </div>
                   `;
 
-          tabInformations[j].insertAdjacentHTML("beforeend", html);
-        }
+        tabInformations.children[i].insertAdjacentHTML("beforeend", html);
       }
       callingpagination(response.count[currentStatus]);
     },
@@ -347,8 +360,7 @@ function handleChangeStatus(currentStatus) {
 }
 
 function callingpagination(number_of_items = null) {
-  //Pagination JS
-  var show_per_page = 20;
+  var show_per_page = 15;
 
   if (number_of_items == null) {
     var number_of_items = $("#pagingBox").children().length;
@@ -362,7 +374,7 @@ function callingpagination(number_of_items = null) {
   console.log("number of pages", number_of_pages);
 
   var navigation_html =
-    '<a class="previous_link astylefixing" href="javascript:previous();">Prev</a>';
+    '<a class="previous_link astylefixing" href="javascript:previous();" >Prev</a>';
   var current_link = 0;
   while (number_of_pages > current_link) {
     navigation_html +=
@@ -376,13 +388,11 @@ function callingpagination(number_of_items = null) {
     current_link++;
   }
   navigation_html +=
-    '<a class="next_link astylefixing" href="javascript:next();">Next</a>';
+    '<a class="next_link astylefixing" href="javascript:next();"  >Next</a>';
   $("#page_navigation").html(navigation_html);
 
-  //add active_page class to the first page links
   $("#page_navigation .page_link:first").addClass("active_page");
 
-  //hide all the elements inside pagingBox div
   $("#pagingBox").children().css("display", "none");
 
   //and show the first n (show_per_page) elements

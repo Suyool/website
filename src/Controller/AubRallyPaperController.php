@@ -68,9 +68,8 @@ class AubRallyPaperController extends AbstractController
             'code' =>  $teamCode,
             'secureHash' => $hash
         ];
-        // dd($body);
         $data = $this->suyoolServices->rallyPaperOverview($body);
-        // dd($data);
+
         $item = $this->cache->getItem($teamCode);
         $item->set($data)->expiresAfter(1800);
         $this->cache->save($item);
@@ -80,7 +79,6 @@ class AubRallyPaperController extends AbstractController
         2 fully
         3 requested
         */
-        // dd($data);
         if (!empty($data)) {
             $data['toBeDisplayed'] = []; // Initialize the 'toBeDisplayed' array
             if (is_null($status)) {
@@ -206,13 +204,8 @@ class AubRallyPaperController extends AbstractController
                 }
             }
 
-            // dd($toBeDisplayedItem);
-            $pagination = $paginatorInterface->paginate(
-                $toBeDisplayedItem,  // Query to paginate
-                $request->get('page', 1),   // Current page number
-                20             // Records per page
-            );
-            // dd($pagination);
+
+
 
 
             if ($request->isXmlHttpRequest()) {
@@ -223,7 +216,7 @@ class AubRallyPaperController extends AbstractController
                     'error' => 'Success.'
                 ], 200);
             }
-            $data['toBeDisplayed'][] = $pagination;
+            $data['toBeDisplayed'][] = $toBeDisplayedItem;
             $parameters = [
                 'status' => true,
                 'message' => 'Returning Data',
