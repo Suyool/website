@@ -8,7 +8,7 @@
     </div>
 
     <div class="eSimDestination">
-        <div class="eSimSearchBar mobileMode">
+        <div class="eSimSearchBar">
             <img src="{{ asset('build/images/global-esim/searchicon.svg') }}" class='searchiconesim'/>
             <input
                     placeholder="Search"
@@ -19,9 +19,9 @@
             />
         </div>
 
-        <div class="eSimSearchBarFilter mobileMode">
+        <div class="eSimSearchBarFilter ">
             <select
-                    class="searchbarstyle mobileMode"
+                    class="searchbarstyle "
                     id="filterInput"
             >
                 <option value="">Filter by region</option>
@@ -34,15 +34,12 @@
             {# <button class="showmorebutton" id="buttonshowmore"> show more </button> #}
     </div>
 
-
-
 <div class="flags-container">
-    <div class="flagsbyregion carousel slide" id="carouselExampleIndicators" data-ride="carousel">
-        <div class="carousel-inner">
+        <div class="flagsbyregion">
             {% for countryGroup in countriesArray %}
                 {% for countryCode, countries in countryGroup %}
                     {% for country in countries %}
-                        <div class="countriesCont carousel-item">
+                        <div class="countriesCont">
                             <div class="countryImgCont"><img src="{{ country.countryImageURL }}" alt="{{ country.name }}"/></div>
                             <div><p class="countryName">{{ country.name }}</p></div>
                         </div>
@@ -50,15 +47,8 @@
                 {% endfor %}
             {% endfor %}
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="background: black;"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="background: black;"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-</div>
+
+
 
 </div>

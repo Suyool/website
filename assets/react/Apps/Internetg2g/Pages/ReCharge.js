@@ -71,11 +71,11 @@ const ReCharge = () => {
                   <div className="Price">
                     {record.currency === "LBP" ? (
                         <div style={{ opacity: record.isinstock === 0 ? 0.5 : 1 }}>
-                          L.L {parseInt(record.price).toLocaleString()}
+                          L.L {parseInt(record.sellPrice).toLocaleString()}
                         </div>
                     ) : (
                         <div style={{ opacity: record.isinstock === 0 ? 0.5 : 1 }}>
-                          ${record.price}
+                          ${record.sellPrice}
                         </div>
                     )}
                     {record.inStock == 0 ? <span className="outstock">Out of Stock</span> : ""}
