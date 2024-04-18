@@ -67,9 +67,9 @@ const MyBundle = () => {
                         <div className="MoreInfo">
                             <div className="label">Total amount to pay</div>
                             {getPrepaidVoucher.currency === "LBP" ? (
-                                <>L.L {getPrepaidVoucher.price}</>
+                                <div class="value">L.L {getPrepaidVoucher.price}</div>
                             ) : (
-                                <>${getPrepaidVoucher.price}</>
+                                <div class="value">${getPrepaidVoucher.price}</div>
                             )}
                         </div>
                     </div>
