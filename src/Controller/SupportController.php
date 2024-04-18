@@ -65,7 +65,7 @@ class SupportController extends AbstractController
                             HTML;
 
                 $subject = "Support";
-                $to="Contact@suyool.com";
+                $to = "Contact@suyool.com";
                 // $to = "eyammouny@gmail.com";
                 $plainTextContent = $htmlContent;
                 $attachmentName = "";
@@ -76,12 +76,12 @@ class SupportController extends AbstractController
                 $channelID = 0;
 
                 $suyoolServices = new SuyoolServices();
-                $response = $suyoolServices->sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, $fromEmail, $fromName, $flag, $channelID);
+                $response = $suyoolServices->sendDotNetEmail($subject, $to, $plainTextContent, $attachmentName, $attachmentsBase64, "no-reply@suyool.com", "no-reply", $flag, $channelID);
                 if ($response == true) {
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($support);
                     $entityManager->flush();
-                }else{
+                } else {
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($support);
                     $entityManager->flush();
