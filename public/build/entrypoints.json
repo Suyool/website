@@ -48,6 +48,12 @@
         "/build/TerraNet.71a9dfe7.js"
       ]
     },
+    "Internetg2g": {
+      "js": [
+        "/build/runtime.cbe92cc0.js",
+        "/build/Internetg2g.ed843499.js"
+      ]
+    },
     "Gift2Games": {
       "js": [
         "/build/runtime.cbe92cc0.js",
@@ -140,6 +146,14 @@
       ],
       "css": [
         "/build/terraNetstyle.e1bb64ae.css"
+      ]
+    },
+    "Internetg2gStyle": {
+      "js": [
+        "/build/runtime.cbe92cc0.js"
+      ],
+      "css": [
+        "/build/Internetg2gStyle.4506e1ad.css"
       ]
     },
     "Gift2GamesStyle": {

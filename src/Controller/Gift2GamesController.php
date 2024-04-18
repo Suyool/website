@@ -156,6 +156,8 @@ class Gift2GamesController extends AbstractController
         $categoryName = $category->getTitle();
         $flagCode = null;
         if ($data != null) {
+            $fees = $amount - $product->getPrice();
+            $fees = number_format((float) $fees, 3, '.', '');
 
             $order = new Order;
             $order
@@ -166,6 +168,7 @@ class Gift2GamesController extends AbstractController
                 ->setCategory((string) $categoryName)
                 ->setDescription((string) $description)
                 ->setamount($amount)
+                ->setfees($fees)
                 ->setOriginalAmount($product->getPrice())
                 ->setcurrency($currency);
 
@@ -176,8 +179,7 @@ class Gift2GamesController extends AbstractController
             }else {
                 $merchantId = $category->getMerchantId();
             }
-            $fees = $amount - $product->getPrice();
-            $fees = number_format((float) $fees, 3, '.', '');
+
 
             $checkBalance = $this->checkBalance($SuyoolUserId, $order->getId(), $amount, $currency,$merchantId,$fees);
             $checkBalance = json_decode($checkBalance->getContent(), true);
@@ -205,11 +207,18 @@ class Gift2GamesController extends AbstractController
                     $purchaseData = json_decode($purchase['data'],true);
 
                     $dateString = $purchaseData['data']['serialExpiryDate'];
-                    if(isset($dateString))
-                    {
-                        $contentType = 'Gift2GamesVouchersExpiryDate';
-                    }else {
-                        $contentType = 'Gift2GamesVouchersWithoutExpiryDate';
+                    if (isset($dateString)) {
+                        if (isset($data["type"])) {
+                            $contentType = 'InternetGift2GamesVouchersExpiryDate';
+                        } else {
+                            $contentType = 'Gift2GamesVouchersExpiryDate';
+                        }
+                    } else {
+                        if (isset($data["type"])) {
+                            $contentType = 'InternetGift2GamesVouchersWithoutExpiryDate';
+                        } else {
+                            $contentType = 'Gift2GamesVouchersWithoutExpiryDate';
+                        }
                     }
                     $content = $this->notificationServices->getContent($contentType);
 
@@ -226,16 +235,19 @@ class Gift2GamesController extends AbstractController
                     $userName = $userDetails[0] . ' ' . $userDetails[1];
 
                     $bulk = 0;
-                    $params = json_encode([
+                    $params = [
                         'ProviderName' => $categoryName,
                         'fname' => $userName,
                         'amount' => $amount,
                         'type' => $description,
                         'code' => $purchaseData['data']['serialCode'],
-                        'serial'=>$purchaseData['data']['serialNumber'],
-                        'expiry'=>$formattedDate
-                    ]);
-
+                        'serial' => $purchaseData['data']['serialNumber'],
+                        'expiry' => $formattedDate,
+                    ];
+                    if (isset($data['type'])) {
+                        $params['currency'] = $currency;
+                    }
+                    $params = json_encode($params);
 
                     $additionalData = json_encode([
                         'Fees' => $fees,
@@ -364,5 +376,60 @@ class Gift2GamesController extends AbstractController
         } else {
             return new JsonResponse(['error' => 'Order not found'], 404);
         }
+    }
+    /**
+     * @Route("/internetg2g/{id}", name="app_internet", requirements={"id"="\d+"}, defaults={"id"=null})
+     */
+    public function internetg2g($id): Response
+    {
+        $useragent = $_SERVER['HTTP_USER_AGENT'];
+
+        //$_POST['infoString'] = "3mzsXlDm5DFUnNVXA5Pu8T1d5nNACEsiiUEAo7TteE/x3BGT3Oy3yCcjUHjAVYk3";
+        if (isset($_POST['infoString'])) {
+            $decrypted_string = $this->suyoolServices->decrypt($_POST['infoString']);
+            $suyoolUserInfo = explode("!#!", $decrypted_string);
+            $devicetype = stripos($useragent, $suyoolUserInfo[1]);
+
+            if ($this->notificationServices->checkUser($suyoolUserInfo[0], $suyoolUserInfo[2]) && $devicetype) {
+                $SuyoolUserId = $suyoolUserInfo[0];
+                $this->session->set('suyoolUserId', $SuyoolUserId);
+                //$this->session->set('suyoolUserId', 155);
+
+                $parameters['deviceType'] = $suyoolUserInfo[1];
+                $parameters['typeID'] = $id;
+                return $this->render('gift2_games/internetg2g.html.twig', [
+                    'parameters' => $parameters
+                ]);
+            } else {
+                return $this->render('ExceptionHandling.html.twig');
+            }
+        } else {
+            return $this->render('ExceptionHandling.html.twig');
+        }
+    }
+    /**
+     * @Route("/gift2games/productsInternet/{type}/{planType}", name="app_g2g_productsInternet")
+     */
+    public function getProductsInternet($type,$planType)
+    {
+        $data = $this->mr->getRepository(Categories::class)->findOneBy(['type' => $type, 'canceled' => 0]);
+        $categoriesArray = [];
+        $categoryId = $data->getCategoryId();
+        $productsQuery = ['categoryId' => $categoryId, 'canceled' => 0];
+        if ($planType != 0) {
+            $productsQuery['planType'] = $planType;
+        }
+        $products = $this->mr->getRepository(Products::class)->findBy(
+            $productsQuery,
+            ['inStock' => 'DESC', 'price' => 'ASC']
+        );
+        $dataArray = [];
+        foreach ($products as $product) {
+            $dataArray[] = $product->toArray();
+        }
+        return new JsonResponse([
+            'status' => 'success',
+            'Payload' => $dataArray,
+        ], 200);
     }
 }

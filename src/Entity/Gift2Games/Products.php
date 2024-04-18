@@ -59,6 +59,11 @@ class Products
     private $inStock;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $planType;
+
+    /**
      * @ORM\Column(type="string", length=3, nullable=true)
      */
     private $currency;
@@ -167,6 +172,18 @@ class Products
     public function setInStock(?bool $inStock): self
     {
         $this->inStock = $inStock;
+
+        return $this;
+    }
+
+    public function getPlanType(): ?int
+    {
+        return $this->planType;
+    }
+
+    public function setPlanType(?int $planType): self
+    {
+        $this->planType = $planType;
 
         return $this;
     }

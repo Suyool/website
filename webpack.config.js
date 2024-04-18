@@ -42,6 +42,10 @@ Encore.setOutputPath("public/build/")
     "./assets/react/Apps/TerraNet/Style/TerraNet.scss"
   )
 
+  //Ogero
+  .addStyleEntry("Internetg2gStyle", "./assets/react/Apps/Internetg2g/Style/Internetg2g.scss")
+  .addEntry("Internetg2g", "./assets/react/Apps/Internetg2g/index.js")
+
   //Gift2Games
   .addEntry("Gift2Games", "./assets/react/Apps/Gift2Games/index.js")
   .addStyleEntry(

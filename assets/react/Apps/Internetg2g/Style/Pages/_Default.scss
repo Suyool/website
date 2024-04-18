@@ -1,0 +1,236 @@
+#Default_g2g {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  padding: 20px 15px;
+
+  #MyBundle .MyBundleBody .BundleBigImg {
+    margin-bottom: 22px;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 3%;
+  }
+
+  .search-bar {
+    position: relative;
+    margin-bottom: 6px;
+
+    .search-icon {
+      position: absolute;
+      top: 25px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      img{
+        padding-left: 15px;
+      }
+    }
+    input {
+      width: 100%;
+      background-color: #F4F4F4;
+      border: unset;
+      padding: 14px 13px 14px 40px;
+      border-radius: 5px;
+    }
+  }
+  .MainTitle {
+    font-family: $Medium;
+    font-size: 16px;
+    color: black;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .categories {
+    overflow: auto;
+    padding: 0 10px;
+  }
+
+  .SubTitleCat {
+    font-family: $Regular;
+    font-size: 13px;
+    color: #4987a8;
+    margin-bottom: 0;
+  }
+
+  .Cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 16px 0px 6px 0px;
+    border-radius: 6px;
+    border: 1px solid #D8DEE6;
+    box-shadow: 0px 5px 4px 0px #d8dee6;
+    margin-top: 15px;
+    align-items: center;
+    margin-left: 12px;
+    justify-content: center;
+
+    .logoImg {
+      width: 54px;
+      height: 54px;
+      margin-left: 10px;
+    }
+
+    .Text {
+      .SubTitle {
+        font-family: $SemiBold;
+        font-size: 15px;
+        color: black;
+      }
+
+      .description {
+        font-family: $Regular;
+        font-size: 14px;
+        color: #767676;
+      }
+    }
+  }
+
+  .categories-scroll {
+    overflow-x: scroll;
+    white-space: nowrap;
+    display: flex;
+    min-height: 110px;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; /* Enables momentum scrolling in iOS */
+
+  }
+
+  .categories-scroll::-webkit-scrollbar {
+    width: unset;
+    display: none;
+
+  }
+
+  .categories-scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .Category {
+    cursor: pointer;
+  }
+
+  .Category img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .Category:hover img {
+    transform: scale(1.2);
+  }
+
+  .selected img {
+    border: 2px solid #216d96; /* Assuming you want a blue border for the selected category */
+  }
+
+  .child-categories {
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 50px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .child-categories::-webkit-scrollbar {
+    width: unset;
+    display: none;
+
+  }
+
+  .child-categories::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .active-sub {
+    background-color: #4987A8!important;
+    font-family: $SemiBold;
+    border-color: #4987a8;
+
+    .SubTitleCat {
+      color: #FFFFFF !important;
+    }
+  }
+
+  .child-category {
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 1px solid #4987a8;
+    width: 80px;
+    text-align: center;
+    padding: 8px 0px;
+    min-width: 60px;
+    margin-top: 10px;
+    background-color: white;
+  }
+
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    margin-right: 25px;
+
+    .SubTitleCat{
+      margin: 12px 0 -9px 0;
+    }
+  }
+
+  .selected{
+    border-bottom: 3px solid #216D96;
+
+    p{
+      color: #216D96;
+      font-family: $Bold;
+    }
+  }
+
+  .category-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .out-of-stock-message {
+    text-align: center;
+    background-color: #F4F4F4;
+    margin-top: 20px;
+    padding: 20px;
+    .text {
+      margin-top: 6px;
+      .title {
+        font-family: $Medium;
+      }
+      .desc {
+        color: #707070;
+        font-family: $Regular;
+      }
+    }
+  }
+}
+.G2GBody {
+  #MyBundle {
+    .MyBundleBody {
+      .BundleBigImg {
+        margin-bottom: 22px;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 3%;
+        padding: unset;
+      }
+    }
+  }
+  .payNowBtnCont {
+    position: fixed;
+    bottom: 58px;
+    width: 95%;
+  }
+  .hideBackk {
+    background: rgb(150 150 150 / 64%);
+  }
+}
