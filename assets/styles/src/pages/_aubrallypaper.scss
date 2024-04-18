@@ -43,6 +43,8 @@
                 @media screen and (max-width:768px) {
                     top: 30px;
                     padding-bottom: 50px;
+                    flex-direction: column;
+                    row-gap: 20px;
                 }
                 .text{
                     padding-right: 20px;
@@ -130,7 +132,6 @@
                         @media screen and (max-width:768px) {
                             font-size: 13px;
                             padding-right: 30px;
-                            padding-left: 7px;
                         }
                     }
 
@@ -595,9 +596,6 @@
             font-family: $SemiBold;
             align-content: center;
 
-            @media screen and (max-width:992px) {
-                color: $white;
-            }
         }
 
     }

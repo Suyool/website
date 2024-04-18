@@ -61,6 +61,11 @@
       font-weight: 900;
       font-family: $SemiBold;
       align-content: center;
+ 
+        @media screen and (max-width:992px) {
+            color: #fff !important; 
+        
+    }
     }
 
   }
